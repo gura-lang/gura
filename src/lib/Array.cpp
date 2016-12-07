@@ -120,19 +120,19 @@ bool Array::PrepareModification(Signal &sig)
 	return true;
 }
 
-bool Array::CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB)
+bool Array::CheckShape(Signal &sig, const Array *pArrayA, const Array *pArrayB)
 {
-	if (Dimensions::IsSameShape(arrayA.GetDimensions(), arrayB.GetDimensions())) {
+	if (Dimensions::IsSameShape(pArrayA->GetDimensions(), pArrayB->GetDimensions())) {
 		return true;
 	}
 	sig.SetError(ERR_ValueError, "different dimension of arrays");
 	return false;
 }
 
-bool Array::CheckElemwiseCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB)
+bool Array::CheckElemwiseCalculatable(Signal &sig, const Array *pArrayL, const Array *pArrayR)
 {
 	if (Dimensions::IsElemwiseCalculatable(
-			arrayA.GetDimensions(), arrayB.GetDimensions())) {
+			pArrayL->GetDimensions(), pArrayR->GetDimensions())) {
 		return true;
 	}
 	sig.SetError(ERR_ValueError, "dimensions mismatch for the operation");
@@ -160,6 +160,7 @@ Value Array::ApplyUnaryFunc(Environment &env, const UnaryFuncPack &pack, const V
 Array *Array::ApplyBinaryFunc_array_array(
 	Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, const Array *pArrayR)
 {
+	if (!CheckElemwiseCalculatable(sig, pArrayL, pArrayR)) return nullptr;
 	BinaryFunc_array_array binaryFunc_array_array =
 		pack.binaryFuncs_array_array[pArrayL->GetElemType()][pArrayR->GetElemType()];
 	if (binaryFunc_array_array == nullptr) {
@@ -406,32 +407,26 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, const Array &arrayL, const Array 
 	if (nElemsL == nElemsR) {
 		pArrayResult.reset(ArrayT<T_ElemResult>::CreateLike(arrayL.GetDimensions()));
 		T_ElemResult *pElemResult = pArrayResult->GetPointer();
-		for (size_t i = 0; i < nElemsL; i++, pElemResult++, pElemL++, pElemR++) {
-			op(*pElemResult, *pElemL, *pElemR);
+		for (size_t offset = 0; offset < nElemsL; offset++, pElemResult++) {
+			op(*pElemResult, *(pElemL + offset), *(pElemR + offset));
 		}
 	} else if (nElemsL < nElemsR) {
 		pArrayResult.reset(ArrayT<T_ElemResult>::CreateLike(arrayR.GetDimensions()));
 		T_ElemResult *pElemResult = pArrayResult->GetPointer();
-		size_t j = 0;
-		const T_ElemL *pElemLOrg = pElemL;
-		for (size_t i = 0; i < nElemsR; i++, pElemResult++, pElemL++, pElemR++) {
-			op(*pElemResult, *pElemL, *pElemR);
-			if (++j >= nElemsL) {
-				pElemL = pElemLOrg;
-				j = 0;
-			}
+		size_t offsetL = 0;
+		for (size_t offsetR = 0; offsetR < nElemsR; offsetR++, pElemResult++) {
+			op(*pElemResult, *(pElemL + offsetL), *(pElemR + offsetR));
+			offsetL++;
+			if (offsetL >= nElemsL) offsetL = 0;
 		}
 	} else { // nElemsL > nElemsR
 		pArrayResult.reset(ArrayT<T_ElemResult>::CreateLike(arrayL.GetDimensions()));
 		T_ElemResult *pElemResult = pArrayResult->GetPointer();
-		size_t j = 0;
-		const T_ElemR *pElemROrg = pElemR;
-		for (size_t i = 0; i < nElemsL; i++, pElemResult++, pElemL++, pElemR++) {
-			op(*pElemResult, *pElemL, *pElemR);
-			if (++j >= nElemsR) {
-				pElemR = pElemROrg;
-				j = 0;
-			}
+		size_t offsetR = 0;
+		for (size_t offsetL = 0; offsetL < nElemsL; offsetL++, pElemResult++) {
+			op(*pElemResult, *(pElemL + offsetL), *(pElemR + offsetR));
+			offsetR++;
+			if (offsetR >= nElemsR) offsetR = 0;
 		}
 	}
 	return pArrayResult.release();
@@ -637,7 +632,7 @@ Value DotFuncTmpl(Environment &env, const Array &arrayL, const Array &arrayR)
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
 		size_t elemNumL = arrayL.GetElemNum();
-		size_t elemNumR = arrayL.GetElemNum();
+		size_t elemNumR = arrayR.GetElemNum();
 		size_t elemNumMatResult = nRowL * nColR;
 		size_t elemNumMatL = nRowL * nColL;
 		size_t elemNumMatR = nRowR * nColR;

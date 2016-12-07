@@ -127,8 +127,8 @@ public:
 	bool HasShape(const Value &valList) const;
 	bool PrepareModification(Signal &sig);
 public:
-	static bool CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB);
-	static bool CheckElemwiseCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB);
+	static bool CheckShape(Signal &sig, const Array *pArrayA, const Array *pArrayB);
+	static bool CheckElemwiseCalculatable(Signal &sig, const Array *pArrayL, const Array *pArrayR);
 	static Array *ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array *pArray);
 	static Value ApplyUnaryFunc(Environment &env, const UnaryFuncPack &pack, const Value &value);
 	static Array *ApplyBinaryFunc_array_array(
