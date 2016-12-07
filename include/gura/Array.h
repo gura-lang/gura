@@ -31,11 +31,11 @@ public:
 		ETYPE_Max,
 	};
 public:
-	typedef Array *(*UnaryFunc)(Signal &sig, const Array &array);
-	typedef Array *(*BinaryFunc_array_array)(Signal &sig, const Array &arrayL, const Array &arrayR);
-	typedef Array *(*BinaryFunc_array_number)(Signal &sig, const Array &arrayL, Number numberR);
-	typedef Array *(*BinaryFunc_number_array)(Signal &sig, Number numberL, const Array &arrayR);
-	typedef Value (*DotFunc)(Environment &env, const Array &arrayL, const Array &arrayR);
+	typedef Array *(*UnaryFunc)(Signal &sig, const Array *pArray);
+	typedef Array *(*BinaryFunc_array_array)(Signal &sig, const Array *pArrayL, const Array *pArrayR);
+	typedef Array *(*BinaryFunc_array_number)(Signal &sig, const Array *pArrayL, Number numberR);
+	typedef Array *(*BinaryFunc_number_array)(Signal &sig, Number numberL, const Array *pArrayR);
+	typedef Value (*DotFunc)(Environment &env, const Array *pArrayL, const Array *pArrayR);
 	struct UnaryFuncPack {
 		const char *name;
 		UnaryFunc unaryFuncs[ETYPE_Max];
@@ -85,6 +85,7 @@ public:
 	static BinaryFuncPack binaryFuncPack_Shl;
 	static BinaryFuncPack binaryFuncPack_Shr;
 	static DotFunc dotFuncs[ETYPE_Max][ETYPE_Max];
+	static UnaryFunc invertFuncs[ETYPE_Max];
 public:
 	Gura_DeclareReferenceAccessor(Array);
 public:
@@ -145,6 +146,7 @@ public:
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 public:
 	static Value Dot(Environment &env, const Array *pArrayL, const Array *pArrayR);
+	static Array *Invert(Signal &sig, const Array *pArray);
 };
 	
 }
