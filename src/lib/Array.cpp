@@ -740,7 +740,7 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 // InvertFuncTmpl
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-bool InvertFuncTmpl_Sub(T_Elem *pElem, size_t nSize, T_Elem &det)
+bool InvertFuncTmpl_Sub(size_t nSize, T_Elem &det, T_Elem *pElemWork)
 {
 	static const T_Elem Epsilon = static_cast<T_Elem>(1.0e-6);
 	size_t nSize2 = nSize * 2;
@@ -748,7 +748,7 @@ bool InvertFuncTmpl_Sub(T_Elem *pElem, size_t nSize, T_Elem &det)
 	size_t offset = 0;
 	det = 1;
 	for (size_t iRow = 0; iRow < nSize; iRow++, offset += nSize2) {
-		rows[iRow] = pElem + offset;
+		rows[iRow] = pElemWork + offset;
 	}
 	for (size_t iPivot = 0; iPivot < nSize; iPivot++) {
 		size_t iRowMax = iPivot;
@@ -799,23 +799,23 @@ Array *InvertFuncTmpl(Signal &sig, const Array *pArray)
 		return nullptr;
 	}
 	size_t nCols2 = nCols * 2;
-	AutoPtr<ArrayT<T_Elem> > pArrayWork(new ArrayT<T_Elem>(nRows, nCols2));
-	pArrayWork->FillZero();
+	std::unique_ptr<T_Elem []> pElemWork(new T_Elem [nRows * nCols2]);
+	::memset(pElemWork.get(), 0x00, nRows * nCols2);
 	const T_Elem *pSrc = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
-	T_Elem *pDst = pArrayWork->GetPointer();
+	T_Elem *pDst = pElemWork.get();
 	size_t bytesPerRow = nCols * sizeof(T_Elem);
 	for (size_t iRow = 0; iRow < nRows; iRow++, pDst += nCols2, pSrc += nCols) {
 		::memcpy(pDst, pSrc, bytesPerRow);
 		*(pDst + nCols + iRow) = 1;
 	}
 	T_Elem det = 0;
-	if (!InvertFuncTmpl_Sub(pArrayWork->GetPointer(), nRows, det)) {
+	if (!InvertFuncTmpl_Sub(nRows, det, pElemWork.get())) {
 		sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
 		return nullptr;
 	}
 
 	AutoPtr<ArrayT<T_Elem> > pArrayResult(new ArrayT<T_Elem>(nRows, nCols));
-	pSrc = pArrayWork->GetPointer() + nCols;
+	pSrc = pElemWork.get() + nCols;
 	pDst = pArrayResult->GetPointer();
 	for (size_t iRow = 0; iRow < nRows; iRow++, pDst += nCols, pSrc += nCols2) {
 		::memcpy(pDst, pSrc, bytesPerRow);
