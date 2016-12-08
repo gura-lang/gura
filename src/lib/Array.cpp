@@ -739,11 +739,16 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 //------------------------------------------------------------------------------
 // InvertFuncTmpl
 //------------------------------------------------------------------------------
+template<typename T_Elem> inline T_Elem _Norm(T_Elem num) { return std::abs(num); }
+template<> inline Complex _Norm(Complex num) { return std::norm(num); }
+template<typename T_Elem> inline T_Elem _NormEpsilon() { return 1.0e-6; }
+template<> inline Complex _NormEpsilon() { return _NormEpsilon<Double>() * _NormEpsilon<Double>(); }
+
 template<typename T_Elem>
 bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemOrg, size_t nRows,
 						T_Elem &det, T_Elem *pElemWork, T_Elem *rows[])
 {
-	static const T_Elem Epsilon = static_cast<T_Elem>(1.0e-6);
+	static const T_Elem normEpsilon = _NormEpsilon<T_Elem>();
 	size_t nCols = nRows;
 	size_t nCols2 = nCols * 2;
 	size_t bytesPerRow = nCols * sizeof(T_Elem);
@@ -760,15 +765,15 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemOrg, size_t nRow
 	} while (0);
 	for (size_t iRowPivot = 0; iRowPivot < nRows; iRowPivot++) {
 		size_t iRowMax = iRowPivot;
-		T_Elem nMax = std::abs(*(rows[iRowMax] + iRowPivot));
+		T_Elem normMax = _Norm(rows[iRowMax][iRowPivot]);
 		for (size_t iRow = iRowMax + 1; iRow < nRows; iRow++) {
-			T_Elem n = std::abs(*(rows[iRow] + iRowPivot));
-			if (nMax < n) {
+			T_Elem norm = _Norm(rows[iRow][iRowPivot]);
+			if (normMax < norm) {
 				iRowMax = iRow;
-				nMax = n;
+				normMax = norm;
 			}
 		}
-		if (nMax < Epsilon) return false;
+		if (normMax < normEpsilon) return false;
 		if (iRowPivot != iRowMax) {
 			std::swap(rows[iRowPivot], rows[iRowMax]);
 			det = -det;
@@ -803,7 +808,12 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemOrg, size_t nRow
 template<typename T_Elem>
 Array *InvertFuncTmpl(Signal &sig, const Array *pArray)
 {
-	const Array::Dimensions &dims = pArray->GetDimensions();
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	if (dims.size() < 2) {
+		sig.SetError(ERR_ValueError, "inversion can only be calculated with matrix");
+		return nullptr;
+	}
 	size_t nRows = (dims.rbegin() + 1)->GetSize();
 	size_t nCols = dims.rbegin()->GetSize();
 	if (nRows != nCols) {
@@ -812,13 +822,18 @@ Array *InvertFuncTmpl(Signal &sig, const Array *pArray)
 	}
 	std::unique_ptr<T_Elem []> pElemWork(new T_Elem [nRows * nCols * 2]);
 	std::unique_ptr<T_Elem *[]> rows(new T_Elem *[nRows]);
-	AutoPtr<ArrayT<T_Elem> > pArrayResult(new ArrayT<T_Elem>(nRows, nCols));
-	T_Elem det = 0;
-	const T_Elem *pElemOrg = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
+	AutoPtr<ArrayT<T_Elem> > pArrayResult(ArrayT<T_Elem>::CreateLike(pArrayT->GetDimensions()));
+	size_t elemNumMat = nRows * nCols;
+	const T_Elem *pElemOrg = pArrayT->GetPointer();
 	T_Elem *pElemResult = pArrayResult->GetPointer();
-	if (!InvertFuncTmpl_Sub(pElemResult, pElemOrg, nRows, det, pElemWork.get(), rows.get())) {
-		sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
-		return nullptr;
+	for (size_t cnt = pArrayResult->GetElemNum() / elemNumMat; cnt > 0; cnt--) {
+		T_Elem det = 0;
+		if (!InvertFuncTmpl_Sub(pElemResult, pElemOrg, nRows, det, pElemWork.get(), rows.get())) {
+			sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
+			return nullptr;
+		}
+		pElemResult += elemNumMat;
+		pElemOrg += elemNumMat;
 	}
 	return pArrayResult.release();
 }

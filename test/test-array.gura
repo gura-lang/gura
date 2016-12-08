@@ -417,4 +417,7 @@ testcase('array.dot()') {
 testcase('array.invert()') {
 	tester(`array@double([[1, 1, -1], [-2, 0, 1], [0, 2, 1]]).invert())
 	tester(`array@double([[1, 2, 1], [2, 1, 0], [1, 1, 2]]).invert())
+	tester(`array@double([
+		[[1, 1, -1], [-2, 0, 1], [0, 2, 1]],
+		[[1, 2, 1], [2, 1, 0], [1, 1, 2]]]).invert())
 }
