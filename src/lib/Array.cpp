@@ -746,21 +746,18 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemSrc, size_t nRow
 	static const T_Elem Epsilon = static_cast<T_Elem>(1.0e-6);
 	size_t nCols = nRows;
 	size_t nCols2 = nCols * 2;
-	size_t offset = 0;
 	size_t bytesPerRow = nCols * sizeof(T_Elem);
 	det = 1;
 	do {
 		const T_Elem *pSrc = pElemSrc;
 		T_Elem *pDst = pElemWork;
-		::memset(pElemWork, 0x00, nRows * nCols2);
+		::memset(pElemWork, 0x00, nRows * nCols2 * sizeof(T_Elem));
 		for (size_t iRow = 0; iRow < nRows; iRow++, pDst += nCols2, pSrc += nCols) {
 			::memcpy(pDst, pSrc, bytesPerRow);
 			*(pDst + nCols + iRow) = 1;
+			rows[iRow] = pDst;
 		}
 	} while (0);
-	for (size_t iRow = 0; iRow < nRows; iRow++, offset += nCols2) {
-		rows[iRow] = pElemWork + offset;
-	}
 	for (size_t iPivot = 0; iPivot < nRows; iPivot++) {
 		size_t iRowMax = iPivot;
 		T_Elem nMax = std::abs(*(rows[iRowMax] + iPivot));
@@ -773,11 +770,14 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemSrc, size_t nRow
 		}
 		if (nMax < Epsilon) return false;
 		if (iPivot != iRowMax) {
+#if 1
 			T_Elem *p1 = rows[iPivot];
 			T_Elem *p2 = rows[iRowMax];
 			for (size_t cnt = nCols2; cnt > 0; cnt--, p1++, p2++) {
 				std::swap(*p1, *p2);
 			}
+#endif
+			//std::swap(rows[iPivot], rows[iRowMax]);
 			det = -det;
 		}
 		T_Elem *p_i = rows[iPivot];
@@ -797,10 +797,9 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemSrc, size_t nRow
 		}
 	}
 	do {
-		T_Elem *pSrc = pElemWork + nRows;
 		T_Elem *pDst = pElemResult;
-		for (size_t iRow = 0; iRow < nRows; iRow++, pDst += nRows, pSrc += nCols2) {
-			::memcpy(pDst, pSrc, bytesPerRow);
+		for (size_t iRow = 0; iRow < nRows; iRow++, pDst += nCols) {
+			::memcpy(pDst, rows[iRow] + nCols, bytesPerRow);
 		}
 	} while (0);
 	return true;
