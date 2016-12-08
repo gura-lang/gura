@@ -758,36 +758,36 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemOrg, size_t nRow
 			rows[iRow] = pElemDst;
 		}
 	} while (0);
-	for (size_t iPivot = 0; iPivot < nRows; iPivot++) {
-		size_t iRowMax = iPivot;
-		T_Elem nMax = std::abs(*(rows[iRowMax] + iPivot));
+	for (size_t iRowPivot = 0; iRowPivot < nRows; iRowPivot++) {
+		size_t iRowMax = iRowPivot;
+		T_Elem nMax = std::abs(*(rows[iRowMax] + iRowPivot));
 		for (size_t iRow = iRowMax + 1; iRow < nRows; iRow++) {
-			T_Elem n = std::abs(*(rows[iRow] + iPivot));
+			T_Elem n = std::abs(*(rows[iRow] + iRowPivot));
 			if (nMax < n) {
 				iRowMax = iRow;
 				nMax = n;
 			}
 		}
 		if (nMax < Epsilon) return false;
-		if (iPivot != iRowMax) {
-			std::swap(rows[iPivot], rows[iRowMax]);
+		if (iRowPivot != iRowMax) {
+			std::swap(rows[iRowPivot], rows[iRowMax]);
 			det = -det;
 		}
 		do {
-			T_Elem *p_i = rows[iPivot];
-			T_Elem factor = *(p_i + iPivot);
+			T_Elem *pElemPivot = rows[iRowPivot];
+			T_Elem factor = *(pElemPivot + iRowPivot);
 			det *= factor;
-			for (size_t cnt = nCols2; cnt > 0; cnt--, p_i++) {
-				*p_i /= factor;
+			for (size_t cnt = nCols2; cnt > 0; cnt--, pElemPivot++) {
+				*pElemPivot /= factor;
 			}
 		} while (0);
-		for (size_t j = 0; j < nRows; j++) {
-			if (iPivot == j) continue;
-			T_Elem *p_i = rows[iPivot];
-			T_Elem *p_j = rows[j];
-			T_Elem factor = *(p_j + iPivot);
-			for (size_t cnt = nCols2; cnt > 0; cnt--, p_i++, p_j++) {
-				*p_j -= *p_i * factor;
+		for (size_t iRow = 0; iRow < nRows; iRow++) {
+			if (iRowPivot == iRow) continue;
+			T_Elem *pElemPivot = rows[iRowPivot];
+			T_Elem *pElemEach = rows[iRow];
+			T_Elem factor = *(pElemEach + iRowPivot);
+			for (size_t cnt = nCols2; cnt > 0; cnt--, pElemPivot++, pElemEach++) {
+				*pElemEach -= *pElemPivot * factor;
 			}
 		}
 	}
@@ -820,7 +820,6 @@ Array *InvertFuncTmpl(Signal &sig, const Array *pArray)
 		sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
 		return nullptr;
 	}
-
 	return pArrayResult.release();
 }
 
