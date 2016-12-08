@@ -742,10 +742,9 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 template<typename T_Elem>
 bool InvertFuncTmpl_Sub(T_Elem *pElem, size_t nSize, T_Elem &det)
 {
-	bool rtn = true;
 	static const T_Elem Epsilon = static_cast<T_Elem>(1.0e-6);
 	size_t nSize2 = nSize * 2;
-	T_Elem **rows = new T_Elem *[nSize];
+	std::unique_ptr<T_Elem *[]> rows(new T_Elem *[nSize]);
 	size_t offset = 0;
 	det = 1;
 	for (size_t iRow = 0; iRow < nSize; iRow++, offset += nSize2) {
@@ -761,10 +760,7 @@ bool InvertFuncTmpl_Sub(T_Elem *pElem, size_t nSize, T_Elem &det)
 				nMax = n;
 			}
 		}
-		if (nMax < Epsilon) {
-			rtn = false;
-			goto done;
-		}
+		if (nMax < Epsilon) return false;
 		if (iPivot != iRowMax) {
 			T_Elem *p1 = rows[iPivot];
 			T_Elem *p2 = rows[iRowMax];
@@ -789,9 +785,7 @@ bool InvertFuncTmpl_Sub(T_Elem *pElem, size_t nSize, T_Elem &det)
 			}
 		}
 	}
-done:
-	delete[] rows;
-	return rtn;
+	return true;
 }
 
 template<typename T_Elem>
