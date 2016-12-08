@@ -740,13 +740,23 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 // InvertFuncTmpl
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-bool InvertFuncTmpl_Sub(size_t nSize, T_Elem &det, T_Elem *pElemWork)
+bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemSrc, size_t nSize,
+						T_Elem &det, T_Elem *pElemWork, T_Elem *rows[])
 {
 	static const T_Elem Epsilon = static_cast<T_Elem>(1.0e-6);
 	size_t nSize2 = nSize * 2;
-	std::unique_ptr<T_Elem *[]> rows(new T_Elem *[nSize]);
 	size_t offset = 0;
+	size_t bytesPerRow = nSize * sizeof(T_Elem);
 	det = 1;
+	do {
+		const T_Elem *pSrc = pElemSrc;
+		T_Elem *pDst = pElemWork;
+		::memset(pElemWork, 0x00, nSize * nSize2);
+		for (size_t iRow = 0; iRow < nSize; iRow++, pDst += nSize2, pSrc += nSize) {
+			::memcpy(pDst, pSrc, bytesPerRow);
+			*(pDst + nSize + iRow) = 1;
+		}
+	} while (0);
 	for (size_t iRow = 0; iRow < nSize; iRow++, offset += nSize2) {
 		rows[iRow] = pElemWork + offset;
 	}
@@ -785,6 +795,13 @@ bool InvertFuncTmpl_Sub(size_t nSize, T_Elem &det, T_Elem *pElemWork)
 			}
 		}
 	}
+	do {
+		T_Elem *pSrc = pElemWork + nSize;
+		T_Elem *pDst = pElemResult;
+		for (size_t iRow = 0; iRow < nSize; iRow++, pDst += nSize, pSrc += nSize2) {
+			::memcpy(pDst, pSrc, bytesPerRow);
+		}
+	} while (0);
 	return true;
 }
 
@@ -798,28 +815,17 @@ Array *InvertFuncTmpl(Signal &sig, const Array *pArray)
 		sig.SetError(ERR_ValueError, "inversion can only be applied to square matrix");
 		return nullptr;
 	}
-	size_t nCols2 = nCols * 2;
-	std::unique_ptr<T_Elem []> pElemWork(new T_Elem [nRows * nCols2]);
-	::memset(pElemWork.get(), 0x00, nRows * nCols2);
-	const T_Elem *pSrc = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
-	T_Elem *pDst = pElemWork.get();
-	size_t bytesPerRow = nCols * sizeof(T_Elem);
-	for (size_t iRow = 0; iRow < nRows; iRow++, pDst += nCols2, pSrc += nCols) {
-		::memcpy(pDst, pSrc, bytesPerRow);
-		*(pDst + nCols + iRow) = 1;
-	}
+	std::unique_ptr<T_Elem []> pElemWork(new T_Elem [nRows * nCols * 2]);
+	std::unique_ptr<T_Elem *[]> rows(new T_Elem *[nRows]);
+	AutoPtr<ArrayT<T_Elem> > pArrayResult(new ArrayT<T_Elem>(nRows, nCols));
 	T_Elem det = 0;
-	if (!InvertFuncTmpl_Sub(nRows, det, pElemWork.get())) {
+	const T_Elem *pElemSrc = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
+	T_Elem *pElemResult = pArrayResult->GetPointer();
+	if (!InvertFuncTmpl_Sub(pElemResult, pElemSrc, nRows, det, pElemWork.get(), rows.get())) {
 		sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
 		return nullptr;
 	}
 
-	AutoPtr<ArrayT<T_Elem> > pArrayResult(new ArrayT<T_Elem>(nRows, nCols));
-	pSrc = pElemWork.get() + nCols;
-	pDst = pArrayResult->GetPointer();
-	for (size_t iRow = 0; iRow < nRows; iRow++, pDst += nCols, pSrc += nCols2) {
-		::memcpy(pDst, pSrc, bytesPerRow);
-	}
 	return pArrayResult.release();
 }
 
