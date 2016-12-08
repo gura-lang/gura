@@ -740,7 +740,7 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 // InvertFuncTmpl
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemSrc, size_t nRows,
+bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemOrg, size_t nRows,
 						T_Elem &det, T_Elem *pElemWork, T_Elem *rows[])
 {
 	static const T_Elem Epsilon = static_cast<T_Elem>(1.0e-6);
@@ -749,13 +749,13 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemSrc, size_t nRow
 	size_t bytesPerRow = nCols * sizeof(T_Elem);
 	det = 1;
 	do {
-		const T_Elem *pSrc = pElemSrc;
-		T_Elem *pDst = pElemWork;
+		const T_Elem *pElemSrc = pElemOrg;
+		T_Elem *pElemDst = pElemWork;
 		::memset(pElemWork, 0x00, nRows * nCols2 * sizeof(T_Elem));
-		for (size_t iRow = 0; iRow < nRows; iRow++, pDst += nCols2, pSrc += nCols) {
-			::memcpy(pDst, pSrc, bytesPerRow);
-			*(pDst + nCols + iRow) = 1;
-			rows[iRow] = pDst;
+		for (size_t iRow = 0; iRow < nRows; iRow++, pElemDst += nCols2, pElemSrc += nCols) {
+			::memcpy(pElemDst, pElemSrc, bytesPerRow);
+			*(pElemDst + nCols + iRow) = 1;
+			rows[iRow] = pElemDst;
 		}
 	} while (0);
 	for (size_t iPivot = 0; iPivot < nRows; iPivot++) {
@@ -770,22 +770,17 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemSrc, size_t nRow
 		}
 		if (nMax < Epsilon) return false;
 		if (iPivot != iRowMax) {
-#if 1
-			T_Elem *p1 = rows[iPivot];
-			T_Elem *p2 = rows[iRowMax];
-			for (size_t cnt = nCols2; cnt > 0; cnt--, p1++, p2++) {
-				std::swap(*p1, *p2);
-			}
-#endif
-			//std::swap(rows[iPivot], rows[iRowMax]);
+			std::swap(rows[iPivot], rows[iRowMax]);
 			det = -det;
 		}
-		T_Elem *p_i = rows[iPivot];
-		T_Elem n = *(p_i + iPivot);
-		det *= n;
-		for (size_t cnt = nCols2; cnt > 0; cnt--, p_i++) {
-			*p_i /= n;
-		}
+		do {
+			T_Elem *p_i = rows[iPivot];
+			T_Elem factor = *(p_i + iPivot);
+			det *= factor;
+			for (size_t cnt = nCols2; cnt > 0; cnt--, p_i++) {
+				*p_i /= factor;
+			}
+		} while (0);
 		for (size_t j = 0; j < nRows; j++) {
 			if (iPivot == j) continue;
 			T_Elem *p_i = rows[iPivot];
@@ -797,9 +792,9 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemSrc, size_t nRow
 		}
 	}
 	do {
-		T_Elem *pDst = pElemResult;
-		for (size_t iRow = 0; iRow < nRows; iRow++, pDst += nCols) {
-			::memcpy(pDst, rows[iRow] + nCols, bytesPerRow);
+		T_Elem *pElemDst = pElemResult;
+		for (size_t iRow = 0; iRow < nRows; iRow++, pElemDst += nCols) {
+			::memcpy(pElemDst, rows[iRow] + nCols, bytesPerRow);
 		}
 	} while (0);
 	return true;
@@ -819,9 +814,9 @@ Array *InvertFuncTmpl(Signal &sig, const Array *pArray)
 	std::unique_ptr<T_Elem *[]> rows(new T_Elem *[nRows]);
 	AutoPtr<ArrayT<T_Elem> > pArrayResult(new ArrayT<T_Elem>(nRows, nCols));
 	T_Elem det = 0;
-	const T_Elem *pElemSrc = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
+	const T_Elem *pElemOrg = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
 	T_Elem *pElemResult = pArrayResult->GetPointer();
-	if (!InvertFuncTmpl_Sub(pElemResult, pElemSrc, nRows, det, pElemWork.get(), rows.get())) {
+	if (!InvertFuncTmpl_Sub(pElemResult, pElemOrg, nRows, det, pElemWork.get(), rows.get())) {
 		sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
 		return nullptr;
 	}
