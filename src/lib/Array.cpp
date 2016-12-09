@@ -773,7 +773,10 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemOrg, size_t nRow
 				normMax = norm;
 			}
 		}
-		if (normMax < normEpsilon) return false;
+		if (normMax < normEpsilon) {
+			det = 0;
+			return false;
+		}
 		if (iRowPivot != iRowMax) {
 			std::swap(rows[iRowPivot], rows[iRowMax]);
 			det = -det;
@@ -796,12 +799,12 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemOrg, size_t nRow
 			}
 		}
 	}
-	do {
+	if (pElemResult != nullptr) {
 		T_Elem *pElemDst = pElemResult;
 		for (size_t iRow = 0; iRow < nRows; iRow++, pElemDst += nCols) {
 			::memcpy(pElemDst, rows[iRow] + nCols, bytesPerRow);
 		}
-	} while (0);
+	}
 	return true;
 }
 

@@ -365,9 +365,11 @@ array
   array#fill(value:number):map:void
   array#flatten() {block?}
   array#head(n:number):map {block?}
+  array#invert():map {block?}
   array#offset(n:number):map {block?}
   array#paste(offset:number, src:array):map
   array#reshape(dims[]:number:nil) {block?}
+  array#roundoff(threshold?:number) {block?}
   array#sum():map {block?}
   array#tail(n:number):map {block?}
   array#transpose(axes[]:number) {block?}
