@@ -3,5 +3,10 @@
 try {
 	import(wx.show)
 } catch {
-	import(tk.show)
+	try {
+		import(tk.show)
+	} catch {
+		sys.stderr.println('both of wx and tk modules are unavaiable')
+		sys.exit(1)
+	}
 }

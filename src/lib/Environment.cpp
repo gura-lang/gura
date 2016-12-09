@@ -405,6 +405,84 @@ Value Environment::GetProp(const Symbol *pSymbol,
 	return *pValue;
 }
 
+Value Environment::SetProp(const Symbol *pSymbol, const SymbolSet &attrs,
+						   Value &valueAssigned, ValueType valTypeCast, bool escalateFlag)
+{
+	bool evaluatedFlag = false;
+	Value result = DoSetProp(*this, pSymbol, valueAssigned, attrs, evaluatedFlag);
+	if (IsSignalled()) return Value::Nil;
+	if (evaluatedFlag) return result;
+	if (attrs.IsSet(Gura_Symbol(extern_))) {
+		escalateFlag = true;
+		if (LookupValue(pSymbol, ENVREF_Escalate) == nullptr) {
+			SetError(ERR_ValueError, "undefined symbol '%s'", pSymbol->GetName());
+			return Value::Nil;
+		}
+	}
+	if (attrs.IsSet(Gura_Symbol(local))) {
+		escalateFlag = false;
+	}
+	ULong extra = EXTRA_None;
+	if (attrs.IsSet(Gura_Symbol(public_))) {
+		extra = EXTRA_Public;
+	}
+	if (valueAssigned.IsModule()) {
+		Module *pModule = valueAssigned.GetModule();
+		if (pModule->IsAnonymous()) {
+			pModule->SetSymbol(pSymbol);
+		}
+		extra = EXTRA_Public;
+	} else if (valueAssigned.IsClass() && valueAssigned.GetClassItself()->IsCustom()) {
+		ClassCustom *pClass = dynamic_cast<ClassCustom *>(valueAssigned.GetClassItself());
+		if (pClass->IsAnonymous()) {
+			ValueTypeInfo *pValueTypeInfo = GetTopFrame()->LookupValueType(pSymbol);
+			if (pValueTypeInfo == nullptr) {
+				pValueTypeInfo = ValueTypePool::GetInstance()->Add(pSymbol);
+			}
+			pValueTypeInfo->SetClass(Class::Reference(pClass));
+			AssignValueType(pValueTypeInfo);
+			if (!pClass->PrepareConstructor(*this)) return Value::Nil;
+		}
+		extra = EXTRA_Public;
+	} else if (valueAssigned.Is_function()) {
+		Function *pFunc = valueAssigned.GetFunction();
+		if (pFunc->IsAnonymous()) {
+			pFunc->SetSymbol(pSymbol);
+		}
+		if (IsClass()) {
+			Class *pClassContainer = dynamic_cast<Class *>(this);
+			if (pFunc->GetClassContainer() == nullptr) {
+				if (pFunc->GetType() == FUNCTYPE_Function) {
+					pFunc->SetType(FUNCTYPE_Instance);
+				}
+				pFunc->SetClassContainer(pClassContainer);
+			} else if (pFunc->GetClassContainer() != pClassContainer) {
+				SetError(ERR_ValueError, "can't assign a method to another class");
+				return Value::Nil;
+			}
+		}
+		Class *pClassToConstruct = pFunc->GetClassToConstruct();
+		if (pClassToConstruct != nullptr && pClassToConstruct->IsAnonymous()) {
+			ValueTypeInfo *pValueTypeInfo = ValueTypePool::GetInstance()->Add(pSymbol);
+			pValueTypeInfo->SetClass(pClassToConstruct);
+			AssignValueType(pValueTypeInfo);
+		}
+		if (!pFunc->GetFlag(FLAG_Private)) extra = EXTRA_Public;
+	}
+	if (valTypeCast != VTYPE_any) {
+		AutoPtr<Declaration> pDecl(
+			new Declaration(pSymbol, valTypeCast, OCCUR_Once, 0, 0, nullptr));
+		pDecl->ValidateAndCast(*this, valueAssigned);
+		if (IsSignalled()) return Value::Nil;
+	}
+	if (escalateFlag) {
+		AssignValueFromBlock(pSymbol, valueAssigned, extra);
+	} else {
+		AssignValue(pSymbol, valueAssigned, extra);
+	}
+	return valueAssigned;
+}
+
 void Environment::AssignValueType(ValueTypeInfo *pValueTypeInfo)
 {
 	GetTopFrame()->AssignValueType(pValueTypeInfo);

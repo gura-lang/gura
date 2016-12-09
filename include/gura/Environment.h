@@ -341,15 +341,18 @@ public:
 	Function *LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
 public:
 	void RemoveValue(const Symbol *pSymbol);
-public:
+protected:
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag);
+public:
 	virtual Callable *GetCallable(const Symbol *pSymbol);
-	Value GetProp(const Symbol *pSymbol,
-				  const SymbolSet &attrs, const Value *pValueDefault = nullptr,
-				  EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0);
+	Value GetProp(const Symbol *pSymbol, const SymbolSet &attrs,
+				  const Value *pValueDefault = nullptr, EnvRefMode envRefMode = ENVREF_Escalate,
+				  int cntSuperSkip = 0);
+	Value SetProp(const Symbol *pSymbol, const SymbolSet &attrs,
+				  Value &valueAssigned, ValueType valTypeCast, bool escalateFlag);
 public:
 	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
 	ValueTypeInfo *LookupValueType(const SymbolList &symbolList);

@@ -52,7 +52,7 @@ CheckListBoxApp = class(wx.App) {
 // Define a new frame type
 CheckListBoxFrame = class(wx.Frame) {
 	// ctor & dtor
-	__init__(frame:wx.Frame, title:string) = {|frame, wx.ID_ANY, title|
+	__init__(frame:wx.Frame:nil, title:string) = {|frame, wx.ID_ANY, title|
 		this.EventHandler()
 		// create the status line
 		widths = [ -1, 60 ]

@@ -1028,28 +1028,14 @@ Value Expr_Identifier::DoExec(Environment &env) const
 }
 
 Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
+								const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
-	Signal &sig = env.GetSignal();
-	bool evaluatedFlag = false;
-	const SymbolSet &attrs = SymbolSet::Empty;
-	Value result = env.DoSetProp(env, GetSymbol(), valueAssigned, attrs, evaluatedFlag);
-	if (sig.IsSignalled()) return Value::Nil;
-	if (evaluatedFlag) return result;
+	//if (pSymbolsAssignable != nullptr) {
+	//	::printf("SymbolsAssignable used\n");
+	//}
 	if (pSymbolsAssignable != nullptr && !pSymbolsAssignable->IsSet(GetSymbol())) {
-		SetError_NotAssignableSymbol(sig, GetSymbol());
+		SetError_NotAssignableSymbol(env.GetSignal(), GetSymbol());
 		return Value::Nil;
-	}
-	if (GetAttrs().IsSet(Gura_Symbol(extern_))) {
-		escalateFlag = true;
-		if (env.LookupValue(GetSymbol(), ENVREF_Escalate) == nullptr) {
-			SetError(sig, ERR_ValueError, "undefined symbol '%s'",
-												GetSymbol()->GetName());
-			return Value::Nil;
-		}
-	}
-	if (GetAttrs().IsSet(Gura_Symbol(local))) {
-		escalateFlag = false;
 	}
 	ValueType valTypeCast = VTYPE_any;
 	if (!_attrFront.empty()) {
@@ -1058,65 +1044,7 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 			valTypeCast = pValueTypeInfo->GetValueType();
 		}
 	}
-	ULong extra = EXTRA_None;
-	if (GetAttrs().IsSet(Gura_Symbol(public_))) {
-		extra = EXTRA_Public;
-	}
-	if (valueAssigned.IsModule()) {
-		Module *pModule = valueAssigned.GetModule();
-		if (pModule->IsAnonymous()) {
-			pModule->SetSymbol(GetSymbol());
-		}
-		extra = EXTRA_Public;
-	} else if (valueAssigned.IsClass() && valueAssigned.GetClassItself()->IsCustom()) {
-		ClassCustom *pClass = dynamic_cast<ClassCustom *>(valueAssigned.GetClassItself());
-		if (pClass->IsAnonymous()) {
-			ValueTypeInfo *pValueTypeInfo = env.GetTopFrame()->LookupValueType(GetSymbol());
-			if (pValueTypeInfo == nullptr) {
-				pValueTypeInfo = ValueTypePool::GetInstance()->Add(GetSymbol());
-			}
-			pValueTypeInfo->SetClass(Class::Reference(pClass));
-			env.AssignValueType(pValueTypeInfo);
-			if (!pClass->PrepareConstructor(env)) return Value::Nil;
-		}
-		extra = EXTRA_Public;
-	} else if (valueAssigned.Is_function()) {
-		Function *pFunc = valueAssigned.GetFunction();
-		if (pFunc->IsAnonymous()) {
-			pFunc->SetSymbol(GetSymbol());
-		}
-		if (env.IsClass()) {
-			Class *pClassContainer = dynamic_cast<Class *>(&env);
-			if (pFunc->GetClassContainer() == nullptr) {
-				if (pFunc->GetType() == FUNCTYPE_Function) {
-					pFunc->SetType(FUNCTYPE_Instance);
-				}
-				pFunc->SetClassContainer(pClassContainer);
-			} else if (pFunc->GetClassContainer() != pClassContainer) {
-				sig.SetError(ERR_ValueError, "can't assign a method to another class");
-				return Value::Nil;
-			}
-		}
-		Class *pClassToConstruct = pFunc->GetClassToConstruct();
-		if (pClassToConstruct != nullptr && pClassToConstruct->IsAnonymous()) {
-			ValueTypeInfo *pValueTypeInfo = ValueTypePool::GetInstance()->Add(GetSymbol());
-			pValueTypeInfo->SetClass(pClassToConstruct);
-			env.AssignValueType(pValueTypeInfo);
-		}
-		if (!pFunc->GetFlag(FLAG_Private)) extra = EXTRA_Public;
-	}
-	if (valTypeCast != VTYPE_any) {
-		AutoPtr<Declaration> pDecl(
-			new Declaration(GetSymbol(), valTypeCast, OCCUR_Once, 0, 0, nullptr));
-		pDecl->ValidateAndCast(env, valueAssigned);
-		if (sig.IsSignalled()) return Value::Nil;
-	}
-	if (escalateFlag) {
-		env.AssignValueFromBlock(GetSymbol(), valueAssigned, extra);
-	} else {
-		env.AssignValue(GetSymbol(), valueAssigned, extra);
-	}
-	return valueAssigned;
+	return env.SetProp(GetSymbol(), GetAttrs(), valueAssigned, valTypeCast, escalateFlag);
 }
 
 void Expr_Identifier::Accept(ExprVisitor &visitor)
