@@ -104,7 +104,7 @@ MyCanvas = class(wx.ScrolledWindow) {
 }
 
 MyFrame = class(wx.MDIParentFrame) {
-	__init__(parent:wx.Window, id:number, title:string, pos:wx.Point,
+	__init__(parent:wx.Window:nil, id:number, title:string, pos:wx.Point,
 			size:wx.Size, style:number) = {|parent, id, title, pos, size, style|
 		this.EventTable()
 		// Create some dummy layout windows

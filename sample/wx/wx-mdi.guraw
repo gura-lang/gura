@@ -72,7 +72,7 @@ MyApp = class(wx.App) {
 // ---------------------------------------------------------------------------
 
 MyFrame = class(wx.MDIParentFrame) {
-	__init__(parent:wx.Window, id:number, title:string,
+	__init__(parent:wx.Window:nil, id:number, title:string,
 					pos:wx.Point, size:wx.Size, style:number) = \
 			{|parent, id, title, pos, size, style|
 		this.EventTable()

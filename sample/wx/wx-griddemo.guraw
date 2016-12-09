@@ -305,7 +305,7 @@ GridFrame = class(wx.Frame) {
 		this.Bind(wx.EVT_GRID_COL_SIZE) {|ev| this.OnColSize(ev) }
 		this.Bind(wx.EVT_GRID_SELECT_CELL) {|ev| this.OnSelectCell(ev) }
 		this.Bind(wx.EVT_GRID_RANGE_SELECT) {|ev| this.OnRangeSelected(ev) }
-		this.Bind(wx.EVT_GRID_CELL_CHANGE) {|ev| this.OnCellValueChanged(ev) }
+		//this.Bind(wx.EVT_GRID_CELL_CHANGE) {|ev| this.OnCellValueChanged(ev) }
 		//this.Bind(wx.EVT_GRID_CELL_BEGIN_DRAG) {|ev| this.OnCellBeginDrag(ev) }
 		this.Bind(wx.EVT_GRID_EDITOR_SHOWN) {|ev| this.OnEditorShown(ev) }
 		this.Bind(wx.EVT_GRID_EDITOR_HIDDEN) {|ev| this.OnEditorHidden(ev) }

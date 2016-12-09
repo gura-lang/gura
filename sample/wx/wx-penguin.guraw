@@ -53,7 +53,7 @@ TestGLCanvas = class(wx.GLCanvas) {
 				pos:wx.Point => wx.DefaultPosition,
 				size:wx.Size => wx.DefaultSize, style:number => 0,
 				name:string => 'TestGLCanvas') = \
-			{|parent, id, pos, size, (style | wx.FULL_REPAINT_ON_RESIZE), name|
+			{|parent, id, [], pos, size, (style | wx.FULL_REPAINT_ON_RESIZE), name|
 		this.EventTable()
 		this.m_gldata = GLData(
 			initialized => false
@@ -183,7 +183,7 @@ TestGLCanvas = class(wx.GLCanvas) {
 // ---------------------------------------------------------------------------
 
 MyFrame = class(wx.Frame) {
-	__init__(frame:wx.Frame, title:string, pos:wx.Point,
+	__init__(frame:wx.Frame:nil, title:string, pos:wx.Point,
 				size:wx.Size, style:number => wx.DEFAULT_FRAME_STYLE) = \
 			{|frame, wx.ID_ANY, title, pos, size, style|
 		this.EventTable()

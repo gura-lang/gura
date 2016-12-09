@@ -266,7 +266,7 @@ MyPanel = class(wx.Panel) {
 			this.m_slider = wx.Slider(panel, ID_SLIDER, 0, 0, 200,
 									wx.DefaultPosition, wx.Size(155, wx.DefaultCoord),
 									wx.SL_AUTOTICKS | wx.SL_LABELS)
-			this.m_slider.SetTickFreq(40, 0)
+			this.m_slider.SetTickFreq(40)
 			this.m_slider.SetToolTipString('This is a sliding slider')
 			sz.Add(this.m_slider, wx.SizerFlags(0).Border(wx.ALL, 10))
 			this.m_gaugeVert = wx.Gauge(panel, wx.ID_ANY, 100,

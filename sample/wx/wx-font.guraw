@@ -231,7 +231,7 @@ MyFrame = class(wx.Frame) {
 		this.DoEnumerateFamilies(true)
 	}
 	DoEnumerateFamilies(fixedWidthOnly:boolean,
-						encoding:wx.FontEncoding => wx.FONTENCODING_SYSTEM,
+						encoding:number => wx.FONTENCODING_SYSTEM,
 						silent:boolean => false) = {
 		fontEnumerator = MyFontEnumerator()
 		fontEnumerator.EnumerateFacenames(encoding, fixedWidthOnly)

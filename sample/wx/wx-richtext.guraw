@@ -222,7 +222,7 @@ MyApp = class(wx.App) {
 // Define a new frame type: this is going to be our main frame
 MyFrame = class(wx.Frame) {
 	// frame constructor
-	__init__(title:string, id:wx.WindowID, pos:wx.Point => wx.DefaultPosition
+	__init__(title:string, id:number, pos:wx.Point => wx.DefaultPosition
 			size:wx.Size => wx.DefaultSize, style => wx.DEFAULT_FRAME_STYLE) = \
 											{|nil, id, title, pos, size, style|
 		// set the frame icon
@@ -950,9 +950,9 @@ MyFrame = class(wx.Frame) {
 			this.m_richTextCtrl.EndStyle()
 		}
 	}
-	OnURL(event:wx.TextUrlEvent) = {
-		wx.MessageBox(event.GetString())
-	}
+	//OnURL(event:wx.TextUrlEvent) = {
+	//	wx.MessageBox(event.GetString())
+	//}
 	// Veto style sheet replace events when loading from XML, since we want
 	// to keep the original style sheet.
 	OnStyleSheetReplacing(event:wx.RichTextEvent) = {
