@@ -8,11 +8,11 @@
 
 namespace Gura {
 
-class GURA_DLLDECLARE PropHandler {
+class GURA_DLLDECLARE PropHandler : public HelpProvider::Holder {
 public:
 	virtual ~PropHandler();
-	virtual Value DoSetProp(Object *pObj, const Value &value) = 0;
-	virtual Value DoGetProp(Object *pObj) = 0;
+	virtual Value DoSetProp(const Value &valueThis, const SymbolSet &attrs) = 0;
+	virtual Value DoGetProp(const Value &valueThis, const Value &value, const SymbolSet &attrs) = 0;
 };
 
 class GURA_DLLDECLARE PropHandlerMap :

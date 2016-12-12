@@ -1030,9 +1030,6 @@ Value Expr_Identifier::DoExec(Environment &env) const
 Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 								const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
-	//if (pSymbolsAssignable != nullptr) {
-	//	::printf("SymbolsAssignable used\n");
-	//}
 	if (pSymbolsAssignable != nullptr && !pSymbolsAssignable->IsSet(GetSymbol())) {
 		SetError_NotAssignableSymbol(env.GetSignal(), GetSymbol());
 		return Value::Nil;

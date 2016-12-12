@@ -12,7 +12,6 @@
 #include "SuffixMgr.h"
 #include "PathMgr.h"
 #include "Callable.h"
-#include "PropHandler.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -260,7 +259,6 @@ protected:
 	Signal &_sig;	// this must be placed at top.
 	FrameOwner _frameOwner;
 	AutoPtr<FrameCache> _pFrameCache;
-	std::unique_ptr<PropHandlerMap> _pPropHandlerMap;
 public:
 	Gura_DeclareReferenceAccessor(Environment)
 public:

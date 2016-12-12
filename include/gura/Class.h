@@ -11,6 +11,7 @@
 #include "Fundamental.h"
 #include "Formatter.h"
 #include "Operator.h"
+#include "PropHandler.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -186,6 +187,7 @@ protected:
 	AutoPtr<Function> _pConstructor;
 	Operator::EntryList _operatorEntryList;
 	AutoPtr<HelpProvider> _pHelpProvider;
+	std::unique_ptr<PropHandlerMap> _pPropHandlerMap;
 public:
 	Gura_DeclareReferenceAccessor(Class);
 public:
