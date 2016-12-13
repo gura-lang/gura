@@ -6,7 +6,7 @@ import(png)
 import(gif)
 import(xpm)
 import(hash)
-import(show)
+//import(show)
 import(helper.test) {*}
 
 tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {

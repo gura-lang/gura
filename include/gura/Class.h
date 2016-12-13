@@ -238,8 +238,8 @@ public:
 		_pHelpProvider->AddHelpTemplate(env, pSymbol, doc);
 	}
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag);
-	virtual Value GetPropPrimitive(const Value &valueThis,
-			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
+	//virtual Value GetPropPrimitive(const Value &valueThis,
+	//		const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
 	virtual Value EmptyIndexGetPrimitive(Environment &env, const Value &valueThis) const;
 	virtual Value IndexGetPrimitive(Environment &env,
 									const Value &valueThis, const Value &valueIdx) const;

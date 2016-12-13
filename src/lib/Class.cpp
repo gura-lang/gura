@@ -472,12 +472,13 @@ bool Class::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag)
 	return DoDirProp(env, symbols);
 }
 
+#if 0
 Value Class::GetPropPrimitive(const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
 	return Value::Nil;
 }
-
+#endif
 
 Value Class::EmptyIndexGetPrimitive(Environment &env, const Value &valueThis) const
 {
