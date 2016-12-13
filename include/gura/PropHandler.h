@@ -33,13 +33,23 @@ class GURA_DLLDECLARE PropHandler : public HelpProvider::Holder {
 protected:
 	const Symbol *_pSymbol;
 	ULong _flags;
+	AutoPtr<HelpProvider> _pHelpProvider;
 public:
-	inline PropHandler(const Symbol *pSymbol, ULong flags) : _pSymbol(pSymbol), _flags(flags) {}
+	PropHandler(const Symbol *pSymbol, ULong flags);
 	inline const Symbol *GetSymbol() { return _pSymbol; }
 	inline const char *GetName() { return _pSymbol->GetName(); }
 	virtual ~PropHandler();
 	virtual Value DoGetProp(const Value &valueThis, const SymbolSet &attrs) const;
 	virtual Value DoSetProp(const Value &valueThis, const Value &value, const SymbolSet &attrs) const;
+public:
+	inline HelpProvider &GetHelpProvider() { return *_pHelpProvider; }
+	inline const HelpProvider &GetHelpProvider() const { return *_pHelpProvider; }
+	inline void AddHelp(const Symbol *pSymbol, const String &doc) {
+		_pHelpProvider->AddHelp(pSymbol, doc);
+	}
+	inline void AddHelpTemplate(Environment &env, const Symbol *pSymbol, const String &doc) {
+		_pHelpProvider->AddHelpTemplate(env, pSymbol, doc);
+	}
 public:
 	// inherited from HelpProvider
 	virtual String MakeHelpTitle() const;
