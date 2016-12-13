@@ -195,34 +195,6 @@ void Class_complex::Prepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
-#if 0
-Value Class_complex::GetPropPrimitive(const Value &valueThis,
-				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(abs))) {
-		Complex num = valueThis.GetComplex();
-		return Value(std::abs(num));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(arg))) {
-		Complex num = valueThis.GetComplex();
-		double arg = std::arg(num);
-		if (attrs.IsSet(Gura_Symbol(deg))) arg = RadToDeg(arg);
-		return Value(arg);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(imag))) {
-		Complex num = valueThis.GetComplex();
-		return Value(num.imag());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(norm))) {
-		Complex num = valueThis.GetComplex();
-		return Value(std::norm(num));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(real))) {
-		Complex num = valueThis.GetComplex();
-		return Value(num.real());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-#endif
-
 bool Class_complex::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_number()) {		// cast number to complex

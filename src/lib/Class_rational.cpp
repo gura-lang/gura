@@ -123,23 +123,6 @@ void Class_rational::Prepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
-#if 0
-Value Class_rational::GetPropPrimitive(const Value &valueThis,
-				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(denom))) {
-		const Rational &num = valueThis.GetRational();
-		return Value(num.denom);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(numer))) {
-		const Rational &num = valueThis.GetRational();
-		return Value(num.numer);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-#endif
-
 bool Class_rational::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_number()) {		// cast number to rational

@@ -132,30 +132,6 @@ void Class_number::Prepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
-#if 0
-Value Class_number::GetPropPrimitive(const Value &valueThis,
-				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(abs))) {
-		double num = valueThis.GetDouble();
-		return Value(::fabs(num));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(arg))) {
-		return Value::Zero;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(imag))) {
-		return Value::Zero;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(norm))) {
-		double num = valueThis.GetDouble();
-		return Value(num * num);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(real))) {
-		double num = valueThis.GetDouble();
-		return Value(num);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-#endif
-
 bool Class_number::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	bool allowPartFlag = false;
