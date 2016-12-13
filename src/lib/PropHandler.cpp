@@ -12,6 +12,21 @@ PropHandler::~PropHandler()
 {
 }
 
+Value PropHandler::DoGetProp(const Value &valueThis, const SymbolSet &attrs) const
+{
+	return Value::Nil;
+}
+
+Value PropHandler::DoSetProp(const Value &valueThis, const Value &value, const SymbolSet &attrs) const
+{
+	return Value::Nil;
+}
+
+String PropHandler::MakeHelpTitle() const
+{
+	return _pSymbol->GetName();
+}
+
 //-----------------------------------------------------------------------------
 // PropHandlerMap
 //-----------------------------------------------------------------------------

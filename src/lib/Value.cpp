@@ -283,9 +283,11 @@ void Value::DirValueType(SymbolSet &symbols, bool escalateFlag) const
 
 Value Value::GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const
 {
+	Class *pClass = GetClass();
 	Fundamental *pFund = nullptr;
+	const PropHandler *pPropHandler = pClass->LookupPropHandler(pSymbol);
+	if (pPropHandler != nullptr) return pPropHandler->DoGetProp(*this, attrs);
 	if (IsPrimitive()) {
-		Class *pClass = GetClass();
 		bool evaluatedFlag = false;
 		Value rtn = pClass->GetPropPrimitive(*this, pSymbol, attrs, evaluatedFlag);
 		if (evaluatedFlag) return rtn;

@@ -11,142 +11,142 @@
 #include "Help.h"
 
 // DeclareFunction
-#define Gura_DeclareFunctionAlias_CustomBegin(name, nameAlias)	\
-class Func_##name : public Function { \
+#define Gura_DeclareFunctionAlias_CustomBegin(funcName, funcNameAlias)	\
+class Func_##funcName : public Function { \
 public:
 
-#define Gura_DeclareFunctionAlias_CustomEnd(name, nameAlias)	\
-	Func_##name(Environment &env, const char *name = nameAlias); \
+#define Gura_DeclareFunctionAlias_CustomEnd(funcName, funcNameAlias)	\
+	Func_##funcName(Environment &env, const char *name = funcNameAlias); \
 	virtual Value DoEval(Environment &env, Argument &arg) const; \
 }; \
-Func_##name::Func_##name(Environment &env, const char *name) : \
+Func_##funcName::Func_##funcName(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
-#define Gura_DeclareFunctionAlias(name, nameAlias) \
-Gura_DeclareFunctionAlias_CustomBegin(name, nameAlias) \
-Gura_DeclareFunctionAlias_CustomEnd(name, nameAlias)
+#define Gura_DeclareFunctionAlias(funcName, funcNameAlias) \
+Gura_DeclareFunctionAlias_CustomBegin(funcName, funcNameAlias) \
+Gura_DeclareFunctionAlias_CustomEnd(funcName, funcNameAlias)
 
-#define Gura_DeclareFunction_CustomBegin(name) \
-Gura_DeclareFunctionAlias_CustomBegin(name, #name)
+#define Gura_DeclareFunction_CustomBegin(funcName) \
+Gura_DeclareFunctionAlias_CustomBegin(funcName, #funcName)
 
-#define Gura_DeclareFunction_CustomEnd(name) \
-Gura_DeclareFunctionAlias_CustomEnd(name, #name)
+#define Gura_DeclareFunction_CustomEnd(funcName) \
+Gura_DeclareFunctionAlias_CustomEnd(funcName, #funcName)
 
-#define Gura_DeclareFunction(name) \
-Gura_DeclareFunctionAlias(name, #name)
+#define Gura_DeclareFunction(funcName) \
+Gura_DeclareFunctionAlias(funcName, #funcName)
 
-#define Gura_DeclareStatementAlias_CustomBegin(name, nameAlias)	\
-class Func_##name : public Function { \
+#define Gura_DeclareStatementAlias_CustomBegin(funcName, funcNameAlias)	\
+class Func_##funcName : public Function { \
 public: \
 	class Expr_Statement : public Expr_Caller { \
 	public:
 
-#define Gura_DeclareStatementAlias_CustomEnd(name, nameAlias) \
+#define Gura_DeclareStatementAlias_CustomEnd(funcName, funcNameAlias) \
 		virtual Expr *Clone() const; \
 		virtual Value DoExec(Environment &env) const; \
 		virtual bool DoPrepare(Environment &env); \
 	}; \
 public: \
-	Func_##name(Environment &env, const char *name = nameAlias); \
+	Func_##funcName(Environment &env, const char *name = funcNameAlias); \
 	virtual Expr_Caller *GenerateStatement(Parser *pParser, Expr *pExprCar, \
 		Expr_Lister *pExprLister, Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const; \
 }; \
-Expr *Func_##name::Expr_Statement::Clone() const { \
+Expr *Func_##funcName::Expr_Statement::Clone() const { \
 	return new Expr_Statement(*this); \
 } \
-Expr_Caller *Func_##name::GenerateStatement(Parser *pParser, Expr *pExprCar, \
+Expr_Caller *Func_##funcName::GenerateStatement(Parser *pParser, Expr *pExprCar, \
 	Expr_Lister *pExprLister, Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const { \
 	return new Expr_Statement(pExprCar, pExprLister, pExprBlock); \
 } \
-Func_##name::Func_##name(Environment &env, const char *name) : \
+Func_##funcName::Func_##funcName(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
-#define Gura_DeclareStatementAlias(name, nameAlias, flags)	\
-Gura_DeclareStatementAlias_CustomBegin(name, nameAlias)	\
+#define Gura_DeclareStatementAlias(funcName, funcNameAlias, flags)	\
+Gura_DeclareStatementAlias_CustomBegin(funcName, funcNameAlias)	\
 	inline Expr_Statement(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) : \
 			Expr_Caller(pExprCar, pExprLister, pExprBlock, flags) {}					\
 	inline Expr_Statement(const Expr_Statement &expr) : Expr_Caller(expr) {} \
-Gura_DeclareStatementAlias_CustomEnd(name, nameAlias)
+Gura_DeclareStatementAlias_CustomEnd(funcName, funcNameAlias)
 
-#define Gura_DeclareStatement_CustomBegin(name) \
-Gura_DeclareStatementAlias_CustomBegin(name, #name)
+#define Gura_DeclareStatement_CustomBegin(funcName) \
+Gura_DeclareStatementAlias_CustomBegin(funcName, #funcName)
 
-#define Gura_DeclareStatement_CustomEnd(name) \
-Gura_DeclareStatementAlias_CustomEnd(name, #name)
+#define Gura_DeclareStatement_CustomEnd(funcName) \
+Gura_DeclareStatementAlias_CustomEnd(funcName, #funcName)
 
-#define Gura_DeclareStatement(name, flags) \
-Gura_DeclareStatementAlias(name, #name, flags)
+#define Gura_DeclareStatement(funcName, flags) \
+Gura_DeclareStatementAlias(funcName, #funcName, flags)
 
 // DeclareFunctionWithMathDiff
-#define Gura_DeclareFunctionWithMathDiffAlias(name, nameAlias) \
-class Func_##name : public Function { \
+#define Gura_DeclareFunctionWithMathDiffAlias(funcName, funcNameAlias) \
+class Func_##funcName : public Function { \
 public: \
-	Func_##name(Environment &env, const char *name = nameAlias); \
+	Func_##funcName(Environment &env, const char *name = funcNameAlias); \
 	virtual Value DoEval(Environment &env, Argument &arg) const; \
 	virtual Expr *MathDiff(Environment &env, const Expr *pExprArg, const Symbol *pSymbol) const; \
 }; \
-Func_##name::Func_##name(Environment &env, const char *name) : \
+Func_##funcName::Func_##funcName(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
-#define Gura_DeclareFunctionWithMathDiff(name) \
-Gura_DeclareFunctionWithMathDiffAlias(name, #name)
+#define Gura_DeclareFunctionWithMathDiff(funcName) \
+Gura_DeclareFunctionWithMathDiffAlias(funcName, #funcName)
 
 // DeclareMethod
-#define Gura_DeclareMethodAlias(className, name, nameAlias) \
-class Func_##className##__##name : public Function { \
+#define Gura_DeclareMethodAlias(className, funcName, funcNameAlias) \
+class Func_##className##__##funcName : public Function { \
 public: \
-	Func_##className##__##name(Environment &env, const char *name = nameAlias); \
+	Func_##className##__##funcName(Environment &env, const char *name = funcNameAlias); \
 	virtual Value DoEval(Environment &env, Argument &arg) const; \
 }; \
-Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
+Func_##className##__##funcName::Func_##className##__##funcName(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Instance, FLAG_None)
 
-#define Gura_DeclareMethod(className, name) Gura_DeclareMethodAlias(className, name, #name)
+#define Gura_DeclareMethod(className, funcName) Gura_DeclareMethodAlias(className, funcName, #funcName)
 
 // DeclareMethodPrimitive
-#define Gura_DeclareMethodPrimitiveAlias(className, name, nameAlias) \
-class Func_##className##__##name : public Function { \
+#define Gura_DeclareMethodPrimitiveAlias(className, funcName, funcNameAlias) \
+class Func_##className##__##funcName : public Function { \
 public: \
-	Func_##className##__##name(Environment &env, const char *name = nameAlias); \
+	Func_##className##__##funcName(Environment &env, const char *name = funcNameAlias); \
 	virtual Value DoEval(Environment &env, Argument &arg) const; \
 }; \
-Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
+Func_##className##__##funcName::Func_##className##__##funcName(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
-#define Gura_DeclareMethodPrimitive(className, name) Gura_DeclareMethodPrimitiveAlias(className, name, #name)
+#define Gura_DeclareMethodPrimitive(className, funcName) Gura_DeclareMethodPrimitiveAlias(className, funcName, #funcName)
 
 // DeclareClassMethod
-#define Gura_DeclareClassMethodAlias(className, name, nameAlias) \
-class Func_##className##__##name : public Function { \
+#define Gura_DeclareClassMethodAlias(className, funcName, funcNameAlias) \
+class Func_##className##__##funcName : public Function { \
 public: \
-	Func_##className##__##name(Environment &env, const char *name = nameAlias); \
+	Func_##className##__##funcName(Environment &env, const char *name = funcNameAlias); \
 	virtual Value DoEval(Environment &env, Argument &arg) const; \
 }; \
-Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
+Func_##className##__##funcName::Func_##className##__##funcName(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Class, FLAG_None)
 
-#define Gura_DeclareClassMethod(className, name) Gura_DeclareClassMethodAlias(className, name, #name)
+#define Gura_DeclareClassMethod(className, funcName) Gura_DeclareClassMethodAlias(className, funcName, #funcName)
 
-#define Gura_ImplementFunction(name) \
-Value Func_##name::DoEval(Environment &env, Argument &arg) const
+#define Gura_ImplementFunction(funcName) \
+Value Func_##funcName::DoEval(Environment &env, Argument &arg) const
 
-#define Gura_ImplementMethod(className, name) \
-Value Func_##className##__##name::DoEval(Environment &env, Argument &arg) const
+#define Gura_ImplementMethod(className, funcName) \
+Value Func_##className##__##funcName::DoEval(Environment &env, Argument &arg) const
 
-#define Gura_ImplementClassMethod(className, name) Gura_ImplementMethod(className, name)
+#define Gura_ImplementClassMethod(className, funcName) Gura_ImplementMethod(className, funcName)
 
-#define Gura_ImplementMathDiff(name) \
-Expr *Func_##name::MathDiff(Environment &env, const Expr *pExprArg, const Symbol *pSymbol) const
+#define Gura_ImplementMathDiff(funcName) \
+Expr *Func_##funcName::MathDiff(Environment &env, const Expr *pExprArg, const Symbol *pSymbol) const
 
-#define Gura_ImplementStatement(name) \
-Value Func_##name::Expr_Statement::DoExec(Environment &env) const
+#define Gura_ImplementStatement(funcName) \
+Value Func_##funcName::Expr_Statement::DoExec(Environment &env) const
 
-#define Gura_ImplementStatementPreparator(name) \
-bool Func_##name::Expr_Statement::DoPrepare(Environment &env)
+#define Gura_ImplementStatementPreparator(funcName) \
+bool Func_##funcName::Expr_Statement::DoPrepare(Environment &env)
 
-#define Gura_Function(name) Func_##name
+#define Gura_Function(funcName) Func_##funcName
 
-#define Gura_Method(className, name) Func_##className##__##name
+#define Gura_Method(className, funcName) Func_##className##__##funcName
 
 namespace Gura {
 

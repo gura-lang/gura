@@ -264,6 +264,8 @@ public:
 	virtual bool Format_c(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	void AddOperatorEntry(OperatorEntry *pOperatorEntry);
 	void DeriveOperators();
+	void AssignPropHandler(PropHandler *pPropHandler);
+	const PropHandler *LookupPropHandler(const Symbol *pSymbol);
 	bool BuildContent(Environment &env, const Value &valueThis,
 		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = nullptr);
 	void SetError_NoConstructor() const;

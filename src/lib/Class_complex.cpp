@@ -36,6 +36,66 @@ Gura_ImplementFunction(complex)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// complex#abs
+Gura_DeclareProperty_R(complex, abs)
+{
+}
+
+Gura_ImplementPropertyGetter(complex, abs)
+{
+	Complex *pNum = valueThis.GetComplexPtr();
+	return Value(std::abs(*pNum));
+}
+
+// complex#arg:[deg]
+Gura_DeclareProperty_R(complex, arg)
+{
+}
+
+Gura_ImplementPropertyGetter(complex, arg)
+{
+	Complex *pNum = valueThis.GetComplexPtr();
+	double arg = std::arg(*pNum);
+	if (attrs.IsSet(Gura_Symbol(deg))) arg = RadToDeg(arg);
+	return Value(arg);
+}
+
+// complex#imag
+Gura_DeclareProperty_R(complex, imag)
+{
+}
+
+Gura_ImplementPropertyGetter(complex, imag)
+{
+	Complex *pNum = valueThis.GetComplexPtr();
+	return Value(pNum->imag());
+}
+
+// complex#norm
+Gura_DeclareProperty_R(complex, norm)
+{
+}
+
+Gura_ImplementPropertyGetter(complex, norm)
+{
+	Complex *pNum = valueThis.GetComplexPtr();
+	return Value(std::norm(*pNum));
+}
+
+// complex#real
+Gura_DeclareProperty_R(complex, real)
+{
+}
+
+Gura_ImplementPropertyGetter(complex, real)
+{
+	Complex *pNum = valueThis.GetComplexPtr();
+	return Value(pNum->real());
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
 // complex.polar(abs:number, arg:number):map:[deg] {block?}
@@ -120,6 +180,12 @@ void Class_complex::Prepare(Environment &env)
 {
 	// function assignment
 	Gura_AssignFunction(complex);
+	// property assignment
+	Gura_AssignProperty(complex, abs);
+	Gura_AssignProperty(complex, arg);
+	Gura_AssignProperty(complex, imag);
+	Gura_AssignProperty(complex, norm);
+	Gura_AssignProperty(complex, real);
 	// methods assignment
 	Gura_AssignMethod(complex, polar);
 	Gura_AssignMethod(complex, roundoff);	// primitive method
@@ -129,6 +195,7 @@ void Class_complex::Prepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
+#if 0
 Value Class_complex::GetPropPrimitive(const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
@@ -154,6 +221,7 @@ Value Class_complex::GetPropPrimitive(const Value &valueThis,
 	evaluatedFlag = false;
 	return Value::Nil;
 }
+#endif
 
 bool Class_complex::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {

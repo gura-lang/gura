@@ -703,6 +703,19 @@ void Class::DeriveOperators()
 	}
 }
 
+void Class::AssignPropHandler(PropHandler *pPropHandler)
+{
+	if (_pPropHandlerMap.get() == nullptr) _pPropHandlerMap.reset(new PropHandlerMap());
+	(*_pPropHandlerMap)[pPropHandler->GetSymbol()] = pPropHandler;
+}
+
+const PropHandler *Class::LookupPropHandler(const Symbol *pSymbol)
+{
+	if (_pPropHandlerMap.get() == nullptr) return nullptr;
+	auto iter = _pPropHandlerMap->find(pSymbol);
+	return (iter == _pPropHandlerMap->end())? nullptr : iter->second;
+}
+
 bool Class::BuildContent(Environment &env, const Value &valueThis,
 			const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable)
 {
