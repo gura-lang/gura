@@ -178,18 +178,18 @@ Class_complex::Class_complex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_co
 
 void Class_complex::Prepare(Environment &env)
 {
-	// function assignment
+	// Assignment of function
 	Gura_AssignFunction(complex);
-	// property assignment
+	// Assignment of properties
 	Gura_AssignProperty(complex, abs);
 	Gura_AssignProperty(complex, arg);
 	Gura_AssignProperty(complex, imag);
 	Gura_AssignProperty(complex, norm);
 	Gura_AssignProperty(complex, real);
-	// methods assignment
+	// Assignment of methods
 	Gura_AssignMethod(complex, polar);
 	Gura_AssignMethod(complex, roundoff);	// primitive method
-	// suffix manager assignment
+	// Assignment of suffix manager
 	Gura_AssignSuffixMgrForNumber(j);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);

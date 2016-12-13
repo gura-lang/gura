@@ -44,6 +44,31 @@ Gura_ImplementFunction(rational)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// rational#denom
+Gura_DeclareProperty_R(rational, denom)
+{
+}
+
+Gura_ImplementPropertyGetter(rational, denom)
+{
+	const Rational &num = valueThis.GetRational();
+	return Value(num.denom);
+}
+
+// rational#number
+Gura_DeclareProperty_R(rational, numer)
+{
+}
+
+Gura_ImplementPropertyGetter(rational, numer)
+{
+	const Rational &num = valueThis.GetRational();
+	return Value(num.numer);
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
 // rational#reduce()
@@ -85,16 +110,20 @@ Class_rational::Class_rational(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 
 void Class_rational::Prepare(Environment &env)
 {
-	// function assignment
+	// Assignment of function
 	Gura_AssignFunction(rational);
-	// method assignment
+	// Assignment of properties
+	Gura_AssignProperty(rational, denom);
+	Gura_AssignProperty(rational, numer);
+	// Assignment of method
 	Gura_AssignMethod(rational, reduce);		// primitive method
-	// suffix manager assignment
+	// Assignment of suffix manager
 	Gura_AssignSuffixMgrForNumber(r);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
+#if 0
 Value Class_rational::GetPropPrimitive(const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
@@ -109,6 +138,7 @@ Value Class_rational::GetPropPrimitive(const Value &valueThis,
 	evaluatedFlag = false;
 	return Value::Nil;
 }
+#endif
 
 bool Class_rational::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {

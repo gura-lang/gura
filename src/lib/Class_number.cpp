@@ -9,6 +9,62 @@ static const char *helpDoc_en = R"**(
 )**";
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// number#abs
+Gura_DeclareProperty_R(number, abs)
+{
+}
+
+Gura_ImplementPropertyGetter(number, abs)
+{
+	double num = valueThis.GetDouble();
+	return Value(::fabs(num));
+}
+
+// number#arg:[deg]
+Gura_DeclareProperty_R(number, arg)
+{
+}
+
+Gura_ImplementPropertyGetter(number, arg)
+{
+	return Value::Zero;
+}
+
+// number#imag
+Gura_DeclareProperty_R(number, imag)
+{
+}
+
+Gura_ImplementPropertyGetter(number, imag)
+{
+	return Value::Zero;
+}
+
+// number#norm
+Gura_DeclareProperty_R(number, norm)
+{
+}
+
+Gura_ImplementPropertyGetter(number, norm)
+{
+	double num = valueThis.GetDouble();
+	return Value(num * num);
+}
+
+// number#real
+Gura_DeclareProperty_R(number, real)
+{
+}
+
+Gura_ImplementPropertyGetter(number, real)
+{
+	double num = valueThis.GetDouble();
+	return Value(num);
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
 // number#roundoff(threshold:number => 1e-10)
@@ -39,9 +95,9 @@ Class_number::Class_number(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_numb
 
 void Class_number::Prepare(Environment &env)
 {
-	// class assignment
+	// Assignment of class
 	Gura_AssignValue(number, Value(Reference()));
-	// value assignment
+	// Assignment of values
 	Gura_AssignClassValueEx("max@int8",		Value(127));
 	Gura_AssignClassValueEx("min@int8",		Value(-128));
 	Gura_AssignClassValueEx("max@uint8",	Value(255));
@@ -64,12 +120,19 @@ void Class_number::Prepare(Environment &env)
 	Gura_AssignClassValueEx("size@uint64",	Value(8));
 	Gura_AssignClassValueEx("size@float",	Value(4));
 	Gura_AssignClassValueEx("size@double",	Value(8));
-	// method assignment
+	// Assignment of properties
+	Gura_AssignProperty(number, abs);
+	Gura_AssignProperty(number, arg);
+	Gura_AssignProperty(number, imag);
+	Gura_AssignProperty(number, norm);
+	Gura_AssignProperty(number, real);
+	// Assignment of method
 	Gura_AssignMethod(number, roundoff);	// primitive method
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
+#if 0
 Value Class_number::GetPropPrimitive(const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
@@ -91,6 +154,7 @@ Value Class_number::GetPropPrimitive(const Value &valueThis,
 	evaluatedFlag = false;
 	return Value::Nil;
 }
+#endif
 
 bool Class_number::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
