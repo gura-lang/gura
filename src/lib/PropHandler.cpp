@@ -18,12 +18,12 @@ PropHandler::~PropHandler()
 	_pHelpProvider->SetHolder(nullptr);
 }
 
-Value PropHandler::DoGetProp(const Value &valueThis, const SymbolSet &attrs) const
+Value PropHandler::DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const
 {
 	return Value::Nil;
 }
 
-Value PropHandler::DoSetProp(const Value &valueThis, const Value &value, const SymbolSet &attrs) const
+Value PropHandler::DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const
 {
 	return Value::Nil;
 }

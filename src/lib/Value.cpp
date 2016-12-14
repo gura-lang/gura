@@ -284,9 +284,9 @@ void Value::DirValueType(SymbolSet &symbols, bool escalateFlag) const
 Value Value::GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const
 {
 	Class *pClass = GetClass();
-	const PropHandler *pPropHandler = pClass->LookupPropHandler(pSymbol);
-	if (pPropHandler != nullptr) return pPropHandler->DoGetProp(*this, attrs);
 	Fundamental *pFund = IsPrimitive()? pClass : GetFundamental();
+	const PropHandler *pPropHandler = pClass->LookupPropHandler(pSymbol);
+	if (pPropHandler != nullptr) return pPropHandler->DoGetProp(*pFund, *this, attrs);
 	EnvRefMode envRefMode =
 		pFund->IsModule()? ENVREF_Module :
 		!(pFund->IsClass() || pFund->IsObject())? ENVREF_Escalate :
