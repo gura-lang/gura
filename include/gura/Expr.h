@@ -719,7 +719,7 @@ public:
 	}
 	inline const Operator *GetOperatorToApply() const { return _pOperatorToApply; }
 	virtual Value DoExec(Environment &env) const;
-	Value Exec(Environment &env, Environment &envDst, const SymbolSet *pSymbolsAssignable) const;
+	Value DoExecSub(Environment &env, Environment &envDst, const SymbolSet *pSymbolsAssignable) const;
 	virtual Expr *Clone() const;
 	virtual bool IsAssign() const;
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;

@@ -1238,7 +1238,7 @@ Value Expr_Member::DoExec(Environment &env) const
 	if (sig.IsSignalled()) return Value::Nil;
 	Value result;
 	if (_mode == MODE_Normal) {
-		result = valueThis.GetProp(GetSelector()->GetSymbol(), GetSelector()->GetAttrs());
+		result = valueThis.GetProp(env, GetSelector()->GetSymbol(), GetSelector()->GetAttrs());
 		if (result.Is_function()) {
 			result = Value(new Object_function(env, result.GetFunction()->Reference(), valueThis));
 		}
@@ -1631,13 +1631,13 @@ Expr *Expr_Assign::Clone() const
 Value Expr_Assign::DoExec(Environment &env) const
 {
 	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
-	Value result = Exec(env, env, nullptr);
+	Value result = DoExecSub(env, env, nullptr);
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
 
-Value Expr_Assign::Exec(Environment &env, Environment &envDst,
-						const SymbolSet *pSymbolsAssignable) const
+Value Expr_Assign::DoExecSub(Environment &env, Environment &envDst,
+							 const SymbolSet *pSymbolsAssignable) const
 {
 	Signal &sig = env.GetSignal();
 	Value valueAssigned;
@@ -2494,7 +2494,7 @@ Value Expr_Caller::ExecCallable(Environment &env, TrailCtrlHolder *pTrailCtrlHol
 	}
 	const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
 	AutoPtr<Callable> pCallable(
-		valueThis.GetCallable(pExprSelector->GetSymbol(), pExprSelector->GetAttrs()));
+		valueThis.GetCallable(env, pExprSelector->GetSymbol(), pExprSelector->GetAttrs()));
 	if (pCallable.IsNull()) return Value::Nil;
 	return pCallable->DoCall(env, GetCallerInfo(),
 							 valueThis, pIteratorThis, pTrailCtrlHolder);

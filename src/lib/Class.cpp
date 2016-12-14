@@ -718,7 +718,7 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsAssign()) {
 			const Expr_Assign *pExprAssign = dynamic_cast<const Expr_Assign *>(pExpr);
-			pExprAssign->Exec(*pEnvLocal, *this, pSymbolsAssignable);
+			pExprAssign->DoExecSub(*pEnvLocal, *this, pSymbolsAssignable);
 		} else if (pExpr->IsCaller()) {
 			const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(pExpr);
 			Value valueCar = pExprCaller->GetCar()->Exec(*pEnvLocal);

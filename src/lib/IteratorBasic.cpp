@@ -664,7 +664,7 @@ bool Iterator_MemberMap::DoNext(Environment &env, Value &value)
 {
 	Value valueThisEach;
 	if (!_pIterator->Next(env, valueThisEach)) return false;
-	value = valueThisEach.GetProp(GetSymbol(), GetAttrs());
+	value = valueThisEach.GetProp(env, GetSymbol(), GetAttrs());
 	if (env.IsSignalled()) return false;
 	if (value.Is_function()) {
 		Object_function *pObj = new Object_function(
@@ -724,7 +724,7 @@ bool Iterator_MethodMap::DoNext(Environment &env, Value &value)
 	if (!_pIteratorThis->Next(env, valueThis)) return false;
 	if (_valTypePrev != valueThis.GetValueType()) {
 		_pCallable.reset(
-			valueThis.GetCallable(_pExprSelector->GetSymbol(), _pExprSelector->GetAttrs()));
+			valueThis.GetCallable(*_pEnv, _pExprSelector->GetSymbol(), _pExprSelector->GetAttrs()));
 		if (_pCallable.IsNull()) return false;
 		_valTypePrev = valueThis.GetValueType();
 	}

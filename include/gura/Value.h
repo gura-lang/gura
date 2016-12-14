@@ -463,8 +463,8 @@ public:
 	void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) const;
 	void DirValueType(SymbolSet &symbols, bool escalateFlag) const;
-	Value GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const;
-	Callable *GetCallable(const Symbol *pSymbol, const SymbolSet &attrs) const;
+	Value GetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs) const;
+	Callable *GetCallable(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs) const;
 	ErrorType GetErrorType() const;
 	bool IsFlatList() const;
 	static bool IsInstanceOf(ValueType valTypeTgt, ValueType valType);

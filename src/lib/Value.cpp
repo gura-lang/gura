@@ -281,12 +281,12 @@ void Value::DirValueType(SymbolSet &symbols, bool escalateFlag) const
 	}
 }
 
-Value Value::GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const
+Value Value::GetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs) const
 {
 	Class *pClass = GetClass();
 	Fundamental *pFund = IsPrimitive()? pClass : GetFundamental();
 	const PropHandler *pPropHandler = pClass->LookupPropHandler(pSymbol);
-	if (pPropHandler != nullptr) return pPropHandler->DoGetProp(*pFund, *this, attrs);
+	if (pPropHandler != nullptr) return pPropHandler->DoGetProp(env, *this, attrs);
 	EnvRefMode envRefMode =
 		pFund->IsModule()? ENVREF_Module :
 		!(pFund->IsClass() || pFund->IsObject())? ENVREF_Escalate :
@@ -296,20 +296,20 @@ Value Value::GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const
 	return rtn;
 }
 
-Callable *Value::GetCallable(const Symbol *pSymbol, const SymbolSet &attrs) const
+Callable *Value::GetCallable(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs) const
 {
 	Fundamental *pFund = IsPrimitive()? GetClass() : GetFundamental();
 	Callable *pCallable = pFund->GetCallable(pSymbol);
-	if (pFund->IsSignalled()) return nullptr;
+	if (env.IsSignalled()) return nullptr;
 	if (pCallable != nullptr) return pCallable->Reference();
-	Value valueCar = GetProp(pSymbol, attrs);
-	if (pFund->IsSignalled()) return nullptr;
+	Value valueCar = GetProp(env, pSymbol, attrs);
+	if (env.IsSignalled()) return nullptr;
 	if (valueCar.IsFundamental()) {
 		// the pointer must be referenced because valueCar will be destroyed
 		// after this scope vanishes.
 		return valueCar.GetFundamental()->Reference();
 	}
-	pFund->SetError(ERR_TypeError, "object is not callable");
+	env.SetError(ERR_TypeError, "object is not callable");
 	return nullptr;
 }
 
