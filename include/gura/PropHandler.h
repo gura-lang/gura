@@ -47,12 +47,17 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE PropHandler : public HelpProvider::Holder {
 protected:
+	int _cntRef;
 	const Symbol *_pSymbol;
 	ULong _flags;
 	AutoPtr<HelpProvider> _pHelpProvider;
 public:
+	Gura_DeclareReferenceAccessor(PropHandler);
+public:
 	PropHandler(const Symbol *pSymbol, ULong flags);
+protected:
 	virtual ~PropHandler();
+public:
 	virtual Value DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const;
 	virtual Value DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const;
 public:
@@ -81,7 +86,9 @@ class GURA_DLLDECLARE PropHandlerMap :
 	public std::unordered_map <const Symbol *, PropHandler *, Symbol::Hasher, Symbol::EqualTo> {
 public:
 	inline PropHandlerMap() {}
+	PropHandlerMap(const PropHandlerMap &propHandlerMap);
 	~PropHandlerMap();
+	void operator=(const PropHandlerMap &propHandlerMap);
 };
 
 }

@@ -9,7 +9,7 @@ namespace Gura {
 // PropHandler
 //-----------------------------------------------------------------------------
 PropHandler::PropHandler(const Symbol *pSymbol, ULong flags) :
-	_pSymbol(pSymbol), _flags(flags), _pHelpProvider(new HelpProvider(this))
+	_cntRef(1), _pSymbol(pSymbol), _flags(flags), _pHelpProvider(new HelpProvider(this))
 {
 }
 
@@ -36,10 +36,24 @@ String PropHandler::MakeHelpTitle() const
 //-----------------------------------------------------------------------------
 // PropHandlerMap
 //-----------------------------------------------------------------------------
+PropHandlerMap::PropHandlerMap(const PropHandlerMap &propHandlerMap)
+{
+	foreach_const (PropHandlerMap, iter, propHandlerMap) {
+		insert(value_type(iter->first, iter->second->Reference()));
+	}
+}
+
 PropHandlerMap::~PropHandlerMap()
 {
 	foreach (PropHandlerMap, iter, *this) {
-		delete iter->second;
+		PropHandler::Delete(iter->second);
+	}
+}
+
+void PropHandlerMap::operator=(const PropHandlerMap &propHandlerMap)
+{
+	foreach_const (PropHandlerMap, iter, propHandlerMap) {
+		insert(value_type(iter->first, iter->second->Reference()));
 	}
 }
 
