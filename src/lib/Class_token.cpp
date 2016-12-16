@@ -87,7 +87,7 @@ void Class_token::DoPrepare(Environment &env)
 	Gura_AssignFunction(tokens);
 	Gura_AssignValue(token, Value(Reference()));
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 Object *Class_token::CreateDescendant(Environment &env, Class *pClass)

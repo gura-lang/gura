@@ -18,7 +18,7 @@ Class_undefined::Class_undefined(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 void Class_undefined::DoPrepare(Environment &env)
 {
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_undefined::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

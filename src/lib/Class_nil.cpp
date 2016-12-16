@@ -18,7 +18,7 @@ Class_nil::Class_nil(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_nil)
 void Class_nil::DoPrepare(Environment &env)
 {
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_nil::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

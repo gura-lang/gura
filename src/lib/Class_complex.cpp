@@ -192,7 +192,7 @@ void Class_complex::DoPrepare(Environment &env)
 	// Assignment of suffix manager
 	Gura_AssignSuffixMgrForNumber(j);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_complex::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

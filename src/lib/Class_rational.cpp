@@ -120,7 +120,7 @@ void Class_rational::DoPrepare(Environment &env)
 	// Assignment of suffix manager
 	Gura_AssignSuffixMgrForNumber(r);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_rational::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

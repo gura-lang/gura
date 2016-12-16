@@ -917,7 +917,7 @@ void Class_matrix::DoPrepare(Environment &env)
 	Gura_AssignMethod(matrix, translate);
 	Gura_AssignMethod(matrix, transpose);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_matrix::Serialize(Environment &env, Stream &stream, const Value &value) const

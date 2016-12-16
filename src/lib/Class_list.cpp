@@ -2144,7 +2144,7 @@ void Class_list::DoPrepare(Environment &env)
 	Gura_AssignMethod(list, walk);
 	Gura_AssignMethod(list, while_);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_list::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

@@ -204,7 +204,7 @@ void Class_formatter::DoPrepare(Environment &env)
 	Gura_AssignMethod(formatter, issharp);
 	Gura_AssignMethod(formatter, isuppercase);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 Object *Class_formatter::CreateDescendant(Environment &env, Class *pClass)

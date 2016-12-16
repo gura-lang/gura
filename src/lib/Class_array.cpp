@@ -878,7 +878,7 @@ void Class_array::DoPrepare(Environment &env)
 	Gura_AssignMethod(array, tail);
 	Gura_AssignMethod(array, transpose);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_array::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

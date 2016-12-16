@@ -1707,7 +1707,7 @@ void Class_iterator::DoPrepare(Environment &env)
 	Gura_AssignMethod(iterator, walk);
 	Gura_AssignMethod(iterator, while_);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_iterator::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

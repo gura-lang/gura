@@ -18,7 +18,7 @@ Class_Module::Class_Module(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Modu
 void Class_Module::DoPrepare(Environment &env)
 {
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_Module::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

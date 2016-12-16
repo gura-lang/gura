@@ -213,7 +213,7 @@ void Class_uri::DoPrepare(Environment &env)
 	Gura_AssignMethod(uri, getquery);
 	Gura_AssignMethod(uri, parsequery);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_uri::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

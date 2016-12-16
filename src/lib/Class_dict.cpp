@@ -620,7 +620,7 @@ void Class_dict::DoPrepare(Environment &env)
 	Gura_AssignMethod(dict, put);
 	Gura_AssignMethod(dict, values);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_dict::Serialize(Environment &env, Stream &stream, const Value &value) const

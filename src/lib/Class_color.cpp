@@ -353,7 +353,7 @@ void Class_color::DoPrepare(Environment &env)
 	Gura_AssignClassValue(white,	Value(new Object_color(env, Color::white)));
 	Gura_AssignClassValue(zero,		Value(new Object_color(env, Color::zero)));
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_color::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

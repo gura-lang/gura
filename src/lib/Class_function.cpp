@@ -495,7 +495,7 @@ void Class_function::DoPrepare(Environment &env)
 	Gura_AssignMethod(function, getsymbol);
 	Gura_AssignMethod(function, mathdiff);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_function::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

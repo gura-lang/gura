@@ -259,7 +259,7 @@ void Class_palette::DoPrepare(Environment &env)
 	Gura_AssignMethod(palette, shrink);
 	Gura_AssignMethod(palette, updateby);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_palette::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

@@ -142,7 +142,7 @@ void Class_environment::DoPrepare(Environment &env)
 	Gura_AssignMethod(environment, lookup);
 	Gura_AssignMethod(environment, setprop_X);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 Object *Class_environment::CreateDescendant(Environment &env, Class *pClass)

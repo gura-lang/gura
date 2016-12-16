@@ -72,7 +72,7 @@ void Class_directory::DoPrepare(Environment &env)
 	// function assignment
 	Gura_AssignFunction(directory);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_directory::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

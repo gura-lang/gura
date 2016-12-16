@@ -1258,7 +1258,7 @@ void Class_image::DoPrepare(Environment &env)
 	Gura_AssignMethod(image, thumbnail);
 	Gura_AssignMethod(image, write);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_image::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

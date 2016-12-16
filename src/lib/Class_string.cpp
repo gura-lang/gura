@@ -1034,7 +1034,7 @@ void Class_string::DoPrepare(Environment &env)
 	// suffix manager assignment
 	Gura_AssignSuffixMgrForString($);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 Value Class_string::IndexGetPrimitive(Environment &env,

@@ -128,7 +128,7 @@ void Class_argument::DoPrepare(Environment &env)
 	Gura_AssignMethod(arg, isset);
 	Gura_AssignMethod(arg, quit_trailer);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 Object *Class_argument::CreateDescendant(Environment &env, Class *pClass)

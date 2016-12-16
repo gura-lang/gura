@@ -760,7 +760,7 @@ void Class_pointer::DoPrepare(Environment &env)
 	Gura_AssignMethod(pointer, unpacks);
 	Gura_AssignMethod(pointer, writer);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_pointer::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

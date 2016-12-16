@@ -107,7 +107,7 @@ void Class_declaration::DoPrepare(Environment &env)
 	Gura_AssignValue(declaration, Value(Reference()));
 	Gura_AssignMethod(declaration, istype);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 //-----------------------------------------------------------------------------

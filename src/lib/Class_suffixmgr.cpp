@@ -141,7 +141,7 @@ void Class_suffixmgr::DoPrepare(Environment &env)
 	Gura_AssignFunction(suffixmgr);
 	Gura_AssignMethod(suffixmgr, assign);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 }

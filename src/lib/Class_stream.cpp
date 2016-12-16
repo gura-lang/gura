@@ -924,7 +924,7 @@ void Class_stream::DoPrepare(Environment &env)
 	Gura_AssignMethod(stream, tell);
 	Gura_AssignMethod(stream, write);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_stream::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

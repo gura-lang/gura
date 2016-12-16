@@ -343,7 +343,7 @@ void Class_vertex::DoPrepare(Environment &env)
 	Gura_AssignFunction(vertex);
 	Gura_AssignClassValue(zero, Value(new Object_vertex(env, Vertex::Zero)));
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_vertex::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

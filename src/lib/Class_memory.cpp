@@ -277,7 +277,7 @@ void Class_memory::DoPrepare(Environment &env)
 	Gura_AssignMethod(memory, dump);
 	Gura_AssignMethod(memory, pointer);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_memory::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

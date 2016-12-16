@@ -404,7 +404,7 @@ void Class_binary::DoPrepare(Environment &env)
 	Gura_AssignMethod(binary, reader);
 	Gura_AssignMethod(binary, writer);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_binary::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

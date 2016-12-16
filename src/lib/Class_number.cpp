@@ -129,7 +129,7 @@ void Class_number::DoPrepare(Environment &env)
 	// Assignment of method
 	Gura_AssignMethod(number, roundoff);	// primitive method
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_number::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

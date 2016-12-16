@@ -46,7 +46,7 @@ void Class_symbol::DoPrepare(Environment &env)
 	// method assignment
 	Gura_AssignMethod(symbol, eval);	// primitive method
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_symbol::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

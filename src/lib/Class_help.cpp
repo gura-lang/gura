@@ -376,7 +376,7 @@ void Class_help::DoPrepare(Environment &env)
 	Gura_AssignUnaryOperator(Inv, help);
 	Gura_AssignUnaryOperator(Inv, Class);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 }

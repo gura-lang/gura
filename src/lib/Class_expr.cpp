@@ -576,7 +576,7 @@ void Class_expr::DoPrepare(Environment &env)
 	Gura_AssignMethod(expr,	isidentifier);
 	Gura_AssignMethod(expr,	issuffixed);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 bool Class_expr::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

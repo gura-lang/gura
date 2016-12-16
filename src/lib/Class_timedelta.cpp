@@ -113,7 +113,7 @@ void Class_timedelta::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(timedelta);
 	// help document
-	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 Object *Class_timedelta::CreateDescendant(Environment &env, Class *pClass)
