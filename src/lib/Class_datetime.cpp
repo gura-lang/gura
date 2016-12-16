@@ -529,7 +529,7 @@ Class_datetime::Class_datetime(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 {
 }
 
-void Class_datetime::Prepare(Environment &env)
+void Class_datetime::DoPrepare(Environment &env)
 {
 	// function assignment
 	Gura_AssignFunction(datetime);

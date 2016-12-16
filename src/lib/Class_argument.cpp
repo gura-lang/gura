@@ -121,7 +121,7 @@ Class_argument::Class_argument(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 {
 }
 
-void Class_argument::Prepare(Environment &env)
+void Class_argument::DoPrepare(Environment &env)
 {
 	Gura_AssignValue(argument, Value(Reference()));
 	Gura_AssignMethod(arg, finalize_trailer);

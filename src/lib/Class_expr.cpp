@@ -543,7 +543,7 @@ Class_expr::Class_expr(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_expr)
 {
 }
 
-void Class_expr::Prepare(Environment &env)
+void Class_expr::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(expr);
 	Gura_AssignMethod(expr, eval);

@@ -82,23 +82,6 @@ Value DoGetPropTmpl(Environment &env, const Symbol *pSymbol,
 Value Object_array::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(elemtype))) {
-		
-	} else if (pSymbol->IsIdentical(Gura_Symbol(ndim))) {
-		return Value(_pArray->GetDimensions().size());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(shape))) {
-		Value value;
-		Object_list *pObjList = value.InitAsList(env);
-		Array::Dimensions &dims = _pArray->GetDimensions();
-		pObjList->Reserve(dims.size());
-		foreach_const (Array::Dimensions, pDim, dims) {
-			pObjList->AddFast(Value(pDim->GetSize()));
-		}
-		pObjList->SetValueType(VTYPE_number);
-		return value;
-	}
-	evaluatedFlag = false;
 	static const DoGetPropT doGetProps[] = {
 		nullptr,
 		&DoGetPropTmpl<Int8>,
@@ -195,6 +178,49 @@ void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value
 		//&IndexSetTmpl<Complex>,
 	};
 	(*indexSets[GetArray()->GetElemType()])(env, valueIdx, value, this);
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// array#elemtype
+Gura_DeclareProperty_R(array, elemtype)
+{
+}
+
+Gura_ImplementPropertyGetter(array, elemtype)
+{
+	return Value::Nil;
+}
+
+// array#ndim
+Gura_DeclareProperty_R(array, ndim)
+{
+}
+
+Gura_ImplementPropertyGetter(array, ndim)
+{
+	Array *pArray = Object_array::GetObject(valueThis)->GetArray();
+	return Value(pArray->GetDimensions().size());
+}
+
+// array#shape
+Gura_DeclareProperty_R(array, shape)
+{
+}
+
+Gura_ImplementPropertyGetter(array, shape)
+{
+	Array *pArray = Object_array::GetObject(valueThis)->GetArray();
+	Value value;
+	Object_list *pObjList = value.InitAsList(env);
+	Array::Dimensions &dims = pArray->GetDimensions();
+	pObjList->Reserve(dims.size());
+	foreach_const (Array::Dimensions, pDim, dims) {
+		pObjList->AddFast(Value(pDim->GetSize()));
+	}
+	pObjList->SetValueType(VTYPE_number);
+	return value;
 }
 
 //-----------------------------------------------------------------------------
@@ -827,11 +853,15 @@ Class_array::Class_array(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_array)
 {
 }
 
-void Class_array::Prepare(Environment &env)
+void Class_array::DoPrepare(Environment &env)
 {
-	// class assignment
+	// Assignment of class
 	Gura_AssignValue(array, Value(Reference()));
-	// method assignment
+	// Assignment of properties
+	Gura_AssignProperty(array, elemtype);
+	Gura_AssignProperty(array, ndim);
+	Gura_AssignProperty(array, shape);
+	// Assignment of methods
 	Gura_AssignMethod(array, average);
 	Gura_AssignMethod(array, dot);
 	Gura_AssignMethod(array, dump);

@@ -441,7 +441,9 @@ Value Environment::SetProp(const Symbol *pSymbol, const SymbolSet &attrs,
 			}
 			pValueTypeInfo->SetClass(Class::Reference(pClass));
 			AssignValueType(pValueTypeInfo);
-			if (!pClass->PrepareConstructor(*this)) return Value::Nil;
+			//if (!pClass->DoPrepare(*this)) return Value::Nil;
+			pClass->DoPrepare(*this);
+			if (IsSignalled()) return Value::Nil;
 		}
 		extra = EXTRA_Public;
 	} else if (valueAssigned.Is_function()) {

@@ -317,7 +317,7 @@ Class_color::Class_color(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_color)
 {
 }
 
-void Class_color::Prepare(Environment &env)
+void Class_color::DoPrepare(Environment &env)
 {
 	Gura_AssignMethod(color, getgray);
 	Gura_AssignMethod(color, html);

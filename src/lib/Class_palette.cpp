@@ -251,7 +251,7 @@ Class_palette::Class_palette(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_pa
 {
 }
 
-void Class_palette::Prepare(Environment &env)
+void Class_palette::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(palette);
 	Gura_AssignMethod(palette, each);

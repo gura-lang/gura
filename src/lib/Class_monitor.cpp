@@ -63,7 +63,7 @@ Class_monitor::Class_monitor(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_mo
 {
 }
 
-void Class_monitor::Prepare(Environment &env)
+void Class_monitor::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(monitor);
 	// help document

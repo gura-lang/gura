@@ -888,7 +888,7 @@ Class_matrix::Class_matrix(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_matr
 {
 }
 
-void Class_matrix::Prepare(Environment &env)
+void Class_matrix::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(matrix);
 	Gura_AssignFunctionEx(MatrixInit, "@@");

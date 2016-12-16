@@ -15,7 +15,7 @@ namespace Gura {
 class GURA_DLLDECLARE Class_semaphore : public Class {
 public:
 	Class_semaphore(Environment *pEnvOuter);
-	virtual void Prepare(Environment &env);
+	virtual void DoPrepare(Environment &env);
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 

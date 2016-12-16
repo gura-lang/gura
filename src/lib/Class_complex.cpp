@@ -176,7 +176,7 @@ Class_complex::Class_complex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_co
 {
 }
 
-void Class_complex::Prepare(Environment &env)
+void Class_complex::DoPrepare(Environment &env)
 {
 	// Assignment of function
 	Gura_AssignFunction(complex);

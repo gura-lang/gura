@@ -21,7 +21,7 @@ public:
 	};
 public:
 	Class_Struct(Environment *pEnvOuter);
-	virtual void Prepare(Environment &env);
+	virtual void DoPrepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };

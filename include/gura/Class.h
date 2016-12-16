@@ -34,7 +34,7 @@ public: \
 	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl); \
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl); \
 	virtual Object *CreateDescendant(Environment &env, Class *pClass); \
-	virtual void Prepare(Environment &env);
+	virtual void DoPrepare(Environment &env);
 
 #define Gura_DeclareUserClassEnd(name) \
 };
@@ -49,25 +49,25 @@ ValueType VTYPE_##name = static_cast<ValueType>(0); \
 bool Class_##name::CastFrom(Environment &env, Value &value, const Declaration *pDecl) { return false; } \
 bool Class_##name::CastTo(Environment &env, Value &value, const Declaration &decl) { return false; } \
 Object *Class_##name::CreateDescendant(Environment &env, Class *pClass) { return Class::CreateDescendant(env, pClass); } \
-void Class_##name::Prepare(Environment &env)
+void Class_##name::DoPrepare(Environment &env)
 
 #define Gura_ImplementUserClassWithCast(name) \
 ValueTypeInfo *Class_##name::_pValueTypeInfo = nullptr; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
 Object *Class_##name::CreateDescendant(Environment &env, Class *pClass) { return Class::CreateDescendant(env, pClass); } \
-void Class_##name::Prepare(Environment &env)
+void Class_##name::DoPrepare(Environment &env)
 
 #define Gura_ImplementUserInheritableClass(name) \
 ValueTypeInfo *Class_##name::_pValueTypeInfo = nullptr; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
 bool Class_##name::CastFrom(Environment &env, Value &value, const Declaration *pDecl) { return false; } \
 bool Class_##name::CastTo(Environment &env, Value &value, const Declaration &decl) { return false; } \
-void Class_##name::Prepare(Environment &env)
+void Class_##name::DoPrepare(Environment &env)
 
 #define Gura_ImplementUserInheritableClassWithCast(name) \
 ValueTypeInfo *Class_##name::_pValueTypeInfo = nullptr; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
-void Class_##name::Prepare(Environment &env)
+void Class_##name::DoPrepare(Environment &env)
 
 #define Gura_ImplementCastFrom(name) \
 bool Class_##name::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
@@ -94,7 +94,7 @@ Object *Class_##name::CreateDescendant(Environment &env, Class *pClass)
 	Class_##name *pClass = new Class_##name(pClassBase, \
 						Class_##name::_pValueTypeInfo->GetValueType()); \
 	Class_##name::_pValueTypeInfo->SetClass(pClass); \
-	pClass->Prepare(env); \
+	pClass->DoPrepare(env); \
 	pClass->DeriveOperators(); \
 } while (0)
 
@@ -105,7 +105,7 @@ Gura_RealizeUserClassAlias(name, #name, pClassBase)
 Gura_RealizeAndPrepareUserClassAlias(name, #name, pClassBase)
 
 #define Gura_PrepareUserClass(name) do { \
-	Gura_UserClass(name)->Prepare(env); \
+	Gura_UserClass(name)->DoPrepare(env); \
 	Gura_UserClass(name)->DeriveOperators(); \
 } while (0)
 
@@ -207,7 +207,8 @@ public:
 	virtual bool IsClass() const;
 	virtual bool IsCustom() const;
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
-	virtual void Prepare(Environment &env);
+	virtual void Prepare(Environment &env, int a);
+	virtual void DoPrepare(Environment &env);
 	inline bool IsAnonymous() const {
 		return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_));
 	}
@@ -262,6 +263,7 @@ public:
 	virtual bool Format_c(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	void AddOperatorEntry(OperatorEntry *pOperatorEntry);
 	void DeriveOperators();
+	void DerivePropHandlers();
 	void AssignPropHandler(PropHandler *pPropHandler);
 	const PropHandler *LookupPropHandler(const Symbol *pSymbol);
 	bool BuildContent(Environment &env, const Value &valueThis,

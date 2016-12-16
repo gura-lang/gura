@@ -311,7 +311,7 @@ Class_audio::Class_audio(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_audio)
 {
 }
 
-void Class_audio::Prepare(Environment &env)
+void Class_audio::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(audio);
 	Gura_AssignMethod(audio, each);

@@ -40,14 +40,16 @@ Object *ClassCustom::CreateDescendant(Environment &env, Class *pClass)
 	return pObj;
 }
 
-bool ClassCustom::PrepareConstructor(Environment &env)
+void ClassCustom::DoPrepare(Environment &env)
 {
 	Signal &sig = env.GetSignal();
+	//********
 	DeriveOperators();
+	//********
 	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged);
 	if (!_pExprContent.IsNull() &&
 					!BuildContent(env, valueThis, _pExprContent.get())) {
-		return false;
+		return;
 	}
 	FunctionCustom *pFuncInit = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__init__), ENVREF_NoEscalate));
@@ -56,10 +58,10 @@ bool ClassCustom::PrepareConstructor(Environment &env)
 	} else if (pFuncInit == nullptr) {
 		Function *pFunc = GetConstructor();
 		if (pFunc->IsAnonymous()) pFunc->SetSymbol(_pSymbol);
-		return true;
+		return;
 	} else {
 		sig.SetError(ERR_DeclarationError, "struct can't have constructor");
-		return false;
+		return;
 	}
 	AutoPtr<Constructor> pFunc;
 	if (pFuncInit != nullptr) {
@@ -84,12 +86,11 @@ bool ClassCustom::PrepareConstructor(Environment &env)
 	} else {
 		pFunc.reset(new Constructor(env, Gura_Symbol(_anonymous_),
 												new Expr_Block(), FUNCTYPE_Function));
-		if (!pFunc->CustomDeclare(env, CallerInfo::Empty, SymbolSet::Empty)) return false;
+		if (!pFunc->CustomDeclare(env, CallerInfo::Empty, SymbolSet::Empty)) return;
 	}
 	pFunc->SetSymbol(_pSymbol);
 	pFunc->SetClassToConstruct(this); // constructor is registered in this class
 	pFunc->DeclareBlock(OCCUR_ZeroOrOnce);
-	return true;
 }
 
 bool ClassCustom::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

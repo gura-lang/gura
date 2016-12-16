@@ -93,7 +93,7 @@ Class_number::Class_number(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_numb
 {
 }
 
-void Class_number::Prepare(Environment &env)
+void Class_number::DoPrepare(Environment &env)
 {
 	// Assignment of class
 	Gura_AssignValue(number, Value(Reference()));

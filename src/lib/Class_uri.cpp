@@ -205,7 +205,7 @@ Class_uri::Class_uri(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_uri)
 {
 }
 
-void Class_uri::Prepare(Environment &env)
+void Class_uri::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(uri);
 	Gura_AssignMethod(uri, getfragment);

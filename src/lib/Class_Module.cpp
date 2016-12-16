@@ -15,7 +15,7 @@ Class_Module::Class_Module(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Modu
 {
 }
 
-void Class_Module::Prepare(Environment &env)
+void Class_Module::DoPrepare(Environment &env)
 {
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);

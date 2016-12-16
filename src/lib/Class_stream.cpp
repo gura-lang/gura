@@ -894,7 +894,7 @@ Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stre
 {
 }
 
-void Class_stream::Prepare(Environment &env)
+void Class_stream::DoPrepare(Environment &env)
 {
 	Gura_AssignFunctionEx(stream, "open");
 	Gura_AssignFunction(stream);

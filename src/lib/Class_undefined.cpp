@@ -15,7 +15,7 @@ Class_undefined::Class_undefined(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 {
 }
 
-void Class_undefined::Prepare(Environment &env)
+void Class_undefined::DoPrepare(Environment &env)
 {
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);

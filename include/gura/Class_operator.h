@@ -14,7 +14,7 @@ namespace Gura {
 class GURA_DLLDECLARE Class_operator : public Class {
 public:
 	Class_operator(Environment *pEnvOuter);
-	virtual void Prepare(Environment &env);
+	virtual void DoPrepare(Environment &env);
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 

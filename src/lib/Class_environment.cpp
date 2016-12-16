@@ -135,7 +135,7 @@ Class_environment::Class_environment(Environment *pEnvOuter) : Class(pEnvOuter, 
 {
 }
 
-void Class_environment::Prepare(Environment &env)
+void Class_environment::DoPrepare(Environment &env)
 {
 	Gura_AssignValue(environment, Value(Reference()));
 	Gura_AssignMethod(environment, getprop_X);

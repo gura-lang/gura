@@ -162,7 +162,7 @@ Class_codec::Class_codec(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_codec)
 {
 }
 
-void Class_codec::Prepare(Environment &env)
+void Class_codec::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(codec);
 	Gura_AssignMethod(codec, addcr);

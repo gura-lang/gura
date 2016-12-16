@@ -14,7 +14,7 @@ namespace Gura {
 class GURA_DLLDECLARE Class_dict : public Class {
 public:
 	Class_dict(Environment *pEnvOuter);
-	virtual void Prepare(Environment &env);
+	virtual void DoPrepare(Environment &env);
 	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Stream &stream, Value &value) const;
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);

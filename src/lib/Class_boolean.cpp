@@ -15,7 +15,7 @@ Class_boolean::Class_boolean(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_bo
 {
 }
 
-void Class_boolean::Prepare(Environment &env)
+void Class_boolean::DoPrepare(Environment &env)
 {
 	// class assignment
 	Gura_AssignValue(boolean, Value(Reference()));

@@ -711,7 +711,7 @@ Class_pointer::Class_pointer(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_po
 {
 }
 
-void Class_pointer::Prepare(Environment &env)
+void Class_pointer::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(pointer);
 	Gura_AssignMethod(pointer, copyfrom);

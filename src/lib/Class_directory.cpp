@@ -67,7 +67,7 @@ Class_directory::Class_directory(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 {
 }
 
-void Class_directory::Prepare(Environment &env)
+void Class_directory::DoPrepare(Environment &env)
 {
 	// function assignment
 	Gura_AssignFunction(directory);

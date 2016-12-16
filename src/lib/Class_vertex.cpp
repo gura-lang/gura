@@ -329,7 +329,7 @@ Class_vertex::Class_vertex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_vert
 {
 }
 
-void Class_vertex::Prepare(Environment &env)
+void Class_vertex::DoPrepare(Environment &env)
 {
 	Gura_AssignMethod(vertex, cross);
 	Gura_AssignMethod(vertex, inner);

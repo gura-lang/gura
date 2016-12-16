@@ -108,7 +108,7 @@ Class_rational::Class_rational(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 {
 }
 
-void Class_rational::Prepare(Environment &env)
+void Class_rational::DoPrepare(Environment &env)
 {
 	// Assignment of function
 	Gura_AssignFunction(rational);

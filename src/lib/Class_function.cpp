@@ -482,7 +482,7 @@ Class_function::Class_function(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 {
 }
 
-void Class_function::Prepare(Environment &env)
+void Class_function::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(function);
 	Gura_AssignFunctionEx(function, "&");

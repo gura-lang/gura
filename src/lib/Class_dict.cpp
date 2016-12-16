@@ -605,7 +605,7 @@ Class_dict::Class_dict(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_dict)
 {
 }
 
-void Class_dict::Prepare(Environment &env)
+void Class_dict::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(dict);
 	Gura_AssignFunctionEx(dict, "%");

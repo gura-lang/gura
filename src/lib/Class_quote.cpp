@@ -15,7 +15,7 @@ Class_quote::Class_quote(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_quote)
 {
 }
 
-void Class_quote::Prepare(Environment &env)
+void Class_quote::DoPrepare(Environment &env)
 {
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);

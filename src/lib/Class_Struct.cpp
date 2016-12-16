@@ -98,7 +98,7 @@ Class_Struct::Class_Struct(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Stru
 {
 }
 
-void Class_Struct::Prepare(Environment &env)
+void Class_Struct::DoPrepare(Environment &env)
 {
 	Gura_AssignMethod(Struct, tolist);
 	// help document

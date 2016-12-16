@@ -39,7 +39,7 @@ Class_symbol::Class_symbol(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_symb
 {
 }
 
-void Class_symbol::Prepare(Environment &env)
+void Class_symbol::DoPrepare(Environment &env)
 {
 	// class assignment
 	Gura_AssignValue(symbol, Value(Reference()));

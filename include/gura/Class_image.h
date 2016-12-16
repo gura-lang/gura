@@ -15,7 +15,7 @@ namespace Gura {
 class GURA_DLLDECLARE Class_image : public Class {
 public:
 	Class_image(Environment *pEnvOuter);
-	virtual void Prepare(Environment &env);
+	virtual void DoPrepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
 };
 

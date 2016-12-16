@@ -82,7 +82,7 @@ Class_token::Class_token(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_token)
 {
 }
 
-void Class_token::Prepare(Environment &env)
+void Class_token::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(tokens);
 	Gura_AssignValue(token, Value(Reference()));

@@ -261,7 +261,7 @@ Class_memory::Class_memory(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_memo
 {
 }
 
-void Class_memory::Prepare(Environment &env)
+void Class_memory::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(memory);
 	Gura_AssignMethod(memory, array_at_int8);

@@ -279,7 +279,7 @@ Class_operator::Class_operator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 {
 }
 
-void Class_operator::Prepare(Environment &env)
+void Class_operator::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(operator_);
 	Gura_AssignMethod(operator_, assign);

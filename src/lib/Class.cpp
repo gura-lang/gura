@@ -525,8 +525,15 @@ Value Class::DoCall(Environment &env, const CallerInfo &callerInfo,
 	return GetConstructor()->EvalAuto(env, *pArg);
 }
 
+void Class::Prepare(Environment &env, int a)
+{
+	DeriveOperators();
+	DerivePropHandlers();
+	DoPrepare(env);
+}
+
 // assignment
-void Class::Prepare(Environment &env)
+void Class::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(object);
 	Gura_AssignMethod(Object, is);			// primitive method
@@ -694,6 +701,13 @@ void Class::DeriveOperators()
 	foreach (Operator::EntryList, ppOperatorEntry, operatorEntryList) {
 		Operator::Assign(env, *ppOperatorEntry);
 	}
+}
+
+void Class::DerivePropHandlers()
+{
+	if (_pClassSuper->_pPropHandlerMap == nullptr) return;
+	if (_pPropHandlerMap.get() == nullptr) _pPropHandlerMap.reset(new PropHandlerMap());
+	*_pPropHandlerMap = *_pClassSuper->_pPropHandlerMap;
 }
 
 void Class::AssignPropHandler(PropHandler *pPropHandler)

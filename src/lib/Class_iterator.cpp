@@ -1648,7 +1648,7 @@ Class_iterator::Class_iterator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 {
 }
 
-void Class_iterator::Prepare(Environment &env)
+void Class_iterator::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(iterator);
 	// assignment of methods specific to iterator

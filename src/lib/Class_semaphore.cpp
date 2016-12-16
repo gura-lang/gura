@@ -123,7 +123,7 @@ Class_semaphore::Class_semaphore(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 {
 }
 
-void Class_semaphore::Prepare(Environment &env)
+void Class_semaphore::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(semaphore);
 	Gura_AssignMethod(semaphore, release);

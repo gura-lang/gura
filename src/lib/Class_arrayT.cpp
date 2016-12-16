@@ -322,7 +322,7 @@ Class_arrayT<T_Elem>::Class_arrayT(Environment *pEnvOuter, ValueType valType) :
 }
 
 template<typename T_Elem>
-void Class_arrayT<T_Elem>::Prepare(Environment &env)
+void Class_arrayT<T_Elem>::DoPrepare(Environment &env)
 {
 	do {
 		const Symbol *pSymbol = ValueTypePool::GetInstance()->

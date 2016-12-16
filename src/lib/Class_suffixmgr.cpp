@@ -136,7 +136,7 @@ Class_suffixmgr::Class_suffixmgr(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 
 }
 
-void Class_suffixmgr::Prepare(Environment &env)
+void Class_suffixmgr::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(suffixmgr);
 	Gura_AssignMethod(suffixmgr, assign);

@@ -572,7 +572,7 @@ Class_template::Class_template(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 {
 }
 
-void Class_template::Prepare(Environment &env)
+void Class_template::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(template_);
 	// assignment of methods

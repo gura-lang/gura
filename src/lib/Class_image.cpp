@@ -1228,7 +1228,7 @@ Class_image::Class_image(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_image)
 {
 }
 
-void Class_image::Prepare(Environment &env)
+void Class_image::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(image);
 	Gura_AssignMethod(image, allocbuff);

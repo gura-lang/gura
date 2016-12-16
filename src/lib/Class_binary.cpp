@@ -395,7 +395,7 @@ Class_binary::Class_binary(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_bina
 {
 }
 
-void Class_binary::Prepare(Environment &env)
+void Class_binary::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(binary);
 	Gura_AssignMethod(binary, alloc);

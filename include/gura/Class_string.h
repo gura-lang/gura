@@ -91,7 +91,7 @@ public:
 	};
 public:
 	Class_string(Environment *pEnvOuter);
-	virtual void Prepare(Environment &env);
+	virtual void DoPrepare(Environment &env);
 	virtual Value IndexGetPrimitive(Environment &env,
 						const Value &valueThis, const Value &valueIdx) const;
 	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);

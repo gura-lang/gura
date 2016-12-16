@@ -355,7 +355,7 @@ Class_help::Class_help(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_help)
 {
 }
 
-void Class_help::Prepare(Environment &env)
+void Class_help::DoPrepare(Environment &env)
 {
 	// assignment of class
 	Gura_AssignValue(help, Value(Reference()));

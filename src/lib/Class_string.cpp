@@ -984,7 +984,7 @@ Class_string::Class_string(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stri
 {
 }
 
-void Class_string::Prepare(Environment &env)
+void Class_string::DoPrepare(Environment &env)
 {
 	// class assignment
 	Gura_AssignValue(string, Value(Reference()));

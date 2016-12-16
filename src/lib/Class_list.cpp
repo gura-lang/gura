@@ -2071,7 +2071,7 @@ Class_list::Class_list(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_list)
 {
 }
 
-void Class_list::Prepare(Environment &env)
+void Class_list::DoPrepare(Environment &env)
 {
 	Gura_AssignFunctionEx(list_xlist, "list");
 	Gura_AssignFunctionEx(list_xlist, "xlist");

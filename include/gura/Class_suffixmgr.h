@@ -14,7 +14,7 @@ namespace Gura {
 class GURA_DLLDECLARE Class_suffixmgr : public Class {
 public:
 	Class_suffixmgr(Environment *pEnvOuter);
-	virtual void Prepare(Environment &env);
+	virtual void DoPrepare(Environment &env);
 };
 
 //-----------------------------------------------------------------------------

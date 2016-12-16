@@ -39,7 +39,7 @@ public:
 class GURA_DLLDECLARE Class_array : public Class {
 public:
 	Class_array(Environment *pEnvOuter);
-	virtual void Prepare(Environment &env);
+	virtual void DoPrepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
 };
