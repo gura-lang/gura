@@ -525,14 +525,13 @@ Value Class::DoCall(Environment &env, const CallerInfo &callerInfo,
 	return GetConstructor()->EvalAuto(env, *pArg);
 }
 
-void Class::Prepare(Environment &env, int a)
+void Class::Prepare(Environment &env)
 {
 	DeriveOperators();
-	DerivePropHandlers();
+	//DerivePropHandlers();
 	DoPrepare(env);
 }
 
-// assignment
 void Class::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(object);

@@ -94,8 +94,7 @@ Object *Class_##name::CreateDescendant(Environment &env, Class *pClass)
 	Class_##name *pClass = new Class_##name(pClassBase, \
 						Class_##name::_pValueTypeInfo->GetValueType()); \
 	Class_##name::_pValueTypeInfo->SetClass(pClass); \
-	pClass->DoPrepare(env); \
-	pClass->DeriveOperators(); \
+	pClass->Prepare(env); \
 } while (0)
 
 #define Gura_RealizeUserClass(name, pClassBase) \
@@ -105,8 +104,7 @@ Gura_RealizeUserClassAlias(name, #name, pClassBase)
 Gura_RealizeAndPrepareUserClassAlias(name, #name, pClassBase)
 
 #define Gura_PrepareUserClass(name) do { \
-	Gura_UserClass(name)->DoPrepare(env); \
-	Gura_UserClass(name)->DeriveOperators(); \
+	Gura_UserClass(name)->Prepare(env); \
 } while (0)
 
 #define Gura_DeclareObjectAccessorEx(T) \
@@ -207,8 +205,10 @@ public:
 	virtual bool IsClass() const;
 	virtual bool IsCustom() const;
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
-	virtual void Prepare(Environment &env, int a);
+	virtual void Prepare(Environment &env);
+protected:
 	virtual void DoPrepare(Environment &env);
+public:
 	inline bool IsAnonymous() const {
 		return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_));
 	}

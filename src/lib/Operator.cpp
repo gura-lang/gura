@@ -1291,12 +1291,14 @@ void Operator::Initialize(Environment &env)
 	env.SetOperator(OPTYPE_Seq,			Operator::Seq		= new Operator_Seq());
 	env.SetOperator(OPTYPE_Pair,		Operator::Pair		= new Operator_Pair());
 	AssignOperatorBasic(env);
+#if 0
 	// Each class derives operators from its super class.
 	ValueTypeList &valTypeList = ValueTypePool::GetInstance()->GetList();
 	foreach (ValueTypeList, ppValueTypeInfo, valTypeList) {
 		ValueTypeInfo *pValueTypeInfo = *ppValueTypeInfo;
 		pValueTypeInfo->GetClass()->DeriveOperators();
 	}
+#endif
 }
 
 }

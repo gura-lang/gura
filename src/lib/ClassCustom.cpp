@@ -44,7 +44,7 @@ void ClassCustom::DoPrepare(Environment &env)
 {
 	Signal &sig = env.GetSignal();
 	//********
-	DeriveOperators();
+	//DeriveOperators();
 	//********
 	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged);
 	if (!_pExprContent.IsNull() &&
