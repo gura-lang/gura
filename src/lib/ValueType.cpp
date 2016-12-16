@@ -276,11 +276,12 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(token		)->SetClass(new Class_token(pClass));
 	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
 	Gura_VTYPEInfo(vertex		)->SetClass(new Class_vertex(pClass));
-	pClass->Prepare(env); // methods of Object can only be initialized here
+	//pClass->Prepare(env); // methods of Object can only be initialized here
 }
 
 void ValueTypePool::DoPrepareClass(Environment &env)
 {
+	env.LookupClass(VTYPE_object		)->Prepare(env);
 	// invalid types
 	env.LookupClass(VTYPE_undefined		)->Prepare(env);
 	env.LookupClass(VTYPE_nil			)->Prepare(env);
