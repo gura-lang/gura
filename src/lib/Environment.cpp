@@ -441,7 +441,6 @@ Value Environment::SetProp(const Symbol *pSymbol, const SymbolSet &attrs,
 			}
 			pValueTypeInfo->SetClass(Class::Reference(pClass));
 			AssignValueType(pValueTypeInfo);
-			//if (!pClass->DoPrepare(*this)) return Value::Nil;
 			pClass->Prepare(*this);
 			if (IsSignalled()) return Value::Nil;
 		}

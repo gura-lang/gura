@@ -528,7 +528,7 @@ Value Class::DoCall(Environment &env, const CallerInfo &callerInfo,
 void Class::Prepare(Environment &env)
 {
 	DeriveOperators();
-	//DerivePropHandlers();
+	DerivePropHandlers();
 	DoPrepare(env);
 }
 
@@ -704,9 +704,13 @@ void Class::DeriveOperators()
 
 void Class::DerivePropHandlers()
 {
+	if (_pClassSuper.IsNull()) return;
 	if (_pClassSuper->_pPropHandlerMap == nullptr) return;
 	if (_pPropHandlerMap.get() == nullptr) _pPropHandlerMap.reset(new PropHandlerMap());
 	*_pPropHandlerMap = *_pClassSuper->_pPropHandlerMap;
+	//foreach (PropHandlerMap, iter, *_pClassSuper->_pPropHandlerMap) {
+		//(*_pPropHandlerMap)[iter->first] = iter->second;
+	//}
 }
 
 void Class::AssignPropHandler(PropHandler *pPropHandler)
