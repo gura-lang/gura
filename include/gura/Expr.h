@@ -218,7 +218,7 @@ public:
 	inline bool IsType(ExprType exprType) const { return _exprType == exprType; }
 	Value Exec(Environment &env, bool evalSymFuncFlag = false) const;
 	Value Assign(Environment &env, Value &valueAssigned,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
+				 const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	inline void _SetBridgeFunction(BridgeFunctionT bridgeFunction) const {
 		const_cast<Expr *>(this)->_bridgeFunction = bridgeFunction;
 	}
@@ -235,7 +235,7 @@ public:
 	virtual Callable *LookupCallable(Environment &env) const;
 	bool SearchBar() const;
 	bool Prepare(Environment &env) const;
-private:
+public:
 	virtual Value DoExec(Environment &env) const = 0;
 	virtual Value DoAssign(Environment &env, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;

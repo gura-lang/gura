@@ -5,6 +5,7 @@
 
 namespace Gura {
 
+typedef Value (*PropertyGetterT)(Environment &env, Array *pArraySelf);
 typedef Value (*DoGetPropT)(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag, Object_array *pObj);
 typedef Value (*IndexGetT)(Environment &env, const Value &valueIdx, Object_array *pObj);
@@ -18,6 +19,17 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
+Value CallPropertyGetter(Environment &env,
+						 const PropertyGetterT propertyGetters[], Array *pArraySelf)
+{
+	PropertyGetterT pPropertyGetter = propertyGetters[pArraySelf->GetElemType()];
+	if (pPropertyGetter == nullptr) {
+		env.SetError(ERR_TypeError, "no property implemented");
+		return Value::Nil;
+	}
+	return (*pPropertyGetter)(env, pArraySelf);
+}
+
 Value CallMethod(Environment &env, Argument &arg, const MethodT methods[],
 				 const Function *pFunc, Array *pArraySelf)
 {
@@ -40,63 +52,6 @@ Object *Object_array::Clone() const
 String Object_array::ToString(bool exprFlag)
 {
 	return _pArray->ToString(exprFlag);
-}
-
-bool Object_array::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(elemtype));
-	symbols.insert(Gura_Symbol(ndim));
-	symbols.insert(Gura_Symbol(shape));
-	symbols.insert(Gura_Symbol(T));
-	return true;
-}
-
-template<typename T_Elem>
-Value DoGetPropTmpl(Environment &env, const Symbol *pSymbol,
-					const SymbolSet &attrs, bool &evaluatedFlag, Object_array *pObj)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(T))) {
-		ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
-		size_t nAxes = pArrayT->GetDimensions().size();
-		if (nAxes == 1) {
-			env.SetError(ERR_NotImplementedError, "not implemented yet");
-			return Value::Nil;
-		} else if (nAxes == 2) {
-			SizeTList axes;
-			axes.reserve(2);
-			axes.push_back(1), axes.push_back(0);
-			AutoPtr<Array> pArrayTRtn(pArrayT->Transpose(axes));
-			return Value(new Object_array(env, pArrayTRtn.release()));
-		} else {
-			env.SetError(ERR_ValueError,
-						 "property T is only available with an array of 1D or 2D");
-			return Value::Nil;
-		}
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_array::DoGetProp(Environment &env, const Symbol *pSymbol,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	static const DoGetPropT doGetProps[] = {
-		nullptr,
-		&DoGetPropTmpl<Int8>,
-		&DoGetPropTmpl<UInt8>,
-		&DoGetPropTmpl<Int16>,
-		&DoGetPropTmpl<UInt16>,
-		&DoGetPropTmpl<Int32>,
-		&DoGetPropTmpl<UInt32>,
-		&DoGetPropTmpl<Int64>,
-		&DoGetPropTmpl<UInt64>,
-		&DoGetPropTmpl<Float>,
-		&DoGetPropTmpl<Double>,
-		//&DoGetPropTmpl<Complex>,
-	};
-	return (*doGetProps[GetArray()->GetElemType()])(env, pSymbol, attrs, evaluatedFlag, this);
 }
 
 template<typename T_Elem>
@@ -221,6 +176,51 @@ Gura_ImplementPropertyGetter(array, shape)
 	}
 	pObjList->SetValueType(VTYPE_number);
 	return value;
+}
+
+// array#T
+Gura_DeclareProperty_R(array, T)
+{
+}
+
+template<typename T_Elem>
+Value PropertyGetter_T(Environment &env, Array *pArraySelf)
+{
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	size_t nAxes = pArrayT->GetDimensions().size();
+	if (nAxes == 1) {
+		env.SetError(ERR_NotImplementedError, "not implemented yet");
+		return Value::Nil;
+	} else if (nAxes == 2) {
+		SizeTList axes;
+		axes.reserve(2);
+		axes.push_back(1), axes.push_back(0);
+		AutoPtr<Array> pArrayTRtn(pArrayT->Transpose(axes));
+		return Value(new Object_array(env, pArrayTRtn.release()));
+	} else {
+		env.SetError(ERR_ValueError,
+					 "property T is only available with an array of 1D or 2D");
+		return Value::Nil;
+	}
+}
+
+Gura_ImplementPropertyGetter(array, T)
+{
+	static const PropertyGetterT propertyGetters[] = {
+		nullptr,
+		&PropertyGetter_T<Int8>,
+		&PropertyGetter_T<UInt8>,
+		&PropertyGetter_T<Int16>,
+		&PropertyGetter_T<UInt16>,
+		&PropertyGetter_T<Int32>,
+		&PropertyGetter_T<UInt32>,
+		&PropertyGetter_T<Int64>,
+		&PropertyGetter_T<UInt64>,
+		&PropertyGetter_T<Float>,
+		&PropertyGetter_T<Double>,
+		//&PropertyGetter_T<Complex>,
+	};
+	return CallPropertyGetter(env, propertyGetters, Object_array::GetObject(valueThis)->GetArray());
 }
 
 //-----------------------------------------------------------------------------
@@ -861,6 +861,7 @@ void Class_array::DoPrepare(Environment &env)
 	Gura_AssignProperty(array, elemtype);
 	Gura_AssignProperty(array, ndim);
 	Gura_AssignProperty(array, shape);
+	Gura_AssignProperty(array, T);
 	// Assignment of methods
 	Gura_AssignMethod(array, average);
 	Gura_AssignMethod(array, dot);
