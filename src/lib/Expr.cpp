@@ -1282,15 +1282,17 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 					 valueThis.MakeValueTypeName().c_str());
 		return Value::Nil;
 	}
+	if (_mode == MODE_Normal) {
+		//return GetSelector()->DoAssign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
+		return AssignMemberValue(env, valueThis, valueAssigned, pSymbolsAssignable, escalateFlag);
+	}
 	Fundamental *pFund = valueThis.IsPrimitive()?
 		valueThis.GetClass() : valueThis.GetFundamental();
-	if (_mode == MODE_Normal) {
-		return GetSelector()->DoAssign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
-	}
 	AutoPtr<Iterator> pIteratorThis(pFund->CreateIterator(sig));
 	if (pIteratorThis.IsNull()) {
 		if (sig.IsSignalled()) return Value::Nil;
-		return GetSelector()->DoAssign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
+		//return GetSelector()->DoAssign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
+		return AssignMemberValue(env, valueThis, valueAssigned, pSymbolsAssignable, escalateFlag);
 	}
 	if (valueAssigned.Is_list() || valueAssigned.Is_iterator()) {
 		AutoPtr<Iterator> pIteratorValue(valueAssigned.CreateIterator(sig));
@@ -1304,10 +1306,11 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 							 valueThisEach.MakeValueTypeName().c_str());
 				return Value::Nil;
 			}
-			Fundamental *pFundEach = valueThisEach.IsPrimitive()?
-				valueThisEach.GetClass() : valueThisEach.GetFundamental();
-			GetSelector()->DoAssign(*pFundEach, value,
-									pSymbolsAssignable, escalateFlag);
+			//Fundamental *pFundEach = valueThisEach.IsPrimitive()?
+			//	valueThisEach.GetClass() : valueThisEach.GetFundamental();
+			//GetSelector()->DoAssign(*pFundEach, value,
+			//						pSymbolsAssignable, escalateFlag);
+			AssignMemberValue(env, valueThisEach, value, pSymbolsAssignable, escalateFlag);
 			if (sig.IsSignalled()) break;
 		}
 		if (sig.IsSignalled()) return Value::Nil;
@@ -1319,9 +1322,10 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 							 valueThisEach.MakeValueTypeName().c_str());
 				return Value::Nil;
 			}
-			Fundamental *pFundEach = valueThisEach.IsPrimitive()?
-				valueThisEach.GetClass() : valueThisEach.GetFundamental();
-			GetSelector()->DoAssign(*pFundEach, valueAssigned, pSymbolsAssignable, escalateFlag);
+			//Fundamental *pFundEach = valueThisEach.IsPrimitive()?
+			//	valueThisEach.GetClass() : valueThisEach.GetFundamental();
+			//GetSelector()->DoAssign(*pFundEach, valueAssigned, pSymbolsAssignable, escalateFlag);
+			AssignMemberValue(env, valueThisEach, valueAssigned, pSymbolsAssignable, escalateFlag);
 			if (sig.IsSignalled()) break;
 		}
 		if (sig.IsSignalled()) return Value::Nil;
