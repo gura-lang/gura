@@ -1329,6 +1329,14 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 	return valueAssigned;
 }
 
+Value Expr_Member::AssignMemberValue(Environment &env, Value &valueThis, Value &valueAssigned,
+									 const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
+{
+	Fundamental *pFund = valueThis.IsPrimitive()?
+		valueThis.GetClass() : valueThis.GetFundamental();
+	return GetSelector()->DoAssign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
+}
+
 bool Expr_Member::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_Member(env, this);

@@ -618,6 +618,8 @@ public:
 	virtual Value DoExec(Environment &env) const;
 	virtual Value DoAssign(Environment &env, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
+	Value AssignMemberValue(Environment &env, Value &valueThis, Value &valueAssigned,
+							const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool IsMember() const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool IsParentOf(const Expr *pExpr) const;
