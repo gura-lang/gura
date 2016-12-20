@@ -349,8 +349,8 @@ public:
 	Value GetProp(const Symbol *pSymbol, const SymbolSet &attrs,
 				  const Value *pValueDefault = nullptr, EnvRefMode envRefMode = ENVREF_Escalate,
 				  int cntSuperSkip = 0);
-	Value SetProp(const Symbol *pSymbol, const SymbolSet &attrs,
-				  Value &valueAssigned, ValueType valTypeCast, bool escalateFlag);
+	Value SetProp(const Symbol *pSymbol, const SymbolSet &attrs, const SymbolList &attrFront,
+				  Value &valueAssigned, bool escalateFlag);
 public:
 	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
 	ValueTypeInfo *LookupValueType(const SymbolList &symbolList);

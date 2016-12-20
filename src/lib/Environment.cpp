@@ -405,9 +405,18 @@ Value Environment::GetProp(const Symbol *pSymbol,
 	return *pValue;
 }
 
-Value Environment::SetProp(const Symbol *pSymbol, const SymbolSet &attrs,
-						   Value &valueAssigned, ValueType valTypeCast, bool escalateFlag)
+Value Environment::SetProp(const Symbol *pSymbol, const SymbolSet &attrs, const SymbolList &attrFront,
+						   Value &valueAssigned, bool escalateFlag)
 {
+	if (!attrFront.empty()) {
+		const ValueTypeInfo *pValueTypeInfo = LookupValueType(attrFront);
+		if (pValueTypeInfo != nullptr) {
+			AutoPtr<Declaration> pDecl(new Declaration(pSymbol, pValueTypeInfo->GetValueType(),
+													   OCCUR_Once, 0, 0, nullptr));
+			pDecl->ValidateAndCast(*this, valueAssigned);
+			if (IsSignalled()) return Value::Nil;
+		}
+	}
 	bool evaluatedFlag = false;
 	Value result = DoSetProp(*this, pSymbol, valueAssigned, attrs, evaluatedFlag);
 	if (IsSignalled()) return Value::Nil;
@@ -469,12 +478,6 @@ Value Environment::SetProp(const Symbol *pSymbol, const SymbolSet &attrs,
 			AssignValueType(pValueTypeInfo);
 		}
 		if (!pFunc->GetFlag(FLAG_Private)) extra = EXTRA_Public;
-	}
-	if (valTypeCast != VTYPE_any) {
-		AutoPtr<Declaration> pDecl(
-			new Declaration(pSymbol, valTypeCast, OCCUR_Once, 0, 0, nullptr));
-		pDecl->ValidateAndCast(*this, valueAssigned);
-		if (IsSignalled()) return Value::Nil;
 	}
 	if (escalateFlag) {
 		AssignValueFromBlock(pSymbol, valueAssigned, extra);

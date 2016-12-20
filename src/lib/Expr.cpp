@@ -1027,14 +1027,7 @@ Value Expr_Identifier::DoExec(Environment &env) const
 
 Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned, bool escalateFlag) const
 {
-	ValueType valTypeCast = VTYPE_any;
-	if (!_attrFront.empty()) {
-		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(_attrFront);
-		if (pValueTypeInfo != nullptr) {
-			valTypeCast = pValueTypeInfo->GetValueType();
-		}
-	}
-	return env.SetProp(GetSymbol(), GetAttrs(), valueAssigned, valTypeCast, escalateFlag);
+	return env.SetProp(GetSymbol(), GetAttrs(), GetAttrFront(), valueAssigned, escalateFlag);
 }
 
 void Expr_Identifier::Accept(ExprVisitor &visitor)
@@ -1321,7 +1314,9 @@ Value Expr_Member::AssignMemberValue(Environment &env, Value &valueThis, Value &
 {
 	Fundamental *pFund = valueThis.IsPrimitive()?
 		valueThis.GetClass() : valueThis.GetFundamental();
-	return GetSelector()->DoAssign(*pFund, valueAssigned, escalateFlag);
+	//return GetSelector()->DoAssign(*pFund, valueAssigned, escalateFlag);
+	return pFund->SetProp(GetSelector()->GetSymbol(), GetSelector()->GetAttrs(),
+						  GetSelector()->GetAttrFront(), valueAssigned, escalateFlag);
 }
 
 bool Expr_Member::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
