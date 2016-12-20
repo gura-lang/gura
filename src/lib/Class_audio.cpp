@@ -162,7 +162,7 @@ Gura_ImplementFunction(audio)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-// array#elemtype
+// audio#format
 Gura_DeclareProperty_R(audio, format)
 {
 }
@@ -173,6 +173,7 @@ Gura_ImplementPropertyGetter(audio, format)
 	return Value(Audio::FormatToSymbol(pAudio->GetFormat()));
 }
 
+// audio#channels
 Gura_DeclareProperty_R(audio, channels)
 {
 }
@@ -183,6 +184,7 @@ Gura_ImplementPropertyGetter(audio, channels)
 	return Value(static_cast<UInt>(pAudio->GetChannels()));
 }
 
+// audio#samples
 Gura_DeclareProperty_R(audio, samples)
 {
 }
@@ -193,6 +195,7 @@ Gura_ImplementPropertyGetter(audio, samples)
 	return Value(static_cast<UInt>(pAudio->GetSamples()));
 }
 
+// audio#samplespersec
 Gura_DeclareProperty_R(audio, samplespersec)
 {
 }
@@ -203,6 +206,7 @@ Gura_ImplementPropertyGetter(audio, samplespersec)
 	return Value(static_cast<UInt>(pAudio->GetSamplesPerSec()));
 }
 
+// audio#bytespersample
 Gura_DeclareProperty_R(audio, bytespersample)
 {
 }

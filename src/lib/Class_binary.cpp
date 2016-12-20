@@ -26,6 +26,7 @@ Object *Object_binary::Clone() const
 	return new Object_binary(*this);
 }
 
+#if 0
 bool Object_binary::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
@@ -50,6 +51,7 @@ Value Object_binary::DoGetProp(Environment &env, const Symbol *pSymbol,
 	evaluatedFlag = false;
 	return Value::Nil;
 }
+#endif
 
 Value Object_binary::IndexGet(Environment &env, const Value &valueIdx)
 {
@@ -264,6 +266,43 @@ Gura_ImplementFunction(binary)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// binary#p
+Gura_DeclareProperty_R(binary, p)
+{
+}
+
+Gura_ImplementPropertyGetter(binary, p)
+{
+	Object_binary *pObj = Object_binary::GetObject(valueThis);
+	Pointer *pPointer = new Object_binary::PointerEx(0, pObj->Reference());
+	return Value(new Object_pointer(env, pPointer));
+}
+
+// binary#size
+Gura_DeclareProperty_R(binary, size)
+{
+}
+
+Gura_ImplementPropertyGetter(binary, size)
+{
+	Object_binary *pObj = Object_binary::GetObject(valueThis);
+	return Value(pObj->GetBinary().size());
+}
+
+// binary#writable
+Gura_DeclareProperty_R(binary, writable)
+{
+}
+
+Gura_ImplementPropertyGetter(binary, writable)
+{
+	Object_binary *pObj = Object_binary::GetObject(valueThis);
+	return Value(pObj->IsWritable());
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
 // binary.alloc(bytes:number, data?:number):map {block?}
@@ -398,6 +437,11 @@ Class_binary::Class_binary(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_bina
 void Class_binary::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(binary);
+	// Assignment of properties
+	Gura_AssignProperty(binary, p);
+	Gura_AssignProperty(binary, size);
+	Gura_AssignProperty(binary, writable);
+	// Assignment of methods
 	Gura_AssignMethod(binary, alloc);
 	Gura_AssignMethod(binary, dump);
 	Gura_AssignMethod(binary, pointer);

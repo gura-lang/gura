@@ -288,4 +288,9 @@ testcase('binary.alloc') {
 }
 testcase('binary#size') {
 	tester(`b'abcdefghijiklmnopqrstuvwxyz'.size)
+	tester(`binary('abcdefghijiklmnopqrstuvwxyz').size)
+}
+testcase('binary#writable') {
+	tester(`b'foo'.writable)
+	tester(`binary('foo').writable)
 }
