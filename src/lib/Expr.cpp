@@ -2514,8 +2514,7 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned, bool escalat
 	// get symbol part of function's declaration
 	const Symbol *pSymbol;
 	if (GetCar()->IsMember()) {
-		const Expr_Member *pExprMember =
-						dynamic_cast<const Expr_Member *>(GetCar());
+		const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 		pSymbol = pExprMember->GetSelector()->GetSymbol();
 	} else if (GetCar()->IsIdentifier()) {
 		const Expr_Identifier *pExprIdentifier =
