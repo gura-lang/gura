@@ -464,6 +464,8 @@ public:
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) const;
 	void DirValueType(SymbolSet &symbols, bool escalateFlag) const;
 	Value GetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs) const;
+	Value SetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs,
+				  const SymbolList &attrFront, Value &valueAssigned, bool escalateFlag);
 	Callable *GetCallable(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs) const;
 	ErrorType GetErrorType() const;
 	bool IsFlatList() const;

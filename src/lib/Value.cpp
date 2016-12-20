@@ -284,9 +284,9 @@ void Value::DirValueType(SymbolSet &symbols, bool escalateFlag) const
 Value Value::GetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs) const
 {
 	Class *pClass = GetClass();
-	Fundamental *pFund = IsPrimitive()? pClass : GetFundamental();
 	const PropHandler *pPropHandler = pClass->LookupPropHandler(pSymbol);
 	if (pPropHandler != nullptr) return pPropHandler->DoGetProp(env, *this, attrs);
+	Fundamental *pFund = IsPrimitive()? pClass : GetFundamental();
 	EnvRefMode envRefMode =
 		pFund->IsModule()? ENVREF_Module :
 		!(pFund->IsClass() || pFund->IsObject())? ENVREF_Escalate :
@@ -294,6 +294,16 @@ Value Value::GetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &a
 	int cntSuperSkip = GetSuperSkipCount();
 	Value rtn = pFund->GetProp(pSymbol, attrs, nullptr, envRefMode, cntSuperSkip);
 	return rtn;
+}
+
+Value Value::SetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs,
+					 const SymbolList &attrFront, Value &valueAssigned, bool escalateFlag)
+{
+	Class *pClass = GetClass();
+	const PropHandler *pPropHandler = pClass->LookupPropHandler(pSymbol);
+	if (pPropHandler != nullptr) return pPropHandler->DoSetProp(env, *this, attrs, valueAssigned);
+	Fundamental *pFund = IsPrimitive()? pClass : GetFundamental();
+	return pFund->SetProp(pSymbol, attrs, attrFront, valueAssigned, escalateFlag);
 }
 
 Callable *Value::GetCallable(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs) const

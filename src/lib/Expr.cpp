@@ -1268,28 +1268,31 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned, bool escalat
 		return Value::Nil;
 	}
 	if (_mode == MODE_Normal) {
-		return AssignMemberValue(env, valueThis, valueAssigned, escalateFlag);
+		return valueThis.SetProp(env, GetSelector()->GetSymbol(), GetSelector()->GetAttrs(),
+								 GetSelector()->GetAttrFront(), valueAssigned, escalateFlag);
 	}
 	Fundamental *pFund = valueThis.IsPrimitive()?
 		valueThis.GetClass() : valueThis.GetFundamental();
 	AutoPtr<Iterator> pIteratorThis(pFund->CreateIterator(sig));
 	if (pIteratorThis.IsNull()) {
 		if (sig.IsSignalled()) return Value::Nil;
-		return AssignMemberValue(env, valueThis, valueAssigned, escalateFlag);
+		return valueThis.SetProp(env, GetSelector()->GetSymbol(), GetSelector()->GetAttrs(),
+								 GetSelector()->GetAttrFront(), valueAssigned, escalateFlag);
 	}
 	if (valueAssigned.Is_list() || valueAssigned.Is_iterator()) {
 		AutoPtr<Iterator> pIteratorValue(valueAssigned.CreateIterator(sig));
 		if (sig.IsSignalled()) return Value::Nil;
-		Value value;
+		Value valueAssignedEach;
 		Value valueThisEach;
 		while (pIteratorThis->Next(env, valueThisEach) &&
-								pIteratorValue->Next(env, value)) {
+								pIteratorValue->Next(env, valueAssignedEach)) {
 			if (valueThisEach.IsPrimitive()) {
 				sig.SetError(ERR_ValueError, "%s can not be specified as l-value of member",
 							 valueThisEach.MakeValueTypeName().c_str());
 				return Value::Nil;
 			}
-			AssignMemberValue(env, valueThisEach, value, escalateFlag);
+			valueThisEach.SetProp(env, GetSelector()->GetSymbol(), GetSelector()->GetAttrs(),
+								  GetSelector()->GetAttrFront(), valueAssignedEach, escalateFlag);
 			if (sig.IsSignalled()) break;
 		}
 		if (sig.IsSignalled()) return Value::Nil;
@@ -1301,22 +1304,13 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned, bool escalat
 							 valueThisEach.MakeValueTypeName().c_str());
 				return Value::Nil;
 			}
-			AssignMemberValue(env, valueThisEach, valueAssigned, escalateFlag);
+			valueThisEach.SetProp(env, GetSelector()->GetSymbol(), GetSelector()->GetAttrs(),
+								  GetSelector()->GetAttrFront(), valueAssigned, escalateFlag);
 			if (sig.IsSignalled()) break;
 		}
 		if (sig.IsSignalled()) return Value::Nil;
 	}
 	return valueAssigned;
-}
-
-Value Expr_Member::AssignMemberValue(Environment &env, Value &valueThis, Value &valueAssigned,
-									 bool escalateFlag) const
-{
-	Fundamental *pFund = valueThis.IsPrimitive()?
-		valueThis.GetClass() : valueThis.GetFundamental();
-	//return GetSelector()->DoAssign(*pFund, valueAssigned, escalateFlag);
-	return pFund->SetProp(GetSelector()->GetSymbol(), GetSelector()->GetAttrs(),
-						  GetSelector()->GetAttrFront(), valueAssigned, escalateFlag);
 }
 
 bool Expr_Member::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const

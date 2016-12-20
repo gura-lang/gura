@@ -614,7 +614,6 @@ public:
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env) const;
 	virtual Value DoAssign(Environment &env, Value &value, bool escalateFlag) const;
-	Value AssignMemberValue(Environment &env, Value &valueThis, Value &valueAssigned, bool escalateFlag) const;
 	virtual bool IsMember() const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool IsParentOf(const Expr *pExpr) const;
