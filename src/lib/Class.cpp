@@ -726,8 +726,7 @@ const PropHandler *Class::LookupPropHandler(const Symbol *pSymbol)
 	return (iter == _pPropHandlerMap->end())? nullptr : iter->second;
 }
 
-bool Class::BuildContent(Environment &env, const Value &valueThis,
-			const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable)
+bool Class::BuildContent(Environment &env, const Value &valueThis, const Expr_Block *pExprBlock)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvLocal(Derive(ENVTYPE_local));
@@ -735,7 +734,7 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsAssign()) {
 			const Expr_Assign *pExprAssign = dynamic_cast<const Expr_Assign *>(pExpr);
-			pExprAssign->DoExecSub(*pEnvLocal, *this, pSymbolsAssignable);
+			pExprAssign->DoExecSub(*pEnvLocal, *this);
 		} else if (pExpr->IsCaller()) {
 			const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(pExpr);
 			Value valueCar = pExprCaller->GetCar()->Exec(*pEnvLocal);

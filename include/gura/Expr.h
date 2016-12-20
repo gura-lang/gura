@@ -217,8 +217,7 @@ public:
 	inline ExprType GetType() const { return _exprType; }
 	inline bool IsType(ExprType exprType) const { return _exprType == exprType; }
 	Value Exec(Environment &env, bool evalSymFuncFlag = false) const;
-	Value Assign(Environment &env, Value &valueAssigned,
-				 const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
+	Value Assign(Environment &env, Value &valueAssigned, bool escalateFlag) const;
 	inline void _SetBridgeFunction(BridgeFunctionT bridgeFunction) const {
 		const_cast<Expr *>(this)->_bridgeFunction = bridgeFunction;
 	}
@@ -237,8 +236,7 @@ public:
 	bool Prepare(Environment &env) const;
 public:
 	virtual Value DoExec(Environment &env) const = 0;
-	virtual Value DoAssign(Environment &env, Value &valueAssigned,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
+	virtual Value DoAssign(Environment &env, Value &valueAssigned, bool escalateFlag) const;
 public:
 	virtual void Accept(ExprVisitor &visitor) = 0;
 	virtual bool IsParentOf(const Expr *pExpr) const;
@@ -532,8 +530,7 @@ public:
 	virtual Callable *LookupCallable(Environment &env) const;
 	virtual Value DoExec(Environment &env) const;
 	Value GetThisProp(Environment &env, const Value &valueThis) const;
-	virtual Value DoAssign(Environment &env, Value &value,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
+	virtual Value DoAssign(Environment &env, Value &value, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual Expr *MathDiff(Environment &env, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env) const;
@@ -616,10 +613,8 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env) const;
-	virtual Value DoAssign(Environment &env, Value &value,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
-	Value AssignMemberValue(Environment &env, Value &valueThis, Value &valueAssigned,
-							const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
+	virtual Value DoAssign(Environment &env, Value &value, bool escalateFlag) const;
+	Value AssignMemberValue(Environment &env, Value &valueThis, Value &valueAssigned, bool escalateFlag) const;
 	virtual bool IsMember() const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool IsParentOf(const Expr *pExpr) const;
@@ -721,7 +716,7 @@ public:
 	}
 	inline const Operator *GetOperatorToApply() const { return _pOperatorToApply; }
 	virtual Value DoExec(Environment &env) const;
-	Value DoExecSub(Environment &env, Environment &envDst, const SymbolSet *pSymbolsAssignable) const;
+	Value DoExecSub(Environment &env, Environment &envDst) const;
 	virtual Expr *Clone() const;
 	virtual bool IsAssign() const;
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
@@ -789,8 +784,7 @@ public:
 	virtual bool IsLister() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env) const;
-	virtual Value DoAssign(Environment &env, Value &value,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
+	virtual Value DoAssign(Environment &env, Value &value, bool escalateFlag) const;
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
 					ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
@@ -831,8 +825,7 @@ public:
 	virtual bool IsIndexer() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env) const;
-	virtual Value DoAssign(Environment &env, Value &value,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
+	virtual Value DoAssign(Environment &env, Value &value, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
@@ -863,8 +856,7 @@ public:
 	virtual Expr *Clone() const;
 	virtual Callable *LookupCallable(Environment &env) const;
 	virtual Value DoExec(Environment &env) const;
-	virtual Value DoAssign(Environment &env, Value &value,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
+	virtual Value DoAssign(Environment &env, Value &value, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	virtual Expr *MathDiff(Environment &env, const Symbol *pSymbol) const;

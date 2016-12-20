@@ -44,8 +44,7 @@ void ClassCustom::DoPrepare(Environment &env)
 {
 	Signal &sig = env.GetSignal();
 	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged);
-	if (!_pExprContent.IsNull() &&
-					!BuildContent(env, valueThis, _pExprContent.get())) {
+	if (!_pExprContent.IsNull() && !BuildContent(env, valueThis, _pExprContent.get())) {
 		return;
 	}
 	FunctionCustom *pFuncInit = dynamic_cast<FunctionCustom *>(

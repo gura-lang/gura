@@ -266,8 +266,7 @@ public:
 	void DerivePropHandlers();
 	void AssignPropHandler(PropHandler *pPropHandler);
 	const PropHandler *LookupPropHandler(const Symbol *pSymbol);
-	bool BuildContent(Environment &env, const Value &valueThis,
-		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = nullptr);
+	bool BuildContent(Environment &env, const Value &valueThis, const Expr_Block *pExprBlock);
 	void SetError_NoConstructor() const;
 public:
 	// inherited from HelpProvider

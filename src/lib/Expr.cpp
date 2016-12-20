@@ -110,11 +110,10 @@ Value Expr::Exec(Environment &env, bool evalSymFuncFlag) const
 	return result;
 }
 
-Value Expr::Assign(Environment &env, Value &valueAssigned,
-				   const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
+Value Expr::Assign(Environment &env, Value &valueAssigned, bool escalateFlag) const
 {
 	Signal &sig = env.GetSignal();
-	Value result = DoAssign(env, valueAssigned, pSymbolsAssignable, escalateFlag);
+	Value result = DoAssign(env, valueAssigned, escalateFlag);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Nil;
@@ -122,8 +121,7 @@ Value Expr::Assign(Environment &env, Value &valueAssigned,
 	return result;
 }
 
-Value Expr::DoAssign(Environment &env, Value &valueAssigned,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
+Value Expr::DoAssign(Environment &env, Value &valueAssigned, bool escalateFlag) const
 {
 	Signal &sig = env.GetSignal();
 	SetError(sig, ERR_SyntaxError, "l-value is required");
@@ -1027,13 +1025,8 @@ Value Expr_Identifier::DoExec(Environment &env) const
 	return result;
 }
 
-Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
-								const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
+Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned, bool escalateFlag) const
 {
-	if (pSymbolsAssignable != nullptr && !pSymbolsAssignable->IsSet(GetSymbol())) {
-		SetError_NotAssignableSymbol(env.GetSignal(), GetSymbol());
-		return Value::Nil;
-	}
 	ValueType valTypeCast = VTYPE_any;
 	if (!_attrFront.empty()) {
 		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(_attrFront);
@@ -1269,8 +1262,7 @@ Value Expr_Member::DoExec(Environment &env) const
 	return result;
 }
 
-Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
+Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned, bool escalateFlag) const
 {
 	Signal &sig = env.GetSignal();
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
@@ -1283,16 +1275,14 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 		return Value::Nil;
 	}
 	if (_mode == MODE_Normal) {
-		//return GetSelector()->DoAssign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
-		return AssignMemberValue(env, valueThis, valueAssigned, pSymbolsAssignable, escalateFlag);
+		return AssignMemberValue(env, valueThis, valueAssigned, escalateFlag);
 	}
 	Fundamental *pFund = valueThis.IsPrimitive()?
 		valueThis.GetClass() : valueThis.GetFundamental();
 	AutoPtr<Iterator> pIteratorThis(pFund->CreateIterator(sig));
 	if (pIteratorThis.IsNull()) {
 		if (sig.IsSignalled()) return Value::Nil;
-		//return GetSelector()->DoAssign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
-		return AssignMemberValue(env, valueThis, valueAssigned, pSymbolsAssignable, escalateFlag);
+		return AssignMemberValue(env, valueThis, valueAssigned, escalateFlag);
 	}
 	if (valueAssigned.Is_list() || valueAssigned.Is_iterator()) {
 		AutoPtr<Iterator> pIteratorValue(valueAssigned.CreateIterator(sig));
@@ -1306,11 +1296,7 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 							 valueThisEach.MakeValueTypeName().c_str());
 				return Value::Nil;
 			}
-			//Fundamental *pFundEach = valueThisEach.IsPrimitive()?
-			//	valueThisEach.GetClass() : valueThisEach.GetFundamental();
-			//GetSelector()->DoAssign(*pFundEach, value,
-			//						pSymbolsAssignable, escalateFlag);
-			AssignMemberValue(env, valueThisEach, value, pSymbolsAssignable, escalateFlag);
+			AssignMemberValue(env, valueThisEach, value, escalateFlag);
 			if (sig.IsSignalled()) break;
 		}
 		if (sig.IsSignalled()) return Value::Nil;
@@ -1322,10 +1308,7 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 							 valueThisEach.MakeValueTypeName().c_str());
 				return Value::Nil;
 			}
-			//Fundamental *pFundEach = valueThisEach.IsPrimitive()?
-			//	valueThisEach.GetClass() : valueThisEach.GetFundamental();
-			//GetSelector()->DoAssign(*pFundEach, valueAssigned, pSymbolsAssignable, escalateFlag);
-			AssignMemberValue(env, valueThisEach, valueAssigned, pSymbolsAssignable, escalateFlag);
+			AssignMemberValue(env, valueThisEach, valueAssigned, escalateFlag);
 			if (sig.IsSignalled()) break;
 		}
 		if (sig.IsSignalled()) return Value::Nil;
@@ -1334,11 +1317,11 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 }
 
 Value Expr_Member::AssignMemberValue(Environment &env, Value &valueThis, Value &valueAssigned,
-									 const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
+									 bool escalateFlag) const
 {
 	Fundamental *pFund = valueThis.IsPrimitive()?
 		valueThis.GetClass() : valueThis.GetFundamental();
-	return GetSelector()->DoAssign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
+	return GetSelector()->DoAssign(*pFund, valueAssigned, escalateFlag);
 }
 
 bool Expr_Member::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
@@ -1643,13 +1626,12 @@ Expr *Expr_Assign::Clone() const
 Value Expr_Assign::DoExec(Environment &env) const
 {
 	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
-	Value result = DoExecSub(env, env, nullptr);
+	Value result = DoExecSub(env, env);
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
 
-Value Expr_Assign::DoExecSub(Environment &env, Environment &envDst,
-							 const SymbolSet *pSymbolsAssignable) const
+Value Expr_Assign::DoExecSub(Environment &env, Environment &envDst) const
 {
 	Signal &sig = env.GetSignal();
 	Value valueAssigned;
@@ -1671,7 +1653,7 @@ Value Expr_Assign::DoExecSub(Environment &env, Environment &envDst,
 			if (sig.IsSignalled()) return Value::Nil;
 		}
 	}
-	return GetLeft()->DoAssign(envDst, valueAssigned, pSymbolsAssignable, true);
+	return GetLeft()->DoAssign(envDst, valueAssigned, true);
 }
 
 bool Expr_Assign::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
@@ -1930,8 +1912,7 @@ Value Expr_Lister::DoExec(Environment &env) const
 	return result;
 }
 
-Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
+Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned, bool escalateFlag) const
 {
 	Signal &sig = env.GetSignal();
 	const ExprList &exprList = GetExprOwner();
@@ -1965,11 +1946,11 @@ Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned,
 			if (occurPattern == OCCUR_ZeroOrMore || occurPattern == OCCUR_OnceOrMore) {
 				Value value;
 				pObjList = value.InitAsList(env);
-				pExpr->DoAssign(env, value, pSymbolsAssignable, escalateFlag);
+				pExpr->DoAssign(env, value, escalateFlag);
 				if (sig.IsSignalled()) return Value::Nil;
 				pObjList->Add(valueElem);
 			} else {
-				pExpr->DoAssign(env, valueElem, pSymbolsAssignable, escalateFlag);
+				pExpr->DoAssign(env, valueElem, escalateFlag);
 				if (sig.IsSignalled()) return Value::Nil;
 			}
 			ppExpr++;
@@ -1987,7 +1968,7 @@ Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned,
 			if (occurPattern == OCCUR_ZeroOrMore) {
 				Value value;
 				pObjList = value.InitAsList(env);
-				pExpr->DoAssign(env, value, pSymbolsAssignable, escalateFlag);
+				pExpr->DoAssign(env, value, escalateFlag);
 				if (sig.IsSignalled()) return Value::Nil;
 			} else if (occurPattern == OCCUR_Once || occurPattern == OCCUR_OnceOrMore) {
 				SetError(sig, ERR_ValueError,
@@ -1999,7 +1980,7 @@ Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned,
 		// [a, b, ..] = v
 		foreach_const (ExprList, ppExpr, exprList) {
 			const Expr *pExpr = *ppExpr;
-			pExpr->DoAssign(env, valueAssigned, pSymbolsAssignable, escalateFlag);
+			pExpr->DoAssign(env, valueAssigned, escalateFlag);
 			if (sig.IsSignalled()) return Value::Nil;
 		}
 	}
@@ -2189,8 +2170,7 @@ Value Expr_Indexer::DoExec(Environment &env) const
 	return result;
 }
 
-Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
+Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned, bool escalateFlag) const
 {
 	Signal &sig = env.GetSignal();
 	Value valueCar = GetCar()->Exec(env);
@@ -2512,8 +2492,7 @@ Value Expr_Caller::ExecCallable(Environment &env, TrailCtrlHolder *pTrailCtrlHol
 							 valueThis, pIteratorThis, pTrailCtrlHolder);
 }
 
-Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
+Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned, bool escalateFlag) const
 {
 	Signal &sig = env.GetSignal();
 	if (!valueAssigned.Is_expr()) {
@@ -2546,10 +2525,6 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 		SetError(sig, ERR_SyntaxError, "invalid function expression");
 		return Value::Nil;
 	}
-	if (pSymbolsAssignable != nullptr && !pSymbolsAssignable->IsSet(pSymbol)) {
-		SetError_NotAssignableSymbol(sig, pSymbol);
-		return Value::Nil;
-	}
 	FunctionType funcType = !env.IsClass()? FUNCTYPE_Function :
 		GetAttrs().IsSet(Gura_Symbol(static_))? FUNCTYPE_Class : FUNCTYPE_Instance;
 	FunctionCustom *pFunc = new FunctionCustom(env, pSymbol, pExprBody->Reference(), funcType);
@@ -2558,7 +2533,7 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 		return Value::Nil;
 	}
 	Value valueFunc(new Object_function(env, pFunc));
-	GetCar()->DoAssign(env, valueFunc, pSymbolsAssignable, escalateFlag);
+	GetCar()->DoAssign(env, valueFunc, escalateFlag);
 	if (sig.IsSignalled()) return Value::Nil;
 	if (pFunc->GetFlag(FLAG_SymbolFunc)) return Value::Nil;
 	HelpProvider &helpProvider = pFunc->GetHelpProvider();
