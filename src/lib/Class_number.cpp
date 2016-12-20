@@ -12,7 +12,7 @@ static const char *helpDoc_en = R"**(
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // number#abs
-Gura_DeclareProperty_R(number, abs)
+Gura_DeclareProperty_R(number, abs, VTYPE_number)
 {
 }
 
@@ -23,7 +23,7 @@ Gura_ImplementPropertyGetter(number, abs)
 }
 
 // number#arg:[deg]
-Gura_DeclareProperty_R(number, arg)
+Gura_DeclareProperty_R(number, arg, VTYPE_number)
 {
 }
 
@@ -33,7 +33,7 @@ Gura_ImplementPropertyGetter(number, arg)
 }
 
 // number#imag
-Gura_DeclareProperty_R(number, imag)
+Gura_DeclareProperty_R(number, imag, VTYPE_number)
 {
 }
 
@@ -43,7 +43,7 @@ Gura_ImplementPropertyGetter(number, imag)
 }
 
 // number#norm
-Gura_DeclareProperty_R(number, norm)
+Gura_DeclareProperty_R(number, norm, VTYPE_number)
 {
 }
 
@@ -54,7 +54,7 @@ Gura_ImplementPropertyGetter(number, norm)
 }
 
 // number#real
-Gura_DeclareProperty_R(number, real)
+Gura_DeclareProperty_R(number, real, VTYPE_number)
 {
 }
 

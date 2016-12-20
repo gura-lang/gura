@@ -163,7 +163,7 @@ Gura_ImplementFunction(audio)
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // audio#format
-Gura_DeclareProperty_R(audio, format)
+Gura_DeclareProperty_R(audio, format, VTYPE_symbol)
 {
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementPropertyGetter(audio, format)
 }
 
 // audio#channels
-Gura_DeclareProperty_R(audio, channels)
+Gura_DeclareProperty_R(audio, channels, VTYPE_number)
 {
 }
 
@@ -185,7 +185,7 @@ Gura_ImplementPropertyGetter(audio, channels)
 }
 
 // audio#samples
-Gura_DeclareProperty_R(audio, samples)
+Gura_DeclareProperty_R(audio, samples, VTYPE_number)
 {
 }
 
@@ -196,7 +196,7 @@ Gura_ImplementPropertyGetter(audio, samples)
 }
 
 // audio#samplespersec
-Gura_DeclareProperty_R(audio, samplespersec)
+Gura_DeclareProperty_R(audio, samplespersec, VTYPE_number)
 {
 }
 
@@ -207,7 +207,7 @@ Gura_ImplementPropertyGetter(audio, samplespersec)
 }
 
 // audio#bytespersample
-Gura_DeclareProperty_R(audio, bytespersample)
+Gura_DeclareProperty_R(audio, bytespersample, VTYPE_number)
 {
 }
 

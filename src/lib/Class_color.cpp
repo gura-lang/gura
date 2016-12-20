@@ -143,6 +143,7 @@ Object *Object_color::Clone() const
 	return new Object_color(*this);
 }
 
+#if 1
 bool Object_color::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
@@ -201,6 +202,7 @@ Value Object_color::DoSetProp(Environment &env, const Symbol *pSymbol, const Val
 	}
 	return Value::Nil;
 }
+#endif
 
 String Object_color::ToString(bool exprFlag)
 {

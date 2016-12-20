@@ -8,8 +8,9 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // PropHandler
 //-----------------------------------------------------------------------------
-PropHandler::PropHandler(const Symbol *pSymbol, ULong flags) :
-	_cntRef(1), _pSymbol(pSymbol), _flags(flags), _pHelpProvider(new HelpProvider(this))
+PropHandler::PropHandler(const Symbol *pSymbol, ValueType valType, ULong flags) :
+	_cntRef(1), _pSymbol(pSymbol), _valType(valType), _flags(flags),
+	_pHelpProvider(new HelpProvider(this))
 {
 }
 
@@ -18,9 +19,19 @@ PropHandler::~PropHandler()
 	_pHelpProvider->SetHolder(nullptr);
 }
 
+Value PropHandler::GetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const
+{
+	return DoGetProp(env, valueThis, attrs);
+}
+
 Value PropHandler::DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const
 {
 	return Value::Nil;
+}
+
+Value PropHandler::SetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const
+{
+	return DoSetProp(env, valueThis, attrs, value);
 }
 
 Value PropHandler::DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const

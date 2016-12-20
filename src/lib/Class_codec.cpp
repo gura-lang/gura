@@ -164,11 +164,14 @@ Class_codec::Class_codec(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_codec)
 
 void Class_codec::DoPrepare(Environment &env)
 {
+	// Assignment of function
 	Gura_AssignFunction(codec);
+	// Assignment of methods
 	Gura_AssignMethod(codec, addcr);
 	Gura_AssignMethod(codec, decode);
 	Gura_AssignMethod(codec, delcr);
 	Gura_AssignMethod(codec, encode);
+	// Assignment of classes
 	Gura_AssignClassValueEx("bom@utf8", Value(new Object_binary(env, Codec::BOM_UTF8, false)));
 	Gura_AssignClassValueEx("bom@utf16le", Value(new Object_binary(env, Codec::BOM_UTF16LE, false)));
 	Gura_AssignClassValueEx("bom@utf16be", Value(new Object_binary(env, Codec::BOM_UTF16BE, false)));

@@ -137,7 +137,7 @@ void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // array#elemtype
-Gura_DeclareProperty_R(array, elemtype)
+Gura_DeclareProperty_R(array, elemtype, VTYPE_symbol)
 {
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementPropertyGetter(array, elemtype)
 }
 
 // array#ndim
-Gura_DeclareProperty_R(array, ndim)
+Gura_DeclareProperty_R(array, ndim, VTYPE_number)
 {
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementPropertyGetter(array, ndim)
 }
 
 // array#shape
-Gura_DeclareProperty_R(array, shape)
+Gura_DeclareProperty_R(array, shape, VTYPE_any)
 {
 }
 
@@ -177,7 +177,7 @@ Gura_ImplementPropertyGetter(array, shape)
 }
 
 // array#T
-Gura_DeclareProperty_R(array, T)
+Gura_DeclareProperty_R(array, T, VTYPE_array)
 {
 }
 
