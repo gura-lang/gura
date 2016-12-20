@@ -6,8 +6,6 @@
 namespace Gura {
 
 typedef Value (*PropertyGetterT)(Environment &env, Array *pArraySelf);
-typedef Value (*DoGetPropT)(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag, Object_array *pObj);
 typedef Value (*IndexGetT)(Environment &env, const Value &valueIdx, Object_array *pObj);
 typedef void (*IndexSetT)(Environment &env, const Value &valueIdx, const Value &value, Object_array *pObj);
 typedef Value (*MethodT)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);

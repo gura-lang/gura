@@ -26,6 +26,7 @@ Object *Object_audio::Clone() const
 	return nullptr; //new Object_audio(*this);
 }
 
+#if 0
 bool Object_audio::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
@@ -61,6 +62,7 @@ Value Object_audio::DoSetProp(Environment &env, const Symbol *pSymbol, const Val
 {
 	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
+#endif
 
 String Object_audio::ToString(bool exprFlag)
 {
@@ -155,6 +157,60 @@ Gura_ImplementFunction(audio)
 		if (!pAudio->Read(env, stream, audioType)) return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(new Object_audio(env, pAudio.release())));
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// array#elemtype
+Gura_DeclareProperty_R(audio, format)
+{
+}
+
+Gura_ImplementPropertyGetter(audio, format)
+{
+	Audio *pAudio = Object_audio::GetObject(valueThis)->GetAudio();
+	return Value(Audio::FormatToSymbol(pAudio->GetFormat()));
+}
+
+Gura_DeclareProperty_R(audio, channels)
+{
+}
+
+Gura_ImplementPropertyGetter(audio, channels)
+{
+	Audio *pAudio = Object_audio::GetObject(valueThis)->GetAudio();
+	return Value(static_cast<UInt>(pAudio->GetChannels()));
+}
+
+Gura_DeclareProperty_R(audio, samples)
+{
+}
+
+Gura_ImplementPropertyGetter(audio, samples)
+{
+	Audio *pAudio = Object_audio::GetObject(valueThis)->GetAudio();
+	return Value(static_cast<UInt>(pAudio->GetSamples()));
+}
+
+Gura_DeclareProperty_R(audio, samplespersec)
+{
+}
+
+Gura_ImplementPropertyGetter(audio, samplespersec)
+{
+	Audio *pAudio = Object_audio::GetObject(valueThis)->GetAudio();
+	return Value(static_cast<UInt>(pAudio->GetSamplesPerSec()));
+}
+
+Gura_DeclareProperty_R(audio, bytespersample)
+{
+}
+
+Gura_ImplementPropertyGetter(audio, bytespersample)
+{
+	Audio *pAudio = Object_audio::GetObject(valueThis)->GetAudio();
+	return Value(static_cast<UInt>(pAudio->GetBytesPerSample()));
 }
 
 //-----------------------------------------------------------------------------
@@ -313,7 +369,15 @@ Class_audio::Class_audio(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_audio)
 
 void Class_audio::DoPrepare(Environment &env)
 {
+	// Assignment of function
 	Gura_AssignFunction(audio);
+	// Assignment of properties
+	Gura_AssignProperty(audio, format);
+	Gura_AssignProperty(audio, channels);
+	Gura_AssignProperty(audio, samples);
+	Gura_AssignProperty(audio, samplespersec);
+	Gura_AssignProperty(audio, bytespersample);
+	// Assignment of methods
 	Gura_AssignMethod(audio, each);
 	Gura_AssignMethod(audio, get);
 	Gura_AssignMethod(audio, put);
