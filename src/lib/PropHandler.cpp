@@ -24,14 +24,15 @@ Value PropHandler::GetProp(Environment &env, const Value &valueThis, const Symbo
 	return DoGetProp(env, valueThis, attrs);
 }
 
+Value PropHandler::SetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, Value &value) const
+{
+	
+	return DoSetProp(env, valueThis, attrs, value);
+}
+
 Value PropHandler::DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const
 {
 	return Value::Nil;
-}
-
-Value PropHandler::SetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const
-{
-	return DoSetProp(env, valueThis, attrs, value);
 }
 
 Value PropHandler::DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const

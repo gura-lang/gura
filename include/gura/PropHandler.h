@@ -60,7 +60,7 @@ protected:
 	virtual ~PropHandler();
 public:
 	virtual Value GetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const;
-	virtual Value SetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const;
+	virtual Value SetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, Value &value) const;
 protected:
 	virtual Value DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const;
 	virtual Value DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const;
