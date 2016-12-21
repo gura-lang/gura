@@ -8,8 +8,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // PropHandler
 //-----------------------------------------------------------------------------
-PropHandler::PropHandler(const Symbol *pSymbol, ValueType valType, ULong flags) :
-	_cntRef(1), _pSymbol(pSymbol), _valType(valType), _flags(flags),
+PropHandler::PropHandler(const Symbol *pSymbol, ULong flags) :
+	_cntRef(1), _pSymbol(pSymbol), _valType(VTYPE_any), _flags(flags),
 	_pHelpProvider(new HelpProvider(this))
 {
 }

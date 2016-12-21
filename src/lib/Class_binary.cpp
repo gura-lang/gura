@@ -269,8 +269,13 @@ Gura_ImplementFunction(binary)
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // binary#p
-Gura_DeclareProperty_R(binary, p, VTYPE_pointer)
+Gura_DeclareProperty_R(binary, p)
 {
+	SetPropAttr(VTYPE_pointer);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(binary, p)
@@ -281,8 +286,13 @@ Gura_ImplementPropertyGetter(binary, p)
 }
 
 // binary#size
-Gura_DeclareProperty_R(binary, size, VTYPE_number)
+Gura_DeclareProperty_R(binary, size)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(binary, size)
@@ -292,8 +302,13 @@ Gura_ImplementPropertyGetter(binary, size)
 }
 
 // binary#writable
-Gura_DeclareProperty_R(binary, writable, VTYPE_boolean)
+Gura_DeclareProperty_R(binary, writable)
 {
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(binary, writable)

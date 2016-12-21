@@ -6,16 +6,16 @@
 
 #include "Value.h"
 
-#define Gura_DeclarePropertyAlias_R(className, propName, propNameAlias, valType) \
+#define Gura_DeclarePropertyAlias_R(className, propName, propNameAlias) \
 class PropHandler_##className##__##propName : public PropHandler { \
 public: \
 	PropHandler_##className##__##propName(); \
 	virtual Value DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const; \
 }; \
 PropHandler_##className##__##propName::PropHandler_##className##__##propName() : \
-					PropHandler(Symbol::Add(propNameAlias), valType, FLAG_Read)
+					PropHandler(Symbol::Add(propNameAlias), FLAG_Read)
 
-#define Gura_DeclarePropertyAlias_RW(className, propName, propNameAlias, valType) \
+#define Gura_DeclarePropertyAlias_RW(className, propName, propNameAlias) \
 class PropHandler_##className##__##propName : public PropHandler { \
 public: \
 	PropHandler_##className##__##propName(); \
@@ -23,13 +23,13 @@ public: \
 	virtual Value DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const; \
 }; \
 PropHandler_##className##__##propName::PropHandler_##className##__##propName() : \
-					PropHandler(Symbol::Add(propNameAlias), valType, FLAG_Read | FLAG_Write)
+					PropHandler(Symbol::Add(propNameAlias), FLAG_Read | FLAG_Write)
 
-#define Gura_DeclareProperty_R(className, propName, valType) \
-Gura_DeclarePropertyAlias_R(className, propName, #propName, valType)
+#define Gura_DeclareProperty_R(className, propName) \
+Gura_DeclarePropertyAlias_R(className, propName, #propName)
 
-#define Gura_DeclareProperty_RW(className, propName, valType) \
-Gura_DeclarePropertyAlias_RW(className, propName, #propName, valType)
+#define Gura_DeclareProperty_RW(className, propName) \
+Gura_DeclarePropertyAlias_RW(className, propName, #propName)
 
 #define Gura_ImplementPropertyGetter(className, propName) \
 Value PropHandler_##className##__##propName::DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const
@@ -55,7 +55,7 @@ protected:
 public:
 	Gura_DeclareReferenceAccessor(PropHandler);
 public:
-	PropHandler(const Symbol *pSymbol, ValueType valType, ULong flags);
+	PropHandler(const Symbol *pSymbol, ULong flags);
 protected:
 	virtual ~PropHandler();
 public:
@@ -65,6 +65,7 @@ protected:
 	virtual Value DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const;
 	virtual Value DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const;
 public:
+	inline void SetPropAttr(ValueType valType) { _valType = valType; }
 	inline const Symbol *GetSymbol() { return _pSymbol; }
 	inline const char *GetName() { return _pSymbol->GetName(); }
 	inline ULong GetFlags() const { return _flags; }

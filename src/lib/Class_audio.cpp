@@ -163,8 +163,13 @@ Gura_ImplementFunction(audio)
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // audio#format
-Gura_DeclareProperty_R(audio, format, VTYPE_symbol)
+Gura_DeclareProperty_R(audio, format)
 {
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(audio, format)
@@ -174,8 +179,13 @@ Gura_ImplementPropertyGetter(audio, format)
 }
 
 // audio#channels
-Gura_DeclareProperty_R(audio, channels, VTYPE_number)
+Gura_DeclareProperty_R(audio, channels)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(audio, channels)
@@ -185,8 +195,13 @@ Gura_ImplementPropertyGetter(audio, channels)
 }
 
 // audio#samples
-Gura_DeclareProperty_R(audio, samples, VTYPE_number)
+Gura_DeclareProperty_R(audio, samples)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(audio, samples)
@@ -196,8 +211,13 @@ Gura_ImplementPropertyGetter(audio, samples)
 }
 
 // audio#samplespersec
-Gura_DeclareProperty_R(audio, samplespersec, VTYPE_number)
+Gura_DeclareProperty_R(audio, samplespersec)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(audio, samplespersec)
@@ -207,8 +227,13 @@ Gura_ImplementPropertyGetter(audio, samplespersec)
 }
 
 // audio#bytespersample
-Gura_DeclareProperty_R(audio, bytespersample, VTYPE_number)
+Gura_DeclareProperty_R(audio, bytespersample)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(audio, bytespersample)

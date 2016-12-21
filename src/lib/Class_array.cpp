@@ -137,8 +137,13 @@ void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // array#elemtype
-Gura_DeclareProperty_R(array, elemtype, VTYPE_symbol)
+Gura_DeclareProperty_R(array, elemtype)
 {
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(array, elemtype)
@@ -147,8 +152,13 @@ Gura_ImplementPropertyGetter(array, elemtype)
 }
 
 // array#ndim
-Gura_DeclareProperty_R(array, ndim, VTYPE_number)
+Gura_DeclareProperty_R(array, ndim)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(array, ndim)
@@ -158,8 +168,13 @@ Gura_ImplementPropertyGetter(array, ndim)
 }
 
 // array#shape
-Gura_DeclareProperty_R(array, shape, VTYPE_any)
+Gura_DeclareProperty_R(array, shape)
 {
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(array, shape)
@@ -177,8 +192,13 @@ Gura_ImplementPropertyGetter(array, shape)
 }
 
 // array#T
-Gura_DeclareProperty_R(array, T, VTYPE_array)
+Gura_DeclareProperty_R(array, T)
 {
+	SetPropAttr(VTYPE_array);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 template<typename T_Elem>

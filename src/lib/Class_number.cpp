@@ -12,8 +12,13 @@ static const char *helpDoc_en = R"**(
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // number#abs
-Gura_DeclareProperty_R(number, abs, VTYPE_number)
+Gura_DeclareProperty_R(number, abs)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(number, abs)
@@ -23,8 +28,13 @@ Gura_ImplementPropertyGetter(number, abs)
 }
 
 // number#arg:[deg]
-Gura_DeclareProperty_R(number, arg, VTYPE_number)
+Gura_DeclareProperty_R(number, arg)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(number, arg)
@@ -33,8 +43,13 @@ Gura_ImplementPropertyGetter(number, arg)
 }
 
 // number#imag
-Gura_DeclareProperty_R(number, imag, VTYPE_number)
+Gura_DeclareProperty_R(number, imag)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(number, imag)
@@ -43,8 +58,13 @@ Gura_ImplementPropertyGetter(number, imag)
 }
 
 // number#norm
-Gura_DeclareProperty_R(number, norm, VTYPE_number)
+Gura_DeclareProperty_R(number, norm)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(number, norm)
@@ -54,8 +74,13 @@ Gura_ImplementPropertyGetter(number, norm)
 }
 
 // number#real
-Gura_DeclareProperty_R(number, real, VTYPE_number)
+Gura_DeclareProperty_R(number, real)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(number, real)

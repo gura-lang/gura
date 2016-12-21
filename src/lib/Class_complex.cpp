@@ -39,8 +39,13 @@ Gura_ImplementFunction(complex)
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // complex#abs
-Gura_DeclareProperty_R(complex, abs, VTYPE_number)
+Gura_DeclareProperty_R(complex, abs)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(complex, abs)
@@ -50,8 +55,13 @@ Gura_ImplementPropertyGetter(complex, abs)
 }
 
 // complex#arg:[deg]
-Gura_DeclareProperty_R(complex, arg, VTYPE_number)
+Gura_DeclareProperty_R(complex, arg)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(complex, arg)
@@ -63,8 +73,13 @@ Gura_ImplementPropertyGetter(complex, arg)
 }
 
 // complex#imag
-Gura_DeclareProperty_R(complex, imag, VTYPE_number)
+Gura_DeclareProperty_R(complex, imag)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(complex, imag)
@@ -74,8 +89,13 @@ Gura_ImplementPropertyGetter(complex, imag)
 }
 
 // complex#norm
-Gura_DeclareProperty_R(complex, norm, VTYPE_number)
+Gura_DeclareProperty_R(complex, norm)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(complex, norm)
@@ -85,8 +105,13 @@ Gura_ImplementPropertyGetter(complex, norm)
 }
 
 // complex#real
-Gura_DeclareProperty_R(complex, real, VTYPE_number)
+Gura_DeclareProperty_R(complex, real)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(complex, real)

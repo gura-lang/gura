@@ -47,8 +47,13 @@ Gura_ImplementFunction(rational)
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // rational#denom
-Gura_DeclareProperty_R(rational, denom, VTYPE_number)
+Gura_DeclareProperty_R(rational, denom)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(rational, denom)
@@ -57,9 +62,14 @@ Gura_ImplementPropertyGetter(rational, denom)
 	return Value(num.denom);
 }
 
-// rational#number
-Gura_DeclareProperty_R(rational, numer, VTYPE_number)
+// rational#numer
+Gura_DeclareProperty_R(rational, numer)
 {
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
 Gura_ImplementPropertyGetter(rational, numer)
