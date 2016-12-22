@@ -555,8 +555,7 @@ Object_list *Value::InitAsList(Environment &env, const ValueList &valList)
 
 Object_list *Value::InitAsList(Environment &env, size_t n, const Value &value)
 {
-	Object_list *pObj = (n == 0)?
-		new Object_list(env) : new Object_list(env, n, value);
+	Object_list *pObj = (n == 0)? new Object_list(env) : new Object_list(env, n, value);
 	InitAsObject(pObj);
 	return pObj;
 }
@@ -571,14 +570,17 @@ ValueDict &Value::InitAsDict(Environment &env, bool ignoreCaseFlag)
 bool Value::CastType(Environment &env, ValueType valType, ULong flags)
 {
 	if (IsInstanceOf(valType)) return true;
-	return env.LookupClass(valType)->CastFrom(env, *this, flags);
+	Class *pClass = env.LookupClass(valType);
+	if (pClass->CastFrom(env, *this, flags)) return true;
+	env.SetError(ERR_TypeError, "casting %s to %s is not supported",
+				 MakeValueTypeName().c_str(),  pClass->MakeValueTypeName().c_str());
+	return false;
 }
 
 bool Value::CastType(Environment &env, ValueType valType, Value &valueCasted, ULong flags) const
 {
 	valueCasted = *this;
-	if (IsInstanceOf(valType)) return true;
-	return env.LookupClass(valType)->CastFrom(env, valueCasted, flags);
+	return valueCasted.CastType(env, valType, flags);
 }
 
 Value Value::CreateList(Environment &env)
