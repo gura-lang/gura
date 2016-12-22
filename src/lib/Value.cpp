@@ -568,13 +568,17 @@ ValueDict &Value::InitAsDict(Environment &env, bool ignoreCaseFlag)
 	return pObj->GetDict();
 }
 
-bool Value::CastType(Environment &env, ValueType valType, Value &valueCasted) const
+bool Value::CastType(Environment &env, ValueType valType, ULong flags)
+{
+	if (IsInstanceOf(valType)) return true;
+	return env.LookupClass(valType)->CastFrom(env, *this, flags);
+}
+
+bool Value::CastType(Environment &env, ValueType valType, Value &valueCasted, ULong flags) const
 {
 	valueCasted = *this;
-	if (IsType(valType)) return true;
-	//AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(nil), valType));
-	//return env.LookupClass(valType)->CastFrom(env, valueCasted, pDecl.get());
-	return env.LookupClass(valType)->CastFrom(env, valueCasted, FLAG_None);
+	if (IsInstanceOf(valType)) return true;
+	return env.LookupClass(valType)->CastFrom(env, valueCasted, flags);
 }
 
 Value Value::CreateList(Environment &env)

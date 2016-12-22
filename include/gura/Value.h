@@ -486,7 +486,8 @@ public:
 	Object_list *InitAsList(Environment &env, const ValueList &valList);
 	Object_list *InitAsList(Environment &env, size_t n, const Value &value);
 	ValueDict &InitAsDict(Environment &env, bool ignoreCaseFlag);
-	bool CastType(Environment &env, ValueType valType, Value &valueCasted) const;
+	bool CastType(Environment &env, ValueType valType, ULong flags = FLAG_None);
+	bool CastType(Environment &env, ValueType valType, Value &valueCasted, ULong flags = FLAG_None) const;
 public:
 	static int Compare(Environment &env, const Value &value1, const Value &value2);
 	static int CompareBoolean(bool flag1, bool flag2);

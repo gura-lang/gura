@@ -119,20 +119,24 @@ Gura_ImplementFunction(audio)
 		Audio::Format format = Audio::SymbolToFormat(sig, valList[0].GetSymbol());
 		if (sig.IsSignalled()) return Value::Nil;
 		if (valList.size() >= 2) {
-			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(channels), VTYPE_number));
-			pDecl->ValidateAndCast(env, valList[1]);
-			if (sig.IsSignalled()) return Value::Nil;
-			nChannels = valList[1].GetSizeT();
+			//AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(channels), VTYPE_number));
+			//pDecl->ValidateAndCast(env, valList[1]);
+			//if (sig.IsSignalled()) return Value::Nil;
+			Value valueCasted;
+			if (!valList[1].CastType(env, VTYPE_number, valueCasted)) return Value::Nil;
+			nChannels = valueCasted.GetSizeT();
 			if (nChannels != 1 && nChannels != 2) {
 				sig.SetError(ERR_ValueError, "channels must be one or two");
 				return Value::Nil;
 			}
 		}
 		if (valList.size() >= 3) {
-			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(samplespersec), VTYPE_number));
-			pDecl->ValidateAndCast(env, valList[2]);
-			if (sig.IsSignalled()) return Value::Nil;
-			nSamplesPerSec = valList[2].GetSizeT();
+			//AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(samplespersec), VTYPE_number));
+			//pDecl->ValidateAndCast(env, valList[2]);
+			//if (sig.IsSignalled()) return Value::Nil;
+			Value valueCasted;
+			if (!valList[2].CastType(env, VTYPE_number, valueCasted)) return Value::Nil;
+			nSamplesPerSec = valueCasted.GetSizeT();
 			if (nSamplesPerSec == 0) {
 				sig.SetError(ERR_ValueError, "samplespersec must be more then zero");
 				return Value::Nil;
@@ -140,19 +144,23 @@ Gura_ImplementFunction(audio)
 		}
 		pAudio.reset(new Audio(format, nChannels, nSamplesPerSec));
 	} else {
-		AutoPtr<Declaration> pDecl(
-			new Declaration(
-				Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, 0, nullptr));
-		pDecl->ValidateAndCast(env, valList[0]);
-		if (sig.IsSignalled()) return Value::Nil;
-		Stream &stream = valList[0].GetStream();
+		//AutoPtr<Declaration> pDecl(
+		//	new Declaration(
+		//		Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, 0, nullptr));
+		//pDecl->ValidateAndCast(env, valList[0]);
+		//if (sig.IsSignalled()) return Value::Nil;
+		Value valueCasted;
+		if (!valList[0].CastType(env, VTYPE_stream, valueCasted, FLAG_Read)) return Value::Nil;
+		Stream &stream = valueCasted.GetStream();
 		pAudio.reset(new Audio(Audio::FORMAT_None, nChannels, nSamplesPerSec));
 		const char *audioType = nullptr;
 		if (valList.size() >= 2) {
-			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(audiotype), VTYPE_string));
-			pDecl->ValidateAndCast(env, valList[1]);
-			if (sig.IsSignalled()) return Value::Nil;
-			audioType = valList[1].GetString();
+			//AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(audiotype), VTYPE_string));
+			//pDecl->ValidateAndCast(env, valList[1]);
+			//if (sig.IsSignalled()) return Value::Nil;
+			Value valueCasted;
+			if (!valList[1].CastType(env, VTYPE_string, valueCasted)) return Value::Nil;
+			audioType = valueCasted.GetString();
 		}
 		if (!pAudio->Read(env, stream, audioType)) return Value::Nil;
 	}

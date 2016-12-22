@@ -413,8 +413,9 @@ Value Environment::SetProp(const Symbol *pSymbol, const SymbolSet &attrs, const 
 		if (pValueTypeInfo != nullptr) {
 			AutoPtr<Declaration> pDecl(new Declaration(pSymbol, pValueTypeInfo->GetValueType(),
 													   OCCUR_Once, 0, 0, nullptr));
-			pDecl->ValidateAndCast(*this, valueAssigned);
-			if (IsSignalled()) return Value::Nil;
+			if (!pDecl->ValidateAndCast(*this, valueAssigned)) return Value::Nil;
+			//if (IsSignalled()) return Value::Nil;
+			//if (!valueAssigned.CastType(*this, pValueTypeInfo->GetValueType())) return Value::Nil;
 		}
 	}
 	bool evaluatedFlag = false;
