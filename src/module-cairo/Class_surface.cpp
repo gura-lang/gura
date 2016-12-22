@@ -717,7 +717,7 @@ Gura_ImplementCastFrom(surface)
 {
 	Signal &sig = GetSignal();
 	Value valueCast(value);
-	env.LookupClass(VTYPE_image)->CastFrom(env, valueCast, pDecl);
+	env.LookupClass(VTYPE_image)->CastFrom(env, valueCast, flags);
 	if (valueCast.Is_image()) {
 		Image *pImage = Object_image::GetObject(valueCast)->GetImage();
 		cairo_surface_t *surface = CreateSurfaceFromImage(sig, pImage);

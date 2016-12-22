@@ -73,7 +73,7 @@ Gura_ImplementUserClassWithCast(aliases)
 
 Gura_ImplementCastFrom(aliases)
 {
-	Gura_UserClass(configuration)->CastFrom(env, value, pDecl);
+	Gura_UserClass(configuration)->CastFrom(env, value, flags);
 	if (value.IsType(VTYPE_configuration)) {
 		const Configuration *pCfg = Object_configuration::GetObject(value)->GetConfiguration();
 		AutoPtr<Aliases> pAliases(pCfg->MakeAliases(env));

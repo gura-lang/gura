@@ -15,7 +15,7 @@ class GURA_DLLDECLARE Class_complex : public Class {
 public:
 	Class_complex(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
+	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
 	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Stream &stream, Value &value) const;
 	virtual bool Format_e(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;

@@ -345,7 +345,7 @@ void Class_arrayT<T_Elem>::DoPrepare(Environment &env)
 }
 
 template<typename T_Elem>
-bool Class_arrayT<T_Elem>::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_arrayT<T_Elem>::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	Signal &sig = GetSignal();
 	if (value.Is_list()) {

@@ -410,7 +410,7 @@ String Object_track::ToString(bool exprFlag)
 	rtn += "<midi.track";
 	do {
 		char buff[64];
-		::sprintf(buff, ":%devents:seek%ld",
+		::sprintf(buff, ":%ldevents:seek%ld",
 					_pTrack->GetEventOwner().size(), _pTrack->Tell());
 		rtn += buff;
 	} while (0);
@@ -1135,7 +1135,7 @@ String Object_sequence::ToString(bool exprFlag)
 	rtn += "<midi.sequence";
 	do {
 		char buff[128];
-		::sprintf(buff, ":format=%d:tracks=%d:division=%d",
+		::sprintf(buff, ":format=%d:tracks=%ld:division=%d",
 				_sequence.GetFormat(), _sequence.GetTrackOwner().size(),
 				_sequence.GetProperty()->GetDivision());
 		rtn += buff;
@@ -1295,7 +1295,7 @@ Gura_ImplementCastFrom(sequence)
 {
 	Signal &sig = GetSignal();
 	Value valueCast(value);
-	env.LookupClass(VTYPE_stream)->CastFrom(env, valueCast, pDecl);
+	env.LookupClass(VTYPE_stream)->CastFrom(env, valueCast, flags);
 	if (valueCast.Is_stream()) {
 		AutoPtr<Object_sequence> pObj(new Object_sequence(env));
 		pObj->GetSequence().Read(env, valueCast.GetStream());

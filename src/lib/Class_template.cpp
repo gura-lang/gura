@@ -598,9 +598,9 @@ void Class_template::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_template::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_template::CastFrom(Environment &env, Value &value, ULong flags)
 {
-	env.LookupClass(VTYPE_stream)->CastFrom(env, value, pDecl);
+	env.LookupClass(VTYPE_stream)->CastFrom(env, value, flags);
 	if (value.Is_stream()) {
 		bool autoIndentFlag = true;
 		bool appendLastEOLFlag = false;

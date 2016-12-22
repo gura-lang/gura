@@ -131,7 +131,7 @@ Declaration *Declaration::CreateFromExpr(Environment &env, const Expr *pExpr)
 bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemFlag) const
 {
 	if (!listElemFlag && GetFlag(FLAG_ListVar)) {
-		env.LookupClass(VTYPE_list)->CastFrom(env, value, this);
+		env.LookupClass(VTYPE_list)->CastFrom(env, value, _flags);
 		if (env.IsSignalled()) return false;
 		if (value.Is_list()) {
 			Object_list *pObjList = value.GetObjList();
@@ -162,7 +162,7 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 					env.SetError(ERR_TypeError, "type '%s' is not defined", pClass->GetName());
 					return false;
 				}
-				if (pClass->CastFrom(env, value, this)) {
+				if (pClass->CastFrom(env, value, _flags)) {
 					if (GetFlag(FLAG_Privileged)) value.AddFlags(VFLAG_Privileged);
 					return true;
 				}

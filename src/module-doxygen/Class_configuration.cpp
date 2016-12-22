@@ -137,7 +137,7 @@ Gura_ImplementUserClassWithCast(configuration)
 
 Gura_ImplementCastFrom(configuration)
 {
-	env.LookupClass(VTYPE_stream)->CastFrom(env, value, pDecl);
+	env.LookupClass(VTYPE_stream)->CastFrom(env, value, flags);
 	if (value.Is_stream()) {
 		Stream &stream = value.GetStream();
 		AutoPtr<Configuration> pCfg(new Configuration());

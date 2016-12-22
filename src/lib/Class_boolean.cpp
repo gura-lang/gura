@@ -23,7 +23,7 @@ void Class_boolean::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_boolean::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_boolean::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	if (value.Is_list()) {
 		return true;

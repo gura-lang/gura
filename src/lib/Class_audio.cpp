@@ -416,12 +416,12 @@ void Class_audio::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_audio::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_audio::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	Signal &sig = GetSignal();
 	size_t nChannels = 1;
 	size_t nSamplesPerSec = 10000;
-	env.LookupClass(VTYPE_stream)->CastFrom(env, value, pDecl);
+	env.LookupClass(VTYPE_stream)->CastFrom(env, value, flags);
 	if (value.Is_stream()) {
 		AutoPtr<Audio> pAudio(new Audio(Audio::FORMAT_None, nChannels, nSamplesPerSec));
 		pAudio->Read(env, value.GetStream(), nullptr);

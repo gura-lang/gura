@@ -16,7 +16,7 @@ class GURA_DLLDECLARE Class_function : public Class {
 public:
 	Class_function(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
+	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
 	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Stream &stream, Value &value) const;
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);

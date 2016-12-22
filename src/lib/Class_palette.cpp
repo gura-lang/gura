@@ -61,7 +61,7 @@ void Object_palette::IndexSet(Environment &env, const Value &valueIdx, const Val
 		_pPalette->SetColor(idx, Object_color::GetObject(value)->GetColor());
 	} else {
 		Value valueCasted = value;
-		if (!env.LookupClass(VTYPE_color)->CastFrom(env, valueCasted, nullptr)) {
+		if (!env.LookupClass(VTYPE_color)->CastFrom(env, valueCasted, FLAG_None)) {
 			sig.SetError(ERR_ValueError, "color must be specified");
 			return;
 		}
@@ -262,7 +262,7 @@ void Class_palette::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_palette::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_palette::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	Signal &sig = GetSignal();
 	if (value.Is_symbol()) {

@@ -455,7 +455,7 @@ Gura_ImplementUserClassWithCast(Face)
 Gura_ImplementCastFrom(Face)
 {
 	Signal &sig = GetSignal();
-	env.LookupClass(VTYPE_stream)->CastFrom(env, value, pDecl);
+	env.LookupClass(VTYPE_stream)->CastFrom(env, value, flags);
 	if (value.Is_stream()) {
 		int index = 0;
 		AutoPtr<Object_Face> pObjFace(new Object_Face());

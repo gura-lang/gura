@@ -1261,10 +1261,10 @@ void Class_image::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_image::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_image::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	Signal &sig = GetSignal();
-	env.LookupClass(VTYPE_stream)->CastFrom(env, value, pDecl);
+	env.LookupClass(VTYPE_stream)->CastFrom(env, value, flags);
 	if (value.Is_stream()) {
 		AutoPtr<Image> pImage(new Image(Image::FORMAT_RGBA));
 		pImage->Read(env, value.GetStream(), nullptr);

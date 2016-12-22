@@ -572,8 +572,9 @@ bool Value::CastType(Environment &env, ValueType valType, Value &valueCasted) co
 {
 	valueCasted = *this;
 	if (IsType(valType)) return true;
-	AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(nil), valType));
-	return env.LookupClass(valType)->CastFrom(env, valueCasted, pDecl.get());
+	//AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(nil), valType));
+	//return env.LookupClass(valType)->CastFrom(env, valueCasted, pDecl.get());
+	return env.LookupClass(valType)->CastFrom(env, valueCasted, FLAG_None);
 }
 
 Value Value::CreateList(Environment &env)

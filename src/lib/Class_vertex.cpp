@@ -346,7 +346,7 @@ void Class_vertex::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_vertex::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_vertex::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	if (value.Is_list()) {
 		//const ValueList &valList = value.GetList();

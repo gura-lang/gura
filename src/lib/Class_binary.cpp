@@ -466,7 +466,7 @@ void Class_binary::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_binary::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_binary::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	if (value.Is_string()) {
 		Object_binary *pObjBinary = new Object_binary(env, value.GetStringSTL(), true);

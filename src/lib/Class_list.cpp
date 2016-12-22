@@ -2147,7 +2147,7 @@ void Class_list::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_list::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_list::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	Signal &sig = GetSignal();
 	if (value.IsType(VTYPE_nil)) {

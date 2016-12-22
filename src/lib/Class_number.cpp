@@ -157,7 +157,7 @@ void Class_number::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_number::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_number::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	bool allowPartFlag = false;
 	bool successFlag = false;

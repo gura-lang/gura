@@ -35,7 +35,7 @@ public:
 	virtual bool IsCustom() const;
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 	virtual void DoPrepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
+	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
 	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Stream &stream, Value &value) const;

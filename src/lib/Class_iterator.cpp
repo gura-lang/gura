@@ -1710,7 +1710,7 @@ void Class_iterator::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_iterator::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_iterator::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	Signal &sig = GetSignal();
 	Iterator *pIterator = value.CreateIterator(sig);

@@ -31,7 +31,7 @@ public: \
 	static ValueTypeInfo *_pValueTypeInfo; \
 public: \
 	inline Class_##name(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {} \
-	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl); \
+	virtual bool CastFrom(Environment &env, Value &value, ULong flags); \
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl); \
 	virtual Object *CreateDescendant(Environment &env, Class *pClass); \
 	virtual void DoPrepare(Environment &env);
@@ -46,7 +46,7 @@ Gura_DeclareUserClassEnd(name)
 #define Gura_ImplementUserClass(name) \
 ValueTypeInfo *Class_##name::_pValueTypeInfo = nullptr; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
-bool Class_##name::CastFrom(Environment &env, Value &value, const Declaration *pDecl) { return false; } \
+bool Class_##name::CastFrom(Environment &env, Value &value, ULong flags) { return false; } \
 bool Class_##name::CastTo(Environment &env, Value &value, const Declaration &decl) { return false; } \
 Object *Class_##name::CreateDescendant(Environment &env, Class *pClass) { return Class::CreateDescendant(env, pClass); } \
 void Class_##name::DoPrepare(Environment &env)
@@ -60,7 +60,7 @@ void Class_##name::DoPrepare(Environment &env)
 #define Gura_ImplementUserInheritableClass(name) \
 ValueTypeInfo *Class_##name::_pValueTypeInfo = nullptr; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
-bool Class_##name::CastFrom(Environment &env, Value &value, const Declaration *pDecl) { return false; } \
+bool Class_##name::CastFrom(Environment &env, Value &value, ULong flags) { return false; } \
 bool Class_##name::CastTo(Environment &env, Value &value, const Declaration &decl) { return false; } \
 void Class_##name::DoPrepare(Environment &env)
 
@@ -70,7 +70,7 @@ ValueType VTYPE_##name = static_cast<ValueType>(0); \
 void Class_##name::DoPrepare(Environment &env)
 
 #define Gura_ImplementCastFrom(name) \
-bool Class_##name::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_##name::CastFrom(Environment &env, Value &value, ULong flags)
 
 #define Gura_ImplementCastTo(name) \
 bool Class_##name::CastTo(Environment &env, Value &value, const Declaration &decl)
@@ -242,7 +242,7 @@ public:
 	virtual Value EmptyIndexGetPrimitive(Environment &env, const Value &valueThis) const;
 	virtual Value IndexGetPrimitive(Environment &env,
 									const Value &valueThis, const Value &valueIdx) const;
-	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
+	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
 	virtual String ToString(bool exprFlag);
 	virtual Value DoCall(

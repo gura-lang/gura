@@ -498,7 +498,7 @@ void Class_function::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_function::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_function::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	Signal &sig = GetSignal();
 	if (value.Is_expr()) {

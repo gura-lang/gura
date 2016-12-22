@@ -17,7 +17,7 @@ class GURA_DLLDECLARE Class_arrayT : public Class {
 public:
 	Class_arrayT(Environment *pEnvOuter, ValueType valType);
 	virtual void DoPrepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
+	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
 };
 

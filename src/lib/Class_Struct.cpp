@@ -105,8 +105,9 @@ void Class_Struct::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_Struct::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_Struct::CastFrom(Environment &env, Value &value, ULong flags)
 {
+#if 0
 	Signal &sig = GetSignal();
 	if (value.Is_list()) {
 		Class *pClass = env.LookupClass(pDecl->GetValueType());
@@ -118,6 +119,7 @@ bool Class_Struct::CastFrom(Environment &env, Value &value, const Declaration *p
 		value = pConstructor->Eval(env, *pArg);
 		return !sig.IsSignalled();
 	}
+#endif
 	return false;
 }
 

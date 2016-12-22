@@ -21,7 +21,7 @@ void Class_undefined::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_undefined::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_undefined::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	return false;
 }

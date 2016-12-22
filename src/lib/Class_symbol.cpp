@@ -49,7 +49,7 @@ void Class_symbol::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_symbol::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_symbol::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	if (value.Is_string()) {
 		value = Value(Symbol::Add(value.GetString()));

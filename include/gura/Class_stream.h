@@ -16,7 +16,7 @@ class GURA_DLLDECLARE Class_stream : public Class {
 public:
 	Class_stream(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
+	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 

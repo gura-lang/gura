@@ -763,7 +763,7 @@ void Class_pointer::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_pointer::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_pointer::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	if (value.Is_binary()) {
 		Object_binary *pObj = Object_binary::GetObject(value);

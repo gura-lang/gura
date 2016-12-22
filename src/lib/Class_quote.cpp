@@ -21,7 +21,7 @@ void Class_quote::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_quote::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_quote::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	return false;
 }

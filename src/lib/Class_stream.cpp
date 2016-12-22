@@ -927,28 +927,26 @@ void Class_stream::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_stream::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_stream::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	Signal &sig = GetSignal();
 	if (value.Is_string()) {
 		ULong attr = Stream::ATTR_Readable;
-		if (pDecl != nullptr) {
-			if (pDecl->GetFlag(FLAG_Write)) attr = Stream::ATTR_Writable;
-			if (pDecl->GetFlag(FLAG_Read)) attr |= Stream::ATTR_Readable;
-		}
+		if (flags & FLAG_Write) attr = Stream::ATTR_Writable;
+		if (flags & FLAG_Read) attr |= Stream::ATTR_Readable;
 		Stream *pStream = Stream::Open(env, value.GetString(), attr);
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_stream(env, pStream));
 		return true;
 	} else if (value.Is_binary()) {
 		Object_binary *pObj = Object_binary::GetObject(value);
-		size_t offset = pDecl->GetFlag(FLAG_Write)? pObj->GetBinary().size() : 0;
+		size_t offset = (flags & FLAG_Write)? pObj->GetBinary().size() : 0;
 		Stream *pStream = new Pointer::StreamEx(
 			env, new Object_binary::PointerEx(offset, pObj->Reference()));
 		value = Value(new Object_stream(env, pStream));
 		return true;
 	}
-	env.LookupClass(VTYPE_pointer)->CastFrom(env, value, pDecl);
+	env.LookupClass(VTYPE_pointer)->CastFrom(env, value, flags);
 	if (value.Is_pointer()) {
 		Pointer *pPointer = Object_pointer::GetObject(value)->GetPointer();
 		Stream *pStream = new Pointer::StreamEx(env, pPointer->Clone());

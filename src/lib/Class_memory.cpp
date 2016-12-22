@@ -280,7 +280,7 @@ void Class_memory::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_memory::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_memory::CastFrom(Environment &env, Value &value, ULong flags)
 {
 #if 0
 	if (value.Is_array_at_int8()) {

@@ -220,7 +220,7 @@ void Class_complex::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_complex::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_complex::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	if (value.Is_number()) {		// cast number to complex
 		return true;

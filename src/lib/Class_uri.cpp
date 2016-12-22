@@ -216,7 +216,7 @@ void Class_uri::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_uri::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_uri::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	Signal &sig = GetSignal();
 	if (value.Is_string()) {

@@ -89,9 +89,18 @@ void ClassCustom::DoPrepare(Environment &env)
 	pFunc->DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-bool ClassCustom::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool ClassCustom::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	Signal &sig = GetSignal();
+#if 0
+	if (value.Is_list()) {
+		if (_pConstructor.IsNull()) return false;
+		AutoPtr<Argument> pArg(new Argument(_pConstructor.get()));
+		if (!pArg->StoreValues(env, value.GetList())) return false;
+		value = _pConstructor->Eval(env, *pArg);
+		return !sig.IsSignalled();
+	}
+#endif
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__cast__), ENVREF_NoEscalate));
 	if (pFunc == nullptr) return false;

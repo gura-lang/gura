@@ -900,7 +900,7 @@ void Class_array::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_array::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_array::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	return false;
 }

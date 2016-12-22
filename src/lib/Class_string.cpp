@@ -1062,7 +1062,7 @@ Value Class_string::IndexGetPrimitive(Environment &env,
 	}
 }
 
-bool Class_string::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_string::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	Signal &sig = GetSignal();
 	value = Value(value.ToString(false));

@@ -487,7 +487,7 @@ Value Class::IndexGetPrimitive(Environment &env,
 	return Value::Nil;
 }
 
-bool Class::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	return false;
 }

@@ -579,7 +579,7 @@ void Class_expr::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-bool Class_expr::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_expr::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	if (value.Is_symbol()) {
 		// cast symbol to expr
@@ -587,7 +587,7 @@ bool Class_expr::CastFrom(Environment &env, Value &value, const Declaration *pDe
 		value = Value(new Object_expr(env, new Expr_Identifier(pSymbol)));
 		return true;
 	}
-	env.LookupClass(VTYPE_stream)->CastFrom(env, value, pDecl);
+	env.LookupClass(VTYPE_stream)->CastFrom(env, value, flags);
 	if (value.Is_stream()) {
 		Stream &stream = value.GetStream();
 		Parser parser(env.GetSignal(), stream.GetName());
