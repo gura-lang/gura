@@ -56,7 +56,7 @@ import(glu) {*}
 import(glut) {*}
 
 doubleBuffer = true
-ubImage = array@uchar.zeros(65536)
+ubImage = array@uint8.zeros([65536])
 
 Init() = {
 	imgWidth = 128;
