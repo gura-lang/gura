@@ -2073,14 +2073,15 @@ Class_list::Class_list(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_list)
 
 void Class_list::DoPrepare(Environment &env)
 {
+	// Assignment of functions
 	Gura_AssignFunctionEx(list_xlist, "list");
 	Gura_AssignFunctionEx(list_xlist, "xlist");
 	Gura_AssignFunctionEx(set_xset, "set");
 	Gura_AssignFunctionEx(set_xset, "xset");
 	Gura_AssignFunctionEx(ListInit, "@");
-	// assignment of class methods
+	// Assignment of class methods
 	Gura_AssignMethod(list, zip);
-	// assignment of instance methods
+	// Assignment of instance methods
 	Gura_AssignMethod(list, add);
 	Gura_AssignMethod(list, append);
 	Gura_AssignMethod(list, clear);
@@ -2095,7 +2096,7 @@ void Class_list::DoPrepare(Environment &env)
 	Gura_AssignMethod(list, put);
 	Gura_AssignMethod(list, shift);
 	Gura_AssignMethod(list, shuffle);
-	// assignment of instance methods that are shared with iterator
+	// Assignment of instance methods that are shared with iterator
 	Gura_AssignMethod(list, after);
 	Gura_AssignMethod(list, align);
 	Gura_AssignMethod(list, and_);

@@ -890,8 +890,10 @@ Class_matrix::Class_matrix(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_matr
 
 void Class_matrix::DoPrepare(Environment &env)
 {
+	// Assignment of functions
 	Gura_AssignFunction(matrix);
 	Gura_AssignFunctionEx(MatrixInit, "@@");
+	// Assignment of methods
 	Gura_AssignMethod(matrix, col);
 	Gura_AssignMethod(matrix, colsize);
 	Gura_AssignMethod(matrix, dot);

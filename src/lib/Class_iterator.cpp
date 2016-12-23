@@ -1650,15 +1650,16 @@ Class_iterator::Class_iterator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 
 void Class_iterator::DoPrepare(Environment &env)
 {
+	// Assignment of function
 	Gura_AssignFunction(iterator);
-	// assignment of methods specific to iterator
+	// Assignment of methods specific to iterator
 	Gura_AssignMethod(iterator, delay);
 	Gura_AssignMethod(iterator, finite);
 	Gura_AssignMethod(iterator, infinite);
 	Gura_AssignMethod(iterator, isinfinite);
 	Gura_AssignMethod(iterator, next);
 	Gura_AssignMethod(iterator, repeater);
-	// assignment of instance methods that are shared with list
+	// Assignment of instance methods that are shared with list
 	Gura_AssignMethod(iterator, after);
 	Gura_AssignMethod(iterator, align);
 	Gura_AssignMethod(iterator, and_);
