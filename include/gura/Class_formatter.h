@@ -35,9 +35,6 @@ public:
 	Object_formatter(const Object_formatter &obj);
 	virtual ~Object_formatter();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline const Formatter::Flags &GetFlags() const { return _flags; }
 };

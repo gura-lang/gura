@@ -51,11 +51,6 @@ public:
 	inline void SetValueThis(const Value &valueThis) { _valueThis = valueThis; }
 	inline Value GetValueThis() const { return _valueThis; }
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;
 	virtual bool IsFinalizer() const;

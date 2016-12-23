@@ -17,75 +17,6 @@ Object_function::~Object_function()
 {
 }
 
-bool Object_function::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(decls));
-	symbols.insert(Gura_Symbol(expr));
-	symbols.insert(Gura_Symbol(format));
-	symbols.insert(Gura_Symbol(fullname));
-	symbols.insert(Gura_Symbol(name));
-	symbols.insert(Gura_Symbol(symbol));
-	return true;
-}
-
-Value Object_function::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(decls))) {
-		Iterator *pIterator = new Iterator_declaration(GetFunction()->GetDeclOwner().Reference());
-		return Value(new Object_iterator(env, pIterator));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(expr))) {
-		if (!GetFunction()->IsCustom()) return Value::Nil;
-		const FunctionCustom *pFuncCustom =
-						dynamic_cast<const FunctionCustom *>(GetFunction());
-		return Value(new Object_expr(env, Expr::Reference(pFuncCustom->GetExprBody())));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		return Value(GetFunction()->ToString());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(fullname))) {
-		return Value(GetFunction()->MakeFullName());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
-		return Value(GetFunction()->GetName());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
-		return Value(GetFunction()->GetSymbol());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_function::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(symbol)) ||
-						pSymbol->IsIdentical(Gura_Symbol(name))) {
-		if (value.Is_symbol()) {
-			GetFunction()->SetSymbol(value.GetSymbol());
-		} else if (value.Is_string()) {
-			GetFunction()->SetSymbol(Symbol::Add(value.GetString()));
-		} else {
-			sig.SetError(ERR_TypeError, "symbol or string must be specified");
-			return Value::Nil;
-		}
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(expr))) {
-		if (!GetFunction()->IsCustom()) {
-			sig.SetError(ERR_TypeError, "not a custom function");
-			return Value::Nil;
-		}
-		if (!value.Is_expr()) {
-			sig.SetError(ERR_TypeError, "expr must be specified");
-			return Value::Nil;
-		}
-		FunctionCustom *pFuncCustom = dynamic_cast<FunctionCustom *>(GetFunction());
-		pFuncCustom->SetExprBody(Expr::Reference(value.GetExpr()));
-		return value;
-	}
-	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-}
-
 bool Object_function::IsLeader() const
 {
 	return GetFunction()->GetFlag(FLAG_Leader);
@@ -256,6 +187,134 @@ Gura_ImplementFunction(function)
 	callerInfo.SetResultMode(arg.GetResultMode());
 	if (!pFunc->CustomDeclare(env, callerInfo, SymbolSet::Empty)) return Value::Nil;
 	return Value(new Object_function(env, pFunc.release()));
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// function#decls
+Gura_DeclareProperty_R(function, decls)
+{
+	SetPropAttr(VTYPE_iterator);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(function, decls)
+{
+	const Function *pFunc = Object_function::GetObject(valueThis)->GetFunction();
+	Iterator *pIterator = new Iterator_declaration(pFunc->GetDeclOwner().Reference());
+	return Value(new Object_iterator(env, pIterator));
+}
+
+// function#expr
+Gura_DeclareProperty_RW(function, expr)
+{
+	SetPropAttr(VTYPE_expr);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(function, expr)
+{
+	const Function *pFunc = Object_function::GetObject(valueThis)->GetFunction();
+	if (!pFunc->IsCustom()) return Value::Nil;
+	const FunctionCustom *pFuncCustom = dynamic_cast<const FunctionCustom *>(pFunc);
+	return Value(new Object_expr(env, Expr::Reference(pFuncCustom->GetExprBody())));
+}
+
+Gura_ImplementPropertySetter(function, expr)
+{
+	Function *pFunc = Object_function::GetObject(valueThis)->GetFunction();
+	if (!pFunc->IsCustom()) {
+		env.SetError(ERR_TypeError, "not a custom function");
+		return Value::Nil;
+	}
+	FunctionCustom *pFuncCustom = dynamic_cast<FunctionCustom *>(pFunc);
+	pFuncCustom->SetExprBody(value.GetExpr()->Reference());
+	return value;
+}
+
+// function#format
+Gura_DeclareProperty_R(function, format)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(function, format)
+{
+	const Function *pFunc = Object_function::GetObject(valueThis)->GetFunction();
+	return Value(pFunc->ToString());
+}
+
+// function#fullname
+Gura_DeclareProperty_R(function, fullname)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(function, fullname)
+{
+	const Function *pFunc = Object_function::GetObject(valueThis)->GetFunction();
+	return Value(pFunc->MakeFullName());
+}
+
+// function#name
+Gura_DeclareProperty_RW(function, name)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(function, name)
+{
+	const Function *pFunc = Object_function::GetObject(valueThis)->GetFunction();
+	return Value(pFunc->GetName());
+}
+
+Gura_ImplementPropertySetter(function, name)
+{
+	Function *pFunc = Object_function::GetObject(valueThis)->GetFunction();
+	pFunc->SetSymbol(Symbol::Add(value.GetString()));
+	return value;
+}
+
+// function#symbol
+Gura_DeclareProperty_RW(function, symbol)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(function, symbol)
+{
+	const Function *pFunc = Object_function::GetObject(valueThis)->GetFunction();
+	return Value(pFunc->GetSymbol());
+}
+
+Gura_ImplementPropertySetter(function, symbol)
+{
+	Function *pFunc = Object_function::GetObject(valueThis)->GetFunction();
+	pFunc->SetSymbol(value.GetSymbol());
+	return value;
 }
 
 //-----------------------------------------------------------------------------
@@ -484,8 +543,17 @@ Class_function::Class_function(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 
 void Class_function::DoPrepare(Environment &env)
 {
+	// Assignment of functions
 	Gura_AssignFunction(function);
 	Gura_AssignFunctionEx(function, "&");
+	// Assignment of properties
+	Gura_AssignProperty(function, decls);
+	Gura_AssignProperty(function, expr);
+	Gura_AssignProperty(function, format);
+	Gura_AssignProperty(function, fullname);
+	Gura_AssignProperty(function, name);
+	Gura_AssignProperty(function, symbol);
+	// Assignment of methods
 	//Gura_AssignMethod(function, addhelp);
 	Gura_AssignMethod(function, getdecls);
 	Gura_AssignMethod(function, getexpr);

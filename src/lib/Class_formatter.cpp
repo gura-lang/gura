@@ -25,19 +25,6 @@ Object *Object_formatter::Clone() const
 	return new Object_formatter(*this);
 }
 
-bool Object_formatter::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	return true;
-}
-
-Value Object_formatter::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_formatter::ToString(bool exprFlag)
 {
 	String str;
