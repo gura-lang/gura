@@ -34,9 +34,6 @@ public:
 						Object(pClass), _pExpr(pExpr) {}
 	Object_expr(const Object_expr &obj);
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Expr *GetExpr() { return _pExpr.get(); }
 	inline const Expr *GetExpr() const { return _pExpr.get(); }

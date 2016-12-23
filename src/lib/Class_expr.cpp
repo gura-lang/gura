@@ -32,254 +32,6 @@ Object *Object_expr::Clone() const
 	return new Object_expr(*this);
 }
 
-bool Object_expr::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(attrs));
-	symbols.insert(Gura_Symbol(attrsopt));
-	symbols.insert(Gura_Symbol(block));
-	symbols.insert(Gura_Symbol(blockparam));
-	symbols.insert(Gura_Symbol(body));
-	symbols.insert(Gura_Symbol(car));
-	symbols.insert(Gura_Symbol(cdr));
-	symbols.insert(Gura_Symbol(child));
-	symbols.insert(Gura_Symbol(children));
-	symbols.insert(Gura_Symbol(left));
-	symbols.insert(Gura_Symbol(lineno));
-	symbols.insert(Gura_Symbol(linenobtm));
-	symbols.insert(Gura_Symbol(operator_));
-	symbols.insert(Gura_Symbol(postext));
-	symbols.insert(Gura_Symbol(right));
-	symbols.insert(Gura_Symbol(source));
-	symbols.insert(Gura_Symbol(suffix));
-	symbols.insert(Gura_Symbol(symbol));
-	symbols.insert(Gura_Symbol(trailer));
-	symbols.insert(Gura_Symbol(typename_));
-	symbols.insert(Gura_Symbol(typesym));
-	symbols.insert(Gura_Symbol(value));
-	return true;
-}
-
-Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(attrfront))) {
-		const SymbolList *pAttrFront = nullptr;
-		if (GetExpr()->IsIdentifier()) {
-			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
-			pAttrFront = &pExpr->GetAttrFront();
-		} else if (GetExpr()->IsCaller()) {
-			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
-			pAttrFront = &pExpr->GetAttrFront();
-		}
-		if (pAttrFront != nullptr) {
-			Value rtn;
-			Object_list *pObjList = rtn.InitAsList(env, pAttrFront->size());
-			pObjList->Reserve(pAttrFront->size());
-			foreach_const (SymbolList, ppSymbol, *pAttrFront) {
-				pObjList->Add(Value(*ppSymbol));
-			}
-			return rtn;
-		}
-		sig.SetError(ERR_ValueError, "expression is not an identifier nor a caller");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(attrs))) {
-		ULong flags = 0;
-		ResultMode resultMode = RSLTMODE_Normal;
-		const SymbolSet *pAttrs = nullptr;
-		if (GetExpr()->IsIdentifier()) {
-			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
-			pAttrs = &pExpr->GetAttrs();
-		} else if (GetExpr()->IsCaller()) {
-			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
-			pAttrs = &pExpr->GetAttrs();
-			flags = pExpr->GetCallerInfo().GetFlagsToSet();
-			resultMode = pExpr->GetCallerInfo().GetResultMode();
-		}
-		if (pAttrs == nullptr) {
-			sig.SetError(ERR_ValueError, "expression is not an identifier nor a caller");
-			return Value::Nil;
-		}
-		Value rtn;
-		Object_list *pObjList = rtn.InitAsList(env);
-		pObjList->Reserve(pAttrs->size() + 8);
-		foreach_const (SymbolSet, ppSymbol, *pAttrs) {
-			pObjList->Add(Value(*ppSymbol));
-		}
-		ULong flag = 1;
-		const Symbol *pSymbol = nullptr;
-		for ( ; flags != 0; flags >>= 1, flag <<= 1) {
-			if ((flags & 1) != 0 && (pSymbol = Symbol::FromFlag(flag)) != nullptr) {
-				pObjList->Add(Value(pSymbol));
-			}
-		}
-		if (resultMode != RSLTMODE_Normal &&
-			(pSymbol = Symbol::FromResultMode(resultMode)) != nullptr) {
-			pObjList->Add(Value(pSymbol));
-		}
-		return rtn;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(attrsopt))) {
-		const SymbolSet *pAttrsOpt = nullptr;
-		if (GetExpr()->IsIdentifier()) {
-			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
-			pAttrsOpt = &pExpr->GetAttrsOpt();
-		} else if (GetExpr()->IsCaller()) {
-			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
-			pAttrsOpt = &pExpr->GetAttrsOpt();
-		}
-		if (pAttrsOpt == nullptr) {
-			Value rtn;
-			Object_list *pObjList = rtn.InitAsList(env, pAttrsOpt->size());
-			pObjList->Reserve(pAttrsOpt->size());
-			foreach_const (SymbolSet, ppSymbol, *pAttrsOpt) {
-				pObjList->Add(Value(*ppSymbol));
-			}
-			return rtn;
-		}
-		sig.SetError(ERR_ValueError, "expression is not an identifier nor a caller");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(block))) {
-		if (GetExpr()->IsCaller()) {
-			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
-			const Expr_Block *pExprBlock = pExpr->GetBlock();
-			if (pExprBlock == nullptr) return Value::Nil;
-			return Value(new Object_expr(env, Expr::Reference(pExprBlock)));
-		}
-		sig.SetError(ERR_ValueError, "not a caller expression");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(blockparam))) {
-		if (GetExpr()->IsBlock()) {
-			const Expr_Block *pExpr = dynamic_cast<const Expr_Block *>(GetExpr());
-			const ExprOwner *pExprOwnerParam = pExpr->GetExprOwnerParam();
-			if (pExprOwnerParam == nullptr) return Value::Nil;
-			return Value(new Object_iterator(env, new ExprOwner::Iterator(pExprOwnerParam->Reference())));
-		}
-		sig.SetError(ERR_ValueError, "expression is not a block");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(body))) {
-		if (GetExpr()->IsSuffixed()) {
-			const Expr_Suffixed *pExpr = dynamic_cast<const Expr_Suffixed *>(GetExpr());
-			return Value(pExpr->GetBody());
-		}
-		sig.SetError(ERR_ValueError, "expression is not a suffixed");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(car))) {
-		if (GetExpr()->IsCompound()) {
-			const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
-			return Value(new Object_expr(env, Expr::Reference(pExpr->GetCar())));
-		}
-		sig.SetError(ERR_ValueError, "not a compound expression");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(cdr))) {
-		if (GetExpr()->IsCompound()) {
-			const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
-			return Value(new Object_iterator(env, new ExprOwner::Iterator(pExpr->GetExprOwner().Reference())));
-		}
-		sig.SetError(ERR_ValueError, "not a compound expression");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(child))) {
-		if (GetExpr()->IsUnary()) {
-			const Expr_Unary *pExpr = dynamic_cast<const Expr_Unary *>(GetExpr());
-			return Value(new Object_expr(env, Expr::Reference(pExpr->GetChild())));
-		}
-		sig.SetError(ERR_ValueError, "not a unary expression");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(children))) {
-		if (GetExpr()->IsCollector()) {
-			const Expr_Collector *pExpr = dynamic_cast<const Expr_Collector *>(GetExpr());
-			return Value(new Object_iterator(env, new ExprOwner::Iterator(pExpr->GetExprOwner().Reference())));
-		}
-		sig.SetError(ERR_ValueError, "not a collector expression");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(left))) {
-		if (GetExpr()->IsBinary()) {
-			const Expr_Binary *pExpr = dynamic_cast<const Expr_Binary *>(GetExpr());
-			return Value(new Object_expr(env, Expr::Reference(pExpr->GetLeft())));
-		} else if (GetExpr()->IsMember()) {
-			const Expr_Member *pExpr = dynamic_cast<const Expr_Member *>(GetExpr());
-			return Value(new Object_expr(env, Expr::Reference(pExpr->GetTarget())));
-		}
-		sig.SetError(ERR_ValueError, "expression is not a binary nor a member");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(lineno))) {
-		return Value(GetExpr()->GetLineNoTop());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(linenobtm))) {
-		return Value(GetExpr()->GetLineNoBtm());
-
-	} else if (pSymbol->IsIdentical(Gura_Symbol(operator_))) {
-		if (GetExpr()->IsUnaryOp()) {
-			const Expr_UnaryOp *pExpr = dynamic_cast<const Expr_UnaryOp *>(GetExpr());
-			return Value(new Object_operator(env,
-							pExpr->GetOperator()->GetOpType(), OPTYPE_None));
-		} else if (GetExpr()->IsBinaryOp()) {
-			const Expr_BinaryOp *pExpr = dynamic_cast<const Expr_BinaryOp *>(GetExpr());
-			return Value(new Object_operator(env,
-							OPTYPE_None, pExpr->GetOperator()->GetOpType()));
-		} else if (GetExpr()->IsAssign()) {
-			const Expr_Assign *pExpr = dynamic_cast<const Expr_Assign *>(GetExpr());
-			const Operator *pOperator = pExpr->GetOperatorToApply();
-			if (pOperator == nullptr) return Value::Nil;
-			return Value(new Object_operator(env, OPTYPE_None, pOperator->GetOpType()));
-		}
-		sig.SetError(ERR_ValueError, "expression is not a unaryop, a binaryop nor an assign");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(postext))) {
-		return Value(GetExpr()->MakePosText());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(right))) {
-		if (GetExpr()->IsBinary()) {
-			const Expr_Binary *pExpr = dynamic_cast<const Expr_Binary *>(GetExpr());
-			return Value(new Object_expr(env, Expr::Reference(pExpr->GetRight())));
-		} else if (GetExpr()->IsMember()) {
-			const Expr_Member *pExpr = dynamic_cast<const Expr_Member *>(GetExpr());
-			return Value(new Object_expr(env, Expr::Reference(pExpr->GetSelector())));
-		}
-		sig.SetError(ERR_ValueError, "expression is not a binary nor a member");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(source))) {
-		const char *sourceName = GetExpr()->GetSourceName();
-		if (sourceName == nullptr) return Value::Nil;
-		return Value(sourceName);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(suffix))) {
-		if (GetExpr()->IsSuffixed()) {
-			const Expr_Suffixed *pExpr = dynamic_cast<const Expr_Suffixed *>(GetExpr());
-			return Value(pExpr->GetSymbolSuffix());
-		}
-		sig.SetError(ERR_ValueError, "expression is not a suffixed");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
-		if (GetExpr()->IsIdentifier()) {
-			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
-			return Value(pExpr->GetSymbol());
-		}
-		sig.SetError(ERR_ValueError, "expression is not an identifier");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(trailer))) {
-		if (GetExpr()->IsCaller()) {
-			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
-			const Expr_Caller *pExprTrailer = pExpr->GetTrailer();
-			if (pExprTrailer == nullptr) return Value::Nil;
-			return Value(new Object_expr(env, Expr::Reference(pExprTrailer)));
-		}
-		sig.SetError(ERR_ValueError, "not a caller expression");
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(typename_))) {
-		return Value(GetExpr()->GetTypeName());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(typesym))) {
-		return Value(Symbol::Add(GetExpr()->GetTypeName()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(value))) {
-		if (GetExpr()->IsValue()) {
-			const Expr_Value *pExpr = dynamic_cast<const Expr_Value *>(GetExpr());
-			return pExpr->GetValue();
-		}
-		sig.SetError(ERR_ValueError, "expression is not a value");
-		return Value::Nil;
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_expr::ToString(bool exprFlag)
 {
 	String str;
@@ -302,7 +54,7 @@ String Object_expr::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Implementation of expr
+// Implementation of function
 //-----------------------------------------------------------------------------
 // expr(src:stream:r) {block?}
 Gura_DeclareFunction(expr)
@@ -327,6 +79,543 @@ Gura_ImplementFunction(expr)
 	return ReturnValue(env, arg, Value(new Object_expr(env, pExprRoot.release())));
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// expr#attrfront
+Gura_DeclareProperty_R(expr, attrfront)
+{
+	SetPropAttr(VTYPE_list);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, attrfront)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	const SymbolList *pAttrFront = nullptr;
+	if (pExpr->IsIdentifier()) {
+		const Expr_Identifier *pExprEx = dynamic_cast<const Expr_Identifier *>(pExpr);
+		pAttrFront = &pExprEx->GetAttrFront();
+	} else if (pExpr->IsCaller()) {
+		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr);
+		pAttrFront = &pExprEx->GetAttrFront();
+	}
+	if (pAttrFront != nullptr) {
+		Value rtn;
+		Object_list *pObjList = rtn.InitAsList(env, pAttrFront->size());
+		pObjList->Reserve(pAttrFront->size());
+		foreach_const (SymbolList, ppSymbol, *pAttrFront) {
+			pObjList->Add(Value(*ppSymbol));
+		}
+		return rtn;
+	}
+	env.SetError(ERR_ValueError, "expression is not an identifier nor a caller");
+	return Value::Nil;
+}
+
+// expr#attrs
+Gura_DeclareProperty_R(expr, attrs)
+{
+	SetPropAttr(VTYPE_list);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, attrs)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	ULong flags = 0;
+	ResultMode resultMode = RSLTMODE_Normal;
+	const SymbolSet *pAttrs = nullptr;
+	if (pExpr->IsIdentifier()) {
+		const Expr_Identifier *pExprEx = dynamic_cast<const Expr_Identifier *>(pExpr);
+		pAttrs = &pExprEx->GetAttrs();
+	} else if (pExpr->IsCaller()) {
+		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr);
+		pAttrs = &pExprEx->GetAttrs();
+		flags = pExprEx->GetCallerInfo().GetFlagsToSet();
+		resultMode = pExprEx->GetCallerInfo().GetResultMode();
+	}
+	if (pAttrs == nullptr) {
+		env.SetError(ERR_ValueError, "expression is not an identifier nor a caller");
+		return Value::Nil;
+	}
+	Value rtn;
+	Object_list *pObjList = rtn.InitAsList(env);
+	pObjList->Reserve(pAttrs->size() + 8);
+	foreach_const (SymbolSet, ppSymbol, *pAttrs) {
+		pObjList->Add(Value(*ppSymbol));
+	}
+	ULong flag = 1;
+	const Symbol *pSymbol = nullptr;
+	for ( ; flags != 0; flags >>= 1, flag <<= 1) {
+		if ((flags & 1) != 0 && (pSymbol = Symbol::FromFlag(flag)) != nullptr) {
+			pObjList->Add(Value(pSymbol));
+		}
+	}
+	if (resultMode != RSLTMODE_Normal &&
+		(pSymbol = Symbol::FromResultMode(resultMode)) != nullptr) {
+		pObjList->Add(Value(pSymbol));
+	}
+	return rtn;
+}
+
+// expr#attrsopt
+Gura_DeclareProperty_R(expr, attrsopt)
+{
+	SetPropAttr(VTYPE_list);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, attrsopt)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	const SymbolSet *pAttrsOpt = nullptr;
+	if (pExpr->IsIdentifier()) {
+		const Expr_Identifier *pExprEx = dynamic_cast<const Expr_Identifier *>(pExpr);
+		pAttrsOpt = &pExprEx->GetAttrsOpt();
+	} else if (pExpr->IsCaller()) {
+		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr);
+		pAttrsOpt = &pExprEx->GetAttrsOpt();
+	}
+	if (pAttrsOpt == nullptr) {
+		Value rtn;
+		Object_list *pObjList = rtn.InitAsList(env, pAttrsOpt->size());
+		pObjList->Reserve(pAttrsOpt->size());
+		foreach_const (SymbolSet, ppSymbol, *pAttrsOpt) {
+			pObjList->Add(Value(*ppSymbol));
+		}
+		return rtn;
+	}
+	env.SetError(ERR_ValueError, "expression is not an identifier nor a caller");
+	return Value::Nil;
+}
+
+// expr#block
+Gura_DeclareProperty_R(expr, block)
+{
+	SetPropAttr(VTYPE_expr);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, block)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	if (pExpr->IsCaller()) {
+		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr);
+		const Expr_Block *pExprBlock = pExprEx->GetBlock();
+		if (pExprBlock == nullptr) return Value::Nil;
+		return Value(new Object_expr(env, Expr::Reference(pExprBlock)));
+	}
+	env.SetError(ERR_ValueError, "not a caller expression");
+	return Value::Nil;
+}
+
+// expr#blockparam
+Gura_DeclareProperty_R(expr, blockparam)
+{
+	SetPropAttr(VTYPE_iterator);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, blockparam)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	if (pExpr->IsBlock()) {
+		const Expr_Block *pExprEx = dynamic_cast<const Expr_Block *>(pExpr);
+		const ExprOwner *pExprOwnerParam = pExprEx->GetExprOwnerParam();
+		if (pExprOwnerParam == nullptr) return Value::Nil;
+		return Value(new Object_iterator(env, new ExprOwner::Iterator(pExprOwnerParam->Reference())));
+	}
+	env.SetError(ERR_ValueError, "expression is not a block");
+	return Value::Nil;
+}
+
+// expr#body
+Gura_DeclareProperty_R(expr, body)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, body)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	if (pExpr->IsSuffixed()) {
+		const Expr_Suffixed *pExprEx = dynamic_cast<const Expr_Suffixed *>(pExpr);
+		return Value(pExprEx->GetBody());
+	}
+	env.SetError(ERR_ValueError, "expression is not a suffixed");
+	return Value::Nil;
+}
+
+// expr#car
+Gura_DeclareProperty_R(expr, car)
+{
+	SetPropAttr(VTYPE_expr);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, car)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	if (pExpr->IsCompound()) {
+		const Expr_Compound *pExprEx = dynamic_cast<const Expr_Compound *>(pExpr);
+		return Value(new Object_expr(env, Expr::Reference(pExprEx->GetCar())));
+	}
+	env.SetError(ERR_ValueError, "not a compound expression");
+	return Value::Nil;
+}
+
+// expr#cdr
+Gura_DeclareProperty_R(expr, cdr)
+{
+	SetPropAttr(VTYPE_expr);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, cdr)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	if (pExpr->IsCompound()) {
+		const Expr_Compound *pExprEx = dynamic_cast<const Expr_Compound *>(pExpr);
+		return Value(new Object_iterator(env, new ExprOwner::Iterator(pExprEx->GetExprOwner().Reference())));
+	}
+	env.SetError(ERR_ValueError, "not a compound expression");
+	return Value::Nil;
+}
+
+// expr#child
+Gura_DeclareProperty_R(expr, child)
+{
+	SetPropAttr(VTYPE_expr);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, child)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	if (pExpr->IsUnary()) {
+		const Expr_Unary *pExprEx = dynamic_cast<const Expr_Unary *>(pExpr);
+		return Value(new Object_expr(env, Expr::Reference(pExprEx->GetChild())));
+	}
+	env.SetError(ERR_ValueError, "not a unary expression");
+	return Value::Nil;
+}
+
+// expr#children
+Gura_DeclareProperty_R(expr, children)
+{
+	SetPropAttr(VTYPE_iterator);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, children)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	if (pExpr->IsCollector()) {
+		const Expr_Collector *pExprEx = dynamic_cast<const Expr_Collector *>(pExpr);
+		return Value(new Object_iterator(env, new ExprOwner::Iterator(pExprEx->GetExprOwner().Reference())));
+	}
+	env.SetError(ERR_ValueError, "not a collector expression");
+	return Value::Nil;
+}
+
+// expr#left
+Gura_DeclareProperty_R(expr, left)
+{
+	SetPropAttr(VTYPE_expr);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, left)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	if (pExpr->IsBinary()) {
+		const Expr_Binary *pExprEx = dynamic_cast<const Expr_Binary *>(pExpr);
+		return Value(new Object_expr(env, Expr::Reference(pExprEx->GetLeft())));
+	} else if (pExpr->IsMember()) {
+		const Expr_Member *pExprEx = dynamic_cast<const Expr_Member *>(pExpr);
+		return Value(new Object_expr(env, Expr::Reference(pExprEx->GetTarget())));
+	}
+	env.SetError(ERR_ValueError, "expression is not a binary nor a member");
+	return Value::Nil;
+}
+
+// expr#lineno
+Gura_DeclareProperty_R(expr, lineno)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, lineno)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	return Value(pExpr->GetLineNoTop());
+}
+
+// expr#linenobtm
+Gura_DeclareProperty_R(expr, linenobtm)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, linenobtm)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	return Value(pExpr->GetLineNoBtm());
+}
+
+// expr#operator
+Gura_DeclarePropertyAlias_R(expr, operator_, "operator")
+{
+	SetPropAttr(VTYPE_operator);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, operator_)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	if (pExpr->IsUnaryOp()) {
+		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
+		return Value(new Object_operator(env,
+										 pExprEx->GetOperator()->GetOpType(), OPTYPE_None));
+	} else if (pExpr->IsBinaryOp()) {
+		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExpr);
+		return Value(new Object_operator(env,
+										 OPTYPE_None, pExprEx->GetOperator()->GetOpType()));
+	} else if (pExpr->IsAssign()) {
+		const Expr_Assign *pExprEx = dynamic_cast<const Expr_Assign *>(pExpr);
+		const Operator *pOperator = pExprEx->GetOperatorToApply();
+		if (pOperator == nullptr) return Value::Nil;
+		return Value(new Object_operator(env, OPTYPE_None, pOperator->GetOpType()));
+	}
+	env.SetError(ERR_ValueError, "expression is not a unaryop, a binaryop nor an assign");
+	return Value::Nil;
+}
+
+// expr#postext
+Gura_DeclareProperty_R(expr, postext)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, postext)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	return Value(pExpr->MakePosText());
+}
+
+// expr#right
+Gura_DeclareProperty_R(expr, right)
+{
+	SetPropAttr(VTYPE_expr);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, right)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	if (pExpr->IsBinary()) {
+		const Expr_Binary *pExprEx = dynamic_cast<const Expr_Binary *>(pExpr);
+		return Value(new Object_expr(env, Expr::Reference(pExprEx->GetRight())));
+	} else if (pExpr->IsMember()) {
+		const Expr_Member *pExprEx = dynamic_cast<const Expr_Member *>(pExpr);
+		return Value(new Object_expr(env, Expr::Reference(pExprEx->GetSelector())));
+	}
+	env.SetError(ERR_ValueError, "expression is not a binary nor a member");
+	return Value::Nil;
+}
+
+// expr#source
+Gura_DeclareProperty_R(expr, source)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, source)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	const char *sourceName = pExpr->GetSourceName();
+	if (sourceName == nullptr) return Value::Nil;
+	return Value(sourceName);
+}
+
+// expr#suffix
+Gura_DeclareProperty_R(expr, suffix)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, suffix)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	if (pExpr->IsSuffixed()) {
+		const Expr_Suffixed *pExprEx = dynamic_cast<const Expr_Suffixed *>(pExpr);
+		return Value(pExprEx->GetSymbolSuffix());
+	}
+	env.SetError(ERR_ValueError, "expression is not a suffixed");
+	return Value::Nil;
+}
+
+// expr#symbol
+Gura_DeclareProperty_R(expr, symbol)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, symbol)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	if (pExpr->IsIdentifier()) {
+		const Expr_Identifier *pExprEx = dynamic_cast<const Expr_Identifier *>(pExpr);
+		return Value(pExprEx->GetSymbol());
+	}
+	env.SetError(ERR_ValueError, "expression is not an identifier");
+	return Value::Nil;
+}
+
+// expr#trailer
+Gura_DeclareProperty_R(expr, trailer)
+{
+	SetPropAttr(VTYPE_expr);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, trailer)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	if (pExpr->IsCaller()) {
+		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr);
+		const Expr_Caller *pExprTrailer = pExprEx->GetTrailer();
+		if (pExprTrailer == nullptr) return Value::Nil;
+		return Value(new Object_expr(env, Expr::Reference(pExprTrailer)));
+	}
+	env.SetError(ERR_ValueError, "not a caller expression");
+	return Value::Nil;
+}
+
+// expr#typename
+Gura_DeclarePropertyAlias_R(expr, typename_, "typename")
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, typename_)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	return Value(pExpr->GetTypeName());
+}
+
+// expr#typesym
+Gura_DeclareProperty_R(expr, typesym)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, typesym)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	return Value(Symbol::Add(pExpr->GetTypeName()));
+}
+
+// expr#value
+Gura_DeclareProperty_R(expr, value)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(expr, value)
+{
+	const Expr *pExpr = Object_expr::GetObject(valueThis)->GetExpr();
+	if (pExpr->IsValue()) {
+		const Expr_Value *pExprEx = dynamic_cast<const Expr_Value *>(pExpr);
+		return pExprEx->GetValue();
+	}
+	env.SetError(ERR_ValueError, "expression is not a value");
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of methods
+//-----------------------------------------------------------------------------
 // expr#eval(env?:environment)
 Gura_DeclareMethod(expr, eval)
 {
@@ -545,7 +834,33 @@ Class_expr::Class_expr(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_expr)
 
 void Class_expr::DoPrepare(Environment &env)
 {
+	// Assignment of function
 	Gura_AssignFunction(expr);
+	// Assignment of properties
+	Gura_AssignProperty(expr, attrfront);
+	Gura_AssignProperty(expr, attrs);
+	Gura_AssignProperty(expr, attrsopt);
+	Gura_AssignProperty(expr, block);
+	Gura_AssignProperty(expr, blockparam);
+	Gura_AssignProperty(expr, body);
+	Gura_AssignProperty(expr, car);
+	Gura_AssignProperty(expr, cdr);
+	Gura_AssignProperty(expr, child);
+	Gura_AssignProperty(expr, children);
+	Gura_AssignProperty(expr, left);
+	Gura_AssignProperty(expr, lineno);
+	Gura_AssignProperty(expr, linenobtm);
+	Gura_AssignProperty(expr, operator_);
+	Gura_AssignProperty(expr, postext);
+	Gura_AssignProperty(expr, right);
+	Gura_AssignProperty(expr, source);
+	Gura_AssignProperty(expr, suffix);
+	Gura_AssignProperty(expr, symbol);
+	Gura_AssignProperty(expr, trailer);
+	Gura_AssignProperty(expr, typename_);
+	Gura_AssignProperty(expr, typesym);
+	Gura_AssignProperty(expr, value);
+	// Assignment of methods
 	Gura_AssignMethod(expr, eval);
 	Gura_AssignMethod(expr, parse);
 	Gura_AssignMethod(expr, textize);
