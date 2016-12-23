@@ -120,3 +120,13 @@ resize - larger      500x607 true
 
 expand(10, 20, 30, 40): true
 expand(10, 20, 30, 40, `red): true
+
+======== #10 properties ========
+
+img.width .. 51
+img.height .. 62
+img.format .. rgba
+img.palette .. <Palette:256entries>
+img.palette = palette(`basic) .. <Palette:16entries>
+img.palette = nil .. nil
+img.palette = 'foo' .. TypeError: casting string to palette is not supported

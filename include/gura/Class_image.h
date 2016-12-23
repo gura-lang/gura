@@ -32,11 +32,6 @@ public:
 	Object_image(Class *pClass, Image *pImage);
 	Object_image(const Object_image &obj);
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Image *GetImage() { return _pImage.get(); }
 	inline const Image *GetImage() const { return _pImage.get(); }

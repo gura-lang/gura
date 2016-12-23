@@ -26,40 +26,6 @@ Object *Object_help::Clone() const
 	return nullptr; //new Object_help(*this);
 }
 
-bool Object_help::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(title));
-	symbols.insert(Gura_Symbol(lang));
-	symbols.insert(Gura_Symbol(format));
-	symbols.insert(Gura_Symbol(doc));
-	return true;
-}
-
-Value Object_help::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(title))) {
-		return Value(_pHelp->MakeHelpTitle());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(lang))) {
-		return Value(_pHelp->GetLangCode());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		return Value(_pHelp->GetFormatNameSTL());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(doc))) {
-		if (!_pHelp->UpdateDocument(env)) return Value::Nil;
-		return Value(_pHelp->GetDocumentSTL());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_help::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-}
-
 String Object_help::ToString(bool exprFlag)
 {
 	String rtn;
@@ -74,12 +40,13 @@ String Object_help::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// help@class(cls:class, lang?:symbol):map
+// help@class(cls:class, lang?:symbol):map {block?}
 Gura_DeclareFunctionAlias(help_at_class, "help@class")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "cls", VTYPE_Class);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
 		"Returns a `help` instance associated with the specified class `cls`.\n"
@@ -97,15 +64,16 @@ Gura_ImplementFunction(help_at_class)
 	const Symbol *pSymbol = arg.Is_symbol(1)? arg.GetSymbol(1) : env.GetLangCode();
 	const Help *pHelp = pClass->GetHelpProvider().GetHelp(pSymbol, true);
 	if (pHelp == nullptr) return Value::Nil;
-	return Value(new Object_help(env, pHelp->Reference()));
+	return ReturnValue(env, arg, Value(new Object_help(env, pHelp->Reference())));
 }
 
-// help@function(func:function, lang?:symbol):map
+// help@function(func:function, lang?:symbol):map {block?}
 Gura_DeclareFunctionAlias(help_at_function, "help@function")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
 		"Returns a `help` instance associated with the specified function instance `func`.\n"
@@ -123,7 +91,75 @@ Gura_ImplementFunction(help_at_function)
 	const Symbol *pSymbol = arg.Is_symbol(1)? arg.GetSymbol(1) : env.GetLangCode();
 	const Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbol, true);
 	if (pHelp == nullptr) return Value::Nil;
-	return Value(new Object_help(env, pHelp->Reference()));
+	return ReturnValue(env, arg, Value(new Object_help(env, pHelp->Reference())));
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// help#title
+Gura_DeclareProperty_R(help, title)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(help, title)
+{
+	const Help *pHelp = Object_help::GetObject(valueThis)->GetHelp();
+	return Value(pHelp->MakeHelpTitle());
+}
+
+// help#lang
+Gura_DeclareProperty_R(help, lang)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(help, lang)
+{
+	const Help *pHelp = Object_help::GetObject(valueThis)->GetHelp();
+	return Value(pHelp->GetLangCode());
+}
+
+// help#format
+Gura_DeclareProperty_R(help, format)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(help, format)
+{
+	const Help *pHelp = Object_help::GetObject(valueThis)->GetHelp();
+	return Value(pHelp->GetFormatNameSTL());
+}
+
+// help#doc
+Gura_DeclareProperty_R(help, doc)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(help, doc)
+{
+	Help *pHelp = Object_help::GetObject(valueThis)->GetHelp();
+	if (!pHelp->UpdateDocument(env)) return Value::Nil;
+	return Value(pHelp->GetDocumentSTL());
 }
 
 //-----------------------------------------------------------------------------
@@ -357,19 +393,24 @@ Class_help::Class_help(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_help)
 
 void Class_help::DoPrepare(Environment &env)
 {
-	// assignment of class
+	// Assignment of class
 	Gura_AssignValue(help, Value(Reference()));
-	// assignment of functions
+	// Assignment of functions
 	Gura_AssignFunction(help_at_class);
 	Gura_AssignFunction(help_at_function);
-	// assignment of methods
+	// Assignment of properties
+	Gura_AssignProperty(help, title);
+	Gura_AssignProperty(help, lang);
+	Gura_AssignProperty(help, format);
+	Gura_AssignProperty(help, doc);
+	// Assignment of methods
 	Gura_AssignMethod(help, text_at_iterator);
 	Gura_AssignMethod(help, text_at_block);
 	Gura_AssignMethod(help, present);
 	Gura_AssignMethod(help, presenter);
 	Gura_AssignMethod(help, render);
 	Gura_AssignMethod(help, renderer);
-	// assignment of operators
+	// Assignment of operators
 	Gura_AssignBinaryOperator(ModMod, function, help);
 	Gura_AssignBinaryOperator(ModMod, Class, help);
 	Gura_AssignUnaryOperator(Inv, function);

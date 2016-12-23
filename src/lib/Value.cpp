@@ -570,6 +570,7 @@ ValueDict &Value::InitAsDict(Environment &env, bool ignoreCaseFlag)
 bool Value::CastType(Environment &env, ValueType valType, ULong flags)
 {
 	if (valType == VTYPE_any || IsInstanceOf(valType)) return true;
+	if ((flags & FLAG_Nil) != 0 && IsInvalid()) return true;
 	Class *pClass = env.LookupClass(valType);
 	if (pClass->CastFrom(env, *this, flags)) return true;
 	env.SetError(ERR_TypeError, "casting %s to %s is not supported",

@@ -8,3 +8,10 @@
 
 `en ..foo
 `ja ..hoge
+
+======== #3 properties ========
+
+h.title .. func()
+h.lang .. ja
+h.format .. markdown
+h.doc .. help document

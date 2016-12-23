@@ -20,3 +20,12 @@ testcase('multi-language') {
 	println('`en ..', help@function(f, `en).doc)
 	println('`ja ..', help@function(f, `ja).doc)
 }
+testcase('properties') {
+	func() = {} %% {`ja, 'help document'}
+	help@function(func) {|h|
+		tester(`h.title)
+		tester(`h.lang)
+		tester(`h.format)
+		tester(`h.doc)
+	}
+}

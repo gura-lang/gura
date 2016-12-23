@@ -67,7 +67,9 @@ protected:
 	virtual Value DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const = 0;
 	virtual Value DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const = 0;
 public:
-	inline void SetPropAttr(ValueType valType) { _valType = valType; }
+	inline void SetPropAttr(ValueType valType, ULong flags = FLAG_None) {
+		_valType = valType, _flags |= flags;
+	}
 	inline const Symbol *GetSymbol() { return _pSymbol; }
 	inline const char *GetName() { return _pSymbol->GetName(); }
 	inline ULong GetFlags() const { return _flags; }

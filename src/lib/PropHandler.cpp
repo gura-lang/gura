@@ -26,7 +26,7 @@ Value PropHandler::GetProp(Environment &env, const Value &valueThis, const Symbo
 
 Value PropHandler::SetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, Value &value) const
 {
-	if (!value.CastType(env, _valType)) return Value::Nil;
+	if (!value.CastType(env, _valType, _flags)) return Value::Nil;
 	return DoSetProp(env, valueThis, attrs, value);
 }
 

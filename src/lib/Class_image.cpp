@@ -31,54 +31,6 @@ Object *Object_image::Clone() const
 	return new Object_image(*this);
 }
 
-bool Object_image::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(format));
-	symbols.insert(Gura_Symbol(height));
-	symbols.insert(Gura_Symbol(palette));
-	symbols.insert(Gura_Symbol(width));
-	return true;
-}
-
-Value Object_image::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		return Value(GetImage()->FormatToSymbol(GetImage()->GetFormat()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(height))) {
-		return Value(static_cast<UInt>(GetImage()->GetHeight()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(palette))) {
-		const Palette *pPalette = GetImage()->GetPalette();
-		if (pPalette == nullptr) return Value::Nil;
-		return Value(new Object_palette(env, Palette::Reference(pPalette)));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(width))) {
-		return Value(static_cast<UInt>(GetImage()->GetWidth()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_image::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	if (pSymbol->IsIdentical(Gura_Symbol(palette))) {
-		if (value.Is_palette()) {
-			GetImage()->SetPalette(Palette::Reference(Object_palette::GetObject(value)->GetPalette()));
-			return value;
-		} else if (value.IsInvalid()) {
-			GetImage()->SetPalette(nullptr);
-			return Value::Nil;
-		} else {
-			sig.SetError(ERR_ValueError, "palette object must be specified");
-			return Value::Nil;
-		}
-	}
-	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-}
-
 String Object_image::ToString(bool exprFlag)
 {
 	String rtn;
@@ -198,6 +150,86 @@ Gura_ImplementFunction(image)
 		if (!pImage->Read(env, stream, imageType)) return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(new Object_image(env, pImage.release())));
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// image#format
+Gura_DeclareProperty_R(image, format)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(image, format)
+{
+	const Image *pImage = Object_image::GetObject(valueThis)->GetImage();
+	return Value(Image::FormatToSymbol(pImage->GetFormat()));
+}
+
+// image#height
+Gura_DeclareProperty_R(image, height)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(image, height)
+{
+	const Image *pImage = Object_image::GetObject(valueThis)->GetImage();
+	return Value(static_cast<UInt>(pImage->GetHeight()));
+}
+
+// image#palette:nil
+Gura_DeclareProperty_RW(image, palette)
+{
+	SetPropAttr(VTYPE_palette, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(image, palette)
+{
+	const Image *pImage = Object_image::GetObject(valueThis)->GetImage();
+	const Palette *pPalette = pImage->GetPalette();
+	if (pPalette == nullptr) return Value::Nil;
+	return Value(new Object_palette(env, pPalette->Reference()));
+}
+
+Gura_ImplementPropertySetter(image, palette)
+{
+	Image *pImage = Object_image::GetObject(valueThis)->GetImage();
+	if (value.IsInvalid()) {
+		pImage->SetPalette(nullptr);
+		return Value::Nil;
+	}
+	pImage->SetPalette(Object_palette::GetObject(value)->GetPalette()->Reference());
+	return value;
+}
+
+// image#width
+Gura_DeclareProperty_R(image, width)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(image, width)
+{
+	const Image *pImage = Object_image::GetObject(valueThis)->GetImage();
+	return Value(static_cast<UInt>(pImage->GetWidth()));
 }
 
 //-----------------------------------------------------------------------------
@@ -576,7 +608,6 @@ Gura_ImplementMethod(image, grayscale)
 	return ReturnValue(env, arg, Value(new Object_image(env, pImage.release())));
 }
 
-#if 1
 // image#mapcolorlevel(map@r:array@uint8, map@g?:array@uint8, map@b?:array@uint8) {block?}
 Gura_DeclareMethod(image, mapcolorlevel)
 {
@@ -614,82 +645,6 @@ Gura_ImplementMethod(image, mapcolorlevel)
 	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_image(env, pImage.release())));
 }
-#else
-// image#mapcolorlevel(map@r[]:number, map@g?[]:number, map@b?[]:number) {block?}
-Gura_DeclareMethod(image, mapcolorlevel)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "map@r", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "map@g", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
-	DeclareArg(env, "map@b", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"Returns a new image that converts color levels according to the given table.\n"
-		"\n"
-		"Each of the arguments `map@r`, `map@g` and `map@b` is a list\n"
-		"containing 256 numbers that range between 0 and 255\n"
-		"and corresponds to elements red, green and blue respectively.\n"
-		"An element value in the source image becomes an index of the list\n"
-		"and the indexed value will be stored as a converted element value.\n"
-		"\n"
-		"If you want to apply a mapping table to all the elements,\n"
-		"call the method with a single argument like `image#mapcolorlevel(map)`.\n"
-		"\n"
-		GURA_HELPTEXT_BLOCK_en("img", "image"));
-}
-
-UChar *ValueListToMapTable(Signal &sig, const ValueList &valList)
-{
-	if (valList.size() != 256) {
-		sig.SetError(ERR_ValueError, "the list of map table must contain %d elements");
-		return nullptr;
-	}
-	UChar *mapBuff = new UChar[256];
-	UChar *p = mapBuff;
-	foreach_const (ValueList, pValue, valList) {
-		*p++ = pValue->GetUChar();
-	}
-	return mapBuff;
-}
-
-Gura_ImplementMethod(image, mapcolorlevel)
-{
-	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetObjectThis(arg);
-	UChar *mapBuffR = ValueListToMapTable(sig, arg.GetList(0));
-	if (mapBuffR == nullptr) return Value::Nil;
-	UChar *mapBuffG = nullptr;
-	UChar *mapBuffB = nullptr;
-	const UChar *mapR = mapBuffR;
-	const UChar *mapG = mapBuffR;
-	const UChar *mapB = mapBuffR;
-	if (arg.IsValid(1)) {
-		mapBuffG = ValueListToMapTable(sig, arg.GetList(1));
-		if (mapBuffG == nullptr) {
-			delete[] mapBuffR;
-			return Value::Nil;
-		}
-		mapG = mapBuffG;
-		mapB = mapBuffG;
-	}
-	if (arg.IsValid(2)) {
-		mapBuffB = ValueListToMapTable(sig, arg.GetList(2));
-		if (mapBuffB == nullptr) {
-			delete[] mapBuffR;
-			delete[] mapBuffG;
-			return Value::Nil;
-		}
-		mapB = mapBuffB;
-	}
-	AutoPtr<Image> pImage(pThis->GetImage()->MapColorLevel(sig, mapR, mapG, mapB));
-	delete[] mapBuffR;
-	delete[] mapBuffG;
-	delete[] mapBuffB;
-	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, arg, Value(new Object_image(env, pImage.release())));
-}
-#endif
 
 // image#paste(x:number, y:number, src:image, width?:number, height?:number,
 //     xoffset:number => 0, yoffset:number => 0, a:number => 255):map:reduce
@@ -1236,7 +1191,14 @@ Class_image::Class_image(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_image)
 
 void Class_image::DoPrepare(Environment &env)
 {
+	// Assignment of function
 	Gura_AssignFunction(image);
+	// Assignment of properties
+	Gura_AssignProperty(image, format);
+	Gura_AssignProperty(image, height);
+	Gura_AssignProperty(image, palette);
+	Gura_AssignProperty(image, width);
+	// Assignment of methods
 	Gura_AssignMethod(image, allocbuff);
 	Gura_AssignMethod(image, blur);
 	Gura_AssignMethod(image, clear);

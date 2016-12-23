@@ -239,3 +239,13 @@ testcase('image#expand') {
 	println('expand(10, 20, 30, 40, `red): ',
 			md5.hexdigest == '9edadabde6d24a7c5ecb48b832653807' || md5.hexdigest)
 }
+testcase('properties') {
+	img = image(I('chicken256.bmp'))
+	tester(`img.width)
+	tester(`img.height)
+	tester(`img.format)
+	tester(`img.palette)
+	tester(`(img.palette = palette(`basic)))
+	tester(`(img.palette = nil))
+	tester(`(img.palette = 'foo'))
+}
