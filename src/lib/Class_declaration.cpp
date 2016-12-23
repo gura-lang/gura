@@ -16,6 +16,69 @@ Object *Object_declaration::Clone() const
 	return new Object_declaration(*this);
 }
 
+String Object_declaration::ToString(bool exprFlag)
+{
+	String str;
+	str += "<declaration:";
+	str += _pDeclaration->GetName();
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// declaration#symbol
+Gura_DeclareProperty_R(declaration, symbol)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(declaration, symbol)
+{
+	const Declaration *pDeclaration = Object_declaration::GetObject(valueThis)->GetDeclaration();
+	return Value(pDeclaration->GetSymbol());
+}
+
+// declaration#name
+Gura_DeclareProperty_R(declaration, name)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(declaration, name)
+{
+	const Declaration *pDeclaration = Object_declaration::GetObject(valueThis)->GetDeclaration();
+	return Value(pDeclaration->GetName());
+}
+
+// declaration#default
+Gura_DeclarePropertyAlias_R(declaration, default_, "default")
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(declaration, default_)
+{
+	const Declaration *pDeclaration = Object_declaration::GetObject(valueThis)->GetDeclaration();
+	const Expr *pExpr = pDeclaration->GetExprDefault();
+	if (pExpr == nullptr) return Value::Nil;
+	return Value(new Object_expr(env, pExpr->Reference()));
+}
+
+#if 0
 bool Object_declaration::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
@@ -30,26 +93,13 @@ Value Object_declaration::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
-		return Value(_pDeclaration->GetSymbol());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
-		return Value(_pDeclaration->GetName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(default_))) {
-		const Expr *pExpr = _pDeclaration->GetExprDefault();
-		if (pExpr == nullptr) return Value::Nil;
-		return Value(new Object_expr(env, pExpr->Reference()));
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
 }
-
-String Object_declaration::ToString(bool exprFlag)
-{
-	String str;
-	str += "<declaration:";
-	str += _pDeclaration->GetName();
-	str += ">";
-	return str;
-}
+#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of methods
@@ -104,8 +154,14 @@ Class_declaration::Class_declaration(Environment *pEnvOuter) : Class(pEnvOuter, 
 
 void Class_declaration::DoPrepare(Environment &env)
 {
-	Gura_AssignValue(declaration, Value(Reference()));
+	// Assignment of properties
+	Gura_AssignProperty(declaration, symbol);
+	Gura_AssignProperty(declaration, name);
+	Gura_AssignProperty(declaration, default_);
+	// Assignment of method
 	Gura_AssignMethod(declaration, istype);
+	// Assignment of value
+	Gura_AssignValue(declaration, Value(Reference()));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

@@ -30,16 +30,6 @@ Value PropHandler::SetProp(Environment &env, const Value &valueThis, const Symbo
 	return DoSetProp(env, valueThis, attrs, value);
 }
 
-Value PropHandler::DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const
-{
-	return Value::Nil;
-}
-
-Value PropHandler::DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const
-{
-	return Value::Nil;
-}
-
 String PropHandler::MakeHelpTitle() const
 {
 	return _pSymbol->GetName();

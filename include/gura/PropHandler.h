@@ -11,7 +11,9 @@ class PropHandler_##className##__##propName : public PropHandler { \
 public: \
 	PropHandler_##className##__##propName(); \
 	virtual Value DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const; \
+	virtual Value DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const; \
 }; \
+Value PropHandler_##className##__##propName::DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const { return Value::Nil; } \
 PropHandler_##className##__##propName::PropHandler_##className##__##propName() : \
 					PropHandler(Symbol::Add(propNameAlias), FLAG_Read)
 
@@ -62,8 +64,8 @@ public:
 	virtual Value GetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const;
 	virtual Value SetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, Value &value) const;
 protected:
-	virtual Value DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const;
-	virtual Value DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const;
+	virtual Value DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const = 0;
+	virtual Value DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const = 0;
 public:
 	inline void SetPropAttr(ValueType valType) { _valType = valType; }
 	inline const Symbol *GetSymbol() { return _pSymbol; }
