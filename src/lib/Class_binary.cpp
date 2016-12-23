@@ -26,33 +26,6 @@ Object *Object_binary::Clone() const
 	return new Object_binary(*this);
 }
 
-#if 0
-bool Object_binary::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(p));
-	symbols.insert(Gura_Symbol(size));
-	symbols.insert(Gura_Symbol(writable));
-	return true;
-}
-
-Value Object_binary::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(p))) {
-		Pointer *pPointer = new PointerEx(0, Reference());
-		return Value(new Object_pointer(env, pPointer));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(size))) {
-		return Value(GetBinary().size());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(writable))) {
-		return Value(_writableFlag);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-#endif
-
 Value Object_binary::IndexGet(Environment &env, const Value &valueIdx)
 {
 	if (!valueIdx.Is_number()) {

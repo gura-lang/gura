@@ -67,9 +67,6 @@ public:
 	Object_binary(const Object_binary &obj);
 	virtual ~Object_binary();
 	virtual Object *Clone() const;
-	//virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	//virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-	//						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal &sig);

@@ -16,31 +16,6 @@ Object *Object_argument::Clone() const
 	return new Object_argument(*this);
 }
 
-#if 0
-bool Object_argument::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(function));
-	symbols.insert(Gura_Symbol(values));
-	return true;
-}
-
-Value Object_argument::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(function))) {
-		return Value(new Object_function(env, _pArg->GetFunction()->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(values))) {
-		Value rtn;
-		_pArg->GetSlotValues(rtn.InitAsList(env));
-		return rtn;
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-#endif
-
 String Object_argument::ToString(bool exprFlag)
 {
 	char buff[80];

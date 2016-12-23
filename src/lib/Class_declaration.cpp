@@ -78,29 +78,6 @@ Gura_ImplementPropertyGetter(declaration, default_)
 	return Value(new Object_expr(env, pExpr->Reference()));
 }
 
-#if 0
-bool Object_declaration::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(symbol));
-	symbols.insert(Gura_Symbol(name));
-	symbols.insert(Gura_Symbol(default_));
-	return true;
-}
-
-Value Object_declaration::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
-	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
-	} else if (pSymbol->IsIdentical(Gura_Symbol(default_))) {
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------

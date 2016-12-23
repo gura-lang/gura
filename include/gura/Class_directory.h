@@ -34,9 +34,6 @@ public:
 	inline Object_directory(Class *pClass, Directory *pDirectory) :
 						Object(pClass), _pDirectory(pDirectory) {}
 	inline Directory *GetDirectory() { return _pDirectory.get(); }
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
 

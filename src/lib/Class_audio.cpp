@@ -26,44 +26,6 @@ Object *Object_audio::Clone() const
 	return nullptr; //new Object_audio(*this);
 }
 
-#if 0
-bool Object_audio::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(format));
-	symbols.insert(Gura_Symbol(channels));
-	symbols.insert(Gura_Symbol(samples));
-	symbols.insert(Gura_Symbol(samplespersec));
-	symbols.insert(Gura_Symbol(bytespersample));
-	return true;
-}
-
-Value Object_audio::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		return Value(Audio::FormatToSymbol(_pAudio->GetFormat()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(channels))) {
-		return Value(static_cast<UInt>(_pAudio->GetChannels()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(samples))) {
-		return Value(static_cast<UInt>(_pAudio->GetSamples()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(samplespersec))) {
-		return Value(static_cast<UInt>(_pAudio->GetSamplesPerSec()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(bytespersample))) {
-		return Value(static_cast<UInt>(_pAudio->GetBytesPerSample()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_audio::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-}
-#endif
-
 String Object_audio::ToString(bool exprFlag)
 {
 	String rtn;

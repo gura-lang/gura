@@ -11,19 +11,6 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 // Object_directory
 //-----------------------------------------------------------------------------
-bool Object_directory::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	return true;
-}
-
-Value Object_directory::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_directory::ToString(bool exprFlag)
 {
 	const Directory *pDirectory = GetDirectory();

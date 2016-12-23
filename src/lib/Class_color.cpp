@@ -143,67 +143,6 @@ Object *Object_color::Clone() const
 	return new Object_color(*this);
 }
 
-#if 0
-bool Object_color::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(r));
-	symbols.insert(Gura_Symbol(g));
-	symbols.insert(Gura_Symbol(b));
-	symbols.insert(Gura_Symbol(a));
-	return true;
-}
-
-Value Object_color::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(r))) {
-		return Value(_color.GetR());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(g))) {
-		return Value(_color.GetG());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(b))) {
-		return Value(_color.GetB());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(a))) {
-		return Value(_color.GetA());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_color::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	if (pSymbol->IsIdentical(Gura_Symbol(r))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		evaluatedFlag = true;
-		UChar r = value.GetUChar();
-		_color.SetR(r);
-		return Value(r);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(g))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		evaluatedFlag = true;
-		UChar g = value.GetUChar();
-		_color.SetG(g);
-		return Value(g);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(b))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		evaluatedFlag = true;
-		UChar b = value.GetUChar();
-		_color.SetB(b);
-		return Value(b);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(a))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		evaluatedFlag = true;
-		UChar a = value.GetUChar();
-		_color.SetA(a);
-		return Value(a);
-	}
-	return Value::Nil;
-}
-#endif
-
 String Object_color::ToString(bool exprFlag)
 {
 	String str;

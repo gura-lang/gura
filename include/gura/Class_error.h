@@ -34,9 +34,6 @@ public:
 	Object_error(const Object_error &obj);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline const Gura::Error &GetError() const { return _err; }
 };
 
