@@ -103,8 +103,8 @@ fs:module
   stat:class = <class:fs.stat(pathname:string) {block?}>
 function:class = <class:function(`args*) {block}>
 help:class = <class:help>
-help@class(cls:class, lang?:symbol):map
-help@function(func:function, lang?:symbol):map
+help@class(cls:class, lang?:symbol):map {block?}
+help@function(func:function, lang?:symbol):map {block?}
 hex(num:number, digits?:number):map:[upper]
 if (`cond):leader {block}
 image:class = <class:image(args+):map {block?}>
