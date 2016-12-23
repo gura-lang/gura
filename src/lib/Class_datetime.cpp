@@ -25,6 +25,7 @@ Object *Object_datetime::Clone() const
 	return new Object_datetime(*this);
 }
 
+#if 0
 bool Object_datetime::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
@@ -91,7 +92,7 @@ Value Object_datetime::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 	if (pSymbol->IsIdentical(Gura_Symbol(year))) {
 		long num = value.GetLong();
 		if (num < 0 || num > 9999) {
-			sig.SetError(ERR_ValueError, "invalid number for datetime's year");
+			sig.SetError(ERR_ValueError, "invalid number for datetime's yeara");
 			return Value::Nil;
 		}
 		_dateTime.SetYear(static_cast<short>(num));
@@ -147,6 +148,7 @@ Value Object_datetime::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 	}
 	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
+#endif
 
 String Object_datetime::ToString(bool exprFlag)
 {
@@ -213,6 +215,279 @@ Gura_ImplementFunction(datetime)
 	}
 	return ReturnValue(env, arg,
 		Value(new Object_datetime(env, DateTime(year, month, day, sec, usec, secsOffset))));
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// datetime#year
+Gura_DeclareProperty_RW(datetime, year)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(datetime, year)
+{
+	const DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	return Value(static_cast<Number>(dateTime.GetYear()));
+}
+
+Gura_ImplementPropertySetter(datetime, year)
+{
+	DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	long num = value.GetLong();
+	if (num < 1 || num > 9999) {
+		env.SetError(ERR_ValueError, "datetime#year must be betwen 1 and 9999 inclusive");
+		return Value::Nil;
+	}
+	dateTime.SetYear(static_cast<short>(num));
+	return Value(num);
+}
+
+// datetime#month
+Gura_DeclareProperty_RW(datetime, month)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(datetime, month)
+{
+	const DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	return Value(static_cast<Number>(dateTime.GetMonth()));
+}
+
+Gura_ImplementPropertySetter(datetime, month)
+{
+	DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	long num = value.GetLong();
+	if (num < 1 || num > 12) {
+		env.SetError(ERR_ValueError, "datetime#month must be between 1 and 12 inclusive");
+		return Value::Nil;
+	}
+	dateTime.SetMonth(static_cast<char>(num));
+	return Value(num);
+}
+
+// datetime#day
+Gura_DeclareProperty_RW(datetime, day)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(datetime, day)
+{
+	const DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	return Value(static_cast<Number>(dateTime.GetDay()));
+}
+
+Gura_ImplementPropertySetter(datetime, day)
+{
+	DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	long num = value.GetLong();
+	if (num < 1 || num > 31) {
+		env.SetError(ERR_ValueError, "datetime#day must be between 1 and 31 inclusive");
+		return Value::Nil;
+	}
+	dateTime.SetDay(static_cast<char>(num));
+	return Value(num);
+}
+
+// datetime#hour
+Gura_DeclareProperty_RW(datetime, hour)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(datetime, hour)
+{
+	const DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	return Value(static_cast<Number>(dateTime.GetHour()));
+}
+
+Gura_ImplementPropertySetter(datetime, hour)
+{
+	DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	long num = value.GetLong();
+	if (num < 0 || num > 23) {
+		env.SetError(ERR_ValueError, "datetime#hour must be between 0 and 23 inclusive");
+		return Value::Nil;
+	}
+	dateTime.SetHour(static_cast<char>(num));
+	return Value(num);
+}
+
+// datetime#min
+Gura_DeclareProperty_RW(datetime, min)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(datetime, min)
+{
+	const DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	return Value(static_cast<Number>(dateTime.GetMin()));
+}
+
+Gura_ImplementPropertySetter(datetime, min)
+{
+	DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	long num = value.GetLong();
+	if (num < 0 || num > 59) {
+		env.SetError(ERR_ValueError, "datetime#min must be betwen 0 and 59 inclusive");
+		return Value::Nil;
+	}
+	dateTime.SetMin(static_cast<char>(num));
+	return Value(num);
+}
+
+// datetime#sec
+Gura_DeclareProperty_RW(datetime, sec)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(datetime, sec)
+{
+	const DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	return Value(static_cast<Number>(dateTime.GetSec()));
+}
+
+Gura_ImplementPropertySetter(datetime, sec)
+{
+	DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	long num = value.GetLong();
+	if (num < 0 || num > 59) {
+		env.SetError(ERR_ValueError, "datetime#sec must be between 0 and 59 inclusive");
+		return Value::Nil;
+	}
+	dateTime.SetSec(static_cast<char>(num));
+	return Value(num);
+}
+
+// datetime#usec
+Gura_DeclareProperty_RW(datetime, usec)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(datetime, usec)
+{
+	const DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	return Value(static_cast<Number>(dateTime.GetUSec()));
+}
+
+Gura_ImplementPropertySetter(datetime, usec)
+{
+	DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	long num = value.GetLong();
+	if (num < 0 || num > 999999) {
+		env.SetError(ERR_ValueError, "datetime#usec must be between 0 and 999999 inclusive");
+		return Value::Nil;
+	}
+	dateTime.SetUSec(num);
+	return Value(num);
+}
+
+// datetime#wday
+Gura_DeclareProperty_R(datetime, wday)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(datetime, wday)
+{
+	const DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	return Value(static_cast<Number>(dateTime.GetDayOfWeek()));
+}
+
+// datetime#week
+Gura_DeclareProperty_R(datetime, week)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(datetime, week)
+{
+	const DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	int wday = dateTime.GetDayOfWeek();
+	const Symbol *pSymbol =
+		(wday == 0)? Gura_Symbol(sunday) :
+		(wday == 1)? Gura_Symbol(monday) :
+		(wday == 2)? Gura_Symbol(tuesday) :
+		(wday == 3)? Gura_Symbol(wednesday) :
+		(wday == 4)? Gura_Symbol(thursday) :
+		(wday == 5)? Gura_Symbol(friday) :
+		(wday == 6)? Gura_Symbol(saturday) : nullptr;
+	if (pSymbol == nullptr) return Value::Nil; // this must not happen
+	return Value(pSymbol);
+}
+
+// datetime#yday
+Gura_DeclareProperty_R(datetime, yday)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(datetime, yday)
+{
+	const DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	return Value(static_cast<Number>(dateTime.GetDayOfYear() + 1));
+}
+
+// datetime#unixtime
+Gura_DeclareProperty_R(datetime, unixtime)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(datetime, unixtime)
+{
+	const DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	return Value(static_cast<Number>(dateTime.GetUnixTime()));
 }
 
 //-----------------------------------------------------------------------------
@@ -531,16 +806,21 @@ Class_datetime::Class_datetime(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 
 void Class_datetime::DoPrepare(Environment &env)
 {
-	// function assignment
+	// Assignment of function
 	Gura_AssignFunction(datetime);
-	// value assignment
-	Gura_AssignClassValue(Sunday,		Value(0));
-	Gura_AssignClassValue(Monday,		Value(1));
-	Gura_AssignClassValue(Tuesday,		Value(2));
-	Gura_AssignClassValue(Wednesday,	Value(3));
-	Gura_AssignClassValue(Thursday,		Value(4));
-	Gura_AssignClassValue(Friday,		Value(5));
-	Gura_AssignClassValue(Saturday,		Value(6));
+	// Assignment of properties
+	Gura_AssignProperty(datetime, year);
+	Gura_AssignProperty(datetime, month);
+	Gura_AssignProperty(datetime, day);
+	Gura_AssignProperty(datetime, hour);
+	Gura_AssignProperty(datetime, min);
+	Gura_AssignProperty(datetime, sec);
+	Gura_AssignProperty(datetime, usec);
+	Gura_AssignProperty(datetime, wday);
+	Gura_AssignProperty(datetime, week);
+	Gura_AssignProperty(datetime, yday);
+	Gura_AssignProperty(datetime, unixtime);
+	// Assignment of methods
 	Gura_AssignMethod(datetime, clrtzoff);
 	Gura_AssignMethod(datetime, format);
 	Gura_AssignMethod(datetime, isleap);
@@ -552,6 +832,14 @@ void Class_datetime::DoPrepare(Environment &env)
 	Gura_AssignMethod(datetime, today);
 	Gura_AssignMethod(datetime, utc);
 	Gura_AssignMethod(datetime, weekday);
+	// Assignment of values
+	Gura_AssignClassValue(Sunday,		Value(0));
+	Gura_AssignClassValue(Monday,		Value(1));
+	Gura_AssignClassValue(Tuesday,		Value(2));
+	Gura_AssignClassValue(Wednesday,	Value(3));
+	Gura_AssignClassValue(Thursday,		Value(4));
+	Gura_AssignClassValue(Friday,		Value(5));
+	Gura_AssignClassValue(Saturday,		Value(6));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

@@ -1,4 +1,4 @@
-======== #1 ========
+======== #1 properties: unixtime, yday, wday and week ========
 
 <datetime:2013-01-01T00:00:00Z>, unixtime=1356998400, yday=1, wday=2, week=tuesday
 <datetime:2013-02-01T00:00:00Z>, unixtime=1359676800, yday=32, wday=5, week=friday
@@ -27,7 +27,7 @@
 <datetime:2012-12-31T00:00:00Z>, unixtime=1356912000, yday=366, wday=1, week=monday
 <datetime:2013-12-31T00:00:00Z>, unixtime=1388448000, yday=365, wday=2, week=tuesday
 
-======== #2 ========
+======== #2 subtraction between datetime instances ========
 
 <timedelta:0days,0secs(00:00:00),0usecs>
 <timedelta:366days,0secs(00:00:00),0usecs>
@@ -40,13 +40,13 @@
 <timedelta:2922days,0secs(00:00:00),0usecs>
 <timedelta:3288days,0secs(00:00:00),0usecs>
 
-======== #3 ========
+======== #3 unixtime property ========
 
 datetime(2011, 1, 10, 8, 3, 0, 0, 0).unixtime .. 1294646580
 datetime(2001, 9, 9, 1, 46, 40, 0, 0).unixtime .. 1000000000
 datetime(2009, 2, 13, 23, 31, 30, 0, 0).unixtime .. 1234567890
 
-======== #4 ========
+======== #4 datetime.parse() ========
 
 datetime.parse('Sun, 06 Nov 1994 08:49:37 -0900') .. <datetime:1994-11-06T08:49:37-09:00>
 datetime.parse('Sun, 06 Nov 1994 08:49:37 +0900') .. <datetime:1994-11-06T08:49:37+09:00>
@@ -74,7 +74,7 @@ datetime.parse('111') .. FormatError: invalid time format
 datetime.parse('Sun Dec 31 24:59:59 9999') .. FormatError: invalid time format
 datetime.parse('Sun Dec 31 003:59:59 2010') .. FormatError: invalid time format
 
-======== #5 ========
+======== #5 calculation between datetime and timedelta instances ========
 
 operation of datetime .. OK
 3 * timedelta(1, 0, 0) .. <timedelta:3days,0secs(00:00:00),0usecs>
@@ -218,7 +218,41 @@ dt + (-timedelta(0, 0, 1000000)) .. <datetime:2000-12-31T22:59:59Z>
 dt + timedelta(0, 0, 2000000) .. <datetime:2000-12-31T23:00:02Z>
 dt - timedelta(0, 0, 2000000) .. <datetime:2000-12-31T22:59:58Z>
 dt + (-timedelta(0, 0, 2000000)) .. <datetime:2000-12-31T22:59:58Z>
+
+======== #6 datetime.isleap() ========
+
 cond(datetime.isleap(1800 .. 1899), '*', '.').join() .. ....*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...
 cond(datetime.isleap(1900 .. 1999), '*', '.').join() .. ....*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...
 cond(datetime.isleap(2000 .. 2099), '*', '.').join() .. *...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...
 cond(datetime.isleap(2100 .. 2199), '*', '.').join() .. ....*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...
+
+======== #7 property set ========
+
+dt.year = 0 .. ValueError: datetime#year must be betwen 1 and 9999 inclusive
+dt.year = 1 .. 1
+dt.year = 9999 .. 9999
+dt.year = 10000 .. ValueError: datetime#year must be betwen 1 and 9999 inclusive
+dt.month = 0 .. ValueError: datetime#month must be between 1 and 12 inclusive
+dt.month = 1 .. 1
+dt.month = 12 .. 12
+dt.month = 13 .. ValueError: datetime#month must be between 1 and 12 inclusive
+dt.day = 0 .. ValueError: datetime#day must be between 1 and 31 inclusive
+dt.day = 1 .. 1
+dt.day = 31 .. 31
+dt.day = 32 .. ValueError: datetime#day must be between 1 and 31 inclusive
+dt.hour = -1 .. ValueError: datetime#hour must be between 0 and 23 inclusive
+dt.hour = 0 .. 0
+dt.hour = 23 .. 23
+dt.hour = 24 .. ValueError: datetime#hour must be between 0 and 23 inclusive
+dt.min = -1 .. ValueError: datetime#min must be betwen 0 and 59 inclusive
+dt.min = 0 .. 0
+dt.min = 59 .. 59
+dt.min = 60 .. ValueError: datetime#min must be betwen 0 and 59 inclusive
+dt.sec = -1 .. ValueError: datetime#sec must be between 0 and 59 inclusive
+dt.sec = 0 .. 0
+dt.sec = 59 .. 59
+dt.sec = 60 .. ValueError: datetime#sec must be between 0 and 59 inclusive
+dt.usec = -1 .. ValueError: datetime#usec must be between 0 and 999999 inclusive
+dt.usec = 0 .. 0
+dt.usec = 999999 .. 999999
+dt.usec = 1000000 .. ValueError: datetime#usec must be between 0 and 999999 inclusive

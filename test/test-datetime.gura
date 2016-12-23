@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
-testcase {
+testcase('properties: unixtime, yday, wday and week') {
 	d = (
 		datetime(2013, 1..12, 1, minsoff => 0)
 		datetime(2013, 1..12, 21, minsoff => 0)
@@ -11,15 +11,15 @@ testcase {
 	printf('%s, unixtime=%d, yday=%d, wday=%d, week=%s\n', d,
 							d:*unixtime, d:*yday, d:*wday, d:*week)
 }
-testcase {
+testcase('subtraction between datetime instances') {
 	println(datetime(2000..2009, 1, 1) - datetime(2000, 1, 1))
 }
-testcase {
+testcase('unixtime property') {
 	tester(`datetime(2011, 1, 10, 8, 3, 0, 0, 0).unixtime)
 	tester(`datetime(2001, 9, 9, 1, 46, 40, 0, 0).unixtime)
 	tester(`datetime(2009, 2, 13, 23, 31, 30, 0, 0).unixtime)
 }
-testcase {
+testcase('datetime.parse()') {
 	tester(`datetime.parse('Sun, 06 Nov 1994 08:49:37 -0900'))
 	tester(`datetime.parse('Sun, 06 Nov 1994 08:49:37 +0900'))
 	tester(`datetime.parse('Sun, 06 Nov 1994 08:49:37 +0845'))
@@ -46,7 +46,7 @@ testcase {
 	tester(`datetime.parse('Sun Dec 31 24:59:59 9999'))
 	tester(`datetime.parse('Sun Dec 31 003:59:59 2010'))
 }
-testcase {
+testcase('calculation between datetime and timedelta instances') {
 	tdOrg = datetime(1900, 1, 1, minsoff => 0)
 	dayOffsets1 = rands(365 * 200, 1000)
 	dayOffsets2 = rands(365 * 200, 1000)
@@ -100,8 +100,41 @@ testcase {
 		tester(`(dt - timedelta(0, 0, 2000000)))
 		tester(`(dt + (-timedelta(0, 0, 2000000))))
 	}
+}
+testcase('datetime.isleap()') {
 	tester(`cond(datetime.isleap(1800..1899), '*', '.').join())
 	tester(`cond(datetime.isleap(1900..1999), '*', '.').join())
 	tester(`cond(datetime.isleap(2000..2099), '*', '.').join())
 	tester(`cond(datetime.isleap(2100..2199), '*', '.').join())
+}
+testcase('property set') {
+	dt = datetime(2000, 1, 1)
+	tester(`(dt.year = 0))
+	tester(`(dt.year = 1))
+	tester(`(dt.year = 9999))
+	tester(`(dt.year = 10000))
+	tester(`(dt.month = 0))
+	tester(`(dt.month = 1))
+	tester(`(dt.month = 12))
+	tester(`(dt.month = 13))
+	tester(`(dt.day = 0))
+	tester(`(dt.day = 1))
+	tester(`(dt.day = 31))
+	tester(`(dt.day = 32))
+	tester(`(dt.hour = -1))
+	tester(`(dt.hour = 0))
+	tester(`(dt.hour = 23))
+	tester(`(dt.hour = 24))
+	tester(`(dt.min = -1))
+	tester(`(dt.min = 0))
+	tester(`(dt.min = 59))
+	tester(`(dt.min = 60))
+	tester(`(dt.sec = -1))
+	tester(`(dt.sec = 0))
+	tester(`(dt.sec = 59))
+	tester(`(dt.sec = 60))
+	tester(`(dt.usec = -1))
+	tester(`(dt.usec = 0))
+	tester(`(dt.usec = 999999))
+	tester(`(dt.usec = 1000000))
 }

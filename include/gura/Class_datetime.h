@@ -35,11 +35,11 @@ public:
 	Object_datetime(const Object_datetime &obj);
 	virtual ~Object_datetime();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag);
+	//virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	//virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+	//						const SymbolSet &attrs, bool &evaluatedFlag);
+	//virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
+	//						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline DateTime &GetDateTime() { return _dateTime; }
 	inline const DateTime &GetDateTime() const { return _dateTime; }
