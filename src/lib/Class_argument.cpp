@@ -16,6 +16,7 @@ Object *Object_argument::Clone() const
 	return new Object_argument(*this);
 }
 
+#if 0
 bool Object_argument::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
@@ -38,6 +39,7 @@ Value Object_argument::DoGetProp(Environment &env, const Symbol *pSymbol,
 	evaluatedFlag = false;
 	return Value::Nil;
 }
+#endif
 
 String Object_argument::ToString(bool exprFlag)
 {
@@ -48,6 +50,43 @@ String Object_argument::ToString(bool exprFlag)
 	str += buff;
 	str += ">";
 	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// argument#function
+Gura_DeclareProperty_R(argument, function)
+{
+	SetPropAttr(VTYPE_function);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(argument, function)
+{
+	Argument *pArg = Object_argument::GetObject(valueThis)->GetArgument();
+	return Value(new Object_function(env, pArg->GetFunction()->Reference()));
+}
+
+// argument#values
+Gura_DeclareProperty_R(argument, values)
+{
+	SetPropAttr(VTYPE_function);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(argument, values)
+{
+	Argument *pArg = Object_argument::GetObject(valueThis)->GetArgument();
+	Value rtn;
+	pArg->GetSlotValues(rtn.InitAsList(env));
+	return rtn;
 }
 
 //-----------------------------------------------------------------------------
@@ -124,6 +163,10 @@ Class_argument::Class_argument(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 void Class_argument::DoPrepare(Environment &env)
 {
 	Gura_AssignValue(argument, Value(Reference()));
+	// Assignment of properties
+	Gura_AssignProperty(argument, function);
+	Gura_AssignProperty(argument, values);
+	// Assignment of methods
 	Gura_AssignMethod(arg, finalize_trailer);
 	Gura_AssignMethod(arg, isset);
 	Gura_AssignMethod(arg, quit_trailer);

@@ -405,8 +405,9 @@ testcase {
 	}
 	println(f.decls:*name.join(','))
 }
-testcase {
+testcase('properties of argument instance') {
 	f(a:number, b, c, d[]:number):map = {
+		println(__arg__.function)
 		println(__arg__.values):nomap
 	}
 	f(1, 2, 3, [4, 5, 6])

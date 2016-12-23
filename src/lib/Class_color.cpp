@@ -143,7 +143,7 @@ Object *Object_color::Clone() const
 	return new Object_color(*this);
 }
 
-#if 1
+#if 0
 bool Object_color::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
@@ -251,6 +251,106 @@ Gura_ImplementFunction(color)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// color#r
+Gura_DeclareProperty_RW(color, r)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(color, r)
+{
+	const Color &color = Object_color::GetObject(valueThis)->GetColor();
+	return Value(color.GetR());
+}
+
+Gura_ImplementPropertySetter(color, r)
+{
+	Color &color = Object_color::GetObject(valueThis)->GetColor();
+	UChar r = value.GetUChar();
+	color.SetR(r);
+	return Value(r);
+}
+
+// color#g
+Gura_DeclareProperty_RW(color, g)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(color, g)
+{
+	const Color &color = Object_color::GetObject(valueThis)->GetColor();
+	return Value(color.GetG());
+}
+
+Gura_ImplementPropertySetter(color, g)
+{
+	Color &color = Object_color::GetObject(valueThis)->GetColor();
+	UChar g = value.GetUChar();
+	color.SetG(g);
+	return Value(g);
+}
+
+// color#b
+Gura_DeclareProperty_RW(color, b)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(color, b)
+{
+	const Color &color = Object_color::GetObject(valueThis)->GetColor();
+	return Value(color.GetB());
+}
+
+Gura_ImplementPropertySetter(color, b)
+{
+	Color &color = Object_color::GetObject(valueThis)->GetColor();
+	UChar b = value.GetUChar();
+	color.SetB(b);
+	return Value(b);
+}
+
+// color#a
+Gura_DeclareProperty_RW(color, a)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(color, a)
+{
+	const Color &color = Object_color::GetObject(valueThis)->GetColor();
+	return Value(color.GetA());
+}
+
+
+Gura_ImplementPropertySetter(color, a)
+{
+	Color &color = Object_color::GetObject(valueThis)->GetColor();
+	UChar a = value.GetUChar();
+	color.SetA(a);
+	return Value(a);
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
 // color#getgray()
@@ -321,9 +421,18 @@ Class_color::Class_color(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_color)
 
 void Class_color::DoPrepare(Environment &env)
 {
+	// Assignment of function
+	Gura_AssignFunction(color);
+	// Assignment of properties
+	Gura_AssignProperty(color, r);
+	Gura_AssignProperty(color, g);
+	Gura_AssignProperty(color, b);
+	Gura_AssignProperty(color, a);
+	// Assignment of methods
 	Gura_AssignMethod(color, getgray);
 	Gura_AssignMethod(color, html);
 	Gura_AssignMethod(color, list);
+	// Assignment of values
 	do {
 		Value value;
 		Object_list *pObjList = value.InitAsList(env);
@@ -336,7 +445,6 @@ void Class_color::DoPrepare(Environment &env)
 		}
 		Gura_AssignClassValue(names, value);
 	} while (0);
-	Gura_AssignFunction(color);
 	Gura_AssignClassValue(black,	Value(new Object_color(env, Color::black)));
 	Gura_AssignClassValue(maroon,	Value(new Object_color(env, Color::maroon)));
 	Gura_AssignClassValue(green,	Value(new Object_color(env, Color::green)));
