@@ -26,24 +26,6 @@ Object *Object_suffixmgr::Clone() const
 	return nullptr; //new Object_suffixmgr(*this);
 }
 
-bool Object_suffixmgr::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	return true;
-}
-
-Value Object_suffixmgr::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	return Value::Nil;
-}
-
-Value Object_suffixmgr::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-}
-
 String Object_suffixmgr::ToString(bool exprFlag)
 {
 	String rtn;

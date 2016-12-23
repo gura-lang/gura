@@ -33,9 +33,6 @@ public:
 	Object_template(Class *pClass, Template *pTemplate);
 	inline Template *GetTemplate() { return _pTemplate.get(); }
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
 
