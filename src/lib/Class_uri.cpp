@@ -20,79 +20,6 @@ Object *Object_uri::Clone() const
 	return new Object_uri(*this);
 }
 
-bool Object_uri::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(scheme));
-	symbols.insert(Gura_Symbol(user));
-	symbols.insert(Gura_Symbol(password));
-	symbols.insert(Gura_Symbol(host));
-	symbols.insert(Gura_Symbol(port));
-	symbols.insert(Gura_Symbol(urlpath));
-	symbols.insert(Gura_Symbol(misc));
-	return true;
-}
-
-Value Object_uri::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(scheme))) {
-		return Value(_uri.GetScheme());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(user))) {
-		return Value(_uri.GetUser());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(password))) {
-		return Value(_uri.GetPassword());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(host))) {
-		return Value(_uri.GetHost());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(port))) {
-		return Value(_uri.GetPort());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(urlpath))) {
-		return Value(_uri.GetUrlPath());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(misc))) {
-		return Value(_uri.GetMisc());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_uri::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(scheme))) {
-		if (!value.MustBe_string(sig)) return Value::Nil;
-		_uri.SetScheme(value.GetString());
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(user))) {
-		if (!value.MustBe_string(sig)) return Value::Nil;
-		_uri.SetUser(value.GetString());
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(password))) {
-		if (!value.MustBe_string(sig)) return Value::Nil;
-		_uri.SetPassword(value.GetString());
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(host))) {
-		if (!value.MustBe_string(sig)) return Value::Nil;
-		_uri.SetHost(value.GetString());
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(port))) {
-		if (!value.MustBe_string(sig)) return Value::Nil;
-		_uri.SetPort(value.GetString());
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(urlpath))) {
-		if (!value.MustBe_string(sig)) return Value::Nil;
-		_uri.SetUrlPath(value.GetString());
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(misc))) {
-		if (!value.MustBe_string(sig)) return Value::Nil;
-		_uri.SetMisc(value.GetString());
-		return value;
-	}
-	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-}
-
 String Object_uri::ToString(bool exprFlag)
 {
 	return _uri.ToString();
@@ -126,6 +53,170 @@ Gura_ImplementFunction(uri)
 		if (!pObj->GetUri().Parse(sig, arg.GetString(0))) return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(pObj.release()));
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// uri#scheme
+Gura_DeclareProperty_RW(uri, scheme)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(uri, scheme)
+{
+	const Uri &uri = Object_uri::GetObject(valueThis)->GetUri();
+	return Value(uri.GetScheme());
+}
+
+Gura_ImplementPropertySetter(uri, scheme)
+{
+	Uri &uri = Object_uri::GetObject(valueThis)->GetUri();
+	uri.SetScheme(value.GetString());
+	return value;
+}
+
+// uri#user
+Gura_DeclareProperty_RW(uri, user)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(uri, user)
+{
+	const Uri &uri = Object_uri::GetObject(valueThis)->GetUri();
+	return Value(uri.GetUser());
+}
+
+Gura_ImplementPropertySetter(uri, user)
+{
+	Uri &uri = Object_uri::GetObject(valueThis)->GetUri();
+	uri.SetUser(value.GetString());
+	return value;
+}
+
+// uri#password
+Gura_DeclareProperty_RW(uri, password)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(uri, password)
+{
+	const Uri &uri = Object_uri::GetObject(valueThis)->GetUri();
+	return Value(uri.GetPassword());
+}
+
+Gura_ImplementPropertySetter(uri, password)
+{
+	Uri &uri = Object_uri::GetObject(valueThis)->GetUri();
+	uri.SetPassword(value.GetString());
+	return value;
+}
+
+// uri#host
+Gura_DeclareProperty_RW(uri, host)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(uri, host)
+{
+	const Uri &uri = Object_uri::GetObject(valueThis)->GetUri();
+	return Value(uri.GetHost());
+}
+
+Gura_ImplementPropertySetter(uri, host)
+{
+	Uri &uri = Object_uri::GetObject(valueThis)->GetUri();
+	uri.SetHost(value.GetString());
+	return value;
+}
+
+// uri#port
+Gura_DeclareProperty_RW(uri, port)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(uri, port)
+{
+	const Uri &uri = Object_uri::GetObject(valueThis)->GetUri();
+	return Value(uri.GetPort());
+}
+
+Gura_ImplementPropertySetter(uri, port)
+{
+	Uri &uri = Object_uri::GetObject(valueThis)->GetUri();
+	uri.SetPort(value.GetString());
+	return value;
+}
+
+// uri#urlpath
+Gura_DeclareProperty_RW(uri, urlpath)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(uri, urlpath)
+{
+	const Uri &uri = Object_uri::GetObject(valueThis)->GetUri();
+	return Value(uri.GetUrlPath());
+}
+
+Gura_ImplementPropertySetter(uri, urlpath)
+{
+	Uri &uri = Object_uri::GetObject(valueThis)->GetUri();
+	uri.SetUrlPath(value.GetString());
+	return value;
+}
+
+// uri#misc
+Gura_DeclareProperty_RW(uri, misc)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(uri, misc)
+{
+	const Uri &uri = Object_uri::GetObject(valueThis)->GetUri();
+	return Value(uri.GetMisc());
+}
+
+Gura_ImplementPropertySetter(uri, misc)
+{
+	Uri &uri = Object_uri::GetObject(valueThis)->GetUri();
+	uri.SetMisc(value.GetString());
+	return value;
 }
 
 //-----------------------------------------------------------------------------
@@ -207,7 +298,17 @@ Class_uri::Class_uri(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_uri)
 
 void Class_uri::DoPrepare(Environment &env)
 {
+	// Assignment of function
 	Gura_AssignFunction(uri);
+	// Assignment of properties
+	Gura_AssignProperty(uri, scheme);
+	Gura_AssignProperty(uri, user);
+	Gura_AssignProperty(uri, password);
+	Gura_AssignProperty(uri, host);
+	Gura_AssignProperty(uri, port);
+	Gura_AssignProperty(uri, urlpath);
+	Gura_AssignProperty(uri, misc);
+	// Assignment of methods
 	Gura_AssignMethod(uri, getfragment);
 	Gura_AssignMethod(uri, getpath);
 	Gura_AssignMethod(uri, getquery);

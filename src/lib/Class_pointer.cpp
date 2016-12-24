@@ -126,40 +126,6 @@ Gura_ImplementPropertyGetter(pointer, target)
 	return Value(pPointer->GetTarget()->Reference());
 }
 
-#if 0
-bool Object_pointer::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(offset));
-	symbols.insert(Gura_Symbol(size));
-	symbols.insert(Gura_Symbol(size_at_all));
-	symbols.insert(Gura_Symbol(target));
-	return true;
-}
-
-Value Object_pointer::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(offset))) {
-	} else if (pSymbol->IsIdentical(Gura_Symbol(size))) {
-	} else if (pSymbol->IsIdentical(Gura_Symbol(size_at_all))) {
-	} else if (pSymbol->IsIdentical(Gura_Symbol(target))) {
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_pointer::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	if (pSymbol->IsIdentical(Gura_Symbol(offset))) {
-	}
-	return Value::Nil;
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------

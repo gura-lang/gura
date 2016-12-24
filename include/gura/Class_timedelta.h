@@ -35,12 +35,8 @@ public:
 	Object_timedelta(const Object_timedelta &obj);
 	virtual ~Object_timedelta();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline TimeDelta &GetTimeDelta() { return _timeDelta; }
 	inline const TimeDelta &GetTimeDelta() const { return _timeDelta; }
 };
 

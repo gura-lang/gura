@@ -20,56 +20,6 @@ Object *Object_vertex::Clone() const
 	return new Object_vertex(*this);
 }
 
-bool Object_vertex::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(x));
-	symbols.insert(Gura_Symbol(y));
-	symbols.insert(Gura_Symbol(z));
-	return true;
-}
-
-Value Object_vertex::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		return Value(_pVertex->x);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		return Value(_pVertex->y);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(z))) {
-		return Value(_pVertex->z);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_vertex::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		evaluatedFlag = true;
-		double x = value.GetDouble();
-		_pVertex->x = x;
-		return Value(x);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		evaluatedFlag = true;
-		double y = value.GetDouble();
-		_pVertex->y = y;
-		return Value(y);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(z))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		evaluatedFlag = true;
-		double z = value.GetDouble();
-		_pVertex->z = z;
-		return Value(z);
-	}
-	return Value::Nil;
-}
-
 String Object_vertex::ToString(bool exprFlag)
 {
 	String str;
@@ -106,6 +56,78 @@ Gura_ImplementFunction(vertex)
 	double z = arg.Is_number(2)? arg.GetDouble(2) : 0;
 	return ReturnValue(env, arg,
 					   Value(new Object_vertex(env, Vertex(x, y, z))));
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// vertex#x
+Gura_DeclareProperty_RW(vertex, x)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(vertex, x)
+{
+	const Vertex &vertex = Object_vertex::GetObject(valueThis)->GetVertex();
+	return Value(vertex.x);
+}
+
+Gura_ImplementPropertySetter(vertex, x)
+{
+	Vertex &vertex = Object_vertex::GetObject(valueThis)->GetVertex();
+	vertex.x = value.GetDouble();
+	return Value(vertex.x);
+}
+
+// vertex#y
+Gura_DeclareProperty_RW(vertex, y)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(vertex, y)
+{
+	const Vertex &vertex = Object_vertex::GetObject(valueThis)->GetVertex();
+	return Value(vertex.y);
+}
+
+Gura_ImplementPropertySetter(vertex, y)
+{
+	Vertex &vertex = Object_vertex::GetObject(valueThis)->GetVertex();
+	vertex.y = value.GetDouble();
+	return Value(vertex.y);
+}
+
+// vertex#z
+Gura_DeclareProperty_RW(vertex, z)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(vertex, z)
+{
+	const Vertex &vertex = Object_vertex::GetObject(valueThis)->GetVertex();
+	return Value(vertex.z);
+}
+
+Gura_ImplementPropertySetter(vertex, z)
+{
+	Vertex &vertex = Object_vertex::GetObject(valueThis)->GetVertex();
+	vertex.z = value.GetDouble();
+	return Value(vertex.z);
 }
 
 //-----------------------------------------------------------------------------
@@ -331,6 +353,13 @@ Class_vertex::Class_vertex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_vert
 
 void Class_vertex::DoPrepare(Environment &env)
 {
+	// Assignment of function
+	Gura_AssignFunction(vertex);
+	// Assignment of properties
+	Gura_AssignProperty(vertex, x);
+	Gura_AssignProperty(vertex, y);
+	Gura_AssignProperty(vertex, z);
+	// Assignment of methods
 	Gura_AssignMethod(vertex, cross);
 	Gura_AssignMethod(vertex, inner);
 	Gura_AssignMethod(vertex, norm);
@@ -340,7 +369,7 @@ void Class_vertex::DoPrepare(Environment &env)
 	Gura_AssignMethod(vertex, rotate_at_z);
 	Gura_AssignMethod(vertex, list);
 	Gura_AssignMethod(vertex, translate);
-	Gura_AssignFunction(vertex);
+	// Assignment of value
 	Gura_AssignClassValue(zero, Value(new Object_vertex(env, Vertex::Zero)));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);

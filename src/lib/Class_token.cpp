@@ -20,27 +20,6 @@ Object *Object_token::Clone() const
 	return new Object_token(*this);
 }
 
-bool Object_token::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(type));
-	symbols.insert(Gura_Symbol(source));
-	return true;
-}
-
-Value Object_token::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(type))) {
-		return Value(Symbol::Add(_token.GetTypeName()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(source))) {
-		return Value(_token.GetSource());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_token::ToString(bool exprFlag)
 {
 	String str;
@@ -72,6 +51,41 @@ Gura_ImplementFunction(tokens)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// token#type
+Gura_DeclareProperty_R(token, type)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(token, type)
+{
+	const Token &token = Object_token::GetObject(valueThis)->GetToken();
+	return Value(Symbol::Add(token.GetTypeName()));
+}
+
+// token#source
+Gura_DeclareProperty_R(token, source)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(token, source)
+{
+	const Token &token = Object_token::GetObject(valueThis)->GetToken();
+	return Value(token.GetSource());
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
 
@@ -84,7 +98,12 @@ Class_token::Class_token(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_token)
 
 void Class_token::DoPrepare(Environment &env)
 {
+	// Assignment of function
 	Gura_AssignFunction(tokens);
+	// Assignment of properties
+	Gura_AssignProperty(token, type);
+	Gura_AssignProperty(token, source);
+	// Assignment of value
 	Gura_AssignValue(token, Value(Reference()));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
