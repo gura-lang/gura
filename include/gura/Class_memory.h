@@ -15,7 +15,6 @@ class GURA_DLLDECLARE Class_memory : public Class {
 public:
 	Class_memory(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
 };
 
 //-----------------------------------------------------------------------------
@@ -57,11 +56,6 @@ public:
 	inline Memory &GetMemory() { return *_pMemory; }
 	inline const Memory &GetMemory() const { return *_pMemory; }
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
 

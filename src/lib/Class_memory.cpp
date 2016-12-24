@@ -26,34 +26,6 @@ Object *Object_memory::Clone() const
 	return nullptr; //new Object_memory(*this);
 }
 
-bool Object_memory::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(p));
-	symbols.insert(Gura_Symbol(size));
-	return true;
-}
-
-Value Object_memory::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(p))) {
-		Pointer *pPointer = new PointerEx(0, Reference());
-		return Value(new Object_pointer(env, pPointer));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(size))) {
-		return Value(_pMemory->GetSize());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_memory::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-}
-
 String Object_memory::ToString(bool exprFlag)
 {
 	String rtn;
@@ -165,6 +137,42 @@ Gura_ImplementFunction(memory)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// memory#p
+Gura_DeclareProperty_R(memory, p)
+{
+	SetPropAttr(VTYPE_pointer);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(memory, p)
+{
+	Object_memory *pObj = Object_memory::GetObject(valueThis);
+	Pointer *pPointer = new Object_memory::PointerEx(0, pObj->Reference());
+	return Value(new Object_pointer(env, pPointer));
+}
+
+// memory#size
+Gura_DeclareProperty_R(memory, size)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(memory, size)
+{
+	Memory &memory = Object_memory::GetObject(valueThis)->GetMemory();
+	return Value(memory.GetSize());
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
 // memory#array@T():map {block?}
@@ -263,7 +271,12 @@ Class_memory::Class_memory(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_memo
 
 void Class_memory::DoPrepare(Environment &env)
 {
+	// Assignment of function
 	Gura_AssignFunction(memory);
+	// Assignment of properties
+	Gura_AssignProperty(memory, p);
+	Gura_AssignProperty(memory, size);
+	// Assignment of methods
 	Gura_AssignMethod(memory, array_at_int8);
 	Gura_AssignMethod(memory, array_at_uint8);
 	Gura_AssignMethod(memory, array_at_int16);
@@ -278,54 +291,6 @@ void Class_memory::DoPrepare(Environment &env)
 	Gura_AssignMethod(memory, pointer);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
-}
-
-bool Class_memory::CastFrom(Environment &env, Value &value, ULong flags)
-{
-#if 0
-	if (value.Is_array_at_int8()) {
-		Memory &memory = Object_arrayT<Int8>::GetObject(value)->GetArrayT()->GetMemory();
-		value = Value(new Object_memory(env, memory.Reference()));
-		return true;
-	} else if (value.Is_array_at_uint8()) {
-		Memory &memory = Object_arrayT<UInt8>::GetObject(value)->GetArrayT()->GetMemory();
-		value = Value(new Object_memory(env, memory.Reference()));
-		return true;
-	} else if (value.Is_array_at_int16()) {
-		Memory &memory = Object_arrayT<Int16>::GetObject(value)->GetArrayT()->GetMemory();
-		value = Value(new Object_memory(env, memory.Reference()));
-		return true;
-	} else if (value.Is_array_at_uint16()) {
-		Memory &memory = Object_arrayT<UInt16>::GetObject(value)->GetArrayT()->GetMemory();
-		value = Value(new Object_memory(env, memory.Reference()));
-		return true;
-	} else if (value.Is_array_at_int32()) {
-		Memory &memory = Object_arrayT<Int32>::GetObject(value)->GetArrayT()->GetMemory();
-		value = Value(new Object_memory(env, memory.Reference()));
-		return true;
-	} else if (value.Is_array_at_uint32()) {
-		Memory &memory = Object_arrayT<UInt32>::GetObject(value)->GetArrayT()->GetMemory();
-		value = Value(new Object_memory(env, memory.Reference()));
-		return true;
-	} else if (value.Is_array_at_int64()) {
-		Memory &memory = Object_arrayT<Int64>::GetObject(value)->GetArrayT()->GetMemory();
-		value = Value(new Object_memory(env, memory.Reference()));
-		return true;
-	} else if (value.Is_array_at_uint64()) {
-		Memory &memory = Object_arrayT<UInt64>::GetObject(value)->GetArrayT()->GetMemory();
-		value = Value(new Object_memory(env, memory.Reference()));
-		return true;
-	} else if (value.Is_array_at_float()) {
-		Memory &memory = Object_arrayT<float>::GetObject(value)->GetArrayT()->GetMemory();
-		value = Value(new Object_memory(env, memory.Reference()));
-		return true;
-	} else if (value.Is_array_at_double()) {
-		Memory &memory = Object_arrayT<double>::GetObject(value)->GetArrayT()->GetMemory();
-		value = Value(new Object_memory(env, memory.Reference()));
-		return true;
-	}
-#endif
-	return false;
 }
 
 }
