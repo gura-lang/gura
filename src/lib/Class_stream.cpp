@@ -11,43 +11,6 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 // Object_stream
 //-----------------------------------------------------------------------------
-bool Object_stream::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(stat));
-	symbols.insert(Gura_Symbol(name));
-	symbols.insert(Gura_Symbol(identifier));
-	symbols.insert(Gura_Symbol(readable));
-	symbols.insert(Gura_Symbol(writable));
-	symbols.insert(Gura_Symbol(codec));
-	return true;
-}
-
-Value Object_stream::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(stat))) {
-		Object *pObj = GetStream().GetStatObj(sig);
-		if (pObj != nullptr) return Value(pObj);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
-		return Value(GetStream().GetName());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(identifier))) {
-		const char *identifier = GetStream().GetIdentifier();
-		if (identifier == nullptr) return Value::Nil;
-		return Value(identifier);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(readable))) {
-		return Value(GetStream().IsReadable());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(writable))) {
-		return Value(GetStream().IsWritable());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(codec))) {
-		return Value(new Object_codec(env, Codec::Reference(GetStream().GetCodec())));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 Iterator *Object_stream::CreateIterator(Signal &sig)
 {
 	return new IteratorLine(Object_stream::Reference(this), -1, true);
@@ -176,6 +139,109 @@ Gura_ImplementFunction(readlines)
 	Iterator *pIterator = new Object_stream::IteratorLine(
 				Object_stream::Reference(pObjStream), -1, includeEOLFlag);
 	return ReturnIterator(env, arg, pIterator);
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of methods
+//-----------------------------------------------------------------------------
+// stream#stat
+Gura_DeclareProperty_R(stream, stat)
+{
+	SetPropAttr(VTYPE_any, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stream, stat)
+{
+	Stream &stream = Object_stream::GetObject(valueThis)->GetStream();
+	Object *pObj = stream.GetStatObj(env.GetSignal());
+	if (pObj == nullptr) return Value::Nil;
+	return Value(pObj);
+}
+
+// stream#name
+Gura_DeclareProperty_R(stream, name)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stream, name)
+{
+	const Stream &stream = Object_stream::GetObject(valueThis)->GetStream();
+	return Value(stream.GetName());
+}
+
+// stream#identifier
+Gura_DeclareProperty_R(stream, identifier)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stream, identifier)
+{
+	const Stream &stream = Object_stream::GetObject(valueThis)->GetStream();
+	const char *identifier = stream.GetIdentifier();
+	if (identifier == nullptr) return Value::Nil;
+	return Value(identifier);
+}
+
+// stream#readable
+Gura_DeclareProperty_R(stream, readable)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stream, readable)
+{
+	const Stream &stream = Object_stream::GetObject(valueThis)->GetStream();
+	return Value(stream.IsReadable());
+}
+
+// stream#writable
+Gura_DeclareProperty_R(stream, writable)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stream, writable)
+{
+	const Stream &stream = Object_stream::GetObject(valueThis)->GetStream();
+	return Value(stream.IsWritable());
+}
+
+// stream#codec
+Gura_DeclareProperty_R(stream, codec)
+{
+	SetPropAttr(VTYPE_codec);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stream, codec)
+{
+	Stream &stream = Object_stream::GetObject(valueThis)->GetStream();
+	return Value(new Object_codec(env, stream.GetCodec()->Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -896,9 +962,18 @@ Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stre
 
 void Class_stream::DoPrepare(Environment &env)
 {
+	// Assignment of functions
 	Gura_AssignFunctionEx(stream, "open");
 	Gura_AssignFunction(stream);
 	Gura_AssignFunction(readlines);
+	// Assignment of properties
+	Gura_AssignProperty(stream, stat);
+	Gura_AssignProperty(stream, name);
+	Gura_AssignProperty(stream, identifier);
+	Gura_AssignProperty(stream, readable);
+	Gura_AssignProperty(stream, writable);
+	Gura_AssignProperty(stream, codec);
+	// Assignemnt of methods
 	Gura_AssignMethod(stream, addcr);
 	Gura_AssignMethod(stream, close);
 	Gura_AssignMethod(stream, compare);

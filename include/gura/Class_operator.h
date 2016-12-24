@@ -35,9 +35,6 @@ public:
 					Object(pClass), _opTypeUnary(opTypeUnary), _opTypeBinary(opTypeBinary) {}
 	Object_operator(const Object_operator &obj);
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoCall(
 		Environment &env, const CallerInfo &callerInfo,
 		const Value &valueThis, const Iterator *pIteratorThis,

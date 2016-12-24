@@ -52,9 +52,6 @@ public:
 						Object(pClass), _pStream(pStream) {}
 	inline Stream &GetStream() { return *_pStream; }
 	virtual Iterator *CreateIterator(Signal &sig);
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
 

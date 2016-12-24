@@ -30,24 +30,6 @@ String Object_operator::ToString(bool exprFlag)
 	return rtn;
 }
 
-bool Object_operator::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(symbol));
-	return true;
-}
-
-Value Object_operator::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
-		return Value(GetSymbol());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 Value Object_operator::DoCall(
 	Environment &env, const CallerInfo &callerInfo,
 	const Value &valueThis, const Iterator *pIteratorThis,
@@ -125,6 +107,25 @@ Gura_ImplementFunction(operator_)
 	}
 	Object_operator *pObj = new Object_operator(env, opTypeUnary, opTypeBinary);
 	return ReturnValue(env, arg, Value(pObj));
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of methods
+//-----------------------------------------------------------------------------
+// operator#symbol
+Gura_DeclareProperty_R(operator_, symbol)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(operator_, symbol)
+{
+	Object_operator *pObjThis = Object_operator::GetObject(valueThis);
+	return Value(pObjThis->GetSymbol());
 }
 
 //-----------------------------------------------------------------------------
@@ -281,7 +282,11 @@ Class_operator::Class_operator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 
 void Class_operator::DoPrepare(Environment &env)
 {
+	// Assignment of function
 	Gura_AssignFunction(operator_);
+	// Assignment of properties
+	Gura_AssignProperty(operator_, symbol);
+	// Assignment of methods
 	Gura_AssignMethod(operator_, assign);
 	Gura_AssignMethod(operator_, entries);
 	// help document

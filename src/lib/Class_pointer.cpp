@@ -20,47 +20,6 @@ Object *Object_pointer::Clone() const
 	return new Object_pointer(*this);
 }
 
-bool Object_pointer::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(offset));
-	symbols.insert(Gura_Symbol(size));
-	symbols.insert(Gura_Symbol(size_at_all));
-	symbols.insert(Gura_Symbol(target));
-	return true;
-}
-
-Value Object_pointer::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(offset))) {
-		return Value(GetPointer()->GetOffset());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(size))) {
-		return Value(GetPointer()->GetSize());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(size_at_all))) {
-		return Value(GetPointer()->GetEntireSize());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(target))) {
-		return Value(GetPointer()->GetTarget()->Reference());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_pointer::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	if (pSymbol->IsIdentical(Gura_Symbol(offset))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		evaluatedFlag = true;
-		size_t offset = value.GetSizeT();
-		GetPointer()->SetOffset(offset);
-		return Value(offset);
-	}
-	return Value::Nil;
-}
-
 String Object_pointer::ToString(bool exprFlag)
 {
 	char buff[64];
@@ -91,6 +50,115 @@ Gura_ImplementFunction(pointer)
 	Pointer *pPointer = Object_pointer::GetObject(arg, 0)->GetPointer();
 	return ReturnValue(env, arg, Value(new Object_pointer(env, pPointer->Clone())));
 }
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// pointer#offset
+Gura_DeclareProperty_RW(pointer, offset)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(pointer, offset)
+{
+	const Pointer *pPointer = Object_pointer::GetObject(valueThis)->GetPointer();
+	return Value(pPointer->GetOffset());
+}
+
+Gura_ImplementPropertySetter(pointer, offset)
+{
+	Pointer *pPointer = Object_pointer::GetObject(valueThis)->GetPointer();
+	size_t offset = value.GetSizeT();
+	pPointer->SetOffset(offset);
+	return Value(offset);
+}
+
+// pointer#size
+Gura_DeclareProperty_R(pointer, size)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(pointer, size)
+{
+	Pointer *pPointer = Object_pointer::GetObject(valueThis)->GetPointer();
+	return Value(pPointer->GetSize());
+}
+
+// pointer#size@all
+Gura_DeclarePropertyAlias_R(pointer, size_at_all, "size@all")
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(pointer, size_at_all)
+{
+	const Pointer *pPointer = Object_pointer::GetObject(valueThis)->GetPointer();
+	return Value(pPointer->GetEntireSize());
+}
+
+// pointer#target
+Gura_DeclareProperty_R(pointer, target)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(pointer, target)
+{
+	const Pointer *pPointer = Object_pointer::GetObject(valueThis)->GetPointer();
+	return Value(pPointer->GetTarget()->Reference());
+}
+
+#if 0
+bool Object_pointer::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, symbols)) return false;
+	symbols.insert(Gura_Symbol(offset));
+	symbols.insert(Gura_Symbol(size));
+	symbols.insert(Gura_Symbol(size_at_all));
+	symbols.insert(Gura_Symbol(target));
+	return true;
+}
+
+Value Object_pointer::DoGetProp(Environment &env, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(offset))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(size))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(size_at_all))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(target))) {
+	}
+	evaluatedFlag = false;
+	return Value::Nil;
+}
+
+Value Object_pointer::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	Signal &sig = GetSignal();
+	if (pSymbol->IsIdentical(Gura_Symbol(offset))) {
+	}
+	return Value::Nil;
+}
+#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of methods
@@ -713,7 +781,14 @@ Class_pointer::Class_pointer(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_po
 
 void Class_pointer::DoPrepare(Environment &env)
 {
+	// Assignment of function
 	Gura_AssignFunction(pointer);
+	// Assignment of properties
+	Gura_AssignProperty(pointer, offset);
+	Gura_AssignProperty(pointer, size);
+	Gura_AssignProperty(pointer, size_at_all);
+	Gura_AssignProperty(pointer, target);
+	// Assignment of methods
 	Gura_AssignMethod(pointer, copyfrom);
 	Gura_AssignMethod(pointer, copyto);
 	Gura_AssignMethod(pointer, decode);
