@@ -1,0 +1,5 @@
+======== #1 cairo.context ========
+
+cr.width .. 300
+cr.height .. 200
+cr.surface .. <cairo.surface:image:300x200>

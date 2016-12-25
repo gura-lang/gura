@@ -1,0 +1,11 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+import(cairo)
+
+testcase('cairo.context') {
+	img = image(`rgba, 300, 200)
+	cr = img.cairo()
+	tester(`cr.width)
+	tester(`cr.height)
+	tester(`cr.surface)
+}

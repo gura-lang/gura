@@ -10,6 +10,7 @@ set cases=%cases% block
 set cases=%cases% bom
 set cases=%cases% gzip-bzip2
 rem set cases=%cases% canvas
+set cases=%cases% cairo
 set cases=%cases% chinese
 set cases=%cases% codec
 set cases=%cases% color
