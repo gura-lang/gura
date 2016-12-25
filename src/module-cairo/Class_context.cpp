@@ -15,27 +15,6 @@ Object *Object_context::Clone() const
 	return nullptr;
 }
 
-bool Object_context::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(surface));
-	symbols.insert(Gura_UserSymbol(width));
-	symbols.insert(Gura_UserSymbol(height));
-	return true;
-}
-
-Value Object_context::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(surface))) {
-		return Value(Object_surface::Reference(_pObjSurface.get()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_context::ToString(bool exprFlag)
 {
 	String str;
@@ -64,6 +43,59 @@ void Object_context::Destroy()
 		_cr = nullptr;
 		_pObjSurface.reset(nullptr);
 	}
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// cairo.context#surface
+Gura_DeclareProperty_R(context, surface)
+{
+	SetPropAttr(VTYPE_surface);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(context, surface)
+{
+	Object_context *pObjThis = Object_context::GetObject(valueThis);
+	return Value(Object_surface::Reference(pObjThis->GetSurfaceObj()));
+}
+
+// cairo.context#width
+Gura_DeclareProperty_R(context, width)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(context, width)
+{
+	cairo_t *cr = Object_context::GetObject(valueThis)->GetEntity();
+	cairo_surface_t *surface = ::cairo_get_target(cr);
+	return Value(::cairo_image_surface_get_width(surface));
+}
+
+// cairo.context#height
+Gura_DeclareProperty_R(context, height)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(context, height)
+{
+	cairo_t *cr = Object_context::GetObject(valueThis)->GetEntity();
+	cairo_surface_t *surface = ::cairo_get_target(cr);
+	return Value(::cairo_image_surface_get_height(surface));
 }
 
 //-----------------------------------------------------------------------------
@@ -2879,6 +2911,10 @@ Gura_ImplementMethod(context, glyph_extents)
 // implementation of class Context
 Gura_ImplementUserClass(context)
 {
+	// Assignment of properties
+	Gura_AssignProperty(context, surface);
+	Gura_AssignProperty(context, width);
+	Gura_AssignProperty(context, height);
 	// Context operations
 	Gura_AssignMethod(context, status);
 	Gura_AssignMethod(context, destroy);
