@@ -52,10 +52,10 @@ Gura_AssignProperty(${item.className}, ${item.propName});
 
 Item = struct(className:string, propName, readFlag:boolean, writeFlag:boolean)
 
-DoExtract(fileName) = {
+DoExtract(fileName:string):map = {
 	itemDict = %{}
 	stat = `start
-	lines = readlines(fileName)
+	lines = readlines(fileName):list
 	lines.each {|line|
 		if (stat == `start) {
 			if (m = line.match(r'Object_(\w+)::DoGetProp')) {
@@ -88,47 +88,46 @@ DoExtract(fileName) = {
 		}
 	}
 	itemDict.isempty() && return
+	fout = stream(fileName, 'w')
 	stat = `start
-	lines = readlines(fileName)
 	lines.each {|line|
 		if (stat == `start) {
-			if (m = line.match(r'Object_(\w+)::DoGetProp')) {
-				className = m[1]
-				setFlag = false
-				stat = `lbrace
-			} elsif (m = line.match(r'Object_(\w+)::DoSetProp')) {
-				className = m[1]
-				setFlag = true
+			fout.print(line)
+			if (line.match(r'Object_(\w+)::')) {
+				stat = `objfound
+			}
+		} elsif (stat == `objfound) {
+			if (line.match(r'^//-----')) {
+				tmpl_ImplementStart.render(fout)
+				itemDict.values {|item|
+					cond(item.writeFlag, tmpl_ImplementProperty_RW,
+						 tmpl_ImplementProperty_R).render(fout)
+					fout.println()
+				}
+				stat = `seek_ImplementUserClass
+			}
+			fout.print(line)
+		} elsif (stat == `seek_ImplementUserClass) {
+			if (line.match(r'^Gura_ImplementUserClass')) {
 				stat = `lbrace
 			}
+			fout.print(line)
 		} elsif (stat == `lbrace) {
+			fout.print(line)
 			if (line.match(r'^{')) {
-				stat = `funcbody
-			}
-		} elsif (stat == `funcbody) {
-		if (line.match(r'^}')) {
-			stat = `start
-			} elsif (m = line.match(r'pSymbol.+Symbol\((\w+)\)')) {
-				propName = m[1]
-				if (!(item = itemDict.get(propName))) {
-					item = itemDict[propName] = Item(className, propName, false, false)
-				}
-				if (setFlag) {
-					item.writeFlag = true
-				} else {
-					item.readFlag = true
+				fout.println('\t// Assignment of properties')
+				itemDict.values {|item|
+					fout.print('\t', tmpl_AssignProperty.render())
 				}
 			}
+		} elsif (stat == `freerun) {
+			fout.print(line)
 		}
-	}
-	fout = sys.stdout
-	tmpl_ImplementStart.render(fout)
-	itemDict.values {|item|
-		cond(item.writeFlag, tmpl_ImplementProperty_RW, tmpl_ImplementProperty_R).render(fout)
-		fout.println()
-	}
-	itemDict.values {|item|
-		fout.print('\t', tmpl_AssignProperty.render())
+		
 	}
 }
-DoExtract('Class_rectangle.cpp')
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: propinsert file')
+	sys.exit(1)
+}
+DoExtract(sys.argv[1..])
