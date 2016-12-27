@@ -16,9 +16,6 @@ public:
 public:
 	inline Object_image_surface(cairo_surface_t *surface, Image *pImage) :
 				Object_surface(surface), _pImage(pImage) {}
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
 Gura_EndModuleScope(cairo)

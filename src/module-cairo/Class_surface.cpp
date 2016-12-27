@@ -55,6 +55,24 @@ String Object_surface::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// cairo.surface#type
+Gura_DeclareProperty_R(surface, type)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(surface, type)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for surface
 //-----------------------------------------------------------------------------
 // cairo.surface.create_similar(other:cairo.surface, content:number, width:number, height:number) {block?}
@@ -686,6 +704,8 @@ Gura_ImplementMethod(surface, write_to_png)
 // implementation of class surface
 Gura_ImplementUserClassWithCast(surface)
 {
+	// Assignment of properties
+	Gura_AssignProperty(surface, type);
 	Gura_AssignMethod(surface, create_similar);
 	Gura_AssignMethod(surface, create_similar_image);
 	Gura_AssignMethod(surface, create_for_rectangle);
@@ -715,6 +735,8 @@ Gura_ImplementUserClassWithCast(surface)
 
 Gura_ImplementCastFrom(surface)
 {
+	// Assignment of properties
+	Gura_AssignProperty(surface, type);
 	Signal &sig = GetSignal();
 	Value valueCast(value);
 	env.LookupClass(VTYPE_image)->CastFrom(env, valueCast, flags);
@@ -730,6 +752,8 @@ Gura_ImplementCastFrom(surface)
 
 Gura_ImplementCastTo(surface)
 {
+	// Assignment of properties
+	Gura_AssignProperty(surface, type);
 	return false;
 }
 

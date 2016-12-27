@@ -18,9 +18,6 @@ public:
 			Object(Gura_UserClass(font_extents)), _font_extents(font_extents) {}
 	virtual ~Object_font_extents();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline cairo_font_extents_t &GetEntity() { return _font_extents; }
 };

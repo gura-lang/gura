@@ -5,28 +5,42 @@ Gura_BeginModuleScope(cairo)
 //-----------------------------------------------------------------------------
 // Object_image_surface implementation
 //-----------------------------------------------------------------------------
-bool Object_image_surface::DoDirProp(Environment &env, SymbolSet &symbols)
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// cairo.image_surface#height
+Gura_DeclareProperty_R(image_surface, height)
 {
-	Signal &sig = GetSignal();
-	if (!Object_surface::DoDirProp(env, symbols)) return false;
-	//symbols.insert(Gura_UserSymbol(image));
-	symbols.insert(Gura_UserSymbol(width));
-	symbols.insert(Gura_UserSymbol(height));
-	return true;
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
 }
 
-Value Object_image_surface::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
+Gura_ImplementPropertyGetter(image_surface, height)
 {
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {
-		return Value(::cairo_image_surface_get_width(_surface));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
-		return Value(::cairo_image_surface_get_height(_surface));
-	}
-	evaluatedFlag = false;
-	return Object_surface::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+	const cairo_surface_t &surface =
+		Object_image_surface::GetObject(valueThis)->GetEntity();
+	return Value(::cairo_image_surface_get_height(surface));
+}
+
+// cairo.image_surface#width
+Gura_DeclareProperty_R(image_surface, width)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(image_surface, width)
+{
+	const cairo_surface_t &surface =
+		Object_image_surface::GetObject(valueThis)->GetEntity();
+	return Value(::cairo_image_surface_get_width(surface));
 }
 
 //-----------------------------------------------------------------------------
@@ -132,6 +146,9 @@ Gura_ImplementMethod(image_surface, get_stride)
 
 Gura_ImplementUserClass(image_surface)
 {
+	// Assignment of properties
+	Gura_AssignProperty(image_surface, height);
+	Gura_AssignProperty(image_surface, width);
 	Gura_AssignMethod(image_surface, create);
 	Gura_AssignMethod(image_surface, create_from_png);
 	Gura_AssignMethod(image_surface, get_format);

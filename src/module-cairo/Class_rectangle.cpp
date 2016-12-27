@@ -83,6 +83,89 @@ String Object_rectangle::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// cairo.rectangle#height
+Gura_DeclareProperty_RW(rectangle, height)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(rectangle, height)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(rectangle, height)
+{
+	return Value::Nil;
+}
+
+// cairo.rectangle#width
+Gura_DeclareProperty_RW(rectangle, width)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(rectangle, width)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(rectangle, width)
+{
+	return Value::Nil;
+}
+
+// cairo.rectangle#x
+Gura_DeclareProperty_RW(rectangle, x)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(rectangle, x)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(rectangle, x)
+{
+	return Value::Nil;
+}
+
+// cairo.rectangle#y
+Gura_DeclareProperty_RW(rectangle, y)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(rectangle, y)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(rectangle, y)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for rectangle
 //-----------------------------------------------------------------------------
 // cairo.rectangle(x?:number, y?:number, width?:number, height?:number) {block?}
@@ -111,6 +194,11 @@ Gura_ImplementFunction(rectangle)
 // implementation of class rectangle
 Gura_ImplementUserClass(rectangle)
 {
+	// Assignment of properties
+	Gura_AssignProperty(rectangle, height);
+	Gura_AssignProperty(rectangle, width);
+	Gura_AssignProperty(rectangle, x);
+	Gura_AssignProperty(rectangle, y);
 	Gura_AssignFunction(rectangle);
 }
 

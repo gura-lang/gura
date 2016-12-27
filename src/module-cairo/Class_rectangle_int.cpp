@@ -83,6 +83,89 @@ String Object_rectangle_int::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// cairo.rectangle_int#height
+Gura_DeclareProperty_RW(rectangle_int, height)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(rectangle_int, height)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(rectangle_int, height)
+{
+	return Value::Nil;
+}
+
+// cairo.rectangle_int#width
+Gura_DeclareProperty_RW(rectangle_int, width)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(rectangle_int, width)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(rectangle_int, width)
+{
+	return Value::Nil;
+}
+
+// cairo.rectangle_int#x
+Gura_DeclareProperty_RW(rectangle_int, x)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(rectangle_int, x)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(rectangle_int, x)
+{
+	return Value::Nil;
+}
+
+// cairo.rectangle_int#y
+Gura_DeclareProperty_RW(rectangle_int, y)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(rectangle_int, y)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(rectangle_int, y)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for rectangle_int
 //-----------------------------------------------------------------------------
 // cairo.rectangle_int(x?:number, y?:number, width?:number, height?:number) {block?}
@@ -111,6 +194,11 @@ Gura_ImplementFunction(rectangle_int)
 // implementation of class rectangle_int
 Gura_ImplementUserClass(rectangle_int)
 {
+	// Assignment of properties
+	Gura_AssignProperty(rectangle_int, height);
+	Gura_AssignProperty(rectangle_int, width);
+	Gura_AssignProperty(rectangle_int, x);
+	Gura_AssignProperty(rectangle_int, y);
 	Gura_AssignFunction(rectangle_int);
 }
 

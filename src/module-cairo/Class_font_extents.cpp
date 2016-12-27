@@ -14,40 +14,97 @@ Object *Object_font_extents::Clone() const
 	return nullptr;
 }
 
-bool Object_font_extents::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(ascent));
-	symbols.insert(Gura_UserSymbol(descent));
-	symbols.insert(Gura_UserSymbol(height));
-	symbols.insert(Gura_UserSymbol(max_x_advance));
-	symbols.insert(Gura_UserSymbol(max_y_advance));
-	return true;
-}
-
-Value Object_font_extents::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(ascent))) {
-		return Value(_font_extents.ascent);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(descent))) {
-		return Value(_font_extents.descent);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
-		return Value(_font_extents.height);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(max_x_advance))) {
-		return Value(_font_extents.max_x_advance);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(max_y_advance))) {
-		return Value(_font_extents.max_y_advance);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_font_extents::ToString(bool exprFlag)
 {
 	return String("<cairo.font_extents>");
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// cairo.font_extents#ascent
+Gura_DeclareProperty_R(font_extents, ascent)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font_extents, ascent)
+{
+	const cairo_font_extents_t &font_extents =
+		Object_font_extents::GetObject(valueThis)->GetEntity();
+	return Value(font_extents.ascent);
+}
+
+// cairo.font_extents#descent
+Gura_DeclareProperty_R(font_extents, descent)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font_extents, descent)
+{
+	const cairo_font_extents_t &font_extents =
+		Object_font_extents::GetObject(valueThis)->GetEntity();
+	return Value(font_extents.descent);
+}
+
+// cairo.font_extents#height
+Gura_DeclareProperty_R(font_extents, height)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font_extents, height)
+{
+	const cairo_font_extents_t &font_extents =
+		Object_font_extents::GetObject(valueThis)->GetEntity();
+	return Value(font_extents.height);
+}
+
+// cairo.font_extents#max_x_advance
+Gura_DeclareProperty_R(font_extents, max_x_advance)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font_extents, max_x_advance)
+{
+	const cairo_font_extents_t &font_extents =
+		Object_font_extents::GetObject(valueThis)->GetEntity();
+	return Value(font_extents.max_x_advance);
+}
+
+// cairo.font_extents#max_y_advance
+Gura_DeclareProperty_R(font_extents, max_y_advance)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font_extents, max_y_advance)
+{
+	const cairo_font_extents_t &font_extents =
+		Object_font_extents::GetObject(valueThis)->GetEntity();
+	return Value(font_extents.max_y_advance);
 }
 
 //-----------------------------------------------------------------------------
@@ -56,6 +113,12 @@ String Object_font_extents::ToString(bool exprFlag)
 // implementation of class font_extents
 Gura_ImplementUserClass(font_extents)
 {
+	// Assignment of properties
+	Gura_AssignProperty(font_extents, ascent);
+	Gura_AssignProperty(font_extents, descent);
+	Gura_AssignProperty(font_extents, height);
+	Gura_AssignProperty(font_extents, max_x_advance);
+	Gura_AssignProperty(font_extents, max_y_advance);
 }
 
 Gura_EndModuleScope(cairo)

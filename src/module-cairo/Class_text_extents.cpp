@@ -14,43 +14,114 @@ Object *Object_text_extents::Clone() const
 	return nullptr;
 }
 
-bool Object_text_extents::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(x_bearing));
-	symbols.insert(Gura_UserSymbol(y_bearing));
-	symbols.insert(Gura_UserSymbol(width));
-	symbols.insert(Gura_UserSymbol(height));
-	symbols.insert(Gura_UserSymbol(x_advance));
-	symbols.insert(Gura_UserSymbol(y_advance));
-	return true;
-}
-
-Value Object_text_extents::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(x_bearing))) {
-		return Value(_text_extents.x_bearing);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(y_bearing))) {
-		return Value(_text_extents.y_bearing);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {
-		return Value(_text_extents.width);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
-		return Value(_text_extents.height);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(x_advance))) {
-		return Value(_text_extents.x_advance);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(y_advance))) {
-		return Value(_text_extents.y_advance);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_text_extents::ToString(bool exprFlag)
 {
 	return String("<cairo.text_extents>");
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// cairo.text_extents#height
+Gura_DeclareProperty_R(text_extents, height)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(text_extents, height)
+{
+	const cairo_text_extents_t &text_extents =
+		Object_text_extents::GetObject(valueThis)->GetEntity();
+	return Value(text_extents.height);
+}
+
+// cairo.text_extents#width
+Gura_DeclareProperty_R(text_extents, width)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(text_extents, width)
+{
+	const cairo_text_extents_t &text_extents =
+		Object_text_extents::GetObject(valueThis)->GetEntity();
+	return Value(text_extents.width);
+}
+
+// cairo.text_extents#x_advance
+Gura_DeclareProperty_R(text_extents, x_advance)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(text_extents, x_advance)
+{
+	const cairo_text_extents_t &text_extents =
+		Object_text_extents::GetObject(valueThis)->GetEntity();
+	return Value(text_extents.x_advance);
+}
+
+// cairo.text_extents#x_bearing
+Gura_DeclareProperty_R(text_extents, x_bearing)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(text_extents, x_bearing)
+{
+	const cairo_text_extents_t &text_extents =
+		Object_text_extents::GetObject(valueThis)->GetEntity();
+	return Value(text_extents.x_bearing);
+}
+
+// cairo.text_extents#y_advance
+Gura_DeclareProperty_R(text_extents, y_advance)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(text_extents, y_advance)
+{
+	const cairo_text_extents_t &text_extents =
+		Object_text_extents::GetObject(valueThis)->GetEntity();
+	return Value(text_extents.y_advance);
+}
+
+// cairo.text_extents#y_bearing
+Gura_DeclareProperty_R(text_extents, y_bearing)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(text_extents, y_bearing)
+{
+	const cairo_text_extents_t &text_extents =
+		Object_text_extents::GetObject(valueThis)->GetEntity();
+	return Value(text_extents.y_bearing);
 }
 
 //-----------------------------------------------------------------------------
@@ -59,6 +130,13 @@ String Object_text_extents::ToString(bool exprFlag)
 // implementation of class text_extents
 Gura_ImplementUserClass(text_extents)
 {
+	// Assignment of properties
+	Gura_AssignProperty(text_extents, height);
+	Gura_AssignProperty(text_extents, width);
+	Gura_AssignProperty(text_extents, x_advance);
+	Gura_AssignProperty(text_extents, x_bearing);
+	Gura_AssignProperty(text_extents, y_advance);
+	Gura_AssignProperty(text_extents, y_bearing);
 }
 
 Gura_EndModuleScope(cairo)
