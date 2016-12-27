@@ -21,7 +21,7 @@ Gura_DeclareProperty_R(image_surface, height)
 
 Gura_ImplementPropertyGetter(image_surface, height)
 {
-	const cairo_surface_t &surface =
+	cairo_surface_t *surface =
 		Object_image_surface::GetObject(valueThis)->GetEntity();
 	return Value(::cairo_image_surface_get_height(surface));
 }
@@ -38,7 +38,7 @@ Gura_DeclareProperty_R(image_surface, width)
 
 Gura_ImplementPropertyGetter(image_surface, width)
 {
-	const cairo_surface_t &surface =
+	cairo_surface_t *surface =
 		Object_image_surface::GetObject(valueThis)->GetEntity();
 	return Value(::cairo_image_surface_get_width(surface));
 }
