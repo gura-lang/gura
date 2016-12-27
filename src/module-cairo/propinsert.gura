@@ -25,7 +25,7 @@ Gura_ImplementPropertyGetter(${item.className}, ${item.propName})
 '''.template()
 
 tmpl_ImplementProperty_RW = R'''
-// $[moduleName}.${item.className}#${item.propName}
+// ${moduleName}.${item.className}#${item.propName}
 Gura_DeclareProperty_RW(${item.className}, ${item.propName})
 {
 	SetPropAttr(VTYPE_any);
