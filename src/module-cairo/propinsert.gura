@@ -51,82 +51,84 @@ Gura_AssignProperty(${item.className}, ${item.propName});
 '''.template()
 
 Item = struct(className:string, propName, readFlag:boolean, writeFlag:boolean)
-itemDict = %{}
 
-fileName = 'Class_rectangle.cpp'
-stat = `start
-lines = readlines(fileName)
-lines.each {|line|
-	if (stat == `start) {
-		if (m = line.match(r'Object_(\w+)::DoGetProp')) {
-			className = m[1]
-			setFlag = false
-			stat = `lbrace
-		} elsif (m = line.match(r'Object_(\w+)::DoSetProp')) {
-			className = m[1]
-			setFlag = true
-			stat = `lbrace
-		}
-	} elsif (stat == `lbrace) {
-		if (line.match(r'^{')) {
-			stat = `funcbody
-		}
-	} elsif (stat == `funcbody) {
+DoExtract(fileName) = {
+	itemDict = %{}
+	stat = `start
+	lines = readlines(fileName)
+	lines.each {|line|
+		if (stat == `start) {
+			if (m = line.match(r'Object_(\w+)::DoGetProp')) {
+				className = m[1]
+				setFlag = false
+				stat = `lbrace
+			} elsif (m = line.match(r'Object_(\w+)::DoSetProp')) {
+				className = m[1]
+				setFlag = true
+				stat = `lbrace
+			}
+		} elsif (stat == `lbrace) {
+			if (line.match(r'^{')) {
+				stat = `funcbody
+			}
+		} elsif (stat == `funcbody) {
 		if (line.match(r'^}')) {
 			stat = `start
-		} elsif (m = line.match(r'pSymbol.+Symbol\((\w+)\)')) {
-			propName = m[1]
-			if (!(item = itemDict.get(propName))) {
-				item = itemDict[propName] = Item(className, propName, false, false)
-			}
-			if (setFlag) {
-				item.writeFlag = true
-			} else {
-				item.readFlag = true
+			} elsif (m = line.match(r'pSymbol.+Symbol\((\w+)\)')) {
+				propName = m[1]
+				if (!(item = itemDict.get(propName))) {
+					item = itemDict[propName] = Item(className, propName, false, false)
+				}
+				if (setFlag) {
+					item.writeFlag = true
+				} else {
+					item.readFlag = true
+				}
 			}
 		}
 	}
-}
-
-stat = `start
-lines = readlines(fileName)
-lines.each {|line|
-	if (stat == `start) {
-		if (m = line.match(r'Object_(\w+)::DoGetProp')) {
-			className = m[1]
-			setFlag = false
-			stat = `lbrace
-		} elsif (m = line.match(r'Object_(\w+)::DoSetProp')) {
-			className = m[1]
-			setFlag = true
-			stat = `lbrace
-		}
-	} elsif (stat == `lbrace) {
-		if (line.match(r'^{')) {
-			stat = `funcbody
-		}
-	} elsif (stat == `funcbody) {
+	itemDict.isempty() && return
+	stat = `start
+	lines = readlines(fileName)
+	lines.each {|line|
+		if (stat == `start) {
+			if (m = line.match(r'Object_(\w+)::DoGetProp')) {
+				className = m[1]
+				setFlag = false
+				stat = `lbrace
+			} elsif (m = line.match(r'Object_(\w+)::DoSetProp')) {
+				className = m[1]
+				setFlag = true
+				stat = `lbrace
+			}
+		} elsif (stat == `lbrace) {
+			if (line.match(r'^{')) {
+				stat = `funcbody
+			}
+		} elsif (stat == `funcbody) {
 		if (line.match(r'^}')) {
 			stat = `start
-		} elsif (m = line.match(r'pSymbol.+Symbol\((\w+)\)')) {
-			propName = m[1]
-			if (!(item = itemDict.get(propName))) {
-				item = itemDict[propName] = Item(className, propName, false, false)
-			}
-			if (setFlag) {
-				item.writeFlag = true
-			} else {
-				item.readFlag = true
+			} elsif (m = line.match(r'pSymbol.+Symbol\((\w+)\)')) {
+				propName = m[1]
+				if (!(item = itemDict.get(propName))) {
+					item = itemDict[propName] = Item(className, propName, false, false)
+				}
+				if (setFlag) {
+					item.writeFlag = true
+				} else {
+					item.readFlag = true
+				}
 			}
 		}
 	}
+	fout = sys.stdout
+	tmpl_ImplementStart.render(fout)
+	itemDict.values {|item|
+		cond(item.writeFlag, tmpl_ImplementProperty_RW, tmpl_ImplementProperty_R).render(fout)
+		fout.println()
+	}
+	itemDict.values {|item|
+		fout.print('\t', tmpl_AssignProperty.render())
+	}
 }
-
-tmpl_ImplementStart.render(fout)
-itemDict.values {|item|
-	cond(item.writeFlag, tmpl_ImplementProperty_RW, tmpl_ImplementProperty_R).render(fout)
-	fout.println()
-}
-itemDict.values {|item|
-	fout.print('\t', tmpl_AssignProperty.render())
-}
+DoExtract('Class_rectangle.cpp')
