@@ -8,7 +8,7 @@ tmpl_ImplementStart = R'''
 '''.template()
 
 tmpl_ImplementProperty_R = R'''
-// ${item.className}#${item.propName}
+// ${moduleName}.${item.className}#${item.propName}
 Gura_DeclareProperty_R(${item.className}, ${item.propName})
 {
 	SetPropAttr(VTYPE_any);
@@ -25,7 +25,7 @@ Gura_ImplementPropertyGetter(${item.className}, ${item.propName})
 '''.template()
 
 tmpl_ImplementProperty_RW = R'''
-// ${item.className}#${item.propName}
+// $[moduleName}.${item.className}#${item.propName}
 Gura_DeclareProperty_RW(${item.className}, ${item.propName})
 {
 	SetPropAttr(VTYPE_any);
@@ -54,11 +54,14 @@ Item = struct(className:string, propName, readFlag:boolean, writeFlag:boolean)
 
 DoExtract(fileName:string):map = {
 	itemDict = %{}
+	moduleName = ''
 	stat = `start
 	lines = readlines(fileName):list
 	lines.each {|line|
 		if (stat == `start) {
-			if (m = line.match(r'Object_(\w+)::DoGetProp')) {
+			if (m = line.match(r'Gura_BeginModuleScope\((\w+)\)')) {
+				moduleName = m[1]
+			} elsif (m = line.match(r'Object_(\w+)::DoGetProp')) {
 				className = m[1]
 				setFlag = false
 				stat = `lbrace
@@ -125,6 +128,7 @@ DoExtract(fileName:string):map = {
 		}
 		
 	}
+	sys.stderr.println('modified: ', fileName)
 }
 if (sys.argv.len() < 2) {
 	sys.stderr.println('usage: propinsert file')
