@@ -18,26 +18,6 @@ Object *Object_surface::Clone() const
 	return nullptr;
 }
 
-bool Object_surface::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(type));
-	return true;
-}
-
-Value Object_surface::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
-		cairo_surface_type_t surface_type = ::cairo_surface_get_type(_surface);
-		return Value(surface_type);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_surface::ToString(bool exprFlag)
 {
 	String str;
@@ -60,7 +40,7 @@ String Object_surface::ToString(bool exprFlag)
 // cairo.surface#type
 Gura_DeclareProperty_R(surface, type)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -69,7 +49,10 @@ Gura_DeclareProperty_R(surface, type)
 
 Gura_ImplementPropertyGetter(surface, type)
 {
-	return Value::Nil;
+	cairo_surface_t *surface =
+		Object_surface::GetObject(valueThis)->GetEntity();
+	cairo_surface_type_t surface_type = ::cairo_surface_get_type(surface);
+	return Value(surface_type);
 }
 
 //-----------------------------------------------------------------------------

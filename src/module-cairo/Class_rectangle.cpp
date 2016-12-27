@@ -14,60 +14,6 @@ Object *Object_rectangle::Clone() const
 	return nullptr;
 }
 
-bool Object_rectangle::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(x));
-	symbols.insert(Gura_Symbol(y));
-	symbols.insert(Gura_Symbol(width));
-	symbols.insert(Gura_Symbol(height));
-	return true;
-}
-
-Value Object_rectangle::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		return Value(_rectangle.x);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		return Value(_rectangle.y);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(width))) {
-		return Value(_rectangle.width);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(height))) {
-		return Value(_rectangle.height);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_rectangle::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_rectangle.x = value.GetDouble();
-		return Value(_rectangle.x);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_rectangle.y = value.GetDouble();
-		return Value(_rectangle.y);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(width))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_rectangle.width = value.GetDouble();
-		return Value(_rectangle.width);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(height))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_rectangle.height = value.GetDouble();
-		return Value(_rectangle.height);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_rectangle::ToString(bool exprFlag)
 {
 	String rtn;
@@ -88,7 +34,7 @@ String Object_rectangle::ToString(bool exprFlag)
 // cairo.rectangle#height
 Gura_DeclareProperty_RW(rectangle, height)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -97,18 +43,23 @@ Gura_DeclareProperty_RW(rectangle, height)
 
 Gura_ImplementPropertyGetter(rectangle, height)
 {
-	return Value::Nil;
+	cairo_rectangle_t &rectangle =
+		Object_rectangle::GetObject(valueThis)->GetEntity();
+	return Value(rectangle.height);
 }
 
 Gura_ImplementPropertySetter(rectangle, height)
 {
-	return Value::Nil;
+	cairo_rectangle_t &rectangle =
+		Object_rectangle::GetObject(valueThis)->GetEntity();
+	rectangle.height = value.GetDouble();
+	return Value(rectangle.height);
 }
 
 // cairo.rectangle#width
 Gura_DeclareProperty_RW(rectangle, width)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -117,18 +68,23 @@ Gura_DeclareProperty_RW(rectangle, width)
 
 Gura_ImplementPropertyGetter(rectangle, width)
 {
-	return Value::Nil;
+	cairo_rectangle_t &rectangle =
+		Object_rectangle::GetObject(valueThis)->GetEntity();
+	return Value(rectangle.width);
 }
 
 Gura_ImplementPropertySetter(rectangle, width)
 {
-	return Value::Nil;
+	cairo_rectangle_t &rectangle =
+		Object_rectangle::GetObject(valueThis)->GetEntity();
+	rectangle.width = value.GetDouble();
+	return Value(rectangle.width);
 }
 
 // cairo.rectangle#x
 Gura_DeclareProperty_RW(rectangle, x)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -137,18 +93,23 @@ Gura_DeclareProperty_RW(rectangle, x)
 
 Gura_ImplementPropertyGetter(rectangle, x)
 {
-	return Value::Nil;
+	cairo_rectangle_t &rectangle =
+		Object_rectangle::GetObject(valueThis)->GetEntity();
+	return Value(rectangle.x);
 }
 
 Gura_ImplementPropertySetter(rectangle, x)
 {
-	return Value::Nil;
+	cairo_rectangle_t &rectangle =
+		Object_rectangle::GetObject(valueThis)->GetEntity();
+	rectangle.x = value.GetDouble();
+	return Value(rectangle.x);
 }
 
 // cairo.rectangle#y
 Gura_DeclareProperty_RW(rectangle, y)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -157,12 +118,17 @@ Gura_DeclareProperty_RW(rectangle, y)
 
 Gura_ImplementPropertyGetter(rectangle, y)
 {
-	return Value::Nil;
+	cairo_rectangle_t &rectangle =
+		Object_rectangle::GetObject(valueThis)->GetEntity();
+	return Value(rectangle.y);
 }
 
 Gura_ImplementPropertySetter(rectangle, y)
 {
-	return Value::Nil;
+	cairo_rectangle_t &rectangle =
+		Object_rectangle::GetObject(valueThis)->GetEntity();
+	rectangle.y = value.GetDouble();
+	return Value(rectangle.y);
 }
 
 //-----------------------------------------------------------------------------

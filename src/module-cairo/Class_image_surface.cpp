@@ -12,7 +12,7 @@ Gura_BeginModuleScope(cairo)
 // cairo.image_surface#height
 Gura_DeclareProperty_R(image_surface, height)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -29,7 +29,7 @@ Gura_ImplementPropertyGetter(image_surface, height)
 // cairo.image_surface#width
 Gura_DeclareProperty_R(image_surface, width)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""

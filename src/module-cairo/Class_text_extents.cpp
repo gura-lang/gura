@@ -25,7 +25,7 @@ String Object_text_extents::ToString(bool exprFlag)
 // cairo.text_extents#height
 Gura_DeclareProperty_R(text_extents, height)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -42,7 +42,7 @@ Gura_ImplementPropertyGetter(text_extents, height)
 // cairo.text_extents#width
 Gura_DeclareProperty_R(text_extents, width)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -59,7 +59,7 @@ Gura_ImplementPropertyGetter(text_extents, width)
 // cairo.text_extents#x_advance
 Gura_DeclareProperty_R(text_extents, x_advance)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -76,7 +76,7 @@ Gura_ImplementPropertyGetter(text_extents, x_advance)
 // cairo.text_extents#x_bearing
 Gura_DeclareProperty_R(text_extents, x_bearing)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -93,7 +93,7 @@ Gura_ImplementPropertyGetter(text_extents, x_bearing)
 // cairo.text_extents#y_advance
 Gura_DeclareProperty_R(text_extents, y_advance)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -110,7 +110,7 @@ Gura_ImplementPropertyGetter(text_extents, y_advance)
 // cairo.text_extents#y_bearing
 Gura_DeclareProperty_R(text_extents, y_bearing)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""

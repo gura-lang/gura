@@ -59,7 +59,7 @@ DoExtract(fileName:string):map = {
 	lines = readlines(fileName):list
 	lines.each {|line|
 		if (stat == `start) {
-			if (m = line.match(r'Gura_BeginModuleScope\((\w+)\)')) {
+			if (m = line.match(r'Gura_BeginModule\w+\((\w+)\)')) {
 				moduleName = m[1]
 			} elsif (m = line.match(r'Object_(\w+)::DoGetProp')) {
 				className = m[1]

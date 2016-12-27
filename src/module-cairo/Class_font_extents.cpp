@@ -25,7 +25,7 @@ String Object_font_extents::ToString(bool exprFlag)
 // cairo.font_extents#ascent
 Gura_DeclareProperty_R(font_extents, ascent)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -42,7 +42,7 @@ Gura_ImplementPropertyGetter(font_extents, ascent)
 // cairo.font_extents#descent
 Gura_DeclareProperty_R(font_extents, descent)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -59,7 +59,7 @@ Gura_ImplementPropertyGetter(font_extents, descent)
 // cairo.font_extents#height
 Gura_DeclareProperty_R(font_extents, height)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -76,7 +76,7 @@ Gura_ImplementPropertyGetter(font_extents, height)
 // cairo.font_extents#max_x_advance
 Gura_DeclareProperty_R(font_extents, max_x_advance)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -93,7 +93,7 @@ Gura_ImplementPropertyGetter(font_extents, max_x_advance)
 // cairo.font_extents#max_y_advance
 Gura_DeclareProperty_R(font_extents, max_y_advance)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
