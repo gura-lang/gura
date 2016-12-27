@@ -96,13 +96,19 @@ DoExtract(fileName:string):map = {
 	lines.each {|line|
 		if (stat == `start) {
 			fout.print(line)
-			if (line.match(r'Object_(\w+)::')) {
+			if (m = line.match(r'Object_(\w+)::')) {
+				className = m[1]
 				stat = `objfound
 			}
 		} elsif (stat == `objfound) {
 			if (line.match(r'^//-----')) {
-				tmpl_ImplementStart.render(fout)
+				firstFlag = true
 				itemDict.values {|item|
+					(item.className != className) && continue
+					if (firstFlag) {
+						tmpl_ImplementStart.render(fout)
+						firstFlag = false
+					}
 					cond(item.writeFlag, tmpl_ImplementProperty_RW,
 						 tmpl_ImplementProperty_R).render(fout)
 					fout.println()
@@ -111,21 +117,25 @@ DoExtract(fileName:string):map = {
 			}
 			fout.print(line)
 		} elsif (stat == `seek_ImplementUserClass) {
-			if (line.match(r'^Gura_ImplementUserClass')) {
+			if (m = line.match(r'^Gura_ImplementUserClass\((\w+)\)')) {
+				className = m[1]
 				stat = `lbrace
 			}
 			fout.print(line)
 		} elsif (stat == `lbrace) {
 			fout.print(line)
 			if (line.match(r'^{')) {
-				fout.println('\t// Assignment of properties')
+				firstFlag = true
 				itemDict.values {|item|
+					(item.className != className) && continue
+					if (firstFlag) {
+						fout.println('\t// Assignment of properties')
+						firstFlag = false
+					}
 					fout.print('\t', tmpl_AssignProperty.render())
 				}
-				stat = `freerun
+				stat = `start
 			}
-		} elsif (stat == `freerun) {
-			fout.print(line)
 		}
 		
 	}
