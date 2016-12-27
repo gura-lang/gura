@@ -122,6 +122,7 @@ DoExtract(fileName:string):map = {
 				itemDict.values {|item|
 					fout.print('\t', tmpl_AssignProperty.render())
 				}
+				stat = `freerun
 			}
 		} elsif (stat == `freerun) {
 			fout.print(line)

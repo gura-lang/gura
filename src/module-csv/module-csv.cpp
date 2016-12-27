@@ -24,41 +24,6 @@ Object *Object_writer::Clone() const
 	return nullptr;
 }
 
-bool Object_writer::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(format));
-	return true;
-}
-
-Value Object_writer::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		return Value(_format);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_writer::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		if (!value.Is_string()) {
-			sig.SetError(ERR_TypeError, "string must be specified");
-			return Value::Nil;
-		}
-		_format = value.GetString();
-		return value;
-	}
-	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-}
-
 String Object_writer::ToString(bool exprFlag)
 {
 	String str;
@@ -113,6 +78,32 @@ bool Object_writer::PutLine(Environment &env, const ValueList &valList)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// csv.writer#format
+Gura_DeclareProperty_RW(writer, format)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(writer, format)
+{
+	Object_writer *pThis = Object_writer::GetObject(valueThis);
+	return Value(pThis->GetFormat());
+}
+
+Gura_ImplementPropertySetter(writer, format)
+{
+	Object_writer *pThis = Object_writer::GetObject(valueThis);
+	pThis->SetFormat(value.GetString());
+	return value;
+}
+
+//-----------------------------------------------------------------------------
 // Interfaces of csv.writer
 //-----------------------------------------------------------------------------
 // csv.writer#write(fields+):map:reduce
@@ -139,6 +130,8 @@ Gura_ImplementMethod(writer, write)
 // implementation of class writer
 Gura_ImplementUserClass(writer)
 {
+	// Assignment of properties
+	Gura_AssignProperty(writer, format);
 	Gura_AssignMethod(writer, write);
 }
 

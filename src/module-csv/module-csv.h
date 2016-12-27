@@ -24,14 +24,11 @@ public:
 	Object_writer(Stream *pStreamDst, const char *format);
 	virtual ~Object_writer();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	bool PutValue(Environment &env, const Value &value);
 	bool PutLine(Environment &env, const ValueList &valList);
+	const String &GetFormat() const { return _format; }
+	void SetFormat(const String &format) { _format = format; }
 };
 
 //-----------------------------------------------------------------------------
