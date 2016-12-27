@@ -1,6 +1,12 @@
 #!/usr/bin/env gura
 import(re)
 
+tmpl_ImplementStart = R'''
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+'''.template()
+
 tmpl_ImplementProperty_R = R'''
 // ${item.className}#${item.propName}
 Gura_DeclareProperty_R(${item.className}, ${item.propName})
@@ -81,10 +87,46 @@ lines.each {|line|
 		}
 	}
 }
+
+stat = `start
+lines = readlines(fileName)
+lines.each {|line|
+	if (stat == `start) {
+		if (m = line.match(r'Object_(\w+)::DoGetProp')) {
+			className = m[1]
+			setFlag = false
+			stat = `lbrace
+		} elsif (m = line.match(r'Object_(\w+)::DoSetProp')) {
+			className = m[1]
+			setFlag = true
+			stat = `lbrace
+		}
+	} elsif (stat == `lbrace) {
+		if (line.match(r'^{')) {
+			stat = `funcbody
+		}
+	} elsif (stat == `funcbody) {
+		if (line.match(r'^}')) {
+			stat = `start
+		} elsif (m = line.match(r'pSymbol.+Symbol\((\w+)\)')) {
+			propName = m[1]
+			if (!(item = itemDict.get(propName))) {
+				item = itemDict[propName] = Item(className, propName, false, false)
+			}
+			if (setFlag) {
+				item.writeFlag = true
+			} else {
+				item.readFlag = true
+			}
+		}
+	}
+}
+
+tmpl_ImplementStart.render(fout)
 itemDict.values {|item|
-	cond(item.writeFlag, tmpl_ImplementProperty_RW, tmpl_ImplementProperty_R).render(sys.stdout)
-	println()
+	cond(item.writeFlag, tmpl_ImplementProperty_RW, tmpl_ImplementProperty_R).render(fout)
+	fout.println()
 }
 itemDict.values {|item|
-	print('\t', tmpl_AssignProperty.render())
+	fout.print('\t', tmpl_AssignProperty.render())
 }

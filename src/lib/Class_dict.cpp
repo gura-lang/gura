@@ -496,6 +496,22 @@ Gura_ImplementMethod(dict, items)
 							new Object_dict::IteratorItems(pObj));
 }
 
+// dict#isempty()
+Gura_DeclareMethod(dict, isempty)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns `true` is the dictionary contains no entries.\n");
+}
+
+Gura_ImplementMethod(dict, isempty)
+{
+	ValueDict &valDict = Object_dict::GetObjectThis(arg)->GetDict();
+	return Value(valDict.empty());
+}
+
 // dict#keys() {block?}
 Gura_DeclareMethod(dict, keys)
 {
@@ -615,6 +631,7 @@ void Class_dict::DoPrepare(Environment &env)
 	Gura_AssignMethod(dict, get);
 	Gura_AssignMethod(dict, haskey);
 	Gura_AssignMethod(dict, items);
+	Gura_AssignMethod(dict, isempty);
 	Gura_AssignMethod(dict, keys);
 	Gura_AssignMethod(dict, len);
 	Gura_AssignMethod(dict, put);

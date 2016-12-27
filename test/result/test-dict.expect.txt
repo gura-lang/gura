@@ -135,3 +135,9 @@ expected error occurs: KeyError: invalid iterator of dict
 expected error occurs: KeyError: invalid iterator of dict
 ['first', 1]
 expected error occurs: KeyError: invalid iterator of dict
+
+======== #16 dict#isempty() ========
+
+% {}.isempty() .. true
+% { 'a' => 3 }.isempty() .. false
+% { 'a' => 3, 'b' => 2, 'c' => 1 }.isempty() .. false

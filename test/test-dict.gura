@@ -251,3 +251,8 @@ testcase('invalidated iterator of dict#items()') {
 		println('expected error occurs: ', e.text)
 	}
 }
+testcase('dict#isempty()') {
+	tester(`%{}.isempty())
+	tester(`%{'a' => 3}.isempty())
+	tester(`%{'a' => 3, 'b' => 2, 'c' => 1}.isempty())
+}
