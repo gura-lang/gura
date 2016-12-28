@@ -639,7 +639,7 @@ String Object_diff_at_line::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-// diff.diff@line#distance
+// diff.diff_at_line#distance
 Gura_DeclareProperty_R(diff_at_line, distance)
 {
 	SetPropAttr(VTYPE_number);
@@ -655,7 +655,7 @@ Gura_ImplementPropertyGetter(diff_at_line, distance)
 	return Value(pDiffLine->GetEditDistance());
 }
 
-// diff.diff@line#edits
+// diff.diff_at_line#edits
 Gura_DeclareProperty_R(diff_at_line, edits)
 {
 	SetPropAttr(VTYPE_iterator);
@@ -673,7 +673,7 @@ Gura_ImplementPropertyGetter(diff_at_line, edits)
 	return Value(new Object_iterator(env, pIterator.release()));
 }
 
-// diff.diff@line#nlines@new
+// diff.diff_at_line#nlines_at_new
 Gura_DeclarePropertyAlias_R(diff_at_line, nlines_at_new, "nlines@new")
 {
 	SetPropAttr(VTYPE_number);
@@ -689,7 +689,7 @@ Gura_ImplementPropertyGetter(diff_at_line, nlines_at_new)
 	return Value(pDiffLine->GetSequence(1).size());
 }
 
-// diff.diff@line#nlines@org
+// diff.diff_at_line#nlines_at_org
 Gura_DeclarePropertyAlias_R(diff_at_line, nlines_at_org, "nlines@org")
 {
 	SetPropAttr(VTYPE_number);
@@ -806,7 +806,7 @@ Gura_ImplementUserClass(diff_at_line)
 	// Assignment of methods
 	Gura_AssignMethod(diff_at_line, eachhunk);
 	Gura_AssignMethod(diff_at_line, render);
-	// Assinment of value
+	// Assignment of value
 	Gura_AssignValueEx("diff@line", Value(Reference()));
 }
 
@@ -882,7 +882,7 @@ const DiffChar *Object_hunk_at_line::GetDiffChar()
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // diff.hunk_at_line#diff_at_char
-Gura_DeclarePropertyAlias_R(hunk_at_line, diff_at_char, "diff@char")
+Gura_DeclareProperty_R(hunk_at_line, diff_at_char)
 {
 	SetPropAttr(VTYPE_any);
 	AddHelp(
@@ -896,8 +896,23 @@ Gura_ImplementPropertyGetter(hunk_at_line, diff_at_char)
 	return Value::Nil;
 }
 
+// diff.hunk_at_line#edits
+Gura_DeclareProperty_R(hunk_at_line, edits)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(hunk_at_line, edits)
+{
+	return Value::Nil;
+}
+
 // diff.hunk_at_line#lineno_at_new
-Gura_DeclarePropertyAlias_R(hunk_at_line, lineno_at_new, "lineno@new")
+Gura_DeclareProperty_R(hunk_at_line, lineno_at_new)
 {
 	SetPropAttr(VTYPE_any);
 	AddHelp(
@@ -912,7 +927,7 @@ Gura_ImplementPropertyGetter(hunk_at_line, lineno_at_new)
 }
 
 // diff.hunk_at_line#lineno_at_org
-Gura_DeclarePropertyAlias_R(hunk_at_line, lineno_at_org, "lineno@org")
+Gura_DeclareProperty_R(hunk_at_line, lineno_at_org)
 {
 	SetPropAttr(VTYPE_any);
 	AddHelp(
@@ -922,6 +937,36 @@ Gura_DeclarePropertyAlias_R(hunk_at_line, lineno_at_org, "lineno@org")
 }
 
 Gura_ImplementPropertyGetter(hunk_at_line, lineno_at_org)
+{
+	return Value::Nil;
+}
+
+// diff.hunk_at_line#nlines_at_new
+Gura_DeclareProperty_R(hunk_at_line, nlines_at_new)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(hunk_at_line, nlines_at_new)
+{
+	return Value::Nil;
+}
+
+// diff.hunk_at_line#nlines_at_org
+Gura_DeclareProperty_R(hunk_at_line, nlines_at_org)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(hunk_at_line, nlines_at_org)
 {
 	return Value::Nil;
 }
@@ -972,12 +1017,17 @@ Gura_ImplementUserClass(hunk_at_line)
 	// Assignment of properties
 #if 0
 	Gura_AssignProperty(hunk_at_line, diff_at_char);
+	Gura_AssignProperty(hunk_at_line, edits);
 	Gura_AssignProperty(hunk_at_line, lineno_at_new);
 	Gura_AssignProperty(hunk_at_line, lineno_at_org);
+	Gura_AssignProperty(hunk_at_line, nlines_at_new);
+	Gura_AssignProperty(hunk_at_line, nlines_at_org);
 	Gura_AssignProperty(hunk_at_line, type);
 #endif
-	Gura_AssignValueEx("hunk@line", Value(Reference()));
+	// Assignment of method
 	Gura_AssignMethod(hunk_at_line, print);
+	// Assignment of value
+	Gura_AssignValueEx("hunk@line", Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -1054,8 +1104,38 @@ String Object_edit_at_line::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
+// diff.edit_at_line#lineno_at_new
+Gura_DeclareProperty_R(edit_at_line, lineno_at_new)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(edit_at_line, lineno_at_new)
+{
+	return Value::Nil;
+}
+
+// diff.edit_at_line#lineno_at_org
+Gura_DeclareProperty_R(edit_at_line, lineno_at_org)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(edit_at_line, lineno_at_org)
+{
+	return Value::Nil;
+}
+
 // diff.edit_at_line#mark_at_context
-Gura_DeclarePropertyAlias_R(edit_at_line, mark_at_context, "mark@context")
+Gura_DeclareProperty_R(edit_at_line, mark_at_context)
 {
 	SetPropAttr(VTYPE_any);
 	AddHelp(
@@ -1070,7 +1150,7 @@ Gura_ImplementPropertyGetter(edit_at_line, mark_at_context)
 }
 
 // diff.edit_at_line#mark_at_normal
-Gura_DeclarePropertyAlias_R(edit_at_line, mark_at_normal, "mark@normal")
+Gura_DeclareProperty_R(edit_at_line, mark_at_normal)
 {
 	SetPropAttr(VTYPE_any);
 	AddHelp(
@@ -1085,7 +1165,7 @@ Gura_ImplementPropertyGetter(edit_at_line, mark_at_normal)
 }
 
 // diff.edit_at_line#mark_at_unified
-Gura_DeclarePropertyAlias_R(edit_at_line, mark_at_unified, "mark@unified")
+Gura_DeclareProperty_R(edit_at_line, mark_at_unified)
 {
 	SetPropAttr(VTYPE_any);
 	AddHelp(
@@ -1110,6 +1190,21 @@ Gura_DeclareProperty_R(edit_at_line, source)
 }
 
 Gura_ImplementPropertyGetter(edit_at_line, source)
+{
+	return Value::Nil;
+}
+
+// diff.edit_at_line#type
+Gura_DeclareProperty_R(edit_at_line, type)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(edit_at_line, type)
 {
 	return Value::Nil;
 }
@@ -1159,10 +1254,13 @@ Gura_ImplementUserClass(edit_at_line)
 {
 	// Assignment of properties
 #if 0
+	Gura_AssignProperty(edit_at_line, lineno_at_new);
+	Gura_AssignProperty(edit_at_line, lineno_at_org);
 	Gura_AssignProperty(edit_at_line, mark_at_context);
 	Gura_AssignProperty(edit_at_line, mark_at_normal);
 	Gura_AssignProperty(edit_at_line, mark_at_unified);
 	Gura_AssignProperty(edit_at_line, source);
+	Gura_AssignProperty(edit_at_line, type);
 	Gura_AssignProperty(edit_at_line, unified);
 #endif
 	// Assignment of method
@@ -1227,8 +1325,38 @@ String Object_diff_at_char::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
+// diff.diff_at_char#distance
+Gura_DeclareProperty_R(diff_at_char, distance)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(diff_at_char, distance)
+{
+	return Value::Nil;
+}
+
+// diff.diff_at_char#edits
+Gura_DeclareProperty_R(diff_at_char, edits)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(diff_at_char, edits)
+{
+	return Value::Nil;
+}
+
 // diff.diff_at_char#edits_at_new
-Gura_DeclarePropertyAlias_R(diff_at_char, edits_at_new, "edits@new")
+Gura_DeclareProperty_R(diff_at_char, edits_at_new)
 {
 	SetPropAttr(VTYPE_any);
 	AddHelp(
@@ -1243,7 +1371,7 @@ Gura_ImplementPropertyGetter(diff_at_char, edits_at_new)
 }
 
 // diff.diff_at_char#edits_at_org
-Gura_DeclarePropertyAlias_R(diff_at_char, edits_at_org, "edits@org")
+Gura_DeclareProperty_R(diff_at_char, edits_at_org)
 {
 	SetPropAttr(VTYPE_any);
 	AddHelp(
@@ -1264,6 +1392,8 @@ Gura_ImplementUserClass(diff_at_char)
 {
 	// Assignment of properties
 #if 0
+	Gura_AssignProperty(diff_at_char, distance);
+	Gura_AssignProperty(diff_at_char, edits);
 	Gura_AssignProperty(diff_at_char, edits_at_new);
 	Gura_AssignProperty(diff_at_char, edits_at_org);
 #endif
@@ -1333,10 +1463,97 @@ String Object_edit_at_char::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// diff.edit_at_char#mark_at_context
+Gura_DeclareProperty_R(edit_at_char, mark_at_context)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(edit_at_char, mark_at_context)
+{
+	return Value::Nil;
+}
+
+// diff.edit_at_char#mark_at_normal
+Gura_DeclareProperty_R(edit_at_char, mark_at_normal)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(edit_at_char, mark_at_normal)
+{
+	return Value::Nil;
+}
+
+// diff.edit_at_char#mark_at_unified
+Gura_DeclareProperty_R(edit_at_char, mark_at_unified)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(edit_at_char, mark_at_unified)
+{
+	return Value::Nil;
+}
+
+// diff.edit_at_char#source
+Gura_DeclareProperty_R(edit_at_char, source)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(edit_at_char, source)
+{
+	return Value::Nil;
+}
+
+// diff.edit_at_char#type
+Gura_DeclareProperty_R(edit_at_char, type)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(edit_at_char, type)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Class implementation for diff.edit@char
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(edit_at_char)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(edit_at_char, mark_at_context);
+	Gura_AssignProperty(edit_at_char, mark_at_normal);
+	Gura_AssignProperty(edit_at_char, mark_at_unified);
+	Gura_AssignProperty(edit_at_char, source);
+	Gura_AssignProperty(edit_at_char, type);
+#endif
+	// Assignment of value
 	Gura_AssignValueEx("edit@char", Value(Reference()));
 }
 
@@ -1384,7 +1601,7 @@ String Object_sync::ToString(bool exprFlag)
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // diff.sync#synclines_at_new
-Gura_DeclarePropertyAlias_R(sync, synclines_at_new, "synclines@new")
+Gura_DeclareProperty_R(sync, synclines_at_new)
 {
 	SetPropAttr(VTYPE_any);
 	AddHelp(
@@ -1399,7 +1616,7 @@ Gura_ImplementPropertyGetter(sync, synclines_at_new)
 }
 
 // diff.sync#synclines_at_org
-Gura_DeclarePropertyAlias_R(sync, synclines_at_org, "synclines@org")
+Gura_DeclareProperty_R(sync, synclines_at_org)
 {
 	SetPropAttr(VTYPE_any);
 	AddHelp(
@@ -1465,10 +1682,33 @@ String Object_syncline::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// diff.syncline#edits
+Gura_DeclareProperty_R(syncline, edits)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(syncline, edits)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Class implementation for diff.syncline
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(syncline)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(syncline, edits);
+#endif
+	// Assignment of value
 	Gura_AssignValue(syncline, Value(Reference()));
 }
 
