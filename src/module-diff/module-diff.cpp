@@ -842,7 +842,7 @@ const DiffChar *Object_hunk_at_line::GetDiffChar()
 // diff.hunk@line#diff@char
 Gura_DeclareProperty_R(hunk_at_line, diff_at_char)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_diff_at_char);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -858,7 +858,7 @@ Gura_ImplementPropertyGetter(hunk_at_line, diff_at_char)
 // diff.hunk@line#edits
 Gura_DeclareProperty_R(hunk_at_line, edits)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -877,7 +877,7 @@ Gura_ImplementPropertyGetter(hunk_at_line, edits)
 // diff.hunk@line#lineno@new
 Gura_DeclarePropertyAlias_R(hunk_at_line, lineno_at_new, "lineno@new")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -893,7 +893,7 @@ Gura_ImplementPropertyGetter(hunk_at_line, lineno_at_new)
 // diff.hunk@line#lineno@org
 Gura_DeclarePropertyAlias_R(hunk_at_line, lineno_at_org, "lineno@org")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -909,7 +909,7 @@ Gura_ImplementPropertyGetter(hunk_at_line, lineno_at_org)
 // diff.hunk@line#nlines@new
 Gura_DeclarePropertyAlias_R(hunk_at_line, nlines_at_new, "nlines@new")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -925,7 +925,7 @@ Gura_ImplementPropertyGetter(hunk_at_line, nlines_at_new)
 // diff.hunk@line#nlines@org
 Gura_DeclarePropertyAlias_R(hunk_at_line, nlines_at_org, "nlines@org")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -941,7 +941,7 @@ Gura_ImplementPropertyGetter(hunk_at_line, nlines_at_org)
 // diff.hunk@line#type
 Gura_DeclareProperty_R(hunk_at_line, type)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1030,7 +1030,7 @@ String Object_edit_at_line::ToString(bool exprFlag)
 // diff.edit@line#lineno@new
 Gura_DeclarePropertyAlias_R(edit_at_line, lineno_at_new, "lineno@new")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1046,7 +1046,7 @@ Gura_ImplementPropertyGetter(edit_at_line, lineno_at_new)
 // diff.edit@line#lineno@org
 Gura_DeclarePropertyAlias_R(edit_at_line, lineno_at_org, "lineno@org")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1062,7 +1062,7 @@ Gura_ImplementPropertyGetter(edit_at_line, lineno_at_org)
 // diff.edit@line#mark@context
 Gura_DeclarePropertyAlias_R(edit_at_line, mark_at_context, "mark@context")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1078,7 +1078,7 @@ Gura_ImplementPropertyGetter(edit_at_line, mark_at_context)
 // diff.edit@line#mark@normal
 Gura_DeclarePropertyAlias_R(edit_at_line, mark_at_normal, "mark@normal")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1094,7 +1094,7 @@ Gura_ImplementPropertyGetter(edit_at_line, mark_at_normal)
 // diff.edit@line#mark@unified
 Gura_DeclarePropertyAlias_R(edit_at_line, mark_at_unified, "mark@unified")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1110,7 +1110,7 @@ Gura_ImplementPropertyGetter(edit_at_line, mark_at_unified)
 // diff.edit@line#source
 Gura_DeclareProperty_R(edit_at_line, source)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1126,7 +1126,7 @@ Gura_ImplementPropertyGetter(edit_at_line, source)
 // diff.edit@line#type
 Gura_DeclareProperty_R(edit_at_line, type)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1148,7 +1148,7 @@ Gura_ImplementPropertyGetter(edit_at_line, type)
 // diff.edit@line#unified
 Gura_DeclareProperty_R(edit_at_line, unified)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1212,40 +1212,6 @@ Object *Object_diff_at_char::Clone() const
 	return nullptr;
 }
 
-bool Object_diff_at_char::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(distance));
-	symbols.insert(Gura_UserSymbol(edits));
-	symbols.insert(Gura_UserSymbol(edits_at_org));
-	symbols.insert(Gura_UserSymbol(edits_at_new));
-	return true;
-}
-
-Value Object_diff_at_char::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(distance))) {
-		return Value(_pDiffChar->GetEditDistance());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
-		AutoPtr<DiffChar::IteratorEdit> pIterator(
-			new DiffChar::IteratorEdit(_pDiffChar->GetEditOwner().Reference(), FILTERTYPE_None));
-		return Value(new Object_iterator(env, pIterator.release()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits_at_org))) {
-		AutoPtr<DiffChar::IteratorEdit> pIterator(
-			new DiffChar::IteratorEdit(_pDiffChar->GetEditOwner().Reference(), FILTERTYPE_Original));
-		return Value(new Object_iterator(env, pIterator.release()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits_at_new))) {
-		AutoPtr<DiffChar::IteratorEdit> pIterator(
-			new DiffChar::IteratorEdit(_pDiffChar->GetEditOwner().Reference(), FILTERTYPE_New));
-		return Value(new Object_iterator(env, pIterator.release()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_diff_at_char::ToString(bool exprFlag)
 {
 	char buff[80];
@@ -1263,7 +1229,7 @@ String Object_diff_at_char::ToString(bool exprFlag)
 // diff.diff@char#distance
 Gura_DeclareProperty_R(diff_at_char, distance)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1272,13 +1238,14 @@ Gura_DeclareProperty_R(diff_at_char, distance)
 
 Gura_ImplementPropertyGetter(diff_at_char, distance)
 {
-	return Value::Nil;
+	DiffChar *pDiffChar = Object_diff_at_char::GetObject(valueThis)->GetDiffChar();
+	return Value(pDiffChar->GetEditDistance());
 }
 
 // diff.diff@char#edits
 Gura_DeclareProperty_R(diff_at_char, edits)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1287,13 +1254,16 @@ Gura_DeclareProperty_R(diff_at_char, edits)
 
 Gura_ImplementPropertyGetter(diff_at_char, edits)
 {
-	return Value::Nil;
+	DiffChar *pDiffChar = Object_diff_at_char::GetObject(valueThis)->GetDiffChar();
+	AutoPtr<DiffChar::IteratorEdit> pIterator(
+		new DiffChar::IteratorEdit(pDiffChar->GetEditOwner().Reference(), FILTERTYPE_None));
+	return Value(new Object_iterator(env, pIterator.release()));
 }
 
 // diff.diff@char#edits@new
 Gura_DeclarePropertyAlias_R(diff_at_char, edits_at_new, "edits@new")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1302,13 +1272,16 @@ Gura_DeclarePropertyAlias_R(diff_at_char, edits_at_new, "edits@new")
 
 Gura_ImplementPropertyGetter(diff_at_char, edits_at_new)
 {
-	return Value::Nil;
+	DiffChar *pDiffChar = Object_diff_at_char::GetObject(valueThis)->GetDiffChar();
+	AutoPtr<DiffChar::IteratorEdit> pIterator(
+		new DiffChar::IteratorEdit(pDiffChar->GetEditOwner().Reference(), FILTERTYPE_New));
+	return Value(new Object_iterator(env, pIterator.release()));
 }
 
 // diff.diff@char#edits@org
 Gura_DeclarePropertyAlias_R(diff_at_char, edits_at_org, "edits@org")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1317,7 +1290,10 @@ Gura_DeclarePropertyAlias_R(diff_at_char, edits_at_org, "edits@org")
 
 Gura_ImplementPropertyGetter(diff_at_char, edits_at_org)
 {
-	return Value::Nil;
+	DiffChar *pDiffChar = Object_diff_at_char::GetObject(valueThis)->GetDiffChar();
+	AutoPtr<DiffChar::IteratorEdit> pIterator(
+		new DiffChar::IteratorEdit(pDiffChar->GetEditOwner().Reference(), FILTERTYPE_Original));
+	return Value(new Object_iterator(env, pIterator.release()));
 }
 
 //-----------------------------------------------------------------------------
@@ -1326,12 +1302,10 @@ Gura_ImplementPropertyGetter(diff_at_char, edits_at_org)
 Gura_ImplementUserClass(diff_at_char)
 {
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(diff_at_char, distance);
 	Gura_AssignProperty(diff_at_char, edits);
 	Gura_AssignProperty(diff_at_char, edits_at_new);
 	Gura_AssignProperty(diff_at_char, edits_at_org);
-#endif
 	// Assignment of value
 	Gura_AssignValueEx("diff@char", Value(Reference()));
 }
@@ -1342,44 +1316,6 @@ Gura_ImplementUserClass(diff_at_char)
 Object *Object_edit_at_char::Clone() const
 {
 	return nullptr;
-}
-
-bool Object_edit_at_char::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(type));
-	symbols.insert(Gura_UserSymbol(mark_at_normal));
-	symbols.insert(Gura_UserSymbol(mark_at_context));
-	symbols.insert(Gura_UserSymbol(mark_at_unified));
-	symbols.insert(Gura_UserSymbol(source));
-	symbols.insert(Gura_UserSymbol(unified));
-	return true;
-}
-
-Value Object_edit_at_char::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
-		if (_pEdit->GetEditType() == EDITTYPE_Add) {
-			return Value(Gura_UserSymbol(add));
-		} else if (_pEdit->GetEditType() == EDITTYPE_Delete) {
-			return Value(Gura_UserSymbol(delete));
-		} else {
-			return Value(Gura_UserSymbol(copy));
-		}
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_normal))) {
-		return Value(GetEditMark_Normal(_pEdit->GetEditType()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_context))) {
-		return Value(GetEditMark_Context(_pEdit->GetEditType()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_unified))) {
-		return Value(GetEditMark_Unified(_pEdit->GetEditType()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(source))) {
-		return Value(_pEdit->GetSource());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
 }
 
 String Object_edit_at_char::ToString(bool exprFlag)
@@ -1403,7 +1339,7 @@ String Object_edit_at_char::ToString(bool exprFlag)
 // diff.edit@char#mark@context
 Gura_DeclarePropertyAlias_R(edit_at_char, mark_at_context, "mark@context")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1412,13 +1348,14 @@ Gura_DeclarePropertyAlias_R(edit_at_char, mark_at_context, "mark@context")
 
 Gura_ImplementPropertyGetter(edit_at_char, mark_at_context)
 {
-	return Value::Nil;
+	DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
+	return Value(GetEditMark_Context(pEdit->GetEditType()));
 }
 
 // diff.edit@char#mark@normal
 Gura_DeclarePropertyAlias_R(edit_at_char, mark_at_normal, "mark@normal")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1427,13 +1364,14 @@ Gura_DeclarePropertyAlias_R(edit_at_char, mark_at_normal, "mark@normal")
 
 Gura_ImplementPropertyGetter(edit_at_char, mark_at_normal)
 {
-	return Value::Nil;
+	DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
+	return Value(GetEditMark_Normal(pEdit->GetEditType()));
 }
 
 // diff.edit@char#mark@unified
 Gura_DeclarePropertyAlias_R(edit_at_char, mark_at_unified, "mark@unified")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1442,13 +1380,14 @@ Gura_DeclarePropertyAlias_R(edit_at_char, mark_at_unified, "mark@unified")
 
 Gura_ImplementPropertyGetter(edit_at_char, mark_at_unified)
 {
-	return Value::Nil;
+	DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
+	return Value(GetEditMark_Unified(pEdit->GetEditType()));
 }
 
 // diff.edit@char#source
 Gura_DeclareProperty_R(edit_at_char, source)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1457,13 +1396,14 @@ Gura_DeclareProperty_R(edit_at_char, source)
 
 Gura_ImplementPropertyGetter(edit_at_char, source)
 {
-	return Value::Nil;
+	DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
+	return Value(pEdit->GetSource());
 }
 
 // diff.edit@char#type
 Gura_DeclareProperty_R(edit_at_char, type)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1472,7 +1412,14 @@ Gura_DeclareProperty_R(edit_at_char, type)
 
 Gura_ImplementPropertyGetter(edit_at_char, type)
 {
-	return Value::Nil;
+	DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
+	if (pEdit->GetEditType() == EDITTYPE_Add) {
+		return Value(Gura_UserSymbol(add));
+	} else if (pEdit->GetEditType() == EDITTYPE_Delete) {
+		return Value(Gura_UserSymbol(delete));
+	} else {
+		return Value(Gura_UserSymbol(copy));
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -1481,13 +1428,11 @@ Gura_ImplementPropertyGetter(edit_at_char, type)
 Gura_ImplementUserClass(edit_at_char)
 {
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(edit_at_char, mark_at_context);
 	Gura_AssignProperty(edit_at_char, mark_at_normal);
 	Gura_AssignProperty(edit_at_char, mark_at_unified);
 	Gura_AssignProperty(edit_at_char, source);
 	Gura_AssignProperty(edit_at_char, type);
-#endif
 	// Assignment of value
 	Gura_AssignValueEx("edit@char", Value(Reference()));
 }

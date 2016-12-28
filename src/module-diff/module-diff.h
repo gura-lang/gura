@@ -407,9 +407,6 @@ public:
 	inline Object_diff_at_char(DiffChar *pDiffChar) :
 		Object(Gura_UserClass(diff_at_char)), _pDiffChar(pDiffChar) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline DiffChar *GetDiffChar() { return _pDiffChar.get(); }
 };
@@ -428,9 +425,6 @@ public:
 	inline Object_edit_at_char(DiffChar::Edit *pEdit) :
 		Object(Gura_UserClass(edit_at_char)), _pEdit(pEdit) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	DiffChar::Edit *GetEdit() { return _pEdit.get(); }
 };
