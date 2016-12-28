@@ -1008,53 +1008,6 @@ Object *Object_edit_at_line::Clone() const
 	return nullptr;
 }
 
-bool Object_edit_at_line::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(type));
-	symbols.insert(Gura_UserSymbol(mark_at_normal));
-	symbols.insert(Gura_UserSymbol(mark_at_context));
-	symbols.insert(Gura_UserSymbol(mark_at_unified));
-	symbols.insert(Gura_UserSymbol(lineno_at_org));
-	symbols.insert(Gura_UserSymbol(lineno_at_new));
-	symbols.insert(Gura_UserSymbol(source));
-	symbols.insert(Gura_UserSymbol(unified));
-	return true;
-}
-
-Value Object_edit_at_line::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	const DiffLine::Edit &edit = _pDiffLine->GetEdit(_idxEdit);
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
-		if (edit.second.type == EDITTYPE_Add) {
-			return Value(Gura_UserSymbol(add));
-		} else if (edit.second.type == EDITTYPE_Delete) {
-			return Value(Gura_UserSymbol(delete));
-		} else {
-			return Value(Gura_UserSymbol(copy));
-		}
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_normal))) {
-		return Value(GetEditMark_Normal(edit.second.type));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_context))) {
-		return Value(GetEditMark_Context(edit.second.type));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_unified))) {
-		return Value(GetEditMark_Unified(edit.second.type));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_org))) {
-		return Value(edit.second.beforeIdx);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_new))) {
-		return Value(edit.second.afterIdx);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(source))) {
-		return Value(DiffLine::GetEditSource(edit));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(unified))) {
-		return Value(DiffLine::TextizeEdit_Unified(edit));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_edit_at_line::ToString(bool exprFlag)
 {
 	const DiffLine::Edit &edit = _pDiffLine->GetEdit(_idxEdit);
@@ -1086,7 +1039,8 @@ Gura_DeclarePropertyAlias_R(edit_at_line, lineno_at_new, "lineno@new")
 
 Gura_ImplementPropertyGetter(edit_at_line, lineno_at_new)
 {
-	return Value::Nil;
+	const DiffLine::Edit &edit = Object_edit_at_line::GetObject(valueThis)->GetEdit();
+	return Value(edit.second.afterIdx);
 }
 
 // diff.edit@line#lineno@org
@@ -1101,7 +1055,8 @@ Gura_DeclarePropertyAlias_R(edit_at_line, lineno_at_org, "lineno@org")
 
 Gura_ImplementPropertyGetter(edit_at_line, lineno_at_org)
 {
-	return Value::Nil;
+	const DiffLine::Edit &edit = Object_edit_at_line::GetObject(valueThis)->GetEdit();
+	return Value(edit.second.beforeIdx);
 }
 
 // diff.edit@line#mark@context
@@ -1116,7 +1071,8 @@ Gura_DeclarePropertyAlias_R(edit_at_line, mark_at_context, "mark@context")
 
 Gura_ImplementPropertyGetter(edit_at_line, mark_at_context)
 {
-	return Value::Nil;
+	const DiffLine::Edit &edit = Object_edit_at_line::GetObject(valueThis)->GetEdit();
+	return Value(GetEditMark_Context(edit.second.type));
 }
 
 // diff.edit@line#mark@normal
@@ -1131,7 +1087,8 @@ Gura_DeclarePropertyAlias_R(edit_at_line, mark_at_normal, "mark@normal")
 
 Gura_ImplementPropertyGetter(edit_at_line, mark_at_normal)
 {
-	return Value::Nil;
+	const DiffLine::Edit &edit = Object_edit_at_line::GetObject(valueThis)->GetEdit();
+	return Value(GetEditMark_Normal(edit.second.type));
 }
 
 // diff.edit@line#mark@unified
@@ -1146,7 +1103,8 @@ Gura_DeclarePropertyAlias_R(edit_at_line, mark_at_unified, "mark@unified")
 
 Gura_ImplementPropertyGetter(edit_at_line, mark_at_unified)
 {
-	return Value::Nil;
+	const DiffLine::Edit &edit = Object_edit_at_line::GetObject(valueThis)->GetEdit();
+	return Value(GetEditMark_Unified(edit.second.type));
 }
 
 // diff.edit@line#source
@@ -1161,7 +1119,8 @@ Gura_DeclareProperty_R(edit_at_line, source)
 
 Gura_ImplementPropertyGetter(edit_at_line, source)
 {
-	return Value::Nil;
+	const DiffLine::Edit &edit = Object_edit_at_line::GetObject(valueThis)->GetEdit();
+	return Value(DiffLine::GetEditSource(edit));
 }
 
 // diff.edit@line#type
@@ -1176,7 +1135,14 @@ Gura_DeclareProperty_R(edit_at_line, type)
 
 Gura_ImplementPropertyGetter(edit_at_line, type)
 {
-	return Value::Nil;
+	const DiffLine::Edit &edit = Object_edit_at_line::GetObject(valueThis)->GetEdit();
+	if (edit.second.type == EDITTYPE_Add) {
+		return Value(Gura_UserSymbol(add));
+	} else if (edit.second.type == EDITTYPE_Delete) {
+		return Value(Gura_UserSymbol(delete));
+	} else {
+		return Value(Gura_UserSymbol(copy));
+	}
 }
 
 // diff.edit@line#unified
@@ -1191,7 +1157,8 @@ Gura_DeclareProperty_R(edit_at_line, unified)
 
 Gura_ImplementPropertyGetter(edit_at_line, unified)
 {
-	return Value::Nil;
+	const DiffLine::Edit &edit = Object_edit_at_line::GetObject(valueThis)->GetEdit();
+	return Value(DiffLine::TextizeEdit_Unified(edit));
 }
 
 //-----------------------------------------------------------------------------
@@ -1223,7 +1190,6 @@ Gura_ImplementMethod(edit_at_line, print)
 Gura_ImplementUserClass(edit_at_line)
 {
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(edit_at_line, lineno_at_new);
 	Gura_AssignProperty(edit_at_line, lineno_at_org);
 	Gura_AssignProperty(edit_at_line, mark_at_context);
@@ -1232,7 +1198,6 @@ Gura_ImplementUserClass(edit_at_line)
 	Gura_AssignProperty(edit_at_line, source);
 	Gura_AssignProperty(edit_at_line, type);
 	Gura_AssignProperty(edit_at_line, unified);
-#endif
 	// Assignment of method
 	Gura_AssignMethod(edit_at_line, print);
 	// Assignment of value

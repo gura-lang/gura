@@ -388,9 +388,6 @@ public:
 	inline Object_edit_at_line(DiffLine *pDiffLine, size_t idxEdit) :
 		Object(Gura_UserClass(edit_at_line)), _pDiffLine(pDiffLine), _idxEdit(idxEdit) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	DiffLine *GetDiffLine() { return _pDiffLine.get(); }
 	const DiffLine::Edit &GetEdit() const { return _pDiffLine->GetEdit(_idxEdit); }
