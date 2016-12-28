@@ -79,8 +79,9 @@ DoExtract(fileName:string):map = {
 			stat = `start
 			} elsif (m = line.match(r'pSymbol.+Symbol\((\w+)\)')) {
 				propName = m[1]
-				if (!(item = itemDict.get(propName))) {
-					item = itemDict[propName] = Item(className, propName, false, false)
+				keyName = className + '.' + propName
+				if (!(item = itemDict.get(keyName))) {
+					item = itemDict[keyName] = Item(className, propName, false, false)
 				}
 				if (setFlag) {
 					item.writeFlag = true
