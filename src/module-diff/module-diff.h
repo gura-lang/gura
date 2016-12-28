@@ -347,9 +347,6 @@ public:
 	inline Object_diff_at_line(DiffLine *pDiffLine) :
 		Object(Gura_UserClass(diff_at_line)), _pDiffLine(pDiffLine) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline DiffLine *GetDiffLine() { return _pDiffLine.get(); }
 };
