@@ -53,11 +53,66 @@ Value Object_Keysym::DoSetProp(Environment &env,
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// sdl2.Keysym#mod
+Gura_DeclareProperty_R(Keysym, mod)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Keysym, mod)
+{
+	return Value::Nil;
+}
+
+// sdl2.Keysym#scancode
+Gura_DeclareProperty_R(Keysym, scancode)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Keysym, scancode)
+{
+	return Value::Nil;
+}
+
+// sdl2.Keysym#sym
+Gura_DeclareProperty_R(Keysym, sym)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Keysym, sym)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Keysym
 //-----------------------------------------------------------------------------
 // implementation of class Keysym
 Gura_ImplementUserClass(Keysym)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(Keysym, mod);
+	Gura_AssignProperty(Keysym, scancode);
+	Gura_AssignProperty(Keysym, sym);
+#endif
+	// Assignment of value
 	Gura_AssignValue(Keysym, Value(Reference()));
 }
 

@@ -57,11 +57,82 @@ Value Object_Finger::DoSetProp(Environment &env,
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// sdl2.Finger#id
+Gura_DeclareProperty_R(Finger, id)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Finger, id)
+{
+	return Value::Nil;
+}
+
+// sdl2.Finger#pressure
+Gura_DeclareProperty_R(Finger, pressure)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Finger, pressure)
+{
+	return Value::Nil;
+}
+
+// sdl2.Finger#x
+Gura_DeclareProperty_R(Finger, x)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Finger, x)
+{
+	return Value::Nil;
+}
+
+// sdl2.Finger#y
+Gura_DeclareProperty_R(Finger, y)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Finger, y)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Finger
 //-----------------------------------------------------------------------------
 // implementation of class Finger
 Gura_ImplementUserClass(Finger)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(Finger, id);
+	Gura_AssignProperty(Finger, pressure);
+	Gura_AssignProperty(Finger, x);
+	Gura_AssignProperty(Finger, y);
+#endif
+	// Assignment of value
 	Gura_AssignValue(Finger, Value(Reference()));
 }
 

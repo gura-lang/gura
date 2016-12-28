@@ -78,6 +78,89 @@ Value Object_Rect::DoSetProp(Environment &env,
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// sdl2.Rect#h
+Gura_DeclareProperty_RW(Rect, h)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Rect, h)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Rect, h)
+{
+	return Value::Nil;
+}
+
+// sdl2.Rect#w
+Gura_DeclareProperty_RW(Rect, w)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Rect, w)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Rect, w)
+{
+	return Value::Nil;
+}
+
+// sdl2.Rect#x
+Gura_DeclareProperty_RW(Rect, x)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Rect, x)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Rect, x)
+{
+	return Value::Nil;
+}
+
+// sdl2.Rect#y
+Gura_DeclareProperty_RW(Rect, y)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Rect, y)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Rect, y)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Functions
 //-----------------------------------------------------------------------------
 // sdl2.Rect(x?:number, y?:number, w?:number, h?:number)
@@ -112,6 +195,14 @@ Gura_ImplementFunction(Rect)
 // implementation of class Rect
 Gura_ImplementUserClass(Rect)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(Rect, h);
+	Gura_AssignProperty(Rect, w);
+	Gura_AssignProperty(Rect, x);
+	Gura_AssignProperty(Rect, y);
+#endif
+	// Assignment of function
 	Gura_AssignFunction(Rect);
 }
 

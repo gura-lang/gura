@@ -70,6 +70,89 @@ Value Object_DisplayMode::DoSetProp(Environment &env,
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// sdl2.DisplayMode#format
+Gura_DeclareProperty_RW(DisplayMode, format)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(DisplayMode, format)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(DisplayMode, format)
+{
+	return Value::Nil;
+}
+
+// sdl2.DisplayMode#h
+Gura_DeclareProperty_RW(DisplayMode, h)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(DisplayMode, h)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(DisplayMode, h)
+{
+	return Value::Nil;
+}
+
+// sdl2.DisplayMode#refresh_rate
+Gura_DeclareProperty_RW(DisplayMode, refresh_rate)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(DisplayMode, refresh_rate)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(DisplayMode, refresh_rate)
+{
+	return Value::Nil;
+}
+
+// sdl2.DisplayMode#w
+Gura_DeclareProperty_RW(DisplayMode, w)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(DisplayMode, w)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(DisplayMode, w)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for DisplayMode
 //-----------------------------------------------------------------------------
 // sdl2.DisplayMode()
@@ -92,7 +175,15 @@ Gura_ImplementFunction(DisplayMode)
 // implementation of class DisplayMode
 Gura_ImplementUserClass(DisplayMode)
 {
+	// Assignment of function
 	Gura_AssignFunction(DisplayMode);
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(DisplayMode, format);
+	Gura_AssignProperty(DisplayMode, h);
+	Gura_AssignProperty(DisplayMode, refresh_rate);
+	Gura_AssignProperty(DisplayMode, w);
+#endif
 }
 
 Gura_EndModuleScope(sdl2)

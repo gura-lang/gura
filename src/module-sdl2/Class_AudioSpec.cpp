@@ -68,6 +68,129 @@ Value Object_AudioSpec::DoSetProp(Environment &env,
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// sdl2.AudioSpec#callback
+Gura_DeclareProperty_R(AudioSpec, callback)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioSpec, callback)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioSpec#channels
+Gura_DeclareProperty_R(AudioSpec, channels)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioSpec, channels)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioSpec#format
+Gura_DeclareProperty_R(AudioSpec, format)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioSpec, format)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioSpec#freq
+Gura_DeclareProperty_R(AudioSpec, freq)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioSpec, freq)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioSpec#samples
+Gura_DeclareProperty_R(AudioSpec, samples)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioSpec, samples)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioSpec#silence
+Gura_DeclareProperty_R(AudioSpec, silence)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioSpec, silence)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioSpec#size
+Gura_DeclareProperty_R(AudioSpec, size)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioSpec, size)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioSpec#userdata
+Gura_DeclareProperty_R(AudioSpec, userdata)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioSpec, userdata)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for AudioSpec
 //-----------------------------------------------------------------------------
 // sdl2.AudioSpec()
@@ -90,7 +213,19 @@ Gura_ImplementFunction(AudioSpec)
 // implementation of class AudioSpec
 Gura_ImplementUserClass(AudioSpec)
 {
+	// Assignment of function
 	Gura_AssignFunction(AudioSpec);
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(AudioSpec, callback);
+	Gura_AssignProperty(AudioSpec, channels);
+	Gura_AssignProperty(AudioSpec, format);
+	Gura_AssignProperty(AudioSpec, freq);
+	Gura_AssignProperty(AudioSpec, samples);
+	Gura_AssignProperty(AudioSpec, silence);
+	Gura_AssignProperty(AudioSpec, size);
+	Gura_AssignProperty(AudioSpec, userdata);
+#endif
 }
 
 Gura_EndModuleScope(sdl2)

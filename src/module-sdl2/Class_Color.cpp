@@ -70,6 +70,69 @@ Value Object_Color::DoSetProp(Environment &env,
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// sdl2.Color#b
+Gura_DeclareProperty_RW(Color, b)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Color, b)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Color, b)
+{
+	return Value::Nil;
+}
+
+// sdl2.Color#g
+Gura_DeclareProperty_RW(Color, g)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Color, g)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Color, g)
+{
+	return Value::Nil;
+}
+
+// sdl2.Color#r
+Gura_DeclareProperty_RW(Color, r)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Color, r)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Color, r)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Color
 //-----------------------------------------------------------------------------
 // sdl2.Color(r?:number, g?:number, b?:number)
@@ -97,7 +160,14 @@ Gura_ImplementFunction(Color)
 // implementation of class Color
 Gura_ImplementUserClass(Color)
 {
+	// Assignment of function
 	Gura_AssignFunction(Color);
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(Color, b);
+	Gura_AssignProperty(Color, g);
+	Gura_AssignProperty(Color, r);
+#endif
 }
 
 Gura_EndModuleScope(sdl2)

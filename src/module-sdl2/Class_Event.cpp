@@ -744,11 +744,642 @@ const char *GetWindowEventName(Uint8 event)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// sdl2.Event#axis
+Gura_DeclareProperty_R(Event, axis)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, axis)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#ball
+Gura_DeclareProperty_R(Event, ball)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, ball)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#button
+Gura_DeclareProperty_R(Event, button)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, button)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#clicks
+Gura_DeclareProperty_R(Event, clicks)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, clicks)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#code
+Gura_DeclareProperty_R(Event, code)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, code)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#dDist
+Gura_DeclareProperty_R(Event, dDist)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, dDist)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#dTheta
+Gura_DeclareProperty_R(Event, dTheta)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, dTheta)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#data1
+Gura_DeclareProperty_R(Event, data1)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, data1)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#data2
+Gura_DeclareProperty_R(Event, data2)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, data2)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#dx
+Gura_DeclareProperty_R(Event, dx)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, dx)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#dy
+Gura_DeclareProperty_R(Event, dy)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, dy)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#error
+Gura_DeclareProperty_R(Event, error)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, error)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#event
+Gura_DeclareProperty_R(Event, event)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, event)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#file
+Gura_DeclareProperty_R(Event, file)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, file)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#fingerId
+Gura_DeclareProperty_R(Event, fingerId)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, fingerId)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#gestureId
+Gura_DeclareProperty_R(Event, gestureId)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, gestureId)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#h
+Gura_DeclareProperty_R(Event, h)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, h)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#hat
+Gura_DeclareProperty_R(Event, hat)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, hat)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#length
+Gura_DeclareProperty_R(Event, length)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, length)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#mod
+Gura_DeclareProperty_R(Event, mod)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, mod)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#numFingers
+Gura_DeclareProperty_R(Event, numFingers)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, numFingers)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#pressure
+Gura_DeclareProperty_R(Event, pressure)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, pressure)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#repeat
+Gura_DeclareProperty_R(Event, repeat)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, repeat)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#scancode
+Gura_DeclareProperty_R(Event, scancode)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, scancode)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#start
+Gura_DeclareProperty_R(Event, start)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, start)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#state
+Gura_DeclareProperty_R(Event, state)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, state)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#sym
+Gura_DeclareProperty_R(Event, sym)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, sym)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#text
+Gura_DeclareProperty_R(Event, text)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, text)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#timestamp
+Gura_DeclareProperty_R(Event, timestamp)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, timestamp)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#touchId
+Gura_DeclareProperty_R(Event, touchId)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, touchId)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#type
+Gura_DeclareProperty_R(Event, type)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, type)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#value
+Gura_DeclareProperty_R(Event, value)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, value)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#w
+Gura_DeclareProperty_R(Event, w)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, w)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#which
+Gura_DeclareProperty_R(Event, which)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, which)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#windowID
+Gura_DeclareProperty_R(Event, windowID)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, windowID)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#x
+Gura_DeclareProperty_R(Event, x)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, x)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#xrel
+Gura_DeclareProperty_R(Event, xrel)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, xrel)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#y
+Gura_DeclareProperty_R(Event, y)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, y)
+{
+	return Value::Nil;
+}
+
+// sdl2.Event#yrel
+Gura_DeclareProperty_R(Event, yrel)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Event, yrel)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Event
 //-----------------------------------------------------------------------------
 // implementation of class Event
 Gura_ImplementUserClass(Event)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(Event, axis);
+	Gura_AssignProperty(Event, ball);
+	Gura_AssignProperty(Event, button);
+	Gura_AssignProperty(Event, clicks);
+	Gura_AssignProperty(Event, code);
+	Gura_AssignProperty(Event, dDist);
+	Gura_AssignProperty(Event, dTheta);
+	Gura_AssignProperty(Event, data1);
+	Gura_AssignProperty(Event, data2);
+	Gura_AssignProperty(Event, dx);
+	Gura_AssignProperty(Event, dy);
+	Gura_AssignProperty(Event, error);
+	Gura_AssignProperty(Event, event);
+	Gura_AssignProperty(Event, file);
+	Gura_AssignProperty(Event, fingerId);
+	Gura_AssignProperty(Event, gestureId);
+	Gura_AssignProperty(Event, h);
+	Gura_AssignProperty(Event, hat);
+	Gura_AssignProperty(Event, length);
+	Gura_AssignProperty(Event, mod);
+	Gura_AssignProperty(Event, numFingers);
+	Gura_AssignProperty(Event, pressure);
+	Gura_AssignProperty(Event, repeat);
+	Gura_AssignProperty(Event, scancode);
+	Gura_AssignProperty(Event, start);
+	Gura_AssignProperty(Event, state);
+	Gura_AssignProperty(Event, sym);
+	Gura_AssignProperty(Event, text);
+	Gura_AssignProperty(Event, timestamp);
+	Gura_AssignProperty(Event, touchId);
+	Gura_AssignProperty(Event, type);
+	Gura_AssignProperty(Event, value);
+	Gura_AssignProperty(Event, w);
+	Gura_AssignProperty(Event, which);
+	Gura_AssignProperty(Event, windowID);
+	Gura_AssignProperty(Event, x);
+	Gura_AssignProperty(Event, xrel);
+	Gura_AssignProperty(Event, y);
+	Gura_AssignProperty(Event, yrel);
+#endif
+	// Assignment of value
 	Gura_AssignValue(Event, Value(Reference()));
 }
 

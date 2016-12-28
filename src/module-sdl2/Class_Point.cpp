@@ -63,6 +63,49 @@ Value Object_Point::DoSetProp(Environment &env,
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// sdl2.Point#x
+Gura_DeclareProperty_RW(Point, x)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Point, x)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Point, x)
+{
+	return Value::Nil;
+}
+
+// sdl2.Point#y
+Gura_DeclareProperty_RW(Point, y)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Point, y)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Point, y)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Functions
 //-----------------------------------------------------------------------------
 // sdl2.Point(x?:number, y?:number)
@@ -92,7 +135,13 @@ Gura_ImplementFunction(Point)
 // implementation of class Point
 Gura_ImplementUserClass(Point)
 {
+	// Assinment of function
 	Gura_AssignFunction(Point);
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(Point, x);
+	Gura_AssignProperty(Point, y);
+#endif
 }
 
 Gura_EndModuleScope(sdl2)

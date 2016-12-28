@@ -94,11 +94,146 @@ Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal &sig, Image *pImag
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// sdl2.Surface#clip_rect
+Gura_DeclareProperty_R(Surface, clip_rect)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Surface, clip_rect)
+{
+	return Value::Nil;
+}
+
+// sdl2.Surface#flags
+Gura_DeclareProperty_R(Surface, flags)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Surface, flags)
+{
+	return Value::Nil;
+}
+
+// sdl2.Surface#format
+Gura_DeclareProperty_R(Surface, format)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Surface, format)
+{
+	return Value::Nil;
+}
+
+// sdl2.Surface#h
+Gura_DeclareProperty_R(Surface, h)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Surface, h)
+{
+	return Value::Nil;
+}
+
+// sdl2.Surface#pitch
+Gura_DeclareProperty_R(Surface, pitch)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Surface, pitch)
+{
+	return Value::Nil;
+}
+
+// sdl2.Surface#pixels
+Gura_DeclareProperty_R(Surface, pixels)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Surface, pixels)
+{
+	return Value::Nil;
+}
+
+// sdl2.Surface#refcount
+Gura_DeclareProperty_R(Surface, refcount)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Surface, refcount)
+{
+	return Value::Nil;
+}
+
+// sdl2.Surface#w
+Gura_DeclareProperty_R(Surface, w)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Surface, w)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Surface
 //-----------------------------------------------------------------------------
 // implementation of class Surface
 Gura_ImplementUserClassWithCast(Surface)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(Surface, clip_rect);
+	Gura_AssignProperty(Surface, flags);
+	Gura_AssignProperty(Surface, format);
+	Gura_AssignProperty(Surface, h);
+	Gura_AssignProperty(Surface, pitch);
+	Gura_AssignProperty(Surface, pixels);
+	Gura_AssignProperty(Surface, refcount);
+	Gura_AssignProperty(Surface, w);
+#endif
+	// Assignment of value
 	Gura_AssignValue(Surface, Value(Reference()));
 }
 

@@ -118,7 +118,7 @@ DoExtract(fileName:string):map = {
 			}
 			fout.print(line)
 		} elsif (stat == `seek_ImplementUserClass) {
-			if (m = line.match(r'^Gura_ImplementUserClass\((\w+)\)')) {
+			if (m = line.match(r'^Gura_ImplementUserClass\w*\((\w+)\)')) {
 				className = m[1]
 				stat = `lbrace
 			}

@@ -71,6 +71,144 @@ Value Object_AudioCVT::DoSetProp(Environment &env,
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// sdl2.AudioCVT#buf
+Gura_DeclareProperty_R(AudioCVT, buf)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioCVT, buf)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioCVT#dst_format
+Gura_DeclareProperty_R(AudioCVT, dst_format)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioCVT, dst_format)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioCVT#len
+Gura_DeclareProperty_R(AudioCVT, len)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioCVT, len)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioCVT#len_cvt
+Gura_DeclareProperty_R(AudioCVT, len_cvt)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioCVT, len_cvt)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioCVT#len_mult
+Gura_DeclareProperty_R(AudioCVT, len_mult)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioCVT, len_mult)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioCVT#len_ratio
+Gura_DeclareProperty_R(AudioCVT, len_ratio)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioCVT, len_ratio)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioCVT#needed
+Gura_DeclareProperty_R(AudioCVT, needed)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioCVT, needed)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioCVT#rate_incr
+Gura_DeclareProperty_R(AudioCVT, rate_incr)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioCVT, rate_incr)
+{
+	return Value::Nil;
+}
+
+// sdl2.AudioCVT#src_format
+Gura_DeclareProperty_R(AudioCVT, src_format)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(AudioCVT, src_format)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for AudioCVT
 //-----------------------------------------------------------------------------
 // sdl2.AudioCVT()
@@ -91,7 +229,20 @@ Gura_ImplementFunction(AudioCVT)
 // implementation of class AudioCVT
 Gura_ImplementUserClass(AudioCVT)
 {
+	// Assignment of function
 	Gura_AssignFunction(AudioCVT);
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(AudioCVT, buf);
+	Gura_AssignProperty(AudioCVT, dst_format);
+	Gura_AssignProperty(AudioCVT, len);
+	Gura_AssignProperty(AudioCVT, len_cvt);
+	Gura_AssignProperty(AudioCVT, len_mult);
+	Gura_AssignProperty(AudioCVT, len_ratio);
+	Gura_AssignProperty(AudioCVT, needed);
+	Gura_AssignProperty(AudioCVT, rate_incr);
+	Gura_AssignProperty(AudioCVT, src_format);
+#endif
 }
 
 Gura_EndModuleScope(sdl2)
