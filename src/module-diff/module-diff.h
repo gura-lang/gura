@@ -367,9 +367,6 @@ public:
 	inline Object_hunk_at_line(DiffLine *pDiffLine, const DiffLine::Hunk &hunk) :
 		Object(Gura_UserClass(hunk_at_line)), _pDiffLine(pDiffLine), _hunk(hunk) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	const DiffChar *GetDiffChar();
 	inline DiffLine *GetDiffLine() { return _pDiffLine.get(); }

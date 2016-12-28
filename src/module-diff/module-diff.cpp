@@ -818,48 +818,6 @@ Object *Object_hunk_at_line::Clone() const
 	return nullptr;
 }
 
-bool Object_hunk_at_line::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(edits));
-	symbols.insert(Gura_UserSymbol(type));
-	symbols.insert(Gura_UserSymbol(lineno_at_org));
-	symbols.insert(Gura_UserSymbol(lineno_at_new));
-	symbols.insert(Gura_UserSymbol(nlines_at_org));
-	symbols.insert(Gura_UserSymbol(nlines_at_new));
-	symbols.insert(Gura_UserSymbol(diff_at_char));
-	return true;
-}
-
-Value Object_hunk_at_line::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
-		AutoPtr<Iterator> pIterator(new DiffLine::IteratorEdit(_pDiffLine->Reference(), _hunk));
-		return Value(new Object_iterator(env, pIterator.release()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
-		const Symbol *pSymbol =
-			_hunk.IsAdd()? Gura_UserSymbol(add) :
-			_hunk.IsDelete()? Gura_UserSymbol(delete) :
-			Gura_UserSymbol(change);
-		return Value(pSymbol);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_org))) {
-		return Value(_hunk.linenoOrg);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_new))) {
-		return Value(_hunk.linenoNew);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_org))) {
-		return Value(_hunk.nLinesOrg);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_new))) {
-		return Value(_hunk.nLinesNew);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(diff_at_char))) {
-		return Value(new Object_diff_at_char(GetDiffChar()->Reference()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_hunk_at_line::ToString(bool exprFlag)
 {
 	char buff[80];
@@ -893,7 +851,8 @@ Gura_DeclareProperty_R(hunk_at_line, diff_at_char)
 
 Gura_ImplementPropertyGetter(hunk_at_line, diff_at_char)
 {
-	return Value::Nil;
+	const DiffChar *pDiffChar = Object_hunk_at_line::GetObject(valueThis)->GetDiffChar();
+	return Value(new Object_diff_at_char(pDiffChar->Reference()));
 }
 
 // diff.hunk@line#edits
@@ -908,7 +867,11 @@ Gura_DeclareProperty_R(hunk_at_line, edits)
 
 Gura_ImplementPropertyGetter(hunk_at_line, edits)
 {
-	return Value::Nil;
+	Object_hunk_at_line *pObj = Object_hunk_at_line::GetObject(valueThis);
+	DiffLine *pDiffLine = pObj->GetDiffLine();
+	const DiffLine::Hunk &hunk = pObj->GetHunk();
+	AutoPtr<Iterator> pIterator(new DiffLine::IteratorEdit(pDiffLine->Reference(), hunk));
+	return Value(new Object_iterator(env, pIterator.release()));
 }
 
 // diff.hunk@line#lineno@new
@@ -923,7 +886,8 @@ Gura_DeclarePropertyAlias_R(hunk_at_line, lineno_at_new, "lineno@new")
 
 Gura_ImplementPropertyGetter(hunk_at_line, lineno_at_new)
 {
-	return Value::Nil;
+	const DiffLine::Hunk &hunk = Object_hunk_at_line::GetObject(valueThis)->GetHunk();
+	return Value(hunk.linenoNew);
 }
 
 // diff.hunk@line#lineno@org
@@ -938,7 +902,8 @@ Gura_DeclarePropertyAlias_R(hunk_at_line, lineno_at_org, "lineno@org")
 
 Gura_ImplementPropertyGetter(hunk_at_line, lineno_at_org)
 {
-	return Value::Nil;
+	const DiffLine::Hunk &hunk = Object_hunk_at_line::GetObject(valueThis)->GetHunk();
+	return Value(hunk.linenoOrg);
 }
 
 // diff.hunk@line#nlines@new
@@ -953,7 +918,8 @@ Gura_DeclarePropertyAlias_R(hunk_at_line, nlines_at_new, "nlines@new")
 
 Gura_ImplementPropertyGetter(hunk_at_line, nlines_at_new)
 {
-	return Value::Nil;
+	const DiffLine::Hunk &hunk = Object_hunk_at_line::GetObject(valueThis)->GetHunk();
+	return Value(hunk.nLinesNew);
 }
 
 // diff.hunk@line#nlines@org
@@ -968,7 +934,8 @@ Gura_DeclarePropertyAlias_R(hunk_at_line, nlines_at_org, "nlines@org")
 
 Gura_ImplementPropertyGetter(hunk_at_line, nlines_at_org)
 {
-	return Value::Nil;
+	const DiffLine::Hunk &hunk = Object_hunk_at_line::GetObject(valueThis)->GetHunk();
+	return Value(hunk.nLinesOrg);
 }
 
 // diff.hunk@line#type
@@ -983,7 +950,12 @@ Gura_DeclareProperty_R(hunk_at_line, type)
 
 Gura_ImplementPropertyGetter(hunk_at_line, type)
 {
-	return Value::Nil;
+	const DiffLine::Hunk &hunk = Object_hunk_at_line::GetObject(valueThis)->GetHunk();
+	const Symbol *pSymbol =
+		hunk.IsAdd()? Gura_UserSymbol(add) :
+		hunk.IsDelete()? Gura_UserSymbol(delete) :
+		Gura_UserSymbol(change);
+	return Value(pSymbol);
 }
 
 //-----------------------------------------------------------------------------
@@ -1015,7 +987,6 @@ Gura_ImplementMethod(hunk_at_line, print)
 Gura_ImplementUserClass(hunk_at_line)
 {
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(hunk_at_line, diff_at_char);
 	Gura_AssignProperty(hunk_at_line, edits);
 	Gura_AssignProperty(hunk_at_line, lineno_at_new);
@@ -1023,7 +994,6 @@ Gura_ImplementUserClass(hunk_at_line)
 	Gura_AssignProperty(hunk_at_line, nlines_at_new);
 	Gura_AssignProperty(hunk_at_line, nlines_at_org);
 	Gura_AssignProperty(hunk_at_line, type);
-#endif
 	// Assignment of method
 	Gura_AssignMethod(hunk_at_line, print);
 	// Assignment of value
