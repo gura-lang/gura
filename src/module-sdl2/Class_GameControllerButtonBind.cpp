@@ -19,26 +19,6 @@ String Object_GameControllerButtonBind::ToString(bool exprFlag)
 	return String("<sdl2.GameControllerButtonBind>");
 }
 
-bool Object_GameControllerButtonBind::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	return true;
-}
-
-Value Object_GameControllerButtonBind::DoGetProp(Environment &env, const Symbol *pSymbol,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_GameControllerButtonBind::DoSetProp(Environment &env,
-							  const Symbol *pSymbol, const Value &value,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 //-----------------------------------------------------------------------------
 // Gura interfaces for GameControllerButtonBind
 //-----------------------------------------------------------------------------

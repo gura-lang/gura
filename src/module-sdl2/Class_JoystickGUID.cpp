@@ -21,26 +21,6 @@ String Object_JoystickGUID::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_JoystickGUID::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	return true;
-}
-
-Value Object_JoystickGUID::DoGetProp(Environment &env, const Symbol *pSymbol,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_JoystickGUID::DoSetProp(Environment &env,
-							  const Symbol *pSymbol, const Value &value,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 //-----------------------------------------------------------------------------
 // Gura interfaces for JoystickGUID
 //-----------------------------------------------------------------------------

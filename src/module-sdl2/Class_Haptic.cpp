@@ -20,26 +20,6 @@ String Object_Haptic::ToString(bool exprFlag)
 	return String("<sdl2.Haptic>");
 }
 
-bool Object_Haptic::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	return true;
-}
-
-Value Object_Haptic::DoGetProp(Environment &env, const Symbol *pSymbol,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_Haptic::DoSetProp(Environment &env,
-							  const Symbol *pSymbol, const Value &value,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 //-----------------------------------------------------------------------------
 // Gura interfaces for Haptic
 //-----------------------------------------------------------------------------

@@ -20,26 +20,6 @@ String Object_GLContext::ToString(bool exprFlag)
 	return String("<sdl2.GLContext>");
 }
 
-bool Object_GLContext::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	return true;
-}
-
-Value Object_GLContext::DoGetProp(Environment &env, const Symbol *pSymbol,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_GLContext::DoSetProp(Environment &env,
-							  const Symbol *pSymbol, const Value &value,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 //-----------------------------------------------------------------------------
 // Gura interfaces for GLContext
 //-----------------------------------------------------------------------------
