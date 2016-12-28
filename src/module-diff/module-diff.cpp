@@ -651,7 +651,7 @@ Gura_DeclareProperty_R(diff_at_line, distance)
 
 Gura_ImplementPropertyGetter(diff_at_line, distance)
 {
-	DiffLine *pDiffLine = Object_diff_at_line::GetObject(valueThis)->GetDiffLine();
+	const DiffLine *pDiffLine = Object_diff_at_line::GetObject(valueThis)->GetDiffLine();
 	return Value(pDiffLine->GetEditDistance());
 }
 
@@ -667,7 +667,7 @@ Gura_DeclareProperty_R(diff_at_line, edits)
 
 Gura_ImplementPropertyGetter(diff_at_line, edits)
 {
-	DiffLine *pDiffLine = Object_diff_at_line::GetObject(valueThis)->GetDiffLine();
+	const DiffLine *pDiffLine = Object_diff_at_line::GetObject(valueThis)->GetDiffLine();
 	AutoPtr<DiffLine::IteratorEdit> pIterator(
 		new DiffLine::IteratorEdit(pDiffLine->Reference()));
 	return Value(new Object_iterator(env, pIterator.release()));
@@ -868,7 +868,7 @@ Gura_DeclareProperty_R(hunk_at_line, edits)
 Gura_ImplementPropertyGetter(hunk_at_line, edits)
 {
 	Object_hunk_at_line *pObj = Object_hunk_at_line::GetObject(valueThis);
-	DiffLine *pDiffLine = pObj->GetDiffLine();
+	const DiffLine *pDiffLine = pObj->GetDiffLine();
 	const DiffLine::Hunk &hunk = pObj->GetHunk();
 	AutoPtr<Iterator> pIterator(new DiffLine::IteratorEdit(pDiffLine->Reference(), hunk));
 	return Value(new Object_iterator(env, pIterator.release()));
@@ -1238,7 +1238,7 @@ Gura_DeclareProperty_R(diff_at_char, distance)
 
 Gura_ImplementPropertyGetter(diff_at_char, distance)
 {
-	DiffChar *pDiffChar = Object_diff_at_char::GetObject(valueThis)->GetDiffChar();
+	const DiffChar *pDiffChar = Object_diff_at_char::GetObject(valueThis)->GetDiffChar();
 	return Value(pDiffChar->GetEditDistance());
 }
 
@@ -1254,7 +1254,7 @@ Gura_DeclareProperty_R(diff_at_char, edits)
 
 Gura_ImplementPropertyGetter(diff_at_char, edits)
 {
-	DiffChar *pDiffChar = Object_diff_at_char::GetObject(valueThis)->GetDiffChar();
+	const DiffChar *pDiffChar = Object_diff_at_char::GetObject(valueThis)->GetDiffChar();
 	AutoPtr<DiffChar::IteratorEdit> pIterator(
 		new DiffChar::IteratorEdit(pDiffChar->GetEditOwner().Reference(), FILTERTYPE_None));
 	return Value(new Object_iterator(env, pIterator.release()));
@@ -1272,7 +1272,7 @@ Gura_DeclarePropertyAlias_R(diff_at_char, edits_at_new, "edits@new")
 
 Gura_ImplementPropertyGetter(diff_at_char, edits_at_new)
 {
-	DiffChar *pDiffChar = Object_diff_at_char::GetObject(valueThis)->GetDiffChar();
+	const DiffChar *pDiffChar = Object_diff_at_char::GetObject(valueThis)->GetDiffChar();
 	AutoPtr<DiffChar::IteratorEdit> pIterator(
 		new DiffChar::IteratorEdit(pDiffChar->GetEditOwner().Reference(), FILTERTYPE_New));
 	return Value(new Object_iterator(env, pIterator.release()));
@@ -1290,7 +1290,7 @@ Gura_DeclarePropertyAlias_R(diff_at_char, edits_at_org, "edits@org")
 
 Gura_ImplementPropertyGetter(diff_at_char, edits_at_org)
 {
-	DiffChar *pDiffChar = Object_diff_at_char::GetObject(valueThis)->GetDiffChar();
+	const DiffChar *pDiffChar = Object_diff_at_char::GetObject(valueThis)->GetDiffChar();
 	AutoPtr<DiffChar::IteratorEdit> pIterator(
 		new DiffChar::IteratorEdit(pDiffChar->GetEditOwner().Reference(), FILTERTYPE_Original));
 	return Value(new Object_iterator(env, pIterator.release()));
@@ -1348,7 +1348,7 @@ Gura_DeclarePropertyAlias_R(edit_at_char, mark_at_context, "mark@context")
 
 Gura_ImplementPropertyGetter(edit_at_char, mark_at_context)
 {
-	DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
+	const DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
 	return Value(GetEditMark_Context(pEdit->GetEditType()));
 }
 
@@ -1364,7 +1364,7 @@ Gura_DeclarePropertyAlias_R(edit_at_char, mark_at_normal, "mark@normal")
 
 Gura_ImplementPropertyGetter(edit_at_char, mark_at_normal)
 {
-	DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
+	const DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
 	return Value(GetEditMark_Normal(pEdit->GetEditType()));
 }
 
@@ -1380,7 +1380,7 @@ Gura_DeclarePropertyAlias_R(edit_at_char, mark_at_unified, "mark@unified")
 
 Gura_ImplementPropertyGetter(edit_at_char, mark_at_unified)
 {
-	DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
+	const DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
 	return Value(GetEditMark_Unified(pEdit->GetEditType()));
 }
 
@@ -1396,7 +1396,7 @@ Gura_DeclareProperty_R(edit_at_char, source)
 
 Gura_ImplementPropertyGetter(edit_at_char, source)
 {
-	DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
+	const DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
 	return Value(pEdit->GetSource());
 }
 
@@ -1412,7 +1412,7 @@ Gura_DeclareProperty_R(edit_at_char, type)
 
 Gura_ImplementPropertyGetter(edit_at_char, type)
 {
-	DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
+	const DiffChar::Edit *pEdit = Object_edit_at_char::GetObject(valueThis)->GetEdit();
 	if (pEdit->GetEditType() == EDITTYPE_Add) {
 		return Value(Gura_UserSymbol(add));
 	} else if (pEdit->GetEditType() == EDITTYPE_Delete) {
@@ -1459,7 +1459,7 @@ String Object_sync::ToString(bool exprFlag)
 // diff.sync#synclines@new
 Gura_DeclarePropertyAlias_R(sync, synclines_at_new, "synclines@new")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1476,7 +1476,7 @@ Gura_ImplementPropertyGetter(sync, synclines_at_new)
 // diff.sync#synclines@org
 Gura_DeclarePropertyAlias_R(sync, synclines_at_org, "synclines@org")
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1510,27 +1510,6 @@ Object *Object_syncline::Clone() const
 	return nullptr;
 }
 
-bool Object_syncline::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(edits));
-	return true;
-}
-
-Value Object_syncline::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
-		AutoPtr<Iterator> pIterator(new DiffChar::IteratorEdit(
-										_pSyncLine->GetEditOwner().Reference(), FILTERTYPE_None));
-		return Value(new Object_iterator(env, pIterator.release()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_syncline::ToString(bool exprFlag)
 {
 	String str;
@@ -1554,7 +1533,10 @@ Gura_DeclareProperty_R(syncline, edits)
 
 Gura_ImplementPropertyGetter(syncline, edits)
 {
-	return Value::Nil;
+	SyncLine *pSyncLine = Object_syncline::GetObject(valueThis)->GetSyncLine();
+	AutoPtr<Iterator> pIterator(new DiffChar::IteratorEdit(
+									pSyncLine->GetEditOwner().Reference(), FILTERTYPE_None));
+	return Value(new Object_iterator(env, pIterator.release()));
 }
 
 //-----------------------------------------------------------------------------
@@ -1563,9 +1545,7 @@ Gura_ImplementPropertyGetter(syncline, edits)
 Gura_ImplementUserClass(syncline)
 {
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(syncline, edits);
-#endif
 	// Assignment of value
 	Gura_AssignValue(syncline, Value(Reference()));
 }

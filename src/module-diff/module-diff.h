@@ -460,9 +460,6 @@ public:
 	inline Object_syncline(SyncLine *pSyncLine) :
 			Object(Gura_UserClass(syncline)), _pSyncLine(pSyncLine) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	SyncLine *GetSyncLine() { return _pSyncLine.get(); }
 };
