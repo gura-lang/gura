@@ -1445,30 +1445,6 @@ Object *Object_sync::Clone() const
 	return nullptr;
 }
 
-bool Object_sync::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(synclines_at_org));
-	symbols.insert(Gura_UserSymbol(synclines_at_new));
-	return true;
-}
-
-Value Object_sync::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(synclines_at_org))) {
-		AutoPtr<Iterator> pIterator(new IteratorSyncLine(_pSync->Reference(), TARGET_Org));
-		return Value(new Object_iterator(env, pIterator.release()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(synclines_at_new))) {
-		AutoPtr<Iterator> pIterator(new IteratorSyncLine(_pSync->Reference(), TARGET_New));
-		return Value(new Object_iterator(env, pIterator.release()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_sync::ToString(bool exprFlag)
 {
 	String str;
@@ -1492,7 +1468,9 @@ Gura_DeclarePropertyAlias_R(sync, synclines_at_new, "synclines@new")
 
 Gura_ImplementPropertyGetter(sync, synclines_at_new)
 {
-	return Value::Nil;
+	const Sync *pSync = Object_sync::GetObject(valueThis)->GetSync();
+	AutoPtr<Iterator> pIterator(new IteratorSyncLine(pSync->Reference(), TARGET_New));
+	return Value(new Object_iterator(env, pIterator.release()));
 }
 
 // diff.sync#synclines@org
@@ -1507,7 +1485,9 @@ Gura_DeclarePropertyAlias_R(sync, synclines_at_org, "synclines@org")
 
 Gura_ImplementPropertyGetter(sync, synclines_at_org)
 {
-	return Value::Nil;
+	const Sync *pSync = Object_sync::GetObject(valueThis)->GetSync();
+	AutoPtr<Iterator> pIterator(new IteratorSyncLine(pSync->Reference(), TARGET_Org));
+	return Value(new Object_iterator(env, pIterator.release()));
 }
 
 //-----------------------------------------------------------------------------
@@ -1516,10 +1496,8 @@ Gura_ImplementPropertyGetter(sync, synclines_at_org)
 Gura_ImplementUserClass(sync)
 {
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(sync, synclines_at_new);
 	Gura_AssignProperty(sync, synclines_at_org);
-#endif
 	// Assignment of value
 	Gura_AssignValue(sync, Value(Reference()));
 }
