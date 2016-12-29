@@ -522,6 +522,11 @@ typeConvDict = %{
 			const char *_rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, arg, Value(_rtn));
 			''')
+	'array' => TypeConv(
+			'array', 'Once', ['NoMap'],
+			'Array *${arg.name} = Object_array::GetObject(arg, ${idx})->GetArray();',
+			'Array *${arg.name} = arg.IsValid(${idx})? Object_array::GetObject(arg, ${idx})->GetArray() : nullptr;',
+			nil)
 	'array@int8' => TypeConv(
 			'array_at_int8', 'Once', ['NoMap'],
 			'ArrayT<Int8> *${arg.name} = Object_arrayT<Int8>::GetObject(arg, ${idx})->GetArrayT();',

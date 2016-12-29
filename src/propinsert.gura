@@ -131,10 +131,12 @@ DoExtract(fileName:string):map = {
 					(item.className != className) && continue
 					if (firstFlag) {
 						fout.println('\t// Assignment of properties')
+						fout.println('#if 0')
 						firstFlag = false
 					}
 					fout.print('\t', tmpl_AssignProperty.render())
 				}
+				!firstFlag && fout.println('#endif')
 				stat = `start
 			}
 		}

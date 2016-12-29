@@ -25,9 +25,9 @@ public:
 	virtual ~Object_Event();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
+	bool DoDirProp(Environment &env, SymbolSet &symbols);
+	Value DoGetProp(Environment &env, const Symbol *pSymbol,
+					const SymbolSet &attrs, bool &evaluatedFlag);
 	inline SDL_Event *GetEntity() { return &_event; }
 };
 

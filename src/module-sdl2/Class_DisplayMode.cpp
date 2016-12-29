@@ -19,63 +19,13 @@ String Object_DisplayMode::ToString(bool exprFlag)
 	return String("<sdl2.DisplayMode>");
 }
 
-bool Object_DisplayMode::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(format));
-	symbols.insert(Gura_UserSymbol(w));
-	symbols.insert(Gura_UserSymbol(h));
-	symbols.insert(Gura_UserSymbol(refresh_rate));
-	return true;
-}
-
-Value Object_DisplayMode::DoGetProp(Environment &env, const Symbol *pSymbol,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(format))) {
-		return Value(_mode.format);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(w))) {
-		return Value(_mode.w);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(h))) {
-		return Value(_mode.h);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(refresh_rate))) {
-		return Value(_mode.refresh_rate);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_DisplayMode::DoSetProp(Environment &env,
-							  const Symbol *pSymbol, const Value &value,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(format))) {
-		_mode.format = value.GetLong();
-		return Value(_mode.format);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(w))) {
-		_mode.w = value.GetInt();
-		return Value(_mode.w);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(h))) {
-		_mode.h = value.GetInt();
-		return Value(_mode.h);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(refresh_rate))) {
-		_mode.refresh_rate = value.GetInt();
-		return Value(_mode.refresh_rate);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // sdl2.DisplayMode#format
 Gura_DeclareProperty_RW(DisplayMode, format)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -84,18 +34,21 @@ Gura_DeclareProperty_RW(DisplayMode, format)
 
 Gura_ImplementPropertyGetter(DisplayMode, format)
 {
-	return Value::Nil;
+	const SDL_DisplayMode &mode = *Object_DisplayMode::GetObject(valueThis)->GetEntity();
+	return Value(mode.format);
 }
 
 Gura_ImplementPropertySetter(DisplayMode, format)
 {
-	return Value::Nil;
+	SDL_DisplayMode &mode = *Object_DisplayMode::GetObject(valueThis)->GetEntity();
+	mode.format = value.GetLong();
+	return Value(mode.format);
 }
 
 // sdl2.DisplayMode#h
 Gura_DeclareProperty_RW(DisplayMode, h)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -104,18 +57,21 @@ Gura_DeclareProperty_RW(DisplayMode, h)
 
 Gura_ImplementPropertyGetter(DisplayMode, h)
 {
-	return Value::Nil;
+	const SDL_DisplayMode &mode = *Object_DisplayMode::GetObject(valueThis)->GetEntity();
+	return Value(mode.h);
 }
 
 Gura_ImplementPropertySetter(DisplayMode, h)
 {
-	return Value::Nil;
+	SDL_DisplayMode &mode = *Object_DisplayMode::GetObject(valueThis)->GetEntity();
+	mode.h = value.GetInt();
+	return Value(mode.h);
 }
 
 // sdl2.DisplayMode#refresh_rate
 Gura_DeclareProperty_RW(DisplayMode, refresh_rate)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -124,18 +80,21 @@ Gura_DeclareProperty_RW(DisplayMode, refresh_rate)
 
 Gura_ImplementPropertyGetter(DisplayMode, refresh_rate)
 {
-	return Value::Nil;
+	const SDL_DisplayMode &mode = *Object_DisplayMode::GetObject(valueThis)->GetEntity();
+	return Value(mode.refresh_rate);
 }
 
 Gura_ImplementPropertySetter(DisplayMode, refresh_rate)
 {
-	return Value::Nil;
+	SDL_DisplayMode &mode = *Object_DisplayMode::GetObject(valueThis)->GetEntity();
+	mode.refresh_rate = value.GetInt();
+	return Value(mode.refresh_rate);
 }
 
 // sdl2.DisplayMode#w
 Gura_DeclareProperty_RW(DisplayMode, w)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -144,12 +103,15 @@ Gura_DeclareProperty_RW(DisplayMode, w)
 
 Gura_ImplementPropertyGetter(DisplayMode, w)
 {
-	return Value::Nil;
+	const SDL_DisplayMode &mode = *Object_DisplayMode::GetObject(valueThis)->GetEntity();
+	return Value(mode.w);
 }
 
 Gura_ImplementPropertySetter(DisplayMode, w)
 {
-	return Value::Nil;
+	SDL_DisplayMode &mode = *Object_DisplayMode::GetObject(valueThis)->GetEntity();
+	mode.w = value.GetInt();
+	return Value(mode.w);
 }
 
 //-----------------------------------------------------------------------------
@@ -178,12 +140,10 @@ Gura_ImplementUserClass(DisplayMode)
 	// Assignment of function
 	Gura_AssignFunction(DisplayMode);
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(DisplayMode, format);
 	Gura_AssignProperty(DisplayMode, h);
 	Gura_AssignProperty(DisplayMode, refresh_rate);
 	Gura_AssignProperty(DisplayMode, w);
-#endif
 }
 
 Gura_EndModuleScope(sdl2)

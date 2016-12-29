@@ -21,61 +21,13 @@ String Object_Color::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Color::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(r));
-	symbols.insert(Gura_UserSymbol(g));
-	symbols.insert(Gura_UserSymbol(b));
-	return true;
-}
-
-Value Object_Color::DoGetProp(Environment &env, const Symbol *pSymbol,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(r))) {
-		return Value(_color.r);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(g))) {
-		return Value(_color.g);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(b))) {
-		return Value(_color.b);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_Color::DoSetProp(Environment &env,
-							  const Symbol *pSymbol, const Value &value,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(r))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_color.r = static_cast<Uint8>(value.GetUInt());
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(g))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_color.g = static_cast<Uint8>(value.GetUInt());
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(b))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_color.b = static_cast<Uint8>(value.GetUInt());
-		return value;
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // sdl2.Color#b
 Gura_DeclareProperty_RW(Color, b)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -84,18 +36,21 @@ Gura_DeclareProperty_RW(Color, b)
 
 Gura_ImplementPropertyGetter(Color, b)
 {
-	return Value::Nil;
+	const SDL_Color &color = *Object_Color::GetObject(valueThis)->GetEntity();
+	return Value(color.b);
 }
 
 Gura_ImplementPropertySetter(Color, b)
 {
-	return Value::Nil;
+	SDL_Color &color = *Object_Color::GetObject(valueThis)->GetEntity();
+	color.b = value.GetUChar();
+	return Value(color.b);
 }
 
 // sdl2.Color#g
 Gura_DeclareProperty_RW(Color, g)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -104,18 +59,21 @@ Gura_DeclareProperty_RW(Color, g)
 
 Gura_ImplementPropertyGetter(Color, g)
 {
-	return Value::Nil;
+	const SDL_Color &color = *Object_Color::GetObject(valueThis)->GetEntity();
+	return Value(color.g);
 }
 
 Gura_ImplementPropertySetter(Color, g)
 {
-	return Value::Nil;
+	SDL_Color &color = *Object_Color::GetObject(valueThis)->GetEntity();
+	color.g = value.GetUChar();
+	return Value(color.g);
 }
 
 // sdl2.Color#r
 Gura_DeclareProperty_RW(Color, r)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -124,12 +82,15 @@ Gura_DeclareProperty_RW(Color, r)
 
 Gura_ImplementPropertyGetter(Color, r)
 {
-	return Value::Nil;
+	const SDL_Color &color = *Object_Color::GetObject(valueThis)->GetEntity();
+	return Value(color.r);
 }
 
 Gura_ImplementPropertySetter(Color, r)
 {
-	return Value::Nil;
+	SDL_Color &color = *Object_Color::GetObject(valueThis)->GetEntity();
+	color.r = value.GetUChar();
+	return Value(color.r);
 }
 
 //-----------------------------------------------------------------------------
@@ -163,11 +124,9 @@ Gura_ImplementUserClass(Color)
 	// Assignment of function
 	Gura_AssignFunction(Color);
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(Color, b);
 	Gura_AssignProperty(Color, g);
 	Gura_AssignProperty(Color, r);
-#endif
 }
 
 Gura_EndModuleScope(sdl2)

@@ -21,54 +21,13 @@ String Object_Point::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Point::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(x));
-	symbols.insert(Gura_UserSymbol(y));
-	return true;
-}
-
-Value Object_Point::DoGetProp(Environment &env, const Symbol *pSymbol,
-							 const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
-		return Value(_point.x);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
-		return Value(_point.y);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_Point::DoSetProp(Environment &env,
-							 const Symbol *pSymbol, const Value &value,
-							 const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_point.x = static_cast<Sint16>(value.GetInt());
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_point.y = static_cast<Sint16>(value.GetInt());
-		return value;
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // sdl2.Point#x
 Gura_DeclareProperty_RW(Point, x)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -77,18 +36,21 @@ Gura_DeclareProperty_RW(Point, x)
 
 Gura_ImplementPropertyGetter(Point, x)
 {
-	return Value::Nil;
+	const SDL_Point &point = *Object_Point::GetObject(valueThis)->GetEntity();
+	return Value(point.x);
 }
 
 Gura_ImplementPropertySetter(Point, x)
 {
-	return Value::Nil;
+	SDL_Point &point = *Object_Point::GetObject(valueThis)->GetEntity();
+	point.x = value.GetShort();
+	return Value(point.x);
 }
 
 // sdl2.Point#y
 Gura_DeclareProperty_RW(Point, y)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -97,12 +59,15 @@ Gura_DeclareProperty_RW(Point, y)
 
 Gura_ImplementPropertyGetter(Point, y)
 {
-	return Value::Nil;
+	const SDL_Point &point = *Object_Point::GetObject(valueThis)->GetEntity();
+	return Value(point.y);
 }
 
 Gura_ImplementPropertySetter(Point, y)
 {
-	return Value::Nil;
+	SDL_Point &point = *Object_Point::GetObject(valueThis)->GetEntity();
+	point.y = value.GetShort();
+	return Value(point.y);
 }
 
 //-----------------------------------------------------------------------------
@@ -138,10 +103,8 @@ Gura_ImplementUserClass(Point)
 	// Assinment of function
 	Gura_AssignFunction(Point);
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(Point, x);
 	Gura_AssignProperty(Point, y);
-#endif
 }
 
 Gura_EndModuleScope(sdl2)

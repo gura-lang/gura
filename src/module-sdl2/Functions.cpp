@@ -4533,7 +4533,7 @@ Gura_DeclareFunctionAlias(__CreateRGBSurfaceFrom, "CreateRGBSurfaceFrom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "pixels", VTYPE_any, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pixels", VTYPE_array, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "depth", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4549,7 +4549,7 @@ Gura_DeclareFunctionAlias(__CreateRGBSurfaceFrom, "CreateRGBSurfaceFrom")
 
 Gura_ImplementFunction(__CreateRGBSurfaceFrom)
 {
-	Value pixels = arg.GetValue(0);
+	Array *pixels = Object_array::GetObject(arg, 0)->GetArray();
 	int width = arg.GetInt(1);
 	int height = arg.GetInt(2);
 	int depth = arg.GetInt(3);
@@ -4559,12 +4559,12 @@ Gura_ImplementFunction(__CreateRGBSurfaceFrom)
 	Uint32 Bmask = arg.GetUInt32(7);
 	Uint32 Amask = arg.GetUInt32(8);
 	void *_pixels = nullptr;
-	if (pixels.IsType(VTYPE_array_at_uint8)) {
-		_pixels = Object_arrayT<UInt8>::GetObject(pixels)->GetArrayT()->GetPointer();
-	} else if (pixels.IsType(VTYPE_array_at_uint16)) {
-		_pixels = Object_arrayT<UInt16>::GetObject(pixels)->GetArrayT()->GetPointer();
-	} else if (pixels.IsType(VTYPE_array_at_uint32)) {
-		_pixels = Object_arrayT<UInt32>::GetObject(pixels)->GetArrayT()->GetPointer();
+	if (pixels->GetElemType() == Array::ETYPE_UInt8) {
+		_pixels = dynamic_cast<ArrayT<UInt8> *>(pixels)->GetPointer();
+	} else if (pixels->GetElemType() == Array::ETYPE_UInt16) {
+		_pixels = dynamic_cast<ArrayT<UInt16> *>(pixels)->GetPointer();
+	} else if (pixels->GetElemType() == Array::ETYPE_UInt32) {
+		_pixels = dynamic_cast<ArrayT<UInt32> *>(pixels)->GetPointer();
 	} else {
 		Declaration::SetError_InvalidArgument(env);
 		return Value::Nil;

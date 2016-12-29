@@ -20,46 +20,6 @@ String Object_Surface::ToString(bool exprFlag)
 	return String("<sdl2.Surface>");
 }
 
-bool Object_Surface::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(flags));
-	symbols.insert(Gura_UserSymbol(format));
-	symbols.insert(Gura_UserSymbol(w));
-	symbols.insert(Gura_UserSymbol(h));
-	symbols.insert(Gura_UserSymbol(pitch));
-	symbols.insert(Gura_UserSymbol(pixels));
-	symbols.insert(Gura_UserSymbol(clip_rect));
-	symbols.insert(Gura_UserSymbol(refcount));
-	return true;
-}
-
-Value Object_Surface::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(flags))) {
-		return Value(_pSurface->flags);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(format))) {
-		return Value(new Object_PixelFormat(_pSurface->format));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(w))) {
-		return Value(_pSurface->w);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(h))) {
-		return Value(_pSurface->h);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(pitch))) {
-		return Value(_pSurface->pitch);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(pixels))) {
-		return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(clip_rect))) {
-		return Value(new Object_Rect(_pSurface->clip_rect));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(refcount))) {
-		return Value(_pSurface->refcount);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal &sig, Image *pImage)
 {
 	void *pixels = pImage->GetBuffer();
@@ -99,7 +59,7 @@ Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal &sig, Image *pImag
 // sdl2.Surface#clip_rect
 Gura_DeclareProperty_R(Surface, clip_rect)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_Rect);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -108,7 +68,8 @@ Gura_DeclareProperty_R(Surface, clip_rect)
 
 Gura_ImplementPropertyGetter(Surface, clip_rect)
 {
-	return Value::Nil;
+	const SDL_Surface *pSurface = Object_Surface::GetObject(valueThis)->GetEntity();
+	return Value(new Object_Rect(pSurface->clip_rect));
 }
 
 // sdl2.Surface#flags
@@ -123,13 +84,14 @@ Gura_DeclareProperty_R(Surface, flags)
 
 Gura_ImplementPropertyGetter(Surface, flags)
 {
-	return Value::Nil;
+	const SDL_Surface *pSurface = Object_Surface::GetObject(valueThis)->GetEntity();
+	return Value(pSurface->flags);
 }
 
 // sdl2.Surface#format
 Gura_DeclareProperty_R(Surface, format)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_PixelFormat);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -138,7 +100,8 @@ Gura_DeclareProperty_R(Surface, format)
 
 Gura_ImplementPropertyGetter(Surface, format)
 {
-	return Value::Nil;
+	const SDL_Surface *pSurface = Object_Surface::GetObject(valueThis)->GetEntity();
+	return Value(new Object_PixelFormat(pSurface->format));
 }
 
 // sdl2.Surface#h
@@ -153,7 +116,8 @@ Gura_DeclareProperty_R(Surface, h)
 
 Gura_ImplementPropertyGetter(Surface, h)
 {
-	return Value::Nil;
+	const SDL_Surface *pSurface = Object_Surface::GetObject(valueThis)->GetEntity();
+	return Value(pSurface->h);
 }
 
 // sdl2.Surface#pitch
@@ -168,7 +132,8 @@ Gura_DeclareProperty_R(Surface, pitch)
 
 Gura_ImplementPropertyGetter(Surface, pitch)
 {
-	return Value::Nil;
+	const SDL_Surface *pSurface = Object_Surface::GetObject(valueThis)->GetEntity();
+	return Value(pSurface->pitch);
 }
 
 // sdl2.Surface#pixels
@@ -198,7 +163,8 @@ Gura_DeclareProperty_R(Surface, refcount)
 
 Gura_ImplementPropertyGetter(Surface, refcount)
 {
-	return Value::Nil;
+	const SDL_Surface *pSurface = Object_Surface::GetObject(valueThis)->GetEntity();
+	return Value(pSurface->refcount);
 }
 
 // sdl2.Surface#w
@@ -213,7 +179,8 @@ Gura_DeclareProperty_R(Surface, w)
 
 Gura_ImplementPropertyGetter(Surface, w)
 {
-	return Value::Nil;
+	const SDL_Surface *pSurface = Object_Surface::GetObject(valueThis)->GetEntity();
+	return Value(pSurface->w);
 }
 
 //-----------------------------------------------------------------------------
@@ -223,7 +190,6 @@ Gura_ImplementPropertyGetter(Surface, w)
 Gura_ImplementUserClassWithCast(Surface)
 {
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(Surface, clip_rect);
 	Gura_AssignProperty(Surface, flags);
 	Gura_AssignProperty(Surface, format);
@@ -232,7 +198,6 @@ Gura_ImplementUserClassWithCast(Surface)
 	Gura_AssignProperty(Surface, pixels);
 	Gura_AssignProperty(Surface, refcount);
 	Gura_AssignProperty(Surface, w);
-#endif
 	// Assignment of value
 	Gura_AssignValue(Surface, Value(Reference()));
 }

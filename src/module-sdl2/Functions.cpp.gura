@@ -1552,14 +1552,14 @@ SDL_CreateRGBSurface(flags:Uint32, width:int, height:int, depth:int, Rmask:Uint3
 	'''
 }
 
-SDL_CreateRGBSurfaceFrom(pixels:any, width:int, height:int, depth:int, pitch:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32) {block?} = R'''
+SDL_CreateRGBSurfaceFrom(pixels:array, width:int, height:int, depth:int, pitch:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32) {block?} = R'''
 	void *_pixels = nullptr;
-	if (pixels.IsType(VTYPE_array_at_uint8)) {
-		_pixels = Object_arrayT<UInt8>::GetObject(pixels)->GetArrayT()->GetPointer();
-	} else if (pixels.IsType(VTYPE_array_at_uint16)) {
-		_pixels = Object_arrayT<UInt16>::GetObject(pixels)->GetArrayT()->GetPointer();
-	} else if (pixels.IsType(VTYPE_array_at_uint32)) {
-		_pixels = Object_arrayT<UInt32>::GetObject(pixels)->GetArrayT()->GetPointer();
+	if (pixels->GetElemType() == Array::ETYPE_UInt8) {
+		_pixels = dynamic_cast<ArrayT<UInt8> *>(pixels)->GetPointer();
+	} else if (pixels->GetElemType() == Array::ETYPE_UInt16) {
+		_pixels = dynamic_cast<ArrayT<UInt16> *>(pixels)->GetPointer();
+	} else if (pixels->GetElemType() == Array::ETYPE_UInt32) {
+		_pixels = dynamic_cast<ArrayT<UInt32> *>(pixels)->GetPointer();
 	} else {
 		Declaration::SetError_InvalidArgument(env);
 		return Value::Nil;
