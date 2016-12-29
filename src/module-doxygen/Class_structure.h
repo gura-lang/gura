@@ -21,9 +21,6 @@ public:
 					Object(Gura_UserClass(structure)), _pStructure(pStructure) {}
 	virtual ~Object_structure();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Structure *GetStructure() { return _pStructure.get(); }
 };

@@ -17,34 +17,47 @@ Object *Object_renderer::Clone() const
 	return nullptr;
 }
 
-bool Object_renderer::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(out));
-	symbols.insert(Gura_UserSymbol(cfg));
-	return true;
-}
-
-Value Object_renderer::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(out))) {
-		return Value(new Object_stream(env, _pRenderer->GetStream()->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(cfg))) {
-		return Value(new Object_configuration(_pRenderer->GetConfiguration()->Reference()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_renderer::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<doxygen.renderer:";
 	rtn += ">";
 	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// doxygen.renderer#cfg
+Gura_DeclareProperty_R(renderer, cfg)
+{
+	SetPropAttr(VTYPE_configuration);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(renderer, cfg)
+{
+	Renderer *pRenderer = Object_renderer::GetObject(valueThis)->GetRenderer();
+	return Value(new Object_configuration(pRenderer->GetConfiguration()->Reference()));
+}
+
+// doxygen.renderer#out
+Gura_DeclareProperty_R(renderer, out)
+{
+	SetPropAttr(VTYPE_stream);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(renderer, out)
+{
+	Renderer *pRenderer = Object_renderer::GetObject(valueThis)->GetRenderer();
+	return Value(new Object_stream(env, pRenderer->GetStream()->Reference()));
 }
 
 //----------------------------------------------------------------------------

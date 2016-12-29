@@ -17,27 +17,6 @@ Object *Object_configuration::Clone() const
 	return nullptr;
 }
 
-bool Object_configuration::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(aliases));
-	return true;
-}
-
-Value Object_configuration::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(aliases))) {
-		AutoPtr<Aliases> pAliases(_pCfg->MakeAliases(env));
-		if (pAliases.IsNull()) return Value::Nil;
-		return Value(new Object_aliases(pAliases.release()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_configuration::ToString(bool exprFlag)
 {
 	String rtn;
@@ -45,6 +24,27 @@ String Object_configuration::ToString(bool exprFlag)
 	rtn += _pCfg->GetSourceName();
 	rtn += ">";
 	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// doxygen.configuration#aliases
+Gura_DeclareProperty_R(configuration, aliases)
+{
+	SetPropAttr(VTYPE_aliases);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(configuration, aliases)
+{
+	const Configuration *pCfg = Object_configuration::GetObject(valueThis)->GetConfiguration();
+	AutoPtr<Aliases> pAliases(pCfg->MakeAliases(env));
+	if (pAliases.IsNull()) return Value::Nil;
+	return Value(new Object_aliases(pAliases.release()));
 }
 
 //----------------------------------------------------------------------------
@@ -130,7 +130,11 @@ Gura_ImplementMethod(configuration, print)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(configuration)
 {
+	// Assignment of function
 	Gura_AssignFunction(configuration);
+	// Assignment of properties
+	Gura_AssignProperty(configuration, aliases);
+	// Assignment of methods
 	Gura_AssignMethod(configuration, get);
 	Gura_AssignMethod(configuration, print);
 }

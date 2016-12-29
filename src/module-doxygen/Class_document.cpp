@@ -17,20 +17,6 @@ Object *Object_document::Clone() const
 	return nullptr;
 }
 
-bool Object_document::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	return true;
-}
-
-Value Object_document::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_document::ToString(bool exprFlag)
 {
 	String rtn;

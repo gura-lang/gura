@@ -19,31 +19,12 @@ Object *Object_elem::Clone() const
 
 bool Object_elem::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(index));
-	symbols.insert(Gura_UserSymbol(prev));
-	symbols.insert(Gura_UserSymbol(next));
-	symbols.insert(Gura_UserSymbol(typename_));
 	return _pElem->DoDirProp(env, symbols);
 }
 
 Value Object_elem::DoGetProp(Environment &env, const Symbol *pSymbol,
 							 const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(index))) {
-		return Value(_pElem->GetIndex());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(prev))) {
-		Elem *pElem = _pElem->GetElemPrev();
-		return (pElem == nullptr)? Value::Nil : Value(new Object_elem(pElem->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(next))) {
-		Elem *pElem = _pElem->GetElemNext();
-		return (pElem == nullptr)? Value::Nil : Value(new Object_elem(pElem->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(typename_))) {
-		return Value(_pElem->MakeTypeName());
-	}
-	evaluatedFlag = false;
 	return _pElem->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
@@ -54,6 +35,75 @@ String Object_elem::ToString(bool exprFlag)
 	rtn += _pElem->MakeTypeName();
 	rtn += ">";
 	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// doxygen.elem#index
+Gura_DeclareProperty_R(elem, index)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(elem, index)
+{
+	const Elem *pElem = Object_elem::GetObject(valueThis)->GetElem();
+	return Value(pElem->GetIndex());
+}
+
+// doxygen.elem#next
+Gura_DeclareProperty_R(elem, next)
+{
+	SetPropAttr(VTYPE_elem, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(elem, next)
+{
+	const Elem *pElem = Object_elem::GetObject(valueThis)->GetElem();
+	const Elem *pElemNext = pElem->GetElemNext();
+	return (pElemNext == nullptr)? Value::Nil : Value(new Object_elem(pElemNext->Reference()));
+}
+
+// doxygen.elem#prev
+Gura_DeclareProperty_R(elem, prev)
+{
+	SetPropAttr(VTYPE_elem, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(elem, prev)
+{
+	const Elem *pElem = Object_elem::GetObject(valueThis)->GetElem();
+	const Elem *pElemPrev = pElem->GetElemPrev();
+	return (pElemPrev == nullptr)? Value::Nil : Value(new Object_elem(pElemPrev->Reference()));
+}
+
+// doxygen.elem#typename
+Gura_DeclarePropertyAlias_R(elem, typename_, "typename")
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(elem, typename_)
+{
+	const Elem *pElem = Object_elem::GetObject(valueThis)->GetElem();
+	return Value(pElem->MakeTypeName());
 }
 
 //----------------------------------------------------------------------------
@@ -136,11 +186,18 @@ Gura_ImplementMethod(elem, render)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(elem)
 {
-	Gura_AssignValue(elem, Value(Reference()));
+	// Assignment of properties
+	Gura_AssignProperty(elem, index);
+	Gura_AssignProperty(elem, next);
+	Gura_AssignProperty(elem, prev);
+	Gura_AssignProperty(elem, typename_);
+	// Assignment of methods
 	Gura_AssignMethod(elem, isstreakfirst);
 	Gura_AssignMethod(elem, isstreaklast);
 	Gura_AssignMethod(elem, print);
 	Gura_AssignMethod(elem, render);
+	// Assignment of value
+	Gura_AssignValue(elem, Value(Reference()));
 }
 
 Gura_EndModuleScope(doxygen)

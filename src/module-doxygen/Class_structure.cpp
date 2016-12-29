@@ -17,28 +17,6 @@ Object *Object_structure::Clone() const
 	return nullptr;
 }
 
-bool Object_structure::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(aftermember));
-	symbols.insert(Gura_UserSymbol(source));
-	return true;
-}
-
-Value Object_structure::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(aftermember))) {
-		return Value(_pStructure->GetAfterMemberFlag());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(source))) {
-		return Value(_pStructure->GetSource());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_structure::ToString(bool exprFlag)
 {
 	String rtn;
@@ -50,6 +28,41 @@ String Object_structure::ToString(bool exprFlag)
 	} while (0);
 	rtn += ">";
 	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// doxygen.structure#aftermember
+Gura_DeclareProperty_R(structure, aftermember)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(structure, aftermember)
+{
+	Structure *pStructure = Object_structure::GetObject(valueThis)->GetStructure();
+	return Value(pStructure->GetAfterMemberFlag());
+}
+
+// doxygen.structure#source
+Gura_DeclareProperty_R(structure, source)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(structure, source)
+{
+	Structure *pStructure = Object_structure::GetObject(valueThis)->GetStructure();
+	return Value(pStructure->GetSource());
 }
 
 //----------------------------------------------------------------------------
@@ -104,9 +117,14 @@ Gura_ImplementMethod(structure, substructures)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(structure)
 {
-	Gura_AssignValue(structure, Value(Reference()));
+	// Assignment of properties
+	Gura_AssignProperty(structure, aftermember);
+	Gura_AssignProperty(structure, source);
+	// Assignment of methods
 	Gura_AssignMethod(structure, elems);
 	Gura_AssignMethod(structure, substructures);
+	// Assignment of value
+	Gura_AssignValue(structure, Value(Reference()));
 }
 
 Gura_EndModuleScope(doxygen)

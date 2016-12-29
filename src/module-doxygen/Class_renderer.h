@@ -21,9 +21,6 @@ public:
 	inline Object_renderer() : Object(Gura_UserClass(renderer)) {}
 	virtual ~Object_renderer();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline void SetRenderer(Renderer *pRenderer) { _pRenderer.reset(pRenderer); }
 	inline Renderer *GetRenderer() { return _pRenderer.get(); }

@@ -17,17 +17,6 @@ Object *Object_aliases::Clone() const
 	return nullptr;
 }
 
-bool Object_aliases::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	return true;
-}
-
-Value Object_aliases::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	return Value::Nil;
-}
-
 String Object_aliases::ToString(bool exprFlag)
 {
 	String rtn;
