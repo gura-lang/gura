@@ -661,7 +661,7 @@ glDrawBuffer(mode:GLenum):void:map = `auto %% {`en,
 
 //glDrawElements(mode:GLenum, count:GLsizei, type:GLenum, indices:GLvoid@:const):void:map = `unsupport
 
-glDrawPixels(width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''	
+glDrawPixels(width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:array):void:map = R'''
 	const void *p = GetArrayTPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
 	glDrawPixels(width, height, format, type, p);
@@ -2263,7 +2263,7 @@ glTexGeniv(coord:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `aut
 }
 
 glTexImage1D(target:GLenum, level:GLint, internalformat:GLint,
-			width:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:any):void:map = R'''
+			width:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:array):void:map = R'''
 	// check pixels->size()
 	const void *p = GetArrayTPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
@@ -2289,7 +2289,7 @@ glTexImage1DFromImage(target:GLenum, level:GLint,
 }
 
 glTexImage2D(target:GLenum, level:GLint, internalformat:GLint,
-		width:GLsizei, height:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:any):void:map = R'''
+		width:GLsizei, height:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:array):void:map = R'''
 	// check pixels->size()
 	const void *p = GetArrayTPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
@@ -2338,7 +2338,7 @@ glTexParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map
 }
 
 glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint,
-			 width:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''
+			 width:GLsizei, format:GLenum, type:GLenum, pixels:array):void:map = R'''
 	// check pixels->size()
 	const void *p = GetArrayTPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
@@ -2363,7 +2363,7 @@ glTexSubImage1DFromImage(target:GLenum, level:GLint, xoffset:GLint, image:image)
 }
 
 glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint,
-		width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''
+		width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:array):void:map = R'''
 	// check pixels->size()
 	const void *p = GetArrayTPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;

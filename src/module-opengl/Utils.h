@@ -46,7 +46,7 @@ done:
 	return rtn.release();
 }
 
-const void *GetArrayTPointer(Environment &env, GLenum type, const Value &value);
+const void *GetArrayTPointer(Environment &env, GLenum type, const Array *pArray);
 	
 }
 

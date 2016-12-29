@@ -1941,7 +1941,7 @@ Gura_DeclareFunctionAlias(__glDrawPixels, "glDrawPixels")
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_any, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pixels", VTYPE_array, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -1953,7 +1953,7 @@ Gura_ImplementFunction(__glDrawPixels)
 	GLsizei height = arg.GetInt(1);
 	GLenum format = static_cast<GLenum>(arg.GetInt(2));
 	GLenum type = static_cast<GLenum>(arg.GetInt(3));
-	Value pixels = arg.GetValue(4);
+	Array *pixels = Object_array::GetObject(arg, 4)->GetArray();
 	
 	const void *p = GetArrayTPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
@@ -7098,7 +7098,7 @@ Gura_DeclareFunctionAlias(__glTexImage1D, "glTexImage1D")
 	DeclareArg(env, "border", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_any, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pixels", VTYPE_array, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -7113,7 +7113,7 @@ Gura_ImplementFunction(__glTexImage1D)
 	GLint border = arg.GetInt(4);
 	GLenum format = static_cast<GLenum>(arg.GetInt(5));
 	GLenum type = static_cast<GLenum>(arg.GetInt(6));
-	Value pixels = arg.GetValue(7);
+	Array *pixels = Object_array::GetObject(arg, 7)->GetArray();
 	// check pixels->size()
 	const void *p = GetArrayTPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
@@ -7163,7 +7163,7 @@ Gura_DeclareFunctionAlias(__glTexImage2D, "glTexImage2D")
 	DeclareArg(env, "border", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_any, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pixels", VTYPE_array, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -7179,7 +7179,7 @@ Gura_ImplementFunction(__glTexImage2D)
 	GLint border = arg.GetInt(5);
 	GLenum format = static_cast<GLenum>(arg.GetInt(6));
 	GLenum type = static_cast<GLenum>(arg.GetInt(7));
-	Value pixels = arg.GetValue(8);
+	Array *pixels = Object_array::GetObject(arg, 8)->GetArray();
 	// check pixels->size()
 	const void *p = GetArrayTPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
@@ -7320,7 +7320,7 @@ Gura_DeclareFunctionAlias(__glTexSubImage1D, "glTexSubImage1D")
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_any, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pixels", VTYPE_array, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -7334,7 +7334,7 @@ Gura_ImplementFunction(__glTexSubImage1D)
 	GLsizei width = arg.GetInt(3);
 	GLenum format = static_cast<GLenum>(arg.GetInt(4));
 	GLenum type = static_cast<GLenum>(arg.GetInt(5));
-	Value pixels = arg.GetValue(6);
+	Array *pixels = Object_array::GetObject(arg, 6)->GetArray();
 	// check pixels->size()
 	const void *p = GetArrayTPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
@@ -7382,7 +7382,7 @@ Gura_DeclareFunctionAlias(__glTexSubImage2D, "glTexSubImage2D")
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_any, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pixels", VTYPE_array, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -7398,7 +7398,7 @@ Gura_ImplementFunction(__glTexSubImage2D)
 	GLsizei height = arg.GetInt(5);
 	GLenum format = static_cast<GLenum>(arg.GetInt(6));
 	GLenum type = static_cast<GLenum>(arg.GetInt(7));
-	Value pixels = arg.GetValue(8);
+	Array *pixels = Object_array::GetObject(arg, 8)->GetArray();
 	// check pixels->size()
 	const void *p = GetArrayTPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
