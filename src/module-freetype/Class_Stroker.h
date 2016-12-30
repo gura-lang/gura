@@ -18,11 +18,6 @@ public:
 	~Object_Stroker();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline FT_Stroker &GetEntity() { return _stroker; }
 	inline const FT_Stroker &GetEntity() const { return _stroker; }
 };

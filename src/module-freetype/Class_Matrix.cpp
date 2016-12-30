@@ -21,60 +21,6 @@ String Object_Matrix::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Matrix::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(xx));
-	symbols.insert(Gura_UserSymbol(xy));
-	symbols.insert(Gura_UserSymbol(yx));
-	symbols.insert(Gura_UserSymbol(yy));
-	return true;
-}
-
-Value Object_Matrix::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(xx))) {
-		return Value(static_cast<double>(_matrix.xx) / (1 << 16));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(xy))) {
-		return Value(static_cast<double>(_matrix.xy) / (1 << 16));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yx))) {
-		return Value(static_cast<double>(_matrix.yx) / (1 << 16));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yy))) {
-		return Value(static_cast<double>(_matrix.yy) / (1 << 16));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_Matrix::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(xx))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_matrix.xx = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
-		return Value(static_cast<double>(_matrix.xx) / (1 << 16));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(xy))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_matrix.xy = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
-		return Value(static_cast<double>(_matrix.xy) / (1 << 16));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yx))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_matrix.yx = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
-		return Value(static_cast<double>(_matrix.yx) / (1 << 16));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yy))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_matrix.yy = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
-		return Value(static_cast<double>(_matrix.yy) / (1 << 16));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 bool Object_Matrix::ConvertFrom(Signal &sig, const Gura::Matrix *pMat)
 {
 	if (pMat->GetRows() < 2 || pMat->GetCols() < 2) {
@@ -99,7 +45,7 @@ bool Object_Matrix::ConvertFrom(Signal &sig, const Gura::Matrix *pMat)
 // freetype.Matrix#xx
 Gura_DeclareProperty_RW(Matrix, xx)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -108,18 +54,21 @@ Gura_DeclareProperty_RW(Matrix, xx)
 
 Gura_ImplementPropertyGetter(Matrix, xx)
 {
-	return Value::Nil;
+	FT_Matrix &matrix = *Object_Matrix::GetObject(valueThis)->GetEntity();
+	return Value(static_cast<double>(matrix.xx) / (1 << 16));
 }
 
 Gura_ImplementPropertySetter(Matrix, xx)
 {
-	return Value::Nil;
+	FT_Matrix &matrix = *Object_Matrix::GetObject(valueThis)->GetEntity();
+	matrix.xx = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
+	return Value(static_cast<double>(matrix.xx) / (1 << 16));
 }
 
 // freetype.Matrix#xy
 Gura_DeclareProperty_RW(Matrix, xy)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -128,18 +77,21 @@ Gura_DeclareProperty_RW(Matrix, xy)
 
 Gura_ImplementPropertyGetter(Matrix, xy)
 {
-	return Value::Nil;
+	FT_Matrix &matrix = *Object_Matrix::GetObject(valueThis)->GetEntity();
+	return Value(static_cast<double>(matrix.xy) / (1 << 16));
 }
 
 Gura_ImplementPropertySetter(Matrix, xy)
 {
-	return Value::Nil;
+	FT_Matrix &matrix = *Object_Matrix::GetObject(valueThis)->GetEntity();
+	matrix.xy = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
+	return Value(static_cast<double>(matrix.xy) / (1 << 16));
 }
 
 // freetype.Matrix#yx
 Gura_DeclareProperty_RW(Matrix, yx)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -148,18 +100,21 @@ Gura_DeclareProperty_RW(Matrix, yx)
 
 Gura_ImplementPropertyGetter(Matrix, yx)
 {
-	return Value::Nil;
+	FT_Matrix &matrix = *Object_Matrix::GetObject(valueThis)->GetEntity();
+	return Value(static_cast<double>(matrix.yx) / (1 << 16));
 }
 
 Gura_ImplementPropertySetter(Matrix, yx)
 {
-	return Value::Nil;
+	FT_Matrix &matrix = *Object_Matrix::GetObject(valueThis)->GetEntity();
+	matrix.yx = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
+	return Value(static_cast<double>(matrix.yx) / (1 << 16));
 }
 
 // freetype.Matrix#yy
 Gura_DeclareProperty_RW(Matrix, yy)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -168,12 +123,15 @@ Gura_DeclareProperty_RW(Matrix, yy)
 
 Gura_ImplementPropertyGetter(Matrix, yy)
 {
-	return Value::Nil;
+	FT_Matrix &matrix = *Object_Matrix::GetObject(valueThis)->GetEntity();
+	return Value(static_cast<double>(matrix.yy) / (1 << 16));
 }
 
 Gura_ImplementPropertySetter(Matrix, yy)
 {
-	return Value::Nil;
+	FT_Matrix &matrix = *Object_Matrix::GetObject(valueThis)->GetEntity();
+	matrix.yy = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
+	return Value(static_cast<double>(matrix.yy) / (1 << 16));
 }
 
 //-----------------------------------------------------------------------------
@@ -236,13 +194,13 @@ Gura_ImplementMethod(Matrix, Invert)
 Gura_ImplementUserClassWithCast(Matrix)
 {
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(Matrix, xx);
 	Gura_AssignProperty(Matrix, xy);
 	Gura_AssignProperty(Matrix, yx);
 	Gura_AssignProperty(Matrix, yy);
-#endif
+	// Assignment of function
 	Gura_AssignFunction(Matrix);
+	// Assignment of methods
 	Gura_AssignMethod(Matrix, Multiply);
 	Gura_AssignMethod(Matrix, Invert);
 }

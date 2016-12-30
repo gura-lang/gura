@@ -32,46 +32,6 @@ String Object_Vector::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Vector::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(x));
-	symbols.insert(Gura_Symbol(y));
-	return true;
-}
-
-Value Object_Vector::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		return Value(_pVector->x);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		return Value(_pVector->y);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_Vector::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_pVector->x = static_cast<FT_Pos>(value.GetLong());
-		return Value(_pVector->x);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		_pVector->y = static_cast<FT_Pos>(value.GetLong());
-		return Value(_pVector->y);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
@@ -87,12 +47,15 @@ Gura_DeclareProperty_RW(Vector, x)
 
 Gura_ImplementPropertyGetter(Vector, x)
 {
-	return Value::Nil;
+	const FT_Vector *pVector = Object_Vector::GetObject(valueThis)->GetEntity();
+	return Value(pVector->x);
 }
 
 Gura_ImplementPropertySetter(Vector, x)
 {
-	return Value::Nil;
+	FT_Vector *pVector = Object_Vector::GetObject(valueThis)->GetEntity();
+	pVector->x = static_cast<FT_Pos>(value.GetLong());
+	return Value(pVector->x);
 }
 
 // freetype.Vector#y
@@ -107,12 +70,15 @@ Gura_DeclareProperty_RW(Vector, y)
 
 Gura_ImplementPropertyGetter(Vector, y)
 {
-	return Value::Nil;
+	const FT_Vector *pVector = Object_Vector::GetObject(valueThis)->GetEntity();
+	return Value(pVector->y);
 }
 
 Gura_ImplementPropertySetter(Vector, y)
 {
-	return Value::Nil;
+	FT_Vector *pVector = Object_Vector::GetObject(valueThis)->GetEntity();
+	pVector->y = static_cast<FT_Pos>(value.GetLong());
+	return Value(pVector->y);
 }
 
 //-----------------------------------------------------------------------------

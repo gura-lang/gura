@@ -16,100 +16,6 @@ Object *Object_font::Clone() const
 	return nullptr; //new Object_font(*this);
 }
 
-bool Object_font::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(face));
-	symbols.insert(Gura_UserSymbol(color));
-	symbols.insert(Gura_UserSymbol(mode));
-	symbols.insert(Gura_UserSymbol(strength));
-	symbols.insert(Gura_UserSymbol(slant));
-	symbols.insert(Gura_UserSymbol(rotate));
-	symbols.insert(Gura_UserSymbol(width));
-	symbols.insert(Gura_UserSymbol(height));
-	return true;
-}
-
-Value Object_font::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(face))) {
-		return Value(Object_Face::Reference(_pObjFace.get()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(color))) {
-		return Value(Object_color::Reference(_pObjColor.get()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mode))) {
-		const Symbol *pSymbol =
-			(_mode == MODE_Blend)? Gura_UserSymbol(blend) :
-			(_mode == MODE_Alpha)? Gura_UserSymbol(alpha) :
-			Gura_UserSymbol(blend);
-		return Value(pSymbol);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(strength))) {
-		return Value(_strength);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(slant))) {
-		return Value(_slant);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(rotate))) {
-		return Value(_rotate.deg);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {
-		return Value(_width);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
-		return Value(_height);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_font::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(color))) {
-		Value valueCasted;
-		if (!value.CastType(env, VTYPE_color, valueCasted)) {
-			sig.SetError(ERR_ValueError, "value must be color");
-			return Value::Nil;
-		}
-		_pObjColor->SetColor(Object_color::GetObject(valueCasted)->GetColor());
-		return Value(Object_color::Reference(_pObjColor.get()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mode))) {
-		if (!value.MustBe_symbol(sig)) return Value::Nil;
-		const Symbol *pSymbolVal = value.GetSymbol();
-		if (pSymbolVal->IsIdentical(Gura_UserSymbol(blend))) {
-			_mode = MODE_Blend;
-		} else if (pSymbolVal->IsIdentical(Gura_UserSymbol(alpha))) {
-			_mode = MODE_Alpha;
-		} else {
-			sig.SetError(ERR_ValueError, "symbol must be `blend or `alpha");
-			return Value::Nil;
-		}
-		return Value(pSymbolVal);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(strength))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		SetStrength(value.GetDouble());
-		return Value(_strength);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(slant))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		SetSlant(value.GetDouble());
-		return Value(_slant);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(rotate))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		SetRotate(value.GetDouble());
-		return Value(_rotate.deg);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		SetWidth(value.GetDouble());
-		return Value(_width);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		SetHeight(value.GetDouble());
-		return Value(_height);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_font::ToString(bool exprFlag)
 {
 	String str;
@@ -394,50 +300,10 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-// freetype.font#alpha
-Gura_DeclareProperty_RW(font, alpha)
-{
-	SetPropAttr(VTYPE_any);
-	AddHelp(
-		Gura_Symbol(en),
-		""
-		);
-}
-
-Gura_ImplementPropertyGetter(font, alpha)
-{
-	return Value::Nil;
-}
-
-Gura_ImplementPropertySetter(font, alpha)
-{
-	return Value::Nil;
-}
-
-// freetype.font#blend
-Gura_DeclareProperty_RW(font, blend)
-{
-	SetPropAttr(VTYPE_any);
-	AddHelp(
-		Gura_Symbol(en),
-		""
-		);
-}
-
-Gura_ImplementPropertyGetter(font, blend)
-{
-	return Value::Nil;
-}
-
-Gura_ImplementPropertySetter(font, blend)
-{
-	return Value::Nil;
-}
-
 // freetype.font#color
 Gura_DeclareProperty_RW(font, color)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_color);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -446,18 +312,21 @@ Gura_DeclareProperty_RW(font, color)
 
 Gura_ImplementPropertyGetter(font, color)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	return Value(Object_color::Reference(pObjThis->GetObjColor()));
 }
 
 Gura_ImplementPropertySetter(font, color)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	pObjThis->GetObjColor()->SetColor(Object_color::GetObject(value)->GetColor());
+	return Value(Object_color::Reference(pObjThis->GetObjColor()));
 }
 
 // freetype.font#face
 Gura_DeclareProperty_R(font, face)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_Face);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -466,13 +335,14 @@ Gura_DeclareProperty_R(font, face)
 
 Gura_ImplementPropertyGetter(font, face)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	return Value(Object_Face::Reference(pObjThis->GetObjFace()));
 }
 
 // freetype.font#height
 Gura_DeclareProperty_RW(font, height)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -481,18 +351,21 @@ Gura_DeclareProperty_RW(font, height)
 
 Gura_ImplementPropertyGetter(font, height)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	return Value(pObjThis->GetHeight());
 }
 
 Gura_ImplementPropertySetter(font, height)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	pObjThis->SetHeight(value.GetDouble());
+	return Value(pObjThis->GetHeight());
 }
 
 // freetype.font#mode
 Gura_DeclareProperty_RW(font, mode)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -501,18 +374,34 @@ Gura_DeclareProperty_RW(font, mode)
 
 Gura_ImplementPropertyGetter(font, mode)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	Object_font::Mode mode = pObjThis->GetMode();
+	const Symbol *pSymbol =
+		(mode == Object_font::MODE_Blend)? Gura_UserSymbol(blend) :
+		(mode == Object_font::MODE_Alpha)? Gura_UserSymbol(alpha) :
+		Gura_UserSymbol(blend);
+	return Value(pSymbol);
 }
 
 Gura_ImplementPropertySetter(font, mode)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	const Symbol *pSymbolVal = value.GetSymbol();
+	if (pSymbolVal->IsIdentical(Gura_UserSymbol(blend))) {
+		pObjThis->SetMode(Object_font::MODE_Blend);
+	} else if (pSymbolVal->IsIdentical(Gura_UserSymbol(alpha))) {
+		pObjThis->SetMode(Object_font::MODE_Alpha);
+	} else {
+		env.SetError(ERR_ValueError, "symbol must be `blend or `alpha");
+		return Value::Nil;
+	}
+	return Value(pSymbolVal);
 }
 
 // freetype.font#rotate
 Gura_DeclareProperty_RW(font, rotate)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -521,18 +410,21 @@ Gura_DeclareProperty_RW(font, rotate)
 
 Gura_ImplementPropertyGetter(font, rotate)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	return Value(pObjThis->GetRotate());
 }
 
 Gura_ImplementPropertySetter(font, rotate)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	pObjThis->SetRotate(value.GetDouble());
+	return Value(pObjThis->GetRotate());
 }
 
 // freetype.font#slant
 Gura_DeclareProperty_RW(font, slant)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -541,18 +433,21 @@ Gura_DeclareProperty_RW(font, slant)
 
 Gura_ImplementPropertyGetter(font, slant)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	return Value(pObjThis->GetSlant());
 }
 
 Gura_ImplementPropertySetter(font, slant)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	pObjThis->SetSlant(value.GetDouble());
+	return Value(pObjThis->GetSlant());
 }
 
 // freetype.font#strength
 Gura_DeclareProperty_RW(font, strength)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -561,18 +456,21 @@ Gura_DeclareProperty_RW(font, strength)
 
 Gura_ImplementPropertyGetter(font, strength)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	return Value(pObjThis->GetStrength());
 }
 
 Gura_ImplementPropertySetter(font, strength)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	pObjThis->SetStrength(value.GetDouble());
+	return Value(pObjThis->GetStrength());
 }
 
 // freetype.font#width
 Gura_DeclareProperty_RW(font, width)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -581,12 +479,15 @@ Gura_DeclareProperty_RW(font, width)
 
 Gura_ImplementPropertyGetter(font, width)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	return Value(pObjThis->GetWidth());
 }
 
 Gura_ImplementPropertySetter(font, width)
 {
-	return Value::Nil;
+	Object_font *pObjThis = Object_font::GetObject(valueThis);
+	pObjThis->SetWidth(value.GetDouble());
+	return Value(pObjThis->GetWidth());
 }
 
 //-----------------------------------------------------------------------------
@@ -698,9 +599,6 @@ Gura_ImplementMethod(font, calcbbox)
 Gura_ImplementUserClass(font)
 {
 	// Assignment of properties
-#if 0
-	Gura_AssignProperty(font, alpha);
-	Gura_AssignProperty(font, blend);
 	Gura_AssignProperty(font, color);
 	Gura_AssignProperty(font, face);
 	Gura_AssignProperty(font, height);
@@ -709,8 +607,9 @@ Gura_ImplementUserClass(font)
 	Gura_AssignProperty(font, slant);
 	Gura_AssignProperty(font, strength);
 	Gura_AssignProperty(font, width);
-#endif
+	// Assignment of function
 	Gura_AssignFunction(font);
+	// Assignment of methods
 	Gura_AssignMethod(font, cleardeco);
 	Gura_AssignMethod(font, drawtext);
 	Gura_AssignMethod(font, calcsize);

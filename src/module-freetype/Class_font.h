@@ -29,12 +29,9 @@ private:
 public:
 	Object_font(Object_Face *pObjFace, Object_color *pObjColor);
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline Object_Face *GetObjFace() { return _pObjFace.get(); }
+	inline Object_color *GetObjColor() { return _pObjColor.get(); }
 	inline FT_Face &GetFace() { return _pObjFace->GetEntity(); }
 	inline void SetColor(const Color &color) { _pObjColor->SetColor(color); }
 	inline const Color &GetColor() const { return _pObjColor->GetColor(); }

@@ -20,11 +20,6 @@ public:
 			Object(obj), _scaler(obj._scaler) {}
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline FTC_Scaler &GetEntity() { return _scaler; }
 	inline const FTC_Scaler &GetEntity() const { return _scaler; }
 };

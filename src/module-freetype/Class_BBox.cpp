@@ -18,48 +18,6 @@ String Object_BBox::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_BBox::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(xMin));
-	symbols.insert(Gura_UserSymbol(yMin));
-	symbols.insert(Gura_UserSymbol(xMax));
-	symbols.insert(Gura_UserSymbol(yMax));
-	return true;
-}
-
-Value Object_BBox::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(xMin))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yMin))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(xMax))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yMax))) {
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_BBox::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(xMin))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yMin))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(xMax))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yMax))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------

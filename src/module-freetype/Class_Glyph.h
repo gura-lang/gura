@@ -20,11 +20,6 @@ public:
 	~Object_Glyph();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline FT_Glyph *GetEntity() { return _pGlyph; }
 	inline const FT_Glyph *GetEntity() const { return _pGlyph; }
 };
