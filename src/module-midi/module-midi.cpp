@@ -1787,6 +1787,7 @@ Gura_ImplementUserClassWithCast(port)
 #if 0
 	Gura_AssignProperty(port, string);
 #endif
+	// Assignment of methods
 	Gura_AssignMethod(port, send);
 	Gura_AssignMethod(port, play);
 	Gura_AssignMethod(port, mml);
@@ -2203,6 +2204,7 @@ Gura_ImplementUserClass(soundfont)
 	Gura_AssignProperty(soundfont, id);
 	Gura_AssignProperty(soundfont, name);
 #endif
+	// Assignment of methods
 	Gura_AssignMethod(soundfont, synthesizer);
 	Gura_AssignMethod(soundfont, print);
 }
