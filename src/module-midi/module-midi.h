@@ -135,8 +135,6 @@ public:
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
 
@@ -154,9 +152,6 @@ public:
 	inline Object_track(Environment &env, Track *pTrack) : Object(Gura_UserClass(track)), _pTrack(pTrack) {}
 	inline Track *GetTrack() { return _pTrack.get(); }
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
 
@@ -174,11 +169,6 @@ public:
 	inline Object_sequence(Environment &env) : Object(Gura_UserClass(sequence)) {}
 	inline Sequence &GetSequence() { return _sequence; }
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
 
@@ -193,9 +183,6 @@ public:
 public:
 	inline Object_portinfo(Environment &env) : Object(Gura_UserClass(portinfo)) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
 
@@ -212,9 +199,6 @@ private:
 public:
 	inline Object_port(Environment &env) : Object(Gura_UserClass(port)), _pPort(new Port()) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Port *GetPort() { return _pPort.get(); }
 };
@@ -233,11 +217,6 @@ public:
 	inline Object_player(Environment &env, Player *pPlayer) :
 					Object(Gura_UserClass(player)), _pPlayer(pPlayer) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Player *GetPlayer() { return _pPlayer.get(); }
 };
@@ -256,9 +235,6 @@ public:
 	inline Object_controller(Environment &env, UChar controller) :
 			Object(Gura_UserClass(controller)), _controller(controller) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline UChar GetController() const { return _controller; }
 	inline const ControllerInfo &GetControllerInfo() const { return *ControllerInfoById(_controller); }
@@ -278,9 +254,6 @@ public:
 	inline Object_program(Environment &env, UChar program) :
 			Object(Gura_UserClass(program)), _program(program) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline UChar GetProgram() const { return _program; }
 	inline const ProgramInfo &GetProgramInfo() const { return *ProgramInfoById(_program); }
@@ -300,9 +273,6 @@ public:
 	inline Object_soundfont(Environment &env, Stream *pStream) :
 					Object(Gura_UserClass(soundfont)), _soundFont(pStream) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline SoundFont &GetSoundFont() { return _soundFont; }
 };
@@ -321,9 +291,6 @@ public:
 	inline Object_synthesizer(Environment &env, SoundFont::Synthesizer *pSynthesizer) :
 					Object(Gura_UserClass(synthesizer)), _pSynthesizer(pSynthesizer) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline SoundFont::Synthesizer *GetSynthesizer() { return _pSynthesizer.get(); }
 };

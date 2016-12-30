@@ -299,51 +299,13 @@ Object *Object_event::Clone() const
 
 bool Object_event::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(type));
-	symbols.insert(Gura_UserSymbol(timestamp));
-	symbols.insert(Gura_UserSymbol(status));
-	symbols.insert(Gura_UserSymbol(name));
-	symbols.insert(Gura_UserSymbol(symbol));
-	symbols.insert(Gura_UserSymbol(args));
 	return true;
 }
 
 Value Object_event::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
-		if (_pEvent->IsMIDIEvent()) {
-			return Value(Gura_UserSymbol(midi));
-		} else if (_pEvent->IsSysExEvent()) {
-			return Value(Gura_UserSymbol(sysex));
-		} else if (_pEvent->IsMetaEvent()) {
-			return Value(Gura_UserSymbol(meta));
-		} else {
-			return Value::Nil; // this must not happen
-		}
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
-		return Value(_pEvent->GetTimeStamp());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(status))) {
-		return Value(_pEvent->GetStatusCode());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(_pEvent->GetSymbol()->GetName());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(symbol))) {
-		return Value(_pEvent->GetSymbol());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(args))) {
-		return Value(_pEvent->GetArgsName());
-	}
-	evaluatedFlag = false;
 	return _pEvent->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-}
-
-Value Object_event::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	return Value::Nil;
 }
 
 String Object_event::ToString(bool exprFlag)
@@ -366,6 +328,113 @@ String Object_event::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// midi.event#args
+Gura_DeclareProperty_R(event, args)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(event, args)
+{
+	const Event *pEvent = Object_event::GetObject(valueThis)->GetEvent();
+	return Value(pEvent->GetArgsName());
+}
+
+// midi.event#name
+Gura_DeclareProperty_R(event, name)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(event, name)
+{
+	const Event *pEvent = Object_event::GetObject(valueThis)->GetEvent();
+	return Value(pEvent->GetSymbol()->GetName());
+}
+
+// midi.event#status
+Gura_DeclareProperty_R(event, status)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(event, status)
+{
+	const Event *pEvent = Object_event::GetObject(valueThis)->GetEvent();
+	return Value(pEvent->GetStatusCode());
+}
+
+// midi.event#symbol
+Gura_DeclareProperty_R(event, symbol)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(event, symbol)
+{
+	const Event *pEvent = Object_event::GetObject(valueThis)->GetEvent();
+	return Value(pEvent->GetSymbol());
+}
+
+// midi.event#timestamp
+Gura_DeclareProperty_R(event, timestamp)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(event, timestamp)
+{
+	const Event *pEvent = Object_event::GetObject(valueThis)->GetEvent();
+	return Value(pEvent->GetTimeStamp());
+}
+
+// midi.event#type
+Gura_DeclareProperty_R(event, type)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(event, type)
+{
+	const Event *pEvent = Object_event::GetObject(valueThis)->GetEvent();
+	if (pEvent->IsMIDIEvent()) {
+		return Value(Gura_UserSymbol(midi));
+	} else if (pEvent->IsSysExEvent()) {
+		return Value(Gura_UserSymbol(sysex));
+	} else if (pEvent->IsMetaEvent()) {
+		return Value(Gura_UserSymbol(meta));
+	} else {
+		return Value::Nil; // this must not happen
+	}
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for midi.event
 //-----------------------------------------------------------------------------
 
@@ -374,6 +443,13 @@ String Object_event::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(event)
 {
+	// Assignment of properties
+	Gura_AssignProperty(event, args);
+	Gura_AssignProperty(event, name);
+	Gura_AssignProperty(event, status);
+	Gura_AssignProperty(event, symbol);
+	Gura_AssignProperty(event, timestamp);
+	Gura_AssignProperty(event, type);
 }
 
 //-----------------------------------------------------------------------------
@@ -382,26 +458,6 @@ Gura_ImplementUserClass(event)
 Object *Object_track::Clone() const
 {
 	return nullptr;
-}
-
-bool Object_track::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(events));
-	return true;
-}
-
-Value Object_track::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(events))) {
-		Iterator *pIterator = new Iterator_event(_pTrack->GetEventOwner().Reference());
-		return Value(new Object_iterator(env, pIterator));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
 }
 
 String Object_track::ToString(bool exprFlag)
@@ -416,6 +472,26 @@ String Object_track::ToString(bool exprFlag)
 	} while (0);
 	rtn += ">";
 	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// midi.track#events
+Gura_DeclareProperty_R(track, events)
+{
+	SetPropAttr(VTYPE_iterator);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(track, events)
+{
+	const Track *pTrack = Object_track::GetObject(valueThis)->GetTrack();
+	Iterator *pIterator = new Iterator_event(pTrack->GetEventOwner().Reference());
+	return Value(new Object_iterator(env, pIterator));
 }
 
 //-----------------------------------------------------------------------------
@@ -1038,6 +1114,9 @@ Gura_ImplementMethod(track, sequencer_specific_event)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(track)
 {
+	// Assignment of properties
+	Gura_AssignProperty(track, events);
+	// Assignment of methods
 	Gura_AssignMethod(track, seek);
 	Gura_AssignMethod(track, tell);
 	Gura_AssignMethod(track, erase);
@@ -1074,61 +1153,6 @@ Object *Object_sequence::Clone() const
 	return nullptr;
 }
 
-bool Object_sequence::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(format));
-	symbols.insert(Gura_UserSymbol(tracks));
-	symbols.insert(Gura_UserSymbol(division));
-	return true;
-}
-
-Value Object_sequence::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(format))) {
-		return Value(_sequence.GetFormat());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(tracks))) {
-		Iterator *pIterator =
-				new Iterator_track(_sequence.GetTrackOwner().Reference());
-		return Value(new Object_iterator(env, pIterator));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(events))) {
-		Iterator *pIterator =
-				new Iterator_eventAll(_sequence.GetTrackOwner().Reference());
-		return Value(new Object_iterator(env, pIterator));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
-		return Value(_sequence.GetProperty()->GetDivision());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_sequence::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(format))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		UShort format = value.GetUShort();
-		if (format > 2) {
-			sig.SetError(ERR_ValueError, "wrong number for format");
-			return Value::Nil;
-		}
-		_sequence.SetFormat(format);
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		UShort division = value.GetUShort();
-		_sequence.GetProperty()->SetDivision(division);
-		return value;
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_sequence::ToString(bool exprFlag)
 {
 	String rtn;
@@ -1142,6 +1166,95 @@ String Object_sequence::ToString(bool exprFlag)
 	} while (0);
 	rtn += ">";
 	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// midi.sequence#division
+Gura_DeclareProperty_RW(sequence, division)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(sequence, division)
+{
+	Sequence &sequence = Object_sequence::GetObject(valueThis)->GetSequence();
+	return Value(sequence.GetProperty()->GetDivision());
+}
+
+Gura_ImplementPropertySetter(sequence, division)
+{
+	Sequence &sequence = Object_sequence::GetObject(valueThis)->GetSequence();
+	UShort division = value.GetUShort();
+	sequence.GetProperty()->SetDivision(division);
+	return value;
+}
+
+// midi.sequence#events
+Gura_DeclareProperty_R(sequence, events)
+{
+	SetPropAttr(VTYPE_iterator);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(sequence, events)
+{
+	const Sequence &sequence = Object_sequence::GetObject(valueThis)->GetSequence();
+	Iterator *pIterator = new Iterator_eventAll(sequence.GetTrackOwner().Reference());
+	return Value(new Object_iterator(env, pIterator));
+}
+
+// midi.sequence#format
+Gura_DeclareProperty_RW(sequence, format)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(sequence, format)
+{
+	const Sequence &sequence = Object_sequence::GetObject(valueThis)->GetSequence();
+	return Value(sequence.GetFormat());
+}
+
+Gura_ImplementPropertySetter(sequence, format)
+{
+	Sequence &sequence = Object_sequence::GetObject(valueThis)->GetSequence();
+	UShort format = value.GetUShort();
+	if (format > 2) {
+		env.SetError(ERR_ValueError, "wrong number for format");
+		return Value::Nil;
+	}
+	sequence.SetFormat(format);
+	return value;
+}
+
+// midi.sequence#tracks
+Gura_DeclareProperty_R(sequence, tracks)
+{
+	SetPropAttr(VTYPE_iterator);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(sequence, tracks)
+{
+	const Sequence &sequence = Object_sequence::GetObject(valueThis)->GetSequence();
+	Iterator *pIterator = new Iterator_track(sequence.GetTrackOwner().Reference());
+	return Value(new Object_iterator(env, pIterator));
 }
 
 //-----------------------------------------------------------------------------
@@ -1283,6 +1396,12 @@ Gura_ImplementMethod(sequence, readmml)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(sequence)
 {
+	// Assignment of properties
+	Gura_AssignProperty(sequence, division);
+	Gura_AssignProperty(sequence, events);
+	Gura_AssignProperty(sequence, format);
+	Gura_AssignProperty(sequence, tracks);
+	// Assignment of methods
 	Gura_AssignMethod(sequence, read);
 	Gura_AssignMethod(sequence, write);
 	Gura_AssignMethod(sequence, play);
@@ -1320,33 +1439,31 @@ Object *Object_portinfo::Clone() const
 	return nullptr;
 }
 
-bool Object_portinfo::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	//symbols.insert(Gura_Symbol(string));
-	return true;
-}
-
-Value Object_portinfo::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-#if 0
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
-		return Value(_str);
-	}
-#endif
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_portinfo::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.portinfo:";
 	rtn += ">";
 	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// midi.portinfo#string
+Gura_DeclareProperty_R(portinfo, string)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(portinfo, string)
+{
+	
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1358,6 +1475,10 @@ String Object_portinfo::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(portinfo)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(portinfo, string);
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1368,33 +1489,30 @@ Object *Object_port::Clone() const
 	return nullptr;
 }
 
-bool Object_port::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	//symbols.insert(Gura_Symbol(string));
-	return true;
-}
-
-Value Object_port::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-#if 0
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
-		return Value(_str);
-	}
-#endif
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_port::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.port:";
 	rtn += ">";
 	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// midi.port#string
+Gura_DeclareProperty_R(port, string)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(port, string)
+{
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1665,6 +1783,10 @@ Gura_ImplementMethod(port, pitch_bend)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(port)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(port, string);
+#endif
 	Gura_AssignMethod(port, send);
 	Gura_AssignMethod(port, play);
 	Gura_AssignMethod(port, mml);
@@ -1707,59 +1829,91 @@ Object *Object_player::Clone() const
 	return nullptr;
 }
 
-bool Object_player::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(speed));
-	symbols.insert(Gura_UserSymbol(count));
-	symbols.insert(Gura_UserSymbol(repeat));
-	symbols.insert(Gura_UserSymbol(progress));
-	return true;
-}
-
-Value Object_player::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(speed))) {
-		return Value(_pPlayer->GetSpeed());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(count))) {
-		return Value(_pPlayer->CountEvents());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(repeat))) {
-		return Value(_pPlayer->GetRepeat());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(progress))) {
-		return Value(_pPlayer->GetProgress());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_player::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(speed))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		double speed = value.GetDouble();
-		if (speed <= 0) {
-			sig.SetError(ERR_ValueError, "nuber of speed must be more than zero");
-			return Value::Nil;
-		}
-		_pPlayer->SetSpeed(speed);
-		return value;
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_player::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.player";
 	rtn += ">";
 	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// midi.player#count
+Gura_DeclareProperty_R(player, count)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(player, count)
+{
+	const Player *pPlayer = Object_player::GetObject(valueThis)->GetPlayer();
+	return Value(pPlayer->CountEvents());
+}
+
+// midi.player#progress
+Gura_DeclareProperty_R(player, progress)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(player, progress)
+{
+	const Player *pPlayer = Object_player::GetObject(valueThis)->GetPlayer();
+	return Value(pPlayer->GetProgress());
+}
+
+// midi.player#repeat
+Gura_DeclareProperty_R(player, repeat)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(player, repeat)
+{
+	const Player *pPlayer = Object_player::GetObject(valueThis)->GetPlayer();
+	return Value(pPlayer->GetRepeat());
+}
+
+// midi.player#speed
+Gura_DeclareProperty_RW(player, speed)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(player, speed)
+{
+	const Player *pPlayer = Object_player::GetObject(valueThis)->GetPlayer();
+	return Value(pPlayer->GetSpeed());
+}
+
+Gura_ImplementPropertySetter(player, speed)
+{
+	Player *pPlayer = Object_player::GetObject(valueThis)->GetPlayer();
+	double speed = value.GetDouble();
+	if (speed <= 0) {
+		env.SetError(ERR_ValueError, "nuber of speed must be more than zero");
+		return Value::Nil;
+	}
+	pPlayer->SetSpeed(speed);
+	return value;
 }
 
 //-----------------------------------------------------------------------------
@@ -1771,6 +1925,11 @@ String Object_player::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(player)
 {
+	// Assignment of properties
+	Gura_AssignProperty(player, count);
+	Gura_AssignProperty(player, progress);
+	Gura_AssignProperty(player, repeat);
+	Gura_AssignProperty(player, speed);
 }
 
 //-----------------------------------------------------------------------------
@@ -1779,28 +1938,6 @@ Gura_ImplementUserClass(player)
 Object *Object_controller::Clone() const
 {
 	return nullptr;
-}
-
-bool Object_controller::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(id));
-	symbols.insert(Gura_UserSymbol(name));
-	return true;
-}
-
-Value Object_controller::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
-		return Value(_controller);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(GetControllerInfo().name);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
 }
 
 String Object_controller::ToString(bool exprFlag)
@@ -1813,6 +1950,41 @@ String Object_controller::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// midi.controller#id
+Gura_DeclareProperty_R(controller, id)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(controller, id)
+{
+	Object_controller *pObjThis = Object_controller::GetObject(valueThis);
+	return Value(pObjThis->GetController());
+}
+
+// midi.controller#name
+Gura_DeclareProperty_R(controller, name)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(controller, name)
+{
+	Object_controller *pObjThis = Object_controller::GetObject(valueThis);
+	return Value(pObjThis->GetControllerInfo().name);
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for midi.controller
 //-----------------------------------------------------------------------------
 
@@ -1821,6 +1993,9 @@ String Object_controller::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(controller)
 {
+	// Assignment of properties
+	Gura_AssignProperty(controller, id);
+	Gura_AssignProperty(controller, name);
 }
 
 //-----------------------------------------------------------------------------
@@ -1829,31 +2004,6 @@ Gura_ImplementUserClass(controller)
 Object *Object_program::Clone() const
 {
 	return nullptr;
-}
-
-bool Object_program::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(id));
-	symbols.insert(Gura_UserSymbol(name));
-	symbols.insert(Gura_UserSymbol(dispname));
-	return true;
-}
-
-Value Object_program::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
-		return Value(_program);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(GetProgramInfo().name);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(dispname))) {
-		return Value(GetProgramInfo().dispName);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
 }
 
 String Object_program::ToString(bool exprFlag)
@@ -1866,6 +2016,57 @@ String Object_program::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// midi.program#dispname
+Gura_DeclareProperty_R(program, dispname)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(program, dispname)
+{
+	Object_program *pObjThis = Object_program::GetObject(valueThis);
+	return Value(pObjThis->GetProgramInfo().dispName);
+}
+
+// midi.program#id
+Gura_DeclareProperty_R(program, id)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(program, id)
+{
+	Object_program *pObjThis = Object_program::GetObject(valueThis);
+	return Value(pObjThis->GetProgram());
+}
+
+// midi.program#name
+Gura_DeclareProperty_R(program, name)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(program, name)
+{
+	Object_program *pObjThis = Object_program::GetObject(valueThis);
+	return Value(pObjThis->GetProgramInfo().name);
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for midi.program
 //-----------------------------------------------------------------------------
 
@@ -1874,6 +2075,10 @@ String Object_program::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(program)
 {
+	// Assignment of properties
+	Gura_AssignProperty(program, dispname);
+	Gura_AssignProperty(program, id);
+	Gura_AssignProperty(program, name);
 }
 
 //-----------------------------------------------------------------------------
@@ -1884,41 +2089,60 @@ Object *Object_soundfont::Clone() const
 	return nullptr;
 }
 
-bool Object_soundfont::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-#if 0
-	symbols.insert(Gura_UserSymbol(id));
-	symbols.insert(Gura_UserSymbol(name));
-	symbols.insert(Gura_UserSymbol(dispname));
-#endif
-	return true;
-}
-
-Value Object_soundfont::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-#if 0
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
-		return Value(_soundfont);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(GetProgramInfo().name);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(dispname))) {
-		return Value(GetProgramInfo().dispName);
-	}
-#endif
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_soundfont::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.soundfont";
 	rtn += ">";
 	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// midi.soundfont#dispname
+Gura_DeclareProperty_R(soundfont, dispname)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(soundfont, dispname)
+{
+	return Value::Nil;
+}
+
+// midi.soundfont#id
+Gura_DeclareProperty_R(soundfont, id)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(soundfont, id)
+{
+	return Value::Nil;
+}
+
+// midi.soundfont#name
+Gura_DeclareProperty_R(soundfont, name)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(soundfont, name)
+{
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1973,6 +2197,12 @@ Gura_ImplementMethod(soundfont, print)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(soundfont)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(soundfont, dispname);
+	Gura_AssignProperty(soundfont, id);
+	Gura_AssignProperty(soundfont, name);
+#endif
 	Gura_AssignMethod(soundfont, synthesizer);
 	Gura_AssignMethod(soundfont, print);
 }
@@ -1985,32 +2215,33 @@ Object *Object_synthesizer::Clone() const
 	return nullptr;
 }
 
-bool Object_synthesizer::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(audio));
-	return true;
-}
-
-Value Object_synthesizer::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(audio))) {
-		return Value(new Object_audio(env,
-					_pSynthesizer->GetSample()->GetAudio()->Reference()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_synthesizer::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.synthesizer";
 	rtn += ">";
 	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// midi.synthesizer#audio
+Gura_DeclareProperty_R(synthesizer, audio)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(synthesizer, audio)
+{
+	SoundFont::Synthesizer *pSynthesizer =
+		Object_synthesizer::GetObject(valueThis)->GetSynthesizer();
+	return Value(new Object_audio(
+					 env, pSynthesizer->GetSample()->GetAudio()->Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -2022,6 +2253,8 @@ String Object_synthesizer::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(synthesizer)
 {
+	// Assignment of properties
+	Gura_AssignProperty(synthesizer, audio);
 }
 
 //-----------------------------------------------------------------------------
