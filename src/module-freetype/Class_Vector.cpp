@@ -73,6 +73,49 @@ Value Object_Vector::DoSetProp(Environment &env, const Symbol *pSymbol, const Va
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// freetype.Vector#x
+Gura_DeclareProperty_RW(Vector, x)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Vector, x)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Vector, x)
+{
+	return Value::Nil;
+}
+
+// freetype.Vector#y
+Gura_DeclareProperty_RW(Vector, y)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Vector, y)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Vector, y)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for freetype.Vector
 //-----------------------------------------------------------------------------
 // freetype.Vector(x:number, y:number):map {block?}
@@ -128,6 +171,11 @@ Gura_ImplementMethod(Vector, Transform)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(Vector)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(Vector, x);
+	Gura_AssignProperty(Vector, y);
+#endif
 	Gura_AssignFunction(Vector);
 	Gura_AssignMethod(Vector, Length);
 	Gura_AssignMethod(Vector, Transform);

@@ -64,6 +64,49 @@ Value Object_Outline::DoSetProp(Environment &env, const Symbol *pSymbol, const V
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// freetype.Outline#x
+Gura_DeclareProperty_RW(Outline, x)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Outline, x)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Outline, x)
+{
+	return Value::Nil;
+}
+
+// freetype.Outline#y
+Gura_DeclareProperty_RW(Outline, y)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Outline, y)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Outline, y)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Class implementation for freetype.Outline
 //-----------------------------------------------------------------------------
 // freetype.Outline#Translate(xOffset:number, yOffset:number):reduce
@@ -157,6 +200,11 @@ Gura_ImplementMethod(Outline, Reverse)
 
 Gura_ImplementUserClass(Outline)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(Outline, x);
+	Gura_AssignProperty(Outline, y);
+#endif
 	Gura_AssignValue(Outline, Value(Reference()));
 	Gura_AssignMethod(Outline, Translate);
 	Gura_AssignMethod(Outline, Transform);

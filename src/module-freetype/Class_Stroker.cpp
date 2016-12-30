@@ -69,6 +69,49 @@ Value Object_Stroker::DoSetProp(Environment &env, const Symbol *pSymbol, const V
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// freetype.Stroker#x
+Gura_DeclareProperty_RW(Stroker, x)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stroker, x)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Stroker, x)
+{
+	return Value::Nil;
+}
+
+// freetype.Stroker#y
+Gura_DeclareProperty_RW(Stroker, y)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stroker, y)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Stroker, y)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Class implementation for freetype.Stroker
 //-----------------------------------------------------------------------------
 // freetype.Stroker():map {block?}
@@ -115,6 +158,11 @@ Gura_ImplementMethod(Stroker, BeginSubPath)
 
 Gura_ImplementUserClass(Stroker)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(Stroker, x);
+	Gura_AssignProperty(Stroker, y);
+#endif
 	Gura_AssignFunction(Stroker);
 	Gura_AssignMethod(Stroker, BeginSubPath);
 }

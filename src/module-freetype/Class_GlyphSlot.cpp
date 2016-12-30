@@ -78,6 +78,139 @@ Value Object_GlyphSlot::DoSetProp(Environment &env, const Symbol *pSymbol, const
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// freetype.GlyphSlot#advance
+Gura_DeclareProperty_R(GlyphSlot, advance)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(GlyphSlot, advance)
+{
+	return Value::Nil;
+}
+
+// freetype.GlyphSlot#bitmap
+Gura_DeclareProperty_R(GlyphSlot, bitmap)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(GlyphSlot, bitmap)
+{
+	return Value::Nil;
+}
+
+// freetype.GlyphSlot#bitmap_left
+Gura_DeclareProperty_R(GlyphSlot, bitmap_left)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(GlyphSlot, bitmap_left)
+{
+	return Value::Nil;
+}
+
+// freetype.GlyphSlot#bitmap_top
+Gura_DeclareProperty_R(GlyphSlot, bitmap_top)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(GlyphSlot, bitmap_top)
+{
+	return Value::Nil;
+}
+
+// freetype.GlyphSlot#format
+Gura_DeclareProperty_R(GlyphSlot, format)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(GlyphSlot, format)
+{
+	return Value::Nil;
+}
+
+// freetype.GlyphSlot#outline
+Gura_DeclareProperty_R(GlyphSlot, outline)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(GlyphSlot, outline)
+{
+	return Value::Nil;
+}
+
+// freetype.GlyphSlot#x
+Gura_DeclareProperty_RW(GlyphSlot, x)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(GlyphSlot, x)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(GlyphSlot, x)
+{
+	return Value::Nil;
+}
+
+// freetype.GlyphSlot#y
+Gura_DeclareProperty_RW(GlyphSlot, y)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(GlyphSlot, y)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(GlyphSlot, y)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for freetype.GlyphSlot
 //-----------------------------------------------------------------------------
 // freetype.GlyphSlot#Get_Glyph()
@@ -124,6 +257,17 @@ Gura_ImplementMethod(GlyphSlot, Render)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(GlyphSlot)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(GlyphSlot, advance);
+	Gura_AssignProperty(GlyphSlot, bitmap);
+	Gura_AssignProperty(GlyphSlot, bitmap_left);
+	Gura_AssignProperty(GlyphSlot, bitmap_top);
+	Gura_AssignProperty(GlyphSlot, format);
+	Gura_AssignProperty(GlyphSlot, outline);
+	Gura_AssignProperty(GlyphSlot, x);
+	Gura_AssignProperty(GlyphSlot, y);
+#endif
 	Gura_AssignValue(GlyphSlot, Value(Reference()));
 	Gura_AssignMethod(GlyphSlot, Get_Glyph);
 	Gura_AssignMethod(GlyphSlot, Render);

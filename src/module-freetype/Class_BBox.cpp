@@ -13,7 +13,7 @@ Object *Object_BBox::Clone() const
 String Object_BBox::ToString(bool exprFlag)
 {
 	char buff[80];
-	::sprintf(buff, "<freetype.BBox:xMin=%d,yMin=%d,xMax=%d,yMax=%d>",
+	::sprintf(buff, "<freetype.BBox:xMin=%ld,yMin=%ld,xMax=%ld,yMax=%ld>",
 						_bbox.xMin, _bbox.yMin, _bbox.xMax, _bbox.yMax);
 	return String(buff);
 }
@@ -34,13 +34,9 @@ Value Object_BBox::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(xMin))) {
-		return Value(_bbox.xMin);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yMin))) {
-		return Value(_bbox.yMin);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(xMax))) {
-		return Value(_bbox.xMax);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yMax))) {
-		return Value(_bbox.yMax);
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -53,23 +49,110 @@ Value Object_BBox::DoSetProp(Environment &env, const Symbol *pSymbol, const Valu
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(xMin))) {
 		if (!value.MustBe_number(sig)) return Value::Nil;
-		_bbox.xMin = static_cast<FT_Pos>(value.GetLong());
-		return Value(_bbox.xMin);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yMin))) {
 		if (!value.MustBe_number(sig)) return Value::Nil;
-		_bbox.yMin = static_cast<FT_Pos>(value.GetLong());
-		return Value(_bbox.yMin);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(xMax))) {
 		if (!value.MustBe_number(sig)) return Value::Nil;
-		_bbox.xMax = static_cast<FT_Pos>(value.GetLong());
-		return Value(_bbox.xMax);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yMax))) {
 		if (!value.MustBe_number(sig)) return Value::Nil;
-		_bbox.yMax = static_cast<FT_Pos>(value.GetLong());
-		return Value(_bbox.yMax);
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// freetype.BBox#xMax
+Gura_DeclareProperty_RW(BBox, xMax)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(BBox, xMax)
+{
+	const FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
+	return Value(bbox.xMax);
+}
+
+Gura_ImplementPropertySetter(BBox, xMax)
+{
+	FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
+	bbox.xMax = static_cast<FT_Pos>(value.GetLong());
+	return Value(bbox.xMax);
+}
+
+// freetype.BBox#xMin
+Gura_DeclareProperty_RW(BBox, xMin)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(BBox, xMin)
+{
+	const FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
+	return Value(bbox.xMin);
+}
+
+Gura_ImplementPropertySetter(BBox, xMin)
+{
+	FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
+	bbox.xMin = static_cast<FT_Pos>(value.GetLong());
+	return Value(bbox.xMin);
+}
+
+// freetype.BBox#yMax
+Gura_DeclareProperty_RW(BBox, yMax)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(BBox, yMax)
+{
+	const FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
+	return Value(bbox.yMax);
+}
+
+Gura_ImplementPropertySetter(BBox, yMax)
+{
+	FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
+	bbox.yMax = static_cast<FT_Pos>(value.GetLong());
+	return Value(bbox.yMax);
+}
+
+// freetype.BBox#yMin
+Gura_DeclareProperty_RW(BBox, yMin)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(BBox, yMin)
+{
+	const FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
+	return Value(bbox.yMin);
+}
+
+Gura_ImplementPropertySetter(BBox, yMin)
+{
+	FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
+	bbox.yMin = static_cast<FT_Pos>(value.GetLong());
+	return Value(bbox.yMin);
 }
 
 //-----------------------------------------------------------------------------
@@ -77,6 +160,12 @@ Value Object_BBox::DoSetProp(Environment &env, const Symbol *pSymbol, const Valu
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(BBox)
 {
+	// Assignment of properties
+	Gura_AssignProperty(BBox, xMax);
+	Gura_AssignProperty(BBox, xMin);
+	Gura_AssignProperty(BBox, yMax);
+	Gura_AssignProperty(BBox, yMin);
+	// Assignment of value
 	Gura_AssignValue(BBox, Value(Reference()));
 }
 

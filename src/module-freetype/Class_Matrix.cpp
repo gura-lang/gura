@@ -94,6 +94,89 @@ bool Object_Matrix::ConvertFrom(Signal &sig, const Gura::Matrix *pMat)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// freetype.Matrix#xx
+Gura_DeclareProperty_RW(Matrix, xx)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Matrix, xx)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Matrix, xx)
+{
+	return Value::Nil;
+}
+
+// freetype.Matrix#xy
+Gura_DeclareProperty_RW(Matrix, xy)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Matrix, xy)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Matrix, xy)
+{
+	return Value::Nil;
+}
+
+// freetype.Matrix#yx
+Gura_DeclareProperty_RW(Matrix, yx)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Matrix, yx)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Matrix, yx)
+{
+	return Value::Nil;
+}
+
+// freetype.Matrix#yy
+Gura_DeclareProperty_RW(Matrix, yy)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Matrix, yy)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Matrix, yy)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for freetype.Matrix
 //-----------------------------------------------------------------------------
 // freetype.Matrix(matrix:matrix):map {block?}
@@ -152,6 +235,13 @@ Gura_ImplementMethod(Matrix, Invert)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(Matrix)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(Matrix, xx);
+	Gura_AssignProperty(Matrix, xy);
+	Gura_AssignProperty(Matrix, yx);
+	Gura_AssignProperty(Matrix, yy);
+#endif
 	Gura_AssignFunction(Matrix);
 	Gura_AssignMethod(Matrix, Multiply);
 	Gura_AssignMethod(Matrix, Invert);

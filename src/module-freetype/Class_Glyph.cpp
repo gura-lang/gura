@@ -72,6 +72,49 @@ Value Object_Glyph::DoSetProp(Environment &env, const Symbol *pSymbol, const Val
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// freetype.Glyph#x
+Gura_DeclareProperty_RW(Glyph, x)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Glyph, x)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Glyph, x)
+{
+	return Value::Nil;
+}
+
+// freetype.Glyph#y
+Gura_DeclareProperty_RW(Glyph, y)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Glyph, y)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Glyph, y)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Class implementation for freetype.Glyph
 //-----------------------------------------------------------------------------
 // freetype.Glyph#Copy()
@@ -137,6 +180,11 @@ Gura_ImplementMethod(Glyph, StrokeBorder)
 
 Gura_ImplementUserClass(Glyph)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(Glyph, x);
+	Gura_AssignProperty(Glyph, y);
+#endif
 	Gura_AssignValue(Glyph, Value(Reference()));
 	Gura_AssignMethod(Glyph, Copy);
 	Gura_AssignMethod(Glyph, Stroke);

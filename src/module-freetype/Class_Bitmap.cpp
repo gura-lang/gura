@@ -72,6 +72,49 @@ Value Object_Bitmap::DoSetProp(Environment &env, const Symbol *pSymbol, const Va
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// freetype.Bitmap#x
+Gura_DeclareProperty_RW(Bitmap, x)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Bitmap, x)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Bitmap, x)
+{
+	return Value::Nil;
+}
+
+// freetype.Bitmap#y
+Gura_DeclareProperty_RW(Bitmap, y)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Bitmap, y)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(Bitmap, y)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Class implementation for freetype.Bitmap
 //-----------------------------------------------------------------------------
 // freetype.Bitmap() {block?}
@@ -113,6 +156,11 @@ Gura_ImplementMethod(Bitmap, Embolden)
 
 Gura_ImplementUserClass(Bitmap)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(Bitmap, x);
+	Gura_AssignProperty(Bitmap, y);
+#endif
 	Gura_AssignValue(Bitmap, Value(Reference()));
 	Gura_AssignMethod(Bitmap, Embolden);
 }

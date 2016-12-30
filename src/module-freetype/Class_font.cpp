@@ -392,6 +392,204 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// freetype.font#alpha
+Gura_DeclareProperty_RW(font, alpha)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font, alpha)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(font, alpha)
+{
+	return Value::Nil;
+}
+
+// freetype.font#blend
+Gura_DeclareProperty_RW(font, blend)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font, blend)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(font, blend)
+{
+	return Value::Nil;
+}
+
+// freetype.font#color
+Gura_DeclareProperty_RW(font, color)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font, color)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(font, color)
+{
+	return Value::Nil;
+}
+
+// freetype.font#face
+Gura_DeclareProperty_R(font, face)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font, face)
+{
+	return Value::Nil;
+}
+
+// freetype.font#height
+Gura_DeclareProperty_RW(font, height)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font, height)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(font, height)
+{
+	return Value::Nil;
+}
+
+// freetype.font#mode
+Gura_DeclareProperty_RW(font, mode)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font, mode)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(font, mode)
+{
+	return Value::Nil;
+}
+
+// freetype.font#rotate
+Gura_DeclareProperty_RW(font, rotate)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font, rotate)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(font, rotate)
+{
+	return Value::Nil;
+}
+
+// freetype.font#slant
+Gura_DeclareProperty_RW(font, slant)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font, slant)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(font, slant)
+{
+	return Value::Nil;
+}
+
+// freetype.font#strength
+Gura_DeclareProperty_RW(font, strength)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font, strength)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(font, strength)
+{
+	return Value::Nil;
+}
+
+// freetype.font#width
+Gura_DeclareProperty_RW(font, width)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(font, width)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementPropertySetter(font, width)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for freetype.font
 //-----------------------------------------------------------------------------
 // freetype.font(face:freetype.Face):map {block?}
@@ -499,6 +697,19 @@ Gura_ImplementMethod(font, calcbbox)
 // implementation of class font
 Gura_ImplementUserClass(font)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(font, alpha);
+	Gura_AssignProperty(font, blend);
+	Gura_AssignProperty(font, color);
+	Gura_AssignProperty(font, face);
+	Gura_AssignProperty(font, height);
+	Gura_AssignProperty(font, mode);
+	Gura_AssignProperty(font, rotate);
+	Gura_AssignProperty(font, slant);
+	Gura_AssignProperty(font, strength);
+	Gura_AssignProperty(font, width);
+#endif
 	Gura_AssignFunction(font);
 	Gura_AssignMethod(font, cleardeco);
 	Gura_AssignMethod(font, drawtext);

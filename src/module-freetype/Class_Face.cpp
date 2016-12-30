@@ -63,81 +63,29 @@ Value Object_Face::DoGetProp(Environment &env, const Symbol *pSymbol,
 	double y_ppem = _face->size->metrics.y_ppem;// pixels/EM
 	double units_per_EM = _face->units_per_EM;	// fontUnits/EM (typically 2048 or 1000)
 	if (pSymbol->IsIdentical(Gura_UserSymbol(num_faces))) {
-		return Value(_face->num_faces);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_index))) {
-		return Value(_face->face_index);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flags))) {
-		return Value(_face->face_flags);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(style_flags))) {
-		return Value(_face->style_flags);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_glyphs))) {
-		return Value(_face->num_glyphs);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(family_name))) {
-		if (_face->family_name == nullptr) return Value::Nil;
-		return Value(_face->family_name);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(style_name))) {
-		if (_face->style_name == nullptr) return Value::Nil;
-		return Value(_face->style_name);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_fixed_sizes))) {
-		return Value(_face->num_fixed_sizes);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(available_sizes))) {
-		//_face->num_fixed_sizes
-		//_face->available_sizes
-		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_charmaps))) {
-		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(charmaps))) {
-		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(generic))) {
-		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(bbox))) {
-		return Value::CreateList(env,
-				Value(_face->bbox.xMin), Value(_face->bbox.yMin),
-				Value(_face->bbox.xMax), Value(_face->bbox.yMax)); // font_units
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(units_per_EM))) {
-		return Value(_face->units_per_EM);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ascender))) {
-		if (attrs.IsSet(Gura_UserSymbol(pixel))) {
-			return Value(_face->ascender * y_ppem / units_per_EM);
-		}
-		return Value(_face->ascender); // font_units
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(descender))) {
-		if (attrs.IsSet(Gura_UserSymbol(pixel))) {
-			return Value(_face->descender * y_ppem / units_per_EM);
-		}
-		return Value(_face->descender); // font_units
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
-		if (attrs.IsSet(Gura_UserSymbol(pixel))) {
-			return Value(_face->height * y_ppem / units_per_EM);
-		}
-		return Value(_face->height); // font_units
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(max_advance_width))) {
-		if (attrs.IsSet(Gura_UserSymbol(pixel))) {
-			return Value(_face->max_advance_width * y_ppem / units_per_EM);
-		}
-		return Value(_face->max_advance_width); // font_units
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(max_advance_height))) {
-		if (attrs.IsSet(Gura_UserSymbol(pixel))) {
-			return Value(_face->max_advance_height * y_ppem / units_per_EM);
-		}
-		return Value(_face->max_advance_height); // font_units
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(underline_position))) {
-		if (attrs.IsSet(Gura_UserSymbol(pixel))) {
-			return Value(_face->underline_position * y_ppem / units_per_EM);
-		}
-		return Value(_face->underline_position); // font_units
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(underline_thickness))) {
-		if (attrs.IsSet(Gura_UserSymbol(pixel))) {
-			return Value(_face->underline_thickness * y_ppem / units_per_EM);
-		}
-		return Value(_face->underline_thickness); // font_units
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(glyph))) {
-		AutoPtr<Object_GlyphSlot> pObj(new Object_GlyphSlot(Object::Reference(this), _face->glyph));
-		return Value(pObj.release());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
-		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(charmap))) {
-		return Value::Nil;
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -172,6 +120,431 @@ bool Object_Face::Initialize(Environment &env, Signal &sig, Stream *pStream, int
 	}
 	_pHandler.reset(new Handler(sig, pStreamRef.release()));
 	return _pHandler->OpenFace(sig, index, &_face);
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// freetype.Face#ascender
+Gura_DeclareProperty_R(Face, ascender)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, ascender)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	double y_ppem = face->size->metrics.y_ppem;	// pixels/EM
+	double units_per_EM = face->units_per_EM;	// fontUnits/EM (typically 2048 or 1000)
+	if (attrs.IsSet(Gura_UserSymbol(pixel))) {
+		return Value(face->ascender * y_ppem / units_per_EM);
+	}
+	return Value(face->ascender); // font_units
+}
+
+// freetype.Face#available_sizes
+Gura_DeclareProperty_R(Face, available_sizes)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, available_sizes)
+{
+	//face->num_fixed_sizes
+	//face->available_sizes
+	return Value::Nil;
+}
+
+// freetype.Face#bbox
+Gura_DeclareProperty_R(Face, bbox)
+{
+	SetPropAttr(VTYPE_list);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, bbox)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	return Value::CreateList(
+		env,
+		Value(face->bbox.xMin), Value(face->bbox.yMin),
+		Value(face->bbox.xMax), Value(face->bbox.yMax)); // font_units
+}
+
+// freetype.Face#charmap
+Gura_DeclareProperty_R(Face, charmap)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, charmap)
+{
+	return Value::Nil;
+}
+
+// freetype.Face#charmaps
+Gura_DeclareProperty_R(Face, charmaps)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, charmaps)
+{
+	return Value::Nil;
+}
+
+// freetype.Face#descender
+Gura_DeclareProperty_R(Face, descender)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, descender)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	double y_ppem = face->size->metrics.y_ppem;	// pixels/EM
+	double units_per_EM = face->units_per_EM;	// fontUnits/EM (typically 2048 or 1000)
+	if (attrs.IsSet(Gura_UserSymbol(pixel))) {
+		return Value(face->descender * y_ppem / units_per_EM);
+	}
+	return Value(face->descender); // font_units
+}
+
+// freetype.Face#face_flags
+Gura_DeclareProperty_R(Face, face_flags)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, face_flags)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	return Value(face->face_flags);
+}
+
+// freetype.Face#face_index
+Gura_DeclareProperty_R(Face, face_index)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, face_index)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	return Value(face->face_index);
+}
+
+// freetype.Face#family_name
+Gura_DeclareProperty_R(Face, family_name)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, family_name)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	if (face->family_name == nullptr) return Value::Nil;
+	return Value(face->family_name);
+}
+
+// freetype.Face#generic
+Gura_DeclareProperty_R(Face, generic)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, generic)
+{
+	return Value::Nil;
+}
+
+// freetype.Face#glyph
+Gura_DeclareProperty_R(Face, glyph)
+{
+	SetPropAttr(VTYPE_GlyphSlot);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, glyph)
+{
+	Object_Face *pObjThis = Object_Face::GetObject(valueThis);
+	const FT_Face &face = pObjThis->GetEntity();
+	AutoPtr<Object_GlyphSlot> pObj(new Object_GlyphSlot(Object::Reference(pObjThis), face->glyph));
+	return Value(pObj.release());
+}
+
+// freetype.Face#height
+Gura_DeclareProperty_R(Face, height)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, height)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	double y_ppem = face->size->metrics.y_ppem;	// pixels/EM
+	double units_per_EM = face->units_per_EM;	// fontUnits/EM (typically 2048 or 1000)
+	if (attrs.IsSet(Gura_UserSymbol(pixel))) {
+		return Value(face->height * y_ppem / units_per_EM);
+	}
+	return Value(face->height); // font_units
+}
+
+// freetype.Face#max_advance_height
+Gura_DeclareProperty_R(Face, max_advance_height)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, max_advance_height)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	double y_ppem = face->size->metrics.y_ppem;	// pixels/EM
+	double units_per_EM = face->units_per_EM;	// fontUnits/EM (typically 2048 or 1000)
+	if (attrs.IsSet(Gura_UserSymbol(pixel))) {
+		return Value(face->max_advance_height * y_ppem / units_per_EM);
+	}
+	return Value(face->max_advance_height); // font_units
+}
+
+// freetype.Face#max_advance_width
+Gura_DeclareProperty_R(Face, max_advance_width)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, max_advance_width)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	double y_ppem = face->size->metrics.y_ppem;	// pixels/EM
+	double units_per_EM = face->units_per_EM;	// fontUnits/EM (typically 2048 or 1000)
+	if (attrs.IsSet(Gura_UserSymbol(pixel))) {
+		return Value(face->max_advance_width * y_ppem / units_per_EM);
+	}
+	return Value(face->max_advance_width); // font_units
+}
+
+// freetype.Face#num_charmaps
+Gura_DeclareProperty_R(Face, num_charmaps)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, num_charmaps)
+{
+	return Value::Nil;
+}
+
+// freetype.Face#num_faces
+Gura_DeclareProperty_R(Face, num_faces)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, num_faces)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	return Value(face->num_faces);
+}
+
+// freetype.Face#num_fixed_sizes
+Gura_DeclareProperty_R(Face, num_fixed_sizes)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, num_fixed_sizes)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	return Value(face->num_fixed_sizes);
+}
+
+// freetype.Face#num_glyphs
+Gura_DeclareProperty_R(Face, num_glyphs)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, num_glyphs)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	return Value(face->num_glyphs);
+}
+
+// freetype.Face#size
+Gura_DeclareProperty_R(Face, size)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, size)
+{
+	return Value::Nil;
+}
+
+// freetype.Face#style_flags
+Gura_DeclareProperty_R(Face, style_flags)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, style_flags)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	return Value(face->style_flags);
+}
+
+// freetype.Face#style_name
+Gura_DeclareProperty_R(Face, style_name)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, style_name)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	if (face->style_name == nullptr) return Value::Nil;
+	return Value(face->style_name);
+}
+
+// freetype.Face#underline_position
+Gura_DeclareProperty_R(Face, underline_position)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, underline_position)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	double y_ppem = face->size->metrics.y_ppem;	// pixels/EM
+	double units_per_EM = face->units_per_EM;	// fontUnits/EM (typically 2048 or 1000)
+	if (attrs.IsSet(Gura_UserSymbol(pixel))) {
+		return Value(face->underline_position * y_ppem / units_per_EM);
+	}
+	return Value(face->underline_position); // font_units
+}
+
+// freetype.Face#underline_thickness
+Gura_DeclareProperty_R(Face, underline_thickness)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, underline_thickness)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	double y_ppem = face->size->metrics.y_ppem;	// pixels/EM
+	double units_per_EM = face->units_per_EM;	// fontUnits/EM (typically 2048 or 1000)
+	if (attrs.IsSet(Gura_UserSymbol(pixel))) {
+		return Value(face->underline_thickness * y_ppem / units_per_EM);
+	}
+	return Value(face->underline_thickness); // font_units
+}
+
+// freetype.Face#units_per_EM
+Gura_DeclareProperty_R(Face, units_per_EM)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Face, units_per_EM)
+{
+	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
+	return Value(face->units_per_EM);
 }
 
 //-----------------------------------------------------------------------------
@@ -438,7 +811,34 @@ Gura_ImplementMethod(Face, Set_Pixel_Sizes)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(Face)
 {
+	// Assignment of function
 	Gura_AssignFunction(Face);
+	// Assignment of properties
+	Gura_AssignProperty(Face, ascender);
+	Gura_AssignProperty(Face, available_sizes);
+	Gura_AssignProperty(Face, bbox);
+	Gura_AssignProperty(Face, charmap);
+	Gura_AssignProperty(Face, charmaps);
+	Gura_AssignProperty(Face, descender);
+	Gura_AssignProperty(Face, face_flags);
+	Gura_AssignProperty(Face, face_index);
+	Gura_AssignProperty(Face, family_name);
+	Gura_AssignProperty(Face, generic);
+	Gura_AssignProperty(Face, glyph);
+	Gura_AssignProperty(Face, height);
+	Gura_AssignProperty(Face, max_advance_height);
+	Gura_AssignProperty(Face, max_advance_width);
+	Gura_AssignProperty(Face, num_charmaps);
+	Gura_AssignProperty(Face, num_faces);
+	Gura_AssignProperty(Face, num_fixed_sizes);
+	Gura_AssignProperty(Face, num_glyphs);
+	Gura_AssignProperty(Face, size);
+	Gura_AssignProperty(Face, style_flags);
+	Gura_AssignProperty(Face, style_name);
+	Gura_AssignProperty(Face, underline_position);
+	Gura_AssignProperty(Face, underline_thickness);
+	Gura_AssignProperty(Face, units_per_EM);
+	// Assignment of methods
 	Gura_AssignMethod(Face, CheckTrueTypePatents);
 	Gura_AssignMethod(Face, Get_Advance);
 	Gura_AssignMethod(Face, Get_Advances);
