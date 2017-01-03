@@ -260,10 +260,10 @@ public:
 Gura_DeclareUserClass(content);
 
 class Object_content : public Object {
-public:
-	Gura_DeclareObjectAccessor(content)
 private:
 	GIF _gif;
+public:
+	Gura_DeclareObjectAccessor(content)
 public:
 	inline Object_content() : Object(Gura_UserClass(content)) {}
 	virtual ~Object_content();
@@ -284,6 +284,8 @@ class Object_Header : public Object {
 private:
 	AutoPtr<Object_content> _pObjContent;
 public:
+	Gura_DeclareObjectAccessor(Header)
+public:
 	inline Object_Header(const Object_Header &obj) :
 				Object(Gura_UserClass(Header)),
 				_pObjContent(Object_content::Reference(obj._pObjContent.get())) {}
@@ -294,6 +296,7 @@ public:
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline Object_content *GetObjContent() { return _pObjContent.get(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -305,6 +308,8 @@ class Object_LogicalScreenDescriptor : public Object {
 private:
 	AutoPtr<Object_content> _pObjContent;
 public:
+	Gura_DeclareObjectAccessor(LogicalScreenDescriptor)
+public:
 	inline Object_LogicalScreenDescriptor(const Object_LogicalScreenDescriptor &obj) :
 				Object(Gura_UserClass(LogicalScreenDescriptor)),
 				_pObjContent(Object_content::Reference(obj._pObjContent.get())) {}
@@ -315,6 +320,7 @@ public:
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline Object_content *GetObjContent() { return _pObjContent.get(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -326,6 +332,8 @@ class Object_CommentExtension : public Object {
 private:
 	AutoPtr<Object_content> _pObjContent;
 public:
+	Gura_DeclareObjectAccessor(CommentExtension)
+public:
 	inline Object_CommentExtension(const Object_CommentExtension &obj) :
 				Object(Gura_UserClass(CommentExtension)),
 				_pObjContent(Object_content::Reference(obj._pObjContent.get())) {}
@@ -336,6 +344,7 @@ public:
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline Object_content *GetObjContent() { return _pObjContent.get(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -347,6 +356,8 @@ class Object_PlainTextExtension : public Object {
 private:
 	AutoPtr<Object_content> _pObjContent;
 public:
+	Gura_DeclareObjectAccessor(PlainTextExtension)
+public:
 	inline Object_PlainTextExtension(const Object_PlainTextExtension &obj) :
 				Object(Gura_UserClass(PlainTextExtension)),
 				_pObjContent(Object_content::Reference(obj._pObjContent.get())) {}
@@ -357,6 +368,7 @@ public:
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline Object_content *GetObjContent() { return _pObjContent.get(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -368,6 +380,8 @@ class Object_ApplicationExtension : public Object {
 private:
 	AutoPtr<Object_content> _pObjContent;
 public:
+	Gura_DeclareObjectAccessor(ApplicationExtension)
+public:
 	inline Object_ApplicationExtension(const Object_ApplicationExtension &obj) :
 				Object(Gura_UserClass(ApplicationExtension)),
 				_pObjContent(Object_content::Reference(obj._pObjContent.get())) {}
@@ -378,6 +392,7 @@ public:
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline Object_content *GetObjContent() { return _pObjContent.get(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -386,10 +401,10 @@ public:
 Gura_DeclareUserClass(GraphicControl);
 
 class Object_GraphicControl : public Object {
-public:
-	Gura_DeclareObjectAccessor(GraphicControl)
 private:
 	GIF::GraphicControlExtension _gctl;
+public:
+	Gura_DeclareObjectAccessor(GraphicControl)
 public:
 	inline Object_GraphicControl(const GIF::GraphicControlExtension &gctl) :
 					Object(Gura_UserClass(GraphicControl)), _gctl(gctl) {}
@@ -408,10 +423,10 @@ public:
 Gura_DeclareUserClass(ImageDescriptor);
 
 class Object_ImageDescriptor : public Object {
-public:
-	Gura_DeclareObjectAccessor(ImageDescriptor)
 private:
 	GIF::ImageDescriptor _desc;
+public:
+	Gura_DeclareObjectAccessor(ImageDescriptor)
 public:
 	inline Object_ImageDescriptor(const GIF::ImageDescriptor &desc) :
 					Object(Gura_UserClass(ImageDescriptor)), _desc(desc) {}
@@ -430,11 +445,11 @@ public:
 Gura_DeclareUserClass(imgprop);
 
 class Object_imgprop : public Object {
-public:
-	Gura_DeclareObjectAccessor(imgprop)
 private:
 	AutoPtr<Object_GraphicControl> _pObjGraphicControl;
 	AutoPtr<Object_ImageDescriptor> _pObjImageDescriptor;
+public:
+	Gura_DeclareObjectAccessor(imgprop)
 public:
 	inline Object_imgprop(Object_GraphicControl *pObjGraphicControl, Object_ImageDescriptor *pObjImageDescriptor) :
 				Object(Gura_UserClass(imgprop)),

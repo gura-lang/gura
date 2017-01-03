@@ -29,9 +29,7 @@ Value Object_Header::DoGetProp(Environment &env, const Symbol *pSymbol,
 	evaluatedFlag = true;
 	GIF::Header &hdr = gif.GetHeader();
 	if (pSymbol->IsIdentical(Gura_UserSymbol(Signature))) {
-		return Value(new Object_binary(env, hdr.Signature, sizeof(hdr.Signature), true));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(Version))) {
-		return Value(new Object_binary(env, hdr.Version, sizeof(hdr.Version), true));
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -42,8 +40,45 @@ String Object_Header::ToString(bool exprFlag)
 	return String("<gif.Header>");
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// gif.Header#Signature
+Gura_DeclareProperty_R(Header, Signature)
+{
+	SetPropAttr(VTYPE_binary);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Header, Signature)
+{
+	const GIF::Header &hdr = Object_Header::GetObject(valueThis)->GetObjContent()->GetGIF().GetHeader();
+	return Value(new Object_binary(env, hdr.Signature, sizeof(hdr.Signature), true));
+}
+
+// gif.Header#Version
+Gura_DeclareProperty_R(Header, Version)
+{
+	SetPropAttr(VTYPE_binary);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Header, Version)
+{
+	const GIF::Header &hdr = Object_Header::GetObject(valueThis)->GetObjContent()->GetGIF().GetHeader();
+	return Value(new Object_binary(env, hdr.Version, sizeof(hdr.Version), true));
+}
+
 Gura_ImplementUserClass(Header)
 {
+	Gura_AssignProperty(Header, Signature);
+	Gura_AssignProperty(Header, Version);
 }
 
 //-----------------------------------------------------------------------------
@@ -77,28 +112,14 @@ Value Object_LogicalScreenDescriptor::DoGetProp(Environment &env, const Symbol *
 	evaluatedFlag = true;
 	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
 	if (pSymbol->IsIdentical(Gura_UserSymbol(LogicalScreenWidth))) {
-		return Value(Gura_UnpackUShort(lsd.LogicalScreenWidth));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(LogicalScreenHeight))) {
-		return Value(Gura_UnpackUShort(lsd.LogicalScreenHeight));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(GlobalColorTableFlag))) {
-		return Value(lsd.GlobalColorTableFlag());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ColorResolution))) {
-		return Value(lsd.ColorResolution());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(SortFlag))) {
-		return Value(lsd.SortFlag());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(SizeOfGlobalColorTable))) {
-		return Value(static_cast<UInt>(lsd.SizeOfGlobalColorTable()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(BackgroundColorIndex))) {
-		return Value(lsd.BackgroundColorIndex);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(BackgroundColor))) {
-		size_t idx = lsd.BackgroundColorIndex;
-		Palette *pPalette = gif.GetGlobalPalette();
-		if (pPalette == nullptr || pPalette->CountEntries() < idx) {
-			return Value::Nil;
-		}
-		return pPalette->GetColorValue(env, idx);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(PixelAspectRatio))) {
-		return Value(lsd.PixelAspectRatio);
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -109,8 +130,176 @@ String Object_LogicalScreenDescriptor::ToString(bool exprFlag)
 	return String("<gif.LogicalScreenDescriptor>");
 }
 
+// gif.LogicalScreenDescriptor#BackgroundColor
+Gura_DeclareProperty_R(LogicalScreenDescriptor, BackgroundColor)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(LogicalScreenDescriptor, BackgroundColor)
+{
+	GIF &gif = Object_LogicalScreenDescriptor::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
+	size_t idx = lsd.BackgroundColorIndex;
+	Palette *pPalette = gif.GetGlobalPalette();
+	if (pPalette == nullptr || pPalette->CountEntries() < idx) {
+		return Value::Nil;
+	}
+	return pPalette->GetColorValue(env, idx);
+}
+
+// gif.LogicalScreenDescriptor#BackgroundColorIndex
+Gura_DeclareProperty_R(LogicalScreenDescriptor, BackgroundColorIndex)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(LogicalScreenDescriptor, BackgroundColorIndex)
+{
+	GIF &gif = Object_LogicalScreenDescriptor::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
+	return Value(lsd.BackgroundColorIndex);
+}
+
+// gif.LogicalScreenDescriptor#ColorResolution
+Gura_DeclareProperty_R(LogicalScreenDescriptor, ColorResolution)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(LogicalScreenDescriptor, ColorResolution)
+{
+	GIF &gif = Object_LogicalScreenDescriptor::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
+	return Value(lsd.ColorResolution());
+}
+
+// gif.LogicalScreenDescriptor#GlobalColorTableFlag
+Gura_DeclareProperty_R(LogicalScreenDescriptor, GlobalColorTableFlag)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(LogicalScreenDescriptor, GlobalColorTableFlag)
+{
+	GIF &gif = Object_LogicalScreenDescriptor::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
+	return Value(lsd.GlobalColorTableFlag());
+}
+
+// gif.LogicalScreenDescriptor#LogicalScreenHeight
+Gura_DeclareProperty_R(LogicalScreenDescriptor, LogicalScreenHeight)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(LogicalScreenDescriptor, LogicalScreenHeight)
+{
+	GIF &gif = Object_LogicalScreenDescriptor::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
+	return Value(Gura_UnpackUShort(lsd.LogicalScreenHeight));
+}
+
+// gif.LogicalScreenDescriptor#LogicalScreenWidth
+Gura_DeclareProperty_R(LogicalScreenDescriptor, LogicalScreenWidth)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(LogicalScreenDescriptor, LogicalScreenWidth)
+{
+	GIF &gif = Object_LogicalScreenDescriptor::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
+	return Value(Gura_UnpackUShort(lsd.LogicalScreenWidth));
+}
+
+// gif.LogicalScreenDescriptor#PixelAspectRatio
+Gura_DeclareProperty_R(LogicalScreenDescriptor, PixelAspectRatio)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(LogicalScreenDescriptor, PixelAspectRatio)
+{
+	GIF &gif = Object_LogicalScreenDescriptor::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
+	return Value(lsd.PixelAspectRatio);
+}
+
+// gif.LogicalScreenDescriptor#SizeOfGlobalColorTable
+Gura_DeclareProperty_R(LogicalScreenDescriptor, SizeOfGlobalColorTable)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(LogicalScreenDescriptor, SizeOfGlobalColorTable)
+{
+	GIF &gif = Object_LogicalScreenDescriptor::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
+	return Value(static_cast<UInt>(lsd.SizeOfGlobalColorTable()));
+}
+
+// gif.LogicalScreenDescriptor#SortFlag
+Gura_DeclareProperty_R(LogicalScreenDescriptor, SortFlag)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(LogicalScreenDescriptor, SortFlag)
+{
+	GIF &gif = Object_LogicalScreenDescriptor::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
+	return Value(lsd.SortFlag());
+}
+
 Gura_ImplementUserClass(LogicalScreenDescriptor)
 {
+	// Assignment of properties
+	Gura_AssignProperty(LogicalScreenDescriptor, BackgroundColor);
+	Gura_AssignProperty(LogicalScreenDescriptor, BackgroundColorIndex);
+	Gura_AssignProperty(LogicalScreenDescriptor, ColorResolution);
+	Gura_AssignProperty(LogicalScreenDescriptor, GlobalColorTableFlag);
+	Gura_AssignProperty(LogicalScreenDescriptor, LogicalScreenHeight);
+	Gura_AssignProperty(LogicalScreenDescriptor, LogicalScreenWidth);
+	Gura_AssignProperty(LogicalScreenDescriptor, PixelAspectRatio);
+	Gura_AssignProperty(LogicalScreenDescriptor, SizeOfGlobalColorTable);
+	Gura_AssignProperty(LogicalScreenDescriptor, SortFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -138,7 +327,6 @@ Value Object_CommentExtension::DoGetProp(Environment &env, const Symbol *pSymbol
 	if (!exts.comment.validFlag) return Value::Nil;
 	GIF::CommentExtension &cmnt = exts.comment;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(CommentData))) {
-		return Value(new Object_binary(env, cmnt.CommentData, true));
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -149,8 +337,31 @@ String Object_CommentExtension::ToString(bool exprFlag)
 	return String("<gif.CommentExtension>");
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// gif.CommentExtension#CommentData
+Gura_DeclareProperty_R(CommentExtension, CommentData)
+{
+	SetPropAttr(VTYPE_binary);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(CommentExtension, CommentData)
+{
+	GIF &gif = Object_CommentExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::Extensions &exts = gif.GetExtensions();
+	if (!exts.comment.validFlag) return Value::Nil;
+	return Value(new Object_binary(env, exts.comment.CommentData, true));
+}
+
 Gura_ImplementUserClass(CommentExtension)
 {
+	// Assignment of properties
+	Gura_AssignProperty(CommentExtension, CommentData);
 }
 
 //-----------------------------------------------------------------------------
@@ -186,23 +397,14 @@ Value Object_PlainTextExtension::DoGetProp(Environment &env, const Symbol *pSymb
 	if (!exts.plainText.validFlag) return Value::Nil;
 	GIF::PlainTextExtension &pltxt = exts.plainText;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(TextGridLeftPosition))) {
-		return Value(Gura_UnpackUShort(pltxt.TextGridLeftPosition));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TextGridTopPosition))) {
-		return Value(Gura_UnpackUShort(pltxt.TextGridTopPosition));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TextGridWidth))) {
-		return Value(Gura_UnpackUShort(pltxt.TextGridWidth));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TextGridHeight))) {
-		return Value(Gura_UnpackUShort(pltxt.TextGridHeight));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CharacterCellWidth))) {
-		return Value(pltxt.CharacterCellWidth);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CharacterCellHeight))) {
-		return Value(pltxt.CharacterCellHeight);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TextForegroundColorIndex))) {
-		return Value(pltxt.TextForegroundColorIndex);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TextBackgroundColorIndex))) {
-		return Value(pltxt.TextBackgroundColorIndex);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(PlainTextData))) {
-		return Value(new Object_binary(env, pltxt.PlainTextData, true));
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -213,8 +415,183 @@ String Object_PlainTextExtension::ToString(bool exprFlag)
 	return String("<gif.PlainTextExtension>");
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// gif.PlainTextExtension#CharacterCellHeight
+Gura_DeclareProperty_R(PlainTextExtension, CharacterCellHeight)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(PlainTextExtension, CharacterCellHeight)
+{
+	GIF &gif = Object_PlainTextExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::PlainTextExtension &pltxt = gif.GetExtensions().plainText;
+	if (!pltxt.validFlag) return Value::Nil;
+	return Value(pltxt.CharacterCellHeight);
+}
+
+// gif.PlainTextExtension#CharacterCellWidth
+Gura_DeclareProperty_R(PlainTextExtension, CharacterCellWidth)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(PlainTextExtension, CharacterCellWidth)
+{
+	GIF &gif = Object_PlainTextExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::PlainTextExtension &pltxt = gif.GetExtensions().plainText;
+	if (!pltxt.validFlag) return Value::Nil;
+	return Value(pltxt.CharacterCellWidth);
+}
+
+// gif.PlainTextExtension#PlainTextData
+Gura_DeclareProperty_R(PlainTextExtension, PlainTextData)
+{
+	SetPropAttr(VTYPE_binary);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(PlainTextExtension, PlainTextData)
+{
+	GIF &gif = Object_PlainTextExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::PlainTextExtension &pltxt = gif.GetExtensions().plainText;
+	if (!pltxt.validFlag) return Value::Nil;
+	return Value(new Object_binary(env, pltxt.PlainTextData, true));
+}
+
+// gif.PlainTextExtension#TextBackgroundColorIndex
+Gura_DeclareProperty_R(PlainTextExtension, TextBackgroundColorIndex)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(PlainTextExtension, TextBackgroundColorIndex)
+{
+	GIF &gif = Object_PlainTextExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::PlainTextExtension &pltxt = gif.GetExtensions().plainText;
+	if (!pltxt.validFlag) return Value::Nil;
+	return Value(pltxt.TextBackgroundColorIndex);
+}
+
+// gif.PlainTextExtension#TextForegroundColorIndex
+Gura_DeclareProperty_R(PlainTextExtension, TextForegroundColorIndex)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(PlainTextExtension, TextForegroundColorIndex)
+{
+	GIF &gif = Object_PlainTextExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::PlainTextExtension &pltxt = gif.GetExtensions().plainText;
+	if (!pltxt.validFlag) return Value::Nil;
+	return Value(pltxt.TextForegroundColorIndex);
+}
+
+// gif.PlainTextExtension#TextGridHeight
+Gura_DeclareProperty_R(PlainTextExtension, TextGridHeight)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(PlainTextExtension, TextGridHeight)
+{
+	GIF &gif = Object_PlainTextExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::PlainTextExtension &pltxt = gif.GetExtensions().plainText;
+	if (!pltxt.validFlag) return Value::Nil;
+	return Value(Gura_UnpackUShort(pltxt.TextGridHeight));
+}
+
+// gif.PlainTextExtension#TextGridLeftPosition
+Gura_DeclareProperty_R(PlainTextExtension, TextGridLeftPosition)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(PlainTextExtension, TextGridLeftPosition)
+{
+	GIF &gif = Object_PlainTextExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::PlainTextExtension &pltxt = gif.GetExtensions().plainText;
+	if (!pltxt.validFlag) return Value::Nil;
+	return Value(Gura_UnpackUShort(pltxt.TextGridLeftPosition));
+}
+
+// gif.PlainTextExtension#TextGridTopPosition
+Gura_DeclareProperty_R(PlainTextExtension, TextGridTopPosition)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(PlainTextExtension, TextGridTopPosition)
+{
+	GIF &gif = Object_PlainTextExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::PlainTextExtension &pltxt = gif.GetExtensions().plainText;
+	if (!pltxt.validFlag) return Value::Nil;
+	return Value(Gura_UnpackUShort(pltxt.TextGridTopPosition));
+}
+
+// gif.PlainTextExtension#TextGridWidth
+Gura_DeclareProperty_R(PlainTextExtension, TextGridWidth)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(PlainTextExtension, TextGridWidth)
+{
+	GIF &gif = Object_PlainTextExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::PlainTextExtension &pltxt = gif.GetExtensions().plainText;
+	if (!pltxt.validFlag) return Value::Nil;
+	return Value(Gura_UnpackUShort(pltxt.TextGridWidth));
+}
+
 Gura_ImplementUserClass(PlainTextExtension)
 {
+	// Assignment of properties
+	Gura_AssignProperty(PlainTextExtension, CharacterCellHeight);
+	Gura_AssignProperty(PlainTextExtension, CharacterCellWidth);
+	Gura_AssignProperty(PlainTextExtension, PlainTextData);
+	Gura_AssignProperty(PlainTextExtension, TextBackgroundColorIndex);
+	Gura_AssignProperty(PlainTextExtension, TextForegroundColorIndex);
+	Gura_AssignProperty(PlainTextExtension, TextGridHeight);
+	Gura_AssignProperty(PlainTextExtension, TextGridLeftPosition);
+	Gura_AssignProperty(PlainTextExtension, TextGridTopPosition);
+	Gura_AssignProperty(PlainTextExtension, TextGridWidth);
 }
 
 //-----------------------------------------------------------------------------
@@ -244,11 +621,8 @@ Value Object_ApplicationExtension::DoGetProp(Environment &env, const Symbol *pSy
 	if (!exts.application.validFlag) return Value::Nil;
 	GIF::ApplicationExtension &app = exts.application;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(ApplicationIdentifier))) {
-		return Value(new Object_binary(env, app.ApplicationIdentifier, sizeof(app.ApplicationIdentifier), true));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(AuthenticationCode))) {
-		return Value(new Object_binary(env, app.AuthenticationCode, sizeof(app.AuthenticationCode), true));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ApplicationData))) {
-		return Value(new Object_binary(env, app.ApplicationData, true));
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -259,8 +633,68 @@ String Object_ApplicationExtension::ToString(bool exprFlag)
 	return String("<gif.ApplicationExtension>");
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// gif.ApplicationExtension#ApplicationData
+Gura_DeclareProperty_R(ApplicationExtension, ApplicationData)
+{
+	SetPropAttr(VTYPE_binary);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ApplicationExtension, ApplicationData)
+{
+	GIF &gif = Object_ApplicationExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::ApplicationExtension &app = gif.GetExtensions().application;
+	if (!app.validFlag) return Value::Nil;
+	return Value(new Object_binary(env, app.ApplicationData, true));
+}
+
+// gif.ApplicationExtension#ApplicationIdentifier
+Gura_DeclareProperty_R(ApplicationExtension, ApplicationIdentifier)
+{
+	SetPropAttr(VTYPE_binary);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ApplicationExtension, ApplicationIdentifier)
+{
+	GIF &gif = Object_ApplicationExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::ApplicationExtension &app = gif.GetExtensions().application;
+	if (!app.validFlag) return Value::Nil;
+	return Value(new Object_binary(env, app.ApplicationIdentifier, sizeof(app.ApplicationIdentifier), true));
+}
+
+// gif.ApplicationExtension#AuthenticationCode
+Gura_DeclareProperty_R(ApplicationExtension, AuthenticationCode)
+{
+	SetPropAttr(VTYPE_binary);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ApplicationExtension, AuthenticationCode)
+{
+	GIF &gif = Object_ApplicationExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
+	GIF::ApplicationExtension &app = gif.GetExtensions().application;
+	if (!app.validFlag) return Value::Nil;
+	return Value(new Object_binary(env, app.AuthenticationCode, sizeof(app.AuthenticationCode), true));
+}
+
 Gura_ImplementUserClass(ApplicationExtension)
 {
+	Gura_AssignProperty(ApplicationExtension, ApplicationData);
+	Gura_AssignProperty(ApplicationExtension, ApplicationIdentifier);
+	Gura_AssignProperty(ApplicationExtension, AuthenticationCode);
 }
 
 //-----------------------------------------------------------------------------
@@ -1100,20 +1534,11 @@ Value Object_content::DoGetProp(Environment &env, const Symbol *pSymbol,
 	GIF::Extensions &exts = _gif.GetExtensions();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(images))) {
-		return Value(new Object_list(env, _gif.GetList()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(Header))) {
-		return Value(new Object_Header(Object_content::Reference(this)));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(LogicalScreenDescriptor))) {
-		return Value(new Object_LogicalScreenDescriptor(Object_content::Reference(this)));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CommentExtension))) {
-		if (!exts.comment.validFlag) return Value::Nil;
-		return Value(new Object_CommentExtension(Object_content::Reference(this)));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(PlainTextExtension))) {
-		if (!exts.plainText.validFlag) return Value::Nil;
-		return Value(new Object_PlainTextExtension(Object_content::Reference(this)));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ApplicationExtension))) {
-		if (!exts.application.validFlag) return Value::Nil;
-		return Value(new Object_ApplicationExtension(Object_content::Reference(this)));
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -1205,9 +1630,123 @@ Gura_ImplementMethod(content, addimage)
 	return arg.GetValueThis();
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// gif.content#ApplicationExtension
+Gura_DeclareProperty_R(content, ApplicationExtension)
+{
+	SetPropAttr(VTYPE_ApplicationExtension);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(content, ApplicationExtension)
+{
+	Object_content *pObjThis = Object_content::GetObject(valueThis);
+	GIF::Extensions &exts = pObjThis->GetGIF().GetExtensions();
+	if (!exts.application.validFlag) return Value::Nil;
+	return Value(new Object_ApplicationExtension(Object_content::Reference(pObjThis)));
+}
+
+// gif.content#CommentExtension
+Gura_DeclareProperty_R(content, CommentExtension)
+{
+	SetPropAttr(VTYPE_CommentExtension);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(content, CommentExtension)
+{
+	Object_content *pObjThis = Object_content::GetObject(valueThis);
+	GIF::Extensions &exts = pObjThis->GetGIF().GetExtensions();
+	if (!exts.comment.validFlag) return Value::Nil;
+	return Value(new Object_CommentExtension(Object_content::Reference(pObjThis)));
+}
+
+// gif.content#Header
+Gura_DeclareProperty_R(content, Header)
+{
+	SetPropAttr(VTYPE_Header);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(content, Header)
+{
+	Object_content *pObjThis = Object_content::GetObject(valueThis);
+	return Value(new Object_Header(Object_content::Reference(pObjThis)));
+}
+
+// gif.content#LogicalScreenDescriptor
+Gura_DeclareProperty_R(content, LogicalScreenDescriptor)
+{
+	SetPropAttr(VTYPE_LogicalScreenDescriptor);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(content, LogicalScreenDescriptor)
+{
+	Object_content *pObjThis = Object_content::GetObject(valueThis);
+	return Value(new Object_LogicalScreenDescriptor(Object_content::Reference(pObjThis)));
+}
+
+// gif.content#PlainTextExtension
+Gura_DeclareProperty_R(content, PlainTextExtension)
+{
+	SetPropAttr(VTYPE_PlainTextExtension);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(content, PlainTextExtension)
+{
+	Object_content *pObjThis = Object_content::GetObject(valueThis);
+	GIF::Extensions &exts = pObjThis->GetGIF().GetExtensions();
+	if (!exts.plainText.validFlag) return Value::Nil;
+	return Value(new Object_PlainTextExtension(Object_content::Reference(pObjThis)));
+}
+
+// gif.content#images
+Gura_DeclareProperty_R(content, images)
+{
+	SetPropAttr(VTYPE_list);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(content, images)
+{
+	Object_content *pObjThis = Object_content::GetObject(valueThis);
+	GIF &gif = pObjThis->GetGIF();
+	return Value(new Object_list(env, gif.GetList()));
+}
+
 // implementation of class GIF
 Gura_ImplementUserClass(content)
 {
+	// Assignment of properties
+	Gura_AssignProperty(content, ApplicationExtension);
+	Gura_AssignProperty(content, CommentExtension);
+	Gura_AssignProperty(content, Header);
+	Gura_AssignProperty(content, LogicalScreenDescriptor);
+	Gura_AssignProperty(content, PlainTextExtension);
+	Gura_AssignProperty(content, images);
+	// Assignment of methods
 	Gura_AssignMethod(content, addimage);
 	Gura_AssignMethod(content, write);
 }
@@ -1241,15 +1780,10 @@ Value Object_GraphicControl::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(DisposalMethod))) {
-		return Value(GIF::DisposalMethodToSymbol(_gctl.DisposalMethod()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(UserInputFlag))) {
-		return Value(_gctl.UserInputFlag()? true : false);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TransparentColorFlag))) {
-		return Value(_gctl.TransparentColorFlag()? true : false);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(DelayTime))) {
-		return Value(Gura_UnpackUShort(_gctl.DelayTime));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TransparentColorIndex))) {
-		return Value(_gctl.TransparentColorIndex);
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -1261,11 +1795,105 @@ String Object_GraphicControl::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// gif.GraphicControl#DelayTime
+Gura_DeclareProperty_R(GraphicControl, DelayTime)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(GraphicControl, DelayTime)
+{
+	const GIF::GraphicControlExtension &gctl =
+		*Object_GraphicControl::GetObject(valueThis)->GetGraphicControl();
+	return Value(Gura_UnpackUShort(gctl.DelayTime));
+}
+
+// gif.GraphicControl#DisposalMethod
+Gura_DeclareProperty_R(GraphicControl, DisposalMethod)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(GraphicControl, DisposalMethod)
+{
+	const GIF::GraphicControlExtension &gctl =
+		*Object_GraphicControl::GetObject(valueThis)->GetGraphicControl();
+	return Value(GIF::DisposalMethodToSymbol(gctl.DisposalMethod()));
+}
+
+// gif.GraphicControl#TransparentColorFlag
+Gura_DeclareProperty_R(GraphicControl, TransparentColorFlag)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(GraphicControl, TransparentColorFlag)
+{
+	const GIF::GraphicControlExtension &gctl =
+		*Object_GraphicControl::GetObject(valueThis)->GetGraphicControl();
+	return Value(gctl.TransparentColorFlag()? true : false);
+}
+
+// gif.GraphicControl#TransparentColorIndex
+Gura_DeclareProperty_R(GraphicControl, TransparentColorIndex)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(GraphicControl, TransparentColorIndex)
+{
+	const GIF::GraphicControlExtension &gctl =
+		*Object_GraphicControl::GetObject(valueThis)->GetGraphicControl();
+	return Value(gctl.TransparentColorIndex);
+}
+
+// gif.GraphicControl#UserInputFlag
+Gura_DeclareProperty_R(GraphicControl, UserInputFlag)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(GraphicControl, UserInputFlag)
+{
+	const GIF::GraphicControlExtension &gctl =
+		*Object_GraphicControl::GetObject(valueThis)->GetGraphicControl();
+	return Value(gctl.UserInputFlag()? true : false);
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Object_GraphicControl
 //-----------------------------------------------------------------------------
 // implementation of class GraphicControl
 Gura_ImplementUserClass(GraphicControl)
 {
+	// Assignment of properties
+	Gura_AssignProperty(GraphicControl, DelayTime);
+	Gura_AssignProperty(GraphicControl, DisposalMethod);
+	Gura_AssignProperty(GraphicControl, TransparentColorFlag);
+	Gura_AssignProperty(GraphicControl, TransparentColorIndex);
+	Gura_AssignProperty(GraphicControl, UserInputFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -1326,11 +1954,145 @@ String Object_ImageDescriptor::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// gif.ImageDescriptor#ImageHeight
+Gura_DeclareProperty_R(ImageDescriptor, ImageHeight)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ImageDescriptor, ImageHeight)
+{
+	return Value::Nil;
+}
+
+// gif.ImageDescriptor#ImageLeftPosition
+Gura_DeclareProperty_R(ImageDescriptor, ImageLeftPosition)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ImageDescriptor, ImageLeftPosition)
+{
+	return Value::Nil;
+}
+
+// gif.ImageDescriptor#ImageTopPosition
+Gura_DeclareProperty_R(ImageDescriptor, ImageTopPosition)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ImageDescriptor, ImageTopPosition)
+{
+	return Value::Nil;
+}
+
+// gif.ImageDescriptor#ImageWidth
+Gura_DeclareProperty_R(ImageDescriptor, ImageWidth)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ImageDescriptor, ImageWidth)
+{
+	return Value::Nil;
+}
+
+// gif.ImageDescriptor#InterlaceFlag
+Gura_DeclareProperty_R(ImageDescriptor, InterlaceFlag)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ImageDescriptor, InterlaceFlag)
+{
+	return Value::Nil;
+}
+
+// gif.ImageDescriptor#LocalColorTableFlag
+Gura_DeclareProperty_R(ImageDescriptor, LocalColorTableFlag)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ImageDescriptor, LocalColorTableFlag)
+{
+	return Value::Nil;
+}
+
+// gif.ImageDescriptor#SizeOfLocalColorTable
+Gura_DeclareProperty_R(ImageDescriptor, SizeOfLocalColorTable)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ImageDescriptor, SizeOfLocalColorTable)
+{
+	return Value::Nil;
+}
+
+// gif.ImageDescriptor#SortFlag
+Gura_DeclareProperty_R(ImageDescriptor, SortFlag)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ImageDescriptor, SortFlag)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Object_ImageDescriptor
 //-----------------------------------------------------------------------------
 // implementation of class ImageDescriptor
 Gura_ImplementUserClass(ImageDescriptor)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(ImageDescriptor, ImageHeight);
+	Gura_AssignProperty(ImageDescriptor, ImageLeftPosition);
+	Gura_AssignProperty(ImageDescriptor, ImageTopPosition);
+	Gura_AssignProperty(ImageDescriptor, ImageWidth);
+	Gura_AssignProperty(ImageDescriptor, InterlaceFlag);
+	Gura_AssignProperty(ImageDescriptor, LocalColorTableFlag);
+	Gura_AssignProperty(ImageDescriptor, SizeOfLocalColorTable);
+	Gura_AssignProperty(ImageDescriptor, SortFlag);
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1373,11 +2135,49 @@ String Object_imgprop::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// gif.imgprop#GraphicControl
+Gura_DeclareProperty_R(imgprop, GraphicControl)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(imgprop, GraphicControl)
+{
+	return Value::Nil;
+}
+
+// gif.imgprop#ImageDescriptor
+Gura_DeclareProperty_R(imgprop, ImageDescriptor)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(imgprop, ImageDescriptor)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Object_imgprop
 //-----------------------------------------------------------------------------
 // implementation of class imgprop
 Gura_ImplementUserClass(imgprop)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(imgprop, GraphicControl);
+	Gura_AssignProperty(imgprop, ImageDescriptor);
+#endif
 }
 
 //-----------------------------------------------------------------------------
