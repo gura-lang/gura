@@ -78,7 +78,7 @@ gluBuild1DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GL
 }
 */
 
-gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, format:GLenum, type:GLenum, data:any):GLint = R'''
+gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, format:GLenum, type:GLenum, data:array):GLint = R'''
 	const void *p = GetArrayTPointer(env, type, data);
 	if (p == nullptr) return Value::Nil;
 	GLint _rtn = gluBuild1DMipmaps(target,
@@ -120,7 +120,7 @@ gluBuild2DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GL
 }
 */
 
-gluBuild2DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, data:any):GLint = R'''
+gluBuild2DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, data:array):GLint = R'''
 	const void *p = GetArrayTPointer(env, type, data);
 	if (p == nullptr) return Value::Nil;
 	GLint _rtn = gluBuild2DMipmaps(target,

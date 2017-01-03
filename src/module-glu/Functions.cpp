@@ -114,7 +114,7 @@ Gura_DeclareFunctionAlias(__gluBuild1DMipmaps, "gluBuild1DMipmaps")
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "data", VTYPE_any, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "data", VTYPE_array, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -127,7 +127,7 @@ Gura_ImplementFunction(__gluBuild1DMipmaps)
 	GLsizei width = arg.GetInt(2);
 	GLenum format = static_cast<GLenum>(arg.GetInt(3));
 	GLenum type = static_cast<GLenum>(arg.GetInt(4));
-	Value data = arg.GetValue(5);
+	Array *data = Object_array::GetObject(arg, 5)->GetArray();
 	const void *p = GetArrayTPointer(env, type, data);
 	if (p == nullptr) return Value::Nil;
 	GLint _rtn = gluBuild1DMipmaps(target,
@@ -172,7 +172,7 @@ Gura_DeclareFunctionAlias(__gluBuild2DMipmaps, "gluBuild2DMipmaps")
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "data", VTYPE_any, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "data", VTYPE_array, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -186,7 +186,7 @@ Gura_ImplementFunction(__gluBuild2DMipmaps)
 	GLsizei height = arg.GetInt(3);
 	GLenum format = static_cast<GLenum>(arg.GetInt(4));
 	GLenum type = static_cast<GLenum>(arg.GetInt(5));
-	Value data = arg.GetValue(6);
+	Array *data = Object_array::GetObject(arg, 6)->GetArray();
 	const void *p = GetArrayTPointer(env, type, data);
 	if (p == nullptr) return Value::Nil;
 	GLint _rtn = gluBuild2DMipmaps(target,

@@ -518,6 +518,7 @@ dict
   dict#erase(key):map
   dict#get(key, default?):map:[raise]
   dict#haskey(key):map
+  dict#isempty() {block?}
   dict#items() {block?}
   dict#keys() {block?}
   dict#len()
