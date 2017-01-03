@@ -461,6 +461,12 @@ public:
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline Object_GraphicControl *GetObjGraphicControl() {
+		return _pObjGraphicControl.get();
+	}
+	inline Object_ImageDescriptor *GetObjImageDescriptor() {
+		return _pObjImageDescriptor.get();
+	}
 	inline GIF::GraphicControlExtension *GetGraphicControl() {
 		return _pObjGraphicControl->GetGraphicControl();
 	}

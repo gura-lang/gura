@@ -463,7 +463,8 @@ public:
 	void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) const;
 	void DirValueType(SymbolSet &symbols, bool escalateFlag) const;
-	Value GetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs) const;
+	Value GetProp(Environment &env, const Symbol *pSymbol,
+				  const SymbolSet &attrs, const Value *pValueDefault) const;
 	Value SetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs,
 				  const SymbolList &attrFront, Value &valueAssigned, bool escalateFlag);
 	Callable *GetCallable(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs) const;

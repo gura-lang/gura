@@ -664,7 +664,7 @@ bool Iterator_MemberMap::DoNext(Environment &env, Value &value)
 {
 	Value valueThisEach;
 	if (!_pIterator->Next(env, valueThisEach)) return false;
-	value = valueThisEach.GetProp(env, GetSymbol(), GetAttrs());
+	value = valueThisEach.GetProp(env, GetSymbol(), GetAttrs(), nullptr);
 	if (env.IsSignalled()) return false;
 	if (value.Is_function()) {
 		Object_function *pObj = new Object_function(

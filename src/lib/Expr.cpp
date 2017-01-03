@@ -1224,7 +1224,7 @@ Value Expr_Member::DoExec(Environment &env) const
 	if (sig.IsSignalled()) return Value::Nil;
 	Value result;
 	if (_mode == MODE_Normal) {
-		result = valueThis.GetProp(env, GetSelector()->GetSymbol(), GetSelector()->GetAttrs());
+		result = valueThis.GetProp(env, GetSelector()->GetSymbol(), GetSelector()->GetAttrs(), nullptr);
 		if (result.Is_function()) {
 			result = Value(new Object_function(env, result.GetFunction()->Reference(), valueThis));
 		}

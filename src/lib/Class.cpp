@@ -403,6 +403,7 @@ Gura_DeclareClassMethodAlias(Object, getprop_X, "getprop!")
 
 Gura_ImplementClassMethod(Object, getprop_X)
 {
+#if 0
 	Fundamental *pThis = arg.GetFundamentalThis();
 	const SymbolSet &attrs = SymbolSet::Empty;
 	if (arg.IsDefined(1)) {
@@ -411,6 +412,9 @@ Gura_ImplementClassMethod(Object, getprop_X)
 	} else {
 		return pThis->GetProp(arg.GetSymbol(0), attrs);
 	}
+#endif
+	const Value *pValueDefault = arg.IsDefined(1)? &arg.GetValue(1) : nullptr;
+	return arg.GetValueThis().GetProp(env, arg.GetSymbol(0), SymbolSet::Empty, pValueDefault);
 }
 
 // object.setprop!(symbol:symbol, value):map
@@ -423,9 +427,15 @@ Gura_DeclareClassMethodAlias(Object, setprop_X, "setprop!")
 
 Gura_ImplementClassMethod(Object, setprop_X)
 {
+#if 1
 	Fundamental *pThis = arg.GetFundamentalThis();
 	pThis->AssignValue(arg.GetSymbol(0), arg.GetValue(1), EXTRA_Public);
 	return Value::Nil;
+#else
+	Value valueAssigned = arg.GetValue(1);
+	return arg.GetValueThis().SetProp(env, arg.GetSymbol(0), SymbolSet::Empty,
+									  SymbolList::Empty, valueAssigned, false);
+#endif
 }
 
 //-----------------------------------------------------------------------------

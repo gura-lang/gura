@@ -1928,21 +1928,13 @@ Value Object_ImageDescriptor::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(ImageLeftPosition))) {
-		return Value(Gura_UnpackUShort(_desc.ImageLeftPosition));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ImageTopPosition))) {
-		return Value(Gura_UnpackUShort(_desc.ImageTopPosition));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ImageWidth))) {
-		return Value(Gura_UnpackUShort(_desc.ImageWidth));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ImageHeight))) {
-		return Value(Gura_UnpackUShort(_desc.ImageHeight));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(LocalColorTableFlag))) {
-		return Value(_desc.LocalColorTableFlag()? true : false);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(InterlaceFlag))) {
-		return Value(_desc.InterlaceFlag()? true : false);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(SortFlag))) {
-		return Value(_desc.SortFlag()? true : false);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(SizeOfLocalColorTable))) {
-		return Value(static_cast<UInt>(_desc.SizeOfLocalColorTable()));
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -1959,7 +1951,7 @@ String Object_ImageDescriptor::ToString(bool exprFlag)
 // gif.ImageDescriptor#ImageHeight
 Gura_DeclareProperty_R(ImageDescriptor, ImageHeight)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1968,13 +1960,14 @@ Gura_DeclareProperty_R(ImageDescriptor, ImageHeight)
 
 Gura_ImplementPropertyGetter(ImageDescriptor, ImageHeight)
 {
-	return Value::Nil;
+	GIF::ImageDescriptor &desc = *Object_ImageDescriptor::GetObject(valueThis)->GetImageDescriptor();
+	return Value(Gura_UnpackUShort(desc.ImageHeight));
 }
 
 // gif.ImageDescriptor#ImageLeftPosition
 Gura_DeclareProperty_R(ImageDescriptor, ImageLeftPosition)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1983,13 +1976,14 @@ Gura_DeclareProperty_R(ImageDescriptor, ImageLeftPosition)
 
 Gura_ImplementPropertyGetter(ImageDescriptor, ImageLeftPosition)
 {
-	return Value::Nil;
+	GIF::ImageDescriptor &desc = *Object_ImageDescriptor::GetObject(valueThis)->GetImageDescriptor();
+	return Value(Gura_UnpackUShort(desc.ImageLeftPosition));
 }
 
 // gif.ImageDescriptor#ImageTopPosition
 Gura_DeclareProperty_R(ImageDescriptor, ImageTopPosition)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -1998,13 +1992,14 @@ Gura_DeclareProperty_R(ImageDescriptor, ImageTopPosition)
 
 Gura_ImplementPropertyGetter(ImageDescriptor, ImageTopPosition)
 {
-	return Value::Nil;
+	GIF::ImageDescriptor &desc = *Object_ImageDescriptor::GetObject(valueThis)->GetImageDescriptor();
+	return Value(Gura_UnpackUShort(desc.ImageTopPosition));
 }
 
 // gif.ImageDescriptor#ImageWidth
 Gura_DeclareProperty_R(ImageDescriptor, ImageWidth)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -2013,13 +2008,14 @@ Gura_DeclareProperty_R(ImageDescriptor, ImageWidth)
 
 Gura_ImplementPropertyGetter(ImageDescriptor, ImageWidth)
 {
-	return Value::Nil;
+	GIF::ImageDescriptor &desc = *Object_ImageDescriptor::GetObject(valueThis)->GetImageDescriptor();
+	return Value(Gura_UnpackUShort(desc.ImageWidth));
 }
 
 // gif.ImageDescriptor#InterlaceFlag
 Gura_DeclareProperty_R(ImageDescriptor, InterlaceFlag)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -2028,13 +2024,14 @@ Gura_DeclareProperty_R(ImageDescriptor, InterlaceFlag)
 
 Gura_ImplementPropertyGetter(ImageDescriptor, InterlaceFlag)
 {
-	return Value::Nil;
+	GIF::ImageDescriptor &desc = *Object_ImageDescriptor::GetObject(valueThis)->GetImageDescriptor();
+	return Value(desc.InterlaceFlag()? true : false);
 }
 
 // gif.ImageDescriptor#LocalColorTableFlag
 Gura_DeclareProperty_R(ImageDescriptor, LocalColorTableFlag)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -2043,13 +2040,14 @@ Gura_DeclareProperty_R(ImageDescriptor, LocalColorTableFlag)
 
 Gura_ImplementPropertyGetter(ImageDescriptor, LocalColorTableFlag)
 {
-	return Value::Nil;
+	GIF::ImageDescriptor &desc = *Object_ImageDescriptor::GetObject(valueThis)->GetImageDescriptor();
+	return Value(desc.LocalColorTableFlag()? true : false);
 }
 
 // gif.ImageDescriptor#SizeOfLocalColorTable
 Gura_DeclareProperty_R(ImageDescriptor, SizeOfLocalColorTable)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -2058,13 +2056,14 @@ Gura_DeclareProperty_R(ImageDescriptor, SizeOfLocalColorTable)
 
 Gura_ImplementPropertyGetter(ImageDescriptor, SizeOfLocalColorTable)
 {
-	return Value::Nil;
+	GIF::ImageDescriptor &desc = *Object_ImageDescriptor::GetObject(valueThis)->GetImageDescriptor();
+	return Value(static_cast<UInt>(desc.SizeOfLocalColorTable()));
 }
 
 // gif.ImageDescriptor#SortFlag
 Gura_DeclareProperty_R(ImageDescriptor, SortFlag)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -2073,7 +2072,8 @@ Gura_DeclareProperty_R(ImageDescriptor, SortFlag)
 
 Gura_ImplementPropertyGetter(ImageDescriptor, SortFlag)
 {
-	return Value::Nil;
+	GIF::ImageDescriptor &desc = *Object_ImageDescriptor::GetObject(valueThis)->GetImageDescriptor();
+	return Value(desc.SortFlag()? true : false);
 }
 
 //-----------------------------------------------------------------------------
@@ -2083,7 +2083,6 @@ Gura_ImplementPropertyGetter(ImageDescriptor, SortFlag)
 Gura_ImplementUserClass(ImageDescriptor)
 {
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(ImageDescriptor, ImageHeight);
 	Gura_AssignProperty(ImageDescriptor, ImageLeftPosition);
 	Gura_AssignProperty(ImageDescriptor, ImageTopPosition);
@@ -2092,7 +2091,6 @@ Gura_ImplementUserClass(ImageDescriptor)
 	Gura_AssignProperty(ImageDescriptor, LocalColorTableFlag);
 	Gura_AssignProperty(ImageDescriptor, SizeOfLocalColorTable);
 	Gura_AssignProperty(ImageDescriptor, SortFlag);
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2121,9 +2119,7 @@ Value Object_imgprop::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(GraphicControl))) {
-		return Value(Object_GraphicControl::Reference(_pObjGraphicControl.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ImageDescriptor))) {
-		return Value(Object_ImageDescriptor::Reference(_pObjImageDescriptor.get()));
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -2149,7 +2145,9 @@ Gura_DeclareProperty_R(imgprop, GraphicControl)
 
 Gura_ImplementPropertyGetter(imgprop, GraphicControl)
 {
-	return Value::Nil;
+	Object_GraphicControl *pObjGraphicControl =
+		Object_imgprop::GetObject(valueThis)->GetObjGraphicControl();
+	return Value(Object_GraphicControl::Reference(pObjGraphicControl));
 }
 
 // gif.imgprop#ImageDescriptor
@@ -2164,7 +2162,9 @@ Gura_DeclareProperty_R(imgprop, ImageDescriptor)
 
 Gura_ImplementPropertyGetter(imgprop, ImageDescriptor)
 {
-	return Value::Nil;
+	Object_ImageDescriptor *pObjImageDescriptor =
+		Object_imgprop::GetObject(valueThis)->GetObjImageDescriptor();
+	return Value(Object_ImageDescriptor::Reference(pObjImageDescriptor));
 }
 
 //-----------------------------------------------------------------------------
@@ -2174,10 +2174,8 @@ Gura_ImplementPropertyGetter(imgprop, ImageDescriptor)
 Gura_ImplementUserClass(imgprop)
 {
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(imgprop, GraphicControl);
 	Gura_AssignProperty(imgprop, ImageDescriptor);
-#endif
 }
 
 //-----------------------------------------------------------------------------

@@ -281,7 +281,8 @@ void Value::DirValueType(SymbolSet &symbols, bool escalateFlag) const
 	}
 }
 
-Value Value::GetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs) const
+Value Value::GetProp(Environment &env, const Symbol *pSymbol,
+					 const SymbolSet &attrs, const Value *pValueDefault) const
 {
 	Class *pClass = GetClass();
 	const PropHandler *pPropHandler = pClass->LookupPropHandler(pSymbol);
@@ -292,7 +293,7 @@ Value Value::GetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &a
 		!(pFund->IsClass() || pFund->IsObject())? ENVREF_Escalate :
 		IsPrivileged()? ENVREF_Escalate : ENVREF_Restricted;
 	int cntSuperSkip = GetSuperSkipCount();
-	Value rtn = pFund->GetProp(pSymbol, attrs, nullptr, envRefMode, cntSuperSkip);
+	Value rtn = pFund->GetProp(pSymbol, attrs, pValueDefault, envRefMode, cntSuperSkip);
 	return rtn;
 }
 
@@ -312,7 +313,7 @@ Callable *Value::GetCallable(Environment &env, const Symbol *pSymbol, const Symb
 	Callable *pCallable = pFund->GetCallable(pSymbol);
 	if (env.IsSignalled()) return nullptr;
 	if (pCallable != nullptr) return pCallable->Reference();
-	Value valueCar = GetProp(env, pSymbol, attrs);
+	Value valueCar = GetProp(env, pSymbol, attrs, nullptr);
 	if (env.IsSignalled()) return nullptr;
 	if (valueCar.IsFundamental()) {
 		// the pointer must be referenced because valueCar will be destroyed
