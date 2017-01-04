@@ -26,45 +26,70 @@ Object *Object_accumulator::Clone() const
 	return nullptr;
 }
 
-bool Object_accumulator::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(digest));
-	symbols.insert(Gura_UserSymbol(hexdigest));
-	symbols.insert(Gura_Symbol(number));
-	return true;
-}
-
-Value Object_accumulator::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	if (pSymbol->IsIdentical(Gura_UserSymbol(digest))) {
-		evaluatedFlag = true;
-		return Value(new Object_binary(env, GetAccumulator().GetDigest(), true));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(hexdigest))) {
-		evaluatedFlag = true;
-		const Binary &digest = GetAccumulator().GetDigest();
-		String str;
-		foreach_const (Binary, p, digest) {
-			char buff[8];
-			::sprintf(buff, "%02x", static_cast<UChar>(*p));
-			str += buff;
-		}
-		return Value(str);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(number))) {
-		evaluatedFlag = true;
-		return GetAccumulator().GetValue();
-	}
-	return Value::Nil;
-}
-
 String Object_accumulator::ToString(bool exprFlag)
 {
 	String str = "<hash.accumulator:";
 	str += _name;
 	str += ">";
 	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// hash.accumulator#digest
+Gura_DeclareProperty_R(accumulator, digest)
+{
+	SetPropAttr(VTYPE_binary);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(accumulator, digest)
+{
+	AccumulatorBase &accumulator = Object_accumulator::GetObject(valueThis)->GetAccumulator();
+	return Value(new Object_binary(env, accumulator.GetDigest(), true));
+}
+
+// hash.accumulator#hexdigest
+Gura_DeclareProperty_R(accumulator, hexdigest)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(accumulator, hexdigest)
+{
+	AccumulatorBase &accumulator = Object_accumulator::GetObject(valueThis)->GetAccumulator();
+	const Binary &digest = accumulator.GetDigest();
+	String str;
+	foreach_const (Binary, p, digest) {
+		char buff[8];
+		::sprintf(buff, "%02x", static_cast<UChar>(*p));
+		str += buff;
+	}
+	return Value(str);
+}
+
+// hash.accumulator#number
+Gura_DeclareProperty_R(accumulator, number)
+{
+	SetPropAttr(VTYPE_number, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(accumulator, number)
+{
+	AccumulatorBase &accumulator = Object_accumulator::GetObject(valueThis)->GetAccumulator();
+	return accumulator.GetValue();
 }
 
 //-----------------------------------------------------------------------------
@@ -107,9 +132,15 @@ Gura_ImplementMethod(accumulator, update)
 // implementation of class Accumulator
 Gura_ImplementUserClass(accumulator)
 {
-	Gura_AssignValue(accumulator, Value(Reference()));
+	// Assignment of properties
+	Gura_AssignProperty(accumulator, digest);
+	Gura_AssignProperty(accumulator, hexdigest);
+	Gura_AssignProperty(accumulator, number);
+	// Assignment of methods
 	Gura_AssignMethod(accumulator, init);
 	Gura_AssignMethod(accumulator, update);
+	// Assignment of value
+	Gura_AssignValue(accumulator, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
