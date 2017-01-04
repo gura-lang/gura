@@ -36,73 +36,6 @@ Object *Object_Stat::Clone() const
 	return new Object_Stat(*this);
 }
 
-bool Object_Stat::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(pathname));
-	symbols.insert(Gura_UserSymbol(dirname));
-	symbols.insert(Gura_UserSymbol(filename));
-	symbols.insert(Gura_UserSymbol(size));
-	symbols.insert(Gura_UserSymbol(uid));
-	symbols.insert(Gura_UserSymbol(gid));
-	symbols.insert(Gura_UserSymbol(atime));
-	symbols.insert(Gura_UserSymbol(mtime));
-	symbols.insert(Gura_UserSymbol(ctime));
-	symbols.insert(Gura_UserSymbol(isdir));
-	symbols.insert(Gura_UserSymbol(ischr));
-	symbols.insert(Gura_UserSymbol(isblk));
-	symbols.insert(Gura_UserSymbol(isreg));
-	symbols.insert(Gura_UserSymbol(isfifo));
-	symbols.insert(Gura_UserSymbol(islnk));
-	symbols.insert(Gura_UserSymbol(issock));
-	return true;
-}
-
-Value Object_Stat::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(pathname))) {
-		return Value(_fileStat.GetPathName());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(dirname))) {
-		String dirName;
-		PathMgr::SplitFileName(_fileStat.GetPathName(), &dirName, nullptr);
-		return Value(dirName);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(filename))) {
-		String fileName;
-		PathMgr::SplitFileName(_fileStat.GetPathName(), nullptr, &fileName);
-		return Value(fileName);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
-		return Value(static_cast<Number>(_fileStat.GetSize()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(uid))) {
-		return Value(static_cast<Number>(_fileStat.GetUid()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(gid))) {
-		return Value(static_cast<Number>(_fileStat.GetGid()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(atime))) {
-		return Value(new Object_datetime(env, _fileStat.GetATime()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mtime))) {
-		return Value(new Object_datetime(env, _fileStat.GetMTime()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ctime))) {
-		return Value(new Object_datetime(env, _fileStat.GetCTime()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(isdir))) {
-		return Value(_fileStat.IsDir());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ischr))) {
-		return Value(_fileStat.IsChr());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(isblk))) {
-		return Value(_fileStat.IsBlk());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(isreg))) {
-		return Value(_fileStat.IsReg());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(isfifo))) {
-		return Value(_fileStat.IsFifo());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(islnk))) {
-		return Value(_fileStat.IsLnk());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(issock))) {
-		return Value(_fileStat.IsSock());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_Stat::ToString(bool exprFlag)
 {
 	return String("<fs.stat>");
@@ -130,11 +63,292 @@ Gura_ImplementFunction(stat)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// fs.Stat#atime
+Gura_DeclareProperty_R(Stat, atime)
+{
+	SetPropAttr(VTYPE_datetime);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, atime)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	return Value(new Object_datetime(env, fileStat.GetATime()));
+}
+
+// fs.Stat#ctime
+Gura_DeclareProperty_R(Stat, ctime)
+{
+	SetPropAttr(VTYPE_datetime);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, ctime)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	return Value(new Object_datetime(env, fileStat.GetCTime()));
+}
+
+// fs.Stat#dirname
+Gura_DeclareProperty_R(Stat, dirname)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, dirname)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	String dirName;
+	PathMgr::SplitFileName(fileStat.GetPathName(), &dirName, nullptr);
+	return Value(dirName);
+}
+
+// fs.Stat#filename
+Gura_DeclareProperty_R(Stat, filename)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, filename)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	String fileName;
+	PathMgr::SplitFileName(fileStat.GetPathName(), nullptr, &fileName);
+	return Value(fileName);
+}
+
+// fs.Stat#gid
+Gura_DeclareProperty_R(Stat, gid)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, gid)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	return Value(static_cast<Number>(fileStat.GetGid()));
+}
+
+// fs.Stat#isblk
+Gura_DeclareProperty_R(Stat, isblk)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, isblk)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	return Value(fileStat.IsBlk());
+}
+
+// fs.Stat#ischr
+Gura_DeclareProperty_R(Stat, ischr)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, ischr)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	return Value(fileStat.IsChr());
+}
+
+// fs.Stat#isdir
+Gura_DeclareProperty_R(Stat, isdir)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, isdir)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	return Value(fileStat.IsDir());
+}
+
+// fs.Stat#isfifo
+Gura_DeclareProperty_R(Stat, isfifo)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, isfifo)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	return Value(fileStat.IsFifo());
+}
+
+// fs.Stat#islnk
+Gura_DeclareProperty_R(Stat, islnk)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, islnk)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	return Value(fileStat.IsLnk());
+}
+
+// fs.Stat#isreg
+Gura_DeclareProperty_R(Stat, isreg)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, isreg)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	return Value(fileStat.IsReg());
+}
+
+// fs.Stat#issock
+Gura_DeclareProperty_R(Stat, issock)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, issock)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	return Value(fileStat.IsSock());
+}
+
+// fs.Stat#mtime
+Gura_DeclareProperty_R(Stat, mtime)
+{
+	SetPropAttr(VTYPE_datetime);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, mtime)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	return Value(new Object_datetime(env, fileStat.GetMTime()));
+}
+
+// fs.Stat#pathname
+Gura_DeclareProperty_R(Stat, pathname)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, pathname)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	return Value(fileStat.GetPathName());
+}
+
+// fs.Stat#size
+Gura_DeclareProperty_R(Stat, size)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, size)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	return Value(static_cast<Number>(fileStat.GetSize()));
+}
+
+// fs.Stat#uid
+Gura_DeclareProperty_R(Stat, uid)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, uid)
+{
+	const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	return Value(static_cast<Number>(fileStat.GetUid()));
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Object_Stat
 //-----------------------------------------------------------------------------
 // implementation of class Stat
 Gura_ImplementUserClass(Stat)
 {
+	// Assignment of properties
+	Gura_AssignProperty(Stat, atime);
+	Gura_AssignProperty(Stat, ctime);
+	Gura_AssignProperty(Stat, dirname);
+	Gura_AssignProperty(Stat, filename);
+	Gura_AssignProperty(Stat, gid);
+	Gura_AssignProperty(Stat, isblk);
+	Gura_AssignProperty(Stat, ischr);
+	Gura_AssignProperty(Stat, isdir);
+	Gura_AssignProperty(Stat, isfifo);
+	Gura_AssignProperty(Stat, islnk);
+	Gura_AssignProperty(Stat, isreg);
+	Gura_AssignProperty(Stat, issock);
+	Gura_AssignProperty(Stat, mtime);
+	Gura_AssignProperty(Stat, pathname);
+	Gura_AssignProperty(Stat, size);
+	Gura_AssignProperty(Stat, uid);
+	// Assignment of function
 	Gura_AssignFunction(stat);
 }
 

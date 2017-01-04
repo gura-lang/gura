@@ -28,10 +28,8 @@ public:
 				Object(obj), _fileStat(obj._fileStat) {}
 	virtual ~Object_Stat();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline OAL::FileStat &GetFileStat() { return _fileStat; }
 };
 
 //-----------------------------------------------------------------------------
