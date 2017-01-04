@@ -13,28 +13,6 @@ Object *Object_Header::Clone() const
 	return new Object_Header(*this);
 }
 
-bool Object_Header::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(Signature));
-	symbols.insert(Gura_UserSymbol(Version));
-	return true;
-}
-
-Value Object_Header::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	GIF &gif = _pObjContent->GetGIF();
-	evaluatedFlag = true;
-	GIF::Header &hdr = gif.GetHeader();
-	if (pSymbol->IsIdentical(Gura_UserSymbol(Signature))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(Version))) {
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_Header::ToString(bool exprFlag)
 {
 	return String("<gif.Header>");
@@ -87,42 +65,6 @@ Gura_ImplementUserClass(Header)
 Object *Object_LogicalScreenDescriptor::Clone() const
 {
 	return new Object_LogicalScreenDescriptor(*this);
-}
-
-bool Object_LogicalScreenDescriptor::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(LogicalScreenWidth));
-	symbols.insert(Gura_UserSymbol(LogicalScreenHeight));
-	symbols.insert(Gura_UserSymbol(GlobalColorTableFlag));
-	symbols.insert(Gura_UserSymbol(ColorResolution));
-	symbols.insert(Gura_UserSymbol(SortFlag));
-	symbols.insert(Gura_UserSymbol(SizeOfGlobalColorTable));
-	symbols.insert(Gura_UserSymbol(BackgroundColorIndex));
-	symbols.insert(Gura_UserSymbol(BackgroundColor));
-	symbols.insert(Gura_UserSymbol(PixelAspectRatio));
-	return true;
-}
-
-Value Object_LogicalScreenDescriptor::DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	GIF &gif = _pObjContent->GetGIF();
-	evaluatedFlag = true;
-	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
-	if (pSymbol->IsIdentical(Gura_UserSymbol(LogicalScreenWidth))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(LogicalScreenHeight))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(GlobalColorTableFlag))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ColorResolution))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(SortFlag))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(SizeOfGlobalColorTable))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(BackgroundColorIndex))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(BackgroundColor))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(PixelAspectRatio))) {
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
 }
 
 String Object_LogicalScreenDescriptor::ToString(bool exprFlag)
@@ -310,28 +252,6 @@ Object *Object_CommentExtension::Clone() const
 	return new Object_CommentExtension(*this);
 }
 
-bool Object_CommentExtension::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(CommentData));
-	return true;
-}
-
-Value Object_CommentExtension::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	GIF &gif = _pObjContent->GetGIF();
-	evaluatedFlag = true;
-	GIF::Extensions &exts = gif.GetExtensions();
-	if (!exts.comment.validFlag) return Value::Nil;
-	GIF::CommentExtension &cmnt = exts.comment;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(CommentData))) {
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_CommentExtension::ToString(bool exprFlag)
 {
 	return String("<gif.CommentExtension>");
@@ -370,44 +290,6 @@ Gura_ImplementUserClass(CommentExtension)
 Object *Object_PlainTextExtension::Clone() const
 {
 	return new Object_PlainTextExtension(*this);
-}
-
-bool Object_PlainTextExtension::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(TextGridLeftPosition));
-	symbols.insert(Gura_UserSymbol(TextGridTopPosition));
-	symbols.insert(Gura_UserSymbol(TextGridWidth));
-	symbols.insert(Gura_UserSymbol(TextGridHeight));
-	symbols.insert(Gura_UserSymbol(CharacterCellWidth));
-	symbols.insert(Gura_UserSymbol(CharacterCellHeight));
-	symbols.insert(Gura_UserSymbol(TextForegroundColorIndex));
-	symbols.insert(Gura_UserSymbol(TextBackgroundColorIndex));
-	symbols.insert(Gura_UserSymbol(PlainTextData));
-	return true;
-}
-
-Value Object_PlainTextExtension::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	GIF &gif = _pObjContent->GetGIF();
-	evaluatedFlag = true;
-	GIF::Extensions &exts = gif.GetExtensions();
-	if (!exts.plainText.validFlag) return Value::Nil;
-	GIF::PlainTextExtension &pltxt = exts.plainText;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(TextGridLeftPosition))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TextGridTopPosition))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TextGridWidth))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TextGridHeight))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CharacterCellWidth))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CharacterCellHeight))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TextForegroundColorIndex))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TextBackgroundColorIndex))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(PlainTextData))) {
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
 }
 
 String Object_PlainTextExtension::ToString(bool exprFlag)
@@ -600,32 +482,6 @@ Gura_ImplementUserClass(PlainTextExtension)
 Object *Object_ApplicationExtension::Clone() const
 {
 	return new Object_ApplicationExtension(*this);
-}
-
-bool Object_ApplicationExtension::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(ApplicationIdentifier));
-	symbols.insert(Gura_UserSymbol(AuthenticationCode));
-	symbols.insert(Gura_UserSymbol(ApplicationData));
-	return true;
-}
-
-Value Object_ApplicationExtension::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	GIF &gif = _pObjContent->GetGIF();
-	evaluatedFlag = true;
-	GIF::Extensions &exts = gif.GetExtensions();
-	if (!exts.application.validFlag) return Value::Nil;
-	GIF::ApplicationExtension &app = exts.application;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(ApplicationIdentifier))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(AuthenticationCode))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ApplicationData))) {
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
 }
 
 String Object_ApplicationExtension::ToString(bool exprFlag)
@@ -1515,35 +1371,6 @@ Object *Object_content::Clone() const
 	return nullptr;
 }
 
-bool Object_content::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(images));
-	symbols.insert(Gura_UserSymbol(Header));
-	symbols.insert(Gura_UserSymbol(LogicalScreenDescriptor));
-	symbols.insert(Gura_UserSymbol(CommentExtension));
-	symbols.insert(Gura_UserSymbol(PlainTextExtension));
-	symbols.insert(Gura_UserSymbol(ApplicationExtension));
-	return true;
-}
-
-Value Object_content::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	GIF::Extensions &exts = _gif.GetExtensions();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(images))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(Header))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(LogicalScreenDescriptor))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CommentExtension))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(PlainTextExtension))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ApplicationExtension))) {
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_content::ToString(bool exprFlag)
 {
 	String str = "<gif.content:";
@@ -1763,32 +1590,6 @@ Object *Object_GraphicControl::Clone() const
 	return nullptr;
 }
 
-bool Object_GraphicControl::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(DisposalMethod));
-	symbols.insert(Gura_UserSymbol(UserInputFlag));
-	symbols.insert(Gura_UserSymbol(TransparentColorFlag));
-	symbols.insert(Gura_UserSymbol(DelayTime));
-	symbols.insert(Gura_UserSymbol(TransparentColorIndex));
-	return true;
-}
-
-Value Object_GraphicControl::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(DisposalMethod))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(UserInputFlag))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TransparentColorFlag))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(DelayTime))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TransparentColorIndex))) {
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_GraphicControl::ToString(bool exprFlag)
 {
 	return String("<gif.GraphicControl>");
@@ -1906,38 +1707,6 @@ Object_ImageDescriptor::~Object_ImageDescriptor()
 Object *Object_ImageDescriptor::Clone() const
 {
 	return nullptr;
-}
-
-bool Object_ImageDescriptor::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(ImageLeftPosition));
-	symbols.insert(Gura_UserSymbol(ImageTopPosition));
-	symbols.insert(Gura_UserSymbol(ImageWidth));
-	symbols.insert(Gura_UserSymbol(ImageHeight));
-	symbols.insert(Gura_UserSymbol(LocalColorTableFlag));
-	symbols.insert(Gura_UserSymbol(InterlaceFlag));
-	symbols.insert(Gura_UserSymbol(SortFlag));
-	symbols.insert(Gura_UserSymbol(SizeOfLocalColorTable));
-	return true;
-}
-
-Value Object_ImageDescriptor::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(ImageLeftPosition))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ImageTopPosition))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ImageWidth))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ImageHeight))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(LocalColorTableFlag))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(InterlaceFlag))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(SortFlag))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(SizeOfLocalColorTable))) {
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
 }
 
 String Object_ImageDescriptor::ToString(bool exprFlag)
@@ -2105,26 +1874,6 @@ Object *Object_imgprop::Clone() const
 	return nullptr;
 }
 
-bool Object_imgprop::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(GraphicControl));
-	symbols.insert(Gura_UserSymbol(ImageDescriptor));
-	return true;
-}
-
-Value Object_imgprop::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(GraphicControl))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ImageDescriptor))) {
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_imgprop::ToString(bool exprFlag)
 {
 	return String("<gif.imgprop>");
@@ -2284,58 +2033,14 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
-	// symbol realization
+	// Realization of symbols
 	Gura_RealizeUserSymbol(noimage);
-	Gura_RealizeUserSymbol(images);
 	Gura_RealizeUserSymbol(none);
 	Gura_RealizeUserSymbol(keep);
 	Gura_RealizeUserSymbol(background);
 	Gura_RealizeUserSymbol(previous);
 	Gura_RealizeUserSymbol(gif);
-	Gura_RealizeUserSymbol(Header);
-	Gura_RealizeUserSymbol(Signature);
-	Gura_RealizeUserSymbol(Version);
-	Gura_RealizeUserSymbol(LogicalScreenDescriptor);
-	Gura_RealizeUserSymbol(LogicalScreenWidth);
-	Gura_RealizeUserSymbol(LogicalScreenHeight);
-	Gura_RealizeUserSymbol(GlobalColorTableFlag);
-	Gura_RealizeUserSymbol(ColorResolution);
-	Gura_RealizeUserSymbol(SortFlag);
-	Gura_RealizeUserSymbol(SizeOfGlobalColorTable);
-	Gura_RealizeUserSymbol(BackgroundColorIndex);
-	Gura_RealizeUserSymbol(BackgroundColor);
-	Gura_RealizeUserSymbol(PixelAspectRatio);
-	Gura_RealizeUserSymbol(CommentExtension);
-	Gura_RealizeUserSymbol(CommentData);
-	Gura_RealizeUserSymbol(PlainTextExtension);
-	Gura_RealizeUserSymbol(TextGridLeftPosition);
-	Gura_RealizeUserSymbol(TextGridTopPosition);
-	Gura_RealizeUserSymbol(TextGridWidth);
-	Gura_RealizeUserSymbol(TextGridHeight);
-	Gura_RealizeUserSymbol(CharacterCellWidth);
-	Gura_RealizeUserSymbol(CharacterCellHeight);
-	Gura_RealizeUserSymbol(TextForegroundColorIndex);
-	Gura_RealizeUserSymbol(TextBackgroundColorIndex);
-	Gura_RealizeUserSymbol(PlainTextData);
-	Gura_RealizeUserSymbol(ApplicationExtension);
-	Gura_RealizeUserSymbol(ApplicationIdentifier);
-	Gura_RealizeUserSymbol(AuthenticationCode);
-	Gura_RealizeUserSymbol(ApplicationData);
-	Gura_RealizeUserSymbol(DisposalMethod);
-	Gura_RealizeUserSymbol(UserInputFlag);
-	Gura_RealizeUserSymbol(TransparentColorFlag);
-	Gura_RealizeUserSymbol(DelayTime);
-	Gura_RealizeUserSymbol(TransparentColorIndex);
-	Gura_RealizeUserSymbol(ImageLeftPosition);
-	Gura_RealizeUserSymbol(ImageTopPosition);
-	Gura_RealizeUserSymbol(ImageWidth);
-	Gura_RealizeUserSymbol(ImageHeight);
-	Gura_RealizeUserSymbol(LocalColorTableFlag);
-	Gura_RealizeUserSymbol(InterlaceFlag);
-	//Gura_RealizeUserSymbol(SortFlag);
-	Gura_RealizeUserSymbol(SizeOfLocalColorTable);
-	Gura_RealizeUserSymbol(GraphicControl);
-	Gura_RealizeUserSymbol(ImageDescriptor);
+	// Realization of classes
 	Gura_RealizeAndPrepareUserClass(content, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(Header, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(LogicalScreenDescriptor, env.LookupClass(VTYPE_object));
@@ -2345,12 +2050,12 @@ Gura_ModuleEntry()
 	Gura_RealizeAndPrepareUserClass(GraphicControl, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(ImageDescriptor, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(imgprop, env.LookupClass(VTYPE_object));
-	// method assignment to image class
+	// Assignment of methods to image class
 	Gura_AssignMethodTo(VTYPE_image, image, read_at_gif);
 	Gura_AssignMethodTo(VTYPE_image, image, write_at_gif);
 	// function assignment
 	Gura_AssignFunction(content);
-	// image streamer registration
+	// Registration of image streamer
 	ImageStreamer::Register(new ImageStreamer_GIF());
 	return true;
 }

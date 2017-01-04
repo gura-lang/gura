@@ -8,67 +8,11 @@
 Gura_BeginModuleHeader(gif)
 
 Gura_DeclareUserSymbol(noimage);
-
-Gura_DeclareUserSymbol(images);
-
 Gura_DeclareUserSymbol(none);
 Gura_DeclareUserSymbol(keep);
 Gura_DeclareUserSymbol(background);
 Gura_DeclareUserSymbol(previous);
-
 Gura_DeclareUserSymbol(gif);
-
-Gura_DeclareUserSymbol(Header);
-Gura_DeclareUserSymbol(Signature);
-Gura_DeclareUserSymbol(Version);
-
-Gura_DeclareUserSymbol(LogicalScreenDescriptor);
-Gura_DeclareUserSymbol(LogicalScreenWidth);
-Gura_DeclareUserSymbol(LogicalScreenHeight);
-Gura_DeclareUserSymbol(GlobalColorTableFlag);
-Gura_DeclareUserSymbol(ColorResolution);
-Gura_DeclareUserSymbol(SortFlag);
-Gura_DeclareUserSymbol(SizeOfGlobalColorTable);
-Gura_DeclareUserSymbol(BackgroundColorIndex);
-Gura_DeclareUserSymbol(BackgroundColor);
-Gura_DeclareUserSymbol(PixelAspectRatio);
-
-Gura_DeclareUserSymbol(CommentExtension);
-Gura_DeclareUserSymbol(CommentData);
-
-Gura_DeclareUserSymbol(PlainTextExtension);
-Gura_DeclareUserSymbol(TextGridLeftPosition);
-Gura_DeclareUserSymbol(TextGridTopPosition);
-Gura_DeclareUserSymbol(TextGridWidth);
-Gura_DeclareUserSymbol(TextGridHeight);
-Gura_DeclareUserSymbol(CharacterCellWidth);
-Gura_DeclareUserSymbol(CharacterCellHeight);
-Gura_DeclareUserSymbol(TextForegroundColorIndex);
-Gura_DeclareUserSymbol(TextBackgroundColorIndex);
-Gura_DeclareUserSymbol(PlainTextData);
-
-Gura_DeclareUserSymbol(ApplicationExtension);
-Gura_DeclareUserSymbol(ApplicationIdentifier);
-Gura_DeclareUserSymbol(AuthenticationCode);
-Gura_DeclareUserSymbol(ApplicationData);
-
-Gura_DeclareUserSymbol(DisposalMethod);
-Gura_DeclareUserSymbol(UserInputFlag);
-Gura_DeclareUserSymbol(TransparentColorFlag);
-Gura_DeclareUserSymbol(DelayTime);
-Gura_DeclareUserSymbol(TransparentColorIndex);
-
-Gura_DeclareUserSymbol(ImageLeftPosition);
-Gura_DeclareUserSymbol(ImageTopPosition);
-Gura_DeclareUserSymbol(ImageWidth);
-Gura_DeclareUserSymbol(ImageHeight);
-Gura_DeclareUserSymbol(LocalColorTableFlag);
-Gura_DeclareUserSymbol(InterlaceFlag);
-//Gura_DeclareUserSymbol(SortFlag);
-Gura_DeclareUserSymbol(SizeOfLocalColorTable);
-
-Gura_DeclareUserSymbol(GraphicControl);
-Gura_DeclareUserSymbol(ImageDescriptor);
 
 //-----------------------------------------------------------------------------
 // ImageStreamer_GIF
@@ -268,9 +212,6 @@ public:
 	inline Object_content() : Object(Gura_UserClass(content)) {}
 	virtual ~Object_content();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline GIF &GetGIF() { return _gif; }
 };
@@ -292,9 +233,6 @@ public:
 	inline Object_Header(Object_content *pObjContent) :
 				Object(Gura_UserClass(Header)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Object_content *GetObjContent() { return _pObjContent.get(); }
 };
@@ -316,9 +254,6 @@ public:
 	inline Object_LogicalScreenDescriptor(Object_content *pObjContent) :
 				Object(Gura_UserClass(LogicalScreenDescriptor)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Object_content *GetObjContent() { return _pObjContent.get(); }
 };
@@ -340,9 +275,6 @@ public:
 	inline Object_CommentExtension(Object_content *pObjContent) :
 				Object(Gura_UserClass(CommentExtension)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Object_content *GetObjContent() { return _pObjContent.get(); }
 };
@@ -364,9 +296,6 @@ public:
 	inline Object_PlainTextExtension(Object_content *pObjContent) :
 				Object(Gura_UserClass(PlainTextExtension)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Object_content *GetObjContent() { return _pObjContent.get(); }
 };
@@ -388,9 +317,6 @@ public:
 	inline Object_ApplicationExtension(Object_content *pObjContent) :
 				Object(Gura_UserClass(ApplicationExtension)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Object_content *GetObjContent() { return _pObjContent.get(); }
 };
@@ -410,9 +336,6 @@ public:
 					Object(Gura_UserClass(GraphicControl)), _gctl(gctl) {}
 	virtual ~Object_GraphicControl();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline GIF::GraphicControlExtension *GetGraphicControl() { return &_gctl; }
 };
@@ -432,9 +355,6 @@ public:
 					Object(Gura_UserClass(ImageDescriptor)), _desc(desc) {}
 	virtual ~Object_ImageDescriptor();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline GIF::ImageDescriptor *GetImageDescriptor() { return &_desc; }
 };
@@ -457,9 +377,6 @@ public:
 				_pObjImageDescriptor(pObjImageDescriptor) {}
 	virtual ~Object_imgprop();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Object_GraphicControl *GetObjGraphicControl() {
 		return _pObjGraphicControl.get();
