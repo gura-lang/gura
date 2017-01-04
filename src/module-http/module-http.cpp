@@ -1375,8 +1375,6 @@ Object *Object_stat::Clone() const
 
 bool Object_stat::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
 	Header::DoDirProp(symbols);
 	return true;
 }
@@ -1385,12 +1383,11 @@ Value Object_stat::DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
-	evaluatedFlag = true;
 	Value value;
 	if (_header.GetTimeField(env, sig, pSymbol, value)) {
+		evaluatedFlag = true;
 		return value;
 	}
-	evaluatedFlag = false;
 	return Value::Nil;
 }
 
@@ -1441,43 +1438,6 @@ Object_session::~Object_session()
 	if (_sock >= 0) ::closesocket(_sock);
 }
 
-bool Object_session::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(server));
-	symbols.insert(Gura_UserSymbol(remote_ip));
-	symbols.insert(Gura_UserSymbol(remote_host));
-	symbols.insert(Gura_UserSymbol(remote_logname));
-	symbols.insert(Gura_UserSymbol(local_ip));
-	symbols.insert(Gura_UserSymbol(local_host));
-	symbols.insert(Gura_UserSymbol(date));
-	return true;
-}
-
-Value Object_session::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(server))) {
-		return Value(Object_server::Reference(_pObjServer.get()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(remote_ip))) {
-		return Value(_remoteIP);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(remote_host))) {
-		return Value(_remoteHost);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(remote_logname))) {
-		return Value(_remoteLogname);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(local_ip))) {
-		return Value(_localIP);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(local_host))) {
-		return Value(_localHost);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(date))) {
-		return Value(new Object_datetime(env, _dateTime));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 Object *Object_session::Clone() const
 {
 	return new Object_session(*this);
@@ -1519,11 +1479,134 @@ bool Object_session::CleanupRequest(Signal &sig)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// http.session#date
+Gura_DeclareProperty_R(session, date)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(session, date)
+{
+	Object_session *pObjThis = Object_session::GetObject(valueThis);
+	return Value(new Object_datetime(env, pObjThis->GetDateTime()));
+}
+
+// http.session#local_host
+Gura_DeclareProperty_R(session, local_host)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(session, local_host)
+{
+	Object_session *pObjThis = Object_session::GetObject(valueThis);
+	return Value(pObjThis->GetLocalHost());
+}
+
+// http.session#local_ip
+Gura_DeclareProperty_R(session, local_ip)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(session, local_ip)
+{
+	Object_session *pObjThis = Object_session::GetObject(valueThis);
+	return Value(pObjThis->GetLocalIP());
+}
+
+// http.session#remote_host
+Gura_DeclareProperty_R(session, remote_host)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(session, remote_host)
+{
+	Object_session *pObjThis = Object_session::GetObject(valueThis);
+	return Value(pObjThis->GetRemoteHost());
+}
+
+// http.session#remote_ip
+Gura_DeclareProperty_R(session, remote_ip)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(session, remote_ip)
+{
+	Object_session *pObjThis = Object_session::GetObject(valueThis);
+	return Value(pObjThis->GetRemoteIP());
+}
+
+// http.session#remote_logname
+Gura_DeclareProperty_R(session, remote_logname)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(session, remote_logname)
+{
+	Object_session *pObjThis = Object_session::GetObject(valueThis);
+	return Value(pObjThis->GetRemoteLogname());
+}
+
+// http.session#server
+Gura_DeclareProperty_R(session, server)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(session, server)
+{
+	Object_session *pObjThis = Object_session::GetObject(valueThis);
+	return Value(Object_server::Reference(pObjThis->GetObjServer()));
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Object_session
 //-----------------------------------------------------------------------------
 // implementation of class session
 Gura_ImplementUserClass(session)
 {
+	// Assignment of properties
+	Gura_AssignProperty(session, date);
+	Gura_AssignProperty(session, local_host);
+	Gura_AssignProperty(session, local_ip);
+	Gura_AssignProperty(session, remote_host);
+	Gura_AssignProperty(session, remote_ip);
+	Gura_AssignProperty(session, remote_logname);
+	Gura_AssignProperty(session, server);
 }
 
 //-----------------------------------------------------------------------------
@@ -1538,18 +1621,6 @@ Object_request::~Object_request()
 
 bool Object_request::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(session));
-	symbols.insert(Gura_UserSymbol(method));
-	symbols.insert(Gura_UserSymbol(uri));
-	symbols.insert(Gura_UserSymbol(version));
-	symbols.insert(Gura_UserSymbol(body));
-	symbols.insert(Gura_UserSymbol(scheme));
-	symbols.insert(Gura_UserSymbol(authority));
-	symbols.insert(Gura_UserSymbol(path));
-	symbols.insert(Gura_UserSymbol(query));
-	symbols.insert(Gura_UserSymbol(fragment));
 	Header::DoDirProp(symbols);
 	return true;
 }
@@ -1558,55 +1629,13 @@ Value Object_request::DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
-	evaluatedFlag = true;
 	Request &request = _pObjSession->GetRequest();
 	Header &header = request.GetHeader();
 	Value value;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(session))) {
-		return Value(Object_session::Reference(GetSessionObj()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(method))) {
-		return Value(request.GetMethod());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(uri))) {
-		return Value(request.GetRequestURI());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(version))) {
-		return Value(request.GetHttpVersion());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(body))) {
-		Stream *pStream = _pObjSession->GetStream();
-		if (pStream == nullptr) return Value::Nil;
-		return Value(new Object_stream(env, Stream::Reference(pStream)));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(scheme))) {
-		String str = ExtractURIScheme(sig, request.GetRequestURI(), nullptr);
-		if (sig.IsSignalled()) return Value::Nil;
-		String strUnquote = UnquoteURI(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Nil;
-		return Value(strUnquote.c_str());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(authority))) {
-		String str = ExtractURIAuthority(sig, request.GetRequestURI(), nullptr);
-		if (sig.IsSignalled()) return Value::Nil;
-		String strUnquote = UnquoteURI(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Nil;
-		return Value(strUnquote);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(path))) {
-		String str = ExtractURIPath(sig, request.GetRequestURI());
-		if (sig.IsSignalled()) return Value::Nil;
-		String strUnquote = UnquoteURI(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Nil;
-		return Value(strUnquote);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(query))) {
-		Value rtn;
-		ValueDict &valDict = rtn.InitAsDict(env, true);
-		Uri::ExtractQuery(request.GetRequestURI(), valDict);
-		return rtn;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(fragment))) {
-		String str = ExtractURIFragment(sig, request.GetRequestURI());
-		if (sig.IsSignalled()) return Value::Nil;
-		String strUnquote = UnquoteURI(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Nil;
-		return Value(strUnquote);
-	} else if (header.GetTimeField(env, sig, pSymbol, value)) {
+	if (header.GetTimeField(env, sig, pSymbol, value)) {
+		evaluatedFlag = true;
 		return value;
 	}
-	evaluatedFlag = false;
 	return Value::Nil;
 }
 
@@ -1669,6 +1698,203 @@ Stream *Object_request::SendRespChunk(Signal &sig,
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// http.request#authority
+Gura_DeclareProperty_R(request, authority)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(request, authority)
+{
+	Signal &sig = env.GetSignal();
+	Object_request *pObjThis = Object_request::GetObject(valueThis);
+	Request &request = pObjThis->GetObjSession()->GetRequest();
+	String str = ExtractURIAuthority(sig, request.GetRequestURI(), nullptr);
+	if (sig.IsSignalled()) return Value::Nil;
+	String strUnquote = UnquoteURI(sig, str.c_str());
+	if (sig.IsSignalled()) return Value::Nil;
+	return Value(strUnquote);
+}
+
+// http.request#body
+Gura_DeclareProperty_R(request, body)
+{
+	SetPropAttr(VTYPE_stream);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(request, body)
+{
+	Object_request *pObjThis = Object_request::GetObject(valueThis);
+	Stream *pStream = pObjThis->GetObjSession()->GetStream();
+	if (pStream == nullptr) return Value::Nil;
+	return Value(new Object_stream(env, Stream::Reference(pStream)));
+}
+
+// http.request#fragment
+Gura_DeclareProperty_R(request, fragment)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(request, fragment)
+{
+	Signal &sig = env.GetSignal();
+	Object_request *pObjThis = Object_request::GetObject(valueThis);
+	Request &request = pObjThis->GetObjSession()->GetRequest();
+	String str = ExtractURIFragment(sig, request.GetRequestURI());
+	if (sig.IsSignalled()) return Value::Nil;
+	String strUnquote = UnquoteURI(sig, str.c_str());
+	if (sig.IsSignalled()) return Value::Nil;
+	return Value(strUnquote);
+}
+
+// http.request#method
+Gura_DeclareProperty_R(request, method)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(request, method)
+{
+	Object_request *pObjThis = Object_request::GetObject(valueThis);
+	Request &request = pObjThis->GetObjSession()->GetRequest();
+	return Value(request.GetMethod());
+}
+
+// http.request#path
+Gura_DeclareProperty_R(request, path)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(request, path)
+{
+	Signal &sig = env.GetSignal();
+	Object_request *pObjThis = Object_request::GetObject(valueThis);
+	Request &request = pObjThis->GetObjSession()->GetRequest();
+	String str = ExtractURIPath(sig, request.GetRequestURI());
+	if (sig.IsSignalled()) return Value::Nil;
+	String strUnquote = UnquoteURI(sig, str.c_str());
+	if (sig.IsSignalled()) return Value::Nil;
+	return Value(strUnquote);
+}
+
+// http.request#query
+Gura_DeclareProperty_R(request, query)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(request, query)
+{
+	Object_request *pObjThis = Object_request::GetObject(valueThis);
+	Request &request = pObjThis->GetObjSession()->GetRequest();
+	Value rtn;
+	ValueDict &valDict = rtn.InitAsDict(env, true);
+	Uri::ExtractQuery(request.GetRequestURI(), valDict);
+	return rtn;
+}
+
+// http.request#scheme
+Gura_DeclareProperty_R(request, scheme)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(request, scheme)
+{
+	Signal &sig = env.GetSignal();
+	Object_request *pObjThis = Object_request::GetObject(valueThis);
+	Request &request = pObjThis->GetObjSession()->GetRequest();
+	String str = ExtractURIScheme(sig, request.GetRequestURI(), nullptr);
+	if (sig.IsSignalled()) return Value::Nil;
+	String strUnquote = UnquoteURI(sig, str.c_str());
+	if (sig.IsSignalled()) return Value::Nil;
+	return Value(strUnquote.c_str());
+}
+
+// http.request#session
+Gura_DeclareProperty_R(request, session)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(request, session)
+{
+	Signal &sig = env.GetSignal();
+	Object_request *pObjThis = Object_request::GetObject(valueThis);
+	return Value(Object_session::Reference(pObjThis->GetObjSession()));
+}
+
+// http.request#uri
+Gura_DeclareProperty_R(request, uri)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(request, uri)
+{
+	Object_request *pObjThis = Object_request::GetObject(valueThis);
+	Request &request = pObjThis->GetObjSession()->GetRequest();
+	return Value(request.GetRequestURI());
+}
+
+// http.request#version
+Gura_DeclareProperty_R(request, version)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(request, version)
+{
+	Object_request *pObjThis = Object_request::GetObject(valueThis);
+	Request &request = pObjThis->GetObjSession()->GetRequest();
+	return Value(request.GetHttpVersion());
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Object_request
 //-----------------------------------------------------------------------------
 // http.request#field(name:string):map:[raise]
@@ -1687,7 +1913,7 @@ Gura_ImplementMethod(request, field)
 	Signal &sig = env.GetSignal();
 	Object_request *pThis = Object_request::GetObjectThis(arg);
 	bool signalFlag = arg.IsSet(Gura_Symbol(raise));
-	return pThis->GetSessionObj()->GetRequest().
+	return pThis->GetObjSession()->GetRequest().
 				GetHeader().GetField(env, sig, arg.GetString(0), signalFlag);
 }
 
@@ -1760,13 +1986,25 @@ Gura_DeclareMethod(request, ismethod)
 Gura_ImplementMethod(request, ismethod)
 {
 	Object_request *pThis = Object_request::GetObjectThis(arg);
-	const char *method = pThis->GetSessionObj()->GetRequest().GetMethod();
+	const char *method = pThis->GetObjSession()->GetRequest().GetMethod();
 	return Value(::strcasecmp(method, arg.GetString(0)) == 0);
 }
 
 // implementation of class Request
 Gura_ImplementUserClass(request)
 {
+	// Assignment of properties
+	Gura_AssignProperty(request, authority);
+	Gura_AssignProperty(request, body);
+	Gura_AssignProperty(request, fragment);
+	Gura_AssignProperty(request, method);
+	Gura_AssignProperty(request, path);
+	Gura_AssignProperty(request, query);
+	Gura_AssignProperty(request, scheme);
+	Gura_AssignProperty(request, session);
+	Gura_AssignProperty(request, uri);
+	Gura_AssignProperty(request, version);
+	// Assignment of methods
 	Gura_AssignMethod(request, field);
 	Gura_AssignMethod(request, response);
 	Gura_AssignMethod(request, respchunk);
@@ -1782,12 +2020,6 @@ Object_response::~Object_response()
 
 bool Object_response::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(version));
-	symbols.insert(Gura_UserSymbol(code));
-	symbols.insert(Gura_UserSymbol(reason));
-	symbols.insert(Gura_UserSymbol(body));
 	Header::DoDirProp(symbols);
 	return true;
 }
@@ -1796,26 +2028,13 @@ Value Object_response::DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
-	evaluatedFlag = true;
 	Status &status = _pObjClient->GetStatus();
 	Header &header = status.GetHeader();
 	Value value;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(version))) {
-		return Value(status.GetHttpVersion());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(code))) {
-		return Value(status.GetStatusCode());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(reason))) {
-		return Value(status.GetReasonPhrase());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(field_names))) {
-		return header.GetFieldNames(env, sig);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(body))) {
-		Stream *pStream = _pObjClient->GetStream();
-		if (pStream == nullptr) return Value::Nil;
-		return Value(new Object_stream(env, Stream::Reference(pStream)));
-	} else if (header.GetTimeField(env, sig, pSymbol, value)) {
+	if (header.GetTimeField(env, sig, pSymbol, value)) {
+		evaluatedFlag = true;
 		return value;
 	}
-	evaluatedFlag = false;
 	return Value::Nil;
 }
 
@@ -1845,6 +2064,97 @@ String Object_response::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// http.response#body
+Gura_DeclareProperty_R(response, body)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(response, body)
+{
+	Object_response *pObjThis = Object_response::GetObject(valueThis);
+	Stream *pStream = pObjThis->GetObjClient()->GetStream();
+	if (pStream == nullptr) return Value::Nil;
+	return Value(new Object_stream(env, Stream::Reference(pStream)));
+}
+
+// http.response#code
+Gura_DeclareProperty_R(response, code)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(response, code)
+{
+	Object_response *pObjThis = Object_response::GetObject(valueThis);
+	Status &status = pObjThis->GetObjClient()->GetStatus();
+	return Value(status.GetStatusCode());
+}
+
+// http.response#field_names
+Gura_DeclareProperty_R(response, field_names)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(response, field_names)
+{
+	Signal &sig = env.GetSignal();
+	Object_response *pObjThis = Object_response::GetObject(valueThis);
+	Status &status = pObjThis->GetObjClient()->GetStatus();
+	Header &header = status.GetHeader();
+	return header.GetFieldNames(env, sig);
+}
+
+// http.response#reason
+Gura_DeclareProperty_R(response, reason)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(response, reason)
+{
+	Object_response *pObjThis = Object_response::GetObject(valueThis);
+	Status &status = pObjThis->GetObjClient()->GetStatus();
+	return Value(status.GetReasonPhrase());
+}
+
+// http.response#version
+Gura_DeclareProperty_R(response, version)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(response, version)
+{
+	Object_response *pObjThis = Object_response::GetObject(valueThis);
+	Status &status = pObjThis->GetObjClient()->GetStatus();
+	return Value(status.GetHttpVersion());
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Object_response
 //-----------------------------------------------------------------------------
 // http.response#field(name:string):map:[raise]
@@ -1863,13 +2173,20 @@ Gura_ImplementMethod(response, field)
 	Signal &sig = env.GetSignal();
 	Object_response *pThis = Object_response::GetObjectThis(arg);
 	bool signalFlag = arg.IsSet(Gura_Symbol(raise));
-	return pThis->GetClientObj()->GetStatus().
+	return pThis->GetObjClient()->GetStatus().
 				GetHeader().GetField(env, sig, arg.GetString(0), signalFlag);
 }
 
 // implementation of class Response
 Gura_ImplementUserClass(response)
 {
+	// Assignment of properties
+	Gura_AssignProperty(response, body);
+	Gura_AssignProperty(response, code);
+	Gura_AssignProperty(response, field_names);
+	Gura_AssignProperty(response, reason);
+	Gura_AssignProperty(response, version);
+	// Assignment of methods
 	Gura_AssignMethod(request, field);
 }
 
@@ -1894,33 +2211,6 @@ Object_server::~Object_server()
 Object *Object_server::Clone() const
 {
 	return nullptr; //new Object_server(*this);
-}
-
-bool Object_server::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(sessions));
-	return true;
-}
-
-Value Object_server::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	Value value;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(sessions))) {
-		Value rtn;
-		Object_list *pObjList = rtn.InitAsList(env);
-		pObjList->Reserve(_sessionList.size());
-		foreach (SessionList, ppObjSession, _sessionList) {
-			Object_session *pObjSession = *ppObjSession;
-			pObjList->Add(Value(Object_session::Reference(pObjSession)));
-		}
-		return rtn;
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
 }
 
 String Object_server::ToString(bool exprFlag)
@@ -2064,6 +2354,33 @@ Object_request *Object_server::Wait(Signal &sig)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// http.server#sessions
+Gura_DeclareProperty_R(server, sessions)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(server, sessions)
+{
+	Object_server *pObjThis = Object_server::GetObject(valueThis);
+	Object_server::SessionList &sessionList = pObjThis->GetSessionList();
+	Value rtn;
+	Object_list *pObjList = rtn.InitAsList(env);
+	pObjList->Reserve(sessionList.size());
+	foreach (Object_server::SessionList, ppObjSession, sessionList) {
+		Object_session *pObjSession = *ppObjSession;
+		pObjList->Add(Value(Object_session::Reference(pObjSession)));
+	}
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Object_server
 //-----------------------------------------------------------------------------
 // http.server#wait() {block?}
@@ -2110,6 +2427,9 @@ Gura_ImplementMethod(server, wait)
 // implementation of class Server
 Gura_ImplementUserClass(server)
 {
+	// Assignment of properties
+	Gura_AssignProperty(server, sessions);
+	// Assignment of methods
 	Gura_AssignMethod(server, wait);
 }
 

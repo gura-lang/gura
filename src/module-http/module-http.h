@@ -482,7 +482,7 @@ public:
 	Stream *SendRespChunk(Signal &sig,
 		const char *statusCode, const char *reasonPhrase,
 		const char *httpVersion, const ValueDict &valueDict);
-	inline Object_session *GetSessionObj() { return _pObjSession.get(); }
+	inline Object_session *GetObjSession() { return _pObjSession.get(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -505,7 +505,7 @@ public:
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline Object_client *GetClientObj() { return _pObjClient.get(); }
+	inline Object_client *GetObjClient() { return _pObjClient.get(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -537,13 +537,16 @@ public:
 		_localIP(localIP), _localHost(localHost), _dateTime(dateTime) {}
 	inline Object_session(const Object_session &obj) : Object(obj) {}
 	virtual ~Object_session();
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	inline bool IsValid() const { return _sock > 0; }
 	inline int GetSocket() const { return _sock; }
+	inline Object_server *GetObjServer() { return _pObjServer.get(); }
+	inline const String &GetRemoteIP() const { return _remoteIP; }
+	inline const String &GetRemoteHost() const { return _remoteHost; }
+	inline const String &GetRemoteLogname() const { return _remoteLogname; }
+	inline const String &GetLocalIP() const { return _localIP; }
+	inline const String &GetLocalHost() const { return _localHost; }
 	inline Request &GetRequest() { return _request; }
 	inline Stream_Http *GetStream() { return _pStreamHttp.get(); }
 	inline const DateTime &GetDateTime() const { return _dateTime; }
@@ -572,12 +575,10 @@ public:
 	Object_server();
 	virtual ~Object_server();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	bool Prepare(Signal &sig, const char *addr, short port);
 	Object_request *Wait(Signal &sig);
+	inline SessionList &GetSessionList() { return _sessionList; }
 };
 
 //-----------------------------------------------------------------------------
