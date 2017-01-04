@@ -16,19 +16,6 @@ Object_mpz::Object_mpz(const mpz_class &num) : Object(Gura_UserClass(mpz)), _num
 {
 }
 
-bool Object_mpz::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	return true;
-}
-
-Value Object_mpz::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	return Value::Nil;
-}
-
 String Object_mpz::ToString(bool exprFlag)
 {
 	String str = _num.get_str().c_str();

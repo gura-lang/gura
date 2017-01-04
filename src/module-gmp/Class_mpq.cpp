@@ -16,28 +16,6 @@ Object_mpq::Object_mpq(const mpq_class &num) : Object(Gura_UserClass(mpq)), _num
 {
 }
 
-bool Object_mpq::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(numer));
-	symbols.insert(Gura_Symbol(denom));
-	return true;
-}
-
-Value Object_mpq::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(numer))) {
-		return Value(new Object_mpz(_num.get_num_mpz_t()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(denom))) {
-		return Value(new Object_mpz(_num.get_den_mpz_t()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_mpq::ToString(bool exprFlag)
 {
 	String str;
@@ -48,6 +26,41 @@ String Object_mpq::ToString(bool exprFlag)
 	}
 	str += "Lr";
 	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// gmp.mpq#denom
+Gura_DeclareProperty_R(mpq, denom)
+{
+	SetPropAttr(VTYPE_mpz);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(mpq, denom)
+{
+	mpq_class &num = Object_mpq::GetObject(valueThis)->GetEntity();
+	return Value(new Object_mpz(num.get_den_mpz_t()));
+}
+
+// gmp.mpq#numer
+Gura_DeclareProperty_R(mpq, numer)
+{
+	SetPropAttr(VTYPE_mpz);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(mpq, numer)
+{
+	mpq_class &num = Object_mpq::GetObject(valueThis)->GetEntity();
+	return Value(new Object_mpz(num.get_num_mpz_t()));
 }
 
 //-----------------------------------------------------------------------------
@@ -156,6 +169,9 @@ Gura_ImplementMethod(string, cast_mpq)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(mpq)
 {
+	// Assignment of properties
+	Gura_AssignProperty(mpq, denom);
+	Gura_AssignProperty(mpq, numer);
 	// assignment of functions
 	Gura_AssignFunction(mpq);
 	// assignment of methods

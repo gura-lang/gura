@@ -206,3 +206,9 @@ testcase('fibonacci') {
 	}
 	printf('%d\n', fib().offset(300).head(100))
 }
+testcase('gmp.mpq') {
+	x = 3Lr / 4
+	tester(`x)
+	tester(`x.numer)
+	tester(`x.denom)
+}

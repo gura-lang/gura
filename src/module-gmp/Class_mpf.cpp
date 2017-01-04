@@ -16,40 +16,6 @@ Object_mpf::Object_mpf(const mpf_class &num) : Object(Gura_UserClass(mpf)), _num
 {
 }
 
-bool Object_mpf::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(prec));
-	return true;
-}
-
-Value Object_mpf::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(prec))) {
-		return Value(_num.get_prec());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_mpf::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(prec))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		ULong prec = value.GetULong();
-		_num.set_prec(prec);
-		return Value(prec);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_mpf::ToString(bool exprFlag)
 {
 	char *p = nullptr;
@@ -59,6 +25,33 @@ String Object_mpf::ToString(bool exprFlag)
 	str += 'L';
 	::free(p);
 	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// gmp.mpf#prec
+Gura_DeclareProperty_RW(mpf, prec)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(mpf, prec)
+{
+	const mpf_class &num = Object_mpf::GetObject(valueThis)->GetEntity();
+	return Value(num.get_prec());
+}
+
+Gura_ImplementPropertySetter(mpf, prec)
+{
+	mpf_class &num = Object_mpf::GetObject(valueThis)->GetEntity();
+	ULong prec = value.GetULong();
+	num.set_prec(prec);
+	return Value(prec);
 }
 
 //-----------------------------------------------------------------------------
@@ -205,12 +198,14 @@ Gura_ImplementMethod(string, cast_mpf)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(mpf)
 {
-	// assignment of function
+	// Assignment of properties
+	Gura_AssignProperty(mpf, prec);
+	// Assignment of function
 	Gura_AssignFunction(mpf);
-	// assignment of class methods
+	// Assignment of class methods
 	Gura_AssignMethod(mpf, get_default_prec);
 	Gura_AssignMethod(mpf, set_default_prec);
-	// assignment of instance methods
+	// Assignment of instance methods
 	Gura_AssignMethod(mpf, cast_mpz);
 	Gura_AssignMethodTo(VTYPE_string, string, cast_mpf);
 }

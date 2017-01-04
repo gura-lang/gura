@@ -29,9 +29,6 @@ public:
 public:
 	Object_mpz(mpz_t num);
 	Object_mpz(const mpz_class &num);
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline const mpz_class &GetEntity() const { return _num; }
 	inline static const mpz_class &GetEntity(const Value &value) {

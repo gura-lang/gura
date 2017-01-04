@@ -22,10 +22,8 @@ public:
 public:
 	Object_mpq(mpq_t num);
 	Object_mpq(const mpq_class &num);
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline mpq_class &GetEntity() { return _num; }
 	inline const mpq_class &GetEntity() const { return _num; }
 	inline static const mpq_class &GetEntity(const Value &value) {
 		return GetObject(value)->GetEntity();
