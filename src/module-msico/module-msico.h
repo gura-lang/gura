@@ -47,13 +47,11 @@ public:
 	inline Object_content(const Object_content &obj) : Object(obj) {}
 	virtual ~Object_content();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	bool Read(Environment &env, Stream &stream, Image::Format format);
 	bool Write(Environment &env, Stream &stream);
 	void AddImage(const Value &value);
+	const ValueList &GetValueList() const { return _valList; }
 };
 
 //-----------------------------------------------------------------------------

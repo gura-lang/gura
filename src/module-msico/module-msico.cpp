@@ -17,25 +17,6 @@ Object *Object_content::Clone() const
 	return nullptr;
 }
 
-bool Object_content::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(images));
-	return true;
-}
-
-Value Object_content::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(images))) {
-		return Value(new Object_list(env, _valList));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 bool Object_content::Read(Environment &env,
 									Stream &stream, Image::Format format)
 {
@@ -180,6 +161,25 @@ String Object_content::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// msico.content#images
+Gura_DeclareProperty_R(content, images)
+{
+	SetPropAttr(VTYPE_image, FLAG_ListVar);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(content, images)
+{
+	Object_content *pObjThis = Object_content::GetObject(valueThis);
+	return Value(new Object_list(env, pObjThis->GetValueList()));
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Object_content
 //-----------------------------------------------------------------------------
 // msico.content#write(stream:stream:w):reduce
@@ -221,6 +221,9 @@ Gura_ImplementMethod(content, addimage)
 // implementation of class msico
 Gura_ImplementUserClass(content)
 {
+	// Assignment of properties
+	Gura_AssignProperty(content, images);
+	// Assignment of methods
 	Gura_AssignMethod(content, write);
 	Gura_AssignMethod(content, addimage);
 }
