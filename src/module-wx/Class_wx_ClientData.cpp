@@ -79,6 +79,32 @@ Gura_ImplementMethod(wx_ClientData, SetData)
 	return Value::Nil;
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// wx.wx_ClientData#value
+Gura_DeclareProperty_RW(wx_ClientData, value)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(wx_ClientData, value)
+{
+	Object_wx_ClientData *pObjThis = Object_wx_ClientData::GetObject(valueThis);
+	return pObjThis->GetEntity()->GetValue();
+}
+
+Gura_ImplementPropertySetter(wx_ClientData, value)
+{
+	Object_wx_ClientData *pObjThis = Object_wx_ClientData::GetObject(valueThis);
+	pObjThis->GetEntity()->SetValue(value);
+	return value;
+}
+
 //----------------------------------------------------------------------------
 // Object implementation for wxClientData
 //----------------------------------------------------------------------------
@@ -107,7 +133,6 @@ Value Object_wx_ClientData::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(value))) {
 		evaluatedFlag = true;
-		return GetEntity()->GetValue();
 	}
 	return Value::Nil;
 }
@@ -117,8 +142,6 @@ Value Object_wx_ClientData::DoSetProp(Environment &env, const Symbol *pSymbol, c
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(value))) {
 		evaluatedFlag = true;
-		GetEntity()->SetValue(value);
-		return value;
 	}
 	return Value::Nil;
 }
@@ -141,6 +164,7 @@ String Object_wx_ClientData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClientData)
 {
+	Gura_AssignProperty(wx_ClientData, value);
 	Gura_AssignFunction(ClientData);
 	Gura_AssignMethod(wx_ClientData, GetData);
 	Gura_AssignMethod(wx_ClientData, SetData);
