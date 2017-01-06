@@ -1,0 +1,6 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+import(tar)
+
+testcase() {
+}

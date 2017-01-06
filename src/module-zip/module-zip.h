@@ -761,10 +761,8 @@ public:
 						Object(obj), _hdr(obj._hdr) {}
 	virtual ~Object_stat();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	const inline CentralFileHeader &GetCentralFileHeader() const { return _hdr; }
 };
 
 //-----------------------------------------------------------------------------

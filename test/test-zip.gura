@@ -1,0 +1,40 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+import(zip)
+import(hash)
+
+testcase('path.walk()') {
+	path.walk('test-zip/test.zip/') {|fileName|
+		println(fileName)
+	}
+}
+testcase('stream out zip content') {
+	path.walk('test-zip/test.zip/') {|fileName|
+		md5 = hash.md5()
+		stream.copy(fileName, md5)
+		println(fileName, ': ', md5.hexdigest)
+	}
+}
+testcase('zip.reader()') {
+	Info = struct(propSym, fmt)
+	z = zip.reader('test-zip/test.zip')
+	z.entries {|entry|
+		md5 = hash.md5()
+		stream.copy(entry, md5)
+		println(entry.identifier, ': ', md5.hexdigest)
+		infos = @(Info) {
+			[`attributes,			'%08x']
+			[`comment,				'"%s"']
+			[`compressed_size,		'%d']
+			[`compression_method,	'%d']
+			[`crc32,				'%08x']
+			[`filename,				'%s']
+			[`mtime,				'%s']
+			[`size,					'%d']
+		}
+		infos.each {|info|
+			printf('%-20s%s\n', info.propSym,
+				   info.fmt.format(entry.stat.getprop!(info.propSym)))
+		}
+	}
+}

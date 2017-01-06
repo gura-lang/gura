@@ -639,46 +639,6 @@ Object *Object_stat::Clone() const
 	return new Object_stat(*this);
 }
 
-bool Object_stat::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(filename));
-	symbols.insert(Gura_UserSymbol(comment));
-	symbols.insert(Gura_UserSymbol(mtime));
-	symbols.insert(Gura_UserSymbol(crc32));
-	symbols.insert(Gura_UserSymbol(compression_method));
-	symbols.insert(Gura_UserSymbol(size));
-	symbols.insert(Gura_UserSymbol(compressed_size));
-	symbols.insert(Gura_UserSymbol(attributes));
-	return true;
-}
-
-Value Object_stat::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(filename))) {
-		return Value(_hdr.GetFileName());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(comment))) {
-		return Value(_hdr.GetFileComment());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mtime))) {
-		return Value(new Object_datetime(env, _hdr.GetLastModDateTime()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(crc32))) {
-		return Value(_hdr.GetCrc32());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(compression_method))) {
-		return Value(static_cast<ULong>(_hdr.GetCompressionMethod()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
-		return Value(static_cast<ULong>(_hdr.GetUncompressedSize()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(compressed_size))) {
-		return Value(static_cast<ULong>(_hdr.GetCompressedSize()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attributes))) {
-		return Value(static_cast<ULong>(_hdr.GetExternalFileAttributes()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_stat::ToString(bool exprFlag)
 {
 	String str;
@@ -689,11 +649,151 @@ String Object_stat::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// zip.stat#attributes
+Gura_DeclareProperty_R(stat, attributes)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, attributes)
+{
+	const CentralFileHeader &hdr = Object_stat::GetObject(valueThis)->GetCentralFileHeader();
+	return Value(static_cast<ULong>(hdr.GetExternalFileAttributes()));
+}
+
+// zip.stat#comment
+Gura_DeclareProperty_R(stat, comment)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, comment)
+{
+	const CentralFileHeader &hdr = Object_stat::GetObject(valueThis)->GetCentralFileHeader();
+	return Value(hdr.GetFileComment());
+}
+
+// zip.stat#compressed_size
+Gura_DeclareProperty_R(stat, compressed_size)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, compressed_size)
+{
+	const CentralFileHeader &hdr = Object_stat::GetObject(valueThis)->GetCentralFileHeader();
+	return Value(static_cast<ULong>(hdr.GetCompressedSize()));
+}
+
+// zip.stat#compression_method
+Gura_DeclareProperty_R(stat, compression_method)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, compression_method)
+{
+	const CentralFileHeader &hdr = Object_stat::GetObject(valueThis)->GetCentralFileHeader();
+	return Value(static_cast<ULong>(hdr.GetCompressionMethod()));
+}
+
+// zip.stat#crc32
+Gura_DeclareProperty_R(stat, crc32)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, crc32)
+{
+	const CentralFileHeader &hdr = Object_stat::GetObject(valueThis)->GetCentralFileHeader();
+	return Value(hdr.GetCrc32());
+}
+
+// zip.stat#filename
+Gura_DeclareProperty_R(stat, filename)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, filename)
+{
+	const CentralFileHeader &hdr = Object_stat::GetObject(valueThis)->GetCentralFileHeader();
+	return Value(hdr.GetFileName());
+}
+
+// zip.stat#mtime
+Gura_DeclareProperty_R(stat, mtime)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, mtime)
+{
+	const CentralFileHeader &hdr = Object_stat::GetObject(valueThis)->GetCentralFileHeader();
+	return Value(new Object_datetime(env, hdr.GetLastModDateTime()));
+}
+
+// zip.stat#size
+Gura_DeclareProperty_R(stat, size)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, size)
+{
+	const CentralFileHeader &hdr = Object_stat::GetObject(valueThis)->GetCentralFileHeader();
+	return Value(static_cast<ULong>(hdr.GetUncompressedSize()));
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Object_stat
 //-----------------------------------------------------------------------------
 // implementation of class stat
 Gura_ImplementUserClass(stat)
 {
+	// Assignment of properties
+	Gura_AssignProperty(stat, attributes);
+	Gura_AssignProperty(stat, comment);
+	Gura_AssignProperty(stat, compressed_size);
+	Gura_AssignProperty(stat, compression_method);
+	Gura_AssignProperty(stat, crc32);
+	Gura_AssignProperty(stat, filename);
+	Gura_AssignProperty(stat, mtime);
+	Gura_AssignProperty(stat, size);
 }
 
 //-----------------------------------------------------------------------------

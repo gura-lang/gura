@@ -1,0 +1,30 @@
+======== #1 path.walk() ========
+
+test-zip/test.zip/Module_zipfile.cpp
+test-zip/test.zip/Module_zipfile.h
+
+======== #2 stream out zip content ========
+
+test-zip/test.zip/Module_zipfile.cpp: 4c572b08c7708e6f03c77f4a72d7326d
+test-zip/test.zip/Module_zipfile.h: 2125bad76cef55f3f0ba89e3feb126c3
+
+======== #3 zip.reader() ========
+
+Module_zipfile.cpp: 4c572b08c7708e6f03c77f4a72d7326d
+attributes          00000020
+comment             ""
+compressed_size     6437
+compression_method  8
+crc32               b6412f4e
+filename            Module_zipfile.cpp
+mtime               <datetime:2012-01-22T12:54:08>
+size                32418
+Module_zipfile.h: 2125bad76cef55f3f0ba89e3feb126c3
+attributes          00000020
+comment             ""
+compressed_size     4922
+compression_method  8
+crc32               6c048a1e
+filename            Module_zipfile.h
+mtime               <datetime:2012-01-22T12:54:08>
+size                31840
