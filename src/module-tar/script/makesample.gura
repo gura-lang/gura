@@ -1,0 +1,12 @@
+#!/usr/bin/env gura
+import(tar)
+
+buff = [0..255].pack('256B')
+
+tar.writer('test.tar') {|w|
+	w.add(buff, 'file1.bin')
+	w.add(buff, 'file2.bin')
+	w.add(buff, 'file3.bin')
+	w.add(buff, 'file4.bin')
+	w.add(buff, 'file5.bin')
+}
