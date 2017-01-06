@@ -321,9 +321,6 @@ public:
 	Object_attribute(Attribute *pAttribute);
 	inline Attribute *GetAttribute() { return _pAttribute.get(); }
 	inline const Attribute *GetAttribute() const { return _pAttribute.get(); }
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
 
@@ -342,9 +339,6 @@ public:
 	inline Element *GetElement() { return _pElement.get(); }
 	inline const Element *GetElement() const { return _pElement.get(); }
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
 
@@ -362,11 +356,6 @@ public:
 	Object_document(Document *pDocument);
 	inline Document *GetDocument() { return _pDocument.get(); }
 	inline const Document *GetDocument() const { return _pDocument.get(); }
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
 

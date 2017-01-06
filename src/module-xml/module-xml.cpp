@@ -454,6 +454,98 @@ bool Element::AddChild(Environment &env, Signal &sig, const Value &value)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// xml.element#attrs
+Gura_DeclareProperty_R(element, attrs)
+{
+	SetPropAttr(VTYPE_iterator);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(element, attrs)
+{
+	const Element *pElement = Object_element::GetObject(valueThis)->GetElement();
+	const AttributeOwner *pAttrs = pElement->GetAttributes();
+	if (pAttrs == nullptr) return Value::Nil;
+	Iterator *pIterator = new Iterator_attribute(pAttrs->Reference());
+	return Value(new Object_iterator(env, pIterator));
+}
+
+// xml.element#children
+Gura_DeclareProperty_R(element, children)
+{
+	SetPropAttr(VTYPE_iterator);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(element, children)
+{
+	const Element *pElement = Object_element::GetObject(valueThis)->GetElement();
+	const ElementOwner *pChildren = pElement->GetChildren();
+	if (pChildren == nullptr) return Value::Nil;
+	Iterator *pIterator = new Iterator_element(pChildren->Reference());
+	return Value(new Object_iterator(env, pIterator));
+}
+
+// xml.element#comment
+Gura_DeclareProperty_R(element, comment)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(element, comment)
+{
+	const Element *pElement = Object_element::GetObject(valueThis)->GetElement();
+	if (!pElement->IsComment()) return Value::Nil;
+	return Value(pElement->GetComment());
+}
+
+// xml.element#tagname
+Gura_DeclareProperty_R(element, tagname)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(element, tagname)
+{
+	const Element *pElement = Object_element::GetObject(valueThis)->GetElement();
+	if (!pElement->IsTag()) return Value::Nil;
+	return Value(pElement->GetTagName());
+}
+
+// xml.element#text
+Gura_DeclareProperty_R(element, text)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(element, text)
+{
+	const Element *pElement = Object_element::GetObject(valueThis)->GetElement();
+	if (!pElement->IsText()) return Value::Nil;
+	return Value(pElement->GetText());
+}
+
+//-----------------------------------------------------------------------------
 // ElementList
 //-----------------------------------------------------------------------------
 
@@ -887,28 +979,6 @@ Object_attribute::Object_attribute(Attribute *pAttribute) :
 {
 }
 
-bool Object_attribute::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(name));
-	symbols.insert(Gura_UserSymbol(value));
-	return true;
-}
-
-Value Object_attribute::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(_pAttribute->GetName());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
-		return Value(_pAttribute->GetValue());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_attribute::ToString(bool exprFlag)
 {
 	String str;
@@ -921,11 +991,50 @@ String Object_attribute::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// xml.attribute#name
+Gura_DeclareProperty_R(attribute, name)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(attribute, name)
+{
+	const Attribute *pAttribute = Object_attribute::GetObject(valueThis)->GetAttribute();
+	return Value(pAttribute->GetName());
+}
+
+// xml.attribute#value
+Gura_DeclareProperty_R(attribute, value)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(attribute, value)
+{
+	const Attribute *pAttribute = Object_attribute::GetObject(valueThis)->GetAttribute();
+	return Value(pAttribute->GetValue());
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Object_attribute
 //-----------------------------------------------------------------------------
 // implementation of class attribute
 Gura_ImplementUserClass(attribute)
 {
+	// Assignment of properties
+	Gura_AssignProperty(attribute, name);
+	Gura_AssignProperty(attribute, value);
+	// Assignment of value
 	Gura_AssignValue(attribute, Value(Reference()));
 }
 
@@ -952,46 +1061,6 @@ Value Object_element::IndexGet(Environment &env, const Value &valueIdx)
 		return Value::Nil;
 	}
 	return Value(pAttribute->GetValue());
-}
-
-bool Object_element::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(tagname));
-	symbols.insert(Gura_UserSymbol(text));
-	symbols.insert(Gura_UserSymbol(comment));
-	symbols.insert(Gura_UserSymbol(children));
-	symbols.insert(Gura_UserSymbol(attrs));
-	return true;
-}
-
-Value Object_element::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(tagname))) {
-		if (!_pElement->IsTag()) return Value::Nil;
-		return Value(_pElement->GetTagName());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		if (!_pElement->IsText()) return Value::Nil;
-		return Value(_pElement->GetText());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(comment))) {
-		if (!_pElement->IsComment()) return Value::Nil;
-		return Value(_pElement->GetComment());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(children))) {
-		const ElementOwner *pChildren = _pElement->GetChildren();
-		if (pChildren == nullptr) return Value::Nil;
-		Iterator *pIterator = new Iterator_element(pChildren->Reference());
-		return Value(new Object_iterator(env, pIterator));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attrs))) {
-		const AttributeOwner *pAttrs = _pElement->GetAttributes();
-		if (pAttrs == nullptr) return Value::Nil;
-		Iterator *pIterator = new Iterator_attribute(pAttrs->Reference());
-		return Value(new Object_iterator(env, pIterator));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
 }
 
 String Object_element::ToString(bool exprFlag)
@@ -1111,6 +1180,13 @@ Gura_ImplementBinaryOperator(Shl, element, any)
 // implementation of class Element
 Gura_ImplementUserClass(element)
 {
+	// Assignment of properties
+	Gura_AssignProperty(element, attrs);
+	Gura_AssignProperty(element, children);
+	Gura_AssignProperty(element, comment);
+	Gura_AssignProperty(element, tagname);
+	Gura_AssignProperty(element, text);
+	// Assignment of methods
 	Gura_AssignMethod(element, addchild);
 	Gura_AssignMethod(element, gettext);
 	Gura_AssignMethod(element, textize);
@@ -1127,55 +1203,71 @@ Object_document::Object_document(Document *pDocument) :
 {
 }
 
-bool Object_document::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(version));
-	symbols.insert(Gura_UserSymbol(encoding));
-	symbols.insert(Gura_UserSymbol(root));
-	return true;
-}
-
-Value Object_document::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(version))) {
-		return Value(_pDocument->GetVersion());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(encoding))) {
-		return Value(_pDocument->GetEncoding());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
-		if (_pDocument->GetRoot() == nullptr) return Value::Nil;
-		return Value(new Object_element(_pDocument->GetRoot()->Reference()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_document::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
-		if (!value.IsInstanceOf(VTYPE_element)) {
-			sig.SetError(ERR_TypeError, "must specify an instance of xml.element");
-			return Value::Nil;
-		}
-		_pDocument->SetRoot(Object_element::GetObject(value)->GetElement()->Reference());
-		return value;
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_document::ToString(bool exprFlag)
 {
 	String str;
 	str = "<xml.document:";
 	str += ">";
 	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// xml.document#encoding
+Gura_DeclareProperty_R(document, encoding)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(document, encoding)
+{
+	const Document *pDocument = Object_document::GetObject(valueThis)->GetDocument();
+	return Value(pDocument->GetEncoding());
+}
+
+// xml.document#root
+Gura_DeclareProperty_RW(document, root)
+{
+	SetPropAttr(VTYPE_element);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(document, root)
+{
+	const Document *pDocument = Object_document::GetObject(valueThis)->GetDocument();
+	if (pDocument->GetRoot() == nullptr) return Value::Nil;
+	return Value(new Object_element(pDocument->GetRoot()->Reference()));
+}
+
+Gura_ImplementPropertySetter(document, root)
+{
+	Document *pDocument = Object_document::GetObject(valueThis)->GetDocument();
+	pDocument->SetRoot(Object_element::GetObject(value)->GetElement()->Reference());
+	return value;
+}
+
+// xml.document#version
+Gura_DeclareProperty_R(document, version)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(document, version)
+{
+	const Document *pDocument = Object_document::GetObject(valueThis)->GetDocument();
+	return Value(pDocument->GetVersion());
 }
 
 //-----------------------------------------------------------------------------
@@ -1268,6 +1360,11 @@ Gura_ImplementMethod(document, write)
 // implementation of class document
 Gura_ImplementUserClass(document)
 {
+	// Assignment of properties
+	Gura_AssignProperty(document, encoding);
+	Gura_AssignProperty(document, root);
+	Gura_AssignProperty(document, version);
+	// Assignment of methods
 	Gura_AssignMethod(document, parse);
 	Gura_AssignMethod(document, read);
 	Gura_AssignMethod(document, textize);
