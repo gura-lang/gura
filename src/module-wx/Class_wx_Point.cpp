@@ -226,12 +226,12 @@ String Object_wx_Point::ToString(bool exprFlag)
 Gura_ImplementUserInheritableClass(wx_Point)
 {
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(wx_Point, x);
 	Gura_AssignProperty(wx_Point, y);
-#endif
+	// Assignment of function
 	Gura_AssignFunction(PointEmpty);
 	Gura_AssignFunction(Point);
+	// Assignment of operators
 	Gura_AssignBinaryOperator(Eq, wx_Point, wx_Point);
 	Gura_AssignBinaryOperator(Ne, wx_Point, wx_Point);
 	Gura_AssignBinaryOperator(Add, wx_Point, any);
