@@ -35,6 +35,7 @@
 /gura-doc
 /gura-guest
 /module/site/
+/.vscode
 msc/
 gnuc/
 Release/
