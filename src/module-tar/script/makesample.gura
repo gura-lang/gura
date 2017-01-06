@@ -2,11 +2,10 @@
 import(tar)
 
 buff = [0..255].pack('256B')
-
+buff = buff + buff
 tar.writer('test.tar') {|w|
-	w.add(buff, 'file1.bin')
-	w.add(buff, 'file2.bin')
-	w.add(buff, 'file3.bin')
-	w.add(buff, 'file4.bin')
-	w.add(buff, 'file5.bin')
+	repeat (10) {|i|
+		n = rand(200) + 100
+		w.add(buff.reader().read(n), format('file%d.bin', i))
+	}
 }
