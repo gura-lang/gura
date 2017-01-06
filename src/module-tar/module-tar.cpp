@@ -441,70 +441,6 @@ Object *Object_stat::Clone() const
 	return new Object_stat(*this);
 }
 
-bool Object_stat::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(name));
-	symbols.insert(Gura_UserSymbol(filename));
-	symbols.insert(Gura_UserSymbol(linkname));
-	symbols.insert(Gura_UserSymbol(uname));
-	symbols.insert(Gura_UserSymbol(gname));
-	symbols.insert(Gura_UserSymbol(mode));
-	symbols.insert(Gura_UserSymbol(uid));
-	symbols.insert(Gura_UserSymbol(gid));
-	symbols.insert(Gura_UserSymbol(size));
-	symbols.insert(Gura_UserSymbol(mtime));
-	symbols.insert(Gura_UserSymbol(atime));
-	symbols.insert(Gura_UserSymbol(ctime));
-	symbols.insert(Gura_UserSymbol(chksum));
-	symbols.insert(Gura_UserSymbol(typeflag));
-	symbols.insert(Gura_UserSymbol(devmajor));
-	symbols.insert(Gura_UserSymbol(devminor));
-	return true;
-}
-
-Value Object_stat::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(_hdr.GetName());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(filename))) {
-		return Value(_hdr.GetName());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(linkname))) {
-		return Value(_hdr.GetLinkName());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(uname))) {
-		return Value(_hdr.GetUName());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(gname))) {
-		return Value(_hdr.GetGName());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mode))) {
-		return Value(_hdr.GetMode());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(uid))) {
-		return Value(_hdr.GetUid());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(gid))) {
-		return Value(_hdr.GetGid());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
-		return Value(_hdr.GetSize());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mtime))) {
-		return Value(new Object_datetime(env, _hdr.GetMTime()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(atime))) {
-		return Value(new Object_datetime(env, _hdr.GetATime()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ctime))) {
-		return Value(new Object_datetime(env, _hdr.GetCTime()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(chksum))) {
-		return Value(_hdr.GetChksum());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(typeflag))) {
-		return Value(_hdr.GetTypeFlag());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(devmajor))) {
-		return Value(_hdr.GetDevMajor());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(devminor))) {
-		return Value(_hdr.GetDevMinor());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_stat::ToString(bool exprFlag)
 {
 	String str;
@@ -515,11 +451,287 @@ String Object_stat::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// tar.stat#atime
+Gura_DeclareProperty_R(stat, atime)
+{
+	SetPropAttr(VTYPE_datetime);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, atime)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(new Object_datetime(env, hdr.GetATime()));
+}
+
+// tar.stat#chksum
+Gura_DeclareProperty_R(stat, chksum)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, chksum)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(hdr.GetChksum());
+}
+
+// tar.stat#ctime
+Gura_DeclareProperty_R(stat, ctime)
+{
+	SetPropAttr(VTYPE_datetime);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, ctime)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(new Object_datetime(env, hdr.GetCTime()));
+}
+
+// tar.stat#devmajor
+Gura_DeclareProperty_R(stat, devmajor)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, devmajor)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(hdr.GetDevMajor());
+}
+
+// tar.stat#devminor
+Gura_DeclareProperty_R(stat, devminor)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, devminor)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(hdr.GetDevMinor());
+}
+
+// tar.stat#filename
+Gura_DeclareProperty_R(stat, filename)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, filename)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(hdr.GetName());
+}
+
+// tar.stat#gid
+Gura_DeclareProperty_R(stat, gid)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, gid)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(hdr.GetGid());
+}
+
+// tar.stat#gname
+Gura_DeclareProperty_R(stat, gname)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, gname)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(hdr.GetGName());
+}
+
+// tar.stat#linkname
+Gura_DeclareProperty_R(stat, linkname)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, linkname)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(hdr.GetLinkName());
+}
+
+// tar.stat#mode
+Gura_DeclareProperty_R(stat, mode)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, mode)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(hdr.GetMode());
+}
+
+// tar.stat#mtime
+Gura_DeclareProperty_R(stat, mtime)
+{
+	SetPropAttr(VTYPE_datetime);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, mtime)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(new Object_datetime(env, hdr.GetMTime()));
+}
+
+// tar.stat#name
+Gura_DeclareProperty_R(stat, name)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, name)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(hdr.GetName());
+}
+
+// tar.stat#size
+Gura_DeclareProperty_R(stat, size)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, size)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(hdr.GetSize());
+}
+
+// tar.stat#typeflag
+Gura_DeclareProperty_R(stat, typeflag)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, typeflag)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(hdr.GetTypeFlag());
+}
+
+// tar.stat#uid
+Gura_DeclareProperty_R(stat, uid)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, uid)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(hdr.GetUid());
+}
+
+// tar.stat#uname
+Gura_DeclareProperty_R(stat, uname)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, uname)
+{
+	const Header &hdr = Object_stat::GetObject(valueThis)->GetHeader();
+	return Value(hdr.GetUName());
+}
+
+//-----------------------------------------------------------------------------
 // Interfaces of tar.stat
 //-----------------------------------------------------------------------------
 // implementation of class stat
 Gura_ImplementUserClass(stat)
 {
+	// Assignment of properties
+	Gura_AssignProperty(stat, atime);
+	Gura_AssignProperty(stat, chksum);
+	Gura_AssignProperty(stat, ctime);
+	Gura_AssignProperty(stat, devmajor);
+	Gura_AssignProperty(stat, devminor);
+	Gura_AssignProperty(stat, filename);
+	Gura_AssignProperty(stat, gid);
+	Gura_AssignProperty(stat, gname);
+	Gura_AssignProperty(stat, linkname);
+	Gura_AssignProperty(stat, mode);
+	Gura_AssignProperty(stat, mtime);
+	Gura_AssignProperty(stat, name);
+	Gura_AssignProperty(stat, size);
+	Gura_AssignProperty(stat, typeflag);
+	Gura_AssignProperty(stat, uid);
+	Gura_AssignProperty(stat, uname);
 }
 
 //-----------------------------------------------------------------------------
@@ -831,22 +1043,6 @@ Gura_ModuleValidate()
 Gura_ModuleEntry()
 {
 	// symbol realization
-	Gura_RealizeUserSymbol(name);
-	Gura_RealizeUserSymbol(filename);
-	Gura_RealizeUserSymbol(linkname);
-	Gura_RealizeUserSymbol(uname);
-	Gura_RealizeUserSymbol(gname);
-	Gura_RealizeUserSymbol(mode);
-	Gura_RealizeUserSymbol(uid);
-	Gura_RealizeUserSymbol(gid);
-	Gura_RealizeUserSymbol(size);
-	Gura_RealizeUserSymbol(mtime);
-	Gura_RealizeUserSymbol(atime);
-	Gura_RealizeUserSymbol(ctime);
-	Gura_RealizeUserSymbol(chksum);
-	Gura_RealizeUserSymbol(typeflag);
-	Gura_RealizeUserSymbol(devmajor);
-	Gura_RealizeUserSymbol(devminor);
 	Gura_RealizeUserSymbol(none);
 	Gura_RealizeUserSymbol(gzip);
 	Gura_RealizeUserSymbol(bzip2);
@@ -855,31 +1051,18 @@ Gura_ModuleEntry()
 	Gura_RealizeAndPrepareUserClass(reader, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(writer, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(stat, env.LookupClass(VTYPE_object));
-#if 0
-const char REGTYPE			= '0';		// regular file
-const char AREGTYPE			= '\0';		// regular file
-const char LNKTYPE			= '1';		// link
-const char SYMTYPE			= '2';		// reserved
-const char CHRTYPE			= '3';		// character special
-const char BLKTYPE			= '4';		// block special
-const char DIRTYPE			= '5';		// directory
-const char FIFOTYPE			= '6';		// FIFO special
-const char CONTTYPE			= '7';		// reserved
-const char XHDTYPE			= 'x';		// Extended header referring to the next file in the archive
-const char XGLTYPE			= 'g';		// Global extended header
-#endif
 	// value assignment
-	Gura_AssignValue(REGTYPE,	Value(REGTYPE));
-	Gura_AssignValue(AREGTYPE,	Value(AREGTYPE));
-	Gura_AssignValue(LNKTYPE,	Value(LNKTYPE));
-	Gura_AssignValue(SYMTYPE,	Value(SYMTYPE));
-	Gura_AssignValue(CHRTYPE,	Value(CHRTYPE));
-	Gura_AssignValue(BLKTYPE,	Value(BLKTYPE));
-	Gura_AssignValue(DIRTYPE,	Value(DIRTYPE));
-	Gura_AssignValue(FIFOTYPE,	Value(FIFOTYPE));
-	Gura_AssignValue(CONTTYPE,	Value(CONTTYPE));
-	Gura_AssignValue(XHDTYPE,	Value(XHDTYPE));
-	Gura_AssignValue(XGLTYPE,	Value(XGLTYPE));
+	Gura_AssignValue(REGTYPE,	Value(REGTYPE));	// regular file
+	Gura_AssignValue(AREGTYPE,	Value(AREGTYPE));	// regular file
+	Gura_AssignValue(LNKTYPE,	Value(LNKTYPE));	// link
+	Gura_AssignValue(SYMTYPE,	Value(SYMTYPE));	// reserved
+	Gura_AssignValue(CHRTYPE,	Value(CHRTYPE));	// character special
+	Gura_AssignValue(BLKTYPE,	Value(BLKTYPE));	// block special
+	Gura_AssignValue(DIRTYPE,	Value(DIRTYPE));	// directory
+	Gura_AssignValue(FIFOTYPE,	Value(FIFOTYPE));	// FIFO special
+	Gura_AssignValue(CONTTYPE,	Value(CONTTYPE));	// reserved
+	Gura_AssignValue(XHDTYPE,	Value(XHDTYPE));	// Extended header referring to the next file in the archive
+	Gura_AssignValue(XGLTYPE,	Value(XGLTYPE));	// Global extended header
 	// function assignment
 	Gura_AssignFunction(reader);
 	Gura_AssignFunction(writer);

@@ -11,23 +11,6 @@
 
 Gura_BeginModuleHeader(tar)
 
-Gura_DeclareUserSymbol(name);
-Gura_DeclareUserSymbol(filename);
-Gura_DeclareUserSymbol(linkname);
-Gura_DeclareUserSymbol(uname);
-Gura_DeclareUserSymbol(gname);
-Gura_DeclareUserSymbol(mode);
-Gura_DeclareUserSymbol(uid);
-Gura_DeclareUserSymbol(gid);
-Gura_DeclareUserSymbol(size);
-Gura_DeclareUserSymbol(mtime);
-Gura_DeclareUserSymbol(atime);
-Gura_DeclareUserSymbol(ctime);
-Gura_DeclareUserSymbol(chksum);
-Gura_DeclareUserSymbol(typeflag);
-Gura_DeclareUserSymbol(devmajor);
-Gura_DeclareUserSymbol(devminor);
-
 Gura_DeclareUserSymbol(none);
 Gura_DeclareUserSymbol(gzip);
 Gura_DeclareUserSymbol(bzip2);
@@ -272,10 +255,8 @@ public:
 	inline Object_stat(const Object_stat &obj) : Object(obj), _hdr(obj._hdr) {}
 	virtual ~Object_stat();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline const Header &GetHeader() { return _hdr; }
 };
 
 //-----------------------------------------------------------------------------
