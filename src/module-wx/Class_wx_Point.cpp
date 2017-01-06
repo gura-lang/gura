@@ -143,6 +143,55 @@ Gura_ImplementBinaryOperator(Sub, wx_Point, any)
 	return Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue));
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// wx.Point#x
+Gura_DeclareProperty_RW(wx_Point, x)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(wx_Point, x)
+{
+	Object_wx_Point *pObjThis = Object_wx_Point::GetObject(valueThis);
+	return Value(pObjThis->GetEntity()->x);
+}
+
+Gura_ImplementPropertySetter(wx_Point, x)
+{
+	Object_wx_Point *pObjThis = Object_wx_Point::GetObject(valueThis);
+	pObjThis->GetEntity()->x = value.GetInt();
+	return value;
+}
+
+// wx.Point#y
+Gura_DeclareProperty_RW(wx_Point, y)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(wx_Point, y)
+{
+	Object_wx_Point *pObjThis = Object_wx_Point::GetObject(valueThis);
+	return Value(pObjThis->GetEntity()->y);
+}
+
+Gura_ImplementPropertySetter(wx_Point, y)
+{
+	Object_wx_Point *pObjThis = Object_wx_Point::GetObject(valueThis);
+	pObjThis->GetEntity()->y = value.GetInt();
+	return value;
+}
+
 //----------------------------------------------------------------------------
 // Object implementation for wxPoint
 //----------------------------------------------------------------------------
@@ -156,46 +205,6 @@ Object_wx_Point::~Object_wx_Point()
 Object *Object_wx_Point::Clone() const
 {
 	return nullptr;
-}
-
-bool Object_wx_Point::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(x));
-	symbols.insert(Gura_Symbol(y));
-	return true;
-}
-
-Value Object_wx_Point::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		return Value(GetEntity()->x);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		return Value(GetEntity()->y);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_wx_Point::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		GetEntity()->x = value.GetInt();
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		GetEntity()->y = value.GetInt();
-		return value;
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
 }
 
 String Object_wx_Point::ToString(bool exprFlag)
@@ -216,6 +225,11 @@ String Object_wx_Point::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Point)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(wx_Point, x);
+	Gura_AssignProperty(wx_Point, y);
+#endif
 	Gura_AssignFunction(PointEmpty);
 	Gura_AssignFunction(Point);
 	Gura_AssignBinaryOperator(Eq, wx_Point, wx_Point);

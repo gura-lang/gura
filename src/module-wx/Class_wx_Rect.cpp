@@ -844,6 +844,101 @@ Gura_ImplementBinaryOperator(Ne, wx_Rect, wx_Rect)
 	return *item1 != *item2;
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// wx.Rect#height
+Gura_DeclareProperty_RW(wx_Rect, height)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(wx_Rect, height)
+{
+	Object_wx_Rect *pObjThis = Object_wx_Rect::GetObject(valueThis);
+	return Value(pObjThis->GetEntity()->height);
+}
+
+Gura_ImplementPropertySetter(wx_Rect, height)
+{
+	Object_wx_Rect *pObjThis = Object_wx_Rect::GetObject(valueThis);
+	pObjThis->GetEntity()->height = value.GetInt();
+	return value;
+}
+
+// wx.Rect#width
+Gura_DeclareProperty_RW(wx_Rect, width)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(wx_Rect, width)
+{
+	Object_wx_Rect *pObjThis = Object_wx_Rect::GetObject(valueThis);
+	return Value(pObjThis->GetEntity()->width);
+}
+
+Gura_ImplementPropertySetter(wx_Rect, width)
+{
+	Object_wx_Rect *pObjThis = Object_wx_Rect::GetObject(valueThis);
+	pObjThis->GetEntity()->width = value.GetInt();
+	return value;
+}
+
+// wx.Rect#x
+Gura_DeclareProperty_RW(wx_Rect, x)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(wx_Rect, x)
+{
+	Object_wx_Rect *pObjThis = Object_wx_Rect::GetObject(valueThis);
+	return Value(pObjThis->GetEntity()->x);
+}
+
+Gura_ImplementPropertySetter(wx_Rect, x)
+{
+	Object_wx_Rect *pObjThis = Object_wx_Rect::GetObject(valueThis);
+	pObjThis->GetEntity()->x = value.GetInt();
+	return value;
+}
+
+// wx.Rect#y
+Gura_DeclareProperty_RW(wx_Rect, y)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(wx_Rect, y)
+{
+	Object_wx_Rect *pObjThis = Object_wx_Rect::GetObject(valueThis);
+	return Value(pObjThis->GetEntity()->y);
+}
+
+Gura_ImplementPropertySetter(wx_Rect, y)
+{
+	Object_wx_Rect *pObjThis = Object_wx_Rect::GetObject(valueThis);
+	pObjThis->GetEntity()->y = value.GetInt();
+	return value;
+}
+
 //----------------------------------------------------------------------------
 // Object implementation for wxRect
 //----------------------------------------------------------------------------
@@ -857,60 +952,6 @@ Object_wx_Rect::~Object_wx_Rect()
 Object *Object_wx_Rect::Clone() const
 {
 	return new Object_wx_Rect(new wxRect(*dynamic_cast<wxRect *>(_pEntity)), nullptr, OwnerTrue);
-}
-
-bool Object_wx_Rect::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(x));
-	symbols.insert(Gura_Symbol(y));
-	symbols.insert(Gura_Symbol(width));
-	symbols.insert(Gura_Symbol(height));
-	return true;
-}
-
-Value Object_wx_Rect::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		return Value(GetEntity()->x);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		return Value(GetEntity()->y);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(width))) {
-		return Value(GetEntity()->width);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(height))) {
-		return Value(GetEntity()->height);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_wx_Rect::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		GetEntity()->x = value.GetInt();
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		GetEntity()->y = value.GetInt();
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(width))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		GetEntity()->width = value.GetInt();
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(height))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		GetEntity()->height = value.GetInt();
-		return value;
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
 }
 
 String Object_wx_Rect::ToString(bool exprFlag)
@@ -931,13 +972,21 @@ String Object_wx_Rect::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Rect)
 {
+	// Assignment of properties
+	Gura_AssignProperty(wx_Rect, height);
+	Gura_AssignProperty(wx_Rect, width);
+	Gura_AssignProperty(wx_Rect, x);
+	Gura_AssignProperty(wx_Rect, y);
+	// Assignment of functions
 	Gura_AssignFunction(RectEmpty);
 	Gura_AssignFunction(Rect);
 	Gura_AssignFunction(Rect_1);
 	Gura_AssignFunction(Rect_2);
 	Gura_AssignFunction(Rect_3);
+	// Assignment of operators
 	Gura_AssignBinaryOperator(Eq, wx_Rect, wx_Rect);
 	Gura_AssignBinaryOperator(Ne, wx_Rect, wx_Rect);
+	// Assignment of methods
 	Gura_AssignMethod(wx_Rect, CentreIn);
 	Gura_AssignMethod(wx_Rect, CenterIn);
 	Gura_AssignMethod(wx_Rect, ContainsXY);

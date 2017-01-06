@@ -120,32 +120,6 @@ Object *Object_wx_ClientData::Clone() const
 	return nullptr;
 }
 
-bool Object_wx_ClientData::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(value));
-	return true;
-}
-
-Value Object_wx_ClientData::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	if (pSymbol->IsIdentical(Gura_Symbol(value))) {
-		evaluatedFlag = true;
-	}
-	return Value::Nil;
-}
-
-Value Object_wx_ClientData::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	if (pSymbol->IsIdentical(Gura_Symbol(value))) {
-		evaluatedFlag = true;
-	}
-	return Value::Nil;
-}
-
 String Object_wx_ClientData::ToString(bool exprFlag)
 {
 	String rtn("<wx.ClientData:");

@@ -80,6 +80,128 @@ _MS(if (arg.IsValid(4)) pEntity->WinSublang = arg.GetInt(4));
 	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// wx.LanguageInfo#CanonicalName
+Gura_DeclareProperty_RW(wx_LanguageInfo, CanonicalName)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(wx_LanguageInfo, CanonicalName)
+{
+	Object_wx_LanguageInfo *pObjThis = Object_wx_LanguageInfo::GetObject(valueThis);
+	return Value(pObjThis->GetEntity()->CanonicalName.ToUTF8());
+}
+
+Gura_ImplementPropertySetter(wx_LanguageInfo, CanonicalName)
+{
+	Object_wx_LanguageInfo *pObjThis = Object_wx_LanguageInfo::GetObject(valueThis);
+	pObjThis->GetEntity()->CanonicalName = wxString::FromUTF8(value.GetString());
+	return value;
+}
+
+// wx.LanguageInfo#Description
+Gura_DeclareProperty_RW(wx_LanguageInfo, Description)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(wx_LanguageInfo, Description)
+{
+	Object_wx_LanguageInfo *pObjThis = Object_wx_LanguageInfo::GetObject(valueThis);
+	return Value(pObjThis->GetEntity()->Description.ToUTF8());
+}
+
+Gura_ImplementPropertySetter(wx_LanguageInfo, Description)
+{
+	Object_wx_LanguageInfo *pObjThis = Object_wx_LanguageInfo::GetObject(valueThis);
+	pObjThis->GetEntity()->Description = wxString::FromUTF8(value.GetString());
+	return value;
+}
+
+// wx.LanguageInfo#Language
+Gura_DeclareProperty_RW(wx_LanguageInfo, Language)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(wx_LanguageInfo, Language)
+{
+	Object_wx_LanguageInfo *pObjThis = Object_wx_LanguageInfo::GetObject(valueThis);
+	return Value(pObjThis->GetEntity()->Language);
+}
+
+Gura_ImplementPropertySetter(wx_LanguageInfo, Language)
+{
+	Object_wx_LanguageInfo *pObjThis = Object_wx_LanguageInfo::GetObject(valueThis);
+	pObjThis->GetEntity()->Language = value.GetInt();
+	return value;
+}
+
+#ifdef __WIN32__
+
+// wx.LanguageInfo#WinLang
+Gura_DeclareProperty_RW(wx_LanguageInfo, WinLang)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(wx_LanguageInfo, WinLang)
+{
+	Object_wx_LanguageInfo *pObjThis = Object_wx_LanguageInfo::GetObject(valueThis);
+	return Value(pObjThis->GetEntity()->WinLang);
+}
+
+Gura_ImplementPropertySetter(wx_LanguageInfo, WinLang)
+{
+	Object_wx_LanguageInfo *pObjThis = Object_wx_LanguageInfo::GetObject(valueThis);
+	pObjThis->GetEntity()->WinLang = value.GetInt();
+	return value;
+}
+
+// wx.LanguageInfo#WinSublang
+Gura_DeclareProperty_RW(wx_LanguageInfo, WinSublang)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(wx_LanguageInfo, WinSublang)
+{
+	Object_wx_LanguageInfo *pObjThis = Object_wx_LanguageInfo::GetObject(valueThis);
+	return Value(pObjThis->GetEntity()->WinSublang);
+}
+
+Gura_ImplementPropertySetter(wx_LanguageInfo, WinSublang)
+{
+	Object_wx_LanguageInfo *pObjThis = Object_wx_LanguageInfo::GetObject(valueThis);
+	pObjThis->GetEntity()->WinSublang = value.GetInt();
+	return value;
+}
+
+#endif
+
 //----------------------------------------------------------------------------
 // Object implementation for wxLanguageInfo
 //----------------------------------------------------------------------------
@@ -93,73 +215,6 @@ Object_wx_LanguageInfo::~Object_wx_LanguageInfo()
 Object *Object_wx_LanguageInfo::Clone() const
 {
 	return nullptr;
-}
-
-bool Object_wx_LanguageInfo::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(Language));
-	symbols.insert(Gura_UserSymbol(CanonicalName));
-	symbols.insert(Gura_UserSymbol(Description));
-#ifdef __WIN32__
-	symbols.insert(Gura_UserSymbol(WinLang));
-	symbols.insert(Gura_UserSymbol(WinSublang));
-#endif
-	return true;
-}
-
-Value Object_wx_LanguageInfo::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(Language))) {
-		return Value(GetEntity()->Language);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CanonicalName))) {
-		return Value(GetEntity()->CanonicalName.ToUTF8());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(Description))) {
-		return Value(GetEntity()->Description.ToUTF8());
-#ifdef __WIN32__
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(WinLang))) {
-		return Value(GetEntity()->WinLang);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(WinSublang))) {
-		return Value(GetEntity()->WinSublang);
-#endif
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_wx_LanguageInfo::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(Language))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		GetEntity()->Language = value.GetInt();
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CanonicalName))) {
-		if (!value.MustBe_string(sig)) return Value::Nil;
-		GetEntity()->CanonicalName = wxString::FromUTF8(value.GetString());
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(Description))) {
-		if (!value.MustBe_string(sig)) return Value::Nil;
-		GetEntity()->Description = wxString::FromUTF8(value.GetString());
-		return value;
-#ifdef __WIN32__
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(WinLang))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		GetEntity()->WinLang = value.GetInt();
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(WinSublang))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		GetEntity()->WinSublang = value.GetInt();
-		return value;
-#endif
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
 }
 
 String Object_wx_LanguageInfo::ToString(bool exprFlag)
@@ -195,6 +250,14 @@ String Object_wx_LanguageInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LanguageInfo)
 {
+	// Assignment of properties
+	Gura_AssignProperty(wx_LanguageInfo, CanonicalName);
+	Gura_AssignProperty(wx_LanguageInfo, Description);
+	Gura_AssignProperty(wx_LanguageInfo, Language);
+#ifdef __WIN32__
+	Gura_AssignProperty(wx_LanguageInfo, WinLang);
+	Gura_AssignProperty(wx_LanguageInfo, WinSublang);
+#endif
 	Gura_RealizeUserSymbol(Language);
 	Gura_RealizeUserSymbol(CanonicalName);
 	Gura_RealizeUserSymbol(WinLang);

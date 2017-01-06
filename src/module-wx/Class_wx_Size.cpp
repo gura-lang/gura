@@ -401,6 +401,55 @@ Gura_ImplementBinaryOperator(Div, wx_Size, number)
 	return Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue));
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// wx.Size#x
+Gura_DeclareProperty_RW(wx_Size, x)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(wx_Size, x)
+{
+	Object_wx_Size *pObjThis = Object_wx_Size::GetObject(valueThis);
+	return pObjThis->GetEntity()->x;
+}
+
+Gura_ImplementPropertySetter(wx_Size, x)
+{
+	Object_wx_Size *pObjThis = Object_wx_Size::GetObject(valueThis);
+	pObjThis->GetEntity()->x = value.GetInt();
+	return value;
+}
+
+// wx.Size#y
+Gura_DeclareProperty_RW(wx_Size, y)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(wx_Size, y)
+{
+	Object_wx_Size *pObjThis = Object_wx_Size::GetObject(valueThis);
+	return pObjThis->GetEntity()->y;
+}
+
+Gura_ImplementPropertySetter(wx_Size, y)
+{
+	Object_wx_Size *pObjThis = Object_wx_Size::GetObject(valueThis);
+	pObjThis->GetEntity()->y = value.GetInt();
+	return value;
+}
+
 //----------------------------------------------------------------------------
 // Object implementation for wxSize
 //----------------------------------------------------------------------------
@@ -414,46 +463,6 @@ Object_wx_Size::~Object_wx_Size()
 Object *Object_wx_Size::Clone() const
 {
 	return nullptr;
-}
-
-bool Object_wx_Size::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(x));
-	symbols.insert(Gura_Symbol(y));
-	return true;
-}
-
-Value Object_wx_Size::DoGetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		return GetEntity()->x;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		return GetEntity()->y;
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-Value Object_wx_Size::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
-						const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		GetEntity()->x = value.GetInt();
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		GetEntity()->y = value.GetInt();
-		return value;
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
 }
 
 String Object_wx_Size::ToString(bool exprFlag)
@@ -474,14 +483,20 @@ String Object_wx_Size::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Size)
 {
+	// Assignment of properties
+	Gura_AssignProperty(wx_Size, x);
+	Gura_AssignProperty(wx_Size, y);
+	// Assignment of functions
 	Gura_AssignFunction(SizeEmpty);
 	Gura_AssignFunction(Size);
+	// Assignment of operators
 	Gura_AssignBinaryOperator(Eq, wx_Size, wx_Size);
 	Gura_AssignBinaryOperator(Ne, wx_Size, wx_Size);
 	Gura_AssignBinaryOperator(Add, wx_Size, wx_Size);
 	Gura_AssignBinaryOperator(Sub, wx_Size, wx_Size);
 	Gura_AssignBinaryOperator(Mul, wx_Size, number);
 	Gura_AssignBinaryOperator(Div, wx_Size, number);
+	// Assignment of methods
 	Gura_AssignMethod(wx_Size, DecBy);
 	Gura_AssignMethod(wx_Size, DecBy_1);
 	Gura_AssignMethod(wx_Size, DecBy_2);
