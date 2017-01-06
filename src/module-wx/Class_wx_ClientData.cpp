@@ -164,8 +164,11 @@ String Object_wx_ClientData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClientData)
 {
+	// Assignment of properties
 	Gura_AssignProperty(wx_ClientData, value);
+	// Assignment of function
 	Gura_AssignFunction(ClientData);
+	// Assignment of methods
 	Gura_AssignMethod(wx_ClientData, GetData);
 	Gura_AssignMethod(wx_ClientData, SetData);
 }
