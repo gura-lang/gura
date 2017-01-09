@@ -121,7 +121,7 @@ public:
 	Header(const Header &hdr);
 	void Initialize();
 	bool SetRawHeader(Signal &sig, const star_header &rawHdr);
-	void ComposeHeaderBlock(void *memBlock);
+	void ComposeHeaderBlock(void *memBlock) const;
 	inline void SetOffset(size_t offset) { _offset = offset; }
 	inline size_t GetOffset() const { return _offset; }
 	inline void SetName(const char *name) {
@@ -298,7 +298,7 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	bool Open(Environment &env, Stream *pStreamSrc, CompressionType compressionType);
-	bool Add(Stream &streamSrc, const char *fileName);
+	bool Add(Stream &streamSrc, const Header &hdr);
 	bool Close();
 	inline Stream *GetStreamDst() { return _pStreamDst.get(); }
 };

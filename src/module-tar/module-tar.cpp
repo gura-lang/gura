@@ -125,7 +125,7 @@ bool Header::SetRawHeader(Signal &sig, const star_header &rawHdr)
 	return true;
 }
 
-void Header::ComposeHeaderBlock(void *memBlock)
+void Header::ComposeHeaderBlock(void *memBlock) const
 {
 	star_header &rawHdr = *reinterpret_cast<star_header *>(memBlock);
 	::memset(memBlock, 0x00, BLOCKSIZE);
@@ -266,7 +266,7 @@ String Object_writer::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_writer::Add(Stream &streamSrc, const char *fileName)
+bool Object_writer::Add(Stream &streamSrc, const Header &hdr)
 {
 	if (_pStreamDst.IsNull()) {
 		_sig.SetError(ERR_IOError, "invalid tar writer");
@@ -277,6 +277,7 @@ bool Object_writer::Add(Stream &streamSrc, const char *fileName)
 										BLOCKSIZE * BLOCKSIZE - bytesBody;
 	AutoPtr<Memory> pMemory(new MemoryHeap(32768));
 	void *buff = pMemory->GetPointer();
+#if 0
 	Header hdr;
 	hdr.SetName(fileName);
 	hdr.SetLinkName("");
@@ -302,6 +303,7 @@ bool Object_writer::Add(Stream &streamSrc, const char *fileName)
 	hdr.SetTypeFlag(0x00);
 	hdr.SetDevMajor(0);
 	hdr.SetDevMinor(0);
+#endif
 	hdr.ComposeHeaderBlock(buff);
 	_pStreamDst->Write(_sig, buff, BLOCKSIZE);
 	if (_sig.IsSignalled()) return false;
@@ -352,6 +354,7 @@ Gura_ImplementMethod(writer, add)
 {
 	Signal &sig = env.GetSignal();
 	Object_writer *pThis = Object_writer::GetObjectThis(arg);
+	Stream &streamSrc = arg.GetStream(0);
 	String fileName;
 	if (arg.Is_string(1)) {
 		fileName = arg.GetString(1);
@@ -363,7 +366,32 @@ Gura_ImplementMethod(writer, add)
 		}
 		PathMgr::SplitFileName(identifier, nullptr, &fileName);
 	}
-	if (!pThis->Add(arg.GetStream(0), fileName.c_str())) return Value::Nil;
+	Header hdr;
+	hdr.SetName(fileName.c_str());
+	hdr.SetLinkName("");
+	hdr.SetUName("root");
+	hdr.SetGName("");
+	hdr.SetUid(0);
+	hdr.SetGid(0);
+	hdr.SetSize(streamSrc.GetSize());
+	Stream::Attribute attr;
+	if (streamSrc.GetAttribute(attr)) {
+		hdr.SetMode(0100000 | (attr.attr & 0777));
+		hdr.SetMTime(attr.mtime);
+		hdr.SetATime(attr.atime);
+		hdr.SetCTime(attr.ctime);
+	} else {
+		hdr.SetMode(0100666);
+		DateTime dt = OAL::GetCurDateTime(false);
+		hdr.SetMTime(dt);
+		hdr.SetATime(dt);
+		hdr.SetCTime(dt);
+	}
+	hdr.SetChksum(0);
+	hdr.SetTypeFlag(0x00);
+	hdr.SetDevMajor(0);
+	hdr.SetDevMinor(0);
+	if (!pThis->Add(streamSrc, hdr)) return Value::Nil;
 	return arg.GetValueThis();
 }
 
