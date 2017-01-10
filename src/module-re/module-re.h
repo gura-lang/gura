@@ -67,10 +67,8 @@ public:
 	inline Object_group(const Object_group &obj) : Object(obj), _group(obj._group) {}
 	virtual ~Object_group();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline const Group &GetGroup() const { return _group; }
 };
 
 //-----------------------------------------------------------------------------
@@ -94,9 +92,6 @@ public:
 	virtual ~Object_match();
 	virtual Object *Clone() const;
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	bool SetMatchInfo(const char *str, regex_t *pRegEx,
 								const OnigRegion *pRegion, int posOffset);

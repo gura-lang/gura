@@ -248,35 +248,6 @@ Value Object_match::IndexGet(Environment &env, const Value &valueIdx)
 	return Value(pGroup->GetString());
 }
 
-bool Object_match::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(source));
-	symbols.insert(Gura_Symbol(string));
-	symbols.insert(Gura_Symbol(begin));
-	symbols.insert(Gura_Symbol(end));
-	return true;
-}
-
-Value Object_match::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	const Group &group = _groupList.front();
-	if (pSymbol->IsIdentical(Gura_Symbol(source))) {
-		return Value(GetString());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
-		return Value(group.GetString());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(begin))) {
-		return Value(group.GetPosBegin());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(end))) {
-		return Value(group.GetPosEnd());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_match::ToString(bool exprFlag)
 {
 	String rtn;
@@ -344,6 +315,76 @@ int Object_match::ForeachNameCallbackStub(
 	String name(reinterpret_cast<const char *>(nameRaw), nameRawEnd - nameRaw);
 	return reinterpret_cast<Object_match *>(pArg)->
 					ForeachNameCallback(name, nGroups, idxGroupTbl, pRegEx);
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// re.match#begin
+Gura_DeclareProperty_R(match, begin)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(match, begin)
+{
+	Object_match *pObjThis = Object_match::GetObject(valueThis);
+	const Group &group = pObjThis->GetGroupList().front();
+	return Value(group.GetPosBegin());
+}
+
+// re.match#end
+Gura_DeclareProperty_R(match, end)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(match, end)
+{
+	Object_match *pObjThis = Object_match::GetObject(valueThis);
+	const Group &group = pObjThis->GetGroupList().front();
+	return Value(group.GetPosEnd());
+}
+
+// re.match#source
+Gura_DeclareProperty_R(match, source)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(match, source)
+{
+	Object_match *pObjThis = Object_match::GetObject(valueThis);
+	return Value(pObjThis->GetString());
+}
+
+// re.match#string
+Gura_DeclareProperty_R(match, string)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(match, string)
+{
+	Object_match *pObjThis = Object_match::GetObject(valueThis);
+	const Group &group = pObjThis->GetGroupList().front();
+	return Value(group.GetString());
 }
 
 //-----------------------------------------------------------------------------
@@ -440,9 +481,16 @@ Gura_ImplementMethod(match, groups)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(match)
 {
-	Gura_AssignFunction(match);
+	// Assignment of properties
+	Gura_AssignProperty(match, begin);
+	Gura_AssignProperty(match, end);
+	Gura_AssignProperty(match, source);
+	Gura_AssignProperty(match, string);
+	// Assignment of methods
 	Gura_AssignMethod(match, group);
 	Gura_AssignMethod(match, groups);
+	// Assignment of function
+	Gura_AssignFunction(match);
 }
 
 //-----------------------------------------------------------------------------
@@ -457,31 +505,6 @@ Object *Object_group::Clone() const
 	return new Object_group(*this);
 }
 
-bool Object_group::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(string));
-	symbols.insert(Gura_Symbol(begin));
-	symbols.insert(Gura_Symbol(end));
-	return true;
-}
-
-Value Object_group::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
-		return Value(_group.GetString());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(begin))) {
-		return Value(_group.GetPosBegin());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(end))) {
-		return Value(_group.GetPosEnd());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_group::ToString(bool exprFlag)
 {
 	String rtn;
@@ -494,10 +517,66 @@ String Object_group::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// re.group#begin
+Gura_DeclareProperty_R(group, begin)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(group, begin)
+{
+	const Group &group = Object_group::GetObject(valueThis)->GetGroup();
+	return Value(group.GetPosBegin());
+}
+
+// re.group#end
+Gura_DeclareProperty_R(group, end)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(group, end)
+{
+	const Group &group = Object_group::GetObject(valueThis)->GetGroup();
+	return Value(group.GetPosEnd());
+}
+
+// re.group#string
+Gura_DeclareProperty_R(group, string)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(group, string)
+{
+	const Group &group = Object_group::GetObject(valueThis)->GetGroup();
+	return Value(group.GetString());
+}
+
+//-----------------------------------------------------------------------------
 // Class implementation for re.group
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(group)
 {
+	// Assignment of properties
+	Gura_AssignProperty(group, begin);
+	Gura_AssignProperty(group, end);
+	Gura_AssignProperty(group, string);
+	// Assignment of value
 	Gura_AssignValue(group, Reference());
 }
 
