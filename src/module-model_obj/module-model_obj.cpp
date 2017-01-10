@@ -1063,22 +1063,6 @@ Object *Object_vertex4::Clone() const
 	return nullptr;
 }
 
-bool Object_vertex4::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	return true;
-}
-
-Value Object_vertex4::DoGetProp(Environment &env, const Symbol *pSymbol,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(w))) {
-		return Value(GetVertex4()->w);
-	}
-	evaluatedFlag = false;
-	return Object_vertex::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-}
-
 String Object_vertex4::ToString(bool exprFlag)
 {
 	String str;
@@ -1089,11 +1073,32 @@ String Object_vertex4::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// model_obj.vertex4#w
+Gura_DeclareProperty_R(vertex4, w)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(vertex4, w)
+{
+	Object_vertex4 *pObjThis = Object_vertex4::GetObject(valueThis);
+	return Value(pObjThis->GetVertex4()->w);
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for vertex4
 //-----------------------------------------------------------------------------
 // implementation of class vertex4
 Gura_ImplementUserClass(vertex4)
 {
+	// Assignment of properties
+	Gura_AssignProperty(vertex4, w);
 }
 
 //-----------------------------------------------------------------------------
@@ -1118,22 +1123,6 @@ Object *Object_content::Clone() const
 	return new Object_content(*this);
 }
 
-bool Object_content::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	return true;
-}
-
-Value Object_content::DoGetProp(Environment &env, const Symbol *pSymbol,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(faces))) {
-		return Value(new Object_iterator(env, new Iterator_face(_pContent->Reference())));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_content::ToString(bool exprFlag)
 {
 	String str;
@@ -1143,11 +1132,32 @@ String Object_content::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// model_obj.content#faces
+Gura_DeclareProperty_R(content, faces)
+{
+	SetPropAttr(VTYPE_iterator);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(content, faces)
+{
+	Object_content *pObjThis = Object_content::GetObject(valueThis);
+	return Value(new Object_iterator(env, new Iterator_face(pObjThis->GetContent()->Reference())));
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for content
 //-----------------------------------------------------------------------------
 // implementation of class content
 Gura_ImplementUserClass(content)
 {
+	// Assignment of properties
+	Gura_AssignProperty(content, faces);
 }
 
 //-----------------------------------------------------------------------------
@@ -1173,72 +1183,6 @@ Object *Object_face::Clone() const
 	return new Object_face(*this);
 }
 
-bool Object_face::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	return true;
-}
-
-Value Object_face::DoGetProp(Environment &env, const Symbol *pSymbol,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(v1))) {
-		const Vertex4 *pV = _pFace->GetV(*_pContent, 0);
-		if (pV == nullptr) return Value::Nil;
-		return Value(new Object_vertex4(pV->Reference()));
-		//return Value(new Object_vertex(env, pV->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v2))) {
-		const Vertex4 *pV = _pFace->GetV(*_pContent, 1);
-		if (pV == nullptr) return Value::Nil;
-		return Value(new Object_vertex4(pV->Reference()));
-		//return Value(new Object_vertex(env, pV->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v3))) {
-		const Vertex4 *pV = _pFace->GetV(*_pContent, 2);
-		if (pV == nullptr) return Value::Nil;
-		return Value(new Object_vertex4(pV->Reference()));
-		//return Value(new Object_vertex(env, pV->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v4))) {
-		const Vertex4 *pV = _pFace->GetV(*_pContent, 3);
-		if (pV == nullptr) return Value::Nil;
-		return Value(new Object_vertex4(pV->Reference()));
-		//return Value(new Object_vertex(env, pV->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vt1))) {
-		const Vertex3 *pVt = _pFace->GetVt(*_pContent, 0);
-		if (pVt == nullptr) return Value::Nil;
-		return Value(new Object_vertex(env, pVt->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vt2))) {
-		const Vertex3 *pVt = _pFace->GetVt(*_pContent, 1);
-		if (pVt == nullptr) return Value::Nil;
-		return Value(new Object_vertex(env, pVt->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vt3))) {
-		const Vertex3 *pVt = _pFace->GetVt(*_pContent, 2);
-		if (pVt == nullptr) return Value::Nil;
-		return Value(new Object_vertex(env, pVt->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vt4))) {
-		const Vertex3 *pVt = _pFace->GetVt(*_pContent, 3);
-		if (pVt == nullptr) return Value::Nil;
-		return Value(new Object_vertex(env, pVt->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vn1))) {
-		const Vertex3 *pVn = _pFace->GetVn(*_pContent, 0);
-		if (pVn == nullptr) return Value::Nil;
-		return Value(new Object_vertex(env, pVn->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vn2))) {
-		const Vertex3 *pVn = _pFace->GetVn(*_pContent, 1);
-		if (pVn == nullptr) return Value::Nil;
-		return Value(new Object_vertex(env, pVn->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vn3))) {
-		const Vertex3 *pVn = _pFace->GetVn(*_pContent, 2);
-		if (pVn == nullptr) return Value::Nil;
-		return Value(new Object_vertex(env, pVn->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vn4))) {
-		const Vertex3 *pVn = _pFace->GetVn(*_pContent, 3);
-		if (pVn == nullptr) return Value::Nil;
-		return Value(new Object_vertex(env, pVn->Reference()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_face::ToString(bool exprFlag)
 {
 	String str;
@@ -1248,11 +1192,247 @@ String Object_face::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// model_obj.face#v1
+Gura_DeclareProperty_R(face, v1)
+{
+	SetPropAttr(VTYPE_vertex4);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, v1)
+{
+	Object_face *pObjThis = Object_face::GetObject(valueThis);
+	const Vertex4 *pV = pObjThis->GetFace()->GetV(*pObjThis->GetContent(), 0);
+	if (pV == nullptr) return Value::Nil;
+	return Value(new Object_vertex4(pV->Reference()));
+	//return Value(new Object_vertex(env, pV->Reference()));
+}
+
+// model_obj.face#v2
+Gura_DeclareProperty_R(face, v2)
+{
+	SetPropAttr(VTYPE_vertex4);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, v2)
+{
+	Object_face *pObjThis = Object_face::GetObject(valueThis);
+	const Vertex4 *pV = pObjThis->GetFace()->GetV(*pObjThis->GetContent(), 1);
+	if (pV == nullptr) return Value::Nil;
+	return Value(new Object_vertex4(pV->Reference()));
+	//return Value(new Object_vertex(env, pV->Reference()));
+}
+
+// model_obj.face#v3
+Gura_DeclareProperty_R(face, v3)
+{
+	SetPropAttr(VTYPE_vertex4);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, v3)
+{
+	Object_face *pObjThis = Object_face::GetObject(valueThis);
+	const Vertex4 *pV = pObjThis->GetFace()->GetV(*pObjThis->GetContent(), 2);
+	if (pV == nullptr) return Value::Nil;
+	return Value(new Object_vertex4(pV->Reference()));
+	//return Value(new Object_vertex(env, pV->Reference()));
+}
+
+// model_obj.face#v4
+Gura_DeclareProperty_R(face, v4)
+{
+	SetPropAttr(VTYPE_vertex4);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, v4)
+{
+	Object_face *pObjThis = Object_face::GetObject(valueThis);
+	const Vertex4 *pV = pObjThis->GetFace()->GetV(*pObjThis->GetContent(), 3);
+	if (pV == nullptr) return Value::Nil;
+	return Value(new Object_vertex4(pV->Reference()));
+	//return Value(new Object_vertex(env, pV->Reference()));
+}
+
+// model_obj.face#vn1
+Gura_DeclareProperty_R(face, vn1)
+{
+	SetPropAttr(VTYPE_vertex);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, vn1)
+{
+	Object_face *pObjThis = Object_face::GetObject(valueThis);
+	const Vertex3 *pVn = pObjThis->GetFace()->GetVn(*pObjThis->GetContent(), 0);
+	if (pVn == nullptr) return Value::Nil;
+	return Value(new Object_vertex(env, pVn->Reference()));
+}
+
+// model_obj.face#vn2
+Gura_DeclareProperty_R(face, vn2)
+{
+	SetPropAttr(VTYPE_vertex);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, vn2)
+{
+	Object_face *pObjThis = Object_face::GetObject(valueThis);
+	const Vertex3 *pVn = pObjThis->GetFace()->GetVn(*pObjThis->GetContent(), 1);
+	if (pVn == nullptr) return Value::Nil;
+	return Value(new Object_vertex(env, pVn->Reference()));
+}
+
+// model_obj.face#vn3
+Gura_DeclareProperty_R(face, vn3)
+{
+	SetPropAttr(VTYPE_vertex);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, vn3)
+{
+	Object_face *pObjThis = Object_face::GetObject(valueThis);
+	const Vertex3 *pVn = pObjThis->GetFace()->GetVn(*pObjThis->GetContent(), 2);
+	if (pVn == nullptr) return Value::Nil;
+	return Value(new Object_vertex(env, pVn->Reference()));
+}
+
+// model_obj.face#vn4
+Gura_DeclareProperty_R(face, vn4)
+{
+	SetPropAttr(VTYPE_vertex);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, vn4)
+{
+	Object_face *pObjThis = Object_face::GetObject(valueThis);
+	const Vertex3 *pVn = pObjThis->GetFace()->GetVn(*pObjThis->GetContent(), 3);
+	if (pVn == nullptr) return Value::Nil;
+	return Value(new Object_vertex(env, pVn->Reference()));
+}
+
+// model_obj.face#vt1
+Gura_DeclareProperty_R(face, vt1)
+{
+	SetPropAttr(VTYPE_vertex);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, vt1)
+{
+	Object_face *pObjThis = Object_face::GetObject(valueThis);
+	const Vertex3 *pVt = pObjThis->GetFace()->GetVt(*pObjThis->GetContent(), 0);
+	if (pVt == nullptr) return Value::Nil;
+	return Value(new Object_vertex(env, pVt->Reference()));
+}
+
+// model_obj.face#vt2
+Gura_DeclareProperty_R(face, vt2)
+{
+	SetPropAttr(VTYPE_vertex);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, vt2)
+{
+	Object_face *pObjThis = Object_face::GetObject(valueThis);
+	const Vertex3 *pVt = pObjThis->GetFace()->GetVt(*pObjThis->GetContent(), 1);
+	if (pVt == nullptr) return Value::Nil;
+	return Value(new Object_vertex(env, pVt->Reference()));
+}
+
+// model_obj.face#vt3
+Gura_DeclareProperty_R(face, vt3)
+{
+	SetPropAttr(VTYPE_vertex);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, vt3)
+{
+	Object_face *pObjThis = Object_face::GetObject(valueThis);
+	const Vertex3 *pVt = pObjThis->GetFace()->GetVt(*pObjThis->GetContent(), 2);
+	if (pVt == nullptr) return Value::Nil;
+	return Value(new Object_vertex(env, pVt->Reference()));
+}
+
+// model_obj.face#vt4
+Gura_DeclareProperty_R(face, vt4)
+{
+	SetPropAttr(VTYPE_vertex);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, vt4)
+{
+	Object_face *pObjThis = Object_face::GetObject(valueThis);
+	const Vertex3 *pVt = pObjThis->GetFace()->GetVt(*pObjThis->GetContent(), 3);
+	if (pVt == nullptr) return Value::Nil;
+	return Value(new Object_vertex(env, pVt->Reference()));
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for face
 //-----------------------------------------------------------------------------
 // implementation of class face
 Gura_ImplementUserClass(face)
 {
+	// Assignment of properties
+	Gura_AssignProperty(face, v1);
+	Gura_AssignProperty(face, v2);
+	Gura_AssignProperty(face, v3);
+	Gura_AssignProperty(face, v4);
+	Gura_AssignProperty(face, vn1);
+	Gura_AssignProperty(face, vn2);
+	Gura_AssignProperty(face, vn3);
+	Gura_AssignProperty(face, vn4);
+	Gura_AssignProperty(face, vt1);
+	Gura_AssignProperty(face, vt2);
+	Gura_AssignProperty(face, vt3);
+	Gura_AssignProperty(face, vt4);
 }
 
 //-----------------------------------------------------------------------------

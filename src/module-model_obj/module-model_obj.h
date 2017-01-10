@@ -349,9 +349,6 @@ public:
 	Object_vertex4(Vertex4 *pVertex);
 	virtual ~Object_vertex4();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline const Vertex4 *GetVertex4() const {
 		return reinterpret_cast<const Vertex4 *>(GetVertexRef());
@@ -373,10 +370,8 @@ public:
 	Object_content(const Object_content &obj);
 	virtual ~Object_content();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline const Content *GetContent() const { return _pContent.get(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -395,10 +390,9 @@ public:
 	Object_face(const Object_face &obj);
 	virtual ~Object_face();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline const Content *GetContent() const { return _pContent.get(); }
+	inline const Face *GetFace() const { return _pFace.get(); }
 };
 
 //-----------------------------------------------------------------------------
