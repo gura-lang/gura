@@ -277,33 +277,6 @@ bool Object_writer::Add(Stream &streamSrc, const Header &hdr)
 										BLOCKSIZE * BLOCKSIZE - bytesBody;
 	AutoPtr<Memory> pMemory(new MemoryHeap(32768));
 	void *buff = pMemory->GetPointer();
-#if 0
-	Header hdr;
-	hdr.SetName(fileName);
-	hdr.SetLinkName("");
-	hdr.SetUName("root");
-	hdr.SetGName("");
-	hdr.SetUid(0);
-	hdr.SetGid(0);
-	hdr.SetSize(streamSrc.GetSize());
-	Stream::Attribute attr;
-	if (streamSrc.GetAttribute(attr)) {
-		hdr.SetMode(0100000 | (attr.attr & 0777));
-		hdr.SetMTime(attr.mtime);
-		hdr.SetATime(attr.atime);
-		hdr.SetCTime(attr.ctime);
-	} else {
-		hdr.SetMode(0100666);
-		DateTime dt = OAL::GetCurDateTime(false);
-		hdr.SetMTime(dt);
-		hdr.SetATime(dt);
-		hdr.SetCTime(dt);
-	}
-	hdr.SetChksum(0);
-	hdr.SetTypeFlag(0x00);
-	hdr.SetDevMajor(0);
-	hdr.SetDevMinor(0);
-#endif
 	hdr.ComposeHeaderBlock(buff);
 	_pStreamDst->Write(_sig, buff, BLOCKSIZE);
 	if (_sig.IsSignalled()) return false;
@@ -369,23 +342,30 @@ Gura_ImplementMethod(writer, add)
 	Header hdr;
 	hdr.SetName(fileName.c_str());
 	hdr.SetLinkName("");
-	hdr.SetUName("root");
-	hdr.SetGName("");
-	hdr.SetUid(0);
-	hdr.SetGid(0);
 	hdr.SetSize(streamSrc.GetSize());
 	Stream::Attribute attr;
 	if (streamSrc.GetAttribute(attr)) {
+		char buff[80];
 		hdr.SetMode(0100000 | (attr.attr & 0777));
 		hdr.SetMTime(attr.mtime);
 		hdr.SetATime(attr.atime);
 		hdr.SetCTime(attr.ctime);
+		hdr.SetUid(attr.uid);
+		hdr.SetGid(attr.gid);
+		::sprintf(buff, "%d", attr.uid);
+		hdr.SetUName(buff);
+		::sprintf(buff, "%d", attr.gid);
+		hdr.SetGName(buff);
 	} else {
 		hdr.SetMode(0100666);
 		DateTime dt = OAL::GetCurDateTime(false);
 		hdr.SetMTime(dt);
 		hdr.SetATime(dt);
 		hdr.SetCTime(dt);
+		hdr.SetUid(0);
+		hdr.SetGid(0);
+		hdr.SetUName("0");
+		hdr.SetGName("0");
 	}
 	hdr.SetChksum(0);
 	hdr.SetTypeFlag(0x00);

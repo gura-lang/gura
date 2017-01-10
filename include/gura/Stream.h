@@ -58,10 +58,12 @@ public:
 		DateTime atime;
 		DateTime mtime;
 		DateTime ctime;
+		Long uid;
+		Long gid;
 		ULong attr;
 		ULong attrMask;
 	public:
-		inline Attribute() : attr(0), attrMask(0) {}
+		inline Attribute() : uid(0), gid(0), attr(0), attrMask(0) {}
 	};
 protected:
 	int _cntRef;

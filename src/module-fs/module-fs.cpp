@@ -378,6 +378,8 @@ bool Stream_File::GetAttribute(Attribute &attr)
 	attr.atime = pFileStat->GetATime();
 	attr.mtime = pFileStat->GetMTime();
 	attr.ctime = pFileStat->GetCTime();
+	attr.uid = pFileStat->GetUid();
+	attr.gid = pFileStat->GetGid();
 	attr.attr = attr.attrMask = pFileStat->GetMode();
 	return true;
 }
