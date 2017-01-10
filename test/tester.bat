@@ -49,6 +49,7 @@ set cases=%cases% math
 set cases=%cases% mathdiff
 set cases=%cases% memory
 rem set cases=%cases% midi
+set cases=%cases% model_obj
 set cases=%cases% module
 set cases=%cases% msico
 set cases=%cases% number
