@@ -13,7 +13,7 @@
 
 #define GURA_VERSION	"0.7.0"
 
-#define GURA_COPYRIGHT	"Copyright (C) 2011-2016 ypsitau"
+#define GURA_COPYRIGHT	"Copyright (C) 2011-2017 ypsitau"
 
 namespace Gura {
 
