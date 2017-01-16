@@ -51,48 +51,10 @@ Value Object_exif::DoGetProp(Environment &env, const Symbol *pSymbol,
 	if (_pObj0thIFD.IsNull()) return Value::Nil;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(endian))) {
-		return Value(_bigendianFlag? Gura_UserSymbol(big) : Gura_UserSymbol(little));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ifd0))) {
-		return Value(Object_ifd::Reference(_pObj0thIFD.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ifd1))) {
-		if (_pObj1stIFD.IsNull()) return Value::Nil;
-		return Value(Object_ifd::Reference(_pObj1stIFD.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(thumbnail))) {
-		if (_pObjBinaryThumbnail.IsNull()) return Value::Nil;
-		if (_pObjImageThumbnail.IsNull()) {
-			AutoPtr<Object_image> pObjImage(new Object_image(env, new Image(Image::FORMAT_RGBA)));
-			if (_strip.validFlag) {
-				if (!pObjImage->GetImage()->AllocBuffer(sig, _strip.width, _strip.height, 0x00)) {
-					return Value::Nil;
-				}
-				const Binary &buff = _pObjBinaryThumbnail->GetBinary();
-				size_t bytesExpect = _strip.width * _strip.height * 3;
-				if (buff.size() < bytesExpect) {
-					return Value::Nil;
-				}
-				Binary::const_iterator p = buff.begin();
-				std::unique_ptr<Image::Scanner> pScannerDst(
-					pObjImage->GetImage()->CreateScanner(Image::SCAN_LeftTopHorz));
-				do {
-					unsigned char red = *p++;
-					unsigned char green = *p++;
-					unsigned char blue = *p++;
-					pScannerDst->StorePixel(red, green, blue, 0);
-				} while (pScannerDst->Next());
-			} else {
-				AutoPtr<Stream> pStream(
-					new Pointer::StreamEx(
-						env, new Object_binary::PointerEx(0, _pObjBinaryThumbnail->Reference())));
-				if (!ImageStreamer_JPEG::ReadStream(env, pObjImage->GetImage(), *pStream, false)) {
-					return Value::Nil;
-				}
-			}
-			_pObjImageThumbnail.reset(pObjImage.release());
-		}
-		return Value(Object_image::Reference(_pObjImageThumbnail.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(thumbnail_at_jpeg))) {
-		if (_pObjBinaryThumbnail.IsNull() || _strip.validFlag) return Value::Nil;
-		return Value(Object_binary::Reference(_pObjBinaryThumbnail.get()));
 	}
 	return _pObj0thIFD->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
@@ -244,6 +206,132 @@ Object_exif *Object_exif::ReadStream(Environment &env, Stream &stream)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// jpeg.exif#endian
+Gura_DeclareProperty_R(exif, endian)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(exif, endian)
+{
+	Object_exif *pObjThis = Object_exif::GetObject(valueThis);
+	return Value(pObjThis->GetBigendianFlag()? Gura_UserSymbol(big) : Gura_UserSymbol(little));
+}
+
+// jpeg.exif#ifd0
+Gura_DeclareProperty_R(exif, ifd0)
+{
+	SetPropAttr(VTYPE_ifd, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(exif, ifd0)
+{
+	Object_exif *pObjThis = Object_exif::GetObject(valueThis);
+	Object_ifd *pObj0thIFD = pObjThis->GetObj0thIFD();
+	if (pObj0thIFD == nullptr) return Value::Nil;
+	return Value(Object_ifd::Reference(pObj0thIFD));
+}
+
+// jpeg.exif#ifd1
+Gura_DeclareProperty_R(exif, ifd1)
+{
+	SetPropAttr(VTYPE_ifd, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(exif, ifd1)
+{
+	Object_exif *pObjThis = Object_exif::GetObject(valueThis);
+	Object_ifd *pObj1stIFD = pObjThis->GetObj1stIFD();
+	if (pObj1stIFD == nullptr) return Value::Nil;
+	return Value(Object_ifd::Reference(pObj1stIFD));
+}
+
+// jpeg.exif#thumbnail
+Gura_DeclareProperty_R(exif, thumbnail)
+{
+	SetPropAttr(VTYPE_image, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(exif, thumbnail)
+{
+	Signal &sig = env.GetSignal();
+	Object_exif *pObjThis = Object_exif::GetObject(valueThis);
+	Object_binary *pObjBinaryThumbnail = pObjThis->GetObjBinaryThumbnail();
+	Object_image *pObjImageThumbnail = pObjThis->GetObjImageThumbnail();
+	const Object_exif::Strip &strip = pObjThis->GetStrip();
+	if (pObjBinaryThumbnail == nullptr) return Value::Nil;
+	if (pObjImageThumbnail == nullptr) {
+		AutoPtr<Object_image> pObjImage(new Object_image(env, new Image(Image::FORMAT_RGBA)));
+		if (strip.validFlag) {
+			if (!pObjImage->GetImage()->AllocBuffer(sig, strip.width, strip.height, 0x00)) {
+				return Value::Nil;
+			}
+			const Binary &buff = pObjBinaryThumbnail->GetBinary();
+			size_t bytesExpect = strip.width * strip.height * 3;
+			if (buff.size() < bytesExpect) {
+				return Value::Nil;
+			}
+			Binary::const_iterator p = buff.begin();
+			std::unique_ptr<Image::Scanner> pScannerDst(
+				pObjImage->GetImage()->CreateScanner(Image::SCAN_LeftTopHorz));
+			do {
+				unsigned char red = *p++;
+				unsigned char green = *p++;
+				unsigned char blue = *p++;
+				pScannerDst->StorePixel(red, green, blue, 0);
+			} while (pScannerDst->Next());
+		} else {
+			AutoPtr<Stream> pStream(
+				new Pointer::StreamEx(
+					env, new Object_binary::PointerEx(0, pObjBinaryThumbnail->Reference())));
+			if (!ImageStreamer_JPEG::ReadStream(env, pObjImage->GetImage(), *pStream, false)) {
+				return Value::Nil;
+			}
+		}
+		pObjImageThumbnail = pObjImage.release();
+		pObjThis->SetObjImageThumbnail(pObjImageThumbnail);
+	}
+	return Value(Object_image::Reference(pObjImageThumbnail));
+}
+
+// jpeg.exif#thumbnail@jpeg
+Gura_DeclarePropertyAlias_R(exif, thumbnail_at_jpeg, "thumbnail@jpeg")
+{
+	SetPropAttr(VTYPE_binary, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(exif, thumbnail_at_jpeg)
+{
+	Object_exif *pObjThis = Object_exif::GetObject(valueThis);
+	const Object_exif::Strip &strip = pObjThis->GetStrip();
+	Object_binary *pObjBinaryThumbnail = pObjThis->GetObjBinaryThumbnail();
+	if (pObjBinaryThumbnail == nullptr || strip.validFlag) return Value::Nil;
+	return Value(Object_binary::Reference(pObjBinaryThumbnail));
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for jpeg.exif
 //-----------------------------------------------------------------------------
 // jpeg.exif(stream?:stream):map:[raise] {block?}
@@ -307,7 +395,15 @@ Gura_ImplementMethod(exif, each)
 // implementation of class exif
 Gura_ImplementUserClass(exif)
 {
+	// Assignment of properties
+	Gura_AssignProperty(exif, endian);
+	Gura_AssignProperty(exif, ifd0);
+	Gura_AssignProperty(exif, ifd1);
+	Gura_AssignProperty(exif, thumbnail);
+	Gura_AssignProperty(exif, thumbnail_at_jpeg);
+	// Assignment of function
 	Gura_AssignFunction(exif);
+	// Assignment of method
 	Gura_AssignMethod(exif, each);
 }
 

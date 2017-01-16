@@ -434,6 +434,11 @@ Gura_ImplementMethod(ifd, each)
 // implementation of class ifd
 Gura_ImplementUserClass(ifd)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(ifd, name);
+	Gura_AssignProperty(ifd, symbol);
+#endif
 	Gura_AssignValue(ifd, Value(Reference()));
 	Gura_AssignMethod(ifd, each);
 }

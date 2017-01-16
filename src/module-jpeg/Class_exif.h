@@ -12,16 +12,18 @@ Gura_BeginModuleScope(jpeg)
 Gura_DeclareUserClass(exif);
 
 class Object_exif : public Object {
+public:
+	struct Strip {
+		bool validFlag;
+		size_t width, height;
+	};
 private:
 	bool _bigendianFlag;
 	AutoPtr<Object_ifd> _pObj0thIFD;
 	AutoPtr<Object_ifd> _pObj1stIFD;				// this may be nullptr
 	AutoPtr<Object_binary> _pObjBinaryThumbnail;	// this may be nullptr
 	AutoPtr<Object_image> _pObjImageThumbnail;		// this may be nullptr
-	struct {
-		bool validFlag;
-		size_t width, height;
-	} _strip;
+	Strip _strip;
 public:
 	Gura_DeclareObjectAccessor(exif)
 public:
@@ -33,8 +35,15 @@ public:
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
+	inline const Strip &GetStrip() const { return _strip; }
+	inline bool GetBigendianFlag() const { return _bigendianFlag; }
 	inline Object_ifd *GetObj0thIFD() { return _pObj0thIFD.get(); }
 	inline Object_ifd *GetObj1stIFD() { return _pObj1stIFD.get(); }
+	inline Object_binary *GetObjBinaryThumbnail() { return _pObjBinaryThumbnail.get(); }
+	inline Object_image *GetObjImageThumbnail() { return _pObjImageThumbnail.get(); }
+	inline void SetObjImageThumbnail(Object_image *pObjImageThumbnail) {
+		_pObjImageThumbnail.reset(pObjImageThumbnail);
+	}
 	static Object_exif *ReadStream(Environment &env, Stream &stream);
 };
 

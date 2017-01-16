@@ -83,11 +83,129 @@ String Object_tag::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// jpeg.tag#id
+Gura_DeclareProperty_R(tag, id)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(tag, id)
+{
+	return Value::Nil;
+}
+
+// jpeg.tag#ifd
+Gura_DeclareProperty_R(tag, ifd)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(tag, ifd)
+{
+	return Value::Nil;
+}
+
+// jpeg.tag#name
+Gura_DeclareProperty_R(tag, name)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(tag, name)
+{
+	return Value::Nil;
+}
+
+// jpeg.tag#symbol
+Gura_DeclareProperty_R(tag, symbol)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(tag, symbol)
+{
+	return Value::Nil;
+}
+
+// jpeg.tag#type
+Gura_DeclareProperty_R(tag, type)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(tag, type)
+{
+	return Value::Nil;
+}
+
+// jpeg.tag#typename
+Gura_DeclareProperty_R(tag, typename)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(tag, typename)
+{
+	return Value::Nil;
+}
+
+// jpeg.tag#value
+Gura_DeclareProperty_R(tag, value)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(tag, value)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for jpeg.tag
 //-----------------------------------------------------------------------------
 // implementation of class tag
 Gura_ImplementUserClass(tag)
 {
+	// Assignment of properties
+#if 0
+	Gura_AssignProperty(tag, id);
+	Gura_AssignProperty(tag, ifd);
+	Gura_AssignProperty(tag, name);
+	Gura_AssignProperty(tag, symbol);
+	Gura_AssignProperty(tag, type);
+	Gura_AssignProperty(tag, typename);
+	Gura_AssignProperty(tag, value);
+#endif
 	Gura_AssignValue(tag, Value(Reference()));
 }
 
