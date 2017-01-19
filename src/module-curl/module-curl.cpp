@@ -824,27 +824,6 @@ Object *Object_easy_handle::Clone() const
 	return nullptr;
 }
 
-bool Object_easy_handle::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	//symbols.insert(Gura_UserSymbol(surface));
-	//symbols.insert(Gura_UserSymbol(width));
-	//symbols.insert(Gura_UserSymbol(height));
-	return true;
-}
-
-Value Object_easy_handle::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	//evaluatedFlag = true;
-	//if (pSymbol->IsIdentical(Gura_UserSymbol(surface))) {
-	//	return Value(Object_surface::Reference(_pObjSurface.get()));
-	//}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_easy_handle::ToString(bool exprFlag)
 {
 	String str;
@@ -854,6 +833,25 @@ String Object_easy_handle::ToString(bool exprFlag)
 	}
 	str += ">";
 	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// curl.easy_handle#surface
+Gura_DeclareProperty_R(easy_handle, surface)
+{
+	SetPropAttr(VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(easy_handle, surface)
+{
+	//return Value(Object_surface::Reference(_pObjSurface.get()));
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1096,6 +1094,9 @@ Gura_ImplementMethod(easy_handle, unescape)
 // implementation of class easy_handle
 Gura_ImplementUserClass(easy_handle)
 {
+	// Assignment of properties
+	//Gura_AssignProperty(easy_handle, surface);
+	// Assignment of methods
 	Gura_AssignMethod(easy_handle, escape);
 	Gura_AssignMethod(easy_handle, getinfo);
 	Gura_AssignMethod(easy_handle, perform);

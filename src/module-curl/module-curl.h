@@ -153,9 +153,6 @@ public:
 				Object(Gura_UserClass(easy_handle)), _curl(curl) {}
 	virtual ~Object_easy_handle();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline CURL *GetEntity() { return _curl; }
 };
