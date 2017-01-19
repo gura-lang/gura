@@ -366,8 +366,6 @@ bool Object_ifd::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(name));
-	symbols.insert(Gura_UserSymbol(symbol));
 	foreach (TagOwner, ppObjTag, GetTagOwner()) {
 		Object_tag *pObjTag = *ppObjTag;
 		symbols.insert(pObjTag->GetSymbol());
@@ -383,11 +381,6 @@ Value Object_ifd::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(_pSymbol->GetName());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(symbol))) {
-		return Value(_pSymbol);
-	}
 	foreach (TagOwner, ppObjTag, GetTagOwner()) {
 		Object_tag *pObjTag = *ppObjTag;
 		if (pObjTag->GetSymbol() == pSymbol) {
@@ -409,6 +402,41 @@ String Object_ifd::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// jpeg.ifd#name
+Gura_DeclareProperty_R(ifd, name)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ifd, name)
+{
+	Object_ifd *pObjThis = Object_ifd::GetObject(valueThis);
+	return Value(pObjThis->GetSymbol()->GetName());
+}
+
+// jpeg.ifd#symbol
+Gura_DeclareProperty_R(ifd, symbol)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ifd, symbol)
+{
+	Object_ifd *pObjThis = Object_ifd::GetObject(valueThis);
+	return Value(pObjThis->GetSymbol());
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for jpeg.ifd
 //-----------------------------------------------------------------------------
 // jpeg.ifd#each() {block?}
@@ -427,19 +455,18 @@ Gura_DeclareMethod(ifd, each)
 Gura_ImplementMethod(ifd, each)
 {
 	Object_ifd *pThis = Object_ifd::GetObjectThis(arg);
-	return ReturnIterator(env, arg,
-						new IteratorTag(Object_ifd::Reference(pThis)));
+	return ReturnIterator(env, arg, new IteratorTag(Object_ifd::Reference(pThis)));
 }
 
 // implementation of class ifd
 Gura_ImplementUserClass(ifd)
 {
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(ifd, name);
 	Gura_AssignProperty(ifd, symbol);
-#endif
+	// Assignment of value
 	Gura_AssignValue(ifd, Value(Reference()));
+	// Assignment of method
 	Gura_AssignMethod(ifd, each);
 }
 
