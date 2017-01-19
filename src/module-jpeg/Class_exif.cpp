@@ -31,34 +31,6 @@ Value Object_exif::IndexGet(Environment &env, const Value &valueIdx)
 	return _pObj0thIFD->IndexGet(env, valueIdx);
 }
 
-bool Object_exif::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	if (_pObj0thIFD.IsNull()) return true;
-	symbols.insert(Gura_UserSymbol(endian));
-	symbols.insert(Gura_UserSymbol(ifd0));
-	symbols.insert(Gura_UserSymbol(ifd1));
-	symbols.insert(Gura_UserSymbol(thumbnail));
-	symbols.insert(Gura_UserSymbol(thumbnail_at_jpeg));
-	return _pObj0thIFD->DoDirProp(env, symbols);
-}
-
-Value Object_exif::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	Signal &sig = GetSignal();
-	if (_pObj0thIFD.IsNull()) return Value::Nil;
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(endian))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ifd0))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ifd1))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(thumbnail))) {
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(thumbnail_at_jpeg))) {
-	}
-	return _pObj0thIFD->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-}
-
 String Object_exif::ToString(bool exprFlag)
 {
 	return String("<jpeg.exif>");

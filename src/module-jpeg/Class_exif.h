@@ -32,9 +32,6 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline const Strip &GetStrip() const { return _strip; }
 	inline bool GetBigendianFlag() const { return _bigendianFlag; }
 	inline Object_ifd *GetObj0thIFD() { return _pObj0thIFD.get(); }

@@ -35,48 +35,6 @@ void Object_tag::Print(int indentLevel) const
 	}
 }
 
-bool Object_tag::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(id));
-	symbols.insert(Gura_UserSymbol(name));
-	symbols.insert(Gura_UserSymbol(symbol));
-	symbols.insert(Gura_UserSymbol(type));
-	symbols.insert(Gura_UserSymbol(value));
-	symbols.insert(Gura_UserSymbol(ifd));
-	return true;
-}
-
-Value Object_tag::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
-		return Value(_tagId);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(_pSymbol->GetName());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(symbol))) {
-		return Value(_pSymbol);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
-		return Value(_type);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(typename))) {
-		const TypeInfo *pTypeInfo = TypeToInfo(_type);
-		return Value((pTypeInfo == nullptr)? "(unknown)" : pTypeInfo->name);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
-		if (attrs.IsSet(Gura_UserSymbol(cooked))) {
-			return _valueCooked;
-		} else {
-			return _value;
-		}
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ifd))) {
-		if (IsIFDPointer()) return Value(Object_ifd::Reference(GetObjectIFD()));
-		return Value::Nil;
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_tag::ToString(bool exprFlag)
 {
 	return String("<jpeg.tag>");
@@ -88,7 +46,7 @@ String Object_tag::ToString(bool exprFlag)
 // jpeg.tag#id
 Gura_DeclareProperty_R(tag, id)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -97,13 +55,14 @@ Gura_DeclareProperty_R(tag, id)
 
 Gura_ImplementPropertyGetter(tag, id)
 {
-	return Value::Nil;
+	Object_tag *pObjThis = Object_tag::GetObject(valueThis);
+	return Value(pObjThis->GetId());
 }
 
 // jpeg.tag#ifd
 Gura_DeclareProperty_R(tag, ifd)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_ifd);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -112,13 +71,15 @@ Gura_DeclareProperty_R(tag, ifd)
 
 Gura_ImplementPropertyGetter(tag, ifd)
 {
+	Object_tag *pObjThis = Object_tag::GetObject(valueThis);
+	if (pObjThis->IsIFDPointer()) return Value(Object_ifd::Reference(pObjThis->GetObjectIFD()));
 	return Value::Nil;
 }
 
 // jpeg.tag#name
 Gura_DeclareProperty_R(tag, name)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -127,13 +88,14 @@ Gura_DeclareProperty_R(tag, name)
 
 Gura_ImplementPropertyGetter(tag, name)
 {
-	return Value::Nil;
+	Object_tag *pObjThis = Object_tag::GetObject(valueThis);
+	return Value(pObjThis->GetSymbol()->GetName());
 }
 
 // jpeg.tag#symbol
 Gura_DeclareProperty_R(tag, symbol)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -142,13 +104,14 @@ Gura_DeclareProperty_R(tag, symbol)
 
 Gura_ImplementPropertyGetter(tag, symbol)
 {
-	return Value::Nil;
+	Object_tag *pObjThis = Object_tag::GetObject(valueThis);
+	return Value(pObjThis->GetSymbol());
 }
 
 // jpeg.tag#type
 Gura_DeclareProperty_R(tag, type)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -157,13 +120,14 @@ Gura_DeclareProperty_R(tag, type)
 
 Gura_ImplementPropertyGetter(tag, type)
 {
-	return Value::Nil;
+	Object_tag *pObjThis = Object_tag::GetObject(valueThis);
+	return Value(pObjThis->GetType());
 }
 
 // jpeg.tag#typename
 Gura_DeclareProperty_R(tag, typename)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
 		""
@@ -172,7 +136,9 @@ Gura_DeclareProperty_R(tag, typename)
 
 Gura_ImplementPropertyGetter(tag, typename)
 {
-	return Value::Nil;
+	Object_tag *pObjThis = Object_tag::GetObject(valueThis);
+	const TypeInfo *pTypeInfo = TypeToInfo(pObjThis->GetType());
+	return Value((pTypeInfo == nullptr)? "(unknown)" : pTypeInfo->name);
 }
 
 // jpeg.tag#value
@@ -187,7 +153,12 @@ Gura_DeclareProperty_R(tag, value)
 
 Gura_ImplementPropertyGetter(tag, value)
 {
-	return Value::Nil;
+	Object_tag *pObjThis = Object_tag::GetObject(valueThis);
+	if (attrs.IsSet(Gura_UserSymbol(cooked))) {
+		return pObjThis->GetValueCooked();
+	} else {
+		return pObjThis->GetValue();
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -197,7 +168,6 @@ Gura_ImplementPropertyGetter(tag, value)
 Gura_ImplementUserClass(tag)
 {
 	// Assignment of properties
-#if 0
 	Gura_AssignProperty(tag, id);
 	Gura_AssignProperty(tag, ifd);
 	Gura_AssignProperty(tag, name);
@@ -205,7 +175,7 @@ Gura_ImplementUserClass(tag)
 	Gura_AssignProperty(tag, type);
 	Gura_AssignProperty(tag, typename);
 	Gura_AssignProperty(tag, value);
-#endif
+	// Assignment of value
 	Gura_AssignValue(tag, Value(Reference()));
 }
 
