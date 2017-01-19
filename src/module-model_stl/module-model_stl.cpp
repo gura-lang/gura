@@ -148,34 +148,6 @@ Object *Object_face::Clone() const
 	return new Object_face(*this);
 }
 
-bool Object_face::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	symbols.insert(Gura_UserSymbol(normal));
-	symbols.insert(Gura_UserSymbol(vertex1));
-	symbols.insert(Gura_UserSymbol(vertex2));
-	symbols.insert(Gura_UserSymbol(vertex3));
-	return true;
-}
-
-Value Object_face::DoGetProp(Environment &env, const Symbol *pSymbol,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(normal))) {
-		return Value(new Object_vertex(env, _face.GetNormal().Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex1))) {
-		return Value(new Object_vertex(env, _face.GetVertex(0).Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex2))) {
-		return Value(new Object_vertex(env, _face.GetVertex(1).Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex3))) {
-		return Value(new Object_vertex(env, _face.GetVertex(2).Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attr))) {
-		return Value(_face.GetAttr());
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_face::ToString(bool exprFlag)
 {
 	String str;
@@ -186,11 +158,100 @@ String Object_face::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// model_stl.face#attr
+Gura_DeclareProperty_R(face, attr)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, attr)
+{
+	const Face &face = Object_face::GetObject(valueThis)->GetFace();
+	return Value(face.GetAttr());
+}
+
+// model_stl.face#normal
+Gura_DeclareProperty_R(face, normal)
+{
+	SetPropAttr(VTYPE_vertex);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, normal)
+{
+	const Face &face = Object_face::GetObject(valueThis)->GetFace();
+	return Value(new Object_vertex(env, face.GetNormal().Reference()));
+}
+
+// model_stl.face#vertex1
+Gura_DeclareProperty_R(face, vertex1)
+{
+	SetPropAttr(VTYPE_vertex);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, vertex1)
+{
+	const Face &face = Object_face::GetObject(valueThis)->GetFace();
+	return Value(new Object_vertex(env, face.GetVertex(0).Reference()));
+}
+
+// model_stl.face#vertex2
+Gura_DeclareProperty_R(face, vertex2)
+{
+	SetPropAttr(VTYPE_vertex);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, vertex2)
+{
+	const Face &face = Object_face::GetObject(valueThis)->GetFace();
+	return Value(new Object_vertex(env, face.GetVertex(1).Reference()));
+}
+
+// model_stl.face#vertex3
+Gura_DeclareProperty_R(face, vertex3)
+{
+	SetPropAttr(VTYPE_vertex);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(face, vertex3)
+{
+	const Face &face = Object_face::GetObject(valueThis)->GetFace();
+	return Value(new Object_vertex(env, face.GetVertex(2).Reference()));
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for face
 //-----------------------------------------------------------------------------
 // implementation of class face
 Gura_ImplementUserClass(face)
 {
+	// Assignment of properties
+	Gura_AssignProperty(face, attr);
+	Gura_AssignProperty(face, normal);
+	Gura_AssignProperty(face, vertex1);
+	Gura_AssignProperty(face, vertex2);
+	Gura_AssignProperty(face, vertex3);
 }
 
 //-----------------------------------------------------------------------------
@@ -216,31 +277,6 @@ Object *Object_solid::Clone() const
 	return new Object_solid(*this);
 }
 
-bool Object_solid::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	symbols.insert(Gura_UserSymbol(header));
-	symbols.insert(Gura_UserSymbol(name));
-	symbols.insert(Gura_UserSymbol(faces));
-	return true;
-}
-
-Value Object_solid::DoGetProp(Environment &env, const Symbol *pSymbol,
-							  const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(header))) {
-		if (!_pIterator->GetBinaryFlag()) return Value::Nil;
-		return Value(_pIterator->GetText());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		if (_pIterator->GetBinaryFlag()) return Value::Nil;
-		return Value(_pIterator->GetText());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(faces))) {
-		return Value(new Object_iterator(env, _pIterator->Reference()));
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
 String Object_solid::ToString(bool exprFlag)
 {
 	String str;
@@ -254,11 +290,68 @@ String Object_solid::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// model_stl.solid#faces
+Gura_DeclareProperty_R(solid, faces)
+{
+	SetPropAttr(VTYPE_iterator);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(solid, faces)
+{
+	Iterator_face *pIterator = Object_solid::GetObject(valueThis)->GetIterator();
+	return Value(new Object_iterator(env, pIterator->Reference()));
+}
+
+// model_stl.solid#header
+Gura_DeclareProperty_R(solid, header)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(solid, header)
+{
+	Iterator_face *pIterator = Object_solid::GetObject(valueThis)->GetIterator();
+	if (!pIterator->GetBinaryFlag()) return Value::Nil;
+	return Value(pIterator->GetText());
+}
+
+// model_stl.solid#name
+Gura_DeclareProperty_R(solid, name)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(solid, name)
+{
+	Iterator_face *pIterator = Object_solid::GetObject(valueThis)->GetIterator();
+	if (pIterator->GetBinaryFlag()) return Value::Nil;
+	return Value(pIterator->GetText());
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for solid
 //-----------------------------------------------------------------------------
 // implementation of class solid
 Gura_ImplementUserClass(solid)
 {
+	// Assignment of properties
+	Gura_AssignProperty(solid, faces);
+	Gura_AssignProperty(solid, header);
+	Gura_AssignProperty(solid, name);
 }
 
 //-----------------------------------------------------------------------------

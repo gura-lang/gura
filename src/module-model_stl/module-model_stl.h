@@ -91,9 +91,6 @@ public:
 	Object_face(const Object_face &obj);
 	virtual ~Object_face();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Face &GetFace() { return _face; }
 };
@@ -148,10 +145,8 @@ public:
 	Object_solid(const Object_solid &obj);
 	virtual ~Object_solid();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline Iterator_face *GetIterator() { return _pIterator.get(); }
 };
 
 //-----------------------------------------------------------------------------
