@@ -403,16 +403,6 @@ Gura_DeclareClassMethodAlias(Object, getprop_X, "getprop!")
 
 Gura_ImplementClassMethod(Object, getprop_X)
 {
-#if 0
-	Fundamental *pThis = arg.GetFundamentalThis();
-	const SymbolSet &attrs = SymbolSet::Empty;
-	if (arg.IsDefined(1)) {
-		Value value = arg.GetValue(1);
-		return pThis->GetProp(arg.GetSymbol(0), attrs, &value);
-	} else {
-		return pThis->GetProp(arg.GetSymbol(0), attrs);
-	}
-#endif
 	const Value *pValueDefault = arg.IsDefined(1)? &arg.GetValue(1) : nullptr;
 	return arg.GetValueThis().GetProp(env, arg.GetSymbol(0), SymbolSet::Empty, pValueDefault);
 }
@@ -427,15 +417,9 @@ Gura_DeclareClassMethodAlias(Object, setprop_X, "setprop!")
 
 Gura_ImplementClassMethod(Object, setprop_X)
 {
-#if 1
 	Fundamental *pThis = arg.GetFundamentalThis();
 	pThis->AssignValue(arg.GetSymbol(0), arg.GetValue(1), EXTRA_Public);
 	return Value::Nil;
-#else
-	Value valueAssigned = arg.GetValue(1);
-	return arg.GetValueThis().SetProp(env, arg.GetSymbol(0), SymbolSet::Empty,
-									  SymbolList::Empty, valueAssigned, false);
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -718,9 +702,6 @@ void Class::DerivePropDeclarations()
 	if (_pClassSuper->_pPropDeclarationMap == nullptr) return;
 	if (_pPropDeclarationMap.get() == nullptr) _pPropDeclarationMap.reset(new PropDeclarationMap());
 	*_pPropDeclarationMap = *_pClassSuper->_pPropDeclarationMap;
-	//foreach (PropDeclarationMap, iter, *_pClassSuper->_pPropDeclarationMap) {
-		//(*_pPropDeclarationMap)[iter->first] = iter->second;
-	//}
 }
 
 void Class::AssignPropDeclaration(PropDeclaration *pPropDeclaration)
