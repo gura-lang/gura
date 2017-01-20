@@ -90,6 +90,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_monitor;
 GURA_DLLDECLARE extern ValueType VTYPE_operator;
 GURA_DLLDECLARE extern ValueType VTYPE_palette;
 GURA_DLLDECLARE extern ValueType VTYPE_pointer;
+GURA_DLLDECLARE extern ValueType VTYPE_propdeclaration;
 GURA_DLLDECLARE extern ValueType VTYPE_semaphore;
 GURA_DLLDECLARE extern ValueType VTYPE_stream;
 GURA_DLLDECLARE extern ValueType VTYPE_suffixmgr;
@@ -197,6 +198,7 @@ public:
 	Gura_DeclareVTYPE(operator);
 	Gura_DeclareVTYPE(palette);
 	Gura_DeclareVTYPE(pointer);
+	Gura_DeclareVTYPE(propdeclaration);
 	Gura_DeclareVTYPE(semaphore);
 	Gura_DeclareVTYPE(stream);
 	Gura_DeclareVTYPE(suffixmgr);

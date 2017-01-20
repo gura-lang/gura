@@ -227,6 +227,7 @@
     <ClCompile Include="Class_operator.cpp" />
     <ClCompile Include="Class_palette.cpp" />
     <ClCompile Include="Class_pointer.cpp" />
+    <ClCompile Include="Class_propdeclaration.cpp" />
     <ClCompile Include="Class_quote.cpp" />
     <ClCompile Include="Class_rational.cpp" />
     <ClCompile Include="Class_semaphore.cpp" />
@@ -363,6 +364,7 @@
     <ClInclude Include="..\..\include\gura\Class_operator.h" />
     <ClInclude Include="..\..\include\gura\Class_palette.h" />
     <ClInclude Include="..\..\include\gura\Class_pointer.h" />
+    <ClInclude Include="..\..\include\gura\Class_propdeclaration.h" />
     <ClInclude Include="..\..\include\gura\Class_quote.h" />
     <ClInclude Include="..\..\include\gura\Class_rational.h" />
     <ClInclude Include="..\..\include\gura\Class_semaphore.h" />

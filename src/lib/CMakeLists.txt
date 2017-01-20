@@ -43,6 +43,7 @@ Class_number.cpp
 Class_operator.cpp
 Class_palette.cpp
 Class_pointer.cpp
+Class_propdeclaration.cpp
 Class_quote.cpp
 Class_rational.cpp
 Class_semaphore.cpp

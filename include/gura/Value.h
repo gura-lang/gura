@@ -240,6 +240,7 @@ public:
 	inline bool Is_operator() const			{ return IsType(VTYPE_operator);				}
 	inline bool Is_palette() const			{ return IsType(VTYPE_palette);					}
 	inline bool Is_pointer() const			{ return IsType(VTYPE_pointer);					}
+	inline bool Is_propdeclaration() const	{ return IsType(VTYPE_propdeclaration);			}
 	inline bool Is_semaphore() const		{ return IsType(VTYPE_semaphore);				}
 	inline bool Is_stream() const			{ return IsType(VTYPE_stream);					}
 	inline bool Is_suffixmgr() const		{ return IsType(VTYPE_suffixmgr);				}
@@ -352,6 +353,8 @@ public:
 								{ return MustBe(sig, Is_palette(), 		"palette");			}
 	inline bool MustBe_pointer(Signal &sig) const
 								{ return MustBe(sig, Is_pointer(), 		"pointer");			}
+	inline bool MustBe_propdeclaration(Signal &sig) const
+								{ return MustBe(sig, Is_propdeclaration(), "propdeclaration"); }
 	inline bool MustBe_semaphore(Signal &sig) const
 								{ return MustBe(sig, Is_semaphore(), 	"semaphore");		}
 	inline bool MustBe_stream(Signal &sig) const

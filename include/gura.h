@@ -110,6 +110,7 @@
 #include "gura/Class_operator.h"
 #include "gura/Class_palette.h"
 #include "gura/Class_pointer.h"
+#include "gura/Class_propdeclaration.h"
 #include "gura/Class_quote.h"
 #include "gura/Class_rational.h"
 #include "gura/Class_semaphore.h"

@@ -62,6 +62,7 @@ ValueType VTYPE_monitor			= static_cast<ValueType>(0);
 ValueType VTYPE_operator		= static_cast<ValueType>(0);
 ValueType VTYPE_palette			= static_cast<ValueType>(0);
 ValueType VTYPE_pointer			= static_cast<ValueType>(0);
+ValueType VTYPE_propdeclaration	= static_cast<ValueType>(0);
 ValueType VTYPE_semaphore		= static_cast<ValueType>(0);
 ValueType VTYPE_stream			= static_cast<ValueType>(0);
 ValueType VTYPE_suffixmgr		= static_cast<ValueType>(0);
@@ -192,6 +193,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(operator);
 	Gura_RealizeVTYPE(palette);
 	Gura_RealizeVTYPE(pointer);
+	Gura_RealizeVTYPE(propdeclaration);
 	Gura_RealizeVTYPE(semaphore);
 	Gura_RealizeVTYPE(stream);
 	Gura_RealizeVTYPE(suffixmgr);
@@ -268,6 +270,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(operator		)->SetClass(new Class_operator(pClass));
 	Gura_VTYPEInfo(palette		)->SetClass(new Class_palette(pClass));
 	Gura_VTYPEInfo(pointer		)->SetClass(new Class_pointer(pClass));
+	Gura_VTYPEInfo(propdeclaration)->SetClass(new Class_propdeclaration(pClass));
 	Gura_VTYPEInfo(semaphore	)->SetClass(new Class_semaphore(pClass));
 	Gura_VTYPEInfo(stream		)->SetClass(new Class_stream(pClass));
 	Gura_VTYPEInfo(suffixmgr	)->SetClass(new Class_suffixmgr(pClass));
@@ -335,6 +338,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_operator		)->Prepare(env);
 	env.LookupClass(VTYPE_palette		)->Prepare(env);
 	env.LookupClass(VTYPE_pointer		)->Prepare(env);
+	env.LookupClass(VTYPE_propdeclaration)->Prepare(env);
 	env.LookupClass(VTYPE_semaphore		)->Prepare(env);
 	env.LookupClass(VTYPE_stream		)->Prepare(env);
 	env.LookupClass(VTYPE_suffixmgr		)->Prepare(env);

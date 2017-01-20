@@ -250,6 +250,7 @@ public:
 	inline bool Is_operator(size_t idxArg) const		{ return GetValue(idxArg).Is_operator();		}
 	inline bool Is_palette(size_t idxArg) const			{ return GetValue(idxArg).Is_palette();			}
 	inline bool Is_pointer(size_t idxArg) const			{ return GetValue(idxArg).Is_pointer();			}
+	inline bool Is_propdeclaration(size_t idxArg) const	{ return GetValue(idxArg).Is_propdeclaration();	}
 	inline bool Is_semaphore(size_t idxArg) const		{ return GetValue(idxArg).Is_semaphore();		}
 	inline bool Is_stream(size_t idxArg) const			{ return GetValue(idxArg).Is_stream();			}
 	inline bool Is_suffixmgr(size_t idxArg) const		{ return GetValue(idxArg).Is_suffixmgr();		}
