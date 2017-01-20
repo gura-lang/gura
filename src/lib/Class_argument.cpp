@@ -137,6 +137,7 @@ Class_argument::Class_argument(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 
 void Class_argument::DoPrepare(Environment &env)
 {
+	// Assignment of value
 	Gura_AssignValue(argument, Value(Reference()));
 	// Assignment of properties
 	Gura_AssignProperty(argument, function);

@@ -305,6 +305,7 @@ pointer:class = <class:pointer(org:pointer):map {block?}>
 print(values*):map:void
 printf(format:string, values*):map:void
 println(values*):map:void
+propdeclaration:class = <class:propdeclaration>
 public():void {block}
 raise(error:error, msg:string => 'error', value?)
 rand(range?:number) {block?}
@@ -848,6 +849,7 @@ pointer
   pointer#unpack(format:string, values*:number):[nil,stay] {block?}
   pointer#unpacks(format:string, values*:number):map {block?}
   pointer#writer() {block?}
+propdeclaration
 quote
 rational
   rational.reduce()

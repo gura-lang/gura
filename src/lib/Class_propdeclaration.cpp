@@ -36,6 +36,8 @@ Class_propdeclaration::Class_propdeclaration(Environment *pEnvOuter) :
 
 void Class_propdeclaration::DoPrepare(Environment &env)
 {
+	// Assignment of value
+	Gura_AssignValue(propdeclaration, Value(Reference()));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
