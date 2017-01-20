@@ -1,31 +1,31 @@
 //=============================================================================
-// PropHandler
+// PropDeclaration
 //=============================================================================
-#ifndef __GURA_PROPHANDLER_H__
-#define __GURA_PROPHANDLER_H__
+#ifndef __GURA_PROPDECLARATION_H__
+#define __GURA_PROPDECLARATION_H__
 
 #include "Value.h"
 
 #define Gura_DeclarePropertyAlias_R(className, propName, propNameAlias) \
-class PropHandler_##className##__##propName : public PropHandler { \
+class PropDeclaration_##className##__##propName : public PropDeclaration { \
 public: \
-	PropHandler_##className##__##propName(); \
+	PropDeclaration_##className##__##propName(); \
 	virtual Value DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const; \
 	virtual Value DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const; \
 }; \
-Value PropHandler_##className##__##propName::DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const { return Value::Nil; } \
-PropHandler_##className##__##propName::PropHandler_##className##__##propName() : \
-					PropHandler(Symbol::Add(propNameAlias), FLAG_Read)
+Value PropDeclaration_##className##__##propName::DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const { return Value::Nil; } \
+PropDeclaration_##className##__##propName::PropDeclaration_##className##__##propName() : \
+					PropDeclaration(Symbol::Add(propNameAlias), FLAG_Read)
 
 #define Gura_DeclarePropertyAlias_RW(className, propName, propNameAlias) \
-class PropHandler_##className##__##propName : public PropHandler { \
+class PropDeclaration_##className##__##propName : public PropDeclaration { \
 public: \
-	PropHandler_##className##__##propName(); \
+	PropDeclaration_##className##__##propName(); \
 	virtual Value DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const; \
 	virtual Value DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const; \
 }; \
-PropHandler_##className##__##propName::PropHandler_##className##__##propName() : \
-					PropHandler(Symbol::Add(propNameAlias), FLAG_Read | FLAG_Write)
+PropDeclaration_##className##__##propName::PropDeclaration_##className##__##propName() : \
+					PropDeclaration(Symbol::Add(propNameAlias), FLAG_Read | FLAG_Write)
 
 #define Gura_DeclareProperty_R(className, propName) \
 Gura_DeclarePropertyAlias_R(className, propName, #propName)
@@ -34,20 +34,20 @@ Gura_DeclarePropertyAlias_R(className, propName, #propName)
 Gura_DeclarePropertyAlias_RW(className, propName, #propName)
 
 #define Gura_ImplementPropertyGetter(className, propName) \
-Value PropHandler_##className##__##propName::DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const
+Value PropDeclaration_##className##__##propName::DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const
 
 #define Gura_ImplementPropertySetter(className, propName) \
-Value PropHandler_##className##__##propName::DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const
+Value PropDeclaration_##className##__##propName::DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const
 
 #define Gura_AssignProperty(className, propName) \
-AssignPropHandler(new PropHandler_##className##__##propName())
+AssignPropDeclaration(new PropDeclaration_##className##__##propName())
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// PropHandler
+// PropDeclaration
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE PropHandler : public HelpProvider::Holder {
+class GURA_DLLDECLARE PropDeclaration : public HelpProvider::Holder {
 protected:
 	int _cntRef;
 	const Symbol *_pSymbol;
@@ -55,11 +55,11 @@ protected:
 	ULong _flags;
 	AutoPtr<HelpProvider> _pHelpProvider;
 public:
-	Gura_DeclareReferenceAccessor(PropHandler);
+	Gura_DeclareReferenceAccessor(PropDeclaration);
 public:
-	PropHandler(const Symbol *pSymbol, ULong flags);
+	PropDeclaration(const Symbol *pSymbol, ULong flags);
 protected:
-	virtual ~PropHandler();
+	virtual ~PropDeclaration();
 public:
 	virtual Value GetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const;
 	virtual Value SetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, Value &value) const;
@@ -89,15 +89,15 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// PropHandlerMap
+// PropDeclarationMap
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE PropHandlerMap :
-	public std::unordered_map <const Symbol *, PropHandler *, Symbol::Hasher, Symbol::EqualTo> {
+class GURA_DLLDECLARE PropDeclarationMap :
+	public std::unordered_map <const Symbol *, PropDeclaration *, Symbol::Hasher, Symbol::EqualTo> {
 public:
-	inline PropHandlerMap() {}
-	PropHandlerMap(const PropHandlerMap &propHandlerMap);
-	~PropHandlerMap();
-	void operator=(const PropHandlerMap &propHandlerMap);
+	inline PropDeclarationMap() {}
+	PropDeclarationMap(const PropDeclarationMap &propDeclarationMap);
+	~PropDeclarationMap();
+	void operator=(const PropDeclarationMap &propDeclarationMap);
 };
 
 }

@@ -60,7 +60,7 @@
 #include "gura/Parser.h"
 #include "gura/PathMgr.h"
 #include "gura/Pointer.h"
-#include "gura/PropHandler.h"
+#include "gura/PropDeclaration.h"
 #include "gura/Random.h"
 #include "gura/Rational.h"
 #include "gura/Stream.h"

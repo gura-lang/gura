@@ -1,60 +1,60 @@
 //=============================================================================
-// PropHandler
+// PropDeclaration
 //=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// PropHandler
+// PropDeclaration
 //-----------------------------------------------------------------------------
-PropHandler::PropHandler(const Symbol *pSymbol, ULong flags) :
+PropDeclaration::PropDeclaration(const Symbol *pSymbol, ULong flags) :
 	_cntRef(1), _pSymbol(pSymbol), _valType(VTYPE_any), _flags(flags),
 	_pHelpProvider(new HelpProvider(this))
 {
 }
 
-PropHandler::~PropHandler()
+PropDeclaration::~PropDeclaration()
 {
 	_pHelpProvider->SetHolder(nullptr);
 }
 
-Value PropHandler::GetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const
+Value PropDeclaration::GetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const
 {
 	return DoGetProp(env, valueThis, attrs);
 }
 
-Value PropHandler::SetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, Value &value) const
+Value PropDeclaration::SetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, Value &value) const
 {
 	if (!value.CastType(env, _valType, _flags)) return Value::Nil;
 	return DoSetProp(env, valueThis, attrs, value);
 }
 
-String PropHandler::MakeHelpTitle() const
+String PropDeclaration::MakeHelpTitle() const
 {
 	return _pSymbol->GetName();
 }
 
 //-----------------------------------------------------------------------------
-// PropHandlerMap
+// PropDeclarationMap
 //-----------------------------------------------------------------------------
-PropHandlerMap::PropHandlerMap(const PropHandlerMap &propHandlerMap)
+PropDeclarationMap::PropDeclarationMap(const PropDeclarationMap &propDeclarationMap)
 {
-	foreach_const (PropHandlerMap, iter, propHandlerMap) {
+	foreach_const (PropDeclarationMap, iter, propDeclarationMap) {
 		insert(value_type(iter->first, iter->second->Reference()));
 	}
 }
 
-PropHandlerMap::~PropHandlerMap()
+PropDeclarationMap::~PropDeclarationMap()
 {
-	foreach (PropHandlerMap, iter, *this) {
-		PropHandler::Delete(iter->second);
+	foreach (PropDeclarationMap, iter, *this) {
+		PropDeclaration::Delete(iter->second);
 	}
 }
 
-void PropHandlerMap::operator=(const PropHandlerMap &propHandlerMap)
+void PropDeclarationMap::operator=(const PropDeclarationMap &propDeclarationMap)
 {
-	foreach_const (PropHandlerMap, iter, propHandlerMap) {
+	foreach_const (PropDeclarationMap, iter, propDeclarationMap) {
 		insert(value_type(iter->first, iter->second->Reference()));
 	}
 }

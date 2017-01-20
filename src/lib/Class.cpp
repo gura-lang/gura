@@ -538,7 +538,7 @@ Value Class::DoCall(Environment &env, const CallerInfo &callerInfo,
 void Class::Prepare(Environment &env)
 {
 	DeriveOperators();
-	DerivePropHandlers();
+	DerivePropDeclarations();
 	DoPrepare(env);
 }
 
@@ -712,28 +712,28 @@ void Class::DeriveOperators()
 	}
 }
 
-void Class::DerivePropHandlers()
+void Class::DerivePropDeclarations()
 {
 	if (_pClassSuper.IsNull()) return;
-	if (_pClassSuper->_pPropHandlerMap == nullptr) return;
-	if (_pPropHandlerMap.get() == nullptr) _pPropHandlerMap.reset(new PropHandlerMap());
-	*_pPropHandlerMap = *_pClassSuper->_pPropHandlerMap;
-	//foreach (PropHandlerMap, iter, *_pClassSuper->_pPropHandlerMap) {
-		//(*_pPropHandlerMap)[iter->first] = iter->second;
+	if (_pClassSuper->_pPropDeclarationMap == nullptr) return;
+	if (_pPropDeclarationMap.get() == nullptr) _pPropDeclarationMap.reset(new PropDeclarationMap());
+	*_pPropDeclarationMap = *_pClassSuper->_pPropDeclarationMap;
+	//foreach (PropDeclarationMap, iter, *_pClassSuper->_pPropDeclarationMap) {
+		//(*_pPropDeclarationMap)[iter->first] = iter->second;
 	//}
 }
 
-void Class::AssignPropHandler(PropHandler *pPropHandler)
+void Class::AssignPropDeclaration(PropDeclaration *pPropDeclaration)
 {
-	if (_pPropHandlerMap.get() == nullptr) _pPropHandlerMap.reset(new PropHandlerMap());
-	(*_pPropHandlerMap)[pPropHandler->GetSymbol()] = pPropHandler;
+	if (_pPropDeclarationMap.get() == nullptr) _pPropDeclarationMap.reset(new PropDeclarationMap());
+	(*_pPropDeclarationMap)[pPropDeclaration->GetSymbol()] = pPropDeclaration;
 }
 
-const PropHandler *Class::LookupPropHandler(const Symbol *pSymbol)
+const PropDeclaration *Class::LookupPropDeclaration(const Symbol *pSymbol)
 {
-	if (_pPropHandlerMap.get() == nullptr) return nullptr;
-	auto iter = _pPropHandlerMap->find(pSymbol);
-	return (iter == _pPropHandlerMap->end())? nullptr : iter->second;
+	if (_pPropDeclarationMap.get() == nullptr) return nullptr;
+	auto iter = _pPropDeclarationMap->find(pSymbol);
+	return (iter == _pPropDeclarationMap->end())? nullptr : iter->second;
 }
 
 bool Class::BuildContent(Environment &env, const Value &valueThis, const Expr_Block *pExprBlock)

@@ -90,7 +90,7 @@ Palette.cpp
 Parser.cpp
 PathMgr.cpp
 Pointer.cpp
-PropHandler.cpp
+PropDeclaration.cpp
 Random.cpp
 Rational.cpp
 Signal.cpp

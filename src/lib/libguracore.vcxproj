@@ -275,7 +275,7 @@
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="PathMgr.cpp" />
     <ClCompile Include="Pointer.cpp" />
-    <ClCompile Include="PropHandler.cpp" />
+    <ClCompile Include="PropDeclaration.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Rational.cpp" />
     <ClCompile Include="Signal.cpp" />
@@ -408,7 +408,7 @@
     <ClInclude Include="..\..\include\gura\Parser.h" />
     <ClInclude Include="..\..\include\gura\PathMgr.h" />
     <ClInclude Include="..\..\include\gura\Pointer.h" />
-    <ClInclude Include="..\..\include\gura\PropHandler.h" />
+    <ClInclude Include="..\..\include\gura\PropDeclaration.h" />
     <ClInclude Include="..\..\include\gura\Random.h" />
     <ClInclude Include="..\..\include\gura\Rational.h" />
     <ClInclude Include="..\..\include\gura\Signal.h" />

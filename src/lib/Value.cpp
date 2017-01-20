@@ -285,8 +285,8 @@ Value Value::GetProp(Environment &env, const Symbol *pSymbol,
 					 const SymbolSet &attrs, const Value *pValueDefault) const
 {
 	Class *pClass = GetClass();
-	const PropHandler *pPropHandler = pClass->LookupPropHandler(pSymbol);
-	if (pPropHandler != nullptr) return pPropHandler->GetProp(env, *this, attrs);
+	const PropDeclaration *pPropDeclaration = pClass->LookupPropDeclaration(pSymbol);
+	if (pPropDeclaration != nullptr) return pPropDeclaration->GetProp(env, *this, attrs);
 	Fundamental *pFund = IsPrimitive()? pClass : GetFundamental();
 	EnvRefMode envRefMode =
 		pFund->IsModule()? ENVREF_Module :
@@ -301,8 +301,8 @@ Value Value::SetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &a
 					 const SymbolList &attrFront, Value &valueAssigned, bool escalateFlag)
 {
 	Class *pClass = GetClass();
-	const PropHandler *pPropHandler = pClass->LookupPropHandler(pSymbol);
-	if (pPropHandler != nullptr) return pPropHandler->SetProp(env, *this, attrs, valueAssigned);
+	const PropDeclaration *pPropDeclaration = pClass->LookupPropDeclaration(pSymbol);
+	if (pPropDeclaration != nullptr) return pPropDeclaration->SetProp(env, *this, attrs, valueAssigned);
 	Fundamental *pFund = IsPrimitive()? pClass : GetFundamental();
 	return pFund->SetProp(pSymbol, attrs, attrFront, valueAssigned, escalateFlag);
 }

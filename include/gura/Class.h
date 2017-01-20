@@ -11,7 +11,7 @@
 #include "Fundamental.h"
 #include "Formatter.h"
 #include "Operator.h"
-#include "PropHandler.h"
+#include "PropDeclaration.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -185,7 +185,7 @@ protected:
 	AutoPtr<Function> _pConstructor;
 	Operator::EntryList _operatorEntryList;
 	AutoPtr<HelpProvider> _pHelpProvider;
-	std::unique_ptr<PropHandlerMap> _pPropHandlerMap;
+	std::unique_ptr<PropDeclarationMap> _pPropDeclarationMap;
 public:
 	Gura_DeclareReferenceAccessor(Class);
 public:
@@ -263,9 +263,9 @@ public:
 	virtual bool Format_c(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	void AddOperatorEntry(OperatorEntry *pOperatorEntry);
 	void DeriveOperators();
-	void DerivePropHandlers();
-	void AssignPropHandler(PropHandler *pPropHandler);
-	const PropHandler *LookupPropHandler(const Symbol *pSymbol);
+	void DerivePropDeclarations();
+	void AssignPropDeclaration(PropDeclaration *pPropDeclaration);
+	const PropDeclaration *LookupPropDeclaration(const Symbol *pSymbol);
 	bool BuildContent(Environment &env, const Value &valueThis, const Expr_Block *pExprBlock);
 	void SetError_NoConstructor() const;
 public:
