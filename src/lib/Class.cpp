@@ -206,8 +206,107 @@ Gura_ImplementFunction(object)
 }
 
 //-----------------------------------------------------------------------------
-// Implementation of primitive methods
+// Implementation of methods
 //-----------------------------------------------------------------------------
+// object.__call__(symbol:symbol, `args*):map:nonamed {block?}
+Gura_DeclareMethod(Object, __call__)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map | FLAG_NoNamed);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(Object, __call__)
+{
+	Signal &sig = env.GetSignal();
+	const Symbol *pSymbol = arg.GetSymbol(0);
+	Fundamental *pThis = arg.GetValueThis().IsFundamental()?
+					arg.GetFundamentalThis() : arg.GetValueThis().GetClass();
+	Value valueToCall;
+	const Value *pValue = pThis->LookupValue(pSymbol, ENVREF_Escalate);
+	if (pValue == nullptr) {
+		valueToCall = pThis->GetProp(pSymbol, SymbolSet::Empty);
+		if (sig.IsSignalled()) return Value::Nil;
+	} else {
+		valueToCall = *pValue;
+	}
+	if (!valueToCall.IsFundamental()) {
+		sig.SetError(ERR_ValueError,
+					 "instance associated with a symbol '%s' is not a callable",
+					 pSymbol->GetName());
+		return Value::Nil;
+	}
+	Fundamental *pFund = valueToCall.GetFundamental();
+	ExprList exprListArg;
+	exprListArg.reserve(arg.GetList(1).size());
+	foreach_const (ValueList, pValue, arg.GetList(1)) {
+		exprListArg.push_back(const_cast<Expr *>(pValue->GetExpr()));
+	}
+	CallerInfo callerInfo(exprListArg, arg.GetBlock(),
+						  arg.GetAttrsShared(), arg.GetFunction()->GetAttrsOptShared());
+	return pFund->DoCall(env, callerInfo, arg.GetValueThis(), nullptr, arg.GetTrailCtrlHolder());
+}
+
+// object#__iter__()
+Gura_DeclareMethod(Object, __iter__)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(Object, __iter__)
+{
+	Signal &sig = env.GetSignal();
+	Iterator *pIterator = arg.GetValueThis().CreateIterator(sig);
+	if (sig.IsSignalled()) return Value::Nil;
+	return Value(new Object_iterator(env, pIterator));
+}
+
+// object.getprop!(symbol:symbol, default?:nomap):map
+Gura_DeclareClassMethodAlias(Object, getprop_X, "getprop!")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareArg(env, "default", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
+}
+
+Gura_ImplementClassMethod(Object, getprop_X)
+{
+	const Value *pValueDefault = arg.IsDefined(1)? &arg.GetValue(1) : nullptr;
+	return arg.GetValueThis().GetProp(env, arg.GetSymbol(0), SymbolSet::Empty, pValueDefault);
+}
+
+// object.setprop!(symbol:symbol, value):map
+Gura_DeclareClassMethodAlias(Object, setprop_X, "setprop!")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareArg(env, "value", VTYPE_any);
+}
+
+Gura_ImplementClassMethod(Object, setprop_X)
+{
+	Fundamental *pThis = arg.GetFundamentalThis();
+	pThis->AssignValue(arg.GetSymbol(0), arg.GetValue(1), EXTRA_Public);
+	return Value::Nil;
+}
+
+// object#clone()
+Gura_DeclareMethod(Object, clone)
+{
+}
+
+Gura_ImplementMethod(Object, clone)
+{
+	Signal &sig = env.GetSignal();
+	Object *pObj = arg.GetObjectThis()->Clone();
+	if (pObj == nullptr) {
+		sig.SetError(ERR_ValueError, "failed to create a clone object");
+		return Value::Nil;
+	}
+	return Value(pObj);
+}
+
 // object#is(obj):map
 Gura_DeclareMethodPrimitive(Object, is)
 {
@@ -321,108 +420,6 @@ Gura_ImplementMethod(Object, tostring)
 }
 
 //-----------------------------------------------------------------------------
-// Implementation of methods
-//-----------------------------------------------------------------------------
-// object.__call__(symbol:symbol, `args*):map:nonamed {block?}
-Gura_DeclareMethod(Object, __call__)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map | FLAG_NoNamed);
-	DeclareArg(env, "symbol", VTYPE_symbol);
-	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(Object, __call__)
-{
-	Signal &sig = env.GetSignal();
-	const Symbol *pSymbol = arg.GetSymbol(0);
-	Fundamental *pThis = arg.GetValueThis().IsFundamental()?
-					arg.GetFundamentalThis() : arg.GetValueThis().GetClass();
-	Value valueToCall;
-	const Value *pValue = pThis->LookupValue(pSymbol, ENVREF_Escalate);
-	if (pValue == nullptr) {
-		valueToCall = pThis->GetProp(pSymbol, SymbolSet::Empty);
-		if (sig.IsSignalled()) return Value::Nil;
-	} else {
-		valueToCall = *pValue;
-	}
-	if (!valueToCall.IsFundamental()) {
-		sig.SetError(ERR_ValueError,
-					 "instance associated with a symbol '%s' is not a callable",
-					 pSymbol->GetName());
-		return Value::Nil;
-	}
-	Fundamental *pFund = valueToCall.GetFundamental();
-	ExprList exprListArg;
-	exprListArg.reserve(arg.GetList(1).size());
-	foreach_const (ValueList, pValue, arg.GetList(1)) {
-		exprListArg.push_back(const_cast<Expr *>(pValue->GetExpr()));
-	}
-	CallerInfo callerInfo(exprListArg, arg.GetBlock(),
-						  arg.GetAttrsShared(), arg.GetFunction()->GetAttrsOptShared());
-	return pFund->DoCall(env, callerInfo, arg.GetValueThis(), nullptr, arg.GetTrailCtrlHolder());
-}
-
-// object#__iter__()
-Gura_DeclareMethod(Object, __iter__)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(Object, __iter__)
-{
-	Signal &sig = env.GetSignal();
-	Iterator *pIterator = arg.GetValueThis().CreateIterator(sig);
-	if (sig.IsSignalled()) return Value::Nil;
-	return Value(new Object_iterator(env, pIterator));
-}
-
-// object#clone()
-Gura_DeclareMethod(Object, clone)
-{
-}
-
-Gura_ImplementMethod(Object, clone)
-{
-	Signal &sig = env.GetSignal();
-	Object *pObj = arg.GetObjectThis()->Clone();
-	if (pObj == nullptr) {
-		sig.SetError(ERR_ValueError, "failed to create a clone object");
-		return Value::Nil;
-	}
-	return Value(pObj);
-}
-
-// object.getprop!(symbol:symbol, default?:nomap):map
-Gura_DeclareClassMethodAlias(Object, getprop_X, "getprop!")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "symbol", VTYPE_symbol);
-	DeclareArg(env, "default", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
-}
-
-Gura_ImplementClassMethod(Object, getprop_X)
-{
-	const Value *pValueDefault = arg.IsDefined(1)? &arg.GetValue(1) : nullptr;
-	return arg.GetValueThis().GetProp(env, arg.GetSymbol(0), SymbolSet::Empty, pValueDefault);
-}
-
-// object.setprop!(symbol:symbol, value):map
-Gura_DeclareClassMethodAlias(Object, setprop_X, "setprop!")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "symbol", VTYPE_symbol);
-	DeclareArg(env, "value", VTYPE_any);
-}
-
-Gura_ImplementClassMethod(Object, setprop_X)
-{
-	Fundamental *pThis = arg.GetFundamentalThis();
-	pThis->AssignValue(arg.GetSymbol(0), arg.GetValue(1), EXTRA_Public);
-	return Value::Nil;
-}
-
-//-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
 bool Class::IsClass() const { return true; }
@@ -529,6 +526,11 @@ void Class::Prepare(Environment &env)
 void Class::DoPrepare(Environment &env)
 {
 	Gura_AssignFunction(object);
+	Gura_AssignMethod(Object, __call__);
+	Gura_AssignMethod(Object, __iter__);
+	Gura_AssignMethod(Object, getprop_X);
+	Gura_AssignMethod(Object, setprop_X);
+	Gura_AssignMethod(Object, clone);
 	Gura_AssignMethod(Object, is);			// primitive method
 	Gura_AssignMethod(Object, isnil);		// primitive method
 	Gura_AssignMethod(Object, istype);		// primitive method
@@ -536,11 +538,6 @@ void Class::DoPrepare(Environment &env)
 	Gura_AssignMethod(Object, nomap);		// primitive method
 	Gura_AssignMethod(Object, tonumber);	// primitive method
 	Gura_AssignMethod(Object, tostring);	// primitive method
-	Gura_AssignMethod(Object, __call__);
-	Gura_AssignMethod(Object, __iter__);
-	Gura_AssignMethod(Object, clone);
-	Gura_AssignMethod(Object, getprop_X);
-	Gura_AssignMethod(Object, setprop_X);
 }
 
 bool Class::Serialize(Environment &env, Stream &stream, const Value &value) const
