@@ -656,6 +656,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			} else {
 				_field.clear();
 				_field.push_back('!');
+				Gura_Pushback();
 				_stat = STAT_DoubleChars;
 			}
 		} else {
