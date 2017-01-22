@@ -70,8 +70,8 @@ public:
 	inline void SetPropAttr(ValueType valType, ULong flags = FLAG_None) {
 		_valType = valType, _flags |= flags;
 	}
-	inline const Symbol *GetSymbol() { return _pSymbol; }
-	inline const char *GetName() { return _pSymbol->GetName(); }
+	inline const Symbol *GetSymbol() const { return _pSymbol; }
+	inline const char *GetName() const { return _pSymbol->GetName(); }
 	inline ULong GetFlags() const { return _flags; }
 	inline bool IsReadable() const { return (_flags & FLAG_Read) != 0; }
 	inline bool IsWritable() const { return (_flags & FLAG_Write) != 0; }
@@ -92,12 +92,37 @@ public:
 // PropDeclarationMap
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE PropDeclarationMap :
-	public std::unordered_map <const Symbol *, PropDeclaration *, Symbol::Hasher, Symbol::EqualTo> {
+	public std::unordered_map<const Symbol *, PropDeclaration *, Symbol::Hasher, Symbol::EqualTo> {
 public:
 	inline PropDeclarationMap() {}
 	PropDeclarationMap(const PropDeclarationMap &propDeclarationMap);
 	~PropDeclarationMap();
 	void operator=(const PropDeclarationMap &propDeclarationMap);
+};
+
+//-----------------------------------------------------------------------------
+// PropDeclarationList
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE PropDeclarationList : public std::vector<PropDeclaration *> {
+public:
+	class Comparator {
+	public:
+		inline bool operator()(const PropDeclaration *pPropDeclaration1,
+							   const PropDeclaration *pPropDeclaration2) const {
+			return ::strcmp(pPropDeclaration1->GetName(), pPropDeclaration2->GetName()) < 0;
+		}
+	};
+public:
+	void SortByName();
+};
+
+//-----------------------------------------------------------------------------
+// PropDeclarationOwner
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE PropDeclarationOwner : public PropDeclarationList {
+public:
+	~PropDeclarationOwner();
+	void Clear();
 };
 
 }

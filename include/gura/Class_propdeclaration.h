@@ -37,6 +37,22 @@ public:
 	inline const PropDeclaration *GetPropDeclaration() const { return _pPropDeclaration.get(); }
 };
 
+//-----------------------------------------------------------------------------
+// Iterator_propdeclaration
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Iterator_propdeclaration : public Iterator {
+private:
+	size_t _idx;
+	PropDeclarationOwner _propDeclarations;
+public:
+	Iterator_propdeclaration();
+	void AddPropDeclarations(const PropDeclarationMap &propDeclarationMap);
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Value &value);
+	virtual String ToString() const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
 }
 
 #endif

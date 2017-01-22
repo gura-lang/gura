@@ -262,6 +262,24 @@ Gura_ImplementMethod(Object, __iter__)
 	return Value(new Object_iterator(env, pIterator));
 }
 
+// object#__propdecls__() {block?}
+Gura_DeclareMethodPrimitive(Object, __propdecls__)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(Object, __propdecls__)
+{
+	AutoPtr<Iterator_propdeclaration> pIterator(new Iterator_propdeclaration());
+	const PropDeclarationMap *pPropDeclarationMap =
+		arg.GetValueThis().GetClass()->GetPropDeclarationMap();
+	if (pPropDeclarationMap != nullptr) {
+		pIterator->AddPropDeclarations(*pPropDeclarationMap);
+	}
+	return ReturnIterator(env, arg, pIterator.release());
+}
+
 // object.getprop!(symbol:symbol, default?:nomap):map
 Gura_DeclareClassMethodAlias(Object, getprop_X, "getprop!")
 {
@@ -528,6 +546,7 @@ void Class::DoPrepare(Environment &env)
 	Gura_AssignFunction(object);
 	Gura_AssignMethod(Object, __call__);
 	Gura_AssignMethod(Object, __iter__);
+	Gura_AssignMethod(Object, __propdecls__);
 	Gura_AssignMethod(Object, getprop_X);
 	Gura_AssignMethod(Object, setprop_X);
 	Gura_AssignMethod(Object, clone);

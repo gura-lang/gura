@@ -59,4 +59,29 @@ void PropDeclarationMap::operator=(const PropDeclarationMap &propDeclarationMap)
 	}
 }
 
+//-----------------------------------------------------------------------------
+// PropDeclarationList
+//-----------------------------------------------------------------------------
+void PropDeclarationList::SortByName()
+{
+	std::sort(begin(), end(), Comparator());
+}
+
+//-----------------------------------------------------------------------------
+// PropDeclarationOwner
+//-----------------------------------------------------------------------------
+PropDeclarationOwner::~PropDeclarationOwner()
+{
+	Clear();
+}
+
+void PropDeclarationOwner::Clear()
+{
+	foreach (PropDeclarationOwner, ppPropDeclaration, *this) {
+		PropDeclaration::Delete(*ppPropDeclaration);
+	}
+	clear();
+}
+
+
 }

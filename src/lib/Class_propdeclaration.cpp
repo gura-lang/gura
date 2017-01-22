@@ -48,4 +48,41 @@ Object *Class_propdeclaration::CreateDescendant(Environment &env, Class *pClass)
 	return nullptr;
 }
 
+//-----------------------------------------------------------------------------
+// Iterator_propdeclaration
+//-----------------------------------------------------------------------------
+Iterator_propdeclaration::Iterator_propdeclaration() : Iterator(Finite), _idx(0)
+{
+}
+
+void Iterator_propdeclaration::AddPropDeclarations(const PropDeclarationMap &propDeclarationMap)
+{
+	foreach_const (PropDeclarationMap, iter, propDeclarationMap) {
+		_propDeclarations.push_back(iter->second->Reference());
+	}
+	_propDeclarations.SortByName();
+}
+
+Iterator *Iterator_propdeclaration::GetSource()
+{
+	return nullptr;
+}
+
+bool Iterator_propdeclaration::DoNext(Environment &env, Value &value)
+{
+	if (_idx >= _propDeclarations.size()) return false;
+	value = Value(new Object_propdeclaration(env, _propDeclarations[_idx]->Reference()));
+	_idx++;
+	return true;
+}
+
+String Iterator_propdeclaration::ToString() const
+{
+	return "propdeclaration";
+}
+
+void Iterator_propdeclaration::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
 }

@@ -238,6 +238,7 @@ public:
 	inline void AddHelpTemplate(Environment &env, const Symbol *pSymbol, const String &doc) {
 		_pHelpProvider->AddHelpTemplate(env, pSymbol, doc);
 	}
+	inline const PropDeclarationMap *GetPropDeclarationMap() const { return _pPropDeclarationMap.get(); }
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag);
 	virtual Value EmptyIndexGetPrimitive(Environment &env, const Value &valueThis) const;
 	virtual Value IndexGetPrimitive(Environment &env,
