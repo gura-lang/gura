@@ -23,7 +23,88 @@ Object *Object_propdeclaration::Clone() const
 
 String Object_propdeclaration::ToString(bool exprFlag)
 {
-	return "<propdeclaration>";
+	String str = "<propdeclaration:";
+	str += _pPropDeclaration->GetName();
+	ValueType valType = _pPropDeclaration->GetValueType();
+	if (valType != VTYPE_any) {
+		str += ":";
+		str += ValueTypePool::GetInstance()->Lookup(valType)->MakeFullName();
+	}
+	if (_pPropDeclaration->IsReadable()) str += ":R";
+	if (_pPropDeclaration->IsWritable()) str += ":W";
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// propdeclaration#name
+Gura_DeclareProperty_R(propdeclaration, name)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(propdeclaration, name)
+{
+	const PropDeclaration *pPropDeclaration =
+		Object_propdeclaration::GetObject(valueThis)->GetPropDeclaration();
+	return Value(pPropDeclaration->GetName());
+}
+
+// propdeclaration#readable
+Gura_DeclareProperty_R(propdeclaration, readable)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(propdeclaration, readable)
+{
+	const PropDeclaration *pPropDeclaration =
+		Object_propdeclaration::GetObject(valueThis)->GetPropDeclaration();
+	return Value(pPropDeclaration->IsReadable());
+}
+
+// propdeclaration#symbol
+Gura_DeclareProperty_R(propdeclaration, symbol)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(propdeclaration, symbol)
+{
+	const PropDeclaration *pPropDeclaration =
+		Object_propdeclaration::GetObject(valueThis)->GetPropDeclaration();
+	return Value(pPropDeclaration->GetSymbol());
+}
+
+// propdeclaration#writable
+Gura_DeclareProperty_R(propdeclaration, writable)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(propdeclaration, writable)
+{
+	const PropDeclaration *pPropDeclaration =
+		Object_propdeclaration::GetObject(valueThis)->GetPropDeclaration();
+	return Value(pPropDeclaration->IsWritable());
 }
 
 //-----------------------------------------------------------------------------
@@ -36,6 +117,11 @@ Class_propdeclaration::Class_propdeclaration(Environment *pEnvOuter) :
 
 void Class_propdeclaration::DoPrepare(Environment &env)
 {
+	// Assignment of properties
+	Gura_AssignProperty(propdeclaration, name);
+	Gura_AssignProperty(propdeclaration, readable);
+	Gura_AssignProperty(propdeclaration, symbol);
+	Gura_AssignProperty(propdeclaration, writable);
 	// Assignment of value
 	Gura_AssignValue(propdeclaration, Value(Reference()));
 	// help document

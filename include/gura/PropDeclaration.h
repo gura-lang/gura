@@ -72,6 +72,7 @@ public:
 	}
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const char *GetName() const { return _pSymbol->GetName(); }
+	inline ValueType GetValueType() const { return _valType; }
 	inline ULong GetFlags() const { return _flags; }
 	inline bool IsReadable() const { return (_flags & FLAG_Read) != 0; }
 	inline bool IsWritable() const { return (_flags & FLAG_Write) != 0; }
