@@ -161,7 +161,11 @@ Gura_DeclareProperty_R(image, format)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"<p>Takes one of the following symbols indicating what elements are stored in the memory:</p>\n"
+		"<ul>\n"
+		"<li><code>`rgb</code> .. red, green and blue</li>\n"
+		"<li><code>`rgba</code> .. red, green, blue and alpha</li>\n"
+		"</ul>"
 		);
 }
 
@@ -177,7 +181,7 @@ Gura_DeclareProperty_R(image, height)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Image height."
 		);
 }
 
@@ -193,7 +197,8 @@ Gura_DeclareProperty_RW(image, palette)
 	SetPropAttr(VTYPE_palette, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"A <code>palette</code> instance associated with this image.\n"
+		"If there's no palette associated, this property returns <code>nil</code>."
 		);
 }
 
@@ -222,7 +227,7 @@ Gura_DeclareProperty_R(image, width)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Image width."
 		);
 }
 

@@ -108,6 +108,31 @@ Gura_ImplementPropertyGetter(propdeclaration, writable)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of methods
+//-----------------------------------------------------------------------------
+// propdeclaration.gethelp(lang?:symbol):map {block?}
+Gura_DeclareMethod(propdeclaration, gethelp)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+	);
+}
+
+Gura_ImplementMethod(propdeclaration, gethelp)
+{
+	const PropDeclaration *pPropDeclaration =
+		Object_propdeclaration::GetObjectThis(arg)->GetPropDeclaration();
+	const Symbol *pSymbol = arg.Is_symbol(0)? arg.GetSymbol(0) : env.GetLangCode();
+	const Help *pHelp = pPropDeclaration->GetHelpProvider().GetHelp(pSymbol, true);
+	if (pHelp == nullptr) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_help(env, pHelp->Reference())));
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
 Class_propdeclaration::Class_propdeclaration(Environment *pEnvOuter) :
@@ -122,6 +147,8 @@ void Class_propdeclaration::DoPrepare(Environment &env)
 	Gura_AssignProperty(propdeclaration, readable);
 	Gura_AssignProperty(propdeclaration, symbol);
 	Gura_AssignProperty(propdeclaration, writable);
+	// Assignment of methods
+	Gura_AssignMethod(propdeclaration, gethelp);
 	// Assignment of value
 	Gura_AssignValue(propdeclaration, Value(Reference()));
 	// help document

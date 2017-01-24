@@ -224,7 +224,7 @@ Gura_ImplementClassMethod(help, text_at_block)
 	return ReturnValue(env, arg, Value(buff));
 }
 
-// help.present():void
+// help#present():void
 Gura_DeclareMethod(help, present)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -267,7 +267,7 @@ Gura_ImplementClassMethod(help, presenter)
 	return Value::Nil;
 }
 
-// help.render(format:string, out?:stream) {block?}
+// help#render(format:string, out?:stream) {block?}
 Gura_DeclareMethod(help, render)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);

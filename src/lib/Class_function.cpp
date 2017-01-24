@@ -507,7 +507,6 @@ void Class_function::DoPrepare(Environment &env)
 	Gura_AssignProperty(function, name);
 	Gura_AssignProperty(function, symbol);
 	// Assignment of methods
-	//Gura_AssignMethod(function, addhelp);
 	Gura_AssignMethod(function, getdecls);
 	Gura_AssignMethod(function, getexpr);
 	Gura_AssignMethod(function, getformat);
