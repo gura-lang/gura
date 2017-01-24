@@ -320,53 +320,6 @@ Gura_ImplementPropertySetter(function, symbol)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-#if 0
-// function.addhelp(func:function, lang:symbol, help:string):map
-Gura_DeclareClassMethod(function, addhelp)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "func", VTYPE_function);
-	DeclareArg(env, "lang", VTYPE_symbol);
-	DeclareArg(env, "help", VTYPE_string);
-	AddHelp(
-		Gura_Symbol(en),
-		"Adds help information to a `function` instance taking the following arguments:\n"
-		"\n"
-		"- `func` .. The `function` instance to which the help is added.\n"
-		"- `lang` .. A symbol of the natural language in which the help text is written.\n"
-		"            For example, `` `en`` for English and `` `ja`` for Japanese.\n"
-		"- `help`.. The help text.\n"
-		"\n"
-		"You can add multiple help information with different `lang`.\n"
-		"\n"
-		"Below is an example to add help information to a function\n"
-		"using the method `function#addhelp()`:\n"
-		"\n"
-		"    f(a:number, b:number, c:number) = {\n"
-		"        (a + b + c) / 3\n"
-		"    }\n"
-		"    \n"
-		"    function.addhelp(f, `en, R'''\n"
-		"    Computes a mean value of the provided three numbers.\n"
-		"    ''')\n"
-		"\n"
-		"That has the same result with the code below:\n"
-		"\n"
-		"    f(a:number, b:number, c:number) = {\n"
-		"        (a + b + c) / 3\n"
-		"    } % {`en, R'''\n"
-		"    Computes a mean value of the provided three numbers.\n"
-		"    '''}\n");
-}
-
-Gura_ImplementClassMethod(function, addhelp)
-{
-	Function *pFunc = Object_function::GetObject(arg, 0)->GetFunction();
-	pFunc->AddHelp(arg.GetSymbol(1), arg.GetString(2));
-	return Value::Nil;
-}
-#endif
-
 // function.getdecls(func:function):static:map
 Gura_DeclareClassMethod(function, getdecls)
 {
