@@ -106,6 +106,16 @@ Expr *ValueTypeInfo::MakeExpr() const
 	return new Expr_Member(_pModule->MakeExpr(), new Expr_Identifier(_pSymbol));
 }
 
+String ValueTypeInfo::MakeFullName(ValueType valType)
+{
+	return ValueTypePool::GetInstance()->Lookup(valType)->MakeFullName();
+}
+
+Expr *ValueTypeInfo::MakeExpr(ValueType valType)
+{
+	return ValueTypePool::GetInstance()->Lookup(valType)->MakeExpr();
+}
+
 //-----------------------------------------------------------------------------
 // ValueTypeMap
 //-----------------------------------------------------------------------------

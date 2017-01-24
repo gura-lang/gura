@@ -246,8 +246,8 @@ Gura_ImplementMethod(operator_, entries)
 			Operator::Key key = iter->first;
 			ValueType valTypeLeft = Operator::ExtractValueTypeLeft(key);
 			ValueType valTypeRight = Operator::ExtractValueTypeRight(key);
-			Expr *pExprLeft = ValueTypePool::GetInstance()->Lookup(valTypeLeft)->MakeExpr();
-			Expr *pExprRight = ValueTypePool::GetInstance()->Lookup(valTypeRight)->MakeExpr();
+			Expr *pExprLeft = ValueTypeInfo::MakeExpr(valTypeLeft);
+			Expr *pExprRight = ValueTypeInfo::MakeExpr(valTypeRight);
 			pObjList->Add(Value::CreateList(env,
 				Value(new Object_expr(env, pExprLeft)), Value(new Object_expr(env, pExprRight))));
 		}
@@ -263,7 +263,7 @@ Gura_ImplementMethod(operator_, entries)
 		foreach_const (Operator::EntryDict, iter, entryDict) {
 			Operator::Key key = iter->first;
 			ValueType valType = Operator::ExtractValueType(key);
-			Expr *pExpr = ValueTypePool::GetInstance()->Lookup(valType)->MakeExpr();
+			Expr *pExpr = ValueTypeInfo::MakeExpr(valType);
 			pObjList->Add(Value(new Object_expr(env, pExpr)));
 		}
 	} else {

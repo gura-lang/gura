@@ -543,7 +543,9 @@ void Class::Prepare(Environment &env)
 
 void Class::DoPrepare(Environment &env)
 {
+	// Assignment of function
 	Gura_AssignFunction(object);
+	// Assignment of methods
 	Gura_AssignMethod(Object, __call__);
 	Gura_AssignMethod(Object, __iter__);
 	Gura_AssignMethod(Object, __propdecls__);

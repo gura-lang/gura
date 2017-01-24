@@ -122,6 +122,8 @@ public:
 	void SetClass(Class *pClass);
 	String MakeFullName() const;
 	Expr *MakeExpr() const;
+	static String MakeFullName(ValueType valType);
+	static Expr *MakeExpr(ValueType valType);
 };
 
 //-----------------------------------------------------------------------------

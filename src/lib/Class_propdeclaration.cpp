@@ -28,7 +28,7 @@ String Object_propdeclaration::ToString(bool exprFlag)
 	ValueType valType = _pPropDeclaration->GetValueType();
 	if (valType != VTYPE_any) {
 		str += ":";
-		str += ValueTypePool::GetInstance()->Lookup(valType)->MakeFullName();
+		str += ValueTypeInfo::MakeFullName(valType);
 	}
 	if (_pPropDeclaration->IsReadable()) str += ":R";
 	if (_pPropDeclaration->IsWritable()) str += ":W";
@@ -90,6 +90,23 @@ Gura_ImplementPropertyGetter(propdeclaration, symbol)
 	return Value(pPropDeclaration->GetSymbol());
 }
 
+// propdeclaration#type
+Gura_DeclareProperty_R(propdeclaration, type)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(propdeclaration, type)
+{
+	const PropDeclaration *pPropDeclaration =
+		Object_propdeclaration::GetObject(valueThis)->GetPropDeclaration();
+	return Value(ValueTypeInfo::MakeFullName(pPropDeclaration->GetValueType()));
+}
+
 // propdeclaration#writable
 Gura_DeclareProperty_R(propdeclaration, writable)
 {
@@ -146,6 +163,7 @@ void Class_propdeclaration::DoPrepare(Environment &env)
 	Gura_AssignProperty(propdeclaration, name);
 	Gura_AssignProperty(propdeclaration, readable);
 	Gura_AssignProperty(propdeclaration, symbol);
+	Gura_AssignProperty(propdeclaration, type);
 	Gura_AssignProperty(propdeclaration, writable);
 	// Assignment of methods
 	Gura_AssignMethod(propdeclaration, gethelp);

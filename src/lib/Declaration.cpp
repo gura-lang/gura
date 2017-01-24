@@ -217,7 +217,7 @@ String Declaration::ToString() const
 	if (_valType != VTYPE_nil && _valType != VTYPE_undefined &&
 					_valType != VTYPE_any && _valType != VTYPE_quote) {
 		str += ":";
-		str += ValueTypePool::GetInstance()->Lookup(_valType)->MakeFullName();
+		str += ValueTypeInfo::MakeFullName(_valType);
 	}
 	str += Symbol::MakeAttrForFlags(_flags & ~FLAG_ListVar, 0);
 	if (!_pExprDefault.IsNull()) {

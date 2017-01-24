@@ -785,6 +785,7 @@ number
 object
   object#__call__(symbol:symbol, `args*):map:nonamed {block?}
   object#__iter__()
+  object.__propdecls__() {block?}
   object#clone()
   object.getprop!(symbol:symbol, default?:nomap):static:map
   object.is(obj):map
@@ -850,6 +851,7 @@ pointer
   pointer#unpacks(format:string, values*:number):map {block?}
   pointer#writer() {block?}
 propdeclaration
+  propdeclaration#gethelp(lang?:symbol):map {block?}
 quote
 rational
   rational.reduce()
