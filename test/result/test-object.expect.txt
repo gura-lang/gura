@@ -403,3 +403,19 @@ help message for A's constructor
 ======== #42 instance method assignment ========
 
 A#func1()
+
+======== #43 __propdecls__ ========
+
+format:symbol:R
+<p>Takes one of the following symbols indicating what elements are stored in the memory:</p>
+<ul>
+<li><code>`rgb</code> .. red, green and blue</li>
+<li><code>`rgba</code> .. red, green, blue and alpha</li>
+</ul>
+height:number:R
+Image height.
+palette:palette:R:W
+A <code>palette</code> instance associated with this image.
+If there's no palette associated, this property returns <code>nil</code>.
+width:number:R
+Image width.

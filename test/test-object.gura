@@ -858,8 +858,7 @@ testcase('instance method assignment') {
 	println(A.func1)
 }
 testcase('__propdecls__') {
-	img = image(`rgba, 100, 200)
-	img.__propdecls__ {|propdecl|
+	image.__propdecls__ {|propdecl|
 		printf('%s:%s%s%s\n', propdecl.name, propdecl.type,
 			   cond(propdecl.readable, ':R', ''), cond(propdecl.writable, ':W', ''))
 		printf('%s\n', propdecl.gethelp().doc)

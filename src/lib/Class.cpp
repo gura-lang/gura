@@ -272,8 +272,9 @@ Gura_DeclareMethodPrimitive(Object, __propdecls__)
 Gura_ImplementMethod(Object, __propdecls__)
 {
 	AutoPtr<Iterator_propdeclaration> pIterator(new Iterator_propdeclaration());
-	const PropDeclarationMap *pPropDeclarationMap =
-		arg.GetValueThis().GetClass()->GetPropDeclarationMap();
+	const Value &valueThis = arg.GetValueThis();
+	const Class *pClass = valueThis.IsClass()? valueThis.GetClassItself() : valueThis.GetClass();
+	const PropDeclarationMap *pPropDeclarationMap = pClass->GetPropDeclarationMap();
 	if (pPropDeclarationMap != nullptr) {
 		pIterator->AddPropDeclarations(*pPropDeclarationMap);
 	}
