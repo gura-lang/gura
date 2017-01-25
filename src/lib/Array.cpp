@@ -23,6 +23,25 @@ bool Array::DoesContainZero() const
 	return false;
 }
 
+const char *Array::GetElemTypeName() const
+{
+	const static char *elemTypeNameTbl[ETYPE_Max] = {
+		"",
+		ArrayT<Int8>::ElemTypeName,
+		ArrayT<UInt8>::ElemTypeName,
+		ArrayT<Int16>::ElemTypeName,
+		ArrayT<UInt16>::ElemTypeName,
+		ArrayT<Int32>::ElemTypeName,
+		ArrayT<UInt32>::ElemTypeName,
+		ArrayT<Int64>::ElemTypeName,
+		ArrayT<UInt64>::ElemTypeName,
+		ArrayT<Float>::ElemTypeName,
+		ArrayT<Double>::ElemTypeName,
+		ArrayT<Complex>::ElemTypeName,
+	};
+	return elemTypeNameTbl[_elemType];
+}
+
 void Array::SetDimension(const Dimension &dim)
 {
 	_dims.reserve(1);

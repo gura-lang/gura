@@ -111,6 +111,7 @@ public:
 	inline size_t GetOffsetBase() const { return _offsetBase; }
 	virtual String ToString(bool exprFlag) const;
 	virtual bool DoesContainZero() const;
+	const char *GetElemTypeName() const;
 	void SetDimension(const Dimension &dim);
 	void SetDimensions(const Dimension &dimRow, const Dimension &dimCol);
 	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);

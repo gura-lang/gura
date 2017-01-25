@@ -148,7 +148,8 @@ Gura_DeclareProperty_R(array, elemtype)
 
 Gura_ImplementPropertyGetter(array, elemtype)
 {
-	return Value::Nil;
+	Array *pArray = Object_array::GetObject(valueThis)->GetArray();
+	return Value(pArray->GetElemTypeName());
 }
 
 // array#ndim

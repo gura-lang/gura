@@ -2956,3 +2956,46 @@ array@double([[[1, 1, -1], [-2, 0, 1], [0, 2, 1]], [[1, 2, 1], [2, 1, 0], [1, 1,
  [[ -0.4,   0.6,   0.2],
   [  0.8,  -0.2,  -0.4],
   [ -0.2,  -0.2,   0.6]]]
+
+======== #22 properties ========
+
+<class:array@int8(src) {block?}>
+elemtype: int8
+ndim: 3
+shape: [4, 2, 3]
+<class:array@uint8(src) {block?}>
+elemtype: uint8
+ndim: 3
+shape: [4, 2, 3]
+<class:array@int16(src) {block?}>
+elemtype: int16
+ndim: 3
+shape: [4, 2, 3]
+<class:array@uint16(src) {block?}>
+elemtype: uint16
+ndim: 3
+shape: [4, 2, 3]
+<class:array@int32(src) {block?}>
+elemtype: int32
+ndim: 3
+shape: [4, 2, 3]
+<class:array@uint32(src) {block?}>
+elemtype: uint32
+ndim: 3
+shape: [4, 2, 3]
+<class:array@int64(src) {block?}>
+elemtype: int64
+ndim: 3
+shape: [4, 2, 3]
+<class:array@uint64(src) {block?}>
+elemtype: uint64
+ndim: 3
+shape: [4, 2, 3]
+<class:array@float(src) {block?}>
+elemtype: float
+ndim: 3
+shape: [4, 2, 3]
+<class:array@double(src) {block?}>
+elemtype: double
+ndim: 3
+shape: [4, 2, 3]

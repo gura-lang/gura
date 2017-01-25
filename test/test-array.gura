@@ -421,3 +421,12 @@ testcase('array.invert()') {
 		[[1, 1, -1], [-2, 0, 1], [0, 2, 1]],
 		[[1, 2, 1], [2, 1, 0], [1, 1, 2]]]).invert())
 }
+testcase('properties') {
+	funcs.each {|func|
+		println(func)
+		x = func.zeros([4, 2, 3])
+		println('elemtype: ', x.elemtype)
+		println('ndim: ', x.ndim)
+		println('shape: ', x.shape):nomap
+	}
+}
