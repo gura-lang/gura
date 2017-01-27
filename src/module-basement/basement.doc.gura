@@ -142,7 +142,9 @@ Random numbers are generated using [SIMD-oriented Fast Mersenne Twister (SFMT)](
 
 ${markdown.makedoc@function(`en
 rand
+rand@normal
 rands
+rands@normal
 randseed
 )}
 

@@ -145,19 +145,35 @@ where `T` means its element type.
 
 ### Constructor
 
-${markdown.makedoc@function(`en
+${markdown.makedoc@function$(`en, '@int8', '@T'
+array@int8
+@int8
+array@int8.identity
+array@int8.interval
+array@int8.ones
+array@int8.rands
+array@int8.rands@normal
+array@int8.zeros
 )}
 
 ### Method
 
 ${markdown.makedoc@function(`en
+array.average
+array.dot
 array.dump
 array.each
 array.fill
-array.head,
+array.flatten
+array.head
+array.invert
 array.offset
 array.paste
+array.reshape
+array.roundoff
+array.sum
 array.tail
+array.transpose
 )}
 
 
