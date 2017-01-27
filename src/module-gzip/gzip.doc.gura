@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(gzip)
 
 text@en = R'''
@@ -21,7 +21,7 @@ Below is an example to read data from a file and write its compressed data to a 
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 gzip.reader
 gzip.writer
 )}
@@ -30,7 +30,7 @@ gzip.writer
 
 This module extends the `stream` class with methods described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 stream.reader@gzip
 stream.writer@gzip
 )}
@@ -42,4 +42,4 @@ This module uses zlib which official site is:
 [http://zlib.net/](http://zlib.net/)
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

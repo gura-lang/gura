@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(conio)
 
 text@en = R'''
@@ -33,7 +33,7 @@ Below is an example to print a frame around a console:
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 conio.clear
 conio.getwinsize
 conio.setcolor
@@ -42,4 +42,4 @@ conio.waitkey
 )}
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

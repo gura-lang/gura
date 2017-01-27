@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(glut)
 
 text@en = R'''
@@ -9,7 +9,7 @@ The `glut` module provides functions of GLUT library.
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 glut.glutInit
 glut.glutInitDisplayMode
 glut.glutInitDisplayString
@@ -136,4 +136,4 @@ This module uses freeglut which official site is:
 
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

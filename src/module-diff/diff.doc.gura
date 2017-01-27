@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(diff)
 
 text@en = R'''
@@ -15,7 +15,7 @@ Below is an example to show differences between files `file1.txt` and `file2.txt
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 diff.compose
 diff.compose@char
 )}
@@ -48,7 +48,7 @@ and provides information about differences between two texts by lines.
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 diff.diff@line.eachhunk
 diff.diff@line.render
 )}
@@ -82,7 +82,7 @@ The `diff.hunk@line` instance provides information about a hunk.
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 diff.hunk@line.print
 )}
 
@@ -124,7 +124,7 @@ The `diff.edit@line` provides information about an edit operation.
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 diff.edit@line.print
 )}
 
@@ -192,4 +192,4 @@ This module uses dtl (Diff Template Library) which is distributed in the followi
 [https://code.google.com/p/dtl-cpp/](https://code.google.com/p/dtl-cpp/)
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

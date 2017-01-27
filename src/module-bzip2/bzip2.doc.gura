@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(bzip2)
 
 text@en = R'''
@@ -21,7 +21,7 @@ Below is an example to read data from a file and write its compressed data to a 
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 bzip2.reader
 bzip2.writer
 )}
@@ -31,7 +31,7 @@ bzip2.writer
 
 This module extends the `stream` class with methods described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 stream.reader@bzip2
 stream.writer@bzip2
 )}
@@ -44,4 +44,4 @@ This module uses libbzip2 which is distributed in the following site:
 [http://www.bzip.org/](http://www.bzip.org/)
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

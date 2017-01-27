@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(show)
 
 text@en = R'''
@@ -11,10 +11,10 @@ The `show` module provides a method to display the content of `image` instance.
 
 This module extends the `image` class with a method described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 image.show
 )}
 
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(csv)
 
 text@en = R'''
@@ -19,7 +19,7 @@ Below is an example to read a CSV file that contains three fields per line:
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 csv.parse
 csv.read
 )}
@@ -28,13 +28,13 @@ csv.read
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 csv.writer
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 csv.writer.write
 )}
 
@@ -42,10 +42,10 @@ csv.writer.write
 
 This module extends the `stream` class with methods described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 stream.read@csv
 stream.writer@csv
 )}
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

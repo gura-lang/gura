@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 
 text@en = R'''
 # markdown Module
@@ -50,13 +50,13 @@ and its children that are `markdown.item` instances.
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 markdown.document
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 markdown.document.parse
 markdown.document.read
 markdown.document.render@console
@@ -133,9 +133,9 @@ Below is a table of item type:
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 markdown.item.print
 )}
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

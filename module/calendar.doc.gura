@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(calendar)
 
 text@en = R'''
@@ -15,10 +15,10 @@ Below is an example to print a calendar for the year 2015.
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 calendar.calendar
 )}
 
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

@@ -937,14 +937,44 @@ makedoc@function(lang:symbol, funcs*:function) = {
 	_funcentry(lang, funcs, function.getfullname(funcs), function.getformat(funcs))
 }
 
-makedoc@method(lang:symbol, funcs*:function) = {
-	funcs = funcs.each()
-	_funcentry(lang, funcs, function.getfullname(funcs), function.getformat(funcs))
-}
-
-makedoc@itermethod(lang:symbol, funcs*:function) = {
+makedoc@function$(lang:symbol, match:string, sub:string, funcs*:function) = {
 	funcs = funcs.each()
 	_funcentry(lang, funcs,
-			   function.getfullname(funcs):*replace('iterator#', 'iterable#'),
-			   function.getformat(funcs):*replace('iterator#', 'iterable#'))
+			   function.getfullname(funcs):*replace(match, sub),
+			   function.getformat(funcs):*replace(match, sub))
 }
+
+makedoc@module(mod:environment, d:dict) = {
+	mod.write(doc:markdown.document, lang:symbol) = {
+		doc << d.get(lang, d[d.keys().next()])
+	}
+	if (mod.__name__ == '__main__') {
+		mod.write(markdown.document(), `en).render@html(sys.stdout)
+	}
+} %% {`en, R'''
+Registers a dictionary of document texts written in Markdown format
+that are associated with language symbols as their keys.
+
+The argument `mod` takes an `environment` instance referring to the module
+envioronemnt in which the documents are provided.
+You should usually specify `locals()` for that argument.
+
+Below is an example to call this function:
+
+    text@en = '..'
+    text@ja = '..'
+    text@fr = '..'
+    register(locals(), %{
+        `en => text@en
+        `ja => text@ja
+        `fr => text@fr
+	})
+
+It creates a module function that has the following format:
+
+    write(doc:markdown.document, lang:symbol)
+
+The argument `doc` is a `markdown.document` instance into which the document is poured.
+
+The argument `lang` is a symbol that specifies the language.
+'''}

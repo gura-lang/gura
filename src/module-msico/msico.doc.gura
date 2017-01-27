@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(msico)
 
 text@en = R'''
@@ -37,13 +37,13 @@ it would write image data in ICO format.
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 msico.content
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 msico.content.write
 msico.content.addimage
 )}
@@ -52,9 +52,9 @@ msico.content.addimage
 
 This module extends the `image` class with methods described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 image.read@msico
 )}
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

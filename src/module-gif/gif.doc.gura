@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(gif)
 
 text@en = R'''
@@ -84,7 +84,7 @@ Below is a class diagram of `gif.content`:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 gif.content
 )}
 
@@ -118,7 +118,7 @@ A `gif.content` instance has the following properties:
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 gif.content.addimage
 gif.content.write
 )}
@@ -385,7 +385,7 @@ A `gif.imgprop` instance has the following properties:
 
 This module extends the `stream` class with methods described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 image.read@gif
 image.write@gif
 )}
@@ -400,4 +400,4 @@ image.write@gif
 
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

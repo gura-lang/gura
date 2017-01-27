@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 
 text@en = R'''
 # postgresql Module
@@ -8,4 +8,4 @@ text@en = R'''
 
 '''
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

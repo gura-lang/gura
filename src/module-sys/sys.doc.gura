@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 
 text@en = R'''
 # sys Module
@@ -32,11 +32,11 @@ This is a built-in module, so you can use it without being imported.
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 sys.echo
 sys.exit
 sys.required_version
 )}
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

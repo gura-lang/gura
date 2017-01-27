@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(zip)
 
 text@en = R'''
@@ -33,13 +33,13 @@ Below is an example to print a content of a text file that is stored in a ZIP fi
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 zip.reader
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 zip.reader.entry
 zip.reader.entries
 )}
@@ -61,13 +61,13 @@ Below is an exapmple to create a ZIP archive file that contains three entries:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 zip.writer
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 zip.writer.add
 zip.writer.close
 )}
@@ -117,4 +117,4 @@ This module uses zlib and bzip2 library which are distributed in the following s
 - [http://www.bzip.org/](http://www.bzip.org/)
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

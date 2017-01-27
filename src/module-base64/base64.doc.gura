@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 
 text@en = R'''
 # base64 Module
@@ -27,7 +27,7 @@ To encode a data into base64 format, use one of the following functions:
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 base64.decode
 base64.encode
 base64.reader
@@ -38,11 +38,11 @@ base64.writer
 
 This module extends the `stream` class with methods described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 stream.reader@base64
 stream.writer@base64
 )}
 
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

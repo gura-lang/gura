@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(tcl)
 
 text@en = R'''
@@ -7,7 +7,7 @@ text@en = R'''
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 tcl.TK_MainLoop
 )}
 
@@ -15,13 +15,13 @@ tcl.TK_MainLoop
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 tcl.interp
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 tcl.interp.command
 tcl.interp.eval
 tcl.interp.evalscript
@@ -33,7 +33,7 @@ tcl.interp.variable
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 timer.cancel
 timer.start
 )}
@@ -44,7 +44,7 @@ timer.start
 
 This module extends the `image` class with methods described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 image.read@tcl
 image.write@tcl
 )}
@@ -57,4 +57,4 @@ This module uses Tcl library which is distributed in the following site:
 [http://www.tcl.tk/](http://www.tcl.tk/)
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

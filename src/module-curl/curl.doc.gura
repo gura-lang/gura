@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(curl)
 
 text@en = R'''
@@ -10,14 +10,14 @@ To utilize it, import the `curl` module using `import` function.
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 curl.version
 curl.easy_init
 )}
 
 ## curl.easy\_handle Class
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 curl.easy_handle.escape
 curl.easy_handle.getinfo
 curl.easy_handle.perform
@@ -35,4 +35,4 @@ This module uses libcurl which is distributed in the following site:
 [http://curl.haxx.se/libcurl/](http://curl.haxx.se/libcurl/)
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

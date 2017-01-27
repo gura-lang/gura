@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(yaml)
 
 text@en = R"""
@@ -42,7 +42,7 @@ The below table shows how YAML data types correspond to Gura's value types each 
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 yaml.compose
 yaml.parse
 yaml.read
@@ -56,4 +56,4 @@ This module uses yaml library which is distributed in the following site:
 [http://pyyaml.org/wiki/LibYAML](http://pyyaml.org/wiki/LibYAML)
 """.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

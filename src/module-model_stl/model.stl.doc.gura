@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(model.stl)
 
 text@en = R'''
@@ -66,9 +66,9 @@ An instance of `model.stl.solid` class represents a top-level data in STL format
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 model.stl.solid
 )}
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

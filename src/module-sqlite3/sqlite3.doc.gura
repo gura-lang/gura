@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(sqlite3)
 
 text@en = R'''
@@ -12,13 +12,13 @@ To utilize it, import the `sqlite3` module using `import` function.
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 sqlite3.db
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 sqlite3.db.close
 sqlite3.db.exec
 sqlite3.db.getcolnames
@@ -33,4 +33,4 @@ This module uses SQlite3 library which is distributed in the following site:
 [http://www.sqlite.org/index.html](http://www.sqlite.org/index.html)
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

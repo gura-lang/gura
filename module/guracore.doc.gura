@@ -1,14 +1,6 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 
-reference@array(lang:symbol, funcs+:function) = {
-	moddoc._reference(lang,
-			funcs.each(),
-			function.getfullname(funcs):*replace('@char', '@T'),
-			function.getformat(funcs):*replace('@char', '@T'))
-}
-
-//-----------------------------------------------------------------------------
 text@en = R'''
 # Built-in Operator
 
@@ -19,10 +11,10 @@ text@en = R'''
 <tr><td><code>+rational</code></td><td></td></tr>
 <tr><td><code>+matrix</code></td><td></td></tr>
 <tr><td><code>+timedelta</code></td><td></td></tr>
-<tr><td><code>+array@char</code></td><td></td></tr>
-<tr><td><code>+array@uchar</code></td><td></td></tr>
-<tr><td><code>+array@short</code></td><td></td></tr>
-<tr><td><code>+array@ushort</code></td><td></td></tr>
+<tr><td><code>+array@int8</code></td><td></td></tr>
+<tr><td><code>+array@uint8</code></td><td></td></tr>
+<tr><td><code>+array@int16</code></td><td></td></tr>
+<tr><td><code>+array@uint16</code></td><td></td></tr>
 <tr><td><code>+array@int32</code></td><td></td></tr>
 <tr><td><code>+array@uint32</code></td><td></td></tr>
 <tr><td><code>+array@int64</code></td><td></td></tr>
@@ -34,10 +26,10 @@ text@en = R'''
 <tr><td><code>-rational</code></td><td></td></tr>
 <tr><td><code>-matrix</code></td><td></td></tr>
 <tr><td><code>-timedelta</code></td><td></td></tr>
-<tr><td><code>-array@char</code></td><td></td></tr>
-<tr><td><code>-array@uchar</code></td><td></td></tr>
-<tr><td><code>-array@short</code></td><td></td></tr>
-<tr><td><code>-array@ushort</code></td><td></td></tr>
+<tr><td><code>-array@int8</code></td><td></td></tr>
+<tr><td><code>-array@uint8</code></td><td></td></tr>
+<tr><td><code>-array@int16</code></td><td></td></tr>
+<tr><td><code>-array@uint16</code></td><td></td></tr>
 <tr><td><code>-array@int32</code></td><td></td></tr>
 <tr><td><code>-array@uint32</code></td><td></td></tr>
 <tr><td><code>-array@int64</code></td><td></td></tr>
@@ -119,7 +111,7 @@ An `argument` instance has the following properties:
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 argument.finalize_trailer
 argument.isset
 argument.quit_trailer
@@ -136,10 +128,10 @@ There are several `array` classes for each element type as shown below:
 
 <table>
 <tr><th>Class Name</th><th>Element Type</th></tr>
-<tr><td><code>array@char</code></td><td><code>char</code></td></tr>
-<tr><td><code>array@uchar</code></td><td><code>unsigned char</code></td></tr>
-<tr><td><code>array@short</code></td><td><code>short</code></td></tr>
-<tr><td><code>array@ushort</code></td><td><code>unsigned short</code></td></tr>
+<tr><td><code>array@int8</code></td><td><code>char</code></td></tr>
+<tr><td><code>array@uint8</code></td><td><code>unsigned char</code></td></tr>
+<tr><td><code>array@int16</code></td><td><code>short</code></td></tr>
+<tr><td><code>array@uint16</code></td><td><code>unsigned short</code></td></tr>
 <tr><td><code>array@int32</code></td><td><code>int32_t</code></td></tr>
 <tr><td><code>array@uint32</code></td><td><code>uint32_t</code></td></tr>
 <tr><td><code>array@int64</code></td><td><code>int64_t</code></td></tr>
@@ -153,21 +145,19 @@ where `T` means its element type.
 
 ### Constructor
 
-${reference@array(`en
-array@char
-@char
+${markdown.makedoc@function(`en
 )}
 
 ### Method
 
-${reference@array(`en
-array@char.dump
-array@char.each
-array@char.fill
-array@char.head,
-array@char.offset
-array@char.paste
-array@char.tail
+${markdown.makedoc@function(`en
+array.dump
+array.each
+array.fill
+array.head,
+array.offset
+array.paste
+array.tail
 )}
 
 
@@ -177,7 +167,7 @@ The `audio` class provides measures to work on audio data.
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 audio.each
 audio.get
 audio.put
@@ -220,13 +210,13 @@ This result is equivalent to that of calling the method <code>binary#pointer()</
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 binary
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 binary.alloc
 binary.dump
 binary.pointer
@@ -307,13 +297,13 @@ You can call `codecs.dir()` to get a list of codec names currently available.
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 codec
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 codec.addcr
 codec.decode
 codec.delcr
@@ -444,13 +434,13 @@ that takes a `color` instance in its argument as below:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 color
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 color.getgray
 color.html
 color.list
@@ -472,13 +462,13 @@ You can create a `complex` instance by following ways:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 complex
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 complex.polar
 complex.roundoff
 )}
@@ -574,13 +564,13 @@ Week symbol that takes one of the followings:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 datetime
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 datetime.clrtzoff
 datetime.format
 datetime.isleap
@@ -630,7 +620,7 @@ A `declaration` instance has the following properties:
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 declaration.istype
 )}
 
@@ -678,13 +668,13 @@ Below is an example:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 dict
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 dict.append
 dict.clear
 dict.erase
@@ -709,7 +699,7 @@ works implicitly in a function call.
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 directory
 )}
 
@@ -721,7 +711,7 @@ which is a fundamental mechanism to store variables.
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 environment.getprop!
 environment.lookup
 environment.setprop!
@@ -938,13 +928,13 @@ An `expr` instance has the following properties:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 expr
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 expr.eval
 expr.parse
 expr.textize
@@ -1031,7 +1021,7 @@ for the specifier `%d`:
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 formatter.getminwidth
 formatter.getpadding
 formatter.getplusmode
@@ -1112,13 +1102,13 @@ Below is an example to print the help of `printf()` function:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 function
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 function.getdecls
 function.getexpr
 function.getformat
@@ -1161,7 +1151,7 @@ For example, <code>`en</code> for English and <code>`ja</code> for Japanese.</td
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 help.text@iterator
 help.text@block
 help.presenter
@@ -1225,13 +1215,13 @@ If there's no palette associated, this property returns <code>nil</code>.</td></
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 image
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 image.allocbuff
 image.blur
 image.clear
@@ -1293,7 +1283,7 @@ Below is an example:
 
 #### Function to Create list Instance
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 list
 xlist
 set
@@ -1303,7 +1293,7 @@ xset
 
 #### Method Specific to list Class
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 list.add
 list.append
 list.clear
@@ -1327,14 +1317,14 @@ list.zip
 
 #### Function to Create iterator Instance
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 iterator
 )}
 
 
 #### Method Specific to iterator Class
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 iterator.delay
 iterator.finite
 iterator.infinite
@@ -1346,7 +1336,7 @@ iterator.repeater
 
 ### Method Common to Both list and iterator Classes
 
-${moddoc.reference@iterable(`en
+${markdown.makedoc@function$(`en, 'iterator#', 'iterable#'
 iterator.after
 iterator.align
 iterator.and
@@ -1409,13 +1399,13 @@ Below shows a way to create a matrix instance:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 matrix
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 matrix.col
 matrix.colsize
 matrix.each
@@ -1463,17 +1453,17 @@ This result is equivalent to that of calling the method <code>memory#pointer()</
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 memory
 )}
 
 ### Method
 
-${moddoc.reference(`en
-memory.array@char
-memory.array@uchar
-memory.array@short
-memory.array@ushort
+${markdown.makedoc@function(`en
+memory.array@int8
+memory.array@uint8
+memory.array@int16
+memory.array@uint16
 memory.array@int32
 memory.array@uint32
 memory.array@int64
@@ -1498,7 +1488,7 @@ A number literal would create a `number` instance.
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 number.roundoff
 )}
 
@@ -1523,14 +1513,14 @@ An `operator` instance has the following properties:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 operator
 )}
 
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 operator.assign
 operator.entries
 )}
@@ -1543,13 +1533,13 @@ The `palette` instance has a set of `color` instance.
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 palette
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 palette.each
 palette.nearest
 palette.shrink
@@ -1588,14 +1578,14 @@ Currently, this can be an instance of `binary` or `memory`.</td></tr>
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 pointer
 )}
 
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 pointer.copyfrom
 pointer.copyto
 pointer.decode
@@ -1673,13 +1663,13 @@ Below are examples to realize a common fraction two-thirds:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 rational
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 rational.reduce
 )}
 
@@ -1688,13 +1678,13 @@ rational.reduce
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 semaphore
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 semaphore.release
 semaphore.session
 semaphore.wait
@@ -1785,7 +1775,7 @@ that takes a `stream` instance in its argument as below:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 stream
 )}
 
@@ -1794,13 +1784,13 @@ to create a `stream` instance.
 
 ### Utility Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 readlines
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 stream.addcr
 stream.close
 stream.compare
@@ -1856,7 +1846,7 @@ the string into other natural languages would be evaluated.
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 string.align
 string.binary
 string.capitalize
@@ -1913,13 +1903,13 @@ You can use that suffix like below:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 suffixmgr
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 suffixmgr.assign
 )}
 
@@ -1928,7 +1918,7 @@ suffixmgr.assign
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 symbol.eval
 )}
 
@@ -1955,13 +1945,13 @@ that takes a `template` instance in its argument as below:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 template
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 template.parse
 template.read
 template.render
@@ -1969,7 +1959,7 @@ template.render
 
 ### Method Called by Template Directive
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 template.block
 template.call
 template.define
@@ -2005,7 +1995,7 @@ A `timedelta` instance has the following properties:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 timedelta
 )}
 
@@ -2052,13 +2042,13 @@ A `uri` instance has the following properties:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 uri
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 uri.getfragment
 uri.getpath
 uri.getquery
@@ -2108,13 +2098,13 @@ An `vertex` instance has the following properties:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 vertex
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 vertex.cross
 vertex.inner
 vertex.list
@@ -2126,4 +2116,4 @@ vertex.translate
 )}
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

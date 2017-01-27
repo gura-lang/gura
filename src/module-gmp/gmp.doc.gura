@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(gmp)
 
 text@en = R'''
@@ -484,7 +484,7 @@ Following tables show values types of operands and returned value for each opera
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 gmp.gcd
 gmp.lcm
 gmp.sqrt
@@ -494,12 +494,12 @@ gmp.sqrt
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 gmp.mpf
 )}
 
 ### Method
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 gmp.mpf.get_default_prec
 gmp.mpf.set_default_prec
 )}
@@ -508,12 +508,12 @@ gmp.mpf.set_default_prec
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 gmp.mpq
 )}
 
 ### Method
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 gmp.mpq.cast@mpf
 )}
 
@@ -521,7 +521,7 @@ gmp.mpq.cast@mpf
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 gmp.mpz
 )}
 
@@ -529,7 +529,7 @@ gmp.mpz
 
 This module extends the `string` class with methods described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 string.cast@mpf
 string.cast@mpq
 string.cast@mpz
@@ -544,4 +544,4 @@ This module uses GMP and its forked project MPIR which are distributed in the fo
 
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

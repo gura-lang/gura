@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(xpm)
 
 text@en = R'''
@@ -36,10 +36,10 @@ Below is an example to parse a list of strings described in XPM format.
 
 This module extends the `image` class with methods described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 image.write@xpm
 image.xpmdata
 )}
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

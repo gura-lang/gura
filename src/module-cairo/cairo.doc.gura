@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(cairo)
 
 text@en = R'''
@@ -14,7 +14,7 @@ Official site of Cairo is <http://cairographics.org/>.
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 cairo.context.status
 cairo.context.save
 cairo.context.restore
@@ -135,7 +135,7 @@ cairo.context.show_page
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 cairo.context.copy_path
 cairo.context.copy_path_flat
 cairo.context.append_path
@@ -166,7 +166,7 @@ cairo.context.path_extents
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 cairo.pattern.add_color_stop_rgb
 cairo.pattern.add_color_stop_rgba
 cairo.pattern.get_color_stop_count
@@ -242,7 +242,7 @@ cairo.pattern.get_type
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 cairo.region.create
 cairo.region.create_rectangle
 cairo.region.create_rectangles
@@ -271,7 +271,7 @@ cairo.region.xor_rectangle
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 cairo.context.translate
 cairo.context.scale
 cairo.context.rotate
@@ -289,7 +289,7 @@ cairo.context.device_to_user_distance
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 cairo.context.select_font_face
 cairo.context.set_font_size
 cairo.context.set_font_matrix
@@ -319,7 +319,7 @@ cairo.toy_font_face.get_weight
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 //cairo.raster_source_pattern.create
 //cairo.raster_source_pattern.set_callback_data
 //cairo.raster_source_pattern.get_callback_data
@@ -339,7 +339,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 //cairo.font_face.status
 //cairo.font_face.get_type
 )}
@@ -348,7 +348,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 cairo.scaled_font.create
 //cairo.scaled_font.status
 //cairo.scaled_font.extents
@@ -368,7 +368,7 @@ cairo.scaled_font.create
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 cairo.font_options.create
 cairo.font_options.status
 cairo.font_options.merge
@@ -389,7 +389,7 @@ cairo.font_options.get_hint_metrics
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 )}
 
 
@@ -397,7 +397,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 )}
 
 
@@ -405,7 +405,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 )}
 
 
@@ -413,7 +413,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 )}
 
 
@@ -423,7 +423,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 cairo.device.status
 cairo.device.finish
 cairo.device.flush
@@ -437,7 +437,7 @@ cairo.device.release
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 cairo.surface.create_similar
 cairo.surface.create_similar_image
 cairo.surface.create_for_rectangle
@@ -470,7 +470,7 @@ cairo.surface.write_to_png
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 cairo.image_surface.create
 cairo.image_surface.create_from_png
 cairo.image_surface.get_format
@@ -484,7 +484,7 @@ cairo.image_surface.get_stride
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 cairo.pdf_surface.create
 cairo.pdf_surface.restrict_to_version
 cairo.pdf_surface.set_size
@@ -495,7 +495,7 @@ cairo.pdf_surface.set_size
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 )}
 
 
@@ -503,7 +503,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 //cairo.ps_surface.create
 //cairo.ps_surface.restrict_to_level
 //cairo.ps_surface.set_eps
@@ -519,7 +519,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 )}
 
 
@@ -527,7 +527,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 )}
 
 
@@ -535,7 +535,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 cairo.svg_surface.create
 cairo.svg_surface.restrict_to_version
 )}
@@ -545,7 +545,7 @@ cairo.svg_surface.restrict_to_version
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 )}
 
 
@@ -553,7 +553,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 )}
 
 
@@ -561,7 +561,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 )}
 
 
@@ -569,7 +569,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 )}
 
 
@@ -577,7 +577,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 )}
 
 
@@ -585,7 +585,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 )}
 
 
@@ -593,7 +593,7 @@ ${moddoc.reference(`en
 
 #### Functions
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 )}
 
 
@@ -604,4 +604,4 @@ This module uses Cairo library which is distributed in the following site:
 [http://cairographics.org/](http://cairographics.org/)
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

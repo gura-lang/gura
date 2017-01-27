@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(sdl2)
 
 text@en = R'''
@@ -9,7 +9,7 @@ The `sdl2` module provices functions of SDL2 library.
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 sdl2.Init
 sdl2.InitSubSystem
 sdl2.Quit
@@ -554,4 +554,4 @@ This module uses SDL2 library which is distributed in the following site:
 [http://www.libsdl.org/](http://www.libsdl.org/)
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

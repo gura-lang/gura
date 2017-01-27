@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(gurcbuild)
 
 text@en = R'''
@@ -18,10 +18,10 @@ three files:
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 gurcbuild.build
 )}
 
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

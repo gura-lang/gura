@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 
 text@en = R'''
 # fs Module
@@ -9,7 +9,7 @@ This is a built-in module, so you can use it without being imported.
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 fs.chdir
 fs.chmod
 fs.copy
@@ -32,7 +32,7 @@ You can also get the instance using `fs.stat()` function.
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 fs.stat
 )}
 
@@ -96,4 +96,4 @@ A `fs.stat` instance has the following properties:
 
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

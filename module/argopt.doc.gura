@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(argopt)
 
 text@en = R'''
@@ -28,13 +28,13 @@ Below is an example:
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 argopt.Parser
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 argopt.Parser.parse
 argopt.Parser.addParam
 argopt.Parser.addFlag
@@ -43,4 +43,4 @@ argopt.Parser.formatHelp
 
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(bmp)
 
 text@en = R'''
@@ -35,10 +35,10 @@ it would write image data in BMP format.
 
 This module extends the `image` class with methods described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 image.read@bmp
 image.write@bmp
 )}
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

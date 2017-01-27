@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(units)
 
 text@en = R'''
@@ -9,7 +9,7 @@ The `units` module provides functions to convert physical units into another.
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 units.inch$mm
 units.mm$inch
 units.mm$pt
@@ -18,4 +18,4 @@ units.pt$mm
 
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

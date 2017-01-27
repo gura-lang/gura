@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(uuid)
 
 text@en = R'''
@@ -10,9 +10,9 @@ To utilize it, import the `uuid` module using `import` function.
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 uuid.generate
 )}
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 
 text@en = R'''
 # http Module
@@ -9,4 +9,4 @@ The `http` module provides measures to connect the Internet through HTTP protoco
 ## Module Function
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

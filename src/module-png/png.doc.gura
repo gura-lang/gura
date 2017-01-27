@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(png)
 
 text@en = R'''
@@ -35,7 +35,7 @@ it would write image data in PNG format.
 
 This module extends the `image` class with methods described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 image.read@png
 image.write@png
 )}
@@ -47,4 +47,4 @@ This module uses libpng library which is distributed in the following site:
 [http://www.libpng.org/pub/png/libpng.html](http://www.libpng.org/pub/png/libpng.html)
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

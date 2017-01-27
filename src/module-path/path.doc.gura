@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 
 text@en = R'''
 # path Module
@@ -21,7 +21,7 @@ Below is an example to list path names that matches a wild card pattern "`*.txt`
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 path.absname
 path.basename
 path.bottom
@@ -42,4 +42,4 @@ path.walk
 )}
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

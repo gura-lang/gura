@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(doxygen)
 
 text@en = R'''
@@ -24,13 +24,13 @@ To utilize it, import the `doxygen` module using `import` function.
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 doxygen.document
 )}
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 doxygen.document.structures
 )}
 
@@ -49,7 +49,7 @@ doxygen.document.structures
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 doxygen.structure.elems
 doxygen.structure.substructures
 )}
@@ -59,7 +59,7 @@ doxygen.structure.substructures
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 doxygen.elem.print
 doxygen.elem.render
 )}
@@ -80,14 +80,14 @@ doxygen.elem.render
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 doxygen.configuration
 )}
 
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 doxygen.configuration.get
 doxygen.configuration.print
 )}
@@ -96,7 +96,7 @@ doxygen.configuration.print
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 doxygen.aliases.print
 )}
 
@@ -105,7 +105,7 @@ doxygen.aliases.print
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 doxygen.renderer
 )}
 
@@ -113,4 +113,4 @@ doxygen.renderer
 
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(re)
 
 text@en = R'''
@@ -130,7 +130,7 @@ Below is an example:
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 re.match.group
 re.match.groups
 )}
@@ -185,14 +185,14 @@ when a `string` is passed to a function's argument that expects `re.pattern` typ
 If you want to customize the pattern's behaviour, such as indicating it to ignore alphabet cases,
 you can explicitly create the instance with the constructor described below.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 re.pattern
 )}
 
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 re.pattern.match
 re.pattern.sub
 re.pattern.split
@@ -204,7 +204,7 @@ re.pattern.scan
 
 This module extends the `string` class with methods described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 string.match
 string.sub
 string.splitreg
@@ -216,14 +216,14 @@ string.scan
 
 This module extends the iterable classes, `list` and `iterator`, with methods described here.
 
-${moddoc.reference@iterable(`en
+${markdown.makedoc@function$(`en, 'iterator#', 'iterable#'
 iterator.grep
 )}
 
 
 ## Module Function
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 re.match
 re.sub
 re.split
@@ -238,4 +238,4 @@ This module uses Oniguruma library which is distributed in the following site:
 [http://www.geocities.jp/kosako3/oniguruma/index.html](http://www.geocities.jp/kosako3/oniguruma/index.html)
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

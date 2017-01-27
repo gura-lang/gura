@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(tiff)
 
 text@en = R'''
@@ -34,7 +34,7 @@ it would write image data in TIFF format.
 
 This module extends the `image` class with methods described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 image.read@tiff
 )}
 
@@ -46,4 +46,4 @@ This module uses libtiff which is distributed in the following site:
 [http://www.libtiff.org/](http://www.libtiff.org/)
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 
 text@en = R'''
 # example Module
@@ -8,4 +8,4 @@ The `example` module is just an example that is supposed to be referenced as a s
 when you want to create a new module.
 '''
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

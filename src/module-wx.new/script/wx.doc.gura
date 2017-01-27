@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 
 text@en = R'''
 # wx Module
@@ -15,4 +15,4 @@ This module uses wxWidgets library which is distributed in the following site:
 [http://www.wxwidgets.org/](http://www.wxwidgets.org/)
 '''
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

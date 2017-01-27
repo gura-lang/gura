@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 
 text@en = R'''
 # emf Module
@@ -7,4 +7,4 @@ text@en = R'''
 The `emf` module provices measures to read/write EMF (Enhanced Meta File) files.
 '''
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

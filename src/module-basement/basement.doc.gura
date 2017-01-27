@@ -1,12 +1,12 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 
 text@en = R'''
 # Built-in Function
 
 ## Formatting and Printing of Text
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 format
 print
 printf
@@ -15,7 +15,7 @@ println
 
 ## Repetition
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 cross
 for
 repeat
@@ -26,7 +26,7 @@ continue
 
 ## Value Generator
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 consts
 dim
 interval
@@ -35,7 +35,7 @@ range
 
 ## Branch and Flow Control
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 if
 elsif
 else
@@ -48,7 +48,7 @@ return
 
 ## Exception Handling
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 try
 catch
 finally
@@ -57,7 +57,7 @@ raise
 
 ## Data Converter
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 chr
 hex
 int
@@ -69,7 +69,7 @@ tosymbol
 
 ## Class Operations
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 class
 classref
 struct
@@ -78,7 +78,7 @@ super
 
 ## Scope Operations
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 //extern
 local
 locals
@@ -89,14 +89,14 @@ scope
 
 ## Module Operations
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 import
 module
 )}
 
 ## Value Type Information
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 isbinary
 isboolean
 isclass
@@ -128,7 +128,7 @@ undef
 
 ## Data Processing
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 choose
 cond
 conds
@@ -140,7 +140,7 @@ min
 
 Random numbers are generated using [SIMD-oriented Fast Mersenne Twister (SFMT)](http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/index.html) library.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 rand
 rands
 randseed
@@ -148,10 +148,10 @@ randseed
 
 ## Property Listing
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 dir
 dirtype
 )}
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(wav)
 
 text@en = R'''
@@ -11,10 +11,10 @@ text@en = R'''
 
 This module extends the `audio` class with methods described here.
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 audio.read@wav
 audio.write@wav
 )}
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})

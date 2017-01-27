@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(moddoc)
+import(markdown)
 import(hash)
 
 text@en = R'''
@@ -45,7 +45,7 @@ This field is valid only for CRC32 and returns `nil` for other hashes.</td></tr>
 
 ### Constructor
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 hash.md5
 hash.sha1
 hash.crc32
@@ -53,10 +53,10 @@ hash.crc32
 
 ### Method
 
-${moddoc.reference(`en
+${markdown.makedoc@function(`en
 hash.accumulator.init
 hash.accumulator.update
 )}
 '''.embed()
 
-moddoc.register(locals(), %{`en => text@en})
+markdown.makedoc@module(locals(), %{`en => text@en})
