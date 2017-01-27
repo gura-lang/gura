@@ -74,7 +74,11 @@ public:
 		return (value.Is_list() || value.Is_iterator()) && !value.GetNoMapFlag() &&
 			!IsType(VTYPE_list) && !IsType(VTYPE_iterator) && !GetFlag(FLAG_NoMap | FLAG_ListVar);
 	}
-	String ToString() const;
+	static String ToString(const Symbol *pSymbol, ValueType valType, OccurPattern occurPattern,
+						   ULong flags, size_t nListElems, const Expr *pExprDefault);
+	inline String ToString() const {
+		return ToString(_pSymbol, _valType, _occurPattern, _flags, _nListElems, _pExprDefault.get());
+	}
 	void SetError_ArgumentType(Environment &env, const Value &value) const;
 	void SetError_ArgumentMustBeList(Environment &env, const Value &value) const;
 	static void SetError_InvalidArgument(Environment &env);

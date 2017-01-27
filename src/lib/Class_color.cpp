@@ -117,14 +117,14 @@ that takes a `color` instance in its argument as below:
 
 # Constructor
 
-${markdown.funcentry(`en
+${markdown.makedoc@function(`en
 color
 )}
 
 
 # Method
 
-${markdown.funcentry(`en
+${markdown.makedoc@method(`en
 color.getgray
 color.html
 color.list

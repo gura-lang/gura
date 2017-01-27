@@ -84,6 +84,9 @@ public:
 	inline void AddHelpTemplate(Environment &env, const Symbol *pSymbol, const String &doc) {
 		_pHelpProvider->AddHelpTemplate(env, pSymbol, doc);
 	}
+	inline String ToString() const {
+		return Declaration::ToString(_pSymbol, _valType, OCCUR_Once, _flags, 0, nullptr);
+	}
 public:
 	// inherited from HelpProvider
 	virtual String MakeHelpTitle() const;

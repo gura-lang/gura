@@ -196,6 +196,7 @@ void Declaration::SetError_ArgumentMustBeList(Environment &env, const Value &val
 				GetSymbol()->GetName(), ToString().c_str());
 }
 
+#if 0
 String Declaration::ToString() const
 {
 	String str;
@@ -225,6 +226,43 @@ String Declaration::ToString() const
 		str += "=>";
 		str += " ";
 		str += _pExprDefault->ToString(Expr::SCRSTYLE_OneLine);
+	}
+	return str;
+}
+#endif
+
+String Declaration::ToString(const Symbol *pSymbol, ValueType valType, OccurPattern occurPattern,
+							 ULong flags, size_t nListElems, const Expr *pExprDefault)
+{
+	String str;
+	if (valType == VTYPE_quote) {
+		str += "`";
+	}
+	str += pSymbol->GetName();
+	if (flags & FLAG_ListVar) {
+		str += "[";
+		if (nListElems > 0) {
+			char buff[32];
+			::sprintf(buff, "%ld", nListElems);
+			str += buff;
+		}
+		str += "]";
+	}
+	do {
+		const Symbol *pSymbol = Symbol::FromOccurPattern(occurPattern);
+		if (pSymbol != nullptr) str += pSymbol->GetName();
+	} while (0);
+	if (valType != VTYPE_nil && valType != VTYPE_undefined &&
+					valType != VTYPE_any && valType != VTYPE_quote) {
+		str += ":";
+		str += ValueTypeInfo::MakeFullName(valType);
+	}
+	str += Symbol::MakeAttrForFlags(flags & ~FLAG_ListVar, 0);
+	if (pExprDefault != nullptr) {
+		str += " ";
+		str += "=>";
+		str += " ";
+		str += pExprDefault->ToString(Expr::SCRSTYLE_OneLine);
 	}
 	return str;
 }

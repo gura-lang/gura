@@ -24,14 +24,7 @@ Object *Object_propdeclaration::Clone() const
 String Object_propdeclaration::ToString(bool exprFlag)
 {
 	String str = "<propdeclaration:";
-	str += _pPropDeclaration->GetName();
-	ValueType valType = _pPropDeclaration->GetValueType();
-	if (valType != VTYPE_any) {
-		str += ":";
-		str += ValueTypeInfo::MakeFullName(valType);
-	}
-	if (_pPropDeclaration->IsReadable()) str += ":R";
-	if (_pPropDeclaration->IsWritable()) str += ":W";
+	str += _pPropDeclaration->ToString();
 	str += ">";
 	return str;
 }
@@ -39,6 +32,27 @@ String Object_propdeclaration::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
+// propdeclaration#dispname
+Gura_DeclareProperty_R(propdeclaration, dispname)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(propdeclaration, dispname)
+{
+	const PropDeclaration *pPropDeclaration =
+		Object_propdeclaration::GetObject(valueThis)->GetPropDeclaration();
+	String str = pPropDeclaration->GetName();
+	if (pPropDeclaration->GetFlags() & FLAG_ListVar) {
+		str += "[]";
+	}
+	return Value(str);
+}
+
 // propdeclaration#name
 Gura_DeclareProperty_R(propdeclaration, name)
 {
@@ -160,6 +174,7 @@ Class_propdeclaration::Class_propdeclaration(Environment *pEnvOuter) :
 void Class_propdeclaration::DoPrepare(Environment &env)
 {
 	// Assignment of properties
+	Gura_AssignProperty(propdeclaration, dispname);
 	Gura_AssignProperty(propdeclaration, name);
 	Gura_AssignProperty(propdeclaration, readable);
 	Gura_AssignProperty(propdeclaration, symbol);

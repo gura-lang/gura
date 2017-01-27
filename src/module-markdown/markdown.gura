@@ -932,12 +932,17 @@ _funcentry(lang:symbol, func:function, fullname:string, fmt:string):map = {
 	str
 }
 
-funcentry(lang:symbol, funcs*:function) = {
+makedoc@function(lang:symbol, funcs*:function) = {
 	funcs = funcs.each()
 	_funcentry(lang, funcs, function.getfullname(funcs), function.getformat(funcs))
 }
 
-funcentry@iterable(lang:symbol, funcs*:function) = {
+makedoc@method(lang:symbol, funcs*:function) = {
+	funcs = funcs.each()
+	_funcentry(lang, funcs, function.getfullname(funcs), function.getformat(funcs))
+}
+
+makedoc@itermethod(lang:symbol, funcs*:function) = {
 	funcs = funcs.each()
 	_funcentry(lang, funcs,
 			   function.getfullname(funcs):*replace('iterator#', 'iterable#'),

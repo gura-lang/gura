@@ -12,6 +12,7 @@ typedef Value (*MethodT)(Environment &env, Argument &arg, const Function *pFunc,
 typedef bool (*CastToT)(Environment &env, Value &value, const Declaration &decl, const Array *pArraySelf);
 
 static const char *helpDoc_en = R"**(
+
 )**";
 
 //-----------------------------------------------------------------------------
@@ -142,14 +143,23 @@ Gura_DeclareProperty_R(array, elemtype)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Returns the typename of the elements as a `symbol` such as\n"
+		"`` `int8``,\n"
+		"`` `uint8``,\n"
+		"`` `int16``,\n"
+		"`` `uint16``,\n"
+		"`` `int32``,\n"
+		"`` `uint32``,\n"
+		"`` `int64``,\n"
+		"`` `uint64``,\n"
+		"`` `float`` and\n"
+		"`` `double``.");
 }
 
 Gura_ImplementPropertyGetter(array, elemtype)
 {
 	Array *pArray = Object_array::GetObject(valueThis)->GetArray();
-	return Value(pArray->GetElemTypeName());
+	return Value(Symbol::Add(pArray->GetElemTypeName()));
 }
 
 // array#ndim
@@ -158,8 +168,7 @@ Gura_DeclareProperty_R(array, ndim)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Returns the number of dimensions.");
 }
 
 Gura_ImplementPropertyGetter(array, ndim)
@@ -171,11 +180,10 @@ Gura_ImplementPropertyGetter(array, ndim)
 // array#shape
 Gura_DeclareProperty_R(array, shape)
 {
-	SetPropAttr(VTYPE_any);
+	SetPropAttr(VTYPE_number, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Returns a list of sizes of each dimension.");
 }
 
 Gura_ImplementPropertyGetter(array, shape)
