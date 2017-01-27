@@ -932,6 +932,37 @@ _funcentry(lang:symbol, func:function, fullname:string, fmt:string):map = {
 	str
 }
 
+makedoc@property(lang:symbol, obj) = {
+	propdecls = obj.__propdecls__():list
+	propdecls.isempty() && return
+	str = R'''
+	<table>
+	<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+	'''
+	propdecls.each {|pd|
+		accessMode = if (pd.readable && !pd.writable) {
+			'R'
+		} elsif (!pd.readable && pd.writable) {
+			'W'
+		} elsif (pd.readable && pd.writable) {
+			'R/W'
+		} else {
+			''
+		}
+		//doc = Renderer@html().Render(markdown.document(pd.gethelp(lang).doc.reader()))
+		doc = pd.gethelp(lang).doc
+		str += eR'''
+		<tr><td><code>${pd.name}</code></td><td><code>${pd.type}</code></td><td>${accessMode}</td>
+		<td>${doc}</td></tr>
+		'''
+	}
+	str += R'''
+
+	</table>
+	'''
+}
+
 makedoc@function(lang:symbol, funcs*:function) = {
 	funcs = funcs.each()
 	_funcentry(lang, funcs, function.getfullname(funcs), function.getformat(funcs))
