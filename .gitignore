@@ -24,6 +24,7 @@
 /test/result/*.result.txt
 /test/test-graph/*.emf
 /test/test-sqlite3/*.sqlite3
+/test/test-tar/*
 /src/*.tar.gz
 /src/program-*/*.obj
 /src/program-*/Makefile
