@@ -945,11 +945,11 @@ makedoc@function$(lang:symbol, match:string, sub:string, funcs*:function) = {
 }
 
 makedoc@module(mod:environment, d:dict) = {
-	mod.write(doc:markdown.document, lang:symbol) = {
+	mod.__doc@markdown__(doc:markdown.document, lang:symbol) = {
 		doc << d.get(lang, d[d.keys().next()])
 	}
 	if (mod.__name__ == '__main__') {
-		mod.write(markdown.document(), `en).render@html(sys.stdout)
+		mod.__doc@markdown__(markdown.document(), `en).render@html(sys.stdout)
 	}
 } %% {`en, R'''
 Registers a dictionary of document texts written in Markdown format

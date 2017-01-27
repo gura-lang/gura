@@ -7,7 +7,7 @@ dirName@html = 'html'
 
 title = 'Gura Library Reference'
 author = 'Yutaka Saito'
-date = 'January 25th, 2016'
+date = 'January 25th, 2017'
 
 baseNames = [
 	'basement' // this must come at first
@@ -145,9 +145,8 @@ Renderer@tex = class(markdown.Renderer@tex) {
 				this.out.printf(R'''
 				\vspace{5mm}
 				\vbox{
-				\underline{\sf\large %s}\\
-				{\tt\small %s}}
-				''', this.EscapeText(m[1]), this.EscapeText(m[2].unescapehtml()))
+				\underline{\tt\small %s}}
+				''', this.EscapeText(m[2].unescapehtml()))
 			} else {
 				println('**** error ****')
 				sys.exit(1)
@@ -164,7 +163,7 @@ makeDocument() = {
 	baseNames.each {|baseName|
 		println('module: ', baseName)
 		moduleName = baseName + '.doc'
-		import(&moduleName).write(doc, `en)
+		import(&moduleName).__doc@markdown__(doc, `en)
 	}
 	doc
 }
@@ -173,7 +172,6 @@ output@tex(doc:markdown.document) = {
 	open(fileNameTeX, 'w') {|out|
 		Renderer@tex(out, title, author, date).Render(doc)
 	}
-	//doc.render@tex(title, author, date, fileNameTeX)
 	sys.stderr.println(fileNameTeX, ' was created.')
 }
 
