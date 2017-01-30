@@ -198,8 +198,7 @@ Gura_DeclareProperty_RW(color, r)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Value of the red element.");
 }
 
 Gura_ImplementPropertyGetter(color, r)
@@ -222,8 +221,7 @@ Gura_DeclareProperty_RW(color, g)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Value of the green element.");
 }
 
 Gura_ImplementPropertyGetter(color, g)
@@ -246,8 +244,7 @@ Gura_DeclareProperty_RW(color, b)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Value of the blue element.");
 }
 
 Gura_ImplementPropertyGetter(color, b)
@@ -270,8 +267,7 @@ Gura_DeclareProperty_RW(color, a)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Value of the alpha element.");
 }
 
 Gura_ImplementPropertyGetter(color, a)

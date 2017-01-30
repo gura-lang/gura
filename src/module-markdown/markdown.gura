@@ -935,11 +935,9 @@ _funcentry(lang:symbol, func:function, fullname:string, fmt:string):map = {
 makedoc@property(lang:symbol, obj) = {
 	propdecls = obj.__propdecls__():list
 	propdecls.isempty() && return
-	str = R'''
-	<table>
-	<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-	'''
+	str = '<table>\n'
+	str += '<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>\n'
+	str += '\n'
 	propdecls.each {|pd|
 		accessMode = if (pd.readable && !pd.writable) {
 			'R'
