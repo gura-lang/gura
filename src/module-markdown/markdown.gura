@@ -961,6 +961,12 @@ makedoc@property(lang:symbol, obj) = {
 	'''
 }
 
+makedoc@class(lang:symbol, cls:class) = {
+	if (help = help@class(cls, lang)) {
+		help.render(`markdown)
+	}
+}
+
 makedoc@function(lang:symbol, funcs*:function) = {
 	funcs = funcs.each()
 	_funcentry(lang, funcs, function.getfullname(funcs), function.getformat(funcs))

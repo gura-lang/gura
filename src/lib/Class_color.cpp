@@ -78,22 +78,7 @@ There are class variables as shown below:
 
 A `color` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>r</code></td><td><code>number</code></td><td>R/W</td>
-<td>Value of the red element.</td></tr>
-
-<tr><td><code>g</code></td><td><code>number</code></td><td>R/W</td>
-<td>Value of the green element.</td></tr>
-
-<tr><td><code>b</code></td><td><code>number</code></td><td>R/W</td>
-<td>Value of the blue element.</td></tr>
-
-<tr><td><code>a</code></td><td><code>number</code></td><td>R/W</td>
-<td>Value of the alpha element.</td></tr>
-
-</table>
+${markdown.makedoc@property(`en, color)}
 
 
 # Cast Operation
@@ -124,7 +109,7 @@ color
 
 # Method
 
-${markdown.makedoc@method(`en
+${markdown.makedoc@function(`en
 color.getgray
 color.html
 color.list
