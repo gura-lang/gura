@@ -412,12 +412,10 @@ void TransposeSub(T_Elem *&pDst, const T_Elem *pSrc, const Array::Dimensions &di
 	const Array::Dimension &dimSrc = dimsSrc[*pAxis];
 	if (pAxis + 1 == pAxisEnd) {
 		for (size_t i = 0; i < dimSrc.GetSize(); i++, pSrc += dimSrc.GetStride(), pDst++) {
-			//::printf("  %p %p\n", pSrc, pDst);
 			*pDst = *pSrc;
 		}
 	} else {
 		for (size_t i = 0; i < dimSrc.GetSize(); i++, pSrc += dimSrc.GetStride()) {
-			//::printf("%p %p\n", pSrc, pDst);
 			TransposeSub(pDst, pSrc, dimsSrc, pAxis + 1, pAxisEnd);
 		}
 	}
