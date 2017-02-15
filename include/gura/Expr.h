@@ -194,6 +194,7 @@ private:
 	const Expr *_pExprParent;
 	AutoPtr<StringShared> _pSourceName;
 	BridgeFunctionT _bridgeFunction;
+	bool _silentFlag;
 public:
 	Gura_DeclareReferenceAccessor(Expr);
 public:
@@ -216,6 +217,8 @@ public:
 	inline const char *GetTypeName() const { return GetExprTypeName(_exprType); }
 	inline ExprType GetType() const { return _exprType; }
 	inline bool IsType(ExprType exprType) const { return _exprType == exprType; }
+	inline void SetSilentFlag(bool silentFlag) { _silentFlag = silentFlag; }
+	inline bool GetSilentFlag() const { return _silentFlag; }
 	Value Exec(Environment &env, bool evalSymFuncFlag = false) const;
 	Value Assign(Environment &env, Value &valueAssigned, bool escalateFlag) const;
 	inline void _SetBridgeFunction(BridgeFunctionT bridgeFunction) const {

@@ -61,14 +61,14 @@ const char *Expr::IndentDefault = "    ";
 
 Expr::Expr(ExprType exprType) :
 	_exprType(exprType), _cntRef(1), _lineNoTop(0), _lineNoBtm(0),
-	_pExprParent(nullptr), _bridgeFunction(nullptr)
+	_pExprParent(nullptr), _bridgeFunction(nullptr), _silentFlag(false)
 {
 }
 
 Expr::Expr(const Expr &expr) :
 	_exprType(expr._exprType), _cntRef(1), _lineNoTop(expr._lineNoTop), _lineNoBtm(expr._lineNoBtm),
 	_pExprParent(nullptr), _pSourceName(StringShared::Reference(expr._pSourceName.get())),
-	_bridgeFunction(expr._bridgeFunction)
+	_bridgeFunction(expr._bridgeFunction), _silentFlag(expr._silentFlag)
 {
 }
 

@@ -166,7 +166,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				int ch;
 				const TokenInfo *pTokenInfo;
 			} tbl[] = {
-				{ '?',	&TOKEN_Question,		},
+				{ '?',	&TOKEN_Question,	},
 				{ '+',	&TOKEN_DoubleChars,	},
 				{ '-',	&TOKEN_DoubleChars,	},
 				{ '*',	&TOKEN_DoubleChars,	},
@@ -182,9 +182,9 @@ bool Parser::ParseChar(Environment &env, char ch)
 				{ '~',	&TOKEN_Inv,			},
 				{ ',',	&TOKEN_Comma,		},
 				{ ';',	&TOKEN_Semicolon,	},
-				{ ')',	&TOKEN_RParenthesis,	},
+				{ ')',	&TOKEN_RParenthesis,},
 				{ '}',	&TOKEN_RBrace,		},
-				{ ']',	&TOKEN_RBracket,		},
+				{ ']',	&TOKEN_RBracket,	},
 				{ '\0',	&TOKEN_EOF,			},
 			};
 			for (i = 0; i < ArraySizeOf(tbl); i++) {
@@ -255,11 +255,11 @@ bool Parser::ParseChar(Environment &env, char ch)
 				{ '<', &TOKEN_TripleChars	},
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ '>', &TOKEN_Gt, {
-				{ '=', &TOKEN_Ge				},
+				{ '=', &TOKEN_Ge			},
 				{ '>', &TOKEN_TripleChars	},
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ '!', &TOKEN_Not, {
-				{ '=', &TOKEN_Ne				},
+				{ '=', &TOKEN_Ne			},
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ '|', &TOKEN_Or, {
 				{ '=', &TOKEN_AssignOr 		},
@@ -267,7 +267,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ '&', &TOKEN_And, {
 				{ '=', &TOKEN_AssignAnd		},
-				{ '&', &TOKEN_AndAnd			},
+				{ '&', &TOKEN_AndAnd		},
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ '^', &TOKEN_Xor, {
 				{ '=', &TOKEN_AssignXor		},
@@ -1207,10 +1207,9 @@ void Parser::EvalConsoleChar(Environment &env,
 					}
 					sig.ClearSignal();
 					//Expr::Delete(pExpr);
-				} else {
-					if (env.GetGlobal()->GetEchoFlag() && result.IsValid()) {
-						pConsole->Println(sig, result.ToString().c_str());
-					}
+				} else if (!pExpr->GetSilentFlag() &&
+						   env.GetGlobal()->GetEchoFlag() && result.IsValid()) {
+					pConsole->Println(sig, result.ToString().c_str());
 				}
 			}
 		}
@@ -1756,6 +1755,7 @@ bool Parser::ReduceThreeTokens(Environment &env)
 				pExprBlock = new Expr_Block();
 				token1.SetExpr(pExprBlock);
 			}
+			//token2.GetExpr()->SetSilentFlag(token3.IsType(TOKEN_Semicolon));
 			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, token2.GetExpr())) return false;
 			_tokenStack.pop_back();
 			_tokenStack.pop_back();
@@ -1801,6 +1801,7 @@ bool Parser::ReduceThreeTokens(Environment &env)
 				pExprBlockParam = new Expr_Lister();
 				token1.SetExpr(pExprBlockParam);
 			}
+			//token2.GetExpr()->SetSilentFlag(token3.IsType(TOKEN_Semicolon));
 			if (!EmitExpr(pExprBlockParam->GetExprOwner(), pExprBlockParam, token2.GetExpr())) return false;
 			_tokenStack.pop_back();
 			_tokenStack.pop_back();
@@ -2188,6 +2189,7 @@ bool Parser::ReduceFourTokens(Environment &env)
 				pExprBlock = new Expr_Block();
 				token2.SetExpr(pExprBlock);
 			}
+			//token3.GetExpr()->SetSilentFlag(token4.IsType(TOKEN_Semicolon));
 			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, token3.GetExpr())) return false;
 			_tokenStack.pop_back();
 			_tokenStack.pop_back();
@@ -2317,6 +2319,7 @@ bool Parser::ReduceFiveTokens(Environment &env)
 				pExprBlock = new Expr_Block();
 				token3.SetExpr(pExprBlock);
 			}
+			//token4.GetExpr()->SetSilentFlag(token5.IsType(TOKEN_Semicolon));
 			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, token4.GetExpr())) return false;
 			_tokenStack.pop_back();
 			_tokenStack.pop_back();
