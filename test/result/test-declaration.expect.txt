@@ -207,9 +207,12 @@ markdown:module
     conio.setcolor(fg:symbol:nil, bg?:symbol):map:void {block?}
     conio.waitkey():[raise]
   document:class = <class:markdown.document(stream?:stream:r) {block?}>
-  markdown.funcentry(lang:symbol, funcs*:function)
-  markdown.funcentry@iterable(lang:symbol, funcs*:function)
   item:class = <class:item>
+  markdown.makedoc@class(lang:symbol, cls:class)
+  markdown.makedoc@function(lang:symbol, funcs*:function)
+  markdown.makedoc@function$(lang:symbol, match:string, sub:string, funcs*:function)
+  markdown.makedoc@module(mod:environment, d:dict)
+  markdown.makedoc@property(lang:symbol, obj)
 math:module
   __name__:string = math
   __symbol__:symbol = math

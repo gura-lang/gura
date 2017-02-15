@@ -157,7 +157,6 @@ int Main(int argc, const char *argv[])
 	}
 	if (interactiveFlag || opt.IsSet("interactive")) {
 		if (!versionPrintedFlag && !quietFlag) PrintVersion(stdout, false);
-		env.GetGlobal()->SetEchoFlag(true);
 		ReadEvalPrintLoop(env);
 	}
 	return 0;
@@ -187,13 +186,15 @@ void PrintHelp(FILE *fp)
 	);
 }
 
-#if defined(GURA_ON_MSWIN)
 void ReadEvalPrintLoop(Environment &env)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 	Parser parser(sig, SRCNAME_interactive);
+	bool echoFlag = env.GetGlobal()->GetEchoFlag();
+	env.GetGlobal()->SetEchoFlag(true);
 	Stream *pConsole = env.GetConsole();
+#if defined(GURA_ON_MSWIN)
 	pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
 	for (;;) {
 		int chRaw = ::fgetc(stdin);
@@ -204,14 +205,8 @@ void ReadEvalPrintLoop(Environment &env)
 			pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
 		}
 	}
-}
 #else
-void ReadEvalPrintLoop(Environment &env)
-{
-	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
-	Parser parser(env.GetSignal(), SRCNAME_interactive);
 	char *lineBuff = nullptr;
-	Stream *pConsole = env.GetConsole();
 	while ((lineBuff = readline(env.GetPrompt(parser.IsContinued()))) != nullptr) {
 		for (char *p = lineBuff; ; p++) {
 			char ch = (*p == '\0')? '\n' : *p;
@@ -223,8 +218,9 @@ void ReadEvalPrintLoop(Environment &env)
 		}
 		free(lineBuff);
 	}
-}
 #endif
+	env.GetGlobal()->SetEchoFlag(echoFlag);
+}
 
 }
 
