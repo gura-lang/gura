@@ -114,11 +114,7 @@ int Main(int argc, const char *argv[])
 			sig.PrintSignal(*env.GetConsoleErr());
 			return 1;
 		}
-		if (opt.IsSet("llvm")) {
-			//pExprRoot->GenerateCode(env, sig, *env.GetConsole());
-		} else {
-			pExprRoot->Exec(env);
-		}
+		pExprRoot->Exec(env);
 		if (sig.IsSignalled()) {
 			sig.PrintSignal(*env.GetConsoleErr());
 			sig.ClearSignal();
