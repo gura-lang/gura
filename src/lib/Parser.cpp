@@ -1245,7 +1245,7 @@ bool Parser::FeedToken(Environment &env, const Token &token)
 
 bool Parser::_FeedToken(Environment &env, const Token &token)
 {
-	//::printf("FeedToken(%s)\n", token.GetTypeSymbol());
+	//::printf("FeedToken(%s)\n", token.GetSymbol());
 	for (;;) {
 		TokenStack::reverse_iterator pTokenTop =
 								_tokenStack.SeekTerminal(_tokenStack.rbegin());
@@ -1262,6 +1262,7 @@ bool Parser::_FeedToken(Environment &env, const Token &token)
 					InitStack();
 				} else {
 					_tokenStack.pop_back();
+					if (token.IsType(TOKEN_Semicolon)) pExpr->SetSilentFlag(true);
 					if (_pExprOwner == nullptr) {
 						Expr::Delete(pExpr);
 					} else if (!EmitExpr(*_pExprOwner, _pExprParent, pExpr)) {
@@ -1538,7 +1539,7 @@ bool Parser::ReduceTwoTokens(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> '!' Expr\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Not), token2.GetExpr(), false);
 		} else if (token1.IsType(TOKEN_Mod)) {
-			DBGPARSER(::printf("Reduce: Expr -> '%' Expr\n"));
+			DBGPARSER(::printf("Reduce: Expr -> '%%%%' Expr\n"));
 			if (token2.GetExpr()->IsBlock()) {
 				// %{..}
 				Expr *pExprCar = new Expr_Identifier(Symbol::Percnt);
@@ -1549,7 +1550,7 @@ bool Parser::ReduceTwoTokens(Environment &env)
 				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), token2.GetExpr(), false);
 			}
 		} else if (token1.IsType(TOKEN_ModMod)) {
-			DBGPARSER(::printf("Reduce: Expr -> '%%' Expr\n"));
+			DBGPARSER(::printf("Reduce: Expr -> '%%%%' Expr\n"));
 			if (token2.GetExpr()->IsBlock()) {
 				// %%{..}
 				Expr *pExprCar = new Expr_Identifier(Symbol::PercntPercnt);
@@ -1589,7 +1590,7 @@ bool Parser::ReduceTwoTokens(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> Expr '?'\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Question), token1.GetExpr(), true);
 		} else if (token2.IsType(TOKEN_Mod)) {
-			DBGPARSER(::printf("Reduce: Expr -> Expr '%'\n"));
+			DBGPARSER(::printf("Reduce: Expr -> Expr '%%%%'\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), token1.GetExpr(), true);
 		} else if (token2.IsType(TOKEN_Seq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ..\n"));
@@ -1824,10 +1825,10 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> Expr / Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), pExprLeft, pExprRight);
 		} else if (token2.IsType(TOKEN_Mod)) {
-			DBGPARSER(::printf("Reduce: Expr -> Expr % Expr\n"));
+			DBGPARSER(::printf("Reduce: Expr -> Expr %% Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mod), pExprLeft, pExprRight);
 		} else if (token2.IsType(TOKEN_ModMod)) {
-			DBGPARSER(::printf("Reduce: Expr -> Expr %% Expr\n"));
+			DBGPARSER(::printf("Reduce: Expr -> Expr %%%% Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_ModMod), pExprLeft, pExprRight);
 		} else if (token2.IsType(TOKEN_Pow)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ** Expr\n"));
@@ -1872,7 +1873,7 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> Expr /= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Div));
 		} else if (token2.IsType(TOKEN_AssignMod)) {
-			DBGPARSER(::printf("Reduce: Expr -> Expr %= Expr\n"));
+			DBGPARSER(::printf("Reduce: Expr -> Expr %%= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Mod));
 		} else if (token2.IsType(TOKEN_AssignPow)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr **= Expr\n"));

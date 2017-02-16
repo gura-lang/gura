@@ -37,7 +37,17 @@ Below is an example to show a help of function `println()`:
     
     Prints out values and a line-break to the standard output.
 
-*(this feature will be provided in v0.6.2 or later)*
+When an expression has some valid value as its result after being evaluated,
+you will see the value before the next prompt line.
+
+    >>> a = 3
+    3
+    >>>
+
+To suppress this, you can append a semicolon character at the end of line like below:
+
+    >>> a = 3;
+    >>>
 
 
 ## Run Script File
