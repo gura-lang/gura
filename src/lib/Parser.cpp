@@ -1755,7 +1755,6 @@ bool Parser::ReduceThreeTokens(Environment &env)
 				pExprBlock = new Expr_Block();
 				token1.SetExpr(pExprBlock);
 			}
-			//token2.GetExpr()->SetSilentFlag(token3.IsType(TOKEN_Semicolon));
 			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, token2.GetExpr())) return false;
 			_tokenStack.pop_back();
 			_tokenStack.pop_back();
@@ -1801,7 +1800,6 @@ bool Parser::ReduceThreeTokens(Environment &env)
 				pExprBlockParam = new Expr_Lister();
 				token1.SetExpr(pExprBlockParam);
 			}
-			//token2.GetExpr()->SetSilentFlag(token3.IsType(TOKEN_Semicolon));
 			if (!EmitExpr(pExprBlockParam->GetExprOwner(), pExprBlockParam, token2.GetExpr())) return false;
 			_tokenStack.pop_back();
 			_tokenStack.pop_back();
@@ -2189,7 +2187,6 @@ bool Parser::ReduceFourTokens(Environment &env)
 				pExprBlock = new Expr_Block();
 				token2.SetExpr(pExprBlock);
 			}
-			//token3.GetExpr()->SetSilentFlag(token4.IsType(TOKEN_Semicolon));
 			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, token3.GetExpr())) return false;
 			_tokenStack.pop_back();
 			_tokenStack.pop_back();
@@ -2319,7 +2316,6 @@ bool Parser::ReduceFiveTokens(Environment &env)
 				pExprBlock = new Expr_Block();
 				token3.SetExpr(pExprBlock);
 			}
-			//token4.GetExpr()->SetSilentFlag(token5.IsType(TOKEN_Semicolon));
 			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, token4.GetExpr())) return false;
 			_tokenStack.pop_back();
 			_tokenStack.pop_back();
