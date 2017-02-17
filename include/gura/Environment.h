@@ -320,7 +320,7 @@ public:
 	inline InteractiveHandler *GetInteractiveHandler() {
 		return GetGlobal()->GetInteractiveHandler();
 	}
-	bool ExecInteractiveHandler();
+	Value ExecInteractiveHandler();
 public:
 	const SymbolSet &GetSymbolsPublic() const;
 	SymbolSet &PrepareSymbolsPublic();

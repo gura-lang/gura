@@ -126,7 +126,7 @@ public:
 protected:
 	virtual ~InteractiveHandler();
 public:	
-	virtual void Exec(Environment &env) = 0;
+	virtual Value Exec(Environment &env) = 0;
 };
 
 //-----------------------------------------------------------------------------

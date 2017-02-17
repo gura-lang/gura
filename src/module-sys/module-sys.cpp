@@ -41,6 +41,20 @@ Gura_ImplementFunction(exit)
 	return Value::Nil;
 }
 
+// sys.interactive()
+Gura_DeclareFunction(interactive)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), 
+		"Enters to interactive mode.");
+}
+
+Gura_ImplementFunction(interactive)
+{
+	return env.ExecInteractiveHandler();
+}
+
 // sys.required_version(major:number, minor:number, patch:number)
 Gura_DeclareFunction(required_version)
 {
@@ -106,6 +120,7 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(echo);
 	Gura_AssignFunction(exit);
+	Gura_AssignFunction(interactive);
 	Gura_AssignFunction(required_version);
 	return true;
 }

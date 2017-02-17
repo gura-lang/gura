@@ -167,12 +167,11 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	return true;
 }
 
-bool Environment::ExecInteractiveHandler()
+Value Environment::ExecInteractiveHandler()
 {
 	InteractiveHandler *pInteractiveHandler = GetInteractiveHandler();
-	if (pInteractiveHandler == nullptr) return false;
-	pInteractiveHandler->Exec(*this);
-	return true;
+	if (pInteractiveHandler == nullptr) return Value::Nil;
+	return pInteractiveHandler->Exec(*this);
 }
 
 const SymbolSet &Environment::GetSymbolsPublic() const

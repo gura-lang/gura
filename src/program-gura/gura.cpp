@@ -22,7 +22,7 @@ void PrintHelp(FILE *fp);
 //-----------------------------------------------------------------------------
 class InteractiveHandlerEx : public InteractiveHandler {
 public:
-	void Exec(Environment &env);
+	Value Exec(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
@@ -194,7 +194,7 @@ void PrintHelp(FILE *fp)
 //-----------------------------------------------------------------------------
 // InteractiveHandlerEx
 //-----------------------------------------------------------------------------
-void InteractiveHandlerEx::Exec(Environment &env)
+Value InteractiveHandlerEx::Exec(Environment &env)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
@@ -216,6 +216,7 @@ void InteractiveHandlerEx::Exec(Environment &env)
 #else
 	char *lineBuff = nullptr;
 	while ((lineBuff = readline(env.GetPrompt(parser.IsContinued()))) != nullptr) {
+		if (::strcmp(lineBuff, ".") == 0) break;
 		for (char *p = lineBuff; ; p++) {
 			char ch = (*p == '\0')? '\n' : *p;
 			parser.EvalConsoleChar(env, pExprRoot.get(), pConsole, ch);
@@ -228,6 +229,7 @@ void InteractiveHandlerEx::Exec(Environment &env)
 	}
 #endif
 	env.GetGlobal()->SetEchoFlag(echoFlag);
+	return Value::Nil;
 }
 
 }

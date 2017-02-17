@@ -35,6 +35,7 @@ This is a built-in module, so you can use it without being imported.
 ${markdown.makedoc@function(`en
 sys.echo
 sys.exit
+sys.interactive
 sys.required_version
 )}
 '''.embed()
