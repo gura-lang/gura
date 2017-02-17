@@ -337,6 +337,7 @@ sys:module
   __symbol__:symbol = sys
   sys.echo(flag:boolean)
   sys.exit(status?:number)
+  sys.interactive()
   ps1:string = >>> 
   ps2:string = ... 
   sys.required_version(major:number, minor:number, patch:number)
