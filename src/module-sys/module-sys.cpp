@@ -100,8 +100,8 @@ Gura_ModuleEntry()
 	Gura_AssignValue(timestamp,		Value(Version::GetTimeStamp()));
 	Gura_AssignValue(build,			Value(Symbol::Add(GURA_HOST_COMPILER_NAME)));
 	Gura_AssignValue(platform,		Value(Symbol::Add(GURA_PLATFORM_NAME)));
-	Gura_AssignValue(ps1,			Value(">>> "));
-	Gura_AssignValue(ps2,			Value("... "));
+	Gura_AssignValue(ps1,			Value(OAL::PS1));
+	Gura_AssignValue(ps2,			Value(OAL::PS2));
 	Gura_AssignValue(langcode,		Value(OAL::GetLangCode()));
 	Gura_AssignValue(executable,	Value(OAL::GetExecutable()));
 	Gura_AssignValue(incdir,		Value(OAL::GetIncludeDir()));
@@ -109,14 +109,10 @@ Gura_ModuleEntry()
 	Gura_AssignValue(datadir,		Value(OAL::GetDataDir()));
 	Gura_AssignValue(moddir,		Value(OAL::GetModuleDir()));
 	Gura_AssignValue(fontdir,		Value(OAL::GetFontDir()));
-	String dirNameLocal = OAL::GetLocalDir();
-	Gura_AssignValue(localdir, Value(dirNameLocal));
-	Gura_AssignValue(
-		appdir, Value(OAL::JoinPathName(dirNameLocal.c_str(), "application")));
-	Gura_AssignValue(
-		cfgdir, Value(OAL::JoinPathName(dirNameLocal.c_str(), "config")));
-	Gura_AssignValue(
-		workdir, Value(OAL::JoinPathName(dirNameLocal.c_str(), "work")));
+	Gura_AssignValue(localdir,		Value(OAL::GetLocalDir()));
+	Gura_AssignValue(appdir,		Value(OAL::GetApplicationDir()));
+	Gura_AssignValue(cfgdir,		Value(OAL::GetConfigDir()));
+	Gura_AssignValue(workdir,		Value(OAL::GetWorkDir()));
 	// function assignment
 	Gura_AssignFunction(echo);
 	Gura_AssignFunction(exit);

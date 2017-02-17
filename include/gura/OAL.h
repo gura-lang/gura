@@ -26,6 +26,9 @@ namespace OAL {
 //-----------------------------------------------------------------------------
 // generic functions
 //-----------------------------------------------------------------------------
+GURA_DLLDECLARE extern const char *PS1;
+GURA_DLLDECLARE extern const char *PS2;
+
 GURA_DLLDECLARE extern const char FileSeparatorWin;
 GURA_DLLDECLARE extern const char FileSeparatorUnix;
 GURA_DLLDECLARE extern const char FileSeparator;
@@ -98,6 +101,9 @@ GURA_DLLDECLARE String GetIncludeDir();
 GURA_DLLDECLARE String GetLibraryDir();
 GURA_DLLDECLARE String GetFontDir();
 GURA_DLLDECLARE String GetLocalDir();
+GURA_DLLDECLARE String GetApplicationDir();
+GURA_DLLDECLARE String GetConfigDir();
+GURA_DLLDECLARE String GetWorkDir();
 GURA_DLLDECLARE String PrepareLocalDir();
 GURA_DLLDECLARE void SetupModulePath(StringList &strList);
 GURA_DLLDECLARE void SetupExecutablePath();

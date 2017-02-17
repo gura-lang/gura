@@ -39,6 +39,9 @@ typedef int mode_t;
 namespace Gura {
 namespace OAL {
 
+const char *PS1 = ">>> ";
+const char *PS2 = "... ";
+
 const char FileSeparatorWin = '\\';
 const char FileSeparatorUnix = '/';
 
@@ -451,6 +454,21 @@ bool RemoveDirTree(const char *dirName)
 		}
 	}
 	return rtn;
+}
+
+String GetApplicationDir()
+{
+	return JoinPathName(GetLocalDir().c_str(), "application");
+}
+
+String GetConfigDir()
+{
+	return JoinPathName(GetLocalDir().c_str(), "config");
+}
+
+String GetWorkDir()
+{
+	return JoinPathName(GetLocalDir().c_str(), "work");
 }
 
 #if defined(GURA_ON_MSWIN)
@@ -1710,7 +1728,6 @@ String _GetExecutablePath()
 }
 
 #endif
-
 
 String GetExecutable()
 {
