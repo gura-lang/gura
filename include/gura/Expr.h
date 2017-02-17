@@ -68,7 +68,7 @@ enum TrailCtrl {
 //-----------------------------------------------------------------------------
 // TrailCtrlHolder
 //-----------------------------------------------------------------------------
-class TrailCtrlHolder {
+class GURA_DLLDECLARE TrailCtrlHolder {
 private:
 	int _cntRef;
 	TrailCtrl _trailCtrl;
@@ -94,7 +94,7 @@ public:
 //-----------------------------------------------------------------------------
 // CodeGenerator
 //-----------------------------------------------------------------------------
-class CodeGenerator {
+class GURA_DLLDECLARE CodeGenerator {
 public:
 	virtual bool GenCode_Value(Environment &env, const Expr_Value *pExpr) = 0;
 	virtual bool GenCode_EmbedString(Environment &env, const Expr_EmbedString *pExpr) = 0;
@@ -114,9 +114,25 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// InteractiveHandler
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE InteractiveHandler {
+private:
+	int _cntRef;
+public:
+	Gura_DeclareReferenceAccessor(InteractiveHandler);
+public:
+	inline InteractiveHandler() : _cntRef(1) {}
+protected:
+	virtual ~InteractiveHandler();
+public:	
+	virtual void Exec(Environment &env) = 0;
+};
+
+//-----------------------------------------------------------------------------
 // ExprVisitor
 //-----------------------------------------------------------------------------
-class ExprVisitor {
+class GURA_DLLDECLARE ExprVisitor {
 public:
 	virtual bool Visit(Expr *pExpr) = 0;
 };

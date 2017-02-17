@@ -39,6 +39,13 @@ const char *GetExprTypeName(ExprType exprType)
 }
 
 //-----------------------------------------------------------------------------
+// InteractiveHandler
+//-----------------------------------------------------------------------------
+InteractiveHandler::~InteractiveHandler()
+{
+}
+
+//-----------------------------------------------------------------------------
 // Expr
 // [class hierarchy under Expr]
 // Expr <-+- Expr_Value

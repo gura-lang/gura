@@ -15,7 +15,15 @@ namespace Gura {
 void PrintVersion(FILE *fp, bool timeStampFlag);
 void PrintHelp(FILE *fp);
 
-void ReadEvalPrintLoop(Environment &env);
+//void ReadEvalPrintLoop(Environment &env);
+
+//-----------------------------------------------------------------------------
+// InteractiveHandlerEx
+//-----------------------------------------------------------------------------
+class InteractiveHandlerEx : public InteractiveHandler {
+public:
+	void Exec(Environment &env);
+};
 
 //-----------------------------------------------------------------------------
 // Main entry
@@ -43,6 +51,7 @@ int Main(int argc, const char *argv[])
 		sig.PrintSignal(*env.GetConsoleErr());
 		return 1;
 	}
+	env.SetInteractiveHandler(new InteractiveHandlerEx());
 	Option &opt = env.GetOption();
 	if (opt.IsSet("version")) {
 		PrintVersion(stderr, false);
@@ -153,7 +162,7 @@ int Main(int argc, const char *argv[])
 	}
 	if (interactiveFlag || opt.IsSet("interactive")) {
 		if (!versionPrintedFlag && !quietFlag) PrintVersion(stdout, false);
-		ReadEvalPrintLoop(env);
+		env.ExecInteractiveHandler();
 	}
 	return 0;
 }
@@ -182,7 +191,10 @@ void PrintHelp(FILE *fp)
 	);
 }
 
-void ReadEvalPrintLoop(Environment &env)
+//-----------------------------------------------------------------------------
+// InteractiveHandlerEx
+//-----------------------------------------------------------------------------
+void InteractiveHandlerEx::Exec(Environment &env)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());

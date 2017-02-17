@@ -17,8 +17,8 @@ public:
 	Gura_DeclareReferenceAccessor(Monitor);
 public:
 	Monitor();
+protected:
 	virtual ~Monitor();
-private:
 	inline Monitor(const Monitor &monitor) {}
 public:
 	virtual bool OnExprPre(Environment &env, const Expr *pExprNext) = 0;

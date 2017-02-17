@@ -82,6 +82,7 @@ class Class_Struct;
 
 class Module;
 class Monitor;
+class InteractiveHandler;
 
 class FunctionCustom;
 
@@ -137,6 +138,7 @@ public:
 		Module				*_pModule_sys;
 		AutoPtr<Stream>		_pConsoleDumb;
 		AutoPtr<Monitor>	_pMonitor;
+		AutoPtr<InteractiveHandler> _pInteractiveHandler;
 	public:
 		Global();
 		~Global();
@@ -169,6 +171,10 @@ public:
 		inline bool GetEchoFlag() const { return _echoFlag; }
 		inline void SetMonitor(Monitor *pMonitor) { _pMonitor.reset(pMonitor); }
 		inline Monitor *GetMonitor() { return _pMonitor.get(); }
+		inline void SetInteractiveHandler(InteractiveHandler *pInteractiveHandler) {
+			_pInteractiveHandler.reset(pInteractiveHandler);
+		}
+		inline InteractiveHandler *GetInteractiveHandler() { return _pInteractiveHandler.get(); }
 	};
 	class GURA_DLLDECLARE Frame {
 	private:
@@ -308,6 +314,13 @@ public:
 												{ return GetGlobal()->LookupClass(valType);	}
 	inline void SetMonitor(Monitor *pMonitor)	{ GetGlobal()->SetMonitor(pMonitor);		}
 	inline Monitor *GetMonitor()				{ return GetGlobal()->GetMonitor();			}
+	inline void SetInteractiveHandler(InteractiveHandler *pInteractiveHandler)	{
+		GetGlobal()->SetInteractiveHandler(pInteractiveHandler);
+	}
+	inline InteractiveHandler *GetInteractiveHandler() {
+		return GetGlobal()->GetInteractiveHandler();
+	}
+	bool ExecInteractiveHandler();
 public:
 	const SymbolSet &GetSymbolsPublic() const;
 	SymbolSet &PrepareSymbolsPublic();

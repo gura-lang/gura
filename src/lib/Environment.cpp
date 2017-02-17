@@ -167,6 +167,14 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	return true;
 }
 
+bool Environment::ExecInteractiveHandler()
+{
+	InteractiveHandler *pInteractiveHandler = GetInteractiveHandler();
+	if (pInteractiveHandler == nullptr) return false;
+	pInteractiveHandler->Exec(*this);
+	return true;
+}
+
 const SymbolSet &Environment::GetSymbolsPublic() const
 {
 	foreach_const (FrameOwner, ppFrame, GetFrameOwner()) {
