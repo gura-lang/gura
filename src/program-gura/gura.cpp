@@ -23,6 +23,8 @@ void PrintHelp(FILE *fp);
 class InteractiveHandlerEx : public InteractiveHandler {
 public:
 	Value Exec(Environment &env);
+private:
+	static bool ReadLine(const char *prompt, String &strLine);
 };
 
 //-----------------------------------------------------------------------------
@@ -202,35 +204,44 @@ Value InteractiveHandlerEx::Exec(Environment &env)
 	bool echoFlag = env.GetGlobal()->GetEchoFlag();
 	env.GetGlobal()->SetEchoFlag(true);
 	Stream *pConsole = env.GetConsole();
-#if defined(GURA_ON_MSWIN)
-	pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
-	for (;;) {
-		int chRaw = ::fgetc(stdin);
-		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
-		parser.EvalConsoleChar(env, pExprRoot.get(), pConsole, ch);
-		if (chRaw < 0) break;
-		if (chRaw == '\n') {
-			pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
-		}
-	}
-#else
-	char *lineBuff = nullptr;
-	while ((lineBuff = readline(env.GetPrompt(parser.IsContinued()))) != nullptr) {
-		if (::strcmp(lineBuff, ".") == 0) break;
-		for (char *p = lineBuff; ; p++) {
-			char ch = (*p == '\0')? '\n' : *p;
+	String strLine;
+	while (ReadLine(env.GetPrompt(parser.IsContinued()), strLine)) {
+		if (strLine == ";") break;
+		foreach_const (String, p, strLine) {
+			char ch = *p;
 			parser.EvalConsoleChar(env, pExprRoot.get(), pConsole, ch);
-			if (ch == '\n') break;
 		}
-		if (lineBuff[0] != '\0') {
-			add_history(lineBuff);
-		}
-		free(lineBuff);
+		parser.EvalConsoleChar(env, pExprRoot.get(), pConsole, '\n');
 	}
-#endif
 	env.GetGlobal()->SetEchoFlag(echoFlag);
 	return Value::Nil;
 }
+
+#if defined(GURA_ON_MSWIN)
+bool InteractiveHandlerEx::ReadLine(const char *prompt, String &strLine)
+{
+	strLine.clear();
+	::printf("%s", prompt);
+	for (;;) {
+		int chRaw = ::fgetc(stdin);
+		if (chRaw < 0) return false;
+		char ch = static_cast<UChar>(chRaw);
+		if (ch == '\n') break;
+		strLine += ch;
+	}
+	return true;
+}
+#else
+bool InteractiveHandlerEx::ReadLine(const char *prompt, String &strLine)
+{
+	char *lineBuff = readline(prompt);
+	if (lineBuff == nullptr) return false;
+	if (lineBuff[0] != '\0') add_history(lineBuff);
+	strLine = lineBuff;
+	::free(lineBuff);
+	return true;
+}
+#endif
 
 }
 
