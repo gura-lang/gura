@@ -1,6 +1,6 @@
 //=============================================================================
 // Gura Programming Language
-// Copyright (C) 2011-2014 ypsitau
+// Copyright (C) 2011-2017 ypsitau
 //=============================================================================
 #include <gura.h>
 
@@ -14,8 +14,6 @@ namespace Gura {
 
 void PrintVersion(FILE *fp, bool timeStampFlag);
 void PrintHelp(FILE *fp);
-
-//void ReadEvalPrintLoop(Environment &env);
 
 //-----------------------------------------------------------------------------
 // InteractiveHandlerEx
