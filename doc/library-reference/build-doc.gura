@@ -18,7 +18,6 @@ baseNames = [
 	'bzip2'
 	'cairo'
 	'calendar'
-	//'canvas'
 	'cbridge'
 	'conio'
 	'csv'
