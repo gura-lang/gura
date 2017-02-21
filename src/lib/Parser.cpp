@@ -1191,7 +1191,10 @@ void Parser::EvalConsoleChar(Environment &env,
 			} else {
 				sig.PrintSignal(*pConsole);
 				sig.ClearSignal();
-				_stat = STAT_RecoverConsole;
+				_stat = STAT_BOF;
+				_lineHeadFlag = true;
+				InitStack();
+				//_stat = STAT_RecoverConsole;
 			}
 		} else if (_pExprOwner->size() > cntExprPrev) {
 			for (ExprOwner::iterator ppExpr = _pExprOwner->begin() + cntExprPrev;
@@ -1206,7 +1209,6 @@ void Parser::EvalConsoleChar(Environment &env,
 						sig.PrintSignal(*pConsole);
 					}
 					sig.ClearSignal();
-					//Expr::Delete(pExpr);
 				} else if (!pExpr->GetSilentFlag() &&
 						   env.GetGlobal()->GetEchoFlag() && result.IsValid()) {
 					pConsole->Println(sig, result.ToString().c_str());
