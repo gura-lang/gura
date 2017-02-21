@@ -2534,7 +2534,6 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned, bool escalat
 	HelpProvider &helpProvider = pFunc->GetHelpProvider();
 	foreach_reverse (HelpOwner, ppHelp, helpOwner) {
 		Help *pHelp = (*ppHelp)->Reference();
-		//pHelp->SetHelpProvider(&helpProvider);
 		helpProvider.AddHelp(pHelp);
 	}
 	return valueFunc;
