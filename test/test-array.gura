@@ -430,3 +430,12 @@ testcase('properties') {
 		println('shape: ', x.shape):nomap
 	}
 }
+testcase('array as an alias of array@double') {
+	randseed(0)
+	tester(`array.identity(5))
+	tester(`array.interval(0, 8, 5))
+	tester(`array.ones([3, 4]))
+	tester(`array.rands([3, 4], 10))
+	tester(`array.rands@normal([3, 4], 3, 5))
+	tester(`array.zeros([3, 4]))
+}

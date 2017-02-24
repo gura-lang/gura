@@ -40,6 +40,9 @@ Value Func_arrayT__##name<T_Elem>::DoEval(Environment &env, Argument &arg) const
 #define Gura_AssignMethod_arrayT(name) \
 AssignFunction(new Func_arrayT__##name<T_Elem>(*this, GetValueType()))
 
+#define Gura_AssignMethodTo_arrayT(pClass, name, T_Elem, valType)	\
+pClass->AssignFunction(new Func_arrayT__##name<T_Elem>(*this, valType))
+
 namespace Gura {
 
 //-----------------------------------------------------------------------------
@@ -342,6 +345,15 @@ void Class_arrayT<T_Elem>::DoPrepare(Environment &env)
 	Gura_AssignMethod_arrayT(rands);
 	Gura_AssignMethod_arrayT(rands_at_normal);
 	Gura_AssignMethod_arrayT(zeros);
+	do {
+		Class *pClass = env.LookupClass(VTYPE_array);
+		Gura_AssignMethodTo_arrayT(pClass, identity,		Double, VTYPE_array_at_double);
+		Gura_AssignMethodTo_arrayT(pClass, interval,		Double, VTYPE_array_at_double);
+		Gura_AssignMethodTo_arrayT(pClass, ones,			Double, VTYPE_array_at_double);
+		Gura_AssignMethodTo_arrayT(pClass, rands,			Double, VTYPE_array_at_double);
+		Gura_AssignMethodTo_arrayT(pClass, rands_at_normal,	Double, VTYPE_array_at_double);
+		Gura_AssignMethodTo_arrayT(pClass, zeros,			Double, VTYPE_array_at_double);
+	} while (0);
 }
 
 template<typename T_Elem>
