@@ -3,55 +3,55 @@ import(csv)
 import(helper.test) {*}
 
 testcase {
-patterns = @{
-//----------------------------------
-R'''
-aaa,bbb,ccc
-zzz,yyy,xxx
-'''
-//----------------------------------
-R'''
-aaa,bbb,ccc
-zzz,yyy,xxx'''
-//----------------------------------
-R'''
-field_name,field_name,field_name
-aaa,bbb,ccc
-zzz,yyy,xxx
-'''
-//----------------------------------
-R'''
-"aaa","b
-bb","ccc"
-zzz,yyy,xxx'''
-//----------------------------------
-R'''"aaa","b""bb","ccc"'''
-}
+	patterns = @{
+		//----------------------------------
+		R'''
+		aaa,bbb,ccc
+		zzz,yyy,xxx
+		'''
+		//----------------------------------
+		R'''
+		aaa,bbb,ccc
+		zzz,yyy,xxx'''
+		//----------------------------------
+		R'''
+		field_name,field_name,field_name
+		aaa,bbb,ccc
+		zzz,yyy,xxx
+		'''
+		//----------------------------------
+		R'''
+		"aaa","b
+		bb","ccc"
+		zzz,yyy,xxx'''
+		//----------------------------------
+		R'''"aaa","b""bb","ccc"'''
+	}
 	csv.parse(patterns)::each() {|line|
 		println(line):nomap
 	}
 }
 testcase {
-	text = '''\
-Japan,Tokyo,127767944
-"Japan","Tokyo","127767944"
-"Japan","Tokyo",127767944
-'''
+	text = R'''
+	Japan,Tokyo,127767944
+	"Japan","Tokyo","127767944"
+	"Japan","Tokyo",127767944
+	'''
 	println(csv.parse(text):*join(' - '))
 }
 testcase {
-	names_csv = '''\
-1,NTT
-2,KDDI
-3,Vodafone
-'''
-	match_csv = '''\
-2005,09,11,1,,D501
-2005,10,11,1,,P502
-2005,10,11,1,,P503
-2006,03,11,2,,A5518SA
-2006,03,11,4,,AAAAAAA
-'''
+	names_csv = R'''
+	1,NTT
+	2,KDDI
+	3,Vodafone
+	'''
+	match_csv = R'''
+	2005,09,11,1,,D501
+	2005,10,11,1,,P502
+	2005,10,11,1,,P503
+	2006,03,11,2,,A5518SA
+	2006,03,11,4,,AAAAAAA
+	'''
 	d = %{}
 	for ([key, v] in csv.parse(names_csv)) { d[key] = v }
 	writer = csv.writer(sys.stdout)
