@@ -56,6 +56,7 @@ public:
 	ArrayT *RoundOff(double threshold) const;
 	// functions to create an ArrayT instance
 	static ArrayT *CreateLike(const Array::Dimensions &dims);
+	static ArrayT *CreateFromValue(Environment &env, const Value &value);
 	static ArrayT *CreateFromList(const ValueList &valList);
 	static ArrayT *CreateFromList(Signal &sig, const ValueList &valList);
 	static ArrayT *CreateFromIterator(Environment &env, Iterator *pIterator);

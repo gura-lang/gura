@@ -547,6 +547,30 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateLike(const Array::Dimensions &dims)
 }
 
 template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromValue(Environment &env, const Value &value)
+{
+	AutoPtr<ArrayT<T_Elem> > pArrayT;
+	Signal &sig = env.GetSignal();
+	if (value.Is_list()) {
+		const ValueList &valList = value.GetList();
+		pArrayT.reset(ArrayT<T_Elem>::CreateFromList(sig, valList));
+		if (pArrayT.IsNull()) return nullptr;
+	} else if (value.Is_iterator()) {
+		Iterator *pIterator = value.GetIterator();
+		if (pIterator->IsInfinite()) {
+			Iterator::SetError_InfiniteNotAllowed(sig);
+			return nullptr;
+		}
+		pArrayT.reset(ArrayT<T_Elem>::CreateFromIterator(env, pIterator));
+		if (pArrayT.IsNull()) return nullptr;
+	} else {
+		Declaration::SetError_InvalidArgument(env);
+		return nullptr;
+	}
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(const ValueList &valList)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));

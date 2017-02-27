@@ -92,26 +92,9 @@ Func_arrayT<T_Elem>::Func_arrayT(Environment &env, const Symbol *pSymbol, ValueT
 template<typename T_Elem>
 Value Func_arrayT<T_Elem>::DoEval(Environment &env, Argument &arg) const
 {
-	Signal &sig = env.GetSignal();
-	AutoPtr<ArrayT<T_Elem> > pArrayT;
-	if (arg.Is_list(0)) {
-		const ValueList &valList = arg.GetList(0);
-		pArrayT.reset(ArrayT<T_Elem>::CreateFromList(sig, valList));
-		if (pArrayT.IsNull()) return Value::Nil;
-	} else if (arg.Is_iterator(0)) {
-		Iterator *pIterator = arg.GetIterator(0);
-		if (pIterator->IsInfinite()) {
-			Iterator::SetError_InfiniteNotAllowed(sig);
-			return false;
-		}
-		pArrayT.reset(ArrayT<T_Elem>::CreateFromIterator(env, pIterator));
-		if (pArrayT.IsNull()) return false;
-	} else {
-		Declaration::SetError_InvalidArgument(env);
-		return Value::Nil;
-	}
-	Value value(new Object_array(env, pArrayT.release()));
-	return ReturnValue(env, arg, value);
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromValue(env, arg.GetValue(0)));
+	if (pArrayT.IsNull()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayT.release())));
 }
 
 // @T() {block}
