@@ -258,6 +258,7 @@ Gura_DeclareFunction(array)
 {
 	SetFuncAttr(VTYPE_array_at_double, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "src", VTYPE_any, OCCUR_Once);
+	SetClassToConstruct(env.LookupClass(VTYPE_array));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
