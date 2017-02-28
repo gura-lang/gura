@@ -267,6 +267,7 @@ public:
 	void DerivePropDeclarations();
 	void AssignPropDeclaration(PropDeclaration *pPropDeclaration);
 	const PropDeclaration *LookupPropDeclaration(const Symbol *pSymbol);
+	void ListPropDeclarationSymbols(SymbolSet &symbols);
 	bool BuildContent(Environment &env, const Value &valueThis, const Expr_Block *pExprBlock);
 	void SetError_NoConstructor() const;
 public:

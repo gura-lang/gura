@@ -121,6 +121,7 @@ bool Object::DirProp(Environment &env, SymbolSet &symbols)
 			}
 		}
 	}
+	GetClass()->ListPropDeclarationSymbols(symbols);
 	return DoDirProp(env, symbols);
 }
 
@@ -479,6 +480,7 @@ bool Class::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag)
 			symbols.insert(iter->first);
 		}
 	}
+	ListPropDeclarationSymbols(symbols);
 	return DoDirProp(env, symbols);
 }
 
@@ -734,6 +736,16 @@ const PropDeclaration *Class::LookupPropDeclaration(const Symbol *pSymbol)
 	if (_pPropDeclarationMap.get() == nullptr) return nullptr;
 	auto iter = _pPropDeclarationMap->find(pSymbol);
 	return (iter == _pPropDeclarationMap->end())? nullptr : iter->second;
+}
+
+void Class::ListPropDeclarationSymbols(SymbolSet &symbols)
+{
+	if (_pPropDeclarationMap.get() != nullptr) {
+		foreach (PropDeclarationMap, iter, *_pPropDeclarationMap) {
+			symbols.insert(iter->first);
+		}
+	}
+	if (!_pClassSuper.IsNull()) _pClassSuper->ListPropDeclarationSymbols(symbols);
 }
 
 bool Class::BuildContent(Environment &env, const Value &valueThis, const Expr_Block *pExprBlock)
