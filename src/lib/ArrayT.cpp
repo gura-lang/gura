@@ -591,6 +591,7 @@ bool CreateFromList_Sub(Signal &sig, Array::Dimensions &dims,
 		return false;
 	}
 	if (pDim + 1 == dims.end()) {
+#if 0
 		if (valList.GetValueTypeOfElements() != VTYPE_number) {
 			sig.SetError(ERR_ValueError, "invalid format of array initializer");
 			return false;
@@ -598,6 +599,18 @@ bool CreateFromList_Sub(Signal &sig, Array::Dimensions &dims,
 		foreach_const (ValueList, pValue, valList) {
 			*p++ = static_cast<T_Elem>(pValue->GetNumber());
 		}
+#else
+		foreach_const (ValueList, pValue, valList) {
+			bool successFlag = false;
+			Number num = pValue->ToNumber(false, successFlag);
+			if (!successFlag) {
+				sig.SetError(ERR_ValueError, "failed to convert to a number value");
+				return nullptr;
+			}
+			*p++ = static_cast<T_Elem>(num);
+			//*p++ = static_cast<T_Elem>(pValue->GetNumber());
+		}
+#endif
 	} else {
 		if (valList.GetValueTypeOfElements() != VTYPE_list) {
 			sig.SetError(ERR_ValueError, "invalid format of array initializer");
@@ -616,7 +629,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Signal &sig, const ValueList &val
 	Array::Dimensions dims;
 	for (const ValueList *pValList = &valList; ; ) {
 		dims.push_back(Array::Dimension(pValList->size()));
-		if (!pValList->front().Is_list()) break;
+		if (pValList->empty() || !pValList->front().Is_list()) break;
 		pValList = &pValList->front().GetList();
 	}
 	AutoPtr<ArrayT> pArrayT(ArrayT::CreateLike(dims));
@@ -635,11 +648,21 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, Iterator *p
 	T_Elem *p = pArrayT->GetPointer();
 	Value value;
 	while (pIteratorWork->Next(env, value)) {
+#if 0
 		if (!value.Is_number() && !value.Is_boolean()) {
 			env.SetError(ERR_ValueError, "element must be a number or a boolean");
 			return nullptr;
 		}
 		*p++ = static_cast<T_Elem>(value.GetNumber());
+#else
+		bool successFlag = false;
+		Number num = value.ToNumber(false, successFlag);
+		if (!successFlag) {
+			env.SetError(ERR_ValueError, "failed to convert to a number value");
+			return nullptr;
+		}
+		*p++ = static_cast<T_Elem>(num);
+#endif
 	}
 	return pArrayT.release();
 }
