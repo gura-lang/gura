@@ -207,7 +207,7 @@ Gura_ImplementFunction(writer)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_stream
+// Gura interfaces for stream
 //-----------------------------------------------------------------------------
 // stream#read@csv() {block?}
 Gura_DeclareMethodAlias(stream, read_csv, "read@csv")
@@ -254,6 +254,32 @@ Gura_ImplementMethod(stream, writer_csv)
 }
 
 //-----------------------------------------------------------------------------
+// Gura interfaces for array
+//-----------------------------------------------------------------------------
+#if 0
+// array.read@csv(stream:stream) {block?}
+Gura_DeclareClassMethodAlias(array, read_csv, "read@csv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(array, read_csv)
+{
+	std::unique_ptr<Reader> pReader(new ReaderStream(arg.GetStream(0).Reference()));
+	ValueList valList;
+	while (pReader->ReadLine(env, valList)) {
+		
+	}
+	return Value::Nil;
+}
+#endif
+
+//-----------------------------------------------------------------------------
 // Module Entries
 //-----------------------------------------------------------------------------
 Gura_ModuleValidate()
@@ -274,6 +300,8 @@ Gura_ModuleEntry()
 	// method assignment to stream type
 	Gura_AssignMethodTo(VTYPE_stream, stream, read_csv);
 	Gura_AssignMethodTo(VTYPE_stream, stream, writer_csv);
+	// method assignment to array type
+	//Gura_AssignMethodTo(VTYPE_array, array, read_csv);
 	// value assignment
 	Gura_AssignValue(format, Value(DEFAULT_FORMAT));
 	return true;
