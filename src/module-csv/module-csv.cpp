@@ -256,7 +256,6 @@ Gura_ImplementMethod(stream, writer_csv)
 //-----------------------------------------------------------------------------
 // Gura interfaces for array
 //-----------------------------------------------------------------------------
-#if 0
 // array.read@csv(stream:stream) {block?}
 Gura_DeclareClassMethodAlias(array, read_csv, "read@csv")
 {
@@ -270,14 +269,40 @@ Gura_DeclareClassMethodAlias(array, read_csv, "read@csv")
 
 Gura_ImplementMethod(array, read_csv)
 {
+	typedef Double T_Elem;
+	size_t sizeCol = 0;
 	std::unique_ptr<Reader> pReader(new ReaderStream(arg.GetStream(0).Reference()));
 	ValueList valList;
-	while (pReader->ReadLine(env, valList)) {
-		
+	for (;;) {
+		Value value;
+		Object_list *pObjList = value.InitAsList(env);
+		if (!pReader->ReadLine(env, pObjList->GetListForModify())) {
+			if (env.IsSignalled()) return Value::Nil;
+			break;
+		}
+		size_t size = pObjList->GetList().size();
+		if (sizeCol < size) sizeCol = size;
+		valList.push_back(value);
 	}
-	return Value::Nil;
+	size_t sizeRow = valList.size();
+	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(sizeRow, sizeCol));
+	pArrayT->FillZero();
+	T_Elem *pRow = pArrayT->GetPointer();
+	foreach_const (ValueList, pValueRow, valList) {
+		T_Elem *p = pRow;
+		foreach_const (ValueList, pValue, pValueRow->GetList()) {
+			bool successFlag = false;
+			Number num = pValue->ToNumber(false, successFlag);
+			if (!successFlag) {
+				env.SetError(ERR_ValueError, "failed to convert to a number value");
+				return Value::Nil;
+			}
+			*p++ = static_cast<T_Elem>(num);
+		}
+		pRow += sizeCol;
+	}
+	return ReturnValue(env, arg, new Object_array(env, pArrayT.release()));
 }
-#endif
 
 //-----------------------------------------------------------------------------
 // Module Entries
@@ -301,7 +326,7 @@ Gura_ModuleEntry()
 	Gura_AssignMethodTo(VTYPE_stream, stream, read_csv);
 	Gura_AssignMethodTo(VTYPE_stream, stream, writer_csv);
 	// method assignment to array type
-	//Gura_AssignMethodTo(VTYPE_array, array, read_csv);
+	Gura_AssignMethodTo(VTYPE_array, array, read_csv);
 	// value assignment
 	Gura_AssignValue(format, Value(DEFAULT_FORMAT));
 	return true;
