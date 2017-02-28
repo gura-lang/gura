@@ -9,13 +9,13 @@ import(helper.test) {*}
 sys.stdout.setcodec('shift_jis').addcr(false)
 
 testcase('readchar') {
-	src = B'''
-Hello world
-first line
-second line
-third line
-日本語
-'''
+	src = BR'''
+	Hello world
+	first line
+	second line
+	third line
+	日本語
+	'''
 	src.reader() {|s|
 		s.setcodec('utf-8')
 		while (ch = s.readchar()) {
@@ -120,7 +120,7 @@ testcase {
 		buffDec.dump()
 	}
 }
-testcase {
+testcase('stream.copy/stream#copyto') {
 	stream.copy(b'hello world #1\n', sys.stdout)
 	stream.copy(b'hello world #2\n', sys.stdout)
 	stream.copy(b'hello world #3\n', sys.stdout)
@@ -133,4 +133,39 @@ testcase {
 	b'hello world #4\n'.reader().copyto(sys.stdout)
 	b'hello world #5\n'.reader().copyto(sys.stdout)
 	b'hello world #6\n'.reader().copyto(sys.stdout)
+}
+testcase('readline/skipline') {
+	src = format('line.%d\n', 1..100).join()
+	src.reader {|s|
+		repeat (10) {
+			println('readlines(3)')
+			print('  ', s.readlines(3))
+		}
+	}
+	src.reader {|s|
+		repeat (10) {
+			println('readline()')
+			print('  ', s.readline())
+		}
+	}
+	src.reader {|s|
+		println('skipline()')
+		s.skipline()
+		println('readlines(3)')
+		print('  ', s.readlines(3))
+		println('skipline()')
+		s.skipline()
+		println('readlines(3)')
+		print('  ', s.readlines(3))
+		println('skiplines(3)')
+		s.skiplines(3)
+		println('readlines(3)')
+		print('  ', s.readlines(3))
+		println('skiplines(3)')
+		s.skiplines(3)
+		println('skiplines(3)')
+		s.skiplines(3)
+		println('readlines(3)')
+		print('  ', s.readlines(3))
+	}
 }

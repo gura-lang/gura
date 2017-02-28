@@ -364,6 +364,24 @@ bool Stream::Seek(Signal &sig, long offset, SeekMode seekMode)
 	}
 }
 
+bool Stream::SkipLines(Signal &sig, size_t nLines)
+{
+	bool rtn = true;
+	if (nLines == 0) return true;
+	for (;;) {
+		int ch = DoGetChar(sig);
+		if (ch < 0) {
+			rtn = sig.IsNoSignalled();
+			break;
+		}
+		if (ch == '\n') {
+			nLines--;
+			if (nLines == 0) break;
+		}
+	}
+	return rtn;
+}
+
 bool Stream::Flush(Signal &sig)
 {
 	return DoFlush(sig);

@@ -236,7 +236,7 @@ OK
 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
 61 61 61                                         aaa
 
-======== #9 ========
+======== #9 stream.copy/stream#copyto ========
 
 hello world #1
 hello world #2
@@ -250,3 +250,87 @@ hello world #3
 hello world #4
 hello world #5
 hello world #6
+
+======== #10 readline/skipline ========
+
+readlines(3)
+  line.1
+  line.2
+  line.3
+readlines(3)
+  line.4
+  line.5
+  line.6
+readlines(3)
+  line.7
+  line.8
+  line.9
+readlines(3)
+  line.10
+  line.11
+  line.12
+readlines(3)
+  line.13
+  line.14
+  line.15
+readlines(3)
+  line.16
+  line.17
+  line.18
+readlines(3)
+  line.19
+  line.20
+  line.21
+readlines(3)
+  line.22
+  line.23
+  line.24
+readlines(3)
+  line.25
+  line.26
+  line.27
+readlines(3)
+  line.28
+  line.29
+  line.30
+readline()
+  line.1
+readline()
+  line.2
+readline()
+  line.3
+readline()
+  line.4
+readline()
+  line.5
+readline()
+  line.6
+readline()
+  line.7
+readline()
+  line.8
+readline()
+  line.9
+readline()
+  line.10
+skipline()
+readlines(3)
+  line.2
+  line.3
+  line.4
+skipline()
+readlines(3)
+  line.6
+  line.7
+  line.8
+skiplines(3)
+readlines(3)
+  line.12
+  line.13
+  line.14
+skiplines(3)
+skiplines(3)
+readlines(3)
+  line.21
+  line.22
+  line.23

@@ -915,6 +915,45 @@ Gura_ImplementMethod(stream, setcodec)
 	return arg.GetValueThis();
 }
 
+// stream#skipline():reduce
+Gura_DeclareMethod(stream, skipline)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"Skip the stream by one line.\n"
+		"This method returns the target stream instance itself.\n");
+}
+
+Gura_ImplementMethod(stream, skipline)
+{
+	Signal &sig = env.GetSignal();
+	Stream &stream = Object_stream::GetObjectThis(arg)->GetStream();
+	size_t nLines = 1;
+	stream.SkipLines(sig, nLines);
+	return arg.GetValueThis();
+}
+
+// stream#skiplines(nlines:number):reduce
+Gura_DeclareMethod(stream, skiplines)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "nlines", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"Skip the stream by the specified number of lines.\n"
+		"This method returns the target stream instance itself.\n");
+}
+
+Gura_ImplementMethod(stream, skiplines)
+{
+	Signal &sig = env.GetSignal();
+	Stream &stream = Object_stream::GetObjectThis(arg)->GetStream();
+	size_t nLines = arg.GetSizeT(0);
+	stream.SkipLines(sig, nLines);
+	return arg.GetValueThis();
+}
+
 // stream#tell()
 Gura_DeclareMethod(stream, tell)
 {
@@ -996,6 +1035,8 @@ void Class_stream::DoPrepare(Environment &env)
 	Gura_AssignMethod(stream, seek);
 	Gura_AssignMethod(stream, serialize);
 	Gura_AssignMethod(stream, setcodec);
+	Gura_AssignMethod(stream, skipline);
+	Gura_AssignMethod(stream, skiplines);
 	Gura_AssignMethod(stream, tell);
 	Gura_AssignMethod(stream, write);
 	// help document

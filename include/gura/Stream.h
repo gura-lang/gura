@@ -132,6 +132,7 @@ public:
 	virtual size_t Write(Signal &sig, const void *buff, size_t len);
 	size_t Peek(Signal &sig, void *buff, size_t len);
 	bool Seek(Signal &sig, long offset, SeekMode seekMode);
+	bool SkipLines(Signal &sig, size_t nLines);
 	inline size_t Tell() { return _offsetCur; }
 	inline size_t GetSize() { return DoGetSize(); }
 	inline Object *GetStatObj(Signal &sig) { return DoGetStatObj(sig); }
