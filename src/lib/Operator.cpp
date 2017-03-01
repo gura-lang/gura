@@ -1259,6 +1259,7 @@ void OperatorEntry::SetError_InvalidValueType(Signal &sig,
 //-----------------------------------------------------------------------------
 void Operator::Initialize(Environment &env)
 {
+	// unary operators
 	env.SetOperator(OPTYPE_Pos,			Operator::Pos		= new Operator_Pos());
 	env.SetOperator(OPTYPE_Neg,			Operator::Neg		= new Operator_Neg());
 	env.SetOperator(OPTYPE_Inv,			Operator::Inv		= new Operator_Inv());
@@ -1266,6 +1267,7 @@ void Operator::Initialize(Environment &env)
 	env.SetOperator(OPTYPE_SeqInf,		Operator::SeqInf	= new Operator_SeqInf());
 	env.SetOperator(OPTYPE_Question,	Operator::Question	= new Operator_Question());
 	env.SetOperator(OPTYPE_Each,		Operator::Each		= new Operator_Each());
+	// binary operators
 	env.SetOperator(OPTYPE_Add,			Operator::Add		= new Operator_Add());
 	env.SetOperator(OPTYPE_Sub,			Operator::Sub		= new Operator_Sub());
 	env.SetOperator(OPTYPE_Mul,			Operator::Mul		= new Operator_Mul());
@@ -1291,14 +1293,6 @@ void Operator::Initialize(Environment &env)
 	env.SetOperator(OPTYPE_Seq,			Operator::Seq		= new Operator_Seq());
 	env.SetOperator(OPTYPE_Pair,		Operator::Pair		= new Operator_Pair());
 	AssignOperatorBasic(env);
-#if 0
-	// Each class derives operators from its super class.
-	ValueTypeList &valTypeList = ValueTypePool::GetInstance()->GetList();
-	foreach (ValueTypeList, ppValueTypeInfo, valTypeList) {
-		ValueTypeInfo *pValueTypeInfo = *ppValueTypeInfo;
-		pValueTypeInfo->GetClass()->DeriveOperators();
-	}
-#endif
 }
 
 }

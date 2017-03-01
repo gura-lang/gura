@@ -892,6 +892,8 @@ stream
   stream#seek(offset:number, origin?:symbol):reduce
   stream#serialize(value):void
   stream#setcodec(codec:codec:nil):reduce
+  stream#skipline():reduce
+  stream#skiplines(nlines:number):reduce
   stream#tell()
   stream#write(ptr:pointer, bytes?:number):reduce
   stream#writer@base64(linelen:number:nil => 76) {block?}
