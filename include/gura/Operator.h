@@ -84,9 +84,9 @@ enum OpType {
 	OPTYPE_AndAnd,
 	OPTYPE_Seq,
 	OPTYPE_Pair,
-	// math functions
+	// mathematical functions
 	OPTYPE_math,
-	OPTYPE_Math_abs,
+	OPTYPE_Math_abs = OPTYPE_math,
 	OPTYPE_Math_acos,
 	OPTYPE_Math_arg,
 	OPTYPE_Math_asin,
@@ -96,8 +96,19 @@ enum OpType {
 	OPTYPE_Math_conj,
 	OPTYPE_Math_cos,
 	OPTYPE_Math_cosh,
-	OPTYPE_Math_delta,
-	OPTYPE_Math_,
+	OPTYPE_Math_exp,
+	OPTYPE_Math_floor,
+	OPTYPE_Math_hypot,
+	OPTYPE_Math_imag,
+	OPTYPE_Math_log,
+	OPTYPE_Math_log10,
+	OPTYPE_Math_norm,
+	OPTYPE_Math_real,
+	OPTYPE_Math_sin,
+	OPTYPE_Math_sinh,
+	OPTYPE_Math_sqrt,
+	OPTYPE_Math_tan,
+	OPTYPE_Math_tanh,
 	OPTYPE_max,
 };
 
@@ -125,6 +136,7 @@ private:
 	EntryDict _entryDict;
 	static const SymbolInfo _symbolInfoTbl[];
 public:
+	// unary operators
 	static Operator *Pos;
 	static Operator *Neg;
 	static Operator *Inv;
@@ -132,6 +144,7 @@ public:
 	static Operator *SeqInf;
 	static Operator *Question;
 	static Operator *Each;
+	// binary operators
 	static Operator *Add;
 	static Operator *Sub;
 	static Operator *Mul;
@@ -156,6 +169,30 @@ public:
 	static Operator *AndAnd;
 	static Operator *Seq;
 	static Operator *Pair;
+	// mathematical functions
+	static Operator *Math_abs;
+	static Operator *Math_acos;
+	static Operator *Math_arg;
+	static Operator *Math_asin;
+	static Operator *Math_atan;
+	static Operator *Math_atan2;
+	static Operator *Math_ceil;
+	static Operator *Math_conj;
+	static Operator *Math_cos;
+	static Operator *Math_cosh;
+	static Operator *Math_exp;
+	static Operator *Math_floor;
+	static Operator *Math_hypot;
+	static Operator *Math_imag;
+	static Operator *Math_log;
+	static Operator *Math_log10;
+	static Operator *Math_norm;
+	static Operator *Math_real;
+	static Operator *Math_sin;
+	static Operator *Math_sinh;
+	static Operator *Math_sqrt;
+	static Operator *Math_tan;
+	static Operator *Math_tanh;
 public:
 	inline Operator(OpType opType, bool mapFlag = true) :
 		_opType(opType), _pSymbol(Symbol::Add(_symbolInfoTbl[opType].symbol)), _mapFlag(mapFlag) {}
@@ -512,6 +549,190 @@ public:
 	inline Operator_Pair() : Operator(OPTYPE_Pair) {}
 	virtual Value EvalMapBinary(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const;
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_abs
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_abs : public Operator {
+public:
+	inline Operator_Math_abs() : Operator(OPTYPE_Math_abs) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_acos
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_acos : public Operator {
+public:
+	inline Operator_Math_acos() : Operator(OPTYPE_Math_acos) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_arg
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_arg : public Operator {
+public:
+	inline Operator_Math_arg() : Operator(OPTYPE_Math_arg) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_asin
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_asin : public Operator {
+public:
+	inline Operator_Math_asin() : Operator(OPTYPE_Math_asin) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_atan
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_atan : public Operator {
+public:
+	inline Operator_Math_atan() : Operator(OPTYPE_Math_atan) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_atan2
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_atan2 : public Operator {
+public:
+	inline Operator_Math_atan2() : Operator(OPTYPE_Math_atan2) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_ceil
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_ceil : public Operator {
+public:
+	inline Operator_Math_ceil() : Operator(OPTYPE_Math_ceil) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_conj
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_conj : public Operator {
+public:
+	inline Operator_Math_conj() : Operator(OPTYPE_Math_conj) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_cos
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_cos : public Operator {
+public:
+	inline Operator_Math_cos() : Operator(OPTYPE_Math_cos) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_cosh
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_cosh : public Operator {
+public:
+	inline Operator_Math_cosh() : Operator(OPTYPE_Math_cosh) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_exp
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_exp : public Operator {
+public:
+	inline Operator_Math_exp() : Operator(OPTYPE_Math_exp) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_floor
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_floor : public Operator {
+public:
+	inline Operator_Math_floor() : Operator(OPTYPE_Math_floor) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_hypot
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_hypot : public Operator {
+public:
+	inline Operator_Math_hypot() : Operator(OPTYPE_Math_hypot) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_imag
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_imag : public Operator {
+public:
+	inline Operator_Math_imag() : Operator(OPTYPE_Math_imag) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_log
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_log : public Operator {
+public:
+	inline Operator_Math_log() : Operator(OPTYPE_Math_log) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_log10
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_log10 : public Operator {
+public:
+	inline Operator_Math_log10() : Operator(OPTYPE_Math_log10) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_norm
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_norm : public Operator {
+public:
+	inline Operator_Math_norm() : Operator(OPTYPE_Math_norm) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_real
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_real : public Operator {
+public:
+	inline Operator_Math_real() : Operator(OPTYPE_Math_real) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_sin
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_sin : public Operator {
+public:
+	inline Operator_Math_sin() : Operator(OPTYPE_Math_sin) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_sinh
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_sinh : public Operator {
+public:
+	inline Operator_Math_sinh() : Operator(OPTYPE_Math_sinh) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_sqrt
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_sqrt : public Operator {
+public:
+	inline Operator_Math_sqrt() : Operator(OPTYPE_Math_sqrt) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_tan
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_tan : public Operator {
+public:
+	inline Operator_Math_tan() : Operator(OPTYPE_Math_tan) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_tanh
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_tanh : public Operator {
+public:
+	inline Operator_Math_tanh() : Operator(OPTYPE_Math_tanh) {}
 };
 
 //-----------------------------------------------------------------------------

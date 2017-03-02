@@ -44,8 +44,33 @@ const Operator::SymbolInfo Operator::_symbolInfoTbl[] = {
 	{ "&&",		"AndAnd"	},
 	{ "..",		"Seq"		},
 	{ "=>",		"Pair"		},
+	// mathematical functions
+	{ "abs",	"Math_abs"	},
+	{ "acos",	"Math_acos"	},
+	{ "arg",	"Math_arg"	},
+	{ "asin",	"Math_asin"	},
+	{ "atan",	"Math_atan"	},
+	{ "atan2",	"Math_atan2"},
+	{ "ceil",	"Math_ceil"	},
+	{ "conj",	"Math_conj"	},
+	{ "cos",	"Math_cos"	},
+	{ "cosh",	"Math_cosh"	},
+	{ "exp",	"Math_exp"	},
+	{ "floor",	"Math_floor"},
+	{ "hypot",	"Math_hypot"},
+	{ "imag",	"Math_imag"	},
+	{ "log",	"Math_log"	},
+	{ "log10",	"Math_log10"},
+	{ "norm",	"Math_norm"	},
+	{ "real",	"Math_real"	},
+	{ "sin",	"Math_sin"	},
+	{ "sinh",	"Math_sinh"	},
+	{ "sqrt",	"Math_sqrt"	},
+	{ "tan",	"Math_tan"	},
+	{ "tanh",	"Math_tanh"	},
 };
 
+// unary operators
 Operator *Operator::Pos			= nullptr;
 Operator *Operator::Neg			= nullptr;
 Operator *Operator::Inv			= nullptr;
@@ -53,6 +78,7 @@ Operator *Operator::Not			= nullptr;
 Operator *Operator::SeqInf		= nullptr;
 Operator *Operator::Question	= nullptr;
 Operator *Operator::Each		= nullptr;
+// binary operators
 Operator *Operator::Add			= nullptr;
 Operator *Operator::Sub			= nullptr;
 Operator *Operator::Mul			= nullptr;
@@ -77,6 +103,30 @@ Operator *Operator::OrOr		= nullptr;
 Operator *Operator::AndAnd		= nullptr;
 Operator *Operator::Seq			= nullptr;
 Operator *Operator::Pair		= nullptr;
+// mathematical functions
+Operator *Operator::Math_abs	= nullptr;
+Operator *Operator::Math_acos	= nullptr;
+Operator *Operator::Math_arg	= nullptr;
+Operator *Operator::Math_asin	= nullptr;
+Operator *Operator::Math_atan	= nullptr;
+Operator *Operator::Math_atan2	= nullptr;
+Operator *Operator::Math_ceil	= nullptr;
+Operator *Operator::Math_conj	= nullptr;
+Operator *Operator::Math_cos	= nullptr;
+Operator *Operator::Math_cosh	= nullptr;
+Operator *Operator::Math_exp	= nullptr;
+Operator *Operator::Math_floor	= nullptr;
+Operator *Operator::Math_hypot	= nullptr;
+Operator *Operator::Math_imag	= nullptr;
+Operator *Operator::Math_log	= nullptr;
+Operator *Operator::Math_log10	= nullptr;
+Operator *Operator::Math_norm	= nullptr;
+Operator *Operator::Math_real	= nullptr;
+Operator *Operator::Math_sin	= nullptr;
+Operator *Operator::Math_sinh	= nullptr;
+Operator *Operator::Math_sqrt	= nullptr;
+Operator *Operator::Math_tan	= nullptr;
+Operator *Operator::Math_tanh	= nullptr;
 
 const OperatorEntry *Operator::Lookup(ValueType valType, bool suffixFlag) const
 {
@@ -1226,6 +1276,98 @@ Value Operator_Pair::EvalMapBinary(Environment &env,
 }
 
 //-----------------------------------------------------------------------------
+// Operator_Math_abs
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_acos
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_arg
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_asin
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_atan
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_atan2
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_ceil
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_conj
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_cos
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_cosh
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_exp
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_floor
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_hypot
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_imag
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_log
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_log10
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_norm
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_real
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_sin
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_sinh
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_sqrt
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_tan
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_tanh
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 // OperatorEntry
 //-----------------------------------------------------------------------------
 OperatorEntry::~OperatorEntry()
@@ -1292,6 +1434,31 @@ void Operator::Initialize(Environment &env)
 	env.SetOperator(OPTYPE_AndAnd,		Operator::AndAnd	= new Operator_AndAnd());
 	env.SetOperator(OPTYPE_Seq,			Operator::Seq		= new Operator_Seq());
 	env.SetOperator(OPTYPE_Pair,		Operator::Pair		= new Operator_Pair());
+	// mathematical functions
+	env.SetOperator(OPTYPE_Math_abs,	Operator::Math_abs	= new Operator_Math_abs());
+	env.SetOperator(OPTYPE_Math_acos,	Operator::Math_acos	= new Operator_Math_acos());
+	env.SetOperator(OPTYPE_Math_arg,	Operator::Math_arg	= new Operator_Math_arg());
+	env.SetOperator(OPTYPE_Math_asin,	Operator::Math_asin	= new Operator_Math_asin());
+	env.SetOperator(OPTYPE_Math_atan,	Operator::Math_atan	= new Operator_Math_atan());
+	env.SetOperator(OPTYPE_Math_atan2,	Operator::Math_atan2= new Operator_Math_atan2());
+	env.SetOperator(OPTYPE_Math_ceil,	Operator::Math_ceil	= new Operator_Math_ceil());
+	env.SetOperator(OPTYPE_Math_conj,	Operator::Math_conj	= new Operator_Math_conj());
+	env.SetOperator(OPTYPE_Math_cos,	Operator::Math_cos	= new Operator_Math_cos());
+	env.SetOperator(OPTYPE_Math_cosh,	Operator::Math_cosh	= new Operator_Math_cosh());
+	env.SetOperator(OPTYPE_Math_exp,	Operator::Math_exp	= new Operator_Math_exp());
+	env.SetOperator(OPTYPE_Math_floor,	Operator::Math_floor= new Operator_Math_floor());
+	env.SetOperator(OPTYPE_Math_hypot,	Operator::Math_hypot= new Operator_Math_hypot());
+	env.SetOperator(OPTYPE_Math_imag,	Operator::Math_imag	= new Operator_Math_imag());
+	env.SetOperator(OPTYPE_Math_log,	Operator::Math_log	= new Operator_Math_log());
+	env.SetOperator(OPTYPE_Math_log10,	Operator::Math_log10= new Operator_Math_log10());
+	env.SetOperator(OPTYPE_Math_norm,	Operator::Math_norm	= new Operator_Math_norm());
+	env.SetOperator(OPTYPE_Math_real,	Operator::Math_real	= new Operator_Math_real());
+	env.SetOperator(OPTYPE_Math_sin,	Operator::Math_sin	= new Operator_Math_sin());
+	env.SetOperator(OPTYPE_Math_sinh,	Operator::Math_sinh	= new Operator_Math_sinh());
+	env.SetOperator(OPTYPE_Math_sqrt,	Operator::Math_sqrt	= new Operator_Math_sqrt());
+	env.SetOperator(OPTYPE_Math_tan,	Operator::Math_tan	= new Operator_Math_tan());
+	env.SetOperator(OPTYPE_Math_tanh,	Operator::Math_tanh	= new Operator_Math_tanh());
+
 	AssignOperatorBasic(env);
 }
 
