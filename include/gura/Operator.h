@@ -84,6 +84,20 @@ enum OpType {
 	OPTYPE_AndAnd,
 	OPTYPE_Seq,
 	OPTYPE_Pair,
+	// math functions
+	OPTYPE_math,
+	OPTYPE_Math_abs,
+	OPTYPE_Math_acos,
+	OPTYPE_Math_arg,
+	OPTYPE_Math_asin,
+	OPTYPE_Math_atan,
+	OPTYPE_Math_atan2,
+	OPTYPE_Math_ceil,
+	OPTYPE_Math_conj,
+	OPTYPE_Math_cos,
+	OPTYPE_Math_cosh,
+	OPTYPE_Math_delta,
+	OPTYPE_Math_,
 	OPTYPE_max,
 };
 
