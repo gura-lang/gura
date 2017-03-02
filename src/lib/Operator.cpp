@@ -1458,7 +1458,6 @@ void Operator::Initialize(Environment &env)
 	env.SetOperator(OPTYPE_Math_sqrt,	Operator::Math_sqrt	= new Operator_Math_sqrt());
 	env.SetOperator(OPTYPE_Math_tan,	Operator::Math_tan	= new Operator_Math_tan());
 	env.SetOperator(OPTYPE_Math_tanh,	Operator::Math_tanh	= new Operator_Math_tanh());
-
 	AssignOperatorBasic(env);
 }
 
