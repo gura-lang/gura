@@ -299,21 +299,35 @@ void Operator::Assign(Environment &env, OperatorEntry *pOperatorEntry)
 void Operator::SetError_InvalidValueType(Signal &sig, OpType opType,
 										const Value &value, bool suffixFlag)
 {
-	if (suffixFlag) {
+	if (IsMathFunction(opType)) {
+		sig.SetError(ERR_TypeError, "can't evaluate math.%s(%s)",
+					 GetSymbolInfo(opType).symbol,
+					 value.MakeValueTypeName().c_str());
+	} else if (suffixFlag) {
 		sig.SetError(ERR_TypeError, "can't evaluate (%s %s)",
-					value.MakeValueTypeName().c_str(), GetSymbolInfo(opType).symbol);
+					 value.MakeValueTypeName().c_str(),
+					 GetSymbolInfo(opType).symbol);
 	} else {
 		sig.SetError(ERR_TypeError, "can't evaluate (%s %s)",
-					GetSymbolInfo(opType).symbol, value.MakeValueTypeName().c_str());
+					 GetSymbolInfo(opType).symbol,
+					 value.MakeValueTypeName().c_str());
 	}
 }
 
 void Operator::SetError_InvalidValueType(Signal &sig, OpType opType,
 						const Value &valueLeft, const Value &valueRight)
 {
-	sig.SetError(ERR_TypeError, "can't evaluate (%s %s %s)",
-				 valueLeft.MakeValueTypeName().c_str(), GetSymbolInfo(opType).symbol,
-				 valueRight.MakeValueTypeName().c_str());
+	if (IsMathFunction(opType)) {
+		sig.SetError(ERR_TypeError, "can't evaluate math.%s(%s, %s)",
+					 GetSymbolInfo(opType).symbol,
+					 valueLeft.MakeValueTypeName().c_str(),
+					 valueRight.MakeValueTypeName().c_str());
+	} else {
+		sig.SetError(ERR_TypeError, "can't evaluate (%s %s %s)",
+					 valueLeft.MakeValueTypeName().c_str(),
+					 GetSymbolInfo(opType).symbol,
+					 valueRight.MakeValueTypeName().c_str());
+	}
 }
 
 void Operator::SetError_DivideByZero(Signal &sig)

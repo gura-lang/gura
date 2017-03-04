@@ -1370,6 +1370,19 @@ Gura_ImplementBinaryOperator(Pair, number, any)
 }
 
 //-----------------------------------------------------------------------------
+// math.abs(A) ... UnaryOperator(Math_abs, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_abs, number)
+{
+	return Value(::fabs(value.GetNumber()));
+}
+
+Gura_ImplementUnaryOperator(Math_abs, complex)
+{
+	return Value(std::abs(value.GetComplex()));
+}
+
+//-----------------------------------------------------------------------------
 // OperatorEntryCustom
 //-----------------------------------------------------------------------------
 Value OperatorEntryCustom::DoEval(Environment &env, const Value &value) const
@@ -1406,6 +1419,7 @@ Value OperatorEntryDerived::DoEval(Environment &env,
 //-----------------------------------------------------------------------------
 void Operator::AssignOperatorBasic(Environment &env)
 {
+	// unary operators
 	Gura_AssignUnaryOperator(Pos, number);
 	Gura_AssignUnaryOperator(Pos, complex);
 	Gura_AssignUnaryOperator(Pos, rational);
@@ -1424,6 +1438,7 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignUnaryOperatorSuffix(SeqInf, number);
 	Gura_AssignUnaryOperatorSuffix(Question, any);
 	Gura_AssignUnaryOperatorSuffix(Each, any);
+	// binary operators
 	Gura_AssignBinaryOperator(Add, number, number);
 	Gura_AssignBinaryOperator(Add, boolean, boolean);
 	Gura_AssignBinaryOperator(Add, number, boolean);
@@ -1570,6 +1585,9 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Pair, symbol, any);
 	Gura_AssignBinaryOperator(Pair, string, any);
 	Gura_AssignBinaryOperator(Pair, number, any);
+	// mathematical functions
+	Gura_AssignUnaryOperator(Math_abs, number);
+	Gura_AssignUnaryOperator(Math_abs, complex);
 }
 
 }

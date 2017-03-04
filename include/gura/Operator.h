@@ -230,6 +230,15 @@ public:
 		if (valType != VTYPE_undefined) return valType;
 		return ExtractValueTypeRight(key);
 	}
+	inline static bool IsUnaryOperator(OpType opType) {
+		return opType < OPTYPE_binary;
+	}
+	inline static bool IsBinaryOperator(OpType opType) {
+		return OPTYPE_binary <= opType && opType < OPTYPE_math;
+	}
+	inline static bool IsMathFunction(OpType opType) {
+		return OPTYPE_math <= opType;
+	}
 	const OperatorEntry *Lookup(ValueType valType, bool suffixFlag) const;
 	const OperatorEntry *Lookup(ValueType valTypeLeft, ValueType valTypeRight) const;
 	virtual Expr *MathDiffUnary(Environment &env,

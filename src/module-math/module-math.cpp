@@ -20,6 +20,8 @@ Gura_DeclareFunction(abs)
 
 Gura_ImplementFunction(abs)
 {
+	return env.GetOperator(OPTYPE_Math_abs)->EvalMapUnary(env, arg.GetValue(0), false);
+#if 0
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
 	Value result;
@@ -31,6 +33,7 @@ Gura_ImplementFunction(abs)
 		SetError_InvalidValType(sig, value);
 	}
 	return result;
+#endif
 }
 
 // math.acos(num):map:[deg]
