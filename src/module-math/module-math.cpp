@@ -15,8 +15,7 @@ Gura_DeclareFunction(abs)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns an absolute value.\n"
-		"The argument `num` takes a value of `number` or `complex`.\n");
+		"Returns an absolute value.\n");
 }
 
 Gura_ImplementFunction(abs)
@@ -43,7 +42,6 @@ Gura_DeclareFunctionWithMathDiff(acos)
 	AddHelp(
 		Gura_Symbol(en),
 		"Returns an inverse cosine value.\n"
-		"The argument `num` takes a value of `number`.\n"
 		"\n"
 		"In default, the result is returned in radian.\n"
 		"Specifying an attribute `:deg` would return that in degree.\n");
@@ -90,7 +88,6 @@ Gura_DeclareFunction(arg)
 	AddHelp(
 		Gura_Symbol(en),
 		"Returns an argument, an angle from the real-axis in the complex plane, of a complex number.\n"
-		"The argument `num` takes a value of `number` or `complex`.\n"
 		"\n"
 		"In default, the angle value is returned in radian.\n"
 		"Specifying an attribute `:deg` would return that in degree.\n");
@@ -122,7 +119,6 @@ Gura_DeclareFunctionWithMathDiff(asin)
 	AddHelp(
 		Gura_Symbol(en),
 		"Returns an inverse sine value.\n"
-		"The argument `num` takes a value of `number`.\n"
 		"\n"
 		"In default, the result is returned in radian.\n"
 		"Specifying an attribute `:deg` would return that in degree.\n");
@@ -168,8 +164,7 @@ Gura_DeclareFunctionWithMathDiff(atan)
 	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns an inverse tangent value.\n"
-		"The argument `num` takes a value of `number`.\n");
+		"Returns an inverse tangent value.\n");
 }
 
 Gura_ImplementFunction(atan)
@@ -212,7 +207,6 @@ Gura_DeclareFunction(atan2)
 	AddHelp(
 		Gura_Symbol(en),
 		"Returns an inverse tangent value of a fraction of num1 and num2.\n"
-		"The argument `num1` and `num2` take values of `number`.\n"
 		"\n"
 		"In default, the result is returned in radian.\n"
 		"Specifying an attribute `:deg` would return that in degree.\n");
@@ -241,8 +235,7 @@ Gura_DeclareFunction(ceil)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), 
-		"Returns a nearest integer number above or equal to the specified value.\n"
-		"The argument `num` takes a value of `number`.\n");
+		"Returns a nearest integer number above or equal to the specified value.\n");
 }
 
 Gura_ImplementFunction(ceil)
@@ -265,8 +258,7 @@ Gura_DeclareFunction(conj)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns a conjugate of a complex number."
-		"The argument `num` takes a value of `number` or `complex`.\n");
+		"Returns a conjugate of a complex number.");
 }
 
 Gura_ImplementFunction(conj)
@@ -293,7 +285,6 @@ Gura_DeclareFunctionWithMathDiff(cos)
 	AddHelp(
 		Gura_Symbol(en),
 		"Returns a cosine value.\n"
-		"The argument `num` takes a value of `number` or `complex`.\n"
 		"\n"
 		"In default, the given argument is treated as a radian number.\n"
 		"Specifying an attribute `:deg` would treat that as a degree number.\n");
@@ -334,8 +325,7 @@ Gura_DeclareFunction(cosh)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns a hyperbolic cosine value.\n"
-		"The argument `num` takes a value of `number` or `complex`.\n");
+		"Returns a hyperbolic cosine value.\n");
 }
 
 Gura_ImplementFunction(cosh)
@@ -466,8 +456,7 @@ Gura_DeclareFunctionWithMathDiff(exp)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns an exponential value.\n"
-		"The argument `num` takes a value of `number` or `complex`.\n");
+		"Returns an exponential value.\n");
 }
 
 Gura_ImplementFunction(exp)
@@ -500,8 +489,7 @@ Gura_DeclareFunction(floor)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), 
-		"Returns a nearest integer number below or equal to the specified value.\n"
-		"The argument `num` takes a value of `number`.\n");
+		"Returns a nearest integer number below or equal to the specified value.\n");
 }
 
 Gura_ImplementFunction(floor)
@@ -525,8 +513,7 @@ Gura_DeclareFunction(hypot)
 	DeclareArg(env, "y", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns a hyperbolic tangent value.\n"
-		"The argument `x` and `y` take values of `number`.\n");
+		"Returns a hyperbolic tangent value.\n");
 }
 
 Gura_ImplementFunction(hypot)
@@ -550,8 +537,7 @@ Gura_DeclareFunction(imag)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns an imaginary part of a complex number."
-		"The argument `num` takes a value of `number` or `complex`.\n");
+		"Returns an imaginary part of a complex number.");
 }
 
 Gura_ImplementFunction(imag)
@@ -576,8 +562,7 @@ Gura_DeclareFunctionWithMathDiff(log)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns a natural logarithm value.\n"
-		"The argument `num` takes a value of `number` or `complex`.\n");
+		"Returns a natural logarithm value.\n");
 }
 
 Gura_ImplementFunction(log)
@@ -615,8 +600,7 @@ Gura_DeclareFunctionWithMathDiff(log10)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns a decadic logarithm value.\n"
-		"The argument `num` takes a value of `number` or `complex`.\n");
+		"Returns a decadic logarithm value.\n");
 }
 
 Gura_ImplementFunction(log10)
@@ -658,8 +642,7 @@ Gura_DeclareFunction(norm)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns a norm value of a complex number.\n"
-		"The argument `num` takes a value of `number` or `complex`.\n");
+		"Returns a norm value of a complex number.\n");
 }
 
 Gura_ImplementFunction(norm)
@@ -684,8 +667,7 @@ Gura_DeclareFunction(real)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns a real part of a complex number.\n"
-		"The argument `num` takes a value of `number` or `complex`.\n");
+		"Returns a real part of a complex number.\n");
 }
 
 Gura_ImplementFunction(real)
@@ -712,7 +694,6 @@ Gura_DeclareFunctionWithMathDiff(sin)
 	AddHelp(
 		Gura_Symbol(en),
 		"Returns a sine value.\n"
-		"The argument `num` takes a value of `number` or `complex`.\n"
 		"\n"
 		"In default, the given argument is treated as a radian number.\n"
 		"Specifying an attribute `:deg` would treat that as a degree number.\n");
@@ -750,8 +731,7 @@ Gura_DeclareFunction(sinh)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns a hyperbolic sine value.\n"
-		"The argument `num` takes a value of `number` or `complex`.\n");
+		"Returns a hyperbolic sine value.\n");
 }
 
 Gura_ImplementFunction(sinh)
@@ -776,8 +756,7 @@ Gura_DeclareFunctionWithMathDiff(sqrt)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns a square root value.\n"
-		"The argument `num` takes a value of `number` or `complex`.\n");
+		"Returns a square root value.\n");
 }
 
 Gura_ImplementFunction(sqrt)
@@ -822,7 +801,6 @@ Gura_DeclareFunctionWithMathDiff(tan)
 	AddHelp(
 		Gura_Symbol(en),
 		"Returns a tangent value.\n"
-		"The argument `num` takes a value of `number` or `complex`.\n"
 		"\n"
 		"In default, the given argument is treated as a radian number.\n"
 		"Specifying an attribute `:deg` would treat that as a degree number.\n");
@@ -866,8 +844,7 @@ Gura_DeclareFunction(tanh)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns a hyperbolic tangent value.\n"
-		"The argument `num` takes a value of `number` or `complex`.\n");
+		"Returns a hyperbolic tangent value.\n");
 }
 
 Gura_ImplementFunction(tanh)
