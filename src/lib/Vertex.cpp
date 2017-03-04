@@ -52,17 +52,17 @@ double Vertex::CalcNorm(const Vertex &v)
 	return ::sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
-double Vertex::CalcInnerProduct(const Vertex &v1, const Vertex &v2)
-{
-	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
-}
-
 Vertex Vertex::CalcCrossProduct(const Vertex &v1, const Vertex &v2)
 {
 	double x = v1.y * v2.z - v1.z * v2.y;
 	double y = v1.z * v2.x - v1.x * v2.z;
 	double z = v1.x * v2.y - v1.y * v2.x;
 	return Vertex(x, y, z);
+}
+
+double Vertex::CalcDotProduct(const Vertex &v1, const Vertex &v2)
+{
+	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
 
 Vertex Vertex::CalcNormal(const Vertex &v1, const Vertex &v2, const Vertex &v3, bool unitFlag)

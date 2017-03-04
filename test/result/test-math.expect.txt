@@ -38,9 +38,9 @@ math.cross([1, 2, 3], [-1, 1, 2]) .. [1, -5, 3]
 math.cross([-1, 1, 2], [1, 2, 3]) .. [-1, 5, -3]
 math.cross([-1, -3], [2, 2, 3]) .. ValueError: different length of lists
 math.cross([-1, -3, 2, 1], [2, 2, 3, 1]) .. ValueError: only support two or three dimension vector for cross product
-math.inner([-1, -3], [2, 2]) .. -8
-math.inner([-1, -3, 3], [2, 2, -1]) .. -11
-math.inner([-1, -3], [2, 2, 3]) .. ValueError: different length of lists
+math.dot([-1, -3], [2, 2]) .. -8
+math.dot([-1, -3, 3], [2, 2, -1]) .. -11
+math.dot([-1, -3], [2, 2, 3]) .. ValueError: different length of lists
 
 ======== #5 ========
 

@@ -96,6 +96,8 @@ enum OpType {
 	OPTYPE_Math_conj,
 	OPTYPE_Math_cos,
 	OPTYPE_Math_cosh,
+	OPTYPE_Math_cross,
+	OPTYPE_Math_dot,
 	OPTYPE_Math_exp,
 	OPTYPE_Math_floor,
 	OPTYPE_Math_hypot,
@@ -180,6 +182,8 @@ public:
 	static Operator *Math_conj;
 	static Operator *Math_cos;
 	static Operator *Math_cosh;
+	static Operator *Math_cross;
+	static Operator *Math_dot;
 	static Operator *Math_exp;
 	static Operator *Math_floor;
 	static Operator *Math_hypot;
@@ -629,6 +633,22 @@ public:
 class GURA_DLLDECLARE Operator_Math_cosh : public Operator {
 public:
 	inline Operator_Math_cosh() : Operator(OPTYPE_Math_cosh) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_cross
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_cross : public Operator {
+public:
+	inline Operator_Math_cross() : Operator(OPTYPE_Math_cross) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_dot
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_dot : public Operator {
+public:
+	inline Operator_Math_dot() : Operator(OPTYPE_Math_dot) {}
 };
 
 //-----------------------------------------------------------------------------

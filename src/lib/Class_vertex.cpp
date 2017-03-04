@@ -154,8 +154,8 @@ Gura_ImplementClassMethod(vertex, cross)
 		env, arg, Value(new Object_vertex(env, Vertex::CalcCrossProduct(v1, v2))));
 }
 
-// vertex.inner(v1:vertex, v2:vertex):map {block?}
-Gura_DeclareClassMethod(vertex, inner)
+// vertex.dot(v1:vertex, v2:vertex):map {block?}
+Gura_DeclareClassMethod(vertex, dot)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "v1", VTYPE_vertex, OCCUR_Once);
@@ -163,16 +163,16 @@ Gura_DeclareClassMethod(vertex, inner)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Calculates inner product between `v1` and `v2`\n"
+		"Calculates dot product between `v1` and `v2`\n"
 		"and returns the result as a `number` instance.\n");
 }
 
-Gura_ImplementClassMethod(vertex, inner)
+Gura_ImplementClassMethod(vertex, dot)
 {
 	const Vertex &v1 = Object_vertex::GetObject(arg, 0)->GetVertex();
 	const Vertex &v2 = Object_vertex::GetObject(arg, 1)->GetVertex();
 	return ReturnValue(
-		env, arg, Value(Vertex::CalcInnerProduct(v1, v2)));
+		env, arg, Value(Vertex::CalcDotProduct(v1, v2)));
 }
 
 // vertex#norm()
@@ -361,7 +361,7 @@ void Class_vertex::DoPrepare(Environment &env)
 	Gura_AssignProperty(vertex, z);
 	// Assignment of methods
 	Gura_AssignMethod(vertex, cross);
-	Gura_AssignMethod(vertex, inner);
+	Gura_AssignMethod(vertex, dot);
 	Gura_AssignMethod(vertex, norm);
 	Gura_AssignMethod(vertex, normal);
 	Gura_AssignMethod(vertex, rotate_at_x);

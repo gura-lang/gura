@@ -228,9 +228,10 @@ math:module
   math.cos(num):map:[deg]
   math.cosh(num):map
   math.covariance(a:iterator, b:iterator)
-  math.cross (a[], b[])
+  math.cross (a:list, b:list)
   math.delta(num:number):map
   math.diff(expr:expr, var:symbol):map {block?}
+  math.dot(a:list, b:list)
   e:number = 2.71828
   math.exp(num):map
   math.fft(seq[])
@@ -238,7 +239,6 @@ math:module
   math.gcd(a:number, b+:number):map
   math.hypot(x, y):map
   math.imag(num):map
-  math.inner(a[], b[])
   math.integral()
   math.lcm(a:number, b+:number):map
   math.least_square(x:iterator, y:iterator, dim:number => 1, var:symbol => `x)
@@ -972,7 +972,7 @@ uri
   uri.parsequery(query:string):static:map
 vertex
   vertex.cross (v1:vertex, v2:vertex):static:map {block?}
-  vertex.inner(v1:vertex, v2:vertex):static:map {block?}
+  vertex.dot(v1:vertex, v2:vertex):static:map {block?}
   vertex#list() {block?}
   vertex#norm() {block?}
   vertex.normal(v1:vertex, v2:vertex, v3:vertex):static:map:[unit] {block?}

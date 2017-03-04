@@ -55,6 +55,8 @@ const Operator::SymbolInfo Operator::_symbolInfoTbl[] = {
 	{ "conj",	"Math_conj"	},
 	{ "cos",	"Math_cos"	},
 	{ "cosh",	"Math_cosh"	},
+	{ "cross",	"Math_cross"},
+	{ "dot",	"Math_dot"	},
 	{ "exp",	"Math_exp"	},
 	{ "floor",	"Math_floor"},
 	{ "hypot",	"Math_hypot"},
@@ -114,6 +116,8 @@ Operator *Operator::Math_ceil	= nullptr;
 Operator *Operator::Math_conj	= nullptr;
 Operator *Operator::Math_cos	= nullptr;
 Operator *Operator::Math_cosh	= nullptr;
+Operator *Operator::Math_cross	= nullptr;
+Operator *Operator::Math_dot	= nullptr;
 Operator *Operator::Math_exp	= nullptr;
 Operator *Operator::Math_floor	= nullptr;
 Operator *Operator::Math_hypot	= nullptr;
@@ -1316,6 +1320,14 @@ Value Operator_Pair::EvalMapBinary(Environment &env,
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// Operator_Math_cross
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_dot
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 // Operator_Math_exp
 //-----------------------------------------------------------------------------
 
@@ -1445,6 +1457,8 @@ void Operator::Initialize(Environment &env)
 	env.SetOperator(OPTYPE_Math_conj,	Operator::Math_conj	= new Operator_Math_conj());
 	env.SetOperator(OPTYPE_Math_cos,	Operator::Math_cos	= new Operator_Math_cos());
 	env.SetOperator(OPTYPE_Math_cosh,	Operator::Math_cosh	= new Operator_Math_cosh());
+	env.SetOperator(OPTYPE_Math_cross,	Operator::Math_cross= new Operator_Math_cross());
+	env.SetOperator(OPTYPE_Math_dot,	Operator::Math_dot	= new Operator_Math_dot());
 	env.SetOperator(OPTYPE_Math_exp,	Operator::Math_exp	= new Operator_Math_exp());
 	env.SetOperator(OPTYPE_Math_floor,	Operator::Math_floor= new Operator_Math_floor());
 	env.SetOperator(OPTYPE_Math_hypot,	Operator::Math_hypot= new Operator_Math_hypot());

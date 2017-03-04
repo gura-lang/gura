@@ -353,6 +353,112 @@ Gura_ImplementFunction(cosh)
 	return result;
 }
 
+// math.cross(a:list, b:list)
+static Value CalcCrossElem(Environment &env,
+		const Value &ax, const Value &ay, const Value &bx, const Value &by);
+
+Gura_DeclareFunction(cross)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "a", VTYPE_list, OCCUR_Once);
+	DeclareArg(env, "b", VTYPE_list, OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en),
+		"Calculates a cross product between lists `a` and `b`.");
+}
+
+Gura_ImplementFunction(cross)
+{
+	Signal &sig = env.GetSignal();
+	const ValueList &valList1 = arg.GetList(0);
+	const ValueList &valList2 = arg.GetList(1);
+	if (valList1.size() != valList2.size()) {
+		sig.SetError(ERR_ValueError, "different length of lists");
+		return Value::Nil;
+	}
+	if (valList1.size() == 2) {
+		return CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
+	} else if (valList1.size() == 3) {
+		Value result;
+		Object_list *pObjList = result.InitAsList(env);
+		pObjList->Reserve(3);
+		Value value;
+		value = CalcCrossElem(env, valList1[1], valList1[2], valList2[1], valList2[2]);
+		if (sig.IsSignalled()) return Value::Nil;
+		pObjList->Add(value);
+		value = CalcCrossElem(env, valList1[2], valList1[0], valList2[2], valList2[0]);
+		if (sig.IsSignalled()) return Value::Nil;
+		pObjList->Add(value);
+		value = CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
+		if (sig.IsSignalled()) return Value::Nil;
+		pObjList->Add(value);
+		return result;
+	} else {
+		sig.SetError(ERR_ValueError,
+				"only support two or three dimension vector for cross product");
+		return Value::Nil;
+	}
+}
+
+Value CalcCrossElem(Environment &env,
+		const Value &ax, const Value &ay, const Value &bx, const Value &by)
+{
+	Signal &sig = env.GetSignal();
+	Value valueLeft;
+	do {
+		valueLeft = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ax, by);
+		if (sig.IsSignalled()) return Value::Nil;
+	} while (0);
+	Value valueRight;
+	do {
+		valueRight = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ay, bx);
+		if (sig.IsSignalled()) return Value::Nil;
+	} while (0);
+	Value value;
+	do {
+		value = env.GetOperator(OPTYPE_Sub)->EvalBinary(env, valueLeft, valueRight);
+		if (sig.IsSignalled()) return Value::Nil;
+	} while (0);
+	return value;
+}
+
+// math.dot(a:list, b:list)
+Gura_DeclareFunction(dot)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "a", VTYPE_list, OCCUR_Once);
+	DeclareArg(env, "b", VTYPE_list, OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en),
+		"Calculates a dot product between lists `a` and `b`.");
+}
+
+Gura_ImplementFunction(dot)
+{
+	Signal &sig = env.GetSignal();
+	const ValueList &valList1 = arg.GetList(0);
+	const ValueList &valList2 = arg.GetList(1);
+	if (valList1.size() != valList2.size()) {
+		sig.SetError(ERR_ValueError, "different length of lists");
+		return Value::Nil;
+	}
+	ValueList::const_iterator pValue1 = valList1.begin();
+	ValueList::const_iterator pValue2 = valList2.begin();
+	Value valueSum(0);
+	for ( ; pValue1 != valList1.end(); pValue1++, pValue2++) {
+		Value value;
+		do {
+			value = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, *pValue1, *pValue2);
+			if (sig.IsSignalled()) return Value::Nil;
+		} while (0);
+		do {
+			valueSum = env.GetOperator(OPTYPE_Add)->EvalBinary(env, valueSum, value);
+			if (sig.IsSignalled()) return Value::Nil;
+		} while (0);
+	}
+	return valueSum;
+}
+
 // math.exp(num):map
 Gura_DeclareFunctionWithMathDiff(exp)
 {
@@ -926,75 +1032,6 @@ Gura_ImplementFunction(covariance)
 	return Value(result / static_cast<Number>(cntA));
 }
 
-// math.cross(a[], b[])
-static Value CalcCrossElem(Environment &env,
-		const Value &ax, const Value &ay, const Value &bx, const Value &by);
-
-Gura_DeclareFunction(cross)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "a", VTYPE_any, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "b", VTYPE_any, OCCUR_Once, FLAG_ListVar);
-	AddHelp(
-		Gura_Symbol(en),
-		"Calculates a cross product between lists `a` and `b`.");
-}
-
-Gura_ImplementFunction(cross)
-{
-	Signal &sig = env.GetSignal();
-	const ValueList &valList1 = arg.GetList(0);
-	const ValueList &valList2 = arg.GetList(1);
-	if (valList1.size() != valList2.size()) {
-		sig.SetError(ERR_ValueError, "different length of lists");
-		return Value::Nil;
-	}
-	if (valList1.size() == 2) {
-		return CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
-	} else if (valList1.size() == 3) {
-		Value result;
-		Object_list *pObjList = result.InitAsList(env);
-		pObjList->Reserve(3);
-		Value value;
-		value = CalcCrossElem(env, valList1[1], valList1[2], valList2[1], valList2[2]);
-		if (sig.IsSignalled()) return Value::Nil;
-		pObjList->Add(value);
-		value = CalcCrossElem(env, valList1[2], valList1[0], valList2[2], valList2[0]);
-		if (sig.IsSignalled()) return Value::Nil;
-		pObjList->Add(value);
-		value = CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
-		if (sig.IsSignalled()) return Value::Nil;
-		pObjList->Add(value);
-		return result;
-	} else {
-		sig.SetError(ERR_ValueError,
-				"only support two or three dimension vector for cross product");
-		return Value::Nil;
-	}
-}
-
-Value CalcCrossElem(Environment &env,
-		const Value &ax, const Value &ay, const Value &bx, const Value &by)
-{
-	Signal &sig = env.GetSignal();
-	Value valueLeft;
-	do {
-		valueLeft = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ax, by);
-		if (sig.IsSignalled()) return Value::Nil;
-	} while (0);
-	Value valueRight;
-	do {
-		valueRight = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ay, bx);
-		if (sig.IsSignalled()) return Value::Nil;
-	} while (0);
-	Value value;
-	do {
-		value = env.GetOperator(OPTYPE_Sub)->EvalBinary(env, valueLeft, valueRight);
-		if (sig.IsSignalled()) return Value::Nil;
-	} while (0);
-	return value;
-}
-
 // math.diff(expr:expr, var:symbol):map {block?}
 Gura_DeclareFunction(diff)
 {
@@ -1074,43 +1111,6 @@ Gura_ImplementFunction(gcd)
 		gcd = CalcGCD(gcd, pValue->GetInt());
 	}
 	return Value(gcd);
-}
-
-// math.inner(a[], b[])
-Gura_DeclareFunction(inner)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "a", VTYPE_any, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "b", VTYPE_any, OCCUR_Once, FLAG_ListVar);
-	AddHelp(
-		Gura_Symbol(en),
-		"Calculates an inner product between lists `a` and `b`.");
-}
-
-Gura_ImplementFunction(inner)
-{
-	Signal &sig = env.GetSignal();
-	const ValueList &valList1 = arg.GetList(0);
-	const ValueList &valList2 = arg.GetList(1);
-	if (valList1.size() != valList2.size()) {
-		sig.SetError(ERR_ValueError, "different length of lists");
-		return Value::Nil;
-	}
-	ValueList::const_iterator pValue1 = valList1.begin();
-	ValueList::const_iterator pValue2 = valList2.begin();
-	Value valueSum(0);
-	for ( ; pValue1 != valList1.end(); pValue1++, pValue2++) {
-		Value value;
-		do {
-			value = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, *pValue1, *pValue2);
-			if (sig.IsSignalled()) return Value::Nil;
-		} while (0);
-		do {
-			valueSum = env.GetOperator(OPTYPE_Add)->EvalBinary(env, valueSum, value);
-			if (sig.IsSignalled()) return Value::Nil;
-		} while (0);
-	}
-	return valueSum;
 }
 
 // math.integral(func, sequence)
@@ -1368,6 +1368,8 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(conj);
 	Gura_AssignFunction(cos);
 	Gura_AssignFunction(cosh);
+	Gura_AssignFunction(cross);
+	Gura_AssignFunction(dot);
 	Gura_AssignFunction(exp);
 	Gura_AssignFunction(floor);
 	Gura_AssignFunction(hypot);
@@ -1384,12 +1386,10 @@ Gura_ModuleEntry()
 	// Assignment of other functions
 	Gura_AssignFunction(bezier);
 	Gura_AssignFunction(covariance);
-	Gura_AssignFunction(cross);
 	Gura_AssignFunction(diff);
 	Gura_AssignFunction(delta);
 	Gura_AssignFunction(fft);
 	Gura_AssignFunction(gcd);
-	Gura_AssignFunction(inner);
 	Gura_AssignFunction(integral);
 	Gura_AssignFunction(lcm);
 	Gura_AssignFunction(least_square);
