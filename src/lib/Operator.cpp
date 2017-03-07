@@ -56,6 +56,7 @@ const Operator::SymbolInfo Operator::_symbolInfoTbl[] = {
 	{ "cos",	"Math_cos"	},
 	{ "cosh",	"Math_cosh"	},
 	{ "cross",	"Math_cross"},
+	{ "delta",	"Math_delta"},
 	{ "dot",	"Math_dot"	},
 	{ "exp",	"Math_exp"	},
 	{ "floor",	"Math_floor"},
@@ -64,12 +65,14 @@ const Operator::SymbolInfo Operator::_symbolInfoTbl[] = {
 	{ "log",	"Math_log"	},
 	{ "log10",	"Math_log10"},
 	{ "norm",	"Math_norm"	},
+	{ "ramp",	"Math_ramp"	},
 	{ "real",	"Math_real"	},
 	{ "sin",	"Math_sin"	},
 	{ "sinh",	"Math_sinh"	},
 	{ "sqrt",	"Math_sqrt"	},
 	{ "tan",	"Math_tan"	},
 	{ "tanh",	"Math_tanh"	},
+	{ "unitstep","Math_unitstep"},
 };
 
 // unary operators
@@ -117,6 +120,7 @@ Operator *Operator::Math_conj	= nullptr;
 Operator *Operator::Math_cos	= nullptr;
 Operator *Operator::Math_cosh	= nullptr;
 Operator *Operator::Math_cross	= nullptr;
+Operator *Operator::Math_delta	= nullptr;
 Operator *Operator::Math_dot	= nullptr;
 Operator *Operator::Math_exp	= nullptr;
 Operator *Operator::Math_floor	= nullptr;
@@ -125,12 +129,14 @@ Operator *Operator::Math_imag	= nullptr;
 Operator *Operator::Math_log	= nullptr;
 Operator *Operator::Math_log10	= nullptr;
 Operator *Operator::Math_norm	= nullptr;
+Operator *Operator::Math_ramp	= nullptr;
 Operator *Operator::Math_real	= nullptr;
 Operator *Operator::Math_sin	= nullptr;
 Operator *Operator::Math_sinh	= nullptr;
 Operator *Operator::Math_sqrt	= nullptr;
 Operator *Operator::Math_tan	= nullptr;
 Operator *Operator::Math_tanh	= nullptr;
+Operator *Operator::Math_unitstep= nullptr;
 
 const OperatorEntry *Operator::Lookup(ValueType valType, bool suffixFlag) const
 {
@@ -1338,6 +1344,10 @@ Value Operator_Pair::EvalMapBinary(Environment &env,
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// Operator_Math_delta
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 // Operator_Math_dot
 //-----------------------------------------------------------------------------
 
@@ -1370,6 +1380,10 @@ Value Operator_Pair::EvalMapBinary(Environment &env,
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// Operator_Math_ramp
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 // Operator_Math_real
 //-----------------------------------------------------------------------------
 
@@ -1391,6 +1405,10 @@ Value Operator_Pair::EvalMapBinary(Environment &env,
 
 //-----------------------------------------------------------------------------
 // Operator_Math_tanh
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Math_unitstep
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -1472,6 +1490,7 @@ void Operator::Initialize(Environment &env)
 	env.SetOperator(OPTYPE_Math_cos,	Operator::Math_cos	= new Operator_Math_cos());
 	env.SetOperator(OPTYPE_Math_cosh,	Operator::Math_cosh	= new Operator_Math_cosh());
 	env.SetOperator(OPTYPE_Math_cross,	Operator::Math_cross= new Operator_Math_cross());
+	env.SetOperator(OPTYPE_Math_delta,	Operator::Math_delta= new Operator_Math_delta());
 	env.SetOperator(OPTYPE_Math_dot,	Operator::Math_dot	= new Operator_Math_dot());
 	env.SetOperator(OPTYPE_Math_exp,	Operator::Math_exp	= new Operator_Math_exp());
 	env.SetOperator(OPTYPE_Math_floor,	Operator::Math_floor= new Operator_Math_floor());
@@ -1480,12 +1499,14 @@ void Operator::Initialize(Environment &env)
 	env.SetOperator(OPTYPE_Math_log,	Operator::Math_log	= new Operator_Math_log());
 	env.SetOperator(OPTYPE_Math_log10,	Operator::Math_log10= new Operator_Math_log10());
 	env.SetOperator(OPTYPE_Math_norm,	Operator::Math_norm	= new Operator_Math_norm());
+	env.SetOperator(OPTYPE_Math_ramp,	Operator::Math_ramp	= new Operator_Math_ramp());
 	env.SetOperator(OPTYPE_Math_real,	Operator::Math_real	= new Operator_Math_real());
 	env.SetOperator(OPTYPE_Math_sin,	Operator::Math_sin	= new Operator_Math_sin());
 	env.SetOperator(OPTYPE_Math_sinh,	Operator::Math_sinh	= new Operator_Math_sinh());
 	env.SetOperator(OPTYPE_Math_sqrt,	Operator::Math_sqrt	= new Operator_Math_sqrt());
 	env.SetOperator(OPTYPE_Math_tan,	Operator::Math_tan	= new Operator_Math_tan());
 	env.SetOperator(OPTYPE_Math_tanh,	Operator::Math_tanh	= new Operator_Math_tanh());
+	env.SetOperator(OPTYPE_Math_unitstep, Operator::Math_unitstep = new Operator_Math_unitstep());
 	AssignOperatorBasic(env);
 }
 

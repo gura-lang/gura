@@ -97,6 +97,7 @@ enum OpType {
 	OPTYPE_Math_cos,
 	OPTYPE_Math_cosh,
 	OPTYPE_Math_cross,
+	OPTYPE_Math_delta,
 	OPTYPE_Math_dot,
 	OPTYPE_Math_exp,
 	OPTYPE_Math_floor,
@@ -105,12 +106,14 @@ enum OpType {
 	OPTYPE_Math_log,
 	OPTYPE_Math_log10,
 	OPTYPE_Math_norm,
+	OPTYPE_Math_ramp,
 	OPTYPE_Math_real,
 	OPTYPE_Math_sin,
 	OPTYPE_Math_sinh,
 	OPTYPE_Math_sqrt,
 	OPTYPE_Math_tan,
 	OPTYPE_Math_tanh,
+	OPTYPE_Math_unitstep,
 	OPTYPE_max,
 };
 
@@ -183,6 +186,7 @@ public:
 	static Operator *Math_cos;
 	static Operator *Math_cosh;
 	static Operator *Math_cross;
+	static Operator *Math_delta;
 	static Operator *Math_dot;
 	static Operator *Math_exp;
 	static Operator *Math_floor;
@@ -191,12 +195,14 @@ public:
 	static Operator *Math_log;
 	static Operator *Math_log10;
 	static Operator *Math_norm;
+	static Operator *Math_ramp;
 	static Operator *Math_real;
 	static Operator *Math_sin;
 	static Operator *Math_sinh;
 	static Operator *Math_sqrt;
 	static Operator *Math_tan;
 	static Operator *Math_tanh;
+	static Operator *Math_unitstep;
 public:
 	inline Operator(OpType opType, bool mapFlag = true) :
 		_opType(opType), _pSymbol(Symbol::Add(_symbolInfoTbl[opType].symbol)), _mapFlag(mapFlag) {}
@@ -256,9 +262,9 @@ public:
 	static OpType LookupBinaryOpType(const char *str);
 	Value EvalUnary(Environment &env, const Value &value, bool suffixFlag) const;
 	Value EvalBinary(Environment &env,
-					const Value &valueLeft, const Value &valueRight) const;
+					 const Value &valueLeft, const Value &valueRight) const;
 	virtual Value EvalMapUnary(Environment &env,
-									const Value &value, bool suffixFlag) const;
+							   const Value &value, bool suffixFlag) const;
 	virtual Value EvalMapBinary(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const;
 	static void SetError_InvalidValueType(Signal &sig, OpType opType,
@@ -653,6 +659,14 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Operator_Math_delta
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_delta : public Operator {
+public:
+	inline Operator_Math_delta() : Operator(OPTYPE_Math_delta) {}
+};
+
+//-----------------------------------------------------------------------------
 // Operator_Math_dot
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Operator_Math_dot : public Operator {
@@ -717,6 +731,14 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Operator_Math_ramp
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_ramp : public Operator {
+public:
+	inline Operator_Math_ramp() : Operator(OPTYPE_Math_ramp) {}
+};
+
+//-----------------------------------------------------------------------------
 // Operator_Math_real
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Operator_Math_real : public Operator {
@@ -762,6 +784,14 @@ public:
 class GURA_DLLDECLARE Operator_Math_tanh : public Operator {
 public:
 	inline Operator_Math_tanh() : Operator(OPTYPE_Math_tanh) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Math_unitstep
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_unitstep : public Operator {
+public:
+	inline Operator_Math_unitstep() : Operator(OPTYPE_Math_unitstep) {}
 };
 
 //-----------------------------------------------------------------------------
