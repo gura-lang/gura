@@ -416,7 +416,7 @@ Expr *Operator_Neg::MathOptimize(Environment &env, Expr *pExprChild)
 		Expr::Delete(pExprChild);
 		return pExpr;
 	} else {
-		return new Expr_UnaryOp(env.GetOperator(OPTYPE_Neg), pExprChild, false);
+		return new Expr_UnaryOp(env.GetOperator(OPTYPE_Neg), pExprChild);
 	}
 }
 

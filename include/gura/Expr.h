@@ -648,7 +648,7 @@ class GURA_DLLDECLARE Expr_UnaryOp : public Expr_Unary {
 protected:
 	const Operator *_pOperator;
 public:
-	inline Expr_UnaryOp(const Operator *pOperator, Expr *pExprChild, bool suffixFlag) :
+	inline Expr_UnaryOp(const Operator *pOperator, Expr *pExprChild) :
 					Expr_Unary(EXPRTYPE_UnaryOp, pExprChild), _pOperator(pOperator) {}
 	inline Expr_UnaryOp(const Expr_UnaryOp &expr) :
 					Expr_Unary(expr), _pOperator(expr._pOperator) {}

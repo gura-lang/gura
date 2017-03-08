@@ -350,8 +350,7 @@ Gura_ImplementMathDiff(cos)
 		env.GetOperator(OPTYPE_Neg),
 		Expr::CreateCaller(
 			Gura_Symbol(math), Gura_Symbol(sin),
-			pExprArg->Clone()),
-		false);
+			pExprArg->Clone()));
 }
 
 // math.cosh(num):map
