@@ -55,9 +55,13 @@ enum OpType {
 	OPTYPE_Neg,
 	OPTYPE_Inv,
 	OPTYPE_Not,
-	OPTYPE_SeqInf,
+	// suffixed unary operators
+	OPTYPE_suffixed_unary,
+	OPTYPE_SeqInf	= OPTYPE_suffixed_unary,
 	OPTYPE_Question,
 	OPTYPE_Each,
+	OPTYPE_PostPos,
+	OPTYPE_PostMod,
 	// binary operators
 	OPTYPE_binary,
 	OPTYPE_Add		= OPTYPE_binary,
@@ -146,9 +150,12 @@ public:
 	static Operator *Neg;
 	static Operator *Inv;
 	static Operator *Not;
+	// suffixed unary operators
 	static Operator *SeqInf;
 	static Operator *Question;
 	static Operator *Each;
+	static Operator *PostPos;
+	static Operator *PostMod;
 	// binary operators
 	static Operator *Add;
 	static Operator *Sub;
@@ -237,7 +244,10 @@ public:
 		return ExtractValueTypeRight(key);
 	}
 	inline static bool IsUnaryOperator(OpType opType) {
-		return opType < OPTYPE_binary;
+		return opType < OPTYPE_suffixed_unary;
+	}
+	inline static bool IsSuffixedUnaryOperator(OpType opType) {
+		return OPTYPE_suffixed_unary <= opType && opType < OPTYPE_binary;
 	}
 	inline static bool IsBinaryOperator(OpType opType) {
 		return OPTYPE_binary <= opType && opType < OPTYPE_math;
@@ -343,6 +353,22 @@ public:
 class GURA_DLLDECLARE Operator_Each : public Operator {
 public:
 	inline Operator_Each() : Operator(OPTYPE_Each, false) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_PostPos
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_PostPos : public Operator {
+public:
+	inline Operator_PostPos() : Operator(OPTYPE_PostPos, false) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_PostMod
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_PostMod : public Operator {
+public:
+	inline Operator_PostMod() : Operator(OPTYPE_PostMod, false) {}
 };
 
 //-----------------------------------------------------------------------------

@@ -16,9 +16,12 @@ const Operator::SymbolInfo Operator::_symbolInfoTbl[] = {
 	{ "-",			"Neg"			},
 	{ "~",			"Inv"			},
 	{ "!",			"Not"			},
+	// suffixed unary operators
 	{ "..",			"SeqInf"		},
 	{ "?",			"Question"		},
 	{ "*",			"Each"			},
+	{ "+",			"PostPos"		},
+	{ "%",			"PostMod"		},
 	// binary operators
 	{ "+",			"Add"			},
 	{ "-",			"Sub"			},
@@ -80,9 +83,12 @@ Operator *Operator::Pos				= nullptr;
 Operator *Operator::Neg				= nullptr;
 Operator *Operator::Inv				= nullptr;
 Operator *Operator::Not				= nullptr;
+// suffixed unary operators
 Operator *Operator::SeqInf			= nullptr;
 Operator *Operator::Question		= nullptr;
 Operator *Operator::Each			= nullptr;
+Operator *Operator::PostPos			= nullptr;
+Operator *Operator::PostMod			= nullptr;
 // binary operators
 Operator *Operator::Add				= nullptr;
 Operator *Operator::Sub				= nullptr;
@@ -435,6 +441,14 @@ Expr *Operator_Neg::MathOptimize(Environment &env, Expr *pExprChild)
 
 //-----------------------------------------------------------------------------
 // Operator_Each
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_PostPos
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_PostMod
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -1450,9 +1464,12 @@ void Operator::Initialize(Environment &env)
 	env.SetOperator(OPTYPE_Neg,				Operator::Neg			= new Operator_Neg());
 	env.SetOperator(OPTYPE_Inv,				Operator::Inv			= new Operator_Inv());
 	env.SetOperator(OPTYPE_Not,				Operator::Not			= new Operator_Not());
+	// suffixed unary operators
 	env.SetOperator(OPTYPE_SeqInf,			Operator::SeqInf		= new Operator_SeqInf());
 	env.SetOperator(OPTYPE_Question,		Operator::Question		= new Operator_Question());
 	env.SetOperator(OPTYPE_Each,			Operator::Each			= new Operator_Each());
+	env.SetOperator(OPTYPE_PostPos,			Operator::PostPos		= new Operator_PostPos());
+	env.SetOperator(OPTYPE_PostMod,			Operator::PostMod		= new Operator_PostMod());
 	// binary operators
 	env.SetOperator(OPTYPE_Add,				Operator::Add			= new Operator_Add());
 	env.SetOperator(OPTYPE_Sub,				Operator::Sub			= new Operator_Sub());

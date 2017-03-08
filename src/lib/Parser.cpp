@@ -1584,7 +1584,7 @@ bool Parser::ReduceTwoTokens(Environment &env)
 	} else if (token1.IsType(TOKEN_Expr)) {
 		if (token2.IsType(TOKEN_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '+'\n"));
-			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Add), token1.GetExpr(), true);
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_PostPos), token1.GetExpr(), true);
 		} else if (token2.IsType(TOKEN_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '*'\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Each), token1.GetExpr(), true);
@@ -1592,8 +1592,8 @@ bool Parser::ReduceTwoTokens(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> Expr '?'\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Question), token1.GetExpr(), true);
 		} else if (token2.IsType(TOKEN_Mod)) {
-			DBGPARSER(::printf("Reduce: Expr -> Expr '%%%%'\n"));
-			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), token1.GetExpr(), true);
+			DBGPARSER(::printf("Reduce: Expr -> Expr '%%'\n"));
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_PostMod), token1.GetExpr(), true);
 		} else if (token2.IsType(TOKEN_Seq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ..\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_SeqInf), token1.GetExpr(), true);
