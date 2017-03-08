@@ -1368,7 +1368,7 @@ bool Expr_Member::GenerateScript(Signal &sig, SimpleStream &stream,
 // Expr_UnaryOp
 //-----------------------------------------------------------------------------
 bool Expr_UnaryOp::IsUnaryOp() const { return true; }
-bool Expr_UnaryOp::IsUnaryOpSuffix() const { return _suffixFlag; }
+bool Expr_UnaryOp::IsUnaryOpSuffix() const { return _pOperator->IsSuffixedUnaryOperator(); }
 
 Expr *Expr_UnaryOp::Clone() const
 {
@@ -1381,7 +1381,7 @@ Value Expr_UnaryOp::DoExec(Environment &env) const
 	Signal &sig = env.GetSignal();
 	Value value = GetChild()->Exec(env);
 	if (sig.IsSignalled()) return Value::Nil;
-	Value result = _pOperator->EvalMapUnary(env, value, _suffixFlag);
+	Value result = _pOperator->EvalMapUnary(env, value);
 	if (sig.IsSignalled()) return Value::Nil;
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
@@ -1411,6 +1411,7 @@ bool Expr_UnaryOp::GenerateCode(Environment &env, CodeGenerator &codeGenerator) 
 bool Expr_UnaryOp::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
+	bool suffixFlag = _pOperator->IsSuffixedUnaryOperator();
 	bool needParenthesisFlag = false;
 	if (GetParent() != nullptr) {
 		needParenthesisFlag = (GetParent()->IsUnaryOp() ||
@@ -1420,12 +1421,12 @@ bool Expr_UnaryOp::GenerateScript(Signal &sig, SimpleStream &stream,
 		stream.PutChar(sig, '(');
 		if (sig.IsSignalled()) return false;
 	}
-	if (!_suffixFlag) {
+	if (!suffixFlag) {
 		stream.Print(sig, _pOperator->GetSymbol()->GetName());
 		if (sig.IsSignalled()) return false;
 	}
 	if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
-	if (_suffixFlag) {
+	if (suffixFlag) {
 		stream.Print(sig, _pOperator->GetSymbol()->GetName());
 		if (sig.IsSignalled()) return false;
 	}

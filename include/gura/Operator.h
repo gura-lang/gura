@@ -255,14 +255,17 @@ public:
 	inline static bool IsMathFunction(OpType opType) {
 		return OPTYPE_math <= opType;
 	}
-	const OperatorEntry *Lookup(ValueType valType, bool suffixFlag) const;
+	inline bool IsUnaryOperator() const { return IsUnaryOperator(_opType); }
+	inline bool IsSuffixedUnaryOperator() const { return IsSuffixedUnaryOperator(_opType); }
+	inline bool IsBinaryOperator() const { return IsBinaryOperator(_opType); }
+	inline bool IsMathFunction() const { return IsMathFunction(_opType); }
+	const OperatorEntry *Lookup(ValueType valType) const;
 	const OperatorEntry *Lookup(ValueType valTypeLeft, ValueType valTypeRight) const;
 	virtual Expr *MathDiffUnary(Environment &env,
 							const Expr *pExprChild, const Symbol *pSymbol) const;
 	virtual Expr *MathDiffBinary(Environment &env,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const;
-	Expr *MathOptimizeConst(Environment &env,
-									Expr_Value *pExprChild, bool suffixFlag) const;
+	Expr *MathOptimizeConst(Environment &env, Expr_Value *pExprChild) const;
 	Expr *MathOptimizeConst(Environment &env,
 									Expr_Value *pExprLeft, Expr_Value *pExprRight) const;
 	virtual Expr *MathOptimizeUnary(Environment &env, Expr *pExprChild) const;
@@ -270,15 +273,13 @@ public:
 									Expr *pExprLeft, Expr *pExprRight) const;
 	static OpType LookupUnaryOpType(const char *str);
 	static OpType LookupBinaryOpType(const char *str);
-	Value EvalUnary(Environment &env, const Value &value, bool suffixFlag) const;
+	Value EvalUnary(Environment &env, const Value &value) const;
 	Value EvalBinary(Environment &env,
 					 const Value &valueLeft, const Value &valueRight) const;
-	virtual Value EvalMapUnary(Environment &env,
-							   const Value &value, bool suffixFlag) const;
+	virtual Value EvalMapUnary(Environment &env, const Value &value) const;
 	virtual Value EvalMapBinary(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const;
-	static void SetError_InvalidValueType(Signal &sig, OpType opType,
-									const Value &value, bool suffixFlag);
+	static void SetError_InvalidValueType(Signal &sig, OpType opType, const Value &value);
 	static void SetError_InvalidValueType(Signal &sig, OpType opType,
 					const Value &valueLeft, const Value &valueRight);
 	static void Assign(Environment &env, OperatorEntry *pOperatorEntry);
@@ -848,7 +849,7 @@ public:
 	virtual Value DoEval(Environment &env, const Value &value) const;
 	virtual Value DoEval(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const;
-	void SetError_InvalidValueType(Signal &sig, const Value &value, bool suffixFlag) const;
+	void SetError_InvalidValueType(Signal &sig, const Value &value) const;
 	void SetError_InvalidValueType(Signal &sig, const Value &valueLeft, const Value &valueRight) const;
 };
 

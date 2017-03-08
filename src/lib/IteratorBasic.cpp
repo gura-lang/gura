@@ -504,8 +504,8 @@ void Iterator_ImplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 // Iterator_UnaryOperatorMap
 //-----------------------------------------------------------------------------
 Iterator_UnaryOperatorMap::Iterator_UnaryOperatorMap(Environment *pEnv,
-				const Operator *pOperator, const Value &value, bool suffixFlag) :
-	Iterator(Finite), _pEnv(pEnv), _pOperator(pOperator), _suffixFlag(suffixFlag),
+				const Operator *pOperator, const Value &value) :
+	Iterator(Finite), _pEnv(pEnv), _pOperator(pOperator),
 	_pOperatorEntry(nullptr), _valTypePrev(VTYPE_undefined)
 {
 	Signal &sig = pEnv->GetSignal();
@@ -535,7 +535,7 @@ bool Iterator_UnaryOperatorMap::DoNext(Environment &env, Value &value)
 	if (!_pIterator->Next(env, valueArg)) return false;
 	if (_valTypePrev != valueArg.GetValueType()) {
 		_valTypePrev = valueArg.GetValueType();
-		_pOperatorEntry = _pOperator->Lookup(_valTypePrev, _suffixFlag);
+		_pOperatorEntry = _pOperator->Lookup(_valTypePrev);
 	}
 	value = _pOperatorEntry->DoEval(env, valueArg);
 	if (sig.IsSignalled()) return false;

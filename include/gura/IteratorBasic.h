@@ -280,12 +280,10 @@ private:
 	AutoPtr<Environment> _pEnv;
 	const Operator *_pOperator;
 	AutoPtr<Iterator> _pIterator;
-	bool _suffixFlag;
 	const OperatorEntry *_pOperatorEntry;
 	ValueType _valTypePrev;
 public:
-	Iterator_UnaryOperatorMap(Environment *pEnv,
-				const Operator *pOperator, const Value &value, bool suffixFlag);
+	Iterator_UnaryOperatorMap(Environment *pEnv, const Operator *pOperator, const Value &value);
 	virtual ~Iterator_UnaryOperatorMap();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);

@@ -144,8 +144,9 @@ Operator *Operator::Math_tan		= nullptr;
 Operator *Operator::Math_tanh		= nullptr;
 Operator *Operator::Math_unitstep	= nullptr;
 
-const OperatorEntry *Operator::Lookup(ValueType valType, bool suffixFlag) const
+const OperatorEntry *Operator::Lookup(ValueType valType) const
 {
+	bool suffixFlag = IsSuffixedUnaryOperator();
 	EntryDict::const_iterator iter = _entryDict.find(CalcKey(valType, suffixFlag));
 	if (iter != _entryDict.end()) return iter->second;
 	iter = _entryDict.find(CalcKey(VTYPE_any, suffixFlag));
@@ -182,13 +183,12 @@ Expr *Operator::MathDiffBinary(Environment &env,
 	return nullptr;
 }
 
-Expr *Operator::MathOptimizeConst(Environment &env,
-								Expr_Value *pExprChild, bool suffixFlag) const
+Expr *Operator::MathOptimizeConst(Environment &env, Expr_Value *pExprChild) const
 {
 	Signal &sig = env.GetSignal();
 	Value value = pExprChild->GetValue();
 	Expr::Delete(pExprChild);
-	Value result = EvalUnary(env, value, suffixFlag);
+	Value result = EvalUnary(env, value);
 	if (sig.IsSignalled()) return nullptr;
 	return new Expr_Value(result);
 }
@@ -221,12 +221,12 @@ Expr *Operator::MathOptimizeBinary(Environment &env,
 	return nullptr;
 }
 
-Value Operator::EvalUnary(Environment &env, const Value &value, bool suffixFlag) const
+Value Operator::EvalUnary(Environment &env, const Value &value) const
 {
 	Signal &sig = env.GetSignal();
-	const OperatorEntry *pOperatorEntry = Lookup(value.GetValueType(), suffixFlag);
+	const OperatorEntry *pOperatorEntry = Lookup(value.GetValueType());
 	if (pOperatorEntry == nullptr) {
-		SetError_InvalidValueType(sig, GetOpType(), value, suffixFlag);
+		SetError_InvalidValueType(sig, GetOpType(), value);
 		return Value::Nil;
 	}
 	return pOperatorEntry->DoEval(env, value);
@@ -244,13 +244,12 @@ Value Operator::EvalBinary(Environment &env, const Value &valueLeft, const Value
 	return pOperatorEntry->DoEval(env, valueLeft, valueRight);
 }
 
-Value Operator::EvalMapUnary(Environment &env, const Value &value, bool suffixFlag) const
+Value Operator::EvalMapUnary(Environment &env, const Value &value) const
 {
 	if (!_mapFlag || !value.IsListOrIterator() || value.GetNoMapFlag()) {
-		return EvalUnary(env, value, suffixFlag);
+		return EvalUnary(env, value);
 	}
-	AutoPtr<Iterator> pIterator(new Iterator_UnaryOperatorMap(
-									env.Clone(), this, value, suffixFlag));
+	AutoPtr<Iterator> pIterator(new Iterator_UnaryOperatorMap(env.Clone(), this, value));
 	if (value.Is_iterator()) {
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
@@ -308,14 +307,13 @@ void Operator::Assign(Environment &env, OperatorEntry *pOperatorEntry)
 	}
 }
 
-void Operator::SetError_InvalidValueType(Signal &sig, OpType opType,
-										const Value &value, bool suffixFlag)
+void Operator::SetError_InvalidValueType(Signal &sig, OpType opType, const Value &value)
 {
 	if (IsMathFunction(opType)) {
 		sig.SetError(ERR_TypeError, "can't evaluate math.%s(%s)",
 					 GetSymbolInfo(opType).symbol,
 					 value.MakeValueTypeName().c_str());
-	} else if (suffixFlag) {
+	} else if (IsSuffixedUnaryOperator(opType)) {
 		sig.SetError(ERR_TypeError, "can't evaluate (%s %s)",
 					 value.MakeValueTypeName().c_str(),
 					 GetSymbolInfo(opType).symbol);
@@ -409,9 +407,8 @@ Expr *Operator_Neg::MathOptimize(Environment &env, Expr *pExprChild)
 		return nullptr;
 	}
 	if (pExprChild->IsValue()) {
-		bool suffixFlag = false;
 		return env.GetOperator(OPTYPE_Neg)->MathOptimizeConst(env,
-							dynamic_cast<Expr_Value *>(pExprChild), suffixFlag);
+							dynamic_cast<Expr_Value *>(pExprChild));
 	} else if (pExprChild->IsUnaryOp(OPTYPE_Neg)) {
 		// -(-n) = n
 		Expr *pExpr =
@@ -1443,9 +1440,9 @@ Value OperatorEntry::DoEval(Environment &env,
 	return Value::Nil;
 }
 
-void OperatorEntry::SetError_InvalidValueType(Signal &sig, const Value &value, bool suffixFlag) const
+void OperatorEntry::SetError_InvalidValueType(Signal &sig, const Value &value) const
 {
-	Operator::SetError_InvalidValueType(sig, GetOpType(), value, suffixFlag);
+	Operator::SetError_InvalidValueType(sig, GetOpType(), value);
 }
 
 void OperatorEntry::SetError_InvalidValueType(Signal &sig,

@@ -38,7 +38,6 @@ Value Object_operator::DoCall(
 	Signal &sig = env.GetSignal();
 	const ExprList &exprListArg = callerInfo.GetExprListArg();
 	if (exprListArg.size() == 1) {
-		bool suffixFlag = false;
 		if (_opTypeUnary == OPTYPE_None) {
 			sig.SetError(ERR_ArgumentError,
 					"operator '%s' is not a unary one", GetSymbol()->GetName());
@@ -47,7 +46,7 @@ Value Object_operator::DoCall(
 		Value value = exprListArg[0]->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		const Operator *pOperator = GetOperator(_opTypeUnary);
-		return pOperator->EvalUnary(env, value, suffixFlag);
+		return pOperator->EvalUnary(env, value);
 	} else if (exprListArg.size() == 2) {
 		if (_opTypeBinary == OPTYPE_None) {
 			sig.SetError(ERR_ArgumentError,
