@@ -282,8 +282,10 @@ private:
 	AutoPtr<Iterator> _pIterator;
 	const OperatorEntry *_pOperatorEntry;
 	ValueType _valTypePrev;
+	ULong _flags;
 public:
-	Iterator_UnaryOperatorMap(Environment *pEnv, const Operator *pOperator, const Value &value);
+	Iterator_UnaryOperatorMap(
+		Environment *pEnv, const Operator *pOperator, const Value &value, ULong flags);
 	virtual ~Iterator_UnaryOperatorMap();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -302,9 +304,11 @@ private:
 	AutoPtr<Iterator> _pIteratorRight;
 	const OperatorEntry *_pOperatorEntry;
 	ValueType _valTypeLeftPrev, _valTypeRightPrev;
+	ULong _flags;
 public:
-	Iterator_BinaryOperatorMap(Environment *pEnv,
-		const Operator *pOperator, const Value &valueLeft, const Value &valueRight);
+	Iterator_BinaryOperatorMap(
+		Environment *pEnv, const Operator *pOperator,
+		const Value &valueLeft, const Value &valueRight, ULong flags);
 	virtual ~Iterator_BinaryOperatorMap();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);

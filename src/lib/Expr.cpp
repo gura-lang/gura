@@ -1381,7 +1381,7 @@ Value Expr_UnaryOp::DoExec(Environment &env) const
 	Signal &sig = env.GetSignal();
 	Value value = GetChild()->Exec(env);
 	if (sig.IsSignalled()) return Value::Nil;
-	Value result = _pOperator->EvalMapUnary(env, value);
+	Value result = _pOperator->EvalMapUnary(env, value, FLAG_None);
 	if (sig.IsSignalled()) return Value::Nil;
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
@@ -1515,7 +1515,7 @@ Value Expr_BinaryOp::DoExec(Environment &env) const
 		} else {
 			valueRight = pExprRight->Exec(env);
 			if (sig.IsSignalled()) return Value::Nil;
-			result = _pOperator->EvalMapBinary(env, valueLeft, valueRight);
+			result = _pOperator->EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
 			if (sig.IsSignalled()) return Value::Nil;
 		}
 	} else if (opType == OPTYPE_AndAnd) {
@@ -1526,7 +1526,7 @@ Value Expr_BinaryOp::DoExec(Environment &env) const
 		} else {
 			valueRight = pExprRight->Exec(env);
 			if (sig.IsSignalled()) return Value::Nil;
-			result = _pOperator->EvalMapBinary(env, valueLeft, valueRight);
+			result = _pOperator->EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
 			if (sig.IsSignalled()) return Value::Nil;
 		}
 	} else {
@@ -1542,7 +1542,7 @@ Value Expr_BinaryOp::DoExec(Environment &env) const
 			valueRight = pExprRight->Exec(env);
 			if (sig.IsSignalled()) return Value::Nil;
 		}
-		result = _pOperator->EvalMapBinary(env, valueLeft, valueRight);
+		result = _pOperator->EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
 		if (sig.IsSignalled()) return Value::Nil;
 	}
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
@@ -1646,7 +1646,7 @@ Value Expr_Assign::DoExecSub(Environment &env, Environment &envDst) const
 		if (_pOperatorToApply != nullptr) {
 			Value valueLeft = pExpr->Exec(env);
 			if (sig.IsSignalled()) return Value::Nil;
-			valueAssigned = _pOperatorToApply->EvalMapBinary(env, valueLeft, valueAssigned);
+			valueAssigned = _pOperatorToApply->EvalMapBinary(env, valueLeft, valueAssigned, FLAG_None);
 			if (sig.IsSignalled()) return Value::Nil;
 		}
 	}

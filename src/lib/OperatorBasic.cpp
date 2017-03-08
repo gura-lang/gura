@@ -1393,7 +1393,7 @@ Gura_ImplementUnaryOperator(Math_abs, complex)
 //-----------------------------------------------------------------------------
 // OperatorEntryCustom
 //-----------------------------------------------------------------------------
-Value OperatorEntryCustom::DoEval(Environment &env, const Value &value) const
+Value OperatorEntryCustom::DoEval(Environment &env, const Value &value, ULong flags) const
 {
 	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
 	if (!pArg->StoreValue(env, value)) return Value::Nil;
@@ -1401,7 +1401,7 @@ Value OperatorEntryCustom::DoEval(Environment &env, const Value &value) const
 }
 
 Value OperatorEntryCustom::DoEval(Environment &env,
-					const Value &valueLeft, const Value &valueRight) const
+								  const Value &valueLeft, const Value &valueRight, ULong flags) const
 {
 	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
 	if (!pArg->StoreValue(env, valueLeft, valueRight)) return Value::Nil;
@@ -1411,15 +1411,15 @@ Value OperatorEntryCustom::DoEval(Environment &env,
 //-----------------------------------------------------------------------------
 // OperatorEntryDerived
 //-----------------------------------------------------------------------------
-Value OperatorEntryDerived::DoEval(Environment &env, const Value &value) const
+Value OperatorEntryDerived::DoEval(Environment &env, const Value &value, ULong flags) const
 {
-	return _pOperatorEntryOrg->DoEval(env, value);
+	return _pOperatorEntryOrg->DoEval(env, value, flags);
 }
 
 Value OperatorEntryDerived::DoEval(Environment &env,
-					const Value &valueLeft, const Value &valueRight) const
+								   const Value &valueLeft, const Value &valueRight, ULong flags) const
 {
-	return _pOperatorEntryOrg->DoEval(env, valueLeft, valueRight);
+	return _pOperatorEntryOrg->DoEval(env, valueLeft, valueRight, flags);
 }
 
 //-----------------------------------------------------------------------------

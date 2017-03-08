@@ -234,7 +234,7 @@ Value Iterator::Sum(Environment &env, size_t &cnt)
 		Value valResult(value);
 		cnt = 1;
 		while (Next(env, value)) {
-			valResult = pOperatorAdd->EvalBinary(env, valResult, value);
+			valResult = pOperatorAdd->EvalBinary(env, valResult, value, FLAG_None);
 			cnt++;
 			if (sig.IsSignalled()) return Value::Nil;
 		}
@@ -250,7 +250,7 @@ Value Iterator::Sum(Environment &env, size_t &cnt)
 			const Operator *pOperatorAdd = env.GetOperator(OPTYPE_Add);
 			Value valResult(result);
 			do {
-				valResult = pOperatorAdd->EvalBinary(env, valResult, value);
+				valResult = pOperatorAdd->EvalBinary(env, valResult, value, FLAG_None);
 				cnt++;
 				if (sig.IsSignalled()) return Value::Nil;
 			} while (Next(env, value));
@@ -269,7 +269,7 @@ Value Iterator::Prod(Environment &env)
 		const Operator *pOperatorMul = env.GetOperator(OPTYPE_Mul);
 		Value valResult(value);
 		while (Next(env, value)) {
-			valResult = pOperatorMul->EvalBinary(env, valResult, value);
+			valResult = pOperatorMul->EvalBinary(env, valResult, value, FLAG_None);
 			if (sig.IsSignalled()) return Value::Nil;
 		}
 		return valResult;
@@ -283,7 +283,7 @@ Value Iterator::Prod(Environment &env)
 			const Operator *pOperatorMul = env.GetOperator(OPTYPE_Mul);
 			Value valResult(result);
 			do {
-				valResult = pOperatorMul->EvalBinary(env, valResult, value);
+				valResult = pOperatorMul->EvalBinary(env, valResult, value, FLAG_None);
 				if (sig.IsSignalled()) return Value::Nil;
 			} while (Next(env, value));
 			return valResult;
@@ -308,7 +308,7 @@ Value Iterator::Average(Environment &env, size_t &cnt)
 		return Value(valueSum.GetComplex() / static_cast<Number>(cnt));
 	} else {
 		const Operator *pOperatorDiv = env.GetOperator(OPTYPE_Div);
-		return pOperatorDiv->EvalBinary(env, valueSum, Value(cnt));
+		return pOperatorDiv->EvalBinary(env, valueSum, Value(cnt), FLAG_None);
 	}
 }
 

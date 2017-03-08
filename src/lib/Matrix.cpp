@@ -592,7 +592,7 @@ Value Matrix::Neg(Environment &env, const Matrix *pMat)
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			Elements::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				elements.push_back(pOperator->EvalUnary(env, *pValueElem));
+				elements.push_back(pOperator->EvalUnary(env, *pValueElem, FLAG_None));
 				if (sig.IsSignalled()) return Value::Nil;
 			}
 		}
@@ -642,7 +642,7 @@ Value Matrix::AddSub(Environment &env, OpType opType,
 			Elements::const_iterator pValueElem1 = pMat1->GetPointer(iRow, 0);
 			Elements::const_iterator pValueElem2 = pMat2->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem1++, pValueElem2++) {
-				elements.push_back(pOperator->EvalBinary(env, *pValueElem1, *pValueElem2));
+				elements.push_back(pOperator->EvalBinary(env, *pValueElem1, *pValueElem2, FLAG_None));
 				if (sig.IsSignalled()) return Value::Nil;
 			}
 		}
@@ -708,11 +708,11 @@ Value Matrix::InnerProduct(Environment &env, const Matrix *pMat1, const Matrix *
 										iElem++, pValueElem1++, offset += nFold) {
 					Value valueElem;
 					do {
-						valueElem = pOperatorMul->EvalBinary(env, *pValueElem1, *(pValueElem2 + offset));
+						valueElem = pOperatorMul->EvalBinary(env, *pValueElem1, *(pValueElem2 + offset), FLAG_None);
 						if (sig.IsSignalled()) return Value::Nil;
 					} while (0);
 					do {
-						valueAccum = pOperatorAdd->EvalBinary(env, valueAccum, valueElem);
+						valueAccum = pOperatorAdd->EvalBinary(env, valueAccum, valueElem, FLAG_None);
 						if (sig.IsSignalled()) return Value::Nil;
 					} while (0);
 				}
@@ -766,11 +766,11 @@ Value Matrix::InnerProduct(Environment &env, const Matrix *pMat, const ValueList
 			foreach_const (ValueList, pValue, valList) {
 				Value valueElem;
 				do {
-					valueElem = pOperatorMul->EvalBinary(env, *pValueElem, *pValue);
+					valueElem = pOperatorMul->EvalBinary(env, *pValueElem, *pValue, FLAG_None);
 					if (sig.IsSignalled()) return Value::Nil;
 				} while (0);
 				do {
-					valueAccum = pOperatorAdd->EvalBinary(env, valueAccum, valueElem);
+					valueAccum = pOperatorAdd->EvalBinary(env, valueAccum, valueElem, FLAG_None);
 					if (sig.IsSignalled()) return Value::Nil;
 				} while (0);
 				pValueElem++;
@@ -829,11 +829,11 @@ Value Matrix::InnerProduct(Environment &env, const ValueList &valList, const Mat
 			foreach_const (ValueList, pValue, valList) {
 				Value valueElem;
 				do {
-					valueElem = pOperatorMul->EvalBinary(env, *(pValueElem + offset), *pValue);
+					valueElem = pOperatorMul->EvalBinary(env, *(pValueElem + offset), *pValue, FLAG_None);
 					if (sig.IsSignalled()) return Value::Nil;
 				} while (0);
 				do {
-					valueAccum = pOperatorAdd->EvalBinary(env, valueAccum, valueElem);
+					valueAccum = pOperatorAdd->EvalBinary(env, valueAccum, valueElem, FLAG_None);
 					if (sig.IsSignalled()) return Value::Nil;
 				} while (0);
 				offset += nFold;
@@ -875,7 +875,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const Value &value)
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			Elements::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				Value resultElem = pOperator->EvalBinary(env, *pValueElem, value);
+				Value resultElem = pOperator->EvalBinary(env, *pValueElem, value, FLAG_None);
 				if (sig.IsSignalled()) return Value::Nil;
 				elementsResult.push_back(resultElem);
 			}
@@ -916,7 +916,7 @@ Value Matrix::Mul(Environment &env, const Value &value, const Matrix *pMat)
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			Elements::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				Value resultElem = pOperator->EvalBinary(env, value, *pValueElem);
+				Value resultElem = pOperator->EvalBinary(env, value, *pValueElem, FLAG_None);
 				if (sig.IsSignalled()) return Value::Nil;
 				elementsResult.push_back(resultElem);
 			}
@@ -964,7 +964,7 @@ Value Matrix::Div(Environment &env, const Matrix *pMat, const Value &value)
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			Elements::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				elements.push_back(pOperator->EvalBinary(env, *pValueElem, value));
+				elements.push_back(pOperator->EvalBinary(env, *pValueElem, value, FLAG_None));
 				if (sig.IsSignalled()) return Value::Nil;
 			}
 		}

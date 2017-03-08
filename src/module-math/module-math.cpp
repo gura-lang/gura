@@ -21,7 +21,7 @@ Gura_DeclareFunction(abs)
 Gura_ImplementFunction(abs)
 {
 #if 1
-	return env.GetOperator(OPTYPE_Math_abs)->EvalMapUnary(env, arg.GetValue(0));
+	return env.GetOperator(OPTYPE_Math_abs)->EvalMapUnary(env, arg.GetValue(0), FLAG_None);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -439,17 +439,17 @@ Value CalcCrossElem(Environment &env,
 	Signal &sig = env.GetSignal();
 	Value valueLeft;
 	do {
-		valueLeft = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ax, by);
+		valueLeft = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ax, by, FLAG_None);
 		if (sig.IsSignalled()) return Value::Nil;
 	} while (0);
 	Value valueRight;
 	do {
-		valueRight = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ay, bx);
+		valueRight = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ay, bx, FLAG_None);
 		if (sig.IsSignalled()) return Value::Nil;
 	} while (0);
 	Value value;
 	do {
-		value = env.GetOperator(OPTYPE_Sub)->EvalBinary(env, valueLeft, valueRight);
+		value = env.GetOperator(OPTYPE_Sub)->EvalBinary(env, valueLeft, valueRight, FLAG_None);
 		if (sig.IsSignalled()) return Value::Nil;
 	} while (0);
 	return value;
@@ -505,11 +505,11 @@ Gura_ImplementFunction(dot)
 	for ( ; pValue1 != valList1.end(); pValue1++, pValue2++) {
 		Value value;
 		do {
-			value = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, *pValue1, *pValue2);
+			value = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, *pValue1, *pValue2, FLAG_None);
 			if (sig.IsSignalled()) return Value::Nil;
 		} while (0);
 		do {
-			valueSum = env.GetOperator(OPTYPE_Add)->EvalBinary(env, valueSum, value);
+			valueSum = env.GetOperator(OPTYPE_Add)->EvalBinary(env, valueSum, value, FLAG_None);
 			if (sig.IsSignalled()) return Value::Nil;
 		} while (0);
 	}

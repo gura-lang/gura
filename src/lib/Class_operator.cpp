@@ -46,7 +46,7 @@ Value Object_operator::DoCall(
 		Value value = exprListArg[0]->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		const Operator *pOperator = GetOperator(_opTypeUnary);
-		return pOperator->EvalUnary(env, value);
+		return pOperator->EvalUnary(env, value, FLAG_None);
 	} else if (exprListArg.size() == 2) {
 		if (_opTypeBinary == OPTYPE_None) {
 			sig.SetError(ERR_ArgumentError,
@@ -58,7 +58,7 @@ Value Object_operator::DoCall(
 		Value valueRight = exprListArg[1]->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		const Operator *pOperator = GetOperator(_opTypeBinary);
-		return pOperator->EvalBinary(env, valueLeft, valueRight);
+		return pOperator->EvalBinary(env, valueLeft, valueRight, FLAG_None);
 	} else {
 		sig.SetError(ERR_ArgumentError, "operator must take one or two arguments");
 		return Value::Nil;

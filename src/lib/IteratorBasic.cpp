@@ -503,10 +503,10 @@ void Iterator_ImplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 //-----------------------------------------------------------------------------
 // Iterator_UnaryOperatorMap
 //-----------------------------------------------------------------------------
-Iterator_UnaryOperatorMap::Iterator_UnaryOperatorMap(Environment *pEnv,
-				const Operator *pOperator, const Value &value) :
+Iterator_UnaryOperatorMap::Iterator_UnaryOperatorMap(
+	Environment *pEnv, const Operator *pOperator, const Value &value, ULong flags) :
 	Iterator(Finite), _pEnv(pEnv), _pOperator(pOperator),
-	_pOperatorEntry(nullptr), _valTypePrev(VTYPE_undefined)
+	_pOperatorEntry(nullptr), _valTypePrev(VTYPE_undefined), _flags(flags)
 {
 	Signal &sig = pEnv->GetSignal();
 	if (value.IsListOrIterator()) {
@@ -537,7 +537,7 @@ bool Iterator_UnaryOperatorMap::DoNext(Environment &env, Value &value)
 		_valTypePrev = valueArg.GetValueType();
 		_pOperatorEntry = _pOperator->Lookup(_valTypePrev);
 	}
-	value = _pOperatorEntry->DoEval(env, valueArg);
+	value = _pOperatorEntry->DoEval(env, valueArg, _flags);
 	if (sig.IsSignalled()) return false;
 	return true;
 }
@@ -564,10 +564,12 @@ void Iterator_UnaryOperatorMap::GatherFollower(Environment::Frame *pFrame, Envir
 //-----------------------------------------------------------------------------
 // Iterator_BinaryOperatorMap
 //-----------------------------------------------------------------------------
-Iterator_BinaryOperatorMap::Iterator_BinaryOperatorMap(Environment *pEnv,
-		const Operator *pOperator, const Value &valueLeft, const Value &valueRight) :
+Iterator_BinaryOperatorMap::Iterator_BinaryOperatorMap(
+	Environment *pEnv, const Operator *pOperator,
+	const Value &valueLeft, const Value &valueRight, ULong flags) :
 	Iterator(Finite), _pEnv(pEnv), _pOperator(pOperator),
-	_pOperatorEntry(nullptr), _valTypeLeftPrev(VTYPE_undefined), _valTypeRightPrev(VTYPE_undefined)
+	_pOperatorEntry(nullptr), _valTypeLeftPrev(VTYPE_undefined), _valTypeRightPrev(VTYPE_undefined),
+	_flags(flags)
 {
 	Signal &sig = pEnv->GetSignal();
 	if (valueLeft.IsListOrIterator()) {
@@ -613,7 +615,7 @@ bool Iterator_BinaryOperatorMap::DoNext(Environment &env, Value &value)
 			return false;
 		}
 	}
-	value = _pOperatorEntry->DoEval(env, valueLeft, valueRight);
+	value = _pOperatorEntry->DoEval(env, valueLeft, valueRight, _flags);
 	if (sig.IsSignalled()) return false;
 	return true;
 }
