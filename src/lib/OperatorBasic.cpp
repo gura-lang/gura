@@ -114,7 +114,7 @@ Gura_ImplementUnaryOperator(Not, any)
 //-----------------------------------------------------------------------------
 // [A..] ... UnaryOperator(SeqInf, A)
 //-----------------------------------------------------------------------------
-Gura_ImplementUnaryOperatorSuffix(SeqInf, number)
+Gura_ImplementUnaryOperator(SeqInf, number)
 {
 	Number numBegin = value.GetNumber();
 	return Value(new Object_iterator(env, new Iterator_SequenceInf(numBegin)));
@@ -123,7 +123,7 @@ Gura_ImplementUnaryOperatorSuffix(SeqInf, number)
 //-----------------------------------------------------------------------------
 // [A?] ... UnaryOperator(Question, A)
 //-----------------------------------------------------------------------------
-Gura_ImplementUnaryOperatorSuffix(Question, any)
+Gura_ImplementUnaryOperator(Question, any)
 {
 	bool rtn = value.GetBoolean();
 	return Value(rtn);
@@ -132,7 +132,7 @@ Gura_ImplementUnaryOperatorSuffix(Question, any)
 //-----------------------------------------------------------------------------
 // [A*] ... UnaryOperator(Each, A)
 //-----------------------------------------------------------------------------
-Gura_ImplementUnaryOperatorSuffix(Each, any)
+Gura_ImplementUnaryOperator(Each, any)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
@@ -1395,7 +1395,9 @@ Gura_ImplementUnaryOperator(Math_abs, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_acos, number)
 {
-	return Value::Nil;
+	double result = ::acos(value.GetNumber());
+	if (flags & FLAG_Deg) result = RadToDeg(result);
+	return Value(result);
 }
 
 //-----------------------------------------------------------------------------
@@ -1403,7 +1405,7 @@ Gura_ImplementUnaryOperator(Math_acos, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_arg, number)
 {
-	return Value::Nil;
+	return Value::Zero;
 }
 
 //-----------------------------------------------------------------------------
@@ -1659,9 +1661,9 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignUnaryOperator(Neg, array);
 	Gura_AssignUnaryOperator(Inv, number);
 	Gura_AssignUnaryOperator(Not, any);
-	Gura_AssignUnaryOperatorSuffix(SeqInf, number);
-	Gura_AssignUnaryOperatorSuffix(Question, any);
-	Gura_AssignUnaryOperatorSuffix(Each, any);
+	Gura_AssignUnaryOperator(SeqInf, number);
+	Gura_AssignUnaryOperator(Question, any);
+	Gura_AssignUnaryOperator(Each, any);
 	// binary operators
 	Gura_AssignBinaryOperator(Add, number, number);
 	Gura_AssignBinaryOperator(Add, boolean, boolean);

@@ -2201,7 +2201,7 @@ Gura_ImplementBinaryOperator(Shr, mpz, number)
 //-----------------------------------------------------------------------------
 // unary operator ..
 //-----------------------------------------------------------------------------
-Gura_ImplementUnaryOperatorSuffix(SeqInf, mpz)
+Gura_ImplementUnaryOperator(SeqInf, mpz)
 {
 	mpz_class numBegin = Object_mpz::GetEntity(value);
 	return Value(new Object_iterator(env, new Iterator_GmpSeqInf(numBegin)));
@@ -2496,7 +2496,7 @@ void AssignOperators(Environment &env)
 	// binary operator >>
 	Gura_AssignBinaryOperator(Shr, mpz, number);
 	// unary operator ..
-	Gura_AssignUnaryOperatorSuffix(SeqInf, mpz);
+	Gura_AssignUnaryOperator(SeqInf, mpz);
 	// binary operator ..
 	Gura_AssignBinaryOperator(Seq, mpz, mpz);
 }

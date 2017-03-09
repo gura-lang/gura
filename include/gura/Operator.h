@@ -15,15 +15,6 @@ public: \
 }; \
 Value OperatorEntry_##op##_##type::DoEval(Environment &env, const Value &value, ULong flags) const
 
-#define Gura_ImplementUnaryOperatorSuffix(op, type) \
-class OperatorEntry_##op##_##type##_suffix : public OperatorEntry { \
-public: \
-	inline OperatorEntry_##op##_##type##_suffix() : \
-					OperatorEntry(OPTYPE_##op, VTYPE_undefined, VTYPE_##type) {} \
-	virtual Value DoEval(Environment &env, const Value &value, ULong flags) const; \
-}; \
-Value OperatorEntry_##op##_##type##_suffix::DoEval(Environment &env, const Value &value, ULong flags) const
-
 #define Gura_ImplementBinaryOperator(op, typeL, typeR) \
 class OperatorEntry_##op##_##typeL##_##typeR : public OperatorEntry { \
 public: \
@@ -37,9 +28,6 @@ Value OperatorEntry_##op##_##typeL##_##typeR::DoEval(Environment &env, \
 
 #define Gura_AssignUnaryOperator(op, type) \
 Operator::Assign(env, new OperatorEntry_##op##_##type())
-
-#define Gura_AssignUnaryOperatorSuffix(op, type) \
-Operator::Assign(env, new OperatorEntry_##op##_##type##_suffix())
 
 #define Gura_AssignBinaryOperator(op, typeL, typeR) \
 Operator::Assign(env, new OperatorEntry_##op##_##typeL##_##typeR())
@@ -219,18 +207,12 @@ public:
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const char *GetName() const { return _symbolInfoTbl[_opType].name; }
 	inline static const SymbolInfo &GetSymbolInfo(OpType opType) { return _symbolInfoTbl[opType]; }
-	inline static Key CalcKey(ValueType valType, bool suffixFlag) {
-		if (suffixFlag) {
-			return static_cast<Key>((static_cast<ULong>(valType) << 16) +
-							static_cast<ULong>(VTYPE_undefined));
-		} else {
-			return static_cast<Key>((static_cast<ULong>(VTYPE_undefined) << 16) +
-							static_cast<ULong>(valType));
-		}
+	inline static Key CalcKey(ValueType valType) {
+		return static_cast<Key>(static_cast<ULong>(valType));
 	}
 	inline static Key CalcKey(ValueType valTypeLeft, ValueType valTypeRight) {
 		return static_cast<Key>((static_cast<ULong>(valTypeRight) << 16) +
-							static_cast<ULong>(valTypeLeft));
+								static_cast<ULong>(valTypeLeft));
 	}
 	inline static ValueType ExtractValueTypeLeft(Key key) {
 		return static_cast<ValueType>(static_cast<ULong>(key) & 0xffff);

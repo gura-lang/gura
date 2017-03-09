@@ -146,10 +146,9 @@ Operator *Operator::Math_unitstep	= nullptr;
 
 const OperatorEntry *Operator::Lookup(ValueType valType) const
 {
-	bool suffixFlag = IsSuffixedUnaryOperator();
-	EntryDict::const_iterator iter = _entryDict.find(CalcKey(valType, suffixFlag));
+	EntryDict::const_iterator iter = _entryDict.find(CalcKey(valType));
 	if (iter != _entryDict.end()) return iter->second;
-	iter = _entryDict.find(CalcKey(VTYPE_any, suffixFlag));
+	iter = _entryDict.find(CalcKey(VTYPE_any));
 	if (iter != _entryDict.end()) return iter->second;
 	return nullptr;
 }
