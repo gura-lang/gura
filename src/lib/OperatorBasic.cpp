@@ -1408,12 +1408,21 @@ Gura_ImplementUnaryOperator(Math_arg, number)
 	return Value::Zero;
 }
 
+Gura_ImplementUnaryOperator(Math_arg, complex)
+{
+	double result = std::arg(value.GetComplex());
+	if (flags & FLAG_Deg) result = RadToDeg(result);
+	return Value(result);
+}
+
 //-----------------------------------------------------------------------------
 // math.asin(A) ... UnaryOperator(Math_asin, A)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_asin, number)
 {
-	return Value::Nil;
+	double result = ::asin(value.GetNumber());
+	if (flags & FLAG_Deg) result = RadToDeg(result);
+	return Value(result);
 }
 
 //-----------------------------------------------------------------------------
@@ -1421,15 +1430,19 @@ Gura_ImplementUnaryOperator(Math_asin, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_atan, number)
 {
-	return Value::Nil;
+	double result = ::atan(value.GetNumber());
+	if (flags & FLAG_Deg) result = RadToDeg(result);
+	return Value(result);
 }
 
 //-----------------------------------------------------------------------------
-// math.(atan2) ... UnaryOperator(Math_atan2, A, B)
+// math.atan2(A, B) ... UnaryOperator(Math_atan2, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Math_atan2, number, number)
 {
-	return Value::Nil;
+	double result = ::atan2(valueLeft.GetNumber(), valueRight.GetNumber());
+	if (flags & FLAG_Deg) result = RadToDeg(result);
+	return Value(result);
 }
 
 //-----------------------------------------------------------------------------
@@ -1437,7 +1450,8 @@ Gura_ImplementBinaryOperator(Math_atan2, number, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_ceil, number)
 {
-	return Value::Nil;
+	double result = ::ceil(value.GetNumber());
+	return Value(result);
 }
 
 //-----------------------------------------------------------------------------
@@ -1445,7 +1459,14 @@ Gura_ImplementUnaryOperator(Math_ceil, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_conj, number)
 {
-	return Value::Nil;
+	double result = ::ceil(value.GetNumber());
+	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_conj, complex)
+{
+	Complex result = std::conj(value.GetComplex());
+	return Value(result);
 }
 
 //-----------------------------------------------------------------------------
@@ -1453,7 +1474,17 @@ Gura_ImplementUnaryOperator(Math_conj, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_cos, number)
 {
-	return Value::Nil;
+	double num = value.GetNumber();
+	if (flags & FLAG_Deg) num = DegToRad(num);
+	double result = ::cos(num);
+	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_cos, complex)
+{
+	const Complex &num = value.GetComplex();
+	Complex result = std::cos(num);
+	return Value(result);
 }
 
 //-----------------------------------------------------------------------------
@@ -1461,7 +1492,16 @@ Gura_ImplementUnaryOperator(Math_cos, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_cosh, number)
 {
-	return Value::Nil;
+	double num = value.GetNumber();
+	double result = ::cosh(num);
+	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_cosh, complex)
+{
+	const Complex &num = value.GetComplex();
+	Complex result = std::cosh(num);
+	return Value(result);
 }
 
 //-----------------------------------------------------------------------------
@@ -1565,7 +1605,17 @@ Gura_ImplementUnaryOperator(Math_real, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_sin, number)
 {
-	return Value::Nil;
+	double num = value.GetNumber();
+	if (flags & FLAG_Deg) num = DegToRad(num);
+	double result = ::sin(num);
+	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_sin, complex)
+{
+	const Complex &num = value.GetComplex();
+	Complex result = std::sin(num);
+	return Value(result);
 }
 
 //-----------------------------------------------------------------------------
@@ -1573,7 +1623,16 @@ Gura_ImplementUnaryOperator(Math_sin, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_sinh, number)
 {
-	return Value::Nil;
+	double num = value.GetNumber();
+	double result = ::sinh(num);
+	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_sinh, complex)
+{
+	const Complex &num = value.GetComplex();
+	Complex result = std::sinh(num);
+	return Value(result);
 }
 
 //-----------------------------------------------------------------------------
@@ -1589,7 +1648,17 @@ Gura_ImplementUnaryOperator(Math_sqrt, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_tan, number)
 {
-	return Value::Nil;
+	double num = value.GetNumber();
+	if (flags & FLAG_Deg) num = DegToRad(num);
+	double result = ::tan(num);
+	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_tan, complex)
+{
+	const Complex &num = value.GetComplex();
+	Complex result = std::tan(num);
+	return Value(result);
 }
 
 //-----------------------------------------------------------------------------
@@ -1597,7 +1666,16 @@ Gura_ImplementUnaryOperator(Math_tan, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_tanh, number)
 {
-	return Value::Nil;
+	double num = value.GetNumber();
+	double result = ::tanh(num);
+	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_tanh, complex)
+{
+	const Complex &num = value.GetComplex();
+	Complex result = std::tanh(num);
+	return Value(result);
 }
 
 //-----------------------------------------------------------------------------
@@ -1816,13 +1894,17 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignUnaryOperator(Math_abs, complex);
 	Gura_AssignUnaryOperator(Math_acos, number);
 	Gura_AssignUnaryOperator(Math_arg, number);
+	Gura_AssignUnaryOperator(Math_arg, complex);
 	Gura_AssignUnaryOperator(Math_asin, number);
 	Gura_AssignUnaryOperator(Math_atan, number);
 	Gura_AssignBinaryOperator(Math_atan2, number, number);
 	Gura_AssignUnaryOperator(Math_ceil, number);
 	Gura_AssignUnaryOperator(Math_conj, number);
+	Gura_AssignUnaryOperator(Math_conj, complex);
 	Gura_AssignUnaryOperator(Math_cos, number);
+	Gura_AssignUnaryOperator(Math_cos, complex);
 	Gura_AssignUnaryOperator(Math_cosh, number);
+	Gura_AssignUnaryOperator(Math_cosh, complex);
 	Gura_AssignBinaryOperator(Math_cross, list, list);
 	Gura_AssignUnaryOperator(Math_delta, number);
 	Gura_AssignBinaryOperator(Math_dot, list, list);
@@ -1836,10 +1918,14 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignUnaryOperator(Math_ramp, number);
 	Gura_AssignUnaryOperator(Math_real, number);
 	Gura_AssignUnaryOperator(Math_sin, number);
+	Gura_AssignUnaryOperator(Math_sin, complex);
 	Gura_AssignUnaryOperator(Math_sinh, number);
+	Gura_AssignUnaryOperator(Math_sinh, complex);
 	Gura_AssignUnaryOperator(Math_sqrt, number);
 	Gura_AssignUnaryOperator(Math_tan, number);
+	Gura_AssignUnaryOperator(Math_tan, complex);
 	Gura_AssignUnaryOperator(Math_tanh, number);
+	Gura_AssignUnaryOperator(Math_tanh, complex);
 	Gura_AssignUnaryOperator(Math_unitstep, number);
 }
 
