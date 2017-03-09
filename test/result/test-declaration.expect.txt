@@ -228,7 +228,7 @@ math:module
   math.cos(num):map:[deg]
   math.cosh(num):map
   math.covariance(a:iterator, b:iterator)
-  math.cross (a:list, b:list)
+  math.cross (a, b)
   math.delta(num:number):map
   math.diff(expr:expr, var:symbol):map {block?}
   math.dot(a:list, b:list)

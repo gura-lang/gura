@@ -396,9 +396,6 @@ Gura_ImplementFunction(cosh)
 }
 
 // math.cross(a, b)
-//static Value CalcCrossElem(Environment &env,
-//		const Value &ax, const Value &ay, const Value &bx, const Value &by);
-
 Gura_DeclareFunction(cross)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -411,66 +408,10 @@ Gura_DeclareFunction(cross)
 
 Gura_ImplementFunction(cross)
 {
-#if 1
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_cross)->EvalBinary(
 		env, arg.GetValue(0), arg.GetValue(1), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const ValueList &valList1 = arg.GetList(0);
-	const ValueList &valList2 = arg.GetList(1);
-	if (valList1.size() != valList2.size()) {
-		sig.SetError(ERR_ValueError, "different length of lists");
-		return Value::Nil;
-	}
-	if (valList1.size() == 2) {
-		return CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
-	} else if (valList1.size() == 3) {
-		Value result;
-		Object_list *pObjList = result.InitAsList(env);
-		pObjList->Reserve(3);
-		Value value;
-		value = CalcCrossElem(env, valList1[1], valList1[2], valList2[1], valList2[2]);
-		if (sig.IsSignalled()) return Value::Nil;
-		pObjList->Add(value);
-		value = CalcCrossElem(env, valList1[2], valList1[0], valList2[2], valList2[0]);
-		if (sig.IsSignalled()) return Value::Nil;
-		pObjList->Add(value);
-		value = CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
-		if (sig.IsSignalled()) return Value::Nil;
-		pObjList->Add(value);
-		return result;
-	} else {
-		sig.SetError(ERR_ValueError,
-				"only support two or three dimension vector for cross product");
-		return Value::Nil;
-	}
-#endif
 }
-
-#if 0
-Value CalcCrossElem(Environment &env,
-		const Value &ax, const Value &ay, const Value &bx, const Value &by)
-{
-	Signal &sig = env.GetSignal();
-	Value valueLeft;
-	do {
-		valueLeft = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ax, by, FLAG_None);
-		if (sig.IsSignalled()) return Value::Nil;
-	} while (0);
-	Value valueRight;
-	do {
-		valueRight = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ay, bx, FLAG_None);
-		if (sig.IsSignalled()) return Value::Nil;
-	} while (0);
-	Value value;
-	do {
-		value = env.GetOperator(OPTYPE_Sub)->EvalBinary(env, valueLeft, valueRight, FLAG_None);
-		if (sig.IsSignalled()) return Value::Nil;
-	} while (0);
-	return value;
-}
-#endif
 
 // math.delta(num:number):map
 Gura_DeclareFunction(delta)
