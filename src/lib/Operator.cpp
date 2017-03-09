@@ -29,6 +29,8 @@ const Operator::SymbolInfo Operator::_symbolInfoTbl[] = {
 	{ "/",			"Div"			},
 	{ "%",			"Mod"			},
 	{ "%%",			"ModMod"		},
+	{ "<.>",		"DotProd"		},
+	{ "<*>",		"CrossProd"		},
 	{ "**",			"Pow"			},
 	{ "==",			"Eq"			},
 	{ "!=",			"Ne"			},
@@ -96,6 +98,8 @@ Operator *Operator::Mul				= nullptr;
 Operator *Operator::Div				= nullptr;
 Operator *Operator::Mod				= nullptr;
 Operator *Operator::ModMod			= nullptr;
+Operator *Operator::DotProd			= nullptr;
+Operator *Operator::CrossProd		= nullptr;
 Operator *Operator::Pow				= nullptr;
 Operator *Operator::Eq				= nullptr;
 Operator *Operator::Ne				= nullptr;
@@ -1138,6 +1142,14 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// Operator_DotProd
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_CrossProd
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 // Operator_Pow
 //-----------------------------------------------------------------------------
 Expr *Operator_Pow::MathDiffBinary(Environment &env,
@@ -1473,6 +1485,8 @@ void Operator::Initialize(Environment &env)
 	env.SetOperator(OPTYPE_Div,				Operator::Div			= new Operator_Div());
 	env.SetOperator(OPTYPE_Mod,				Operator::Mod			= new Operator_Mod());
 	env.SetOperator(OPTYPE_ModMod,			Operator::ModMod		= new Operator_ModMod());
+	env.SetOperator(OPTYPE_DotProd,			Operator::DotProd		= new Operator_DotProd());
+	env.SetOperator(OPTYPE_CrossProd,		Operator::CrossProd		= new Operator_CrossProd());
 	env.SetOperator(OPTYPE_Pow,				Operator::Pow			= new Operator_Pow());
 	env.SetOperator(OPTYPE_Eq,				Operator::Eq			= new Operator_Eq());
 	env.SetOperator(OPTYPE_Ne,				Operator::Ne			= new Operator_Ne());

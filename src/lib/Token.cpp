@@ -54,6 +54,8 @@ const TokenInfo TOKEN_Mul =				{ 14, "Mul",			"*",	OPTYPE_Mul	};		// *
 const TokenInfo TOKEN_Div =				{ 14, "Div",			"/",	OPTYPE_Div	};
 const TokenInfo TOKEN_Mod =				{ 14, "Mod",			"%",	OPTYPE_Mod	};
 const TokenInfo TOKEN_ModMod =			{ 14, "ModMod",			"%%",	OPTYPE_ModMod };
+const TokenInfo TOKEN_DotProd =			{ 14, "DotProd",		"<.>",	OPTYPE_DotProd };
+const TokenInfo TOKEN_CrossProd =		{ 14, "CrossProd",		"<*>",	OPTYPE_CrossProd };
 const TokenInfo TOKEN_Question =		{ 14, "Question",		"?",	OPTYPE_None	};
 const TokenInfo TOKEN_Inv =				{ 15, "Inv",			"~",	OPTYPE_Inv	};		// ~
 const TokenInfo TOKEN_Pow =				{ 16, "Pow",			"**",	OPTYPE_Pow	};		// **
@@ -170,6 +172,8 @@ void Token::Initialize()
 		&TOKEN_Div,
 		&TOKEN_Mod,
 		&TOKEN_ModMod,
+		&TOKEN_DotProd,
+		&TOKEN_CrossProd,
 		&TOKEN_Question,
 		&TOKEN_Inv,
 		&TOKEN_Pow,

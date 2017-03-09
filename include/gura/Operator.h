@@ -58,6 +58,8 @@ enum OpType {
 	OPTYPE_Div,
 	OPTYPE_Mod,
 	OPTYPE_ModMod,
+	OPTYPE_DotProd,
+	OPTYPE_CrossProd,
 	OPTYPE_Pow,
 	OPTYPE_Eq,
 	OPTYPE_Ne,
@@ -151,6 +153,8 @@ public:
 	static Operator *Div;
 	static Operator *Mod;
 	static Operator *ModMod;
+	static Operator *DotProd;
+	static Operator *CrossProd;
 	static Operator *Pow;
 	static Operator *Eq;
 	static Operator *Ne;
@@ -424,6 +428,22 @@ public:
 class GURA_DLLDECLARE Operator_ModMod : public Operator {
 public:
 	inline Operator_ModMod() : Operator(OPTYPE_ModMod) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_DotProd
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_DotProd : public Operator {
+public:
+	inline Operator_DotProd() : Operator(OPTYPE_DotProd) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_CrossProd
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_CrossProd : public Operator {
+public:
+	inline Operator_CrossProd() : Operator(OPTYPE_CrossProd) {}
 };
 
 //-----------------------------------------------------------------------------
