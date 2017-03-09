@@ -3,6 +3,8 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
+#define USE_OPERATOR 0
+
 Gura_BeginModuleBody(math)
 
 //-----------------------------------------------------------------------------
@@ -20,8 +22,9 @@ Gura_DeclareFunction(abs)
 
 Gura_ImplementFunction(abs)
 {
-#if 1
-	return env.GetOperator(OPTYPE_Math_abs)->EvalMapUnary(env, arg.GetValue(0), FLAG_None);
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_abs)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -53,8 +56,9 @@ Gura_DeclareFunctionWithMathDiff(acos)
 
 Gura_ImplementFunction(acos)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_acos)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
+	return env.GetOperator(OPTYPE_Math_acos)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -103,8 +107,9 @@ Gura_DeclareFunction(arg)
 
 Gura_ImplementFunction(arg)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_arg)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
+	return env.GetOperator(OPTYPE_Math_arg)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -138,8 +143,9 @@ Gura_DeclareFunctionWithMathDiff(asin)
 
 Gura_ImplementFunction(asin)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_asin)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
+	return env.GetOperator(OPTYPE_Math_asin)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -185,8 +191,9 @@ Gura_DeclareFunctionWithMathDiff(atan)
 
 Gura_ImplementFunction(atan)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_atan)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
+	return env.GetOperator(OPTYPE_Math_atan)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -234,8 +241,10 @@ Gura_DeclareFunction(atan2)
 
 Gura_ImplementFunction(atan2)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_atan2)->EvalMapBinary(env, arg.GetValue(0), arg.GetValue(1));
+#if USE_OPERATOR
+	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
+	return env.GetOperator(OPTYPE_Math_atan2)->EvalMapBinary(
+		env, arg.GetValue(0), arg.GetValue(1), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value1 = arg.GetValue(0);
@@ -264,8 +273,9 @@ Gura_DeclareFunction(ceil)
 
 Gura_ImplementFunction(ceil)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_ceil)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_ceil)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -291,8 +301,9 @@ Gura_DeclareFunction(conj)
 
 Gura_ImplementFunction(conj)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_conj)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_conj)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -324,8 +335,9 @@ Gura_DeclareFunctionWithMathDiff(cos)
 
 Gura_ImplementFunction(cos)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_cos)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
+	return env.GetOperator(OPTYPE_Math_cos)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -365,8 +377,9 @@ Gura_DeclareFunction(cosh)
 
 Gura_ImplementFunction(cosh)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_cosh)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_cosh)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -398,8 +411,10 @@ Gura_DeclareFunction(cross)
 
 Gura_ImplementFunction(cross)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_cross)->EvalBinary(env, arg.GetValue(0), arg.GetValue(1));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_cross)->EvalBinary(
+		env, arg.GetValue(0), arg.GetValue(1), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const ValueList &valList1 = arg.GetList(0);
@@ -468,8 +483,9 @@ Gura_DeclareFunction(delta)
 
 Gura_ImplementFunction(delta)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_delta)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_delta)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	const double num = arg.GetDouble(0);
 	return Value((num == 0)? 1 : 0);
@@ -489,8 +505,10 @@ Gura_DeclareFunction(dot)
 
 Gura_ImplementFunction(dot)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_dot)->EvalBinary(env, arg.GetValue(0), arg.GetValue(1));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_dot)->EvalBinary(
+		env, arg.GetValue(0), arg.GetValue(1), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const ValueList &valList1 = arg.GetList(0);
@@ -529,8 +547,9 @@ Gura_DeclareFunctionWithMathDiff(exp)
 
 Gura_ImplementFunction(exp)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_exp)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_exp)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -566,8 +585,9 @@ Gura_DeclareFunction(floor)
 
 Gura_ImplementFunction(floor)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_floor)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_floor)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -594,8 +614,9 @@ Gura_DeclareFunction(hypot)
 
 Gura_ImplementFunction(hypot)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_hypot)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_hypot)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &x = arg.GetValue(0);
@@ -622,8 +643,9 @@ Gura_DeclareFunction(imag)
 
 Gura_ImplementFunction(imag)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_imag)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_imag)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -651,8 +673,9 @@ Gura_DeclareFunctionWithMathDiff(log)
 
 Gura_ImplementFunction(log)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_log)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_log)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -693,8 +716,9 @@ Gura_DeclareFunctionWithMathDiff(log10)
 
 Gura_ImplementFunction(log10)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_log10)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_log10)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -739,8 +763,9 @@ Gura_DeclareFunction(norm)
 
 Gura_ImplementFunction(norm)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_norm)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_norm)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -769,8 +794,9 @@ Gura_DeclareFunctionWithMathDiff(ramp)
 
 Gura_ImplementFunction(ramp)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_ramp)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_ramp)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	const double num = arg.GetDouble(0);
 	return Value((num >= 0)? num : 0);
@@ -797,8 +823,9 @@ Gura_DeclareFunction(real)
 
 Gura_ImplementFunction(real)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_real)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_real)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -830,8 +857,9 @@ Gura_DeclareFunctionWithMathDiff(sin)
 
 Gura_ImplementFunction(sin)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_sin)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
+	return env.GetOperator(OPTYPE_Math_sin)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -869,8 +897,9 @@ Gura_DeclareFunction(sinh)
 
 Gura_ImplementFunction(sinh)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_sinh)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_sinh)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -898,8 +927,9 @@ Gura_DeclareFunctionWithMathDiff(sqrt)
 
 Gura_ImplementFunction(sqrt)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_sqrt)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_sqrt)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -949,8 +979,9 @@ Gura_DeclareFunctionWithMathDiff(tan)
 
 Gura_ImplementFunction(tan)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_tan)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
+	return env.GetOperator(OPTYPE_Math_tan)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -994,8 +1025,9 @@ Gura_DeclareFunction(tanh)
 
 Gura_ImplementFunction(tanh)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_tanh)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_tanh)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &value = arg.GetValue(0);
@@ -1024,8 +1056,9 @@ Gura_DeclareFunctionWithMathDiff(unitstep)
 
 Gura_ImplementFunction(unitstep)
 {
-#if 0
-	return env.GetOperator(OPTYPE_Math_unitstep)->EvalMapUnary(env, arg.GetValue(0));
+#if USE_OPERATOR
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_unitstep)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
 	const double num = arg.GetDouble(0);
 	return Value((num >= 0)? 1 : 0);
