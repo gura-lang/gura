@@ -395,23 +395,23 @@ Gura_ImplementFunction(cosh)
 #endif
 }
 
-// math.cross(a:list, b:list)
-static Value CalcCrossElem(Environment &env,
-		const Value &ax, const Value &ay, const Value &bx, const Value &by);
+// math.cross(a, b)
+//static Value CalcCrossElem(Environment &env,
+//		const Value &ax, const Value &ay, const Value &bx, const Value &by);
 
 Gura_DeclareFunction(cross)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "a", VTYPE_list, OCCUR_Once);
-	DeclareArg(env, "b", VTYPE_list, OCCUR_Once);
+	DeclareArg(env, "a", VTYPE_any);
+	DeclareArg(env, "b", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Calculates a cross product between lists `a` and `b`.");
+		"Calculates a cross product between `a` and `b`.");
 }
 
 Gura_ImplementFunction(cross)
 {
-#if USE_OPERATOR
+#if 1
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_cross)->EvalBinary(
 		env, arg.GetValue(0), arg.GetValue(1), flags);
@@ -448,6 +448,7 @@ Gura_ImplementFunction(cross)
 #endif
 }
 
+#if 0
 Value CalcCrossElem(Environment &env,
 		const Value &ax, const Value &ay, const Value &bx, const Value &by)
 {
@@ -469,6 +470,7 @@ Value CalcCrossElem(Environment &env,
 	} while (0);
 	return value;
 }
+#endif
 
 // math.delta(num:number):map
 Gura_DeclareFunction(delta)

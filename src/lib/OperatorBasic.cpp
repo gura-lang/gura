@@ -1507,9 +1507,60 @@ Gura_ImplementUnaryOperator(Math_cosh, complex)
 //-----------------------------------------------------------------------------
 // math.cross(A, B) ... BinaryOperator(Math_cross, A, B)
 //-----------------------------------------------------------------------------
+static Value CalcCrossElem(Environment &env,
+						   const Value &ax, const Value &ay, const Value &bx, const Value &by);
+
 Gura_ImplementBinaryOperator(Math_cross, list, list)
 {
+	const ValueList &valList1 = valueLeft.GetList();
+	const ValueList &valList2 = valueRight.GetList();
+	if (valList1.size() != valList2.size()) {
+		env.SetError(ERR_ValueError, "different length of lists");
+		return Value::Nil;
+	}
+	if (valList1.size() == 2) {
+		return CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
+	} else if (valList1.size() == 3) {
+		Value result;
+		Object_list *pObjList = result.InitAsList(env);
+		pObjList->Reserve(3);
+		Value value;
+		value = CalcCrossElem(env, valList1[1], valList1[2], valList2[1], valList2[2]);
+		if (env.IsSignalled()) return Value::Nil;
+		pObjList->Add(value);
+		value = CalcCrossElem(env, valList1[2], valList1[0], valList2[2], valList2[0]);
+		if (env.IsSignalled()) return Value::Nil;
+		pObjList->Add(value);
+		value = CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
+		if (env.IsSignalled()) return Value::Nil;
+		pObjList->Add(value);
+		return result;
+	}
+	env.SetError(ERR_ValueError,
+				"only support two or three dimension vector for cross product");
 	return Value::Nil;
+}
+
+Value CalcCrossElem(Environment &env,
+					const Value &ax, const Value &ay, const Value &bx, const Value &by)
+{
+	Signal &sig = env.GetSignal();
+	Value valueLeft;
+	do {
+		valueLeft = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ax, by, FLAG_None);
+		if (sig.IsSignalled()) return Value::Nil;
+	} while (0);
+	Value valueRight;
+	do {
+		valueRight = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ay, bx, FLAG_None);
+		if (sig.IsSignalled()) return Value::Nil;
+	} while (0);
+	Value value;
+	do {
+		value = env.GetOperator(OPTYPE_Sub)->EvalBinary(env, valueLeft, valueRight, FLAG_None);
+		if (sig.IsSignalled()) return Value::Nil;
+	} while (0);
+	return value;
 }
 
 //-----------------------------------------------------------------------------
