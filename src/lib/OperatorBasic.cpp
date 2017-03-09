@@ -1391,6 +1391,222 @@ Gura_ImplementUnaryOperator(Math_abs, complex)
 }
 
 //-----------------------------------------------------------------------------
+// math.acos(A) ... UnaryOperator(Math_acos, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_acos, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.arg(A) ... UnaryOperator(Math_arg, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_arg, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.asin(A) ... UnaryOperator(Math_asin, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_asin, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.atan(A) ... UnaryOperator(Math_atan, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_atan, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.(atan2) ... UnaryOperator(Math_atan2, A, B)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Math_atan2, number, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.ceil(A) ... UnaryOperator(Math_ceil, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_ceil, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.conj(A) ... UnaryOperator(Math_conj, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_conj, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.cos(A) ... UnaryOperator(Math_cos, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_cos, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.cosh(A) ... UnaryOperator(Math_cosh, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_cosh, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.cross(A, B) ... BinaryOperator(Math_cross, A, B)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Math_cross, list, list)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.delta(A) ... UnaryOperator(Math_delta, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_delta, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.dot(A, B) ... BinaryOperator(Math_dot, A, B)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Math_dot, list, list)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.exp(A) ... UnaryOperator(Math_exp, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_exp, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.floor(A) ... UnaryOperator(Math_floor, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_floor, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.hypot(A) ... UnaryOperator(Math_hypot, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_hypot, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.imag(A) ... UnaryOperator(Math_imag, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_imag, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.log(A) ... UnaryOperator(Math_log, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_log, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.log10(A) ... UnaryOperator(Math_log10, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_log10, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.norm(A) ... UnaryOperator(Math_norm, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_norm, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.ramp(A) ... UnaryOperator(Math_ramp, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_ramp, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.real(A) ... UnaryOperator(Math_real, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_real, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.sin(A) ... UnaryOperator(Math_sin, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_sin, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.sinh(A) ... UnaryOperator(Math_sinh, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_sinh, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.sqrt(A) ... UnaryOperator(Math_sqrt, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_sqrt, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.tan(A) ... UnaryOperator(Math_tan, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_tan, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.tanh(A) ... UnaryOperator(Math_tanh, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_tanh, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// math.unitstep(A) ... UnaryOperator(Math_unitstep, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_unitstep, number)
+{
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // OperatorEntryCustom
 //-----------------------------------------------------------------------------
 Value OperatorEntryCustom::DoEval(Environment &env, const Value &value, ULong flags) const
@@ -1596,6 +1812,33 @@ void Operator::AssignOperatorBasic(Environment &env)
 	// mathematical functions
 	Gura_AssignUnaryOperator(Math_abs, number);
 	Gura_AssignUnaryOperator(Math_abs, complex);
+	Gura_AssignUnaryOperator(Math_acos, number);
+	Gura_AssignUnaryOperator(Math_arg, number);
+	Gura_AssignUnaryOperator(Math_asin, number);
+	Gura_AssignUnaryOperator(Math_atan, number);
+	Gura_AssignBinaryOperator(Math_atan2, number, number);
+	Gura_AssignUnaryOperator(Math_ceil, number);
+	Gura_AssignUnaryOperator(Math_conj, number);
+	Gura_AssignUnaryOperator(Math_cos, number);
+	Gura_AssignUnaryOperator(Math_cosh, number);
+	Gura_AssignBinaryOperator(Math_cross, list, list);
+	Gura_AssignUnaryOperator(Math_delta, number);
+	Gura_AssignBinaryOperator(Math_dot, list, list);
+	Gura_AssignUnaryOperator(Math_exp, number);
+	Gura_AssignUnaryOperator(Math_floor, number);
+	Gura_AssignUnaryOperator(Math_hypot, number);
+	Gura_AssignUnaryOperator(Math_imag, number);
+	Gura_AssignUnaryOperator(Math_log, number);
+	Gura_AssignUnaryOperator(Math_log10, number);
+	Gura_AssignUnaryOperator(Math_norm, number);
+	Gura_AssignUnaryOperator(Math_ramp, number);
+	Gura_AssignUnaryOperator(Math_real, number);
+	Gura_AssignUnaryOperator(Math_sin, number);
+	Gura_AssignUnaryOperator(Math_sinh, number);
+	Gura_AssignUnaryOperator(Math_sqrt, number);
+	Gura_AssignUnaryOperator(Math_tan, number);
+	Gura_AssignUnaryOperator(Math_tanh, number);
+	Gura_AssignUnaryOperator(Math_unitstep, number);
 }
 
 }
