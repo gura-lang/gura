@@ -22,6 +22,7 @@ const Error::TypeInfo Error::_typeInfoTbl[] = {
 	{ ERR_IOError,				"IOError"				},
 	{ ERR_IteratorError,		"IteratorError"			},
 	{ ERR_KeyError,				"KeyError"				},
+	{ ERR_MathError,			"MathError"				},
 	{ ERR_MemberAccessError,	"MemberAccessError"		},
 	{ ERR_MemoryError,			"MemoryError"			},
 	{ ERR_NameError,			"NameError"				},

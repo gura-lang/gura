@@ -435,47 +435,22 @@ Gura_ImplementFunction(delta)
 #endif
 }
 
-// math.dot(a:list, b:list)
+// math.dot(a, b)
 Gura_DeclareFunction(dot)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "a", VTYPE_list, OCCUR_Once);
-	DeclareArg(env, "b", VTYPE_list, OCCUR_Once);
+	DeclareArg(env, "a", VTYPE_any);
+	DeclareArg(env, "b", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		"Calculates a dot product between lists `a` and `b`.");
+		"Calculates a dot product between `a` and `b`.");
 }
 
 Gura_ImplementFunction(dot)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_dot)->EvalBinary(
 		env, arg.GetValue(0), arg.GetValue(1), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const ValueList &valList1 = arg.GetList(0);
-	const ValueList &valList2 = arg.GetList(1);
-	if (valList1.size() != valList2.size()) {
-		sig.SetError(ERR_ValueError, "different length of lists");
-		return Value::Nil;
-	}
-	ValueList::const_iterator pValue1 = valList1.begin();
-	ValueList::const_iterator pValue2 = valList2.begin();
-	Value valueSum(0);
-	for ( ; pValue1 != valList1.end(); pValue1++, pValue2++) {
-		Value value;
-		do {
-			value = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, *pValue1, *pValue2, FLAG_None);
-			if (sig.IsSignalled()) return Value::Nil;
-		} while (0);
-		do {
-			valueSum = env.GetOperator(OPTYPE_Add)->EvalBinary(env, valueSum, value, FLAG_None);
-			if (sig.IsSignalled()) return Value::Nil;
-		} while (0);
-	}
-	return valueSum;
-#endif
 }
 
 // math.exp(num):map
@@ -616,7 +591,7 @@ Gura_DeclareFunctionWithMathDiff(log)
 
 Gura_ImplementFunction(log)
 {
-#if USE_OPERATOR
+#if 1
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_log)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else
@@ -659,7 +634,7 @@ Gura_DeclareFunctionWithMathDiff(log10)
 
 Gura_ImplementFunction(log10)
 {
-#if USE_OPERATOR
+#if 1
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_log10)->EvalMapUnary(env, arg.GetValue(0), flags);
 #else

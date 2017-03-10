@@ -1,6 +1,253 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
+testcase('math.abs()') {
+	tester(`math.abs(0))
+	tester(`math.abs(3))
+	tester(`math.abs(-3))
+	tester(`math.abs(4j))
+	tester(`math.abs(4j))
+	tester(`math.abs(3 + 4j))
+	tester(`math.abs(3 - 4j))
+}
+
+testcase('math.acos()') {
+	tester(`math.acos(0))
+	tester(`math.acos(1))
+	tester(`math.acos(-1))
+	tester(`math.acos(0):deg)
+	tester(`math.acos(1):deg)
+	tester(`math.acos(-1):deg)
+}
+
+testcase('math.arg()') {
+	tester(`math.arg(0))
+	tester(`math.arg(3))
+	tester(`math.arg(-3))
+	tester(`math.arg(4j))
+	tester(`math.arg(-4j))
+	tester(`math.arg(1 + 1j))
+	tester(`math.arg(1 - 1j))
+	tester(`math.arg(0):deg)
+	tester(`math.arg(3):deg)
+	tester(`math.arg(-3):deg)
+	tester(`math.arg(4j):deg)
+	tester(`math.arg(-4j):deg)
+	tester(`math.arg(1 + 1j):deg)
+	tester(`math.arg(1 - 1j):deg)
+}
+
+testcase('math.asin()') {
+	tester(`math.acos(0))
+	tester(`math.acos(1))
+	tester(`math.acos(-1))
+	tester(`math.acos(0):deg)
+	tester(`math.acos(1):deg)
+	tester(`math.acos(-1):deg)
+}
+
+testcase('math.atan()') {
+	tester(`math.atan(0))
+	tester(`math.atan(1))
+	tester(`math.atan(-1))
+	tester(`math.atan(0):deg)
+	tester(`math.atan(1):deg)
+	tester(`math.atan(-1):deg)
+}
+
+testcase('math.atan2()') {
+	tester(`math.atan2(1, 0))
+	tester(`math.atan2(0, 1))
+	tester(`math.atan2(1, 1))
+	tester(`math.atan2(-1, 1))
+	tester(`math.atan2(1, 0):deg)
+	tester(`math.atan2(0, 1):deg)
+	tester(`math.atan2(1, 1):deg)
+	tester(`math.atan2(-1, 1):deg)
+}
+
+testcase('math.ceil()') {
+	tester(`math.ceil(0))
+	tester(`math.ceil(.1))
+	tester(`math.ceil(.9))
+	tester(`math.ceil(1))
+	tester(`math.ceil(1.5))
+	tester(`math.ceil(3.5))
+	tester(`math.ceil(-.1))
+	tester(`math.ceil(-.9))
+	tester(`math.ceil(-1))
+	tester(`math.ceil(-1.5))
+	tester(`math.ceil(-3.5))
+}
+
+testcase('math.conj()') {
+	tester(`math.conj(0))
+	tester(`math.conj(3))
+	tester(`math.conj(4j))
+	tester(`math.conj(-4j))
+	tester(`math.conj(3 + 4j))
+	tester(`math.conj(3 - 4j))
+}
+
+testcase('math.cos()') {
+	tester(`math.cos(0))
+	tester(`math.cos(math.pi / 2))
+	tester(`math.cos(math.pi))
+	tester(`math.cos(0):deg)
+	tester(`math.cos(90):deg)
+	tester(`math.cos(180):deg)
+}
+
+testcase('math.cosh()') {
+	tester(`math.cosh(0))
+	tester(`math.cosh(1))
+	tester(`((math.exp(1) + math.exp(-1)) / 2))
+}
+
+testcase('math.cross()') {
+	tester(`math.cross([1, 2], [2, 3]))
+	tester(`math.cross([1, 2, 3], [2, 3, 4]))
+	tester(`math.cross([1, 2, 3], [2, 3]))
+	tester(`math.cross([1, 2, 3, 2], [2, 3, 4, 5]))
+}
+
+testcase('math.delta()') {
+	tester(`math.delta(-2))
+	tester(`math.delta(-1))
+	tester(`math.delta(0))
+	tester(`math.delta(1))
+	tester(`math.delta(2))
+}
+
+testcase('math.dot()') {
+	tester(`math.dot([1, 2], [2, 3]))
+	tester(`math.dot([1, 2, 3], [2, 3, 4]))
+	tester(`math.dot([1, 2, 3], [2, 3]))
+	tester(`math.dot([1, 2, 3, 2], [2, 3, 4, 5]))
+}
+
+testcase('math.exp()') {
+	tester(`math.exp(0))
+	tester(`math.exp(1))
+	tester(`math.exp(-1))
+	tester(`math.exp(math.pi * 1j))
+}
+
+testcase('math.floor()') {
+	tester(`math.floor(0))
+	tester(`math.floor(.1))
+	tester(`math.floor(.9))
+	tester(`math.floor(1))
+	tester(`math.floor(1.5))
+	tester(`math.floor(3.5))
+	tester(`math.floor(-.1))
+	tester(`math.floor(-.9))
+	tester(`math.floor(-1))
+	tester(`math.floor(-1.5))
+	tester(`math.floor(-3.5))
+}
+
+testcase('math.hypot()') {
+	tester(`math.hypot(0, 0))
+	tester(`math.hypot(3, 4))
+	tester(`math.hypot(-3, -4))
+}
+
+testcase('math.imag()') {
+	tester(`math.imag(0))
+	tester(`math.imag(3))
+	tester(`math.imag(4j))
+	tester(`math.imag(3 + 4j))
+}
+
+testcase('math.log()') {
+	tester(`math.log(3))
+	tester(`math.log(math.e))
+	tester(`math.log(2 + 3j))
+	tester(`math.log(-3))
+	tester(`math.log(0))
+}
+
+testcase('math.log10()') {
+	tester(`math.log10(3))
+	tester(`math.log10(math.e))
+	tester(`math.log10(2 + 3j))
+	tester(`math.log10(-3))
+	tester(`math.log10(0))
+}
+
+testcase('math.norm()') {
+	tester(`math.norm(0))
+	tester(`math.norm(3))
+	tester(`math.norm(4j))
+	tester(`math.norm(3 + 4j))
+}
+
+testcase('math.ramp()') {
+	tester(`math.ramp(-2))
+	tester(`math.ramp(-1))
+	tester(`math.ramp(0))
+	tester(`math.ramp(1))
+	tester(`math.ramp(2))
+}
+
+testcase('math.real()') {
+	tester(`math.real(0))
+	tester(`math.real(3))
+	tester(`math.real(4j))
+	tester(`math.real(3 + 4j))
+}
+
+testcase('math.sin()') {
+	tester(`math.sin(0))
+	tester(`math.sin(math.pi / 2))
+	tester(`math.sin(math.pi))
+	tester(`math.sin(0):deg)
+	tester(`math.sin(90):deg)
+	tester(`math.sin(180):deg)
+}
+
+testcase('math.sinh()') {
+	tester(`math.sinh(0))
+	tester(`math.sinh(1))
+	tester(`((math.exp(1) - math.exp(-1)) / 2))
+}
+
+testcase('math.sqrt()') {
+	tester(`math.sqrt(0))
+	tester(`math.sqrt(2))
+	tester(`math.sqrt(3))
+	tester(`math.sqrt(-2))
+	tester(`math.sqrt(-3))
+	tester(`math.sqrt(2j))
+	tester(`math.sqrt(3j))
+}
+
+testcase('math.tan()') {
+	tester(`math.tan(0))
+	tester(`math.tan(math.pi / 4))
+	tester(`math.tan(math.pi / 2))
+	tester(`math.tan(math.pi))
+	tester(`math.tan(0):deg)
+	tester(`math.tan(45):deg)
+	tester(`math.tan(90):deg)
+	tester(`math.tan(180):deg)
+}
+
+testcase('math.tanh()') {
+	tester(`math.tanh(0))
+	tester(`math.tanh(1))
+	tester(`((math.exp(1) - math.exp(-1)) / ((math.exp(1) + math.exp(-1)))))
+}
+
+testcase('math.unitstep()') {
+	tester(`math.unitstep(-2))
+	tester(`math.unitstep(-1))
+	tester(`math.unitstep(0))
+	tester(`math.unitstep(1))
+	tester(`math.unitstep(2))
+}
+
 testcase {
 	tester(`rational(260, 364).reduce())
 }

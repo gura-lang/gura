@@ -1576,7 +1576,8 @@ Value CalcCrossElem(Environment &env,
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_delta, number)
 {
-	return Value::Nil;
+	const double num = value.GetDouble();
+	return Value((num == 0)? 1 : 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -1584,7 +1585,27 @@ Gura_ImplementUnaryOperator(Math_delta, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Math_dot, list, list)
 {
-	return Value::Nil;
+	const ValueList &valList1 = valueLeft.GetList();
+	const ValueList &valList2 = valueRight.GetList();
+	if (valList1.size() != valList2.size()) {
+		env.SetError(ERR_ValueError, "different length of lists");
+		return Value::Nil;
+	}
+	ValueList::const_iterator pValue1 = valList1.begin();
+	ValueList::const_iterator pValue2 = valList2.begin();
+	Value valueSum(0);
+	for ( ; pValue1 != valList1.end(); pValue1++, pValue2++) {
+		Value value;
+		do {
+			value = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, *pValue1, *pValue2, FLAG_None);
+			if (env.IsSignalled()) return Value::Nil;
+		} while (0);
+		do {
+			valueSum = env.GetOperator(OPTYPE_Add)->EvalBinary(env, valueSum, value, FLAG_None);
+			if (env.IsSignalled()) return Value::Nil;
+		} while (0);
+	}
+	return valueSum;
 }
 
 //-----------------------------------------------------------------------------
@@ -1592,7 +1613,14 @@ Gura_ImplementBinaryOperator(Math_dot, list, list)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_exp, number)
 {
-	return Value::Nil;
+	const double num = value.GetDouble();
+	return Value(::exp(num));
+}
+
+Gura_ImplementUnaryOperator(Math_exp, complex)
+{
+	const Complex &num = value.GetComplex();
+	return Value(std::exp(num));
 }
 
 //-----------------------------------------------------------------------------
@@ -1600,15 +1628,18 @@ Gura_ImplementUnaryOperator(Math_exp, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_floor, number)
 {
-	return Value::Nil;
+	double num = value.GetNumber();
+	return Value(::floor(num));
 }
 
 //-----------------------------------------------------------------------------
-// math.hypot(A) ... UnaryOperator(Math_hypot, A)
+// math.hypot(A, B) ... BinaryOperator(Math_hypot, A, B)
 //-----------------------------------------------------------------------------
-Gura_ImplementUnaryOperator(Math_hypot, number)
+Gura_ImplementBinaryOperator(Math_hypot, number, number)
 {
-	return Value::Nil;
+	double x = valueLeft.GetDouble();
+	double y = valueRight.GetDouble();
+	return Value(::hypot(x, y));
 }
 
 //-----------------------------------------------------------------------------
@@ -1616,7 +1647,13 @@ Gura_ImplementUnaryOperator(Math_hypot, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_imag, number)
 {
-	return Value::Nil;
+	return Value::Zero;
+}
+
+Gura_ImplementUnaryOperator(Math_imag, complex)
+{
+	const Complex &num = value.GetComplex();
+	return Value(num.imag());
 }
 
 //-----------------------------------------------------------------------------
@@ -1624,7 +1661,24 @@ Gura_ImplementUnaryOperator(Math_imag, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_log, number)
 {
-	return Value::Nil;
+	double num = value.GetNumber();
+	if (num == 0.) {
+		env.SetError(ERR_MathError, "can't calculate a logarithm of zero");
+		return Value::Nil;
+	} else if (num < 0.) {
+		return Value(std::log(Complex(num)));
+	}
+	return Value(::log(num));
+}
+
+Gura_ImplementUnaryOperator(Math_log, complex)
+{
+	const Complex &num = value.GetComplex();
+	if (num.IsZero()) {
+		env.SetError(ERR_MathError, "can't calculate a logarithm of zero");
+		return Value::Nil;
+	}
+	return Value(std::log(num));
 }
 
 //-----------------------------------------------------------------------------
@@ -1632,7 +1686,24 @@ Gura_ImplementUnaryOperator(Math_log, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_log10, number)
 {
-	return Value::Nil;
+	double num = value.GetNumber();
+	if (num == 0.) {
+		env.SetError(ERR_MathError, "can't calculate a logarithm of zero");
+		return Value::Nil;
+	} else if (num < 0.) {
+		return Value(std::log10(Complex(num)));
+	}
+	return Value(::log10(num));
+}
+
+Gura_ImplementUnaryOperator(Math_log10, complex)
+{
+	const Complex &num = value.GetComplex();
+	if (num.IsZero()) {
+		env.SetError(ERR_MathError, "can't calculate a logarithm of zero");
+		return Value::Nil;
+	}
+	return Value(std::log10(num));
 }
 
 //-----------------------------------------------------------------------------
@@ -1640,7 +1711,14 @@ Gura_ImplementUnaryOperator(Math_log10, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_norm, number)
 {
-	return Value::Nil;
+	double num = value.GetNumber();
+	return Value(num * num);
+}
+
+Gura_ImplementUnaryOperator(Math_norm, complex)
+{
+	const Complex &num = value.GetComplex();
+	return Value(std::norm(num));
 }
 
 //-----------------------------------------------------------------------------
@@ -1968,12 +2046,17 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignUnaryOperator(Math_delta, number);
 	Gura_AssignBinaryOperator(Math_dot, list, list);
 	Gura_AssignUnaryOperator(Math_exp, number);
+	Gura_AssignUnaryOperator(Math_exp, complex);
 	Gura_AssignUnaryOperator(Math_floor, number);
-	Gura_AssignUnaryOperator(Math_hypot, number);
+	Gura_AssignBinaryOperator(Math_hypot, number, number);
 	Gura_AssignUnaryOperator(Math_imag, number);
+	Gura_AssignUnaryOperator(Math_imag, complex);
 	Gura_AssignUnaryOperator(Math_log, number);
+	Gura_AssignUnaryOperator(Math_log, complex);
 	Gura_AssignUnaryOperator(Math_log10, number);
+	Gura_AssignUnaryOperator(Math_log10, complex);
 	Gura_AssignUnaryOperator(Math_norm, number);
+	Gura_AssignUnaryOperator(Math_norm, complex);
 	Gura_AssignUnaryOperator(Math_ramp, number);
 	Gura_AssignUnaryOperator(Math_real, number);
 	Gura_AssignUnaryOperator(Math_sin, number);

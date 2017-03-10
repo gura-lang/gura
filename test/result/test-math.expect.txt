@@ -1,12 +1,259 @@
-======== #1 ========
+======== #1 math.abs() ========
+
+math.abs(0) .. 0
+math.abs(3) .. 3
+math.abs(-3) .. 3
+math.abs(4j) .. 4
+math.abs(4j) .. 4
+math.abs(3 + 4j) .. 5
+math.abs(3 - 4j) .. 5
+
+======== #2 math.acos() ========
+
+math.acos(0) .. 1.5708
+math.acos(1) .. 0
+math.acos(-1) .. 3.14159
+math.acos(0):deg .. 90
+math.acos(1):deg .. 0
+math.acos(-1):deg .. 180
+
+======== #3 math.arg() ========
+
+math.arg(0) .. 0
+math.arg(3) .. 0
+math.arg(-3) .. 0
+math.arg(4j) .. 1.5708
+math.arg(-4j) .. -1.5708
+math.arg(1 + 1j) .. 0.785398
+math.arg(1 - 1j) .. -0.785398
+math.arg(0):deg .. 0
+math.arg(3):deg .. 0
+math.arg(-3):deg .. 0
+math.arg(4j):deg .. 90
+math.arg(-4j):deg .. -90
+math.arg(1 + 1j):deg .. 45
+math.arg(1 - 1j):deg .. -45
+
+======== #4 math.asin() ========
+
+math.acos(0) .. 1.5708
+math.acos(1) .. 0
+math.acos(-1) .. 3.14159
+math.acos(0):deg .. 90
+math.acos(1):deg .. 0
+math.acos(-1):deg .. 180
+
+======== #5 math.atan() ========
+
+math.atan(0) .. 0
+math.atan(1) .. 0.785398
+math.atan(-1) .. -0.785398
+math.atan(0):deg .. 0
+math.atan(1):deg .. 45
+math.atan(-1):deg .. -45
+
+======== #6 math.atan2() ========
+
+math.atan2(1, 0) .. 1.5708
+math.atan2(0, 1) .. 0
+math.atan2(1, 1) .. 0.785398
+math.atan2(-1, 1) .. -0.785398
+math.atan2(1, 0):deg .. 90
+math.atan2(0, 1):deg .. 0
+math.atan2(1, 1):deg .. 45
+math.atan2(-1, 1):deg .. -45
+
+======== #7 math.ceil() ========
+
+math.ceil(0) .. 0
+math.ceil(.1) .. 1
+math.ceil(.9) .. 1
+math.ceil(1) .. 1
+math.ceil(1.5) .. 2
+math.ceil(3.5) .. 4
+math.ceil(-.1) .. 0
+math.ceil(-.9) .. 0
+math.ceil(-1) .. -1
+math.ceil(-1.5) .. -1
+math.ceil(-3.5) .. -3
+
+======== #8 math.conj() ========
+
+math.conj(0) .. 0
+math.conj(3) .. 3
+math.conj(4j) .. -4j
+math.conj(-4j) .. 4j
+math.conj(3 + 4j) .. 3-4j
+math.conj(3 - 4j) .. 3+4j
+
+======== #9 math.cos() ========
+
+math.cos(0) .. 1
+math.cos(math.pi / 2) .. 6.12323e-17
+math.cos(math.pi) .. -1
+math.cos(0):deg .. 1
+math.cos(90):deg .. 6.12323e-17
+math.cos(180):deg .. -1
+
+======== #10 math.cosh() ========
+
+math.cosh(0) .. 1
+math.cosh(1) .. 1.54308
+(math.exp(1) + math.exp(-1)) / 2 .. 1.54308
+
+======== #11 math.cross() ========
+
+math.cross([1, 2], [2, 3]) .. -1
+math.cross([1, 2, 3], [2, 3, 4]) .. [-1, 2, -1]
+math.cross([1, 2, 3], [2, 3]) .. ValueError: different length of lists
+math.cross([1, 2, 3, 2], [2, 3, 4, 5]) .. ValueError: only support two or three dimension vector for cross product
+
+======== #12 math.delta() ========
+
+math.delta(-2) .. 0
+math.delta(-1) .. 0
+math.delta(0) .. 1
+math.delta(1) .. 0
+math.delta(2) .. 0
+
+======== #13 math.dot() ========
+
+math.dot([1, 2], [2, 3]) .. 8
+math.dot([1, 2, 3], [2, 3, 4]) .. 20
+math.dot([1, 2, 3], [2, 3]) .. ValueError: different length of lists
+math.dot([1, 2, 3, 2], [2, 3, 4, 5]) .. 30
+
+======== #14 math.exp() ========
+
+math.exp(0) .. 1
+math.exp(1) .. 2.71828
+math.exp(-1) .. 0.367879
+math.exp(math.pi * 1j) .. -1+1.22465e-16j
+
+======== #15 math.floor() ========
+
+math.floor(0) .. 0
+math.floor(.1) .. 0
+math.floor(.9) .. 0
+math.floor(1) .. 1
+math.floor(1.5) .. 1
+math.floor(3.5) .. 3
+math.floor(-.1) .. -1
+math.floor(-.9) .. -1
+math.floor(-1) .. -1
+math.floor(-1.5) .. -2
+math.floor(-3.5) .. -4
+
+======== #16 math.hypot() ========
+
+math.hypot(0, 0) .. 0
+math.hypot(3, 4) .. 5
+math.hypot(-3, -4) .. 5
+
+======== #17 math.imag() ========
+
+math.imag(0) .. 0
+math.imag(3) .. 0
+math.imag(4j) .. 4
+math.imag(3 + 4j) .. 4
+
+======== #18 math.log() ========
+
+math.log(3) .. 1.09861
+math.log(math.e) .. 1
+math.log(2 + 3j) .. 1.28247+0.982794j
+math.log(-3) .. 1.09861+3.14159j
+math.log(0) .. MathError: can't calculate a logarithm of zero
+
+======== #19 math.log10() ========
+
+math.log10(3) .. 0.477121
+math.log10(math.e) .. 0.434294
+math.log10(2 + 3j) .. 0.556972+0.426822j
+math.log10(-3) .. 0.477121+1.36438j
+math.log10(0) .. MathError: can't calculate a logarithm of zero
+
+======== #20 math.norm() ========
+
+math.norm(0) .. 0
+math.norm(3) .. 9
+math.norm(4j) .. 16
+math.norm(3 + 4j) .. 25
+
+======== #21 math.ramp() ========
+
+math.ramp(-2) .. 0
+math.ramp(-1) .. 0
+math.ramp(0) .. 0
+math.ramp(1) .. 1
+math.ramp(2) .. 2
+
+======== #22 math.real() ========
+
+math.real(0) .. 0
+math.real(3) .. 3
+math.real(4j) .. 0
+math.real(3 + 4j) .. 3
+
+======== #23 math.sin() ========
+
+math.sin(0) .. 0
+math.sin(math.pi / 2) .. 1
+math.sin(math.pi) .. 1.22465e-16
+math.sin(0):deg .. 0
+math.sin(90):deg .. 1
+math.sin(180):deg .. 1.22465e-16
+
+======== #24 math.sinh() ========
+
+math.sinh(0) .. 0
+math.sinh(1) .. 1.1752
+(math.exp(1) - math.exp(-1)) / 2 .. 1.1752
+
+======== #25 math.sqrt() ========
+
+math.sqrt(0) .. 0
+math.sqrt(2) .. 1.41421
+math.sqrt(3) .. 1.73205
+math.sqrt(-2) .. 1.41421j
+math.sqrt(-3) .. 1.73205j
+math.sqrt(2j) .. 1+1j
+math.sqrt(3j) .. 1.22474+1.22474j
+
+======== #26 math.tan() ========
+
+math.tan(0) .. 0
+math.tan(math.pi / 4) .. 1
+math.tan(math.pi / 2) .. 1.63312e+16
+math.tan(math.pi) .. -1.22465e-16
+math.tan(0):deg .. 0
+math.tan(45):deg .. 1
+math.tan(90):deg .. 1.63312e+16
+math.tan(180):deg .. -1.22465e-16
+
+======== #27 math.tanh() ========
+
+math.tanh(0) .. 0
+math.tanh(1) .. 0.761594
+(math.exp(1) - math.exp(-1)) / (math.exp(1) + math.exp(-1)) .. 0.761594
+
+======== #28 math.unitstep() ========
+
+math.unitstep(-2) .. 0
+math.unitstep(-1) .. 0
+math.unitstep(0) .. 1
+math.unitstep(1) .. 1
+math.unitstep(2) .. 1
+
+======== #29 ========
 
 rational(260, 364).reduce() .. 5/7r
 
-======== #2 ========
+======== #30 ========
 
 math.hypot(3, 4) .. 5
 
-======== #3 ========
+======== #31 ========
 
 6   3   .. GCD:3   LCM:6  
 3   6   .. GCD:3   LCM:6  
@@ -30,7 +277,7 @@ math.hypot(3, 4) .. 5
 60   84   36   .. GCD:12  LCM:1260
 60   36   84   .. GCD:12  LCM:1260
 
-======== #4 ========
+======== #32 ========
 
 math.cross([1, 2], [3, 1]) .. -5
 math.cross([3, 1], [1, 2]) .. 5
@@ -42,7 +289,7 @@ math.dot([-1, -3], [2, 2]) .. -8
 math.dot([-1, -3, 3], [2, 2, -1]) .. -11
 math.dot([-1, -3], [2, 2, 3]) .. ValueError: different length of lists
 
-======== #5 ========
+======== #33 ========
 
 f2_x(t:number):map = { a + b * t + c * t * t + d * t * t * t }
 f2_y(t:number):map = { a + b * t + c * t * t + d * t * t * t }
@@ -58,23 +305,23 @@ f2_y(t:number):map = { a + b * t + c * t * t + d * t * t * t }
    18.598080,   18.598080,   18.598080,     8.751715,    8.751715,    8.751715
    20.000000,   20.000000,   20.000000,    10.000000,   10.000000,   10.000000
 
-======== #6 ========
+======== #34 ========
 
 f(x:number):map = 3.55 + 0.35 * x
 g(temp:number):map = 2.94286 + 0.707143 * temp + (-0.0357143) * temp ** 2
 h(hoge:number):map = (-0.619643) + 4.54464 * hoge + (-0.973214) * hoge ** 2 + 0.0625 * hoge ** 3
 
-======== #7 ========
+======== #35 ========
 
 f(x:number):map = 1.00714 + 5.10714 * x
 
-======== #8 ramp, unitstep and delta ========
+======== #36 ramp, unitstep and delta ========
 
 math.ramp([(-5) .. 5]) .. [0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5]
 math.unitstep([(-5) .. 5]) .. [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1]
 math.delta([(-5) .. 5]) .. [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
 
-======== #9 random ========
+======== #37 random ========
 
 rand() .. 0.030581
 rand(100) .. 3
