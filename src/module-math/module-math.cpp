@@ -3,8 +3,6 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-#define USE_OPERATOR 1
-
 Gura_BeginModuleBody(math)
 
 //-----------------------------------------------------------------------------
@@ -22,22 +20,8 @@ Gura_DeclareFunction(abs)
 
 Gura_ImplementFunction(abs)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_abs)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		result.SetNumber(::fabs(value.GetNumber()));
-	} else if (value.Is_complex()) {
-		result.SetComplex(std::abs(value.GetComplex()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 // math.acos(num):map:[deg]
@@ -56,22 +40,8 @@ Gura_DeclareFunctionWithMathDiff(acos)
 
 Gura_ImplementFunction(acos)
 {
-#if USE_OPERATOR
 	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
 	return env.GetOperator(OPTYPE_Math_acos)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	double result = 0;
-	if (value.Is_number()) {
-		result = ::acos(value.GetNumber());
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-		return Value::Nil;
-	}
-	if (arg.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
-	return Value(result);
-#endif
 }
 
 Gura_ImplementMathDiff(acos)
@@ -107,24 +77,8 @@ Gura_DeclareFunction(arg)
 
 Gura_ImplementFunction(arg)
 {
-#if USE_OPERATOR
 	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
 	return env.GetOperator(OPTYPE_Math_arg)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	double result = 0;
-	if (value.Is_number()) {
-		// nothing to do
-	} else if (value.Is_complex()) {
-		result = std::arg(value.GetComplex());
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-		return Value::Nil;
-	}
-	if (arg.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
-	return Value(result);
-#endif
 }
 
 // math.asin(num):map:[deg]
@@ -143,22 +97,8 @@ Gura_DeclareFunctionWithMathDiff(asin)
 
 Gura_ImplementFunction(asin)
 {
-#if USE_OPERATOR
 	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
 	return env.GetOperator(OPTYPE_Math_asin)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	double result = 0;
-	if (value.Is_number()) {
-		result = ::asin(value.GetNumber());
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-		return Value::Nil;
-	}
-	if (arg.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
-	return Value(result);
-#endif
 }
 
 Gura_ImplementMathDiff(asin)
@@ -191,22 +131,8 @@ Gura_DeclareFunctionWithMathDiff(atan)
 
 Gura_ImplementFunction(atan)
 {
-#if USE_OPERATOR
 	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
 	return env.GetOperator(OPTYPE_Math_atan)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	double result = 0;
-	if (value.Is_number()) {
-		result = ::atan(value.GetNumber());
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-		return Value::Nil;
-	}
-	if (arg.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
-	return Value(result);
-#endif
 }
 
 Gura_ImplementMathDiff(atan)
@@ -241,24 +167,9 @@ Gura_DeclareFunction(atan2)
 
 Gura_ImplementFunction(atan2)
 {
-#if USE_OPERATOR
 	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
 	return env.GetOperator(OPTYPE_Math_atan2)->EvalMapBinary(
 		env, arg.GetValue(0), arg.GetValue(1), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value1 = arg.GetValue(0);
-	const Value &value2 = arg.GetValue(1);
-	double result = 0;
-	if (value1.Is_number() && value2.Is_number()) {
-		result = ::atan2(value1.GetNumber(), value2.GetNumber());
-	} else if (value1.IsValid() && value2.IsValid()) {
-		SetError_InvalidValType(sig, value1, value2);
-		return Value::Nil;
-	}
-	if (arg.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
-	return Value(result);
-#endif
 }
 
 // math.ceil(num):map
@@ -273,20 +184,8 @@ Gura_DeclareFunction(ceil)
 
 Gura_ImplementFunction(ceil)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_ceil)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		result.SetNumber(::ceil(value.GetNumber()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 // math.conj(num):map
@@ -301,22 +200,8 @@ Gura_DeclareFunction(conj)
 
 Gura_ImplementFunction(conj)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_conj)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		result.SetNumber(value.GetNumber());
-	} else if (value.Is_complex()) {
-		result.SetComplex(std::conj(value.GetComplex()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 // math.cos(num):map:[deg]
@@ -335,24 +220,8 @@ Gura_DeclareFunctionWithMathDiff(cos)
 
 Gura_ImplementFunction(cos)
 {
-#if USE_OPERATOR
 	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
 	return env.GetOperator(OPTYPE_Math_cos)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		double num = value.GetNumber();
-		if (arg.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
-		result.SetNumber(::cos(num));
-	} else if (value.Is_complex()) {
-		result.SetComplex(std::cos(value.GetComplex()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 Gura_ImplementMathDiff(cos)
@@ -377,22 +246,8 @@ Gura_DeclareFunction(cosh)
 
 Gura_ImplementFunction(cosh)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_cosh)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		result.SetNumber(::cosh(value.GetNumber()));
-	} else if (value.Is_complex()) {
-		result.SetComplex(std::cosh(value.GetComplex()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 // math.cross(a, b)
@@ -426,13 +281,8 @@ Gura_DeclareFunction(delta)
 
 Gura_ImplementFunction(delta)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_delta)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	const double num = arg.GetDouble(0);
-	return Value((num == 0)? 1 : 0);
-#endif
 }
 
 // math.dot(a, b)
@@ -465,22 +315,8 @@ Gura_DeclareFunctionWithMathDiff(exp)
 
 Gura_ImplementFunction(exp)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_exp)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		result.SetNumber(::exp(value.GetNumber()));
-	} else if (value.Is_complex()) {
-		result.SetComplex(std::exp(value.GetComplex()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 Gura_ImplementMathDiff(exp)
@@ -503,20 +339,8 @@ Gura_DeclareFunction(floor)
 
 Gura_ImplementFunction(floor)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_floor)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		result.SetNumber(::floor(value.GetNumber()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 // math.hypot(x, y):map
@@ -532,22 +356,9 @@ Gura_DeclareFunction(hypot)
 
 Gura_ImplementFunction(hypot)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_hypot)->EvalMapBinary(
 		env, arg.GetValue(0), arg.GetValue(1), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &x = arg.GetValue(0);
-	const Value &y = arg.GetValue(1);
-	Value result;
-	if (x.Is_number() && y.Is_number()) {
-		result.SetNumber(::hypot(x.GetNumber(), y.GetNumber()));
-	} else if (x.IsValid() || y.IsValid()) {
-		SetError_InvalidValType(sig, x, y);
-	}
-	return result;
-#endif
 }
 
 // math.imag(num):map
@@ -562,22 +373,8 @@ Gura_DeclareFunction(imag)
 
 Gura_ImplementFunction(imag)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_imag)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		result.SetNumber(0.);
-	} else if (value.Is_complex()) {
-		result.SetNumber(value.GetComplex().imag());
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 // math.log(num):map
@@ -682,22 +479,8 @@ Gura_DeclareFunction(norm)
 
 Gura_ImplementFunction(norm)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_norm)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		result.SetNumber(value.GetNumber() * value.GetNumber());
-	} else if (value.Is_complex()) {
-		result.SetNumber(std::norm(value.GetComplex()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 // math.ramp(num:number):map
@@ -713,13 +496,8 @@ Gura_DeclareFunctionWithMathDiff(ramp)
 
 Gura_ImplementFunction(ramp)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_ramp)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	const double num = arg.GetDouble(0);
-	return Value((num >= 0)? num : 0);
-#endif
 }
 
 Gura_ImplementMathDiff(ramp)
@@ -742,22 +520,8 @@ Gura_DeclareFunction(real)
 
 Gura_ImplementFunction(real)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_real)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		result.SetNumber(value.GetNumber());
-	} else if (value.Is_complex()) {
-		result.SetNumber(value.GetComplex().real());
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 // math.sin(num):map:[deg]
@@ -776,24 +540,8 @@ Gura_DeclareFunctionWithMathDiff(sin)
 
 Gura_ImplementFunction(sin)
 {
-#if USE_OPERATOR
 	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
 	return env.GetOperator(OPTYPE_Math_sin)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		double num = value.GetNumber();
-		if (arg.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
-		result.SetNumber(::sin(num));
-	} else if (value.Is_complex()) {
-		result.SetComplex(std::sin(value.GetComplex()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 Gura_ImplementMathDiff(sin)
@@ -816,22 +564,8 @@ Gura_DeclareFunction(sinh)
 
 Gura_ImplementFunction(sinh)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_sinh)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		result.SetNumber(::sinh(value.GetNumber()));
-	} else if (value.Is_complex()) {
-		result.SetComplex(std::sinh(value.GetComplex()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 // math.sqrt(num):map
@@ -846,26 +580,8 @@ Gura_DeclareFunctionWithMathDiff(sqrt)
 
 Gura_ImplementFunction(sqrt)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_sqrt)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		if (value.GetNumber() >= 0) {
-			result.SetNumber(::sqrt(value.GetNumber()));
-		} else {
-			result.SetComplex(Complex(0, ::sqrt(-value.GetNumber())));
-		}
-	} else if (value.Is_complex()) {
-		result.SetComplex(std::sqrt(value.GetComplex()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 Gura_ImplementMathDiff(sqrt)
@@ -898,24 +614,8 @@ Gura_DeclareFunctionWithMathDiff(tan)
 
 Gura_ImplementFunction(tan)
 {
-#if USE_OPERATOR
 	ULong flags = arg.IsSet(Gura_Symbol(deg))? FLAG_Deg : FLAG_None;
 	return env.GetOperator(OPTYPE_Math_tan)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		double num = value.GetNumber();
-		if (arg.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
-		result.SetNumber(::tan(num));
-	} else if (value.Is_complex()) {
-		result.SetComplex(std::tan(value.GetComplex()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 Gura_ImplementMathDiff(tan)
@@ -944,22 +644,8 @@ Gura_DeclareFunction(tanh)
 
 Gura_ImplementFunction(tanh)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_tanh)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		result.SetNumber(::tanh(value.GetNumber()));
-	} else if (value.Is_complex()) {
-		result.SetComplex(std::tanh(value.GetComplex()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 // math.unitstep(num:number):map
@@ -975,13 +661,8 @@ Gura_DeclareFunctionWithMathDiff(unitstep)
 
 Gura_ImplementFunction(unitstep)
 {
-#if USE_OPERATOR
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_unitstep)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	const double num = arg.GetDouble(0);
-	return Value((num >= 0)? 1 : 0);
-#endif
 }
 
 Gura_ImplementMathDiff(unitstep)
