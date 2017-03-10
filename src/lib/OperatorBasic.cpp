@@ -51,7 +51,7 @@ Gura_ImplementUnaryOperator(Pos, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Neg, number)
 {
-	return Value(-value.GetNumber());
+	return Value(-value.GetDouble());
 }
 
 Gura_ImplementUnaryOperator(Neg, complex)
@@ -98,8 +98,8 @@ Gura_ImplementUnaryOperator(Neg, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Inv, number)
 {
-	ULong num = ~static_cast<ULong>(value.GetNumber());
-	return Value(static_cast<Number>(num));
+	ULong num = ~value.GetULong();
+	return Value(num);
 }
 
 //-----------------------------------------------------------------------------
@@ -116,7 +116,7 @@ Gura_ImplementUnaryOperator(Not, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(SeqInf, number)
 {
-	Number numBegin = value.GetNumber();
+	Number numBegin = value.GetDouble();
 	return Value(new Object_iterator(env, new Iterator_SequenceInf(numBegin)));
 }
 
@@ -153,22 +153,22 @@ Gura_ImplementUnaryOperator(Each, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Add, number, number)
 {
-	return Value(valueLeft.GetNumber() + valueRight.GetNumber());
+	return Value(valueLeft.GetDouble() + valueRight.GetDouble());
 }
 
 Gura_ImplementBinaryOperator(Add, boolean, boolean)
 {
-	return Value(valueLeft.GetNumber() + valueRight.GetNumber());
+	return Value(valueLeft.GetDouble() + valueRight.GetDouble());
 }
 
 Gura_ImplementBinaryOperator(Add, number, boolean)
 {
-	return Value(valueLeft.GetNumber() + valueRight.GetNumber());
+	return Value(valueLeft.GetDouble() + valueRight.GetDouble());
 }
 
 Gura_ImplementBinaryOperator(Add, boolean, number)
 {
-	return Value(valueLeft.GetNumber() + valueRight.GetNumber());
+	return Value(valueLeft.GetDouble() + valueRight.GetDouble());
 }
 
 Gura_ImplementBinaryOperator(Add, complex, complex)
@@ -194,7 +194,7 @@ Gura_ImplementBinaryOperator(Add, rational, number)
 {
 	Signal &sig = env.GetSignal();
 	const Rational &a = valueLeft.GetRational();
-	const Rational b = Rational::FromNumber(valueRight.GetNumber());
+	const Rational b = Rational::FromNumber(valueRight.GetDouble());
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
 		return Value::Nil;
@@ -207,7 +207,7 @@ Gura_ImplementBinaryOperator(Add, rational, number)
 Gura_ImplementBinaryOperator(Add, number, rational)
 {
 	Signal &sig = env.GetSignal();
-	const Rational a = Rational::FromNumber(valueLeft.GetNumber());
+	const Rational a = Rational::FromNumber(valueLeft.GetDouble());
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
@@ -220,12 +220,12 @@ Gura_ImplementBinaryOperator(Add, number, rational)
 
 Gura_ImplementBinaryOperator(Add, number, complex)
 {
-	return Value(valueLeft.GetNumber() + valueRight.GetComplex());
+	return Value(valueLeft.GetDouble() + valueRight.GetComplex());
 }
 
 Gura_ImplementBinaryOperator(Add, complex, number)
 {
-	return Value(valueLeft.GetComplex() + valueRight.GetNumber());
+	return Value(valueLeft.GetComplex() + valueRight.GetDouble());
 }
 
 Gura_ImplementBinaryOperator(Add, matrix, matrix)
@@ -344,22 +344,22 @@ Gura_ImplementBinaryOperator(Add, number, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Sub, number, number)
 {
-	return Value(valueLeft.GetNumber() - valueRight.GetNumber());
+	return Value(valueLeft.GetDouble() - valueRight.GetDouble());
 }
 
 Gura_ImplementBinaryOperator(Sub, boolean, boolean)
 {
-	return Value(valueLeft.GetNumber() - valueRight.GetNumber());
+	return Value(valueLeft.GetDouble() - valueRight.GetDouble());
 }
 
 Gura_ImplementBinaryOperator(Sub, number, boolean)
 {
-	return Value(valueLeft.GetNumber() - valueRight.GetNumber());
+	return Value(valueLeft.GetDouble() - valueRight.GetDouble());
 }
 
 Gura_ImplementBinaryOperator(Sub, boolean, number)
 {
-	return Value(valueLeft.GetNumber() - valueRight.GetNumber());
+	return Value(valueLeft.GetDouble() - valueRight.GetDouble());
 }
 
 Gura_ImplementBinaryOperator(Sub, complex, complex)
@@ -385,7 +385,7 @@ Gura_ImplementBinaryOperator(Sub, rational, number)
 {
 	Signal &sig = env.GetSignal();
 	const Rational &a = valueLeft.GetRational();
-	const Rational b = Rational::FromNumber(valueRight.GetNumber());
+	const Rational b = Rational::FromNumber(valueRight.GetDouble());
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
 		return Value::Nil;
@@ -398,7 +398,7 @@ Gura_ImplementBinaryOperator(Sub, rational, number)
 Gura_ImplementBinaryOperator(Sub, number, rational)
 {
 	Signal &sig = env.GetSignal();
-	const Rational a = Rational::FromNumber(valueLeft.GetNumber());
+	const Rational a = Rational::FromNumber(valueLeft.GetDouble());
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
@@ -411,12 +411,12 @@ Gura_ImplementBinaryOperator(Sub, number, rational)
 
 Gura_ImplementBinaryOperator(Sub, number, complex)
 {
-	return Value(valueLeft.GetNumber() - valueRight.GetComplex());
+	return Value(valueLeft.GetDouble() - valueRight.GetComplex());
 }
 
 Gura_ImplementBinaryOperator(Sub, complex, number)
 {
-	return Value(valueLeft.GetComplex() - valueRight.GetNumber());
+	return Value(valueLeft.GetComplex() - valueRight.GetDouble());
 }
 
 Gura_ImplementBinaryOperator(Sub, matrix, matrix)
@@ -517,22 +517,22 @@ Gura_ImplementBinaryOperator(Sub, number, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Mul, number, number)
 {
-	return Value(valueLeft.GetNumber() * valueRight.GetNumber());
+	return Value(valueLeft.GetDouble() * valueRight.GetDouble());
 }
 
 Gura_ImplementBinaryOperator(Mul, boolean, boolean)
 {
-	return Value(valueLeft.GetNumber() * valueRight.GetNumber());
+	return Value(valueLeft.GetDouble() * valueRight.GetDouble());
 }
 
 Gura_ImplementBinaryOperator(Mul, number, boolean)
 {
-	return Value(valueLeft.GetNumber() * valueRight.GetNumber());
+	return Value(valueLeft.GetDouble() * valueRight.GetDouble());
 }
 
 Gura_ImplementBinaryOperator(Mul, boolean, number)
 {
-	return Value(valueLeft.GetNumber() * valueRight.GetNumber());
+	return Value(valueLeft.GetDouble() * valueRight.GetDouble());
 }
 
 Gura_ImplementBinaryOperator(Mul, complex, complex)
@@ -558,7 +558,7 @@ Gura_ImplementBinaryOperator(Mul, rational, number)
 {
 	Signal &sig = env.GetSignal();
 	const Rational &a = valueLeft.GetRational();
-	const Rational b = Rational::FromNumber(valueRight.GetNumber());
+	const Rational b = Rational::FromNumber(valueRight.GetDouble());
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
 		return Value::Nil;
@@ -571,7 +571,7 @@ Gura_ImplementBinaryOperator(Mul, rational, number)
 Gura_ImplementBinaryOperator(Mul, number, rational)
 {
 	Signal &sig = env.GetSignal();
-	const Rational a = Rational::FromNumber(valueLeft.GetNumber());
+	const Rational a = Rational::FromNumber(valueLeft.GetDouble());
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
@@ -584,12 +584,12 @@ Gura_ImplementBinaryOperator(Mul, number, rational)
 
 Gura_ImplementBinaryOperator(Mul, number, complex)
 {
-	return Value(valueLeft.GetNumber() * valueRight.GetComplex());
+	return Value(valueLeft.GetDouble() * valueRight.GetComplex());
 }
 
 Gura_ImplementBinaryOperator(Mul, complex, number)
 {
-	return Value(valueLeft.GetComplex() * valueRight.GetNumber());
+	return Value(valueLeft.GetComplex() * valueRight.GetDouble());
 }
 
 #if 0
@@ -667,7 +667,7 @@ Gura_ImplementBinaryOperator(Mul, Class, any)
 Gura_ImplementBinaryOperator(Mul, string, number)
 {
 	String str;
-	for (int cnt = static_cast<int>(valueRight.GetNumber()); cnt > 0; cnt--) {
+	for (int cnt = valueRight.GetInt(); cnt > 0; cnt--) {
 		str += valueLeft.GetString();
 	}
 	return Value(str);
@@ -676,7 +676,7 @@ Gura_ImplementBinaryOperator(Mul, string, number)
 Gura_ImplementBinaryOperator(Mul, number, string)
 {
 	String str;
-	for (int cnt = static_cast<int>(valueLeft.GetNumber()); cnt > 0; cnt--) {
+	for (int cnt = valueLeft.GetInt(); cnt > 0; cnt--) {
 		str += valueRight.GetString();
 	}
 	return Value(str);
@@ -685,7 +685,7 @@ Gura_ImplementBinaryOperator(Mul, number, string)
 Gura_ImplementBinaryOperator(Mul, binary, number)
 {
 	Binary buff;
-	for (int cnt = static_cast<int>(valueRight.GetNumber()); cnt > 0; cnt--) {
+	for (int cnt = valueRight.GetInt(); cnt > 0; cnt--) {
 		buff += valueLeft.GetBinary();
 	}
 	return Value(new Object_binary(env, buff, true));
@@ -694,7 +694,7 @@ Gura_ImplementBinaryOperator(Mul, binary, number)
 Gura_ImplementBinaryOperator(Mul, number, binary)
 {
 	Binary buff;
-	for (int cnt = static_cast<int>(valueLeft.GetNumber()); cnt > 0; cnt--) {
+	for (int cnt = valueLeft.GetInt(); cnt > 0; cnt--) {
 		buff += valueRight.GetBinary();
 	}
 	return Value(new Object_binary(env, buff, true));
@@ -734,12 +734,12 @@ Gura_ImplementBinaryOperator(Mul, number, array)
 Gura_ImplementBinaryOperator(Div, number, number)
 {
 	Signal &sig = env.GetSignal();
-	Number numRight = valueRight.GetNumber();
+	Number numRight = valueRight.GetDouble();
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
 		return Value::Nil;
 	}
-	return Value(valueLeft.GetNumber() / numRight);
+	return Value(valueLeft.GetDouble() / numRight);
 }
 
 Gura_ImplementBinaryOperator(Div, complex, complex)
@@ -771,7 +771,7 @@ Gura_ImplementBinaryOperator(Div, rational, number)
 {
 	Signal &sig = env.GetSignal();
 	const Rational &a = valueLeft.GetRational();
-	const Rational b = Rational::FromNumber(valueRight.GetNumber());
+	const Rational b = Rational::FromNumber(valueRight.GetDouble());
 	if (a.denom == 0 || b.numer == 0) {
 		Rational::SetError_DenominatorZero(sig);
 		return Value::Nil;
@@ -784,7 +784,7 @@ Gura_ImplementBinaryOperator(Div, rational, number)
 Gura_ImplementBinaryOperator(Div, number, rational)
 {
 	Signal &sig = env.GetSignal();
-	const Rational a = Rational::FromNumber(valueLeft.GetNumber());
+	const Rational a = Rational::FromNumber(valueLeft.GetDouble());
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.numer == 0) {
 		Rational::SetError_DenominatorZero(sig);
@@ -803,13 +803,13 @@ Gura_ImplementBinaryOperator(Div, number, complex)
 		Operator::SetError_DivideByZero(sig);
 		return Value::Nil;
 	}
-	return Value(valueLeft.GetNumber() / numRight);
+	return Value(valueLeft.GetDouble() / numRight);
 }
 
 Gura_ImplementBinaryOperator(Div, complex, number)
 {
 	Signal &sig = env.GetSignal();
-	Number numRight = valueRight.GetNumber();
+	Number numRight = valueRight.GetDouble();
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
 		return Value::Nil;
@@ -862,12 +862,12 @@ Gura_ImplementBinaryOperator(Div, number, array)
 Gura_ImplementBinaryOperator(Mod, number, number)
 {
 	Signal &sig = env.GetSignal();
-	Number numRight = valueRight.GetNumber();
+	Number numRight = valueRight.GetDouble();
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
 		return Value::Nil;
 	}
-	return Value(::fmod(valueLeft.GetNumber(), numRight));
+	return Value(::fmod(valueLeft.GetDouble(), numRight));
 }
 
 Gura_ImplementBinaryOperator(Mod, array, array)
@@ -905,7 +905,7 @@ Gura_ImplementBinaryOperator(Mod, number, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Pow, number, number)
 {
-	return Value(::pow(valueLeft.GetNumber(), valueRight.GetNumber()));
+	return Value(::pow(valueLeft.GetDouble(), valueRight.GetDouble()));
 }
 
 Gura_ImplementBinaryOperator(Pow, complex, complex)
@@ -919,12 +919,12 @@ Gura_ImplementBinaryOperator(Pow, complex, complex)
 
 Gura_ImplementBinaryOperator(Pow, number, complex)
 {
-	return Value(std::pow(valueLeft.GetNumber(), valueRight.GetComplex()));
+	return Value(std::pow(valueLeft.GetDouble(), valueRight.GetComplex()));
 }
 
 Gura_ImplementBinaryOperator(Pow, complex, number)
 {
-	return Value(std::pow(valueLeft.GetComplex(), valueRight.GetNumber()));
+	return Value(std::pow(valueLeft.GetComplex(), valueRight.GetDouble()));
 }
 
 Gura_ImplementBinaryOperator(Pow, array, array)
@@ -1026,7 +1026,7 @@ Gura_ImplementBinaryOperator(Cmp, complex, complex)
 
 Gura_ImplementBinaryOperator(Cmp, number, number)
 {
-	return Value(Value::CompareNumber(valueLeft.GetNumber(), valueRight.GetNumber()));
+	return Value(Value::CompareNumber(valueLeft.GetDouble(), valueRight.GetDouble()));
 }
 
 Gura_ImplementBinaryOperator(Cmp, rational, rational)
@@ -1042,7 +1042,7 @@ Gura_ImplementBinaryOperator(Cmp, number, rational)
 		Operator::SetError_DivideByZero(sig);
 		return Value::Nil;
 	}
-	return Value(Value::CompareNumber(valueLeft.GetNumber(), ratio.numer / ratio.denom));
+	return Value(Value::CompareNumber(valueLeft.GetDouble(), ratio.numer / ratio.denom));
 }
 
 Gura_ImplementBinaryOperator(Cmp, rational, number)
@@ -1053,7 +1053,7 @@ Gura_ImplementBinaryOperator(Cmp, rational, number)
 		Operator::SetError_DivideByZero(sig);
 		return Value::Nil;
 	}
-	return Value(Value::CompareNumber(ratio.numer / ratio.denom, valueRight.GetNumber()));
+	return Value(Value::CompareNumber(ratio.numer / ratio.denom, valueRight.GetDouble()));
 }
 
 Gura_ImplementBinaryOperator(Cmp, string, string)
@@ -1154,8 +1154,7 @@ Gura_ImplementBinaryOperator(Contains, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(And, number, number)
 {
-	return Value(static_cast<ULong>(valueLeft.GetNumber()) &
-						static_cast<ULong>(valueRight.GetNumber()));
+	return Value(valueLeft.GetULong() & valueRight.GetULong());
 }
 
 Gura_ImplementBinaryOperator(And, boolean, boolean)
@@ -1237,8 +1236,7 @@ Gura_ImplementBinaryOperator(Or, number, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Xor, number, number)
 {
-	return Value(static_cast<ULong>(valueLeft.GetNumber()) ^
-						static_cast<ULong>(valueRight.GetNumber()));
+	return Value(valueLeft.GetULong() ^ valueRight.GetULong());
 }
 
 Gura_ImplementBinaryOperator(Xor, boolean, boolean)
@@ -1271,8 +1269,7 @@ Gura_ImplementBinaryOperator(Xor, number, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Shl, number, number)
 {
-	return Value(static_cast<ULong>(valueLeft.GetNumber()) <<
-							static_cast<ULong>(valueRight.GetNumber()));
+	return Value(valueLeft.GetULong() << valueRight.GetULong());
 }
 
 Gura_ImplementBinaryOperator(Shl, stream, any)
@@ -1316,8 +1313,7 @@ Gura_ImplementBinaryOperator(Shl, number, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Shr, number, number)
 {
-	return Value(static_cast<ULong>(valueLeft.GetNumber()) >>
-							static_cast<ULong>(valueRight.GetNumber()));
+	return Value(valueLeft.GetULong() >> valueRight.GetULong());
 }
 
 Gura_ImplementBinaryOperator(Shr, array, array)
@@ -1361,8 +1357,8 @@ Gura_ImplementBinaryOperator(AndAnd, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Seq, number, number)
 {
-	Number numBegin = valueLeft.GetNumber();
-	Number numEnd = valueRight.GetNumber();
+	Number numBegin = valueLeft.GetDouble();
+	Number numEnd = valueRight.GetDouble();
 	Number numStep = (numEnd >= numBegin)? +1 : -1;
 	return Value(new Object_iterator(env, new Iterator_Sequence(numBegin, numEnd, numStep)));
 }
@@ -1390,7 +1386,7 @@ Gura_ImplementBinaryOperator(Pair, number, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_abs, number)
 {
-	return Value(::fabs(value.GetNumber()));
+	return Value(::fabs(value.GetDouble()));
 }
 
 Gura_ImplementUnaryOperator(Math_abs, complex)
@@ -1403,7 +1399,7 @@ Gura_ImplementUnaryOperator(Math_abs, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_acos, number)
 {
-	double result = ::acos(value.GetNumber());
+	double result = ::acos(value.GetDouble());
 	if (flags & FLAG_Deg) result = RadToDeg(result);
 	return Value(result);
 }
@@ -1428,7 +1424,7 @@ Gura_ImplementUnaryOperator(Math_arg, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_asin, number)
 {
-	double result = ::asin(value.GetNumber());
+	double result = ::asin(value.GetDouble());
 	if (flags & FLAG_Deg) result = RadToDeg(result);
 	return Value(result);
 }
@@ -1438,7 +1434,7 @@ Gura_ImplementUnaryOperator(Math_asin, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_atan, number)
 {
-	double result = ::atan(value.GetNumber());
+	double result = ::atan(value.GetDouble());
 	if (flags & FLAG_Deg) result = RadToDeg(result);
 	return Value(result);
 }
@@ -1448,7 +1444,7 @@ Gura_ImplementUnaryOperator(Math_atan, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Math_atan2, number, number)
 {
-	double result = ::atan2(valueLeft.GetNumber(), valueRight.GetNumber());
+	double result = ::atan2(valueLeft.GetDouble(), valueRight.GetDouble());
 	if (flags & FLAG_Deg) result = RadToDeg(result);
 	return Value(result);
 }
@@ -1458,7 +1454,7 @@ Gura_ImplementBinaryOperator(Math_atan2, number, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_ceil, number)
 {
-	double result = ::ceil(value.GetNumber());
+	double result = ::ceil(value.GetDouble());
 	return Value(result);
 }
 
@@ -1467,7 +1463,7 @@ Gura_ImplementUnaryOperator(Math_ceil, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_conj, number)
 {
-	double result = ::ceil(value.GetNumber());
+	double result = ::ceil(value.GetDouble());
 	return Value(result);
 }
 
@@ -1482,7 +1478,7 @@ Gura_ImplementUnaryOperator(Math_conj, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_cos, number)
 {
-	double num = value.GetNumber();
+	double num = value.GetDouble();
 	if (flags & FLAG_Deg) num = DegToRad(num);
 	double result = ::cos(num);
 	return Value(result);
@@ -1500,7 +1496,7 @@ Gura_ImplementUnaryOperator(Math_cos, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_cosh, number)
 {
-	double num = value.GetNumber();
+	double num = value.GetDouble();
 	double result = ::cosh(num);
 	return Value(result);
 }
@@ -1628,7 +1624,7 @@ Gura_ImplementUnaryOperator(Math_exp, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_floor, number)
 {
-	double num = value.GetNumber();
+	double num = value.GetDouble();
 	return Value(::floor(num));
 }
 
@@ -1661,7 +1657,7 @@ Gura_ImplementUnaryOperator(Math_imag, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_log, number)
 {
-	double num = value.GetNumber();
+	double num = value.GetDouble();
 	if (num == 0.) {
 		env.SetError(ERR_MathError, "can't calculate a logarithm of zero");
 		return Value::Nil;
@@ -1686,7 +1682,7 @@ Gura_ImplementUnaryOperator(Math_log, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_log10, number)
 {
-	double num = value.GetNumber();
+	double num = value.GetDouble();
 	if (num == 0.) {
 		env.SetError(ERR_MathError, "can't calculate a logarithm of zero");
 		return Value::Nil;
@@ -1711,7 +1707,7 @@ Gura_ImplementUnaryOperator(Math_log10, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_norm, number)
 {
-	double num = value.GetNumber();
+	double num = value.GetDouble();
 	return Value(num * num);
 }
 
@@ -1726,7 +1722,7 @@ Gura_ImplementUnaryOperator(Math_norm, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_ramp, number)
 {
-	const double num = value.GetNumber();
+	const double num = value.GetDouble();
 	return Value((num >= 0)? num : 0);
 }
 
@@ -1735,7 +1731,7 @@ Gura_ImplementUnaryOperator(Math_ramp, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_real, number)
 {
-	double num = value.GetNumber();
+	double num = value.GetDouble();
 	return Value(num);
 }
 
@@ -1750,7 +1746,7 @@ Gura_ImplementUnaryOperator(Math_real, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_sin, number)
 {
-	double num = value.GetNumber();
+	double num = value.GetDouble();
 	if (flags & FLAG_Deg) num = DegToRad(num);
 	double result = ::sin(num);
 	return Value(result);
@@ -1768,7 +1764,7 @@ Gura_ImplementUnaryOperator(Math_sin, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_sinh, number)
 {
-	double num = value.GetNumber();
+	double num = value.GetDouble();
 	double result = ::sinh(num);
 	return Value(result);
 }
@@ -1785,7 +1781,7 @@ Gura_ImplementUnaryOperator(Math_sinh, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_sqrt, number)
 {
-	double num = value.GetNumber();
+	double num = value.GetDouble();
 	return (num >= 0)? Value(::sqrt(num)) : Value(Complex(0, ::sqrt(-num)));
 }
 
@@ -1800,7 +1796,7 @@ Gura_ImplementUnaryOperator(Math_sqrt, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_tan, number)
 {
-	double num = value.GetNumber();
+	double num = value.GetDouble();
 	if (flags & FLAG_Deg) num = DegToRad(num);
 	double result = ::tan(num);
 	return Value(result);
@@ -1818,7 +1814,7 @@ Gura_ImplementUnaryOperator(Math_tan, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_tanh, number)
 {
-	double num = value.GetNumber();
+	double num = value.GetDouble();
 	double result = ::tanh(num);
 	return Value(result);
 }
@@ -1835,7 +1831,7 @@ Gura_ImplementUnaryOperator(Math_tanh, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_unitstep, number)
 {
-	const double num = value.GetNumber();
+	const double num = value.GetDouble();
 	return Value((num >= 0)? 1 : 0);
 }
 
