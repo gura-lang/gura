@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-#define USE_OPERATOR 0
+#define USE_OPERATOR 1
 
 Gura_BeginModuleBody(math)
 
@@ -534,7 +534,8 @@ Gura_ImplementFunction(hypot)
 {
 #if USE_OPERATOR
 	ULong flags = FLAG_None;
-	return env.GetOperator(OPTYPE_Math_hypot)->EvalMapUnary(env, arg.GetValue(0), flags);
+	return env.GetOperator(OPTYPE_Math_hypot)->EvalMapBinary(
+		env, arg.GetValue(0), arg.GetValue(1), flags);
 #else
 	Signal &sig = env.GetSignal();
 	const Value &x = arg.GetValue(0);

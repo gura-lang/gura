@@ -1726,7 +1726,8 @@ Gura_ImplementUnaryOperator(Math_norm, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_ramp, number)
 {
-	return Value::Nil;
+	const double num = value.GetNumber();
+	return Value((num >= 0)? num : 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -1734,7 +1735,14 @@ Gura_ImplementUnaryOperator(Math_ramp, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_real, number)
 {
-	return Value::Nil;
+	double num = value.GetNumber();
+	return Value(num);
+}
+
+Gura_ImplementUnaryOperator(Math_real, complex)
+{
+	const Complex &num = value.GetComplex();
+	return Value(num.real());
 }
 
 //-----------------------------------------------------------------------------
@@ -1777,7 +1785,14 @@ Gura_ImplementUnaryOperator(Math_sinh, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_sqrt, number)
 {
-	return Value::Nil;
+	double num = value.GetNumber();
+	return (num >= 0)? Value(::sqrt(num)) : Value(Complex(0, ::sqrt(-num)));
+}
+
+Gura_ImplementUnaryOperator(Math_sqrt, complex)
+{
+	const Complex &num = value.GetComplex();
+	return Value(std::sqrt(num));
 }
 
 //-----------------------------------------------------------------------------
@@ -1820,7 +1835,8 @@ Gura_ImplementUnaryOperator(Math_tanh, complex)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_unitstep, number)
 {
-	return Value::Nil;
+	const double num = value.GetNumber();
+	return Value((num >= 0)? 1 : 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -2059,11 +2075,13 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignUnaryOperator(Math_norm, complex);
 	Gura_AssignUnaryOperator(Math_ramp, number);
 	Gura_AssignUnaryOperator(Math_real, number);
+	Gura_AssignUnaryOperator(Math_real, complex);
 	Gura_AssignUnaryOperator(Math_sin, number);
 	Gura_AssignUnaryOperator(Math_sin, complex);
 	Gura_AssignUnaryOperator(Math_sinh, number);
 	Gura_AssignUnaryOperator(Math_sinh, complex);
 	Gura_AssignUnaryOperator(Math_sqrt, number);
+	Gura_AssignUnaryOperator(Math_sqrt, complex);
 	Gura_AssignUnaryOperator(Math_tan, number);
 	Gura_AssignUnaryOperator(Math_tan, complex);
 	Gura_AssignUnaryOperator(Math_tanh, number);

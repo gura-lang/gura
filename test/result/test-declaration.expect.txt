@@ -231,7 +231,7 @@ math:module
   math.cross (a, b)
   math.delta(num:number):map
   math.diff(expr:expr, var:symbol):map {block?}
-  math.dot(a:list, b:list)
+  math.dot(a, b)
   e:number = 2.71828
   math.exp(num):map
   math.fft(seq[])
