@@ -325,7 +325,6 @@ bool Template::Parser::ParseStream(Environment &env,
 		case STAT_CommentPost: {
 			if (!stringAheadFlag && ch == '\n') {
 				stringAheadFlag = false;
-				Gura_PushbackCond(false);
 				stat = STAT_LineTop;
 			} else {
 				stringAheadFlag = true;
