@@ -459,7 +459,7 @@ Gura_ImplementBinaryOperator(Sub, color, color)
 {
 	const Color &color1 = Object_color::GetObject(valueLeft)->GetColor();
 	const Color &color2 = Object_color::GetObject(valueRight)->GetColor();
-	return Value(::sqrt(static_cast<double>(color1.CalcDistSqu(color2))));
+	return Value(::sqrt(color1.CalcDistSqu(color2)));
 }
 
 Gura_ImplementBinaryOperator(Sub, pointer, number)
@@ -481,7 +481,7 @@ Gura_ImplementBinaryOperator(Sub, pointer, pointer)
 	}
 	int offset1 = static_cast<int>(pPtr1->GetOffset());
 	int offset2 = static_cast<int>(pPtr2->GetOffset());
-	return Value(static_cast<Number>(offset1 - offset2));
+	return Value(offset1 - offset2);
 }
 
 Gura_ImplementBinaryOperator(Sub, vertex, vertex)
