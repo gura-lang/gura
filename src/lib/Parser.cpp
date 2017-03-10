@@ -308,7 +308,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 					if (tbl[i].tblCand[j].chSecond != ch) continue;
 					_field.push_back(ch);
 					pTokenInfo = tbl[i].tblCand[j].pTokenInfo;
-					Gura_PushbackCond(false);
+					Gura_PushbackCancel();
 					break;
 				}
 				if (pTokenInfo->IsIdentical(TOKEN_TripleChars)) {
@@ -358,7 +358,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				if (tbl[i].tblCand[j].chThird != ch) continue;
 				_field.push_back(ch);
 				pTokenInfo = tbl[i].tblCand[j].pTokenInfo;
-				Gura_PushbackCond(false);
+				Gura_PushbackCancel();
 				break;
 			}
 			if (_tokenStack.back().IsType(TOKEN_Quote)) {

@@ -100,8 +100,8 @@ __pushbackFlag = false
 #define Gura_Pushback() \
 __pushbackFlag = true
 
-#define Gura_PushbackCond(pushbackFlag) \
-__pushbackFlag = (pushbackFlag)
+#define Gura_PushbackCancel() \
+__pushbackFlag = false
 
 #define Gura_BeginPushbackRegionEx(T, n, var)	\
 T __pushbackBuff[n] = {var};  \
