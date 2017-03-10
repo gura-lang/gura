@@ -114,4 +114,7 @@ var = __pushbackBuff[--__pushbackLevel];
 #define Gura_PushbackEx(value) \
 __pushbackBuff[__pushbackLevel++] = (value)
 
+#define Gura_PushbackCancelEx() \
+__pushbackLevel--
+
 #endif

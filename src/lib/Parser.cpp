@@ -48,7 +48,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_lineHeadFlag = false;
 		}
 	}
-	Gura_BeginPushbackRegion();
+	Gura_BeginPushbackRegionEx(char, 8, ch);
 	switch (_stat) {
 	case STAT_BOF: {
 		if (ch == '\xef') {
@@ -56,7 +56,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_field.push_back(ch);
 			_stat = STAT_BOF_2nd;
 		} else {
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_Start;
 		}
 		break;
@@ -66,7 +66,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_field.push_back(ch);
 			_stat = STAT_BOF_3rd;
 		} else {
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_Symbol;
 		}
 		break;
@@ -75,7 +75,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 		if (ch == '\xbf') {
 			_stat = STAT_Start;
 		} else {
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_Symbol;
 		}
 		break;
@@ -214,7 +214,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_field.push_back(ch);
 		} else {
 			_pTokenWatcher->FeedToken(env, Token(TOKEN_Space, GetLineNo(), _field));
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_Start;
 		}
 		break;
@@ -298,7 +298,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			SetError(ERR_SyntaxError, "unmatching comment description");
 			_stat = STAT_Error;
 		} else {
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_Start;
 			for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 				if (tbl[i].chFirst != chFirst) continue;
@@ -308,7 +308,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 					if (tbl[i].tblCand[j].chSecond != ch) continue;
 					_field.push_back(ch);
 					pTokenInfo = tbl[i].tblCand[j].pTokenInfo;
-					Gura_PushbackCancel();
+					Gura_PushbackCancelEx();
 					break;
 				}
 				if (pTokenInfo->IsIdentical(TOKEN_TripleChars)) {
@@ -348,7 +348,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				{ '=', &TOKEN_AssignShr		},
 				{ '\0', &TOKEN_Unknown		}, } },
 		};
-		Gura_Pushback();
+		Gura_PushbackEx(ch);
 		_stat = STAT_Start;
 		for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 			if (_field.compare(tbl[i].strFirst) != 0) continue;
@@ -358,7 +358,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				if (tbl[i].tblCand[j].chThird != ch) continue;
 				_field.push_back(ch);
 				pTokenInfo = tbl[i].tblCand[j].pTokenInfo;
-				Gura_PushbackCancel();
+				Gura_PushbackCancelEx();
 				break;
 			}
 			if (_tokenStack.back().IsType(TOKEN_Quote)) {
@@ -378,7 +378,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			if (IsTokenWatched()) {
 				_pTokenWatcher->FeedToken(env, Token(TOKEN_Escape, GetLineNo(), _field));
 			}
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_Start;
 		} else if (ch == '\n') {
 			if (IsTokenWatched()) {
@@ -410,7 +410,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			const TokenInfo *pTokenInfo = _tokenStack.back().IsSuffixToken()?
 									&TOKEN_ColonAfterSuffix : &TOKEN_Colon;
 			FeedToken(env, Token(*pTokenInfo, GetLineNo()));
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -418,13 +418,13 @@ bool Parser::ParseChar(Environment &env, char ch)
 	case STAT_Error: {
 		InitStack();
 		_blockParamFlag = false;
-		Gura_Pushback();
+		Gura_PushbackEx(ch);
 		_stat = STAT_ErrorRecovery;
 		break;
 	}
 	case STAT_ErrorRecovery: {
 		if (ch == '\n' || ch == '\0') {
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_Start;
 		} else {
 			// nothing to do
@@ -449,7 +449,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			if (IsTokenWatched() && !_field.empty()) {
 				_pTokenWatcher->FeedToken(env, Token(TOKEN_Space, _lineNoTop, _field));
 			}
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_Start;
 		}
 		break;
@@ -465,7 +465,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_field.push_back(ch);
 			_stat = STAT_NumberOct;
 		} else {
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_Number;
 		}
 		break;
@@ -475,7 +475,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_field.push_back(ch);
 		} else if (_field.size() <= 2) {
 			SetError(ERR_SyntaxError, "wrong format of hexadecimal number");
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_Error;
 		} else if (IsSymbolFirstChar(ch)) {
 			_suffix.clear();
@@ -483,7 +483,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stat = STAT_NumberSuffixed;
 		} else {
 			FeedToken(env, Token(TOKEN_Number, GetLineNo(), _field));
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -497,7 +497,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stat = STAT_NumberSuffixed;
 		} else {
 			FeedToken(env, Token(TOKEN_Number, GetLineNo(), _field));
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -507,7 +507,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_field.push_back(ch);
 		} else if (_field.size() <= 2) {
 			SetError(ERR_SyntaxError, "wrong format of binary number");
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_Error;
 		} else if (IsSymbolFirstChar(ch)) {
 			_suffix.clear();
@@ -515,7 +515,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stat = STAT_NumberSuffixed;
 		} else {
 			FeedToken(env, Token(TOKEN_Number, GetLineNo(), _field));
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -534,7 +534,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stat = STAT_Number;
 		} else {
 			FeedToken(env, Token(TOKEN_Dot, GetLineNo()));
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -566,7 +566,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stat = STAT_NumberSuffixed;
 		} else {
 			FeedToken(env, Token(TOKEN_Number, GetLineNo(), _field));
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -603,7 +603,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stat = STAT_NumberSuffixed;
 		} else {
 			FeedToken(env, Token(TOKEN_Number, GetLineNo(), _field));
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -618,7 +618,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			} else {
 				FeedToken(env, Token(TOKEN_NumberSuffixed, GetLineNo(), _field, _suffix));
 			}
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -643,7 +643,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			} else {
 				FeedToken(env, Token(TOKEN_Symbol, GetLineNo(), _field));
 			}
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -656,12 +656,12 @@ bool Parser::ParseChar(Environment &env, char ch)
 			} else {
 				_field.clear();
 				_field.push_back('!');
-				Gura_Pushback();
+				Gura_PushbackEx(ch);
 				_stat = STAT_DoubleChars;
 			}
 		} else {
 			_field.push_back('!');
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_Symbol;
 		}
 		break;
@@ -673,7 +673,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stat = STAT_ShebangLine;
 		} else {
 			_stat = STAT_MagicCommentLine;
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 		}
 		break;
 	}
@@ -746,7 +746,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				_stat = STAT_Start;
 			}
 		} else {
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_CommentBlock;
 		}
 		break;
@@ -757,7 +757,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_commentNestLevel++;
 			_stat = STAT_CommentBlock;
 		} else {
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_CommentBlock;
 		}
 		break;
@@ -767,7 +767,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stat = STAT_StringSecond;
 		} else {
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_String;
 		}
 		break;
@@ -789,7 +789,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 		} else {
 			const TokenInfo *pTokenInfo = GetTokenInfoForString(_stringInfo);
 			FeedToken(env, Token(*pTokenInfo, GetLineNo(), _field, "", _strSource));
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -816,7 +816,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stat = STAT_MStringLineHead;
 		} else {
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_MString;
 		}
 		break;
@@ -853,7 +853,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			}
 		} else {
 			_field += _strIndent;
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_MString;
 		}
 		break;
@@ -962,7 +962,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 		} else {
 			if (IsTokenWatched()) _strSource.push_back(_stringInfo.chBorder);
 			_field.push_back(_stringInfo.chBorder);
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_MString;
 		}
 		break;
@@ -978,7 +978,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			}
 			_field.push_back(_stringInfo.chBorder);
 			_field.push_back(_stringInfo.chBorder);
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = STAT_MString;
 		}
 		break;
@@ -992,7 +992,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 		} else {
 			const TokenInfo *pTokenInfo = GetTokenInfoForString(_stringInfo);
 			FeedToken(env, Token(*pTokenInfo, GetLineNo(), _field, "", _strSource));
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -1003,7 +1003,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 		} else {
 			FeedToken(env, Token(TOKEN_StringSuffixed, GetLineNo(), _field, _suffix, _strSource));
-			Gura_Pushback();
+			Gura_PushbackEx(ch);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -1017,7 +1017,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 		break;
 	}
 	}
-	Gura_EndPushbackRegion();
+	Gura_EndPushbackRegionEx();
 	if (ch == '\n') {
 		_lineHeadFlag = true;
 		_strIndent.clear();
