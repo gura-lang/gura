@@ -305,11 +305,12 @@ bool Parser::ParseChar(Environment &env, char ch)
 				const TokenInfo *pTokenInfo = tbl[i].pTokenInfo;
 				for (size_t j = 0; j < ArraySizeOf(tbl[i].tblCand); j++) {
 					if (tbl[i].tblCand[j].chSecond == '\0') break;
-					if (tbl[i].tblCand[j].chSecond != ch) continue;
-					_field.push_back(ch);
-					pTokenInfo = tbl[i].tblCand[j].pTokenInfo;
-					Gura_PushbackCancelEx();
-					break;
+					if (tbl[i].tblCand[j].chSecond == ch) {
+						_field.push_back(ch);
+						pTokenInfo = tbl[i].tblCand[j].pTokenInfo;
+						Gura_PushbackCancelEx();
+						break;
+					}
 				}
 				if (pTokenInfo->IsIdentical(TOKEN_TripleChars)) {
 					_stat = STAT_TripleChars;
@@ -355,11 +356,12 @@ bool Parser::ParseChar(Environment &env, char ch)
 			const TokenInfo *pTokenInfo = tbl[i].pTokenInfo;
 			for (size_t j = 0; j < ArraySizeOf(tbl[i].tblCand); j++) {
 				if (tbl[i].tblCand[j].chThird == '\0') break;
-				if (tbl[i].tblCand[j].chThird != ch) continue;
-				_field.push_back(ch);
-				pTokenInfo = tbl[i].tblCand[j].pTokenInfo;
-				Gura_PushbackCancelEx();
-				break;
+				if (tbl[i].tblCand[j].chThird == ch) {
+					_field.push_back(ch);
+					pTokenInfo = tbl[i].tblCand[j].pTokenInfo;
+					Gura_PushbackCancelEx();
+					break;
+				}
 			}
 			if (_tokenStack.back().IsType(TOKEN_Quote)) {
 				FeedToken(env, Token(TOKEN_Symbol, GetLineNo(), _field));
