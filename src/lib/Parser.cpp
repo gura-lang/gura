@@ -264,6 +264,8 @@ bool Parser::ParseChar(Environment &env, char ch)
 			{ '|', &TOKEN_Or, {
 				{ '=', &TOKEN_AssignOr 		},
 				{ '|', &TOKEN_OrOr			},
+				{ '.', &TOKEN_TripleChars	},
+				{ '*', &TOKEN_TripleChars	},
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ '&', &TOKEN_And, {
 				{ '=', &TOKEN_AssignAnd		},
@@ -298,17 +300,19 @@ bool Parser::ParseChar(Environment &env, char ch)
 			SetError(ERR_SyntaxError, "unmatching comment description");
 			_stat = STAT_Error;
 		} else {
-			Gura_PushbackEx(ch);
+			//Gura_PushbackEx(ch);
 			_stat = STAT_Start;
 			for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 				if (tbl[i].chFirst != chFirst) continue;
 				const TokenInfo *pTokenInfo = tbl[i].pTokenInfo;
+				bool pushbackFlag = true;
 				for (size_t j = 0; j < ArraySizeOf(tbl[i].tblCand); j++) {
 					if (tbl[i].tblCand[j].chSecond == '\0') break;
 					if (tbl[i].tblCand[j].chSecond == ch) {
 						_field.push_back(ch);
 						pTokenInfo = tbl[i].tblCand[j].pTokenInfo;
-						Gura_PushbackCancelEx();
+						//Gura_PushbackCancelEx();
+						pushbackFlag = false;
 						break;
 					}
 				}
@@ -321,6 +325,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 					FeedToken(env, Token(*pTokenInfo, GetLineNo()));
 					if (sig.IsSignalled()) _stat = STAT_Error;
 				}
+				if (pushbackFlag) Gura_PushbackEx(ch);
 				break;
 			}
 			// tables have a bug if i reaches at ArraySizeOf(tbl)
@@ -331,35 +336,46 @@ bool Parser::ParseChar(Environment &env, char ch)
 		static const struct {
 			const char *strFirst;
 			const TokenInfo *pTokenInfo;
+			bool pushbackSecondFlag;
 			struct {
 				int chThird;
 				const TokenInfo *pTokenInfo;
 			} tblCand[5];
 		} tbl[] = {
-			{ "**", &TOKEN_Pow, {
+			{ "**", &TOKEN_Pow, false, {
 				{ '=', &TOKEN_AssignPow		},
 				{ '\0', &TOKEN_Unknown		}, } },
-			{ "<=", &TOKEN_Le, {
+			{ "<=", &TOKEN_Le, false, {
 				{ '>', &TOKEN_Cmp			},
 				{ '\0', &TOKEN_Unknown		}, } },
-			{ "<<", &TOKEN_Shl, {
+			{ "<<", &TOKEN_Shl, false, {
 				{ '=', &TOKEN_AssignShl		},
 				{ '\0', &TOKEN_Unknown		}, } },
-			{ ">>", &TOKEN_Shr, {
+			{ ">>", &TOKEN_Shr, false, {
 				{ '=', &TOKEN_AssignShr		},
 				{ '\0', &TOKEN_Unknown		}, } },
+			{ "|.", &TOKEN_Or, true, {
+				{ '|', &TOKEN_DotProd		},
+				{ '\0', &TOKEN_Unknown		}, } },
+			{ "|*", &TOKEN_Or, true, {
+				{ '|', &TOKEN_CrossProd		},
+				{ '\0', &TOKEN_Unknown		}, } },
 		};
-		Gura_PushbackEx(ch);
+		//Gura_PushbackEx(ch);
 		_stat = STAT_Start;
 		for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 			if (_field.compare(tbl[i].strFirst) != 0) continue;
 			const TokenInfo *pTokenInfo = tbl[i].pTokenInfo;
+			bool pushbackFlag = true;
+			bool pushbackSecondFlag = tbl[i].pushbackSecondFlag;
 			for (size_t j = 0; j < ArraySizeOf(tbl[i].tblCand); j++) {
 				if (tbl[i].tblCand[j].chThird == '\0') break;
 				if (tbl[i].tblCand[j].chThird == ch) {
 					_field.push_back(ch);
 					pTokenInfo = tbl[i].tblCand[j].pTokenInfo;
-					Gura_PushbackCancelEx();
+					pushbackFlag = false;
+					pushbackSecondFlag = false;
+					//Gura_PushbackCancelEx();
 					break;
 				}
 			}
@@ -370,6 +386,8 @@ bool Parser::ParseChar(Environment &env, char ch)
 				FeedToken(env, Token(*pTokenInfo, GetLineNo()));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			}
+			if (pushbackFlag) Gura_PushbackEx(ch);
+			if (pushbackSecondFlag) Gura_PushbackEx(_field[1]);
 			break;
 		}
 		// tables have a bug if i reaches at ArraySizeOf(tbl)
