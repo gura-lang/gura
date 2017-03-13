@@ -274,7 +274,15 @@ Gura_DeclareFunction(array)
 
 Gura_ImplementFunction(array)
 {
-	AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::CreateFromValue(env, arg.GetValue(0)));
+	AutoPtr<ArrayT<Double> > pArrayT;
+	if (arg.IsValid(0)) {
+		pArrayT.reset(ArrayT<Double>::CreateFromValue(env, arg.GetValue(0)));
+	} else if (arg.IsBlockSpecified()) {
+		pArrayT.reset(ArrayT<Double>::CreateFromExpr(env, arg.GetBlockCooked(env)));
+	} else {
+		env.SetError(ERR_SyntaxError, "argument or block must be specified");
+		return Value::Nil;
+	}
 	if (pArrayT.IsNull()) return Value::Nil;
 	return Value(new Object_array(env, pArrayT.release()));
 }

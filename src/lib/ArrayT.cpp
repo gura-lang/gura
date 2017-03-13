@@ -650,6 +650,15 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, Iterator *p
 }
 
 template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromExpr(Environment &env, const Expr *pExpr)
+{
+	AutoPtr<Environment> pEnvLister(env.Derive(ENVTYPE_lister));
+	Value result = pExpr->Exec(*pEnvLister, nullptr);
+	if (!result.Is_list()) return nullptr;
+	return ArrayT<T_Elem>::CreateFromList(env.GetSignal(), result.GetList());
+}
+
+template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateIdentity(size_t n)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT(n, n));
