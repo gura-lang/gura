@@ -1897,7 +1897,7 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignUnaryOperator(Not, any);
 	Gura_AssignUnaryOperator(SeqInf, number);
 	Gura_AssignUnaryOperator(Question, any);
-	Gura_AssignUnaryOperator(Each, any);
+	//Gura_AssignUnaryOperator(Each, any);
 	// binary operators
 	Gura_AssignBinaryOperator(Add, number, number);
 	Gura_AssignBinaryOperator(Add, boolean, boolean);
