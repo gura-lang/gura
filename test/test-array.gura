@@ -401,11 +401,11 @@ testcase('array#T') {
 	func(src)
 }
 testcase('array.dot()') {
-	a = array@double {1, 5, 9}
-	b = array@double {5, 2}
-	c = array@double {{7, 4, -1}, {3, 0, 5}}
-	d = array@double {{5, 2}, {3, 1}, {4, -1}}
-	e = array@double {{8, 4, 2}, {1, 3, -6}, {-7, 0, 5}}
+	a = array {1, 5, 9}
+	b = array {5, 2}
+	c = array {{7, 4, -1}, {3, 0, 5}}
+	d = array {{5, 2}, {3, 1}, {4, -1}}
+	e = array {{8, 4, 2}, {1, 3, -6}, {-7, 0, 5}}
 	tester(`array.dot(a, d))
 	tester(`array.dot(a, e))
 	tester(`array.dot(b.reshape([2, 1]), a.reshape([1, 3])))
@@ -414,11 +414,19 @@ testcase('array.dot()') {
 	tester(`array.dot(d, b))
 	tester(`array.dot(d, c))
 	tester(`array.dot(e, d))
+	tester(`(a |.| d))
+	tester(`(a |.| e))
+	tester(`(b.reshape([2, 1]) |.| a.reshape([1, 3])))
+	tester(`(c |.| d))
+	tester(`(c |.| e))
+	tester(`(d |.| b))
+	tester(`(d |.| c))
+	tester(`(e |.| d))
 }
 testcase('array.invert()') {
-	tester(`array@double([[1, 1, -1], [-2, 0, 1], [0, 2, 1]]).invert())
-	tester(`array@double([[1, 2, 1], [2, 1, 0], [1, 1, 2]]).invert())
-	tester(`array@double([
+	tester(`array([[1, 1, -1], [-2, 0, 1], [0, 2, 1]]).invert())
+	tester(`array([[1, 2, 1], [2, 1, 0], [1, 1, 2]]).invert())
+	tester(`array([
 		[[1, 1, -1], [-2, 0, 1], [0, 2, 1]],
 		[[1, 2, 1], [2, 1, 0], [1, 1, 2]]]).invert())
 }
