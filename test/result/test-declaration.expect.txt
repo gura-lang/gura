@@ -3,30 +3,20 @@
 -:nil = nil
 @(func?:function) {block?}
 @@() {block}
-@double() {block}
-@float() {block}
-@int16() {block}
-@int32() {block}
-@int64() {block}
-@int8() {block}
 @rem:nil = nil
-@uint16() {block}
-@uint32() {block}
-@uint64() {block}
-@uint8() {block}
 __name__:string = __main__
 argument:class = <class:argument>
 array:class = <class:array(src?) {block?}>
-array@double:class = <class:array@double(src) {block?}>
-array@float:class = <class:array@float(src) {block?}>
-array@int16:class = <class:array@int16(src) {block?}>
-array@int32:class = <class:array@int32(src) {block?}>
-array@int64:class = <class:array@int64(src) {block?}>
-array@int8:class = <class:array@int8(src) {block?}>
-array@uint16:class = <class:array@uint16(src) {block?}>
-array@uint32:class = <class:array@uint32(src) {block?}>
-array@uint64:class = <class:array@uint64(src) {block?}>
-array@uint8:class = <class:array@uint8(src) {block?}>
+array@double:class = <class:array@double(src?) {block?}>
+array@float:class = <class:array@float(src?) {block?}>
+array@int16:class = <class:array@int16(src?) {block?}>
+array@int32:class = <class:array@int32(src?) {block?}>
+array@int64:class = <class:array@int64(src?) {block?}>
+array@int8:class = <class:array@int8(src?) {block?}>
+array@uint16:class = <class:array@uint16(src?) {block?}>
+array@uint32:class = <class:array@uint32(src?) {block?}>
+array@uint64:class = <class:array@uint64(src?) {block?}>
+array@uint8:class = <class:array@uint8(src?) {block?}>
 audio:class = <class:audio(args+):map {block?}>
 base64:module
   __name__:string = base64

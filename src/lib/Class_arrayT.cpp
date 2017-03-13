@@ -103,55 +103,6 @@ Value Func_arrayT<T_Elem>::DoEval(Environment &env, Argument &arg) const
 	return Value(new Object_array(env, pArrayT.release()));
 }
 
-#if 0
-// @T() {block}
-template<typename T_Elem>
-class Func_atT : public Function {
-private:
-	ValueType _valType;
-public:
-	Func_atT(Environment &env, const Symbol *pSymbol, ValueType valType);
-	virtual Value DoEval(Environment &env, Argument &arg) const;
-};
-	
-template<typename T_Elem>
-Func_atT<T_Elem>::Func_atT(Environment &env, const Symbol *pSymbol, ValueType valType) :
-	Function(env, pSymbol, FUNCTYPE_Function, FLAG_None), _valType(valType)
-{
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_Once);
-	AddHelp(
-		Gura_Symbol(en),
-		"Creates an `array@T` instance that is initialized with values described in `block`.\n"
-		"\n"
-		"The code below creates an `array@uint8` instance that has four elements.\n"
-		"\n"
-		"    @uint8 { 0x01, 0x23, 0x45, 0x67 }\n"
-		"\n"
-		"The code below creates an `array@uint16` instance that has three elements.\n"
-		"\n"
-		"    @uint16 { 0x0123, 0x4567, 0x89ab }\n"
-		);
-}
-
-template<typename T_Elem>
-Value Func_atT<T_Elem>::DoEval(Environment &env, Argument &arg) const
-{
-#if 0
-	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-	AutoPtr<Environment> pEnvLister(env.Derive(ENVTYPE_lister));
-	Value result = pExprBlock->Exec(*pEnvLister, nullptr);
-	if (!result.Is_list()) return Value::Nil;
-	const ValueList &valList = result.GetList();
-	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromList(sig, valList));
-#else
-	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromExpr(env, arg.GetBlockCooked(env)));
-#endif
-	if (pArrayT.IsNull()) return Value::Nil;
-	return Value(new Object_array(env, pArrayT.release()));
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
@@ -325,15 +276,6 @@ void Class_arrayT<T_Elem>::DoPrepare(Environment &env)
 			Lookup(GetValueType())->GetSymbol();
 		env.AssignFunction(new Func_arrayT<T_Elem>(env, pSymbol, GetValueType()));
 	} while (0);
-#if 0
-	do {
-		String funcName;
-		funcName += "@";
-		funcName += ArrayT<T_Elem>::ElemTypeName;
-		const Symbol *pSymbol = Symbol::Add(funcName.c_str());
-		env.AssignFunction(new Func_atT<T_Elem>(env, pSymbol, GetValueType()));
-	} while (0);
-#endif
 	Gura_AssignMethod_arrayT(identity);
 	Gura_AssignMethod_arrayT(interval);
 	Gura_AssignMethod_arrayT(ones);
