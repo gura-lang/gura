@@ -893,11 +893,17 @@ Gura_ImplementBinaryOperator(Mod, number, array)
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// [A <.> B] ... BinaryOperator(DotProd, A, B)
+// [A |.| B] ... BinaryOperator(DotProd, A, B)
 //-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(DotProd, array, array)
+{
+	const Array *pArrayL = Object_array::GetObject(valueLeft)->GetArray();
+	const Array *pArrayR = Object_array::GetObject(valueRight)->GetArray();
+	return Array::Dot(env, pArrayL, pArrayR);
+}
 
 //-----------------------------------------------------------------------------
-// [A <*> B] ... BinaryOperator(CrossProd, A, B)
+// [A |*| B] ... BinaryOperator(CrossProd, A, B)
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -1978,6 +1984,7 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Mod, array, array);
 	Gura_AssignBinaryOperator(Mod, array, number);
 	Gura_AssignBinaryOperator(Mod, number, array);
+	Gura_AssignBinaryOperator(DotProd, array, array);
 	Gura_AssignBinaryOperator(Pow, number, number);
 	Gura_AssignBinaryOperator(Pow, complex, complex);
 	Gura_AssignBinaryOperator(Pow, number, complex);

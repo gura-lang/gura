@@ -16,7 +16,7 @@
 @uint8() {block}
 __name__:string = __main__
 argument:class = <class:argument>
-array:class = <class:array(src) {block?}>
+array:class = <class:array(src?) {block?}>
 array@double:class = <class:array@double(src) {block?}>
 array@float:class = <class:array@float(src) {block?}>
 array@int16:class = <class:array@int16(src) {block?}>

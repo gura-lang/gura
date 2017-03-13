@@ -132,13 +132,14 @@ Value Func_atT<T_Elem>::DoEval(Environment &env, Argument &arg) const
 {
 	Signal &sig = env.GetSignal();
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
+
 	AutoPtr<Environment> pEnvLister(env.Derive(ENVTYPE_lister));
 	Value result = pExprBlock->Exec(*pEnvLister, nullptr);
 	if (!result.Is_list()) return Value::Nil;
 	const ValueList &valList = result.GetList();
 	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromList(sig, valList));
+
 	if (pArrayT.IsNull()) return Value::Nil;
-	//return Value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
 	return Value(new Object_array(env, pArrayT.release()));
 }
 
