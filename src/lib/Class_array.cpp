@@ -8,6 +8,7 @@ namespace Gura {
 typedef Value (*PropertyGetterT)(Environment &env, Array *pArraySelf);
 typedef Value (*IndexGetT)(Environment &env, const Value &valueIdx, Object_array *pObj);
 typedef void (*IndexSetT)(Environment &env, const Value &valueIdx, const Value &value, Object_array *pObj);
+typedef Iterator *(*CreateIteratorT)(Array *pArray);
 typedef Value (*MethodT)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);
 typedef bool (*CastToT)(Environment &env, Value &value, const Declaration &decl, const Array *pArraySelf);
 
@@ -132,6 +133,33 @@ void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value
 		//&IndexSetTmpl<Complex>,
 	};
 	(*indexSets[GetArray()->GetElemType()])(env, valueIdx, value, this);
+}
+
+template<typename T_Elem>
+Iterator *CreateIteratorTmpl(Array *pArray)
+{
+	bool flatFlag = true;
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArray);
+	return new Iterator_ArrayT_Each<T_Elem>(pArrayT->Reference(), flatFlag);
+}
+
+Iterator *Object_array::CreateIterator(Signal &sig)
+{
+	static const CreateIteratorT createIteratorTbl[] = {
+		nullptr,
+		&CreateIteratorTmpl<Int8>,
+		&CreateIteratorTmpl<UInt8>,
+		&CreateIteratorTmpl<Int16>,
+		&CreateIteratorTmpl<UInt16>,
+		&CreateIteratorTmpl<Int32>,
+		&CreateIteratorTmpl<UInt32>,
+		&CreateIteratorTmpl<Int64>,
+		&CreateIteratorTmpl<UInt64>,
+		&CreateIteratorTmpl<Float>,
+		&CreateIteratorTmpl<Double>,
+		//&CreateIteratorTmpl<Complex>,
+	};
+	return (*createIteratorTbl[GetArray()->GetElemType()])(GetArray());
 }
 
 //-----------------------------------------------------------------------------

@@ -132,6 +132,7 @@ Gura_ImplementUnaryOperator(Question, any)
 //-----------------------------------------------------------------------------
 // [A*] ... UnaryOperator(Each, A)
 //-----------------------------------------------------------------------------
+//************* conflict with argument expansion in a function call ***********
 Gura_ImplementUnaryOperator(Each, any)
 {
 	Signal &sig = env.GetSignal();

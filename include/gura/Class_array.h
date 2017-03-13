@@ -28,6 +28,7 @@ public:
 	virtual String ToString(bool exprFlag);
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
+	virtual Iterator *CreateIterator(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
