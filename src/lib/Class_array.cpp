@@ -81,7 +81,7 @@ Value IndexGetTmpl(Environment &env, const Value &valueIdx, Object_array *pObj)
 
 Value Object_array::IndexGet(Environment &env, const Value &valueIdx)
 {
-	static const IndexGetT indexGets[] = {
+	static const IndexGetT indexGetTbl[] = {
 		nullptr,
 		&IndexGetTmpl<Int8>,
 		&IndexGetTmpl<UInt8>,
@@ -95,7 +95,7 @@ Value Object_array::IndexGet(Environment &env, const Value &valueIdx)
 		&IndexGetTmpl<Double>,
 		//&IndexGetTmpl<Complex>,
 	};
-	return (*indexGets[GetArray()->GetElemType()])(env, valueIdx, this);
+	return (*indexGetTbl[GetArray()->GetElemType()])(env, valueIdx, this);
 }
 
 template<typename T_Elem>
@@ -118,7 +118,7 @@ void IndexSetTmpl(Environment &env, const Value &valueIdx, const Value &value, O
 
 void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
 {
-	static const IndexSetT indexSets[] = {
+	static const IndexSetT indexSetTbl[] = {
 		nullptr,
 		&IndexSetTmpl<Int8>,
 		&IndexSetTmpl<UInt8>,
@@ -132,7 +132,7 @@ void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value
 		&IndexSetTmpl<Double>,
 		//&IndexSetTmpl<Complex>,
 	};
-	(*indexSets[GetArray()->GetElemType()])(env, valueIdx, value, this);
+	(*indexSetTbl[GetArray()->GetElemType()])(env, valueIdx, value, this);
 }
 
 template<typename T_Elem>

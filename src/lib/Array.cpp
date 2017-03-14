@@ -863,41 +863,24 @@ Array *InvertFuncTmpl(Signal &sig, const Array *pArray)
 //------------------------------------------------------------------------------
 // Function tables
 //------------------------------------------------------------------------------
-Array::UnaryFuncPack Array::unaryFuncPack_Pos = {
-	"pos",
-	{
-		nullptr,
-		&UnaryFuncTmpl<Int8,	Int8,	_Pos>,
-		&UnaryFuncTmpl<UInt8,	UInt8,	_Pos>,
-		&UnaryFuncTmpl<Int16,	Int16,	_Pos>,
-		&UnaryFuncTmpl<UInt16,	UInt16,	_Pos>,
-		&UnaryFuncTmpl<Int32,	Int32,	_Pos>,
-		&UnaryFuncTmpl<UInt32,	UInt32,	_Pos>,
-		&UnaryFuncTmpl<Int64,	Int64,	_Pos>,
-		&UnaryFuncTmpl<UInt64,	UInt64,	_Pos>,
-		&UnaryFuncTmpl<Float,	Float,	_Pos>,
-		&UnaryFuncTmpl<Double,	Double,	_Pos>,
-		nullptr,
-	},
-};
-
-Array::UnaryFuncPack Array::unaryFuncPack_Neg = {
-	"neg",
-	{
-		nullptr,
-		&UnaryFuncTmpl<Int8,	Int8,	_Neg>,
-		&UnaryFuncTmpl<UInt8,	UInt8,	_Neg>,
-		&UnaryFuncTmpl<Int16,	Int16,	_Neg>,
-		&UnaryFuncTmpl<UInt16,	UInt16,	_Neg>,
-		&UnaryFuncTmpl<Int32,	Int32,	_Neg>,
-		&UnaryFuncTmpl<UInt32,	UInt32,	_Neg>,
-		&UnaryFuncTmpl<Int64,	Int64,	_Neg>,
-		&UnaryFuncTmpl<UInt64,	UInt64,	_Neg>,
-		&UnaryFuncTmpl<Float,	Float,	_Neg>,
-		&UnaryFuncTmpl<Double,	Double,	_Neg>,
-		nullptr,
-	},
-};
+#define ImplementUnaryFuncPack(op, name) \
+Array::UnaryFuncPack Array::unaryFuncPack_##op = { \
+	name, \
+	{ \
+		nullptr, \
+		&UnaryFuncTmpl<Int8,	Int8,	_##op>, \
+		&UnaryFuncTmpl<UInt8,	UInt8,	_##op>, \
+		&UnaryFuncTmpl<Int16,	Int16,	_##op>, \
+		&UnaryFuncTmpl<UInt16,	UInt16,	_##op>, \
+		&UnaryFuncTmpl<Int32,	Int32,	_##op>, \
+		&UnaryFuncTmpl<UInt32,	UInt32,	_##op>, \
+		&UnaryFuncTmpl<Int64,	Int64,	_##op>, \
+		&UnaryFuncTmpl<UInt64,	UInt64,	_##op>, \
+		&UnaryFuncTmpl<Float,	Float,	_##op>, \
+		&UnaryFuncTmpl<Double,	Double,	_##op>, \
+		nullptr, \
+	}, \
+}
 
 #define ImplementBinaryFuncPack(funcPrefix, op, name) \
 Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
@@ -1218,6 +1201,9 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		nullptr, \
 	} \
 }
+
+ImplementUnaryFuncPack(Pos, "pos");
+ImplementUnaryFuncPack(Neg, "neg");
 
 ImplementBinaryFuncPack(BinaryFuncTmpl,		Add, "add");
 ImplementBinaryFuncPack(BinaryFuncTmpl,		Sub, "sub");
