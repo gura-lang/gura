@@ -457,6 +457,11 @@ public:
 	}
 };
 
+template<> inline void Operator_Mod::Calc<Float, Float, Float>(
+				Float &elemResult, const Float &elemL, const Float &elemR) {
+	elemResult = ::fmodf(static_cast<Float>(elemL), elemR);
+}
+
 //-----------------------------------------------------------------------------
 // Operator_ModMod
 //-----------------------------------------------------------------------------
