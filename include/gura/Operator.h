@@ -288,6 +288,11 @@ public:
 							const Expr *pExprChild, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimizeUnary(Environment &env, Expr *pExprChild) const;
 	static Expr *MathOptimize(Environment &env, Expr *pExprChild);
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(+elem);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -300,6 +305,11 @@ public:
 							const Expr *pExprChild, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimizeUnary(Environment &env, Expr *pExprChild) const;
 	static Expr *MathOptimize(Environment &env, Expr *pExprChild);
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(-elem);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -369,6 +379,11 @@ public:
 	virtual Expr *MathOptimizeBinary(Environment &env,
 										Expr *pExprLeft, Expr *pExprRight) const;
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
+public:
+	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+		elemResult = static_cast<T_ElemResult>(elemL) + static_cast<T_ElemResult>(elemR);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -382,6 +397,11 @@ public:
 	virtual Expr *MathOptimizeBinary(Environment &env,
 										Expr *pExprLeft, Expr *pExprRight) const;
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
+public:
+	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+		elemResult = static_cast<T_ElemResult>(elemL) - static_cast<T_ElemResult>(elemR);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -397,6 +417,11 @@ public:
 	virtual Expr *MathOptimizeBinary(Environment &env,
 										Expr *pExprLeft, Expr *pExprRight) const;
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
+public:
+	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+		elemResult = static_cast<T_ElemResult>(elemL) * static_cast<T_ElemResult>(elemR);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -410,6 +435,11 @@ public:
 	virtual Expr *MathOptimizeBinary(Environment &env,
 										Expr *pExprLeft, Expr *pExprRight) const;
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
+public:
+	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+		elemResult = static_cast<T_ElemResult>(elemL) / static_cast<T_ElemResult>(elemR);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -420,6 +450,11 @@ public:
 	inline Operator_Mod() : Operator(OPTYPE_Mod) {}
 	virtual Value EvalMapBinary(Environment &env,
 								const Value &valueLeft, const Value &valueRight, ULong flags) const;
+public:
+	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+		elemResult = static_cast<T_ElemResult>(elemL) % static_cast<T_ElemResult>(elemR);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -457,6 +492,12 @@ public:
 	virtual Expr *MathOptimizeBinary(Environment &env,
 										Expr *pExprLeft, Expr *pExprRight) const;
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
+public:
+	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+		elemResult = static_cast<T_ElemResult>(
+			std::pow(static_cast<double>(elemL), static_cast<double>(elemR)));
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -531,6 +572,11 @@ public:
 class GURA_DLLDECLARE Operator_Or : public Operator {
 public:
 	inline Operator_Or() : Operator(OPTYPE_Or) {}
+public:
+	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+		elemResult = static_cast<T_ElemResult>(elemL) | static_cast<T_ElemResult>(elemR);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -539,6 +585,11 @@ public:
 class GURA_DLLDECLARE Operator_And : public Operator {
 public:
 	inline Operator_And() : Operator(OPTYPE_And) {}
+public:
+	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+		elemResult = static_cast<T_ElemResult>(elemL) & static_cast<T_ElemResult>(elemR);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -547,6 +598,11 @@ public:
 class GURA_DLLDECLARE Operator_Xor : public Operator {
 public:
 	inline Operator_Xor() : Operator(OPTYPE_Xor) {}
+public:
+	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+		elemResult = static_cast<T_ElemResult>(elemL) ^ static_cast<T_ElemResult>(elemR);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -555,6 +611,11 @@ public:
 class GURA_DLLDECLARE Operator_Shl : public Operator {
 public:
 	inline Operator_Shl() : Operator(OPTYPE_Shl) {}
+public:
+	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+		elemResult = static_cast<T_ElemResult>(elemL) << static_cast<T_ElemResult>(elemR);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -563,6 +624,11 @@ public:
 class GURA_DLLDECLARE Operator_Shr : public Operator {
 public:
 	inline Operator_Shr() : Operator(OPTYPE_Shr) {}
+public:
+	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+		elemResult = static_cast<T_ElemResult>(elemL) >> static_cast<T_ElemResult>(elemR);
+	}
 };
 
 //-----------------------------------------------------------------------------

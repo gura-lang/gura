@@ -306,47 +306,47 @@ inline void _Neg(T_ElemResult &elemResult, T_Elem elem) {
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void _Add(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Add(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) + static_cast<T_ElemResult>(elemR);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void _Sub(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Sub(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) - static_cast<T_ElemResult>(elemR);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void _Mul(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Mul(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) * static_cast<T_ElemResult>(elemR);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void _Div(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Div(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) / static_cast<T_ElemResult>(elemR);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void _Mod(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Mod(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) % static_cast<T_ElemResult>(elemR);
 }
 
 #define ImplementMod_Float(T_Other) \
 template<> \
-inline void _Mod<Float, T_Other, Float>(Float &elemResult, T_Other elemL, Float elemR) { \
+inline void _Mod<Float, T_Other, Float>(Float &elemResult, const T_Other &elemL, const Float &elemR) { \
 	elemResult = ::fmodf(static_cast<Float>(elemL), elemR);				\
 } \
 template<> \
-inline void _Mod<Float, Float, T_Other>(Float &elemResult, Float elemL, T_Other elemR) { \
+inline void _Mod<Float, Float, T_Other>(Float &elemResult, const Float &elemL, const T_Other &elemR) { \
 	elemResult = ::fmodf(elemL, static_cast<Float>(elemR));				\
 }
 
 #define ImplementMod_Double(T_Other) \
 template<> \
-inline void _Mod<Double, T_Other, Double>(Double &elemResult, T_Other elemL, Double elemR) { \
+inline void _Mod<Double, T_Other, Double>(Double &elemResult, const T_Other &elemL, const Double &elemR) { \
 	elemResult = ::fmod(static_cast<Double>(elemL), elemR);				\
 } \
 template<> \
-inline void _Mod<Double, Double, T_Other>(Double &elemResult, Double elemL, T_Other elemR) { \
+inline void _Mod<Double, Double, T_Other>(Double &elemResult, const Double &elemL, const T_Other &elemR) { \
 	elemResult = ::fmod(elemL, static_cast<Double>(elemR));				\
 }
 
@@ -361,7 +361,7 @@ ImplementMod_Float(UInt64)
 ImplementMod_Float(Double)
 
 template<>
-inline void _Mod<Float, Float, Float>(Float &elemResult, Float elemL, Float elemR) {
+inline void _Mod<Float, Float, Float>(Float &elemResult, const Float &elemL, const Float &elemR) {
 	elemResult = ::fmodf(elemL, elemR);
 }
 
@@ -376,45 +376,45 @@ ImplementMod_Double(UInt64)
 ImplementMod_Double(Float)
 
 template<>
-inline void _Mod<Double, Double, Double>(Double &elemResult, Double elemL, Double elemR) {
+inline void _Mod<Double, Double, Double>(Double &elemResult, const Double &elemL, const Double &elemR) {
 	elemResult = ::fmod(elemL, elemR);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void _Pow(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Pow(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 	elemResult = static_cast<T_ElemResult>(
 		std::pow(static_cast<double>(elemL), static_cast<double>(elemR)));
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void _And(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _And(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) & static_cast<T_ElemResult>(elemR);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void _Or(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Or(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) | static_cast<T_ElemResult>(elemR);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void _Xor(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Xor(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) ^ static_cast<T_ElemResult>(elemR);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void _Shl(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Shl(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) << static_cast<T_ElemResult>(elemR);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void _Shr(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Shr(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) >> static_cast<T_ElemResult>(elemR);
 }
 
 //------------------------------------------------------------------------------
 // UnaryFuncTmpl
 //------------------------------------------------------------------------------
-template<typename T_ElemResult, typename T_Elem, void (*op)(T_ElemResult &, T_Elem)>
+template<typename T_ElemResult, typename T_Elem, void (*op)(T_ElemResult &, const T_Elem &)>
 Array *UnaryFuncTmpl(Signal &sig, const Array *pArray)
 {
 	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(ArrayT<T_ElemResult>::
@@ -432,7 +432,7 @@ Array *UnaryFuncTmpl(Signal &sig, const Array *pArray)
 // BinaryFuncTmpl
 //------------------------------------------------------------------------------
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
-		 void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
+		 void (*op)(T_ElemResult &, const T_ElemL &, const T_ElemR &)>
 Array *BinaryFuncTmpl_array_array(Signal &sig, const Array *pArrayL, const Array *pArrayR)
 {
 	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
@@ -469,7 +469,7 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, const Array *pArrayL, const Array
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
-		 void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
+		 void (*op)(T_ElemResult &, const T_ElemL &, const T_ElemR &)>
 Array *BinaryFuncTmpl_Div_array_array(Signal &sig, const Array *pArrayL, const Array *pArrayR)
 {
 	if (pArrayR->DoesContainZero()) {
@@ -479,7 +479,7 @@ Array *BinaryFuncTmpl_Div_array_array(Signal &sig, const Array *pArrayL, const A
 	return BinaryFuncTmpl_array_array<T_ElemResult, T_ElemL, T_ElemR, op>(sig, pArrayL, pArrayR);
 }
 
-template<typename T_ElemL, void (*op)(T_ElemL &, T_ElemL, Double)>
+template<typename T_ElemL, void (*op)(T_ElemL &, const T_ElemL &, const Double &)>
 Array *BinaryFuncTmpl_array_number(Signal &sig, const Array *pArrayL, Double numberR)
 {
 	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
@@ -492,7 +492,7 @@ Array *BinaryFuncTmpl_array_number(Signal &sig, const Array *pArrayL, Double num
 	return pArrayResult.release();
 }
 
-template<typename T_ElemL, void (*op)(T_ElemL &, T_ElemL, Double)>
+template<typename T_ElemL, void (*op)(T_ElemL &, const T_ElemL &, const Double &)>
 Array *BinaryFuncTmpl_Div_array_number(Signal &sig, const Array *pArrayL, Double numberR)
 {
 	if (numberR == 0) {
@@ -502,7 +502,7 @@ Array *BinaryFuncTmpl_Div_array_number(Signal &sig, const Array *pArrayL, Double
 	return BinaryFuncTmpl_array_number<T_ElemL, op>(sig, pArrayL, numberR);
 }
 
-template<typename T_ElemR, void (*op)(T_ElemR &, Double, T_ElemR)>
+template<typename T_ElemR, void (*op)(T_ElemR &, const Double &, const T_ElemR &)>
 Array *BinaryFuncTmpl_number_array(Signal &sig, Double numberL, const Array *pArrayR)
 {
 	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
@@ -515,7 +515,7 @@ Array *BinaryFuncTmpl_number_array(Signal &sig, Double numberL, const Array *pAr
 	return pArrayResult.release();
 }
 
-template<typename T_ElemR, void (*op)(T_ElemR &, Double, T_ElemR)>
+template<typename T_ElemR, void (*op)(T_ElemR &, const Double &, const T_ElemR &)>
 Array *BinaryFuncTmpl_Div_number_array(Signal &sig, Double numberL, const Array *pArrayR)
 {
 	if (pArrayR->DoesContainZero()) {
@@ -868,16 +868,16 @@ Array::UnaryFuncPack Array::unaryFuncPack_##op = { \
 	name, \
 	{ \
 		nullptr, \
-		&UnaryFuncTmpl<Int8,	Int8,	_##op>, \
-		&UnaryFuncTmpl<UInt8,	UInt8,	_##op>, \
-		&UnaryFuncTmpl<Int16,	Int16,	_##op>, \
-		&UnaryFuncTmpl<UInt16,	UInt16,	_##op>, \
-		&UnaryFuncTmpl<Int32,	Int32,	_##op>, \
-		&UnaryFuncTmpl<UInt32,	UInt32,	_##op>, \
-		&UnaryFuncTmpl<Int64,	Int64,	_##op>, \
-		&UnaryFuncTmpl<UInt64,	UInt64,	_##op>, \
-		&UnaryFuncTmpl<Float,	Float,	_##op>, \
-		&UnaryFuncTmpl<Double,	Double,	_##op>, \
+		&UnaryFuncTmpl<Int8,	Int8,	Operator_##op::Calc>,	\
+		&UnaryFuncTmpl<UInt8,	UInt8,	Operator_##op::Calc>,	\
+		&UnaryFuncTmpl<Int16,	Int16,	Operator_##op::Calc>,	\
+		&UnaryFuncTmpl<UInt16,	UInt16,	Operator_##op::Calc>,	\
+		&UnaryFuncTmpl<Int32,	Int32,	Operator_##op::Calc>,	\
+		&UnaryFuncTmpl<UInt32,	UInt32,	Operator_##op::Calc>,	\
+		&UnaryFuncTmpl<Int64,	Int64,	Operator_##op::Calc>,	\
+		&UnaryFuncTmpl<UInt64,	UInt64,	Operator_##op::Calc>,	\
+		&UnaryFuncTmpl<Float,	Float,	Operator_##op::Calc>,	\
+		&UnaryFuncTmpl<Double,	Double,	Operator_##op::Calc>,	\
 		nullptr, \
 	}, \
 }
