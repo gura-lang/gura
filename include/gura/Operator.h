@@ -457,10 +457,55 @@ public:
 	}
 };
 
+#define Gura_ImplementMod_Float(T_Other) \
+template<> inline void Operator_Mod::Calc<Float, T_Other, Float>( \
+				Float &elemResult, const T_Other &elemL, const Float &elemR) {		\
+	elemResult = ::fmodf(static_cast<Float>(elemL), elemR);				\
+} \
+template<> inline void Operator_Mod::Calc<Float, Float, T_Other>( \
+				Float &elemResult, const Float &elemL, const T_Other &elemR) {		\
+	elemResult = ::fmodf(elemL, static_cast<Float>(elemR));				\
+}
+
+#define Gura_ImplementMod_Double(T_Other) \
+template<> inline void Operator_Mod::Calc<Double, T_Other, Double>( \
+				Double &elemResult, const T_Other &elemL, const Double &elemR) {	\
+	elemResult = ::fmod(static_cast<Double>(elemL), elemR);				\
+} \
+template<> inline void Operator_Mod::Calc<Double, Double, T_Other>( \
+				Double &elemResult, const Double &elemL, const T_Other &elemR) {	\
+	elemResult = ::fmod(elemL, static_cast<Double>(elemR));				\
+}
+
 template<> inline void Operator_Mod::Calc<Float, Float, Float>(
 				Float &elemResult, const Float &elemL, const Float &elemR) {
 	elemResult = ::fmodf(static_cast<Float>(elemL), elemR);
 }
+
+template<> inline void Operator_Mod::Calc<Double, Double, Double>(
+				Double &elemResult, const Double &elemL, const Double &elemR) {
+	elemResult = ::fmod(elemL, elemR);
+}
+
+Gura_ImplementMod_Float(Int8)
+Gura_ImplementMod_Float(UInt8)
+Gura_ImplementMod_Float(Int16)
+Gura_ImplementMod_Float(UInt16)
+Gura_ImplementMod_Float(Int32)
+Gura_ImplementMod_Float(UInt32)
+Gura_ImplementMod_Float(Int64)
+Gura_ImplementMod_Float(UInt64)
+Gura_ImplementMod_Float(Double)
+
+Gura_ImplementMod_Double(Int8)
+Gura_ImplementMod_Double(UInt8)
+Gura_ImplementMod_Double(Int16)
+Gura_ImplementMod_Double(UInt16)
+Gura_ImplementMod_Double(Int32)
+Gura_ImplementMod_Double(UInt32)
+Gura_ImplementMod_Double(Int64)
+Gura_ImplementMod_Double(UInt64)
+Gura_ImplementMod_Double(Float)
 
 //-----------------------------------------------------------------------------
 // Operator_ModMod

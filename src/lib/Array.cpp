@@ -295,16 +295,6 @@ bool Array::Dimensions::IsElemwiseCalculatable(const Dimensions &dimsA, const Di
 //------------------------------------------------------------------------------
 // Calculations
 //------------------------------------------------------------------------------
-template<typename T_ElemResult, typename T_Elem>
-inline void _Pos(T_ElemResult &elemResult, T_Elem elem) {
-	elemResult = static_cast<T_ElemResult>(+elem);
-}
-
-template<typename T_ElemResult, typename T_Elem>
-inline void _Neg(T_ElemResult &elemResult, T_Elem elem) {
-	elemResult = static_cast<T_ElemResult>(-elem);
-}
-
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void _Add(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) + static_cast<T_ElemResult>(elemR);
