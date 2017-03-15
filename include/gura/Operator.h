@@ -381,7 +381,7 @@ public:
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
 public:
 	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 		elemResult = static_cast<T_ElemResult>(elemL) + static_cast<T_ElemResult>(elemR);
 	}
 };
@@ -399,7 +399,7 @@ public:
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
 public:
 	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 		elemResult = static_cast<T_ElemResult>(elemL) - static_cast<T_ElemResult>(elemR);
 	}
 };
@@ -419,7 +419,7 @@ public:
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
 public:
 	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 		elemResult = static_cast<T_ElemResult>(elemL) * static_cast<T_ElemResult>(elemR);
 	}
 };
@@ -437,7 +437,7 @@ public:
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
 public:
 	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 		elemResult = static_cast<T_ElemResult>(elemL) / static_cast<T_ElemResult>(elemR);
 	}
 };
@@ -452,7 +452,7 @@ public:
 								const Value &valueLeft, const Value &valueRight, ULong flags) const;
 public:
 	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 		elemResult = static_cast<T_ElemResult>(elemL) % static_cast<T_ElemResult>(elemR);
 	}
 };
@@ -544,7 +544,7 @@ public:
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
 public:
 	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 		elemResult = static_cast<T_ElemResult>(
 			std::pow(static_cast<double>(elemL), static_cast<double>(elemR)));
 	}
@@ -624,7 +624,7 @@ public:
 	inline Operator_Or() : Operator(OPTYPE_Or) {}
 public:
 	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 		elemResult = static_cast<T_ElemResult>(elemL) | static_cast<T_ElemResult>(elemR);
 	}
 };
@@ -637,7 +637,7 @@ public:
 	inline Operator_And() : Operator(OPTYPE_And) {}
 public:
 	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 		elemResult = static_cast<T_ElemResult>(elemL) & static_cast<T_ElemResult>(elemR);
 	}
 };
@@ -650,7 +650,7 @@ public:
 	inline Operator_Xor() : Operator(OPTYPE_Xor) {}
 public:
 	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 		elemResult = static_cast<T_ElemResult>(elemL) ^ static_cast<T_ElemResult>(elemR);
 	}
 };
@@ -663,7 +663,7 @@ public:
 	inline Operator_Shl() : Operator(OPTYPE_Shl) {}
 public:
 	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 		elemResult = static_cast<T_ElemResult>(elemL) << static_cast<T_ElemResult>(elemR);
 	}
 };
@@ -676,7 +676,7 @@ public:
 	inline Operator_Shr() : Operator(OPTYPE_Shr) {}
 public:
 	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
 		elemResult = static_cast<T_ElemResult>(elemL) >> static_cast<T_ElemResult>(elemR);
 	}
 };
