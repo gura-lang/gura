@@ -874,7 +874,7 @@ Array::UnaryFuncPack Array::unaryFuncPack_##op = { \
 	}, \
 }
 
-#define ImplementBinaryFuncPack(funcPrefix, op, name) \
+#define ImplementBinaryFuncPack(op, name, funcPrefix)			 \
 Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 	name, \
 	{ \
@@ -1194,21 +1194,50 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 	} \
 }
 
-ImplementUnaryFuncPack(Pos, "pos");
-ImplementUnaryFuncPack(Neg, "neg");
+ImplementUnaryFuncPack(Pos,				"pos");
+ImplementUnaryFuncPack(Neg,				"neg");
 
-ImplementBinaryFuncPack(BinaryFuncTmpl,		Add, "add");
-ImplementBinaryFuncPack(BinaryFuncTmpl,		Sub, "sub");
-ImplementBinaryFuncPack(BinaryFuncTmpl,		Mul, "mul");
-ImplementBinaryFuncPack(BinaryFuncTmpl_Div,	Div, "div");
-ImplementBinaryFuncPack(BinaryFuncTmpl_Div, Mod, "mod");
-ImplementBinaryFuncPack(BinaryFuncTmpl,		Pow, "pow");
+ImplementBinaryFuncPack(Add,			"add", BinaryFuncTmpl);
+ImplementBinaryFuncPack(Sub,			"sub", BinaryFuncTmpl);
+ImplementBinaryFuncPack(Mul,			"mul", BinaryFuncTmpl);
+ImplementBinaryFuncPack(Div,			"div", BinaryFuncTmpl_Div);
+ImplementBinaryFuncPack(Mod,			"mod", BinaryFuncTmpl_Div);
+ImplementBinaryFuncPack(Pow,			"pow", BinaryFuncTmpl);
 
-ImplementBinaryFuncPack_BitOp(And,	"and");
-ImplementBinaryFuncPack_BitOp(Or,	"or");
-ImplementBinaryFuncPack_BitOp(Xor,	"xor");
-ImplementBinaryFuncPack_BitOp(Shl,	"shl");
-ImplementBinaryFuncPack_BitOp(Shr,	"Shr");
+ImplementBinaryFuncPack_BitOp(And,		"and");
+ImplementBinaryFuncPack_BitOp(Or,		"or");
+ImplementBinaryFuncPack_BitOp(Xor,		"xor");
+ImplementBinaryFuncPack_BitOp(Shl,		"shl");
+ImplementBinaryFuncPack_BitOp(Shr,		"shr");
+
+ImplementUnaryFuncPack(Math_abs,		"math.abs");
+ImplementUnaryFuncPack(Math_acos,		"math.acos");
+ImplementUnaryFuncPack(Math_arg,		"math.arg");
+ImplementUnaryFuncPack(Math_asin,		"math.asin");
+ImplementUnaryFuncPack(Math_atan,		"math.atan");
+ImplementBinaryFuncPack(Math_atan2,		"math.atan2", BinaryFuncTmpl);
+ImplementUnaryFuncPack(Math_ceil,		"math.ceil");
+ImplementUnaryFuncPack(Math_conj,		"math.conj");
+ImplementUnaryFuncPack(Math_cos,		"math.cos");
+ImplementUnaryFuncPack(Math_cosh,		"math.cosh");
+//ImplementUnaryFuncPack(Math_cross,	"math.cross");
+ImplementUnaryFuncPack(Math_delta,		"math.delta");
+//ImplementUnaryFuncPack(Math_dot,		"math.dot");
+ImplementUnaryFuncPack(Math_exp,		"math.exp");
+ImplementUnaryFuncPack(Math_floor,		"math.floor");
+ImplementBinaryFuncPack(Math_hypot,		"math.hypot", BinaryFuncTmpl);
+ImplementUnaryFuncPack(Math_imag,		"math.imag");
+ImplementUnaryFuncPack(Math_log,		"math.log");
+ImplementUnaryFuncPack(Math_log10,		"math.log10");
+ImplementUnaryFuncPack(Math_norm,		"math.norm");
+ImplementUnaryFuncPack(Math_ramp,		"math.ramp");
+ImplementUnaryFuncPack(Math_real,		"math.real");
+ImplementUnaryFuncPack(Math_sin,		"math.sin");
+ImplementUnaryFuncPack(Math_sinh,		"math.sinh");
+ImplementUnaryFuncPack(Math_sqrt,		"math.sqrt");
+ImplementUnaryFuncPack(Math_tan,		"math.tan");
+ImplementUnaryFuncPack(Math_tanh,		"math.tanh");
+ImplementUnaryFuncPack(Math_unitstep,	"math.unitstep");
 
 Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 	{
