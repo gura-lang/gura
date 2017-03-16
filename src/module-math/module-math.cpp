@@ -272,7 +272,7 @@ Gura_ImplementFunction(cross)
 Gura_DeclareFunction(delta)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "num", VTYPE_number);
+	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
 		"Evaluates a delta function with a given argument `num`\n"
@@ -389,26 +389,8 @@ Gura_DeclareFunctionWithMathDiff(log)
 
 Gura_ImplementFunction(log)
 {
-#if 1
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_log)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		if (value.GetNumber() > 0.) {
-			result.SetNumber(::log(value.GetNumber()));
-		} else {
-			SetError_InvalidValue(sig, value);
-		}
-	} else if (value.Is_complex()) {
-		result.SetComplex(std::log(value.GetComplex()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 Gura_ImplementMathDiff(log)
@@ -432,26 +414,8 @@ Gura_DeclareFunctionWithMathDiff(log10)
 
 Gura_ImplementFunction(log10)
 {
-#if 1
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_log10)->EvalMapUnary(env, arg.GetValue(0), flags);
-#else
-	Signal &sig = env.GetSignal();
-	const Value &value = arg.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		if (value.GetNumber() > 0.) {
-			result.SetNumber(::log10(value.GetNumber()));
-		} else {
-			SetError_InvalidValue(sig, value);
-		}
-	} else if (value.Is_complex()) {
-		result.SetComplex(std::log10(value.GetComplex()));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-#endif
 }
 
 Gura_ImplementMathDiff(log10)
@@ -483,11 +447,11 @@ Gura_ImplementFunction(norm)
 	return env.GetOperator(OPTYPE_Math_norm)->EvalMapUnary(env, arg.GetValue(0), flags);
 }
 
-// math.ramp(num:number):map
+// math.ramp(num):map
 Gura_DeclareFunctionWithMathDiff(ramp)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "num", VTYPE_number);
+	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
 		"Evaluates a ramp function with a given argument `num`\n"
@@ -648,11 +612,11 @@ Gura_ImplementFunction(tanh)
 	return env.GetOperator(OPTYPE_Math_tanh)->EvalMapUnary(env, arg.GetValue(0), flags);
 }
 
-// math.unitstep(num:number):map
+// math.unitstep(num):map
 Gura_DeclareFunctionWithMathDiff(unitstep)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "num", VTYPE_number);
+	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
 		"Evaluates a unit step function with a given argument `num`\n"

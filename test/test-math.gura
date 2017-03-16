@@ -9,6 +9,7 @@ testcase('math.abs()') {
 	tester(`math.abs(4j))
 	tester(`math.abs(3 + 4j))
 	tester(`math.abs(3 - 4j))
+	tester(`math.abs(array {0, 3, -3}))
 }
 
 testcase('math.acos()') {
@@ -18,6 +19,7 @@ testcase('math.acos()') {
 	tester(`math.acos(0):deg)
 	tester(`math.acos(1):deg)
 	tester(`math.acos(-1):deg)
+	tester(`math.acos(array {}))
 }
 
 testcase('math.arg()') {
@@ -35,6 +37,7 @@ testcase('math.arg()') {
 	tester(`math.arg(-4j):deg)
 	tester(`math.arg(1 + 1j):deg)
 	tester(`math.arg(1 - 1j):deg)
+	tester(`math.arg(array {}))
 }
 
 testcase('math.asin()') {
@@ -44,6 +47,7 @@ testcase('math.asin()') {
 	tester(`math.acos(0):deg)
 	tester(`math.acos(1):deg)
 	tester(`math.acos(-1):deg)
+	tester(`math.acos(array {}))
 }
 
 testcase('math.atan()') {
@@ -53,6 +57,7 @@ testcase('math.atan()') {
 	tester(`math.atan(0):deg)
 	tester(`math.atan(1):deg)
 	tester(`math.atan(-1):deg)
+	tester(`math.atan(array {}))
 }
 
 testcase('math.atan2()') {
@@ -78,6 +83,7 @@ testcase('math.ceil()') {
 	tester(`math.ceil(-1))
 	tester(`math.ceil(-1.5))
 	tester(`math.ceil(-3.5))
+	tester(`math.ceil(array {}))
 }
 
 testcase('math.conj()') {
@@ -87,6 +93,7 @@ testcase('math.conj()') {
 	tester(`math.conj(-4j))
 	tester(`math.conj(3 + 4j))
 	tester(`math.conj(3 - 4j))
+	tester(`math.conj(array {}))
 }
 
 testcase('math.cos()') {
@@ -96,12 +103,14 @@ testcase('math.cos()') {
 	tester(`math.cos(0):deg)
 	tester(`math.cos(90):deg)
 	tester(`math.cos(180):deg)
+	tester(`math.cos(array {}))
 }
 
 testcase('math.cosh()') {
 	tester(`math.cosh(0))
 	tester(`math.cosh(1))
 	tester(`((math.exp(1) + math.exp(-1)) / 2))
+	tester(`math.cosh(array {}))
 }
 
 testcase('math.cross()') {
@@ -117,6 +126,7 @@ testcase('math.delta()') {
 	tester(`math.delta(0))
 	tester(`math.delta(1))
 	tester(`math.delta(2))
+	tester(`math.delta(array {}))
 }
 
 testcase('math.dot()') {
@@ -131,6 +141,7 @@ testcase('math.exp()') {
 	tester(`math.exp(1))
 	tester(`math.exp(-1))
 	tester(`math.exp(math.pi * 1j))
+	tester(`math.exp(array {}))
 }
 
 testcase('math.floor()') {
@@ -145,6 +156,7 @@ testcase('math.floor()') {
 	tester(`math.floor(-1))
 	tester(`math.floor(-1.5))
 	tester(`math.floor(-3.5))
+	tester(`math.floor(array {}))
 }
 
 testcase('math.hypot()') {
@@ -158,6 +170,7 @@ testcase('math.imag()') {
 	tester(`math.imag(3))
 	tester(`math.imag(4j))
 	tester(`math.imag(3 + 4j))
+	tester(`math.imag(array {}))
 }
 
 testcase('math.log()') {
@@ -166,6 +179,7 @@ testcase('math.log()') {
 	tester(`math.log(2 + 3j))
 	tester(`math.log(-3))
 	tester(`math.log(0))
+	tester(`math.log(array {}))
 }
 
 testcase('math.log10()') {
@@ -174,6 +188,7 @@ testcase('math.log10()') {
 	tester(`math.log10(2 + 3j))
 	tester(`math.log10(-3))
 	tester(`math.log10(0))
+	tester(`math.log10(array {}))
 }
 
 testcase('math.norm()') {
@@ -181,6 +196,7 @@ testcase('math.norm()') {
 	tester(`math.norm(3))
 	tester(`math.norm(4j))
 	tester(`math.norm(3 + 4j))
+	tester(`math.norm(array {}))
 }
 
 testcase('math.ramp()') {
@@ -189,6 +205,7 @@ testcase('math.ramp()') {
 	tester(`math.ramp(0))
 	tester(`math.ramp(1))
 	tester(`math.ramp(2))
+	tester(`math.ramp(array {}))
 }
 
 testcase('math.real()') {
@@ -196,6 +213,7 @@ testcase('math.real()') {
 	tester(`math.real(3))
 	tester(`math.real(4j))
 	tester(`math.real(3 + 4j))
+	tester(`math.real(array {}))
 }
 
 testcase('math.sin()') {
@@ -205,12 +223,14 @@ testcase('math.sin()') {
 	tester(`math.sin(0):deg)
 	tester(`math.sin(90):deg)
 	tester(`math.sin(180):deg)
+	tester(`math.sin(array {}))
 }
 
 testcase('math.sinh()') {
 	tester(`math.sinh(0))
 	tester(`math.sinh(1))
 	tester(`((math.exp(1) - math.exp(-1)) / 2))
+	tester(`math.sinh(array {}))
 }
 
 testcase('math.sqrt()') {
@@ -221,6 +241,7 @@ testcase('math.sqrt()') {
 	tester(`math.sqrt(-3))
 	tester(`math.sqrt(2j))
 	tester(`math.sqrt(3j))
+	tester(`math.sqrt(array {}))
 }
 
 testcase('math.tan()') {
@@ -232,12 +253,14 @@ testcase('math.tan()') {
 	tester(`math.tan(45):deg)
 	tester(`math.tan(90):deg)
 	tester(`math.tan(180):deg)
+	tester(`math.tan(array {}))
 }
 
 testcase('math.tanh()') {
 	tester(`math.tanh(0))
 	tester(`math.tanh(1))
 	tester(`((math.exp(1) - math.exp(-1)) / ((math.exp(1) + math.exp(-1)))))
+	tester(`math.tanh(array {}))
 }
 
 testcase('math.unitstep()') {
@@ -246,6 +269,7 @@ testcase('math.unitstep()') {
 	tester(`math.unitstep(0))
 	tester(`math.unitstep(1))
 	tester(`math.unitstep(2))
+	tester(`math.unitstep(array {}))
 }
 
 testcase {
