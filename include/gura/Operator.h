@@ -478,12 +478,14 @@ template<> inline void Operator_Mod::Calc<Double, Double, T_Other>( \
 }
 
 template<> inline void Operator_Mod::Calc<Float, Float, Float>(
-				Float &elemResult, const Float &elemL, const Float &elemR) {
+				Float &elemResult, const Float &elemL, const Float &elemR)
+{
 	elemResult = ::fmodf(static_cast<Float>(elemL), elemR);
 }
 
 template<> inline void Operator_Mod::Calc<Double, Double, Double>(
-				Double &elemResult, const Double &elemL, const Double &elemR) {
+				Double &elemResult, const Double &elemL, const Double &elemR)
+{
 	elemResult = ::fmod(elemL, elemR);
 }
 
@@ -721,7 +723,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_abs : public Operator {
 public:
 	inline Operator_Math_abs() : Operator(OPTYPE_Math_abs) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::fabs(elem));
+	}
 };
+
+template<> inline void Operator_Math_abs::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::abs(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_acos
@@ -729,7 +741,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_acos : public Operator {
 public:
 	inline Operator_Math_acos() : Operator(OPTYPE_Math_acos) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::acos(elem));
+	}
 };
+
+template<> inline void Operator_Math_acos::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::acos(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_arg
@@ -737,7 +759,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_arg : public Operator {
 public:
 	inline Operator_Math_arg() : Operator(OPTYPE_Math_arg) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(0);
+	}
 };
+
+template<> inline void Operator_Math_arg::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::arg(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_asin
@@ -745,7 +777,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_asin : public Operator {
 public:
 	inline Operator_Math_asin() : Operator(OPTYPE_Math_asin) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::asin(elem));
+	}
 };
+
+template<> inline void Operator_Math_asin::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::asin(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_atan
@@ -753,7 +795,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_atan : public Operator {
 public:
 	inline Operator_Math_atan() : Operator(OPTYPE_Math_atan) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::atan(elem));
+	}
 };
+
+template<> inline void Operator_Math_atan::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::atan(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_atan2
@@ -761,6 +813,11 @@ public:
 class GURA_DLLDECLARE Operator_Math_atan2 : public Operator {
 public:
 	inline Operator_Math_atan2() : Operator(OPTYPE_Math_atan2) {}
+public:
+	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+		elemResult = static_cast<T_ElemResult>(::atan2(elemL, elemR));
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -769,6 +826,11 @@ public:
 class GURA_DLLDECLARE Operator_Math_ceil : public Operator {
 public:
 	inline Operator_Math_ceil() : Operator(OPTYPE_Math_ceil) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::ceil(elem));
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -777,7 +839,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_conj : public Operator {
 public:
 	inline Operator_Math_conj() : Operator(OPTYPE_Math_conj) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(elem);
+	}
 };
+
+template<> inline void Operator_Math_conj::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::conj(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_cos
@@ -785,7 +857,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_cos : public Operator {
 public:
 	inline Operator_Math_cos() : Operator(OPTYPE_Math_cos) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::cos(elem));
+	}
 };
+
+template<> inline void Operator_Math_cos::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::cos(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_cosh
@@ -793,7 +875,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_cosh : public Operator {
 public:
 	inline Operator_Math_cosh() : Operator(OPTYPE_Math_cosh) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::cosh(elem));
+	}
 };
+
+template<> inline void Operator_Math_cosh::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::cosh(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_cross
@@ -809,6 +901,11 @@ public:
 class GURA_DLLDECLARE Operator_Math_delta : public Operator {
 public:
 	inline Operator_Math_delta() : Operator(OPTYPE_Math_delta) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>((elem == 0)? 1 : 0);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -825,7 +922,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_exp : public Operator {
 public:
 	inline Operator_Math_exp() : Operator(OPTYPE_Math_exp) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::exp(elem));
+	}
 };
+
+template<> inline void Operator_Math_exp::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::exp(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_floor
@@ -833,6 +940,11 @@ public:
 class GURA_DLLDECLARE Operator_Math_floor : public Operator {
 public:
 	inline Operator_Math_floor() : Operator(OPTYPE_Math_floor) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::floor(elem));
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -841,6 +953,11 @@ public:
 class GURA_DLLDECLARE Operator_Math_hypot : public Operator {
 public:
 	inline Operator_Math_hypot() : Operator(OPTYPE_Math_hypot) {}
+public:
+	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
+		elemResult = static_cast<T_ElemResult>(::hypot(elemL, elemR));
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -849,7 +966,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_imag : public Operator {
 public:
 	inline Operator_Math_imag() : Operator(OPTYPE_Math_imag) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(0);
+	}
 };
+
+template<> inline void Operator_Math_imag::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::imag(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_log
@@ -857,7 +984,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_log : public Operator {
 public:
 	inline Operator_Math_log() : Operator(OPTYPE_Math_log) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::log(elem));
+	}
 };
+
+template<> inline void Operator_Math_log::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::log(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_log10
@@ -865,7 +1002,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_log10 : public Operator {
 public:
 	inline Operator_Math_log10() : Operator(OPTYPE_Math_log10) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::log10(elem));
+	}
 };
+
+template<> inline void Operator_Math_log10::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::log10(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_norm
@@ -873,7 +1020,18 @@ public:
 class GURA_DLLDECLARE Operator_Math_norm : public Operator {
 public:
 	inline Operator_Math_norm() : Operator(OPTYPE_Math_norm) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		T_ElemResult elemCasted = static_cast<T_ElemResult>(elem);
+		elemResult =  elemCasted * elemCasted;
+	}
 };
+
+template<> inline void Operator_Math_norm::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::norm(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_ramp
@@ -881,6 +1039,11 @@ public:
 class GURA_DLLDECLARE Operator_Math_ramp : public Operator {
 public:
 	inline Operator_Math_ramp() : Operator(OPTYPE_Math_ramp) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>((elem >= 0)? elem : 0);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -889,7 +1052,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_real : public Operator {
 public:
 	inline Operator_Math_real() : Operator(OPTYPE_Math_real) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(elem);
+	}
 };
+
+template<> inline void Operator_Math_real::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::real(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_sin
@@ -897,7 +1070,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_sin : public Operator {
 public:
 	inline Operator_Math_sin() : Operator(OPTYPE_Math_sin) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::sin(elem));
+	}
 };
+
+template<> inline void Operator_Math_sin::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::sin(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_sinh
@@ -905,7 +1088,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_sinh : public Operator {
 public:
 	inline Operator_Math_sinh() : Operator(OPTYPE_Math_sinh) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::sinh(elem));
+	}
 };
+
+template<> inline void Operator_Math_sinh::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::sinh(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_sqrt
@@ -913,7 +1106,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_sqrt : public Operator {
 public:
 	inline Operator_Math_sqrt() : Operator(OPTYPE_Math_sqrt) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::sqrt(elem));
+	}
 };
+
+template<> inline void Operator_Math_sqrt::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::sqrt(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_tan
@@ -921,7 +1124,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_tan : public Operator {
 public:
 	inline Operator_Math_tan() : Operator(OPTYPE_Math_tan) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::tan(elem));
+	}
 };
+
+template<> inline void Operator_Math_tan::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::tan(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_tanh
@@ -929,7 +1142,17 @@ public:
 class GURA_DLLDECLARE Operator_Math_tanh : public Operator {
 public:
 	inline Operator_Math_tanh() : Operator(OPTYPE_Math_tanh) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>(::tanh(elem));
+	}
 };
+
+template<> inline void Operator_Math_tanh::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = std::tanh(elem);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_unitstep
@@ -937,6 +1160,11 @@ public:
 class GURA_DLLDECLARE Operator_Math_unitstep : public Operator {
 public:
 	inline Operator_Math_unitstep() : Operator(OPTYPE_Math_unitstep) {}
+public:
+	template<typename T_ElemResult, typename T_Elem>
+	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
+		elemResult = static_cast<T_ElemResult>((elem >= 0)? 1 : 0);
+	}
 };
 
 //-----------------------------------------------------------------------------

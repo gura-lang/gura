@@ -1470,7 +1470,7 @@ Gura_ImplementUnaryOperator(Math_ceil, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_conj, number)
 {
-	double result = ::ceil(value.GetDouble());
+	double result = value.GetDouble();
 	return Value(result);
 }
 
