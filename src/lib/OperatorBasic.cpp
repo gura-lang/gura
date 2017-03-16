@@ -1401,6 +1401,11 @@ Gura_ImplementUnaryOperator(Math_abs, complex)
 	return Value(std::abs(value.GetComplex()));
 }
 
+Gura_ImplementUnaryOperator(Math_abs, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_abs, value);
+}
+
 //-----------------------------------------------------------------------------
 // math.acos(A) ... UnaryOperator(Math_acos, A)
 //-----------------------------------------------------------------------------
@@ -1409,6 +1414,11 @@ Gura_ImplementUnaryOperator(Math_acos, number)
 	double result = ::acos(value.GetDouble());
 	if (flags & FLAG_Deg) result = RadToDeg(result);
 	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_acos, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_acos, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1426,6 +1436,11 @@ Gura_ImplementUnaryOperator(Math_arg, complex)
 	return Value(result);
 }
 
+Gura_ImplementUnaryOperator(Math_arg, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_arg, value);
+}
+
 //-----------------------------------------------------------------------------
 // math.asin(A) ... UnaryOperator(Math_asin, A)
 //-----------------------------------------------------------------------------
@@ -1436,6 +1451,11 @@ Gura_ImplementUnaryOperator(Math_asin, number)
 	return Value(result);
 }
 
+Gura_ImplementUnaryOperator(Math_asin, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_asin, value);
+}
+
 //-----------------------------------------------------------------------------
 // math.atan(A) ... UnaryOperator(Math_atan, A)
 //-----------------------------------------------------------------------------
@@ -1444,6 +1464,11 @@ Gura_ImplementUnaryOperator(Math_atan, number)
 	double result = ::atan(value.GetDouble());
 	if (flags & FLAG_Deg) result = RadToDeg(result);
 	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_atan, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_atan, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1465,6 +1490,11 @@ Gura_ImplementUnaryOperator(Math_ceil, number)
 	return Value(result);
 }
 
+Gura_ImplementUnaryOperator(Math_ceil, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_ceil, value);
+}
+
 //-----------------------------------------------------------------------------
 // math.conj(A) ... UnaryOperator(Math_conj, A)
 //-----------------------------------------------------------------------------
@@ -1478,6 +1508,11 @@ Gura_ImplementUnaryOperator(Math_conj, complex)
 {
 	Complex result = std::conj(value.GetComplex());
 	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_conj, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_conj, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1498,6 +1533,11 @@ Gura_ImplementUnaryOperator(Math_cos, complex)
 	return Value(result);
 }
 
+Gura_ImplementUnaryOperator(Math_cos, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_cos, value);
+}
+
 //-----------------------------------------------------------------------------
 // math.cosh(A) ... UnaryOperator(Math_cosh, A)
 //-----------------------------------------------------------------------------
@@ -1513,6 +1553,11 @@ Gura_ImplementUnaryOperator(Math_cosh, complex)
 	const Complex &num = value.GetComplex();
 	Complex result = std::cosh(num);
 	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_cosh, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_cosh, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1583,6 +1628,11 @@ Gura_ImplementUnaryOperator(Math_delta, number)
 	return Value((num == 0)? 1 : 0);
 }
 
+Gura_ImplementUnaryOperator(Math_delta, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_delta, value);
+}
+
 //-----------------------------------------------------------------------------
 // math.dot(A, B) ... BinaryOperator(Math_dot, A, B)
 //-----------------------------------------------------------------------------
@@ -1626,6 +1676,11 @@ Gura_ImplementUnaryOperator(Math_exp, complex)
 	return Value(std::exp(num));
 }
 
+Gura_ImplementUnaryOperator(Math_exp, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_exp, value);
+}
+
 //-----------------------------------------------------------------------------
 // math.floor(A) ... UnaryOperator(Math_floor, A)
 //-----------------------------------------------------------------------------
@@ -1633,6 +1688,11 @@ Gura_ImplementUnaryOperator(Math_floor, number)
 {
 	double num = value.GetDouble();
 	return Value(::floor(num));
+}
+
+Gura_ImplementUnaryOperator(Math_floor, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_floor, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1657,6 +1717,11 @@ Gura_ImplementUnaryOperator(Math_imag, complex)
 {
 	const Complex &num = value.GetComplex();
 	return Value(num.imag());
+}
+
+Gura_ImplementUnaryOperator(Math_imag, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_imag, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1684,6 +1749,11 @@ Gura_ImplementUnaryOperator(Math_log, complex)
 	return Value(std::log(num));
 }
 
+Gura_ImplementUnaryOperator(Math_log, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_log, value);
+}
+
 //-----------------------------------------------------------------------------
 // math.log10(A) ... UnaryOperator(Math_log10, A)
 //-----------------------------------------------------------------------------
@@ -1709,6 +1779,11 @@ Gura_ImplementUnaryOperator(Math_log10, complex)
 	return Value(std::log10(num));
 }
 
+Gura_ImplementUnaryOperator(Math_log10, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_log10, value);
+}
+
 //-----------------------------------------------------------------------------
 // math.norm(A) ... UnaryOperator(Math_norm, A)
 //-----------------------------------------------------------------------------
@@ -1724,6 +1799,11 @@ Gura_ImplementUnaryOperator(Math_norm, complex)
 	return Value(std::norm(num));
 }
 
+Gura_ImplementUnaryOperator(Math_norm, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_norm, value);
+}
+
 //-----------------------------------------------------------------------------
 // math.ramp(A) ... UnaryOperator(Math_ramp, A)
 //-----------------------------------------------------------------------------
@@ -1731,6 +1811,11 @@ Gura_ImplementUnaryOperator(Math_ramp, number)
 {
 	const double num = value.GetDouble();
 	return Value((num >= 0)? num : 0);
+}
+
+Gura_ImplementUnaryOperator(Math_ramp, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_ramp, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1746,6 +1831,11 @@ Gura_ImplementUnaryOperator(Math_real, complex)
 {
 	const Complex &num = value.GetComplex();
 	return Value(num.real());
+}
+
+Gura_ImplementUnaryOperator(Math_real, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_real, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1766,6 +1856,11 @@ Gura_ImplementUnaryOperator(Math_sin, complex)
 	return Value(result);
 }
 
+Gura_ImplementUnaryOperator(Math_sin, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_sin, value);
+}
+
 //-----------------------------------------------------------------------------
 // math.sinh(A) ... UnaryOperator(Math_sinh, A)
 //-----------------------------------------------------------------------------
@@ -1783,6 +1878,11 @@ Gura_ImplementUnaryOperator(Math_sinh, complex)
 	return Value(result);
 }
 
+Gura_ImplementUnaryOperator(Math_sinh, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_sinh, value);
+}
+
 //-----------------------------------------------------------------------------
 // math.sqrt(A) ... UnaryOperator(Math_sqrt, A)
 //-----------------------------------------------------------------------------
@@ -1796,6 +1896,11 @@ Gura_ImplementUnaryOperator(Math_sqrt, complex)
 {
 	const Complex &num = value.GetComplex();
 	return Value(std::sqrt(num));
+}
+
+Gura_ImplementUnaryOperator(Math_sqrt, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_sqrt, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1816,6 +1921,11 @@ Gura_ImplementUnaryOperator(Math_tan, complex)
 	return Value(result);
 }
 
+Gura_ImplementUnaryOperator(Math_tan, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_tan, value);
+}
+
 //-----------------------------------------------------------------------------
 // math.tanh(A) ... UnaryOperator(Math_tanh, A)
 //-----------------------------------------------------------------------------
@@ -1833,6 +1943,11 @@ Gura_ImplementUnaryOperator(Math_tanh, complex)
 	return Value(result);
 }
 
+Gura_ImplementUnaryOperator(Math_tanh, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_tanh, value);
+}
+
 //-----------------------------------------------------------------------------
 // math.unitstep(A) ... UnaryOperator(Math_unitstep, A)
 //-----------------------------------------------------------------------------
@@ -1840,6 +1955,11 @@ Gura_ImplementUnaryOperator(Math_unitstep, number)
 {
 	const double num = value.GetDouble();
 	return Value((num >= 0)? 1 : 0);
+}
+
+Gura_ImplementUnaryOperator(Math_unitstep, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_unitstep, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2049,48 +2169,72 @@ void Operator::AssignOperatorBasic(Environment &env)
 	// mathematical functions
 	Gura_AssignUnaryOperator(Math_abs, number);
 	Gura_AssignUnaryOperator(Math_abs, complex);
+	Gura_AssignUnaryOperator(Math_abs, array);
 	Gura_AssignUnaryOperator(Math_acos, number);
+	Gura_AssignUnaryOperator(Math_acos, array);
 	Gura_AssignUnaryOperator(Math_arg, number);
 	Gura_AssignUnaryOperator(Math_arg, complex);
+	Gura_AssignUnaryOperator(Math_arg, array);
 	Gura_AssignUnaryOperator(Math_asin, number);
+	Gura_AssignUnaryOperator(Math_asin, array);
 	Gura_AssignUnaryOperator(Math_atan, number);
+	Gura_AssignUnaryOperator(Math_atan, array);
 	Gura_AssignBinaryOperator(Math_atan2, number, number);
 	Gura_AssignUnaryOperator(Math_ceil, number);
+	Gura_AssignUnaryOperator(Math_ceil, array);
 	Gura_AssignUnaryOperator(Math_conj, number);
 	Gura_AssignUnaryOperator(Math_conj, complex);
+	Gura_AssignUnaryOperator(Math_conj, array);
 	Gura_AssignUnaryOperator(Math_cos, number);
 	Gura_AssignUnaryOperator(Math_cos, complex);
+	Gura_AssignUnaryOperator(Math_cos, array);
 	Gura_AssignUnaryOperator(Math_cosh, number);
 	Gura_AssignUnaryOperator(Math_cosh, complex);
+	Gura_AssignUnaryOperator(Math_cosh, array);
 	Gura_AssignBinaryOperator(Math_cross, list, list);
 	Gura_AssignUnaryOperator(Math_delta, number);
+	Gura_AssignUnaryOperator(Math_delta, array);
 	Gura_AssignBinaryOperator(Math_dot, list, list);
 	Gura_AssignUnaryOperator(Math_exp, number);
 	Gura_AssignUnaryOperator(Math_exp, complex);
+	Gura_AssignUnaryOperator(Math_exp, array);
 	Gura_AssignUnaryOperator(Math_floor, number);
+	Gura_AssignUnaryOperator(Math_floor, array);
 	Gura_AssignBinaryOperator(Math_hypot, number, number);
 	Gura_AssignUnaryOperator(Math_imag, number);
 	Gura_AssignUnaryOperator(Math_imag, complex);
+	Gura_AssignUnaryOperator(Math_imag, array);
 	Gura_AssignUnaryOperator(Math_log, number);
 	Gura_AssignUnaryOperator(Math_log, complex);
+	Gura_AssignUnaryOperator(Math_log, array);
 	Gura_AssignUnaryOperator(Math_log10, number);
 	Gura_AssignUnaryOperator(Math_log10, complex);
+	Gura_AssignUnaryOperator(Math_log10, array);
 	Gura_AssignUnaryOperator(Math_norm, number);
 	Gura_AssignUnaryOperator(Math_norm, complex);
+	Gura_AssignUnaryOperator(Math_norm, array);
 	Gura_AssignUnaryOperator(Math_ramp, number);
+	Gura_AssignUnaryOperator(Math_ramp, array);
 	Gura_AssignUnaryOperator(Math_real, number);
 	Gura_AssignUnaryOperator(Math_real, complex);
+	Gura_AssignUnaryOperator(Math_real, array);
 	Gura_AssignUnaryOperator(Math_sin, number);
 	Gura_AssignUnaryOperator(Math_sin, complex);
+	Gura_AssignUnaryOperator(Math_sin, array);
 	Gura_AssignUnaryOperator(Math_sinh, number);
 	Gura_AssignUnaryOperator(Math_sinh, complex);
+	Gura_AssignUnaryOperator(Math_sinh, array);
 	Gura_AssignUnaryOperator(Math_sqrt, number);
 	Gura_AssignUnaryOperator(Math_sqrt, complex);
+	Gura_AssignUnaryOperator(Math_sqrt, array);
 	Gura_AssignUnaryOperator(Math_tan, number);
 	Gura_AssignUnaryOperator(Math_tan, complex);
+	Gura_AssignUnaryOperator(Math_tan, array);
 	Gura_AssignUnaryOperator(Math_tanh, number);
 	Gura_AssignUnaryOperator(Math_tanh, complex);
+	Gura_AssignUnaryOperator(Math_tanh, array);
 	Gura_AssignUnaryOperator(Math_unitstep, number);
+	Gura_AssignUnaryOperator(Math_unitstep, array);
 }
 
 }
