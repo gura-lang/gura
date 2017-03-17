@@ -2972,33 +2972,6 @@ void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 {
 }
 
-#if 0
-//-----------------------------------------------------------------------------
-// HelpPresenterEx
-//-----------------------------------------------------------------------------
-bool HelpPresenterEx::DoPresent(Environment &env,
-									const char *title, const Help *pHelp) const
-{
-	Signal &sig = env.GetSignal();
-	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
-	if (title == nullptr) {
-		if (!pArg->StoreValue(env, Value::Nil)) return false;
-	} else {
-		if (!pArg->StoreValue(env, Value(title))) return false;
-	}
-	if (pHelp == nullptr) {
-		if (!pArg->StoreValue(env, Value::Nil)) return false;
-	} else {
-		AutoPtr<Document> pDocument(new Document());
-		SimpleStream_CStringReader streamSrc(pHelp->GetText());
-		if (!pDocument->ParseStream(sig, streamSrc)) return false;
-		if (!pArg->StoreValue(env, Value(new Object_document(pDocument->Reference())))) return false;
-	}
-	_pFunc->Eval(env, *pArg);
-	return !sig.IsSignalled();
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Module Entries
 //-----------------------------------------------------------------------------
