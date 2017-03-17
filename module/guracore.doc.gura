@@ -147,7 +147,6 @@ where `T` means its element type.
 
 ${markdown.makedoc@function$(`en, '@int8', '@T'
 array@int8
-@int8
 array@int8.identity
 array@int8.interval
 array@int8.ones
@@ -2108,7 +2107,7 @@ vertex
 
 ${markdown.makedoc@function(`en
 vertex.cross
-vertex.inner
+vertex.dot
 vertex.list
 vertex.normal
 vertex.rotate@x

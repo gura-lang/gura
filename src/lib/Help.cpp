@@ -43,14 +43,14 @@ String Help::MakeHelpTitle() const
 	return (_pHelpProvider == nullptr)? "" : _pHelpProvider->MakeHelpTitle();
 }
 
-bool Help::Render(Environment &env, const char *formatNameOut, Stream &stream) const
+bool Help::Render(Environment &env, const char *formatNameOut, Stream &stream, int headerOffset) const
 {
 	const HelpRenderer *pHelpRenderer =
 		env.GetGlobal()->GetHelpRendererOwner().Find(_formatName.c_str(), formatNameOut);
-	if (pHelpRenderer != nullptr) return pHelpRenderer->Render(env, this, stream);
+	if (pHelpRenderer != nullptr) return pHelpRenderer->Render(env, this, stream, headerOffset);
 	if (!env.ImportModules(_formatName.c_str(), false, false)) return false;
 	pHelpRenderer = env.GetGlobal()->GetHelpRendererOwner().Find(_formatName.c_str(), formatNameOut);
-	if (pHelpRenderer != nullptr) return pHelpRenderer->Render(env, this, stream);
+	if (pHelpRenderer != nullptr) return pHelpRenderer->Render(env, this, stream, headerOffset);
 	env.SetError(ERR_FormatError, "can't render %s document in %s format",
 				 _formatName.c_str(), formatNameOut);
 	return false;
@@ -225,7 +225,7 @@ void HelpRenderer::Register(Environment &env, HelpRenderer *pHelpRenderer)
 	env.GetGlobal()->GetHelpRendererOwner().push_back(pHelpRenderer);
 }
 
-bool HelpRenderer::Render(Environment &env, const Help *pHelp, Stream &stream) const
+bool HelpRenderer::Render(Environment &env, const Help *pHelp, Stream &stream, int headerOffset) const
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
@@ -233,6 +233,7 @@ bool HelpRenderer::Render(Environment &env, const Help *pHelp, Stream &stream) c
 			env, Value(new Object_help(env, pHelp->Reference())))) return false;
 	if (!pArg->StoreValue(
 			env, Value(new Object_stream(env, stream.Reference())))) return false;
+	if (!pArg->StoreValue(env, Value(headerOffset))) return false;
 	_pFunc->Eval(env, *pArg);
 	return !sig.IsSignalled();
 }

@@ -914,7 +914,7 @@ classref(`document).render@toc() {block} = {
 	Renderer@toc(block).Render(this)
 }
 
-help.renderer('markdown', 'markdown') {|help:help, stream:stream|
+help.renderer('markdown', 'markdown') {|help:help, stream:stream, header_offset:number|
 	stream.print(help.doc)
 }
 

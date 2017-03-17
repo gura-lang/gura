@@ -25,13 +25,13 @@ math.covariance
 math.cross
 math.delta
 math.diff
+math.dot
 math.exp
 math.fft
 math.floor
 math.gcd
 math.hypot
 math.imag
-math.inner
 math.integral
 math.lcm
 math.least_square

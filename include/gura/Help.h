@@ -70,7 +70,7 @@ public:
 	inline bool HasDocument() const { return !_doc.empty(); }
 	void ExtractFormatNameAndDoc(const String &doc);
 	String MakeHelpTitle() const;
-	bool Render(Environment &env, const char *formatNameOut, Stream &stream) const;
+	bool Render(Environment &env, const char *formatNameOut, Stream &stream, int headerOffset) const;
 	bool Present(Environment &env);
 	bool UpdateDocument(Environment &env);
 	static Help *CreateFromExprList(Environment &env, const ExprList &exprList);
@@ -147,7 +147,7 @@ public:
 	virtual ~HelpRenderer();
 	const char *GetFormatName() const { return _formatName.c_str(); }
 	const char *GetFormatNameOut() const { return _formatNameOut.c_str(); }
-	bool Render(Environment &env, const Help *pHelp, Stream &stream) const;
+	bool Render(Environment &env, const Help *pHelp, Stream &stream, int headerOffset) const;
 	bool Present(Environment &env, const Help *pHelp) const;
 public:
 	static void Register(Environment &env, HelpRenderer *pHelpRenderer);

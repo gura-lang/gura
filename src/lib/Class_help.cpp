@@ -267,12 +267,13 @@ Gura_ImplementClassMethod(help, presenter)
 	return Value::Nil;
 }
 
-// help#render(format:string, out?:stream) {block?}
+// help#render(format:string, out?:stream, header_offset?:number) {block?}
 Gura_DeclareMethod(help, render)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "header_offset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -284,13 +285,14 @@ Gura_ImplementMethod(help, render)
 {
 	Help *pHelp = Object_help::GetObjectThis(arg)->GetHelp();
 	const char *formatNameOut = arg.GetString(0);
+	int headerOffset = arg.IsValid(2)? arg.GetInt(2) : 0;
 	if (arg.IsValid(1)) {
 		Stream &stream = arg.GetStream(1);
-		pHelp->Render(env, formatNameOut, stream);
+		pHelp->Render(env, formatNameOut, stream, headerOffset);
 		return Value::Nil;
 	} else {
 		AutoPtr<StreamMemory> pStream(new StreamMemory(env));
-		if (!pHelp->Render(env, formatNameOut, *pStream)) return Value::Nil;
+		if (!pHelp->Render(env, formatNameOut, *pStream, headerOffset)) return Value::Nil;
 		return Value(String(pStream->GetPointer(), pStream->GetSize()));
 	}
 }
