@@ -903,9 +903,22 @@ Gura_ImplementBinaryOperator(DotProd, array, array)
 	return Array::Dot(env, pArrayL, pArrayR);
 }
 
+Gura_ImplementBinaryOperator(DotProd, vertex, vertex)
+{
+	const Vertex &v1 = Object_vertex::GetObject(valueLeft)->GetVertex();
+	const Vertex &v2 = Object_vertex::GetObject(valueRight)->GetVertex();
+	return Value(Vertex::CalcDotProduct(v1, v2));
+}
+
 //-----------------------------------------------------------------------------
 // [A |*| B] ... BinaryOperator(CrossProd, A, B)
 //-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(CrossProd, vertex, vertex)
+{
+	const Vertex &v1 = Object_vertex::GetObject(valueLeft)->GetVertex();
+	const Vertex &v2 = Object_vertex::GetObject(valueRight)->GetVertex();
+	return Value(new Object_vertex(env, Vertex::CalcCrossProduct(v1, v2)));
+}
 
 //-----------------------------------------------------------------------------
 // [A ** B] ... BinaryOperator(Pow, A, B)
@@ -2106,6 +2119,8 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Mod, array, number);
 	Gura_AssignBinaryOperator(Mod, number, array);
 	Gura_AssignBinaryOperator(DotProd, array, array);
+	Gura_AssignBinaryOperator(DotProd, vertex, vertex);
+	Gura_AssignBinaryOperator(CrossProd, vertex, vertex);
 	Gura_AssignBinaryOperator(Pow, number, number);
 	Gura_AssignBinaryOperator(Pow, complex, complex);
 	Gura_AssignBinaryOperator(Pow, number, complex);
