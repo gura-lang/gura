@@ -74,13 +74,13 @@ private:
 	Type _type;
 	AutoPtr<ItemOwner> _pItemOwner;
 	std::unique_ptr<String> _pText;
-	std::unique_ptr<String> _pURL;	// valid when type is Link or Image
+	std::unique_ptr<String> _pURL;		// valid when type is Link or Image
 	std::unique_ptr<String> _pTitle;	// valid when type is Link or Image
 	std::unique_ptr<String> _pRefId;	// valid when type is Link or Image
 	std::unique_ptr<String> _pAttrs;	// valid when type is Tag
-	Align _align;					// valid when type is Tag
+	Align _align;						// valid when type is Tag
 	int _indentLevel;
-	int _indentLevelItemBody;		// valid when type is ListItem
+	int _indentLevelItemBody;			// valid when type is ListItem
 public:
 	Gura_DeclareReferenceAccessor(Item);
 public:
@@ -461,20 +461,6 @@ public:
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
-
-#if 0
-//-----------------------------------------------------------------------------
-// HelpPresenterEx
-//-----------------------------------------------------------------------------
-class HelpPresenterEx : public HelpPresenter {
-private:
-	AutoPtr<Function> _pFunc;
-public:
-	inline HelpPresenterEx(const String &formatName, Function *pFunc) :
-								HelpPresenter(formatName), _pFunc(pFunc) {}
-	virtual bool DoPresent(Environment &env, const char *title, const Help *pHelp) const;
-};
-#endif
 
 Gura_EndModuleHeader(markdown)
 
