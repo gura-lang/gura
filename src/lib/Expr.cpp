@@ -2447,13 +2447,14 @@ Value Expr_Caller::ExecCallable(Environment &env, TrailCtrlHolder *pTrailCtrlHol
 			return Value::Nil;
 		}
 		Fundamental *pFund = valueCar.GetFundamental();
-		return pFund->DoCall(env, GetCallerInfo(), Value::Nil, nullptr, pTrailCtrlHolder);
+		return pFund->DoCall(env, GetCallerInfo(), FLAG_None, Value::Nil, nullptr, pTrailCtrlHolder);
 	}
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	Value valueThis = pExprMember->GetTarget()->Exec(env);
 	Iterator *pIteratorThis = nullptr;
 	if (sig.IsSignalled()) return Value::Nil;
 	Expr_Member::Mode mode = pExprMember->GetMode();
+	ULong flags = FLAG_None;
 	if (mode != Expr_Member::MODE_Normal) {
 		if (valueThis.Is_list() && valueThis.GetList().empty()) {
 			return valueThis;
@@ -2469,6 +2470,7 @@ Value Expr_Caller::ExecCallable(Environment &env, TrailCtrlHolder *pTrailCtrlHol
 			pIteratorThis->SetListOriginFlag(valueThis.Is_list());
 			if (!pIteratorThis->Next(env, valueThisEach)) return Value::Nil;
 			valueThis = valueThisEach;
+			flags |= FLAG_Map;
 		} else {
 			AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(
 											   env.Clone(),
@@ -2485,7 +2487,7 @@ Value Expr_Caller::ExecCallable(Environment &env, TrailCtrlHolder *pTrailCtrlHol
 	AutoPtr<Callable> pCallable(
 		valueThis.GetCallable(env, pExprSelector->GetSymbol(), pExprSelector->GetAttrs()));
 	if (pCallable.IsNull()) return Value::Nil;
-	return pCallable->DoCall(env, GetCallerInfo(),
+	return pCallable->DoCall(env, GetCallerInfo(), flags,
 							 valueThis, pIteratorThis, pTrailCtrlHolder);
 }
 

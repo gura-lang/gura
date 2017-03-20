@@ -66,7 +66,7 @@ public:
 		inline CallableOLE(Object_ole *pObj, const Symbol *pSymbol, DISPID dispid) :
 								_pObj(pObj), _pSymbol(pSymbol), _dispid(dispid) {}
 		virtual Value DoCall(
-			Environment &env, const CallerInfo &callerInfo,
+			Environment &env, const CallerInfo &callerInfo, ULong flags,
 			const Value &valueThis, const Iterator *pIteratorThis,
 			const TrailCtrlHolder *pTrailCtrlHolder);
 		inline const Symbol *GetSymbol() const { return _pSymbol; }

@@ -219,3 +219,26 @@ a = 1, b = 3, c = 4
 a = 2, b = 3, c = 4
 a = 3, b = 3, c = 4
 a = 4, b = 3, c = 4
+
+======== #12 implicit mapping always works with map-along ========
+
+this:0   arg:0
+this:1   arg:1
+this:2   arg:2
+this:3   arg:3
+this:4   arg:4
+this:5   arg:5
+this:6   arg:6
+this:7   arg:7
+this:8   arg:8
+this:9   arg:9
+this:0   arg:0
+this:1   arg:1
+this:2   arg:2
+this:3   arg:3
+this:4   arg:4
+this:5   arg:5
+this:6   arg:6
+this:7   arg:7
+this:8   arg:8
+this:9   arg:9

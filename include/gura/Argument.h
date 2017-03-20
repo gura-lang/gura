@@ -122,7 +122,7 @@ public:
 	}
 public:
 	Argument(const Function *pFunc);
-	Argument(const Function *pFunc, const CallerInfo &callerInfo);
+	Argument(const Function *pFunc, const CallerInfo &callerInfo, ULong flags = FLAG_None);
 protected:
 	~Argument();
 	void InitializeSlot(const Function *pFunc);

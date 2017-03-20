@@ -159,3 +159,15 @@ testcase('argument initialization problem') {
 	}
 	f(1..4, 3, 4)
 }
+testcase('implicit mapping always works with map-along') {
+	A = class {
+		__init__(num) = {
+			this.num = num
+		}
+		func1(x):map = printf('this:%d   arg:%d\n', this.num, x)
+		func2(x) = printf('this:%d   arg:%d\n', this.num, x)
+	}
+	a = repeat (10):list {|i| A(i)}
+	a:&func1(0..9)
+	a:&func2(0..9)
+}

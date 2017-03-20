@@ -730,7 +730,8 @@ bool Iterator_MethodMap::DoNext(Environment &env, Value &value)
 		if (_pCallable.IsNull()) return false;
 		_valTypePrev = valueThis.GetValueType();
 	}
-	value = _pCallable->DoCall(*_pEnv, _pExprCaller->GetCallerInfo(), valueThis, nullptr, nullptr);
+	value = _pCallable->DoCall(*_pEnv, _pExprCaller->GetCallerInfo(), FLAG_None,
+							   valueThis, nullptr, nullptr);
 	return !env.IsSignalled();
 }
 

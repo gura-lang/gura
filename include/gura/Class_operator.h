@@ -36,7 +36,7 @@ public:
 	Object_operator(const Object_operator &obj);
 	virtual Object *Clone() const;
 	virtual Value DoCall(
-		Environment &env, const CallerInfo &callerInfo,
+		Environment &env, const CallerInfo &callerInfo, ULong flags,
 		const Value &valueThis, const Iterator *pIteratorThis,
 		const TrailCtrlHolder *pTrailCtrlHolder);
 	virtual String ToString(bool exprFlag);

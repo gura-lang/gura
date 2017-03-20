@@ -19,12 +19,12 @@ Argument::Argument(const Function *pFunc) :
 	InitializeSlot(pFunc);
 }
 
-Argument::Argument(const Function *pFunc, const CallerInfo &callerInfo) :
+Argument::Argument(const Function *pFunc, const CallerInfo &callerInfo, ULong flags) :
 	_cntRef(1),
 	_pFunc(pFunc->Reference()),
 	_valTypeResult(callerInfo.ModifyValueTypeResult(pFunc->GetValueTypeResult())),
 	_resultMode(callerInfo.ModifyResultMode(pFunc->GetResultMode())),
-	_flags(callerInfo.ModifyFlags(pFunc->GetFlags())),
+	_flags(callerInfo.ModifyFlags(pFunc->GetFlags()) | flags),
 	_pAttrsShared(SymbolSetShared::Reference(callerInfo.GetAttrsShared())),
 	_pExprBlock(Expr_Block::Reference(callerInfo.GetBlock())),
 	_mapMode(MAPMODE_None)

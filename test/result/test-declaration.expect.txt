@@ -219,7 +219,7 @@ math:module
   math.cosh(num):map
   math.covariance(a:iterator, b:iterator)
   math.cross (a, b)
-  math.delta(num:number):map
+  math.delta(num):map
   math.diff(expr:expr, var:symbol):map {block?}
   math.dot(a, b)
   e:number = 2.71828
@@ -237,14 +237,14 @@ math:module
   math.norm(num):map
   math.optimize(expr:expr):map {block?}
   pi:number = 3.14159
-  math.ramp(num:number):map
+  math.ramp(num):map
   math.real(num):map
   math.sin(num):map:[deg]
   math.sinh(num):map
   math.sqrt(num):map
   math.tan(num):map:[deg]
   math.tanh(num):map
-  math.unitstep(num:number):map
+  math.unitstep(num):map
 matrix:class = <class:matrix(nrows:number, ncols:number, value?) {block?}>
 max(values+):map
 memory:class = <class:memory(bytes:number):map {block?}>
@@ -570,7 +570,7 @@ function
 help
   help#present():void {block?}
   help.presenter(format:string):static:void {block}
-  help#render(format:string, out?:stream) {block?}
+  help#render(format:string, out?:stream, header_offset?:number) {block?}
   help.renderer(format:string, format_out:string):static:void {block}
   help.text@block(lang:symbol, varname:string, typename:string):static {block?}
   help.text@iterator(lang:symbol):static {block?}

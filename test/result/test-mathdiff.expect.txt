@@ -7,7 +7,7 @@ math.cos(num):map:[deg] -> -math.sin(num)
 math.exp(num):map -> math.exp(num)
 math.log(num):map -> 1 / num
 math.log10(num):map -> 1 / (num * math.log(10))
-math.ramp(num:number):map -> math.unitstep(num)
+math.ramp(num):map -> math.unitstep(num)
 math.sin(num):map:[deg] -> math.cos(num)
 math.sqrt(num):map -> 1 / (2 * math.sqrt(num))
 math.tan(num):map:[deg] -> 1 / math.cos(num) ** 2

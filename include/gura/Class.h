@@ -247,7 +247,7 @@ public:
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
 	virtual String ToString(bool exprFlag);
 	virtual Value DoCall(
-		Environment &env, const CallerInfo &callerInfo,
+		Environment &env, const CallerInfo &callerInfo, ULong flags,
 		const Value &valueThis, const Iterator *pIteratorThis,
 		const TrailCtrlHolder *pTrailCtrlHolder);
 	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;

@@ -43,13 +43,13 @@ OccurPattern Object_function::GetBlockOccurPattern() const
 }
 
 Value Object_function::DoCall(
-	Environment &env, const CallerInfo &callerInfo,
+	Environment &env, const CallerInfo &callerInfo, ULong flags,
 	const Value &valueThis, const Iterator *pIteratorThis,
 	const TrailCtrlHolder *pTrailCtrlHolder)
 {
 	const Value &valueThisSel = (valueThis.IsInvalid() ||
 			(valueThis.IsModule() && _valueThis.IsValid()))? _valueThis : valueThis;
-	AutoPtr<Argument> pArg(new Argument(GetFunction(), callerInfo));
+	AutoPtr<Argument> pArg(new Argument(GetFunction(), callerInfo, flags));
 	pArg->SetValueThis(valueThisSel);
 	pArg->SetIteratorThis(Iterator::Reference(pIteratorThis));
 	pArg->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));

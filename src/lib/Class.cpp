@@ -246,7 +246,8 @@ Gura_ImplementMethod(Object, __call__)
 	}
 	CallerInfo callerInfo(exprListArg, arg.GetBlock(),
 						  arg.GetAttrsShared(), arg.GetFunction()->GetAttrsOptShared());
-	return pFund->DoCall(env, callerInfo, arg.GetValueThis(), nullptr, arg.GetTrailCtrlHolder());
+	return pFund->DoCall(env, callerInfo, FLAG_None,
+						 arg.GetValueThis(), nullptr, arg.GetTrailCtrlHolder());
 }
 
 // object#__iter__()
@@ -522,7 +523,7 @@ String Class::ToString(bool exprFlag)
 	return str;
 }
 
-Value Class::DoCall(Environment &env, const CallerInfo &callerInfo,
+Value Class::DoCall(Environment &env, const CallerInfo &callerInfo, ULong flags,
 					const Value &valueThis, const Iterator *pIteratorThis,
 					const TrailCtrlHolder *pTrailCtrlHolder)
 {
@@ -765,7 +766,8 @@ bool Class::BuildContent(Environment &env, const Value &valueThis, const Expr_Bl
 			if (sig.IsSignalled()) return false;
 			if (valueCar.IsObject()) {
 				Callable *pObj = valueCar.GetObject();
-				pObj->DoCall(*this, pExprCaller->GetCallerInfo(), valueThis, nullptr, nullptr);
+				pObj->DoCall(*this, pExprCaller->GetCallerInfo(), FLAG_None,
+							 valueThis, nullptr, nullptr);
 				if (sig.IsSignalled()) {
 					sig.AddExprCause(pExprCaller);
 					return false;

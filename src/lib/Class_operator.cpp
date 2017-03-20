@@ -31,7 +31,7 @@ String Object_operator::ToString(bool exprFlag)
 }
 
 Value Object_operator::DoCall(
-	Environment &env, const CallerInfo &callerInfo,
+	Environment &env, const CallerInfo &callerInfo, ULong flags,
 	const Value &valueThis, const Iterator *pIteratorThis,
 	const TrailCtrlHolder *pTrailCtrlHolder)
 {
