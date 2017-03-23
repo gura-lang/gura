@@ -769,7 +769,7 @@ Array::UnaryFuncPack Array::unaryFuncPack_##op = { \
 	name, \
 	{ \
 		nullptr, \
-		&func<Int8,	Int8,	Operator_##op::Calc>,	\
+		&func<Int8,		Int8,	Operator_##op::Calc>,	\
 		&func<UInt8,	UInt8,	Operator_##op::Calc>,	\
 		&func<Int16,	Int16,	Operator_##op::Calc>,	\
 		&func<UInt16,	UInt16,	Operator_##op::Calc>,	\
