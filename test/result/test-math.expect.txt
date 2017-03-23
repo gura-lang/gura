@@ -179,6 +179,7 @@ math.log(2 + 3j) .. 1.28247+0.982794j
 math.log(-3) .. 1.09861+3.14159j
 math.log(0) .. MathError: can't calculate a logarithm of zero
 math.log(array { 1, 3, math.e }) .. [      0, 1.09861,       1]
+math.log(array { 1, 3, 0, math.e }) .. MathError: the array contains zero as its element
 
 ======== #19 math.log10() ========
 
@@ -189,6 +190,7 @@ math.log10(2 + 3j) .. 0.556972+0.426822j
 math.log10(-3) .. 0.477121+1.36438j
 math.log10(0) .. MathError: can't calculate a logarithm of zero
 math.log10(array { 1, 3, 10 }) .. [       0, 0.477121,        1]
+math.log10(array { 1, 3, 0, 10 }) .. MathError: the array contains zero as its element
 
 ======== #20 math.norm() ========
 

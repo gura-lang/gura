@@ -181,6 +181,7 @@ testcase('math.log()') {
 	tester(`math.log(-3))
 	tester(`math.log(0))
 	tester(`math.log(array {1, 3, math.e}))
+	tester(`math.log(array {1, 3, 0, math.e}))
 }
 
 testcase('math.log10()') {
@@ -191,6 +192,7 @@ testcase('math.log10()') {
 	tester(`math.log10(-3))
 	tester(`math.log10(0))
 	tester(`math.log10(array {1, 3, 10}))
+	tester(`math.log10(array {1, 3, 0, 10}))
 }
 
 testcase('math.norm()') {

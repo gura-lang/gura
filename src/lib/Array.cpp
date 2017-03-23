@@ -23,6 +23,16 @@ bool Array::DoesContainZero() const
 	return false;
 }
 
+bool Array::DoesContainMinus() const
+{
+	return false;
+}
+
+bool Array::DoesContainZeroOrMinus() const
+{
+	return false;
+}
+
 const char *Array::GetElemTypeName() const
 {
 	const static char *elemTypeNameTbl[ETYPE_Max] = {
@@ -307,6 +317,16 @@ Array *UnaryFuncTmpl(Signal &sig, const Array *pArray)
 		op(*pResult, *pElem);
 	}
 	return pArrayResult.release();
+}
+
+template<typename T_ElemResult, typename T_Elem, void (*op)(T_ElemResult &, const T_Elem &)>
+Array *UnaryFuncTmpl_ExcludeZero(Signal &sig, const Array *pArray)
+{
+	if (pArray->DoesContainZero()) {
+		sig.SetError(ERR_MathError, "the array contains zero as its element");
+		return nullptr;
+	}
+	return UnaryFuncTmpl<T_ElemResult, T_Elem, op>(sig, pArray);
 }
 
 //------------------------------------------------------------------------------
@@ -744,21 +764,21 @@ Array *InvertFuncTmpl(Signal &sig, const Array *pArray)
 //------------------------------------------------------------------------------
 // Function tables
 //------------------------------------------------------------------------------
-#define ImplementUnaryFuncPack(op, name) \
+#define ImplementUnaryFuncPack(op, name, func) \
 Array::UnaryFuncPack Array::unaryFuncPack_##op = { \
 	name, \
 	{ \
 		nullptr, \
-		&UnaryFuncTmpl<Int8,	Int8,	Operator_##op::Calc>,	\
-		&UnaryFuncTmpl<UInt8,	UInt8,	Operator_##op::Calc>,	\
-		&UnaryFuncTmpl<Int16,	Int16,	Operator_##op::Calc>,	\
-		&UnaryFuncTmpl<UInt16,	UInt16,	Operator_##op::Calc>,	\
-		&UnaryFuncTmpl<Int32,	Int32,	Operator_##op::Calc>,	\
-		&UnaryFuncTmpl<UInt32,	UInt32,	Operator_##op::Calc>,	\
-		&UnaryFuncTmpl<Int64,	Int64,	Operator_##op::Calc>,	\
-		&UnaryFuncTmpl<UInt64,	UInt64,	Operator_##op::Calc>,	\
-		&UnaryFuncTmpl<Float,	Float,	Operator_##op::Calc>,	\
-		&UnaryFuncTmpl<Double,	Double,	Operator_##op::Calc>,	\
+		&func<Int8,	Int8,	Operator_##op::Calc>,	\
+		&func<UInt8,	UInt8,	Operator_##op::Calc>,	\
+		&func<Int16,	Int16,	Operator_##op::Calc>,	\
+		&func<UInt16,	UInt16,	Operator_##op::Calc>,	\
+		&func<Int32,	Int32,	Operator_##op::Calc>,	\
+		&func<UInt32,	UInt32,	Operator_##op::Calc>,	\
+		&func<Int64,	Int64,	Operator_##op::Calc>,	\
+		&func<UInt64,	UInt64,	Operator_##op::Calc>,	\
+		&func<Float,	Float,	Operator_##op::Calc>,	\
+		&func<Double,	Double,	Operator_##op::Calc>,	\
 		nullptr, \
 	}, \
 }
@@ -1083,15 +1103,15 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 	} \
 }
 
-ImplementUnaryFuncPack(Pos,				"pos");
-ImplementUnaryFuncPack(Neg,				"neg");
+ImplementUnaryFuncPack(Pos,				"pos",			UnaryFuncTmpl);
+ImplementUnaryFuncPack(Neg,				"neg",			UnaryFuncTmpl);
 
-ImplementBinaryFuncPack(Add,			"add", BinaryFuncTmpl);
-ImplementBinaryFuncPack(Sub,			"sub", BinaryFuncTmpl);
-ImplementBinaryFuncPack(Mul,			"mul", BinaryFuncTmpl);
-ImplementBinaryFuncPack(Div,			"div", BinaryFuncTmpl_Div);
-ImplementBinaryFuncPack(Mod,			"mod", BinaryFuncTmpl_Div);
-ImplementBinaryFuncPack(Pow,			"pow", BinaryFuncTmpl);
+ImplementBinaryFuncPack(Add,			"add",			BinaryFuncTmpl);
+ImplementBinaryFuncPack(Sub,			"sub",			BinaryFuncTmpl);
+ImplementBinaryFuncPack(Mul,			"mul",			BinaryFuncTmpl);
+ImplementBinaryFuncPack(Div,			"div",			BinaryFuncTmpl_Div);
+ImplementBinaryFuncPack(Mod,			"mod",			BinaryFuncTmpl_Div);
+ImplementBinaryFuncPack(Pow,			"pow",			BinaryFuncTmpl);
 
 ImplementBinaryFuncPack_BitOp(And,		"and");
 ImplementBinaryFuncPack_BitOp(Or,		"or");
@@ -1099,34 +1119,34 @@ ImplementBinaryFuncPack_BitOp(Xor,		"xor");
 ImplementBinaryFuncPack_BitOp(Shl,		"shl");
 ImplementBinaryFuncPack_BitOp(Shr,		"shr");
 
-ImplementUnaryFuncPack(Math_abs,		"math.abs");
-ImplementUnaryFuncPack(Math_acos,		"math.acos");
-ImplementUnaryFuncPack(Math_arg,		"math.arg");
-ImplementUnaryFuncPack(Math_asin,		"math.asin");
-ImplementUnaryFuncPack(Math_atan,		"math.atan");
-ImplementBinaryFuncPack(Math_atan2,		"math.atan2", BinaryFuncTmpl);
-ImplementUnaryFuncPack(Math_ceil,		"math.ceil");
-ImplementUnaryFuncPack(Math_conj,		"math.conj");
-ImplementUnaryFuncPack(Math_cos,		"math.cos");
-ImplementUnaryFuncPack(Math_cosh,		"math.cosh");
-//ImplementUnaryFuncPack(Math_cross,	"math.cross");
-ImplementUnaryFuncPack(Math_delta,		"math.delta");
-//ImplementUnaryFuncPack(Math_dot,		"math.dot");
-ImplementUnaryFuncPack(Math_exp,		"math.exp");
-ImplementUnaryFuncPack(Math_floor,		"math.floor");
-ImplementBinaryFuncPack(Math_hypot,		"math.hypot", BinaryFuncTmpl);
-ImplementUnaryFuncPack(Math_imag,		"math.imag");
-ImplementUnaryFuncPack(Math_log,		"math.log");
-ImplementUnaryFuncPack(Math_log10,		"math.log10");
-ImplementUnaryFuncPack(Math_norm,		"math.norm");
-ImplementUnaryFuncPack(Math_ramp,		"math.ramp");
-ImplementUnaryFuncPack(Math_real,		"math.real");
-ImplementUnaryFuncPack(Math_sin,		"math.sin");
-ImplementUnaryFuncPack(Math_sinh,		"math.sinh");
-ImplementUnaryFuncPack(Math_sqrt,		"math.sqrt");
-ImplementUnaryFuncPack(Math_tan,		"math.tan");
-ImplementUnaryFuncPack(Math_tanh,		"math.tanh");
-ImplementUnaryFuncPack(Math_unitstep,	"math.unitstep");
+ImplementUnaryFuncPack(Math_abs,		"math.abs",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_acos,		"math.acos",	UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_arg,		"math.arg",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_asin,		"math.asin",	UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_atan,		"math.atan",	UnaryFuncTmpl);
+ImplementBinaryFuncPack(Math_atan2,		"math.atan2",	BinaryFuncTmpl);
+ImplementUnaryFuncPack(Math_ceil,		"math.ceil",	UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_conj,		"math.conj",	UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_cos,		"math.cos",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_cosh,		"math.cosh",	UnaryFuncTmpl);
+//ImplementBinaryFuncPack(Math_cross,	"math.cross",	BinaryFuncTmpl);
+ImplementUnaryFuncPack(Math_delta,		"math.delta",	UnaryFuncTmpl);
+//ImplementBinaryFuncPack(Math_dot,		"math.dot",		BinaryFuncTmpl);
+ImplementUnaryFuncPack(Math_exp,		"math.exp",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_floor,		"math.floor",	UnaryFuncTmpl);
+ImplementBinaryFuncPack(Math_hypot,		"math.hypot",	BinaryFuncTmpl);
+ImplementUnaryFuncPack(Math_imag,		"math.imag",	UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_log,		"math.log",		UnaryFuncTmpl_ExcludeZero);
+ImplementUnaryFuncPack(Math_log10,		"math.log10",	UnaryFuncTmpl_ExcludeZero);
+ImplementUnaryFuncPack(Math_norm,		"math.norm",	UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_ramp,		"math.ramp",	UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_real,		"math.real",	UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_sin,		"math.sin",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_sinh,		"math.sinh",	UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_sqrt,		"math.sqrt",	UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_tan,		"math.tan",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_tanh,		"math.tanh",	UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_unitstep,	"math.unitstep",UnaryFuncTmpl);
 
 Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 	{

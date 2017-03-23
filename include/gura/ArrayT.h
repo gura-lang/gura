@@ -34,6 +34,8 @@ public:
 	inline operator const T_Elem *() const { return GetPointer(); }
 	virtual String ToString(bool exprFlag) const;
 	virtual bool DoesContainZero() const;
+	virtual bool DoesContainMinus() const;
+	virtual bool DoesContainZeroOrMinus() const;
 	static ElemType ElemTypeThis;
 	static const char *ElemTypeName;
 	static const char *ConstructorName;

@@ -164,6 +164,26 @@ bool ArrayT<T_Elem>::DoesContainZero() const
 	return false;
 }
 
+template<typename T_Elem>
+bool ArrayT<T_Elem>::DoesContainMinus() const
+{
+	const T_Elem *p = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, p++) {
+		if (*p < 0) return true;
+	}
+	return false;
+}
+
+template<typename T_Elem>
+bool ArrayT<T_Elem>::DoesContainZeroOrMinus() const
+{
+	const T_Elem *p = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, p++) {
+		if (*p <= 0) return true;
+	}
+	return false;
+}
+
 template<>
 bool ArrayT<Complex>::DoesContainZero() const
 {
@@ -172,6 +192,18 @@ bool ArrayT<Complex>::DoesContainZero() const
 		if (p->real() == 0 && p->imag() == 0) return true;
 	}
 	return false;
+}
+
+template<>
+bool ArrayT<Complex>::DoesContainMinus() const
+{
+	return false;
+}
+
+template<>
+bool ArrayT<Complex>::DoesContainZeroOrMinus() const
+{
+	return DoesContainZero();
 }
 
 template<> Array::ElemType ArrayT<Int8>::ElemTypeThis		= ETYPE_Int8;

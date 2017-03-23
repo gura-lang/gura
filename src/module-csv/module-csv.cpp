@@ -78,7 +78,7 @@ bool Object_writer::PutLine(Environment &env, const ValueList &valList)
 }
 
 //-----------------------------------------------------------------------------
-// Implementation of properties
+// Properties of csv.writer
 //-----------------------------------------------------------------------------
 // csv.writer#format
 Gura_DeclareProperty_RW(writer, format)
@@ -104,7 +104,7 @@ Gura_ImplementPropertySetter(writer, format)
 }
 
 //-----------------------------------------------------------------------------
-// Interfaces of csv.writer
+// Methods of csv.writer
 //-----------------------------------------------------------------------------
 // csv.writer#write(fields+):map:reduce
 Gura_DeclareMethod(writer, write)
@@ -115,8 +115,8 @@ Gura_DeclareMethod(writer, write)
 		Gura_Symbol(en),
 		"Writes values in CSV format.\n"
 		"\n"
-		"The argument `fields` take `string`, `number` or `complex` values\n"
-		"that are output in a row.\n");
+		"The argument `fields` takes `string`, `number` or `complex` values\n"
+		"that are to be put out in a row.\n");
 }
 
 Gura_ImplementMethod(writer, write)
@@ -127,12 +127,30 @@ Gura_ImplementMethod(writer, write)
 	return arg.GetValueThis();
 }
 
-// implementation of class writer
-Gura_ImplementUserClass(writer)
+//-----------------------------------------------------------------------------
+// Implementation of csv.writer
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClassWithCast(writer)
 {
-	// Assignment of properties
+	// Assignment of property
 	Gura_AssignProperty(writer, format);
+	// Assignment of method
 	Gura_AssignMethod(writer, write);
+}
+
+Gura_ImplementCastFrom(writer)
+{
+	if (value.Is_stream()) {
+		const char *format = DEFAULT_FORMAT;
+		value = Value(new Object_writer(value.GetStream().Reference(), format));
+		return true;
+	}
+	return false;
+}
+
+Gura_ImplementCastTo(writer)
+{
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -264,7 +282,7 @@ Gura_DeclareClassMethodAlias(array, read_csv, "read@csv")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Reads CSV text from `stream` and creates an `array` instance.");
 }
 
 Gura_ImplementMethod(array, read_csv)
@@ -304,6 +322,32 @@ Gura_ImplementMethod(array, read_csv)
 	return ReturnValue(env, arg, new Object_array(env, pArrayT.release()));
 }
 
+#if 0
+// array#write@csv(stream:stream:w, format?:string):void
+Gura_DeclareMethodAlias(array, write_csv, "write@csv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareArg(env, "format", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Writes the content of `array` instance to the specified `stream` in CSV format.");
+}
+
+Gura_ImplementMethod(array, write_csv)
+{
+	Array *pArray = Object_array::GetObjectThis(arg)->GetArray();
+	Signal &sig = env.GetSignal();
+	Stream &stream = arg.GetStream(0);
+	const char *format = arg.IsValid(1)? arg.GetString(1) : DEFAULT_FORMAT;
+	//T_Elem *pRow = pArrayT->GetPointer();
+	String str;
+	str = Formatter::Format(sig, format, 0);
+	return Value::Nil;
+}
+#endif
+
 //-----------------------------------------------------------------------------
 // Module Entries
 //-----------------------------------------------------------------------------
@@ -327,6 +371,7 @@ Gura_ModuleEntry()
 	Gura_AssignMethodTo(VTYPE_stream, stream, writer_csv);
 	// method assignment to array type
 	Gura_AssignMethodTo(VTYPE_array, array, read_csv);
+	//Gura_AssignMethodTo(VTYPE_array, array, write_csv);
 	// value assignment
 	Gura_AssignValue(format, Value(DEFAULT_FORMAT));
 	return true;
