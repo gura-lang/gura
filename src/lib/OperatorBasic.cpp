@@ -593,26 +593,6 @@ Gura_ImplementBinaryOperator(Mul, complex, number)
 	return Value(valueLeft.GetComplex() * valueRight.GetDouble());
 }
 
-#if 0
-Gura_ImplementBinaryOperator(Mul, matrix, matrix)
-{
-	return Matrix::Mul(env,
-			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
-}
-
-Gura_ImplementBinaryOperator(Mul, list, matrix)
-{
-	return Matrix::Mul(env,
-			valueLeft.GetList(), Object_matrix::GetObject(valueRight)->GetMatrix());
-}
-
-Gura_ImplementBinaryOperator(Mul, matrix, list)
-{
-	return Matrix::Mul(env,
-			Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight.GetList());
-}
-#endif
-
 Gura_ImplementBinaryOperator(Mul, any, matrix)
 {
 	return Matrix::Mul(env,
@@ -896,6 +876,11 @@ Gura_ImplementBinaryOperator(Mod, number, array)
 //-----------------------------------------------------------------------------
 // [A |.| B] ... BinaryOperator(DotProd, A, B)
 //-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(DotProd, number, number)
+{
+	return Value(valueLeft.GetDouble() * valueRight.GetDouble());
+}
+
 Gura_ImplementBinaryOperator(DotProd, array, array)
 {
 	const Array *pArrayL = Object_array::GetObject(valueLeft)->GetArray();
@@ -2118,6 +2103,7 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Mod, array, array);
 	Gura_AssignBinaryOperator(Mod, array, number);
 	Gura_AssignBinaryOperator(Mod, number, array);
+	Gura_AssignBinaryOperator(DotProd, number, number);
 	Gura_AssignBinaryOperator(DotProd, array, array);
 	Gura_AssignBinaryOperator(DotProd, vertex, vertex);
 	Gura_AssignBinaryOperator(CrossProd, vertex, vertex);

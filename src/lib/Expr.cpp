@@ -496,7 +496,8 @@ bool Expr::ExprVisitor_SearchBar::Visit(Expr *pExpr)
 				dynamic_cast<const Expr_Assign *>(pExpr)->GetOperatorToApply();
 		if (pOperator != nullptr) opType = pOperator->GetOpType();
 	}
-	if (opType == OPTYPE_Or || opType == OPTYPE_OrOr) {
+	if (opType == OPTYPE_Or || opType == OPTYPE_OrOr ||
+		opType == OPTYPE_DotProd || opType == OPTYPE_CrossProd) {
 		_foundFlag = true;
 		return false;
 	}

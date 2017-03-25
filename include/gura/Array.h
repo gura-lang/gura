@@ -60,6 +60,7 @@ public:
 	};
 	class GURA_DLLDECLARE Dimensions : public std::vector<Dimension> {
 	public:
+		String ToString(const char *sep = ", ") const;
 		static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB);
 		static bool IsElemwiseCalculatable(const Dimensions &dimsA, const Dimensions &dimsB);
 	};
@@ -160,7 +161,8 @@ public:
 	bool PrepareModification(Signal &sig);
 public:
 	static bool CheckShape(Signal &sig, const Array *pArrayA, const Array *pArrayB);
-	static bool CheckElemwiseCalculatable(Signal &sig, const Array *pArrayL, const Array *pArrayR);
+	static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
+										  const Array *pArrayL, const Array *pArrayR);
 	static Array *ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array *pArray);
 	static Value ApplyUnaryFunc(Environment &env, const UnaryFuncPack &pack, const Value &value);
 	static Array *ApplyBinaryFunc_array_array(

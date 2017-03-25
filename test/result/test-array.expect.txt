@@ -3675,3 +3675,9 @@ array.zeros([3, 4]) .. [[0, 0, 0, 0],
 [1, 2]
 [1, 2, 3]
 [1, 2, 3, 4]
+
+======== #25 dimension mismatch error ========
+
+array { 1, 2, 3 } + array { 1, 2 } .. ValueError: can't calcuate add operation between arrays of dimension (3) and (2)
+array { { 1, 2 }, { 3, 4 } } + array { { 1, 2, 3 }, { 4, 5, 6 } } .. ValueError: can't calcuate add operation between arrays of dimension (2, 2) and (2, 3)
+array { { 1, 2 }, { 3, 4 } } |.| array { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } } .. ValueError: can't calculate dot product between arrays of (2, 2) and (3, 3)

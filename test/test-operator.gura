@@ -19,6 +19,7 @@ testcase('script generation test') {
 		`(func(a) {|((3 | 4 | 5)), b, c|})
 		`(func(a) {|((3 * 4) | 5), b, c|})
 		`(func(a) {|(3 | 4 | 5), b, (a | b | c)|})
+		`(func(a) {|(a |.| b), c, d|})
 		`(func(a, b, c, d, e%, f*) = {})
 		`(`(3 + 4))
 		`(`(3 * 4))
@@ -31,6 +32,8 @@ testcase('script generation test') {
 		`(`(a(3, 4, 5):hoge).func())
 		`(`(a:hoge).func())
 		`(`(a[0]:hoge).func())
+		`(a |.| b * 3)
+		`(a |*| b * 3)
 	]
 	println(x)
 }
@@ -38,7 +41,7 @@ testcase('acceptable value types') {
 	[`+, `-, `~, `!, `..].each {|op|
 		printf('%s\n%s\n', op, operator(op).entries(`unary)):nomap
 	}
-	[`+, `-, `*, `/, `%, `**, `==, `!=, `>, `<, `>=, `<=, `<=>, `in, `|, `&, `^, `<<, `>>, `||, `&&, `..].each {|op|
+	[`+, `-, `*, `/, `%, `**, `==, `!=, `>, `<, `>=, `<=, `<=>, `in, `|, `&, `^, `<<, `>>, `||, `&&, `.., `|.|, `|*|].each {|op|
 		printf('%s\n%s\n', op, operator(op).entries(`binary)):nomap
 	}
 }

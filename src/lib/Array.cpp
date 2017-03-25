@@ -158,13 +158,18 @@ bool Array::CheckShape(Signal &sig, const Array *pArrayA, const Array *pArrayB)
 	return false;
 }
 
-bool Array::CheckElemwiseCalculatable(Signal &sig, const Array *pArrayL, const Array *pArrayR)
+bool Array::CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
+									  const Array *pArrayL, const Array *pArrayR)
 {
 	if (Dimensions::IsElemwiseCalculatable(
 			pArrayL->GetDimensions(), pArrayR->GetDimensions())) {
 		return true;
 	}
-	sig.SetError(ERR_ValueError, "dimensions mismatch for the operation");
+	sig.SetError(ERR_ValueError,
+				 "can't calcuate %s operation between arrays of dimension (%s) and (%s)",
+				 pack.name,
+				 pArrayL->GetDimensions().ToString().c_str(),
+				 pArrayR->GetDimensions().ToString().c_str());
 	return false;
 }
 
@@ -189,7 +194,7 @@ Value Array::ApplyUnaryFunc(Environment &env, const UnaryFuncPack &pack, const V
 Array *Array::ApplyBinaryFunc_array_array(
 	Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, const Array *pArrayR)
 {
-	if (!CheckElemwiseCalculatable(sig, pArrayL, pArrayR)) return nullptr;
+	if (!CheckElemwiseCalculatable(sig, pack, pArrayL, pArrayR)) return nullptr;
 	BinaryFunc_array_array binaryFunc_array_array =
 		pack.binaryFuncs_array_array[pArrayL->GetElemType()][pArrayR->GetElemType()];
 	if (binaryFunc_array_array == nullptr) {
@@ -281,6 +286,18 @@ Array *Array::Invert(Signal &sig, const Array *pArray)
 //-----------------------------------------------------------------------------
 // Array::Dimensions
 //-----------------------------------------------------------------------------
+String Array::Dimensions::ToString(const char *sep) const
+{
+	String rtn;
+	char buff[80];
+	foreach_const (Dimensions, pDim, *this) {
+		::sprintf(buff, "%ld", pDim->GetSize());
+		if (!rtn.empty()) rtn += sep;
+		rtn += buff;
+	}
+	return rtn;
+}
+
 bool Array::Dimensions::IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB)
 {
 	if (dimsA.size() != dimsB.size()) return false;
@@ -501,6 +518,14 @@ void DotFuncTmpl_1d_1d(T_ElemResult &elemResult,
 	}
 }
 
+void SetError_CantCalcuateDotProduct(Environment &env, const Array *pArrayL, const Array *pArrayR)
+{
+	env.SetError(ERR_ValueError,
+				 "can't calculate dot product between arrays of (%s) and (%s)",
+				 pArrayL->GetDimensions().ToString().c_str(),
+				 pArrayR->GetDimensions().ToString().c_str());
+}
+
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 {
@@ -511,7 +536,7 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 		size_t nColL = dimsL[0].GetSize();
 		size_t nRowR = dimsR[0].GetSize();
 		if (nColL != nRowR) {
-			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			SetError_CantCalcuateDotProduct(env, pArrayL, pArrayR);
 			return Value::Nil;
 		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
@@ -525,7 +550,7 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 		size_t nRowR = dimsR[0].GetSize();
 		size_t nColR = dimsR[1].GetSize();
 		if (nColL != nRowR) {
-			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			SetError_CantCalcuateDotProduct(env, pArrayL, pArrayR);
 			return Value::Nil;
 		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
@@ -538,7 +563,7 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 		size_t nColL = dimsL[1].GetSize();
 		size_t nRowR = dimsR[0].GetSize();
 		if (nColL != nRowR) {
-			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			SetError_CantCalcuateDotProduct(env, pArrayL, pArrayR);
 			return Value::Nil;
 		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
@@ -552,7 +577,7 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 		size_t nRowR = dimsR[0].GetSize();
 		size_t nColR = dimsR[1].GetSize();
 		if (nColL != nRowR) {
-			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			SetError_CantCalcuateDotProduct(env, pArrayL, pArrayR);
 			return Value::Nil;
 		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
@@ -566,7 +591,7 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 		size_t nRowR = (dimsR.rbegin() + 1)->GetSize();
 		size_t nColR = dimsR.rbegin()->GetSize();
 		if (nColL != nRowR) {
-			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			SetError_CantCalcuateDotProduct(env, pArrayL, pArrayR);
 			return Value::Nil;
 		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
@@ -611,7 +636,7 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 		size_t nRowR = (dimsR.rbegin() + 1)->GetSize();
 		size_t nColR = dimsR.rbegin()->GetSize();
 		if (nColL != nRowR) {
-			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			SetError_CantCalcuateDotProduct(env, pArrayL, pArrayR);
 			return Value::Nil;
 		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
@@ -634,7 +659,7 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 		size_t nColL = dimsL.rbegin()->GetSize();
 		size_t nRowR = dimsR[0].GetSize();
 		if (nColL != nRowR) {
-			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			SetError_CantCalcuateDotProduct(env, pArrayL, pArrayR);
 			return Value::Nil;
 		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
