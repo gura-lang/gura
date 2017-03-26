@@ -41,7 +41,7 @@ testcase('acceptable value types') {
 	[`+, `-, `~, `!, `..].each {|op|
 		printf('%s\n%s\n', op, operator(op).entries(`unary)):nomap
 	}
-	[`+, `-, `*, `/, `%, `**, `==, `!=, `>, `<, `>=, `<=, `<=>, `in, `|, `&, `^, `<<, `>>, `||, `&&, `.., `|.|, `|*|].each {|op|
+	[`+, `-, `*, `/, `%, `**, `==, `!=, `>, `<, `>=, `<=, `<=>, `in, `|, `&, `^, `<<, `>>, `||, `&&, `.., `|.|, `|*|, `|+|, `|-|, `|&|, `|||].each {|op|
 		printf('%s\n%s\n', op, operator(op).entries(`binary)):nomap
 	}
 }

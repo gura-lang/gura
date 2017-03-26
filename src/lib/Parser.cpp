@@ -227,7 +227,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			struct {
 				int chSecond;
 				const TokenInfo *pTokenInfo;
-			} tblCand[5];
+			} tblCand[10];
 		} tbl[] = {
 			{ '+', &TOKEN_Add, {
 				{ '=', &TOKEN_AssignAdd		},
@@ -263,9 +263,12 @@ bool Parser::ParseChar(Environment &env, char ch)
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ '|', &TOKEN_Or, {
 				{ '=', &TOKEN_AssignOr 		},
-				{ '|', &TOKEN_OrOr			},
+				{ '|', &TOKEN_TripleChars	},
 				{ '.', &TOKEN_TripleChars	},
 				{ '*', &TOKEN_TripleChars	},
+				{ '+', &TOKEN_TripleChars	},
+				{ '-', &TOKEN_TripleChars	},
+				{ '&', &TOKEN_TripleChars	},
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ '&', &TOKEN_And, {
 				{ '=', &TOKEN_AssignAnd		},
