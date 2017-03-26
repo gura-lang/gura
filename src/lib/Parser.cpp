@@ -303,7 +303,6 @@ bool Parser::ParseChar(Environment &env, char ch)
 			SetError(ERR_SyntaxError, "unmatching comment description");
 			_stat = STAT_Error;
 		} else {
-			//Gura_PushbackEx(ch);
 			_stat = STAT_Start;
 			for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 				if (tbl[i].chFirst != chFirst) continue;
@@ -314,7 +313,6 @@ bool Parser::ParseChar(Environment &env, char ch)
 					if (tbl[i].tblCand[j].chSecond == ch) {
 						_field.push_back(ch);
 						pTokenInfo = tbl[i].tblCand[j].pTokenInfo;
-						//Gura_PushbackCancelEx();
 						pushbackFlag = false;
 						break;
 					}
@@ -376,7 +374,6 @@ bool Parser::ParseChar(Environment &env, char ch)
 				{ '|', &TOKEN_Union			},
 				{ '\0', &TOKEN_Unknown		}, } },
 		};
-		//Gura_PushbackEx(ch);
 		_stat = STAT_Start;
 		for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 			if (_field.compare(tbl[i].strFirst) != 0) continue;
@@ -390,7 +387,6 @@ bool Parser::ParseChar(Environment &env, char ch)
 					pTokenInfo = tbl[i].tblCand[j].pTokenInfo;
 					pushbackFlag = false;
 					pushbackSecondFlag = false;
-					//Gura_PushbackCancelEx();
 					break;
 				}
 			}

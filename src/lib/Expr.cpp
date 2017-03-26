@@ -1381,10 +1381,12 @@ Expr *Expr_UnaryOp::Clone() const
 Value Expr_UnaryOp::DoExec(Environment &env) const
 {
 	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
+
 	Signal &sig = env.GetSignal();
 	Value value = GetChild()->Exec(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	Value result = _pOperator->EvalMapUnary(env, value, FLAG_None);
+
 	if (sig.IsSignalled()) return Value::Nil;
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
@@ -1505,36 +1507,37 @@ Expr *Expr_BinaryOp::Clone() const
 Value Expr_BinaryOp::DoExec(Environment &env) const
 {
 	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
+
 	Signal &sig = env.GetSignal();
+
 	OpType opType = _pOperator->GetOpType();
 	const Expr *pExprLeft = GetLeft();
 	const Expr *pExprRight = GetRight();
-	Value valueLeft, valueRight, result;
+	Value result;
 	if (opType == OPTYPE_OrOr) {
-		valueLeft = pExprLeft->Exec(env);
+		Value valueLeft = pExprLeft->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		if (!valueLeft.IsListOrIterator() && valueLeft.GetBoolean()) {
 			result = valueLeft;
 		} else {
-			valueRight = pExprRight->Exec(env);
+			Value valueRight = pExprRight->Exec(env);
 			if (sig.IsSignalled()) return Value::Nil;
 			result = _pOperator->EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
-			if (sig.IsSignalled()) return Value::Nil;
 		}
 	} else if (opType == OPTYPE_AndAnd) {
-		valueLeft = pExprLeft->Exec(env);
+		Value valueLeft = pExprLeft->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		if (!valueLeft.IsListOrIterator() && !valueLeft.GetBoolean()) {
 			result = valueLeft;
 		} else {
-			valueRight = pExprRight->Exec(env);
+			Value valueRight = pExprRight->Exec(env);
 			if (sig.IsSignalled()) return Value::Nil;
 			result = _pOperator->EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
-			if (sig.IsSignalled()) return Value::Nil;
 		}
 	} else {
-		valueLeft = pExprLeft->Exec(env);
+		Value valueLeft = pExprLeft->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
+		Value valueRight;
 		if (opType == OPTYPE_ModMod && pExprRight->IsBlock()) {
 			const ExprList &exprList =
 				dynamic_cast<const Expr_Block *>(pExprRight)->GetExprOwner();
@@ -1546,8 +1549,9 @@ Value Expr_BinaryOp::DoExec(Environment &env) const
 			if (sig.IsSignalled()) return Value::Nil;
 		}
 		result = _pOperator->EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
-		if (sig.IsSignalled()) return Value::Nil;
 	}
+
+	if (sig.IsSignalled()) return Value::Nil;
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }

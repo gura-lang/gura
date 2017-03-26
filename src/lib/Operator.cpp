@@ -232,6 +232,16 @@ Expr *Operator::MathOptimizeBinary(Environment &env,
 	return nullptr;
 }
 
+Value Operator::ExecUnary(Environment &env, const Expr *pExprChild)
+{
+	return Value::Nil;
+}
+
+Value Operator::ExecBinary(Environment &env, const Expr *pExprLeft, const Expr *pExprRight)
+{
+	return Value::Nil;
+}
+
 Value Operator::EvalUnary(Environment &env, const Value &value, ULong flags) const
 {
 	Signal &sig = env.GetSignal();

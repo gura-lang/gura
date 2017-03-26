@@ -267,6 +267,8 @@ public:
 									Expr *pExprLeft, Expr *pExprRight) const;
 	static OpType LookupUnaryOpType(const char *str);
 	static OpType LookupBinaryOpType(const char *str);
+	virtual Value ExecUnary(Environment &env, const Expr *pExprChild);
+	virtual Value ExecBinary(Environment &env, const Expr *pExprLeft, const Expr *pExprRight);
 	Value EvalUnary(Environment &env, const Value &value, ULong flags) const;
 	Value EvalBinary(Environment &env,
 					 const Value &valueLeft, const Value &valueRight, ULong flags) const;
@@ -283,7 +285,6 @@ public:
 	static void Initialize(Environment &env);
 private:
 	static void AssignOperatorBasic(Environment &env);
-	//static void AssignOperator_array(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
