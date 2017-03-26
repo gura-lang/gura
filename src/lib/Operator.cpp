@@ -31,6 +31,10 @@ const Operator::SymbolInfo Operator::_symbolInfoTbl[] = {
 	{ "%%",			"ModMod"		},
 	{ "|.|",		"DotProd"		},
 	{ "|*|",		"CrossProd"		},
+	{ "|+|",		"Join"			},
+	{ "|-|",		"Difference"	},
+	{ "|&|",		"Intersection"	},
+	{ "|||",		"Union"			},
 	{ "**",			"Pow"			},
 	{ "==",			"Eq"			},
 	{ "!=",			"Ne"			},
@@ -100,6 +104,10 @@ Operator *Operator::Mod				= nullptr;
 Operator *Operator::ModMod			= nullptr;
 Operator *Operator::DotProd			= nullptr;
 Operator *Operator::CrossProd		= nullptr;
+Operator *Operator::Join			= nullptr;
+Operator *Operator::Difference		= nullptr;
+Operator *Operator::Intersection	= nullptr;
+Operator *Operator::Union			= nullptr;
 Operator *Operator::Pow				= nullptr;
 Operator *Operator::Eq				= nullptr;
 Operator *Operator::Ne				= nullptr;
@@ -1150,6 +1158,22 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// Operator_Join
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Difference
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Intersection
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Union
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 // Operator_Pow
 //-----------------------------------------------------------------------------
 Expr *Operator_Pow::MathDiffBinary(Environment &env,
@@ -1487,6 +1511,10 @@ void Operator::Initialize(Environment &env)
 	env.SetOperator(OPTYPE_ModMod,			Operator::ModMod		= new Operator_ModMod());
 	env.SetOperator(OPTYPE_DotProd,			Operator::DotProd		= new Operator_DotProd());
 	env.SetOperator(OPTYPE_CrossProd,		Operator::CrossProd		= new Operator_CrossProd());
+	env.SetOperator(OPTYPE_Join,			Operator::Join			= new Operator_Join());
+	env.SetOperator(OPTYPE_Difference,		Operator::Difference	= new Operator_Difference());
+	env.SetOperator(OPTYPE_Intersection,	Operator::Intersection	= new Operator_Intersection());
+	env.SetOperator(OPTYPE_Union,			Operator::Union			= new Operator_Union());
 	env.SetOperator(OPTYPE_Pow,				Operator::Pow			= new Operator_Pow());
 	env.SetOperator(OPTYPE_Eq,				Operator::Eq			= new Operator_Eq());
 	env.SetOperator(OPTYPE_Ne,				Operator::Ne			= new Operator_Ne());

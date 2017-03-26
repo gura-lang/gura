@@ -60,6 +60,10 @@ enum OpType {
 	OPTYPE_ModMod,
 	OPTYPE_DotProd,
 	OPTYPE_CrossProd,
+	OPTYPE_Join,
+	OPTYPE_Difference,
+	OPTYPE_Intersection,
+	OPTYPE_Union,
 	OPTYPE_Pow,
 	OPTYPE_Eq,
 	OPTYPE_Ne,
@@ -155,6 +159,10 @@ public:
 	static Operator *ModMod;
 	static Operator *DotProd;
 	static Operator *CrossProd;
+	static Operator *Join;
+	static Operator *Difference;
+	static Operator *Intersection;
+	static Operator *Union;
 	static Operator *Pow;
 	static Operator *Eq;
 	static Operator *Ne;
@@ -531,6 +539,38 @@ public:
 class GURA_DLLDECLARE Operator_CrossProd : public Operator {
 public:
 	inline Operator_CrossProd() : Operator(OPTYPE_CrossProd) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Join
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Join : public Operator {
+public:
+	inline Operator_Join() : Operator(OPTYPE_Join) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Difference
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Difference : public Operator {
+public:
+	inline Operator_Difference() : Operator(OPTYPE_Difference) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Intersection
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Intersection : public Operator {
+public:
+	inline Operator_Intersection() : Operator(OPTYPE_Intersection) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Union
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Union : public Operator {
+public:
+	inline Operator_Union() : Operator(OPTYPE_Union) {}
 };
 
 //-----------------------------------------------------------------------------

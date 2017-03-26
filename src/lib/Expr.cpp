@@ -497,7 +497,9 @@ bool Expr::ExprVisitor_SearchBar::Visit(Expr *pExpr)
 		if (pOperator != nullptr) opType = pOperator->GetOpType();
 	}
 	if (opType == OPTYPE_Or || opType == OPTYPE_OrOr ||
-		opType == OPTYPE_DotProd || opType == OPTYPE_CrossProd) {
+		opType == OPTYPE_DotProd || opType == OPTYPE_CrossProd ||
+		opType == OPTYPE_Join || opType == OPTYPE_Difference ||
+		opType == OPTYPE_Intersection || opType == OPTYPE_Union) {
 		_foundFlag = true;
 		return false;
 	}

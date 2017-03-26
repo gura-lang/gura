@@ -360,6 +360,18 @@ bool Parser::ParseChar(Environment &env, char ch)
 			{ "|*", &TOKEN_Or, true, {
 				{ '|', &TOKEN_CrossProd		},
 				{ '\0', &TOKEN_Unknown		}, } },
+			{ "|+", &TOKEN_Or, true, {
+				{ '|', &TOKEN_Join			},
+				{ '\0', &TOKEN_Unknown		}, } },
+			{ "|-", &TOKEN_Or, true, {
+				{ '|', &TOKEN_Difference	},
+				{ '\0', &TOKEN_Unknown		}, } },
+			{ "|&", &TOKEN_Or, true, {
+				{ '|', &TOKEN_Intersection	},
+				{ '\0', &TOKEN_Unknown		}, } },
+			{ "||", &TOKEN_OrOr, false, {
+				{ '|', &TOKEN_Union			},
+				{ '\0', &TOKEN_Unknown		}, } },
 		};
 		//Gura_PushbackEx(ch);
 		_stat = STAT_Start;
@@ -1853,11 +1865,23 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> Expr %%%% Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_ModMod), pExprLeft, pExprRight);
 		} else if (token2.IsType(TOKEN_DotProd)) {
-			DBGPARSER(::printf("Reduce: Expr -> Expr <.> Expr\n"));
+			DBGPARSER(::printf("Reduce: Expr -> Expr |.| Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_DotProd), pExprLeft, pExprRight);
 		} else if (token2.IsType(TOKEN_CrossProd)) {
-			DBGPARSER(::printf("Reduce: Expr -> Expr <*> Expr\n"));
+			DBGPARSER(::printf("Reduce: Expr -> Expr |*| Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_CrossProd), pExprLeft, pExprRight);
+		} else if (token2.IsType(TOKEN_Join)) {
+			DBGPARSER(::printf("Reduce: Expr -> Expr |+| Expr\n"));
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Join), pExprLeft, pExprRight);
+		} else if (token2.IsType(TOKEN_Difference)) {
+			DBGPARSER(::printf("Reduce: Expr -> Expr |-| Expr\n"));
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Difference), pExprLeft, pExprRight);
+		} else if (token2.IsType(TOKEN_Intersection)) {
+			DBGPARSER(::printf("Reduce: Expr -> Expr |&| Expr\n"));
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Intersection), pExprLeft, pExprRight);
+		} else if (token2.IsType(TOKEN_Union)) {
+			DBGPARSER(::printf("Reduce: Expr -> Expr ||| Expr\n"));
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Union), pExprLeft, pExprRight);
 		} else if (token2.IsType(TOKEN_Pow)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ** Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow), pExprLeft, pExprRight);

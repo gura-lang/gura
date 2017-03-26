@@ -54,8 +54,12 @@ const TokenInfo TOKEN_Mul =				{ 14, "Mul",			"*",	OPTYPE_Mul	};		// *
 const TokenInfo TOKEN_Div =				{ 14, "Div",			"/",	OPTYPE_Div	};
 const TokenInfo TOKEN_Mod =				{ 14, "Mod",			"%",	OPTYPE_Mod	};
 const TokenInfo TOKEN_ModMod =			{ 14, "ModMod",			"%%",	OPTYPE_ModMod };
-const TokenInfo TOKEN_DotProd =			{ 14, "DotProd",		"<.>",	OPTYPE_DotProd };
-const TokenInfo TOKEN_CrossProd =		{ 14, "CrossProd",		"<*>",	OPTYPE_CrossProd };
+const TokenInfo TOKEN_DotProd =			{ 14, "DotProd",		"|.|",	OPTYPE_DotProd };
+const TokenInfo TOKEN_CrossProd =		{ 14, "CrossProd",		"|*|",	OPTYPE_CrossProd };
+const TokenInfo TOKEN_Join =			{ 14, "Join",			"|+|",	OPTYPE_Join	};
+const TokenInfo TOKEN_Difference =		{ 14, "Difference",		"|-|",	OPTYPE_Difference };
+const TokenInfo TOKEN_Intersection =	{ 14, "Intersection",	"|&|",	OPTYPE_Intersection };
+const TokenInfo TOKEN_Union =			{ 14, "Union",			"|||",	OPTYPE_Union };
 const TokenInfo TOKEN_Question =		{ 14, "Question",		"?",	OPTYPE_None	};
 const TokenInfo TOKEN_Inv =				{ 15, "Inv",			"~",	OPTYPE_Inv	};		// ~
 const TokenInfo TOKEN_Pow =				{ 16, "Pow",			"**",	OPTYPE_Pow	};		// **
@@ -174,6 +178,10 @@ void Token::Initialize()
 		&TOKEN_ModMod,
 		&TOKEN_DotProd,
 		&TOKEN_CrossProd,
+		&TOKEN_Join,
+		&TOKEN_Difference,
+		&TOKEN_Intersection,
+		&TOKEN_Union,
 		&TOKEN_Question,
 		&TOKEN_Inv,
 		&TOKEN_Pow,
