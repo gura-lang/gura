@@ -40,25 +40,19 @@ Value Object_operator::DoCall(
 	if (exprListArg.size() == 1) {
 		if (_opTypeUnary == OPTYPE_None) {
 			sig.SetError(ERR_ArgumentError,
-					"operator '%s' is not a unary one", GetSymbol()->GetName());
+						 "operator '%s' is not a unary one", GetSymbol()->GetName());
 			return Value::Nil;
 		}
-		Value value = exprListArg[0]->Exec(env);
-		if (sig.IsSignalled()) return Value::Nil;
 		const Operator *pOperator = GetOperator(_opTypeUnary);
-		return pOperator->EvalUnary(env, value, FLAG_None);
+		return pOperator->ExecUnary(env, exprListArg[0]);
 	} else if (exprListArg.size() == 2) {
 		if (_opTypeBinary == OPTYPE_None) {
 			sig.SetError(ERR_ArgumentError,
-					"operator '%s' is not a binary one", GetSymbol()->GetName());
+						 "operator '%s' is not a binary one", GetSymbol()->GetName());
 			return Value::Nil;
 		}
-		Value valueLeft = exprListArg[0]->Exec(env);
-		if (sig.IsSignalled()) return Value::Nil;
-		Value valueRight = exprListArg[1]->Exec(env);
-		if (sig.IsSignalled()) return Value::Nil;
 		const Operator *pOperator = GetOperator(_opTypeBinary);
-		return pOperator->EvalBinary(env, valueLeft, valueRight, FLAG_None);
+		return pOperator->ExecBinary(env, exprListArg[0], exprListArg[1]);
 	} else {
 		sig.SetError(ERR_ArgumentError, "operator must take one or two arguments");
 		return Value::Nil;
