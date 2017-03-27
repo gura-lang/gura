@@ -267,8 +267,8 @@ public:
 									Expr *pExprLeft, Expr *pExprRight) const;
 	static OpType LookupUnaryOpType(const char *str);
 	static OpType LookupBinaryOpType(const char *str);
-	virtual Value ExecUnary(Environment &env, const Expr *pExprChild);
-	virtual Value ExecBinary(Environment &env, const Expr *pExprLeft, const Expr *pExprRight);
+	virtual Value ExecUnary(Environment &env, const Expr *pExprChild) const;
+	virtual Value ExecBinary(Environment &env, const Expr *pExprLeft, const Expr *pExprRight) const;
 	Value EvalUnary(Environment &env, const Value &value, ULong flags) const;
 	Value EvalBinary(Environment &env,
 					 const Value &valueLeft, const Value &valueRight, ULong flags) const;

@@ -1381,13 +1381,13 @@ Expr *Expr_UnaryOp::Clone() const
 Value Expr_UnaryOp::DoExec(Environment &env) const
 {
 	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
-
-	Signal &sig = env.GetSignal();
+#if 0
 	Value value = GetChild()->Exec(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	Value result = _pOperator->EvalMapUnary(env, value, FLAG_None);
-
-	if (sig.IsSignalled()) return Value::Nil;
+#endif
+	Value result = _pOperator->ExecUnary(env, GetChild());
+	if (env.IsSignalled()) return Value::Nil;
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
@@ -1507,7 +1507,7 @@ Expr *Expr_BinaryOp::Clone() const
 Value Expr_BinaryOp::DoExec(Environment &env) const
 {
 	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
-
+#if 0
 	Signal &sig = env.GetSignal();
 
 	OpType opType = _pOperator->GetOpType();
@@ -1550,8 +1550,9 @@ Value Expr_BinaryOp::DoExec(Environment &env) const
 		}
 		result = _pOperator->EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
 	}
-
-	if (sig.IsSignalled()) return Value::Nil;
+#endif
+	Value result = _pOperator->ExecBinary(env, GetLeft(), GetRight());
+	if (env.IsSignalled()) return Value::Nil;
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }

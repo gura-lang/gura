@@ -232,14 +232,49 @@ Expr *Operator::MathOptimizeBinary(Environment &env,
 	return nullptr;
 }
 
-Value Operator::ExecUnary(Environment &env, const Expr *pExprChild)
+Value Operator::ExecUnary(Environment &env, const Expr *pExprChild) const
 {
-	return Value::Nil;
+	Value value = pExprChild->Exec(env);
+	if (env.IsSignalled()) return Value::Nil;
+	return EvalMapUnary(env, value, FLAG_None);
 }
 
-Value Operator::ExecBinary(Environment &env, const Expr *pExprLeft, const Expr *pExprRight)
+Value Operator::ExecBinary(Environment &env, const Expr *pExprLeft, const Expr *pExprRight) const
 {
-	return Value::Nil;
+	OpType opType = GetOpType();
+	if (opType == OPTYPE_OrOr) {
+		Value valueLeft = pExprLeft->Exec(env);
+		if (env.IsSignalled()) return Value::Nil;
+		if (!valueLeft.IsListOrIterator() && valueLeft.GetBoolean()) {
+			return valueLeft;
+		}
+		Value valueRight = pExprRight->Exec(env);
+		if (env.IsSignalled()) return Value::Nil;
+		return EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
+	} else if (opType == OPTYPE_AndAnd) {
+		Value valueLeft = pExprLeft->Exec(env);
+		if (env.IsSignalled()) return Value::Nil;
+		if (!valueLeft.IsListOrIterator() && !valueLeft.GetBoolean()) {
+			return valueLeft;
+		}
+		Value valueRight = pExprRight->Exec(env);
+		if (env.IsSignalled()) return Value::Nil;
+		return EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
+	}
+	Value valueLeft = pExprLeft->Exec(env);
+	if (env.IsSignalled()) return Value::Nil;
+	Value valueRight;
+	if (opType == OPTYPE_ModMod && pExprRight->IsBlock()) {
+		const ExprList &exprList =
+			dynamic_cast<const Expr_Block *>(pExprRight)->GetExprOwner();
+		Help *pHelp = Help::CreateFromExprList(env, exprList);
+		if (pHelp == nullptr) return Value::Nil;
+		valueRight = Value(new Object_help(env, pHelp));
+	} else {
+		valueRight = pExprRight->Exec(env);
+		if (env.IsSignalled()) return Value::Nil;
+	}
+	return EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
 }
 
 Value Operator::EvalUnary(Environment &env, const Value &value, ULong flags) const
