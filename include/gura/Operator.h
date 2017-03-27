@@ -548,7 +548,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Operator_Join : public Operator {
 public:
-	inline Operator_Join() : Operator(OPTYPE_Join) {}
+	inline Operator_Join() : Operator(OPTYPE_Join, false) {}
 };
 
 //-----------------------------------------------------------------------------
@@ -556,7 +556,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Operator_Difference : public Operator {
 public:
-	inline Operator_Difference() : Operator(OPTYPE_Difference) {}
+	inline Operator_Difference() : Operator(OPTYPE_Difference, false) {}
 };
 
 //-----------------------------------------------------------------------------
@@ -564,7 +564,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Operator_Intersection : public Operator {
 public:
-	inline Operator_Intersection() : Operator(OPTYPE_Intersection) {}
+	inline Operator_Intersection() : Operator(OPTYPE_Intersection, false) {}
 };
 
 //-----------------------------------------------------------------------------
@@ -572,7 +572,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Operator_Union : public Operator {
 public:
-	inline Operator_Union() : Operator(OPTYPE_Union) {}
+	inline Operator_Union() : Operator(OPTYPE_Union, false) {}
 };
 
 //-----------------------------------------------------------------------------
@@ -656,8 +656,6 @@ public:
 class GURA_DLLDECLARE Operator_Contains : public Operator {
 public:
 	inline Operator_Contains() : Operator(OPTYPE_Contains, false) {}
-	//virtual Value EvalMapBinary(Environment &env,
-	//							const Value &valueLeft, const Value &valueRight, ULong flags) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -757,8 +755,6 @@ public:
 class GURA_DLLDECLARE Operator_Pair : public Operator {
 public:
 	inline Operator_Pair() : Operator(OPTYPE_Pair, false) {}
-	//virtual Value EvalMapBinary(Environment &env,
-	//							const Value &valueLeft, const Value &valueRight, ULong flags) const;
 };
 
 //-----------------------------------------------------------------------------

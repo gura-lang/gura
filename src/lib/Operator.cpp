@@ -1332,13 +1332,6 @@ Expr *Operator_Pow::MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprR
 //-----------------------------------------------------------------------------
 // Operator_Contains
 //-----------------------------------------------------------------------------
-#if 0
-Value Operator_Contains::EvalMapBinary(Environment &env, const Value &valueLeft,
-									   const Value &valueRight, ULong flags) const
-{
-	return EvalBinary(env, valueLeft, valueRight, flags);
-}
-#endif
 
 //-----------------------------------------------------------------------------
 // Operator_And
@@ -1397,13 +1390,6 @@ Value Operator_AndAnd::ExecBinary(Environment &env, const Expr *pExprLeft, const
 //-----------------------------------------------------------------------------
 // Operator_Pair
 //-----------------------------------------------------------------------------
-#if 0
-Value Operator_Pair::EvalMapBinary(Environment &env, const Value &valueLeft,
-								   const Value &valueRight, ULong flags) const
-{
-	return EvalBinary(env, valueLeft, valueRight, flags);
-}
-#endif
 
 //-----------------------------------------------------------------------------
 // Operator_Math_abs
