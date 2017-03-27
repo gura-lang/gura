@@ -56,7 +56,7 @@ const TokenInfo TOKEN_Mod =				{ 15, "Mod",			"%",	OPTYPE_Mod	};
 const TokenInfo TOKEN_ModMod =			{ 15, "ModMod",			"%%",	OPTYPE_ModMod };
 const TokenInfo TOKEN_DotProd =			{ 15, "DotProd",		"|.|",	OPTYPE_DotProd };
 const TokenInfo TOKEN_CrossProd =		{ 15, "CrossProd",		"|*|",	OPTYPE_CrossProd };
-const TokenInfo TOKEN_Join =			{  3, "Join",			"|+|",	OPTYPE_Join	};
+const TokenInfo TOKEN_Concat =			{  3, "Concat",			"|+|",	OPTYPE_Concat };
 const TokenInfo TOKEN_Difference =		{  3, "Difference",		"|-|",	OPTYPE_Difference };
 const TokenInfo TOKEN_Intersection =	{  3, "Intersection",	"|&|",	OPTYPE_Intersection };
 const TokenInfo TOKEN_Union =			{  3, "Union",			"|||",	OPTYPE_Union };
@@ -179,7 +179,7 @@ void Token::Initialize()
 		&TOKEN_ModMod,
 		&TOKEN_DotProd,
 		&TOKEN_CrossProd,
-		&TOKEN_Join,
+		&TOKEN_Concat,
 		&TOKEN_Difference,
 		&TOKEN_Intersection,
 		&TOKEN_Union,

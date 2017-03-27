@@ -362,7 +362,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				{ '|', &TOKEN_CrossProd		},
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ "|+", &TOKEN_Or, true, {
-				{ '|', &TOKEN_Join			},
+				{ '|', &TOKEN_Concat		},
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ "|-", &TOKEN_Or, true, {
 				{ '|', &TOKEN_Difference	},
@@ -1869,9 +1869,9 @@ bool Parser::ReduceThreeTokens(Environment &env)
 		} else if (token2.IsType(TOKEN_CrossProd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr |*| Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_CrossProd), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Join)) {
+		} else if (token2.IsType(TOKEN_Concat)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr |+| Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Join), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Concat), pExprLeft, pExprRight);
 		} else if (token2.IsType(TOKEN_Difference)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr |-| Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Difference), pExprLeft, pExprRight);

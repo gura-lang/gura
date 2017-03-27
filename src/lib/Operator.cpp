@@ -31,7 +31,7 @@ const Operator::SymbolInfo Operator::_symbolInfoTbl[] = {
 	{ "%%",			"ModMod"		},
 	{ "|.|",		"DotProd"		},
 	{ "|*|",		"CrossProd"		},
-	{ "|+|",		"Join"			},
+	{ "|+|",		"Concat"		},
 	{ "|-|",		"Difference"	},
 	{ "|&|",		"Intersection"	},
 	{ "|||",		"Union"			},
@@ -104,7 +104,7 @@ Operator *Operator::Mod				= nullptr;
 Operator *Operator::ModMod			= nullptr;
 Operator *Operator::DotProd			= nullptr;
 Operator *Operator::CrossProd		= nullptr;
-Operator *Operator::Join			= nullptr;
+Operator *Operator::Concat			= nullptr;
 Operator *Operator::Difference		= nullptr;
 Operator *Operator::Intersection	= nullptr;
 Operator *Operator::Union			= nullptr;
@@ -1192,7 +1192,7 @@ Value Operator_ModMod::ExecBinary(Environment &env, const Expr *pExprLeft, const
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// Operator_Join
+// Operator_Concat
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -1557,7 +1557,7 @@ void Operator::Initialize(Environment &env)
 	env.SetOperator(OPTYPE_ModMod,			Operator::ModMod		= new Operator_ModMod());
 	env.SetOperator(OPTYPE_DotProd,			Operator::DotProd		= new Operator_DotProd());
 	env.SetOperator(OPTYPE_CrossProd,		Operator::CrossProd		= new Operator_CrossProd());
-	env.SetOperator(OPTYPE_Join,			Operator::Join			= new Operator_Join());
+	env.SetOperator(OPTYPE_Concat,			Operator::Concat		= new Operator_Concat());
 	env.SetOperator(OPTYPE_Difference,		Operator::Difference	= new Operator_Difference());
 	env.SetOperator(OPTYPE_Intersection,	Operator::Intersection	= new Operator_Intersection());
 	env.SetOperator(OPTYPE_Union,			Operator::Union			= new Operator_Union());

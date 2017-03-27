@@ -486,24 +486,15 @@ bool Expr::ExprVisitor_GatherSimpleLambdaArgs::Visit(Expr *pExpr)
 //-----------------------------------------------------------------------------
 bool Expr::ExprVisitor_SearchBar::Visit(Expr *pExpr)
 {
-	OpType opType = OPTYPE_None;
-	if (pExpr->IsBinaryOp()) {
-		const Operator *pOperator =
-				dynamic_cast<const Expr_BinaryOp *>(pExpr)->GetOperator();
-		opType = pOperator->GetOpType();
-	} else if (pExpr->IsAssign()) {
-		const Operator *pOperator =
-				dynamic_cast<const Expr_Assign *>(pExpr)->GetOperatorToApply();
-		if (pOperator != nullptr) opType = pOperator->GetOpType();
+	const Operator *pOperator =
+		pExpr->IsBinaryOp()? dynamic_cast<const Expr_BinaryOp *>(pExpr)->GetOperator() :
+		pExpr->IsAssign()? dynamic_cast<const Expr_Assign *>(pExpr)->GetOperatorToApply() :
+		nullptr;
+	if (pOperator == nullptr || ::strchr(pOperator->GetSymbol()->GetName(), '|') == nullptr) {
+		return true;
 	}
-	if (opType == OPTYPE_Or || opType == OPTYPE_OrOr ||
-		opType == OPTYPE_DotProd || opType == OPTYPE_CrossProd ||
-		opType == OPTYPE_Join || opType == OPTYPE_Difference ||
-		opType == OPTYPE_Intersection || opType == OPTYPE_Union) {
-		_foundFlag = true;
-		return false;
-	}
-	return true;
+	_foundFlag = true;
+	return false;
 }
 
 //-----------------------------------------------------------------------------

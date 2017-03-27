@@ -60,7 +60,7 @@ enum OpType {
 	OPTYPE_ModMod,
 	OPTYPE_DotProd,
 	OPTYPE_CrossProd,
-	OPTYPE_Join,
+	OPTYPE_Concat,
 	OPTYPE_Difference,
 	OPTYPE_Intersection,
 	OPTYPE_Union,
@@ -159,7 +159,7 @@ public:
 	static Operator *ModMod;
 	static Operator *DotProd;
 	static Operator *CrossProd;
-	static Operator *Join;
+	static Operator *Concat;
 	static Operator *Difference;
 	static Operator *Intersection;
 	static Operator *Union;
@@ -544,11 +544,11 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Operator_Join
+// Operator_Concat
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Operator_Join : public Operator {
+class GURA_DLLDECLARE Operator_Concat : public Operator {
 public:
-	inline Operator_Join() : Operator(OPTYPE_Join, false) {}
+	inline Operator_Concat() : Operator(OPTYPE_Concat, false) {}
 };
 
 //-----------------------------------------------------------------------------
