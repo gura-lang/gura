@@ -524,6 +524,7 @@ Gura_ImplementMod_Double(Float)
 class GURA_DLLDECLARE Operator_ModMod : public Operator {
 public:
 	inline Operator_ModMod() : Operator(OPTYPE_ModMod) {}
+	virtual Value ExecBinary(Environment &env, const Expr *pExprLeft, const Expr *pExprRight) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -654,9 +655,9 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Operator_Contains : public Operator {
 public:
-	inline Operator_Contains() : Operator(OPTYPE_Contains) {}
-	virtual Value EvalMapBinary(Environment &env,
-								const Value &valueLeft, const Value &valueRight, ULong flags) const;
+	inline Operator_Contains() : Operator(OPTYPE_Contains, false) {}
+	//virtual Value EvalMapBinary(Environment &env,
+	//							const Value &valueLeft, const Value &valueRight, ULong flags) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -730,6 +731,7 @@ public:
 class GURA_DLLDECLARE Operator_OrOr : public Operator {
 public:
 	inline Operator_OrOr() : Operator(OPTYPE_OrOr) {}
+	virtual Value ExecBinary(Environment &env, const Expr *pExprLeft, const Expr *pExprRight) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -738,6 +740,7 @@ public:
 class GURA_DLLDECLARE Operator_AndAnd : public Operator {
 public:
 	inline Operator_AndAnd() : Operator(OPTYPE_AndAnd) {}
+	virtual Value ExecBinary(Environment &env, const Expr *pExprLeft, const Expr *pExprRight) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -753,9 +756,9 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Operator_Pair : public Operator {
 public:
-	inline Operator_Pair() : Operator(OPTYPE_Pair) {}
-	virtual Value EvalMapBinary(Environment &env,
-								const Value &valueLeft, const Value &valueRight, ULong flags) const;
+	inline Operator_Pair() : Operator(OPTYPE_Pair, false) {}
+	//virtual Value EvalMapBinary(Environment &env,
+	//							const Value &valueLeft, const Value &valueRight, ULong flags) const;
 };
 
 //-----------------------------------------------------------------------------

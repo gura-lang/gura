@@ -241,39 +241,10 @@ Value Operator::ExecUnary(Environment &env, const Expr *pExprChild) const
 
 Value Operator::ExecBinary(Environment &env, const Expr *pExprLeft, const Expr *pExprRight) const
 {
-	OpType opType = GetOpType();
-	if (opType == OPTYPE_OrOr) {
-		Value valueLeft = pExprLeft->Exec(env);
-		if (env.IsSignalled()) return Value::Nil;
-		if (!valueLeft.IsListOrIterator() && valueLeft.GetBoolean()) {
-			return valueLeft;
-		}
-		Value valueRight = pExprRight->Exec(env);
-		if (env.IsSignalled()) return Value::Nil;
-		return EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
-	} else if (opType == OPTYPE_AndAnd) {
-		Value valueLeft = pExprLeft->Exec(env);
-		if (env.IsSignalled()) return Value::Nil;
-		if (!valueLeft.IsListOrIterator() && !valueLeft.GetBoolean()) {
-			return valueLeft;
-		}
-		Value valueRight = pExprRight->Exec(env);
-		if (env.IsSignalled()) return Value::Nil;
-		return EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
-	}
 	Value valueLeft = pExprLeft->Exec(env);
 	if (env.IsSignalled()) return Value::Nil;
-	Value valueRight;
-	if (opType == OPTYPE_ModMod && pExprRight->IsBlock()) {
-		const ExprList &exprList =
-			dynamic_cast<const Expr_Block *>(pExprRight)->GetExprOwner();
-		Help *pHelp = Help::CreateFromExprList(env, exprList);
-		if (pHelp == nullptr) return Value::Nil;
-		valueRight = Value(new Object_help(env, pHelp));
-	} else {
-		valueRight = pExprRight->Exec(env);
-		if (env.IsSignalled()) return Value::Nil;
-	}
+	Value valueRight = pExprRight->Exec(env);
+	if (env.IsSignalled()) return Value::Nil;
 	return EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
 }
 
@@ -752,8 +723,8 @@ Expr *Operator_Sub::MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprR
 //-----------------------------------------------------------------------------
 // Operator_Mul
 //-----------------------------------------------------------------------------
-Value Operator_Mul::EvalMapBinary(Environment &env,
-								  const Value &valueLeft, const Value &valueRight, ULong flags) const
+Value Operator_Mul::EvalMapBinary(Environment &env, const Value &valueLeft,
+								  const Value &valueRight, ULong flags) const
 {
 	Signal &sig = env.GetSignal();
 	if (valueLeft.Is_function() || valueLeft.IsClass()) {
@@ -1133,8 +1104,8 @@ Expr *Operator_Div::MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprR
 //-----------------------------------------------------------------------------
 // Operator_Mod
 //-----------------------------------------------------------------------------
-Value Operator_Mod::EvalMapBinary(Environment &env,
-								  const Value &valueLeft, const Value &valueRight, ULong flags) const
+Value Operator_Mod::EvalMapBinary(Environment &env, const Value &valueLeft,
+								  const Value &valueRight, ULong flags) const
 {
 	Signal &sig = env.GetSignal();
 	if (valueLeft.Is_function() || valueLeft.IsClass()) {
@@ -1193,6 +1164,24 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 //-----------------------------------------------------------------------------
 // Operator_ModMod
 //-----------------------------------------------------------------------------
+Value Operator_ModMod::ExecBinary(Environment &env, const Expr *pExprLeft, const Expr *pExprRight) const
+{
+	Value valueLeft = pExprLeft->Exec(env);
+	if (env.IsSignalled()) return Value::Nil;
+	Value valueRight;
+	if (pExprRight->IsBlock()) {
+		const ExprList &exprList =
+			dynamic_cast<const Expr_Block *>(pExprRight)->GetExprOwner();
+		Help *pHelp = Help::CreateFromExprList(env, exprList);
+		if (pHelp == nullptr) return Value::Nil;
+		valueRight = Value(new Object_help(env, pHelp));
+	} else {
+		valueRight = pExprRight->Exec(env);
+		if (env.IsSignalled()) return Value::Nil;
+	}
+	return EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
+}
+
 
 //-----------------------------------------------------------------------------
 // Operator_DotProd
@@ -1343,11 +1332,13 @@ Expr *Operator_Pow::MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprR
 //-----------------------------------------------------------------------------
 // Operator_Contains
 //-----------------------------------------------------------------------------
-Value Operator_Contains::EvalMapBinary(Environment &env,
-									   const Value &valueLeft, const Value &valueRight, ULong flags) const
+#if 0
+Value Operator_Contains::EvalMapBinary(Environment &env, const Value &valueLeft,
+									   const Value &valueRight, ULong flags) const
 {
 	return EvalBinary(env, valueLeft, valueRight, flags);
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Operator_And
@@ -1372,10 +1363,32 @@ Value Operator_Contains::EvalMapBinary(Environment &env,
 //-----------------------------------------------------------------------------
 // Operator_OrOr
 //-----------------------------------------------------------------------------
+Value Operator_OrOr::ExecBinary(Environment &env, const Expr *pExprLeft, const Expr *pExprRight) const
+{
+	Value valueLeft = pExprLeft->Exec(env);
+	if (env.IsSignalled()) return Value::Nil;
+	if (!valueLeft.IsListOrIterator() && valueLeft.GetBoolean()) {
+		return valueLeft;
+	}
+	Value valueRight = pExprRight->Exec(env);
+	if (env.IsSignalled()) return Value::Nil;
+	return EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_AndAnd
 //-----------------------------------------------------------------------------
+Value Operator_AndAnd::ExecBinary(Environment &env, const Expr *pExprLeft, const Expr *pExprRight) const
+{
+	Value valueLeft = pExprLeft->Exec(env);
+	if (env.IsSignalled()) return Value::Nil;
+	if (!valueLeft.IsListOrIterator() && !valueLeft.GetBoolean()) {
+		return valueLeft;
+	}
+	Value valueRight = pExprRight->Exec(env);
+	if (env.IsSignalled()) return Value::Nil;
+	return EvalMapBinary(env, valueLeft, valueRight, FLAG_None);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Seq
@@ -1384,11 +1397,13 @@ Value Operator_Contains::EvalMapBinary(Environment &env,
 //-----------------------------------------------------------------------------
 // Operator_Pair
 //-----------------------------------------------------------------------------
-Value Operator_Pair::EvalMapBinary(Environment &env,
-								   const Value &valueLeft, const Value &valueRight, ULong flags) const
+#if 0
+Value Operator_Pair::EvalMapBinary(Environment &env, const Value &valueLeft,
+								   const Value &valueRight, ULong flags) const
 {
 	return EvalBinary(env, valueLeft, valueRight, flags);
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Operator_Math_abs
