@@ -43,16 +43,14 @@ Value Object_operator::DoCall(
 						 "operator '%s' is not a unary one", GetSymbol()->GetName());
 			return Value::Nil;
 		}
-		const Operator *pOperator = GetOperator(_opTypeUnary);
-		return pOperator->ExecUnary(env, exprListArg[0]);
+		return GetOperator(_opTypeUnary)->ExecUnary(env, exprListArg[0]);
 	} else if (exprListArg.size() == 2) {
 		if (_opTypeBinary == OPTYPE_None) {
 			sig.SetError(ERR_ArgumentError,
 						 "operator '%s' is not a binary one", GetSymbol()->GetName());
 			return Value::Nil;
 		}
-		const Operator *pOperator = GetOperator(_opTypeBinary);
-		return pOperator->ExecBinary(env, exprListArg[0], exprListArg[1]);
+		return GetOperator(_opTypeBinary)->ExecBinary(env, exprListArg[0], exprListArg[1]);
 	} else {
 		sig.SetError(ERR_ArgumentError, "operator must take one or two arguments");
 		return Value::Nil;
