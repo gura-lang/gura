@@ -241,6 +241,55 @@ Gura_ImplementClassMethod_arrayT(rands_at_normal)
 	return ReturnValue(env, arg, value);
 }
 
+// array@T.range(num:number, num_end?:number, step?:number):static:map {block?}
+Gura_DeclareClassMethod_arrayT(range)
+{
+	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "num", VTYPE_number);
+	DeclareArg(env, "num_end", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "step", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array that contains a sequence of integer numbers.\n"
+		"\n"
+		"This function can be called in three formats that generate following numbers:\n"
+		"\n"
+		"- array@T.range(num) .. Numbers between 0 and (num - 1).\n"
+		"- array@T.range(num, num_end) .. Numbers between num and (num_end - 1).\n"
+		"- array@T.range(num, num_end, step) .. Numbers between num and (num_end - 1) incremented by step.\n");
+}
+
+Gura_ImplementClassMethod_arrayT(range)
+{
+	Double numBegin = 0.;
+	Double numEnd = 0.;
+	Double numStep = 1.;
+	if (arg.IsValid(1)) {
+		numBegin = arg.GetDouble(0);
+		numEnd = arg.GetDouble(1);
+		if (arg.IsValid(2)) {
+			numStep = arg.GetDouble(2);
+			if (numStep == 0) {
+				env.SetError(ERR_ValueError, "step must not be zero");
+				return Value::Nil;
+			} else if (numBegin < numEnd && numStep < 0) {
+				env.SetError(ERR_ValueError, "step must be positive");
+				return Value::Nil;
+			} else if (numBegin > numEnd && numStep > 0) {
+				env.SetError(ERR_ValueError, "step must be negative");
+				return Value::Nil;
+			}
+		} else if (numBegin > numEnd) {
+			numStep = -1.;
+		}
+	} else {
+		numEnd = arg.GetDouble(0);
+	}
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateRange(numBegin, numEnd, numStep));
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayT.release())));
+}
+
 // array@T.zeros(dims[]:number):static:map {block?}
 Gura_DeclareClassMethod_arrayT(zeros)
 {
@@ -281,6 +330,7 @@ void Class_arrayT<T_Elem>::DoPrepare(Environment &env)
 	Gura_AssignMethod_arrayT(ones);
 	Gura_AssignMethod_arrayT(rands);
 	Gura_AssignMethod_arrayT(rands_at_normal);
+	Gura_AssignMethod_arrayT(range);
 	Gura_AssignMethod_arrayT(zeros);
 	do {
 		Class *pClass = env.LookupClass(VTYPE_array);
@@ -289,6 +339,7 @@ void Class_arrayT<T_Elem>::DoPrepare(Environment &env)
 		Gura_AssignMethodTo_arrayT(pClass, ones,			Double, VTYPE_array_at_double);
 		Gura_AssignMethodTo_arrayT(pClass, rands,			Double, VTYPE_array_at_double);
 		Gura_AssignMethodTo_arrayT(pClass, rands_at_normal,	Double, VTYPE_array_at_double);
+		Gura_AssignMethodTo_arrayT(pClass, range,			Double, VTYPE_array_at_double);
 		Gura_AssignMethodTo_arrayT(pClass, zeros,			Double, VTYPE_array_at_double);
 	} while (0);
 }

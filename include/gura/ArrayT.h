@@ -65,6 +65,7 @@ public:
 	static ArrayT *CreateFromIterator(Environment &env, Iterator *pIterator);
 	static ArrayT *CreateFromExpr(Environment &env, const Expr *pExpr);
 	static ArrayT *CreateIdentity(size_t n);
+	static ArrayT *CreateRange(Double numBegin, Double numEnd, Double numStep);
 	static ArrayT *CreateInterval(
 		Double numBegin, Double numEnd, int numSamples, Double numDenom, int iFactor);
 	static ArrayT *CreateOnes(const ValueList &valList);

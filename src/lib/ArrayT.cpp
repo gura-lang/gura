@@ -714,6 +714,26 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateIdentity(size_t n)
 }
 
 template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRange(Double numBegin, Double numEnd, Double numStep)
+{
+	int numSamples = 0;
+	if (numEnd > numBegin) {
+		Double numRange = numEnd - numBegin;
+		numSamples = static_cast<int>((numRange - 1) / numStep) + 1;
+	} else {
+		Double numRange = numBegin - numEnd;
+		numSamples = static_cast<int>(-(numRange - 1) / numStep) + 1;
+	}
+	if (numSamples < 0) numSamples = 0;
+	AutoPtr<ArrayT> pArrayT(new ArrayT(numSamples));
+	T_Elem *p = pArrayT->GetPointer();
+	for (size_t i = 0; i < numSamples; i++) {
+		p[i] = static_cast<T_Elem>(numBegin + numStep * i);
+	}
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateInterval(
 	Double numBegin, Double numEnd, int numSamples, Double numDenom, int iFactor)
 {

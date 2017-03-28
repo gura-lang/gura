@@ -487,3 +487,21 @@ testcase('dimension mismatch error') {
 	tester(`(array {{1, 2}, {3, 4}} + array {{1, 2, 3}, {4, 5, 6}}))
 	tester(`(array {{1, 2}, {3, 4}} |.| array {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}))
 }
+testcase('range') {
+	func = array@int32
+	println(func)
+	tester(`func.range(10))
+	tester(`func.range(0, 10))
+	tester(`func.range(0, -10))
+	tester(`func.range(3, 10))
+	tester(`func.range(3, -10))
+	tester(`func.range(-3, 10))
+	tester(`func.range(-3, -10))
+	tester(`func.range(3, 10, 2))
+	tester(`func.range(3, -10, -2))
+	tester(`func.range(-3, 10, 2))
+	tester(`func.range(-3, -10, -2))
+	tester(`func.range(3, 10, -2))
+	tester(`func.range(3, -10, 2))
+	tester(`func.range(3, 10, 0))
+}
