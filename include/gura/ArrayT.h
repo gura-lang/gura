@@ -37,6 +37,7 @@ public:
 	virtual bool DoesContainMinus() const;
 	virtual bool DoesContainZeroOrMinus() const;
 	static ElemType ElemTypeThis;
+	static size_t ElemBytes;
 	static const char *ElemTypeName;
 	static const char *ConstructorName;
 	void Fill(const T_Elem &num);

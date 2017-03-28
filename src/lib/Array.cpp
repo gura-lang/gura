@@ -33,6 +33,25 @@ bool Array::DoesContainZeroOrMinus() const
 	return false;
 }
 
+size_t Array::GetElemBytes() const
+{
+	const static size_t elemBytesTbl[ETYPE_Max] = {
+		0,
+		ArrayT<Int8>::ElemBytes,
+		ArrayT<UInt8>::ElemBytes,
+		ArrayT<Int16>::ElemBytes,
+		ArrayT<UInt16>::ElemBytes,
+		ArrayT<Int32>::ElemBytes,
+		ArrayT<UInt32>::ElemBytes,
+		ArrayT<Int64>::ElemBytes,
+		ArrayT<UInt64>::ElemBytes,
+		ArrayT<Float>::ElemBytes,
+		ArrayT<Double>::ElemBytes,
+		ArrayT<Complex>::ElemBytes,
+	};
+	return elemBytesTbl[_elemType];
+}
+
 const char *Array::GetElemTypeName() const
 {
 	const static char *elemTypeNameTbl[ETYPE_Max] = {

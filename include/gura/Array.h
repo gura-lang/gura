@@ -142,6 +142,7 @@ public:
 	virtual bool DoesContainZero() const;
 	virtual bool DoesContainMinus() const;
 	virtual bool DoesContainZeroOrMinus() const;
+	size_t GetElemBytes() const;
 	const char *GetElemTypeName() const;
 	void SetDimension(const Dimension &dim);
 	void SetDimensions(const Dimension &dimRow, const Dimension &dimCol);

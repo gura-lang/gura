@@ -218,6 +218,18 @@ template<> Array::ElemType ArrayT<Float>::ElemTypeThis		= ETYPE_Float;
 template<> Array::ElemType ArrayT<Double>::ElemTypeThis		= ETYPE_Double;
 template<> Array::ElemType ArrayT<Complex>::ElemTypeThis	= ETYPE_Complex;
 
+template<> size_t ArrayT<Int8>::ElemBytes					= 1;
+template<> size_t ArrayT<UInt8>::ElemBytes					= 1;
+template<> size_t ArrayT<Int16>::ElemBytes					= 2;
+template<> size_t ArrayT<UInt16>::ElemBytes					= 2;
+template<> size_t ArrayT<Int32>::ElemBytes					= 4;
+template<> size_t ArrayT<UInt32>::ElemBytes					= 4;
+template<> size_t ArrayT<Int64>::ElemBytes					= 8;
+template<> size_t ArrayT<UInt64>::ElemBytes					= 8;
+template<> size_t ArrayT<Float>::ElemBytes					= 4;
+template<> size_t ArrayT<Double>::ElemBytes					= 8;
+template<> size_t ArrayT<Complex>::ElemBytes				= 16;
+
 template<> const char *ArrayT<Int8>::ElemTypeName			= "int8";
 template<> const char *ArrayT<UInt8>::ElemTypeName			= "uint8";
 template<> const char *ArrayT<Int16>::ElemTypeName			= "int16";

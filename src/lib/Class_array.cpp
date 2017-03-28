@@ -165,6 +165,21 @@ Iterator *Object_array::CreateIterator(Signal &sig)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
+// array#elembytes
+Gura_DeclareProperty_R(array, elembytes)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns the size of each element in bytes.");
+}
+
+Gura_ImplementPropertyGetter(array, elembytes)
+{
+	Array *pArray = Object_array::GetObject(valueThis)->GetArray();
+	return Value(pArray->GetElemBytes());
+}
+
 // array#elemtype
 Gura_DeclareProperty_R(array, elemtype)
 {
@@ -226,6 +241,21 @@ Gura_ImplementPropertyGetter(array, shape)
 	}
 	pObjList->SetValueType(VTYPE_number);
 	return value;
+}
+
+// array#size
+Gura_DeclareProperty_R(array, size)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns the total number of elements.");
+}
+
+Gura_ImplementPropertyGetter(array, size)
+{
+	Array *pArray = Object_array::GetObject(valueThis)->GetArray();
+	return Value(pArray->GetElemNum());
 }
 
 // array#T
@@ -948,9 +978,11 @@ Class_array::Class_array(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_array)
 void Class_array::DoPrepare(Environment &env)
 {
 	// Assignment of properties
+	Gura_AssignProperty(array, elembytes);
 	Gura_AssignProperty(array, elemtype);
 	Gura_AssignProperty(array, ndim);
 	Gura_AssignProperty(array, shape);
+	Gura_AssignProperty(array, size);
 	Gura_AssignProperty(array, T);
 	// Assignment of function
 	Gura_AssignFunction(array);
