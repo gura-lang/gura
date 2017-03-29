@@ -382,6 +382,13 @@ void ArrayT<T_Elem>::CopyToList(ValueList &valList) const
 }
 
 template<typename T_Elem>
+ArrayT<T_Elem> *CalcSum(ArrayT<T_Elem> *pArray)
+{
+//	AutoPtr<ArrayT<T_Elem> > pArray(new ArrayT<T_Elem>());
+	return nullptr;
+}
+
+template<typename T_Elem>
 T_Elem ArrayT<T_Elem>::Sum() const
 {
 	T_Elem rtn = 0;
@@ -558,7 +565,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::RoundOff(double threshold) const
 {
-	AutoPtr<ArrayT> pArrayResult(ArrayT::CreateLike(GetDimensions()));
+	AutoPtr<ArrayT> pArrayResult(ArrayT::Create(GetDimensions()));
 	T_Elem *pDst = pArrayResult->GetPointer();
 	const T_Elem *pSrc = GetPointer();
 	for (size_t i = 0; i < GetElemNum(); i++, pSrc++, pDst++) {
@@ -570,7 +577,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::RoundOff(double threshold) const
 template<>
 ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
 {
-	AutoPtr<ArrayT> pArrayResult(ArrayT::CreateLike(GetDimensions()));
+	AutoPtr<ArrayT> pArrayResult(ArrayT::Create(GetDimensions()));
 	Complex *pDst = pArrayResult->GetPointer();
 	const Complex *pSrc = GetPointer();
 	double threshold2 = threshold * threshold;
@@ -582,7 +589,7 @@ ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
 
 /// functions to create an ArrayT instance
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateLike(const Array::Dimensions &dims)
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const Array::Dimensions &dims)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT());
 	pArrayT->SetDimensions(dims);
@@ -666,7 +673,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Signal &sig, const ValueList &val
 		if (pValList->empty() || !pValList->front().Is_list()) break;
 		pValList = &pValList->front().GetList();
 	}
-	AutoPtr<ArrayT> pArrayT(ArrayT::CreateLike(dims));
+	AutoPtr<ArrayT> pArrayT(ArrayT::Create(dims));
 	T_Elem *p = pArrayT->GetPointer();
 	if (!CreateFromList_Sub(sig, dims, dims.begin(), p, valList)) return nullptr;
 	return pArrayT.release();

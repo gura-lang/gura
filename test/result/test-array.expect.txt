@@ -3245,49 +3245,71 @@ array([[[1, 1, -1], [-2, 0, 1], [0, 2, 1]], [[1, 2, 1], [2, 1, 0], [1, 1, 2]]]).
 ======== #22 properties ========
 
 <class:array@int8(src?) {block?}>
+elembytes: 1
 elemtype: int8
 ndim: 3
 shape: [4, 2, 3]
+size: 24
 <class:array@uint8(src?) {block?}>
+elembytes: 1
 elemtype: uint8
 ndim: 3
 shape: [4, 2, 3]
+size: 24
 <class:array@int16(src?) {block?}>
+elembytes: 2
 elemtype: int16
 ndim: 3
 shape: [4, 2, 3]
+size: 24
 <class:array@uint16(src?) {block?}>
+elembytes: 2
 elemtype: uint16
 ndim: 3
 shape: [4, 2, 3]
+size: 24
 <class:array@int32(src?) {block?}>
+elembytes: 4
 elemtype: int32
 ndim: 3
 shape: [4, 2, 3]
+size: 24
 <class:array@uint32(src?) {block?}>
+elembytes: 4
 elemtype: uint32
 ndim: 3
 shape: [4, 2, 3]
+size: 24
 <class:array@int64(src?) {block?}>
+elembytes: 8
 elemtype: int64
 ndim: 3
 shape: [4, 2, 3]
+size: 24
 <class:array@uint64(src?) {block?}>
+elembytes: 8
 elemtype: uint64
 ndim: 3
 shape: [4, 2, 3]
+size: 24
 <class:array@float(src?) {block?}>
+elembytes: 4
 elemtype: float
 ndim: 3
 shape: [4, 2, 3]
+size: 24
 <class:array@double(src?) {block?}>
+elembytes: 8
 elemtype: double
 ndim: 3
 shape: [4, 2, 3]
+size: 24
 <class:array(src?) {block?}>
+elembytes: 8
 elemtype: double
 ndim: 3
 shape: [4, 2, 3]
+size: 24
 
 ======== #23 array as an alias of array@double ========
 
@@ -3681,3 +3703,21 @@ array.zeros([3, 4]) .. [[0, 0, 0, 0],
 array { 1, 2, 3 } + array { 1, 2 } .. ValueError: can't calcuate add operation between arrays of dimension (3) and (2)
 array { { 1, 2 }, { 3, 4 } } + array { { 1, 2, 3 }, { 4, 5, 6 } } .. ValueError: can't calcuate add operation between arrays of dimension (2, 2) and (2, 3)
 array { { 1, 2 }, { 3, 4 } } |.| array { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } } .. ValueError: can't calculate dot product between arrays of (2, 2) and (3, 3)
+
+======== #26 range ========
+
+<class:array@int32(src?) {block?}>
+func.range(10) .. [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+func.range(0, 10) .. [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+func.range(0, -10) .. [ 0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
+func.range(3, 10) .. [3, 4, 5, 6, 7, 8, 9]
+func.range(3, -10) .. [ 3,  2,  1,  0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
+func.range(-3, 10) .. [-3, -2, -1,  0,  1,  2,  3,  4,  5,  6,  7,  8,  9]
+func.range(-3, -10) .. [-3, -4, -5, -6, -7, -8, -9]
+func.range(3, 10, 2) .. [3, 5, 7, 9]
+func.range(3, -10, -2) .. [ 3,  1, -1, -3, -5, -7, -9]
+func.range(-3, 10, 2) .. [-3, -1,  1,  3,  5,  7,  9]
+func.range(-3, -10, -2) .. [-3, -5, -7, -9]
+func.range(3, 10, -2) .. ValueError: step must be positive
+func.range(3, -10, 2) .. ValueError: step must be negative
+func.range(3, 10, 0) .. ValueError: step must not be zero

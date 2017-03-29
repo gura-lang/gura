@@ -368,6 +368,7 @@ array
   array#paste(offset:number, src:array):map
   array.rands(dims[]:number, range?:number):static:map {block?}
   array.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+  array.range(num:number, num_end?:number, step?:number):static:map {block?}
   array#reshape(dims[]:number:nil) {block?}
   array#roundoff(threshold?:number) {block?}
   array#sum():map {block?}
@@ -380,6 +381,7 @@ array@double
   array@double.ones(dims[]:number):static:map {block?}
   array@double.rands(dims[]:number, range?:number):static:map {block?}
   array@double.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+  array@double.range(num:number, num_end?:number, step?:number):static:map {block?}
   array@double.zeros(dims[]:number):static:map {block?}
 array@float
   array@float.identity(n:number):static:map {block?}
@@ -387,6 +389,7 @@ array@float
   array@float.ones(dims[]:number):static:map {block?}
   array@float.rands(dims[]:number, range?:number):static:map {block?}
   array@float.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+  array@float.range(num:number, num_end?:number, step?:number):static:map {block?}
   array@float.zeros(dims[]:number):static:map {block?}
 array@int16
   array@int16.identity(n:number):static:map {block?}
@@ -394,6 +397,7 @@ array@int16
   array@int16.ones(dims[]:number):static:map {block?}
   array@int16.rands(dims[]:number, range?:number):static:map {block?}
   array@int16.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+  array@int16.range(num:number, num_end?:number, step?:number):static:map {block?}
   array@int16.zeros(dims[]:number):static:map {block?}
 array@int32
   array@int32.identity(n:number):static:map {block?}
@@ -401,6 +405,7 @@ array@int32
   array@int32.ones(dims[]:number):static:map {block?}
   array@int32.rands(dims[]:number, range?:number):static:map {block?}
   array@int32.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+  array@int32.range(num:number, num_end?:number, step?:number):static:map {block?}
   array@int32.zeros(dims[]:number):static:map {block?}
 array@int64
   array@int64.identity(n:number):static:map {block?}
@@ -408,6 +413,7 @@ array@int64
   array@int64.ones(dims[]:number):static:map {block?}
   array@int64.rands(dims[]:number, range?:number):static:map {block?}
   array@int64.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+  array@int64.range(num:number, num_end?:number, step?:number):static:map {block?}
   array@int64.zeros(dims[]:number):static:map {block?}
 array@int8
   array@int8.identity(n:number):static:map {block?}
@@ -415,6 +421,7 @@ array@int8
   array@int8.ones(dims[]:number):static:map {block?}
   array@int8.rands(dims[]:number, range?:number):static:map {block?}
   array@int8.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+  array@int8.range(num:number, num_end?:number, step?:number):static:map {block?}
   array@int8.zeros(dims[]:number):static:map {block?}
 array@uint16
   array@uint16.identity(n:number):static:map {block?}
@@ -422,6 +429,7 @@ array@uint16
   array@uint16.ones(dims[]:number):static:map {block?}
   array@uint16.rands(dims[]:number, range?:number):static:map {block?}
   array@uint16.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+  array@uint16.range(num:number, num_end?:number, step?:number):static:map {block?}
   array@uint16.zeros(dims[]:number):static:map {block?}
 array@uint32
   array@uint32.identity(n:number):static:map {block?}
@@ -429,6 +437,7 @@ array@uint32
   array@uint32.ones(dims[]:number):static:map {block?}
   array@uint32.rands(dims[]:number, range?:number):static:map {block?}
   array@uint32.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+  array@uint32.range(num:number, num_end?:number, step?:number):static:map {block?}
   array@uint32.zeros(dims[]:number):static:map {block?}
 array@uint64
   array@uint64.identity(n:number):static:map {block?}
@@ -436,6 +445,7 @@ array@uint64
   array@uint64.ones(dims[]:number):static:map {block?}
   array@uint64.rands(dims[]:number, range?:number):static:map {block?}
   array@uint64.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+  array@uint64.range(num:number, num_end?:number, step?:number):static:map {block?}
   array@uint64.zeros(dims[]:number):static:map {block?}
 array@uint8
   array@uint8.identity(n:number):static:map {block?}
@@ -443,6 +453,7 @@ array@uint8
   array@uint8.ones(dims[]:number):static:map {block?}
   array@uint8.rands(dims[]:number, range?:number):static:map {block?}
   array@uint8.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+  array@uint8.range(num:number, num_end?:number, step?:number):static:map {block?}
   array@uint8.zeros(dims[]:number):static:map {block?}
 audio
   audio#each(channel:number, offset?:number):map {block?}
