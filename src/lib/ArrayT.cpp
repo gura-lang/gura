@@ -381,12 +381,20 @@ void ArrayT<T_Elem>::CopyToList(ValueList &valList) const
 	}
 }
 
-template<typename T_Elem>
-ArrayT<T_Elem> *CalcSum(ArrayT<T_Elem> *pArray)
+#if 0
+template<typename T_ElemResult, typename T_Elem>
+ArrayT<T_ElemResult> *CalcSum(ArrayT<T_Elem> *pArray, size_t axis)
 {
-//	AutoPtr<ArrayT<T_Elem> > pArray(new ArrayT<T_Elem>());
-	return nullptr;
+	const Array::Dimensions &dims = pArray->GetDimensions();
+	Array::Dimensions::const_iterator pDim = dims.begin() + axis;
+	pDim->GetStride();
+	AutoPtr<ArrayT<T_Elem> > pArrayResult(ArrayT<T_ElemResult>::Create(pDim + 1, dims.end()));
+	const T_Elem *pElem = pArray->GetPointer();
+	T_ElemResult *pElemResult = pArrayResult->GetPointer();
+
+	return pArrayResult.release();
 }
+#endif
 
 template<typename T_Elem>
 T_Elem ArrayT<T_Elem>::Sum() const
@@ -593,6 +601,16 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const Array::Dimensions &dims)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT());
 	pArrayT->SetDimensions(dims);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim,
+									   Dimensions::const_iterator pDimEnd)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(pDim, pDimEnd);
 	pArrayT->AllocMemory();
 	return pArrayT.release();
 }
