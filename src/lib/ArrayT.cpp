@@ -597,6 +597,15 @@ ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
 
 /// functions to create an ArrayT instance
 template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const Dimension &dim)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimension(dim);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const Array::Dimensions &dims)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT());

@@ -842,10 +842,11 @@ Gura_ImplementMethod(array, roundoff)
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
-// array#sum() {block?}
+// array#sum(axis?:number) {block?}
 Gura_DeclareMethod(array, sum)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -853,11 +854,54 @@ Gura_DeclareMethod(array, sum)
 		);
 }
 
+template<typename T_ElemResult, typename T_Elem>
+ArrayT<T_ElemResult> *CalcSum(Environment &env, const ArrayT<T_Elem> *pArrayT, size_t axis)
+{
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	if (dims.size() <= 1) return nullptr;
+	if (axis + 1 > dims.size()) {
+		env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+		return nullptr;
+	}
+	AutoPtr<ArrayT<T_Elem> > pArrayTResult;
+	if (axis + 1 == dims.size()) {
+		pArrayTResult.reset(ArrayT<T_ElemResult>::Create(dims[dims.size() - 2]));
+		
+	} else {
+		Array::Dimensions::const_iterator pDim = dims.begin() + axis;
+		pArrayTResult.reset(ArrayT<T_ElemResult>::Create(pDim + 1, dims.end()));
+		pArrayTResult->FillZero();
+		const T_Elem *pElem = pArrayT->GetPointer();
+		T_ElemResult *pElemResult = pArrayTResult->GetPointer();
+		size_t numElemsResult = pArrayTResult->GetElemNum();
+		size_t cnt = pArrayT->GetElemNum() / numElemsResult;
+		while (cnt-- > 0) {
+			for (size_t iOffsetResult = 0; iOffsetResult < numElemsResult; iOffsetResult++, pElem++) {
+				*(pElemResult + iOffsetResult) += *pElem;
+			}
+		}
+	}
+	return pArrayTResult.release();
+}
+
 template<typename T_Elem>
 Value Method_sum(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	return pFunc->ReturnValue(env, arg, Value(pArrayT->Sum()));
+	Value valueRtn;
+	if (arg.IsValid(0)) {
+		size_t axis = arg.GetSizeT(0);
+		if (axis == 0 && pArrayT->GetDimensions().size() == 1) {
+			valueRtn = Value(pArrayT->Sum());
+		} else {
+			ArrayT<T_Elem> *pArrayTResult = CalcSum<T_Elem>(env, pArrayT, axis);
+			if (pArrayTResult == nullptr) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayTResult));
+		}
+	} else {
+		valueRtn = Value(pArrayT->Sum());
+	}
+	return pFunc->ReturnValue(env, arg, valueRtn);
 }
 
 Gura_ImplementMethod(array, sum)

@@ -58,6 +58,7 @@ public:
 	ArrayT *Offset(Signal &sig, size_t n) const;
 	ArrayT *RoundOff(double threshold) const;
 	// functions to create an ArrayT instance
+	static ArrayT *Create(const Dimension &dim);
 	static ArrayT *Create(const Array::Dimensions &dims);
 	static ArrayT *Create(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
 	static ArrayT *CreateFromValue(Environment &env, const Value &value);
