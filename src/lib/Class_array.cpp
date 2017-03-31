@@ -41,6 +41,68 @@ Value CallMethod(Environment &env, Argument &arg, const MethodT methods[],
 	return (*pMethod)(env, arg, pFunc, pArraySelf);
 }
 
+template<typename T_ElemResult, typename T_Elem>
+ArrayT<T_ElemResult> *CalcSum(Environment &env, const ArrayT<T_Elem> *pArrayT, size_t axis)
+{
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	if (axis + 1 > dims.size()) {
+		env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+		return nullptr;
+	}
+	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
+	AutoPtr<ArrayT<T_Elem> > pArrayTResult(
+		ArrayT<T_ElemResult>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
+	pArrayTResult->FillZero();
+	const T_Elem *pElem = pArrayT->GetPointer();
+	T_ElemResult *pElemResult = pArrayTResult->GetPointer();
+	if (pDimAxis + 1 == dims.end()) {
+		size_t cnt = pArrayT->GetElemNum() / pDimAxis->GetSize();
+		while (cnt-- > 0) {
+			for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElem++) {
+				*pElemResult += *pElem;
+			}
+			pElemResult++;
+		}
+	} else {
+		size_t stride = pDimAxis->GetStride();
+		size_t cnt = pArrayT->GetElemNum() / (pDimAxis->GetSize() * stride);
+		while (cnt-- > 0) {
+			for (size_t i = 0; i < pDimAxis->GetSize(); i++) {
+				for (size_t j = 0; j < stride; j++, pElem++) {
+					*(pElemResult + j) += *pElem;
+				}
+			}
+			pElemResult += stride;
+		}
+	}
+	return pArrayTResult.release();
+}
+
+template<typename T_ElemResult, typename T_Elem>
+T_ElemResult CalcSumFlat(const ArrayT<T_Elem> *pArrayT)
+{
+	T_ElemResult rtn = 0;
+	const T_Elem *p = pArrayT->GetPointer();
+	for (size_t i = 0; i < pArrayT->GetElemNum(); i++, p++) {
+		rtn += *p;
+	}
+	return rtn;
+}
+
+template<typename T_ElemResult, typename T_Elem>
+T_ElemResult CalcAverageFlat(const ArrayT<T_Elem> *pArrayT)
+{
+	if (pArrayT->GetElemNum() == 0) return 0;
+	return static_cast<T_ElemResult>(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT) / pArrayT->GetElemNum());
+}
+
+template<>
+Complex CalcAverageFlat(const ArrayT<Complex> *pArrayT)
+{
+	if (pArrayT->GetElemNum() == 0) return 0;
+	return CalcSumFlat<Complex, Complex>(pArrayT) / static_cast<double>(pArrayT->GetElemNum());
+}
+
 //-----------------------------------------------------------------------------
 // Object_array
 //-----------------------------------------------------------------------------
@@ -363,8 +425,7 @@ template<typename T_Elem>
 Value Method_average(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	size_t n = pArrayT->GetElemNum();
-	return pFunc->ReturnValue(env, arg, Value((n == 0)? 0 : pArrayT->Sum() / n));
+	return pFunc->ReturnValue(env, arg, Value(CalcAverageFlat<T_Elem>(pArrayT)));
 }
 
 Gura_ImplementMethod(array, average)
@@ -854,40 +915,6 @@ Gura_DeclareMethod(array, sum)
 		);
 }
 
-template<typename T_ElemResult, typename T_Elem>
-ArrayT<T_ElemResult> *CalcSum(Environment &env, const ArrayT<T_Elem> *pArrayT, size_t axis)
-{
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	if (dims.size() <= 1) return nullptr;
-	if (axis + 1 > dims.size()) {
-		env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
-		return nullptr;
-	}
-	AutoPtr<ArrayT<T_Elem> > pArrayTResult;
-	Array::Dimensions::const_iterator pDim = dims.begin() + axis;
-	if (pDim + 1 == dims.end()) {
-		pArrayTResult.reset(ArrayT<T_ElemResult>::Create(dims.begin() + 1, dims.end()));
-		pArrayTResult->FillZero();
-		
-	} else {
-		pArrayTResult.reset(ArrayT<T_ElemResult>::Create(dims.begin() + 1, dims.end()));
-		pArrayTResult->FillZero();
-		size_t stride = pDim->GetStride();
-		const T_Elem *pElem = pArrayT->GetPointer();
-		T_ElemResult *pElemResult = pArrayTResult->GetPointer();
-		size_t cnt = pArrayT->GetElemNum() / (pDim->GetSize() * stride);
-		while (cnt-- > 0) {
-			for (size_t i = 0; i < pDim->GetSize(); i++) {
-				for (size_t j = 0; j < stride; j++, pElem++) {
-					*(pElemResult + j) += *pElem;
-				}
-			}
-			pElemResult += stride;
-		}
-	}
-	return pArrayTResult.release();
-}
-
 template<typename T_Elem>
 Value Method_sum(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
@@ -896,14 +923,14 @@ Value Method_sum(Environment &env, Argument &arg, const Function *pFunc, Array *
 	if (arg.IsValid(0)) {
 		size_t axis = arg.GetSizeT(0);
 		if (axis == 0 && pArrayT->GetDimensions().size() == 1) {
-			valueRtn = Value(pArrayT->Sum());
+			valueRtn = Value(CalcSumFlat<T_Elem, T_Elem>(pArrayT));
 		} else {
-			ArrayT<T_Elem> *pArrayTResult = CalcSum<T_Elem>(env, pArrayT, axis);
+			ArrayT<T_Elem> *pArrayTResult = CalcSum<T_Elem, T_Elem>(env, pArrayT, axis);
 			if (pArrayTResult == nullptr) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayTResult));
 		}
 	} else {
-		valueRtn = Value(pArrayT->Sum());
+		valueRtn = Value(CalcSumFlat<T_Elem, T_Elem>(pArrayT));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }

@@ -47,8 +47,6 @@ public:
 	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc);
 	void Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 	void CopyToList(ValueList &valList) const;
-	T_Elem Sum() const;
-	T_Elem Average() const;
 	ArrayT *Flatten() const;
 	ArrayT *Reshape(Signal &sig, const ValueList &valList) const;
 	ArrayT *Transpose(Signal &sig, const ValueList &valList) const;
@@ -63,6 +61,9 @@ public:
 	static ArrayT *Create(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
 	static ArrayT *Create(Dimensions::const_iterator pDim,
 						  Dimensions::const_iterator pDimEnd, const Dimension &dim);
+	static ArrayT *Create(
+		Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
+		Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
 	static ArrayT *CreateFromValue(Environment &env, const Value &value);
 	static ArrayT *CreateFromList(const ValueList &valList);
 	static ArrayT *CreateFromList(Signal &sig, const ValueList &valList);

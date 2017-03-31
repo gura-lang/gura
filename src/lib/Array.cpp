@@ -111,6 +111,15 @@ void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_ite
 	UpdateMetrics();
 }
 
+void Array::SetDimensions(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
+						  Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End)
+{
+	_dims.reserve(std::distance(pDim1, pDim1End) + std::distance(pDim2, pDim2End));
+	_dims.insert(_dims.end(), pDim1, pDim1End);
+	_dims.insert(_dims.end(), pDim2, pDim2End);
+	UpdateMetrics();
+}
+
 void Array::SetDimensions(const Dimensions &dims)
 {
 	_dims = dims;

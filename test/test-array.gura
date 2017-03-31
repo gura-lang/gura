@@ -505,3 +505,21 @@ testcase('range') {
 	tester(`func.range(3, -10, 2))
 	tester(`func.range(3, 10, 0))
 }
+testcase('sum') {
+	[
+		array {}
+		array.range(6)
+		array.range(6).reshape([3, 2])
+		array.range(24).reshape([4, 3, 2])
+		array.range(48).reshape([2, 4, 3, 2])
+	].each {|a|
+		println('----')
+		println(a)
+		tester(`a.sum())
+		tester(`a.sum(0))
+		tester(`a.sum(1))
+		tester(`a.sum(2))
+		tester(`a.sum(3))
+		tester(`a.sum(4))
+	}
+}

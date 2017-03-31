@@ -381,46 +381,6 @@ void ArrayT<T_Elem>::CopyToList(ValueList &valList) const
 	}
 }
 
-#if 0
-template<typename T_ElemResult, typename T_Elem>
-ArrayT<T_ElemResult> *CalcSum(ArrayT<T_Elem> *pArray, size_t axis)
-{
-	const Array::Dimensions &dims = pArray->GetDimensions();
-	Array::Dimensions::const_iterator pDim = dims.begin() + axis;
-	pDim->GetStride();
-	AutoPtr<ArrayT<T_Elem> > pArrayResult(ArrayT<T_ElemResult>::Create(pDim + 1, dims.end()));
-	const T_Elem *pElem = pArray->GetPointer();
-	T_ElemResult *pElemResult = pArrayResult->GetPointer();
-
-	return pArrayResult.release();
-}
-#endif
-
-template<typename T_Elem>
-T_Elem ArrayT<T_Elem>::Sum() const
-{
-	T_Elem rtn = 0;
-	const T_Elem *p = GetPointer();
-	for (size_t i = 0; i < GetElemNum(); i++, p++) {
-		rtn += *p;
-	}
-	return rtn;
-}
-
-template<typename T_Elem>
-T_Elem ArrayT<T_Elem>::Average() const
-{
-	if (GetElemNum() == 0) return 0;
-	return static_cast<T_Elem>(Sum() / GetElemNum());
-}
-
-template<>
-Complex ArrayT<Complex>::Average() const
-{
-	if (GetElemNum() == 0) return 0;
-	return Sum() / static_cast<double>(GetElemNum());
-}
-
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Flatten() const
 {
@@ -630,6 +590,17 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim,
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT());
 	pArrayT->SetDimensions(pDim, pDimEnd, dim);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(
+	Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
+	Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(pDim1, pDim1End, pDim2, pDim2End);
 	pArrayT->AllocMemory();
 	return pArrayT.release();
 }
