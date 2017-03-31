@@ -523,3 +523,21 @@ testcase('sum') {
 		tester(`a.sum(4))
 	}
 }
+testcase('average') {
+	[
+		array {}
+		array.range(6)
+		array.range(6).reshape([3, 2])
+		array.range(24).reshape([4, 3, 2])
+		array.range(48).reshape([2, 4, 3, 2])
+	].each {|a|
+		println('----')
+		println(a)
+		tester(`a.average())
+		tester(`a.average(0))
+		tester(`a.average(1))
+		tester(`a.average(2))
+		tester(`a.average(3))
+		tester(`a.average(4))
+	}
+}

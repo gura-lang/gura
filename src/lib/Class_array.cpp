@@ -42,14 +42,10 @@ Value CallMethod(Environment &env, Argument &arg, const MethodT methods[],
 }
 
 template<typename T_ElemResult, typename T_Elem>
-ArrayT<T_ElemResult> *CalcSum(Environment &env, const ArrayT<T_Elem> *pArrayT, size_t axis)
+ArrayT<T_ElemResult> *CalcSum(const ArrayT<T_Elem> *pArrayT,
+							  Array::Dimensions::const_iterator pDimAxis)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	if (axis + 1 > dims.size()) {
-		env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
-		return nullptr;
-	}
-	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	AutoPtr<ArrayT<T_Elem> > pArrayTResult(
 		ArrayT<T_ElemResult>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTResult->FillZero();
@@ -87,6 +83,21 @@ T_ElemResult CalcSumFlat(const ArrayT<T_Elem> *pArrayT)
 		rtn += *p;
 	}
 	return rtn;
+}
+
+template<typename T_ElemResult, typename T_Elem>
+ArrayT<T_ElemResult> *CalcAverage(const ArrayT<T_Elem> *pArrayT,
+								  Array::Dimensions::const_iterator pDimAxis)
+{
+	ArrayT<T_ElemResult> *pArrayTResult = CalcSum<T_ElemResult, T_Elem>(pArrayT, pDimAxis);
+	size_t n = pDimAxis->GetSize();
+	if (n != 0) {
+		T_ElemResult *p = pArrayTResult->GetPointer();
+		for (size_t i = 0; i < pArrayTResult->GetElemNum(); i++, p++) {
+			*p /= n;
+		}
+	}
+	return pArrayTResult;
 }
 
 template<typename T_ElemResult, typename T_Elem>
@@ -410,10 +421,11 @@ Gura_ImplementFunction(array)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// array#average() {block?}
+// array#average(axis?:number) {block?}
 Gura_DeclareMethod(array, average)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -425,7 +437,25 @@ template<typename T_Elem>
 Value Method_average(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	return pFunc->ReturnValue(env, arg, Value(CalcAverageFlat<T_Elem>(pArrayT)));
+	Value valueRtn;
+	if (arg.IsValid(0)) {
+		size_t axis = arg.GetSizeT(0);
+		const Array::Dimensions &dims = pArrayT->GetDimensions();
+		if (axis >= dims.size()) {
+			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+			return Value::Nil;
+		} else if (axis == 0 && dims.size() == 1) {
+			valueRtn = Value(CalcAverageFlat<T_Elem, T_Elem>(pArrayT));
+		} else {
+			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
+			ArrayT<T_Elem> *pArrayTResult = CalcAverage<T_Elem, T_Elem>(pArrayT, pDimAxis);
+			if (pArrayTResult == nullptr) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayTResult));
+		}
+	} else {
+		valueRtn = Value(CalcAverageFlat<T_Elem, T_Elem>(pArrayT));
+	}
+	return pFunc->ReturnValue(env, arg, valueRtn);
 }
 
 Gura_ImplementMethod(array, average)
@@ -922,10 +952,15 @@ Value Method_sum(Environment &env, Argument &arg, const Function *pFunc, Array *
 	Value valueRtn;
 	if (arg.IsValid(0)) {
 		size_t axis = arg.GetSizeT(0);
-		if (axis == 0 && pArrayT->GetDimensions().size() == 1) {
+		const Array::Dimensions &dims = pArrayT->GetDimensions();
+		if (axis >= dims.size()) {
+			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+			return Value::Nil;
+		} else if (axis == 0 && dims.size() == 1) {
 			valueRtn = Value(CalcSumFlat<T_Elem, T_Elem>(pArrayT));
 		} else {
-			ArrayT<T_Elem> *pArrayTResult = CalcSum<T_Elem, T_Elem>(env, pArrayT, axis);
+			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
+			ArrayT<T_Elem> *pArrayTResult = CalcSum<T_Elem, T_Elem>(pArrayT, pDimAxis);
 			if (pArrayTResult == nullptr) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayTResult));
 		}

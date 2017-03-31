@@ -3855,3 +3855,137 @@ a.sum(3) .. [[[ 1,  5,  9],
   [73, 77, 81],
   [85, 89, 93]]]
 a.sum(4) .. OutOfRange: specified axis is out of range
+
+======== #28 average ========
+
+----
+[]
+a.average() .. 0
+a.average(0) .. 0
+a.average(1) .. OutOfRange: specified axis is out of range
+a.average(2) .. OutOfRange: specified axis is out of range
+a.average(3) .. OutOfRange: specified axis is out of range
+a.average(4) .. OutOfRange: specified axis is out of range
+----
+[0, 1, 2, 3, 4, 5]
+a.average() .. 2.5
+a.average(0) .. 2.5
+a.average(1) .. OutOfRange: specified axis is out of range
+a.average(2) .. OutOfRange: specified axis is out of range
+a.average(3) .. OutOfRange: specified axis is out of range
+a.average(4) .. OutOfRange: specified axis is out of range
+----
+[[0, 1],
+ [2, 3],
+ [4, 5]]
+a.average() .. 2.5
+a.average(0) .. [2, 3]
+a.average(1) .. [0.5, 2.5, 4.5]
+a.average(2) .. OutOfRange: specified axis is out of range
+a.average(3) .. OutOfRange: specified axis is out of range
+a.average(4) .. OutOfRange: specified axis is out of range
+----
+[[[ 0,  1],
+  [ 2,  3],
+  [ 4,  5]],
+
+ [[ 6,  7],
+  [ 8,  9],
+  [10, 11]],
+
+ [[12, 13],
+  [14, 15],
+  [16, 17]],
+
+ [[18, 19],
+  [20, 21],
+  [22, 23]]]
+a.average() .. 11.5
+a.average(0) .. [[ 9, 10],
+ [11, 12],
+ [13, 14]]
+a.average(1) .. [[ 2,  3],
+ [ 8,  9],
+ [14, 15],
+ [20, 21]]
+a.average(2) .. [[ 0.5,  2.5,  4.5],
+ [ 6.5,  8.5, 10.5],
+ [12.5, 14.5, 16.5],
+ [18.5, 20.5, 22.5]]
+a.average(3) .. OutOfRange: specified axis is out of range
+a.average(4) .. OutOfRange: specified axis is out of range
+----
+[[[[ 0,  1],
+   [ 2,  3],
+   [ 4,  5]],
+
+  [[ 6,  7],
+   [ 8,  9],
+   [10, 11]],
+
+  [[12, 13],
+   [14, 15],
+   [16, 17]],
+
+  [[18, 19],
+   [20, 21],
+   [22, 23]]],
+
+
+ [[[24, 25],
+   [26, 27],
+   [28, 29]],
+
+  [[30, 31],
+   [32, 33],
+   [34, 35]],
+
+  [[36, 37],
+   [38, 39],
+   [40, 41]],
+
+  [[42, 43],
+   [44, 45],
+   [46, 47]]]]
+a.average() .. 23.5
+a.average(0) .. [[[12, 13],
+  [14, 15],
+  [16, 17]],
+
+ [[18, 19],
+  [20, 21],
+  [22, 23]],
+
+ [[24, 25],
+  [26, 27],
+  [28, 29]],
+
+ [[30, 31],
+  [32, 33],
+  [34, 35]]]
+a.average(1) .. [[[ 9, 10],
+  [11, 12],
+  [13, 14]],
+
+ [[33, 34],
+  [35, 36],
+  [37, 38]]]
+a.average(2) .. [[[ 2,  3],
+  [ 8,  9],
+  [14, 15],
+  [20, 21]],
+
+ [[26, 27],
+  [32, 33],
+  [38, 39],
+  [44, 45]]]
+a.average(3) .. [[[ 0.5,  2.5,  4.5],
+  [ 6.5,  8.5, 10.5],
+  [12.5, 14.5, 16.5],
+  [18.5, 20.5, 22.5]],
+
+ [[24.5, 26.5, 28.5],
+  [30.5, 32.5, 34.5],
+  [36.5, 38.5, 40.5],
+  [42.5, 44.5, 46.5]]]
+a.average(4) .. OutOfRange: specified axis is out of range
