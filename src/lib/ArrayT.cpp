@@ -625,6 +625,16 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim,
 }
 
 template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim,
+									   Dimensions::const_iterator pDimEnd, const Dimension &dim)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(pDim, pDimEnd, dim);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromValue(Environment &env, const Value &value)
 {
 	AutoPtr<ArrayT<T_Elem> > pArrayT;

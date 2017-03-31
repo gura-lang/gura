@@ -864,21 +864,25 @@ ArrayT<T_ElemResult> *CalcSum(Environment &env, const ArrayT<T_Elem> *pArrayT, s
 		return nullptr;
 	}
 	AutoPtr<ArrayT<T_Elem> > pArrayTResult;
-	if (axis + 1 == dims.size()) {
-		pArrayTResult.reset(ArrayT<T_ElemResult>::Create(dims[dims.size() - 2]));
+	Array::Dimensions::const_iterator pDim = dims.begin() + axis;
+	if (pDim + 1 == dims.end()) {
+		pArrayTResult.reset(ArrayT<T_ElemResult>::Create(dims.begin() + 1, dims.end()));
+		pArrayTResult->FillZero();
 		
 	} else {
-		Array::Dimensions::const_iterator pDim = dims.begin() + axis;
-		pArrayTResult.reset(ArrayT<T_ElemResult>::Create(pDim + 1, dims.end()));
+		pArrayTResult.reset(ArrayT<T_ElemResult>::Create(dims.begin() + 1, dims.end()));
 		pArrayTResult->FillZero();
+		size_t stride = pDim->GetStride();
 		const T_Elem *pElem = pArrayT->GetPointer();
 		T_ElemResult *pElemResult = pArrayTResult->GetPointer();
-		size_t numElemsResult = pArrayTResult->GetElemNum();
-		size_t cnt = pArrayT->GetElemNum() / numElemsResult;
+		size_t cnt = pArrayT->GetElemNum() / (pDim->GetSize() * stride);
 		while (cnt-- > 0) {
-			for (size_t iOffsetResult = 0; iOffsetResult < numElemsResult; iOffsetResult++, pElem++) {
-				*(pElemResult + iOffsetResult) += *pElem;
+			for (size_t i = 0; i < pDim->GetSize(); i++) {
+				for (size_t j = 0; j < stride; j++, pElem++) {
+					*(pElemResult + j) += *pElem;
+				}
 			}
+			pElemResult += stride;
 		}
 	}
 	return pArrayTResult.release();

@@ -61,6 +61,8 @@ public:
 	static ArrayT *Create(const Dimension &dim);
 	static ArrayT *Create(const Array::Dimensions &dims);
 	static ArrayT *Create(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
+	static ArrayT *Create(Dimensions::const_iterator pDim,
+						  Dimensions::const_iterator pDimEnd, const Dimension &dim);
 	static ArrayT *CreateFromValue(Environment &env, const Value &value);
 	static ArrayT *CreateFromList(const ValueList &valList);
 	static ArrayT *CreateFromList(Signal &sig, const ValueList &valList);
