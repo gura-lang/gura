@@ -5,6 +5,7 @@
 
 namespace Gura {
 
+typedef Value (*ConstructorT)(Environment &env, Argument &arg);
 typedef Value (*PropertyGetterT)(Environment &env, Array *pArraySelf);
 typedef Value (*IndexGetT)(Environment &env, const Value &valueIdx, Object_array *pObj);
 typedef void (*IndexSetT)(Environment &env, const Value &valueIdx, const Value &value, Object_array *pObj);
@@ -384,11 +385,12 @@ Gura_ImplementPropertyGetter(array, T)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// array(src?) {block?}
+// array(src?, elemtype?:symbol) {block?}
 Gura_DeclareFunction(array)
 {
 	SetFuncAttr(VTYPE_array_at_double, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "src", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_array));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -405,6 +407,28 @@ Gura_DeclareFunction(array)
 
 Gura_ImplementFunction(array)
 {
+	static const ConstructorT constructorTbl[] = {
+		nullptr,
+		&Object_arrayT<Int8>::Constructor,
+		&Object_arrayT<UInt8>::Constructor,
+		&Object_arrayT<Int16>::Constructor,
+		&Object_arrayT<UInt16>::Constructor,
+		&Object_arrayT<Int32>::Constructor,
+		&Object_arrayT<UInt32>::Constructor,
+		&Object_arrayT<Int64>::Constructor,
+		&Object_arrayT<UInt64>::Constructor,
+		&Object_arrayT<Float>::Constructor,
+		&Object_arrayT<Double>::Constructor,
+		//&Object_arrayTpl<Complex>::Constructor,
+	};
+	Array::ElemType elemType = arg.IsValid(1)?
+		Array::SymbolToElemType(arg.GetSymbol(1)) : Array::ETYPE_Double;
+	if (elemType == Array::ETYPE_None) {
+		env.SetError(ERR_ValueError, "invalid symbol for elemtype");
+		return Value::Nil;
+	}
+	return (*constructorTbl[elemType])(env, arg);
+#if 0
 	AutoPtr<ArrayT<Double> > pArrayT;
 	if (arg.IsValid(0)) {
 		pArrayT.reset(ArrayT<Double>::CreateFromValue(env, arg.GetValue(0)));
@@ -416,6 +440,7 @@ Gura_ImplementFunction(array)
 	}
 	if (pArrayT.IsNull()) return Value::Nil;
 	return Value(new Object_array(env, pArrayT.release()));
+#endif
 }
 
 //-----------------------------------------------------------------------------

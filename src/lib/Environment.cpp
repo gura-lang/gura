@@ -81,6 +81,7 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	ValueTypePool::Initialize(env);
 	GetGlobal()->Prepare(env);
 	Operator::Initialize(env);
+	Array::Initialize();
 	ValueTypePool::DoPrepareClass(env);
 	OAL::SetupExecutablePath();
 	Module::ImportBuiltIns(env);

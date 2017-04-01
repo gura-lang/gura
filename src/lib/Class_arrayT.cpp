@@ -54,6 +54,22 @@ Object *Object_arrayT<T_Elem>::Clone() const
 	return nullptr;
 }
 
+template<typename T_Elem>
+Value Object_arrayT<T_Elem>::Constructor(Environment &env, Argument &arg)
+{
+	AutoPtr<ArrayT<T_Elem> > pArrayT;
+	if (arg.IsValid(0)) {
+		pArrayT.reset(ArrayT<T_Elem>::CreateFromValue(env, arg.GetValue(0)));
+	} else if (arg.IsBlockSpecified()) {
+		pArrayT.reset(ArrayT<T_Elem>::CreateFromExpr(env, arg.GetBlockCooked(env)));
+	} else {
+		env.SetError(ERR_SyntaxError, "argument or block must be specified");
+		return Value::Nil;
+	}
+	if (pArrayT.IsNull()) return Value::Nil;
+	return Value(new Object_array(env, pArrayT.release()));
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
@@ -90,6 +106,8 @@ Func_arrayT<T_Elem>::Func_arrayT(Environment &env, const Symbol *pSymbol, ValueT
 template<typename T_Elem>
 Value Func_arrayT<T_Elem>::DoEval(Environment &env, Argument &arg) const
 {
+	return Object_arrayT<T_Elem>::Constructor(env, arg);
+#if 0
 	AutoPtr<ArrayT<T_Elem> > pArrayT;
 	if (arg.IsValid(0)) {
 		pArrayT.reset(ArrayT<T_Elem>::CreateFromValue(env, arg.GetValue(0)));
@@ -101,6 +119,7 @@ Value Func_arrayT<T_Elem>::DoEval(Environment &env, Argument &arg) const
 	}
 	if (pArrayT.IsNull()) return Value::Nil;
 	return Value(new Object_array(env, pArrayT.release()));
+#endif
 }
 
 //-----------------------------------------------------------------------------

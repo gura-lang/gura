@@ -46,6 +46,7 @@ public:
 		BinaryFunc_array_number binaryFuncs_array_number[ETYPE_Max];
 		BinaryFunc_number_array binaryFuncs_number_array[ETYPE_Max];
 	};
+	typedef std::map<const Symbol *, ElemType, Symbol::LessThan> MapToElemType;
 public:
 	class GURA_DLLDECLARE Dimension {
 	private:
@@ -71,6 +72,7 @@ protected:
 	Dimensions _dims;
 	size_t _offsetBase;
 	size_t _elemNum;
+	static MapToElemType _mapToElemType;
 public:
 	static UnaryFuncPack unaryFuncPack_Pos;
 	static UnaryFuncPack unaryFuncPack_Neg;
@@ -128,7 +130,7 @@ public:
 protected:
 	virtual ~Array();
 public:
-	void Initialize();
+	static void Initialize();
 public:
 	inline ElemType GetElemType() const { return _elemType; }
 	inline Memory &GetMemory() { return *_pMemory; }
@@ -163,6 +165,7 @@ public:
 	bool HasShape(const Value &valList) const;
 	bool PrepareModification(Signal &sig);
 public:
+	static ElemType SymbolToElemType(const Symbol *pSymbol);
 	static bool CheckShape(Signal &sig, const Array *pArrayA, const Array *pArrayB);
 	static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 										  const Array *pArrayL, const Array *pArrayR);

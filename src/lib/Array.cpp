@@ -9,8 +9,33 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Array
 //-----------------------------------------------------------------------------
+Array::MapToElemType Array::_mapToElemType;
+
 Array::~Array()
 {
+}
+
+void Array::Initialize()
+{
+	static const struct {
+		const char *name;
+		ElemType elemType;
+	} tbl[] = {
+		{ "int8",		ETYPE_Int8		},
+		{ "uint8",		ETYPE_UInt8		},
+		{ "int16",		ETYPE_Int16		},
+		{ "uint16",		ETYPE_UInt16	},
+		{ "int32",		ETYPE_Int32		},
+		{ "uint32",		ETYPE_UInt32	},
+		{ "int64",		ETYPE_Int64		},
+		{ "uint64",		ETYPE_UInt64	},
+		{ "float",		ETYPE_Float		},
+		{ "double",		ETYPE_Double	},
+		{ "complex",	ETYPE_Complex	},
+	};
+	for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
+		_mapToElemType[Symbol::Add(tbl[i].name)] = tbl[i].elemType;
+	}
 }
 
 String Array::ToString(bool exprFlag) const
@@ -175,6 +200,12 @@ bool Array::PrepareModification(Signal &sig)
 		}
 	}
 	return true;
+}
+
+Array::ElemType Array::SymbolToElemType(const Symbol *pSymbol)
+{
+	MapToElemType::const_iterator iter = _mapToElemType.find(pSymbol);
+	return (iter == _mapToElemType.end())? ETYPE_None : iter->second;
 }
 
 bool Array::CheckShape(Signal &sig, const Array *pArrayA, const Array *pArrayB)

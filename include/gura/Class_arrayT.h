@@ -40,6 +40,7 @@ public:
 		return dynamic_cast<ArrayT<T_Elem> *>(_pArray.get());
 	}
 	virtual Object *Clone() const;
+	static Value Constructor(Environment &env, Argument &arg);
 };
 
 }
