@@ -3989,3 +3989,27 @@ a.average(3) .. [[[ 0.5,  2.5,  4.5],
   [36.5, 38.5, 40.5],
   [42.5, 44.5, 46.5]]]
 a.average(4) .. OutOfRange: specified axis is out of range
+
+======== #29 constructor with elemtype ========
+
+int8: [[0, 1, 2],
+ [3, 4, 5]]
+uint8: [[0, 1, 2],
+ [3, 4, 5]]
+int16: [[0, 1, 2],
+ [3, 4, 5]]
+uint16: [[0, 1, 2],
+ [3, 4, 5]]
+int32: [[0, 1, 2],
+ [3, 4, 5]]
+uint32: [[0, 1, 2],
+ [3, 4, 5]]
+int64: [[0, 1, 2],
+ [3, 4, 5]]
+uint64: [[0, 1, 2],
+ [3, 4, 5]]
+float: [[0, 1, 2],
+ [3, 4, 5]]
+double: [[0, 1, 2],
+ [3, 4, 5]]
+ValueError: invalid symbol for elemtype

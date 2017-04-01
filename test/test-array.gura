@@ -541,3 +541,16 @@ testcase('average') {
 		tester(`a.average(4))
 	}
 }
+testcase('constructor with elemtype') {
+	[
+		`int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64, `float, `double,
+		`int9
+	].each {|elemtype|
+		try {
+			x = array(elemtype => elemtype) {{0, 1, 2}, {3, 4, 5}}
+			println(x.elemtype, ': ', x)
+		} catch {|e|
+			println(e.text)
+		}
+	}
+}
