@@ -125,8 +125,8 @@ public:
 	inline Array(ElemType elemType, const Array &src) : _cntRef(1),
 		_elemType(elemType), _pMemory(src._pMemory->Reference()), _dims(src._dims),
 		_offsetBase(src._offsetBase), _elemNum(src._elemNum) {}
-	inline Array(ElemType elemType, Memory *pMemory) : _cntRef(1),
-		_elemType(elemType), _pMemory(pMemory), _offsetBase(0), _elemNum(0) {}
+	inline Array(ElemType elemType, Memory *pMemory, size_t offsetBase) : _cntRef(1),
+		_elemType(elemType), _pMemory(pMemory), _offsetBase(offsetBase), _elemNum(0) {}
 protected:
 	virtual ~Array();
 public:

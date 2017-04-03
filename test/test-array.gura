@@ -554,3 +554,14 @@ testcase('constructor with elemtype') {
 		}
 	}
 }
+testcase('operation test on array with offset') {
+	x = array@int32.range(64)
+	x_off = x.offset(32)
+	tester(`x_off)
+	tester(`x_off.flatten())
+	tester(`x_off.reshape([4, 8]))
+	tester(`x_off.head(16))
+	tester(`x_off.tail(16))
+	tester(`x_off.offset(16))
+	tester(`x_off.each().head(16):list)
+}

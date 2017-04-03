@@ -18,7 +18,7 @@ public:
 public:
 	ArrayT();
 	ArrayT(const ArrayT &src);
-	ArrayT(Memory *pMemory);
+	ArrayT(Memory *pMemory, size_t offsetBase);
 	ArrayT(size_t size);
 	ArrayT(size_t sizeRow, size_t sizeCol);
 	inline void AllocMemory() {

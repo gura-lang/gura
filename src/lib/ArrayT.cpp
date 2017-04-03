@@ -14,7 +14,7 @@ template<> \
 ArrayT<T_Elem>::ArrayT(const ArrayT &src) : Array(ETYPE_##T_Elem, src) \
 {} \
 template<> \
-ArrayT<T_Elem>::ArrayT(Memory *pMemory) : Array(ETYPE_##T_Elem, pMemory) \
+ArrayT<T_Elem>::ArrayT(Memory *pMemory, size_t offsetBase) : Array(ETYPE_##T_Elem, pMemory, offsetBase) \
 {} \
 template<> \
 ArrayT<T_Elem>::ArrayT(size_t size) : Array(ETYPE_##T_Elem) \
@@ -384,8 +384,7 @@ void ArrayT<T_Elem>::CopyToList(ValueList &valList) const
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Flatten() const
 {
-	AutoPtr<ArrayT> pArrayRtn(new ArrayT(GetMemory().Reference()));
-	pArrayRtn->SetOffsetBase(GetOffsetBase());
+	AutoPtr<ArrayT> pArrayRtn(new ArrayT(GetMemory().Reference(), GetOffsetBase()));
 	pArrayRtn->SetDimension(Dimension(GetElemNum()));
 	return pArrayRtn.release();
 }
@@ -410,7 +409,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Reshape(Signal &sig, const ValueList &valList) c
 		sig.SetError(ERR_ValueError, "incorrect shape specified");
 		return nullptr;
 	}
-	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference()));
+	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference(), GetOffsetBase()));
 	Dimensions &dims = pArrayTRtn->GetDimensions();
 	dims.reserve(valList.size());
 	foreach_const (ValueList, pValue, valList) {
@@ -491,9 +490,8 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Head(Signal &sig, size_t n) const
 		return nullptr;
 	}
 	size_t offsetBase = GetOffsetBase();
-	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference()));
+	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference(), offsetBase));
 	pArrayTRtn->SetDimensions(Dimension(n), GetDimensions().begin() + 1, GetDimensions().end());
-	pArrayTRtn->SetOffsetBase(offsetBase);
 	return pArrayTRtn.release();
 }
 
@@ -506,10 +504,9 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Tail(Signal &sig, size_t n) const
 		return nullptr;
 	}
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStride() * (dimFirst.GetSize() - n);
-	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference()));
+	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference(), offsetBase));
 	pArrayTRtn->SetDimensions(Dimension(n),
 							  GetDimensions().begin() + 1, GetDimensions().end());
-	pArrayTRtn->SetOffsetBase(offsetBase);
 	return pArrayTRtn.release();
 }
 
@@ -523,10 +520,9 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
 	}
 	size_t nElems = dimFirst.GetSize() - n;
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStride() * n;
-	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference()));
+	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference(), offsetBase));
 	pArrayTRtn->SetDimensions(Dimension(nElems),
 							  GetDimensions().begin() + 1, GetDimensions().end());
-	pArrayTRtn->SetOffsetBase(offsetBase);
 	return pArrayTRtn.release();
 }
 
@@ -828,9 +824,10 @@ bool Iterator_ArrayT_Each<T_Elem>::DoNext(Environment &env, Value &value)
 		if (pDim + 1 == dims.end()) {
 			value = Value(_pArrayT->GetPointer()[_idx]);
 		} else {
-			AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(_pArrayT->GetMemory().Reference()));
+			size_t offsetBase = _pArrayT->GetOffsetBase() + pDim->GetStride() * _idx;
+			AutoPtr<ArrayT<T_Elem> > pArrayRtn(
+				new ArrayT<T_Elem>(_pArrayT->GetMemory().Reference(), offsetBase));
 			pArrayRtn->SetDimensions(pDim + 1, dims.end());
-			pArrayRtn->SetOffsetBase(_pArrayT->GetOffsetBase() + pDim->GetStride() * _idx);
 			value = Value(new Object_array(env, pArrayRtn.release()));
 		}
 	}

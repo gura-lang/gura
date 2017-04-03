@@ -147,9 +147,10 @@ Value IndexGetTmpl(Environment &env, const Value &valueIdx, Object_array *pObj)
 	if (pDim + 1 == dims.end()) {
 		return Value(pArrayT->GetPointer()[idx]);
 	}
-	AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
+	size_t offsetBase = pArrayT->GetOffsetBase() + pDim->GetStride() * idx;
+	AutoPtr<ArrayT<T_Elem> > pArrayRtn(
+		new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(), offsetBase));
 	pArrayRtn->SetDimensions(pDim + 1, dims.end());
-	pArrayRtn->SetOffsetBase(pArrayT->GetOffsetBase() + pDim->GetStride() * idx);
 	return Value(new Object_array(env, pArrayRtn.release()));
 }
 
