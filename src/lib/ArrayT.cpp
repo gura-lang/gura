@@ -476,9 +476,9 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes) const
 		}
 		pArrayTRtn->UpdateMetrics();
 		pArrayTRtn->AllocMemory();
+		T_Elem *pDst = pArrayTRtn->GetPointer();
+		TransposeSub(pDst, GetPointer(), GetDimensions(), axes.begin(), axes.end());
 	} while (0);
-	T_Elem *pDst = pArrayTRtn->GetPointer();
-	TransposeSub(pDst, GetPointer(), GetDimensions(), axes.begin(), axes.end());
 	return pArrayTRtn.release();
 }
 
