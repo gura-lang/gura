@@ -24,7 +24,6 @@ FormatArray(fmt:string, array:array):map = {
 }
 
 PrintArray(fmt:string, array:array) = println(FormatArray(fmt, array))
-
 testcase('constructor') {
 	funcs.each {|func|
 		println(func)
@@ -564,4 +563,29 @@ testcase('operation test on array with offset') {
 	tester(`x_off.tail(16))
 	tester(`x_off.offset(16))
 	tester(`x_off.each().head(16):list)
+}
+testcase('tranpsose() and T') {
+	array.range(12) {|x|
+		tester(`x)
+		tester(`x.transpose())
+		tester(`x.T)
+	}
+	println('----')
+	array.range(12).reshape([3, 4]) {|x|
+		tester(`x)
+		tester(`x.transpose())
+		tester(`x.T)
+	}
+	println('----')
+	array.range(24).reshape([2, 3, 4]) {|x|
+		tester(`x)
+		tester(`x.transpose())
+		tester(`x.T)
+	}
+	println('----')
+	array.range(72).reshape([3, 2, 3, 4]) {|x|
+		tester(`x)
+		tester(`x.transpose())
+		tester(`x.T)
+	}
 }

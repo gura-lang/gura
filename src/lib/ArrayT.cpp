@@ -466,6 +466,7 @@ template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes) const
 {
 	AutoPtr<ArrayT> pArrayTRtn(new ArrayT());
+	//::printf("%d %d\n", axes[0], axes[1]);
 	do {
 		Dimensions &dimsDst = pArrayTRtn->GetDimensions();
 		dimsDst.reserve(GetDimensions().size());
@@ -479,6 +480,19 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes) const
 		TransposeSub(pDst, GetPointer(), GetDimensions(), axes.begin(), axes.end());
 	} while (0);
 	return pArrayTRtn.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose() const
+{
+	size_t nAxes = GetDimensions().size();
+	if (nAxes < 2) return new ArrayT<T_Elem>(*this);
+	SizeTList axes;
+	axes.reserve(nAxes);
+	size_t axis = 0;
+	for ( ; axis < nAxes - 2; axis++) axes.push_back(axis);
+	axes.push_back(axis + 1), axes.push_back(axis);
+	return Transpose(axes);
 }
 
 template<typename T_Elem>

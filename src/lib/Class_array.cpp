@@ -347,21 +347,21 @@ template<typename T_Elem>
 Value PropertyGetter_T(Environment &env, Array *pArraySelf)
 {
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+#if 0
 	size_t nAxes = pArrayT->GetDimensions().size();
-	if (nAxes == 1) {
-		env.SetError(ERR_NotImplementedError, "not implemented yet");
-		return Value::Nil;
-	} else if (nAxes == 2) {
-		SizeTList axes;
-		axes.reserve(2);
-		axes.push_back(1), axes.push_back(0);
-		AutoPtr<Array> pArrayTRtn(pArrayT->Transpose(axes));
-		return Value(new Object_array(env, pArrayTRtn.release()));
-	} else {
-		env.SetError(ERR_ValueError,
-					 "property T is only available with an array of 1D or 2D");
+	if (nAxes < 2) {
+		env.SetError(ERR_ValueError, "transpose can be applied to an array of 2D or more");
 		return Value::Nil;
 	}
+	SizeTList axes;
+	axes.reserve(nAxes);
+	size_t axis = 0;
+	for ( ; axis < nAxes - 2; axis++) axes.push_back(axis);
+	axes.push_back(axis + 1), axes.push_back(axis);
+	AutoPtr<Array> pArrayTRtn(pArrayT->Transpose(axes));
+	return Value(new Object_array(env, pArrayTRtn.release()));
+#endif
+	return Value(new Object_array(env, pArrayT->Transpose()));
 }
 
 Gura_ImplementPropertyGetter(array, T)
@@ -1062,11 +1062,11 @@ Gura_ImplementMethod(array, tail)
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
-// array#transpose(axes[]:number) {block?}
+// array#transpose(axes[]?:number) {block?}
 Gura_DeclareMethod(array, transpose)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "axes", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "axes", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -1079,8 +1079,13 @@ Value Method_transpose(Environment &env, Argument &arg, const Function *pFunc, A
 {
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
-	AutoPtr<Array> pArrayTRtn(pArrayT->Transpose(sig, arg.GetList(0)));
-	if (pArrayTRtn.IsNull()) return Value::Nil;
+	AutoPtr<Array> pArrayTRtn;
+	if (arg.IsValid(0)) {
+		pArrayTRtn.reset(pArrayT->Transpose(sig, arg.GetList(0)));
+		if (pArrayTRtn.IsNull()) return Value::Nil;
+	} else {
+		pArrayTRtn.reset(pArrayT->Transpose());
+	}
 	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayTRtn.release())));
 }
 

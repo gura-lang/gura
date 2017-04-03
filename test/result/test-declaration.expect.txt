@@ -373,7 +373,7 @@ array
   array#roundoff(threshold?:number) {block?}
   array#sum(axis?:number):map {block?}
   array#tail(n:number):map {block?}
-  array#transpose(axes[]:number) {block?}
+  array#transpose(axes[]?:number) {block?}
   array.zeros(dims[]:number):static:map {block?}
 array@double
   array@double.identity(n:number):static:map {block?}
