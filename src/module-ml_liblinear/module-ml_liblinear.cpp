@@ -21,8 +21,7 @@ Gura_DeclareFunction(train)
 
 Gura_ImplementFunction(train)
 {
-	//return Value(arg.GetNumber(0) + arg.GetNumber(1));
-	::train(nullptr, nullptr);
+	//::train(nullptr, nullptr);
 	return Value::Nil;
 }
 

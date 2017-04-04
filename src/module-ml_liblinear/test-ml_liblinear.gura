@@ -3,5 +3,5 @@ import(helper.test) {*}
 import(ml.liblinear)
 
 testcase {
-	println(ml.liblinear.test(3, 4))
+	ml.liblinear.train()
 }
