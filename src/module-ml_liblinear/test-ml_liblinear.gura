@@ -1,0 +1,7 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+import(ml.liblinear)
+
+testcase {
+	println(ml.liblinear.test(3, 4))
+}

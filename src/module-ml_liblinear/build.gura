@@ -1,0 +1,12 @@
+#!/usr/bin/env gura
+import(modbuild)
+
+builder = modbuild.Builder()
+if (sys.platform == `mswin) {
+} elsif (sys.platform == `linux) {
+} elsif (sys.platform == `darwin) {
+	builder.incDirs.append('.')
+	builder.libDirs.append('.')
+	builder.libs.append('linear')
+}
+builder.build('ml.liblinear', ['module-ml_liblinear.cpp'])
