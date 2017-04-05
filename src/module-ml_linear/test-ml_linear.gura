@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
-import(ml.liblinear)
+import(ml.linear)
 
 testcase {
-	ml.liblinear.train()
+	ml.linear.train()
 }

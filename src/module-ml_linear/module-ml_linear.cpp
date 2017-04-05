@@ -1,14 +1,14 @@
 //=============================================================================
-// Gura module: ml.liblinear
+// Gura module: ml.linear
 //=============================================================================
 #include "stdafx.h"
 
-Gura_BeginModuleBody(ml_liblinear)
+Gura_BeginModuleBody(ml_linear)
 
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// ml.liblinear.train()
+// ml.linear.train()
 Gura_DeclareFunction(train)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -44,6 +44,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModuleBody(ml_liblinear, liblinear)
+Gura_EndModuleBody(ml_linear, linear)
 
-Gura_RegisterModule(ml_liblinear)
+Gura_RegisterModule(ml_linear)
