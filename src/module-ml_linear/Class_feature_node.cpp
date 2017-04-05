@@ -26,6 +26,7 @@ Gura_ImplementUserClass(feature_node)
 {
 	// Assignment of properties
 	// Assignment of value
+	Gura_AssignValue(feature_node, Value(Reference()));
 }
 
 Gura_EndModuleScope(ml_linear)

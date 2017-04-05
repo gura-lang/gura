@@ -12,7 +12,7 @@ class Object_ifd;
 Gura_DeclareUserClass(feature_node);
 
 class Object_feature_node : public Object {
-private:
+public:
 	Gura_DeclareObjectAccessor(feature_node)
 public:
 	Object_feature_node();

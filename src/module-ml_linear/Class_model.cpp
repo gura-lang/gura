@@ -26,6 +26,7 @@ Gura_ImplementUserClass(model)
 {
 	// Assignment of properties
 	// Assignment of value
+	Gura_AssignValue(model, Value(Reference()));
 }
 
 Gura_EndModuleScope(ml_linear)

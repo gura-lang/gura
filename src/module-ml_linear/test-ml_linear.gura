@@ -2,6 +2,24 @@
 import(helper.test) {*}
 import(ml.linear)
 
+testcase('features of ml.linear.feature_node') {
+	println(ml.linear.feature_node)
+}
+
+testcase('features of ml.linear.problem') {
+	println(ml.linear.problem)
+}
+
+testcase('features of ml.linear.parameter') {
+	println(ml.linear.parameter)
+}
+
+testcase('features of ml.linear.model') {
+	println(ml.linear.model)
+}
+
 testcase {
-	ml.linear.train()
+	prob = ml.linear.problem()
+	param = ml.linear.parameter()
+	ml.linear.train(prob, param)
 }

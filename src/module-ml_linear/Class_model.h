@@ -12,7 +12,7 @@ class Object_ifd;
 Gura_DeclareUserClass(model);
 
 class Object_model : public Object {
-private:
+public:
 	Gura_DeclareObjectAccessor(model)
 public:
 	Object_model();
