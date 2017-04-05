@@ -9,4 +9,10 @@ if (sys.platform == `mswin) {
 	builder.libDirs.append('.')
 	builder.libs.append('linear')
 }
-builder.build('ml.linear', ['module-ml_linear.cpp', 'Class_model.cpp'])
+builder.build('ml.linear', [
+	'module-ml_linear.cpp'
+	'Class_feature_node.cpp'
+	'Class_problem.cpp'
+	'Class_parameter.cpp'
+	'Class_model.cpp'
+	])

@@ -35,6 +35,11 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	// class realization
+	Gura_RealizeAndPrepareUserClass(feature_node, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(problem, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(parameter, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(model, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(train);
 	return true;

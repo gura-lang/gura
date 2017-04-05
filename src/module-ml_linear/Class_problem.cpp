@@ -1,18 +1,18 @@
 #include "stdafx.h"
-#include "Class_model.h"
+#include "Class_problem.h"
 
 Gura_BeginModuleScope(ml_linear)
 
 //-----------------------------------------------------------------------------
-// Object_model implementation
+// Object_problem implementation
 //-----------------------------------------------------------------------------
-Object_model::Object_model() : Object(Gura_UserClass(model))
+Object_problem::Object_problem() : Object(Gura_UserClass(problem))
 {
 }
 
-String Object_model::ToString(bool exprFlag)
+String Object_problem::ToString(bool exprFlag)
 {
-	return String("<ml.linear.model>");
+	return String("<ml.linear.problem>");
 }
 
 //-----------------------------------------------------------------------------
@@ -22,7 +22,7 @@ String Object_model::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(model)
+Gura_ImplementUserClass(problem)
 {
 	// Assignment of properties
 	// Assignment of value
