@@ -8,11 +8,21 @@ Gura_BeginModuleScope(ml_linear)
 //-----------------------------------------------------------------------------
 Object_problem::Object_problem() : Object(Gura_UserClass(problem))
 {
+	::memset(&_prob, 0x00, sizeof(_prob));
+	_prob.l = _prob.n = 0;
+	_prob.y = nullptr;
+	_prob.x = nullptr;
+	_prob.bias = 0;
 }
 
 String Object_problem::ToString(bool exprFlag)
 {
 	return String("<ml.linear.problem>");
+}
+
+bool Object_problem::HasValidEntity() const
+{
+	return false;
 }
 
 //-----------------------------------------------------------------------------

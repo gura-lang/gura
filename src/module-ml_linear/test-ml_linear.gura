@@ -2,8 +2,8 @@
 import(helper.test) {*}
 import(ml.linear)
 
-testcase('features of ml.linear.feature_node') {
-	println(ml.linear.feature_node)
+testcase('features of ml.linear.feature') {
+	println(ml.linear.feature)
 }
 
 testcase('features of ml.linear.problem') {

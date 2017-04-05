@@ -11,7 +11,7 @@ if (sys.platform == `mswin) {
 }
 builder.build('ml.linear', [
 	'module-ml_linear.cpp'
-	'Class_feature_node.cpp'
+	'Class_feature.cpp'
 	'Class_problem.cpp'
 	'Class_parameter.cpp'
 	'Class_model.cpp'

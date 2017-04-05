@@ -12,11 +12,15 @@ class Object_ifd;
 Gura_DeclareUserClass(parameter);
 
 class Object_parameter : public Object {
+private:
+	struct parameter _param;
 public:
 	Gura_DeclareObjectAccessor(parameter)
 public:
 	Object_parameter();
 	virtual String ToString(bool exprFlag);
+	inline struct parameter &GetEntity() { return _param; }
+	bool HasValidEntity() const;
 };
 
 Gura_EndModuleScope(ml_linear)

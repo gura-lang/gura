@@ -21,10 +21,17 @@ Gura_DeclareFunction(train)
 
 Gura_ImplementFunction(train)
 {
-	Object_problem::GetObject(arg, 0);
-	Object_parameter::GetObject(arg, 1);
-
-	//::train(nullptr, nullptr);
+	Object_problem *pObjProb = Object_problem::GetObject(arg, 0);
+	Object_parameter *pObjParam = Object_parameter::GetObject(arg, 1);
+	if (!pObjProb->HasValidEntity()) {
+		env.SetError(ERR_ValueError, "invalid instance of ml.linear.problem");
+		return Value::Nil;
+	}
+	if (!pObjParam->HasValidEntity()) {
+		env.SetError(ERR_ValueError, "invalid instance of ml.linear.parameter");
+		return Value::Nil;
+	}
+	::train(&pObjProb->GetEntity(), &pObjParam->GetEntity());
 	return Value::Nil;
 }
 
@@ -39,12 +46,13 @@ Gura_ModuleValidate()
 Gura_ModuleEntry()
 {
 	// class realization
-	Gura_RealizeAndPrepareUserClass(feature_node, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(feature, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(problem, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(parameter, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(model, env.LookupClass(VTYPE_object));
-	// function assignment
+	// Assignment of function
 	Gura_AssignFunction(train);
+	// Assignment of values
 	return true;
 }
 

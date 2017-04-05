@@ -1,5 +1,5 @@
-#ifndef __ML_LINEAR_CLASS_FEATURE_NODE_H__
-#define __ML_LINEAR_CLASS_FEATURE_NODE_H__
+#ifndef __ML_LINEAR_CLASS_FEATURE_H__
+#define __ML_LINEAR_CLASS_FEATURE_H__
 #include <gura.h>
 
 Gura_BeginModuleScope(ml_linear)
@@ -7,15 +7,15 @@ Gura_BeginModuleScope(ml_linear)
 class Object_ifd;
 
 //-----------------------------------------------------------------------------
-// Object_feature_node declaration
+// Object_feature declaration
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(feature_node);
+Gura_DeclareUserClass(feature);
 
-class Object_feature_node : public Object {
+class Object_feature : public Object {
 public:
-	Gura_DeclareObjectAccessor(feature_node)
+	Gura_DeclareObjectAccessor(feature)
 public:
-	Object_feature_node();
+	Object_feature();
 	virtual String ToString(bool exprFlag);
 };
 

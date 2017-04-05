@@ -5,7 +5,7 @@
 #define __GURA_MODULE_ML_LINEAR_H__
 #include <gura.h>
 #include <linear.h>
-#include "Class_feature_node.h"
+#include "Class_feature.h"
 #include "Class_problem.h"
 #include "Class_parameter.h"
 #include "Class_model.h"

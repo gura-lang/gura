@@ -1,18 +1,18 @@
 #include "stdafx.h"
-#include "Class_feature_node.h"
+#include "Class_feature.h"
 
 Gura_BeginModuleScope(ml_linear)
 
 //-----------------------------------------------------------------------------
-// Object_feature_node implementation
+// Object_feature implementation
 //-----------------------------------------------------------------------------
-Object_feature_node::Object_feature_node() : Object(Gura_UserClass(feature_node))
+Object_feature::Object_feature() : Object(Gura_UserClass(feature))
 {
 }
 
-String Object_feature_node::ToString(bool exprFlag)
+String Object_feature::ToString(bool exprFlag)
 {
-	return String("<ml.linear.feature_node>");
+	return String("<ml.linear.feature>");
 }
 
 //-----------------------------------------------------------------------------
@@ -22,11 +22,11 @@ String Object_feature_node::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(feature_node)
+Gura_ImplementUserClass(feature)
 {
 	// Assignment of properties
 	// Assignment of value
-	Gura_AssignValue(feature_node, Value(Reference()));
+	Gura_AssignValue(feature, Value(Reference()));
 }
 
 Gura_EndModuleScope(ml_linear)
