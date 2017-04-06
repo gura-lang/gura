@@ -4,18 +4,53 @@
 Gura_BeginModuleScope(ml_linear)
 
 //-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
+double GetRecommendedEPS(int solver_type)
+{
+	double eps = 0.1;
+	// this code has been extracted from train.c.
+	switch (solver_type) {
+	case L2R_LR:
+	case L2R_L2LOSS_SVC:
+		eps = 0.01;
+		break;
+	case L2R_L2LOSS_SVR:
+		eps = 0.001;
+		break;
+	case L2R_L2LOSS_SVC_DUAL:
+	case L2R_L1LOSS_SVC_DUAL:
+	case MCSVM_CS:
+	case L2R_LR_DUAL:
+		eps = 0.1;
+		break;
+	case L1R_L2LOSS_SVC:
+	case L1R_LR:
+		eps = 0.01;
+		break;
+	case L2R_L1LOSS_SVR_DUAL:
+	case L2R_L2LOSS_SVR_DUAL:
+		eps = 0.1;
+		break;
+	default:
+		break;
+	}
+	return eps;
+}
+	
+//-----------------------------------------------------------------------------
 // Object_parameter implementation
 //-----------------------------------------------------------------------------
 Object_parameter::Object_parameter() : Object(Gura_UserClass(parameter))
 {
 	::memset(&_param, 0x00, sizeof(_param));
-	_param.solver_type = L2R_LR;
-	_param.eps = 0;
-	_param.C = 0;
+	_param.solver_type = L2R_L2LOSS_SVC_DUAL;
+	_param.eps = HUGE_VAL;
+	_param.C = 1;
 	_param.nr_weight = 0;
 	_param.weight_label = nullptr;
 	_param.weight = nullptr;
-	_param.p = 0;
+	_param.p = .1;
 	_param.init_sol = nullptr;
 }
 
