@@ -18,6 +18,20 @@ testcase('features of ml.linear.model') {
 	println(ml.linear.model)
 }
 
+testcase('constants') {
+	tester(`ml.linear.L2R_LR)
+	tester(`ml.linear.L2R_L2LOSS_SVC_DUAL)
+	tester(`ml.linear.L2R_L2LOSS_SVC)
+	tester(`ml.linear.L2R_L1LOSS_SVC_DUAL)
+	tester(`ml.linear.MCSVM_CS)
+	tester(`ml.linear.L1R_L2LOSS_SVC)
+	tester(`ml.linear.L1R_LR)
+	tester(`ml.linear.L2R_LR_DUAL)
+	tester(`ml.linear.L2R_L2LOSS_SVR)
+	tester(`ml.linear.L2R_L2LOSS_SVR_DUAL)
+	tester(`ml.linear.L2R_L1LOSS_SVR_DUAL)
+}
+
 testcase {
 	prob = ml.linear.problem()
 	param = ml.linear.parameter()
