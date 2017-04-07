@@ -21,5 +21,6 @@ testcase('features of ml.linear.model') {
 testcase {
 	prob = ml.linear.problem()
 	param = ml.linear.parameter()
-	ml.linear.train(prob, param)
+	model = ml.linear.train(prob, param)
+	println(model)
 }

@@ -13,14 +13,14 @@ Gura_DeclareUserClass(parameter);
 
 class Object_parameter : public Object {
 private:
+	double _eps;
 	struct parameter _param;
 public:
 	Gura_DeclareObjectAccessor(parameter)
 public:
 	Object_parameter();
 	virtual String ToString(bool exprFlag);
-	inline struct parameter &GetEntity() { return _param; }
-	bool HasValidEntity() const;
+	struct parameter &UpdateEntity();
 };
 
 Gura_EndModuleScope(ml_linear)

@@ -4,6 +4,43 @@
 Gura_BeginModuleScope(ml_linear)
 
 //-----------------------------------------------------------------------------
+// Entry
+//-----------------------------------------------------------------------------
+Entry *Entry::Create(Signal &sig, const Value &valueY, const ValueList &valListX)
+{
+	if (!valueY.Is_number()) {
+		sig.SetError(ERR_ValueError, "y must be a number");
+		return nullptr;
+	}
+	if (valListX.GetValueTypeOfElements() != VTYPE_number) {
+		sig.SetError(ERR_ValueError, "x must contain numbers");
+		return nullptr;
+	}
+	Entry *pEntry = reinterpret_cast<Entry *>(
+		::malloc(sizeof(Entry) + sizeof(struct feature_node) * valListX.size()));
+	pEntry->y = valueY.GetDouble();
+	foreach_const (ValueList, pValueX, valListX) {
+		//pEntry->feature_node
+	}
+	return pEntry;
+}
+
+//-----------------------------------------------------------------------------
+// EntryOwner
+//-----------------------------------------------------------------------------
+EntryOwner::~EntryOwner()
+{
+	Clear();
+}
+
+void EntryOwner::Clear()
+{
+	foreach (EntryOwner, ppEntry, *this) {
+		::free(*ppEntry);
+	}
+}
+
+//-----------------------------------------------------------------------------
 // Object_problem implementation
 //-----------------------------------------------------------------------------
 Object_problem::Object_problem() : Object(Gura_UserClass(problem))
@@ -15,19 +52,48 @@ Object_problem::Object_problem() : Object(Gura_UserClass(problem))
 	_prob.bias = 0;
 }
 
+Object_problem::~Object_problem()
+{
+	delete[] _prob.y;
+	delete[] _prob.x;
+}
+
 String Object_problem::ToString(bool exprFlag)
 {
 	return String("<ml.linear.problem>");
 }
 
-bool Object_problem::HasValidEntity() const
+struct problem &Object_problem::UpdateEntity()
 {
-	return false;
+	delete[] _prob.y;
+	delete[] _prob.x;
+	_prob.l = _prob.n = 0;
+	_prob.y = nullptr;
+	_prob.x = nullptr;
+	return _prob;
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Implementation of methods
+//-----------------------------------------------------------------------------
+// ml.linear.problem.add()
+Gura_DeclareMethod(problem, add)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(problem, add)
+{
+	Object_problem *pObjProb = Object_problem::GetObjectThis(arg);
+	return Value::Nil;
+}
 
 //-----------------------------------------------------------------------------
 // Implementation of functions
@@ -54,6 +120,8 @@ Gura_ImplementFunction(problem)
 Gura_ImplementUserClass(problem)
 {
 	// Assignment of properties
+	// Assignment of methods
+	Gura_AssignMethod(problem, add);
 	// Assignment of function
 	Gura_AssignFunction(problem);
 	// Assignment of value

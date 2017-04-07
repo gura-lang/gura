@@ -6,8 +6,14 @@ Gura_BeginModuleScope(ml_linear)
 //-----------------------------------------------------------------------------
 // Object_model implementation
 //-----------------------------------------------------------------------------
-Object_model::Object_model() : Object(Gura_UserClass(model))
+Object_model::Object_model(struct model *pModel) :
+					Object(Gura_UserClass(model)), _pModel(pModel)
 {
+}
+
+Object_model::~Object_model()
+{
+	::free_and_destroy_model(&_pModel);
 }
 
 String Object_model::ToString(bool exprFlag)

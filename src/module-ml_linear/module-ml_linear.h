@@ -11,6 +11,7 @@
 #include "Class_model.h"
 
 Gura_BeginModuleHeader(ml_linear)
+
 Gura_EndModuleHeader(ml_linear)
 
 #endif

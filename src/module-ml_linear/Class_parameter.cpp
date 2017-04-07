@@ -9,7 +9,7 @@ Gura_BeginModuleScope(ml_linear)
 double GetRecommendedEPS(int solver_type)
 {
 	double eps = 0.1;
-	// this code has been extracted from train.c.
+	// these recommended values come from parse_command_line() in train.c.
 	switch (solver_type) {
 	case L2R_LR:
 	case L2R_L2LOSS_SVC:
@@ -44,14 +44,15 @@ double GetRecommendedEPS(int solver_type)
 Object_parameter::Object_parameter() : Object(Gura_UserClass(parameter))
 {
 	::memset(&_param, 0x00, sizeof(_param));
-	_param.solver_type = L2R_L2LOSS_SVC_DUAL;
-	_param.eps = HUGE_VAL;
-	_param.C = 1;
-	_param.nr_weight = 0;
-	_param.weight_label = nullptr;
-	_param.weight = nullptr;
-	_param.p = .1;
-	_param.init_sol = nullptr;
+	// these default values come from parse_command_line() in train.c.
+	_param.solver_type	= L2R_L2LOSS_SVC_DUAL;
+	_param.eps = _eps	= HUGE_VAL;
+	_param.C			= 1;
+	_param.nr_weight	= 0;
+	_param.weight_label	= nullptr;
+	_param.weight		= nullptr;
+	_param.p			= 0.1;
+	_param.init_sol		= nullptr;
 }
 
 String Object_parameter::ToString(bool exprFlag)
@@ -59,9 +60,10 @@ String Object_parameter::ToString(bool exprFlag)
 	return String("<ml.linear.parameter>");
 }
 
-bool Object_parameter::HasValidEntity() const
+struct parameter &Object_parameter::UpdateEntity()
 {
-	return false;
+	_param.eps = (_eps == HUGE_VAL)? GetRecommendedEPS(_param.solver_type) : _eps;
+	return _param;
 }
 
 //-----------------------------------------------------------------------------

@@ -12,10 +12,13 @@ class Object_ifd;
 Gura_DeclareUserClass(model);
 
 class Object_model : public Object {
+private:
+	struct model *_pModel;
 public:
 	Gura_DeclareObjectAccessor(model)
 public:
-	Object_model();
+	Object_model(struct model *pModel);
+	virtual ~Object_model();
 	virtual String ToString(bool exprFlag);
 };
 
