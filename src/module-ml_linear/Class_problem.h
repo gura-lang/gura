@@ -7,26 +7,27 @@ Gura_BeginModuleScope(ml_linear)
 class Object_ifd;
 
 //-----------------------------------------------------------------------------
-// Entry
+// Sample
 //-----------------------------------------------------------------------------
-struct Entry {
+struct Sample {
 	double y;
-	struct feature_node featureNodes[1];
+	struct feature_node nodes[1];
 public:
-	static Entry *Create(Signal &sig, const Value &valueY, const ValueList &valListX);
+	static Sample *Create(const Value &valueY, const ValueList &valListX, int *pIndexMax);
+	static Sample *Create(Signal &sig, const Value &valueY, const ValueList &valListX, int *pIndexMax);
 };
 
 //-----------------------------------------------------------------------------
-// EntryList
+// SampleList
 //-----------------------------------------------------------------------------
-typedef std::vector<Entry *> EntryList;
+typedef std::vector<Sample *> SampleList;
 
 //-----------------------------------------------------------------------------
-// EntryOwner
+// SampleOwner
 //-----------------------------------------------------------------------------
-class EntryOwner : public EntryList {
+class SampleOwner : public SampleList {
 public:
-	~EntryOwner();
+	~SampleOwner();
 	void Clear();
 };
 
@@ -38,7 +39,7 @@ Gura_DeclareUserClass(problem);
 class Object_problem : public Object {
 private:
 	struct problem _prob;
-	EntryOwner _entryOwner;
+	SampleOwner _sampleOwner;
 public:
 	Gura_DeclareObjectAccessor(problem)
 public:
@@ -46,6 +47,7 @@ public:
 	virtual ~Object_problem();
 	virtual String ToString(bool exprFlag);
 	struct problem &UpdateEntity();
+	void AddSample(const Value &valueY, const ValueList &valListX);
 };
 
 Gura_EndModuleScope(ml_linear)

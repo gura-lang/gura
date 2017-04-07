@@ -51,6 +51,17 @@ Gura_ModuleEntry()
 	// Assignment of function
 	Gura_AssignFunction(train);
 	// Assignment of values
+	Gura_AssignValueEx("L2R_LR",				L2R_LR);
+	Gura_AssignValueEx("L2R_L2LOSS_SVC_DUAL",	L2R_L2LOSS_SVC_DUAL);
+	Gura_AssignValueEx("L2R_L2LOSS_SVC",		L2R_L2LOSS_SVC);
+	Gura_AssignValueEx("L2R_L1LOSS_SVC_DUAL",	L2R_L1LOSS_SVC_DUAL);
+	Gura_AssignValueEx("MCSVM_CS",				MCSVM_CS);
+	Gura_AssignValueEx("L1R_L2LOSS_SVC",		L1R_L2LOSS_SVC);
+	Gura_AssignValueEx("L1R_LR",				L1R_LR);
+	Gura_AssignValueEx("L2R_LR_DUAL",			L2R_LR_DUAL);
+	Gura_AssignValueEx("L2R_L2LOSS_SVR",		L2R_L2LOSS_SVR);
+	Gura_AssignValueEx("L2R_L2LOSS_SVR_DUAL",	L2R_L2LOSS_SVR_DUAL);
+	Gura_AssignValueEx("L2R_L1LOSS_SVR_DUAL",	L2R_L1LOSS_SVR_DUAL);
 	return true;
 }
 

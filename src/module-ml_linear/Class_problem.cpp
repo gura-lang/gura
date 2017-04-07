@@ -4,39 +4,56 @@
 Gura_BeginModuleScope(ml_linear)
 
 //-----------------------------------------------------------------------------
-// Entry
+// Sample
 //-----------------------------------------------------------------------------
-Entry *Entry::Create(Signal &sig, const Value &valueY, const ValueList &valListX)
+Sample *Sample::Create(const Value &valueY, const ValueList &valListX, int *pIndexMax)
+{
+	int nNodes = 0;
+	foreach_const (ValueList, pValueX, valListX) {
+		if (pValueX->GetDouble() != 0) nNodes++;
+	}
+	Sample *pSample = reinterpret_cast<Sample *>(
+		::malloc(sizeof(Sample) + sizeof(struct feature_node) * nNodes));
+	pSample->y = valueY.GetDouble();
+	int index = 0;
+	int iNode = 0;
+	foreach_const (ValueList, pValueX, valListX) {
+		index++;
+		if (pValueX->GetDouble() != 0) {
+			pSample->nodes[iNode].index;
+			pSample->nodes[iNode].value = pValueX->GetDouble();
+			iNode++;
+		}
+	}
+	*pIndexMax = index;
+	return pSample;
+}
+
+Sample *Sample::Create(Signal &sig, const Value &valueY, const ValueList &valListX, int *pIndexMax)
 {
 	if (!valueY.Is_number()) {
 		sig.SetError(ERR_ValueError, "y must be a number");
 		return nullptr;
 	}
 	if (valListX.GetValueTypeOfElements() != VTYPE_number) {
-		sig.SetError(ERR_ValueError, "x must contain numbers");
+		sig.SetError(ERR_ValueError, "x must consist of numbers");
 		return nullptr;
 	}
-	Entry *pEntry = reinterpret_cast<Entry *>(
-		::malloc(sizeof(Entry) + sizeof(struct feature_node) * valListX.size()));
-	pEntry->y = valueY.GetDouble();
-	foreach_const (ValueList, pValueX, valListX) {
-		//pEntry->feature_node
-	}
-	return pEntry;
+	return Create(valueY, valListX, pIndexMax);
 }
 
 //-----------------------------------------------------------------------------
-// EntryOwner
+// SampleOwner
 //-----------------------------------------------------------------------------
-EntryOwner::~EntryOwner()
+SampleOwner::~SampleOwner()
 {
 	Clear();
 }
 
-void EntryOwner::Clear()
+void SampleOwner::Clear()
 {
-	foreach (EntryOwner, ppEntry, *this) {
-		::free(*ppEntry);
+	foreach (SampleOwner, ppSample, *this) {
+		::free(*ppSample);
 	}
 }
 
@@ -46,7 +63,8 @@ void EntryOwner::Clear()
 Object_problem::Object_problem() : Object(Gura_UserClass(problem))
 {
 	::memset(&_prob, 0x00, sizeof(_prob));
-	_prob.l = _prob.n = 0;
+	_prob.l = 0;
+	_prob.n = 0;
 	_prob.y = nullptr;
 	_prob.x = nullptr;
 	_prob.bias = 0;
@@ -67,10 +85,24 @@ struct problem &Object_problem::UpdateEntity()
 {
 	delete[] _prob.y;
 	delete[] _prob.x;
-	_prob.l = _prob.n = 0;
-	_prob.y = nullptr;
-	_prob.x = nullptr;
+	_prob.l = static_cast<int>(_sampleOwner.size());
+	_prob.y = new double[_prob.l];
+	_prob.x = new struct feature_node *[_prob.l];
+	size_t i = 0;
+	foreach_const (SampleOwner, ppSample, _sampleOwner) {
+		Sample *pSample = *ppSample;
+		_prob.y[i] = pSample->y;
+		_prob.x[i] = pSample->nodes;
+		i++;
+	}
 	return _prob;
+}
+
+void Object_problem::AddSample(const Value &valueY, const ValueList &valListX)
+{
+	int indexMax = 0;
+	_sampleOwner.push_back(Sample::Create(valueY, valListX, &indexMax));
+	if (_prob.n < indexMax) _prob.n = indexMax;
 }
 
 //-----------------------------------------------------------------------------
@@ -80,19 +112,22 @@ struct problem &Object_problem::UpdateEntity()
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// ml.linear.problem.add()
-Gura_DeclareMethod(problem, add)
+// ml.linear.problem.add_sample(y:number, x[]:number):reduce
+Gura_DeclareMethod(problem, add_sample)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
 }
 
-Gura_ImplementMethod(problem, add)
+Gura_ImplementMethod(problem, add_sample)
 {
 	Object_problem *pObjProb = Object_problem::GetObjectThis(arg);
-	return Value::Nil;
+	pObjProb->AddSample(arg.GetValue(0), arg.GetList(1));
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -121,7 +156,7 @@ Gura_ImplementUserClass(problem)
 {
 	// Assignment of properties
 	// Assignment of methods
-	Gura_AssignMethod(problem, add);
+	Gura_AssignMethod(problem, add_sample);
 	// Assignment of function
 	Gura_AssignFunction(problem);
 	// Assignment of value
