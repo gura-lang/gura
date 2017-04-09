@@ -6,7 +6,7 @@ Gura_BeginModuleScope(ml_linear)
 //-----------------------------------------------------------------------------
 // Sample
 //-----------------------------------------------------------------------------
-Sample *Sample::Create(const Value &valueY, const ValueList &valListX, int *pIndexMax)
+Sample *Sample::Create(const ValueList &valListX, int *pIndexMax)
 {
 	int nNodes = 0;
 	foreach_const (ValueList, pValueX, valListX) {
@@ -17,8 +17,8 @@ Sample *Sample::Create(const Value &valueY, const ValueList &valListX, int *pInd
 	// extra space for it.
 	Sample *pSample = reinterpret_cast<Sample *>(
 		::malloc(sizeof(Sample) + sizeof(struct feature_node) * (nNodes + 1)));
+	pSample->y = 0;
 	pSample->nNodes = nNodes + 2;
-	pSample->y = valueY.GetDouble();
 	int index = 0;
 	int iNode = 0;
 	foreach_const (ValueList, pValueX, valListX) {
@@ -34,21 +34,15 @@ Sample *Sample::Create(const Value &valueY, const ValueList &valListX, int *pInd
 		pSample->nodes[iNode].index = -1;
 		pSample->nodes[iNode].value = 0;
 	}
-	*pIndexMax = index;
+	if (pIndexMax != nullptr) *pIndexMax = index;
 	return pSample;
 }
 
-Sample *Sample::Create(Signal &sig, const Value &valueY, const ValueList &valListX, int *pIndexMax)
+Sample *Sample::Create(const Value &valueY, const ValueList &valListX, int *pIndexMax)
 {
-	if (!valueY.Is_number()) {
-		sig.SetError(ERR_ValueError, "y must be a number");
-		return nullptr;
-	}
-	if (valListX.GetValueTypeOfElements() != VTYPE_number) {
-		sig.SetError(ERR_ValueError, "x must consist of numbers");
-		return nullptr;
-	}
-	return Create(valueY, valListX, pIndexMax);
+	Sample *pSample = Create(valListX, pIndexMax);
+	pSample->y = valueY.GetDouble();
+	return pSample;
 }
 
 //-----------------------------------------------------------------------------

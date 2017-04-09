@@ -20,6 +20,7 @@ public:
 	Object_model(struct model *pModel);
 	virtual ~Object_model();
 	virtual String ToString(bool exprFlag);
+	inline struct model *GetEntity() { return _pModel; }
 };
 
 Gura_EndModuleScope(ml_linear)

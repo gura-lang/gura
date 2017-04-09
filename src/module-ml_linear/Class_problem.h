@@ -10,7 +10,6 @@ class Object_ifd;
 // Sample
 //-----------------------------------------------------------------------------
 struct Sample {
-	size_t nNodes;
 	double y;
 	// Content of nodes[] should be as follows:
 	// [without bias]
@@ -19,10 +18,11 @@ struct Sample {
 	// [with bias]
 	//   {{index_0, value_0}, {index_1, value_1}, .. {index_k, value_k},
 	//    {n, value_bias}, {-1, 0}}
+	size_t nNodes;
 	struct feature_node nodes[1];
 public:
+	static Sample *Create(const ValueList &valListX, int *pIndexMax);
 	static Sample *Create(const Value &valueY, const ValueList &valListX, int *pIndexMax);
-	static Sample *Create(Signal &sig, const Value &valueY, const ValueList &valListX, int *pIndexMax);
 };
 
 //-----------------------------------------------------------------------------
