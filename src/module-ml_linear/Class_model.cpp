@@ -37,9 +37,9 @@ Gura_DeclareMethod(model, predict)
 Gura_ImplementMethod(model, predict)
 {
 	struct model *pModel = Object_model::GetObjectThis(arg)->GetEntity();
-	const ValueList &valListX = arg.GetList(0);
-	Sample *pSample = Sample::Create(valListX, nullptr);
-	double label = ::predict(pModel, pSample->nodes);
+	const ValueList &valList = arg.GetList(0);
+	AutoPtr<Feature> pFeature(Feature::Create(env, valList));
+	double label = ::predict(pModel, pFeature->GetNodes());
 	return Value::Nil;
 }
 

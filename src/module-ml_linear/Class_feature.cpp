@@ -22,11 +22,26 @@ String Object_feature::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(feature)
+Gura_ImplementUserClassWithCast(feature)
 {
 	// Assignment of properties
 	// Assignment of value
 	Gura_AssignValue(feature, Value(Reference()));
+}
+
+Gura_ImplementCastFrom(feature)
+{
+	if (value.Is_list()) {
+		AutoPtr<Feature> pFeature(Feature::Create(env, value.GetList()));
+		if (pFeature.IsNull()) return false;
+		return true;
+	}
+	return false;
+}
+
+Gura_ImplementCastTo(feature)
+{
+	return false;
 }
 
 Gura_EndModuleScope(ml_linear)

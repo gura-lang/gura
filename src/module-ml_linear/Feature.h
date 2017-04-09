@@ -26,10 +26,11 @@ public:
 protected:
 	~Feature();
 public:
-	static Feature *Create(const ValueList &valList, int *pIndexMax);
-	void Store(const ValueList &valList, int *pIndexMax);
+	static Feature *Create(Environment &env, const ValueList &valList);
+	bool Store(Environment &env, const ValueList &valList);
 	void ClearBias();
 	void SetBias(int indexForBias, double bias);
+	inline int GetIndexMax() const { return (_nNodes < 3)? 0 : _nodes[_nNodes - 3].index; }
 	inline struct feature_node *GetNodes() { return _nodes; }
 };
 

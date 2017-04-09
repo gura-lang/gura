@@ -9,14 +9,13 @@ Gura_BeginModuleScope(ml_linear)
 // Sample
 //-----------------------------------------------------------------------------
 class Sample {
-public:
+private:
+	double _label;
 	AutoPtr<Feature> _pFeature;
-	double y;
-	size_t nNodes;
-	struct feature_node nodes[1];
 public:
-	static Sample *Create(const ValueList &valListX, int *pIndexMax);
-	static Sample *Create(const Value &valueY, const ValueList &valListX, int *pIndexMax);
+	inline Sample(double label, Feature *pFeature) : _label(label), _pFeature(pFeature) {}
+	double GetLabel() const { return _label; }
+	Feature *GetFeature() { return _pFeature.get(); }
 };
 
 //-----------------------------------------------------------------------------

@@ -40,11 +40,9 @@ struct problem &Object_problem::UpdateEntity(double bias)
 		size_t i = 0;
 		foreach_const (SampleOwner, ppSample, _sampleOwner) {
 			Sample *pSample = *ppSample;
-			size_t iNode = pSample->nNodes - 2;
-			pSample->nodes[iNode].index = _prob.n;
-			pSample->nodes[iNode].value = bias;
-			_prob.y[i] = pSample->y;
-			_prob.x[i] = pSample->nodes;
+			pSample->GetFeature()->SetBias(_prob.n, bias);
+			_prob.y[i] = pSample->GetLabel();
+			_prob.x[i] = pSample->GetFeature()->GetNodes();
 			i++;
 		}
 	} else {
@@ -52,21 +50,19 @@ struct problem &Object_problem::UpdateEntity(double bias)
 		size_t i = 0;
 		foreach_const (SampleOwner, ppSample, _sampleOwner) {
 			Sample *pSample = *ppSample;
-			size_t iNode = pSample->nNodes - 2;
-			pSample->nodes[iNode].index = -1;
-			pSample->nodes[iNode].value = 0;
-			_prob.y[i] = pSample->y;
-			_prob.x[i] = pSample->nodes;
+			pSample->GetFeature()->ClearBias();
+			_prob.y[i] = pSample->GetLabel();
+			_prob.x[i] = pSample->GetFeature()->GetNodes();
 			i++;
 		}
 	}
 	return _prob;
 }
 
-void Object_problem::AddSample(const Value &valueY, const ValueList &valListX)
+void Object_problem::AddSample(double label, Feature *pFeature)
 {
-	int indexMax = 0;
-	_sampleOwner.push_back(Sample::Create(valueY, valListX, &indexMax));
+	_sampleOwner.push_back(new Sample(label, pFeature));
+	int indexMax = pFeature->GetIndexMax();
 	if (_indexMax < indexMax) _indexMax = indexMax;
 }
 
@@ -77,7 +73,7 @@ void Object_problem::AddSample(const Value &valueY, const ValueList &valListX)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// ml.linear.problem.add_sample(y:number, x[]:number):reduce
+// ml.linear.problem.add_sample(label:number, feature:feature):reduce
 Gura_DeclareMethod(problem, add_sample)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
@@ -91,7 +87,7 @@ Gura_DeclareMethod(problem, add_sample)
 Gura_ImplementMethod(problem, add_sample)
 {
 	Object_problem *pObjProb = Object_problem::GetObjectThis(arg);
-	pObjProb->AddSample(arg.GetValue(0), arg.GetList(1));
+	pObjProb->AddSample(arg.GetDouble(0), Feature::Create(env, arg.GetList(1)));
 	return arg.GetValueThis();
 }
 

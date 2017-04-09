@@ -22,7 +22,7 @@ public:
 	virtual ~Object_problem();
 	virtual String ToString(bool exprFlag);
 	struct problem &UpdateEntity(double bias);
-	void AddSample(const Value &valueY, const ValueList &valListX);
+	void AddSample(double label, Feature *pFeature);
 };
 
 Gura_EndModuleScope(ml_linear)
