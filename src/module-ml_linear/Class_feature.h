@@ -11,11 +11,14 @@ Gura_BeginModuleScope(ml_linear)
 Gura_DeclareUserClass(feature);
 
 class Object_feature : public Object {
+private:
+	AutoPtr<Feature> _pFeature;
 public:
 	Gura_DeclareObjectAccessor(feature)
 public:
-	Object_feature();
+	Object_feature(Feature *pFeature);
 	virtual String ToString(bool exprFlag);
+	inline Feature *GetEntity() { return _pFeature.get(); }
 };
 
 Gura_EndModuleScope(ml_linear)

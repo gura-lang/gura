@@ -233,8 +233,6 @@ Gura_ImplementUserClass(parameter)
 	Gura_AssignMethod(parameter, add_weight);
 	// Assignment of function
 	Gura_AssignFunction(parameter);
-	// Assignment of value
-	Gura_AssignValue(parameter, Value(Reference()));
 }
 
 Gura_EndModuleScope(ml_linear)

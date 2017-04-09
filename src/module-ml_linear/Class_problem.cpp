@@ -77,8 +77,8 @@ void Object_problem::AddSample(double label, Feature *pFeature)
 Gura_DeclareMethod(problem, add_sample)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "y", VTYPE_number);
-	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "label", VTYPE_number);
+	DeclareArg(env, "feature", VTYPE_feature);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -87,7 +87,9 @@ Gura_DeclareMethod(problem, add_sample)
 Gura_ImplementMethod(problem, add_sample)
 {
 	Object_problem *pObjProb = Object_problem::GetObjectThis(arg);
-	pObjProb->AddSample(arg.GetDouble(0), Feature::Create(env, arg.GetList(1)));
+	double label = arg.GetDouble(0);
+	Feature *pFeature = Object_feature::GetObject(arg, 1)->GetEntity();
+	pObjProb->AddSample(label, pFeature->Reference());
 	return arg.GetValueThis();
 }
 
@@ -120,8 +122,6 @@ Gura_ImplementUserClass(problem)
 	Gura_AssignMethod(problem, add_sample);
 	// Assignment of function
 	Gura_AssignFunction(problem);
-	// Assignment of value
-	Gura_AssignValue(problem, Value(Reference()));
 }
 
 Gura_EndModuleScope(ml_linear)
