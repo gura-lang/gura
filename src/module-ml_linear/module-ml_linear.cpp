@@ -22,7 +22,8 @@ Gura_DeclareFunction(train)
 
 Gura_ImplementFunction(train)
 {
-	struct problem &prob = Object_problem::GetObject(arg, 0)->UpdateEntity();
+	double bias = -1;
+	struct problem &prob = Object_problem::GetObject(arg, 0)->UpdateEntity(bias);
 	struct parameter &param = Object_parameter::GetObject(arg, 1)->UpdateEntity();
 	const char *errorMsg = ::check_parameter(&prob, &param);
 	if (errorMsg != nullptr) {

@@ -15,4 +15,4 @@ builder.build('ml.linear', [
 	'Class_problem.cpp'
 	'Class_parameter.cpp'
 	'Class_model.cpp'
-	])
+	], ['ml.linear.gura'])

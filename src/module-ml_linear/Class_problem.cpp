@@ -12,18 +12,27 @@ Sample *Sample::Create(const Value &valueY, const ValueList &valListX, int *pInd
 	foreach_const (ValueList, pValueX, valListX) {
 		if (pValueX->GetDouble() != 0) nNodes++;
 	}
+	// We have to allocate memory for a bias and a teminator node as well as value nodes.
+	// The structure Sample already has space for one feature_node, so we only add one
+	// extra space for it.
 	Sample *pSample = reinterpret_cast<Sample *>(
-		::malloc(sizeof(Sample) + sizeof(struct feature_node) * nNodes));
+		::malloc(sizeof(Sample) + sizeof(struct feature_node) * (nNodes + 1)));
+	pSample->nNodes = nNodes + 2;
 	pSample->y = valueY.GetDouble();
 	int index = 0;
 	int iNode = 0;
 	foreach_const (ValueList, pValueX, valListX) {
 		index++;
 		if (pValueX->GetDouble() != 0) {
-			pSample->nodes[iNode].index;
+			pSample->nodes[iNode].index = index;
 			pSample->nodes[iNode].value = pValueX->GetDouble();
 			iNode++;
 		}
+	}
+	// append nodes of bias and terminator.
+	for (size_t i = 0; i < 2; i++, iNode++) {
+		pSample->nodes[iNode].index = -1;
+		pSample->nodes[iNode].value = 0;
 	}
 	*pIndexMax = index;
 	return pSample;
@@ -60,14 +69,14 @@ void SampleOwner::Clear()
 //-----------------------------------------------------------------------------
 // Object_problem implementation
 //-----------------------------------------------------------------------------
-Object_problem::Object_problem() : Object(Gura_UserClass(problem))
+Object_problem::Object_problem() : Object(Gura_UserClass(problem)), _indexMax(0)
 {
 	::memset(&_prob, 0x00, sizeof(_prob));
 	_prob.l = 0;
 	_prob.n = 0;
 	_prob.y = nullptr;
 	_prob.x = nullptr;
-	_prob.bias = 0;
+	_prob.bias = -1;
 }
 
 Object_problem::~Object_problem()
@@ -81,19 +90,38 @@ String Object_problem::ToString(bool exprFlag)
 	return String("<ml.linear.problem>");
 }
 
-struct problem &Object_problem::UpdateEntity()
+struct problem &Object_problem::UpdateEntity(double bias)
 {
 	delete[] _prob.y;
 	delete[] _prob.x;
 	_prob.l = static_cast<int>(_sampleOwner.size());
 	_prob.y = new double[_prob.l];
 	_prob.x = new struct feature_node *[_prob.l];
-	size_t i = 0;
-	foreach_const (SampleOwner, ppSample, _sampleOwner) {
-		Sample *pSample = *ppSample;
-		_prob.y[i] = pSample->y;
-		_prob.x[i] = pSample->nodes;
-		i++;
+	_prob.bias = bias;
+	if (bias >= 0) {
+		_prob.n = _indexMax + 1;
+		size_t i = 0;
+		foreach_const (SampleOwner, ppSample, _sampleOwner) {
+			Sample *pSample = *ppSample;
+			size_t iNode = pSample->nNodes - 2;
+			pSample->nodes[iNode].index = _prob.n;
+			pSample->nodes[iNode].value = bias;
+			_prob.y[i] = pSample->y;
+			_prob.x[i] = pSample->nodes;
+			i++;
+		}
+	} else {
+		_prob.n = _indexMax;
+		size_t i = 0;
+		foreach_const (SampleOwner, ppSample, _sampleOwner) {
+			Sample *pSample = *ppSample;
+			size_t iNode = pSample->nNodes - 2;
+			pSample->nodes[iNode].index = -1;
+			pSample->nodes[iNode].value = 0;
+			_prob.y[i] = pSample->y;
+			_prob.x[i] = pSample->nodes;
+			i++;
+		}
 	}
 	return _prob;
 }
@@ -102,7 +130,7 @@ void Object_problem::AddSample(const Value &valueY, const ValueList &valListX)
 {
 	int indexMax = 0;
 	_sampleOwner.push_back(Sample::Create(valueY, valListX, &indexMax));
-	if (_prob.n < indexMax) _prob.n = indexMax;
+	if (_indexMax < indexMax) _indexMax = indexMax;
 }
 
 //-----------------------------------------------------------------------------

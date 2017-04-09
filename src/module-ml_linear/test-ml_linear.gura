@@ -32,9 +32,10 @@ testcase('constants') {
 	tester(`ml.linear.L2R_L1LOSS_SVR_DUAL)
 }
 
-testcase {
+testcase('ml.linear.train()') {
 	prob = ml.linear.problem()
 	param = ml.linear.parameter()
+	
 	model = ml.linear.train(prob, param)
 	println(model)
 }
