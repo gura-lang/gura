@@ -8,12 +8,13 @@ Gura_BeginModuleBody(ml_linear)
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// ml.linear.train(prob:ml.linear.problem, param:ml.linear.parameter) {block?}
+// ml.linear.train(prob:ml.linear.problem, param:ml.linear.parameter, bias?:number) {block?}
 Gura_DeclareFunction(train)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "prob", VTYPE_problem);
 	DeclareArg(env, "param", VTYPE_parameter);
+	DeclareArg(env, "bias", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -22,7 +23,7 @@ Gura_DeclareFunction(train)
 
 Gura_ImplementFunction(train)
 {
-	double bias = -1;
+	double bias = arg.IsValid(2)? arg.GetDouble(2) : -1;
 	struct problem &prob = Object_problem::GetObject(arg, 0)->UpdateEntity(bias);
 	struct parameter &param = Object_parameter::GetObject(arg, 1)->UpdateEntity();
 	const char *errorMsg = ::check_parameter(&prob, &param);
