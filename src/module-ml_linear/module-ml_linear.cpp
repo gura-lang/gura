@@ -42,8 +42,13 @@ Gura_ModuleValidate()
 	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
 }
 
+void print_func(const char *)
+{
+}
+
 Gura_ModuleEntry()
 {
+	::set_print_string_function(&print_func);
 	// class realization
 	Gura_RealizeAndPrepareUserClass(feature, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(problem, env.LookupClass(VTYPE_object));
