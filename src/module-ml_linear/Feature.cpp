@@ -6,13 +6,20 @@ Gura_BeginModuleScope(ml_linear)
 //-----------------------------------------------------------------------------
 // Feature
 //-----------------------------------------------------------------------------
-Feature::Feature() : _nNodes(0), _nodes(nullptr)
+Feature::Feature() : _cntRef(1), _nNodes(0), _nodes(nullptr)
 {
 }
 
 Feature::~Feature()
 {
 	delete[] _nodes;
+}
+
+Feature *Feature::Create(const ValueList &valList, int *pIndexMax)
+{
+	AutoPtr<Feature> pFeature(new Feature());
+	pFeature->Store(valList, pIndexMax);
+	return pFeature.release();
 }
 
 void Feature::Store(const ValueList &valList, int *pIndexMax)

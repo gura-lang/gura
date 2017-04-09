@@ -9,6 +9,7 @@ Gura_BeginModuleScope(ml_linear)
 //-----------------------------------------------------------------------------
 class Feature {
 private:
+	int _cntRef;
 	// Content of _nodes should be as follows:
 	// [without bias]
 	//   {{index_0, value_0}, {index_1, value_1}, .. {index_k, value_k},
@@ -19,8 +20,13 @@ private:
 	size_t _nNodes;
 	struct feature_node *_nodes;
 public:
+	Gura_DeclareReferenceAccessor(Feature);
+public:
 	Feature();
+protected:
 	~Feature();
+public:
+	static Feature *Create(const ValueList &valList, int *pIndexMax);
 	void Store(const ValueList &valList, int *pIndexMax);
 	void ClearBias();
 	void SetBias(int indexForBias, double bias);
