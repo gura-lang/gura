@@ -23,6 +23,7 @@ protected:
 public:
 	double GetLabel() const { return _label; }
 	Feature *GetFeature() { return _pFeature.get(); }
+	const Feature *GetFeature() const { return _pFeature.get(); }
 };
 
 //-----------------------------------------------------------------------------
