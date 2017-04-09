@@ -24,11 +24,11 @@ String Object_model::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-// ml.linear.model.predict(x[]:number)
+// ml.linear.model.predict(feature:feature)
 Gura_DeclareMethod(model, predict)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "feature", VTYPE_feature);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -37,10 +37,9 @@ Gura_DeclareMethod(model, predict)
 Gura_ImplementMethod(model, predict)
 {
 	struct model *pModel = Object_model::GetObjectThis(arg)->GetEntity();
-	const ValueList &valList = arg.GetList(0);
-	AutoPtr<Feature> pFeature(Feature::Create(env, valList));
+	Feature *pFeature = Object_feature::GetObject(arg, 0)->GetEntity();
 	double label = ::predict(pModel, pFeature->GetNodes());
-	return Value::Nil;
+	return Value(label);
 }
 
 //-----------------------------------------------------------------------------

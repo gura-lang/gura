@@ -1,23 +1,28 @@
 #!/usr/bin/env gura
 import(ml.linear):binary:mixin_type {*}
 
-read_problem(src:stream):static = {
+parseline_problem(str:string) = {
+	fields = str.strip().splitreg(r'\s+'):list
+	label = fields[0].tonumber():raise
+	dict = %{}
+	fields[1..].each {|field|
+		pair = field.split(':'):list
+		if (pair.len() >= 2) {
+			dict[int(pair[0])] = pair[1].tonumber():raise
+		}
+	}
+	x = consts(0, dict.keys().max()):list
+	dict.items {|item|
+		x[item[0] - 1] = item[1]
+	}
+	[label, feature(x)]
+}
+
+read_problem(src:stream) = {
 	prob = problem()
 	readlines(src).each {|line|
-		fields = line.strip().splitreg(r'\s+'):list
-		y = fields[0].tonumber():raise
-		dict = %{}
-		fields[1..].each {|feature|
-			pair = feature.split(':'):list
-			if (pair.len() >= 2) {
-				dict[int(pair[0])] = pair[1].tonumber():raise
-			}
-		}
-		x = consts(0, dict.keys().max()):list
-		dict.items {|item|
-			x[item[0] - 1] = item[1]
-		}
-		prob.add_sample(y, x)
+		[label, feature_] = parseline_problem(line)
+		prob.add_sample(label, feature_)
 	}
 	prob
 }
