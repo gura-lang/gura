@@ -18,7 +18,7 @@ SampleOwner::~SampleOwner()
 void SampleOwner::Clear()
 {
 	foreach (SampleOwner, ppSample, *this) {
-		delete *ppSample;
+		Sample::Delete(*ppSample);
 	}
 }
 

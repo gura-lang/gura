@@ -10,10 +10,17 @@ Gura_BeginModuleScope(ml_linear)
 //-----------------------------------------------------------------------------
 class Sample {
 private:
+	int _cntRef;
 	double _label;
 	AutoPtr<Feature> _pFeature;
 public:
-	inline Sample(double label, Feature *pFeature) : _label(label), _pFeature(pFeature) {}
+	Gura_DeclareReferenceAccessor(Sample);
+public:
+	inline Sample(double label, Feature *pFeature) :
+						_cntRef(1), _label(label), _pFeature(pFeature) {}
+protected:
+	inline ~Sample() {}
+public:
 	double GetLabel() const { return _label; }
 	Feature *GetFeature() { return _pFeature.get(); }
 };

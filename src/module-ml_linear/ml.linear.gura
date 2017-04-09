@@ -18,11 +18,9 @@ parseline_problem(str:string) = {
 	[label, feature(x)]
 }
 
-read_problem(src:stream) = {
-	prob = problem()
+problem.read(src:stream) = {
 	readlines(src).each {|line|
 		[label, feature_] = parseline_problem(line)
-		prob.add_sample(label, feature_)
+		this.add_sample(label, feature_)
 	}
-	prob
 }
