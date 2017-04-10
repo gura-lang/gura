@@ -5,8 +5,8 @@ builder = modbuild.Builder()
 if (sys.platform == `mswin) {
 } elsif (sys.platform == `linux) {
 } elsif (sys.platform == `darwin) {
-	builder.incDirs.append('.')
-	builder.libDirs.append('.')
+	builder.incDirs.append('guest/include/liblinear')
+	builder.libDirs.append('guest/dylib')
 	builder.libs.append('linear')
 }
 builder.build('ml.linear', [
