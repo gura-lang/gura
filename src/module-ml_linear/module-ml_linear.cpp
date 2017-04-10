@@ -18,7 +18,7 @@ Gura_DeclareFunction(train)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"This function adds two numbers and returns the result.\n");
+		"");
 }
 
 Gura_ImplementFunction(train)

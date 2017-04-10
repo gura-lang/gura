@@ -8,20 +8,33 @@ Gura_BeginModuleBody(ml_svm)
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// ml.svm.test(num1:number, num2:number)
-Gura_DeclareFunction(test)
+// ml.svm.train(prob:ml.svm.problem, param:ml.svm.parameter) {block?}
+Gura_DeclareFunction(train)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "num1", VTYPE_number);
-	DeclareArg(env, "num2", VTYPE_number);
+	//DeclareArg(env, "prob", VTYPE_problem);
+	//DeclareArg(env, "param", VTYPE_parameter);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"This function adds two numbers and returns the result.\n");
+		"");
 }
 
-Gura_ImplementFunction(test)
+Gura_ImplementFunction(train)
 {
-	return Value(arg.GetNumber(0) + arg.GetNumber(1));
+#if 0
+	struct problem &prob = Object_problem::GetObject(arg, 0)->UpdateEntity(bias);
+	struct parameter &param = Object_parameter::GetObject(arg, 1)->UpdateEntity();
+	const char *errorMsg = ::check_parameter(&prob, &param);
+	if (errorMsg != nullptr) {
+		env.SetError(ERR_RuntimeError, "%s", errorMsg);
+		return Value::Nil;
+	}
+#endif
+	struct svm_model *pModel = ::svm_train(nullptr, nullptr);
+	//struct model *pModel = ::svm_train(&prob, &param);
+	//return ReturnValue(env, arg, Value(new Object_model(pModel)));
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -35,7 +48,7 @@ Gura_ModuleValidate()
 Gura_ModuleEntry()
 {
 	// function assignment
-	Gura_AssignFunction(test);
+	Gura_AssignFunction(train);
 	return true;
 }
 

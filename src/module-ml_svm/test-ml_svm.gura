@@ -3,5 +3,5 @@ import(helper.test) {*}
 import(ml.svm)
 
 testcase {
-	println(ml.svm.test(3, 4))
+	println(ml.svm.train())
 }
