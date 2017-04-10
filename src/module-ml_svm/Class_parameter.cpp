@@ -47,16 +47,21 @@ Object_parameter::Object_parameter() : Object(Gura_UserClass(parameter))
 {
 	::memset(&_param, 0x00, sizeof(_param));
 	// these default values come from parse_command_line() in train.c.
-#if 0
-	_param.solver_type	= L2R_L2LOSS_SVC_DUAL;
-	_param.eps = _eps	= HUGE_VAL;
+	_param.svm_type		= C_SVC;
+	_param.kernel_type	= RBF;
+	_param.degree		= 3;
+	_param.gamma		= 0;	// 1/num_features
+	_param.coef0		= 0;
+	_param.nu			= 0.5;
+	_param.cache_size	= 100;
 	_param.C			= 1;
+	_param.eps			= 1e-3;
 	_param.p			= 0.1;
+	_param.shrinking	= 1;
+	_param.probability	= 0;
 	_param.nr_weight	= 0;
 	_param.weight_label	= nullptr;
 	_param.weight		= nullptr;
-	_param.init_sol		= nullptr;
-#endif
 }
 
 Object_parameter::~Object_parameter()

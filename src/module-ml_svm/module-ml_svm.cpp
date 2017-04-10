@@ -12,8 +12,8 @@ Gura_BeginModuleBody(ml_svm)
 Gura_DeclareFunction(train)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	//DeclareArg(env, "prob", VTYPE_problem);
-	//DeclareArg(env, "param", VTYPE_parameter);
+	DeclareArg(env, "prob", VTYPE_problem);
+	DeclareArg(env, "param", VTYPE_parameter);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -29,10 +29,8 @@ Gura_ImplementFunction(train)
 		env.SetError(ERR_RuntimeError, "%s", errorMsg);
 		return Value::Nil;
 	}
-	struct svm_model *pModel = ::svm_train(nullptr, nullptr);
-	//struct model *pModel = ::svm_train(&prob, &param);
-	//return ReturnValue(env, arg, Value(new Object_model(pModel)));
-	return Value::Nil;
+	struct svm_model *pModel = ::svm_train(&prob, &param);
+	return ReturnValue(env, arg, Value(new Object_model(pModel)));
 }
 
 //-----------------------------------------------------------------------------
@@ -41,6 +39,10 @@ Gura_ImplementFunction(train)
 Gura_ModuleValidate()
 {
 	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
+void print_func(const char *)
+{
 }
 
 Gura_ModuleEntry()

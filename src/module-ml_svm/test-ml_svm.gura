@@ -3,5 +3,7 @@ import(helper.test) {*}
 import(ml.svm)
 
 testcase {
-	println(ml.svm.train())
+	prob = ml.svm.problem()
+	param = ml.svm.parameter()
+	println(ml.svm.train(prob, param))
 }
