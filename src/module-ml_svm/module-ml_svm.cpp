@@ -22,15 +22,13 @@ Gura_DeclareFunction(train)
 
 Gura_ImplementFunction(train)
 {
-#if 0
-	struct problem &prob = Object_problem::GetObject(arg, 0)->UpdateEntity(bias);
-	struct parameter &param = Object_parameter::GetObject(arg, 1)->UpdateEntity();
-	const char *errorMsg = ::check_parameter(&prob, &param);
+	struct svm_problem &prob = Object_problem::GetObject(arg, 0)->UpdateEntity();
+	struct svm_parameter &param = Object_parameter::GetObject(arg, 1)->UpdateEntity();
+	const char *errorMsg = ::svm_check_parameter(&prob, &param);
 	if (errorMsg != nullptr) {
 		env.SetError(ERR_RuntimeError, "%s", errorMsg);
 		return Value::Nil;
 	}
-#endif
 	struct svm_model *pModel = ::svm_train(nullptr, nullptr);
 	//struct model *pModel = ::svm_train(&prob, &param);
 	//return ReturnValue(env, arg, Value(new Object_model(pModel)));
@@ -47,6 +45,13 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	// suppress messages
+	//::set_print_string_function(&print_func);
+	// class realization
+	Gura_RealizeAndPrepareUserClass(feature, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(problem, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(parameter, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(model, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(train);
 	return true;

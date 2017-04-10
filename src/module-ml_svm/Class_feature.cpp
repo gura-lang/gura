@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Class_feature.h"
 
-Gura_BeginModuleScope(ml_linear)
+Gura_BeginModuleScope(ml_svm)
 
 //-----------------------------------------------------------------------------
 // Object_feature implementation
@@ -68,4 +68,4 @@ Gura_ImplementCastTo(feature)
 	return false;
 }
 
-Gura_EndModuleScope(ml_linear)
+Gura_EndModuleScope(ml_svm)

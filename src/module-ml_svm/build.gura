@@ -16,5 +16,5 @@ builder.build('ml.svm', [
 	'Class_feature.cpp'
 	'Class_problem.cpp'
 	'Class_parameter.cpp'
-	//'Class_model.cpp'
+	'Class_model.cpp'
 	], ['ml.svm.gura'])

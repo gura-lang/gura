@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Class_problem.h"
 
-Gura_BeginModuleScope(ml_linear)
+Gura_BeginModuleScope(ml_svm)
 
 //-----------------------------------------------------------------------------
 // Object_problem implementation
@@ -128,4 +128,4 @@ Gura_ImplementUserClass(problem)
 	Gura_AssignFunction(problem);
 }
 
-Gura_EndModuleScope(ml_linear)
+Gura_EndModuleScope(ml_svm)

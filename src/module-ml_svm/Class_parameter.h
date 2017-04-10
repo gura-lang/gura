@@ -1,9 +1,9 @@
-#ifndef __ML_LINEAR_CLASS_PARAMETER_H__
-#define __ML_LINEAR_CLASS_PARAMETER_H__
+#ifndef __ML_SVM_CLASS_PARAMETER_H__
+#define __ML_SVM_CLASS_PARAMETER_H__
 #include <gura.h>
 #include "Weight.h"
 
-Gura_BeginModuleScope(ml_linear)
+Gura_BeginModuleScope(ml_svm)
 
 //-----------------------------------------------------------------------------
 // Object_parameter declaration
@@ -26,6 +26,6 @@ public:
 	struct svm_parameter &UpdateEntity();
 };
 
-Gura_EndModuleScope(ml_linear)
+Gura_EndModuleScope(ml_svm)
 
 #endif

@@ -1,9 +1,9 @@
-#ifndef __ML_LINEAR_CLASS_PROBLEM_H__
-#define __ML_LINEAR_CLASS_PROBLEM_H__
+#ifndef __ML_SVM_CLASS_PROBLEM_H__
+#define __ML_SVM_CLASS_PROBLEM_H__
 #include <gura.h>
 #include "Sample.h"
 
-Gura_BeginModuleScope(ml_linear)
+Gura_BeginModuleScope(ml_svm)
 
 //-----------------------------------------------------------------------------
 // Object_problem declaration
@@ -25,7 +25,7 @@ public:
 	void AddSample(double label, Feature *pFeature);
 };
 
-Gura_EndModuleScope(ml_linear)
+Gura_EndModuleScope(ml_svm)
 
 #endif
 

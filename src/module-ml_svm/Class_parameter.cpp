@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Class_parameter.h"
 
-Gura_BeginModuleScope(ml_linear)
+Gura_BeginModuleScope(ml_svm)
 
 //-----------------------------------------------------------------------------
 // utilities
@@ -245,4 +245,4 @@ Gura_ImplementUserClass(parameter)
 	Gura_AssignFunction(parameter);
 }
 
-Gura_EndModuleScope(ml_linear)
+Gura_EndModuleScope(ml_svm)

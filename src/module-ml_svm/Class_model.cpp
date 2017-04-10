@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Class_model.h"
 
-Gura_BeginModuleScope(ml_linear)
+Gura_BeginModuleScope(ml_svm)
 
 //-----------------------------------------------------------------------------
 // Object_model implementation
@@ -151,4 +151,4 @@ Gura_ImplementUserClass(model)
 	Gura_AssignValue(model, Value(Reference()));
 }
 
-Gura_EndModuleScope(ml_linear)
+Gura_EndModuleScope(ml_svm)
