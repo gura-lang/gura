@@ -13,14 +13,14 @@ Gura_DeclareUserClass(model);
 
 class Object_model : public Object {
 private:
-	struct model *_pModel;
+	struct svm_model *_pModel;
 public:
 	Gura_DeclareObjectAccessor(model)
 public:
 	Object_model(struct model *pModel);
 	virtual ~Object_model();
 	virtual String ToString(bool exprFlag);
-	inline struct model *GetEntity() { return _pModel; }
+	inline struct svm_model *GetEntity() { return _pModel; }
 };
 
 Gura_EndModuleScope(ml_linear)

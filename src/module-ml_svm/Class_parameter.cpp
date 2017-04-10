@@ -10,6 +10,7 @@ double GetRecommendedEPS(int solver_type)
 {
 	double eps = 0.1;
 	// these recommended values come from parse_command_line() in train.c.
+#if 0
 	switch (solver_type) {
 	case L2R_LR:
 	case L2R_L2LOSS_SVC:
@@ -35,6 +36,7 @@ double GetRecommendedEPS(int solver_type)
 	default:
 		break;
 	}
+#endif
 	return eps;
 }
 	
@@ -45,6 +47,7 @@ Object_parameter::Object_parameter() : Object(Gura_UserClass(parameter))
 {
 	::memset(&_param, 0x00, sizeof(_param));
 	// these default values come from parse_command_line() in train.c.
+#if 0
 	_param.solver_type	= L2R_L2LOSS_SVC_DUAL;
 	_param.eps = _eps	= HUGE_VAL;
 	_param.C			= 1;
@@ -53,6 +56,7 @@ Object_parameter::Object_parameter() : Object(Gura_UserClass(parameter))
 	_param.weight_label	= nullptr;
 	_param.weight		= nullptr;
 	_param.init_sol		= nullptr;
+#endif
 }
 
 Object_parameter::~Object_parameter()
@@ -71,8 +75,9 @@ void Object_parameter::AddWeight(int label, double weight)
 	_weightOwner.push_back(Weight(label, weight));
 }
 
-struct parameter &Object_parameter::UpdateEntity()
+struct svm_parameter &Object_parameter::UpdateEntity()
 {
+#if 0
 	_param.eps = (_eps == HUGE_VAL)? GetRecommendedEPS(_param.solver_type) : _eps;
 	delete[] _param.weight_label;
 	delete[] _param.weight;
@@ -85,12 +90,14 @@ struct parameter &Object_parameter::UpdateEntity()
 		_param.weight[i] = pWeight->weight;
 		i++;
 	}
+#endif
 	return _param;
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
+#if 0
 // ml.linear.parameter#solver_type
 Gura_DeclareProperty_RW(parameter, solver_type)
 {
@@ -102,13 +109,13 @@ Gura_DeclareProperty_RW(parameter, solver_type)
 
 Gura_ImplementPropertyGetter(parameter, solver_type)
 {
-	struct parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
 	return Value(param.solver_type);
 }
 
 Gura_ImplementPropertySetter(parameter, solver_type)
 {
-	struct parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
 	param.solver_type = value.GetInt();
 	return Value(param.solver_type);
 }
@@ -178,6 +185,7 @@ Gura_ImplementPropertySetter(parameter, p)
 	param.p = value.GetDouble();
 	return Value(param.p);
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of methods
@@ -225,10 +233,12 @@ Gura_ImplementFunction(parameter)
 Gura_ImplementUserClass(parameter)
 {
 	// Assignment of properties
+#if 0
 	Gura_AssignProperty(parameter, solver_type);
 	Gura_AssignProperty(parameter, eps);
 	Gura_AssignProperty(parameter, C);
 	Gura_AssignProperty(parameter, p);
+#endif
 	// Assignment of method
 	Gura_AssignMethod(parameter, add_weight);
 	// Assignment of function

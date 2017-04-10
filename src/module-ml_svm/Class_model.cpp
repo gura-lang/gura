@@ -6,24 +6,25 @@ Gura_BeginModuleScope(ml_linear)
 //-----------------------------------------------------------------------------
 // Object_model implementation
 //-----------------------------------------------------------------------------
-Object_model::Object_model(struct model *pModel) :
+Object_model::Object_model(struct svm_model *pModel) :
 					Object(Gura_UserClass(model)), _pModel(pModel)
 {
 }
 
 Object_model::~Object_model()
 {
-	::free_and_destroy_model(&_pModel);
+	::svm_free_and_destroy_model(&_pModel);
 }
 
 String Object_model::ToString(bool exprFlag)
 {
-	return String("<ml.linear.model>");
+	return String("<ml.svm.model>");
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+#if 0
 // ml.linear.model.predict(feature:feature)
 Gura_DeclareMethod(model, predict)
 {
@@ -130,6 +131,7 @@ Gura_ImplementMethod(model, get_decfun_bias)
 	int label_idx = arg.GetInt(0);
 	return Value(::get_decfun_bias(pModel, label_idx));
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of class
@@ -137,12 +139,14 @@ Gura_ImplementMethod(model, get_decfun_bias)
 Gura_ImplementUserClass(model)
 {
 	// Assignment of methods
+#if 0
 	Gura_AssignMethod(model, predict);
 	Gura_AssignMethod(model, get_nr_feature);
 	Gura_AssignMethod(model, get_nr_class);
 	Gura_AssignMethod(model, get_labels);
 	Gura_AssignMethod(model, get_decfun_coef);
 	Gura_AssignMethod(model, get_decfun_bias);
+#endif
 	// Assignment of value
 	Gura_AssignValue(model, Value(Reference()));
 }

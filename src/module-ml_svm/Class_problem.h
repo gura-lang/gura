@@ -13,7 +13,7 @@ Gura_DeclareUserClass(problem);
 class Object_problem : public Object {
 private:
 	int _indexMax;
-	struct problem _prob;
+	struct svm_problem _prob;
 	SampleOwner _sampleOwner;
 public:
 	Gura_DeclareObjectAccessor(problem)
@@ -21,7 +21,7 @@ public:
 	Object_problem();
 	virtual ~Object_problem();
 	virtual String ToString(bool exprFlag);
-	struct problem &UpdateEntity(double bias);
+	struct svm_problem &UpdateEntity();
 	void AddSample(double label, Feature *pFeature);
 };
 

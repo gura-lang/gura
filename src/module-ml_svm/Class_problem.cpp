@@ -9,11 +9,13 @@ Gura_BeginModuleScope(ml_linear)
 Object_problem::Object_problem() : Object(Gura_UserClass(problem)), _indexMax(0)
 {
 	::memset(&_prob, 0x00, sizeof(_prob));
+#if 0
 	_prob.l = 0;
 	_prob.n = 0;
 	_prob.y = nullptr;
 	_prob.x = nullptr;
 	_prob.bias = -1;
+#endif
 }
 
 Object_problem::~Object_problem()
@@ -27,8 +29,9 @@ String Object_problem::ToString(bool exprFlag)
 	return String("<ml.linear.problem>");
 }
 
-struct problem &Object_problem::UpdateEntity(double bias)
+struct svm_problem &Object_problem::UpdateEntity()
 {
+#if 0
 	delete[] _prob.y;
 	delete[] _prob.x;
 	_prob.l = static_cast<int>(_sampleOwner.size());
@@ -56,6 +59,7 @@ struct problem &Object_problem::UpdateEntity(double bias)
 			i++;
 		}
 	}
+#endif
 	return _prob;
 }
 
