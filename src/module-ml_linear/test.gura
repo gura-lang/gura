@@ -1,0 +1,20 @@
+#!/usr/bin/env gura
+import(re)
+import(ml.linear)
+import(helper.test) {*}
+
+fileName = 'liblinear-2.11/heart_scale'
+prob = ml.linear.problem()
+param = ml.linear.parameter()
+prob.read(fileName)
+model = ml.linear.train(prob, param)
+tester(`model.get_nr_feature())
+tester(`model.get_nr_class())
+tester(`model.get_labels())
+results = readlines(fileName).each():list {|line|
+	[label, feature] = ml.linear.parseline_problem(line)
+	labelPredict = model.predict(feature)
+	(label == labelPredict)
+}
+println(results)
+println(results.average())
