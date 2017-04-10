@@ -36,6 +36,10 @@ Source URLs
 
 <tr><td>lpng1510.zip</td><td>http://www.libpng.org/</td></tr>
 
+<tr><td>liblinear-2.11.zip</td><td>https://www.csie.ntu.edu.tw/~cjlin/liblinear/</td></tr>
+
+<tr><td>libsvm-3.22.zip</td><td>https://www.csie.ntu.edu.tw/~cjlin/libsvm/</td></tr>
+
 <tr><td>mpir-2.6.0.tar.bz2</td><td>http://www.mpir.org/</td></tr>
 
 <tr><td>mysql-connector-c-noinstall-6.0.2-win32.zip</td><td>http://dev.mysql.com/downloads/</td></tr>

@@ -26,6 +26,8 @@ files="$files yaml-0.1.5.tar.gz"
 files="$files llvm-3.6.1.src.tar.xz"
 files="$files liblinear-2.11.zip"
 files="$files liblinear-2.11-gurapatch.zip"
+files="$files libsvm-3.22.zip"
+files="$files libsvm-3.22-gurapatch.zip"
 for file in $files
 do
 	echo $file
@@ -192,6 +194,15 @@ popd
 rm -f include/liblinear
 ln -sf ../liblinear-2.11 include/liblinear
 setup_dylib liblinear-2.11 dylib
+#---------------------------------------------------------------------------
+unzip -o libsvm-3.22.zip
+unzip -o libsvm-3.22-gurapatch.zip
+pushd libsvm-3.22
+make lib
+popd
+rm -f include/libsvm
+ln -sf ../libsvm-3.22 include/libsvm
+setup_dylib libsvm-3.22 dylib
 #---------------------------------------------------------------------------
 if [ "$failed" != "" ] ; then
    echo ======================================================================
