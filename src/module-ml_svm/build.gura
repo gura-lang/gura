@@ -2,4 +2,13 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.build('ml.svm', ['module-ml_svm.cpp'])
+if (sys.platform == `mswin) {
+} elsif (sys.platform == `linux) {
+} elsif (sys.platform == `darwin) {
+	builder.incDirs.append('guest/include/libsvm')
+	builder.libDirs.append('guest/dylib')
+	builder.libs.append('svm')
+}
+builder.build('ml.svm', [
+	'module-ml_svm.cpp'
+	], ['ml.svm.gura'])
