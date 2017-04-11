@@ -1,0 +1,20 @@
+#!/usr/bin/env gura
+import(re)
+import(ml.svm)
+import(helper.test) {*}
+
+fileName = 'libsvm-3.22/heart_scale'
+prob = ml.svm.problem()
+param = ml.svm.parameter()
+prob.read(fileName)
+model = ml.svm.train(prob, param)
+//tester(`model.get_nr_feature())
+//tester(`model.get_nr_class())
+//tester(`model.get_labels())
+results = readlines(fileName).each():list {|line|
+	[label, feature] = ml.svm.parse_sample(line)
+	labelPredict = model.predict(feature)
+	(label == labelPredict)
+}
+println(results)
+println(results.average())
