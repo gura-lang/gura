@@ -9,13 +9,9 @@ Gura_BeginModuleScope(ml_svm)
 Object_problem::Object_problem() : Object(Gura_UserClass(problem)), _indexMax(0)
 {
 	::memset(&_prob, 0x00, sizeof(_prob));
-#if 0
 	_prob.l = 0;
-	_prob.n = 0;
 	_prob.y = nullptr;
 	_prob.x = nullptr;
-	_prob.bias = -1;
-#endif
 }
 
 Object_problem::~Object_problem()
@@ -26,40 +22,23 @@ Object_problem::~Object_problem()
 
 String Object_problem::ToString(bool exprFlag)
 {
-	return String("<ml.linear.problem>");
+	return String("<ml.svm.problem>");
 }
 
 struct svm_problem &Object_problem::UpdateEntity()
 {
-#if 0
 	delete[] _prob.y;
 	delete[] _prob.x;
 	_prob.l = static_cast<int>(_sampleOwner.size());
 	_prob.y = new double[_prob.l];
-	_prob.x = new struct feature_node *[_prob.l];
-	_prob.bias = bias;
-	if (bias >= 0) {
-		_prob.n = _indexMax + 1;
-		size_t i = 0;
-		foreach_const (SampleOwner, ppSample, _sampleOwner) {
-			Sample *pSample = *ppSample;
-			pSample->GetFeature()->SetBias(_prob.n, bias);
-			_prob.y[i] = pSample->GetLabel();
-			_prob.x[i] = pSample->GetFeature()->GetNodes();
-			i++;
-		}
-	} else {
-		_prob.n = _indexMax;
-		size_t i = 0;
-		foreach_const (SampleOwner, ppSample, _sampleOwner) {
-			Sample *pSample = *ppSample;
-			pSample->GetFeature()->ClearBias();
-			_prob.y[i] = pSample->GetLabel();
-			_prob.x[i] = pSample->GetFeature()->GetNodes();
-			i++;
-		}
+	_prob.x = new struct svm_node *[_prob.l];
+	size_t i = 0;
+	foreach_const (SampleOwner, ppSample, _sampleOwner) {
+		Sample *pSample = *ppSample;
+		_prob.y[i] = pSample->GetLabel();
+		_prob.x[i] = pSample->GetFeature()->GetNodes();
+		i++;
 	}
-#endif
 	return _prob;
 }
 
@@ -77,7 +56,7 @@ void Object_problem::AddSample(double label, Feature *pFeature)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// ml.linear.problem.add_sample(label:number, feature:feature):reduce
+// ml.svm.problem.add_sample(label:number, feature:feature):reduce
 Gura_DeclareMethod(problem, add_sample)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
@@ -100,7 +79,7 @@ Gura_ImplementMethod(problem, add_sample)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// ml.linear.problem() {block?}
+// ml.svm.problem() {block?}
 Gura_DeclareFunction(problem)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -108,7 +87,7 @@ Gura_DeclareFunction(problem)
 	SetClassToConstruct(Gura_UserClass(problem));
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an instance of ml.linear.problem.\n");
+		"Creates an instance of ml.svm.problem.\n");
 }
 
 Gura_ImplementFunction(problem)

@@ -6,40 +6,7 @@ Gura_BeginModuleScope(ml_svm)
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-double GetRecommendedEPS(int solver_type)
-{
-	double eps = 0.1;
-	// these recommended values come from parse_command_line() in train.c.
-#if 0
-	switch (solver_type) {
-	case L2R_LR:
-	case L2R_L2LOSS_SVC:
-		eps = 0.01;
-		break;
-	case L2R_L2LOSS_SVR:
-		eps = 0.001;
-		break;
-	case L2R_L2LOSS_SVC_DUAL:
-	case L2R_L1LOSS_SVC_DUAL:
-	case MCSVM_CS:
-	case L2R_LR_DUAL:
-		eps = 0.1;
-		break;
-	case L1R_L2LOSS_SVC:
-	case L1R_LR:
-		eps = 0.01;
-		break;
-	case L2R_L1LOSS_SVR_DUAL:
-	case L2R_L2LOSS_SVR_DUAL:
-		eps = 0.1;
-		break;
-	default:
-		break;
-	}
-#endif
-	return eps;
-}
-	
+
 //-----------------------------------------------------------------------------
 // Object_parameter implementation
 //-----------------------------------------------------------------------------
@@ -82,8 +49,6 @@ void Object_parameter::AddWeight(int label, double weight)
 
 struct svm_parameter &Object_parameter::UpdateEntity()
 {
-#if 0
-	_param.eps = (_eps == HUGE_VAL)? GetRecommendedEPS(_param.solver_type) : _eps;
 	delete[] _param.weight_label;
 	delete[] _param.weight;
 	_param.nr_weight = static_cast<int>(_weightOwner.size());
@@ -95,7 +60,6 @@ struct svm_parameter &Object_parameter::UpdateEntity()
 		_param.weight[i] = pWeight->weight;
 		i++;
 	}
-#endif
 	return _param;
 }
 
