@@ -24,8 +24,7 @@ String Object_model::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-#if 0
-// ml.linear.model.predict(feature:feature)
+// ml.svm.model.predict(feature:feature)
 Gura_DeclareMethod(model, predict)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -37,12 +36,13 @@ Gura_DeclareMethod(model, predict)
 
 Gura_ImplementMethod(model, predict)
 {
-	struct model *pModel = Object_model::GetObjectThis(arg)->GetEntity();
+	struct svm_model *pModel = Object_model::GetObjectThis(arg)->GetEntity();
 	Feature *pFeature = Object_feature::GetObject(arg, 0)->GetEntity();
-	double label = ::predict(pModel, pFeature->GetNodes());
+	double label = ::svm_predict(pModel, pFeature->GetNodes());
 	return Value(label);
 }
 
+#if 0
 // ml.linear.model.get_nr_feature()
 Gura_DeclareMethod(model, get_nr_feature)
 {
@@ -139,8 +139,8 @@ Gura_ImplementMethod(model, get_decfun_bias)
 Gura_ImplementUserClass(model)
 {
 	// Assignment of methods
-#if 0
 	Gura_AssignMethod(model, predict);
+#if 0
 	Gura_AssignMethod(model, get_nr_feature);
 	Gura_AssignMethod(model, get_nr_class);
 	Gura_AssignMethod(model, get_labels);

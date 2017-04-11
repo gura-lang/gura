@@ -46,7 +46,7 @@ double GetRecommendedEPS(int solver_type)
 Object_parameter::Object_parameter() : Object(Gura_UserClass(parameter))
 {
 	::memset(&_param, 0x00, sizeof(_param));
-	// these default values come from parse_command_line() in train.c.
+	// these default values come from parse_command_line() in svm_train.c.
 	_param.svm_type		= C_SVC;
 	_param.kernel_type	= RBF;
 	_param.degree		= 3;
@@ -102,9 +102,8 @@ struct svm_parameter &Object_parameter::UpdateEntity()
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-#if 0
-// ml.linear.parameter#solver_type
-Gura_DeclareProperty_RW(parameter, solver_type)
+// ml.svm.parameter#svm_type
+Gura_DeclareProperty_RW(parameter, svm_type)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -112,21 +111,22 @@ Gura_DeclareProperty_RW(parameter, solver_type)
 		"");
 }
 
-Gura_ImplementPropertyGetter(parameter, solver_type)
+Gura_ImplementPropertyGetter(parameter, svm_type)
 {
 	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
-	return Value(param.solver_type);
+	return Value(param.svm_type);
 }
 
-Gura_ImplementPropertySetter(parameter, solver_type)
+Gura_ImplementPropertySetter(parameter, svm_type)
 {
 	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
-	param.solver_type = value.GetInt();
-	return Value(param.solver_type);
+	param.svm_type = value.GetInt();
+	return Value(param.svm_type);
 }
 
-// ml.linear.parameter#eps
-Gura_DeclareProperty_RW(parameter, eps)
+kernel_type
+// ml.svm.parameter#
+Gura_DeclareProperty_RW(parameter, )
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -134,21 +134,22 @@ Gura_DeclareProperty_RW(parameter, eps)
 		"");
 }
 
-Gura_ImplementPropertyGetter(parameter, eps)
+Gura_ImplementPropertyGetter(parameter, )
 {
-	struct parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
-	return Value(param.eps);
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	return Value(param.);
 }
 
-Gura_ImplementPropertySetter(parameter, eps)
+Gura_ImplementPropertySetter(parameter, )
 {
-	struct parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
-	param.eps = value.GetDouble();
-	return Value(param.eps);
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	param. = value.GetInt();
+	return Value(param.);
 }
 
-// ml.linear.parameter#C
-Gura_DeclareProperty_RW(parameter, C)
+degree
+// ml.svm.parameter#
+Gura_DeclareProperty_RW(parameter, )
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -156,21 +157,22 @@ Gura_DeclareProperty_RW(parameter, C)
 		"");
 }
 
-Gura_ImplementPropertyGetter(parameter, C)
+Gura_ImplementPropertyGetter(parameter, )
 {
-	struct parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
-	return Value(param.C);
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	return Value(param.);
 }
 
-Gura_ImplementPropertySetter(parameter, C)
+Gura_ImplementPropertySetter(parameter, )
 {
-	struct parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
-	param.C = value.GetDouble();
-	return Value(param.C);
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	param. = value.GetInt();
+	return Value(param.);
 }
 
-// ml.linear.parameter#p
-Gura_DeclareProperty_RW(parameter, p)
+gamma
+// ml.svm.parameter#
+Gura_DeclareProperty_RW(parameter, )
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -178,19 +180,202 @@ Gura_DeclareProperty_RW(parameter, p)
 		"");
 }
 
-Gura_ImplementPropertyGetter(parameter, p)
+Gura_ImplementPropertyGetter(parameter, )
 {
-	struct parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
-	return Value(param.p);
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	return Value(param.);
 }
 
-Gura_ImplementPropertySetter(parameter, p)
+Gura_ImplementPropertySetter(parameter, )
 {
-	struct parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
-	param.p = value.GetDouble();
-	return Value(param.p);
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	param. = value.GetDouble();
+	return Value(param.);
 }
-#endif
+
+coef0
+// ml.svm.parameter#
+Gura_DeclareProperty_RW(parameter, )
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	return Value(param.);
+}
+
+Gura_ImplementPropertySetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	param. = value.GetDouble();
+	return Value(param.);
+}
+
+nu
+// ml.svm.parameter#
+Gura_DeclareProperty_RW(parameter, )
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	return Value(param.);
+}
+
+Gura_ImplementPropertySetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	param. = value.GetDouble();
+	return Value(param.);
+}
+
+cache_size
+// ml.svm.parameter#
+Gura_DeclareProperty_RW(parameter, )
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	return Value(param.);
+}
+
+Gura_ImplementPropertySetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	param. = value.GetDouble();
+	return Value(param.);
+}
+
+C
+// ml.svm.parameter#
+Gura_DeclareProperty_RW(parameter, )
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	return Value(param.);
+}
+
+Gura_ImplementPropertySetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	param. = value.GetDouble();
+	return Value(param.);
+}
+
+eps
+// ml.svm.parameter#
+Gura_DeclareProperty_RW(parameter, )
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	return Value(param.);
+}
+
+Gura_ImplementPropertySetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	param. = value.GetDouble();
+	return Value(param.);
+}
+
+p
+// ml.svm.parameter#
+Gura_DeclareProperty_RW(parameter, )
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	return Value(param.);
+}
+
+Gura_ImplementPropertySetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	param. = value.GetDouble();
+	return Value(param.);
+}
+
+shrinking
+// ml.svm.parameter#
+Gura_DeclareProperty_RW(parameter, )
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	return Value(param.);
+}
+
+Gura_ImplementPropertySetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	param. = value.GetInt();
+	return Value(param.);
+}
+
+probability
+// ml.svm.parameter#
+Gura_DeclareProperty_RW(parameter, )
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	return Value(param.);
+}
+
+Gura_ImplementPropertySetter(parameter, )
+{
+	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
+	param. = value.GetInt();
+	return Value(param.);
+}
 
 //-----------------------------------------------------------------------------
 // Implementation of methods
@@ -238,11 +423,19 @@ Gura_ImplementFunction(parameter)
 Gura_ImplementUserClass(parameter)
 {
 	// Assignment of properties
+	Gura_AssignProperty(parameter, svm_type);
 #if 0
-	Gura_AssignProperty(parameter, solver_type);
-	Gura_AssignProperty(parameter, eps);
+	Gura_AssignProperty(parameter, kernel_type);
+	Gura_AssignProperty(parameter, degree);
+	Gura_AssignProperty(parameter, gamma);
+	Gura_AssignProperty(parameter, coef0);
+	Gura_AssignProperty(parameter, nu);
+	Gura_AssignProperty(parameter, cache_size);
 	Gura_AssignProperty(parameter, C);
+	Gura_AssignProperty(parameter, eps);
 	Gura_AssignProperty(parameter, p);
+	Gura_AssignProperty(parameter, shrinking);
+	Gura_AssignProperty(parameter, probability);
 #endif
 	// Assignment of method
 	Gura_AssignMethod(parameter, add_weight);
