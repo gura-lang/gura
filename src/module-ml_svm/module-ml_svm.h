@@ -6,6 +6,7 @@
 #include <gura.h>
 #include <svm.h>
 #include "Class_feature.h"
+#include "Class_sample.h"
 #include "Class_problem.h"
 #include "Class_parameter.h"
 #include "Class_model.h"

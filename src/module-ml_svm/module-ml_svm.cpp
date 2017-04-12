@@ -51,6 +51,7 @@ Gura_ModuleEntry()
 	//::svm_set_print_string_function(&print_func);
 	// class realization
 	Gura_RealizeAndPrepareUserClass(feature, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(sample, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(problem, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(parameter, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(model, env.LookupClass(VTYPE_object));

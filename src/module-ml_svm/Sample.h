@@ -35,8 +35,15 @@ typedef std::vector<Sample *> SampleList;
 // SampleOwner
 //-----------------------------------------------------------------------------
 class SampleOwner : public SampleList {
+private:
+	int _cntRef;
 public:
+	Gura_DeclareReferenceAccessor(SampleOwner);
+public:
+	inline SampleOwner() : _cntRef(1) {}
+protected:
 	~SampleOwner();
+public:
 	void Clear();
 };
 

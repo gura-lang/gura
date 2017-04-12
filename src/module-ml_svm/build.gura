@@ -14,6 +14,7 @@ builder.build('ml.svm', [
 	'Feature.cpp'
 	'Sample.cpp'
 	'Class_feature.cpp'
+	'Class_sample.cpp'
 	'Class_problem.cpp'
 	'Class_parameter.cpp'
 	'Class_model.cpp'
