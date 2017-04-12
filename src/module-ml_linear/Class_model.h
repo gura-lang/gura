@@ -12,6 +12,8 @@ Gura_DeclareUserClass(model);
 class Object_model : public Object {
 private:
 	struct model *_pModel;
+	int _sizeProbabilityBuff;
+	std::unique_ptr<double []> _prob_estimates;
 public:
 	Gura_DeclareObjectAccessor(model)
 public:
@@ -19,6 +21,7 @@ public:
 	virtual ~Object_model();
 	virtual String ToString(bool exprFlag);
 	inline struct model *GetEntity() { return _pModel; }
+	double *GetProbabilityBuff(int *pSizeProbabilityBuff);
 };
 
 Gura_EndModuleScope(ml_linear)
