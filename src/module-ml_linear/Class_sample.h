@@ -21,6 +21,22 @@ public:
 	inline Sample *GetEntity() { return _pSample.get(); }
 };
 
+//-----------------------------------------------------------------------------
+// Iterator_sample
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Iterator_sample : public Iterator {
+private:
+	AutoPtr<SampleOwner> _pSampleOwner;
+	size_t _idx;
+public:
+	inline Iterator_sample(SampleOwner *pSampleOwner) :
+		Iterator(Finite), _pSampleOwner(pSampleOwner), _idx(0) {}
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Value &value);
+	virtual String ToString() const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
 Gura_EndModuleScope(ml_linear)
 
 #endif

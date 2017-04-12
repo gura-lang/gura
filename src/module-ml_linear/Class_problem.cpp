@@ -6,7 +6,8 @@ Gura_BeginModuleScope(ml_linear)
 //-----------------------------------------------------------------------------
 // Object_problem implementation
 //-----------------------------------------------------------------------------
-Object_problem::Object_problem() : Object(Gura_UserClass(problem)), _indexMax(0)
+Object_problem::Object_problem() : Object(Gura_UserClass(problem)),
+	_indexMax(0), _pSampleOwner(new SampleOwner())
 {
 	::memset(&_prob, 0x00, sizeof(_prob));
 	_prob.l = 0;
@@ -31,14 +32,14 @@ struct problem &Object_problem::UpdateEntity(double bias)
 {
 	delete[] _prob.y;
 	delete[] _prob.x;
-	_prob.l = static_cast<int>(_sampleOwner.size());
+	_prob.l = static_cast<int>(_pSampleOwner->size());
 	_prob.y = new double[_prob.l];
 	_prob.x = new struct feature_node *[_prob.l];
 	_prob.bias = bias;
 	if (bias >= 0) {
 		_prob.n = _indexMax + 1;
 		size_t i = 0;
-		foreach_const (SampleOwner, ppSample, _sampleOwner) {
+		foreach_const (SampleOwner, ppSample, *_pSampleOwner) {
 			Sample *pSample = *ppSample;
 			pSample->GetFeature()->SetBias(_prob.n, bias);
 			_prob.y[i] = pSample->GetLabel();
@@ -48,7 +49,7 @@ struct problem &Object_problem::UpdateEntity(double bias)
 	} else {
 		_prob.n = _indexMax;
 		size_t i = 0;
-		foreach_const (SampleOwner, ppSample, _sampleOwner) {
+		foreach_const (SampleOwner, ppSample, *_pSampleOwner) {
 			Sample *pSample = *ppSample;
 			pSample->GetFeature()->ClearBias();
 			_prob.y[i] = pSample->GetLabel();
@@ -61,7 +62,7 @@ struct problem &Object_problem::UpdateEntity(double bias)
 
 void Object_problem::AddSample(double label, Feature *pFeature)
 {
-	_sampleOwner.push_back(new Sample(label, pFeature));
+	_pSampleOwner->push_back(new Sample(label, pFeature));
 	int indexMax = pFeature->GetIndexMax();
 	if (_indexMax < indexMax) _indexMax = indexMax;
 }
@@ -69,6 +70,21 @@ void Object_problem::AddSample(double label, Feature *pFeature)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
+// ml.linear.problem#samples
+Gura_DeclareProperty_R(problem, samples)
+{
+	SetPropAttr(VTYPE_iterator);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(problem, samples)
+{
+	Object_problem *pObjProb = Object_problem::GetObject(valueThis);
+	AutoPtr<Iterator> pIterator(new Iterator_sample(pObjProb->GetSampleOwner()->Reference()));
+	return Value(new Object_iterator(env, pIterator.release()));
+}
 
 //-----------------------------------------------------------------------------
 // Implementation of methods
@@ -118,6 +134,7 @@ Gura_ImplementFunction(problem)
 Gura_ImplementUserClass(problem)
 {
 	// Assignment of properties
+	Gura_AssignProperty(problem, samples);
 	// Assignment of methods
 	Gura_AssignMethod(problem, add_sample);
 	// Assignment of function

@@ -24,10 +24,10 @@ String Object_model::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// ml.svm.model.predict(feature:feature)
+// ml.svm.model.predict(feature:feature):map
 Gura_DeclareMethod(model, predict)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "feature", VTYPE_feature);
 	AddHelp(
 		Gura_Symbol(en),

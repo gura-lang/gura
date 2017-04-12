@@ -7,14 +7,11 @@ fileName = 'liblinear-2.11/heart_scale'
 prob = ml.linear.problem()
 param = ml.linear.parameter()
 prob.read(fileName)
+println(prob.samples:*label)
 model = ml.linear.train(prob, param)
 tester(`model.get_nr_feature())
 tester(`model.get_nr_class())
 tester(`model.get_labels())
-results = readlines(fileName).each():list {|line|
-	[label, feature] = ml.linear.parse_line(line)
-	labelPredict = model.predict(feature)
-	(label == labelPredict)
-}
+results = (prob.samples:*label == model.predict(prob.samples:*feature))
 println(results)
 println(results.average())
