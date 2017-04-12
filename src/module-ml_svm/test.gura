@@ -1,5 +1,4 @@
 #!/usr/bin/env gura
-import(re)
 import(ml.svm)
 import(helper.test) {*}
 
@@ -12,5 +11,4 @@ tester(`model.get_svm_type())
 tester(`model.get_nr_class())
 tester(`model.get_labels())
 results = (prob.samples:*label == model.predict(prob.samples:*feature))
-println(results)
 println(results.average())
