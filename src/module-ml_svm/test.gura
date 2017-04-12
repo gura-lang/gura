@@ -11,10 +11,6 @@ model = ml.svm.train(prob, param)
 tester(`model.get_svm_type())
 tester(`model.get_nr_class())
 tester(`model.get_labels())
-results = readlines(fileName).each():list {|line|
-	[label, feature] = ml.svm.parse_line(line)
-	labelPredict = model.predict(feature)
-	(label == labelPredict)
-}
+results = (prob.samples:*label == model.predict(prob.samples:*feature))
 println(results)
 println(results.average())

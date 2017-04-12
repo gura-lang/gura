@@ -50,7 +50,7 @@ void print_func(const char *)
 Gura_ModuleEntry()
 {
 	// suppress messages
-	//::set_print_string_function(&print_func);
+	::set_print_string_function(&print_func);
 	// class realization
 	Gura_RealizeAndPrepareUserClass(feature, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(sample, env.LookupClass(VTYPE_object));
