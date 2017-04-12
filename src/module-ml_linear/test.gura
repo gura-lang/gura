@@ -12,7 +12,7 @@ tester(`model.get_nr_feature())
 tester(`model.get_nr_class())
 tester(`model.get_labels())
 results = readlines(fileName).each():list {|line|
-	[label, feature] = ml.linear.parse_sample(line)
+	[label, feature] = ml.linear.parse_line(line)
 	labelPredict = model.predict(feature)
 	(label == labelPredict)
 }

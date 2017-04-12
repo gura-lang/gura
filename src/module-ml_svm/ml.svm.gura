@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(ml.svm):binary:mixin_type {*}
 
-parse_sample(str:string) = {
+parse_line(str:string) = {
 	fields = str.strip().splitreg(r'\s+'):list
 	label = fields[0].tonumber():raise
 	pairs = fields[1..].each():xlist {|field|
@@ -17,7 +17,7 @@ parse_sample(str:string) = {
 
 problem.read(src:stream) = {
 	readlines(src).each {|line|
-		[label, feature_] = parse_sample(line)
+		[label, feature_] = parse_line(line)
 		this.add_sample(label, feature_)
 	}
 }
