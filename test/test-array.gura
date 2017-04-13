@@ -605,3 +605,19 @@ testcase('array.rotation@x()') {
 	tester(`array.rotation@x(math.pi / 6))
 	tester(`array.rotation@x(30):deg)
 }
+testcase('array.rotation@y()') {
+	tester(`array.rotation@y(0))
+	tester(`array.rotation@y(0, 2))
+	tester(`array.rotation@y(0, 2, 3))
+	tester(`array.rotation@y(0, 2, 3, 4))
+	tester(`array.rotation@y(math.pi / 6))
+	tester(`array.rotation@y(30):deg)
+}
+testcase('array.rotation@z()') {
+	tester(`array.rotation@z(0))
+	tester(`array.rotation@z(0, 2))
+	tester(`array.rotation@z(0, 2, 3))
+	tester(`array.rotation@z(0, 2, 3, 4))
+	tester(`array.rotation@z(math.pi / 6))
+	tester(`array.rotation@z(30):deg)
+}

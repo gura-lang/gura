@@ -337,7 +337,7 @@ Gura_DeclareClassMethodAlias_arrayT(rotation_at_x, "rotation@x")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that rotates a point by the specified angle.\n"
+		"Creates an array that rotates a point around x-axis by the specified angle.\n"
 		);
 }
 
@@ -353,6 +353,72 @@ Gura_ImplementClassMethod_arrayT(rotation_at_x)
 		pArrayT.reset(ArrayT<T_Elem>::CreateRotationX(angle, true, xTrans, yTrans, zTrans));
 	} else {
 		pArrayT.reset(ArrayT<T_Elem>::CreateRotationX(angle, false, 0, 0, 0));
+	}
+	Value value(new Object_array(env, pArrayT.release()));
+	return ReturnValue(env, arg, value);
+}
+
+// array@T.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+Gura_DeclareClassMethodAlias_arrayT(rotation_at_y, "rotation@y")
+{
+	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "ztrans", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(deg));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array that rotates a point around y-axis by the specified angle.\n"
+		);
+}
+
+Gura_ImplementClassMethod_arrayT(rotation_at_y)
+{
+	double angle = arg.GetDouble(0);
+	if (arg.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
+	AutoPtr<ArrayT<T_Elem> > pArrayT;
+	if (arg.IsValid(1) || arg.IsValid(2) || arg.IsValid(3)) {
+		T_Elem xTrans = arg.IsValid(1)? static_cast<T_Elem>(arg.GetDouble(1)) : 0;
+		T_Elem yTrans = arg.IsValid(2)? static_cast<T_Elem>(arg.GetDouble(2)) : 0;
+		T_Elem zTrans = arg.IsValid(3)? static_cast<T_Elem>(arg.GetDouble(3)) : 0;
+		pArrayT.reset(ArrayT<T_Elem>::CreateRotationY(angle, true, xTrans, yTrans, zTrans));
+	} else {
+		pArrayT.reset(ArrayT<T_Elem>::CreateRotationY(angle, false, 0, 0, 0));
+	}
+	Value value(new Object_array(env, pArrayT.release()));
+	return ReturnValue(env, arg, value);
+}
+
+// array@T.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+Gura_DeclareClassMethodAlias_arrayT(rotation_at_z, "rotation@z")
+{
+	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "ztrans", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(deg));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array that rotates a point around z-axis by the specified angle.\n"
+		);
+}
+
+Gura_ImplementClassMethod_arrayT(rotation_at_z)
+{
+	double angle = arg.GetDouble(0);
+	if (arg.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
+	AutoPtr<ArrayT<T_Elem> > pArrayT;
+	if (arg.IsValid(1) || arg.IsValid(2) || arg.IsValid(3)) {
+		T_Elem xTrans = arg.IsValid(1)? static_cast<T_Elem>(arg.GetDouble(1)) : 0;
+		T_Elem yTrans = arg.IsValid(2)? static_cast<T_Elem>(arg.GetDouble(2)) : 0;
+		T_Elem zTrans = arg.IsValid(3)? static_cast<T_Elem>(arg.GetDouble(3)) : 0;
+		pArrayT.reset(ArrayT<T_Elem>::CreateRotationZ(angle, true, xTrans, yTrans, zTrans));
+	} else {
+		pArrayT.reset(ArrayT<T_Elem>::CreateRotationZ(angle, false, 0, 0, 0));
 	}
 	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
@@ -401,6 +467,8 @@ void Class_arrayT<T_Elem>::DoPrepare(Environment &env)
 	Gura_AssignMethod_arrayT(range);
 	Gura_AssignMethod_arrayT(rotation);
 	Gura_AssignMethod_arrayT(rotation_at_x);
+	Gura_AssignMethod_arrayT(rotation_at_y);
+	Gura_AssignMethod_arrayT(rotation_at_z);
 	Gura_AssignMethod_arrayT(zeros);
 	do {
 		Class *pClass = env.LookupClass(VTYPE_array);
@@ -412,6 +480,8 @@ void Class_arrayT<T_Elem>::DoPrepare(Environment &env)
 		Gura_AssignMethodTo_arrayT(pClass, range,			Double, VTYPE_array_at_double);
 		Gura_AssignMethodTo_arrayT(pClass, rotation,		Double, VTYPE_array_at_double);
 		Gura_AssignMethodTo_arrayT(pClass, rotation_at_x,	Double, VTYPE_array_at_double);
+		Gura_AssignMethodTo_arrayT(pClass, rotation_at_y,	Double, VTYPE_array_at_double);
+		Gura_AssignMethodTo_arrayT(pClass, rotation_at_z,	Double, VTYPE_array_at_double);
 		Gura_AssignMethodTo_arrayT(pClass, zeros,			Double, VTYPE_array_at_double);
 	} while (0);
 }
