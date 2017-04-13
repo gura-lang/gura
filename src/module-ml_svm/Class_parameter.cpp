@@ -73,7 +73,12 @@ Gura_DeclareProperty_RW(parameter, svm_type)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Type of SVM:\n"
+		"- 0 .. C-SVC (multi-class classification)\n"
+		"- 1 .. nu-SVC (multi-class classification)\n"
+		"- 2 .. one-class SVM\n"
+		"- 3 .. epsilon-SVR (regression)\n"
+		"- 4 .. nu-SVR (regression)\n");
 }
 
 Gura_ImplementPropertyGetter(parameter, svm_type)
@@ -95,7 +100,12 @@ Gura_DeclareProperty_RW(parameter, kernel_type)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Type of kernel function:\n"
+		"- 0 .. linear: u'*v\n"
+		"- 1 .. polynomial: (gamma*u'*v + coef0)^degree\n"
+		"- 2 .. radial basis function: exp(-gamma*|u-v|^2)\n"
+		"- 3 .. sigmoid: tanh(gamma*u'*v + coef0)\n"
+		"- 4 .. precomputed kernel (kernel values in training_set_file)\n");
 }
 
 Gura_ImplementPropertyGetter(parameter, kernel_type)
@@ -117,7 +127,7 @@ Gura_DeclareProperty_RW(parameter, degree)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Degree in kernel function.");
 }
 
 Gura_ImplementPropertyGetter(parameter, degree)
@@ -139,7 +149,7 @@ Gura_DeclareProperty_RW(parameter, gamma)
 	SetPropAttr(VTYPE_number, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Gamma in kernel function.");
 }
 
 Gura_ImplementPropertyGetter(parameter, gamma)
@@ -163,7 +173,7 @@ Gura_DeclareProperty_RW(parameter, coef0)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"coef0 in kernel function.");
 }
 
 Gura_ImplementPropertyGetter(parameter, coef0)
@@ -185,7 +195,7 @@ Gura_DeclareProperty_RW(parameter, nu)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Parameter nu of nu-SVC, one-class SVM, and nu-SVR.");
 }
 
 Gura_ImplementPropertyGetter(parameter, nu)
@@ -207,7 +217,7 @@ Gura_DeclareProperty_RW(parameter, cache_size)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Cache memory size in MB.");
 }
 
 Gura_ImplementPropertyGetter(parameter, cache_size)
@@ -229,7 +239,7 @@ Gura_DeclareProperty_RW(parameter, C)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Parameter C of C-SVC, epsilon-SVR, and nu-SVR.");
 }
 
 Gura_ImplementPropertyGetter(parameter, C)
@@ -251,7 +261,7 @@ Gura_DeclareProperty_RW(parameter, eps)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Tolerance of termination criterion.");
 }
 
 Gura_ImplementPropertyGetter(parameter, eps)
@@ -273,7 +283,7 @@ Gura_DeclareProperty_RW(parameter, p)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Epsilon in loss function of epsilon-SVR.");
 }
 
 Gura_ImplementPropertyGetter(parameter, p)
@@ -295,7 +305,7 @@ Gura_DeclareProperty_RW(parameter, shrinking)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Whether to use the shrinking heuristics, 0 or 1.");
 }
 
 Gura_ImplementPropertyGetter(parameter, shrinking)
@@ -317,7 +327,7 @@ Gura_DeclareProperty_RW(parameter, probability)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Whether to train a SVC or SVR model for probability estimates.");
 }
 
 Gura_ImplementPropertyGetter(parameter, probability)
