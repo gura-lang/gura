@@ -305,7 +305,13 @@ Gura_DeclareClassMethod_arrayT(rotation)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that rotates a point by the specified angle.\n"
+		"Creates an array that rotates 2-D coords by the specified `angle`.\n"
+		"\n"
+		"The `angle` is specified in radian value.\n"
+		"If the attribute `:deg` is specified, the `angle` is specified in degree value.\n"
+		"\n"
+		"If one or more of `xtrans` or `ytrans` is specified,\n"
+		"it would create an array that works as translation as well as rotation.\n"
 		);
 }
 
@@ -337,7 +343,13 @@ Gura_DeclareClassMethodAlias_arrayT(rotation_at_x, "rotation@x")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that rotates a point around x-axis by the specified angle.\n"
+		"Creates an array that rotates 3-D coords around x-axis by the specified `angle`.\n"
+		"\n"
+		"The `angle` is specified in radian value.\n"
+		"If the attribute `:deg` is specified, the `angle` is specified in degree value.\n"
+		"\n"
+		"If one or more of `xtrans`, `ytrans` or `ztrans` is specified,\n"
+		"it would create an array that works as translation as well as rotation.\n"
 		);
 }
 
@@ -370,7 +382,13 @@ Gura_DeclareClassMethodAlias_arrayT(rotation_at_y, "rotation@y")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that rotates a point around y-axis by the specified angle.\n"
+		"Creates an array that rotates 3-D coords around y-axis by the specified `angle`.\n"
+		"\n"
+		"The `angle` is specified in radian value.\n"
+		"If the attribute `:deg` is specified, the `angle` is specified in degree value.\n"
+		"\n"
+		"If one or more of `xtrans`, `ytrans` or `ztrans` is specified,\n"
+		"it would create an array that works as translation as well as rotation.\n"
 		);
 }
 
@@ -403,7 +421,13 @@ Gura_DeclareClassMethodAlias_arrayT(rotation_at_z, "rotation@z")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that rotates a point around z-axis by the specified angle.\n"
+		"Creates an array that rotates 3-D coords around z-axis by the specified `angle`.\n"
+		"\n"
+		"The `angle` is specified in radian value.\n"
+		"If the attribute `:deg` is specified, the `angle` is specified in degree value.\n"
+		"\n"
+		"If one or more of `xtrans`, `ytrans` or `ztrans` is specified,\n"
+		"it would create an array that works as translation as well as rotation.\n"
 		);
 }
 
@@ -419,6 +443,68 @@ Gura_ImplementClassMethod_arrayT(rotation_at_z)
 		pArrayT.reset(ArrayT<T_Elem>::CreateRotationZ(angle, true, xTrans, yTrans, zTrans));
 	} else {
 		pArrayT.reset(ArrayT<T_Elem>::CreateRotationZ(angle, false, 0, 0, 0));
+	}
+	Value value(new Object_array(env, pArrayT.release()));
+	return ReturnValue(env, arg, value);
+}
+
+// array@T.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+Gura_DeclareClassMethod_arrayT(scaling)
+{
+	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "xscale", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "yscale", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "zscale", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array that scales coords.\n"
+		"If the argument `zscale` is specified, it would create an array that works with 3-D coords.\n"
+		"Otherwise, it would create what works with 2-D coord.n"
+		);
+}
+
+Gura_ImplementClassMethod_arrayT(scaling)
+{
+	T_Elem xScale = static_cast<T_Elem>(arg.GetDouble(0));
+	T_Elem yScale = static_cast<T_Elem>(arg.GetDouble(1));
+	AutoPtr<ArrayT<T_Elem> > pArrayT;
+	if (arg.IsValid(2)) {
+		T_Elem zScale = static_cast<T_Elem>(arg.GetDouble(2));
+		pArrayT.reset(ArrayT<T_Elem>::CreateScaling3D(xScale, yScale, zScale));
+	} else {
+		pArrayT.reset(ArrayT<T_Elem>::CreateScaling2D(xScale, yScale));
+	}
+	Value value(new Object_array(env, pArrayT.release()));
+	return ReturnValue(env, arg, value);
+}
+
+// array@T.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
+Gura_DeclareClassMethod_arrayT(translation)
+{
+	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "ztrans", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array that translates coords.\n"
+		"If the argument `ztrans` is specified, it would create an array that works with 3-D coords.\n"
+		"Otherwise, it would create what works with 2-D coords.n"
+		);
+}
+
+Gura_ImplementClassMethod_arrayT(translation)
+{
+	T_Elem xTrans = static_cast<T_Elem>(arg.GetDouble(0));
+	T_Elem yTrans = static_cast<T_Elem>(arg.GetDouble(1));
+	AutoPtr<ArrayT<T_Elem> > pArrayT;
+	if (arg.IsValid(2)) {
+		T_Elem zTrans = static_cast<T_Elem>(arg.GetDouble(2));
+		pArrayT.reset(ArrayT<T_Elem>::CreateTranslation3D(xTrans, yTrans, zTrans));
+	} else {
+		pArrayT.reset(ArrayT<T_Elem>::CreateTranslation2D(xTrans, yTrans));
 	}
 	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
@@ -469,6 +555,8 @@ void Class_arrayT<T_Elem>::DoPrepare(Environment &env)
 	Gura_AssignMethod_arrayT(rotation_at_x);
 	Gura_AssignMethod_arrayT(rotation_at_y);
 	Gura_AssignMethod_arrayT(rotation_at_z);
+	Gura_AssignMethod_arrayT(scaling);
+	Gura_AssignMethod_arrayT(translation);
 	Gura_AssignMethod_arrayT(zeros);
 	do {
 		Class *pClass = env.LookupClass(VTYPE_array);
@@ -482,6 +570,8 @@ void Class_arrayT<T_Elem>::DoPrepare(Environment &env)
 		Gura_AssignMethodTo_arrayT(pClass, rotation_at_x,	Double, VTYPE_array_at_double);
 		Gura_AssignMethodTo_arrayT(pClass, rotation_at_y,	Double, VTYPE_array_at_double);
 		Gura_AssignMethodTo_arrayT(pClass, rotation_at_z,	Double, VTYPE_array_at_double);
+		Gura_AssignMethodTo_arrayT(pClass, scaling,			Double, VTYPE_array_at_double);
+		Gura_AssignMethodTo_arrayT(pClass, translation,		Double, VTYPE_array_at_double);
 		Gura_AssignMethodTo_arrayT(pClass, zeros,			Double, VTYPE_array_at_double);
 	} while (0);
 }

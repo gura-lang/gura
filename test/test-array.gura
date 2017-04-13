@@ -621,3 +621,16 @@ testcase('array.rotation@z()') {
 	tester(`array.rotation@z(math.pi / 6))
 	tester(`array.rotation@z(30):deg)
 }
+testcase('array.scaling()') {
+	tester(`array.scaling(0, 0))
+	tester(`array.scaling(0, 0, 0))
+	tester(`array.scaling(2, 3))
+	tester(`array.scaling(2, 3, 4))
+}
+testcase('array.translation()') {
+	tester(`array.translation(0, 0))
+	tester(`array.translation(0, 0, 0))
+	tester(`array.translation(2, 3))
+	tester(`array.translation(2, 3, 4))
+}
+
