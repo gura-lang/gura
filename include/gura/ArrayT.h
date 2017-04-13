@@ -82,10 +82,10 @@ public:
 	static ArrayT *CreateRotationX(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans, T_Elem zTrans);
 	static ArrayT *CreateRotationY(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans, T_Elem zTrans);
 	static ArrayT *CreateRotationZ(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans, T_Elem zTrans);
-	static ArrayT *CreateScale2D(T_Elem xScale, T_Elem yScale);
-	static ArrayT *CreateScale3D(T_Elem xScale, T_Elem yScale, T_Elem zScale);
-	static ArrayT *CreateTranslate2D(T_Elem xTrans, T_Elem yTrans);
-	static ArrayT *CreateTranslate3D(T_Elem xTrans, T_Elem yTrans, T_Elem zTrans);
+	static ArrayT *CreateScaling2D(T_Elem xScale, T_Elem yScale);
+	static ArrayT *CreateScaling3D(T_Elem xScale, T_Elem yScale, T_Elem zScale);
+	static ArrayT *CreateTranslation2D(T_Elem xTrans, T_Elem yTrans);
+	static ArrayT *CreateTranslation3D(T_Elem xTrans, T_Elem yTrans, T_Elem zTrans);
 private:
 	inline ~ArrayT() {}
 };

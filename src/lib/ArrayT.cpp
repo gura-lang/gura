@@ -947,7 +947,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotationZ(double rad, bool transFlag, T_El
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScale2D(T_Elem xScale, T_Elem yScale)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScaling2D(T_Elem xScale, T_Elem yScale)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT(3, 3));
 	T_Elem *p = pArrayT->GetPointer();
@@ -967,7 +967,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScale2D(T_Elem xScale, T_Elem yScale)
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScale3D(T_Elem xScale, T_Elem yScale, T_Elem zScale)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScaling3D(T_Elem xScale, T_Elem yScale, T_Elem zScale)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT(4, 4));
 	T_Elem *p = pArrayT->GetPointer();
@@ -995,7 +995,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScale3D(T_Elem xScale, T_Elem yScale, T_El
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslate2D(T_Elem xTrans, T_Elem yTrans)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslation2D(T_Elem xTrans, T_Elem yTrans)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT(3, 3));
 	T_Elem *p = pArrayT->GetPointer();
@@ -1015,7 +1015,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslate2D(T_Elem xTrans, T_Elem yTrans)
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslate3D(T_Elem xTrans, T_Elem yTrans, T_Elem zTrans)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslation3D(T_Elem xTrans, T_Elem yTrans, T_Elem zTrans)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT(4, 4));
 	T_Elem *p = pArrayT->GetPointer();
