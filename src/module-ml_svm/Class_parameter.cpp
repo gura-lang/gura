@@ -14,21 +14,21 @@ Object_parameter::Object_parameter() : Object(Gura_UserClass(parameter))
 {
 	::memset(&_param, 0x00, sizeof(_param));
 	// these default values come from parse_command_line() in svm_train.c.
-	_param.svm_type		= C_SVC;
-	_param.kernel_type	= RBF;
-	_param.degree		= 3;
-	_param.gamma		= 0;	// 1/num_features
-	_param.coef0		= 0;
-	_param.nu			= 0.5;
-	_param.cache_size	= 100;
-	_param.C			= 1;
-	_param.eps			= 1e-3;
-	_param.p			= 0.1;
-	_param.shrinking	= 1;
-	_param.probability	= 0;
-	_param.nr_weight	= 0;
-	_param.weight_label	= nullptr;
-	_param.weight		= nullptr;
+	_param.svm_type			= C_SVC;
+	_param.kernel_type		= RBF;
+	_param.degree			= 3;
+	_param.gamma = _gamma	= HUGE_VAL;	// 1 / num_features
+	_param.coef0			= 0;
+	_param.nu				= 0.5;
+	_param.cache_size		= 100;
+	_param.C				= 1;
+	_param.eps				= 1e-3;
+	_param.p				= 0.1;
+	_param.shrinking		= 1;
+	_param.probability		= 0;
+	_param.nr_weight		= 0;
+	_param.weight_label		= nullptr;
+	_param.weight			= nullptr;
 }
 
 Object_parameter::~Object_parameter()
@@ -47,8 +47,9 @@ void Object_parameter::AddWeight(int label, double weight)
 	_weightOwner.push_back(Weight(label, weight));
 }
 
-struct svm_parameter &Object_parameter::UpdateEntity()
+struct svm_parameter &Object_parameter::UpdateEntity(int num_features)
 {
+	_param.gamma = (_gamma != HUGE_VAL)? _gamma : (num_features > 0)? 1. / num_features : 0;
 	delete[] _param.weight_label;
 	delete[] _param.weight;
 	_param.nr_weight = static_cast<int>(_weightOwner.size());
@@ -135,7 +136,7 @@ Gura_ImplementPropertySetter(parameter, degree)
 // ml.svm.parameter#gamma
 Gura_DeclareProperty_RW(parameter, gamma)
 {
-	SetPropAttr(VTYPE_number);
+	SetPropAttr(VTYPE_number, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -143,15 +144,17 @@ Gura_DeclareProperty_RW(parameter, gamma)
 
 Gura_ImplementPropertyGetter(parameter, gamma)
 {
-	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
-	return Value(param.gamma);
+	Object_parameter *pObjParam = Object_parameter::GetObject(valueThis);
+	double gamma = pObjParam->GetGamma();
+	return (gamma == HUGE_VAL)? Value::Nil : Value(gamma);
 }
 
 Gura_ImplementPropertySetter(parameter, gamma)
 {
-	struct svm_parameter &param = Object_parameter::GetObject(valueThis)->GetEntity();
-	param.gamma = value.GetDouble();
-	return Value(param.gamma);
+	Object_parameter *pObjParam = Object_parameter::GetObject(valueThis);
+	double gamma = value.IsValid()? value.GetDouble() : HUGE_VAL;
+	pObjParam->SetGamma(gamma);
+	return (gamma == HUGE_VAL)? Value::Nil : Value(gamma);
 }
 
 // ml.svm.parameter#coef0

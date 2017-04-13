@@ -22,8 +22,10 @@ Gura_DeclareFunction(train)
 
 Gura_ImplementFunction(train)
 {
-	struct svm_problem &prob = Object_problem::GetObject(arg, 0)->UpdateEntity();
-	struct svm_parameter &param = Object_parameter::GetObject(arg, 1)->UpdateEntity();
+	Object_problem *pObjProb = Object_problem::GetObject(arg, 0);
+	Object_parameter *pObjParam = Object_parameter::GetObject(arg, 1);
+	struct svm_problem &prob = pObjProb->UpdateEntity();
+	struct svm_parameter &param = pObjParam->UpdateEntity(pObjProb->GetIndexMax());
 	const char *errorMsg = ::svm_check_parameter(&prob, &param);
 	if (errorMsg != nullptr) {
 		env.SetError(ERR_RuntimeError, "%s", errorMsg);
