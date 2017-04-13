@@ -949,109 +949,97 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotationZ(double rad, bool transFlag, T_El
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScale2D(T_Elem xScale, T_Elem yScale)
 {
-#if 0
 	AutoPtr<ArrayT> pArrayT(new ArrayT(3, 3));
 	T_Elem *p = pArrayT->GetPointer();
 	// row-1
-	elements.push_back(Value(xScale));
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::Zero);
+	*p++ = xScale;
+	*p++ = 0;
+	*p++ = 0;
 	// row-2
-	elements.push_back(Value::Zero);
-	elements.push_back(Value(yScale));
-	elements.push_back(Value::Zero);
+	*p++ = 0;
+	*p++ = yScale;
+	*p++ = 0;
 	// row-3
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::One);
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 1;
 	return pArrayT.release();
-#endif
-	return nullptr;
 }
 
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScale3D(T_Elem xScale, T_Elem yScale, T_Elem zScale)
 {
-#if 0
 	AutoPtr<ArrayT> pArrayT(new ArrayT(4, 4));
 	T_Elem *p = pArrayT->GetPointer();
 	// row-1
-	elements.push_back(Value(xScale));
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::Zero);
+	*p++ = xScale;
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 0;
 	// row-2
-	elements.push_back(Value::Zero);
-	elements.push_back(Value(yScale));
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::Zero);
+	*p++ = 0;
+	*p++ = yScale;
+	*p++ = 0;
+	*p++ = 0;
 	// row-3
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::Zero);
-	elements.push_back(Value(zScale));
-	elements.push_back(Value::Zero);
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = zScale;
+	*p++ = 0;
 	// row-4
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::One);
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 1;
 	return pArrayT.release();
-#endif
-	return nullptr;
 }
 
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslate2D(T_Elem xTrans, T_Elem yTrans)
 {
-#if 0
 	AutoPtr<ArrayT> pArrayT(new ArrayT(3, 3));
 	T_Elem *p = pArrayT->GetPointer();
 	// row-1
-	elements.push_back(Value::One);
-	elements.push_back(Value::Zero);
-	elements.push_back(Value(xTrans));
+	*p++ = 1;
+	*p++ = 0;
+	*p++ = xTrans;
 	// row-2
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::One);
-	elements.push_back(Value(yTrans));
+	*p++ = 0;
+	*p++ = 1;
+	*p++ = yTrans;
 	// row-3
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::One);
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 1;
 	return pArrayT.release();
-#endif
-	return nullptr;
 }
 
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslate3D(T_Elem xTrans, T_Elem yTrans, T_Elem zTrans)
 {
-#if 0
 	AutoPtr<ArrayT> pArrayT(new ArrayT(4, 4));
 	T_Elem *p = pArrayT->GetPointer();
 	// row-1
-	elements.push_back(Value::One);
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::Zero);
-	elements.push_back(Value(xTrans));
+	*p++ = 1;
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = xTrans;
 	// row-2
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::One);
-	elements.push_back(Value::Zero);
-	elements.push_back(Value(yTrans));
+	*p++ = 0;
+	*p++ = 1;
+	*p++ = 0;
+	*p++ = yTrans;
 	// row-3
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::One);
-	elements.push_back(Value(zTrans));
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 1;
+	*p++ = zTrans;
 	// row-4
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::Zero);
-	elements.push_back(Value::One);
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 1;
 	return pArrayT.release();
-#endif
-	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
