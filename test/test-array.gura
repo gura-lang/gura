@@ -597,3 +597,11 @@ testcase('array.rotation()') {
 	tester(`array.rotation(math.pi / 6))
 	tester(`array.rotation(30):deg)
 }
+testcase('array.rotation@x()') {
+	tester(`array.rotation@x(0))
+	tester(`array.rotation@x(0, 2))
+	tester(`array.rotation@x(0, 2, 3))
+	tester(`array.rotation@x(0, 2, 3, 4))
+	tester(`array.rotation@x(math.pi / 6))
+	tester(`array.rotation@x(30):deg)
+}
