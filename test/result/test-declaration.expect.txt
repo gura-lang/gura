@@ -370,9 +370,15 @@ array
   array.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
   array.range(num:number, num_end?:number, step?:number):static:map {block?}
   array#reshape(dims[]:number:nil) {block?}
+  array.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+  array.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
   array#roundoff(threshold?:number) {block?}
+  array.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
   array#sum(axis?:number):map {block?}
   array#tail(n:number):map {block?}
+  array.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array#transpose(axes[]?:number) {block?}
   array.zeros(dims[]:number):static:map {block?}
 array@double
@@ -382,6 +388,12 @@ array@double
   array@double.rands(dims[]:number, range?:number):static:map {block?}
   array@double.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
   array@double.range(num:number, num_end?:number, step?:number):static:map {block?}
+  array@double.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+  array@double.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@double.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@double.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@double.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+  array@double.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array@double.zeros(dims[]:number):static:map {block?}
 array@float
   array@float.identity(n:number):static:map {block?}
@@ -390,6 +402,12 @@ array@float
   array@float.rands(dims[]:number, range?:number):static:map {block?}
   array@float.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
   array@float.range(num:number, num_end?:number, step?:number):static:map {block?}
+  array@float.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+  array@float.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@float.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@float.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@float.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+  array@float.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array@float.zeros(dims[]:number):static:map {block?}
 array@int16
   array@int16.identity(n:number):static:map {block?}
@@ -398,6 +416,12 @@ array@int16
   array@int16.rands(dims[]:number, range?:number):static:map {block?}
   array@int16.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
   array@int16.range(num:number, num_end?:number, step?:number):static:map {block?}
+  array@int16.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+  array@int16.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@int16.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@int16.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@int16.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+  array@int16.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array@int16.zeros(dims[]:number):static:map {block?}
 array@int32
   array@int32.identity(n:number):static:map {block?}
@@ -406,6 +430,12 @@ array@int32
   array@int32.rands(dims[]:number, range?:number):static:map {block?}
   array@int32.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
   array@int32.range(num:number, num_end?:number, step?:number):static:map {block?}
+  array@int32.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+  array@int32.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@int32.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@int32.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@int32.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+  array@int32.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array@int32.zeros(dims[]:number):static:map {block?}
 array@int64
   array@int64.identity(n:number):static:map {block?}
@@ -414,6 +444,12 @@ array@int64
   array@int64.rands(dims[]:number, range?:number):static:map {block?}
   array@int64.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
   array@int64.range(num:number, num_end?:number, step?:number):static:map {block?}
+  array@int64.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+  array@int64.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@int64.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@int64.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@int64.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+  array@int64.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array@int64.zeros(dims[]:number):static:map {block?}
 array@int8
   array@int8.identity(n:number):static:map {block?}
@@ -422,6 +458,12 @@ array@int8
   array@int8.rands(dims[]:number, range?:number):static:map {block?}
   array@int8.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
   array@int8.range(num:number, num_end?:number, step?:number):static:map {block?}
+  array@int8.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+  array@int8.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@int8.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@int8.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@int8.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+  array@int8.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array@int8.zeros(dims[]:number):static:map {block?}
 array@uint16
   array@uint16.identity(n:number):static:map {block?}
@@ -430,6 +472,12 @@ array@uint16
   array@uint16.rands(dims[]:number, range?:number):static:map {block?}
   array@uint16.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
   array@uint16.range(num:number, num_end?:number, step?:number):static:map {block?}
+  array@uint16.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+  array@uint16.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@uint16.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@uint16.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@uint16.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+  array@uint16.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array@uint16.zeros(dims[]:number):static:map {block?}
 array@uint32
   array@uint32.identity(n:number):static:map {block?}
@@ -438,6 +486,12 @@ array@uint32
   array@uint32.rands(dims[]:number, range?:number):static:map {block?}
   array@uint32.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
   array@uint32.range(num:number, num_end?:number, step?:number):static:map {block?}
+  array@uint32.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+  array@uint32.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@uint32.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@uint32.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@uint32.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+  array@uint32.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array@uint32.zeros(dims[]:number):static:map {block?}
 array@uint64
   array@uint64.identity(n:number):static:map {block?}
@@ -446,6 +500,12 @@ array@uint64
   array@uint64.rands(dims[]:number, range?:number):static:map {block?}
   array@uint64.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
   array@uint64.range(num:number, num_end?:number, step?:number):static:map {block?}
+  array@uint64.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+  array@uint64.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@uint64.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@uint64.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@uint64.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+  array@uint64.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array@uint64.zeros(dims[]:number):static:map {block?}
 array@uint8
   array@uint8.identity(n:number):static:map {block?}
@@ -454,6 +514,12 @@ array@uint8
   array@uint8.rands(dims[]:number, range?:number):static:map {block?}
   array@uint8.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
   array@uint8.range(num:number, num_end?:number, step?:number):static:map {block?}
+  array@uint8.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+  array@uint8.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@uint8.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@uint8.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@uint8.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+  array@uint8.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array@uint8.zeros(dims[]:number):static:map {block?}
 audio
   audio#each(channel:number, offset?:number):map {block?}
