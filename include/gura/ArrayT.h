@@ -78,6 +78,14 @@ public:
 	static ArrayT *CreateZeros(const ValueList &valList);
 	static ArrayT *CreateRands(const ValueList &valList, UInt range);
 	static ArrayT *CreateRandsNormal(const ValueList &valList, double mu, double sigma);
+	static ArrayT *CreateRotation(double rad, bool transFlag, double xTrans, double yTrans);
+	static ArrayT *CreateRotationX(double rad, bool transFlag, double xTrans, double yTrans, double zTrans);
+	static ArrayT *CreateRotationY(double rad, bool transFlag, double xTrans, double yTrans, double zTrans);
+	static ArrayT *CreateRotationZ(double rad, bool transFlag, double xTrans, double yTrans, double zTrans);
+	static ArrayT *CreateScale2D(double xScale, double yScale);
+	static ArrayT *CreateScale3D(double xScale, double yScale, double zScale);
+	static ArrayT *CreateTranslate2D(double xTrans, double yTrans);
+	static ArrayT *CreateTranslate3D(double xTrans, double yTrans, double zTrans);
 private:
 	inline ~ArrayT() {}
 };

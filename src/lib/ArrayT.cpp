@@ -810,6 +810,260 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRandsNormal(const ValueList &valList, doub
 	return pArrayT.release();
 }
 
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotation(double rad, bool transFlag, double xTrans, double yTrans)
+{
+#if 0
+	int sizeMat = transFlag? 3 : 2;
+	Number numCos = ::cos(rad), numSin = ::sin(rad);
+	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
+	Elements &elements = pMat->GetElements();
+	// row-1
+	elements.push_back(Value(numCos));
+	elements.push_back(Value(-numSin));
+	if (transFlag) {
+		elements.push_back(Value(xTrans));
+	}
+	// row-2
+	elements.push_back(Value(numSin));
+	elements.push_back(Value(numCos));
+	if (transFlag) {
+		elements.push_back(Value(yTrans));
+		// row-3
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::One);
+	}
+	return pMat.release();
+#endif
+	return nullptr;
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotationX(double rad, bool transFlag, double xTrans, double yTrans, double zTrans)
+{
+#if 0
+	int sizeMat = transFlag? 4 : 3;
+	Number numCos = ::cos(rad), numSin = ::sin(rad);
+	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
+	Elements &elements = pMat->GetElements();
+	// row-1
+	elements.push_back(Value::One);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	if (transFlag) {
+		elements.push_back(Value(xTrans));
+	}
+	// row-2
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(numCos));
+	elements.push_back(Value(-numSin));
+	if (transFlag) {
+		elements.push_back(Value(yTrans));
+	}
+	// row-3
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(numSin));
+	elements.push_back(Value(numCos));
+	if (transFlag) {
+		elements.push_back(Value(zTrans));
+		// row-4
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::One);
+	}
+	return pMat.release();
+#endif
+	return nullptr;
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotationY(double rad, bool transFlag, double xTrans, double yTrans, double zTrans)
+{
+#if 0
+	int sizeMat = transFlag? 4 : 3;
+	Number numCos = ::cos(rad), numSin = ::sin(rad);
+	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
+	Elements &elements = pMat->GetElements();
+	// row-1
+	elements.push_back(Value(numCos));
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(numSin));
+	if (transFlag) {
+		elements.push_back(Value(xTrans));
+	}
+	// row-2
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	elements.push_back(Value::Zero);
+	if (transFlag) {
+		elements.push_back(Value(yTrans));
+	}
+	// row-3
+	elements.push_back(Value(-numSin));
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(numCos));
+	if (transFlag) {
+		elements.push_back(Value(zTrans));
+		// row-4
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::One);
+	}
+	return pMat.release();
+#endif
+	return nullptr;
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotationZ(double rad, bool transFlag, double xTrans, double yTrans, double zTrans)
+{
+#if 0
+	int sizeMat = transFlag? 4 : 3;
+	Number numCos = ::cos(rad), numSin = ::sin(rad);
+	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
+	Elements &elements = pMat->GetElements();
+	// row-1
+	elements.push_back(Value(numCos));
+	elements.push_back(Value(-numSin));
+	elements.push_back(Value::Zero);
+	if (transFlag) {
+		elements.push_back(Value(xTrans));
+	}
+	// row-2
+	elements.push_back(Value(numSin));
+	elements.push_back(Value(numCos));
+	elements.push_back(Value::Zero);
+	if (transFlag) {
+		elements.push_back(Value(yTrans));
+	}
+	// row-3
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	if (transFlag) {
+		elements.push_back(Value(zTrans));
+		// row-4
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::One);
+	}
+	return pMat.release();
+#endif
+	return nullptr;
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScale2D(double xScale, double yScale)
+{
+#if 0
+	AutoPtr<Matrix> pMat(new Matrix(3, 3));
+	Elements &elements = pMat->GetElements();
+	// row-1
+	elements.push_back(Value(xScale));
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	// row-2
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(yScale));
+	elements.push_back(Value::Zero);
+	// row-3
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	return pMat.release();
+#endif
+	return nullptr;
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScale3D(double xScale, double yScale, double zScale)
+{
+#if 0
+	AutoPtr<Matrix> pMat(new Matrix(4, 4));
+	Elements &elements = pMat->GetElements();
+	// row-1
+	elements.push_back(Value(xScale));
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	// row-2
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(yScale));
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	// row-3
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(zScale));
+	elements.push_back(Value::Zero);
+	// row-4
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	return pMat.release();
+#endif
+	return nullptr;
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslate2D(double xTrans, double yTrans)
+{
+#if 0
+	AutoPtr<Matrix> pMat(new Matrix(3, 3));
+	Elements &elements = pMat->GetElements();
+	// row-1
+	elements.push_back(Value::One);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(xTrans));
+	// row-2
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	elements.push_back(Value(yTrans));
+	// row-3
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	return pMat.release();
+#endif
+	return nullptr;
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslate3D(double xTrans, double yTrans, double zTrans)
+{
+#if 0
+	AutoPtr<Matrix> pMat(new Matrix(4, 4));
+	Elements &elements = pMat->GetElements();
+	// row-1
+	elements.push_back(Value::One);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(xTrans));
+	// row-2
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(yTrans));
+	// row-3
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	elements.push_back(Value(zTrans));
+	// row-4
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	return pMat.release();
+#endif
+	return nullptr;
+}
+
 //-----------------------------------------------------------------------------
 // Iterator_ArrayT_Each
 //-----------------------------------------------------------------------------
