@@ -78,14 +78,14 @@ public:
 	static ArrayT *CreateZeros(const ValueList &valList);
 	static ArrayT *CreateRands(const ValueList &valList, UInt range);
 	static ArrayT *CreateRandsNormal(const ValueList &valList, double mu, double sigma);
-	static ArrayT *CreateRotation(double rad, bool transFlag, double xTrans, double yTrans);
-	static ArrayT *CreateRotationX(double rad, bool transFlag, double xTrans, double yTrans, double zTrans);
-	static ArrayT *CreateRotationY(double rad, bool transFlag, double xTrans, double yTrans, double zTrans);
-	static ArrayT *CreateRotationZ(double rad, bool transFlag, double xTrans, double yTrans, double zTrans);
-	static ArrayT *CreateScale2D(double xScale, double yScale);
-	static ArrayT *CreateScale3D(double xScale, double yScale, double zScale);
-	static ArrayT *CreateTranslate2D(double xTrans, double yTrans);
-	static ArrayT *CreateTranslate3D(double xTrans, double yTrans, double zTrans);
+	static ArrayT *CreateRotation(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans);
+	static ArrayT *CreateRotationX(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans, T_Elem zTrans);
+	static ArrayT *CreateRotationY(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans, T_Elem zTrans);
+	static ArrayT *CreateRotationZ(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans, T_Elem zTrans);
+	static ArrayT *CreateScale2D(T_Elem xScale, T_Elem yScale);
+	static ArrayT *CreateScale3D(T_Elem xScale, T_Elem yScale, T_Elem zScale);
+	static ArrayT *CreateTranslate2D(T_Elem xTrans, T_Elem yTrans);
+	static ArrayT *CreateTranslate3D(T_Elem xTrans, T_Elem yTrans, T_Elem zTrans);
 private:
 	inline ~ArrayT() {}
 };

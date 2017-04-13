@@ -811,36 +811,32 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRandsNormal(const ValueList &valList, doub
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotation(double rad, bool transFlag, double xTrans, double yTrans)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotation(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans)
 {
-#if 0
 	int sizeMat = transFlag? 3 : 2;
-	Number numCos = ::cos(rad), numSin = ::sin(rad);
-	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
-	Elements &elements = pMat->GetElements();
+	T_Elem numCos = static_cast<T_Elem>(::cos(rad));
+	T_Elem numSin = static_cast<T_Elem>(::sin(rad));
+	AutoPtr<ArrayT> pArrayT(new ArrayT(sizeMat, sizeMat));
+	T_Elem *p = pArrayT->GetPointer();
 	// row-1
-	elements.push_back(Value(numCos));
-	elements.push_back(Value(-numSin));
-	if (transFlag) {
-		elements.push_back(Value(xTrans));
-	}
+	*p++ = numCos;
+	*p++ = -numSin;
+	if (transFlag) *p++ = xTrans;
 	// row-2
-	elements.push_back(Value(numSin));
-	elements.push_back(Value(numCos));
+	*p++ = numSin;
+	*p++ = numCos;
 	if (transFlag) {
-		elements.push_back(Value(yTrans));
+		*p++ = yTrans;
 		// row-3
-		elements.push_back(Value::Zero);
-		elements.push_back(Value::Zero);
-		elements.push_back(Value::One);
+		*p++ = 0;
+		*p++ = 0;
+		*p++ = 1;
 	}
-	return pMat.release();
-#endif
-	return nullptr;
+	return pArrayT.release();
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotationX(double rad, bool transFlag, double xTrans, double yTrans, double zTrans)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotationX(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans, T_Elem zTrans)
 {
 #if 0
 	int sizeMat = transFlag? 4 : 3;
@@ -879,7 +875,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotationX(double rad, bool transFlag, doub
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotationY(double rad, bool transFlag, double xTrans, double yTrans, double zTrans)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotationY(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans, T_Elem zTrans)
 {
 #if 0
 	int sizeMat = transFlag? 4 : 3;
@@ -918,7 +914,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotationY(double rad, bool transFlag, doub
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotationZ(double rad, bool transFlag, double xTrans, double yTrans, double zTrans)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotationZ(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans, T_Elem zTrans)
 {
 #if 0
 	int sizeMat = transFlag? 4 : 3;
@@ -957,7 +953,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRotationZ(double rad, bool transFlag, doub
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScale2D(double xScale, double yScale)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScale2D(T_Elem xScale, T_Elem yScale)
 {
 #if 0
 	AutoPtr<Matrix> pMat(new Matrix(3, 3));
@@ -980,7 +976,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScale2D(double xScale, double yScale)
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScale3D(double xScale, double yScale, double zScale)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScale3D(T_Elem xScale, T_Elem yScale, T_Elem zScale)
 {
 #if 0
 	AutoPtr<Matrix> pMat(new Matrix(4, 4));
@@ -1011,7 +1007,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScale3D(double xScale, double yScale, doub
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslate2D(double xTrans, double yTrans)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslate2D(T_Elem xTrans, T_Elem yTrans)
 {
 #if 0
 	AutoPtr<Matrix> pMat(new Matrix(3, 3));
@@ -1034,7 +1030,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslate2D(double xTrans, double yTrans)
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslate3D(double xTrans, double yTrans, double zTrans)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslate3D(T_Elem xTrans, T_Elem yTrans, T_Elem zTrans)
 {
 #if 0
 	AutoPtr<Matrix> pMat(new Matrix(4, 4));
