@@ -2,6 +2,7 @@
 import(ml.linear)
 import(helper.test) {*}
 
+println(ml.linear.feature([1=>2, 2=>3]))
 fileName = 'liblinear-2.11/heart_scale'
 prob = ml.linear.problem()
 param = ml.linear.parameter()

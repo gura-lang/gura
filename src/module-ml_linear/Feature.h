@@ -18,7 +18,7 @@ private:
 	//   {{index_0, value_0}, {index_1, value_1}, .. {index_k, value_k},
 	//    {n, value_bias}, {-1, 0}}
 	size_t _nNodes;
-	struct feature_node *_nodes;
+	std::unique_ptr<struct feature_node []> _nodes;
 public:
 	Gura_DeclareReferenceAccessor(Feature);
 public:
@@ -31,7 +31,7 @@ public:
 	void ClearBias();
 	void SetBias(int indexForBias, double bias);
 	inline int GetIndexMax() const { return (_nNodes < 3)? 0 : _nodes[_nNodes - 3].index; }
-	inline struct feature_node *GetNodes() { return _nodes; }
+	inline struct feature_node *GetNodes() { return _nodes.get(); }
 };
 
 Gura_EndModuleScope(ml_linear)

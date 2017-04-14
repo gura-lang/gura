@@ -23,11 +23,11 @@ String Object_feature::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// ml.linear.feature(x[]:number) {block?}
+// ml.linear.feature(x[]:list) {block?}
 Gura_DeclareFunction(feature)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "x", VTYPE_list, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(feature));
 	AddHelp(
