@@ -19,7 +19,7 @@ Feature *Feature::Create(Environment &env, const ValueList &valList)
 
 bool Feature::Store(Environment &env, const ValueList &valList)
 {
-	if (valList.GetValueTypeOfElements() != VTYPE_list) {
+	if (!valList.empty() && valList.GetValueTypeOfElements() != VTYPE_list) {
 		env.SetError(
 			ERR_TypeError,
 			"wrong format for feature initialization: the list must consist of pairs of two numbers");
