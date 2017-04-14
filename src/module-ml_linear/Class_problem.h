@@ -22,6 +22,7 @@ public:
 	virtual ~Object_problem();
 	virtual String ToString(bool exprFlag);
 	struct problem &UpdateEntity(double bias);
+	void AddSample(Sample *pSample);
 	void AddSample(double label, Feature *pFeature);
 	inline const SampleOwner *GetSampleOwner() const { return _pSampleOwner.get(); }
 };

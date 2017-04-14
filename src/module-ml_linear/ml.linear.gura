@@ -2,7 +2,7 @@
 import(re)
 import(ml.linear):binary:mixin_type {*}
 
-parse_line(str:string) = {
+parse_sample(str:string):map = {
 	fields = str.strip().splitreg(r'\s+'):list
 	label = fields[0].tonumber():raise
 	x = fields[1..].each():xlist {|field|
@@ -11,12 +11,9 @@ parse_line(str:string) = {
 			[int(pair[0]), pair[1].tonumber():raise]
 		}
 	}
-	[label, feature(x)]
+	sample(label, feature(x))
 }
 
 problem.read(src:stream) = {
-	readlines(src).each {|line|
-		[label, feature_] = parse_line(line)
-		this.add_sample(label, feature_)
-	}
+	this.add_sample(parse_sample(readlines(src)))
 }

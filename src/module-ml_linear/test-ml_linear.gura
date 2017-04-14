@@ -12,6 +12,10 @@ testcase('features of ml.linear.feature') {
 	tester(`ml.linear.feature([2=>.2, 3=>.3, 4=>.4, 5=>.5, 2=>.1]))
 }
 
+testcase('features of ml.linear.sample') {
+	println(ml.linear.sample)
+}
+
 testcase('features of ml.linear.problem') {
 	println(ml.linear.problem)
 }

@@ -60,6 +60,13 @@ struct problem &Object_problem::UpdateEntity(double bias)
 	return _prob;
 }
 
+void Object_problem::AddSample(Sample *pSample)
+{
+	_pSampleOwner->push_back(pSample);
+	int indexMax = pSample->GetFeature()->GetIndexMax();
+	if (_indexMax < indexMax) _indexMax = indexMax;
+}
+
 void Object_problem::AddSample(double label, Feature *pFeature)
 {
 	_pSampleOwner->push_back(new Sample(label, pFeature));
@@ -89,12 +96,11 @@ Gura_ImplementPropertyGetter(problem, samples)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// ml.linear.problem.add_sample(label:number, feature:feature):reduce
+// ml.linear.problem.add_sample(sample:ml.linear.sample):reduce:map
 Gura_DeclareMethod(problem, add_sample)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "label", VTYPE_number);
-	DeclareArg(env, "feature", VTYPE_feature);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "sample", VTYPE_sample);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -103,9 +109,8 @@ Gura_DeclareMethod(problem, add_sample)
 Gura_ImplementMethod(problem, add_sample)
 {
 	Object_problem *pObjProb = Object_problem::GetObjectThis(arg);
-	double label = arg.GetDouble(0);
-	Feature *pFeature = Object_feature::GetObject(arg, 1)->GetEntity();
-	pObjProb->AddSample(label, pFeature->Reference());
+	Sample *pSample = Object_sample::GetObject(arg, 0)->GetEntity();
+	pObjProb->AddSample(pSample->Reference());
 	return arg.GetValueThis();
 }
 
