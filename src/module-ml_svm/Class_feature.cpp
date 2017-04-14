@@ -13,7 +13,19 @@ Object_feature::Object_feature(Feature *pFeature) :
 
 String Object_feature::ToString(bool exprFlag)
 {
-	return String("<ml.linear.feature>");
+	String str;
+	struct svm_node *pNode = _pFeature->GetNodes();
+	if (exprFlag) str += "ml.svm.feature(";
+	str += "[";
+	for (size_t iNode = 0; iNode < _pFeature->CountNodes() - 2; iNode++, pNode++) {
+		char buff[80];
+		::sprintf(buff, "%d => %g", pNode->index, pNode->value);
+		if (iNode > 0) str += ", ";
+		str += buff;
+	}
+	str += "]";
+	if (exprFlag) str += ")";
+	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -23,16 +35,16 @@ String Object_feature::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// ml.linear.feature(x[]:number) {block?}
+// ml.svm.feature(x[]:list) {block?}
 Gura_DeclareFunction(feature)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "x", VTYPE_list, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(feature));
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an instance of ml.linear.feature.\n");
+		"Creates an instance of ml.svm.feature.\n");
 }
 
 Gura_ImplementFunction(feature)

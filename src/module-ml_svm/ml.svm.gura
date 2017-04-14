@@ -5,14 +5,12 @@ import(ml.svm):binary:mixin_type {*}
 parse_line(str:string) = {
 	fields = str.strip().splitreg(r'\s+'):list
 	label = fields[0].tonumber():raise
-	pairs = fields[1..].each():xlist {|field|
+	x = fields[1..].each():xlist {|field|
 		pair = field.split(':'):list
 		if (pair.len() >= 2) {
 			[int(pair[0]), pair[1].tonumber():raise]
 		}
 	}
-	x = consts(0, pairs:*get(0).max()):list
-	pairs.each {|pair| x[pair[0] - 1] = pair[1]}
 	[label, feature(x)]
 }
 

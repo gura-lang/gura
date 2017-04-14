@@ -55,7 +55,7 @@ bool Feature::Store(Environment &env, const ValueList &valList)
 		_nodes[iNodeSet].index = index;
 		_nodes[iNodeSet].value = valListPair[1].GetDouble();
 		iNode++;
-	}	
+	}
 	// append nodes of bias and terminator.
 	for (size_t i = 0; i < 2; i++, iNode++) {
 		_nodes[iNode].index = -1;

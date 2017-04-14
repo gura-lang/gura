@@ -11,20 +11,28 @@ class Feature {
 private:
 	int _cntRef;
 	// Content of _nodes should be as follows:
-	//   {{index_0, value_0}, {index_1, value_1}, .. {index_k, value_k}, {-1, 0}}
+	// [without bias]
+	//   {{index_0, value_0}, {index_1, value_1}, .. {index_k, value_k},
+	//    {-1, 0}, {-1, 0}}
+	// [with bias]
+	//   {{index_0, value_0}, {index_1, value_1}, .. {index_k, value_k},
+	//    {n, value_bias}, {-1, 0}}
 	size_t _nNodes;
-	struct svm_node *_nodes;
+	std::unique_ptr<struct svm_node []> _nodes;
 public:
 	Gura_DeclareReferenceAccessor(Feature);
 public:
 	Feature();
 protected:
-	~Feature();
+	inline ~Feature() {}
 public:
 	static Feature *Create(Environment &env, const ValueList &valList);
 	bool Store(Environment &env, const ValueList &valList);
-	inline int GetIndexMax() const { return (_nNodes < 2)? 0 : _nodes[_nNodes - 2].index; }
-	inline struct svm_node *GetNodes() { return _nodes; }
+	void ClearBias();
+	void SetBias(int indexForBias, double bias);
+	inline int GetIndexMax() const { return (_nNodes < 3)? 0 : _nodes[_nNodes - 3].index; }
+	inline size_t CountNodes() const { return _nNodes; }
+	inline struct svm_node *GetNodes() { return _nodes.get(); }
 };
 
 Gura_EndModuleScope(ml_svm)
