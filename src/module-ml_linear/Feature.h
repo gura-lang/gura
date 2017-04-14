@@ -24,7 +24,7 @@ public:
 public:
 	Feature();
 protected:
-	~Feature();
+	inline ~Feature() {}
 public:
 	static Feature *Create(Environment &env, const ValueList &valList);
 	bool Store(Environment &env, const ValueList &valList);

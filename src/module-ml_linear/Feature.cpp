@@ -10,11 +10,6 @@ Feature::Feature() : _cntRef(1), _nNodes(0), _nodes(nullptr)
 {
 }
 
-Feature::~Feature()
-{
-	//delete[] _nodes;
-}
-
 Feature *Feature::Create(Environment &env, const ValueList &valList)
 {
 	AutoPtr<Feature> pFeature(new Feature());
@@ -30,7 +25,6 @@ bool Feature::Store(Environment &env, const ValueList &valList)
 			"wrong format for feature initialization: the list must consist of pairs of two numbers");
 		return false;
 	}
-	int indexPrev = 0;
 	_nNodes = static_cast<int>(valList.size()) + 2;
 	_nodes.reset(new struct feature_node [_nNodes]);
 	size_t iNode = 0;
@@ -43,12 +37,17 @@ bool Feature::Store(Environment &env, const ValueList &valList)
 			return false;
 		}
 		int index = valListPair[0].GetInt();
-		if (indexPrev >= index) {
-			
-		} else {
-			_nodes[iNode].index = index;
-			_nodes[iNode].value = valListPair[1].GetDouble();
+		size_t iNodeSet = iNode;
+		if (iNode > 0 && _nodes[iNode - 1].index >= index) {
+			// Search for a proper position to set the node if it has an index smaller than
+			// the previous one,
+			iNodeSet--;
+			for ( ; iNodeSet > 0 && _nodes[iNodeSet - 1].index >= index; iNodeSet--) ;
+			::memmove(&_nodes[iNodeSet + 1], &_nodes[iNodeSet],
+					  sizeof(_nodes[0]) * (iNode - iNodeSet));
 		}
+		_nodes[iNodeSet].index = index;
+		_nodes[iNodeSet].value = valListPair[1].GetDouble();
 		iNode++;
 	}	
 	// append nodes of bias and terminator.
