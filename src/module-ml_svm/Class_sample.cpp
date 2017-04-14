@@ -52,6 +52,26 @@ Gura_ImplementPropertyGetter(sample, feature)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
+// ml.svm.sample(label:number, feature:ml.svm.feature) {block?}
+Gura_DeclareFunction(sample)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "label", VTYPE_number);
+	DeclareArg(env, "feature", VTYPE_feature);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(sample));
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an instance of ml.svm.sample.\n");
+}
+
+Gura_ImplementFunction(sample)
+{
+	double label = arg.GetDouble(0);
+	Feature *pFeature = Object_feature::GetObject(arg, 1)->GetEntity();
+	AutoPtr<Sample> pSample(new Sample(label, pFeature->Reference()));
+	return ReturnValue(env, arg, Value(new Object_sample(pSample.release())));
+}
 
 //-----------------------------------------------------------------------------
 // Implementation of class
@@ -62,7 +82,7 @@ Gura_ImplementUserClass(sample)
 	Gura_AssignProperty(sample, label);
 	Gura_AssignProperty(sample, feature);
 	// Assignment of function
-	//Gura_AssignFunction(sample);
+	Gura_AssignFunction(sample);
 }
 
 //-----------------------------------------------------------------------------

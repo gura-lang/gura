@@ -22,6 +22,7 @@ public:
 	virtual ~Object_problem();
 	virtual String ToString(bool exprFlag);
 	struct svm_problem &UpdateEntity();
+	void AddSample(Sample *pSample);
 	void AddSample(double label, Feature *pFeature);
 	inline int GetIndexMax() const { return _indexMax; }
 	inline const SampleOwner *GetSampleOwner() const { return _pSampleOwner.get(); }
