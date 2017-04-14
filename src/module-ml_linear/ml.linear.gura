@@ -11,8 +11,6 @@ parse_line(str:string) = {
 			[int(pair[0]), pair[1].tonumber():raise]
 		}
 	}
-	//x = consts(0, pairs:*get(0).max()):list
-	//pairs.each {|pair| x[pair[0] - 1] = pair[1]}
 	[label, feature(x)]
 }
 

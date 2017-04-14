@@ -15,12 +15,16 @@ String Object_feature::ToString(bool exprFlag)
 {
 	String str;
 	struct feature_node *pNode = _pFeature->GetNodes();
+	if (exprFlag) str += "ml.linear.feature(";
+	str += "[";
 	for (size_t iNode = 0; iNode < _pFeature->CountNodes() - 2; iNode++, pNode++) {
 		char buff[80];
-		::sprintf(buff, "%d=>%g", pNode->index, pNode->value);
+		::sprintf(buff, "%d => %g", pNode->index, pNode->value);
 		if (iNode > 0) str += ", ";
 		str += buff;
 	}
+	str += "]";
+	if (exprFlag) str += ")";
 	return str;
 }
 
