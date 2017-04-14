@@ -38,11 +38,17 @@ bool Feature::Store(Environment &env, const ValueList &valList)
 		}
 		int index = valListPair[0].GetInt();
 		size_t iNodeSet = iNode;
-		if (iNode > 0 && _nodes[iNode - 1].index >= index) {
-			// Search for a proper position to set the node if it has an index smaller than
-			// the previous one,
-			iNodeSet--;
-			for ( ; iNodeSet > 0 && _nodes[iNodeSet - 1].index >= index; iNodeSet--) ;
+		// Search for a proper position to set the node if it has an index smaller than
+		// the previous one,
+		for ( ; iNodeSet > 0 && _nodes[iNodeSet - 1].index >= index; iNodeSet--) {
+			if (_nodes[iNodeSet - 1].index == index) {
+				env.SetError(
+					ERR_IndexError,
+					"wrong format for feature initialization: duplicated index");
+				return false;
+			}
+		}
+		if (iNodeSet < iNode) {
 			::memmove(&_nodes[iNodeSet + 1], &_nodes[iNodeSet],
 					  sizeof(_nodes[0]) * (iNode - iNodeSet));
 		}

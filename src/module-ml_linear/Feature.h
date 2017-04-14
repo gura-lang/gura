@@ -31,6 +31,7 @@ public:
 	void ClearBias();
 	void SetBias(int indexForBias, double bias);
 	inline int GetIndexMax() const { return (_nNodes < 3)? 0 : _nodes[_nNodes - 3].index; }
+	inline size_t CountNodes() const { return _nNodes; }
 	inline struct feature_node *GetNodes() { return _nodes.get(); }
 };
 

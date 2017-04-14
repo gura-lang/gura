@@ -13,7 +13,15 @@ Object_feature::Object_feature(Feature *pFeature) :
 
 String Object_feature::ToString(bool exprFlag)
 {
-	return String("<ml.linear.feature>");
+	String str;
+	struct feature_node *pNode = _pFeature->GetNodes();
+	for (size_t iNode = 0; iNode < _pFeature->CountNodes() - 2; iNode++, pNode++) {
+		char buff[80];
+		::sprintf(buff, "%d=>%g", pNode->index, pNode->value);
+		if (iNode > 0) str += ", ";
+		str += buff;
+	}
+	return str;
 }
 
 //-----------------------------------------------------------------------------

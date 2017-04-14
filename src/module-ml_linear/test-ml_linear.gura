@@ -4,6 +4,12 @@ import(ml.linear)
 
 testcase('features of ml.linear.feature') {
 	println(ml.linear.feature)
+	tester(`ml.linear.feature([1=>.1, 2=>.2]))
+	tester(`ml.linear.feature([1=>.1, 3=>.3, 2=>.2]))
+	tester(`ml.linear.feature([1=>.1, 3=>.3, 4=>.4, 5=>.5, 2=>.2]))
+	tester(`ml.linear.feature([2=>.2, 3=>.3, 4=>.4, 5=>.5, 1=>.1]))
+	tester(`ml.linear.feature([1=>.1, 3=>.3, 4=>.4, 2=>.2, 5=>.5]))
+	tester(`ml.linear.feature([2=>.2, 3=>.3, 4=>.4, 5=>.5, 2=>.1]))
 }
 
 testcase('features of ml.linear.problem') {
@@ -35,7 +41,6 @@ testcase('constants') {
 testcase('ml.linear.train()') {
 	prob = ml.linear.problem()
 	param = ml.linear.parameter()
-	
 	model = ml.linear.train(prob, param)
 	println(model)
 }
