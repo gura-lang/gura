@@ -633,4 +633,62 @@ testcase('array.translation()') {
 	tester(`array.translation(2, 3))
 	tester(`array.translation(2, 3, 4))
 }
-
+testcase('array#transpose() sharing memory') {
+	testcases = [
+		array {}
+		array.range(2).reshape([nil])
+		array.range(2).reshape([1, nil])
+		array.range(2).reshape([nil, 1])
+		array.range(8).reshape([nil])
+		array.range(8).reshape([1, nil])
+		array.range(8).reshape([nil, 1])
+		array.range(12).reshape([4, 1, nil])
+		array.range(12).reshape([4, nil, 1])
+		array.range(24).reshape([2, 4, 1, nil])
+		array.range(24).reshape([2, 4, nil, 1])
+		array.range(4).reshape([2, nil])
+		array.range(4).reshape([2, nil])
+		array.range(12).reshape([3, nil])
+		array.range(12).reshape([3, nil])
+	]
+	for (x in testcases) {
+		println('x =')
+		println(x)
+		println('x.T =')
+		print(xt = x.T)
+		println(' .. ', cond(x.memoryid == xt.memoryid, 'shared', 'not-shared'))
+		if (x.ndim == 1) {
+			println('transpose([0]) =')
+			print(xt = x.transpose([0]))
+			println(' .. ', cond(x.memoryid == xt.memoryid, 'shared', 'not-shared'))
+		} elsif (x.ndim == 2) {
+			println('transpose([1, 0]) =')
+			print(xt = x.transpose([1, 0]))
+			println(' .. ', cond(x.memoryid == xt.memoryid, 'shared', 'not-shared'))
+		} elsif (x.ndim == 3) {
+			println('transpose([0, 2, 1]) =')
+			print(xt = x.transpose([0, 2, 1]))
+			println(' .. ', cond(x.memoryid == xt.memoryid, 'shared', 'not-shared'))
+		} elsif (x.ndim == 4) {
+			println('transpose([0, 1, 3, 2]) =')
+			print(xt = x.transpose([0, 1, 3, 2]))
+			println(' .. ', cond(x.memoryid == xt.memoryid, 'shared', 'not-shared'))
+			println('transpose([1, 0, 3, 2]) =')
+			print(xt = x.transpose([1, 0, 3, 2]))
+			println(' .. ', cond(x.memoryid == xt.memoryid, 'shared', 'not-shared'))
+		}
+		println('----')
+	}
+}
+testcase('sharing collapses after assignment') {
+	x1 = array.range(12).reshape([4, nil])
+	println(x1)
+	x2 = x1.offset(0)
+	println(cond(x1.memoryid == x2.memoryid, 'shared', 'not-shared'))
+	x2[0] = 3
+	println(cond(x1.memoryid == x2.memoryid, 'shared', 'not-shared'))
+	x2 = x1.offset(0)
+	println(cond(x1.memoryid == x2.memoryid, 'shared', 'not-shared'))
+	x1[0] = 3
+	println(cond(x1.memoryid == x2.memoryid, 'shared', 'not-shared'))
+}

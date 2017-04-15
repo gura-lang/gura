@@ -471,8 +471,8 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes) const
 	if (pDim->GetSize() == 1 || (pDim + 1)->GetSize() == 1) {
 		memorySharableFlag = true;
 		SizeTList::const_iterator pAxis = axes.begin();
-		SizeTList::const_iterator pAxisLast = axes.begin() + axes.size() - 2;
-		for (size_t axisInc = 0; pAxis != pAxisLast; pAxis++, axisInc++) {
+		SizeTList::const_iterator pAxisEnd = axes.begin() + axes.size() - 2;
+		for (size_t axisInc = 0; pAxis != pAxisEnd; pAxis++, axisInc++) {
 			if (*pAxis != axisInc) {
 				memorySharableFlag = false;
 				break;
