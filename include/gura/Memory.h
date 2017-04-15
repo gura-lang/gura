@@ -31,6 +31,7 @@ public:
 	inline const char *GetPointer() const { return _buff; }
 	inline const char *GetPointer(size_t offset) const { return _buff + offset; }
 	virtual Memory *Clone() const;
+	String MakeId() const;
 private:
 	inline Memory(const Memory &memory) {}
 };

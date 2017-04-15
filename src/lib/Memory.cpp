@@ -18,6 +18,13 @@ Memory *Memory::Clone() const
 	return nullptr;
 }
 
+String Memory::MakeId() const
+{
+	char str[128];
+	::sprintf(str, "%p", _buff);
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // MemoryOwner
 //-----------------------------------------------------------------------------

@@ -280,6 +280,21 @@ Gura_ImplementPropertyGetter(array, elemtype)
 	return Value(Symbol::Add(pArray->GetElemTypeName()));
 }
 
+// array#memoryid
+Gura_DeclareProperty_R(array, memoryid)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns the id of memory.");
+}
+
+Gura_ImplementPropertyGetter(array, memoryid)
+{
+	Array *pArray = Object_array::GetObject(valueThis)->GetArray();
+	return Value(pArray->GetMemory().MakeId());
+}
+
 // array#ndim
 Gura_DeclareProperty_R(array, ndim)
 {
@@ -1120,6 +1135,7 @@ void Class_array::DoPrepare(Environment &env)
 	// Assignment of properties
 	Gura_AssignProperty(array, elembytes);
 	Gura_AssignProperty(array, elemtype);
+	Gura_AssignProperty(array, memoryid);
 	Gura_AssignProperty(array, ndim);
 	Gura_AssignProperty(array, shape);
 	Gura_AssignProperty(array, size);

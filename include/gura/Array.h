@@ -133,6 +133,9 @@ public:
 	static void Initialize();
 public:
 	inline ElemType GetElemType() const { return _elemType; }
+	inline void SetMemory(Memory *pMemory, size_t offsetBase) {
+		_pMemory.reset(pMemory), _offsetBase = offsetBase;
+	}
 	inline Memory &GetMemory() { return *_pMemory; }
 	inline const Memory &GetMemory() const { return *_pMemory; }
 	inline Dimensions &GetDimensions() { return _dims; }

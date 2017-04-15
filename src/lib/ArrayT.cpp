@@ -465,20 +465,35 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(Signal &sig, const ValueList &valList)
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes) const
 {
-	AutoPtr<ArrayT> pArrayTRtn(new ArrayT());
-	//::printf("%d %d\n", axes[0], axes[1]);
-	do {
-		Dimensions &dimsDst = pArrayTRtn->GetDimensions();
-		dimsDst.reserve(GetDimensions().size());
-		foreach_const (SizeTList, pAxis, axes) {
-			const Dimension &dimSrc = GetDimensions()[*pAxis];
-			dimsDst.push_back(Dimension(dimSrc.GetSize()));
+	if (axes.size() < 2) return new ArrayT<T_Elem>(*this);
+	Dimensions::const_reverse_iterator pDim = GetDimensions().rbegin();
+	bool memorySharableFlag = false;
+	if (pDim->GetSize() == 1 || (pDim + 1)->GetSize() == 1) {
+		memorySharableFlag = true;
+		SizeTList::const_iterator pAxis = axes.begin();
+		SizeTList::const_iterator pAxisLast = axes.begin() + axes.size() - 2;
+		for (size_t axisInc = 0; pAxis != pAxisLast; pAxis++, axisInc++) {
+			if (*pAxis != axisInc) {
+				memorySharableFlag = false;
+				break;
+			}
 		}
-		pArrayTRtn->UpdateMetrics();
+	}
+	AutoPtr<ArrayT> pArrayTRtn(new ArrayT());
+	Dimensions &dimsDst = pArrayTRtn->GetDimensions();
+	dimsDst.reserve(GetDimensions().size());
+	foreach_const (SizeTList, pAxis, axes) {
+		const Dimension &dimSrc = GetDimensions()[*pAxis];
+		dimsDst.push_back(Dimension(dimSrc.GetSize()));
+	}
+	pArrayTRtn->UpdateMetrics();
+	if (memorySharableFlag) {
+		pArrayTRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
+	} else {
 		pArrayTRtn->AllocMemory();
 		T_Elem *pDst = pArrayTRtn->GetPointer();
 		TransposeSub(pDst, GetPointer(), GetDimensions(), axes.begin(), axes.end());
-	} while (0);
+	}
 	return pArrayTRtn.release();
 }
 
