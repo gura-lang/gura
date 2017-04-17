@@ -363,6 +363,7 @@ array
   array.identity(n:number):static:map {block?}
   array.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
   array#invert():map {block?}
+  array#issquare()
   array#offset(n:number):map {block?}
   array.ones(dims[]:number):static:map {block?}
   array#paste(offset:number, src:array):map
