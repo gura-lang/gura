@@ -238,6 +238,81 @@ Iterator *Object_array::CreateIterator(Signal &sig)
 }
 
 //-----------------------------------------------------------------------------
+// Object_array::PointerEx
+//-----------------------------------------------------------------------------
+Object_array::PointerEx::PointerEx(size_t offset, Object_array *pObjArray) :
+	Pointer(offset), _pObjArray(pObjArray)
+{
+}
+
+Object_array::PointerEx::PointerEx(const PointerEx &ptr) :
+	Pointer(ptr), _pObjArray(dynamic_cast<Object_array *>(ptr._pObjArray->Reference()))
+{
+}
+
+bool Object_array::PointerEx::StorePrepare(Signal &sig, size_t bytes)
+{
+	Memory &memory = GetMemory();
+	if (_offset + bytes <= memory.GetSize()) return true;
+	sig.SetError(ERR_OutOfRangeError, "pointer exceeds the range of memory");
+	return false;
+}
+
+void Object_array::PointerEx::StoreBuffer(const void *buff, size_t bytes)
+{
+	Memory &memory = GetMemory();
+	if (_offset >= memory.GetSize()) return;
+	size_t bytesToCopy = ChooseMin(memory.GetSize() - _offset, bytes);
+	if (buff != nullptr) ::memcpy(memory.GetPointer(_offset), buff, bytesToCopy);
+	_offset += bytesToCopy;
+}
+
+const UChar *Object_array::PointerEx::ExtractPrepare(
+	Signal &sig, size_t bytes, bool exceedErrorFlag)
+{
+	Memory &memory = GetMemory();
+	if (_offset + bytes <= memory.GetSize()) {
+		const UChar *p = reinterpret_cast<const UChar *>(memory.GetPointer(_offset));
+		_offset += bytes;
+		return p;
+	}
+	if (exceedErrorFlag) {
+		sig.SetError(ERR_OutOfRangeError, "pointer exceeds the range of memory");
+	}
+	return nullptr;
+}
+
+Pointer *Object_array::PointerEx::Clone() const
+{
+	return new PointerEx(*this);
+}
+
+Object *Object_array::PointerEx::GetTarget() const
+{
+	return _pObjArray.get();
+}
+
+const UChar *Object_array::PointerEx::GetPointerC() const
+{
+	return reinterpret_cast<const UChar *>(GetMemory().GetPointer(_offset));
+}
+
+UChar *Object_array::PointerEx::GetWritablePointerC() const
+{
+	return reinterpret_cast<UChar *>(GetMemory().GetPointer(_offset));
+}
+
+size_t Object_array::PointerEx::GetEntireSize() const
+{
+	return GetMemory().GetSize();
+}
+
+bool Object_array::PointerEx::IsWritable() const
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
 // array#elembytes
@@ -310,6 +385,23 @@ Gura_ImplementPropertyGetter(array, ndim)
 	return Value(pArray->GetDimensions().size());
 }
 
+// array#p
+Gura_DeclareProperty_R(array, p)
+{
+	SetPropAttr(VTYPE_pointer);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns the pointer through which you can inspect and modify the content of the array\n"
+		"as a binary data.");
+}
+
+Gura_ImplementPropertyGetter(array, p)
+{
+	Object_array *pObj = Object_array::GetObject(valueThis);
+	Pointer *pPointer = new Object_array::PointerEx(0, pObj->Reference());
+	return Value(new Object_pointer(env, pPointer));
+}
+
 // array#shape
 Gura_DeclareProperty_R(array, shape)
 {
@@ -362,20 +454,6 @@ template<typename T_Elem>
 Value PropertyGetter_T(Environment &env, Array *pArraySelf)
 {
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-#if 0
-	size_t nAxes = pArrayT->GetDimensions().size();
-	if (nAxes < 2) {
-		env.SetError(ERR_ValueError, "transpose can be applied to an array of 2D or more");
-		return Value::Nil;
-	}
-	SizeTList axes;
-	axes.reserve(nAxes);
-	size_t axis = 0;
-	for ( ; axis < nAxes - 2; axis++) axes.push_back(axis);
-	axes.push_back(axis + 1), axes.push_back(axis);
-	AutoPtr<Array> pArrayTRtn(pArrayT->Transpose(axes));
-	return Value(new Object_array(env, pArrayTRtn.release()));
-#endif
 	return Value(new Object_array(env, pArrayT->Transpose()));
 }
 
@@ -1137,6 +1215,7 @@ void Class_array::DoPrepare(Environment &env)
 	Gura_AssignProperty(array, elemtype);
 	Gura_AssignProperty(array, memoryid);
 	Gura_AssignProperty(array, ndim);
+	//Gura_AssignProperty(array, p);
 	Gura_AssignProperty(array, shape);
 	Gura_AssignProperty(array, size);
 	Gura_AssignProperty(array, T);
