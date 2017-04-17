@@ -4696,3 +4696,12 @@ shared
 not-shared
 shared
 not-shared
+
+======== #40 array#issquare() ========
+
+array.zeros([]).issquare() .. false
+array.zeros([3]).issquare() .. false
+array.zeros([3, 4]).issquare() .. false
+array.zeros([3, 3]).issquare() .. true
+array.zeros([2, 4, 3, 3]).issquare() .. true
+array.zeros([2, 4, 3, 2]).issquare() .. false

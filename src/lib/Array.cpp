@@ -180,6 +180,13 @@ void Array::UpdateMetrics()
 	_elemNum = stride;
 }
 
+bool Array::IsSquare() const
+{
+	if (_dims.size() < 2) return false;
+	Dimensions::const_reverse_iterator pDim = _dims.rbegin();
+	return pDim->GetSize() == (pDim + 1)->GetSize();
+}
+
 bool Array::HasShape(size_t size) const
 {
 	return (_dims.size() == 1) && _dims[0].GetSize() == size;

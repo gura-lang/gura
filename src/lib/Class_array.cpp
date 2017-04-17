@@ -871,6 +871,21 @@ Gura_ImplementMethod(array, invert)
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
+// array#issquare()
+Gura_DeclareMethod(array, issquare)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns `true` if the array consists square matrixes.");
+}
+
+Gura_ImplementMethod(array, issquare)
+{
+	Array *pArray = Object_array::GetObjectThis(arg)->GetArray();
+	return Value(pArray->IsSquare());
+}
+
 // array#offset(n:number):map {block?}
 Gura_DeclareMethod(array, offset)
 {
@@ -1230,6 +1245,7 @@ void Class_array::DoPrepare(Environment &env)
 	Gura_AssignMethod(array, flatten);
 	Gura_AssignMethod(array, head);
 	Gura_AssignMethod(array, invert);
+	Gura_AssignMethod(array, issquare);
 	Gura_AssignMethod(array, offset);
 	Gura_AssignMethod(array, paste);
 	Gura_AssignMethod(array, reshape);

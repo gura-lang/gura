@@ -692,3 +692,11 @@ testcase('sharing collapses after assignment') {
 	x1[0] = 3
 	println(cond(x1.memoryid == x2.memoryid, 'shared', 'not-shared'))
 }
+testcase('array#issquare()') {
+	tester(`array.zeros([]).issquare())
+	tester(`array.zeros([3]).issquare())
+	tester(`array.zeros([3, 4]).issquare())
+	tester(`array.zeros([3, 3]).issquare())
+	tester(`array.zeros([2, 4, 3, 3]).issquare())
+	tester(`array.zeros([2, 4, 3, 2]).issquare())
+}
