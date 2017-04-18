@@ -1579,7 +1579,6 @@ Gura_ImplementUnaryOperator(Math_cosh, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Math_covariance, iterator, iterator)
 {
-	Signal &sig = env.GetSignal();
 	size_t cntA, cntB;
 	Iterator *pIteratorA = valueLeft.GetIterator();
 	Iterator *pIteratorB = valueRight.GetIterator();
@@ -1588,7 +1587,7 @@ Gura_ImplementBinaryOperator(Math_covariance, iterator, iterator)
 	Value valueAveB = pIteratorB->Clone()->Average(env, cntB);
 	if (!valueAveB.Is_number()) return Value::Nil;
 	if (cntA != cntB) {
-		sig.SetError(ERR_ValueError, "different length of iterators");
+		env.SetError(ERR_ValueError, "different length of iterators");
 		return Value::Nil;
 	}
 	Number result = 0;
@@ -1600,11 +1599,11 @@ Gura_ImplementBinaryOperator(Math_covariance, iterator, iterator)
 			result +=
 				(valueA.GetNumber() - averageA) * (valueB.GetNumber() - averageB);
 		} else {
-			sig.SetError(ERR_ValueError, "invalid data type of element");
+			env.SetError(ERR_ValueError, "invalid data type of element");
 			return Value::Nil;
 		}
 	}
-	if (sig.IsSignalled()) return Value::Nil;
+	if (env.IsSignalled()) return Value::Nil;
 	return Value(result / static_cast<Number>(cntA));
 }
 

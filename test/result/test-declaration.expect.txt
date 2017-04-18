@@ -217,7 +217,7 @@ math:module
   math.conj(num):map
   math.cos(num):map:[deg]
   math.cosh(num):map
-  math.covariance(a:iterator, b:iterator)
+  math.covariance(a, b)
   math.cross (a, b)
   math.delta(num):map
   math.diff(expr:expr, var:symbol):map {block?}
