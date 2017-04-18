@@ -1575,6 +1575,40 @@ Gura_ImplementUnaryOperator(Math_cosh, array)
 }
 
 //-----------------------------------------------------------------------------
+// math.covariance(A, B) ... BinaryOperator(Math_covariance, A, B)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Math_covariance, iterator, iterator)
+{
+	Signal &sig = env.GetSignal();
+	size_t cntA, cntB;
+	Iterator *pIteratorA = valueLeft.GetIterator();
+	Iterator *pIteratorB = valueRight.GetIterator();
+	Value valueAveA = pIteratorA->Clone()->Average(env, cntA);
+	if (!valueAveA.Is_number()) return Value::Nil;
+	Value valueAveB = pIteratorB->Clone()->Average(env, cntB);
+	if (!valueAveB.Is_number()) return Value::Nil;
+	if (cntA != cntB) {
+		sig.SetError(ERR_ValueError, "different length of iterators");
+		return Value::Nil;
+	}
+	Number result = 0;
+	Number averageA = valueAveA.GetNumber();
+	Number averageB = valueAveB.GetNumber();
+	Value valueA, valueB;
+	while (pIteratorA->Next(env, valueA) && pIteratorB->Next(env, valueB)) {
+		if (valueA.Is_number() && valueB.Is_number()) {
+			result +=
+				(valueA.GetNumber() - averageA) * (valueB.GetNumber() - averageB);
+		} else {
+			sig.SetError(ERR_ValueError, "invalid data type of element");
+			return Value::Nil;
+		}
+	}
+	if (sig.IsSignalled()) return Value::Nil;
+	return Value(result / static_cast<Number>(cntA));
+}
+
+//-----------------------------------------------------------------------------
 // math.cross(A, B) ... BinaryOperator(Math_cross, A, B)
 //-----------------------------------------------------------------------------
 static Value CalcCrossElem(Environment &env,
@@ -2208,6 +2242,7 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignUnaryOperator(Math_cosh, number);
 	Gura_AssignUnaryOperator(Math_cosh, complex);
 	Gura_AssignUnaryOperator(Math_cosh, array);
+	Gura_AssignBinaryOperator(Math_covariance, iterator, iterator);
 	Gura_AssignBinaryOperator(Math_cross, list, list);
 	Gura_AssignUnaryOperator(Math_delta, number);
 	Gura_AssignUnaryOperator(Math_delta, array);

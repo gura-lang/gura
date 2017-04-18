@@ -10,78 +10,79 @@ namespace Gura {
 // Operator
 //-----------------------------------------------------------------------------
 const Operator::SymbolInfo Operator::_symbolInfoTbl[] = {
-	{ "",			"None"			},
+	{ "",			"None"				},
 	// unary operators
-	{ "+",			"Pos"			},
-	{ "-",			"Neg"			},
-	{ "~",			"Inv"			},
-	{ "!",			"Not"			},
+	{ "+",			"Pos"				},
+	{ "-",			"Neg"				},
+	{ "~",			"Inv"				},
+	{ "!",			"Not"				},
 	// suffixed unary operators
-	{ "..",			"SeqInf"		},
-	{ "?",			"Question"		},
-	{ "*",			"Each"			},
-	{ "+",			"PostPos"		},
-	{ "%",			"PostMod"		},
+	{ "..",			"SeqInf"			},
+	{ "?",			"Question"			},
+	{ "*",			"Each"				},
+	{ "+",			"PostPos"			},
+	{ "%",			"PostMod"			},
 	// binary operators
-	{ "+",			"Add"			},
-	{ "-",			"Sub"			},
-	{ "*",			"Mul"			},
-	{ "/",			"Div"			},
-	{ "%",			"Mod"			},
-	{ "%%",			"ModMod"		},
-	{ "|.|",		"DotProd"		},
-	{ "|*|",		"CrossProd"		},
-	{ "|+|",		"Concat"		},
-	{ "|-|",		"Difference"	},
-	{ "|&|",		"Intersection"	},
-	{ "|||",		"Union"			},
-	{ "**",			"Pow"			},
-	{ "==",			"Eq"			},
-	{ "!=",			"Ne"			},
-	{ ">",			"Gt"			},
-	{ "<",			"Lt"			},
-	{ ">=",			"Ge"			},
-	{ "<=",			"Le"			},
-	{ "<=>",		"Cmp"			},
-	{ "in",			"Contains"		},
-	{ "&",			"And"			},
-	{ "|",			"Or"			},
-	{ "^",			"Xor"			},
-	{ "<<",			"Shl"			},
-	{ ">>",			"Shr"			},
-	{ "||",			"OrOr"			},
-	{ "&&",			"AndAnd"		},
-	{ "..",			"Seq"			},
-	{ "=>",			"Pair"			},
+	{ "+",			"Add"				},
+	{ "-",			"Sub"				},
+	{ "*",			"Mul"				},
+	{ "/",			"Div"				},
+	{ "%",			"Mod"				},
+	{ "%%",			"ModMod"			},
+	{ "|.|",		"DotProd"			},
+	{ "|*|",		"CrossProd"			},
+	{ "|+|",		"Concat"			},
+	{ "|-|",		"Difference"		},
+	{ "|&|",		"Intersection"		},
+	{ "|||",		"Union"				},
+	{ "**",			"Pow"				},
+	{ "==",			"Eq"				},
+	{ "!=",			"Ne"				},
+	{ ">",			"Gt"				},
+	{ "<",			"Lt"				},
+	{ ">=",			"Ge"				},
+	{ "<=",			"Le"				},
+	{ "<=>",		"Cmp"				},
+	{ "in",			"Contains"			},
+	{ "&",			"And"				},
+	{ "|",			"Or"				},
+	{ "^",			"Xor"				},
+	{ "<<",			"Shl"				},
+	{ ">>",			"Shr"				},
+	{ "||",			"OrOr"				},
+	{ "&&",			"AndAnd"			},
+	{ "..",			"Seq"				},
+	{ "=>",			"Pair"				},
 	// mathematical functions
-	{ "abs",		"Math_abs"		},
-	{ "acos",		"Math_acos"		},
-	{ "arg",		"Math_arg"		},
-	{ "asin",		"Math_asin"		},
-	{ "atan",		"Math_atan"		},
-	{ "atan2",		"Math_atan2"	},
-	{ "ceil",		"Math_ceil"		},
-	{ "conj",		"Math_conj"		},
-	{ "cos",		"Math_cos"		},
-	{ "cosh",		"Math_cosh"		},
-	{ "cross",		"Math_cross"	},
-	{ "delta",		"Math_delta"	},
-	{ "dot",		"Math_dot"		},
-	{ "exp",		"Math_exp"		},
-	{ "floor",		"Math_floor"	},
-	{ "hypot",		"Math_hypot"	},
-	{ "imag",		"Math_imag"		},
-	{ "log",		"Math_log"		},
-	{ "log10",		"Math_log10"	},
-	{ "norm",		"Math_norm"		},
-	{ "ramp",		"Math_ramp"		},
-	{ "real",		"Math_real"		},
-	{ "sin",		"Math_sin"		},
-	{ "sinh",		"Math_sinh"		},
-	{ "sqrt",		"Math_sqrt"		},
-	{ "tan",		"Math_tan"		},
-	{ "tanh",		"Math_tanh"		},
-	{ "unitstep",	"Math_unitstep"	},
+	{ "abs",		"Math_abs"			},
+	{ "acos",		"Math_acos"			},
+	{ "arg",		"Math_arg"			},
+	{ "asin",		"Math_asin"			},
+	{ "atan",		"Math_atan"			},
+	{ "atan2",		"Math_atan2"		},
+	{ "ceil",		"Math_ceil"			},
+	{ "conj",		"Math_conj"			},
+	{ "cos",		"Math_cos"			},
+	{ "cosh",		"Math_cosh"			},
+	{ "covariance",	"Math_covariance"	},
+	{ "cross",		"Math_cross"		},
+	{ "delta",		"Math_delta"		},
+	{ "dot",		"Math_dot"			},
+	{ "exp",		"Math_exp"			},
+	{ "floor",		"Math_floor"		},
+	{ "hypot",		"Math_hypot"		},
+	{ "imag",		"Math_imag"			},
+	{ "log",		"Math_log"			},
+	{ "log10",		"Math_log10"		},
+	{ "norm",		"Math_norm"			},
+	{ "ramp",		"Math_ramp"			},
+	{ "real",		"Math_real"			},
+	{ "sin",		"Math_sin"			},
+	{ "sinh",		"Math_sinh"			},
+	{ "sqrt",		"Math_sqrt"			},
+	{ "tan",		"Math_tan"			},
+	{ "tanh",		"Math_tanh"			},
+	{ "unitstep",	"Math_unitstep"		},
 };
 
 // unary operators
@@ -137,6 +138,7 @@ Operator *Operator::Math_ceil		= nullptr;
 Operator *Operator::Math_conj		= nullptr;
 Operator *Operator::Math_cos		= nullptr;
 Operator *Operator::Math_cosh		= nullptr;
+Operator *Operator::Math_covariance	= nullptr;
 Operator *Operator::Math_cross		= nullptr;
 Operator *Operator::Math_delta		= nullptr;
 Operator *Operator::Math_dot		= nullptr;
@@ -1432,6 +1434,10 @@ Value Operator_AndAnd::ExecBinary(Environment &env, const Expr *pExprLeft, const
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// Operator_Math_covariance
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 // Operator_Math_cross
 //-----------------------------------------------------------------------------
 
@@ -1538,76 +1544,77 @@ void OperatorEntry::SetError_InvalidValueType(Signal &sig,
 void Operator::Initialize(Environment &env)
 {
 	// unary operators
-	env.SetOperator(OPTYPE_Pos,				Operator::Pos			= new Operator_Pos());
-	env.SetOperator(OPTYPE_Neg,				Operator::Neg			= new Operator_Neg());
-	env.SetOperator(OPTYPE_Inv,				Operator::Inv			= new Operator_Inv());
-	env.SetOperator(OPTYPE_Not,				Operator::Not			= new Operator_Not());
+	env.SetOperator(OPTYPE_Pos,				Operator::Pos				= new Operator_Pos());
+	env.SetOperator(OPTYPE_Neg,				Operator::Neg				= new Operator_Neg());
+	env.SetOperator(OPTYPE_Inv,				Operator::Inv				= new Operator_Inv());
+	env.SetOperator(OPTYPE_Not,				Operator::Not				= new Operator_Not());
 	// suffixed unary operators
-	env.SetOperator(OPTYPE_SeqInf,			Operator::SeqInf		= new Operator_SeqInf());
-	env.SetOperator(OPTYPE_Question,		Operator::Question		= new Operator_Question());
-	env.SetOperator(OPTYPE_Each,			Operator::Each			= new Operator_Each());
-	env.SetOperator(OPTYPE_PostPos,			Operator::PostPos		= new Operator_PostPos());
-	env.SetOperator(OPTYPE_PostMod,			Operator::PostMod		= new Operator_PostMod());
+	env.SetOperator(OPTYPE_SeqInf,			Operator::SeqInf			= new Operator_SeqInf());
+	env.SetOperator(OPTYPE_Question,		Operator::Question			= new Operator_Question());
+	env.SetOperator(OPTYPE_Each,			Operator::Each				= new Operator_Each());
+	env.SetOperator(OPTYPE_PostPos,			Operator::PostPos			= new Operator_PostPos());
+	env.SetOperator(OPTYPE_PostMod,			Operator::PostMod			= new Operator_PostMod());
 	// binary operators
-	env.SetOperator(OPTYPE_Add,				Operator::Add			= new Operator_Add());
-	env.SetOperator(OPTYPE_Sub,				Operator::Sub			= new Operator_Sub());
-	env.SetOperator(OPTYPE_Mul,				Operator::Mul			= new Operator_Mul());
-	env.SetOperator(OPTYPE_Div,				Operator::Div			= new Operator_Div());
-	env.SetOperator(OPTYPE_Mod,				Operator::Mod			= new Operator_Mod());
-	env.SetOperator(OPTYPE_ModMod,			Operator::ModMod		= new Operator_ModMod());
-	env.SetOperator(OPTYPE_DotProd,			Operator::DotProd		= new Operator_DotProd());
-	env.SetOperator(OPTYPE_CrossProd,		Operator::CrossProd		= new Operator_CrossProd());
-	env.SetOperator(OPTYPE_Concat,			Operator::Concat		= new Operator_Concat());
-	env.SetOperator(OPTYPE_Difference,		Operator::Difference	= new Operator_Difference());
-	env.SetOperator(OPTYPE_Intersection,	Operator::Intersection	= new Operator_Intersection());
-	env.SetOperator(OPTYPE_Union,			Operator::Union			= new Operator_Union());
-	env.SetOperator(OPTYPE_Pow,				Operator::Pow			= new Operator_Pow());
-	env.SetOperator(OPTYPE_Eq,				Operator::Eq			= new Operator_Eq());
-	env.SetOperator(OPTYPE_Ne,				Operator::Ne			= new Operator_Ne());
-	env.SetOperator(OPTYPE_Gt,				Operator::Gt			= new Operator_Gt());
-	env.SetOperator(OPTYPE_Lt,				Operator::Lt			= new Operator_Lt());
-	env.SetOperator(OPTYPE_Ge,				Operator::Ge			= new Operator_Ge());
-	env.SetOperator(OPTYPE_Le,				Operator::Le			= new Operator_Le());
-	env.SetOperator(OPTYPE_Cmp,				Operator::Cmp			= new Operator_Cmp());
-	env.SetOperator(OPTYPE_Contains,		Operator::Contains		= new Operator_Contains());
-	env.SetOperator(OPTYPE_And,				Operator::And			= new Operator_And());
-	env.SetOperator(OPTYPE_Or,				Operator::Or			= new Operator_Or());
-	env.SetOperator(OPTYPE_Xor,				Operator::Xor			= new Operator_Xor());
-	env.SetOperator(OPTYPE_Shl,				Operator::Shl			= new Operator_Shl());
-	env.SetOperator(OPTYPE_Shr,				Operator::Shr			= new Operator_Shr());
-	env.SetOperator(OPTYPE_OrOr,			Operator::OrOr			= new Operator_OrOr());
-	env.SetOperator(OPTYPE_AndAnd,			Operator::AndAnd		= new Operator_AndAnd());
-	env.SetOperator(OPTYPE_Seq,				Operator::Seq			= new Operator_Seq());
-	env.SetOperator(OPTYPE_Pair,			Operator::Pair			= new Operator_Pair());
+	env.SetOperator(OPTYPE_Add,				Operator::Add				= new Operator_Add());
+	env.SetOperator(OPTYPE_Sub,				Operator::Sub				= new Operator_Sub());
+	env.SetOperator(OPTYPE_Mul,				Operator::Mul				= new Operator_Mul());
+	env.SetOperator(OPTYPE_Div,				Operator::Div				= new Operator_Div());
+	env.SetOperator(OPTYPE_Mod,				Operator::Mod				= new Operator_Mod());
+	env.SetOperator(OPTYPE_ModMod,			Operator::ModMod			= new Operator_ModMod());
+	env.SetOperator(OPTYPE_DotProd,			Operator::DotProd			= new Operator_DotProd());
+	env.SetOperator(OPTYPE_CrossProd,		Operator::CrossProd			= new Operator_CrossProd());
+	env.SetOperator(OPTYPE_Concat,			Operator::Concat			= new Operator_Concat());
+	env.SetOperator(OPTYPE_Difference,		Operator::Difference		= new Operator_Difference());	
+	env.SetOperator(OPTYPE_Intersection,	Operator::Intersection		= new Operator_Intersection());
+	env.SetOperator(OPTYPE_Union,			Operator::Union				= new Operator_Union());
+	env.SetOperator(OPTYPE_Pow,				Operator::Pow				= new Operator_Pow());
+	env.SetOperator(OPTYPE_Eq,				Operator::Eq				= new Operator_Eq());
+	env.SetOperator(OPTYPE_Ne,				Operator::Ne				= new Operator_Ne());
+	env.SetOperator(OPTYPE_Gt,				Operator::Gt				= new Operator_Gt());
+	env.SetOperator(OPTYPE_Lt,				Operator::Lt				= new Operator_Lt());
+	env.SetOperator(OPTYPE_Ge,				Operator::Ge				= new Operator_Ge());
+	env.SetOperator(OPTYPE_Le,				Operator::Le				= new Operator_Le());
+	env.SetOperator(OPTYPE_Cmp,				Operator::Cmp				= new Operator_Cmp());
+	env.SetOperator(OPTYPE_Contains,		Operator::Contains			= new Operator_Contains());
+	env.SetOperator(OPTYPE_And,				Operator::And				= new Operator_And());
+	env.SetOperator(OPTYPE_Or,				Operator::Or				= new Operator_Or());
+	env.SetOperator(OPTYPE_Xor,				Operator::Xor				= new Operator_Xor());
+	env.SetOperator(OPTYPE_Shl,				Operator::Shl				= new Operator_Shl());
+	env.SetOperator(OPTYPE_Shr,				Operator::Shr				= new Operator_Shr());
+	env.SetOperator(OPTYPE_OrOr,			Operator::OrOr				= new Operator_OrOr());
+	env.SetOperator(OPTYPE_AndAnd,			Operator::AndAnd			= new Operator_AndAnd());
+	env.SetOperator(OPTYPE_Seq,				Operator::Seq				= new Operator_Seq());
+	env.SetOperator(OPTYPE_Pair,			Operator::Pair				= new Operator_Pair());
 	// mathematical functions
-	env.SetOperator(OPTYPE_Math_abs,		Operator::Math_abs		= new Operator_Math_abs());
-	env.SetOperator(OPTYPE_Math_acos,		Operator::Math_acos		= new Operator_Math_acos());
-	env.SetOperator(OPTYPE_Math_arg,		Operator::Math_arg		= new Operator_Math_arg());
-	env.SetOperator(OPTYPE_Math_asin,		Operator::Math_asin		= new Operator_Math_asin());
-	env.SetOperator(OPTYPE_Math_atan,		Operator::Math_atan		= new Operator_Math_atan());
-	env.SetOperator(OPTYPE_Math_atan2,		Operator::Math_atan2	= new Operator_Math_atan2());
-	env.SetOperator(OPTYPE_Math_ceil,		Operator::Math_ceil		= new Operator_Math_ceil());
-	env.SetOperator(OPTYPE_Math_conj,		Operator::Math_conj		= new Operator_Math_conj());
-	env.SetOperator(OPTYPE_Math_cos,		Operator::Math_cos		= new Operator_Math_cos());
-	env.SetOperator(OPTYPE_Math_cosh,		Operator::Math_cosh		= new Operator_Math_cosh());
-	env.SetOperator(OPTYPE_Math_cross,		Operator::Math_cross	= new Operator_Math_cross());
-	env.SetOperator(OPTYPE_Math_delta,		Operator::Math_delta	= new Operator_Math_delta());
-	env.SetOperator(OPTYPE_Math_dot,		Operator::Math_dot		= new Operator_Math_dot());
-	env.SetOperator(OPTYPE_Math_exp,		Operator::Math_exp		= new Operator_Math_exp());
-	env.SetOperator(OPTYPE_Math_floor,		Operator::Math_floor	= new Operator_Math_floor());
-	env.SetOperator(OPTYPE_Math_hypot,		Operator::Math_hypot	= new Operator_Math_hypot());
-	env.SetOperator(OPTYPE_Math_imag,		Operator::Math_imag		= new Operator_Math_imag());
-	env.SetOperator(OPTYPE_Math_log,		Operator::Math_log		= new Operator_Math_log());
-	env.SetOperator(OPTYPE_Math_log10,		Operator::Math_log10	= new Operator_Math_log10());
-	env.SetOperator(OPTYPE_Math_norm,		Operator::Math_norm		= new Operator_Math_norm());
-	env.SetOperator(OPTYPE_Math_ramp,		Operator::Math_ramp		= new Operator_Math_ramp());
-	env.SetOperator(OPTYPE_Math_real,		Operator::Math_real		= new Operator_Math_real());
-	env.SetOperator(OPTYPE_Math_sin,		Operator::Math_sin		= new Operator_Math_sin());
-	env.SetOperator(OPTYPE_Math_sinh,		Operator::Math_sinh		= new Operator_Math_sinh());
-	env.SetOperator(OPTYPE_Math_sqrt,		Operator::Math_sqrt		= new Operator_Math_sqrt());
-	env.SetOperator(OPTYPE_Math_tan,		Operator::Math_tan		= new Operator_Math_tan());
-	env.SetOperator(OPTYPE_Math_tanh,		Operator::Math_tanh		= new Operator_Math_tanh());
-	env.SetOperator(OPTYPE_Math_unitstep,	Operator::Math_unitstep	= new Operator_Math_unitstep());
+	env.SetOperator(OPTYPE_Math_abs,		Operator::Math_abs			= new Operator_Math_abs());
+	env.SetOperator(OPTYPE_Math_acos,		Operator::Math_acos			= new Operator_Math_acos());
+	env.SetOperator(OPTYPE_Math_arg,		Operator::Math_arg			= new Operator_Math_arg());
+	env.SetOperator(OPTYPE_Math_asin,		Operator::Math_asin			= new Operator_Math_asin());
+	env.SetOperator(OPTYPE_Math_atan,		Operator::Math_atan			= new Operator_Math_atan());
+	env.SetOperator(OPTYPE_Math_atan2,		Operator::Math_atan2		= new Operator_Math_atan2());
+	env.SetOperator(OPTYPE_Math_ceil,		Operator::Math_ceil			= new Operator_Math_ceil());
+	env.SetOperator(OPTYPE_Math_conj,		Operator::Math_conj			= new Operator_Math_conj());
+	env.SetOperator(OPTYPE_Math_cos,		Operator::Math_cos			= new Operator_Math_cos());
+	env.SetOperator(OPTYPE_Math_cosh,		Operator::Math_cosh			= new Operator_Math_cosh());
+	env.SetOperator(OPTYPE_Math_covariance,	Operator::Math_covariance	= new Operator_Math_covariance());
+	env.SetOperator(OPTYPE_Math_cross,		Operator::Math_cross		= new Operator_Math_cross());
+	env.SetOperator(OPTYPE_Math_delta,		Operator::Math_delta		= new Operator_Math_delta());
+	env.SetOperator(OPTYPE_Math_dot,		Operator::Math_dot			= new Operator_Math_dot());
+	env.SetOperator(OPTYPE_Math_exp,		Operator::Math_exp			= new Operator_Math_exp());
+	env.SetOperator(OPTYPE_Math_floor,		Operator::Math_floor		= new Operator_Math_floor());
+	env.SetOperator(OPTYPE_Math_hypot,		Operator::Math_hypot		= new Operator_Math_hypot());
+	env.SetOperator(OPTYPE_Math_imag,		Operator::Math_imag			= new Operator_Math_imag());
+	env.SetOperator(OPTYPE_Math_log,		Operator::Math_log			= new Operator_Math_log());
+	env.SetOperator(OPTYPE_Math_log10,		Operator::Math_log10		= new Operator_Math_log10());
+	env.SetOperator(OPTYPE_Math_norm,		Operator::Math_norm			= new Operator_Math_norm());
+	env.SetOperator(OPTYPE_Math_ramp,		Operator::Math_ramp			= new Operator_Math_ramp());
+	env.SetOperator(OPTYPE_Math_real,		Operator::Math_real			= new Operator_Math_real());
+	env.SetOperator(OPTYPE_Math_sin,		Operator::Math_sin			= new Operator_Math_sin());
+	env.SetOperator(OPTYPE_Math_sinh,		Operator::Math_sinh			= new Operator_Math_sinh());
+	env.SetOperator(OPTYPE_Math_sqrt,		Operator::Math_sqrt			= new Operator_Math_sqrt());
+	env.SetOperator(OPTYPE_Math_tan,		Operator::Math_tan			= new Operator_Math_tan());
+	env.SetOperator(OPTYPE_Math_tanh,		Operator::Math_tanh			= new Operator_Math_tanh());
+	env.SetOperator(OPTYPE_Math_unitstep,	Operator::Math_unitstep		= new Operator_Math_unitstep());
 	AssignOperatorBasic(env);
 }
 

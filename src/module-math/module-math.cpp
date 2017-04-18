@@ -250,6 +250,24 @@ Gura_ImplementFunction(cosh)
 	return env.GetOperator(OPTYPE_Math_cosh)->EvalMapUnary(env, arg.GetValue(0), flags);
 }
 
+// math.covariance(a, b)
+Gura_DeclareFunction(covariance)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "a", VTYPE_any);
+	DeclareArg(env, "b", VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns a covariance between the `a` and `b`.");
+}
+
+Gura_ImplementFunction(covariance)
+{
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_covariance)->EvalBinary(
+		env, arg.GetValue(0), arg.GetValue(1), flags);
+}
+
 // math.cross(a, b)
 Gura_DeclareFunction(cross)
 {
@@ -742,48 +760,6 @@ Gura_ImplementFunction(bezier)
 	return result;
 }
 
-// math.covariance(a:iterator, b:iterator)
-Gura_DeclareFunction(covariance)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "a", VTYPE_iterator);
-	DeclareArg(env, "b", VTYPE_iterator);
-	AddHelp(
-		Gura_Symbol(en),
-		"Returns a covariance between the sequences of values.");
-}
-
-Gura_ImplementFunction(covariance)
-{
-	Signal &sig = env.GetSignal();
-	size_t cntA, cntB;
-	Iterator *pIteratorA = arg.GetIterator(0);
-	Iterator *pIteratorB = arg.GetIterator(1);
-	Value valueAveA = pIteratorA->Clone()->Average(env, cntA);
-	if (!valueAveA.Is_number()) return Value::Nil;
-	Value valueAveB = pIteratorB->Clone()->Average(env, cntB);
-	if (!valueAveB.Is_number()) return Value::Nil;
-	if (cntA != cntB) {
-		sig.SetError(ERR_ValueError, "different length of iterators");
-		return Value::Nil;
-	}
-	Number result = 0;
-	Number averageA = valueAveA.GetNumber();
-	Number averageB = valueAveB.GetNumber();
-	Value valueA, valueB;
-	while (pIteratorA->Next(env, valueA) && pIteratorB->Next(env, valueB)) {
-		if (valueA.Is_number() && valueB.Is_number()) {
-			result +=
-				(valueA.GetNumber() - averageA) * (valueB.GetNumber() - averageB);
-		} else {
-			sig.SetError(ERR_ValueError, "invalid data type of element");
-			return Value::Nil;
-		}
-	}
-	if (sig.IsSignalled()) return Value::Nil;
-	return Value(result / static_cast<Number>(cntA));
-}
-
 // math.diff(expr:expr, var:symbol):map {block?}
 Gura_DeclareFunction(diff)
 {
@@ -1053,6 +1029,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(conj);
 	Gura_AssignFunction(cos);
 	Gura_AssignFunction(cosh);
+	Gura_AssignFunction(covariance);
 	Gura_AssignFunction(cross);
 	Gura_AssignFunction(delta);
 	Gura_AssignFunction(dot);
@@ -1073,7 +1050,6 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(unitstep);
 	// Assignment of other functions
 	Gura_AssignFunction(bezier);
-	Gura_AssignFunction(covariance);
 	Gura_AssignFunction(diff);
 	Gura_AssignFunction(fft);
 	Gura_AssignFunction(gcd);

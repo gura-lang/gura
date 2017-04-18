@@ -97,6 +97,7 @@ public:
 	static UnaryFuncPack unaryFuncPack_Math_conj;
 	static UnaryFuncPack unaryFuncPack_Math_cos;
 	static UnaryFuncPack unaryFuncPack_Math_cosh;
+	static BinaryFuncPack binaryFuncPack_Math_covariance;
 	//static UnaryFuncPack unaryFuncPack_Math_cross;
 	static UnaryFuncPack unaryFuncPack_Math_delta;
 	//static UnaryFuncPack unaryFuncPack_Math_dot;

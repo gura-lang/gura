@@ -94,6 +94,7 @@ enum OpType {
 	OPTYPE_Math_conj,
 	OPTYPE_Math_cos,
 	OPTYPE_Math_cosh,
+	OPTYPE_Math_covariance,
 	OPTYPE_Math_cross,
 	OPTYPE_Math_delta,
 	OPTYPE_Math_dot,
@@ -192,6 +193,7 @@ public:
 	static Operator *Math_conj;
 	static Operator *Math_cos;
 	static Operator *Math_cosh;
+	static Operator *Math_covariance;
 	static Operator *Math_cross;
 	static Operator *Math_delta;
 	static Operator *Math_dot;
@@ -926,6 +928,14 @@ template<> inline void Operator_Math_cosh::Calc(Complex &elemResult, const Compl
 {
 	elemResult = std::cosh(elem);
 }
+
+//-----------------------------------------------------------------------------
+// Operator_Math_covariance
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_covariance : public Operator {
+public:
+	inline Operator_Math_covariance() : Operator(OPTYPE_Math_covariance) {}
+};
 
 //-----------------------------------------------------------------------------
 // Operator_Math_cross
