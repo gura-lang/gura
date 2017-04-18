@@ -176,19 +176,31 @@ Value Object_array::IndexGet(Environment &env, const Value &valueIdx)
 template<typename T_Elem>
 void IndexSetTmpl(Environment &env, const Value &valueIdx, const Value &value, Object_array *pObj)
 {
-	Signal &sig = env.GetSignal();
+//	env.SetError(ERR_ValueError, "can't modify array content through index access");
+#if 1
 	if (!valueIdx.Is_number()) {
-		sig.SetError(ERR_ValueError, "index must be a number");
+		env.SetError(ERR_ValueError, "index must be a number");
 		return;
 	}
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
+	if (!pArrayT->PrepareModification(env.GetSignal())) return;
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	Array::Dimensions::const_iterator pDim = dims.begin();
 	size_t idx = valueIdx.GetSizeT();
-	if (idx >= pArrayT->GetElemNum()) {
-		sig.SetError(ERR_OutOfRangeError, "index is out of range");
+	if (idx >= pDim->GetSize()) {
+		env.SetError(ERR_OutOfRangeError, "index is out of range");
 		return;
 	}
-	if (!pArrayT->PrepareModification(sig)) return;
-	pArrayT->GetPointer()[idx] = static_cast<T_Elem>(value.GetNumber());
+	T_Elem *pElemDst = pArrayT->GetPointer() + pDim->GetStride() * idx;
+	if (value.Is_number()) {
+		T_Elem numSrc = static_cast<T_Elem>(value.GetNumber());
+		if (pDim + 1 == dims.end()) {
+			*pElemDst = numSrc;
+		}
+	} else if (value.Is_array()) {
+		
+	}
+#endif
 }
 
 void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
