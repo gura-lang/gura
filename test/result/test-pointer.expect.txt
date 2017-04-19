@@ -46,7 +46,7 @@ p.offset .. 0
 
 ======== #5 pointer#get@*() ========
 
-p.get@char():nil
+p.get@int8():nil
 0000000000000000 0000000000000001 0000000000000002 0000000000000003
 0000000000000004 0000000000000005 0000000000000006 0000000000000007
 0000000000000008 0000000000000009 000000000000000a 000000000000000b
@@ -111,7 +111,7 @@ fffffffffffffff0 fffffffffffffff1 fffffffffffffff2 fffffffffffffff3
 fffffffffffffff4 fffffffffffffff5 fffffffffffffff6 fffffffffffffff7
 fffffffffffffff8 fffffffffffffff9 fffffffffffffffa fffffffffffffffb
 fffffffffffffffc fffffffffffffffd fffffffffffffffe ffffffffffffffff
-p.get@uchar():nil
+p.get@uint8():nil
 0000000000000000 0000000000000001 0000000000000002 0000000000000003
 0000000000000004 0000000000000005 0000000000000006 0000000000000007
 0000000000000008 0000000000000009 000000000000000a 000000000000000b
@@ -176,7 +176,7 @@ p.get@uchar():nil
 00000000000000f4 00000000000000f5 00000000000000f6 00000000000000f7
 00000000000000f8 00000000000000f9 00000000000000fa 00000000000000fb
 00000000000000fc 00000000000000fd 00000000000000fe 00000000000000ff
-p.get@short():nil
+p.get@int16():nil
 0000000000000100 0000000000000302 0000000000000504 0000000000000706
 0000000000000908 0000000000000b0a 0000000000000d0c 0000000000000f0e
 0000000000001110 0000000000001312 0000000000001514 0000000000001716
@@ -209,7 +209,7 @@ ffffffffffffe1e0 ffffffffffffe3e2 ffffffffffffe5e4 ffffffffffffe7e6
 ffffffffffffe9e8 ffffffffffffebea ffffffffffffedec ffffffffffffefee
 fffffffffffff1f0 fffffffffffff3f2 fffffffffffff5f4 fffffffffffff7f6
 fffffffffffff9f8 fffffffffffffbfa fffffffffffffdfc fffffffffffffffe
-p.get@ushort():nil
+p.get@uint16():nil
 0000000000000100 0000000000000302 0000000000000504 0000000000000706
 0000000000000908 0000000000000b0a 0000000000000d0c 0000000000000f0e
 0000000000001110 0000000000001312 0000000000001514 0000000000001716
@@ -279,7 +279,7 @@ p.get@uint32():nil
 
 ======== #6 not-writable binary ========
 
-b''.p.put@char(0) .. ValueError: not a writable binary
+b''.p.put@int8(0) .. ValueError: not a writable binary
 b''.p.pack('b', 0) .. ValueError: not a writable binary
 
 ======== #7 pointer() constructor ========
@@ -298,16 +298,16 @@ p.hex(16):carray:upper .. 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 
 
 ======== #9 pointer#each@T() ========
 
-buff.p.each@char():list .. [1, 35, 69, 103, -119, -85, -51, 101, 102, -2, -36, -70, -104, 118, 84, 50, 16]
-buff.p.each@uchar():list .. [1, 35, 69, 103, 137, 171, 205, 101, 102, 254, 220, 186, 152, 118, 84, 50, 16]
-buff.p.each@short():list .. [8961, 26437, -21623, 26061, -410, -17700, 30360, 12884]
-buff.p.each@ushort():list .. [8961, 26437, 43913, 26061, 65126, 47836, 30360, 12884]
+buff.p.each@int8():list .. [1, 35, 69, 103, -119, -85, -51, 101, 102, -2, -36, -70, -104, 118, 84, 50, 16]
+buff.p.each@uint8():list .. [1, 35, 69, 103, 137, 171, 205, 101, 102, 254, 220, 186, 152, 118, 84, 50, 16]
+buff.p.each@int16():list .. [8961, 26437, -21623, 26061, -410, -17700, 30360, 12884]
+buff.p.each@uint16():list .. [8961, 26437, 43913, 26061, 65126, 47836, 30360, 12884]
 buff.p.each@int32():list .. [1732584193, 1707977609, -1159922074, 844396184]
 buff.p.each@uint32():list .. [1732584193, 1707977609, 3135045222, 844396184]
-buff.p.each@char():be:list .. [1, 35, 69, 103, -119, -85, -51, 101, 102, -2, -36, -70, -104, 118, 84, 50, 16]
-buff.p.each@uchar():be:list .. [1, 35, 69, 103, 137, 171, 205, 101, 102, 254, 220, 186, 152, 118, 84, 50, 16]
-buff.p.each@short():be:list .. [291, 17767, -30293, -12955, 26366, -9030, -26506, 21554]
-buff.p.each@ushort():be:list .. [291, 17767, 35243, 52581, 26366, 56506, 39030, 21554]
+buff.p.each@int8():be:list .. [1, 35, 69, 103, -119, -85, -51, 101, 102, -2, -36, -70, -104, 118, 84, 50, 16]
+buff.p.each@uint8():be:list .. [1, 35, 69, 103, 137, 171, 205, 101, 102, 254, 220, 186, 152, 118, 84, 50, 16]
+buff.p.each@int16():be:list .. [291, 17767, -30293, -12955, 26366, -9030, -26506, 21554]
+buff.p.each@uint16():be:list .. [291, 17767, 35243, 52581, 26366, 56506, 39030, 21554]
 buff.p.each@int32():be:list .. [19088743, -1985229467, 1727978682, -1737075662]
 buff.p.each@uint32():be:list .. [19088743, 2309737829, 1727978682, 2557891634]
 

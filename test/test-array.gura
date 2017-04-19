@@ -25,6 +25,18 @@ FormatArray(fmt:string, array:array):map = {
 
 PrintArray(fmt:string, array:array) = println(FormatArray(fmt, array))
 
+testcase('properties') {
+	x = array.zeros([2, 3, 4])
+	tester(`x)
+	tester(`x.elembytes)
+	tester(`x.elemtype)
+	tester(`(x.memoryid == x.offset(1).memoryid))
+	tester(`x.ndim)
+	tester(`x.p)
+	tester(`x.shape)
+	tester(`x.size)
+	tester(`x.T)
+}
 testcase('constructor') {
 	funcs.each {|func|
 		println(func)
@@ -699,4 +711,14 @@ testcase('array#issquare()') {
 	tester(`array.zeros([3, 3]).issquare())
 	tester(`array.zeros([2, 4, 3, 3]).issquare())
 	tester(`array.zeros([2, 4, 3, 2]).issquare())
+}
+testcase('pointer') {
+	x = array@int8.range(24).reshape([2, 3, 4])
+	p = x.p
+	p.dump()
+	p += 10
+	printf('%02x\n', p.get@int8())
+	printf('%02x\n', p.get@int8())
+	printf('%04x\n', p.get@int16())
+	printf('%08x\n', p.get@int32())
 }

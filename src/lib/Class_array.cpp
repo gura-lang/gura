@@ -458,7 +458,7 @@ Gura_DeclareProperty_R(array, T)
 	SetPropAttr(VTYPE_array);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Return an array with its row and column being tranposed."
 		);
 }
 
@@ -1242,7 +1242,7 @@ void Class_array::DoPrepare(Environment &env)
 	Gura_AssignProperty(array, elemtype);
 	Gura_AssignProperty(array, memoryid);
 	Gura_AssignProperty(array, ndim);
-	//Gura_AssignProperty(array, p);
+	Gura_AssignProperty(array, p);
 	Gura_AssignProperty(array, shape);
 	Gura_AssignProperty(array, size);
 	Gura_AssignProperty(array, T);

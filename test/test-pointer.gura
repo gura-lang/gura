@@ -61,17 +61,17 @@ testcase('pointer#get@*()') {
 	}
 	buff = binary()
 	buff.p.pack('256B', [0..255]*)
-	f(`p.get@char():nil)
-	f(`p.get@uchar():nil)
-	f(`p.get@short():nil)
-	f(`p.get@ushort():nil)
+	f(`p.get@int8():nil)
+	f(`p.get@uint8():nil)
+	f(`p.get@int16():nil)
+	f(`p.get@uint16():nil)
 	f(`p.get@int32():nil)
 	f(`p.get@uint32():nil)
 	//f(`p.get@int64():nil)
 	//f(`p.get@uint64():nil)
 }
 testcase('not-writable binary') {
-	tester(`b''.p.put@char(0))
+	tester(`b''.p.put@int8(0))
 	tester(`b''.p.pack('b', 0))
 }
 testcase('pointer() constructor') {
@@ -95,16 +95,16 @@ testcase('pointer#hex()') {
 }
 testcase('pointer#each@T()') {
 	buff = b'\x01\x23\x45\x67\x89\xab\xcd\ef\xfe\xdc\xba\x98\x76\x54\x32\x10'
-	tester(`buff.p.each@char():list)
-	tester(`buff.p.each@uchar():list)
-	tester(`buff.p.each@short():list)
-	tester(`buff.p.each@ushort():list)
+	tester(`buff.p.each@int8():list)
+	tester(`buff.p.each@uint8():list)
+	tester(`buff.p.each@int16():list)
+	tester(`buff.p.each@uint16():list)
 	tester(`buff.p.each@int32():list)
 	tester(`buff.p.each@uint32():list)
-	tester(`buff.p.each@char():be:list)
-	tester(`buff.p.each@uchar():be:list)
-	tester(`buff.p.each@short():be:list)
-	tester(`buff.p.each@ushort():be:list)
+	tester(`buff.p.each@int8():be:list)
+	tester(`buff.p.each@uint8():be:list)
+	tester(`buff.p.each@int16():be:list)
+	tester(`buff.p.each@uint16():be:list)
 	tester(`buff.p.each@int32():be:list)
 	tester(`buff.p.each@uint32():be:list)
 }

@@ -270,6 +270,10 @@ public:
 	inline UShort GetUShort(size_t idxArg) const		{ return GetValue(idxArg).GetUShort();			}
 	inline long GetLong(size_t idxArg) const			{ return GetValue(idxArg).GetLong();			}
 	inline ULong GetULong(size_t idxArg) const			{ return GetValue(idxArg).GetULong();			}
+	inline Int8 GetInt8(size_t idxArg) const			{ return GetValue(idxArg).GetInt8();			}
+	inline UInt8 GetUInt8(size_t idxArg) const			{ return GetValue(idxArg).GetUInt8();			}
+	inline Int16 GetInt16(size_t idxArg) const			{ return GetValue(idxArg).GetInt16();			}
+	inline UInt16 GetUInt16(size_t idxArg) const		{ return GetValue(idxArg).GetUInt16();			}
 	inline Int32 GetInt32(size_t idxArg) const			{ return GetValue(idxArg).GetInt32();			}
 	inline UInt32 GetUInt32(size_t idxArg) const		{ return GetValue(idxArg).GetUInt32();			}
 	inline Int64 GetInt64(size_t idxArg) const			{ return GetValue(idxArg).GetInt64();			}

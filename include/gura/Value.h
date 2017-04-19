@@ -420,6 +420,10 @@ public:
 						static_cast<long>(static_cast<ULong>(num));
 	}
 	inline ULong GetULong() const			{ return static_cast<ULong>(GetNumber());		}
+	inline Int8 GetInt8() const				{ return static_cast<Int8>(GetNumber());		}
+	inline UInt32 GetUInt8() const			{ return static_cast<UInt8>(GetNumber());		}
+	inline Int32 GetInt16() const			{ return static_cast<Int16>(GetNumber());		}
+	inline UInt32 GetUInt16() const			{ return static_cast<UInt16>(GetNumber());		}
 	inline Int32 GetInt32() const			{ return static_cast<Int32>(GetNumber());		}
 	inline UInt32 GetUInt32() const			{ return static_cast<UInt32>(GetNumber());		}
 	inline Int64 GetInt64() const			{ return static_cast<Int64>(GetNumber());		}

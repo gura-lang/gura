@@ -727,16 +727,16 @@ Gura_ImplementMethod(pointer, put_##type) \
 	return arg.GetValueThis(); \
 } \
 
-ImplementAccessorMethod(char, Char)
-ImplementAccessorMethod(uchar, UChar)
-ImplementAccessorMethod(short, Short)
-ImplementAccessorMethod(ushort, UShort)
-ImplementAccessorMethod(int32, Int32)
-ImplementAccessorMethod(uint32, UInt32)
-ImplementAccessorMethod(int64, Int64)
-ImplementAccessorMethod(uint64, UInt64)
-ImplementAccessorMethod(float, Float)
-ImplementAccessorMethod(double, Double)
+ImplementAccessorMethod(int8,	Int8)
+ImplementAccessorMethod(uint8,	UInt8)
+ImplementAccessorMethod(int16,	Int16)
+ImplementAccessorMethod(uint16,	UInt16)
+ImplementAccessorMethod(int32,	Int32)
+ImplementAccessorMethod(uint32,	UInt32)
+ImplementAccessorMethod(int64,	Int64)
+ImplementAccessorMethod(uint64,	UInt64)
+ImplementAccessorMethod(float,	Float)
+ImplementAccessorMethod(double,	Double)
 
 //-----------------------------------------------------------------------------
 // Implementation of class
@@ -760,10 +760,10 @@ void Class_pointer::DoPrepare(Environment &env)
 	Gura_AssignMethod(pointer, decode);
 	Gura_AssignMethod(pointer, dump);
 	Gura_AssignMethod(pointer, encodeuri);
-	Gura_AssignMethod(pointer, each_char);
-	Gura_AssignMethod(pointer, each_uchar);
-	Gura_AssignMethod(pointer, each_short);
-	Gura_AssignMethod(pointer, each_ushort);
+	Gura_AssignMethod(pointer, each_int8);
+	Gura_AssignMethod(pointer, each_uint8);
+	Gura_AssignMethod(pointer, each_int16);
+	Gura_AssignMethod(pointer, each_uint16);
 	Gura_AssignMethod(pointer, each_int32);
 	Gura_AssignMethod(pointer, each_uint32);
 	Gura_AssignMethod(pointer, each_int64);
@@ -771,10 +771,10 @@ void Class_pointer::DoPrepare(Environment &env)
 	Gura_AssignMethod(pointer, each_float);
 	Gura_AssignMethod(pointer, each_double);
 	Gura_AssignMethod(pointer, forward);
-	Gura_AssignMethod(pointer, get_char);
-	Gura_AssignMethod(pointer, get_uchar);
-	Gura_AssignMethod(pointer, get_short);
-	Gura_AssignMethod(pointer, get_ushort);
+	Gura_AssignMethod(pointer, get_int8);
+	Gura_AssignMethod(pointer, get_uint8);
+	Gura_AssignMethod(pointer, get_int16);
+	Gura_AssignMethod(pointer, get_uint16);
 	Gura_AssignMethod(pointer, get_int32);
 	Gura_AssignMethod(pointer, get_uint32);
 	Gura_AssignMethod(pointer, get_int64);
@@ -784,10 +784,10 @@ void Class_pointer::DoPrepare(Environment &env)
 	Gura_AssignMethod(pointer, head);
 	Gura_AssignMethod(pointer, hex);
 	Gura_AssignMethod(pointer, pack);
-	Gura_AssignMethod(pointer, put_char);
-	Gura_AssignMethod(pointer, put_uchar);
-	Gura_AssignMethod(pointer, put_short);
-	Gura_AssignMethod(pointer, put_ushort);
+	Gura_AssignMethod(pointer, put_int8);
+	Gura_AssignMethod(pointer, put_uint8);
+	Gura_AssignMethod(pointer, put_int16);
+	Gura_AssignMethod(pointer, put_uint16);
 	Gura_AssignMethod(pointer, put_int32);
 	Gura_AssignMethod(pointer, put_uint32);
 	Gura_AssignMethod(pointer, put_int64);
