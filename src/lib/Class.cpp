@@ -56,11 +56,57 @@ bool Object::IsInstanceOf(ValueType valType) const
 
 Value Object::IndexGet(Environment &env, const ValueList &valListIdx)
 {
-	return Value::Nil;
+	if (valListIdx.empty()) {
+		const Function *pFunc = LookupFunction(Gura_Symbol(__getitemx__), ENVREF_Escalate);
+		if (pFunc == nullptr) {
+			env.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
+			return Value::Nil;
+		}
+		Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
+		AutoPtr<Argument> pArg(new Argument(pFunc));
+		pArg->SetValueThis(valueThis);
+		return pFunc->Eval(*this, *pArg);
+	} else {
+		const Value &valueIdx = valListIdx.front();
+		const Function *pFunc = LookupFunction(Gura_Symbol(__getitem__), ENVREF_Escalate);
+		if (pFunc == nullptr) {
+			env.SetError(ERR_ValueError, "indexed getting access is not supported");
+			return Value::Nil;
+		}
+		Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
+		AutoPtr<Argument> pArg(new Argument(pFunc));
+		if (!pArg->StoreValue(env, valueIdx)) return Value::Nil;
+		pArg->SetValueThis(valueThis);
+		return pFunc->Eval(*this, *pArg);
+	}
 }
 
 void Object::IndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
 {
+	if (valListIdx.empty()) {
+		const Function *pFunc = LookupFunction(Gura_Symbol(__setitemx__), ENVREF_Escalate);
+		if (pFunc == nullptr) {
+			env.SetError(ERR_ValueError, "empty-indexed setting access is not supported");
+			return;
+		}
+		Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
+		AutoPtr<Argument> pArg(new Argument(pFunc));
+		if (!pArg->StoreValue(env, value)) return;
+		pArg->SetValueThis(valueThis);
+		pFunc->Eval(*this, *pArg);
+	} else {
+		const Value &valueIdx = valListIdx.front();
+		const Function *pFunc = LookupFunction(Gura_Symbol(__setitem__), ENVREF_Escalate);
+		if (pFunc == nullptr) {
+			env.SetError(ERR_ValueError, "indexed setting access is not supported");
+			return;
+		}
+		Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
+		AutoPtr<Argument> pArg(new Argument(pFunc));
+		if (!pArg->StoreValue(env, valueIdx, value)) return;
+		pArg->SetValueThis(valueThis);
+		pFunc->Eval(*this, *pArg);
+	}
 }
 
 #else

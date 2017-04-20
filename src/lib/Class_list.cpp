@@ -37,11 +37,37 @@ Object *Object_list::Clone() const
 
 Value Object_list::IndexGet(Environment &env, const ValueList &valListIdx)
 {
-	return Value::Nil;
+	if (valListIdx.empty()) return Value::Nil;
+	const Value &valueIdx = valListIdx.front();
+	if (!valueIdx.Is_number()) {
+		env.SetError(ERR_IndexError, "indexer for list must be a number value");
+		return Value::Nil;
+	}
+	int idx = valueIdx.GetInt();
+	if (idx < 0) idx += _valList.size();
+	if (idx < 0 || idx >= static_cast<int>(GetList().size())) {
+		env.SetError(ERR_IndexError, "index is out of range");
+		return Value::Nil;
+	}
+	return GetList()[idx];
 }
 
 void Object_list::IndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
 {
+	if (valListIdx.empty()) return;
+	const Value &valueIdx = valListIdx.front();
+	if (!valueIdx.Is_number()) {
+		env.SetError(ERR_IndexError, "indexer for list must be a number value");
+		return;
+	}
+	int idx = valueIdx.GetInt();
+	if (idx < 0) idx += _valList.size();
+	if (idx < 0 || idx >= static_cast<int>(GetList().size())) {
+		env.SetError(ERR_IndexError, "index is out of range");
+		return;
+	}
+	_valList[idx] = value;
+	UpdateValueType(value);
 }
 
 #else
