@@ -52,6 +52,19 @@ bool Object::IsInstanceOf(ValueType valType) const
 	return false;
 }
 
+#if NEW_INDEXING
+
+Value Object::IndexGet(Environment &env, const ValueList &valListIdx)
+{
+	return Value::Nil;
+}
+
+void Object::IndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
+{
+}
+
+#else
+
 Value Object::EmptyIndexGet(Environment &env)
 {
 	Signal &sig = GetSignal();
@@ -110,6 +123,8 @@ void Object::IndexSet(Environment &env, const Value &valueIdx, const Value &valu
 	pArg->SetValueThis(valueThis);
 	pFunc->Eval(*this, *pArg);
 }
+
+#endif
 
 bool Object::DirProp(Environment &env, SymbolSet &symbols)
 {
@@ -485,6 +500,18 @@ bool Class::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag)
 	return DoDirProp(env, symbols);
 }
 
+#if NEW_INDEXING
+
+Value Class::IndexGetPrimitive(Environment &env, const Value &valueThis,
+							   const ValueList &valListIdx) const
+{
+	Signal &sig = GetSignal();
+	sig.SetError(ERR_ValueError, "indexed getting access is not supported");
+	return Value::Nil;
+}
+
+#else
+
 Value Class::EmptyIndexGetPrimitive(Environment &env, const Value &valueThis) const
 {
 	Signal &sig = GetSignal();
@@ -499,6 +526,8 @@ Value Class::IndexGetPrimitive(Environment &env,
 	sig.SetError(ERR_ValueError, "indexed getting access is not supported");
 	return Value::Nil;
 }
+
+#endif
 
 bool Class::CastFrom(Environment &env, Value &value, ULong flags)
 {

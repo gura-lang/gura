@@ -67,8 +67,13 @@ public:
 	Object_binary(const Object_binary &obj);
 	virtual ~Object_binary();
 	virtual Object *Clone() const;
+#if NEW_INDEXING
+	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
+	virtual void IndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
+#else
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
+#endif
 	virtual Iterator *CreateIterator(Signal &sig);
 	virtual String ToString(bool exprFlag);
 	inline Binary &GetBinary() { return _binary; }

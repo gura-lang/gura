@@ -213,6 +213,32 @@ bool Value::Is(const Value &value) const
 	return false;
 }
 
+#if NEW_INDEXING
+
+Value Value::IndexGet(Environment &env, const ValueList &valListIdx) const
+{
+	Signal &sig = env.GetSignal();
+	if (IsPrimitive()) {
+		return env.LookupClass(_valType)->IndexGetPrimitive(env, *this, valListIdx);
+	} else if (IsObject()) {
+		return GetObject()->IndexGet(env, valListIdx);
+	}
+	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
+	return Value::Nil;
+}
+
+void Value::IndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
+{
+	Signal &sig = env.GetSignal();
+	if (IsObject()) {
+		GetObject()->IndexSet(env, valListIdx, value);
+		return;
+	}
+	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
+}
+
+#else
+
 Value Value::EmptyIndexGet(Environment &env) const
 {
 	Signal &sig = env.GetSignal();
@@ -256,6 +282,8 @@ void Value::IndexSet(Environment &env, const Value &valueIdx, const Value &value
 	}
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
 }
+
+#endif
 
 bool Value::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) const
 {

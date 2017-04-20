@@ -7,8 +7,13 @@ namespace Gura {
 
 typedef Value (*ConstructorT)(Environment &env, Argument &arg);
 typedef Value (*PropertyGetterT)(Environment &env, Array *pArraySelf);
+#if NEW_INDEXING
+typedef Value (*IndexGetT)(Environment &env, const ValueList &valListIdx, Object_array *pObj);
+typedef void (*IndexSetT)(Environment &env, const ValueList &valListIdx, const Value &value, Object_array *pObj);
+#else
 typedef Value (*IndexGetT)(Environment &env, const Value &valueIdx, Object_array *pObj);
 typedef void (*IndexSetT)(Environment &env, const Value &valueIdx, const Value &value, Object_array *pObj);
+#endif
 typedef Iterator *(*CreateIteratorT)(Array *pArray);
 typedef Value (*MethodT)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);
 typedef bool (*CastToT)(Environment &env, Value &value, const Declaration &decl, const Array *pArraySelf);
@@ -128,6 +133,59 @@ String Object_array::ToString(bool exprFlag)
 	return _pArray->ToString(exprFlag);
 }
 
+#if NEW_INDEXING
+
+template<typename T_Elem>
+Value IndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_array *pObj)
+{
+	return Value::Nil;
+}
+
+Value Object_array::IndexGet(Environment &env, const ValueList &valListIdx)
+{
+	static const IndexGetT indexGetTbl[] = {
+		nullptr,
+		&IndexGetTmpl<Int8>,
+		&IndexGetTmpl<UInt8>,
+		&IndexGetTmpl<Int16>,
+		&IndexGetTmpl<UInt16>,
+		&IndexGetTmpl<Int32>,
+		&IndexGetTmpl<UInt32>,
+		&IndexGetTmpl<Int64>,
+		&IndexGetTmpl<UInt64>,
+		&IndexGetTmpl<Float>,
+		&IndexGetTmpl<Double>,
+		//&IndexGetTmpl<Complex>,
+	};
+	return (*indexGetTbl[GetArray()->GetElemType()])(env, valListIdx, this);
+}
+
+template<typename T_Elem>
+void IndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value &value, Object_array *pObj)
+{
+}
+
+void Object_array::IndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
+{
+	static const IndexSetT indexSetTbl[] = {
+		nullptr,
+		&IndexSetTmpl<Int8>,
+		&IndexSetTmpl<UInt8>,
+		&IndexSetTmpl<Int16>,
+		&IndexSetTmpl<UInt16>,
+		&IndexSetTmpl<Int32>,
+		&IndexSetTmpl<UInt32>,
+		&IndexSetTmpl<Int64>,
+		&IndexSetTmpl<UInt64>,
+		&IndexSetTmpl<Float>,
+		&IndexSetTmpl<Double>,
+		//&IndexSetTmpl<Complex>,
+	};
+	(*indexSetTbl[GetArray()->GetElemType()])(env, valListIdx, value, this);
+}
+
+#else
+
 template<typename T_Elem>
 Value IndexGetTmpl(Environment &env, const Value &valueIdx, Object_array *pObj)
 {
@@ -221,6 +279,8 @@ void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value
 	};
 	(*indexSetTbl[GetArray()->GetElemType()])(env, valueIdx, value, this);
 }
+
+#endif
 
 template<typename T_Elem>
 Iterator *CreateIteratorTmpl(Array *pArray)

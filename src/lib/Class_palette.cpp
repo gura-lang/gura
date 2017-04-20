@@ -30,6 +30,19 @@ Iterator *Object_palette::CreateIterator(Signal &sig)
 	return new Palette::IteratorEach(Palette::Reference(GetPalette()));
 }
 
+#if NEW_INDEXING
+
+Value Object_palette::IndexGet(Environment &env, const ValueList &valListIdx)
+{
+	return Value::Nil;
+}
+
+void Object_palette::IndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
+{
+}
+
+#else
+
 Value Object_palette::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
@@ -69,6 +82,7 @@ void Object_palette::IndexSet(Environment &env, const Value &valueIdx, const Val
 	}
 }
 
+#endif
 
 String Object_palette::ToString(bool exprFlag)
 {

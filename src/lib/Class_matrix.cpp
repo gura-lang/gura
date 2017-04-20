@@ -30,6 +30,19 @@ Object *Object_matrix::Clone() const
 	return new Object_matrix(*this);
 }
 
+#if NEW_INDEXING
+
+Value Object_matrix::IndexGet(Environment &env, const ValueList &valListIdx)
+{
+	return Value::Nil;
+}
+
+void Object_matrix::IndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
+{
+}
+
+#else
+
 Value Object_matrix::EmptyIndexGet(Environment &env)
 {
 	Signal &sig = GetSignal();
@@ -124,6 +137,8 @@ void Object_matrix::IndexSet(Environment &env, const Value &valueIdx, const Valu
 		}
 	}
 }
+
+#endif
 
 String Object_matrix::ToString(bool exprFlag)
 {

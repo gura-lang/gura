@@ -16,6 +16,19 @@ Object *Object_dict::Clone() const
 	return new Object_dict(*this);
 }
 
+#if NEW_INDEXING
+
+Value Object_dict::IndexGet(Environment &env, const ValueList &valListIdx)
+{
+	return Value::Nil;
+}
+
+void Object_dict::IndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
+{
+}
+
+#else
+
 Value Object_dict::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
@@ -43,6 +56,8 @@ void Object_dict::IndexSet(Environment &env, const Value &valueIdx, const Value 
 	InvalidateIterators();
 	GetDict()[valueIdx] = value;
 }
+
+#endif
 
 Iterator *Object_dict::CreateIterator(Signal &sig)
 {

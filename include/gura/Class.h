@@ -159,10 +159,15 @@ public:
 	inline void SetClass(Class *pClass) { _pClass.reset(pClass); }
 	const char *GetClassName() const;
 	bool IsInstanceOf(ValueType valType) const;
+#if NEW_INDEXING
+	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
+	virtual void IndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
+#else
 	virtual Value EmptyIndexGet(Environment &env);
 	virtual void EmptyIndexSet(Environment &env, const Value &value);
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
+#endif
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 					const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol,
@@ -240,9 +245,14 @@ public:
 	}
 	inline const PropDeclarationMap *GetPropDeclarationMap() const { return _pPropDeclarationMap.get(); }
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag);
+#if NEW_INDEXING
+	virtual Value IndexGetPrimitive(Environment &env, const Value &valueThis,
+									const ValueList &valListIdx) const;
+#else
 	virtual Value EmptyIndexGetPrimitive(Environment &env, const Value &valueThis) const;
 	virtual Value IndexGetPrimitive(Environment &env,
 									const Value &valueThis, const Value &valueIdx) const;
+#endif
 	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
 	virtual String ToString(bool exprFlag);

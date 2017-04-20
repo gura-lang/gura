@@ -51,8 +51,13 @@ public:
 	inline const Array *GetArray() const { return _pArray.get(); }
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
+#if NEW_INDEXING
+	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
+	virtual void IndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
+#else
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
+#endif
 	virtual Iterator *CreateIterator(Signal &sig);
 };
 

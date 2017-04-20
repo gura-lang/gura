@@ -33,9 +33,14 @@ public:
 	Object_matrix(const Object_matrix &obj);
 	virtual ~Object_matrix();
 	virtual Object *Clone() const;
+#if NEW_INDEXING
+	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
+	virtual void IndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
+#else
 	virtual Value EmptyIndexGet(Environment &env);
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
+#endif
 	virtual String ToString(bool exprFlag);
 	Matrix *GetMatrix() { return _pMat.get(); }
 	const Matrix *GetMatrix() const { return _pMat.get(); }

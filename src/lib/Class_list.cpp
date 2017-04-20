@@ -33,6 +33,19 @@ Object *Object_list::Clone() const
 	return new Object_list(*this);
 }
 
+#if NEW_INDEXING
+
+Value Object_list::IndexGet(Environment &env, const ValueList &valListIdx)
+{
+	return Value::Nil;
+}
+
+void Object_list::IndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
+{
+}
+
+#else
+
 Value Object_list::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
@@ -65,6 +78,8 @@ void Object_list::IndexSet(Environment &env, const Value &valueIdx, const Value 
 	_valList[idx] = value;
 	UpdateValueType(value);
 }
+
+#endif
 
 Iterator *Object_list::CreateIterator(Signal &sig)
 {
@@ -982,7 +997,12 @@ Gura_DeclareMethod(list, get)
 Gura_ImplementMethod(list, get)
 {
 	Object_list *pThis = Object_list::GetObjectThis(arg);
+#if NEW_INDEXING
+	ValueList valList(arg.GetValue(0));
+	return pThis->IndexGet(env, valList);
+#else
 	return pThis->IndexGet(env, arg.GetValue(0));
+#endif
 }
 
 // list#insert(idx:number, elem+):reduce

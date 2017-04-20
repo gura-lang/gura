@@ -2029,6 +2029,20 @@ Expr *Expr_Indexer::Clone() const
 	return new Expr_Indexer(*this);
 }
 
+#if NEW_INDEXING
+
+Value Expr_Indexer::DoExec(Environment &env) const
+{
+	return Value::Nil;
+}
+
+Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned, bool escalateFlag) const
+{
+	return Value::Nil;
+}
+
+#else
+
 Value Expr_Indexer::DoExec(Environment &env) const
 {
 	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
@@ -2198,6 +2212,8 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned, bool escala
 	}
 	return valueAssigned;
 }
+
+#endif
 
 void Expr_Indexer::Accept(ExprVisitor &visitor)
 {

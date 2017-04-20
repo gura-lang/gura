@@ -26,6 +26,19 @@ Object *Object_binary::Clone() const
 	return new Object_binary(*this);
 }
 
+#if NEW_INDEXING
+
+Value Object_binary::IndexGet(Environment &env, const ValueList &valListIdx)
+{
+	return Value::Nil;
+}
+
+void Object_binary::IndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
+{
+}
+
+#else
+
 Value Object_binary::IndexGet(Environment &env, const Value &valueIdx)
 {
 	if (!valueIdx.Is_number()) {
@@ -84,6 +97,8 @@ void Object_binary::IndexSet(Environment &env, const Value &valueIdx, const Valu
 		_binary[len + idx] = static_cast<UChar>(data);
 	}
 }
+
+#endif
 
 Iterator *Object_binary::CreateIterator(Signal &sig)
 {

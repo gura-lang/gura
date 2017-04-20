@@ -4,6 +4,8 @@
 #ifndef __GURA_COMMON_H__
 #define __GURA_COMMON_H__
 
+#define NEW_INDEXING 0
+
 #include "Macro.h"
 #include "Version.h"
 #include "PackedNumber.h"

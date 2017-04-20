@@ -262,8 +262,13 @@ public:
 	inline bool Deserialize(Environment &env, Stream &stream) {
 		return _valList.Deserialize(env, stream);
 	}
+#if NEW_INDEXING
+	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
+	virtual void IndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
+#else
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
+#endif
 	virtual Iterator *CreateIterator(Signal &sig);
 	virtual String ToString(bool exprFlag);
 	bool ValidateAndCast(Environment &env, const Declaration *pDecl, bool listElemFlag);
