@@ -21,7 +21,11 @@ public:
 	virtual ~Object_ifd();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
+#if NEW_INDEXING
+	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
+#else
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
+#endif
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);

@@ -617,6 +617,15 @@ Value Header::GetFieldNames(Environment &env, Signal &sig) const
 	return valueRtn;
 }
 
+#if NEW_INDEXING
+
+Value Header::IndexGet(Environment &env, const ValueList &valListIdx) const
+{
+	return Value::Nil;
+}
+
+#else
+
 Value Header::IndexGet(Environment &env, const Value &valueIdx) const
 {
 	Signal &sig = env.GetSignal();
@@ -632,6 +641,8 @@ Value Header::IndexGet(Environment &env, const Value &valueIdx) const
 		return Value::Nil;
 	}
 }
+
+#endif
 
 bool Header::GetTimeField(Environment &env, Signal &sig, const Symbol *pSymbol, Value &value) const
 {
@@ -1391,11 +1402,22 @@ Value Object_stat::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return Value::Nil;
 }
 
+#if NEW_INDEXING
+
+Value Object_stat::IndexGet(Environment &env, const ValueList &valListIdx)
+{
+	return Value::Nil;
+}
+
+#else
+
 Value Object_stat::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	return _header.IndexGet(env, valueIdx);
 }
+
+#endif
 
 String Object_stat::ToString(bool exprFlag)
 {
@@ -1639,12 +1661,23 @@ Value Object_request::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return Value::Nil;
 }
 
+#if NEW_INDEXING
+
+Value Object_request::IndexGet(Environment &env, const ValueList &valListIdx)
+{
+	return Value::Nil;
+}
+
+#else
+
 Value Object_request::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	Request &request = _pObjSession->GetRequest();
 	return request.GetHeader().IndexGet(env, valueIdx);
 }
+
+#endif
 
 Object *Object_request::Clone() const
 {
@@ -2038,12 +2071,23 @@ Value Object_response::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return Value::Nil;
 }
 
+#if NEW_INDEXING
+
+Value Object_response::IndexGet(Environment &env, const ValueList &valListIdx)
+{
+	return Value::Nil;
+}
+
+#else
+
 Value Object_response::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	Status &status = _pObjClient->GetStatus();
 	return status.GetHeader().IndexGet(env, valueIdx);
 }
+
+#endif
 
 Object *Object_response::Clone() const
 {

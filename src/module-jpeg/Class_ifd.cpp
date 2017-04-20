@@ -338,6 +338,15 @@ Object *Object_ifd::Clone() const
 	return nullptr;
 }
 
+#if NEW_INDEXING
+
+Value Object_ifd::IndexGet(Environment &env, const ValueList &valListIdx)
+{
+	return Value::Nil;
+}
+
+#else
+
 Value Object_ifd::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
@@ -361,6 +370,8 @@ Value Object_ifd::IndexGet(Environment &env, const Value &valueIdx)
 	sig.SetError(ERR_IndexError, "invalid type for index of ifd");
 	return Value::Nil;
 }
+
+#endif
 
 bool Object_ifd::DoDirProp(Environment &env, SymbolSet &symbols)
 {

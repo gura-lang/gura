@@ -24,12 +24,25 @@ Object *Object_exif::Clone() const
 	return nullptr;
 }
 
+#if NEW_INDEXING
+
+Value Object_exif::IndexGet(Environment &env, const ValueList &valListIdx)
+{
+	Signal &sig = GetSignal();
+	if (_pObj0thIFD.IsNull()) return Value::Nil;
+	return _pObj0thIFD->IndexGet(env, valListIdx);
+}
+
+#else
+
 Value Object_exif::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	if (_pObj0thIFD.IsNull()) return Value::Nil;
 	return _pObj0thIFD->IndexGet(env, valueIdx);
 }
+
+#endif
 
 String Object_exif::ToString(bool exprFlag)
 {

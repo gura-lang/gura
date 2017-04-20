@@ -240,6 +240,15 @@ Object *Object_match::Clone() const
 	return new Object_match(*this);
 }
 
+#if NEW_INDEXING
+
+Value Object_match::IndexGet(Environment &env, const ValueList &valListIdx)
+{
+	return Value::Nil;
+}
+
+#else
+
 Value Object_match::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
@@ -247,6 +256,8 @@ Value Object_match::IndexGet(Environment &env, const Value &valueIdx)
 	if (pGroup == nullptr) return Value::Nil;
 	return Value(pGroup->GetString());
 }
+
+#endif
 
 String Object_match::ToString(bool exprFlag)
 {

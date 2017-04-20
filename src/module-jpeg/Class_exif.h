@@ -31,7 +31,11 @@ public:
 	virtual ~Object_exif();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
+#if NEW_INDEXING
+	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
+#else
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
+#endif
 	inline const Strip &GetStrip() const { return _strip; }
 	inline bool GetBigendianFlag() const { return _bigendianFlag; }
 	inline Object_ifd *GetObj0thIFD() { return _pObj0thIFD.get(); }
