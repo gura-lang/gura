@@ -2033,12 +2033,36 @@ Expr *Expr_Indexer::Clone() const
 
 Value Expr_Indexer::DoExec(Environment &env) const
 {
-	return Value::Nil;
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
+	Value valueCar = GetCar()->Exec(env);
+	if (env.IsSignalled()) return Value::Nil;
+	ValueList valListIdx;
+	foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
+		const Expr *pExpr = *ppExpr;
+		Value valueIdx = pExpr->Exec(env);
+		if (env.IsSignalled()) return Value::Nil;
+		valListIdx.push_back(valueIdx);
+	}
+	Value result = valueCar.IndexGet(env, valListIdx);
+	if (env.IsSignalled()) return Value::Nil;
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
+	return result;
 }
 
 Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned, bool escalateFlag) const
 {
-	return Value::Nil;
+	Value valueCar = GetCar()->Exec(env);
+	if (env.IsSignalled()) return Value::Nil;
+	ValueList valListIdx;
+	foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
+		const Expr *pExpr = *ppExpr;
+		Value valueIdx = pExpr->Exec(env);
+		if (env.IsSignalled()) return Value::Nil;
+		valListIdx.push_back(valueIdx);
+	}
+	valueCar.IndexSet(env, valListIdx, valueAssigned);
+	if (env.IsSignalled()) return Value::Nil;
+	return valueAssigned;
 }
 
 #else
