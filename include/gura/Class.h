@@ -163,6 +163,8 @@ public:
 	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
 	virtual void IndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
 #else
+	virtual Value MultiIndexGet(Environment &env, const ValueList &valListIdx);
+	virtual void MultiIndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
 	virtual Value EmptyIndexGet(Environment &env);
 	virtual void EmptyIndexSet(Environment &env, const Value &value);
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);

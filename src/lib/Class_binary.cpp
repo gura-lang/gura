@@ -30,11 +30,71 @@ Object *Object_binary::Clone() const
 
 Value Object_binary::IndexGet(Environment &env, const ValueList &valListIdx)
 {
-	return Value::Nil;
+	if (valListIdx.size() != 1) {
+		env.SetError(ERR_IndexError, "only the single indexing is supported");
+		return Value::Nil;
+	}
+	const Value &valueIdx = valListIdx.front();
+	if (!valueIdx.Is_number()) {
+		env.SetError(ERR_IndexError, "index must be a number for binary");
+		return Value::Nil;
+	}
+	int idx = valueIdx.GetInt();
+	int len = static_cast<int>(_binary.size());
+	if (idx >= 0) {
+		if (idx >= len) {
+			env.SetError(ERR_IndexError, "index is out of range");
+			return Value::Nil;
+		}
+		return Value(static_cast<UChar>(_binary[idx]));
+	} else {
+		if (-idx > len) {
+			env.SetError(ERR_IndexError, "index is out of range");
+			return Value::Nil;
+		}
+		return Value(static_cast<UChar>(_binary[len + idx]));
+	}
 }
 
 void Object_binary::IndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
 {
+	if (valListIdx.size() != 1) {
+		env.SetError(ERR_IndexError, "only the single indexing is supported");
+		return;
+	}
+	const Value &valueIdx = valListIdx.front();
+	if (!IsWritable()) {
+		env.SetError(ERR_ValueError, "not a writable binary");
+		return;
+	}
+	if (!valueIdx.Is_number()) {
+		env.SetError(ERR_IndexError, "index must be a number for binary");
+		return;
+	}
+	if (!value.Is_number()) {
+		env.SetError(ERR_IndexError, "value must be a number for binary");
+		return;
+	}
+	int idx = valueIdx.GetInt();
+	long data = value.GetLong();
+	if (data < 0 || data > 255) {
+		env.SetError(ERR_IndexError, "value must be between 0 and 255");
+		return;
+	}
+	int len = static_cast<int>(_binary.size());
+	if (idx >= 0) {
+		if (idx >= len) {
+			env.SetError(ERR_IndexError, "index is out of range");
+			return;
+		}
+		_binary[idx] = static_cast<UChar>(data);
+	} else {
+		if (-idx > len) {
+			env.SetError(ERR_IndexError, "index is out of range");
+			return;
+		}
+		_binary[len + idx] = static_cast<UChar>(data);
+	}
 }
 
 #else

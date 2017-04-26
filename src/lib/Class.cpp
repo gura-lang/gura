@@ -111,6 +111,15 @@ void Object::IndexSet(Environment &env, const ValueList &valListIdx, const Value
 
 #else
 
+Value Object::MultiIndexGet(Environment &env, const ValueList &valListIdx)
+{
+	return Value::Nil;
+}
+
+void Object::MultiIndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
+{
+}
+
 Value Object::EmptyIndexGet(Environment &env)
 {
 	Signal &sig = GetSignal();

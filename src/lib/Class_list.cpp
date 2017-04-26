@@ -39,35 +39,71 @@ Value Object_list::IndexGet(Environment &env, const ValueList &valListIdx)
 {
 	if (valListIdx.empty()) return Value::Nil;
 	const Value &valueIdx = valListIdx.front();
-	if (!valueIdx.Is_number()) {
+	if (valueIdx.Is_list()) {
+		return IndexGetSub(env, valueIdx.GetList());
+	} else {
+		return IndexGet_Element(env, valueIdx);
+	}
+}
+
+Value Object_list::IndexGetSub(Environment &env, const ValueList &valListIdx)
+{
+	Value rtn;
+	Object_list *pObjList = rtn.InitAsList(env);
+	foreach_const (ValueList, pValueIdx, valListIdx) {
+		const Value &valueIdx = *pValueIdx;
+		Value value;
+		if (valueIdx.Is_list()) {
+			value = IndexGetSub(env, valueIdx.GetList());
+		} else {
+			value = IndexGet_Element(env, valueIdx);
+		}
+		if (env.IsSignalled()) return Value::Nil;
+		pObjList->AddFast(value);
+	}
+	pObjList->DetermineValueType();
+	return rtn;
+}
+
+const Value &Object_list::IndexGet_Element(Environment &env, const Value &valueIdx)
+{
+	if (valueIdx.Is_number()) {
+		int idx = valueIdx.GetInt();
+		if (idx < 0) idx += _valList.size();
+		if (idx < 0 || idx >= static_cast<int>(_valList.size())) {
+			env.SetError(ERR_IndexError, "index is out of range");
+			return Value::Nil;
+		}
+		return _valList[idx];
+	} else {
 		env.SetError(ERR_IndexError, "indexer for list must be a number value");
 		return Value::Nil;
 	}
-	int idx = valueIdx.GetInt();
-	if (idx < 0) idx += _valList.size();
-	if (idx < 0 || idx >= static_cast<int>(GetList().size())) {
-		env.SetError(ERR_IndexError, "index is out of range");
-		return Value::Nil;
-	}
-	return GetList()[idx];
+
 }
 
 void Object_list::IndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
 {
 	if (valListIdx.empty()) return;
 	const Value &valueIdx = valListIdx.front();
-	if (!valueIdx.Is_number()) {
+	IndexSet_Element(env, valueIdx, value);
+}
+
+void Object_list::IndexSet_Element(Environment &env, const Value &valueIdx, const Value &value)
+{
+	if (valueIdx.Is_number()) {
+		int idx = valueIdx.GetInt();
+		if (idx < 0) idx += _valList.size();
+		if (idx < 0 || idx >= static_cast<int>(_valList.size())) {
+			env.SetError(ERR_IndexError, "index is out of range");
+			return;
+		}
+		_valList[idx] = value;
+		UpdateValueType(value);
+	} else {
 		env.SetError(ERR_IndexError, "indexer for list must be a number value");
 		return;
 	}
-	int idx = valueIdx.GetInt();
-	if (idx < 0) idx += _valList.size();
-	if (idx < 0 || idx >= static_cast<int>(GetList().size())) {
-		env.SetError(ERR_IndexError, "index is out of range");
-		return;
-	}
-	_valList[idx] = value;
-	UpdateValueType(value);
 }
 
 #else

@@ -264,7 +264,10 @@ public:
 	}
 #if NEW_INDEXING
 	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
+	Value IndexGetSub(Environment &env, const ValueList &valListIdx);
+	const Value &IndexGet_Element(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
+	void IndexSet_Element(Environment &env, const Value &valueIdx, const Value &value);
 #else
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
