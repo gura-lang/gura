@@ -131,7 +131,7 @@ Gura_ImplementMethod(environment, setprop_X)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_environment::Class_environment(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_environment)
+Class_environment::Class_environment(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_environment)
 {
 }
 

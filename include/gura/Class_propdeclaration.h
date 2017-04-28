@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_propdeclaration
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_propdeclaration : public Class {
+class GURA_DLLDECLARE Class_propdeclaration : public ClassFundamental {
 public:
 	Class_propdeclaration(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

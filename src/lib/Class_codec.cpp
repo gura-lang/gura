@@ -158,7 +158,7 @@ Gura_ImplementMethod(codec, encode)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_codec::Class_codec(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_codec)
+Class_codec::Class_codec(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_codec)
 {
 }
 

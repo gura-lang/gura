@@ -632,7 +632,7 @@ Gura_ImplementMethod(dict, values)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_dict::Class_dict(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_dict)
+Class_dict::Class_dict(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_dict)
 {
 }
 

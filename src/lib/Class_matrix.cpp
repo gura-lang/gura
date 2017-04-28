@@ -899,7 +899,7 @@ Gura_ImplementMethod(matrix, transpose)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_matrix::Class_matrix(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_matrix)
+Class_matrix::Class_matrix(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_matrix)
 {
 }
 

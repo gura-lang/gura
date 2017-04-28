@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_color
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_color : public Class {
+class GURA_DLLDECLARE Class_color : public ClassFundamental {
 public:
 	Class_color(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

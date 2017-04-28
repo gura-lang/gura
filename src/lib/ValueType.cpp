@@ -212,7 +212,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(token);
 	Gura_RealizeVTYPE(uri);
 	Gura_RealizeVTYPE(vertex);
-	Class *pClass = new Class(&env, VTYPE_object);
+	Class *pClass = new ClassFundamental(&env, VTYPE_object);
 	Gura_VTYPEInfo(object		)->SetClass(pClass);
 	// invalid types
 	Gura_VTYPEInfo(undefined	)->SetClass(new Class_undefined(pClass));

@@ -59,7 +59,7 @@ Gura_ImplementFunction(monitor)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_monitor::Class_monitor(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_monitor)
+Class_monitor::Class_monitor(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_monitor)
 {
 }
 

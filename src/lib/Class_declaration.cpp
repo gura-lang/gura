@@ -125,7 +125,7 @@ Gura_ImplementMethod(declaration, istype)
 //----------------------------------------------------------------------------
 // Implementation of class
 //----------------------------------------------------------------------------
-Class_declaration::Class_declaration(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_declaration)
+Class_declaration::Class_declaration(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_declaration)
 {
 }
 

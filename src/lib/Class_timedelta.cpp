@@ -135,7 +135,7 @@ Gura_ImplementPropertySetter(timedelta, usecs)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_timedelta::Class_timedelta(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_timedelta)
+Class_timedelta::Class_timedelta(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_timedelta)
 {
 }
 

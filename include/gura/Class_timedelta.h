@@ -12,7 +12,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_timedelta
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_timedelta : public Class {
+class GURA_DLLDECLARE Class_timedelta : public ClassFundamental {
 public:
 	Class_timedelta(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

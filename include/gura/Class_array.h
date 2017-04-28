@@ -64,7 +64,7 @@ public:
 //-----------------------------------------------------------------------------
 // Class_array
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_array : public Class {
+class GURA_DLLDECLARE Class_array : public ClassFundamental {
 public:
 	Class_array(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

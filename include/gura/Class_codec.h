@@ -12,7 +12,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_codec
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_codec : public Class {
+class GURA_DLLDECLARE Class_codec : public ClassFundamental {
 public:
 	Class_codec(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

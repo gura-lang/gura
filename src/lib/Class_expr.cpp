@@ -828,7 +828,7 @@ ImplementTypeChecker(suffixed,		IsSuffixed)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_expr::Class_expr(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_expr)
+Class_expr::Class_expr(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_expr)
 {
 }
 

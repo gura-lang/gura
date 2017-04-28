@@ -362,7 +362,7 @@ Gura_ImplementMethod(audio, store)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_audio::Class_audio(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_audio)
+Class_audio::Class_audio(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_audio)
 {
 }
 

@@ -136,7 +136,7 @@ Gura_ImplementPropertyGetter(error, trace)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_error::Class_error(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_error)
+Class_error::Class_error(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_error)
 {
 }
 

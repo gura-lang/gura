@@ -347,7 +347,7 @@ Gura_ImplementMethod(vertex, translate)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_vertex::Class_vertex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_vertex)
+Class_vertex::Class_vertex(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_vertex)
 {
 }
 

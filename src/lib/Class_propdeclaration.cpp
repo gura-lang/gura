@@ -167,7 +167,7 @@ Gura_ImplementMethod(propdeclaration, gethelp)
 // Implementation of class
 //-----------------------------------------------------------------------------
 Class_propdeclaration::Class_propdeclaration(Environment *pEnvOuter) :
-	Class(pEnvOuter, VTYPE_propdeclaration)
+	ClassFundamental(pEnvOuter, VTYPE_propdeclaration)
 {
 }
 

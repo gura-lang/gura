@@ -741,7 +741,7 @@ ImplementAccessorMethod(double,	Double)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_pointer::Class_pointer(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_pointer)
+Class_pointer::Class_pointer(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_pointer)
 {
 }
 

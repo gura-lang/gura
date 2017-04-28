@@ -1190,7 +1190,7 @@ Gura_ImplementMethod(image, write)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_image::Class_image(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_image)
+Class_image::Class_image(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_image)
 {
 }
 

@@ -12,7 +12,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_stream
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_stream : public Class {
+class GURA_DLLDECLARE Class_stream : public ClassFundamental {
 public:
 	Class_stream(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

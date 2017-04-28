@@ -555,7 +555,7 @@ Gura_ImplementSuffixMgrForString(T)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_template::Class_template(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_template)
+Class_template::Class_template(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_template)
 {
 }
 

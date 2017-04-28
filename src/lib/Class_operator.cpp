@@ -267,7 +267,7 @@ Gura_ImplementMethod(operator_, entries)
 //-----------------------------------------------------------------------------
 // Class implementation
 //-----------------------------------------------------------------------------
-Class_operator::Class_operator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_operator)
+Class_operator::Class_operator(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_operator)
 {
 }
 

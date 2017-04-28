@@ -12,7 +12,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_token
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_token : public Class {
+class GURA_DLLDECLARE Class_token : public ClassFundamental {
 public:
 	Class_token(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

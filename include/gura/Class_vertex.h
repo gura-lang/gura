@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_vertex
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_vertex : public Class {
+class GURA_DLLDECLARE Class_vertex : public ClassFundamental {
 public:
 	Class_vertex(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

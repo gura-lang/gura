@@ -13,7 +13,7 @@ namespace Gura {
 // Class_arrayT
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class GURA_DLLDECLARE Class_arrayT : public Class {
+class GURA_DLLDECLARE Class_arrayT : public ClassFundamental {
 public:
 	Class_arrayT(Environment *pEnvOuter, ValueType valType);
 	virtual void DoPrepare(Environment &env);

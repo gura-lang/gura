@@ -292,7 +292,7 @@ Gura_ImplementClassMethod(uri, parsequery)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_uri::Class_uri(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_uri)
+Class_uri::Class_uri(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_uri)
 {
 }
 

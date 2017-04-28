@@ -675,7 +675,7 @@ Gura_ImplementClassMethod(datetime, weekday)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_datetime::Class_datetime(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_datetime)
+Class_datetime::Class_datetime(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_datetime)
 {
 }
 

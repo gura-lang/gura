@@ -119,7 +119,7 @@ Gura_ImplementMethod(semaphore, wait)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_semaphore::Class_semaphore(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_semaphore)
+Class_semaphore::Class_semaphore(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_semaphore)
 {
 }
 

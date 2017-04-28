@@ -1644,7 +1644,7 @@ Gura_ImplementMethod(iterator, while_)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_iterator::Class_iterator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_iterator)
+Class_iterator::Class_iterator(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_iterator)
 {
 }
 

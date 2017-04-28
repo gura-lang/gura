@@ -12,7 +12,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_semaphore
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_semaphore : public Class {
+class GURA_DLLDECLARE Class_semaphore : public ClassFundamental {
 public:
 	Class_semaphore(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

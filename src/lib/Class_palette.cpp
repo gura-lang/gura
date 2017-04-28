@@ -261,7 +261,7 @@ Gura_ImplementMethod(palette, updateby)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_palette::Class_palette(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_palette)
+Class_palette::Class_palette(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_palette)
 {
 }
 

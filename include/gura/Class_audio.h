@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_audio
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_audio : public Class {
+class GURA_DLLDECLARE Class_audio : public ClassFundamental {
 public:
 	Class_audio(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

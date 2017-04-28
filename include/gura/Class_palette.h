@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_palette
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_palette : public Class {
+class GURA_DLLDECLARE Class_palette : public ClassFundamental {
 public:
 	Class_palette(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

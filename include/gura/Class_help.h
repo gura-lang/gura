@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_help
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_help : public Class {
+class GURA_DLLDECLARE Class_help : public ClassFundamental {
 public:
 	Class_help(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

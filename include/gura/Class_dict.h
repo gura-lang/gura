@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_dict
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_dict : public Class {
+class GURA_DLLDECLARE Class_dict : public ClassFundamental {
 public:
 	Class_dict(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

@@ -50,7 +50,7 @@ Gura_ImplementFunction(directory)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_directory::Class_directory(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_directory)
+Class_directory::Class_directory(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_directory)
 {
 }
 

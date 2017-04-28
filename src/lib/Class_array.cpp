@@ -1291,7 +1291,7 @@ Gura_ImplementMethod(array, transpose)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_array::Class_array(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_array)
+Class_array::Class_array(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_array)
 {
 }
 

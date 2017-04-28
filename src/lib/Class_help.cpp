@@ -389,7 +389,7 @@ Gura_ImplementUnaryOperator(Inv, Class)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_help::Class_help(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_help)
+Class_help::Class_help(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_help)
 {
 }
 

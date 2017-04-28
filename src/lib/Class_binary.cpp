@@ -493,7 +493,7 @@ Gura_ImplementMethod(binary, writer)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_binary::Class_binary(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_binary)
+Class_binary::Class_binary(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_binary)
 {
 }
 

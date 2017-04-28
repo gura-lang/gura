@@ -12,7 +12,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_datetime
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_datetime : public Class {
+class GURA_DLLDECLARE Class_datetime : public ClassFundamental {
 public:
 	Class_datetime(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

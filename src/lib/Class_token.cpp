@@ -92,7 +92,7 @@ Gura_ImplementPropertyGetter(token, source)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_token::Class_token(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_token)
+Class_token::Class_token(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_token)
 {
 }
 

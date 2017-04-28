@@ -335,7 +335,7 @@ Gura_ImplementMethod(color, list)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_color::Class_color(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_color)
+Class_color::Class_color(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_color)
 {
 }
 

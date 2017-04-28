@@ -265,7 +265,7 @@ Gura_ImplementMethod(memory, pointer)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_memory::Class_memory(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_memory)
+Class_memory::Class_memory(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_memory)
 {
 }
 

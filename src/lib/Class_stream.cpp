@@ -995,7 +995,7 @@ Gura_ImplementMethod(stream, write)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stream)
+Class_stream::Class_stream(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_stream)
 {
 }
 

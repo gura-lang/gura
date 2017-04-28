@@ -113,7 +113,7 @@ Gura_ImplementMethod(suffixmgr, assign)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_suffixmgr::Class_suffixmgr(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_suffixmgr)
+Class_suffixmgr::Class_suffixmgr(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_suffixmgr)
 {
 
 }

@@ -176,7 +176,7 @@ Gura_ImplementMethod(formatter, isuppercase)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_formatter::Class_formatter(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_formatter)
+Class_formatter::Class_formatter(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_formatter)
 {
 }
 

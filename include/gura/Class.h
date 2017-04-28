@@ -239,9 +239,9 @@ public:
 	}
 	inline const PropDeclarationMap *GetPropDeclarationMap() const { return _pPropDeclarationMap.get(); }
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag);
-	virtual Value EvalEmptyIndexGet(Environment &env, const Value &valueThis) const { return Value::Nil; }
+	virtual Value EvalEmptyIndexGet(Environment &env, const Value &valueThis) const = 0;
 	virtual Value EvalIndexGet(Environment &env,
-							   const Value &valueThis, const Value &valueIdx) const { return Value::Nil; }
+							   const Value &valueThis, const Value &valueIdx) const = 0;
 	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
 	virtual String ToString(bool exprFlag);

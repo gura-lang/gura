@@ -490,7 +490,7 @@ Gura_ImplementMethod(function, mathdiff)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_function::Class_function(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_function)
+Class_function::Class_function(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_function)
 {
 }
 

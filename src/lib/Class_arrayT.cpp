@@ -533,7 +533,7 @@ Gura_ImplementClassMethod_arrayT(zeros)
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
 Class_arrayT<T_Elem>::Class_arrayT(Environment *pEnvOuter, ValueType valType) :
-	Class(pEnvOuter, valType)
+	ClassFundamental(pEnvOuter, valType)
 {
 }
 

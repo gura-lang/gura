@@ -131,7 +131,7 @@ Gura_ImplementMethod(arg, quit_trailer)
 //----------------------------------------------------------------------------
 // Implementation of class
 //----------------------------------------------------------------------------
-Class_argument::Class_argument(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_argument)
+Class_argument::Class_argument(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_argument)
 {
 }
 

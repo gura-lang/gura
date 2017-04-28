@@ -2149,7 +2149,7 @@ Gura_ImplementMethod(list, while_)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_list::Class_list(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_list)
+Class_list::Class_list(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_list)
 {
 }
 

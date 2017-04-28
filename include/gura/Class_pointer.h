@@ -12,7 +12,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_pointer
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_pointer : public Class {
+class GURA_DLLDECLARE Class_pointer : public ClassFundamental {
 public:
 	Class_pointer(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

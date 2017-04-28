@@ -12,7 +12,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_formatter
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_formatter : public Class {
+class GURA_DLLDECLARE Class_formatter : public ClassFundamental {
 public:
 	Class_formatter(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

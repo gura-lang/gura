@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_binary
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_binary : public Class {
+class GURA_DLLDECLARE Class_binary : public ClassFundamental {
 public:
 	Class_binary(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
