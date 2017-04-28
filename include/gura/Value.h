@@ -464,15 +464,10 @@ public:
 	Expr *GetExpr() const;
 	//-----------------------
 	bool Is(const Value &value) const;
-#if NEW_INDEXING
-	Value IndexGet(Environment &env, const ValueList &valListIdx) const;
-	void IndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
-#else
 	Value EmptyIndexGet(Environment &env) const;
 	void EmptyIndexSet(Environment &env, const Value &value);
 	Value IndexGet(Environment &env, const Value &valueIdx) const;
 	void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
-#endif
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) const;
 	void DirValueType(SymbolSet &symbols, bool escalateFlag) const;
 	Value GetProp(Environment &env, const Symbol *pSymbol,
