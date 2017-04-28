@@ -197,7 +197,7 @@ Gura_ImplementSuffixMgrForNumber(j)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_complex::Class_complex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_complex)
+Class_complex::Class_complex(Environment *pEnvOuter) : ClassPrimitive(pEnvOuter, VTYPE_complex)
 {
 }
 

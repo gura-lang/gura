@@ -980,7 +980,7 @@ Gura_ImplementMethod(string, zentohan)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_string::Class_string(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_string)
+Class_string::Class_string(Environment *pEnvOuter) : ClassPrimitive(pEnvOuter, VTYPE_string)
 {
 }
 

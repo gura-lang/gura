@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_Struct
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_Struct : public Class {
+class GURA_DLLDECLARE Class_Struct : public ClassFundamental {
 public:
 	class GURA_DLLDECLARE Constructor : public Function {
 	public:

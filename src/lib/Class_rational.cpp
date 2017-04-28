@@ -114,7 +114,7 @@ Gura_ImplementSuffixMgrForNumber(r)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_rational::Class_rational(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_rational)
+Class_rational::Class_rational(Environment *pEnvOuter) : ClassPrimitive(pEnvOuter, VTYPE_rational)
 {
 }
 

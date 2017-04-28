@@ -12,7 +12,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // ClassCustom
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ClassCustom : public Class {
+class GURA_DLLDECLARE ClassCustom : public ClassFundamental {
 public:
 	class GURA_DLLDECLARE Constructor : public Function {
 	private:

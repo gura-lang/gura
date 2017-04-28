@@ -12,14 +12,14 @@ namespace Gura {
 bool ClassCustom::IsCustom() const { return true; }
 
 ClassCustom::ClassCustom(const ClassCustom &cls) :
-	Class(cls), _pExprContent(dynamic_cast<Expr_Block *>(
+	ClassFundamental(cls), _pExprContent(dynamic_cast<Expr_Block *>(
 				Expr::Reference(cls._pExprContent.get())))
 {
 }
 
 ClassCustom::ClassCustom(Environment *pEnv, Class *pClassSuper,
 				ValueType valType, Expr_Block *pExprContent) :
-	Class(pClassSuper, valType), _pExprContent(pExprContent)
+	ClassFundamental(pClassSuper, valType), _pExprContent(pExprContent)
 {
 	AddLackingFrame(pEnv->GetFrameOwner());
 }

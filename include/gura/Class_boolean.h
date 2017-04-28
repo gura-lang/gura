@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_boolean
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_boolean : public Class {
+class GURA_DLLDECLARE Class_boolean : public ClassPrimitive {
 public:
 	Class_boolean(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

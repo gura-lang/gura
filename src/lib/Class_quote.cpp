@@ -11,7 +11,7 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_quote::Class_quote(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_quote)
+Class_quote::Class_quote(Environment *pEnvOuter) : ClassPrimitive(pEnvOuter, VTYPE_quote)
 {
 }
 

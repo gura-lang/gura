@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_string
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_string : public Class {
+class GURA_DLLDECLARE Class_string : public ClassPrimitive {
 public:
 	class GURA_DLLDECLARE IteratorEach : public Iterator {
 	public:

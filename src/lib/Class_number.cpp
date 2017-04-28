@@ -114,7 +114,7 @@ Gura_ImplementMethod(number, roundoff)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_number::Class_number(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_number)
+Class_number::Class_number(Environment *pEnvOuter) : ClassPrimitive(pEnvOuter, VTYPE_number)
 {
 }
 

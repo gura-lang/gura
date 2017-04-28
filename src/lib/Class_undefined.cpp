@@ -11,7 +11,7 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_undefined::Class_undefined(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_undefined)
+Class_undefined::Class_undefined(Environment *pEnvOuter) : ClassPrimitive(pEnvOuter, VTYPE_undefined)
 {
 }
 

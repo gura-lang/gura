@@ -11,7 +11,7 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_boolean::Class_boolean(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_boolean)
+Class_boolean::Class_boolean(Environment *pEnvOuter) : ClassPrimitive(pEnvOuter, VTYPE_boolean)
 {
 }
 

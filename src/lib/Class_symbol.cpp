@@ -35,7 +35,7 @@ Gura_ImplementMethod(symbol, eval)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_symbol::Class_symbol(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_symbol)
+Class_symbol::Class_symbol(Environment *pEnvOuter) : ClassPrimitive(pEnvOuter, VTYPE_symbol)
 {
 }
 

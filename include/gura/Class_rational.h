@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_rational
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_rational : public Class {
+class GURA_DLLDECLARE Class_rational : public ClassPrimitive {
 public:
 	Class_rational(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);

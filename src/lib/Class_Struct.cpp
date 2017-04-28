@@ -94,7 +94,7 @@ Gura_ImplementMethod(Struct, tolist)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_Struct::Class_Struct(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Struct)
+Class_Struct::Class_Struct(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_Struct)
 {
 }
 

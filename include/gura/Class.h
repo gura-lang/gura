@@ -21,16 +21,13 @@
 #define Gura_UserClass(name) \
 (Class_##name::_pValueTypeInfo->GetClass())
 
-#define Gura_ImplementClass(name) \
-Class_##name::Class_##name(Environment *pEnvOuter) : Class(pEnvOuter)
-
 #define Gura_DeclareUserClassBegin(name) \
 GURA_DLLEXPORT extern ValueType VTYPE_##name; \
-class GURA_DLLEXPORT Class_##name : public Class { \
+class GURA_DLLEXPORT Class_##name : public ClassFundamental { \
 public: \
 	static ValueTypeInfo *_pValueTypeInfo; \
 public: \
-	inline Class_##name(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {} \
+	inline Class_##name(Environment *pEnvOuter, ValueType valType) : ClassFundamental(pEnvOuter, valType) {} \
 	virtual bool CastFrom(Environment &env, Value &value, ULong flags); \
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl); \
 	virtual Object *CreateDescendant(Environment &env, Class *pClass); \
@@ -281,7 +278,10 @@ public:
 // ClassPrimitive
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ClassPrimitive : public Class {
+protected:
+	inline ClassPrimitive(const Class &cls) : Class(cls) {}
 public:
+	inline ClassPrimitive(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {}
 	virtual Value EvalEmptyIndexGet(Environment &env, const Value &valueThis) const;
 	virtual Value EvalIndexGet(Environment &env,
 							   const Value &valueThis, const Value &valueIdx) const;
@@ -291,7 +291,10 @@ public:
 // ClassFundamental
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ClassFundamental : public Class {
+protected:
+	inline ClassFundamental(const Class &cls) : Class(cls) {}
 public:
+	inline ClassFundamental(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {}
 	virtual Value EvalEmptyIndexGet(Environment &env, const Value &valueThis) const;
 	virtual Value EvalIndexGet(Environment &env,
 							   const Value &valueThis, const Value &valueIdx) const;

@@ -11,7 +11,7 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_Module::Class_Module(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Module)
+Class_Module::Class_Module(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_Module)
 {
 }
 

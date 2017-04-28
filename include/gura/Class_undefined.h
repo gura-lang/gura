@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_undefined
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_undefined : public Class {
+class GURA_DLLDECLARE Class_undefined : public ClassPrimitive {
 public:
 	Class_undefined(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
