@@ -30,6 +30,28 @@ bool Fundamental::DoDirProp(Environment &env, SymbolSet &symbols)
 	return true;
 }
 
+Value Fundamental::EmptyIndexGet(Environment &env)
+{
+	env.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
+	return Value::Nil;
+}
+
+void Fundamental::EmptyIndexSet(Environment &env, const Value &value)
+{
+	env.SetError(ERR_ValueError, "empty-indexed setting access is not supported");
+}
+
+Value Fundamental::IndexGet(Environment &env, const Value &valueIdx)
+{
+	env.SetError(ERR_ValueError, "indexed getting access is not supported");
+	return Value::Nil;
+}
+
+void Fundamental::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
+{
+	env.SetError(ERR_ValueError, "indexed setting access is not supported");
+}
+
 void Fundamental::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }

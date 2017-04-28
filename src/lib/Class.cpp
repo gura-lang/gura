@@ -52,6 +52,7 @@ bool Object::IsInstanceOf(ValueType valType) const
 	return false;
 }
 
+#if 0
 Value Object::MultiIndexGet(Environment &env, const ValueList &valListIdx)
 {
 	typedef std::pair<ValueList::const_iterator, ValueList::const_iterator> IteratorPair;
@@ -100,6 +101,7 @@ done:
 void Object::MultiIndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
 {
 }
+#endif
 
 Value Object::EmptyIndexGet(Environment &env)
 {
@@ -833,24 +835,26 @@ String Class::MakeHelpTitle() const
 //-----------------------------------------------------------------------------
 Value ClassPrimitive::EvalEmptyIndexGet(Environment &env, const Value &valueThis) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
+	env.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
 	return Value::Nil;
+}
+
+void ClassPrimitive::EvalEmptyIndexSet(Environment &env, const Value &valueThis, const Value &value) const
+{
+	env.SetError(ERR_ValueError, "indexed setting access is not supported");
 }
 
 Value ClassPrimitive::EvalIndexGet(Environment &env,
 								   const Value &valueThis, const Value &valueIdx) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError, "indexed getting access is not supported");
+	env.SetError(ERR_ValueError, "indexed getting access is not supported");
 	return Value::Nil;
 }
 
 void ClassPrimitive::EvalIndexSet(Environment &env,
 								   const Value &valueThis, const Value &valueIdx, const Value &value) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError, "indexed getting access is not supported");
+	env.SetError(ERR_ValueError, "indexed setting access is not supported");
 }
 
 //-----------------------------------------------------------------------------
@@ -858,24 +862,24 @@ void ClassPrimitive::EvalIndexSet(Environment &env,
 //-----------------------------------------------------------------------------
 Value ClassFundamental::EvalEmptyIndexGet(Environment &env, const Value &valueThis) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
-	return Value::Nil;
+	return valueThis.GetFundamental()->EmptyIndexGet(env);
+}
+
+void ClassFundamental::EvalEmptyIndexSet(Environment &env, const Value &valueThis, const Value &value) const
+{
+	valueThis.GetFundamental()->EmptyIndexSet(env, value);
 }
 
 Value ClassFundamental::EvalIndexGet(Environment &env,
 								   const Value &valueThis, const Value &valueIdx) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError, "indexed getting access is not supported");
-	return Value::Nil;
+	return valueThis.GetFundamental()->IndexGet(env, valueIdx);
 }
 
 void ClassFundamental::EvalIndexSet(Environment &env,
 									 const Value &valueThis, const Value &valueIdx, const Value &value) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError, "indexed getting access is not supported");
+	valueThis.GetFundamental()->IndexSet(env, valueIdx, value);
 }
 
 }

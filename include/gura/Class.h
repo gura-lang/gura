@@ -156,8 +156,6 @@ public:
 	inline void SetClass(Class *pClass) { _pClass.reset(pClass); }
 	const char *GetClassName() const;
 	bool IsInstanceOf(ValueType valType) const;
-	virtual Value MultiIndexGet(Environment &env, const ValueList &valListIdx);
-	virtual void MultiIndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
 	virtual Value EmptyIndexGet(Environment &env);
 	virtual void EmptyIndexSet(Environment &env, const Value &value);
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
@@ -240,6 +238,7 @@ public:
 	inline const PropDeclarationMap *GetPropDeclarationMap() const { return _pPropDeclarationMap.get(); }
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag);
 	virtual Value EvalEmptyIndexGet(Environment &env, const Value &valueThis) const = 0;
+	virtual void EvalEmptyIndexSet(Environment &env, const Value &valueThis, const Value &value) const = 0;
 	virtual Value EvalIndexGet(Environment &env, const Value &valueThis, const Value &valueIdx) const = 0;
 	virtual void EvalIndexSet(Environment &env, const Value &valueThis, const Value &valueIdx, const Value &value) const = 0;
 	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
@@ -283,6 +282,7 @@ protected:
 public:
 	inline ClassPrimitive(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {}
 	virtual Value EvalEmptyIndexGet(Environment &env, const Value &valueThis) const;
+	virtual void EvalEmptyIndexSet(Environment &env, const Value &valueThis, const Value &value) const;
 	virtual Value EvalIndexGet(Environment &env,
 							   const Value &valueThis, const Value &valueIdx) const;
 	virtual void EvalIndexSet(Environment &env, const Value &valueThis, const Value &valueIdx, const Value &value) const;
@@ -297,6 +297,7 @@ protected:
 public:
 	inline ClassFundamental(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {}
 	virtual Value EvalEmptyIndexGet(Environment &env, const Value &valueThis) const;
+	virtual void EvalEmptyIndexSet(Environment &env, const Value &valueThis, const Value &value) const;
 	virtual Value EvalIndexGet(Environment &env,
 							   const Value &valueThis, const Value &valueIdx) const;
 	virtual void EvalIndexSet(Environment &env, const Value &valueThis, const Value &valueIdx, const Value &value) const;
