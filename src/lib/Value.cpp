@@ -241,6 +241,27 @@ void Value::IndexSet(Environment &env, const ValueList &valListIdx, const Value 
 
 Value Value::EmptyIndexGet(Environment &env) const
 {
+	return env.LookupClass(_valType)->EvalEmptyIndexGet(env, *this);
+}
+
+void Value::EmptyIndexSet(Environment &env, const Value &value)
+{
+	env.LookupClass(_valType)->EvalEmptyIndexSet(env, *this, value);
+}
+
+Value Value::IndexGet(Environment &env, const Value &valueIdx) const
+{
+	return env.LookupClass(_valType)->EvalIndexGet(env, *this, valueIdx);
+}
+
+void Value::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
+{
+	env.LookupClass(_valType)->EvalIndexSet(env, *this, valueIdx, value);
+}
+
+#if 0
+Value Value::EmptyIndexGet(Environment &env) const
+{
 	Signal &sig = env.GetSignal();
 	if (IsPrimitive()) {
 		return env.LookupClass(_valType)->EvalEmptyIndexGet(env, *this);
@@ -282,6 +303,7 @@ void Value::IndexSet(Environment &env, const Value &valueIdx, const Value &value
 	}
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
 }
+#endif
 
 #endif
 
