@@ -248,12 +248,12 @@ public:
 	inline const PropDeclarationMap *GetPropDeclarationMap() const { return _pPropDeclarationMap.get(); }
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag);
 #if NEW_INDEXING
-	virtual Value IndexGetPrimitive(Environment &env, const Value &valueThis,
-									const ValueList &valListIdx) const;
+	virtual Value EvalIndexGet(Environment &env, const Value &valueThis,
+							   const ValueList &valListIdx) const;
 #else
-	virtual Value EmptyIndexGetPrimitive(Environment &env, const Value &valueThis) const;
-	virtual Value IndexGetPrimitive(Environment &env,
-									const Value &valueThis, const Value &valueIdx) const;
+	virtual Value EvalEmptyIndexGet(Environment &env, const Value &valueThis) const;
+	virtual Value EvalIndexGet(Environment &env,
+							   const Value &valueThis, const Value &valueIdx) const;
 #endif
 	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);

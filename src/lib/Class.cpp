@@ -113,7 +113,47 @@ void Object::IndexSet(Environment &env, const ValueList &valListIdx, const Value
 
 Value Object::MultiIndexGet(Environment &env, const ValueList &valListIdx)
 {
-	return Value::Nil;
+	typedef std::pair<ValueList::const_iterator, ValueList::const_iterator> IteratorPair;
+	typedef std::vector<IteratorPair> IteratorPairStack;
+	if (valListIdx.empty()) return EmptyIndexGet(env);
+	if (valListIdx.size() == 1 && !valListIdx.front().IsListOrIterator()) {
+		return IndexGet(env, valListIdx.front());
+	}
+	Value rtn;
+	Object_list *pObjList = rtn.InitAsList(env);
+	IteratorPairStack iteratorPairStack;
+	iteratorPairStack.push_back(IteratorPair(valListIdx.begin(), valListIdx.end()));
+	IteratorPairStack::reverse_iterator pIteratorPair = iteratorPairStack.rbegin();
+	ValueList::const_iterator pValueIdx = pIteratorPair->first;
+	for (;;) {
+		while (pValueIdx == pIteratorPair->second) {
+			iteratorPairStack.pop_back();
+			if (iteratorPairStack.empty()) goto done;
+			pValueIdx = pIteratorPair->first;
+		}
+		if (pValueIdx->Is_iterator()) {
+			Iterator *pIterator = pValueIdx->GetIterator();
+			Value valueIdx;
+			while (pIterator->Next(env, valueIdx)) {
+				Value value = IndexGet(env, *pValueIdx);
+				if (env.IsSignalled()) return Value::Nil;
+				pObjList->AddFast(value);
+			}
+			if (env.IsSignalled()) return Value::Nil;
+		} else if (pValueIdx->Is_list()) {
+			const ValueList &valListIdxSub = pValueIdx->GetList();
+			iteratorPairStack.push_back(IteratorPair(valListIdxSub.begin(), valListIdxSub.end()));
+			pIteratorPair = iteratorPairStack.rbegin();
+			pValueIdx = pIteratorPair->first;
+		} else {
+			Value value = IndexGet(env, *pValueIdx);
+			if (env.IsSignalled()) return Value::Nil;
+			pObjList->AddFast(value);
+		}
+	}
+done:
+	pObjList->DetermineValueType();
+	return rtn;
 }
 
 void Object::MultiIndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
@@ -557,8 +597,7 @@ bool Class::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag)
 
 #if NEW_INDEXING
 
-Value Class::IndexGetPrimitive(Environment &env, const Value &valueThis,
-							   const ValueList &valListIdx) const
+Value Class::EvalIndexGet(Environment &env, const Value &valueThis, const ValueList &valListIdx) const
 {
 	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError, "indexed getting access is not supported");
@@ -567,15 +606,15 @@ Value Class::IndexGetPrimitive(Environment &env, const Value &valueThis,
 
 #else
 
-Value Class::EmptyIndexGetPrimitive(Environment &env, const Value &valueThis) const
+Value Class::EvalEmptyIndexGet(Environment &env, const Value &valueThis) const
 {
 	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
 	return Value::Nil;
 }
 
-Value Class::IndexGetPrimitive(Environment &env,
-									const Value &valueThis, const Value &valueIdx) const
+Value Class::EvalIndexGet(Environment &env,
+						  const Value &valueThis, const Value &valueIdx) const
 {
 	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError, "indexed getting access is not supported");

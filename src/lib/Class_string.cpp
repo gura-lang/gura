@@ -1039,16 +1039,16 @@ void Class_string::DoPrepare(Environment &env)
 
 #if NEW_INDEXING
 
-Value Class_string::IndexGetPrimitive(Environment &env, const Value &valueThis,
-									  const ValueList &valListIdx) const
+Value Class_string::EvalIndexGet(Environment &env, const Value &valueThis,
+								 const ValueList &valListIdx) const
 {
 	return Value::Nil;
 }
 
 #else
 
-Value Class_string::IndexGetPrimitive(Environment &env,
-						const Value &valueThis, const Value &valueIdx) const
+Value Class_string::EvalIndexGet(Environment &env,
+								 const Value &valueThis, const Value &valueIdx) const
 {
 	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {

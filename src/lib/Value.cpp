@@ -219,7 +219,7 @@ Value Value::IndexGet(Environment &env, const ValueList &valListIdx) const
 {
 	Signal &sig = env.GetSignal();
 	if (IsPrimitive()) {
-		return env.LookupClass(_valType)->IndexGetPrimitive(env, *this, valListIdx);
+		return env.LookupClass(_valType)->EvalIndexGet(env, *this, valListIdx);
 	} else if (IsObject()) {
 		return GetObject()->IndexGet(env, valListIdx);
 	}
@@ -243,7 +243,7 @@ Value Value::EmptyIndexGet(Environment &env) const
 {
 	Signal &sig = env.GetSignal();
 	if (IsPrimitive()) {
-		return env.LookupClass(_valType)->EmptyIndexGetPrimitive(env, *this);
+		return env.LookupClass(_valType)->EvalEmptyIndexGet(env, *this);
 	} else if (IsObject()) {
 		return GetObject()->EmptyIndexGet(env);
 	}
@@ -265,7 +265,7 @@ Value Value::IndexGet(Environment &env, const Value &valueIdx) const
 {
 	Signal &sig = env.GetSignal();
 	if (IsPrimitive()) {
-		return env.LookupClass(_valType)->IndexGetPrimitive(env, *this, valueIdx);
+		return env.LookupClass(_valType)->EvalIndexGet(env, *this, valueIdx);
 	} else if (IsObject()) {
 		return GetObject()->IndexGet(env, valueIdx);
 	}

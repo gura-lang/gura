@@ -2070,6 +2070,19 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned, bool escala
 Value Expr_Indexer::DoExec(Environment &env) const
 {
 	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
+#if 0
+	Value valueCar = GetCar()->Exec(env);
+	if (env.IsSignalled()) return Value::Nil;
+	ValueList valListIdx;
+	foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
+		const Expr *pExpr = *ppExpr;
+		Value valueIdx = pExpr->Exec(env);
+		if (env.IsSignalled()) return Value::Nil;
+		valListIdx.push_back(valueIdx);
+	}
+	Value result = valueCar.MultiIndexGet(env, valListIdx);
+	if (env.IsSignalled()) return Value::Nil;
+#else
 	Signal &sig = env.GetSignal();
 	Value valueCar = GetCar()->Exec(env);
 	if (sig.IsSignalled()) return Value::Nil;
@@ -2151,6 +2164,7 @@ Value Expr_Indexer::DoExec(Environment &env) const
 			}
 		}
 	}
+#endif
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
