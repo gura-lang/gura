@@ -240,8 +240,8 @@ public:
 	inline const PropDeclarationMap *GetPropDeclarationMap() const { return _pPropDeclarationMap.get(); }
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag);
 	virtual Value EvalEmptyIndexGet(Environment &env, const Value &valueThis) const = 0;
-	virtual Value EvalIndexGet(Environment &env,
-							   const Value &valueThis, const Value &valueIdx) const = 0;
+	virtual Value EvalIndexGet(Environment &env, const Value &valueThis, const Value &valueIdx) const = 0;
+	virtual void EvalIndexSet(Environment &env, const Value &valueThis, const Value &valueIdx, const Value &value) const = 0;
 	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
 	virtual String ToString(bool exprFlag);
@@ -285,6 +285,7 @@ public:
 	virtual Value EvalEmptyIndexGet(Environment &env, const Value &valueThis) const;
 	virtual Value EvalIndexGet(Environment &env,
 							   const Value &valueThis, const Value &valueIdx) const;
+	virtual void EvalIndexSet(Environment &env, const Value &valueThis, const Value &valueIdx, const Value &value) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -298,6 +299,7 @@ public:
 	virtual Value EvalEmptyIndexGet(Environment &env, const Value &valueThis) const;
 	virtual Value EvalIndexGet(Environment &env,
 							   const Value &valueThis, const Value &valueIdx) const;
+	virtual void EvalIndexSet(Environment &env, const Value &valueThis, const Value &valueIdx, const Value &value) const;
 };
 
 }

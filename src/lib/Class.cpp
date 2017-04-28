@@ -846,6 +846,13 @@ Value ClassPrimitive::EvalIndexGet(Environment &env,
 	return Value::Nil;
 }
 
+void ClassPrimitive::EvalIndexSet(Environment &env,
+								   const Value &valueThis, const Value &valueIdx, const Value &value) const
+{
+	Signal &sig = GetSignal();
+	sig.SetError(ERR_ValueError, "indexed getting access is not supported");
+}
+
 //-----------------------------------------------------------------------------
 // ClassFundamental
 //-----------------------------------------------------------------------------
@@ -862,6 +869,13 @@ Value ClassFundamental::EvalIndexGet(Environment &env,
 	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError, "indexed getting access is not supported");
 	return Value::Nil;
+}
+
+void ClassFundamental::EvalIndexSet(Environment &env,
+									 const Value &valueThis, const Value &valueIdx, const Value &value) const
+{
+	Signal &sig = GetSignal();
+	sig.SetError(ERR_ValueError, "indexed getting access is not supported");
 }
 
 }
