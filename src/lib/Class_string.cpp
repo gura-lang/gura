@@ -1037,7 +1037,7 @@ void Class_string::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-Value Class_string::EvalIndexGet(Environment &env,
+Value Class_string::EvalIndexGet_old(Environment &env,
 								 const Value &valueThis, const Value &valueIdx) const
 {
 	Signal &sig = GetSignal();

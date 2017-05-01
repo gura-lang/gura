@@ -213,24 +213,24 @@ bool Value::Is(const Value &value) const
 	return false;
 }
 
-Value Value::EmptyIndexGet(Environment &env) const
+Value Value::EmptyIndexGet_old(Environment &env) const
 {
-	return env.LookupClass(_valType)->EvalEmptyIndexGet(env, *this);
+	return env.LookupClass(_valType)->EvalEmptyIndexGet_old(env, *this);
 }
 
-void Value::EmptyIndexSet(Environment &env, const Value &value)
+void Value::EmptyIndexSet_old(Environment &env, const Value &value)
 {
-	env.LookupClass(_valType)->EvalEmptyIndexSet(env, *this, value);
+	env.LookupClass(_valType)->EvalEmptyIndexSet_old(env, *this, value);
 }
 
-Value Value::IndexGet(Environment &env, const Value &valueIdx) const
+Value Value::IndexGet_old(Environment &env, const Value &valueIdx) const
 {
-	return env.LookupClass(_valType)->EvalIndexGet(env, *this, valueIdx);
+	return env.LookupClass(_valType)->EvalIndexGet_old(env, *this, valueIdx);
 }
 
-void Value::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
+void Value::IndexSet_old(Environment &env, const Value &valueIdx, const Value &value)
 {
-	env.LookupClass(_valType)->EvalIndexSet(env, *this, valueIdx, value);
+	env.LookupClass(_valType)->EvalIndexSet_old(env, *this, valueIdx, value);
 }
 
 bool Value::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) const

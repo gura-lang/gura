@@ -833,25 +833,25 @@ String Class::MakeHelpTitle() const
 //-----------------------------------------------------------------------------
 // ClassPrimitive
 //-----------------------------------------------------------------------------
-Value ClassPrimitive::EvalEmptyIndexGet(Environment &env, const Value &valueThis) const
+Value ClassPrimitive::EvalEmptyIndexGet_old(Environment &env, const Value &valueThis) const
 {
 	env.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
 	return Value::Nil;
 }
 
-void ClassPrimitive::EvalEmptyIndexSet(Environment &env, const Value &valueThis, const Value &value) const
+void ClassPrimitive::EvalEmptyIndexSet_old(Environment &env, const Value &valueThis, const Value &value) const
 {
 	env.SetError(ERR_ValueError, "indexed setting access is not supported");
 }
 
-Value ClassPrimitive::EvalIndexGet(Environment &env,
+Value ClassPrimitive::EvalIndexGet_old(Environment &env,
 								   const Value &valueThis, const Value &valueIdx) const
 {
 	env.SetError(ERR_ValueError, "indexed getting access is not supported");
 	return Value::Nil;
 }
 
-void ClassPrimitive::EvalIndexSet(Environment &env,
+void ClassPrimitive::EvalIndexSet_old(Environment &env,
 								   const Value &valueThis, const Value &valueIdx, const Value &value) const
 {
 	env.SetError(ERR_ValueError, "indexed setting access is not supported");
@@ -860,23 +860,23 @@ void ClassPrimitive::EvalIndexSet(Environment &env,
 //-----------------------------------------------------------------------------
 // ClassFundamental
 //-----------------------------------------------------------------------------
-Value ClassFundamental::EvalEmptyIndexGet(Environment &env, const Value &valueThis) const
+Value ClassFundamental::EvalEmptyIndexGet_old(Environment &env, const Value &valueThis) const
 {
 	return valueThis.GetFundamental()->EmptyIndexGet(env);
 }
 
-void ClassFundamental::EvalEmptyIndexSet(Environment &env, const Value &valueThis, const Value &value) const
+void ClassFundamental::EvalEmptyIndexSet_old(Environment &env, const Value &valueThis, const Value &value) const
 {
 	valueThis.GetFundamental()->EmptyIndexSet(env, value);
 }
 
-Value ClassFundamental::EvalIndexGet(Environment &env,
+Value ClassFundamental::EvalIndexGet_old(Environment &env,
 								   const Value &valueThis, const Value &valueIdx) const
 {
 	return valueThis.GetFundamental()->IndexGet(env, valueIdx);
 }
 
-void ClassFundamental::EvalIndexSet(Environment &env,
+void ClassFundamental::EvalIndexSet_old(Environment &env,
 									 const Value &valueThis, const Value &valueIdx, const Value &value) const
 {
 	valueThis.GetFundamental()->IndexSet(env, valueIdx, value);

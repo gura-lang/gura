@@ -2077,7 +2077,7 @@ Value Expr_Indexer::DoExec(Environment &env) const
 	Value result;
 	if (exprList.empty()) {
 		// obj[]
-		result = valueCar.EmptyIndexGet(env);
+		result = valueCar.EmptyIndexGet_old(env);
 		if (sig.IsSignalled()) return Value::Nil;
 	} else if (exprList.size() == 1) {
 		// obj[idx]
@@ -2093,7 +2093,7 @@ Value Expr_Indexer::DoExec(Environment &env) const
 			if (sig.IsSignalled()) return Value::Nil;
 			Value valueIdxEach;
 			while (pIteratorIdx->Next(env, valueIdxEach)) {
-				Value value = valueCar.IndexGet(env, valueIdxEach);
+				Value value = valueCar.IndexGet_old(env, valueIdxEach);
 				if (sig.IsSignalled()) {
 					if (sig.GetError().GetType() == ERR_IndexError &&
 						pIteratorIdx->IsInfinite()) {
@@ -2105,7 +2105,7 @@ Value Expr_Indexer::DoExec(Environment &env) const
 			}
 			if (sig.IsSignalled()) return Value::Nil;
 		} else {
-			result = valueCar.IndexGet(env, valueIdx);
+			result = valueCar.IndexGet_old(env, valueIdx);
 			if (sig.IsSignalled()) return Value::Nil;
 		}
 	} else {
@@ -2133,7 +2133,7 @@ Value Expr_Indexer::DoExec(Environment &env) const
 				if (sig.IsSignalled()) break;
 				Value valueIdxEach;
 				while (pIteratorIdx->Next(env, valueIdxEach)) {
-					Value value = valueCar.IndexGet(env, valueIdxEach);
+					Value value = valueCar.IndexGet_old(env, valueIdxEach);
 					if (sig.IsSignalled()) {
 						if (sig.GetError().GetType() == ERR_IndexError &&
 							pIteratorIdx->IsInfinite()) {
@@ -2145,7 +2145,7 @@ Value Expr_Indexer::DoExec(Environment &env) const
 				}
 				if (sig.IsSignalled()) return Value::Nil;
 			} else {
-				Value value = valueCar.IndexGet(env, *pValueIdx);
+				Value value = valueCar.IndexGet_old(env, *pValueIdx);
 				if (sig.IsSignalled()) break;
 				pObjListDst->Add(value);
 			}
@@ -2163,7 +2163,7 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned, bool escala
 	if (sig.IsSignalled()) return Value::Nil;
 	const ExprList &exprList = GetExprOwner();
 	if (exprList.empty()) {
-		valueCar.EmptyIndexSet(env, valueAssigned);
+		valueCar.EmptyIndexSet_old(env, valueAssigned);
 		if (sig.IsSignalled()) return Value::Nil;
 	} else if (exprList.size() == 1) {
 		Value valueIdx = exprList.front()->Exec(env);
@@ -2178,19 +2178,19 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned, bool escala
 				Value valueIdxEach, valueEach;
 				while (pIteratorIdx->Next(env, valueIdxEach) &&
 											pIterator->Next(env, valueEach)) {
-					valueCar.IndexSet(env, valueIdxEach, valueEach);
+					valueCar.IndexSet_old(env, valueIdxEach, valueEach);
 					if (sig.IsSignalled()) break;
 				}
 			} else {
 				// obj[idx] = v
 				Value valueIdxEach;
 				while (pIteratorIdx->Next(env, valueIdxEach)) {
-					valueCar.IndexSet(env, valueIdxEach, valueAssigned);
+					valueCar.IndexSet_old(env, valueIdxEach, valueAssigned);
 				}
 			}
 		} else {
 			// obj[idx] = v
-			valueCar.IndexSet(env, valueIdx, valueAssigned);
+			valueCar.IndexSet_old(env, valueIdx, valueAssigned);
 		}
 	} else if (valueAssigned.Is_list() || valueAssigned.Is_iterator()) {
 		// obj[idx, idx, ..] = [v, v, ..]
@@ -2205,13 +2205,13 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned, bool escala
 				Value valueIdxEach, valueEach;
 				while (pIteratorIdx->Next(env, valueIdxEach) &&
 											pIterator->Next(env, valueEach)) {
-					valueCar.IndexSet(env, valueIdxEach, valueEach);
+					valueCar.IndexSet_old(env, valueIdxEach, valueEach);
 					if (sig.IsSignalled()) break;
 				}
 			} else {
 				Value valueEach;
 				if (!pIterator->Next(env, valueEach)) break;
-				valueCar.IndexSet(env, valueIdx, valueEach);
+				valueCar.IndexSet_old(env, valueIdx, valueEach);
 				if (sig.IsSignalled()) break;
 			}
 		}
@@ -2225,12 +2225,12 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned, bool escala
 				if (sig.IsSignalled()) break;
 				Value valueIdxEach;
 				while (pIteratorIdx->Next(env, valueIdxEach)) {
-					valueCar.IndexSet(env, valueIdxEach, valueAssigned);
+					valueCar.IndexSet_old(env, valueIdxEach, valueAssigned);
 					if (sig.IsSignalled()) break;
 				}
 				if (sig.IsSignalled()) break;
 			} else {
-				valueCar.IndexSet(env, valueIdx, valueAssigned);
+				valueCar.IndexSet_old(env, valueIdx, valueAssigned);
 				if (sig.IsSignalled()) break;
 			}
 		}
