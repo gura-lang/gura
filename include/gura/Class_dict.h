@@ -90,13 +90,8 @@ public:
 	inline const ValueDict &GetDict() const { return *_pValDict; }
 	inline bool GetIgnoreCaseFlag() const { return _pValDict->GetIgnoreCaseFlag(); }
 	inline bool IsWritable() const { return _writableFlag; }
-#if NEW_INDEXING
-	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
-	virtual void IndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
-#else
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
-#endif
 	virtual Iterator *CreateIterator(Signal &sig);
 	virtual String ToString(bool exprFlag);
 	const Value *Find(Signal &sig, const Value &valueIdx) const;

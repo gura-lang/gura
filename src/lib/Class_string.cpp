@@ -1037,16 +1037,6 @@ void Class_string::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-#if NEW_INDEXING
-
-Value Class_string::EvalIndexGet(Environment &env, const Value &valueThis,
-								 const ValueList &valListIdx) const
-{
-	return Value::Nil;
-}
-
-#else
-
 Value Class_string::EvalIndexGet(Environment &env,
 								 const Value &valueThis, const Value &valueIdx) const
 {
@@ -1071,8 +1061,6 @@ Value Class_string::EvalIndexGet(Environment &env,
 		return Value(PickChar(valueThis.GetStringSTL(), len + idx));
 	}
 }
-
-#endif
 
 bool Class_string::CastFrom(Environment &env, Value &value, ULong flags)
 {

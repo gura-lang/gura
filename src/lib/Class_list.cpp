@@ -33,81 +33,6 @@ Object *Object_list::Clone() const
 	return new Object_list(*this);
 }
 
-#if NEW_INDEXING
-
-Value Object_list::IndexGet(Environment &env, const ValueList &valListIdx)
-{
-	if (valListIdx.empty()) return Value::Nil;
-	const Value &valueIdx = valListIdx.front();
-	if (valueIdx.Is_list()) {
-		return IndexGetSub(env, valueIdx.GetList());
-	} else {
-		return IndexGet_Element(env, valueIdx);
-	}
-}
-
-Value Object_list::IndexGetSub(Environment &env, const ValueList &valListIdx)
-{
-	Value rtn;
-	Object_list *pObjList = rtn.InitAsList(env);
-	foreach_const (ValueList, pValueIdx, valListIdx) {
-		const Value &valueIdx = *pValueIdx;
-		Value value;
-		if (valueIdx.Is_list()) {
-			value = IndexGetSub(env, valueIdx.GetList());
-		} else {
-			value = IndexGet_Element(env, valueIdx);
-		}
-		if (env.IsSignalled()) return Value::Nil;
-		pObjList->AddFast(value);
-	}
-	pObjList->DetermineValueType();
-	return rtn;
-}
-
-const Value &Object_list::IndexGet_Element(Environment &env, const Value &valueIdx)
-{
-	if (valueIdx.Is_number()) {
-		int idx = valueIdx.GetInt();
-		if (idx < 0) idx += _valList.size();
-		if (idx < 0 || idx >= static_cast<int>(_valList.size())) {
-			env.SetError(ERR_IndexError, "index is out of range");
-			return Value::Nil;
-		}
-		return _valList[idx];
-	} else {
-		env.SetError(ERR_IndexError, "indexer for list must be a number value");
-		return Value::Nil;
-	}
-
-}
-
-void Object_list::IndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
-{
-	if (valListIdx.empty()) return;
-	const Value &valueIdx = valListIdx.front();
-	IndexSet_Element(env, valueIdx, value);
-}
-
-void Object_list::IndexSet_Element(Environment &env, const Value &valueIdx, const Value &value)
-{
-	if (valueIdx.Is_number()) {
-		int idx = valueIdx.GetInt();
-		if (idx < 0) idx += _valList.size();
-		if (idx < 0 || idx >= static_cast<int>(_valList.size())) {
-			env.SetError(ERR_IndexError, "index is out of range");
-			return;
-		}
-		_valList[idx] = value;
-		UpdateValueType(value);
-	} else {
-		env.SetError(ERR_IndexError, "indexer for list must be a number value");
-		return;
-	}
-}
-
-#else
-
 Value Object_list::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
@@ -140,8 +65,6 @@ void Object_list::IndexSet(Environment &env, const Value &valueIdx, const Value 
 	_valList[idx] = value;
 	UpdateValueType(value);
 }
-
-#endif
 
 Iterator *Object_list::CreateIterator(Signal &sig)
 {
@@ -1059,12 +982,7 @@ Gura_DeclareMethod(list, get)
 Gura_ImplementMethod(list, get)
 {
 	Object_list *pThis = Object_list::GetObjectThis(arg);
-#if NEW_INDEXING
-	ValueList valList(arg.GetValue(0));
-	return pThis->IndexGet(env, valList);
-#else
 	return pThis->IndexGet(env, arg.GetValue(0));
-#endif
 }
 
 // list#insert(idx:number, elem+):reduce

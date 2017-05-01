@@ -92,13 +92,8 @@ public:
 public:
 	Class_string(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
-#if NEW_INDEXING
-	virtual Value EvalIndexGet(Environment &env, const Value &valueThis,
-							   const ValueList &valListIdx) const;
-#else
 	virtual Value EvalIndexGet(Environment &env,
 							   const Value &valueThis, const Value &valueIdx) const;
-#endif
 	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
 	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Stream &stream, Value &value) const;

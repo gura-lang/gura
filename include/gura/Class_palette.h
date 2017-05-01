@@ -37,13 +37,8 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	virtual Iterator *CreateIterator(Signal &sig);
-#if NEW_INDEXING
-	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
-	virtual void IndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
-#else
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
-#endif
 	inline Palette *GetPalette() { return _pPalette.get(); }
 	inline const Palette *GetPalette() const { return _pPalette.get(); }
 };
