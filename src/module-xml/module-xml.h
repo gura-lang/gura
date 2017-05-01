@@ -338,11 +338,7 @@ public:
 	Object_element(Element *pElement);
 	inline Element *GetElement() { return _pElement.get(); }
 	inline const Element *GetElement() const { return _pElement.get(); }
-#if NEW_INDEXING
-	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
-#else
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
-#endif
 	virtual String ToString(bool exprFlag);
 };
 

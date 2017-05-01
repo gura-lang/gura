@@ -91,11 +91,7 @@ public:
 			_pStrShrd(obj._pStrShrd->Reference()), _groupList(obj._groupList) {}
 	virtual ~Object_match();
 	virtual Object *Clone() const;
-#if NEW_INDEXING
-	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
-#else
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
-#endif
 	virtual String ToString(bool exprFlag);
 	bool SetMatchInfo(const char *str, regex_t *pRegEx,
 								const OnigRegion *pRegion, int posOffset);

@@ -1046,15 +1046,6 @@ Object_element::Object_element(Element *pElement) :
 {
 }
 
-#if NEW_INDEXING
-
-Value Object_element::IndexGet(Environment &env, const ValueList &valListIdx)
-{
-	return Value::Nil;
-}
-
-#else
-
 Value Object_element::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
@@ -1071,8 +1062,6 @@ Value Object_element::IndexGet(Environment &env, const Value &valueIdx)
 	}
 	return Value(pAttribute->GetValue());
 }
-
-#endif
 
 String Object_element::ToString(bool exprFlag)
 {

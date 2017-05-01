@@ -193,11 +193,7 @@ public:
 	bool GetField(const char *fieldName, StringList **ppStringList) const;
 	Value GetField(Environment &env, Signal &sig, const char *fieldName, bool signalFlag) const;
 	Value GetFieldNames(Environment &env, Signal &sig) const;
-#if NEW_INDEXING
-	Value IndexGet(Environment &env, const ValueList &valListIdx) const;
-#else
 	Value IndexGet(Environment &env, const Value &valueIdx) const;
-#endif
 	bool GetTimeField(Environment &env, Signal &sig, const Symbol *pSymbol, Value &value) const;
 	bool IsField(const char *fieldName, const char *value, bool *pFoundFlag = nullptr) const;
 	inline static void SetError_InvalidFormat(Signal &sig) {
@@ -454,11 +450,7 @@ public:
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-#if NEW_INDEXING
-	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
-#else
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
-#endif
 	virtual String ToString(bool exprFlag);
 	Header &GetHeader() { return _header; }
 };
@@ -481,11 +473,7 @@ public:
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-#if NEW_INDEXING
-	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
-#else
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
-#endif
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	bool SendResponse(Signal &sig,
@@ -514,11 +502,7 @@ public:
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-#if NEW_INDEXING
-	virtual Value IndexGet(Environment &env, const ValueList &valListIdx);
-#else
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
-#endif
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	inline Object_client *GetObjClient() { return _pObjClient.get(); }
