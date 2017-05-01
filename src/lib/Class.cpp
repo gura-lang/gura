@@ -52,57 +52,6 @@ bool Object::IsInstanceOf(ValueType valType) const
 	return false;
 }
 
-#if 0
-Value Object::MultiIndexGet(Environment &env, const ValueList &valListIdx)
-{
-	typedef std::pair<ValueList::const_iterator, ValueList::const_iterator> IteratorPair;
-	typedef std::vector<IteratorPair> IteratorPairStack;
-	if (valListIdx.empty()) return EmptyIndexGet(env);
-	if (valListIdx.size() == 1 && !valListIdx.front().IsListOrIterator()) {
-		return IndexGet(env, valListIdx.front());
-	}
-	Value rtn;
-	Object_list *pObjList = rtn.InitAsList(env);
-	IteratorPairStack iteratorPairStack;
-	iteratorPairStack.push_back(IteratorPair(valListIdx.begin(), valListIdx.end()));
-	IteratorPairStack::reverse_iterator pIteratorPair = iteratorPairStack.rbegin();
-	ValueList::const_iterator pValueIdx = pIteratorPair->first;
-	for (;;) {
-		while (pValueIdx == pIteratorPair->second) {
-			iteratorPairStack.pop_back();
-			if (iteratorPairStack.empty()) goto done;
-			pValueIdx = pIteratorPair->first;
-		}
-		if (pValueIdx->Is_iterator()) {
-			Iterator *pIterator = pValueIdx->GetIterator();
-			Value valueIdx;
-			while (pIterator->Next(env, valueIdx)) {
-				Value value = IndexGet(env, *pValueIdx);
-				if (env.IsSignalled()) return Value::Nil;
-				pObjList->AddFast(value);
-			}
-			if (env.IsSignalled()) return Value::Nil;
-		} else if (pValueIdx->Is_list()) {
-			const ValueList &valListIdxSub = pValueIdx->GetList();
-			iteratorPairStack.push_back(IteratorPair(valListIdxSub.begin(), valListIdxSub.end()));
-			pIteratorPair = iteratorPairStack.rbegin();
-			pValueIdx = pIteratorPair->first;
-		} else {
-			Value value = IndexGet(env, *pValueIdx);
-			if (env.IsSignalled()) return Value::Nil;
-			pObjList->AddFast(value);
-		}
-	}
-done:
-	pObjList->DetermineValueType();
-	return rtn;
-}
-
-void Object::MultiIndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
-{
-}
-#endif
-
 Value Object::EmptyIndexGet(Environment &env)
 {
 	Signal &sig = GetSignal();
@@ -834,14 +783,14 @@ String Class::MakeHelpTitle() const
 // ClassPrimitive
 //-----------------------------------------------------------------------------
 Value ClassPrimitive::EvalIndexGet(Environment &env,
-								   const Value &valueThis, const ValueList &valueIdx) const
+								   const Value &valueThis, const ValueList &valListIdx) const
 {
 	env.SetError(ERR_ValueError, "indexed getting access is not supported");
 	return Value::Nil;
 }
 
-void ClassPrimitive::EvalIndexSet(Environment &env,
-								   const Value &valueThis, const ValueList &valueIdx, const Value &value) const
+void ClassPrimitive::EvalIndexSet(Environment &env, const Value &valueThis,
+								  const ValueList &valListIdx, const Value &value) const
 {
 	env.SetError(ERR_ValueError, "indexed setting access is not supported");
 }
@@ -873,17 +822,62 @@ void ClassPrimitive::EvalIndexSet_old(Environment &env,
 //-----------------------------------------------------------------------------
 // ClassFundamental
 //-----------------------------------------------------------------------------
+typedef std::pair<ValueList::const_iterator, ValueList::const_iterator> IteratorPair;
+typedef std::vector<IteratorPair> IteratorPairStack;
+
 Value ClassFundamental::EvalIndexGet(Environment &env,
-									 const Value &valueThis, const ValueList &valueIdx) const
+									 const Value &valueThis, const ValueList &valListIdx) const
 {
-	env.SetError(ERR_ValueError, "indexed getting access is not supported");
-	return Value::Nil;
+	Fundamental *pFund = valueThis.GetFundamental();
+	if (valListIdx.empty()) return pFund->EmptyIndexGet(env);
+	if (valListIdx.size() == 1 && !valListIdx.front().IsListOrIterator()) {
+		return pFund->IndexGet(env, valListIdx.front());
+	}
+	Value rtn;
+	Object_list *pObjList = rtn.InitAsList(env);
+	IteratorPairStack iteratorPairStack;
+	iteratorPairStack.push_back(IteratorPair(valListIdx.begin(), valListIdx.end()));
+	IteratorPairStack::reverse_iterator pIteratorPair = iteratorPairStack.rbegin();
+	for (;;) {
+		while (pIteratorPair->first == pIteratorPair->second) {
+			iteratorPairStack.pop_back();
+			if (iteratorPairStack.empty()) goto done;
+		}
+		ValueList::const_iterator pValueIdx = pIteratorPair->first++;
+		if (pValueIdx->Is_iterator()) {
+			Iterator *pIterator = pValueIdx->GetIterator();
+			Value valueIdx;
+			while (pIterator->Next(env, valueIdx)) {
+				Value value = pFund->IndexGet(env, valueIdx);
+				if (env.IsSignalled()) {
+					Signal &sig = env.GetSignal();
+					if (sig.GetError().GetType() == ERR_IndexError && pIterator->IsInfinite()) {
+						sig.ClearSignal();
+						goto done;
+					}
+					return Value::Nil;
+				}
+				pObjList->AddFast(value);
+			}
+			if (env.IsSignalled()) return Value::Nil;
+		} else if (pValueIdx->Is_list()) {
+			const ValueList &valListIdxSub = pValueIdx->GetList();
+			iteratorPairStack.push_back(IteratorPair(valListIdxSub.begin(), valListIdxSub.end()));
+			pIteratorPair = iteratorPairStack.rbegin();
+		} else {
+			Value value = pFund->IndexGet(env, *pValueIdx);
+			if (env.IsSignalled()) return Value::Nil;
+			pObjList->AddFast(value);
+		}
+	}
+done:
+	pObjList->DetermineValueType();
+	return rtn;
 }
 
-void ClassFundamental::EvalIndexSet(Environment &env,
-									const Value &valueThis, const ValueList &valueIdx, const Value &value) const
+void ClassFundamental::EvalIndexSet(Environment &env, const Value &valueThis,
+									const ValueList &valListIdx, const Value &value) const
 {
-	env.SetError(ERR_ValueError, "indexed setting access is not supported");
 }
 
 Value ClassFundamental::EvalEmptyIndexGet_old(Environment &env, const Value &valueThis) const

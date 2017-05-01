@@ -2151,7 +2151,6 @@ Value Expr_Indexer::DoExec(Environment &env) const
 			}
 		}
 	}
-#endif
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
@@ -2237,6 +2236,8 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned, bool escala
 	}
 	return valueAssigned;
 }
+
+#endif
 
 void Expr_Indexer::Accept(ExprVisitor &visitor)
 {
