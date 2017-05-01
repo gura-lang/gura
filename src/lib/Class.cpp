@@ -833,6 +833,19 @@ String Class::MakeHelpTitle() const
 //-----------------------------------------------------------------------------
 // ClassPrimitive
 //-----------------------------------------------------------------------------
+Value ClassPrimitive::EvalIndexGet(Environment &env,
+								   const Value &valueThis, const ValueList &valueIdx) const
+{
+	env.SetError(ERR_ValueError, "indexed getting access is not supported");
+	return Value::Nil;
+}
+
+void ClassPrimitive::EvalIndexSet(Environment &env,
+								   const Value &valueThis, const ValueList &valueIdx, const Value &value) const
+{
+	env.SetError(ERR_ValueError, "indexed setting access is not supported");
+}
+
 Value ClassPrimitive::EvalEmptyIndexGet_old(Environment &env, const Value &valueThis) const
 {
 	env.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
@@ -860,6 +873,19 @@ void ClassPrimitive::EvalIndexSet_old(Environment &env,
 //-----------------------------------------------------------------------------
 // ClassFundamental
 //-----------------------------------------------------------------------------
+Value ClassFundamental::EvalIndexGet(Environment &env,
+									 const Value &valueThis, const ValueList &valueIdx) const
+{
+	env.SetError(ERR_ValueError, "indexed getting access is not supported");
+	return Value::Nil;
+}
+
+void ClassFundamental::EvalIndexSet(Environment &env,
+									const Value &valueThis, const ValueList &valueIdx, const Value &value) const
+{
+	env.SetError(ERR_ValueError, "indexed setting access is not supported");
+}
+
 Value ClassFundamental::EvalEmptyIndexGet_old(Environment &env, const Value &valueThis) const
 {
 	return valueThis.GetFundamental()->EmptyIndexGet(env);

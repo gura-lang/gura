@@ -2043,7 +2043,7 @@ Value Expr_Indexer::DoExec(Environment &env) const
 		if (env.IsSignalled()) return Value::Nil;
 		valListIdx.push_back(valueIdx);
 	}
-	Value result = valueCar.IndexGet(env, valListIdx);
+	Value result = valueCar.EvalIndexGet(env, valListIdx);
 	if (env.IsSignalled()) return Value::Nil;
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
@@ -2060,7 +2060,7 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned, bool escala
 		if (env.IsSignalled()) return Value::Nil;
 		valListIdx.push_back(valueIdx);
 	}
-	valueCar.IndexSet(env, valListIdx, valueAssigned);
+	valueCar.EvalIndexSet(env, valListIdx, valueAssigned);
 	if (env.IsSignalled()) return Value::Nil;
 	return valueAssigned;
 }

@@ -213,6 +213,16 @@ bool Value::Is(const Value &value) const
 	return false;
 }
 
+Value Value::EvalIndexGet(Environment &env, const ValueList &valListIdx) const
+{
+	return env.LookupClass(_valType)->EvalIndexGet(env, *this, valListIdx);
+}
+
+void Value::EvalIndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
+{
+	env.LookupClass(_valType)->EvalIndexSet(env, *this, valListIdx, value);
+}
+
 Value Value::EmptyIndexGet_old(Environment &env) const
 {
 	return env.LookupClass(_valType)->EvalEmptyIndexGet_old(env, *this);

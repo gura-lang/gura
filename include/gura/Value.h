@@ -464,10 +464,15 @@ public:
 	Expr *GetExpr() const;
 	//-----------------------
 	bool Is(const Value &value) const;
+
+	Value EvalIndexGet(Environment &env, const ValueList &valListIdx) const;
+	void EvalIndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
+
 	Value EmptyIndexGet_old(Environment &env) const;
 	void EmptyIndexSet_old(Environment &env, const Value &value);
 	Value IndexGet_old(Environment &env, const Value &valueIdx) const;
 	void IndexSet_old(Environment &env, const Value &valueIdx, const Value &value);
+
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) const;
 	void DirValueType(SymbolSet &symbols, bool escalateFlag) const;
 	Value GetProp(Environment &env, const Symbol *pSymbol,
