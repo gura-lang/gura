@@ -1037,6 +1037,11 @@ void Class_string::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
+Value Class_string::EvalIndexGetOnValue(Environment &env, const Value &valueThis, const ValueList &valListIdx) const
+{
+	return IndexerEx(valueThis.GetStringSTL()).EvalIndexGet(env, valListIdx);
+}
+
 Value Class_string::EvalIndexGet_old(Environment &env,
 								 const Value &valueThis, const Value &valueIdx) const
 {
@@ -1346,6 +1351,32 @@ String Class_string::IteratorFoldw::ToString() const
 
 void Class_string::IteratorFoldw::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
+}
+
+//-----------------------------------------------------------------------------
+// Class_string::IndexerEx
+//-----------------------------------------------------------------------------
+Value Class_string::IndexerEx::IndexGet(Environment &env, const Value &valueIdx)
+{
+	if (!valueIdx.Is_number()) {
+		env.SetError(ERR_IndexError, "index must be a number for string");
+		return Value::Nil;
+	}
+	int idx = valueIdx.GetInt();
+	int len = static_cast<int>(Length(_str.c_str()));
+	if (idx >= 0) {
+		if (idx >= len) {
+			env.SetError(ERR_IndexError, "index is out of range");
+			return Value::Nil;
+		}
+		return Value(PickChar(_str, idx));
+	} else {
+		if (-idx > len) {
+			env.SetError(ERR_IndexError, "index is out of range");
+			return Value::Nil;
+		}
+		return Value(PickChar(_str, len + idx));
+	}
 }
 
 }

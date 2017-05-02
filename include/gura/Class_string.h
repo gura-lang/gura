@@ -89,9 +89,17 @@ public:
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
+	class GURA_DLLDECLARE IndexerEx : public Indexer {
+	private:
+		const String &_str;
+	public:
+		inline IndexerEx(const String &str) : _str(str) {}
+		virtual Value IndexGet(Environment &env, const Value &valueIdx);
+	};
 public:
 	Class_string(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
+	virtual Value EvalIndexGetOnValue(Environment &env, const Value &valueThis, const ValueList &valListIdx) const;
 	virtual Value EvalIndexGet_old(Environment &env,
 							   const Value &valueThis, const Value &valueIdx) const;
 	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
