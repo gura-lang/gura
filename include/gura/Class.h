@@ -238,8 +238,8 @@ public:
 	inline const PropDeclarationMap *GetPropDeclarationMap() const { return _pPropDeclarationMap.get(); }
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag);
 
-	virtual Value EvalIndexGet(Environment &env, const Value &valueThis, const ValueList &valListIdx) const = 0;
-	virtual void EvalIndexSet(Environment &env, const Value &valueThis, const ValueList &valListIdx, const Value &value) const = 0;
+	virtual Value EvalIndexGetOnValue(Environment &env, const Value &valueThis, const ValueList &valListIdx) const = 0;
+	virtual void EvalIndexSetOnValue(Environment &env, const Value &valueThis, const ValueList &valListIdx, const Value &value) const = 0;
 
 	virtual Value EvalEmptyIndexGet_old(Environment &env, const Value &valueThis) const = 0;
 	virtual void EvalEmptyIndexSet_old(Environment &env, const Value &valueThis, const Value &value) const = 0;
@@ -287,8 +287,8 @@ protected:
 public:
 	inline ClassPrimitive(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {}
 
-	virtual Value EvalIndexGet(Environment &env, const Value &valueThis, const ValueList &valListIdx) const;
-	virtual void EvalIndexSet(Environment &env, const Value &valueThis, const ValueList &valListIdx, const Value &value) const;
+	virtual Value EvalIndexGetOnValue(Environment &env, const Value &valueThis, const ValueList &valListIdx) const;
+	virtual void EvalIndexSetOnValue(Environment &env, const Value &valueThis, const ValueList &valListIdx, const Value &value) const;
 
 	virtual Value EvalEmptyIndexGet_old(Environment &env, const Value &valueThis) const;
 	virtual void EvalEmptyIndexSet_old(Environment &env, const Value &valueThis, const Value &value) const;
@@ -306,8 +306,8 @@ protected:
 public:
 	inline ClassFundamental(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {}
 
-	virtual Value EvalIndexGet(Environment &env, const Value &valueThis, const ValueList &valListIdx) const;
-	virtual void EvalIndexSet(Environment &env, const Value &valueThis, const ValueList &valListIdx, const Value &value) const;
+	virtual Value EvalIndexGetOnValue(Environment &env, const Value &valueThis, const ValueList &valListIdx) const;
+	virtual void EvalIndexSetOnValue(Environment &env, const Value &valueThis, const ValueList &valListIdx, const Value &value) const;
 
 	virtual Value EvalEmptyIndexGet_old(Environment &env, const Value &valueThis) const;
 	virtual void EvalEmptyIndexSet_old(Environment &env, const Value &valueThis, const Value &value) const;
