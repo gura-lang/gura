@@ -34,7 +34,7 @@ Value Indexer::EvalIndexGet(Environment &env, const ValueList &valListIdx)
 					Signal &sig = env.GetSignal();
 					if (sig.GetError().GetType() == ERR_IndexError && pIterator->IsInfinite()) {
 						sig.ClearSignal();
-						goto done;
+						break;
 					}
 					return Value::Nil;
 				}
@@ -77,6 +77,7 @@ void Indexer::EvalIndexSet(Environment &env, const ValueList &valListIdx, const 
 					Signal &sig = env.GetSignal();
 					if (sig.GetError().GetType() == ERR_IndexError && pIterator->IsInfinite()) {
 						sig.ClearSignal();
+						break;
 					}
 					return;
 				}
