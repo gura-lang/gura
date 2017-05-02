@@ -50,7 +50,7 @@ Parser = class {
 	'''}
 	parse(argv[]:string) = {
 		cfg = %{}
-		cfg[this.entries:*longName] = this.entries:*defValue
+		cfg.put(this.entries:*longName, this.entries:*defValue)
 		argvRest = []
 		i = argv.offset(1)
 		while (arg = i.next()) {
