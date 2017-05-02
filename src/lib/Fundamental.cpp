@@ -23,6 +23,7 @@ Value Indexer::EvalIndexGet(Environment &env, const ValueList &valListIdx)
 		while (pIteratorPair->first == pIteratorPair->second) {
 			iteratorPairStack.pop_back();
 			if (iteratorPairStack.empty()) goto done;
+			pIteratorPair = iteratorPairStack.rbegin();
 		}
 		ValueList::const_iterator pValueIdx = pIteratorPair->first++;
 		if (pValueIdx->Is_iterator()) {
@@ -66,6 +67,7 @@ void Indexer::EvalIndexSet(Environment &env, const ValueList &valListIdx, const 
 		while (pIteratorPair->first == pIteratorPair->second) {
 			iteratorPairStack.pop_back();
 			if (iteratorPairStack.empty()) return;
+			pIteratorPair = iteratorPairStack.rbegin();
 		}
 		ValueList::const_iterator pValueIdx = pIteratorPair->first++;
 		if (pValueIdx->Is_iterator()) {
