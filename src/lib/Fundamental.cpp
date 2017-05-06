@@ -63,35 +63,74 @@ void Indexer::EvalIndexSet(Environment &env, const ValueList &valListIdx, const 
 	IteratorPairStack iteratorPairStack;
 	iteratorPairStack.push_back(IteratorPair(valListIdx.begin(), valListIdx.end()));
 	IteratorPairStack::reverse_iterator pIteratorPair = iteratorPairStack.rbegin();
-	for (;;) {
-		while (pIteratorPair->first == pIteratorPair->second) {
-			iteratorPairStack.pop_back();
-			if (iteratorPairStack.empty()) return;
-			pIteratorPair = iteratorPairStack.rbegin();
-		}
-		ValueList::const_iterator pValueIdx = pIteratorPair->first++;
-		if (pValueIdx->Is_iterator()) {
-			Iterator *pIterator = pValueIdx->GetIterator();
-			Value valueIdx;
-			while (pIterator->Next(env, valueIdx)) {
-				IndexSet(env, valueIdx, value);
-				if (env.IsSignalled()) {
-					Signal &sig = env.GetSignal();
-					if (sig.GetError().GetType() == ERR_IndexError && pIterator->IsInfinite()) {
-						sig.ClearSignal();
-						break;
-					}
-					return;
-				}
+	if ((valListIdx.size() > 1 || valListIdx.front().IsListOrIterator()) && value.IsListOrIterator()) {
+		Signal &sig = env.GetSignal();
+		AutoPtr<Iterator> pIteratorEach(value.CreateIterator(sig));
+		if (sig.IsSignalled()) return;
+		Value valueEach;
+		for (;;) {
+			while (pIteratorPair->first == pIteratorPair->second) {
+				iteratorPairStack.pop_back();
+				if (iteratorPairStack.empty()) return;
+				pIteratorPair = iteratorPairStack.rbegin();
 			}
-			if (env.IsSignalled()) return;
-		} else if (pValueIdx->Is_list()) {
-			const ValueList &valListIdxSub = pValueIdx->GetList();
-			iteratorPairStack.push_back(IteratorPair(valListIdxSub.begin(), valListIdxSub.end()));
-			pIteratorPair = iteratorPairStack.rbegin();
-		} else {
-			IndexSet(env, *pValueIdx, value);
-			if (env.IsSignalled()) return;
+			ValueList::const_iterator pValueIdx = pIteratorPair->first++;
+			if (pValueIdx->Is_iterator()) {
+				Iterator *pIterator = pValueIdx->GetIterator();
+				Value valueIdx;
+				while (pIterator->Next(env, valueIdx)) {
+					if (!pIteratorEach->Next(env, valueEach)) return;
+					IndexSet(env, valueIdx, valueEach);
+					if (env.IsSignalled()) {
+						if (sig.GetError().GetType() == ERR_IndexError && pIterator->IsInfinite()) {
+							sig.ClearSignal();
+							break;
+						}
+						return;
+					}
+				}
+				if (env.IsSignalled()) return;
+			} else if (pValueIdx->Is_list()) {
+				const ValueList &valListIdxSub = pValueIdx->GetList();
+				iteratorPairStack.push_back(IteratorPair(valListIdxSub.begin(), valListIdxSub.end()));
+				pIteratorPair = iteratorPairStack.rbegin();
+			} else {
+				if (!pIteratorEach->Next(env, valueEach)) return;
+				IndexSet(env, *pValueIdx, valueEach);
+				if (env.IsSignalled()) return;
+			}
+		}
+	} else {
+		for (;;) {
+			while (pIteratorPair->first == pIteratorPair->second) {
+				iteratorPairStack.pop_back();
+				if (iteratorPairStack.empty()) return;
+				pIteratorPair = iteratorPairStack.rbegin();
+			}
+			ValueList::const_iterator pValueIdx = pIteratorPair->first++;
+			if (pValueIdx->Is_iterator()) {
+				Iterator *pIterator = pValueIdx->GetIterator();
+				Value valueIdx;
+				while (pIterator->Next(env, valueIdx)) {
+					IndexSet(env, valueIdx, value);
+					if (env.IsSignalled()) {
+						Signal &sig = env.GetSignal();
+						if (sig.GetError().GetType() == ERR_IndexError && pIterator->IsInfinite()) {
+							sig.ClearSignal();
+							break;
+						}
+						return;
+					}
+				}
+				if (env.IsSignalled()) return;
+			} else if (pValueIdx->Is_list()) {
+				const ValueList &valListIdxSub = pValueIdx->GetList();
+				iteratorPairStack.push_back(IteratorPair(valListIdxSub.begin(), valListIdxSub.end()));
+				pIteratorPair = iteratorPairStack.rbegin();
+			} else {
+				IndexSet(env, *pValueIdx, value);
+				if (env.IsSignalled()) return;
+			}
 		}
 	}
 }

@@ -2029,7 +2029,7 @@ Expr *Expr_Indexer::Clone() const
 	return new Expr_Indexer(*this);
 }
 
-#if 0
+#if 1
 
 Value Expr_Indexer::DoExec(Environment &env) const
 {
