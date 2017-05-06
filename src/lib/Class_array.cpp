@@ -128,6 +128,16 @@ String Object_array::ToString(bool exprFlag)
 	return _pArray->ToString(exprFlag);
 }
 
+Value Object_array::EvalIndexGet(Environment &env, const ValueList &valListIdx)
+{
+	return Object::EvalIndexGet(env, valListIdx);
+}
+
+void Object_array::EvalIndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
+{
+	Object::EvalIndexSet(env, valListIdx, value);
+}
+
 template<typename T_Elem>
 Value IndexGetTmpl(Environment &env, const Value &valueIdx, Object_array *pObj)
 {
