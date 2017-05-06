@@ -1042,31 +1042,6 @@ Value Class_string::EvalIndexGetOnValue(Environment &env, const Value &valueThis
 	return IndexerEx(valueThis.GetStringSTL()).EvalIndexGet(env, valListIdx);
 }
 
-Value Class_string::EvalIndexGet_old(Environment &env,
-								 const Value &valueThis, const Value &valueIdx) const
-{
-	Signal &sig = GetSignal();
-	if (!valueIdx.Is_number()) {
-		sig.SetError(ERR_IndexError, "index must be a number for string");
-		return Value::Nil;
-	}
-	int idx = valueIdx.GetInt();
-	int len = static_cast<int>(Length(valueThis.GetString()));
-	if (idx >= 0) {
-		if (idx >= len) {
-			sig.SetError(ERR_IndexError, "index is out of range");
-			return Value::Nil;
-		}
-		return Value(PickChar(valueThis.GetStringSTL(), idx));
-	} else {
-		if (-idx > len) {
-			sig.SetError(ERR_IndexError, "index is out of range");
-			return Value::Nil;
-		}
-		return Value(PickChar(valueThis.GetStringSTL(), len + idx));
-	}
-}
-
 bool Class_string::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	Signal &sig = GetSignal();

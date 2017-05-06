@@ -240,12 +240,6 @@ public:
 
 	virtual Value EvalIndexGetOnValue(Environment &env, const Value &valueThis, const ValueList &valListIdx) const = 0;
 	virtual void EvalIndexSetOnValue(Environment &env, const Value &valueThis, const ValueList &valListIdx, const Value &value) const = 0;
-
-	virtual Value EvalEmptyIndexGet_old(Environment &env, const Value &valueThis) const = 0;
-	virtual void EvalEmptyIndexSet_old(Environment &env, const Value &valueThis, const Value &value) const = 0;
-	virtual Value EvalIndexGet_old(Environment &env, const Value &valueThis, const Value &valueIdx) const = 0;
-	virtual void EvalIndexSet_old(Environment &env, const Value &valueThis, const Value &valueIdx, const Value &value) const = 0;
-
 	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
 	virtual String ToString(bool exprFlag);
@@ -286,15 +280,9 @@ protected:
 	inline ClassPrimitive(const Class &cls) : Class(cls) {}
 public:
 	inline ClassPrimitive(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {}
-
 	virtual Value EvalIndexGetOnValue(Environment &env, const Value &valueThis, const ValueList &valListIdx) const;
 	virtual void EvalIndexSetOnValue(Environment &env, const Value &valueThis, const ValueList &valListIdx, const Value &value) const;
 
-	virtual Value EvalEmptyIndexGet_old(Environment &env, const Value &valueThis) const;
-	virtual void EvalEmptyIndexSet_old(Environment &env, const Value &valueThis, const Value &value) const;
-	virtual Value EvalIndexGet_old(Environment &env,
-							   const Value &valueThis, const Value &valueIdx) const;
-	virtual void EvalIndexSet_old(Environment &env, const Value &valueThis, const Value &valueIdx, const Value &value) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -305,15 +293,8 @@ protected:
 	inline ClassFundamental(const Class &cls) : Class(cls) {}
 public:
 	inline ClassFundamental(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {}
-
 	virtual Value EvalIndexGetOnValue(Environment &env, const Value &valueThis, const ValueList &valListIdx) const;
 	virtual void EvalIndexSetOnValue(Environment &env, const Value &valueThis, const ValueList &valListIdx, const Value &value) const;
-
-	virtual Value EvalEmptyIndexGet_old(Environment &env, const Value &valueThis) const;
-	virtual void EvalEmptyIndexSet_old(Environment &env, const Value &valueThis, const Value &value) const;
-	virtual Value EvalIndexGet_old(Environment &env,
-							   const Value &valueThis, const Value &valueIdx) const;
-	virtual void EvalIndexSet_old(Environment &env, const Value &valueThis, const Value &valueIdx, const Value &value) const;
 };
 
 }

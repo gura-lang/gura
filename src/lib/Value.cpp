@@ -223,26 +223,6 @@ void Value::EvalIndexSet(Environment &env, const ValueList &valListIdx, const Va
 	env.LookupClass(_valType)->EvalIndexSetOnValue(env, *this, valListIdx, value);
 }
 
-Value Value::EmptyIndexGet_old(Environment &env) const
-{
-	return env.LookupClass(_valType)->EvalEmptyIndexGet_old(env, *this);
-}
-
-void Value::EmptyIndexSet_old(Environment &env, const Value &value)
-{
-	env.LookupClass(_valType)->EvalEmptyIndexSet_old(env, *this, value);
-}
-
-Value Value::IndexGet_old(Environment &env, const Value &valueIdx) const
-{
-	return env.LookupClass(_valType)->EvalIndexGet_old(env, *this, valueIdx);
-}
-
-void Value::IndexSet_old(Environment &env, const Value &valueIdx, const Value &value)
-{
-	env.LookupClass(_valType)->EvalIndexSet_old(env, *this, valueIdx, value);
-}
-
 bool Value::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) const
 {
 	if (IsModule()) {

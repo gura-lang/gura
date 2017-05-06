@@ -795,30 +795,6 @@ void ClassPrimitive::EvalIndexSetOnValue(Environment &env, const Value &valueThi
 	env.SetError(ERR_ValueError, "indexed setting access is not supported");
 }
 
-Value ClassPrimitive::EvalEmptyIndexGet_old(Environment &env, const Value &valueThis) const
-{
-	env.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
-	return Value::Nil;
-}
-
-void ClassPrimitive::EvalEmptyIndexSet_old(Environment &env, const Value &valueThis, const Value &value) const
-{
-	env.SetError(ERR_ValueError, "indexed setting access is not supported");
-}
-
-Value ClassPrimitive::EvalIndexGet_old(Environment &env,
-								   const Value &valueThis, const Value &valueIdx) const
-{
-	env.SetError(ERR_ValueError, "indexed getting access is not supported");
-	return Value::Nil;
-}
-
-void ClassPrimitive::EvalIndexSet_old(Environment &env,
-								   const Value &valueThis, const Value &valueIdx, const Value &value) const
-{
-	env.SetError(ERR_ValueError, "indexed setting access is not supported");
-}
-
 //-----------------------------------------------------------------------------
 // ClassFundamental
 //-----------------------------------------------------------------------------
@@ -832,28 +808,6 @@ void ClassFundamental::EvalIndexSetOnValue(Environment &env, const Value &valueT
 									const ValueList &valListIdx, const Value &value) const
 {
 	valueThis.GetFundamental()->EvalIndexSet(env, valListIdx, value);
-}
-
-Value ClassFundamental::EvalEmptyIndexGet_old(Environment &env, const Value &valueThis) const
-{
-	return valueThis.GetFundamental()->EmptyIndexGet(env);
-}
-
-void ClassFundamental::EvalEmptyIndexSet_old(Environment &env, const Value &valueThis, const Value &value) const
-{
-	valueThis.GetFundamental()->EmptyIndexSet(env, value);
-}
-
-Value ClassFundamental::EvalIndexGet_old(Environment &env,
-								   const Value &valueThis, const Value &valueIdx) const
-{
-	return valueThis.GetFundamental()->IndexGet(env, valueIdx);
-}
-
-void ClassFundamental::EvalIndexSet_old(Environment &env,
-									 const Value &valueThis, const Value &valueIdx, const Value &value) const
-{
-	valueThis.GetFundamental()->IndexSet(env, valueIdx, value);
 }
 
 }
