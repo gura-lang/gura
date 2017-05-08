@@ -133,7 +133,39 @@ String Object_array::ToString(bool exprFlag)
 template<typename T_Elem>
 Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_array *pObj)
 {
+#if 0
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	Array::Dimensions::const_iterator pDim = dims.begin();
+	size_t offsetBase = pArrayT->GetOffsetBase();
+	foreach_const (ValueList, pValueIdx, valListIdx) {
+		if (pDim == dims.end()) {
+			env.SetError(ERR_IndexError, "number of indices exceeds dimensions");
+			return Value::Nil;
+		}
+		const Value &valueIdx = *pValueIdx;
+		if (!valueIdx.Is_number()) {
+			env.SetError(ERR_ValueError, "index must be a number");
+			return Value::Nil;
+		}
+		size_t idx = valueIdx.GetSizeT();
+		if (idx >= pDim->GetSize()) {
+			env.SetError(ERR_OutOfRangeError, "index is out of range");
+			return Value::Nil;
+		}
+		offsetBase += pDim->GetStride() * idx;
+		pDim++;
+	}
+	if (pDim == dims.end()) {
+		return Value(pArrayT->GetPointerOrigin()[offsetBase]);
+	}
+	AutoPtr<ArrayT<T_Elem> > pArrayRtn(
+		new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(), offsetBase));
+	pArrayRtn->SetDimensions(pDim, dims.end());
+	return Value(new Object_array(env, pArrayRtn.release()));
+#else
 	return pObj->Object::EvalIndexGet(env, valListIdx);
+#endif
 }
 
 Value Object_array::EvalIndexGet(Environment &env, const ValueList &valListIdx)

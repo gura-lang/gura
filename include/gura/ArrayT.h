@@ -24,12 +24,14 @@ public:
 	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetElemNum()));
 	}
-	inline T_Elem *GetPointer() {
-		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + GetOffsetBase();
+	inline T_Elem *GetPointerOrigin() {
+		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer());
 	}
-	inline const T_Elem *GetPointer() const {
-		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + GetOffsetBase();
+	inline const T_Elem *GetPointerOrigin() const {
+		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer());
 	}
+	inline T_Elem *GetPointer() { return GetPointerOrigin() + GetOffsetBase(); }
+	inline const T_Elem *GetPointer() const { return GetPointerOrigin() + GetOffsetBase(); }
 	inline operator T_Elem *() { return GetPointer(); }
 	inline operator const T_Elem *() const { return GetPointer(); }
 	virtual String ToString(bool exprFlag) const;
