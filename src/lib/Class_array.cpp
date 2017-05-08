@@ -7,6 +7,8 @@ namespace Gura {
 
 typedef Value (*ConstructorT)(Environment &env, Argument &arg);
 typedef Value (*PropertyGetterT)(Environment &env, Array *pArraySelf);
+typedef Value (*EvalIndexGetT)(Environment &env, const ValueList &valListIdx, Object_array *pObj);
+typedef void (*EvalIndexSetT)(Environment &env, const ValueList &valListIdx, const Value &value, Object_array *pObj);
 typedef Value (*IndexGetT)(Environment &env, const Value &valueIdx, Object_array *pObj);
 typedef void (*IndexSetT)(Environment &env, const Value &valueIdx, const Value &value, Object_array *pObj);
 typedef Iterator *(*CreateIteratorT)(Array *pArray);
@@ -128,14 +130,54 @@ String Object_array::ToString(bool exprFlag)
 	return _pArray->ToString(exprFlag);
 }
 
+template<typename T_Elem>
+Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_array *pObj)
+{
+	return pObj->Object::EvalIndexGet(env, valListIdx);
+}
+
 Value Object_array::EvalIndexGet(Environment &env, const ValueList &valListIdx)
 {
-	return Object::EvalIndexGet(env, valListIdx);
+	static const EvalIndexGetT evalIndexGetTbl[] = {
+		nullptr,
+		&EvalIndexGetTmpl<Int8>,
+		&EvalIndexGetTmpl<UInt8>,
+		&EvalIndexGetTmpl<Int16>,
+		&EvalIndexGetTmpl<UInt16>,
+		&EvalIndexGetTmpl<Int32>,
+		&EvalIndexGetTmpl<UInt32>,
+		&EvalIndexGetTmpl<Int64>,
+		&EvalIndexGetTmpl<UInt64>,
+		&EvalIndexGetTmpl<Float>,
+		&EvalIndexGetTmpl<Double>,
+		//&EvalIndexGetTmpl<Complex>,
+	};
+	return (*evalIndexGetTbl[GetArray()->GetElemType()])(env, valListIdx, this);
+}
+
+template<typename T_Elem>
+void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value &value, Object_array *pObj)
+{
+	pObj->Object::EvalIndexSet(env, valListIdx, value);
 }
 
 void Object_array::EvalIndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
 {
-	Object::EvalIndexSet(env, valListIdx, value);
+	static const EvalIndexSetT evalIndexSetTbl[] = {
+		nullptr,
+		&EvalIndexSetTmpl<Int8>,
+		&EvalIndexSetTmpl<UInt8>,
+		&EvalIndexSetTmpl<Int16>,
+		&EvalIndexSetTmpl<UInt16>,
+		&EvalIndexSetTmpl<Int32>,
+		&EvalIndexSetTmpl<UInt32>,
+		&EvalIndexSetTmpl<Int64>,
+		&EvalIndexSetTmpl<UInt64>,
+		&EvalIndexSetTmpl<Float>,
+		&EvalIndexSetTmpl<Double>,
+		//&EvalIndexSetTmpl<Complex>,
+	};
+	(*evalIndexSetTbl[GetArray()->GetElemType()])(env, valListIdx, value, this);
 }
 
 template<typename T_Elem>
