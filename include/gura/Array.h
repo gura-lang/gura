@@ -51,12 +51,15 @@ public:
 	class GURA_DLLDECLARE Dimension {
 	private:
 		size_t _size;
+		size_t _sizeProd;
 		size_t _stride;
 	public:
-		inline Dimension() : _size(0), _stride(0) {}
-		inline Dimension(size_t size) : _size(size), _stride(0) {}
+		inline Dimension() : _size(0), _sizeProd(0), _stride(0) {}
+		inline Dimension(size_t size) : _size(size), _sizeProd(0), _stride(0) {}
 		inline size_t GetSize() const { return _size; }
+		inline size_t GetSizeProd() const { return _sizeProd; }
 		inline size_t GetStride() const { return _stride; }
+		inline void SetSizeProd(size_t sizeProd) { _sizeProd = sizeProd; }
 		inline void SetStride(size_t stride) { _stride = stride; }
 	};
 	class GURA_DLLDECLARE Dimensions : public std::vector<Dimension> {

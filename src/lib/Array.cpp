@@ -176,6 +176,7 @@ void Array::UpdateMetrics()
 	foreach_reverse (Dimensions, pDim, _dims) {
 		pDim->SetStride(stride);
 		stride *= pDim->GetSize();
+		pDim->SetSizeProd(stride);
 	}
 	_elemNum = stride;
 }
