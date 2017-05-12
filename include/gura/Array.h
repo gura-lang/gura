@@ -70,13 +70,13 @@ public:
 	};
 	class GURA_DLLDECLARE IndexProcessor {
 	public:
-		class GURA_DLLDECLARE IndexPack {
+		class GURA_DLLDECLARE Generator {
 		private:
 			SizeTList _indices;
 			SizeTList::const_iterator _pIndex;
 			size_t _stride;
 		public:
-			inline IndexPack(size_t stride) : _stride(stride) {}
+			inline Generator(size_t stride) : _stride(stride) {}
 			inline void AddIndex(size_t idx) { _indices.push_back(idx); }
 			inline void Reset() { _pIndex = _indices.begin(); }
 			inline const SizeTList &GetIndices() const { return _indices; }
@@ -84,31 +84,31 @@ public:
 			inline size_t CalcOffset() const { return _stride * *_pIndex; }
 			bool Next();
 		};
-		class GURA_DLLDECLARE IndexPackList : public std::vector<IndexPack *> {
+		class GURA_DLLDECLARE GeneratorList : public std::vector<Generator *> {
 		public:
 			void Reset();
 			size_t CalcOffset() const;
 			bool Next();
 			void Print() const;
 		};
-		class GURA_DLLDECLARE IndexPackOwner : public IndexPackList {
+		class GURA_DLLDECLARE GeneratorOwner : public GeneratorList {
 		public:
-			~IndexPackOwner();
+			~GeneratorOwner();
 			void Clear();
 		};
 	private:
 		const Dimensions &_dims;
 		Dimensions::const_iterator _pDim;
 		size_t _offsetBase;
-		std::unique_ptr<IndexPackOwner> _pIndexPackOwner;
+		std::unique_ptr<GeneratorOwner> _pGeneratorOwner;
 	public:
 		IndexProcessor(const Array *pArray);
 		bool SetValues(Environment &env, const ValueList &valListIdx);
 		void MakeResultDimensions(Dimensions &dimsRtn);
-		inline bool HasIterator() const { return _pIndexPackOwner.get() != nullptr; }
+		inline bool HasGenerator() const { return _pGeneratorOwner.get() != nullptr; }
 		inline size_t GetOffsetBase() const { return _offsetBase; }
-		inline size_t CalcIteratorOffset() const { return _pIndexPackOwner->CalcOffset(); }
-		inline bool NextIterator() { return _pIndexPackOwner->Next(); }
+		inline size_t GenerateOffset() const { return _pGeneratorOwner->CalcOffset(); }
+		inline bool NextGenerator() { return _pGeneratorOwner->Next(); }
 		inline size_t CalcSizeUnit() const {
 			return (_pDim == _dims.end())? 1 : _pDim->GetSizeProd();
 		}

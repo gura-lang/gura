@@ -135,7 +135,8 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
 	Array::IndexProcessor indexProcessor(pArrayT);
 	if (!indexProcessor.SetValues(env, valListIdx)) return Value::Nil;
-	if (indexProcessor.HasIterator()) {
+	Value valueRtn;
+	if (indexProcessor.HasGenerator()) {
 		Array::Dimensions dimsRtn;
 		indexProcessor.MakeResultDimensions(dimsRtn);
 		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(dimsRtn));
@@ -144,23 +145,22 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 		const T_Elem *pElemTgt = pArrayT->GetPointerOrigin() + indexProcessor.GetOffsetBase();
 		T_Elem *pElemDst = pArrayTRtn->GetPointer();
 		do {
-			::memcpy(pElemDst, pElemTgt + indexProcessor.CalcIteratorOffset(), bytesUnit);
+			::memcpy(pElemDst, pElemTgt + indexProcessor.GenerateOffset(), bytesUnit);
 			pElemDst += sizeUnit;
-		} while (indexProcessor.NextIterator());
-		return Value(new Object_array(env, pArrayTRtn.release()));
+		} while (indexProcessor.NextGenerator());
+		valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
+	} else if (indexProcessor.IsTargetScalar()) {
+		valueRtn = Value(pArrayT->GetPointerOrigin()[indexProcessor.GetOffsetBase()]);
 	} else {
-		if (indexProcessor.IsTargetScalar()) {
-			return Value(pArrayT->GetPointerOrigin()[indexProcessor.GetOffsetBase()]);
-		} else {
-			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
-				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(),
-								   indexProcessor.GetOffsetBase()));
-			Array::Dimensions dimsRtn;
-			indexProcessor.MakeResultDimensions(dimsRtn);
-			pArrayTRtn->SetDimensions(dimsRtn);
-			return Value(new Object_array(env, pArrayTRtn.release()));
-		}
+		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
+			new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(),
+							   indexProcessor.GetOffsetBase()));
+		Array::Dimensions dimsRtn;
+		indexProcessor.MakeResultDimensions(dimsRtn);
+		pArrayTRtn->SetDimensions(dimsRtn);
+		valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
 	}
+	return valueRtn;
 }
 
 Value Object_array::EvalIndexGet(Environment &env, const ValueList &valListIdx)
@@ -202,16 +202,20 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 		T_Elem num = static_cast<T_Elem>(value.GetDouble());
 		T_Elem *pElemTgt = pArrayT->GetPointerOrigin() + indexProcessor.GetOffsetBase();
 		size_t sizeUnit = indexProcessor.CalcSizeUnit();
-		if (indexProcessor.HasIterator()) {
+		if (indexProcessor.HasGenerator()) {
 			do {
-				T_Elem *pElemDst = pElemTgt + indexProcessor.CalcIteratorOffset();
-				for (size_t i = 0; i < sizeUnit; i++) *pElemDst++ = num;
-			} while (indexProcessor.NextIterator());
+				T_Elem *pElemDst = pElemTgt + indexProcessor.GenerateOffset();
+				for (size_t i = 0; i < sizeUnit; i++) {
+					*pElemDst++ = num;
+				}
+			} while (indexProcessor.NextGenerator());
 		} else if (sizeUnit == 1) {
 			*pElemTgt = num;
 		} else {
 			T_Elem *pElemDst = pElemTgt;
-			for (size_t i = 0; i < sizeUnit; i++) *pElemDst++ = num;
+			for (size_t i = 0; i < sizeUnit; i++) {
+				*pElemDst++ = num;
+			}
 		}
 	} else {
 		

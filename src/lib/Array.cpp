@@ -1433,54 +1433,54 @@ bool Array::IndexProcessor::SetValues(Environment &env, const ValueList &valList
 		} else if (valueIdx.IsListOrIterator()) {
 			AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(env.GetSignal()));
 			if (env.IsSignalled()) return InvalidSize;
-			std::unique_ptr<IndexPack> pIndexPack(new IndexPack(_pDim->GetStride()));
+			std::unique_ptr<Generator> pGenerator(new Generator(_pDim->GetStride()));
 			Value valueIdxEach;
 			while (pIterator->Next(env, valueIdxEach)) {
 				if (valueIdxEach.Is_number()) {
 					size_t idx = valueIdxEach.GetSizeT();
 					if (idx >= _pDim->GetSize()) break;
-					pIndexPack->AddIndex(idx);
+					pGenerator->AddIndex(idx);
 				} else {
 					env.SetError(ERR_ValueError, "index must be a number");
 					return false;
 				}
 			}
-			if (pIndexPack->GetIndices().empty()) {
+			if (pGenerator->GetIndices().empty()) {
 				env.SetError(ERR_ValueError, "no indices specified");
 				return false;
 			}
-			if (_pIndexPackOwner.get() == nullptr) {
-				_pIndexPackOwner.reset(new IndexPackOwner());
+			if (_pGeneratorOwner.get() == nullptr) {
+				_pGeneratorOwner.reset(new GeneratorOwner());
 			}
-			_pIndexPackOwner->push_back(pIndexPack.release());
+			_pGeneratorOwner->push_back(pGenerator.release());
 		} else {
 			env.SetError(ERR_ValueError, "index must be a number");
 			return false;
 		}
 		_pDim++;
 	}
-	if (_pIndexPackOwner.get() != nullptr) _pIndexPackOwner->Reset();
+	if (_pGeneratorOwner.get() != nullptr) _pGeneratorOwner->Reset();
 	return true;
 }
 
 void Array::IndexProcessor::MakeResultDimensions(Dimensions &dimsRtn)
 {
-	if (_pIndexPackOwner.get() == nullptr) {
+	if (_pGeneratorOwner.get() == nullptr) {
 		dimsRtn.reserve(std::distance(_pDim, _dims.end()));
 	} else {
-		dimsRtn.reserve(_pIndexPackOwner->size() + std::distance(_pDim, _dims.end()));
-		foreach (IndexPackOwner, ppIndexPack, *_pIndexPackOwner) {
-			IndexPack *pIndexPack = *ppIndexPack;
-			dimsRtn.push_back(Dimension(pIndexPack->GetIndices().size()));
+		dimsRtn.reserve(_pGeneratorOwner->size() + std::distance(_pDim, _dims.end()));
+		foreach (GeneratorOwner, ppGenerator, *_pGeneratorOwner) {
+			Generator *pGenerator = *ppGenerator;
+			dimsRtn.push_back(Dimension(pGenerator->GetIndices().size()));
 		}
 	}
 	dimsRtn.insert(dimsRtn.end(), _pDim, _dims.end());
 }
 
 //-----------------------------------------------------------------------------
-// Array::IndexProcessor::IndexPack
+// Array::IndexProcessor::Generator
 //-----------------------------------------------------------------------------
-bool Array::IndexProcessor::IndexPack::Next()
+bool Array::IndexProcessor::Generator::Next()
 {
 	_pIndex++;
 	if (_pIndex != _indices.end()) return true;
@@ -1489,58 +1489,58 @@ bool Array::IndexProcessor::IndexPack::Next()
 }
 
 //-----------------------------------------------------------------------------
-// Array::IndexProcessor::IndexPackList
+// Array::IndexProcessor::GeneratorList
 //-----------------------------------------------------------------------------
-void Array::IndexProcessor::IndexPackList::Reset()
+void Array::IndexProcessor::GeneratorList::Reset()
 {
-	foreach (IndexPackList, ppIndexPack, *this) {
-		IndexPack *pIndexPack = *ppIndexPack;
-		pIndexPack->Reset();
+	foreach (GeneratorList, ppGenerator, *this) {
+		Generator *pGenerator = *ppGenerator;
+		pGenerator->Reset();
 	}
 }
 
-size_t Array::IndexProcessor::IndexPackList::CalcOffset() const
+size_t Array::IndexProcessor::GeneratorList::CalcOffset() const
 {
 	size_t offset = 0;
-	foreach_const (IndexPackList, ppIndexPack, *this) {
-		const IndexPack *pIndexPack = *ppIndexPack;
-		offset += pIndexPack->CalcOffset();
+	foreach_const (GeneratorList, ppGenerator, *this) {
+		const Generator *pGenerator = *ppGenerator;
+		offset += pGenerator->CalcOffset();
 	}
 	return offset;
 }
 
-bool Array::IndexProcessor::IndexPackList::Next()
+bool Array::IndexProcessor::GeneratorList::Next()
 {
-	foreach_reverse (IndexPackList, ppIndexPack, *this) {
-		IndexPack *pIndexPack = *ppIndexPack;
-		if (pIndexPack->Next()) return true;
+	foreach_reverse (GeneratorList, ppGenerator, *this) {
+		Generator *pGenerator = *ppGenerator;
+		if (pGenerator->Next()) return true;
 	}
 	return false;
 }
 
-void Array::IndexProcessor::IndexPackList::Print() const
+void Array::IndexProcessor::GeneratorList::Print() const
 {
-	foreach_const (IndexPackList, ppIndexPack, *this) {
-		const IndexPack *pIndexPack = *ppIndexPack;
-		if (ppIndexPack != begin()) ::printf(", ");
-		::printf("%lu", pIndexPack->GetIndex());
+	foreach_const (GeneratorList, ppGenerator, *this) {
+		const Generator *pGenerator = *ppGenerator;
+		if (ppGenerator != begin()) ::printf(", ");
+		::printf("%lu", pGenerator->GetIndex());
 	}
 	::printf("\n");
 }
 
 //-----------------------------------------------------------------------------
-// Array::IndexProcessor::IndexPackOwner
+// Array::IndexProcessor::GeneratorOwner
 //-----------------------------------------------------------------------------
-Array::IndexProcessor::IndexPackOwner::~IndexPackOwner()
+Array::IndexProcessor::GeneratorOwner::~GeneratorOwner()
 {
 	Clear();
 }
 
-void Array::IndexProcessor::IndexPackOwner::Clear()
+void Array::IndexProcessor::GeneratorOwner::Clear()
 {
-	foreach (IndexPackOwner, ppIndexPack, *this) {
-		IndexPack *pIndexPack = *ppIndexPack;
-		delete pIndexPack;
+	foreach (GeneratorOwner, ppGenerator, *this) {
+		Generator *pGenerator = *ppGenerator;
+		delete pGenerator;
 	}
 	clear();
 }
