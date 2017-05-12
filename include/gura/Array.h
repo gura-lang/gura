@@ -68,7 +68,7 @@ public:
 		static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB);
 		static bool IsElemwiseCalculatable(const Dimensions &dimsA, const Dimensions &dimsB);
 	};
-	class GURA_DLLDECLARE IndexProcessor {
+	class GURA_DLLDECLARE Indexer {
 	public:
 		class GURA_DLLDECLARE Generator {
 		private:
@@ -102,14 +102,14 @@ public:
 		size_t _offsetBase;
 		std::unique_ptr<GeneratorOwner> _pGeneratorOwner;
 	public:
-		IndexProcessor(const Array *pArray);
-		bool SetValues(Environment &env, const ValueList &valListIdx);
+		Indexer(const Array *pArray);
+		bool InitIndices(Environment &env, const ValueList &valListIdx);
 		void MakeResultDimensions(Dimensions &dimsRtn);
 		inline bool HasGenerator() const { return _pGeneratorOwner.get() != nullptr; }
 		inline size_t GetOffsetBase() const { return _offsetBase; }
 		inline size_t GenerateOffset() const { return _pGeneratorOwner->CalcOffset(); }
 		inline bool NextGenerator() { return _pGeneratorOwner->Next(); }
-		inline size_t CalcElemNumUnit() const {
+		inline size_t GetElemNumUnit() const {
 			return (_pDim == _dims.end())? 1 : _pDim->GetElemNumProd();
 		}
 		inline bool IsTargetScalar() const { return _pDim == _dims.end(); }

@@ -1407,15 +1407,15 @@ Array::UnaryFunc Array::invertFuncs[ETYPE_Max] = {
 };
 
 //-----------------------------------------------------------------------------
-// Array::IndexProcessor
+// Array::Indexer
 //-----------------------------------------------------------------------------
-Array::IndexProcessor::IndexProcessor(const Array *pArray) :
+Array::Indexer::Indexer(const Array *pArray) :
 	_dims(pArray->GetDimensions()), _pDim(pArray->GetDimensions().begin()),
 	_offsetBase(pArray->GetOffsetBase())
 {
 }
 
-bool Array::IndexProcessor::SetValues(Environment &env, const ValueList &valListIdx)
+bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 {
 	foreach_const (ValueList, pValueIdx, valListIdx) {
 		if (_pDim == _dims.end()) {
@@ -1463,7 +1463,7 @@ bool Array::IndexProcessor::SetValues(Environment &env, const ValueList &valList
 	return true;
 }
 
-void Array::IndexProcessor::MakeResultDimensions(Dimensions &dimsRtn)
+void Array::Indexer::MakeResultDimensions(Dimensions &dimsRtn)
 {
 	if (_pGeneratorOwner.get() == nullptr) {
 		dimsRtn.reserve(std::distance(_pDim, _dims.end()));
@@ -1478,9 +1478,9 @@ void Array::IndexProcessor::MakeResultDimensions(Dimensions &dimsRtn)
 }
 
 //-----------------------------------------------------------------------------
-// Array::IndexProcessor::Generator
+// Array::Indexer::Generator
 //-----------------------------------------------------------------------------
-bool Array::IndexProcessor::Generator::Next()
+bool Array::Indexer::Generator::Next()
 {
 	_pIndex++;
 	if (_pIndex != _indices.end()) return true;
@@ -1489,9 +1489,9 @@ bool Array::IndexProcessor::Generator::Next()
 }
 
 //-----------------------------------------------------------------------------
-// Array::IndexProcessor::GeneratorList
+// Array::Indexer::GeneratorList
 //-----------------------------------------------------------------------------
-void Array::IndexProcessor::GeneratorList::Reset()
+void Array::Indexer::GeneratorList::Reset()
 {
 	foreach (GeneratorList, ppGenerator, *this) {
 		Generator *pGenerator = *ppGenerator;
@@ -1499,7 +1499,7 @@ void Array::IndexProcessor::GeneratorList::Reset()
 	}
 }
 
-size_t Array::IndexProcessor::GeneratorList::CalcOffset() const
+size_t Array::Indexer::GeneratorList::CalcOffset() const
 {
 	size_t offset = 0;
 	foreach_const (GeneratorList, ppGenerator, *this) {
@@ -1509,7 +1509,7 @@ size_t Array::IndexProcessor::GeneratorList::CalcOffset() const
 	return offset;
 }
 
-bool Array::IndexProcessor::GeneratorList::Next()
+bool Array::Indexer::GeneratorList::Next()
 {
 	foreach_reverse (GeneratorList, ppGenerator, *this) {
 		Generator *pGenerator = *ppGenerator;
@@ -1518,7 +1518,7 @@ bool Array::IndexProcessor::GeneratorList::Next()
 	return false;
 }
 
-void Array::IndexProcessor::GeneratorList::Print() const
+void Array::Indexer::GeneratorList::Print() const
 {
 	foreach_const (GeneratorList, ppGenerator, *this) {
 		const Generator *pGenerator = *ppGenerator;
@@ -1529,14 +1529,14 @@ void Array::IndexProcessor::GeneratorList::Print() const
 }
 
 //-----------------------------------------------------------------------------
-// Array::IndexProcessor::GeneratorOwner
+// Array::Indexer::GeneratorOwner
 //-----------------------------------------------------------------------------
-Array::IndexProcessor::GeneratorOwner::~GeneratorOwner()
+Array::Indexer::GeneratorOwner::~GeneratorOwner()
 {
 	Clear();
 }
 
-void Array::IndexProcessor::GeneratorOwner::Clear()
+void Array::Indexer::GeneratorOwner::Clear()
 {
 	foreach (GeneratorOwner, ppGenerator, *this) {
 		Generator *pGenerator = *ppGenerator;
