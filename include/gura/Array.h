@@ -68,6 +68,52 @@ public:
 		static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB);
 		static bool IsElemwiseCalculatable(const Dimensions &dimsA, const Dimensions &dimsB);
 	};
+	class GURA_DLLDECLARE IndexProcessor {
+	public:
+		class GURA_DLLDECLARE IndexPack {
+		private:
+			SizeTList _indices;
+			SizeTList::const_iterator _pIndex;
+			size_t _stride;
+		public:
+			inline IndexPack(size_t stride) : _stride(stride) {}
+			inline void AddIndex(size_t idx) { _indices.push_back(idx); }
+			inline void Reset() { _pIndex = _indices.begin(); }
+			inline const SizeTList &GetIndices() const { return _indices; }
+			inline size_t GetIndex() const { return *_pIndex; }
+			inline size_t CalcOffset() const { return _stride * *_pIndex; }
+			bool Next();
+		};
+		class GURA_DLLDECLARE IndexPackList : public std::vector<IndexPack *> {
+		public:
+			void Reset();
+			size_t CalcOffset() const;
+			bool Next();
+			void Print() const;
+		};
+		class GURA_DLLDECLARE IndexPackOwner : public IndexPackList {
+		public:
+			~IndexPackOwner();
+			void Clear();
+		};
+	private:
+		const Dimensions &_dims;
+		Dimensions::const_iterator _pDim;
+		size_t _offsetBase;
+		std::unique_ptr<IndexPackOwner> _pIndexPackOwner;
+	public:
+		IndexProcessor(const Array *pArray);
+		bool SetValues(Environment &env, const ValueList &valListIdx);
+		void CreateResultDimensions(Dimensions &dimsRtn);
+		inline bool HasIterator() const { return _pIndexPackOwner.get() != nullptr; }
+		inline size_t GetOffsetBase() const { return _offsetBase; }
+		inline size_t CalcIteratorOffset() const { return _pIndexPackOwner->CalcOffset(); }
+		inline bool NextIterator() { return _pIndexPackOwner->Next(); }
+		inline size_t CalcSizeUnit() const {
+			return (_pDim == _dims.end())? 1 : _pDim->GetSizeProd();
+		}
+		inline bool IsTargetScalar() const { return _pDim == _dims.end(); }
+	};
 protected:
 	int _cntRef;
 	ElemType _elemType;
