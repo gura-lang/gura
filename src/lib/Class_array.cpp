@@ -227,10 +227,132 @@ void IndexPackOwner::Clear()
 	clear();
 }
 
+//-----------------------------------------------------------------------------
+// IndexProcessor
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE IndexProcessor {
+private:
+	const Array::Dimensions &_dims;
+	Array::Dimensions::const_iterator _pDim;
+	size_t _offsetBase;
+	std::unique_ptr<IndexPackOwner> _pIndexPackOwner;
+public:
+	IndexProcessor(const Array *pArray);
+	bool Process(Environment &env, const ValueList &valListIdx);
+	void CreateResultDimensions(Array::Dimensions &dimsRtn);
+	inline bool HasIterator() const { return _pIndexPackOwner.get() != nullptr; }
+	inline size_t GetOffsetBase() const { return _offsetBase; }
+	inline size_t CalcOffset() const { return _pIndexPackOwner->CalcOffset(); }
+	inline bool Next() { return _pIndexPackOwner->Next(); }
+	inline size_t CalcSizeUnit() const {
+		return (_pDim == _dims.end())? 1 : _pDim->GetSizeProd();
+	}
+	inline bool IsResultScalar() const { return _pDim == _dims.end(); }
+};
+
+IndexProcessor::IndexProcessor(const Array *pArray) :
+	_dims(pArray->GetDimensions()), _pDim(pArray->GetDimensions().begin()),
+	_offsetBase(pArray->GetOffsetBase())
+{
+}
+
+bool IndexProcessor::Process(Environment &env, const ValueList &valListIdx)
+{
+	foreach_const (ValueList, pValueIdx, valListIdx) {
+		if (_pDim == _dims.end()) {
+			env.SetError(ERR_IndexError, "number of indices exceeds dimensions");
+			return false;
+		}
+		const Value &valueIdx = *pValueIdx;
+		if (valueIdx.Is_number()) {
+			size_t idx = valueIdx.GetSizeT();
+			if (idx >= _pDim->GetSize()) {
+				env.SetError(ERR_OutOfRangeError, "index is out of range");
+				return false;
+			}
+			_offsetBase += _pDim->GetStride() * idx;
+		} else if (valueIdx.IsListOrIterator()) {
+			AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(env.GetSignal()));
+			if (env.IsSignalled()) return InvalidSize;
+			std::unique_ptr<IndexPack> pIndexPack(new IndexPack(_pDim->GetStride()));
+			Value valueIdxEach;
+			while (pIterator->Next(env, valueIdxEach)) {
+				if (valueIdxEach.Is_number()) {
+					size_t idx = valueIdxEach.GetSizeT();
+					if (idx >= _pDim->GetSize()) break;
+					pIndexPack->AddIndex(idx);
+				} else {
+					env.SetError(ERR_ValueError, "index must be a number");
+					return false;
+				}
+			}
+			if (pIndexPack->GetIndices().empty()) {
+				env.SetError(ERR_ValueError, "no indices specified");
+				return false;
+			}
+			if (_pIndexPackOwner.get() == nullptr) {
+				_pIndexPackOwner.reset(new IndexPackOwner());
+			}
+			_pIndexPackOwner->push_back(pIndexPack.release());
+		} else {
+			env.SetError(ERR_ValueError, "index must be a number");
+			return false;
+		}
+		_pDim++;
+	}
+	if (_pIndexPackOwner.get() != nullptr) _pIndexPackOwner->Reset();
+	return true;
+}
+
+void IndexProcessor::CreateResultDimensions(Array::Dimensions &dimsRtn)
+{
+	if (_pIndexPackOwner.get() == nullptr) {
+		dimsRtn.reserve(std::distance(_pDim, _dims.end()));
+	} else {
+		dimsRtn.reserve(_pIndexPackOwner->size() + std::distance(_pDim, _dims.end()));
+		foreach (IndexPackOwner, ppIndexPack, *_pIndexPackOwner) {
+			IndexPack *pIndexPack = *ppIndexPack;
+			dimsRtn.push_back(Array::Dimension(pIndexPack->GetIndices().size()));
+		}
+	}
+	dimsRtn.insert(dimsRtn.end(), _pDim, _dims.end());
+}
+
 template<typename T_Elem>
 Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_array *pObj)
 {
-#if 0
+#if 1
+	if (valListIdx.empty()) return Value::Nil;
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
+	IndexProcessor indexProcessor(pArrayT);
+	if (!indexProcessor.Process(env, valListIdx)) return Value::Nil;
+	if (indexProcessor.HasIterator()) {
+		Array::Dimensions dimsRtn;
+		indexProcessor.CreateResultDimensions(dimsRtn);
+		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(dimsRtn));
+		size_t sizeUnit = indexProcessor.CalcSizeUnit();
+		size_t bytesUnit = sizeUnit * pArrayTRtn->GetElemBytes();
+		const T_Elem *pSrc = pArrayT->GetPointerOrigin() + indexProcessor.GetOffsetBase();
+		T_Elem *pDst = pArrayTRtn->GetPointer();
+		do {
+			::memcpy(pDst, pSrc + indexProcessor.CalcOffset(), bytesUnit);
+			pDst += sizeUnit;
+		} while (indexProcessor.Next());
+		return Value(new Object_array(env, pArrayTRtn.release()));
+	} else {
+		if (indexProcessor.IsResultScalar()) {
+			return Value(pArrayT->GetPointerOrigin()[indexProcessor.GetOffsetBase()]);
+		} else {
+			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
+				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(),
+								   indexProcessor.GetOffsetBase()));
+			Array::Dimensions dimsRtn;
+			indexProcessor.CreateResultDimensions(dimsRtn);
+			pArrayTRtn->SetDimensions(dimsRtn);
+			return Value(new Object_array(env, pArrayTRtn.release()));
+		}
+	}
+#elif 0
 	if (valListIdx.empty()) return Value::Nil;
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
