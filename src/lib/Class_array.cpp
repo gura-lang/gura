@@ -9,8 +9,6 @@ typedef Value (*ConstructorT)(Environment &env, Argument &arg);
 typedef Value (*PropertyGetterT)(Environment &env, Array *pArraySelf);
 typedef Value (*EvalIndexGetT)(Environment &env, const ValueList &valListIdx, Object_array *pObj);
 typedef void (*EvalIndexSetT)(Environment &env, const ValueList &valListIdx, const Value &value, Object_array *pObj);
-typedef Value (*IndexGetT)(Environment &env, const Value &valueIdx, Object_array *pObj);
-typedef void (*IndexSetT)(Environment &env, const Value &valueIdx, const Value &value, Object_array *pObj);
 typedef Iterator *(*CreateIteratorT)(Array *pArray);
 typedef Value (*MethodT)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);
 typedef bool (*CastToT)(Environment &env, Value &value, const Declaration &decl, const Array *pArraySelf);
@@ -177,7 +175,7 @@ public:
 	inline size_t CalcSizeUnit() const {
 		return (_pDim == _dims.end())? 1 : _pDim->GetSizeProd();
 	}
-	inline bool IsResultScalar() const { return _pDim == _dims.end(); }
+	inline bool IsTargetScalar() const { return _pDim == _dims.end(); }
 };
 
 IndexProcessor::IndexProcessor(const Array *pArray) :
@@ -338,7 +336,7 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 		} while (indexProcessor.NextIterator());
 		return Value(new Object_array(env, pArrayTRtn.release()));
 	} else {
-		if (indexProcessor.IsResultScalar()) {
+		if (indexProcessor.IsTargetScalar()) {
 			return Value(pArrayT->GetPointerOrigin()[indexProcessor.GetOffsetBase()]);
 		} else {
 			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
@@ -377,44 +375,37 @@ Value Object_array::EvalIndexGet(Environment &env, const ValueList &valListIdx)
 template<typename T_Elem>
 void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value &value, Object_array *pObj)
 {
-#if 0
-	if (valListIdx.empty()) return;
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
+	if (!pArrayT->PrepareModification(env.GetSignal())) return;
+	if (valListIdx.empty()) {
+		if (value.Is_number()) {
+			T_Elem num = static_cast<T_Elem>(value.GetDouble());
+			pArrayT->Fill(num);
+			return;
+		} else {
+			return;
+		}
+	}
 	IndexProcessor indexProcessor(pArrayT);
 	if (!indexProcessor.SetValues(env, valListIdx)) return;
-	if (indexProcessor.HasIterator()) {
-#if 0
-		Array::Dimensions dimsRtn;
-		indexProcessor.CreateResultDimensions(dimsRtn);
-		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(dimsRtn));
+	if (value.Is_number()) {
+		T_Elem num = static_cast<T_Elem>(value.GetDouble());
+		T_Elem *pElemTgt = pArrayT->GetPointerOrigin() + indexProcessor.GetOffsetBase();
 		size_t sizeUnit = indexProcessor.CalcSizeUnit();
-		size_t bytesUnit = sizeUnit * pArrayTRtn->GetElemBytes();
-		const T_Elem *pElemTgt = pArrayT->GetPointerOrigin() + indexProcessor.GetOffsetBase();
-		T_Elem *pElemDst = pArrayTRtn->GetPointer();
-		do {
-			::memcpy(pElemDst, pElemTgt + indexProcessor.CalcIteratorOffset(), bytesUnit);
-			pElemDst += sizeUnit;
-		} while (indexProcessor.NextIterator());
-		return Value(new Object_array(env, pArrayTRtn.release()));
-#endif
-	} else {
-#if 0
-		if (indexProcessor.IsResultScalar()) {
-			return Value(pArrayT->GetPointerOrigin()[indexProcessor.GetOffsetBase()]);
+		if (indexProcessor.HasIterator()) {
+			do {
+				T_Elem *pElemDst = pElemTgt + indexProcessor.CalcIteratorOffset();
+				for (size_t i = 0; i < sizeUnit; i++) *pElemDst++ = num;
+			} while (indexProcessor.NextIterator());
+		} else if (sizeUnit == 1) {
+			*pElemTgt = num;
 		} else {
-			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
-				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(),
-								   indexProcessor.GetOffsetBase()));
-			Array::Dimensions dimsRtn;
-			indexProcessor.CreateResultDimensions(dimsRtn);
-			pArrayTRtn->SetDimensions(dimsRtn);
-			return Value(new Object_array(env, pArrayTRtn.release()));
+			T_Elem *pElemDst = pElemTgt;
+			for (size_t i = 0; i < sizeUnit; i++) *pElemDst++ = num;
 		}
-#endif
+	} else {
+		
 	}
-#else
-	pObj->Object::EvalIndexSet(env, valListIdx, value);
-#endif
 }
 
 void Object_array::EvalIndexSet(Environment &env, const ValueList &valListIdx, const Value &value)
@@ -434,100 +425,6 @@ void Object_array::EvalIndexSet(Environment &env, const ValueList &valListIdx, c
 		//&EvalIndexSetTmpl<Complex>,
 	};
 	(*evalIndexSetTbl[GetArray()->GetElemType()])(env, valListIdx, value, this);
-}
-
-template<typename T_Elem>
-Value IndexGetTmpl(Environment &env, const Value &valueIdx, Object_array *pObj)
-{
-	Signal &sig = env.GetSignal();
-	if (!valueIdx.Is_number()) {
-		sig.SetError(ERR_ValueError, "index must be a number");
-		return Value::Nil;
-	}
-	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	Array::Dimensions::const_iterator pDim = dims.begin();
-	size_t idx = valueIdx.GetSizeT();
-	if (idx >= pDim->GetSize()) {
-		sig.SetError(ERR_OutOfRangeError, "index is out of range");
-		return Value::Nil;
-	}
-	if (pDim + 1 == dims.end()) {
-		return Value(pArrayT->GetPointer()[idx]);
-	}
-	size_t offsetBase = pArrayT->GetOffsetBase() + pDim->GetStride() * idx;
-	AutoPtr<ArrayT<T_Elem> > pArrayRtn(
-		new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(), offsetBase));
-	pArrayRtn->SetDimensions(pDim + 1, dims.end());
-	return Value(new Object_array(env, pArrayRtn.release()));
-}
-
-Value Object_array::IndexGet(Environment &env, const Value &valueIdx)
-{
-	static const IndexGetT indexGetTbl[] = {
-		nullptr,
-		&IndexGetTmpl<Int8>,
-		&IndexGetTmpl<UInt8>,
-		&IndexGetTmpl<Int16>,
-		&IndexGetTmpl<UInt16>,
-		&IndexGetTmpl<Int32>,
-		&IndexGetTmpl<UInt32>,
-		&IndexGetTmpl<Int64>,
-		&IndexGetTmpl<UInt64>,
-		&IndexGetTmpl<Float>,
-		&IndexGetTmpl<Double>,
-		//&IndexGetTmpl<Complex>,
-	};
-	return (*indexGetTbl[GetArray()->GetElemType()])(env, valueIdx, this);
-}
-
-template<typename T_Elem>
-void IndexSetTmpl(Environment &env, const Value &valueIdx, const Value &value, Object_array *pObj)
-{
-//	env.SetError(ERR_ValueError, "can't modify array content through index access");
-#if 1
-	if (!valueIdx.Is_number()) {
-		env.SetError(ERR_ValueError, "index must be a number");
-		return;
-	}
-	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
-	if (!pArrayT->PrepareModification(env.GetSignal())) return;
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	Array::Dimensions::const_iterator pDim = dims.begin();
-	size_t idx = valueIdx.GetSizeT();
-	if (idx >= pDim->GetSize()) {
-		env.SetError(ERR_OutOfRangeError, "index is out of range");
-		return;
-	}
-	T_Elem *pElemDst = pArrayT->GetPointer() + pDim->GetStride() * idx;
-	if (value.Is_number()) {
-		T_Elem numSrc = static_cast<T_Elem>(value.GetNumber());
-		if (pDim + 1 == dims.end()) {
-			*pElemDst = numSrc;
-		}
-	} else if (value.Is_array()) {
-		
-	}
-#endif
-}
-
-void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
-{
-	static const IndexSetT indexSetTbl[] = {
-		nullptr,
-		&IndexSetTmpl<Int8>,
-		&IndexSetTmpl<UInt8>,
-		&IndexSetTmpl<Int16>,
-		&IndexSetTmpl<UInt16>,
-		&IndexSetTmpl<Int32>,
-		&IndexSetTmpl<UInt32>,
-		&IndexSetTmpl<Int64>,
-		&IndexSetTmpl<UInt64>,
-		&IndexSetTmpl<Float>,
-		&IndexSetTmpl<Double>,
-		//&IndexSetTmpl<Complex>,
-	};
-	(*indexSetTbl[GetArray()->GetElemType()])(env, valueIdx, value, this);
 }
 
 template<typename T_Elem>

@@ -53,8 +53,6 @@ public:
 	virtual String ToString(bool exprFlag);
 	virtual Value EvalIndexGet(Environment &env, const ValueList &valListIdx);
 	virtual void EvalIndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
-	virtual Value IndexGet(Environment &env, const Value &valueIdx);
-	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal &sig);
 };
 
