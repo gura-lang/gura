@@ -112,7 +112,7 @@ public:
 	inline bool IsPrivateName() const { return _name[0] == '_' && _name[1] == '_'; }
 	static const Symbol *Add(const char *name);
 public:
-	static void Initialize();
+	static void Bootup();
 	static const Symbol *FromFlag(ULong flag);
 	static ULong ToFlag(const Symbol *pSymbol);
 	static ULong ToFlags(const SymbolSet &symbolSet);
@@ -698,11 +698,11 @@ private:
 	inline SymbolPool() {}
 public:
 	~SymbolPool();
-	static void Initialize();
+	static void Bootup();
 	static SymbolPool *GetInstance();
 	const Symbol *Add(const char *name);
 private:
-	void _Initialize();
+	void _Bootup();
 private:
 	inline SymbolPool(const SymbolPool &symbolPool) {}
 	inline void operator=(const SymbolPool &symbolPool) {}

@@ -133,15 +133,15 @@ ValueTypePool::~ValueTypePool()
 	}
 }
 
-void ValueTypePool::Initialize(Environment &env)
+void ValueTypePool::Bootup(Environment &env)
 {
 	if (_pInst == nullptr) {
 		_pInst = new ValueTypePool();
-		_pInst->_Initialize(env);
+		_pInst->_Bootup(env);
 	}
 }
 
-void ValueTypePool::_Initialize(Environment &env)
+void ValueTypePool::_Bootup(Environment &env)
 {
 	// primitive types. This order is significant for the following methods:
 	// - Value::IsInvalid()

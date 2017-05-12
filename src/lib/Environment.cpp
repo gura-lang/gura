@@ -71,17 +71,17 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	};
 	Environment &env = *this;
 	Signal &sig = GetSignal();
-	OAL::Initialize();
-	Symbol::Initialize();
-	Codec::Initialize();
-	Token::Initialize();
-	Parser::Initialize();
+	OAL::Bootup();
+	Symbol::Bootup();
+	Codec::Bootup();
+	Token::Bootup();
+	Parser::Bootup();
 	_frameOwner.push_back(new Frame(ENVTYPE_root, new Global()));
-	Random::Initialize(1234);	// initialize random generator SFMT
-	ValueTypePool::Initialize(env);
+	Random::Bootup();	// initialize random generator SFMT
+	ValueTypePool::Bootup(env);
 	GetGlobal()->Prepare(env);
-	Operator::Initialize(env);
-	Array::Initialize();
+	Operator::Bootup(env);
+	Array::Bootup();
 	ValueTypePool::DoPrepareClass(env);
 	OAL::SetupExecutablePath();
 	Module::ImportBuiltIns(env);

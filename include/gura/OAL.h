@@ -35,7 +35,7 @@ GURA_DLLDECLARE extern const char FileSeparator;
 
 GURA_DLLDECLARE extern const bool IgnoreCaseInPathNameFlag;
 
-GURA_DLLDECLARE void Initialize();
+GURA_DLLDECLARE void Bootup();
 GURA_DLLDECLARE bool IsCompositeFile(const char *pathName);
 GURA_DLLDECLARE bool ExpandWildCard(Environment &env, ValueList &valList, const char *pattern);
 GURA_DLLDECLARE bool IsAbsPathName(const char *pathName);

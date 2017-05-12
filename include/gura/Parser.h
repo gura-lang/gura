@@ -102,7 +102,7 @@ public:
 	Parser(Signal &sig, const String &sourceName,
 		   int cntLineStart = 0, bool enablePreparatorFlag = true);
 	~Parser();
-	static void Initialize();
+	static void Bootup();
 	void InitStack();
 	bool ParseChar(Environment &env, char ch);
 	Expr_Root *ParseStream(Environment &env, Stream &stream);

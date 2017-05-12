@@ -27,7 +27,7 @@ Parser::~Parser()
 {
 }
 
-void Parser::Initialize()
+void Parser::Bootup()
 {
 }
 

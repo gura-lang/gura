@@ -158,7 +158,7 @@ public:
 		return *this;
 	}
 	~Token();
-	static void Initialize();
+	static void Bootup();
 	inline const TokenInfo &GetTokenInfo() const { return *_pTokenInfo; }
 	inline int GetCategory() const { return _pTokenInfo->category; }
 	inline const char *GetTypeName() const { return _pTokenInfo->typeName; }

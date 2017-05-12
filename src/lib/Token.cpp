@@ -137,7 +137,7 @@ Token::~Token()
 {
 }
 
-void Token::Initialize()
+void Token::Bootup()
 {
 	static const TokenInfo *const tokenInfoTbl[] = {
 		&TOKEN_Begin,

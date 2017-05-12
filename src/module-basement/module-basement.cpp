@@ -2234,7 +2234,7 @@ Gura_DeclareFunction(randseed)
 
 Gura_ImplementFunction(randseed)
 {
-	Random::Initialize(arg.GetULong(0));
+	Random::SetRandSeed(arg.GetULong(0));
 	return Value::Nil;
 }
 

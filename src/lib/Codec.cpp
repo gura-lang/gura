@@ -44,7 +44,7 @@ Codec *Codec::CreateCodec(Signal &sig, const char *encoding, bool delcrFlag, boo
 	return pFactory->CreateCodec(delcrFlag, addcrFlag);
 }
 
-void Codec::Initialize()
+void Codec::Bootup()
 {
 	_pFactory_None = new CodecFactoryTmpl<Codec_None>("none");
 	CodecFactory::Register(_pFactory_None);

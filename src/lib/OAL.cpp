@@ -49,7 +49,7 @@ const char FileSeparatorUnix = '/';
 const bool IgnoreCaseInPathNameFlag = true;
 const char FileSeparator = '\\';
 
-void Initialize()
+void Bootup()
 {
 #if _MSC_VER < 1900
 	// two-digit exponent mode is the default in VS2015 (issue 491979)
@@ -60,14 +60,14 @@ void Initialize()
 const bool IgnoreCaseInPathNameFlag = true;
 const char FileSeparator = '/';
 
-void Initialize()
+void Bootup()
 {
 }
 #elif defined(GURA_ON_LINUX)
 const bool IgnoreCaseInPathNameFlag = false;
 const char FileSeparator = '/';
 
-void Initialize()
+void Bootup()
 {
 }
 #endif

@@ -13,7 +13,12 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Random
 //-----------------------------------------------------------------------------
-void Random::Initialize(ULong seed)
+void Random::Bootup()
+{
+	SetRandSeed(1234);
+}
+
+void Random::SetRandSeed(ULong seed)
 {
 	::dsfmt_gv_init_gen_rand(seed);	// initialize random generator dSFMT
 }

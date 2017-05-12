@@ -15,7 +15,7 @@ Array::~Array()
 {
 }
 
-void Array::Initialize()
+void Array::Bootup()
 {
 	static const struct {
 		const char *name;

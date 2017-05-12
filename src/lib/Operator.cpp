@@ -1541,7 +1541,7 @@ void OperatorEntry::SetError_InvalidValueType(Signal &sig,
 //-----------------------------------------------------------------------------
 // Operator initialization
 //-----------------------------------------------------------------------------
-void Operator::Initialize(Environment &env)
+void Operator::Bootup(Environment &env)
 {
 	// unary operators
 	env.SetOperator(OPTYPE_Pos,				Operator::Pos				= new Operator_Pos());

@@ -180,7 +180,7 @@ public:
 protected:
 	virtual ~Array();
 public:
-	static void Initialize();
+	static void Bootup();
 public:
 	inline ElemType GetElemType() const { return _elemType; }
 	inline void SetMemory(Memory *pMemory, size_t offsetBase) {

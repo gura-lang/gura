@@ -60,9 +60,9 @@ bool Symbol::IsFlowControlSymbol() const
 #endif
 }
 
-void Symbol::Initialize()
+void Symbol::Bootup()
 {
-	SymbolPool::Initialize();
+	SymbolPool::Bootup();
 	Empty			= Add("");
 	Excl			= Add("!");
 	Dollar			= Add("$");
@@ -377,15 +377,15 @@ SymbolPool::~SymbolPool()
 	}
 }
 
-void SymbolPool::Initialize()
+void SymbolPool::Bootup()
 {
 	if (_pInst == nullptr) {
 		_pInst = new SymbolPool();
-		_pInst->_Initialize();
+		_pInst->_Bootup();
 	}
 }
 
-void SymbolPool::_Initialize()
+void SymbolPool::_Bootup()
 {
 	Gura_RealizeSymbol(__arg__);
 	Gura_RealizeSymbol(__del__);

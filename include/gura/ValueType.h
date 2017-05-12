@@ -216,7 +216,7 @@ private:
 	inline ValueTypePool() {}
 public:
 	~ValueTypePool();
-	static void Initialize(Environment &env);
+	static void Bootup(Environment &env);
 	static ValueTypePool *GetInstance();
 	inline ValueTypeList &GetList() { return _valueTypeList; }
 	inline const ValueTypeList &GetList() const { return _valueTypeList; }
@@ -225,7 +225,7 @@ public:
 	ValueTypeInfo *Lookup(ValueType valType);
 	ValueTypeInfo *LookupWithCheck(ValueType valType);
 private:
-	void _Initialize(Environment &env);
+	void _Bootup(Environment &env);
 private:
 	inline ValueTypePool(const ValueTypePool &valTypeInfoPool) {}
 	inline void operator=(const ValueTypePool &valTypeInfoPool) {}

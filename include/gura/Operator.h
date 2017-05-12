@@ -284,7 +284,7 @@ public:
 	static void SetError_DivideByZero(Signal &sig);
 	static void SetError_MathDiffError(Signal &sig);
 	static void SetError_MathOptimizeError(Signal &sig);
-	static void Initialize(Environment &env);
+	static void Bootup(Environment &env);
 private:
 	static void AssignOperatorBasic(Environment &env);
 };
