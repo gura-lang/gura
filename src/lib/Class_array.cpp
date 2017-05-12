@@ -137,7 +137,7 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 	if (!indexProcessor.SetValues(env, valListIdx)) return Value::Nil;
 	if (indexProcessor.HasIterator()) {
 		Array::Dimensions dimsRtn;
-		indexProcessor.CreateResultDimensions(dimsRtn);
+		indexProcessor.MakeResultDimensions(dimsRtn);
 		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(dimsRtn));
 		size_t sizeUnit = indexProcessor.CalcSizeUnit();
 		size_t bytesUnit = sizeUnit * pArrayTRtn->GetElemBytes();
@@ -156,7 +156,7 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(),
 								   indexProcessor.GetOffsetBase()));
 			Array::Dimensions dimsRtn;
-			indexProcessor.CreateResultDimensions(dimsRtn);
+			indexProcessor.MakeResultDimensions(dimsRtn);
 			pArrayTRtn->SetDimensions(dimsRtn);
 			return Value(new Object_array(env, pArrayTRtn.release()));
 		}

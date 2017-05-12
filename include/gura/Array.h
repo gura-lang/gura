@@ -104,7 +104,7 @@ public:
 	public:
 		IndexProcessor(const Array *pArray);
 		bool SetValues(Environment &env, const ValueList &valListIdx);
-		void CreateResultDimensions(Dimensions &dimsRtn);
+		void MakeResultDimensions(Dimensions &dimsRtn);
 		inline bool HasIterator() const { return _pIndexPackOwner.get() != nullptr; }
 		inline size_t GetOffsetBase() const { return _offsetBase; }
 		inline size_t CalcIteratorOffset() const { return _pIndexPackOwner->CalcOffset(); }

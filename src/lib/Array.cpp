@@ -1463,7 +1463,7 @@ bool Array::IndexProcessor::SetValues(Environment &env, const ValueList &valList
 	return true;
 }
 
-void Array::IndexProcessor::CreateResultDimensions(Dimensions &dimsRtn)
+void Array::IndexProcessor::MakeResultDimensions(Dimensions &dimsRtn)
 {
 	if (_pIndexPackOwner.get() == nullptr) {
 		dimsRtn.reserve(std::distance(_pDim, _dims.end()));
