@@ -198,10 +198,10 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	}
 	Array::Indexer indexer(pArrayT);
 	if (!indexer.InitIndices(env, valListIdx)) return;
+	T_Elem *pElemTgt = pArrayT->GetPointerOrigin() + indexer.GetOffsetBase();
+	size_t elemNumUnit = indexer.GetElemNumUnit();
 	if (value.Is_number()) {
 		T_Elem num = static_cast<T_Elem>(value.GetDouble());
-		T_Elem *pElemTgt = pArrayT->GetPointerOrigin() + indexer.GetOffsetBase();
-		size_t elemNumUnit = indexer.GetElemNumUnit();
 		if (indexer.HasGenerator()) {
 			do {
 				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
@@ -215,6 +215,40 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			T_Elem *pElemDst = pElemTgt;
 			for (size_t i = 0; i < elemNumUnit; i++) {
 				*pElemDst++ = num;
+			}
+		}
+	} else if (value.IsListOrIterator()) {
+		AutoPtr<Iterator> pIterator(value.CreateIterator(env.GetSignal()));
+		if (env.IsSignalled()) return;
+		Value valueEach;
+		if (indexer.HasGenerator()) {
+			do {
+				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
+				for (size_t i = 0; i < elemNumUnit; i++) {
+					if (!pIterator->Next(env, valueEach)) return;
+					if (!valueEach.Is_number()) {
+						env.SetError(ERR_ValueError, "stored value must be a number");
+						return;
+					}
+					*pElemDst++ = static_cast<T_Elem>(valueEach.GetDouble());
+				}
+			} while (indexer.NextGenerator());
+		} else if (elemNumUnit == 1) {
+			if (!pIterator->Next(env, valueEach)) return;
+			if (!valueEach.Is_number()) {
+				env.SetError(ERR_ValueError, "stored value must be a number");
+				return;
+			}
+			*pElemTgt = static_cast<T_Elem>(valueEach.GetDouble());
+		} else {
+			T_Elem *pElemDst = pElemTgt;
+			for (size_t i = 0; i < elemNumUnit; i++) {
+				if (!pIterator->Next(env, valueEach)) return;
+				if (!valueEach.Is_number()) {
+					env.SetError(ERR_ValueError, "stored value must be a number");
+					return;
+				}
+				*pElemDst++ = static_cast<T_Elem>(valueEach.GetDouble());
 			}
 		}
 	} else {
