@@ -140,13 +140,13 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 		Array::Dimensions dimsRtn;
 		indexProcessor.MakeResultDimensions(dimsRtn);
 		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(dimsRtn));
-		size_t sizeUnit = indexProcessor.CalcSizeUnit();
-		size_t bytesUnit = sizeUnit * pArrayTRtn->GetElemBytes();
+		size_t elemNumUnit = indexProcessor.CalcElemNumUnit();
+		size_t bytesUnit = elemNumUnit * pArrayTRtn->GetElemBytes();
 		const T_Elem *pElemTgt = pArrayT->GetPointerOrigin() + indexProcessor.GetOffsetBase();
 		T_Elem *pElemDst = pArrayTRtn->GetPointer();
 		do {
 			::memcpy(pElemDst, pElemTgt + indexProcessor.GenerateOffset(), bytesUnit);
-			pElemDst += sizeUnit;
+			pElemDst += elemNumUnit;
 		} while (indexProcessor.NextGenerator());
 		valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
 	} else if (indexProcessor.IsTargetScalar()) {
@@ -201,19 +201,19 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	if (value.Is_number()) {
 		T_Elem num = static_cast<T_Elem>(value.GetDouble());
 		T_Elem *pElemTgt = pArrayT->GetPointerOrigin() + indexProcessor.GetOffsetBase();
-		size_t sizeUnit = indexProcessor.CalcSizeUnit();
+		size_t elemNumUnit = indexProcessor.CalcElemNumUnit();
 		if (indexProcessor.HasGenerator()) {
 			do {
 				T_Elem *pElemDst = pElemTgt + indexProcessor.GenerateOffset();
-				for (size_t i = 0; i < sizeUnit; i++) {
+				for (size_t i = 0; i < elemNumUnit; i++) {
 					*pElemDst++ = num;
 				}
 			} while (indexProcessor.NextGenerator());
-		} else if (sizeUnit == 1) {
+		} else if (elemNumUnit == 1) {
 			*pElemTgt = num;
 		} else {
 			T_Elem *pElemDst = pElemTgt;
-			for (size_t i = 0; i < sizeUnit; i++) {
+			for (size_t i = 0; i < elemNumUnit; i++) {
 				*pElemDst++ = num;
 			}
 		}

@@ -51,15 +51,15 @@ public:
 	class GURA_DLLDECLARE Dimension {
 	private:
 		size_t _size;
-		size_t _sizeProd;
+		size_t _elemNumProd;
 		size_t _stride;
 	public:
-		inline Dimension() : _size(0), _sizeProd(0), _stride(0) {}
-		inline Dimension(size_t size) : _size(size), _sizeProd(0), _stride(0) {}
+		inline Dimension() : _size(0), _elemNumProd(0), _stride(0) {}
+		inline Dimension(size_t size) : _size(size), _elemNumProd(0), _stride(0) {}
 		inline size_t GetSize() const { return _size; }
-		inline size_t GetSizeProd() const { return _sizeProd; }
+		inline size_t GetElemNumProd() const { return _elemNumProd; }
 		inline size_t GetStride() const { return _stride; }
-		inline void SetSizeProd(size_t sizeProd) { _sizeProd = sizeProd; }
+		inline void SetElemNumProd(size_t elemNumProd) { _elemNumProd = elemNumProd; }
 		inline void SetStride(size_t stride) { _stride = stride; }
 	};
 	class GURA_DLLDECLARE Dimensions : public std::vector<Dimension> {
@@ -109,8 +109,8 @@ public:
 		inline size_t GetOffsetBase() const { return _offsetBase; }
 		inline size_t GenerateOffset() const { return _pGeneratorOwner->CalcOffset(); }
 		inline bool NextGenerator() { return _pGeneratorOwner->Next(); }
-		inline size_t CalcSizeUnit() const {
-			return (_pDim == _dims.end())? 1 : _pDim->GetSizeProd();
+		inline size_t CalcElemNumUnit() const {
+			return (_pDim == _dims.end())? 1 : _pDim->GetElemNumProd();
 		}
 		inline bool IsTargetScalar() const { return _pDim == _dims.end(); }
 	};
