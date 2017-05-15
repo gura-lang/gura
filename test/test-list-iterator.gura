@@ -749,6 +749,9 @@ testcase('test of iterable#flatten()') {
 	println(x):nomap
 	println(x.flatten().join(', '))
 	println((x.flatten():bfs).join(', '))
+	x = [1, 2, nil, 3, 4]
+	x[2] = 1..
+	tester(`x.flatten():list)
 }
 testcase('iterator#until() and iterator#while() always return finite iterators') {
 	x = 0..
