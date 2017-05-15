@@ -1380,14 +1380,10 @@ Gura_ImplementMethod(list, flat)
 	Object_list *pThis = Object_list::GetObjectThis(arg);
 	Iterator_Walk::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
 		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
-	bool walkListFlag = true;
-	bool walkIteratorFlag = true;
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Nil;
-	AutoPtr<Iterator> pIterator(new Iterator_Walk(
-									pIteratorSrc, mode, walkListFlag, walkIteratorFlag));
+	AutoPtr<Iterator> pIterator(new Iterator_Walk(pIteratorSrc, mode));
 	pIterator->SetFiniteness(Iterator::Finite);
-	//return pIterator->ToList(env, true, false);
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
@@ -2035,12 +2031,10 @@ Gura_ImplementMethod(list, walk)
 	Object_list *pThis = Object_list::GetObjectThis(arg);
 	Iterator_Walk::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
 		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
-	bool walkListFlag = true;
-	bool walkIteratorFlag = true;
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Nil;
-	AutoPtr<Iterator> pIterator(new Iterator_Walk(
-									pIteratorSrc, mode, walkListFlag, walkIteratorFlag));
+	AutoPtr<Iterator> pIterator(new Iterator_Walk(pIteratorSrc, mode));
+	pIterator->SetFiniteness(Iterator::Infinite);
 	return ReturnIterator(env, arg, pIterator.release());
 }
 

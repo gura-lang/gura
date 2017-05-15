@@ -566,8 +566,9 @@ Gura_DeclareMethod(iterator, flat)
 		"- `:bfs` .. Searches in breadth-first order.\n"
 		"\n"
 		"Unlike `iterator#walk()`, `iterator#flat()` creates an iterator without an infinite flag.\n"
-		"This means that the created iterator can be converted to a list.\n"
-		"You have to confirm that the source iterable doesn't contain any infinite iterators.\n"
+		"This means that the created iterator can always be converted to a list.\n"
+		"You have to assure that the source iterable doesn't contain any infinite iterators\n"
+		"to avoid the process from hanging up.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en()
 		"\n"
@@ -587,11 +588,8 @@ Gura_ImplementMethod(iterator, flat)
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	Iterator_Walk::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
 		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
-	bool walkListFlag = true;
-	bool walkIteratorFlag = true;
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
-	AutoPtr<Iterator> pIterator(new Iterator_Walk(
-									pIteratorSrc, mode, walkListFlag, walkIteratorFlag));
+	AutoPtr<Iterator> pIterator(new Iterator_Walk(pIteratorSrc, mode));
 	pIterator->SetFiniteness(Iterator::Finite);
 	return ReturnIterator(env, arg, pIterator.release());
 }
@@ -1608,11 +1606,9 @@ Gura_ImplementMethod(iterator, walk)
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	Iterator_Walk::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
 		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
-	bool walkListFlag = true;
-	bool walkIteratorFlag = true;
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
-	AutoPtr<Iterator> pIterator(new Iterator_Walk(
-								   pIteratorSrc, mode, walkListFlag, walkIteratorFlag));
+	AutoPtr<Iterator> pIterator(new Iterator_Walk(pIteratorSrc, mode));
+	pIterator->SetFiniteness(Iterator::Infinite);
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
