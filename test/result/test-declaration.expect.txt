@@ -693,7 +693,7 @@ iterator
   iterator#filter(criteria?) {block?}
   iterator#find(criteria?):[index]
   iterator#finite():reduce
-  iterator#flat():[bfs,dfs] {block?}
+  iterator#flatten():[bfs,dfs] {block?}
   iterator#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}
   iterator#format(format:string):map {block?}
   iterator#head(n:number):map {block?}
@@ -731,7 +731,6 @@ iterator
   iterator#tail(n:number) {block?}
   iterator#until(criteria) {block?}
   iterator#variance()
-  iterator#walk():[bfs,dfs] {block?}
   iterator#while (criteria) {block?}
 list
   list#add(elem+):reduce
@@ -751,7 +750,7 @@ list
   list#filter(criteria?) {block?}
   list#find(criteria?):[index]
   list#first()
-  list#flat():[bfs,dfs] {block?}
+  list#flatten():[bfs,dfs] {block?}
   list#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}
   list#format(format:string):map {block?}
   list#get(index:number):flat:map
@@ -793,7 +792,6 @@ list
   list#tail(n:number):map {block?}
   list#until(criteria) {block?}
   list#variance()
-  list#walk():[bfs,dfs] {block?}
   list#while (criteria) {block?}
   list.zip(values+):static {block?}
 matrix

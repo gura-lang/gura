@@ -171,7 +171,7 @@ expected error occurs: ValueError: no items
 ======== #19 ========
 
 [[1, 2, 3, nil, 4, 5, nil, 6, 7].each():xiter] .. [1, 2, 3, 4, 5, 6, 7]
-[[1, 2, 3], 4, 5, [6, 7, [8, 9, [10, 11]]]].flat():list .. [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[[1, 2, 3], 4, 5, [6, 7, [8, 9, [10, 11]]]].flatten():list .. [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 [].sum() .. nil
 [].each().sum() .. nil
 [].prod() .. nil
@@ -642,7 +642,7 @@ expected error occurs: IteratorError: cannot evaluate infinite iterator
 x.sum() .. @@{{4, 9, 1}, {5, 14, 9}, {7, 13, 9}}
 x.average() .. @@{{1.33333, 3, 0.333333}, {1.66667, 4.66667, 3}, {2.33333, 4.33333, 3}}
 
-======== #42 test of iterable#flat() ========
+======== #42 test of iterable#flatten() ========
 
 [[1, 2, 3, [4, [5, 6], 7], 8], [9, 10, 11], 12]
 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12

@@ -1801,16 +1801,16 @@ void Iterator_Concat::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 }
 
 //-----------------------------------------------------------------------------
-// Iterator_Walk
+// Iterator_Flatten
 //-----------------------------------------------------------------------------
-Iterator_Walk::Iterator_Walk(Iterator *pIterator, Mode mode) :
+Iterator_Flatten::Iterator_Flatten(Iterator *pIterator, Mode mode) :
 	Iterator(pIterator->GetFiniteness()), _mode(mode)
 {
 	_iterDeque.push_back(pIterator);
 	_pIteratorCur = pIterator;
 }
 
-Iterator_Walk::~Iterator_Walk()
+Iterator_Flatten::~Iterator_Flatten()
 {
 	foreach (IteratorDeque, ppIterator, _iterDeque) {
 		Iterator *pIterator = *ppIterator;
@@ -1818,12 +1818,12 @@ Iterator_Walk::~Iterator_Walk()
 	}
 }
 
-Iterator *Iterator_Walk::GetSource()
+Iterator *Iterator_Flatten::GetSource()
 {
 	return _pIteratorCur;
 }
 
-bool Iterator_Walk::DoNext(Environment &env, Value &value)
+bool Iterator_Flatten::DoNext(Environment &env, Value &value)
 {
 	Signal &sig = env.GetSignal();
 	while (_pIteratorCur != nullptr) {
@@ -1831,6 +1831,10 @@ bool Iterator_Walk::DoNext(Environment &env, Value &value)
 			if (!value.IsListOrIterator()) return true;
 			Iterator *pIterator = value.CreateIterator(sig);
 			if (pIterator == nullptr) return false;
+			if (pIterator->IsInfinite()) {
+				SetError_InfiniteNotAllowed(sig);
+				return false;
+			}
 			_iterDeque.push_back(pIterator);
 			if (_mode == MODE_DepthFirstSearch) {
 				_pIteratorCur = pIterator;
@@ -1849,14 +1853,14 @@ bool Iterator_Walk::DoNext(Environment &env, Value &value)
 	return false;
 }
 
-String Iterator_Walk::ToString() const
+String Iterator_Flatten::ToString() const
 {
 	String rtn;
-	rtn += "walk";
+	rtn += "flatten";
 	return rtn;
 }
 
-void Iterator_Walk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+void Iterator_Flatten::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 

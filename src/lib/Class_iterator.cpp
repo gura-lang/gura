@@ -549,8 +549,8 @@ Gura_ImplementMethod(iterator, find)
 	return value;
 }
 
-// iterator#flat():[dfs,bfs] {block?}
-Gura_DeclareMethod(iterator, flat)
+// iterator#flatten():[dfs,bfs] {block?}
+Gura_DeclareMethod(iterator, flatten)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(dfs));
@@ -565,32 +565,26 @@ Gura_DeclareMethod(iterator, flat)
 		"- `:dfs` .. Searches in depth-first order. This is the default behavior.\n"
 		"- `:bfs` .. Searches in breadth-first order.\n"
 		"\n"
-		"Unlike `iterator#walk()`, `iterator#flat()` creates an iterator without an infinite flag.\n"
-		"This means that the created iterator can always be converted to a list.\n"
-		"You have to assure that the source iterable doesn't contain any infinite iterators\n"
-		"to avoid the process from hanging up.\n"
-		"\n"
 		GURA_HELPTEXT_ITERATOR_en()
 		"\n"
 		"Below is an example:\n"
 		"\n"
 		"    x = [[`A, `B, `C], [`D, `E, [`F, `G, `H], `I, `J], `K, `L]\n"
 		"    \n"
-		"    y = x.flat():dfs\n"
+		"    y = x.flattten():dfs\n"
 		"    // y generates `A, `B, `C, `D, `E, `F, `G, `H, `I, `J, `K, `L\n"
 		"    \n"
-		"    y = x.flat():bfs\n"
+		"    y = x.flatten():bfs\n"
 		"    // y generates `K, `L, `A, `B, `C, `D, `E, `I, `J, `F, `G, `H\n");
 }
 
-Gura_ImplementMethod(iterator, flat)
+Gura_ImplementMethod(iterator, flatten)
 {
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
-	Iterator_Walk::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
-		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
+	Iterator_Flatten::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
+		Iterator_Flatten::MODE_BreadthFirstSearch : Iterator_Flatten::MODE_DepthFirstSearch;
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
-	AutoPtr<Iterator> pIterator(new Iterator_Walk(pIteratorSrc, mode));
-	pIterator->SetFiniteness(Iterator::Finite);
+	AutoPtr<Iterator> pIterator(new Iterator_Flatten(pIteratorSrc, mode));
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
@@ -1568,6 +1562,7 @@ Gura_ImplementMethod(iterator, variance)
 	return result;
 }
 
+#if 0
 // iterator#walk():[dfs,bfs] {block?}
 Gura_DeclareMethod(iterator, walk)
 {
@@ -1584,9 +1579,7 @@ Gura_DeclareMethod(iterator, walk)
 		"- `:dfs` .. Searches in depth-first order. This is the default behavior.\n"
 		"- `:bfs` .. Searches in breadth-first order.\n"
 		"\n"
-		"Unlike `iterator#flat()`, `iterator#walk()` creates an iterator with an infinite flag.\n"
-		"This means that the created iterator is intended only for iteration and\n"
-		"can not be converted to a list.\n"
+		"`iterator#walk()` is just an alias of `iterator#flat()` and they both have the same behavior."
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en()
 		"\n"
@@ -1604,13 +1597,13 @@ Gura_DeclareMethod(iterator, walk)
 Gura_ImplementMethod(iterator, walk)
 {
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
-	Iterator_Walk::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
-		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
+	Iterator_Flatten::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
+		Iterator_Flatten::MODE_BreadthFirstSearch : Iterator_Flatten::MODE_DepthFirstSearch;
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
-	AutoPtr<Iterator> pIterator(new Iterator_Walk(pIteratorSrc, mode));
-	pIterator->SetFiniteness(Iterator::Infinite);
+	AutoPtr<Iterator> pIterator(new Iterator_Flatten(pIteratorSrc, mode));
 	return ReturnIterator(env, arg, pIterator.release());
 }
+#endif
 
 // iterator#while(criteria) {block?}
 Gura_DeclareMethodAlias(iterator, while_, "while")
@@ -1667,7 +1660,7 @@ void Class_iterator::DoPrepare(Environment &env)
 	Gura_AssignMethod(iterator, each);
 	Gura_AssignMethod(iterator, filter);
 	Gura_AssignMethod(iterator, find);
-	Gura_AssignMethod(iterator, flat);
+	Gura_AssignMethod(iterator, flatten);
 	Gura_AssignMethod(iterator, fold);
 	Gura_AssignMethod(iterator, format);
 	Gura_AssignMethod(iterator, head);
@@ -1701,7 +1694,7 @@ void Class_iterator::DoPrepare(Environment &env)
 	Gura_AssignMethod(iterator, tail);
 	Gura_AssignMethod(iterator, until);
 	Gura_AssignMethod(iterator, variance);
-	Gura_AssignMethod(iterator, walk);
+	//Gura_AssignMethod(iterator, walk);
 	Gura_AssignMethod(iterator, while_);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);

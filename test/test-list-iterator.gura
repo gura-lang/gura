@@ -274,7 +274,7 @@ testcase {
 }
 testcase {
 	tester(`[[1, 2, 3, nil, 4, 5, nil, 6, 7].each():xiter])
-	tester(`[[1, 2, 3], 4, 5, [6, 7, [8, 9, [10, 11]]]].flat():list)
+	tester(`[[1, 2, 3], 4, 5, [6, 7, [8, 9, [10, 11]]]].flatten():list)
 	tester(`[].sum())
 	tester(`[].each().sum())
 	tester(`[].prod())
@@ -740,15 +740,15 @@ testcase('test of iterable#sum(), average() and prod()') {
 	tester(`x.average())
 	//tester(`x.prod())
 }
-testcase('test of iterable#flat()') {
+testcase('test of iterable#flatten()') {
 	x = [[1, 2, 3, [4, [5, 6], 7], 8], [9, 10, 11], 12].each()
 	println([x]):nomap
-	println(x.flat().join(', '))
-	println((x.flat():bfs).join(', '))
+	println(x.flatten().join(', '))
+	println((x.flatten():bfs).join(', '))
 	x = [[1, 2, 3, [4, [5, 6], 7], 8], [9, 10, 11], 12]
 	println(x):nomap
-	println(x.flat().join(', '))
-	println((x.flat():bfs).join(', '))
+	println(x.flatten().join(', '))
+	println((x.flatten():bfs).join(', '))
 }
 testcase('iterator#until() and iterator#while() always return finite iterators') {
 	x = 0..

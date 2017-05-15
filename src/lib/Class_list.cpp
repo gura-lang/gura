@@ -1364,8 +1364,8 @@ Gura_ImplementMethod(list, find)
 	return value;
 }
 
-// list#flat():[dfs,bfs] {block?}
-Gura_DeclareMethod(list, flat)
+// list#flatten():[dfs,bfs] {block?}
+Gura_DeclareMethod(list, flatten)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(dfs));
@@ -1374,16 +1374,15 @@ Gura_DeclareMethod(list, flat)
 	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
-Gura_ImplementMethod(list, flat)
+Gura_ImplementMethod(list, flatten)
 {
 	Signal &sig = env.GetSignal();
 	Object_list *pThis = Object_list::GetObjectThis(arg);
-	Iterator_Walk::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
-		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
+	Iterator_Flatten::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
+		Iterator_Flatten::MODE_BreadthFirstSearch : Iterator_Flatten::MODE_DepthFirstSearch;
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Nil;
-	AutoPtr<Iterator> pIterator(new Iterator_Walk(pIteratorSrc, mode));
-	pIterator->SetFiniteness(Iterator::Finite);
+	AutoPtr<Iterator> pIterator(new Iterator_Flatten(pIteratorSrc, mode));
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
@@ -2015,6 +2014,7 @@ Gura_ImplementMethod(list, variance)
 	return result;
 }
 
+#if 0
 // list#walk():[dfs,bfs] {block?}
 Gura_DeclareMethod(list, walk)
 {
@@ -2029,14 +2029,14 @@ Gura_ImplementMethod(list, walk)
 {
 	Signal &sig = env.GetSignal();
 	Object_list *pThis = Object_list::GetObjectThis(arg);
-	Iterator_Walk::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
-		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
+	Iterator_Flatten::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
+		Iterator_Flatten::MODE_BreadthFirstSearch : Iterator_Flatten::MODE_DepthFirstSearch;
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Nil;
-	AutoPtr<Iterator> pIterator(new Iterator_Walk(pIteratorSrc, mode));
-	pIterator->SetFiniteness(Iterator::Infinite);
+	AutoPtr<Iterator> pIterator(new Iterator_Flatten(pIteratorSrc, mode));
 	return ReturnIterator(env, arg, pIterator.release());
 }
+#endif
 
 // list#while(criteria) {block?}
 Gura_DeclareMethodAlias(list, while_, "while")
@@ -2102,7 +2102,7 @@ void Class_list::DoPrepare(Environment &env)
 	Gura_AssignMethod(list, each);
 	Gura_AssignMethod(list, filter);
 	Gura_AssignMethod(list, find);
-	Gura_AssignMethod(list, flat);
+	Gura_AssignMethod(list, flatten);
 	Gura_AssignMethod(list, fold);
 	Gura_AssignMethod(list, format);
 	Gura_AssignMethod(list, head);
@@ -2136,7 +2136,7 @@ void Class_list::DoPrepare(Environment &env)
 	Gura_AssignMethod(list, tail);
 	Gura_AssignMethod(list, until);
 	Gura_AssignMethod(list, variance);
-	Gura_AssignMethod(list, walk);
+	//Gura_AssignMethod(list, walk);
 	Gura_AssignMethod(list, while_);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);

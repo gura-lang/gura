@@ -795,9 +795,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Iterator_Walk
+// Iterator_Flatten
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Iterator_Walk : public Iterator {
+class GURA_DLLDECLARE Iterator_Flatten : public Iterator {
 public:
 	enum Mode {
 		MODE_DepthFirstSearch,
@@ -808,8 +808,8 @@ private:
 	Iterator *_pIteratorCur;
 	Mode _mode;
 public:
-	Iterator_Walk(Iterator *pIterator, Mode mode);
-	~Iterator_Walk();
+	Iterator_Flatten(Iterator *pIterator, Mode mode);
+	~Iterator_Flatten();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
