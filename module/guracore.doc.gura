@@ -1301,7 +1301,6 @@ list.clear
 list.combination
 list.erase
 list.first
-list.flat
 list.get
 list.insert
 list.isempty
@@ -1349,7 +1348,7 @@ iterator.cycle
 iterator.each
 iterator.filter
 iterator.find
-iterator.flat
+iterator.flatten
 iterator.fold
 iterator.format
 iterator.head
@@ -1382,7 +1381,6 @@ iterator.sum
 iterator.tail
 iterator.until
 iterator.variance
-iterator.walk
 iterator.while
 )}
 
@@ -1592,10 +1590,10 @@ pointer.copyto
 pointer.decode
 pointer.dump
 pointer.encodeuri
-pointer.each@char
-pointer.each@uchar
-pointer.each@short
-pointer.each@ushort
+pointer.each@int8
+pointer.each@uint8
+pointer.each@int16
+pointer.each@uint16
 pointer.each@int32
 pointer.each@uint32
 pointer.each@int64
@@ -1603,10 +1601,10 @@ pointer.each@uint64
 pointer.each@float
 pointer.each@double
 pointer.forward
-pointer.get@char
-pointer.get@uchar
-pointer.get@short
-pointer.get@ushort
+pointer.get@int8
+pointer.get@uint8
+pointer.get@int16
+pointer.get@uint16
 pointer.get@int32
 pointer.get@uint32
 pointer.get@int64
@@ -1616,10 +1614,10 @@ pointer.get@double
 pointer.head
 pointer.hex
 pointer.pack
-pointer.put@char
-pointer.put@uchar
-pointer.put@short
-pointer.put@ushort
+pointer.put@int8
+pointer.put@uint8
+pointer.put@int16
+pointer.put@uint16
 pointer.put@int32
 pointer.put@uint32
 pointer.put@int64
