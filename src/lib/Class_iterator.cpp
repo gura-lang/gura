@@ -583,8 +583,7 @@ Gura_ImplementMethod(iterator, flatten)
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	Iterator_Flatten::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
 		Iterator_Flatten::MODE_BreadthFirstSearch : Iterator_Flatten::MODE_DepthFirstSearch;
-	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
-	AutoPtr<Iterator> pIterator(new Iterator_Flatten(pIteratorSrc, mode));
+	AutoPtr<Iterator> pIterator(new Iterator_Flatten(pThis->GetIterator()->Clone(), mode));
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
@@ -1562,49 +1561,6 @@ Gura_ImplementMethod(iterator, variance)
 	return result;
 }
 
-#if 0
-// iterator#walk():[dfs,bfs] {block?}
-Gura_DeclareMethod(iterator, walk)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(dfs));
-	DeclareAttr(Gura_Symbol(bfs));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"Creates an iterator that searches items recursively if they are lists or iterators.\n"
-		"\n"
-		"Specifying an attribute could customize searching order as below:\n"
-		"\n"
-		"- `:dfs` .. Searches in depth-first order. This is the default behavior.\n"
-		"- `:bfs` .. Searches in breadth-first order.\n"
-		"\n"
-		"`iterator#walk()` is just an alias of `iterator#flat()` and they both have the same behavior."
-		"\n"
-		GURA_HELPTEXT_ITERATOR_en()
-		"\n"
-		"Below is an example:\n"
-		"\n"
-		"    x = [[`A, `B, `C], [`D, `E, [`F, `G, `H], `I, `J], `K, `L]\n"
-		"    \n"
-		"    y = x.walk():dfs\n"
-		"    // y generates `A, `B, `C, `D, `E, `F, `G, `H, `I, `J, `K, `L\n"
-		"    \n"
-		"    y = x.walk():bfs\n"
-		"    // y generates `K, `L, `A, `B, `C, `D, `E, `I, `J, `F, `G, `H\n");
-}
-
-Gura_ImplementMethod(iterator, walk)
-{
-	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
-	Iterator_Flatten::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
-		Iterator_Flatten::MODE_BreadthFirstSearch : Iterator_Flatten::MODE_DepthFirstSearch;
-	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
-	AutoPtr<Iterator> pIterator(new Iterator_Flatten(pIteratorSrc, mode));
-	return ReturnIterator(env, arg, pIterator.release());
-}
-#endif
-
 // iterator#while(criteria) {block?}
 Gura_DeclareMethodAlias(iterator, while_, "while")
 {
@@ -1694,7 +1650,6 @@ void Class_iterator::DoPrepare(Environment &env)
 	Gura_AssignMethod(iterator, tail);
 	Gura_AssignMethod(iterator, until);
 	Gura_AssignMethod(iterator, variance);
-	//Gura_AssignMethod(iterator, walk);
 	Gura_AssignMethod(iterator, while_);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);

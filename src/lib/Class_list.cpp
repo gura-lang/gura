@@ -2014,30 +2014,6 @@ Gura_ImplementMethod(list, variance)
 	return result;
 }
 
-#if 0
-// list#walk():[dfs,bfs] {block?}
-Gura_DeclareMethod(list, walk)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(dfs));
-	DeclareAttr(Gura_Symbol(bfs));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
-}
-
-Gura_ImplementMethod(list, walk)
-{
-	Signal &sig = env.GetSignal();
-	Object_list *pThis = Object_list::GetObjectThis(arg);
-	Iterator_Flatten::Mode mode = arg.IsSet(Gura_Symbol(bfs))?
-		Iterator_Flatten::MODE_BreadthFirstSearch : Iterator_Flatten::MODE_DepthFirstSearch;
-	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
-	if (sig.IsSignalled()) return Value::Nil;
-	AutoPtr<Iterator> pIterator(new Iterator_Flatten(pIteratorSrc, mode));
-	return ReturnIterator(env, arg, pIterator.release());
-}
-#endif
-
 // list#while(criteria) {block?}
 Gura_DeclareMethodAlias(list, while_, "while")
 {
@@ -2136,7 +2112,6 @@ void Class_list::DoPrepare(Environment &env)
 	Gura_AssignMethod(list, tail);
 	Gura_AssignMethod(list, until);
 	Gura_AssignMethod(list, variance);
-	//Gura_AssignMethod(list, walk);
 	Gura_AssignMethod(list, while_);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
