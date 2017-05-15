@@ -218,8 +218,10 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			}
 		}
 	} else if (value.IsListOrIterator()) {
-		AutoPtr<Iterator> pIterator(value.CreateIterator(env.GetSignal()));
+		AutoPtr<Iterator> pIteratorSrc(value.CreateIterator(env.GetSignal()));
 		if (env.IsSignalled()) return;
+		AutoPtr<Iterator> pIterator(
+			new Iterator_Flatten(pIteratorSrc.release(), Iterator_Flatten::MODE_DepthFirstSearch));
 		Value valueEach;
 		if (indexer.HasGenerator()) {
 			do {
