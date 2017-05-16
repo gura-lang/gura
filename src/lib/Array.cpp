@@ -408,7 +408,7 @@ void Array::CopyElements(Array *pArrayDst, const Array *pArraySrc)
 			&CopyElementsTmpl<Complex, UInt64>,
 			&CopyElementsTmpl<Complex, Float>,
 			&CopyElementsTmpl<Complex, Double>,
-			//&CopyElementsTmpl<Complex, Complex>,
+			&CopyElementsTmpl<Complex, Complex>,
 		},
 	};
 	(*copyElementsTbl[pArrayDst->GetElemType()][pArraySrc->GetElemType()])(pArrayDst, pArraySrc);

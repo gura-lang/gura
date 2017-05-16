@@ -192,7 +192,25 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			T_Elem num = static_cast<T_Elem>(value.GetDouble());
 			pArrayT->Fill(num);
 			return;
+		} else if (value.IsListOrIterator()) {
+			AutoPtr<Iterator> pIteratorSrc(value.CreateIterator(env.GetSignal()));
+			if (env.IsSignalled()) return;
+			AutoPtr<Iterator> pIterator(
+				new Iterator_Flatten(pIteratorSrc.release(), Iterator_Flatten::MODE_DepthFirstSearch));
+			Value valueEach;
+			T_Elem *pElemDst = pArrayT->GetPointer();
+			size_t elemNum = pArrayT->GetElemNum();
+			for (size_t i = 0; i < elemNum; i++) {
+				if (!pIterator->Next(env, valueEach)) return;
+				if (!valueEach.Is_number()) {
+					env.SetError(ERR_ValueError, "stored value must be a number");
+					return;
+				}
+				*pElemDst++ = static_cast<T_Elem>(valueEach.GetDouble());
+			}
 		} else {
+			env.SetError(ERR_ValueError, "value of %s can not be stored in array",
+						 value.MakeValueTypeName().c_str());
 			return;
 		}
 	}
@@ -253,8 +271,11 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 				*pElemDst++ = static_cast<T_Elem>(valueEach.GetDouble());
 			}
 		}
-	} else {
+	} else if (value.IsInstanceOf(VTYPE_array)) {
 		
+	} else {
+		env.SetError(ERR_ValueError, "value of %s can not be stored in array",
+					 value.MakeValueTypeName().c_str());
 	}
 }
 
