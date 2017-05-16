@@ -193,6 +193,10 @@ public:
 	inline size_t GetElemNum() const { return _elemNum; }
 	inline void SetOffsetBase(size_t offsetBase) { _offsetBase = offsetBase; }
 	inline size_t GetOffsetBase() const { return _offsetBase; }
+	inline char *GetPointerRawOrigin() { return _pMemory->GetPointer(); }
+	inline const char *GetPointerRawOrigin() const { return _pMemory->GetPointer(); }
+	inline char *GetPointerRaw() { return GetPointerRawOrigin() + GetOffsetBase() * GetElemBytes(); }
+	inline const char *GetPointerRaw() const { return GetPointerRawOrigin() + GetOffsetBase() * GetElemBytes(); }
 	virtual String ToString(bool exprFlag) const;
 	virtual bool DoesContainZero() const;
 	virtual bool DoesContainMinus() const;
@@ -223,6 +227,7 @@ public:
 	static bool CheckShape(Signal &sig, const Array *pArrayA, const Array *pArrayB);
 	static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 										  const Array *pArrayL, const Array *pArrayR);
+	static void CopyElements(Array *pArrayDst, const Array *pArraySrc);
 	static Array *ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array *pArray);
 	static Value ApplyUnaryFunc(Environment &env, const UnaryFuncPack &pack, const Value &value);
 	static Array *ApplyBinaryFunc_array_array(

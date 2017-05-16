@@ -240,6 +240,180 @@ bool Array::CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 	return false;
 }
 
+template<typename T_ElemDst, typename T_ElemSrc>
+void CopyElementsTmpl(Array *pArrayDst, const Array *pArraySrc)
+{
+	size_t nElems = ChooseMin(pArrayDst->GetElemNum(), pArraySrc->GetElemNum());
+	T_ElemDst *pElemDst = dynamic_cast<ArrayT<T_ElemDst> *>(pArrayDst)->GetPointer();
+	const T_ElemSrc *pElemSrc = dynamic_cast<const ArrayT<T_ElemSrc> *>(pArraySrc)->GetPointer();
+	for (size_t i = 0; i < nElems; i++, pElemDst++, pElemSrc++) {
+		*pElemDst = static_cast<T_ElemDst>(*pElemSrc);
+	}
+}
+
+#if 0
+template<>
+void CopyElementsTmpl<Int8, Int8>(Array *pArrayDst, const Array *pArraySrc)
+{
+	size_t nElems = ChooseMin(pArrayDst->GetElemNum(), pArraySrc->GetElemNum());
+	size_t bytes = nElems * pArrayDst->GetElemBytes();
+	::memcpy(pArrayDst->GetPointerRaw(), pArraySrc->GetPointerRaw(), bytes);
+}
+#endif
+
+typedef void (*CopyElementsT)(Array *pArrayDst, const Array *pArraySrc);
+
+void Array::CopyElements(Array *pArrayDst, const Array *pArraySrc)
+{
+	static const CopyElementsT copyElementsTbl[][ETYPE_Max] = {
+		{
+			nullptr,
+			&CopyElementsTmpl<Int8, Int8>,
+			&CopyElementsTmpl<Int8, UInt8>,
+			&CopyElementsTmpl<Int8, Int16>,
+			&CopyElementsTmpl<Int8, UInt16>,
+			&CopyElementsTmpl<Int8, Int32>,
+			&CopyElementsTmpl<Int8, UInt32>,
+			&CopyElementsTmpl<Int8, Int64>,
+			&CopyElementsTmpl<Int8, UInt64>,
+			&CopyElementsTmpl<Int8, Float>,
+			&CopyElementsTmpl<Int8, Double>,
+			//&CopyElementsTmpl<Int8, Complex>,
+		}, {
+			nullptr,
+			&CopyElementsTmpl<UInt8, Int8>,
+			&CopyElementsTmpl<UInt8, UInt8>,
+			&CopyElementsTmpl<UInt8, Int16>,
+			&CopyElementsTmpl<UInt8, UInt16>,
+			&CopyElementsTmpl<UInt8, Int32>,
+			&CopyElementsTmpl<UInt8, UInt32>,
+			&CopyElementsTmpl<UInt8, Int64>,
+			&CopyElementsTmpl<UInt8, UInt64>,
+			&CopyElementsTmpl<UInt8, Float>,
+			&CopyElementsTmpl<UInt8, Double>,
+			//&CopyElementsTmpl<UInt8, Complex>,
+		}, {
+			nullptr,
+			&CopyElementsTmpl<Int16, Int8>,
+			&CopyElementsTmpl<Int16, UInt8>,
+			&CopyElementsTmpl<Int16, Int16>,
+			&CopyElementsTmpl<Int16, UInt16>,
+			&CopyElementsTmpl<Int16, Int32>,
+			&CopyElementsTmpl<Int16, UInt32>,
+			&CopyElementsTmpl<Int16, Int64>,
+			&CopyElementsTmpl<Int16, UInt64>,
+			&CopyElementsTmpl<Int16, Float>,
+			&CopyElementsTmpl<Int16, Double>,
+			//&CopyElementsTmpl<Int16, Complex>,
+		}, {
+			nullptr,
+			&CopyElementsTmpl<UInt16, Int8>,
+			&CopyElementsTmpl<UInt16, UInt8>,
+			&CopyElementsTmpl<UInt16, Int16>,
+			&CopyElementsTmpl<UInt16, UInt16>,
+			&CopyElementsTmpl<UInt16, Int32>,
+			&CopyElementsTmpl<UInt16, UInt32>,
+			&CopyElementsTmpl<UInt16, Int64>,
+			&CopyElementsTmpl<UInt16, UInt64>,
+			&CopyElementsTmpl<UInt16, Float>,
+			&CopyElementsTmpl<UInt16, Double>,
+			//&CopyElementsTmpl<UInt16, Complex>,
+		}, {
+			nullptr,
+			&CopyElementsTmpl<Int32, Int8>,
+			&CopyElementsTmpl<Int32, UInt8>,
+			&CopyElementsTmpl<Int32, Int16>,
+			&CopyElementsTmpl<Int32, UInt16>,
+			&CopyElementsTmpl<Int32, Int32>,
+			&CopyElementsTmpl<Int32, UInt32>,
+			&CopyElementsTmpl<Int32, Int64>,
+			&CopyElementsTmpl<Int32, UInt64>,
+			&CopyElementsTmpl<Int32, Float>,
+			&CopyElementsTmpl<Int32, Double>,
+			//&CopyElementsTmpl<Int32, Complex>,
+		}, {
+			nullptr,
+			&CopyElementsTmpl<UInt32, Int8>,
+			&CopyElementsTmpl<UInt32, UInt8>,
+			&CopyElementsTmpl<UInt32, Int16>,
+			&CopyElementsTmpl<UInt32, UInt16>,
+			&CopyElementsTmpl<UInt32, Int32>,
+			&CopyElementsTmpl<UInt32, UInt32>,
+			&CopyElementsTmpl<UInt32, Int64>,
+			&CopyElementsTmpl<UInt32, UInt64>,
+			&CopyElementsTmpl<UInt32, Float>,
+			&CopyElementsTmpl<UInt32, Double>,
+			//&CopyElementsTmpl<UInt32, Complex>,
+		}, {
+			nullptr,
+			&CopyElementsTmpl<Int64, Int8>,
+			&CopyElementsTmpl<Int64, UInt8>,
+			&CopyElementsTmpl<Int64, Int16>,
+			&CopyElementsTmpl<Int64, UInt16>,
+			&CopyElementsTmpl<Int64, Int32>,
+			&CopyElementsTmpl<Int64, UInt32>,
+			&CopyElementsTmpl<Int64, Int64>,
+			&CopyElementsTmpl<Int64, UInt64>,
+			&CopyElementsTmpl<Int64, Float>,
+			&CopyElementsTmpl<Int64, Double>,
+			//&CopyElementsTmpl<Int64, Complex>,
+		}, {
+			nullptr,
+			&CopyElementsTmpl<UInt64, Int8>,
+			&CopyElementsTmpl<UInt64, UInt8>,
+			&CopyElementsTmpl<UInt64, Int16>,
+			&CopyElementsTmpl<UInt64, UInt16>,
+			&CopyElementsTmpl<UInt64, Int32>,
+			&CopyElementsTmpl<UInt64, UInt32>,
+			&CopyElementsTmpl<UInt64, Int64>,
+			&CopyElementsTmpl<UInt64, UInt64>,
+			&CopyElementsTmpl<UInt64, Float>,
+			&CopyElementsTmpl<UInt64, Double>,
+			//&CopyElementsTmpl<UInt64, Complex>,
+		}, {
+			nullptr,
+			&CopyElementsTmpl<Float, Int8>,
+			&CopyElementsTmpl<Float, UInt8>,
+			&CopyElementsTmpl<Float, Int16>,
+			&CopyElementsTmpl<Float, UInt16>,
+			&CopyElementsTmpl<Float, Int32>,
+			&CopyElementsTmpl<Float, UInt32>,
+			&CopyElementsTmpl<Float, Int64>,
+			&CopyElementsTmpl<Float, UInt64>,
+			&CopyElementsTmpl<Float, Float>,
+			&CopyElementsTmpl<Float, Double>,
+			//&CopyElementsTmpl<Float, Complex>,
+		}, {
+			nullptr,
+			&CopyElementsTmpl<Double, Int8>,
+			&CopyElementsTmpl<Double, UInt8>,
+			&CopyElementsTmpl<Double, Int16>,
+			&CopyElementsTmpl<Double, UInt16>,
+			&CopyElementsTmpl<Double, Int32>,
+			&CopyElementsTmpl<Double, UInt32>,
+			&CopyElementsTmpl<Double, Int64>,
+			&CopyElementsTmpl<Double, UInt64>,
+			&CopyElementsTmpl<Double, Float>,
+			&CopyElementsTmpl<Double, Double>,
+			//&CopyElementsTmpl<Double, Complex>,
+		}, {
+			nullptr,
+			&CopyElementsTmpl<Complex, Int8>,
+			&CopyElementsTmpl<Complex, UInt8>,
+			&CopyElementsTmpl<Complex, Int16>,
+			&CopyElementsTmpl<Complex, UInt16>,
+			&CopyElementsTmpl<Complex, Int32>,
+			&CopyElementsTmpl<Complex, UInt32>,
+			&CopyElementsTmpl<Complex, Int64>,
+			&CopyElementsTmpl<Complex, UInt64>,
+			&CopyElementsTmpl<Complex, Float>,
+			&CopyElementsTmpl<Complex, Double>,
+			//&CopyElementsTmpl<Complex, Complex>,
+		},
+	};
+	(*copyElementsTbl[pArrayDst->GetElemType()][pArraySrc->GetElemType()])(pArrayDst, pArraySrc);
+}
+
 Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array *pArray)
 {
 	UnaryFunc unaryFunc = pack.unaryFuncs[pArray->GetElemType()];
@@ -1195,15 +1369,15 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 	} \
 }
 
-ImplementUnaryFuncPack(Pos,				"pos",			UnaryFuncTmpl);
-ImplementUnaryFuncPack(Neg,				"neg",			UnaryFuncTmpl);
+ImplementUnaryFuncPack(Pos,				"pos",				UnaryFuncTmpl);
+ImplementUnaryFuncPack(Neg,				"neg",				UnaryFuncTmpl);
 
-ImplementBinaryFuncPack(Add,			"add",			BinaryFuncTmpl);
-ImplementBinaryFuncPack(Sub,			"sub",			BinaryFuncTmpl);
-ImplementBinaryFuncPack(Mul,			"mul",			BinaryFuncTmpl);
-ImplementBinaryFuncPack(Div,			"div",			BinaryFuncTmpl_Div);
-ImplementBinaryFuncPack(Mod,			"mod",			BinaryFuncTmpl_Div);
-ImplementBinaryFuncPack(Pow,			"pow",			BinaryFuncTmpl);
+ImplementBinaryFuncPack(Add,			"add",				BinaryFuncTmpl);
+ImplementBinaryFuncPack(Sub,			"sub",				BinaryFuncTmpl);
+ImplementBinaryFuncPack(Mul,			"mul",				BinaryFuncTmpl);
+ImplementBinaryFuncPack(Div,			"div",				BinaryFuncTmpl_Div);
+ImplementBinaryFuncPack(Mod,			"mod",				BinaryFuncTmpl_Div);
+ImplementBinaryFuncPack(Pow,			"pow",				BinaryFuncTmpl);
 
 ImplementBinaryFuncPack_BitOp(And,		"and");
 ImplementBinaryFuncPack_BitOp(Or,		"or");
