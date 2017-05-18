@@ -1607,26 +1607,26 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 		} else if (valueIdx.IsListOrIterator()) {
 			AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(env.GetSignal()));
 			if (env.IsSignalled()) return InvalidSize;
-			std::unique_ptr<Generator> pGenerator(new Generator(_pDim->GetStride()));
+			std::unique_ptr<GeneratorStored> pGeneratorStored(new GeneratorStored(*_pDim));
 			Value valueIdxEach;
 			while (pIterator->Next(env, valueIdxEach)) {
 				if (valueIdxEach.Is_number()) {
 					size_t idx = valueIdxEach.GetSizeT();
 					if (idx >= _pDim->GetSize()) break;
-					pGenerator->AddIndex(idx);
+					pGeneratorStored->AddIndex(idx);
 				} else {
 					env.SetError(ERR_ValueError, "index must be a number");
 					return false;
 				}
 			}
-			if (pGenerator->GetIndices().empty()) {
+			if (pGeneratorStored->IsEmpty()) {
 				env.SetError(ERR_ValueError, "no indices specified");
 				return false;
 			}
 			if (_pGeneratorOwner.get() == nullptr) {
 				_pGeneratorOwner.reset(new GeneratorOwner());
 			}
-			_pGeneratorOwner->push_back(pGenerator.release());
+			_pGeneratorOwner->push_back(pGeneratorStored.release());
 		} else {
 			env.SetError(ERR_ValueError, "index must be a number");
 			return false;
@@ -1645,7 +1645,7 @@ void Array::Indexer::MakeResultDimensions(Dimensions &dimsRtn)
 		dimsRtn.reserve(_pGeneratorOwner->size() + std::distance(_pDim, _dims.end()));
 		foreach (GeneratorOwner, ppGenerator, *_pGeneratorOwner) {
 			Generator *pGenerator = *ppGenerator;
-			dimsRtn.push_back(Dimension(pGenerator->GetIndices().size()));
+			dimsRtn.push_back(Dimension(pGenerator->GetSize()));
 		}
 	}
 	dimsRtn.insert(dimsRtn.end(), _pDim, _dims.end());
@@ -1654,11 +1654,59 @@ void Array::Indexer::MakeResultDimensions(Dimensions &dimsRtn)
 //-----------------------------------------------------------------------------
 // Array::Indexer::Generator
 //-----------------------------------------------------------------------------
-bool Array::Indexer::Generator::Next()
+Array::Indexer::Generator::~Generator()
+{
+}
+
+//-----------------------------------------------------------------------------
+// Array::Indexer::GeneratorStored
+//-----------------------------------------------------------------------------
+void Array::Indexer::GeneratorStored::Reset()
+{
+	_pIndex = _indices.begin();
+}
+
+size_t Array::Indexer::GeneratorStored::GetIndex() const
+{
+	return *_pIndex;
+}
+
+size_t Array::Indexer::GeneratorStored::GetSize() const
+{
+	return _indices.size();
+}
+
+bool Array::Indexer::GeneratorStored::Next()
 {
 	_pIndex++;
 	if (_pIndex != _indices.end()) return true;
 	_pIndex = _indices.begin();
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Array::Indexer::GeneratorSeq
+//-----------------------------------------------------------------------------
+void Array::Indexer::GeneratorSeq::Reset()
+{
+	_idx = _idxBegin;
+}
+
+size_t Array::Indexer::GeneratorSeq::GetIndex() const
+{
+	return _idx;
+}
+
+size_t Array::Indexer::GeneratorSeq::GetSize() const
+{
+	return _idxEnd - _idxBegin;
+}
+
+bool Array::Indexer::GeneratorSeq::Next()
+{
+	_idx++;
+	if (_idx != _idxEnd) return true;
+	_idx = _idxBegin;
 	return false;
 }
 

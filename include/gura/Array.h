@@ -72,17 +72,40 @@ public:
 	public:
 		class GURA_DLLDECLARE Generator {
 		private:
+			const Dimension &_dim;
+		public:
+			inline Generator(const Dimension &dim) : _dim(dim) {}
+			virtual ~Generator();
+			inline size_t CalcOffset() const { return _dim.GetStride() * GetIndex(); }
+			virtual void Reset() = 0;
+			virtual size_t GetIndex() const = 0;
+			virtual size_t GetSize() const = 0;
+			virtual bool Next() = 0;
+		};
+		class GURA_DLLDECLARE GeneratorStored : public Generator {
+		private:
 			SizeTList _indices;
 			SizeTList::const_iterator _pIndex;
-			size_t _stride;
 		public:
-			inline Generator(size_t stride) : _stride(stride) {}
+			inline GeneratorStored(const Dimension &dim) : Generator(dim) {}
 			inline void AddIndex(size_t idx) { _indices.push_back(idx); }
-			inline void Reset() { _pIndex = _indices.begin(); }
-			inline const SizeTList &GetIndices() const { return _indices; }
-			inline size_t GetIndex() const { return *_pIndex; }
-			inline size_t CalcOffset() const { return _stride * *_pIndex; }
-			bool Next();
+			inline bool IsEmpty() const { return _indices.empty(); }
+			virtual void Reset();
+			virtual size_t GetIndex() const;
+			virtual size_t GetSize() const;
+			virtual bool Next();
+		};
+		class GURA_DLLDECLARE GeneratorSeq : public Generator {
+		private:
+			size_t _idxBegin, _idxEnd;
+			size_t _idx;
+		public:
+			inline GeneratorSeq(const Dimension &dim, size_t idxBegin, size_t idxEnd) :
+				Generator(dim), _idxBegin(idxBegin), _idxEnd(idxEnd), _idx(idxBegin) {}
+			virtual void Reset();
+			virtual size_t GetIndex() const;
+			virtual size_t GetSize() const;
+			virtual bool Next();
 		};
 		class GURA_DLLDECLARE GeneratorList : public std::vector<Generator *> {
 		public:
