@@ -122,16 +122,16 @@ public:
 	private:
 		const Dimensions &_dims;
 		Dimensions::const_iterator _pDim;
-		size_t _offsetBase;
 		SizeTList _indices;
 		std::unique_ptr<GeneratorOwner> _pGeneratorOwner;
 	public:
-		Indexer(const Array *pArray);
+		Indexer(const Dimensions &dims);
 		bool InitIndices(Environment &env, const ValueList &valListIdx);
+		bool PrepareGeneratorSeq(const Dimensions &dimsRef);
 		void MakeResultDimensions(Dimensions &dimsRtn);
+		size_t CalcOffsetTarget() const;
 		inline const SizeTList &GetIndices() const { return _indices; }
 		inline bool HasGenerator() const { return _pGeneratorOwner.get() != nullptr; }
-		inline size_t GetOffsetBase() const { return _offsetBase; }
 		inline size_t GenerateOffset() const { return _pGeneratorOwner->CalcOffset(); }
 		inline bool NextGenerator() { return _pGeneratorOwner->Next(); }
 		inline size_t GetElemNumUnit() const {

@@ -1583,9 +1583,7 @@ Array::UnaryFunc Array::invertFuncs[ETYPE_Max] = {
 //-----------------------------------------------------------------------------
 // Array::Indexer
 //-----------------------------------------------------------------------------
-Array::Indexer::Indexer(const Array *pArray) :
-	_dims(pArray->GetDimensions()), _pDim(pArray->GetDimensions().begin()),
-	_offsetBase(pArray->GetOffsetBase())
+Array::Indexer::Indexer(const Dimensions &dims) : _dims(dims), _pDim(dims.begin())
 {
 }
 
@@ -1604,7 +1602,6 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 				env.SetError(ERR_OutOfRangeError, "index is out of range");
 				return false;
 			}
-			_offsetBase += _pDim->GetStride() * idx;
 			_indices.push_back(idx);
 		} else if (valueIdx.IsListOrIterator()) {
 			_indices.push_back(0);
@@ -1640,6 +1637,26 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 	return true;
 }
 
+bool Array::Indexer::PrepareGeneratorSeq(const Dimensions &dimsRef)
+{
+	bool exceedFlag = false;
+	_pGeneratorOwner.reset(new GeneratorOwner());
+	SizeTList::const_iterator pIndex = _indices.begin();
+	Dimensions::const_iterator pDim = _dims.begin();
+	Dimensions::const_iterator pDimRef = dimsRef.begin();
+	for ( ; pIndex != _indices.end() && pDim != _dims.end() && pDimRef != dimsRef.end();
+		  pIndex++, pDim++, pDimRef++) {
+		size_t idxBegin = *pIndex;
+		size_t idxEnd = idxBegin + pDimRef->GetSize();
+		if (idxEnd > pDim->GetSize()) {
+			idxEnd = pDim->GetSize();
+			exceedFlag = true;
+		}
+		_pGeneratorOwner->push_back(new GeneratorSeq(*pDim, idxBegin, idxEnd));
+	}
+	return exceedFlag;
+}
+
 void Array::Indexer::MakeResultDimensions(Dimensions &dimsRtn)
 {
 	if (_pGeneratorOwner.get() == nullptr) {
@@ -1652,6 +1669,17 @@ void Array::Indexer::MakeResultDimensions(Dimensions &dimsRtn)
 		}
 	}
 	dimsRtn.insert(dimsRtn.end(), _pDim, _dims.end());
+}
+
+size_t Array::Indexer::CalcOffsetTarget() const
+{
+	SizeTList::const_iterator pIndex = _indices.begin();
+	Dimensions::const_iterator pDim = _dims.begin();
+	size_t offsetTarget = 0;
+	for ( ; pIndex != _indices.end() && pDim != _dims.end(); pIndex++, pDim++) {
+		offsetTarget += *pIndex * pDim->GetStride();
+	}
+	return offsetTarget;
 }
 
 //-----------------------------------------------------------------------------
