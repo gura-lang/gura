@@ -123,11 +123,13 @@ public:
 		const Dimensions &_dims;
 		Dimensions::const_iterator _pDim;
 		size_t _offsetBase;
+		SizeTList _indices;
 		std::unique_ptr<GeneratorOwner> _pGeneratorOwner;
 	public:
 		Indexer(const Array *pArray);
 		bool InitIndices(Environment &env, const ValueList &valListIdx);
 		void MakeResultDimensions(Dimensions &dimsRtn);
+		inline const SizeTList &GetIndices() const { return _indices; }
 		inline bool HasGenerator() const { return _pGeneratorOwner.get() != nullptr; }
 		inline size_t GetOffsetBase() const { return _offsetBase; }
 		inline size_t GenerateOffset() const { return _pGeneratorOwner->CalcOffset(); }
@@ -251,6 +253,8 @@ public:
 	static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 										  const Array *pArrayL, const Array *pArrayR);
 	static void CopyElements(Array *pArrayDst, const Array *pArraySrc);
+	static void CopyElements(void *pElemRawDst, ElemType elemTypeDst,
+							 const void *pElemRawSrc, ElemType elemTypeSrc, size_t nElems);
 	static Array *ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array *pArray);
 	static Value ApplyUnaryFunc(Environment &env, const UnaryFuncPack &pack, const Value &value);
 	static Array *ApplyBinaryFunc_array_array(

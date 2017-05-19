@@ -140,13 +140,13 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 		Array::Dimensions dimsRtn;
 		indexer.MakeResultDimensions(dimsRtn);
 		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(dimsRtn));
-		size_t elemNumUnit = indexer.GetElemNumUnit();
-		size_t bytesUnit = elemNumUnit * pArrayTRtn->GetElemBytes();
+		size_t nElemsUnit = indexer.GetElemNumUnit();
+		size_t bytesUnit = nElemsUnit * pArrayTRtn->GetElemBytes();
 		const T_Elem *pElemTgt = pArrayT->GetPointerOrigin() + indexer.GetOffsetBase();
 		T_Elem *pElemDst = pArrayTRtn->GetPointer();
 		do {
 			::memcpy(pElemDst, pElemTgt + indexer.GenerateOffset(), bytesUnit);
-			pElemDst += elemNumUnit;
+			pElemDst += nElemsUnit;
 		} while (indexer.NextGenerator());
 		valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
 	} else if (indexer.IsTargetScalar()) {
@@ -199,8 +199,8 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 				new Iterator_Flatten(pIteratorSrc.release(), Iterator_Flatten::MODE_DepthFirstSearch));
 			Value valueEach;
 			T_Elem *pElemDst = pArrayT->GetPointer();
-			size_t elemNum = pArrayT->GetElemNum();
-			for (size_t i = 0; i < elemNum; i++) {
+			size_t nElems = pArrayT->GetElemNum();
+			for (size_t i = 0; i < nElems; i++) {
 				if (!pIterator->Next(env, valueEach)) return;
 				if (!valueEach.Is_number()) {
 					env.SetError(ERR_ValueError, "stored value must be a number");
@@ -217,21 +217,21 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	Array::Indexer indexer(pArrayT);
 	if (!indexer.InitIndices(env, valListIdx)) return;
 	T_Elem *pElemTgt = pArrayT->GetPointerOrigin() + indexer.GetOffsetBase();
-	size_t elemNumUnit = indexer.GetElemNumUnit();
+	size_t nElemsUnit = indexer.GetElemNumUnit();
 	if (value.Is_number()) {
 		T_Elem num = static_cast<T_Elem>(value.GetDouble());
 		if (indexer.HasGenerator()) {
 			do {
 				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
-				for (size_t i = 0; i < elemNumUnit; i++) {
+				for (size_t i = 0; i < nElemsUnit; i++) {
 					*pElemDst++ = num;
 				}
 			} while (indexer.NextGenerator());
-		} else if (elemNumUnit == 1) {
+		} else if (nElemsUnit == 1) {
 			*pElemTgt = num;
 		} else {
 			T_Elem *pElemDst = pElemTgt;
-			for (size_t i = 0; i < elemNumUnit; i++) {
+			for (size_t i = 0; i < nElemsUnit; i++) {
 				*pElemDst++ = num;
 			}
 		}
@@ -244,7 +244,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 		if (indexer.HasGenerator()) {
 			do {
 				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
-				for (size_t i = 0; i < elemNumUnit; i++) {
+				for (size_t i = 0; i < nElemsUnit; i++) {
 					if (!pIterator->Next(env, valueEach)) return;
 					if (!valueEach.Is_number()) {
 						env.SetError(ERR_ValueError, "stored value must be a number");
@@ -253,7 +253,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 					*pElemDst++ = static_cast<T_Elem>(valueEach.GetDouble());
 				}
 			} while (indexer.NextGenerator());
-		} else if (elemNumUnit == 1) {
+		} else if (nElemsUnit == 1) {
 			if (!pIterator->Next(env, valueEach)) return;
 			if (!valueEach.Is_number()) {
 				env.SetError(ERR_ValueError, "stored value must be a number");
@@ -262,7 +262,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			*pElemTgt = static_cast<T_Elem>(valueEach.GetDouble());
 		} else {
 			T_Elem *pElemDst = pElemTgt;
-			for (size_t i = 0; i < elemNumUnit; i++) {
+			for (size_t i = 0; i < nElemsUnit; i++) {
 				if (!pIterator->Next(env, valueEach)) return;
 				if (!valueEach.Is_number()) {
 					env.SetError(ERR_ValueError, "stored value must be a number");
@@ -272,7 +272,27 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			}
 		}
 	} else if (value.IsInstanceOf(VTYPE_array)) {
-		
+#if 1
+		Array *pArraySrc = Object_array::GetObject(value)->GetArray();
+		if (indexer.HasGenerator()) {
+			char *pElemSrc = pArraySrc->GetPointerRaw();
+			size_t nElemsSrc = pArraySrc->GetElemNum();
+			size_t elemBytesSrc = pArraySrc->GetElemBytes();
+			do {
+				if (nElemsSrc == 0) break;
+				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
+				size_t nElemsToCopy = ChooseMin(nElemsUnit, nElemsSrc);
+				Array::CopyElements(pElemDst, pArrayT->GetElemType(),
+									pElemSrc, pArraySrc->GetElemType(), nElemsToCopy);
+				pElemSrc += nElemsToCopy * elemBytesSrc;
+				nElemsSrc -= nElemsToCopy;
+			} while (indexer.NextGenerator());
+		} else if (nElemsUnit == 1) {
+			
+		} else {
+
+		}		
+#endif
 	} else {
 		env.SetError(ERR_ValueError, "value of %s can not be stored in array",
 					 value.MakeValueTypeName().c_str());

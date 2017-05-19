@@ -241,29 +241,29 @@ bool Array::CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 }
 
 template<typename T_ElemDst, typename T_ElemSrc>
-void CopyElementsTmpl(Array *pArrayDst, const Array *pArraySrc)
+void CopyElementsTmpl(void *pElemRawDst, const void *pElemRawSrc, size_t nElems)
 {
-	size_t nElems = ChooseMin(pArrayDst->GetElemNum(), pArraySrc->GetElemNum());
-	T_ElemDst *pElemDst = dynamic_cast<ArrayT<T_ElemDst> *>(pArrayDst)->GetPointer();
-	const T_ElemSrc *pElemSrc = dynamic_cast<const ArrayT<T_ElemSrc> *>(pArraySrc)->GetPointer();
+	//size_t nElems = ChooseMin(pArrayDst->GetElemNum(), pArraySrc->GetElemNum());
+	//T_ElemDst *pElemDst = dynamic_cast<ArrayT<T_ElemDst> *>(pArrayDst)->GetPointer();
+	//const T_ElemSrc *pElemSrc = dynamic_cast<const ArrayT<T_ElemSrc> *>(pArraySrc)->GetPointer();
+	T_ElemDst *pElemDst = reinterpret_cast<T_ElemDst *>(pElemRawDst);
+	const T_ElemSrc *pElemSrc = reinterpret_cast<const T_ElemSrc *>(pElemRawDst);
 	for (size_t i = 0; i < nElems; i++, pElemDst++, pElemSrc++) {
 		*pElemDst = static_cast<T_ElemDst>(*pElemSrc);
 	}
 }
 
-#if 0
-template<>
-void CopyElementsTmpl<Int8, Int8>(Array *pArrayDst, const Array *pArraySrc)
-{
-	size_t nElems = ChooseMin(pArrayDst->GetElemNum(), pArraySrc->GetElemNum());
-	size_t bytes = nElems * pArrayDst->GetElemBytes();
-	::memcpy(pArrayDst->GetPointerRaw(), pArraySrc->GetPointerRaw(), bytes);
-}
-#endif
-
-typedef void (*CopyElementsT)(Array *pArrayDst, const Array *pArraySrc);
+typedef void (*CopyElementsT)(void *pElemRawDst, const void *pElemRawSrc, size_t nElems);
 
 void Array::CopyElements(Array *pArrayDst, const Array *pArraySrc)
+{
+	size_t nElems = ChooseMin(pArrayDst->GetElemNum(), pArraySrc->GetElemNum());
+	CopyElements(pArrayDst->GetPointerRaw(), pArrayDst->GetElemType(),
+				 pArraySrc->GetPointerRaw(), pArraySrc->GetElemType(), nElems);
+}
+
+void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
+						 const void *pElemRawSrc, ElemType elemTypeSrc, size_t nElems)
 {
 	static const CopyElementsT copyElementsTbl[][ETYPE_Max] = {
 		{
@@ -411,7 +411,7 @@ void Array::CopyElements(Array *pArrayDst, const Array *pArraySrc)
 			&CopyElementsTmpl<Complex, Complex>,
 		},
 	};
-	(*copyElementsTbl[pArrayDst->GetElemType()][pArraySrc->GetElemType()])(pArrayDst, pArraySrc);
+	(*copyElementsTbl[elemTypeDst][elemTypeSrc])(pElemRawDst, pElemRawSrc, nElems);
 }
 
 Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array *pArray)
@@ -1591,6 +1591,7 @@ Array::Indexer::Indexer(const Array *pArray) :
 
 bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 {
+	_indices.reserve(valListIdx.size());
 	foreach_const (ValueList, pValueIdx, valListIdx) {
 		if (_pDim == _dims.end()) {
 			env.SetError(ERR_IndexError, "number of indices exceeds dimensions");
@@ -1604,7 +1605,9 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 				return false;
 			}
 			_offsetBase += _pDim->GetStride() * idx;
+			_indices.push_back(idx);
 		} else if (valueIdx.IsListOrIterator()) {
+			_indices.push_back(0);
 			AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(env.GetSignal()));
 			if (env.IsSignalled()) return InvalidSize;
 			std::unique_ptr<GeneratorStored> pGeneratorStored(new GeneratorStored(*_pDim));
