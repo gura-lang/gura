@@ -848,3 +848,20 @@ testcase('index-set with iterator assigned') {
 		println(x)
 	}
 }
+testcase('') {
+	[
+		`(x[2] = array.range(12) + 1)
+		`(x[2] = array.range(8) + 1)
+		`(x[2] = (array.range(12) + 1).reshape([4, 3]))
+		`(x[2..] = array.range(12) + 1)
+		`(x[2..] = array.range(10) + 1)
+		`(x[*, *, 2] = array.range(4) + 1)
+		`(x[*, *, 2] = array.range(7) + 1)
+	].each {|expr|
+		println('# ', expr)
+		x = array.zeros([5, 4, 3])
+		expr.eval()
+		println(x)
+		println()
+	}
+}
