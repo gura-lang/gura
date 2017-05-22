@@ -1607,26 +1607,26 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 		} else if (valueIdx.IsListOrIterator()) {
 			AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(env.GetSignal()));
 			if (env.IsSignalled()) return InvalidSize;
-			std::unique_ptr<GeneratorStored> pGeneratorStored(new GeneratorStored(*_pDim));
+			std::unique_ptr<Generator> pGenerator(new Generator(*_pDim));
 			Value valueIdxEach;
 			while (pIterator->Next(env, valueIdxEach)) {
 				if (valueIdxEach.Is_number()) {
 					size_t idx = valueIdxEach.GetSizeT();
 					if (idx >= _pDim->GetSize()) break;
-					pGeneratorStored->AddIndex(idx);
+					pGenerator->AddIndex(idx);
 				} else {
 					env.SetError(ERR_ValueError, "index must be a number");
 					return false;
 				}
 			}
-			if (pGeneratorStored->IsEmpty()) {
+			if (pGenerator->IsEmpty()) {
 				env.SetError(ERR_ValueError, "no indices specified");
 				return false;
 			}
 			if (_pGeneratorOwner.get() == nullptr) {
 				_pGeneratorOwner.reset(new GeneratorOwner());
 			}
-			_pGeneratorOwner->push_back(pGeneratorStored.release());
+			_pGeneratorOwner->push_back(pGenerator.release());
 		} else {
 			env.SetError(ERR_ValueError, "index must be a number");
 			return false;
@@ -1654,29 +1654,7 @@ void Array::Indexer::MakeResultDimensions(Dimensions &dimsRtn)
 //-----------------------------------------------------------------------------
 // Array::Indexer::Generator
 //-----------------------------------------------------------------------------
-Array::Indexer::Generator::~Generator()
-{
-}
-
-//-----------------------------------------------------------------------------
-// Array::Indexer::GeneratorStored
-//-----------------------------------------------------------------------------
-void Array::Indexer::GeneratorStored::Reset()
-{
-	_pIndex = _indices.begin();
-}
-
-size_t Array::Indexer::GeneratorStored::GetIndex() const
-{
-	return *_pIndex;
-}
-
-size_t Array::Indexer::GeneratorStored::GetSize() const
-{
-	return _indices.size();
-}
-
-bool Array::Indexer::GeneratorStored::Next()
+bool Array::Indexer::Generator::Next()
 {
 	_pIndex++;
 	if (_pIndex != _indices.end()) return true;
