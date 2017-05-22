@@ -279,13 +279,17 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			size_t nElemsSrc = pArraySrc->GetElemNum();
 			size_t elemBytesSrc = pArraySrc->GetElemBytes();
 			do {
-				if (nElemsSrc == 0) break;
 				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
 				size_t nElemsToCopy = ChooseMin(nElemsUnit, nElemsSrc);
 				Array::CopyElements(pElemDst, pArrayT->GetElemType(),
 									pElemSrc, pArraySrc->GetElemType(), nElemsToCopy);
-				pElemSrc += nElemsToCopy * elemBytesSrc;
 				nElemsSrc -= nElemsToCopy;
+				if (nElemsSrc == 0) {
+					pElemSrc = pArraySrc->GetPointerRaw();
+					nElemsSrc = pArraySrc->GetElemNum();
+				} else {
+					pElemSrc += nElemsToCopy * elemBytesSrc;
+				}
 			} while (indexer.NextGenerator());
 		} else {
 			T_Elem *pElemDst = pElemTgt;
