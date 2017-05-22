@@ -142,7 +142,7 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(dimsRtn));
 		size_t nElemsUnit = indexer.GetElemNumUnit();
 		size_t bytesUnit = nElemsUnit * pArrayTRtn->GetElemBytes();
-		const T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.CalcOffsetTarget();
+		const T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
 		T_Elem *pElemDst = pArrayTRtn->GetPointer();
 		do {
 			::memcpy(pElemDst, pElemTgt + indexer.GenerateOffset(), bytesUnit);
@@ -150,12 +150,12 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 		} while (indexer.NextGenerator());
 		valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
 	} else if (indexer.IsTargetScalar()) {
-		const T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.CalcOffsetTarget();
+		const T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
 		valueRtn = Value(*pElemTgt);
 	} else {
 		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
 			new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(),
-							   pArrayT->GetOffsetBase() + indexer.CalcOffsetTarget()));
+							   pArrayT->GetOffsetBase() + indexer.GetOffsetTarget()));
 		Array::Dimensions dimsRtn;
 		indexer.MakeResultDimensions(dimsRtn);
 		pArrayTRtn->SetDimensions(dimsRtn);
@@ -217,7 +217,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	}
 	Array::Indexer indexer(pArrayT->GetDimensions());
 	if (!indexer.InitIndices(env, valListIdx)) return;
-	T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.CalcOffsetTarget();
+	T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
 	size_t nElemsUnit = indexer.GetElemNumUnit();
 	if (value.Is_number()) {
 		T_Elem num = static_cast<T_Elem>(value.GetDouble());
@@ -289,7 +289,6 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 				nElemsSrc -= nElemsToCopy;
 			} while (indexer.NextGenerator());
 		} else {
-			indexer.PrepareGeneratorSeq(pArraySrc->GetDimensions());
 			if (nElemsUnit == 1) {
 			
 			} else {

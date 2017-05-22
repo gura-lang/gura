@@ -1583,13 +1583,14 @@ Array::UnaryFunc Array::invertFuncs[ETYPE_Max] = {
 //-----------------------------------------------------------------------------
 // Array::Indexer
 //-----------------------------------------------------------------------------
-Array::Indexer::Indexer(const Dimensions &dims) : _dims(dims), _pDim(dims.begin())
+Array::Indexer::Indexer(const Dimensions &dims) :
+	_dims(dims), _pDim(dims.begin()), _offsetTarget(0)
 {
 }
 
 bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 {
-	_indices.reserve(valListIdx.size());
+	_offsetTarget = 0;
 	foreach_const (ValueList, pValueIdx, valListIdx) {
 		if (_pDim == _dims.end()) {
 			env.SetError(ERR_IndexError, "number of indices exceeds dimensions");
@@ -1602,9 +1603,8 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 				env.SetError(ERR_OutOfRangeError, "index is out of range");
 				return false;
 			}
-			_indices.push_back(idx);
+			_offsetTarget += idx * _pDim->GetStride();
 		} else if (valueIdx.IsListOrIterator()) {
-			_indices.push_back(0);
 			AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(env.GetSignal()));
 			if (env.IsSignalled()) return InvalidSize;
 			std::unique_ptr<GeneratorStored> pGeneratorStored(new GeneratorStored(*_pDim));
@@ -1637,26 +1637,6 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 	return true;
 }
 
-bool Array::Indexer::PrepareGeneratorSeq(const Dimensions &dimsRef)
-{
-	bool exceedFlag = false;
-	_pGeneratorOwner.reset(new GeneratorOwner());
-	SizeTList::const_iterator pIndex = _indices.begin();
-	Dimensions::const_iterator pDim = _dims.begin();
-	Dimensions::const_iterator pDimRef = dimsRef.begin();
-	for ( ; pIndex != _indices.end() && pDim != _dims.end() && pDimRef != dimsRef.end();
-		  pIndex++, pDim++, pDimRef++) {
-		size_t idxBegin = *pIndex;
-		size_t idxEnd = idxBegin + pDimRef->GetSize();
-		if (idxEnd > pDim->GetSize()) {
-			idxEnd = pDim->GetSize();
-			exceedFlag = true;
-		}
-		_pGeneratorOwner->push_back(new GeneratorSeq(*pDim, idxBegin, idxEnd));
-	}
-	return exceedFlag;
-}
-
 void Array::Indexer::MakeResultDimensions(Dimensions &dimsRtn)
 {
 	if (_pGeneratorOwner.get() == nullptr) {
@@ -1669,17 +1649,6 @@ void Array::Indexer::MakeResultDimensions(Dimensions &dimsRtn)
 		}
 	}
 	dimsRtn.insert(dimsRtn.end(), _pDim, _dims.end());
-}
-
-size_t Array::Indexer::CalcOffsetTarget() const
-{
-	SizeTList::const_iterator pIndex = _indices.begin();
-	Dimensions::const_iterator pDim = _dims.begin();
-	size_t offsetTarget = 0;
-	for ( ; pIndex != _indices.end() && pDim != _dims.end(); pIndex++, pDim++) {
-		offsetTarget += *pIndex * pDim->GetStride();
-	}
-	return offsetTarget;
 }
 
 //-----------------------------------------------------------------------------
@@ -1712,32 +1681,6 @@ bool Array::Indexer::GeneratorStored::Next()
 	_pIndex++;
 	if (_pIndex != _indices.end()) return true;
 	_pIndex = _indices.begin();
-	return false;
-}
-
-//-----------------------------------------------------------------------------
-// Array::Indexer::GeneratorSeq
-//-----------------------------------------------------------------------------
-void Array::Indexer::GeneratorSeq::Reset()
-{
-	_idx = _idxBegin;
-}
-
-size_t Array::Indexer::GeneratorSeq::GetIndex() const
-{
-	return _idx;
-}
-
-size_t Array::Indexer::GeneratorSeq::GetSize() const
-{
-	return _idxEnd - _idxBegin;
-}
-
-bool Array::Indexer::GeneratorSeq::Next()
-{
-	_idx++;
-	if (_idx != _idxEnd) return true;
-	_idx = _idxBegin;
 	return false;
 }
 

@@ -95,18 +95,6 @@ public:
 			virtual size_t GetSize() const;
 			virtual bool Next();
 		};
-		class GURA_DLLDECLARE GeneratorSeq : public Generator {
-		private:
-			size_t _idxBegin, _idxEnd;
-			size_t _idx;
-		public:
-			inline GeneratorSeq(const Dimension &dim, size_t idxBegin, size_t idxEnd) :
-				Generator(dim), _idxBegin(idxBegin), _idxEnd(idxEnd), _idx(idxBegin) {}
-			virtual void Reset();
-			virtual size_t GetIndex() const;
-			virtual size_t GetSize() const;
-			virtual bool Next();
-		};
 		class GURA_DLLDECLARE GeneratorList : public std::vector<Generator *> {
 		public:
 			void Reset();
@@ -122,15 +110,13 @@ public:
 	private:
 		const Dimensions &_dims;
 		Dimensions::const_iterator _pDim;
-		SizeTList _indices;
+		size_t _offsetTarget;
 		std::unique_ptr<GeneratorOwner> _pGeneratorOwner;
 	public:
 		Indexer(const Dimensions &dims);
 		bool InitIndices(Environment &env, const ValueList &valListIdx);
-		bool PrepareGeneratorSeq(const Dimensions &dimsRef);
 		void MakeResultDimensions(Dimensions &dimsRtn);
-		size_t CalcOffsetTarget() const;
-		inline const SizeTList &GetIndices() const { return _indices; }
+		inline size_t GetOffsetTarget() const { return _offsetTarget; }
 		inline bool HasGenerator() const { return _pGeneratorOwner.get() != nullptr; }
 		inline size_t GenerateOffset() const { return _pGeneratorOwner->CalcOffset(); }
 		inline bool NextGenerator() { return _pGeneratorOwner->Next(); }
