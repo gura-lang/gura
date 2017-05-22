@@ -723,6 +723,42 @@ bool CreateFromList_Sub(Signal &sig, Array::Dimensions &dims,
 	return true;
 }
 
+template<>
+bool CreateFromList_Sub(Signal &sig, Array::Dimensions &dims,
+						Array::Dimensions::const_iterator pDim,
+						Complex *&p, const ValueList &valList)
+{
+	if (pDim->GetSize() != valList.size()) {
+		sig.SetError(ERR_ValueError, "incorrect number of elements");
+		return false;
+	}
+	if (pDim + 1 == dims.end()) {
+		foreach_const (ValueList, pValue, valList) {
+			if (pValue->Is_complex()) {
+				*p = pValue->GetComplex();
+			} else {
+				bool successFlag = false;
+				Number num = pValue->ToNumber(false, successFlag);
+				if (!successFlag) {
+					sig.SetError(ERR_ValueError, "failed to convert to a number value");
+					return nullptr;
+				}
+				*p = static_cast<Complex>(num);
+			}
+			p++;
+		}
+	} else {
+		if (valList.GetValueTypeOfElements() != VTYPE_list) {
+			sig.SetError(ERR_ValueError, "invalid format of array initializer");
+			return false;
+		}
+		foreach_const (ValueList, pValue, valList) {
+			if (!CreateFromList_Sub(sig, dims, pDim + 1, p, pValue->GetList())) return false;
+		}
+	}
+	return true;
+}
+
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Signal &sig, const ValueList &valList)
 {
@@ -739,11 +775,11 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Signal &sig, const ValueList &val
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, Iterator *pIterator)
+ArrayT<T_Elem> *CreateFromIterator_Sub(Environment &env, Iterator *pIterator)
 {
 	size_t len = pIterator->GetLengthEx(env);
 	if (env.IsSignalled()) return nullptr;
-	AutoPtr<ArrayT> pArrayT(new ArrayT(len));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(len));
 	AutoPtr<Iterator> pIteratorWork(pIterator->Clone());
 	T_Elem *p = pArrayT->GetPointer();
 	Value value;
@@ -757,6 +793,12 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, Iterator *p
 		*p++ = static_cast<T_Elem>(num);
 	}
 	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, Iterator *pIterator)
+{
+	return CreateFromIterator_Sub<T_Elem>(env, pIterator);
 }
 
 template<typename T_Elem>
