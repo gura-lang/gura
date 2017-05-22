@@ -178,7 +178,7 @@ Value Object_array::EvalIndexGet(Environment &env, const ValueList &valListIdx)
 		&EvalIndexGetTmpl<UInt64>,
 		&EvalIndexGetTmpl<Float>,
 		&EvalIndexGetTmpl<Double>,
-		//&EvalIndexGetTmpl<Complex>,
+		&EvalIndexGetTmpl<Complex>,
 	};
 	return (*evalIndexGetTbl[GetArray()->GetElemType()])(env, valListIdx, this);
 }
@@ -319,7 +319,7 @@ void Object_array::EvalIndexSet(Environment &env, const ValueList &valListIdx, c
 		&EvalIndexSetTmpl<UInt64>,
 		&EvalIndexSetTmpl<Float>,
 		&EvalIndexSetTmpl<Double>,
-		//&EvalIndexSetTmpl<Complex>,
+		&EvalIndexSetTmpl<Complex>,
 	};
 	(*evalIndexSetTbl[GetArray()->GetElemType()])(env, valListIdx, value, this);
 }
@@ -459,8 +459,9 @@ Gura_DeclareProperty_R(array, elemtype)
 		"`` `uint32``,\n"
 		"`` `int64``,\n"
 		"`` `uint64``,\n"
-		"`` `float`` and\n"
-		"`` `double``.");
+		"`` `float``,\n"
+		"`` `double`` and\n"
+		"`` `complex``.");
 }
 
 Gura_ImplementPropertyGetter(array, elemtype)
@@ -622,6 +623,7 @@ Gura_DeclareFunction(array)
 		"- `` `uint64`` .. array@uint64\n"
 		"- `` `float`` .. array@float\n"
 		"- `` `double`` .. array@double\n"
+		"- `` `complex`` .. array@complex\n"
 		);
 }
 
