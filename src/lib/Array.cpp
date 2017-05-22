@@ -243,11 +243,8 @@ bool Array::CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 template<typename T_ElemDst, typename T_ElemSrc>
 void CopyElementsTmpl(void *pElemRawDst, const void *pElemRawSrc, size_t nElems)
 {
-	//size_t nElems = ChooseMin(pArrayDst->GetElemNum(), pArraySrc->GetElemNum());
-	//T_ElemDst *pElemDst = dynamic_cast<ArrayT<T_ElemDst> *>(pArrayDst)->GetPointer();
-	//const T_ElemSrc *pElemSrc = dynamic_cast<const ArrayT<T_ElemSrc> *>(pArraySrc)->GetPointer();
 	T_ElemDst *pElemDst = reinterpret_cast<T_ElemDst *>(pElemRawDst);
-	const T_ElemSrc *pElemSrc = reinterpret_cast<const T_ElemSrc *>(pElemRawDst);
+	const T_ElemSrc *pElemSrc = reinterpret_cast<const T_ElemSrc *>(pElemRawSrc);
 	for (size_t i = 0; i < nElems; i++, pElemDst++, pElemSrc++) {
 		*pElemDst = static_cast<T_ElemDst>(*pElemSrc);
 	}
@@ -267,6 +264,19 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 {
 	static const CopyElementsT copyElementsTbl[][ETYPE_Max] = {
 		{
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+		}, {
 			nullptr,
 			&CopyElementsTmpl<Int8, Int8>,
 			&CopyElementsTmpl<Int8, UInt8>,

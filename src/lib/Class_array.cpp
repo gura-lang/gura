@@ -273,7 +273,6 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			}
 		}
 	} else if (value.IsInstanceOf(VTYPE_array)) {
-#if 1
 		Array *pArraySrc = Object_array::GetObject(value)->GetArray();
 		if (indexer.HasGenerator()) {
 			char *pElemSrc = pArraySrc->GetPointerRaw();
@@ -289,13 +288,13 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 				nElemsSrc -= nElemsToCopy;
 			} while (indexer.NextGenerator());
 		} else {
-			if (nElemsUnit == 1) {
-			
-			} else {
-				
-			}
-		}		
-#endif
+			T_Elem *pElemDst = pElemTgt;
+			char *pElemSrc = pArraySrc->GetPointerRaw();
+			size_t nElemsSrc = pArraySrc->GetElemNum();
+			size_t nElemsToCopy = ChooseMin(nElemsUnit, nElemsSrc);
+			Array::CopyElements(pElemDst, pArrayT->GetElemType(),
+								pElemSrc, pArraySrc->GetElemType(), nElemsToCopy);
+		}
 	} else {
 		env.SetError(ERR_ValueError, "value of %s can not be stored in array",
 					 value.MakeValueTypeName().c_str());
