@@ -73,30 +73,57 @@ void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const 
 	if (col != 0) stream.Printf(sig, "\n");
 }
 
-template<typename T_Elem> void FormatElem(char *buff, int wdPad, T_Elem x);
+template<typename T_Elem> void FormatElem(char *buff, int wdPad, const T_Elem &x);
 
-template<> void FormatElem(char *buff, int wdPad, Int8 x)
-{ ::sprintf(buff, "%*d", wdPad, x); }
-template<> void FormatElem(char *buff, int wdPad, UInt8 x)
-{ ::sprintf(buff, "%*u", wdPad, x); }
-template<> void FormatElem(char *buff, int wdPad, Int16 x)
-{ ::sprintf(buff, "%*d", wdPad, x); }
-template<> void FormatElem(char *buff, int wdPad, UInt16 x)
-{ ::sprintf(buff, "%*u", wdPad, x); }
-template<> void FormatElem(char *buff, int wdPad, Int32 x)
-{ ::sprintf(buff, "%*d", wdPad, x); }
-template<> void FormatElem(char *buff, int wdPad, UInt32 x)
-{ ::sprintf(buff, "%*u", wdPad, x); }
-template<> void FormatElem(char *buff, int wdPad, Int64 x)
-{ ::sprintf(buff, "%*lld", wdPad, x); }
-template<> void FormatElem(char *buff, int wdPad, UInt64 x)
-{ ::sprintf(buff, "%*llu", wdPad, x); }
-template<> void FormatElem(char *buff, int wdPad, Float x)
-{ ::sprintf(buff, "%*g", wdPad, x); }
-template<> void FormatElem(char *buff, int wdPad, Double x)
-{ ::sprintf(buff, "%*g", wdPad, x); }
-template<> void FormatElem(char *buff, int wdPad, Complex x)
-{ ::sprintf(buff, "%g,%g", x.real(), x.imag()); }
+template<> void FormatElem(char *buff, int wdPad, const Int8 &x) {
+	::sprintf(buff, "%*d", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const UInt8 &x) {
+	::sprintf(buff, "%*u", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const Int16 &x) {
+	::sprintf(buff, "%*d", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const UInt16 &x) {
+	::sprintf(buff, "%*u", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const Int32 &x) {
+	::sprintf(buff, "%*d", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const UInt32 &x) {
+	::sprintf(buff, "%*u", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const Int64 &x) {
+	::sprintf(buff, "%*lld", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const UInt64 &x) {
+	::sprintf(buff, "%*llu", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const Float &x) {
+	::sprintf(buff, "%*g", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const Double &x) {
+	::sprintf(buff, "%*g", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const Complex &x) {
+	char tmp[128];
+	if (x.imag() == 0) {
+		::sprintf(tmp, "%g", x.real());
+	} else {
+		::sprintf(tmp, "%g%+gj", x.real(), x.imag());
+	}
+	::sprintf(buff, "%*s", wdPad, tmp);
+}
 
 //------------------------------------------------------------------------------
 // ArrayT
@@ -683,7 +710,6 @@ bool CreateFromList_Sub(Signal &sig, Array::Dimensions &dims,
 				return nullptr;
 			}
 			*p++ = static_cast<T_Elem>(num);
-			//*p++ = static_cast<T_Elem>(pValue->GetNumber());
 		}
 	} else {
 		if (valList.GetValueTypeOfElements() != VTYPE_list) {

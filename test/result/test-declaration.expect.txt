@@ -7,6 +7,7 @@
 __name__:string = __main__
 argument:class = <class:argument>
 array:class = <class:array(src?, elemtype?:symbol) {block?}>
+array@complex:class = <class:array@complex(src?) {block?}>
 array@double:class = <class:array@double(src?) {block?}>
 array@float:class = <class:array@float(src?) {block?}>
 array@int16:class = <class:array@int16(src?) {block?}>
@@ -382,6 +383,20 @@ array
   array.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array#transpose(axes[]?:number) {block?}
   array.zeros(dims[]:number):static:map {block?}
+array@complex
+  array@complex.identity(n:number):static:map {block?}
+  array@complex.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
+  array@complex.ones(dims[]:number):static:map {block?}
+  array@complex.rands(dims[]:number, range?:number):static:map {block?}
+  array@complex.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+  array@complex.range(num:number, num_end?:number, step?:number):static:map {block?}
+  array@complex.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+  array@complex.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@complex.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@complex.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@complex.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+  array@complex.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
+  array@complex.zeros(dims[]:number):static:map {block?}
 array@double
   array@double.identity(n:number):static:map {block?}
   array@double.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
