@@ -645,6 +645,7 @@ template class Object_arrayT<Int64>;
 template class Object_arrayT<UInt64>;
 template class Object_arrayT<Float>;
 template class Object_arrayT<Double>;
+template class Object_arrayT<Complex>;
 
 //------------------------------------------------------------------------------
 // Realization of Class_arrayT
@@ -659,5 +660,6 @@ template class Class_arrayT<Int64>;
 template class Class_arrayT<UInt64>;
 template class Class_arrayT<Float>;
 template class Class_arrayT<Double>;
+template class Class_arrayT<Complex>;
 
 }

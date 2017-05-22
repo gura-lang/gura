@@ -1138,5 +1138,6 @@ template class Iterator_ArrayT_Each<Int64>;
 template class Iterator_ArrayT_Each<UInt64>;
 template class Iterator_ArrayT_Each<Float>;
 template class Iterator_ArrayT_Each<Double>;
+template class Iterator_ArrayT_Each<Complex>;
 
 }

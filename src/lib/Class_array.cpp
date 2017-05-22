@@ -639,7 +639,7 @@ Gura_ImplementFunction(array)
 		&Object_arrayT<UInt64>::Constructor,
 		&Object_arrayT<Float>::Constructor,
 		&Object_arrayT<Double>::Constructor,
-		//&Object_arrayTpl<Complex>::Constructor,
+		&Object_arrayT<Complex>::Constructor,
 	};
 	Array::ElemType elemType = arg.IsValid(1)?
 		Array::SymbolToElemType(arg.GetSymbol(1)) : Array::ETYPE_Double;
