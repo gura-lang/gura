@@ -775,30 +775,29 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Signal &sig, const ValueList &val
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *CreateFromIterator_Sub(Environment &env, Iterator *pIterator)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, Iterator *pIterator)
 {
 	size_t len = pIterator->GetLengthEx(env);
 	if (env.IsSignalled()) return nullptr;
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(len));
+	AutoPtr<ArrayT> pArrayT(new ArrayT(len));
 	AutoPtr<Iterator> pIteratorWork(pIterator->Clone());
 	T_Elem *p = pArrayT->GetPointer();
 	Value value;
 	while (pIteratorWork->Next(env, value)) {
-		bool successFlag = false;
-		Number num = value.ToNumber(false, successFlag);
-		if (!successFlag) {
-			env.SetError(ERR_ValueError, "failed to convert to a number value");
-			return nullptr;
+		if (value.Is_complex()) {
+			//*p = value.GetComplex();
+		} else {
+			bool successFlag = false;
+			Number num = value.ToNumber(false, successFlag);
+			if (!successFlag) {
+				env.SetError(ERR_ValueError, "failed to convert to a number value");
+				return nullptr;
+			}
+			*p = static_cast<T_Elem>(num);
 		}
-		*p++ = static_cast<T_Elem>(num);
+		p++;
 	}
 	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, Iterator *pIterator)
-{
-	return CreateFromIterator_Sub<T_Elem>(env, pIterator);
 }
 
 template<typename T_Elem>
