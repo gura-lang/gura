@@ -963,16 +963,21 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 //------------------------------------------------------------------------------
 // InvertFuncTmpl
 //------------------------------------------------------------------------------
-template<typename T_Elem> inline T_Elem _Norm(T_Elem num) { return std::abs(num); }
-template<> inline Complex _Norm(Complex num) { return std::norm(num); }
-template<typename T_Elem> inline T_Elem _NormEpsilon() { return 1.0e-6; }
-template<> inline Complex _NormEpsilon() { return _NormEpsilon<Double>() * _NormEpsilon<Double>(); }
+template<typename T_Elem> inline Double _Norm(T_Elem num) {
+	return std::abs(num);
+}
+
+template<> inline Double _Norm<Complex>(Complex num) { return std::norm(num); }
+
+template<typename T_Elem> inline Double _NormEpsilon() { return 1.0e-6; }
+
+template<> inline Double _NormEpsilon<Complex>() { return _NormEpsilon<Double>() * _NormEpsilon<Double>(); }
 
 template<typename T_Elem>
 bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemOrg, size_t nRows,
 						T_Elem &det, T_Elem *pElemWork, T_Elem *rows[])
 {
-	static const T_Elem normEpsilon = _NormEpsilon<T_Elem>();
+	static const Double normEpsilon = _NormEpsilon<T_Elem>();
 	size_t nCols = nRows;
 	size_t nCols2 = nCols * 2;
 	size_t bytesPerRow = nCols * sizeof(T_Elem);
@@ -989,9 +994,9 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemOrg, size_t nRow
 	} while (0);
 	for (size_t iRowPivot = 0; iRowPivot < nRows; iRowPivot++) {
 		size_t iRowMax = iRowPivot;
-		T_Elem normMax = _Norm(rows[iRowMax][iRowPivot]);
+		Double normMax = _Norm<T_Elem>(rows[iRowMax][iRowPivot]);
 		for (size_t iRow = iRowMax + 1; iRow < nRows; iRow++) {
-			T_Elem norm = _Norm(rows[iRow][iRowPivot]);
+			Double norm = _Norm<T_Elem>(rows[iRow][iRowPivot]);
 			if (normMax < norm) {
 				iRowMax = iRow;
 				normMax = norm;
@@ -1667,7 +1672,7 @@ Array::UnaryFunc Array::invertFuncs[ETYPE_Max] = {
 	nullptr,
 	&InvertFuncTmpl<Float>,
 	&InvertFuncTmpl<Double>,
-	nullptr,
+	&InvertFuncTmpl<Complex>,
 };
 
 //-----------------------------------------------------------------------------
