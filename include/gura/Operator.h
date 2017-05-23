@@ -808,7 +808,7 @@ public:
 	}
 };
 
-template<> inline void Operator_Math_arg::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_arg::Calc(Double &elemResult, const Complex &elem)
 {
 	elemResult = std::arg(elem);
 }

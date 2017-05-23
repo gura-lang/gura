@@ -1407,12 +1407,16 @@ Gura_ImplementBinaryOperator(Pair, number, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_abs, number)
 {
-	return Value(::fabs(value.GetDouble()));
+	double result;
+	Operator_Math_abs::Calc(result, value.GetDouble());
+	return Value(result);
 }
 
 Gura_ImplementUnaryOperator(Math_abs, complex)
 {
-	return Value(std::abs(value.GetComplex()));
+	Complex result;
+	Operator_Math_abs::Calc(result, value.GetComplex());
+	return Value(result);
 }
 
 Gura_ImplementUnaryOperator(Math_abs, array)
@@ -1425,7 +1429,8 @@ Gura_ImplementUnaryOperator(Math_abs, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_acos, number)
 {
-	double result = ::acos(value.GetDouble());
+	double result;
+	Operator_Math_acos::Calc(result, value.GetDouble());
 	if (flags & FLAG_Deg) result = RadToDeg(result);
 	return Value(result);
 }
@@ -1440,12 +1445,15 @@ Gura_ImplementUnaryOperator(Math_acos, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_arg, number)
 {
-	return Value::Zero;
+	double result;
+	Operator_Math_arg::Calc(result, value.GetDouble());
+	return Value(result);
 }
 
 Gura_ImplementUnaryOperator(Math_arg, complex)
 {
-	double result = std::arg(value.GetComplex());
+	double result;
+	Operator_Math_arg::Calc(result, value.GetComplex());
 	if (flags & FLAG_Deg) result = RadToDeg(result);
 	return Value(result);
 }
