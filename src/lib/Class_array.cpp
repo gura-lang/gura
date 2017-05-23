@@ -349,7 +349,7 @@ Iterator *Object_array::CreateIterator(Signal &sig)
 		nullptr,
 		&CreateIteratorTmpl<Float>,
 		&CreateIteratorTmpl<Double>,
-		//&CreateIteratorTmpl<Complex>,
+		&CreateIteratorTmpl<Complex>,
 	};
 	return (*createIteratorTbl[GetArray()->GetElemType()])(GetArray());
 }
@@ -591,7 +591,7 @@ Gura_ImplementPropertyGetter(array, T)
 		nullptr,
 		&PropertyGetter_T<Float>,
 		&PropertyGetter_T<Double>,
-		//&PropertyGetter_T<Complex>,
+		&PropertyGetter_T<Complex>,
 	};
 	return CallPropertyGetter(env, propertyGetters, Object_array::GetObject(valueThis)->GetArray());
 }
@@ -714,7 +714,7 @@ Gura_ImplementMethod(array, average)
 		nullptr,
 		&Method_average<Float>,
 		&Method_average<Double>,
-		//&Method_average<Complex>,
+		&Method_average<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -780,7 +780,7 @@ Gura_ImplementMethod(array, dump)
 		nullptr,
 		&Method_dump<Float>,
 		&Method_dump<Double>,
-		//&Method_dump<Complex>,
+		&Method_dump<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -826,7 +826,7 @@ Gura_ImplementMethod(array, each)
 		nullptr,
 		&Method_each<Float>,
 		&Method_each<Double>,
-		//&Method_each<Complex>,
+		&Method_each<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -866,7 +866,7 @@ Gura_ImplementMethod(array, fill)
 		nullptr,
 		&Method_fill<Float>,
 		&Method_fill<Double>,
-		//&Method_fill<Complex>,
+		&Method_fill<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -905,7 +905,7 @@ Gura_ImplementMethod(array, flatten)
 		nullptr,
 		&Method_flatten<Float>,
 		&Method_flatten<Double>,
-		//&Method_flatten<Complex>,
+		&Method_flatten<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -954,7 +954,7 @@ Gura_ImplementMethod(array, head)
 		nullptr,
 		&Method_head<Float>,
 		&Method_head<Double>,
-		//&Method_head<Complex>,
+		&Method_head<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -996,7 +996,7 @@ Gura_ImplementMethod(array, invert)
 		nullptr,
 		&Method_invert<Float>,
 		&Method_invert<Double>,
-		//&Method_invert<Complex>,
+		&Method_invert<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -1060,7 +1060,7 @@ Gura_ImplementMethod(array, offset)
 		nullptr,
 		&Method_offset<Float>,
 		&Method_offset<Double>,
-		//&Method_offset<Complex>,
+		&Method_offset<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -1112,7 +1112,7 @@ Gura_ImplementMethod(array, paste)
 		nullptr,
 		&Method_paste<Float>,
 		&Method_paste<Double>,
-		//&Method_paste<Complex>,
+		&Method_paste<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -1154,7 +1154,7 @@ Gura_ImplementMethod(array, reshape)
 		nullptr,
 		&Method_reshape<Float>,
 		&Method_reshape<Double>,
-		//&Method_reshape<Complex>,
+		&Method_reshape<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -1195,7 +1195,7 @@ Gura_ImplementMethod(array, roundoff)
 		nullptr,
 		&Method_roundoff<Float>,
 		&Method_roundoff<Double>,
-		//&Method_roundoff<Complex>,
+		&Method_roundoff<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -1252,7 +1252,7 @@ Gura_ImplementMethod(array, sum)
 		nullptr,
 		&Method_sum<Float>,
 		&Method_sum<Double>,
-		//&Method_sum<Complex>,
+		&Method_sum<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -1301,7 +1301,7 @@ Gura_ImplementMethod(array, tail)
 		nullptr,
 		&Method_tail<Float>,
 		&Method_tail<Double>,
-		//&Method_tail<Complex>,
+		&Method_tail<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -1348,7 +1348,7 @@ Gura_ImplementMethod(array, transpose)
 		nullptr,
 		&Method_transpose<Float>,
 		&Method_transpose<Double>,
-		//&Method_transpose<Complex>,
+		&Method_transpose<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -1438,7 +1438,7 @@ bool Class_array::CastTo(Environment &env, Value &value, const Declaration &decl
 		nullptr,
 		&CastToTmpl<Float>,
 		&CastToTmpl<Double>,
-		//&CastToTmpl<Complex>,
+		&CastToTmpl<Complex>,
 	};
 	return (*castTos[pArray->GetElemType()])(env, value, decl, pArray);
 }
