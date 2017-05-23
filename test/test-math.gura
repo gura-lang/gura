@@ -156,6 +156,7 @@ testcase('math.floor()') {
 	tester(`math.floor(-1))
 	tester(`math.floor(-1.5))
 	tester(`math.floor(-3.5))
+	tester(`math.floor(3.1 + 2.3j))
 	tester(`math.floor(array {0, .1, .9, 1, 1.5, 3.5, -.1, -.9, -1, -1.5, -3.5}))
 }
 

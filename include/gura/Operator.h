@@ -1038,7 +1038,7 @@ public:
 	}
 };
 
-template<> inline void Operator_Math_imag::Calc(Complex &result, const Complex &var)
+template<> inline void Operator_Math_imag::Calc(Double &result, const Complex &var)
 {
 	result = std::imag(var);
 }
@@ -1113,7 +1113,7 @@ public:
 
 template<> inline void Operator_Math_ramp::Calc(Complex &result, const Complex &var)
 {
-	result = Complex::Zero;
+	result = (var.imag() == 0 && var.real() >= 0)? var : Complex::Zero;
 }
 
 //-----------------------------------------------------------------------------
@@ -1129,7 +1129,7 @@ public:
 	}
 };
 
-template<> inline void Operator_Math_real::Calc(Complex &result, const Complex &var)
+template<> inline void Operator_Math_real::Calc(Double &result, const Complex &var)
 {
 	result = std::real(var);
 }
@@ -1239,7 +1239,7 @@ public:
 
 template<> inline void Operator_Math_unitstep::Calc(Complex &result, const Complex &var)
 {
-	result = Complex::Zero;
+	result = (var.imag() == 0 && var.real() >= 0)? Complex(1) : Complex::Zero;
 }
 
 //-----------------------------------------------------------------------------
