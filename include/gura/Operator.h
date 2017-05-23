@@ -488,6 +488,16 @@ template<> inline void Operator_Mod::Calc<Double, Double, T_Other>( \
 	result = ::fmod(varL, static_cast<Double>(varR));				\
 }
 
+#define Gura_ImplementMod_Complex(T_Other) \
+template<> inline void Operator_Mod::Calc<Complex, T_Other, Complex>( \
+				Complex &result, const T_Other &varL, const Complex &varR) {	\
+	result = ::fmod(static_cast<Double>(varL), varR.real());			\
+} \
+template<> inline void Operator_Mod::Calc<Complex, Complex, T_Other>( \
+				Complex &result, const Complex &varL, const T_Other &varR) {	\
+	result = ::fmod(varL.real(), static_cast<Double>(varR));			\
+}
+
 template<> inline void Operator_Mod::Calc<Float, Float, Float>(
 				Float &result, const Float &varL, const Float &varR)
 {
@@ -498,6 +508,11 @@ template<> inline void Operator_Mod::Calc<Double, Double, Double>(
 				Double &result, const Double &varL, const Double &varR)
 {
 	result = ::fmod(varL, varR);
+}
+
+template<> inline void Operator_Mod::Calc<Complex, Complex, Complex>( \
+				Complex &result, const Complex &varL, const Complex &varR) {	\
+	result = ::fmod(varL.real(), varR.real());							\
 }
 
 Gura_ImplementMod_Float(Int8)
@@ -519,6 +534,17 @@ Gura_ImplementMod_Double(UInt32)
 Gura_ImplementMod_Double(Int64)
 Gura_ImplementMod_Double(UInt64)
 Gura_ImplementMod_Double(Float)
+
+Gura_ImplementMod_Complex(Int8)
+Gura_ImplementMod_Complex(UInt8)
+Gura_ImplementMod_Complex(Int16)
+Gura_ImplementMod_Complex(UInt16)
+Gura_ImplementMod_Complex(Int32)
+Gura_ImplementMod_Complex(UInt32)
+Gura_ImplementMod_Complex(Int64)
+Gura_ImplementMod_Complex(UInt64)
+Gura_ImplementMod_Complex(Float)
+Gura_ImplementMod_Complex(Double)
 
 //-----------------------------------------------------------------------------
 // Operator_ModMod
@@ -595,6 +621,32 @@ public:
 			std::pow(static_cast<double>(varL), static_cast<double>(varR)));
 	}
 };
+
+#define Gura_ImplementPow_Complex(T_Other) \
+template<> inline void Operator_Pow::Calc<Complex, T_Other, Complex>( \
+				Complex &result, const T_Other &varL, const Complex &varR) {	\
+	result = std::pow(static_cast<Double>(varL), varR.real());			\
+} \
+template<> inline void Operator_Pow::Calc<Complex, Complex, T_Other>( \
+				Complex &result, const Complex &varL, const T_Other &varR) {	\
+	result = std::pow(varL.real(), static_cast<Double>(varR));			\
+}
+
+template<> inline void Operator_Pow::Calc<Complex, Complex, Complex>( \
+				Complex &result, const Complex &varL, const Complex &varR) {	\
+	result = std::pow(varL.real(), varR.real());							\
+}
+
+Gura_ImplementPow_Complex(Int8)
+Gura_ImplementPow_Complex(UInt8)
+Gura_ImplementPow_Complex(Int16)
+Gura_ImplementPow_Complex(UInt16)
+Gura_ImplementPow_Complex(Int32)
+Gura_ImplementPow_Complex(UInt32)
+Gura_ImplementPow_Complex(Int64)
+Gura_ImplementPow_Complex(UInt64)
+Gura_ImplementPow_Complex(Float)
+Gura_ImplementPow_Complex(Double)
 
 //-----------------------------------------------------------------------------
 // Operator_Eq
@@ -862,6 +914,32 @@ public:
 	}
 };
 
+#define Gura_ImplementMath_atan2_Complex(T_Other) \
+template<> inline void Operator_Math_atan2::Calc<Complex, T_Other, Complex>( \
+				Complex &result, const T_Other &varL, const Complex &varR) {	\
+	result = ::atan2(static_cast<Double>(varL), varR.real());			\
+} \
+template<> inline void Operator_Math_atan2::Calc<Complex, Complex, T_Other>( \
+				Complex &result, const Complex &varL, const T_Other &varR) {	\
+	result = ::atan2(varL.real(), static_cast<Double>(varR));			\
+}
+
+template<> inline void Operator_Math_atan2::Calc<Complex, Complex, Complex>( \
+				Complex &result, const Complex &varL, const Complex &varR) {	\
+	result = ::atan2(varL.real(), varR.real());							\
+}
+
+Gura_ImplementMath_atan2_Complex(Int8)
+Gura_ImplementMath_atan2_Complex(UInt8)
+Gura_ImplementMath_atan2_Complex(Int16)
+Gura_ImplementMath_atan2_Complex(UInt16)
+Gura_ImplementMath_atan2_Complex(Int32)
+Gura_ImplementMath_atan2_Complex(UInt32)
+Gura_ImplementMath_atan2_Complex(Int64)
+Gura_ImplementMath_atan2_Complex(UInt64)
+Gura_ImplementMath_atan2_Complex(Float)
+Gura_ImplementMath_atan2_Complex(Double)
+
 //-----------------------------------------------------------------------------
 // Operator_Math_ceil
 //-----------------------------------------------------------------------------
@@ -1024,6 +1102,32 @@ public:
 		result = static_cast<T_Result>(::hypot(varL, varR));
 	}
 };
+
+#define Gura_ImplementMath_hypot_Complex(T_Other) \
+template<> inline void Operator_Math_hypot::Calc<Complex, T_Other, Complex>( \
+				Complex &result, const T_Other &varL, const Complex &varR) {	\
+	result = ::hypot(static_cast<Double>(varL), varR.real());			\
+} \
+template<> inline void Operator_Math_hypot::Calc<Complex, Complex, T_Other>( \
+				Complex &result, const Complex &varL, const T_Other &varR) {	\
+	result = ::hypot(varL.real(), static_cast<Double>(varR));			\
+}
+
+template<> inline void Operator_Math_hypot::Calc<Complex, Complex, Complex>( \
+				Complex &result, const Complex &varL, const Complex &varR) {	\
+	result = ::hypot(varL.real(), varR.real());							\
+}
+
+Gura_ImplementMath_hypot_Complex(Int8)
+Gura_ImplementMath_hypot_Complex(UInt8)
+Gura_ImplementMath_hypot_Complex(Int16)
+Gura_ImplementMath_hypot_Complex(UInt16)
+Gura_ImplementMath_hypot_Complex(Int32)
+Gura_ImplementMath_hypot_Complex(UInt32)
+Gura_ImplementMath_hypot_Complex(Int64)
+Gura_ImplementMath_hypot_Complex(UInt64)
+Gura_ImplementMath_hypot_Complex(Float)
+Gura_ImplementMath_hypot_Complex(Double)
 
 //-----------------------------------------------------------------------------
 // Operator_Math_imag
