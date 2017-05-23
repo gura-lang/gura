@@ -255,6 +255,25 @@ bool Class_complex::Deserialize(Environment &env, Stream &stream, Value &value) 
 	return true;
 }
 
+bool Class_complex::Format_d(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+{
+	Signal &sig = GetSignal();
+	char buff[128];
+	const Complex &num = value.GetComplex();
+	if (!pFormatter->PutAlignedString(
+			sig, flags, Formatter::Format_d(
+				flags, static_cast<Int64>(num.real()), buff, sizeof(buff)))) return false;
+	if (num.imag() != 0) {
+		Formatter::Flags flagsImag = flags;
+		flagsImag.plusMode = Formatter::PLUSMODE_Plus;
+		if (!pFormatter->PutAlignedString(
+				sig, flagsImag, Formatter::Format_d(
+					flagsImag, static_cast<Int64>(num.imag()), buff, sizeof(buff)))) return false;
+		if (!pFormatter->PutChar(sig, 'j')) return false;
+	}
+	return true;
+}
+
 bool Class_complex::Format_e(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -262,11 +281,14 @@ bool Class_complex::Format_e(Formatter *pFormatter, Formatter::Flags &flags, con
 	const Complex &num = value.GetComplex();
 	if (!pFormatter->PutAlignedString(sig, flags, Formatter::Format_e(flags,
 									num.real(), buff, sizeof(buff)))) return false;
-	Formatter::Flags flagsImag = flags;
-	flagsImag.plusMode = Formatter::PLUSMODE_Plus;
-	if (!pFormatter->PutAlignedString(sig, flagsImag, Formatter::Format_e(flagsImag,
-									num.imag(), buff, sizeof(buff)))) return false;
-	if (!pFormatter->PutChar(sig, 'j')) return false;
+	if (num.imag() != 0) {
+		Formatter::Flags flagsImag = flags;
+		flagsImag.plusMode = Formatter::PLUSMODE_Plus;
+		if (!pFormatter->PutAlignedString(
+				sig, flagsImag, Formatter::Format_e(
+					flagsImag, num.imag(), buff, sizeof(buff)))) return false;
+		if (!pFormatter->PutChar(sig, 'j')) return false;
+	}
 	return true;
 }
 
@@ -277,11 +299,14 @@ bool Class_complex::Format_f(Formatter *pFormatter, Formatter::Flags &flags, con
 	const Complex &num = value.GetComplex();
 	if (!pFormatter->PutAlignedString(sig, flags, Formatter::Format_f(flags,
 									num.real(), buff, sizeof(buff)))) return false;
-	Formatter::Flags flagsImag = flags;
-	flagsImag.plusMode = Formatter::PLUSMODE_Plus;
-	if (!pFormatter->PutAlignedString(sig, flagsImag, Formatter::Format_f(flagsImag,
-									num.imag(), buff, sizeof(buff)))) return false;
-	if (!pFormatter->PutChar(sig, 'j')) return false;
+	if (num.imag() != 0) {
+		Formatter::Flags flagsImag = flags;
+		flagsImag.plusMode = Formatter::PLUSMODE_Plus;
+		if (!pFormatter->PutAlignedString(
+				sig, flagsImag, Formatter::Format_f(
+					flagsImag, num.imag(), buff, sizeof(buff)))) return false;
+		if (!pFormatter->PutChar(sig, 'j')) return false;
+	}
 	return true;
 }
 
@@ -292,11 +317,14 @@ bool Class_complex::Format_g(Formatter *pFormatter, Formatter::Flags &flags, con
 	const Complex &num = value.GetComplex();
 	if (!pFormatter->PutAlignedString(sig, flags, Formatter::Format_g(flags,
 									num.real(), buff, sizeof(buff)))) return false;
-	Formatter::Flags flagsImag = flags;
-	flagsImag.plusMode = Formatter::PLUSMODE_Plus;
-	if (!pFormatter->PutAlignedString(sig, flagsImag, Formatter::Format_g(flagsImag,
-									num.imag(), buff, sizeof(buff)))) return false;
-	if (!pFormatter->PutChar(sig, 'j')) return false;
+	if (num.imag() != 0) {
+		Formatter::Flags flagsImag = flags;
+		flagsImag.plusMode = Formatter::PLUSMODE_Plus;
+		if (!pFormatter->PutAlignedString(
+				sig, flagsImag, Formatter::Format_g(
+					flagsImag, num.imag(), buff, sizeof(buff)))) return false;
+		if (!pFormatter->PutChar(sig, 'j')) return false;
+	}
 	return true;
 }
 
