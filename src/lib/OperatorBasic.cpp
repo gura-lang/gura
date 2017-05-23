@@ -1500,7 +1500,15 @@ Gura_ImplementBinaryOperator(Math_atan2, number, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_ceil, number)
 {
-	double result = ::ceil(value.GetDouble());
+	double result;
+	Operator_Math_ceil::Calc(result, value.GetDouble());
+	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_ceil, complex)
+{
+	Complex result;
+	Operator_Math_ceil::Calc(result, value.GetComplex());
 	return Value(result);
 }
 
@@ -1514,13 +1522,15 @@ Gura_ImplementUnaryOperator(Math_ceil, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_conj, number)
 {
-	double result = value.GetDouble();
+	double result;
+	Operator_Math_conj::Calc(result, value.GetDouble());
 	return Value(result);
 }
 
 Gura_ImplementUnaryOperator(Math_conj, complex)
 {
-	Complex result = std::conj(value.GetComplex());
+	Complex result;
+	Operator_Math_conj::Calc(result, value.GetComplex());
 	return Value(result);
 }
 
@@ -2231,6 +2241,7 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignUnaryOperator(Math_atan, array);
 	Gura_AssignBinaryOperator(Math_atan2, number, number);
 	Gura_AssignUnaryOperator(Math_ceil, number);
+	Gura_AssignUnaryOperator(Math_ceil, complex);
 	Gura_AssignUnaryOperator(Math_ceil, array);
 	Gura_AssignUnaryOperator(Math_conj, number);
 	Gura_AssignUnaryOperator(Math_conj, complex);
