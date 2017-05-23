@@ -176,6 +176,7 @@ Value Object_array::EvalIndexGet(Environment &env, const ValueList &valListIdx)
 		&EvalIndexGetTmpl<UInt32>,
 		&EvalIndexGetTmpl<Int64>,
 		&EvalIndexGetTmpl<UInt64>,
+		nullptr,
 		&EvalIndexGetTmpl<Float>,
 		&EvalIndexGetTmpl<Double>,
 		&EvalIndexGetTmpl<Complex>,
@@ -317,6 +318,7 @@ void Object_array::EvalIndexSet(Environment &env, const ValueList &valListIdx, c
 		&EvalIndexSetTmpl<UInt32>,
 		&EvalIndexSetTmpl<Int64>,
 		&EvalIndexSetTmpl<UInt64>,
+		nullptr,
 		&EvalIndexSetTmpl<Float>,
 		&EvalIndexSetTmpl<Double>,
 		&EvalIndexSetTmpl<Complex>,
@@ -344,6 +346,7 @@ Iterator *Object_array::CreateIterator(Signal &sig)
 		&CreateIteratorTmpl<UInt32>,
 		&CreateIteratorTmpl<Int64>,
 		&CreateIteratorTmpl<UInt64>,
+		nullptr,
 		&CreateIteratorTmpl<Float>,
 		&CreateIteratorTmpl<Double>,
 		//&CreateIteratorTmpl<Complex>,
@@ -459,6 +462,7 @@ Gura_DeclareProperty_R(array, elemtype)
 		"`` `uint32``,\n"
 		"`` `int64``,\n"
 		"`` `uint64``,\n"
+		"`` `half``,\n"
 		"`` `float``,\n"
 		"`` `double`` and\n"
 		"`` `complex``.");
@@ -584,6 +588,7 @@ Gura_ImplementPropertyGetter(array, T)
 		&PropertyGetter_T<UInt32>,
 		&PropertyGetter_T<Int64>,
 		&PropertyGetter_T<UInt64>,
+		nullptr,
 		&PropertyGetter_T<Float>,
 		&PropertyGetter_T<Double>,
 		//&PropertyGetter_T<Complex>,
@@ -621,6 +626,7 @@ Gura_DeclareFunction(array)
 		"- `` `uint32`` .. array@uint32\n"
 		"- `` `int64`` .. array@int64\n"
 		"- `` `uint64`` .. array@uint64\n"
+		"- `` `half`` .. array@half\n"
 		"- `` `float`` .. array@float\n"
 		"- `` `double`` .. array@double\n"
 		"- `` `complex`` .. array@complex\n"
@@ -639,6 +645,7 @@ Gura_ImplementFunction(array)
 		&Object_arrayT<UInt32>::Constructor,
 		&Object_arrayT<Int64>::Constructor,
 		&Object_arrayT<UInt64>::Constructor,
+		nullptr,
 		&Object_arrayT<Float>::Constructor,
 		&Object_arrayT<Double>::Constructor,
 		&Object_arrayT<Complex>::Constructor,
@@ -704,6 +711,7 @@ Gura_ImplementMethod(array, average)
 		&Method_average<UInt32>,
 		&Method_average<Int64>,
 		&Method_average<UInt64>,
+		nullptr,
 		&Method_average<Float>,
 		&Method_average<Double>,
 		//&Method_average<Complex>,
@@ -769,6 +777,7 @@ Gura_ImplementMethod(array, dump)
 		&Method_dump<UInt32>,
 		&Method_dump<Int64>,
 		&Method_dump<UInt64>,
+		nullptr,
 		&Method_dump<Float>,
 		&Method_dump<Double>,
 		//&Method_dump<Complex>,
@@ -814,6 +823,7 @@ Gura_ImplementMethod(array, each)
 		&Method_each<UInt32>,
 		&Method_each<Int64>,
 		&Method_each<UInt64>,
+		nullptr,
 		&Method_each<Float>,
 		&Method_each<Double>,
 		//&Method_each<Complex>,
@@ -853,6 +863,7 @@ Gura_ImplementMethod(array, fill)
 		&Method_fill<UInt32>,
 		&Method_fill<Int64>,
 		&Method_fill<UInt64>,
+		nullptr,
 		&Method_fill<Float>,
 		&Method_fill<Double>,
 		//&Method_fill<Complex>,
@@ -891,6 +902,7 @@ Gura_ImplementMethod(array, flatten)
 		&Method_flatten<UInt32>,
 		&Method_flatten<Int64>,
 		&Method_flatten<UInt64>,
+		nullptr,
 		&Method_flatten<Float>,
 		&Method_flatten<Double>,
 		//&Method_flatten<Complex>,
@@ -939,6 +951,7 @@ Gura_ImplementMethod(array, head)
 		&Method_head<UInt32>,
 		&Method_head<Int64>,
 		&Method_head<UInt64>,
+		nullptr,
 		&Method_head<Float>,
 		&Method_head<Double>,
 		//&Method_head<Complex>,
@@ -980,6 +993,7 @@ Gura_ImplementMethod(array, invert)
 		&Method_invert<UInt32>,
 		&Method_invert<Int64>,
 		&Method_invert<UInt64>,
+		nullptr,
 		&Method_invert<Float>,
 		&Method_invert<Double>,
 		//&Method_invert<Complex>,
@@ -1043,6 +1057,7 @@ Gura_ImplementMethod(array, offset)
 		&Method_offset<UInt32>,
 		&Method_offset<Int64>,
 		&Method_offset<UInt64>,
+		nullptr,
 		&Method_offset<Float>,
 		&Method_offset<Double>,
 		//&Method_offset<Complex>,
@@ -1094,6 +1109,7 @@ Gura_ImplementMethod(array, paste)
 		&Method_paste<UInt32>,
 		&Method_paste<Int64>,
 		&Method_paste<UInt64>,
+		nullptr,
 		&Method_paste<Float>,
 		&Method_paste<Double>,
 		//&Method_paste<Complex>,
@@ -1135,6 +1151,7 @@ Gura_ImplementMethod(array, reshape)
 		&Method_reshape<UInt32>,
 		&Method_reshape<Int64>,
 		&Method_reshape<UInt64>,
+		nullptr,
 		&Method_reshape<Float>,
 		&Method_reshape<Double>,
 		//&Method_reshape<Complex>,
@@ -1175,6 +1192,7 @@ Gura_ImplementMethod(array, roundoff)
 		&Method_roundoff<UInt32>,
 		&Method_roundoff<Int64>,
 		&Method_roundoff<UInt64>,
+		nullptr,
 		&Method_roundoff<Float>,
 		&Method_roundoff<Double>,
 		//&Method_roundoff<Complex>,
@@ -1231,6 +1249,7 @@ Gura_ImplementMethod(array, sum)
 		&Method_sum<UInt32>,
 		&Method_sum<Int64>,
 		&Method_sum<UInt64>,
+		nullptr,
 		&Method_sum<Float>,
 		&Method_sum<Double>,
 		//&Method_sum<Complex>,
@@ -1279,6 +1298,7 @@ Gura_ImplementMethod(array, tail)
 		&Method_tail<UInt32>,
 		&Method_tail<Int64>,
 		&Method_tail<UInt64>,
+		nullptr,
 		&Method_tail<Float>,
 		&Method_tail<Double>,
 		//&Method_tail<Complex>,
@@ -1325,6 +1345,7 @@ Gura_ImplementMethod(array, transpose)
 		&Method_transpose<UInt32>,
 		&Method_transpose<Int64>,
 		&Method_transpose<UInt64>,
+		nullptr,
 		&Method_transpose<Float>,
 		&Method_transpose<Double>,
 		//&Method_transpose<Complex>,
@@ -1414,6 +1435,7 @@ bool Class_array::CastTo(Environment &env, Value &value, const Declaration &decl
 		&CastToTmpl<UInt32>,
 		&CastToTmpl<Int64>,
 		&CastToTmpl<UInt64>,
+		nullptr,
 		&CastToTmpl<Float>,
 		&CastToTmpl<Double>,
 		//&CastToTmpl<Complex>,

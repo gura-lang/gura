@@ -107,6 +107,10 @@ template<> void FormatElem(char *buff, int wdPad, const UInt64 &x) {
 	::sprintf(buff, "%*llu", wdPad, x);
 }
 
+template<> void FormatElem(char *buff, int wdPad, const Half &x) {
+	//::sprintf(buff, "%*g", wdPad, x);
+}
+
 template<> void FormatElem(char *buff, int wdPad, const Float &x) {
 	::sprintf(buff, "%*g", wdPad, x);
 }
@@ -241,6 +245,7 @@ template<> Array::ElemType ArrayT<Int32>::ElemTypeThis		= ETYPE_Int32;
 template<> Array::ElemType ArrayT<UInt32>::ElemTypeThis		= ETYPE_UInt32;
 template<> Array::ElemType ArrayT<Int64>::ElemTypeThis		= ETYPE_Int64;
 template<> Array::ElemType ArrayT<UInt64>::ElemTypeThis		= ETYPE_UInt64;
+template<> Array::ElemType ArrayT<Half>::ElemTypeThis		= ETYPE_Half;
 template<> Array::ElemType ArrayT<Float>::ElemTypeThis		= ETYPE_Float;
 template<> Array::ElemType ArrayT<Double>::ElemTypeThis		= ETYPE_Double;
 template<> Array::ElemType ArrayT<Complex>::ElemTypeThis	= ETYPE_Complex;
@@ -253,6 +258,7 @@ template<> size_t ArrayT<Int32>::ElemBytes					= 4;
 template<> size_t ArrayT<UInt32>::ElemBytes					= 4;
 template<> size_t ArrayT<Int64>::ElemBytes					= 8;
 template<> size_t ArrayT<UInt64>::ElemBytes					= 8;
+template<> size_t ArrayT<Half>::ElemBytes					= 2;
 template<> size_t ArrayT<Float>::ElemBytes					= 4;
 template<> size_t ArrayT<Double>::ElemBytes					= 8;
 template<> size_t ArrayT<Complex>::ElemBytes				= 16;
@@ -265,6 +271,7 @@ template<> const char *ArrayT<Int32>::ElemTypeName			= "int32";
 template<> const char *ArrayT<UInt32>::ElemTypeName			= "uint32";
 template<> const char *ArrayT<Int64>::ElemTypeName			= "int64";
 template<> const char *ArrayT<UInt64>::ElemTypeName			= "uint64";
+template<> const char *ArrayT<Half>::ElemTypeName			= "half";
 template<> const char *ArrayT<Float>::ElemTypeName			= "float";
 template<> const char *ArrayT<Double>::ElemTypeName			= "double";
 template<> const char *ArrayT<Complex>::ElemTypeName		= "complex";
@@ -277,6 +284,7 @@ template<> const char *ArrayT<Int32>::ConstructorName		= "array@int32";
 template<> const char *ArrayT<UInt32>::ConstructorName		= "array@uint32";
 template<> const char *ArrayT<Int64>::ConstructorName		= "array@int64";
 template<> const char *ArrayT<UInt64>::ConstructorName		= "array@uint64";
+template<> const char *ArrayT<Half>::ConstructorName		= "array@half";
 template<> const char *ArrayT<Float>::ConstructorName		= "array@float";
 template<> const char *ArrayT<Double>::ConstructorName		= "array@double";
 template<> const char *ArrayT<Complex>::ConstructorName 	= "array@complex";
@@ -378,6 +386,12 @@ template<>
 void ArrayT<UInt64>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
 	DumpInteger<UInt64, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx", 4, GetPointer(), GetElemNum());
+}
+
+template<>
+void ArrayT<Half>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+{
+	//DumpFloat<float, ULong>(sig, stream, upperFlag? "%08lX" : "%08lx", 8, GetPointer(), GetElemNum());
 }
 
 template<>
@@ -1188,6 +1202,7 @@ ImplementArrayT(Int32)
 ImplementArrayT(UInt32)
 ImplementArrayT(Int64)
 ImplementArrayT(UInt64)
+//ImplementArrayT(Half)
 ImplementArrayT(Float)
 ImplementArrayT(Double)
 ImplementArrayT(Complex)
@@ -1203,6 +1218,7 @@ template class Iterator_ArrayT_Each<Int32>;
 template class Iterator_ArrayT_Each<UInt32>;
 template class Iterator_ArrayT_Each<Int64>;
 template class Iterator_ArrayT_Each<UInt64>;
+//template class Iterator_ArrayT_Each<Half>;
 template class Iterator_ArrayT_Each<Float>;
 template class Iterator_ArrayT_Each<Double>;
 template class Iterator_ArrayT_Each<Complex>;

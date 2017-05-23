@@ -257,6 +257,7 @@
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="FunctionCustom.cpp" />
     <ClCompile Include="Fundamental.cpp" />
+    <ClCompile Include="Half.cpp" />
     <ClCompile Include="Help.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Iterator.cpp" />
@@ -391,6 +392,7 @@
     <ClInclude Include="..\..\include\gura\Formatter.h" />
     <ClInclude Include="..\..\include\gura\Function.h" />
     <ClInclude Include="..\..\include\gura\Fundamental.h" />
+    <ClInclude Include="..\..\include\gura\Half.h" />
     <ClInclude Include="..\..\include\gura\Help.h" />
     <ClInclude Include="..\..\include\gura\Image.h" />
     <ClInclude Include="..\..\include\gura\Iterator.h" />

@@ -29,6 +29,7 @@ void Array::Bootup()
 		{ "uint32",		ETYPE_UInt32	},
 		{ "int64",		ETYPE_Int64		},
 		{ "uint64",		ETYPE_UInt64	},
+		{ "half",		ETYPE_Half		},
 		{ "float",		ETYPE_Float		},
 		{ "double",		ETYPE_Double	},
 		{ "complex",	ETYPE_Complex	},
@@ -70,6 +71,7 @@ size_t Array::GetElemBytes() const
 		ArrayT<UInt32>::ElemBytes,
 		ArrayT<Int64>::ElemBytes,
 		ArrayT<UInt64>::ElemBytes,
+		ArrayT<Half>::ElemBytes,
 		ArrayT<Float>::ElemBytes,
 		ArrayT<Double>::ElemBytes,
 		ArrayT<Complex>::ElemBytes,
@@ -89,6 +91,7 @@ const char *Array::GetElemTypeName() const
 		ArrayT<UInt32>::ElemTypeName,
 		ArrayT<Int64>::ElemTypeName,
 		ArrayT<UInt64>::ElemTypeName,
+		ArrayT<Half>::ElemTypeName,
 		ArrayT<Float>::ElemTypeName,
 		ArrayT<Double>::ElemTypeName,
 		ArrayT<Complex>::ElemTypeName,
@@ -286,6 +289,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			&CopyElementsTmpl<Int8, UInt32>,
 			&CopyElementsTmpl<Int8, Int64>,
 			&CopyElementsTmpl<Int8, UInt64>,
+			nullptr, //&CopyElementsTmpl<Int8, Half>,
 			&CopyElementsTmpl<Int8, Float>,
 			&CopyElementsTmpl<Int8, Double>,
 			//&CopyElementsTmpl<Int8, Complex>,
@@ -299,6 +303,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			&CopyElementsTmpl<UInt8, UInt32>,
 			&CopyElementsTmpl<UInt8, Int64>,
 			&CopyElementsTmpl<UInt8, UInt64>,
+			nullptr, // &CopyElementsTmpl<UInt8, Half>,
 			&CopyElementsTmpl<UInt8, Float>,
 			&CopyElementsTmpl<UInt8, Double>,
 			//&CopyElementsTmpl<UInt8, Complex>,
@@ -312,6 +317,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			&CopyElementsTmpl<Int16, UInt32>,
 			&CopyElementsTmpl<Int16, Int64>,
 			&CopyElementsTmpl<Int16, UInt64>,
+			nullptr, // &CopyElementsTmpl<Int16, Half>,
 			&CopyElementsTmpl<Int16, Float>,
 			&CopyElementsTmpl<Int16, Double>,
 			//&CopyElementsTmpl<Int16, Complex>,
@@ -325,6 +331,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			&CopyElementsTmpl<UInt16, UInt32>,
 			&CopyElementsTmpl<UInt16, Int64>,
 			&CopyElementsTmpl<UInt16, UInt64>,
+			nullptr, // &CopyElementsTmpl<UInt16, Half>,
 			&CopyElementsTmpl<UInt16, Float>,
 			&CopyElementsTmpl<UInt16, Double>,
 			//&CopyElementsTmpl<UInt16, Complex>,
@@ -338,6 +345,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			&CopyElementsTmpl<Int32, UInt32>,
 			&CopyElementsTmpl<Int32, Int64>,
 			&CopyElementsTmpl<Int32, UInt64>,
+			nullptr, // &CopyElementsTmpl<Int32, Half>,
 			&CopyElementsTmpl<Int32, Float>,
 			&CopyElementsTmpl<Int32, Double>,
 			//&CopyElementsTmpl<Int32, Complex>,
@@ -351,6 +359,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			&CopyElementsTmpl<UInt32, UInt32>,
 			&CopyElementsTmpl<UInt32, Int64>,
 			&CopyElementsTmpl<UInt32, UInt64>,
+			nullptr, // &CopyElementsTmpl<UInt32, Half>,
 			&CopyElementsTmpl<UInt32, Float>,
 			&CopyElementsTmpl<UInt32, Double>,
 			//&CopyElementsTmpl<UInt32, Complex>,
@@ -364,6 +373,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			&CopyElementsTmpl<Int64, UInt32>,
 			&CopyElementsTmpl<Int64, Int64>,
 			&CopyElementsTmpl<Int64, UInt64>,
+			nullptr, // &CopyElementsTmpl<Int64, Half>,
 			&CopyElementsTmpl<Int64, Float>,
 			&CopyElementsTmpl<Int64, Double>,
 			//&CopyElementsTmpl<Int64, Complex>,
@@ -377,9 +387,24 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			&CopyElementsTmpl<UInt64, UInt32>,
 			&CopyElementsTmpl<UInt64, Int64>,
 			&CopyElementsTmpl<UInt64, UInt64>,
+			nullptr, // &CopyElementsTmpl<UInt64, Half>,
 			&CopyElementsTmpl<UInt64, Float>,
 			&CopyElementsTmpl<UInt64, Double>,
 			//&CopyElementsTmpl<UInt64, Complex>,
+		}, {
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
 		}, {
 			nullptr,
 			&CopyElementsTmpl<Float, Int8>,
@@ -390,6 +415,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			&CopyElementsTmpl<Float, UInt32>,
 			&CopyElementsTmpl<Float, Int64>,
 			&CopyElementsTmpl<Float, UInt64>,
+			nullptr, // &CopyElementsTmpl<Float, Half>,
 			&CopyElementsTmpl<Float, Float>,
 			&CopyElementsTmpl<Float, Double>,
 			//&CopyElementsTmpl<Float, Complex>,
@@ -403,6 +429,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			&CopyElementsTmpl<Double, UInt32>,
 			&CopyElementsTmpl<Double, Int64>,
 			&CopyElementsTmpl<Double, UInt64>,
+			nullptr, // &CopyElementsTmpl<Double, Half>,
 			&CopyElementsTmpl<Double, Float>,
 			&CopyElementsTmpl<Double, Double>,
 			//&CopyElementsTmpl<Double, Complex>,
@@ -416,6 +443,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			&CopyElementsTmpl<Complex, UInt32>,
 			&CopyElementsTmpl<Complex, Int64>,
 			&CopyElementsTmpl<Complex, UInt64>,
+			nullptr, // &CopyElementsTmpl<Complex, Half>,
 			&CopyElementsTmpl<Complex, Float>,
 			&CopyElementsTmpl<Complex, Double>,
 			&CopyElementsTmpl<Complex, Complex>,
@@ -1053,6 +1081,7 @@ Array::UnaryFuncPack Array::unaryFuncPack_##op = { \
 		&func<UInt32,	UInt32,	Operator_##op::Calc>,	\
 		&func<Int64,	Int64,	Operator_##op::Calc>,	\
 		&func<UInt64,	UInt64,	Operator_##op::Calc>,	\
+		nullptr, \
 		&func<Float,	Float,	Operator_##op::Calc>,	\
 		&func<Double,	Double,	Operator_##op::Calc>,	\
 		&func<Complex,	Complex,Operator_##op::Calc>,	\
@@ -1076,6 +1105,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<UInt32,	Int8,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	Int8,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	Int8,		UInt64,		Operator_##op::Calc>, \
+			nullptr,													\
 			&funcPrefix##_array_array<Float,	Int8,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Int8,		Double,		Operator_##op::Calc>, \
 			nullptr, \
@@ -1089,6 +1119,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<UInt32,	UInt8,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	UInt8,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	UInt8,		UInt64,		Operator_##op::Calc>, \
+			nullptr,													\
 			&funcPrefix##_array_array<Float,	UInt8,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	UInt8,		Double,		Operator_##op::Calc>, \
 			nullptr, \
@@ -1102,6 +1133,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<UInt32,	Int16,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	Int16,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	Int16,		UInt64,		Operator_##op::Calc>, \
+			nullptr,													\
 			&funcPrefix##_array_array<Float,	Int16,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Int16,		Double,		Operator_##op::Calc>, \
 			nullptr, \
@@ -1115,6 +1147,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<UInt32,	UInt16,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	UInt16,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	UInt16,		UInt64,		Operator_##op::Calc>, \
+			nullptr,													\
 			&funcPrefix##_array_array<Float,	UInt16,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	UInt16,		Double,		Operator_##op::Calc>, \
 			nullptr, \
@@ -1128,6 +1161,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<UInt32,	Int32,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	Int32,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	Int32,		UInt64,		Operator_##op::Calc>, \
+			nullptr,													\
 			&funcPrefix##_array_array<Float,	Int32,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Int32,		Double,		Operator_##op::Calc>, \
 			nullptr, \
@@ -1141,6 +1175,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<UInt32,	UInt32,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	UInt32,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	UInt32,		UInt64,		Operator_##op::Calc>, \
+			nullptr,													\
 			&funcPrefix##_array_array<Float,	UInt32,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	UInt32,		Double,		Operator_##op::Calc>, \
 			nullptr, \
@@ -1154,6 +1189,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<Int64,	Int64,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	Int64,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	Int64,		UInt64,		Operator_##op::Calc>, \
+			nullptr,													\
 			&funcPrefix##_array_array<Float,	Int64,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Int64,		Double,		Operator_##op::Calc>, \
 			nullptr, \
@@ -1167,8 +1203,23 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<UInt64,	UInt64,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	UInt64,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	UInt64,		UInt64,		Operator_##op::Calc>, \
+			nullptr,													\
 			&funcPrefix##_array_array<Float,	UInt64,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	UInt64,		Double,		Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
 			nullptr, \
 		}, { \
 			nullptr, \
@@ -1180,6 +1231,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<Float,	Float,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	Float,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	Float,		UInt64,		Operator_##op::Calc>, \
+			nullptr,													\
 			&funcPrefix##_array_array<Float,	Float,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Float,		Double,		Operator_##op::Calc>, \
 			nullptr, \
@@ -1193,6 +1245,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<Double,	Double,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Double,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Double,		UInt64,		Operator_##op::Calc>, \
+			nullptr,													\
 			&funcPrefix##_array_array<Double,	Double,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Double,		Double,		Operator_##op::Calc>, \
 			nullptr, \
@@ -1210,6 +1263,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		&funcPrefix##_array_number<UInt32,	Operator_##op::Calc>, \
 		&funcPrefix##_array_number<Int64,	Operator_##op::Calc>, \
 		&funcPrefix##_array_number<UInt64,	Operator_##op::Calc>, \
+		nullptr, \
 		&funcPrefix##_array_number<Float,	Operator_##op::Calc>, \
 		&funcPrefix##_array_number<Double,	Operator_##op::Calc>, \
 		nullptr, \
@@ -1223,6 +1277,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		&funcPrefix##_number_array<UInt32,	Operator_##op::Calc>, \
 		&funcPrefix##_number_array<Int64,	Operator_##op::Calc>, \
 		&funcPrefix##_number_array<UInt64,	Operator_##op::Calc>, \
+		nullptr, \
 		&funcPrefix##_number_array<Float,	Operator_##op::Calc>, \
 		&funcPrefix##_number_array<Double,	Operator_##op::Calc>, \
 		nullptr, \
@@ -1439,6 +1494,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		&DotFuncTmpl<UInt32,	Int8,		UInt32	>,
 		&DotFuncTmpl<Int64,		Int8,		Int64	>,
 		&DotFuncTmpl<UInt64,	Int8,		UInt64	>,
+		nullptr,
 		&DotFuncTmpl<Float,		Int8,		Float	>,
 		&DotFuncTmpl<Double,	Int8,		Double	>,
 		//&DotFuncTmpl<Complex,	UInt8,		Complex	>,
@@ -1452,6 +1508,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		&DotFuncTmpl<UInt32,	UInt8,		UInt32	>,
 		&DotFuncTmpl<Int64,		UInt8,		Int64	>,
 		&DotFuncTmpl<UInt64,	UInt8,		UInt64	>,
+		nullptr,
 		&DotFuncTmpl<Float,		UInt8,		Float	>,
 		&DotFuncTmpl<Double,	UInt8,		Double	>,
 		//&DotFuncTmpl<Complex,	UInt8,		Complex	>,
@@ -1465,6 +1522,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		&DotFuncTmpl<UInt32,	Int16,		UInt32	>,
 		&DotFuncTmpl<Int64,		Int16,		Int64	>,
 		&DotFuncTmpl<UInt64,	Int16,		UInt64	>,
+		nullptr,
 		&DotFuncTmpl<Float,		Int16,		Float	>,
 		&DotFuncTmpl<Double,	Int16,		Double	>,
 		//&DotFuncTmpl<Complex,	Int16,		Complex	>,
@@ -1478,6 +1536,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		&DotFuncTmpl<UInt32,	UInt16,		UInt32	>,
 		&DotFuncTmpl<Int64,		UInt16,		Int64	>,
 		&DotFuncTmpl<UInt64,	UInt16,		UInt64	>,
+		nullptr,
 		&DotFuncTmpl<Float,		UInt16,		Float	>,
 		&DotFuncTmpl<Double,	UInt16,		Double	>,
 		//&DotFuncTmpl<Complex,	UInt16,		Complex	>,
@@ -1491,6 +1550,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		&DotFuncTmpl<UInt32,	Int32,		UInt32	>,
 		&DotFuncTmpl<Int64,		Int32,		Int64	>,
 		&DotFuncTmpl<UInt64,	Int32,		UInt64	>,
+		nullptr,
 		&DotFuncTmpl<Float,		Int32,		Float	>,
 		&DotFuncTmpl<Double,	Int32,		Double	>,
 		//&DotFuncTmpl<Complex,	Int32,		Complex	>,
@@ -1504,6 +1564,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		&DotFuncTmpl<UInt32,	UInt32,		UInt32	>,
 		&DotFuncTmpl<Int64,		UInt32,		Int64	>,
 		&DotFuncTmpl<UInt64,	UInt32,		UInt64	>,
+		nullptr,
 		&DotFuncTmpl<Float,		UInt32,		Float	>,
 		&DotFuncTmpl<Double,	UInt32,		Double	>,
 		//&DotFuncTmpl<Complex,	UInt32,		Complex	>,
@@ -1517,6 +1578,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		&DotFuncTmpl<Int64,		Int64,		UInt32	>,
 		&DotFuncTmpl<Int64,		Int64,		Int64	>,
 		&DotFuncTmpl<UInt64,	Int64,		UInt64	>,
+		nullptr,
 		&DotFuncTmpl<Float,		Int64,		Float	>,
 		&DotFuncTmpl<Double,	Int64,		Double	>,
 		//&DotFuncTmpl<Complex,	Int64,		Complex	>,
@@ -1530,9 +1592,12 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		&DotFuncTmpl<UInt64,	UInt64,		UInt32	>,
 		&DotFuncTmpl<UInt64,	UInt64,		Int64	>,
 		&DotFuncTmpl<UInt64,	UInt64,		UInt64	>,
+		nullptr,
 		&DotFuncTmpl<Float,		UInt64,		Float	>,
 		&DotFuncTmpl<Double,	UInt64,		Double	>,
 		//&DotFuncTmpl<Complex,	UInt64,		Complex	>,
+	}, {
+		nullptr,
 	}, {
 		nullptr,
 		&DotFuncTmpl<Float,		Float,		Int8	>,
@@ -1543,6 +1608,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		&DotFuncTmpl<Float,		Float,		UInt32	>,
 		&DotFuncTmpl<Float,		Float,		Int64	>,
 		&DotFuncTmpl<Float,		Float,		UInt64	>,
+		nullptr,
 		&DotFuncTmpl<Float,		Float,		Float	>,
 		&DotFuncTmpl<Double,	Float,		Double	>,
 		//&DotFuncTmpl<Complex,	Float,		Complex	>,
@@ -1556,6 +1622,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		&DotFuncTmpl<Double,	Double,		UInt32	>,
 		&DotFuncTmpl<Double,	Double,		Int64	>,
 		&DotFuncTmpl<Double,	Double,		UInt64	>,
+		nullptr,
 		&DotFuncTmpl<Double,	Double,		Float	>,
 		&DotFuncTmpl<Double,	Double,		Double	>,
 		//&DotFuncTmpl<Complex,	Double,		Complex	>,
@@ -1569,6 +1636,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		//&DotFuncTmpl<Complex,	Complex,	UInt32	>,
 		//&DotFuncTmpl<Complex,	Complex,	Int64	>,
 		//&DotFuncTmpl<Complex,	Complex,	UInt64	>,
+		//&DotFuncTmpl<Complex,	Complex,	Half	>,
 		//&DotFuncTmpl<Complex,	Complex,	Float	>,
 		//&DotFuncTmpl<Complex,	Complex,	Double	>,
 		//&DotFuncTmpl<Complex,	Complex,	Complex	>,
@@ -1576,6 +1644,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 };
 
 Array::UnaryFunc Array::invertFuncs[ETYPE_Max] = {
+	nullptr,
 	nullptr,
 	nullptr,
 	nullptr,

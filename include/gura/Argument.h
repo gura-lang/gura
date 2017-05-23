@@ -226,8 +226,10 @@ public:
 	inline bool Is_array_at_uint32(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_uint32();	}
 	inline bool Is_array_at_int64(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_int64();	}
 	inline bool Is_array_at_uint64(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_uint64();	}
+	inline bool Is_array_at_half(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_half();	}
 	inline bool Is_array_at_float(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_float();	}
 	inline bool Is_array_at_double(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_double();	}
+	inline bool Is_array_at_complex(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_complex();	}
 	inline bool Is_audio(size_t idxArg) const			{ return GetValue(idxArg).Is_audio();			}
 	inline bool Is_binary(size_t idxArg) const			{ return GetValue(idxArg).Is_binary();			}
 	inline bool Is_codec(size_t idxArg) const			{ return GetValue(idxArg).Is_codec();			}

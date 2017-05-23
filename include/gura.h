@@ -43,6 +43,8 @@
 #include "gura/Expr.h"
 #include "gura/Formatter.h"
 #include "gura/FunctionCustom.h"
+#include "gura/Half.h"
+#include "gura/Help.h"
 #include "gura/Image.h"
 #include "gura/Iterator.h"
 #include "gura/IteratorBasic.h"

@@ -25,6 +25,7 @@ public:
 		ETYPE_UInt32,
 		ETYPE_Int64,
 		ETYPE_UInt64,
+		ETYPE_Half,
 		ETYPE_Float,
 		ETYPE_Double,
 		ETYPE_Complex,

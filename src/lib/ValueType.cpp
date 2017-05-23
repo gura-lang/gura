@@ -37,6 +37,7 @@ ValueType VTYPE_array_at_int32	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_uint32	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_int64	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_uint64	= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_half	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_float	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_double	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_complex= static_cast<ValueType>(0);
@@ -179,6 +180,7 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_RealizeVTYPEAlias(array_at_uint32,	"array@uint32");
 	Gura_RealizeVTYPEAlias(array_at_int64,	"array@int64");
 	Gura_RealizeVTYPEAlias(array_at_uint64,	"array@uint64");
+	//Gura_RealizeVTYPEAlias(array_at_half,	"array@half");
 	Gura_RealizeVTYPEAlias(array_at_float,	"array@float");
    	Gura_RealizeVTYPEAlias(array_at_double,	"array@double");
    	Gura_RealizeVTYPEAlias(array_at_complex,"array@complex");
@@ -255,6 +257,8 @@ void ValueTypePool::_Bootup(Environment &env)
 		new Class_arrayT<Int64>(pClass_array, VTYPE_array_at_int64));
 	Gura_VTYPEInfo(array_at_uint64)->SetClass(
 		new Class_arrayT<UInt64>(pClass_array, VTYPE_array_at_uint64));
+	//Gura_VTYPEInfo(array_at_half)->SetClass(
+	//	new Class_arrayT<Half>(pClass_array, VTYPE_array_at_half));
 	Gura_VTYPEInfo(array_at_float)->SetClass(
 		new Class_arrayT<Float>(pClass_array, VTYPE_array_at_float));
 	Gura_VTYPEInfo(array_at_double)->SetClass(
@@ -327,6 +331,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_array_at_uint32)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_int64)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_uint64)->Prepare(env);
+	//env.LookupClass(VTYPE_array_at_half)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_float)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_double)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_complex)->Prepare(env);

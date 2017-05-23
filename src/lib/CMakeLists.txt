@@ -72,6 +72,7 @@ Formatter.cpp
 Function.cpp
 FunctionCustom.cpp
 Fundamental.cpp
+Half.cpp
 Help.cpp
 Image.cpp
 Iterator.cpp

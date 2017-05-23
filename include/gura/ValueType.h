@@ -65,6 +65,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_array_at_int32;
 GURA_DLLDECLARE extern ValueType VTYPE_array_at_uint32;
 GURA_DLLDECLARE extern ValueType VTYPE_array_at_int64;
 GURA_DLLDECLARE extern ValueType VTYPE_array_at_uint64;
+GURA_DLLDECLARE extern ValueType VTYPE_array_at_half;
 GURA_DLLDECLARE extern ValueType VTYPE_array_at_float;
 GURA_DLLDECLARE extern ValueType VTYPE_array_at_double;
 GURA_DLLDECLARE extern ValueType VTYPE_array_at_complex;
@@ -176,6 +177,7 @@ public:
 	Gura_DeclareVTYPE(array_at_uint32);
 	Gura_DeclareVTYPE(array_at_int64);
 	Gura_DeclareVTYPE(array_at_uint64);
+	Gura_DeclareVTYPE(array_at_half);
 	Gura_DeclareVTYPE(array_at_float);
 	Gura_DeclareVTYPE(array_at_double);
 	Gura_DeclareVTYPE(array_at_complex);

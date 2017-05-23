@@ -13,8 +13,8 @@ public:
 	inline Half(const Half &half) : _num(half._num) {}
 	Half(Double num);
 	Half(Float num);
-publc:
-	Half &operator=(const Half &half) { _num = half._num; return *this; }
+public:
+	inline Half &operator=(const Half &half) { _num = half._num; return *this; }
 };
 
 }

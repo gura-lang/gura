@@ -215,8 +215,10 @@ public:
 	inline bool Is_array_at_uint32() const	{ return IsType(VTYPE_array_at_uint32);			}
 	inline bool Is_array_at_int64() const	{ return IsType(VTYPE_array_at_int64);			}
 	inline bool Is_array_at_uint64() const	{ return IsType(VTYPE_array_at_uint64);			}
+	inline bool Is_array_at_half() const	{ return IsType(VTYPE_array_at_half);			}
 	inline bool Is_array_at_float() const	{ return IsType(VTYPE_array_at_float);			}
 	inline bool Is_array_at_double() const	{ return IsType(VTYPE_array_at_double);			}
+	inline bool Is_array_at_complex() const	{ return IsType(VTYPE_array_at_complex);			}
 	inline bool Is_audio() const			{ return IsType(VTYPE_audio);					}
 	inline bool Is_binary() const			{ return IsType(VTYPE_binary);					}
 	inline bool Is_codec() const			{ return IsType(VTYPE_codec);					}
@@ -303,10 +305,14 @@ public:
 								{ return MustBe(sig, Is_array_at_int64(), "array@int64");	}
 	inline bool MustBe_array_at_uint64(Signal &sig) const
 								{ return MustBe(sig, Is_array_at_uint64(), "array@uint64");	}
+	inline bool MustBe_array_at_half(Signal &sig) const
+								{ return MustBe(sig, Is_array_at_half(), "array@half");	}
 	inline bool MustBe_array_at_float(Signal &sig) const
 								{ return MustBe(sig, Is_array_at_float(), "array@float");	}
 	inline bool MustBe_array_at_double(Signal &sig) const
 								{ return MustBe(sig, Is_array_at_double(), "array@double");	}
+	inline bool MustBe_array_at_complex(Signal &sig) const
+								{ return MustBe(sig, Is_array_at_complex(), "array@complex");	}
 	inline bool MustBe_audio(Signal &sig) const
 								{ return MustBe(sig, Is_audio(), 		"audio");			}
 	inline bool MustBe_binary(Signal &sig) const
