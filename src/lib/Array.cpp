@@ -1508,7 +1508,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 		&DotFuncTmpl<Float,		Int8,		Float	>,
 		&DotFuncTmpl<Double,	Int8,		Double	>,
-		//&DotFuncTmpl<Complex,	UInt8,		Complex	>,
+		&DotFuncTmpl<Complex,	UInt8,		Complex	>,
 	}, {
 		nullptr,
 		&DotFuncTmpl<UInt8,		UInt8,		Int8	>,
@@ -1522,7 +1522,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 		&DotFuncTmpl<Float,		UInt8,		Float	>,
 		&DotFuncTmpl<Double,	UInt8,		Double	>,
-		//&DotFuncTmpl<Complex,	UInt8,		Complex	>,
+		&DotFuncTmpl<Complex,	UInt8,		Complex	>,
 	}, {
 		nullptr,
 		&DotFuncTmpl<Int16,		Int16,		Int8	>,
@@ -1536,7 +1536,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 		&DotFuncTmpl<Float,		Int16,		Float	>,
 		&DotFuncTmpl<Double,	Int16,		Double	>,
-		//&DotFuncTmpl<Complex,	Int16,		Complex	>,
+		&DotFuncTmpl<Complex,	Int16,		Complex	>,
 	}, {
 		nullptr,
 		&DotFuncTmpl<UInt16,	UInt16,		Int8	>,
@@ -1550,7 +1550,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 		&DotFuncTmpl<Float,		UInt16,		Float	>,
 		&DotFuncTmpl<Double,	UInt16,		Double	>,
-		//&DotFuncTmpl<Complex,	UInt16,		Complex	>,
+		&DotFuncTmpl<Complex,	UInt16,		Complex	>,
 	}, {
 		nullptr,
 		&DotFuncTmpl<Int32,		Int32,		Int8	>,
@@ -1564,7 +1564,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 		&DotFuncTmpl<Float,		Int32,		Float	>,
 		&DotFuncTmpl<Double,	Int32,		Double	>,
-		//&DotFuncTmpl<Complex,	Int32,		Complex	>,
+		&DotFuncTmpl<Complex,	Int32,		Complex	>,
 	}, {
 		nullptr,
 		&DotFuncTmpl<UInt32,	UInt32,		Int8	>,
@@ -1578,7 +1578,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 		&DotFuncTmpl<Float,		UInt32,		Float	>,
 		&DotFuncTmpl<Double,	UInt32,		Double	>,
-		//&DotFuncTmpl<Complex,	UInt32,		Complex	>,
+		&DotFuncTmpl<Complex,	UInt32,		Complex	>,
 	}, {
 		nullptr,
 		&DotFuncTmpl<Int64,		Int64,		Int8	>,
@@ -1592,7 +1592,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 		&DotFuncTmpl<Float,		Int64,		Float	>,
 		&DotFuncTmpl<Double,	Int64,		Double	>,
-		//&DotFuncTmpl<Complex,	Int64,		Complex	>,
+		&DotFuncTmpl<Complex,	Int64,		Complex	>,
 	}, {
 		nullptr,
 		&DotFuncTmpl<UInt64,	UInt64,		Int8	>,
@@ -1606,7 +1606,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 		&DotFuncTmpl<Float,		UInt64,		Float	>,
 		&DotFuncTmpl<Double,	UInt64,		Double	>,
-		//&DotFuncTmpl<Complex,	UInt64,		Complex	>,
+		&DotFuncTmpl<Complex,	UInt64,		Complex	>,
 	}, {
 		nullptr,
 	}, {
@@ -1622,7 +1622,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 		&DotFuncTmpl<Float,		Float,		Float	>,
 		&DotFuncTmpl<Double,	Float,		Double	>,
-		//&DotFuncTmpl<Complex,	Float,		Complex	>,
+		&DotFuncTmpl<Complex,	Float,		Complex	>,
 	}, {
 		nullptr,
 		&DotFuncTmpl<Double,	Double,		Int8	>,
@@ -1636,21 +1636,21 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 		&DotFuncTmpl<Double,	Double,		Float	>,
 		&DotFuncTmpl<Double,	Double,		Double	>,
-		//&DotFuncTmpl<Complex,	Double,		Complex	>,
+		&DotFuncTmpl<Complex,	Double,		Complex	>,
 	}, {
 		nullptr,
-		//&DotFuncTmpl<Complex,	Complex,	Int8	>,
-		//&DotFuncTmpl<Complex,	Complex,	UInt8	>,
-		//&DotFuncTmpl<Complex,	Complex,	Int16	>,
-		//&DotFuncTmpl<Complex,	Complex,	UInt16	>,
-		//&DotFuncTmpl<Complex,	Complex,	Int32	>,
-		//&DotFuncTmpl<Complex,	Complex,	UInt32	>,
-		//&DotFuncTmpl<Complex,	Complex,	Int64	>,
-		//&DotFuncTmpl<Complex,	Complex,	UInt64	>,
-		//&DotFuncTmpl<Complex,	Complex,	Half	>,
-		//&DotFuncTmpl<Complex,	Complex,	Float	>,
-		//&DotFuncTmpl<Complex,	Complex,	Double	>,
-		//&DotFuncTmpl<Complex,	Complex,	Complex	>,
+		&DotFuncTmpl<Complex,	Complex,	Int8	>,
+		&DotFuncTmpl<Complex,	Complex,	UInt8	>,
+		&DotFuncTmpl<Complex,	Complex,	Int16	>,
+		&DotFuncTmpl<Complex,	Complex,	UInt16	>,
+		&DotFuncTmpl<Complex,	Complex,	Int32	>,
+		&DotFuncTmpl<Complex,	Complex,	UInt32	>,
+		&DotFuncTmpl<Complex,	Complex,	Int64	>,
+		&DotFuncTmpl<Complex,	Complex,	UInt64	>,
+		nullptr,
+		&DotFuncTmpl<Complex,	Complex,	Float	>,
+		&DotFuncTmpl<Complex,	Complex,	Double	>,
+		&DotFuncTmpl<Complex,	Complex,	Complex	>,
 	},
 };
 
