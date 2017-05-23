@@ -300,9 +300,9 @@ public:
 	virtual Expr *MathOptimizeUnary(Environment &env, Expr *pExprChild) const;
 	static Expr *MathOptimize(Environment &env, Expr *pExprChild);
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(+elem);
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(+var);
 	}
 };
 
@@ -317,9 +317,9 @@ public:
 	virtual Expr *MathOptimizeUnary(Environment &env, Expr *pExprChild) const;
 	static Expr *MathOptimize(Environment &env, Expr *pExprChild);
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(-elem);
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(-var);
 	}
 };
 
@@ -391,9 +391,9 @@ public:
 										Expr *pExprLeft, Expr *pExprRight) const;
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
 public:
-	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
-		elemResult = static_cast<T_ElemResult>(elemL) + static_cast<T_ElemResult>(elemR);
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL) + static_cast<T_Result>(varR);
 	}
 };
 
@@ -409,9 +409,9 @@ public:
 										Expr *pExprLeft, Expr *pExprRight) const;
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
 public:
-	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
-		elemResult = static_cast<T_ElemResult>(elemL) - static_cast<T_ElemResult>(elemR);
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL) - static_cast<T_Result>(varR);
 	}
 };
 
@@ -429,9 +429,9 @@ public:
 										Expr *pExprLeft, Expr *pExprRight) const;
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
 public:
-	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
-		elemResult = static_cast<T_ElemResult>(elemL) * static_cast<T_ElemResult>(elemR);
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL) * static_cast<T_Result>(varR);
 	}
 };
 
@@ -447,9 +447,9 @@ public:
 										Expr *pExprLeft, Expr *pExprRight) const;
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
 public:
-	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
-		elemResult = static_cast<T_ElemResult>(elemL) / static_cast<T_ElemResult>(elemR);
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL) / static_cast<T_Result>(varR);
 	}
 };
 
@@ -462,42 +462,42 @@ public:
 	virtual Value EvalMapBinary(Environment &env,
 								const Value &valueLeft, const Value &valueRight, ULong flags) const;
 public:
-	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
-		elemResult = static_cast<T_ElemResult>(elemL) % static_cast<T_ElemResult>(elemR);
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL) % static_cast<T_Result>(varR);
 	}
 };
 
 #define Gura_ImplementMod_Float(T_Other) \
 template<> inline void Operator_Mod::Calc<Float, T_Other, Float>( \
-				Float &elemResult, const T_Other &elemL, const Float &elemR) {		\
-	elemResult = ::fmodf(static_cast<Float>(elemL), elemR);				\
+				Float &result, const T_Other &varL, const Float &varR) {		\
+	result = ::fmodf(static_cast<Float>(varL), varR);				\
 } \
 template<> inline void Operator_Mod::Calc<Float, Float, T_Other>( \
-				Float &elemResult, const Float &elemL, const T_Other &elemR) {		\
-	elemResult = ::fmodf(elemL, static_cast<Float>(elemR));				\
+				Float &result, const Float &varL, const T_Other &varR) {		\
+	result = ::fmodf(varL, static_cast<Float>(varR));				\
 }
 
 #define Gura_ImplementMod_Double(T_Other) \
 template<> inline void Operator_Mod::Calc<Double, T_Other, Double>( \
-				Double &elemResult, const T_Other &elemL, const Double &elemR) {	\
-	elemResult = ::fmod(static_cast<Double>(elemL), elemR);				\
+				Double &result, const T_Other &varL, const Double &varR) {	\
+	result = ::fmod(static_cast<Double>(varL), varR);				\
 } \
 template<> inline void Operator_Mod::Calc<Double, Double, T_Other>( \
-				Double &elemResult, const Double &elemL, const T_Other &elemR) {	\
-	elemResult = ::fmod(elemL, static_cast<Double>(elemR));				\
+				Double &result, const Double &varL, const T_Other &varR) {	\
+	result = ::fmod(varL, static_cast<Double>(varR));				\
 }
 
 template<> inline void Operator_Mod::Calc<Float, Float, Float>(
-				Float &elemResult, const Float &elemL, const Float &elemR)
+				Float &result, const Float &varL, const Float &varR)
 {
-	elemResult = ::fmodf(static_cast<Float>(elemL), elemR);
+	result = ::fmodf(static_cast<Float>(varL), varR);
 }
 
 template<> inline void Operator_Mod::Calc<Double, Double, Double>(
-				Double &elemResult, const Double &elemL, const Double &elemR)
+				Double &result, const Double &varL, const Double &varR)
 {
-	elemResult = ::fmod(elemL, elemR);
+	result = ::fmod(varL, varR);
 }
 
 Gura_ImplementMod_Float(Int8)
@@ -589,10 +589,10 @@ public:
 										Expr *pExprLeft, Expr *pExprRight) const;
 	static Expr *MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight);
 public:
-	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
-		elemResult = static_cast<T_ElemResult>(
-			std::pow(static_cast<double>(elemL), static_cast<double>(elemR)));
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(
+			std::pow(static_cast<double>(varL), static_cast<double>(varR)));
 	}
 };
 
@@ -667,9 +667,9 @@ class GURA_DLLDECLARE Operator_Or : public Operator {
 public:
 	inline Operator_Or() : Operator(OPTYPE_Or) {}
 public:
-	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
-		elemResult = static_cast<T_ElemResult>(elemL) | static_cast<T_ElemResult>(elemR);
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL) | static_cast<T_Result>(varR);
 	}
 };
 
@@ -680,9 +680,9 @@ class GURA_DLLDECLARE Operator_And : public Operator {
 public:
 	inline Operator_And() : Operator(OPTYPE_And) {}
 public:
-	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
-		elemResult = static_cast<T_ElemResult>(elemL) & static_cast<T_ElemResult>(elemR);
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL) & static_cast<T_Result>(varR);
 	}
 };
 
@@ -693,9 +693,9 @@ class GURA_DLLDECLARE Operator_Xor : public Operator {
 public:
 	inline Operator_Xor() : Operator(OPTYPE_Xor) {}
 public:
-	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
-		elemResult = static_cast<T_ElemResult>(elemL) ^ static_cast<T_ElemResult>(elemR);
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL) ^ static_cast<T_Result>(varR);
 	}
 };
 
@@ -706,9 +706,9 @@ class GURA_DLLDECLARE Operator_Shl : public Operator {
 public:
 	inline Operator_Shl() : Operator(OPTYPE_Shl) {}
 public:
-	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
-		elemResult = static_cast<T_ElemResult>(elemL) << static_cast<T_ElemResult>(elemR);
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL) << static_cast<T_Result>(varR);
 	}
 };
 
@@ -719,9 +719,9 @@ class GURA_DLLDECLARE Operator_Shr : public Operator {
 public:
 	inline Operator_Shr() : Operator(OPTYPE_Shr) {}
 public:
-	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
-		elemResult = static_cast<T_ElemResult>(elemL) >> static_cast<T_ElemResult>(elemR);
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL) >> static_cast<T_Result>(varR);
 	}
 };
 
@@ -766,15 +766,15 @@ class GURA_DLLDECLARE Operator_Math_abs : public Operator {
 public:
 	inline Operator_Math_abs() : Operator(OPTYPE_Math_abs) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::fabs(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::fabs(var));
 	}
 };
 
-template<> inline void Operator_Math_abs::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_abs::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::abs(elem);
+	result = std::abs(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -784,15 +784,15 @@ class GURA_DLLDECLARE Operator_Math_acos : public Operator {
 public:
 	inline Operator_Math_acos() : Operator(OPTYPE_Math_acos) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::acos(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::acos(var));
 	}
 };
 
-template<> inline void Operator_Math_acos::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_acos::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::acos(elem);
+	result = std::acos(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -802,15 +802,15 @@ class GURA_DLLDECLARE Operator_Math_arg : public Operator {
 public:
 	inline Operator_Math_arg() : Operator(OPTYPE_Math_arg) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(0);
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(0);
 	}
 };
 
-template<> inline void Operator_Math_arg::Calc(Double &elemResult, const Complex &elem)
+template<> inline void Operator_Math_arg::Calc(Double &result, const Complex &var)
 {
-	elemResult = std::arg(elem);
+	result = std::arg(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -820,15 +820,15 @@ class GURA_DLLDECLARE Operator_Math_asin : public Operator {
 public:
 	inline Operator_Math_asin() : Operator(OPTYPE_Math_asin) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::asin(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::asin(var));
 	}
 };
 
-template<> inline void Operator_Math_asin::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_asin::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::asin(elem);
+	result = std::asin(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -838,15 +838,15 @@ class GURA_DLLDECLARE Operator_Math_atan : public Operator {
 public:
 	inline Operator_Math_atan() : Operator(OPTYPE_Math_atan) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::atan(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::atan(var));
 	}
 };
 
-template<> inline void Operator_Math_atan::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_atan::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::atan(elem);
+	result = std::atan(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -856,9 +856,9 @@ class GURA_DLLDECLARE Operator_Math_atan2 : public Operator {
 public:
 	inline Operator_Math_atan2() : Operator(OPTYPE_Math_atan2) {}
 public:
-	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
-		elemResult = static_cast<T_ElemResult>(::atan2(elemL, elemR));
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(::atan2(varL, varR));
 	}
 };
 
@@ -869,15 +869,15 @@ class GURA_DLLDECLARE Operator_Math_ceil : public Operator {
 public:
 	inline Operator_Math_ceil() : Operator(OPTYPE_Math_ceil) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::ceil(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::ceil(var));
 	}
 };
 
-template<> inline void Operator_Math_ceil::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_ceil::Calc(Complex &result, const Complex &var)
 {
-	elemResult = Complex(::ceil(elem.real()), ::ceil(elem.imag()));
+	result = Complex(::ceil(var.real()), ::ceil(var.imag()));
 }
 
 //-----------------------------------------------------------------------------
@@ -887,15 +887,15 @@ class GURA_DLLDECLARE Operator_Math_conj : public Operator {
 public:
 	inline Operator_Math_conj() : Operator(OPTYPE_Math_conj) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(elem);
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(var);
 	}
 };
 
-template<> inline void Operator_Math_conj::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_conj::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::conj(elem);
+	result = std::conj(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -905,15 +905,15 @@ class GURA_DLLDECLARE Operator_Math_cos : public Operator {
 public:
 	inline Operator_Math_cos() : Operator(OPTYPE_Math_cos) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::cos(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::cos(var));
 	}
 };
 
-template<> inline void Operator_Math_cos::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_cos::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::cos(elem);
+	result = std::cos(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -923,15 +923,15 @@ class GURA_DLLDECLARE Operator_Math_cosh : public Operator {
 public:
 	inline Operator_Math_cosh() : Operator(OPTYPE_Math_cosh) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::cosh(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::cosh(var));
 	}
 };
 
-template<> inline void Operator_Math_cosh::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_cosh::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::cosh(elem);
+	result = std::cosh(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -957,15 +957,15 @@ class GURA_DLLDECLARE Operator_Math_delta : public Operator {
 public:
 	inline Operator_Math_delta() : Operator(OPTYPE_Math_delta) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>((elem == 0)? 1 : 0);
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>((var == 0)? 1 : 0);
 	}
 };
 
-template<> inline void Operator_Math_delta::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_delta::Calc(Complex &result, const Complex &var)
 {
-	elemResult = Complex((elem == Complex::Zero)? 1 : 0);
+	result = Complex((var == Complex::Zero)? 1 : 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -983,15 +983,15 @@ class GURA_DLLDECLARE Operator_Math_exp : public Operator {
 public:
 	inline Operator_Math_exp() : Operator(OPTYPE_Math_exp) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::exp(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::exp(var));
 	}
 };
 
-template<> inline void Operator_Math_exp::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_exp::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::exp(elem);
+	result = std::exp(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -1001,15 +1001,15 @@ class GURA_DLLDECLARE Operator_Math_floor : public Operator {
 public:
 	inline Operator_Math_floor() : Operator(OPTYPE_Math_floor) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::floor(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::floor(var));
 	}
 };
 
-template<> inline void Operator_Math_floor::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_floor::Calc(Complex &result, const Complex &var)
 {
-	elemResult = Complex(::floor(elem.real()), ::floor(elem.imag()));
+	result = Complex(::floor(var.real()), ::floor(var.imag()));
 }
 
 //-----------------------------------------------------------------------------
@@ -1019,9 +1019,9 @@ class GURA_DLLDECLARE Operator_Math_hypot : public Operator {
 public:
 	inline Operator_Math_hypot() : Operator(OPTYPE_Math_hypot) {}
 public:
-	template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-	inline static void Calc(T_ElemResult &elemResult, const T_ElemL &elemL, const T_ElemR &elemR) {
-		elemResult = static_cast<T_ElemResult>(::hypot(elemL, elemR));
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(::hypot(varL, varR));
 	}
 };
 
@@ -1032,15 +1032,15 @@ class GURA_DLLDECLARE Operator_Math_imag : public Operator {
 public:
 	inline Operator_Math_imag() : Operator(OPTYPE_Math_imag) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(0);
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(0);
 	}
 };
 
-template<> inline void Operator_Math_imag::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_imag::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::imag(elem);
+	result = std::imag(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -1050,15 +1050,15 @@ class GURA_DLLDECLARE Operator_Math_log : public Operator {
 public:
 	inline Operator_Math_log() : Operator(OPTYPE_Math_log) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::log(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::log(var));
 	}
 };
 
-template<> inline void Operator_Math_log::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_log::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::log(elem);
+	result = std::log(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -1068,15 +1068,15 @@ class GURA_DLLDECLARE Operator_Math_log10 : public Operator {
 public:
 	inline Operator_Math_log10() : Operator(OPTYPE_Math_log10) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::log10(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::log10(var));
 	}
 };
 
-template<> inline void Operator_Math_log10::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_log10::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::log10(elem);
+	result = std::log10(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -1086,16 +1086,16 @@ class GURA_DLLDECLARE Operator_Math_norm : public Operator {
 public:
 	inline Operator_Math_norm() : Operator(OPTYPE_Math_norm) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		T_ElemResult elemCasted = static_cast<T_ElemResult>(elem);
-		elemResult =  elemCasted * elemCasted;
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		T_Result varCasted = static_cast<T_Result>(var);
+		result =  varCasted * varCasted;
 	}
 };
 
-template<> inline void Operator_Math_norm::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_norm::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::norm(elem);
+	result = std::norm(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -1105,15 +1105,15 @@ class GURA_DLLDECLARE Operator_Math_ramp : public Operator {
 public:
 	inline Operator_Math_ramp() : Operator(OPTYPE_Math_ramp) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>((elem >= 0)? elem : 0);
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>((var >= 0)? var : 0);
 	}
 };
 
-template<> inline void Operator_Math_ramp::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_ramp::Calc(Complex &result, const Complex &var)
 {
-	elemResult = Complex::Zero;
+	result = Complex::Zero;
 }
 
 //-----------------------------------------------------------------------------
@@ -1123,15 +1123,15 @@ class GURA_DLLDECLARE Operator_Math_real : public Operator {
 public:
 	inline Operator_Math_real() : Operator(OPTYPE_Math_real) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(elem);
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(var);
 	}
 };
 
-template<> inline void Operator_Math_real::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_real::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::real(elem);
+	result = std::real(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -1141,15 +1141,15 @@ class GURA_DLLDECLARE Operator_Math_sin : public Operator {
 public:
 	inline Operator_Math_sin() : Operator(OPTYPE_Math_sin) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::sin(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::sin(var));
 	}
 };
 
-template<> inline void Operator_Math_sin::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_sin::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::sin(elem);
+	result = std::sin(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -1159,15 +1159,15 @@ class GURA_DLLDECLARE Operator_Math_sinh : public Operator {
 public:
 	inline Operator_Math_sinh() : Operator(OPTYPE_Math_sinh) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::sinh(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::sinh(var));
 	}
 };
 
-template<> inline void Operator_Math_sinh::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_sinh::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::sinh(elem);
+	result = std::sinh(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -1177,15 +1177,15 @@ class GURA_DLLDECLARE Operator_Math_sqrt : public Operator {
 public:
 	inline Operator_Math_sqrt() : Operator(OPTYPE_Math_sqrt) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::sqrt(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::sqrt(var));
 	}
 };
 
-template<> inline void Operator_Math_sqrt::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_sqrt::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::sqrt(elem);
+	result = std::sqrt(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -1195,15 +1195,15 @@ class GURA_DLLDECLARE Operator_Math_tan : public Operator {
 public:
 	inline Operator_Math_tan() : Operator(OPTYPE_Math_tan) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::tan(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::tan(var));
 	}
 };
 
-template<> inline void Operator_Math_tan::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_tan::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::tan(elem);
+	result = std::tan(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -1213,15 +1213,15 @@ class GURA_DLLDECLARE Operator_Math_tanh : public Operator {
 public:
 	inline Operator_Math_tanh() : Operator(OPTYPE_Math_tanh) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>(::tanh(elem));
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(::tanh(var));
 	}
 };
 
-template<> inline void Operator_Math_tanh::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_tanh::Calc(Complex &result, const Complex &var)
 {
-	elemResult = std::tanh(elem);
+	result = std::tanh(var);
 }
 
 //-----------------------------------------------------------------------------
@@ -1231,15 +1231,15 @@ class GURA_DLLDECLARE Operator_Math_unitstep : public Operator {
 public:
 	inline Operator_Math_unitstep() : Operator(OPTYPE_Math_unitstep) {}
 public:
-	template<typename T_ElemResult, typename T_Elem>
-	inline static void Calc(T_ElemResult &elemResult, const T_Elem &elem) {
-		elemResult = static_cast<T_ElemResult>((elem >= 0)? 1 : 0);
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>((var >= 0)? 1 : 0);
 	}
 };
 
-template<> inline void Operator_Math_unitstep::Calc(Complex &elemResult, const Complex &elem)
+template<> inline void Operator_Math_unitstep::Calc(Complex &result, const Complex &var)
 {
-	elemResult = Complex::Zero;
+	result = Complex::Zero;
 }
 
 //-----------------------------------------------------------------------------
