@@ -875,6 +875,11 @@ public:
 	}
 };
 
+template<> inline void Operator_Math_ceil::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = Complex(::ceil(elem.real()), ::ceil(elem.imag()));
+}
+
 //-----------------------------------------------------------------------------
 // Operator_Math_conj
 //-----------------------------------------------------------------------------
@@ -958,6 +963,11 @@ public:
 	}
 };
 
+template<> inline void Operator_Math_delta::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = Complex((elem == Complex::Zero)? 1 : 0);
+}
+
 //-----------------------------------------------------------------------------
 // Operator_Math_dot
 //-----------------------------------------------------------------------------
@@ -996,6 +1006,11 @@ public:
 		elemResult = static_cast<T_ElemResult>(::floor(elem));
 	}
 };
+
+template<> inline void Operator_Math_floor::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = Complex(::floor(elem.real()), ::floor(elem.imag()));
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_hypot
@@ -1095,6 +1110,11 @@ public:
 		elemResult = static_cast<T_ElemResult>((elem >= 0)? elem : 0);
 	}
 };
+
+template<> inline void Operator_Math_ramp::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = Complex::Zero;
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Math_real
@@ -1216,6 +1236,11 @@ public:
 		elemResult = static_cast<T_ElemResult>((elem >= 0)? 1 : 0);
 	}
 };
+
+template<> inline void Operator_Math_unitstep::Calc(Complex &elemResult, const Complex &elem)
+{
+	elemResult = Complex::Zero;
+}
 
 //-----------------------------------------------------------------------------
 // OperatorEntry

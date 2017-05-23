@@ -1055,7 +1055,7 @@ Array::UnaryFuncPack Array::unaryFuncPack_##op = { \
 		&func<UInt64,	UInt64,	Operator_##op::Calc>,	\
 		&func<Float,	Float,	Operator_##op::Calc>,	\
 		&func<Double,	Double,	Operator_##op::Calc>,	\
-		nullptr, \
+		&func<Complex,	Complex,Operator_##op::Calc>,	\
 	}, \
 }
 
