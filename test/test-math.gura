@@ -41,13 +41,13 @@ testcase('math.arg()') {
 }
 
 testcase('math.asin()') {
-	tester(`math.acos(0))
-	tester(`math.acos(1))
-	tester(`math.acos(-1))
-	tester(`math.acos(0):deg)
-	tester(`math.acos(1):deg)
-	tester(`math.acos(-1):deg)
-	tester(`math.acos(array {0, 1, -1}))
+	tester(`math.asin(0))
+	tester(`math.asin(1))
+	tester(`math.asin(-1))
+	tester(`math.asin(0):deg)
+	tester(`math.asin(1):deg)
+	tester(`math.asin(-1):deg)
+	tester(`math.asin(array {0, 1, -1}))
 }
 
 testcase('math.atan()') {

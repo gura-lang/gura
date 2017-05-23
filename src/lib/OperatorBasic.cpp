@@ -1468,7 +1468,8 @@ Gura_ImplementUnaryOperator(Math_arg, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_asin, number)
 {
-	double result = ::asin(value.GetDouble());
+	double result;
+	Operator_Math_asin::Calc(result, value.GetDouble());
 	if (flags & FLAG_Deg) result = RadToDeg(result);
 	return Value(result);
 }
@@ -1483,7 +1484,8 @@ Gura_ImplementUnaryOperator(Math_asin, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_atan, number)
 {
-	double result = ::atan(value.GetDouble());
+	double result;
+	Operator_Math_atan::Calc(result, value.GetDouble());
 	if (flags & FLAG_Deg) result = RadToDeg(result);
 	return Value(result);
 }
@@ -1498,7 +1500,8 @@ Gura_ImplementUnaryOperator(Math_atan, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Math_atan2, number, number)
 {
-	double result = ::atan2(valueLeft.GetDouble(), valueRight.GetDouble());
+	double result;
+	Operator_Math_atan2::Calc(result, valueLeft.GetDouble(), valueRight.GetDouble());
 	if (flags & FLAG_Deg) result = RadToDeg(result);
 	return Value(result);
 }
