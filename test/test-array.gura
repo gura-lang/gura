@@ -880,3 +880,15 @@ testcase('index-set between array@complex and array of other type') {
 		println('expected error occured: ', e.text)
 	}
 }
+testcase('operation between array and complex') {
+	x = array.range(10) + 1
+	tester(`(x + 2j))
+	tester(`(x - 2j))
+	tester(`(x * 2j))
+	tester(`(x / 2j))
+	tester(`(x ** 2j))
+	tester(`(2j + x))
+	tester(`(2j - x))
+	tester(`(2j * x))
+	tester(`(2j / x))
+}

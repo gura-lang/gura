@@ -625,16 +625,16 @@ public:
 #define Gura_ImplementPow_Complex(T_Other) \
 template<> inline void Operator_Pow::Calc<Complex, T_Other, Complex>( \
 				Complex &result, const T_Other &varL, const Complex &varR) {	\
-	result = std::pow(static_cast<Double>(varL), varR.real());			\
+	result = std::pow(static_cast<Double>(varL), varR);			\
 } \
 template<> inline void Operator_Pow::Calc<Complex, Complex, T_Other>( \
 				Complex &result, const Complex &varL, const T_Other &varR) {	\
-	result = std::pow(varL.real(), static_cast<Double>(varR));			\
+	result = std::pow(varL, static_cast<Double>(varR));			\
 }
 
-template<> inline void Operator_Pow::Calc<Complex, Complex, Complex>( \
-				Complex &result, const Complex &varL, const Complex &varR) {	\
-	result = std::pow(varL.real(), varR.real());							\
+template<> inline void Operator_Pow::Calc<Complex, Complex, Complex>(
+				Complex &result, const Complex &varL, const Complex &varR) {
+	result = std::pow<Double, Double>(varL, varR);
 }
 
 Gura_ImplementPow_Complex(Int8)
