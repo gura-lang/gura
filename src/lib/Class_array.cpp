@@ -204,11 +204,12 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			size_t nElems = pArrayT->GetElemNum();
 			for (size_t i = 0; i < nElems; i++) {
 				if (!pIterator->Next(env, valueEach)) return;
-				if (!valueEach.Is_number()) {
+				if (valueEach.Is_number()) {
+					*pElemDst++ = static_cast<T_Elem>(valueEach.GetDouble());
+				} else {
 					env.SetError(ERR_ValueError, "stored value must be a number");
 					return;
 				}
-				*pElemDst++ = static_cast<T_Elem>(valueEach.GetDouble());
 			}
 		} else {
 			env.SetError(ERR_ValueError, "value of %s can not be stored in array",
@@ -248,29 +249,32 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
 				for (size_t i = 0; i < nElemsUnit; i++) {
 					if (!pIterator->Next(env, valueEach)) return;
-					if (!valueEach.Is_number()) {
+					if (valueEach.Is_number()) {
+						*pElemDst++ = static_cast<T_Elem>(valueEach.GetDouble());
+					} else {
 						env.SetError(ERR_ValueError, "stored value must be a number");
 						return;
 					}
-					*pElemDst++ = static_cast<T_Elem>(valueEach.GetDouble());
 				}
 			} while (indexer.NextGenerator());
 		} else if (nElemsUnit == 1) {
 			if (!pIterator->Next(env, valueEach)) return;
-			if (!valueEach.Is_number()) {
+			if (valueEach.Is_number()) {
+				*pElemTgt = static_cast<T_Elem>(valueEach.GetDouble());
+			} else {
 				env.SetError(ERR_ValueError, "stored value must be a number");
 				return;
 			}
-			*pElemTgt = static_cast<T_Elem>(valueEach.GetDouble());
 		} else {
 			T_Elem *pElemDst = pElemTgt;
 			for (size_t i = 0; i < nElemsUnit; i++) {
 				if (!pIterator->Next(env, valueEach)) return;
-				if (!valueEach.Is_number()) {
+				if (valueEach.Is_number()) {
+					*pElemDst++ = static_cast<T_Elem>(valueEach.GetDouble());
+				} else {
 					env.SetError(ERR_ValueError, "stored value must be a number");
 					return;
 				}
-				*pElemDst++ = static_cast<T_Elem>(valueEach.GetDouble());
 			}
 		}
 	} else if (value.IsInstanceOf(VTYPE_array)) {
