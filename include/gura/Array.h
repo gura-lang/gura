@@ -34,8 +34,10 @@ public:
 public:
 	typedef Array *(*UnaryFunc)(Signal &sig, const Array *pArray);
 	typedef Array *(*BinaryFunc_array_array)(Signal &sig, const Array *pArrayL, const Array *pArrayR);
-	typedef Array *(*BinaryFunc_array_number)(Signal &sig, const Array *pArrayL, Number numberR);
-	typedef Array *(*BinaryFunc_number_array)(Signal &sig, Number numberL, const Array *pArrayR);
+	typedef Array *(*BinaryFunc_array_number)(Signal &sig, const Array *pArrayL, Double numberR);
+	typedef Array *(*BinaryFunc_number_array)(Signal &sig, Double numberL, const Array *pArrayR);
+	typedef Array *(*BinaryFunc_array_complex)(Signal &sig, const Array *pArrayL, const Complex &complexR);
+	typedef Array *(*BinaryFunc_complex_array)(Signal &sig, const Complex &complexL, const Array *pArrayR);
 	typedef Value (*DotFunc)(Environment &env, const Array *pArrayL, const Array *pArrayR);
 	struct UnaryFuncPack {
 		const char *name;
@@ -46,6 +48,8 @@ public:
 		BinaryFunc_array_array binaryFuncs_array_array[ETYPE_Max][ETYPE_Max];
 		BinaryFunc_array_number binaryFuncs_array_number[ETYPE_Max];
 		BinaryFunc_number_array binaryFuncs_number_array[ETYPE_Max];
+		BinaryFunc_array_complex binaryFuncs_array_complex[ETYPE_Max];
+		BinaryFunc_complex_array binaryFuncs_complex_array[ETYPE_Max];
 	};
 	typedef std::map<const Symbol *, ElemType, Symbol::LessThan> MapToElemType;
 public:
@@ -229,8 +233,8 @@ public:
 	static bool CheckShape(Signal &sig, const Array *pArrayA, const Array *pArrayB);
 	static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 										  const Array *pArrayL, const Array *pArrayR);
-	static void CopyElements(Array *pArrayDst, const Array *pArraySrc);
-	static void CopyElements(void *pElemRawDst, ElemType elemTypeDst,
+	static bool CopyElements(Environment &env, Array *pArrayDst, const Array *pArraySrc);
+	static bool CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeDst,
 							 const void *pElemRawSrc, ElemType elemTypeSrc, size_t nElems);
 	static Array *ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array *pArray);
 	static Value ApplyUnaryFunc(Environment &env, const UnaryFuncPack &pack, const Value &value);
@@ -239,12 +243,20 @@ public:
 	static Value ApplyBinaryFunc_array_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_array_number(
-		Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, Number numberR);
+		Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, Double numberR);
 	static Value ApplyBinaryFunc_array_number(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_number_array(
-		Signal &sig, const BinaryFuncPack &pack, Number numberL, const Array *pArrayR);
+		Signal &sig, const BinaryFuncPack &pack, Double numberL, const Array *pArrayR);
 	static Value ApplyBinaryFunc_number_array(
+		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
+	static Array *ApplyBinaryFunc_array_complex(
+		Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, const Complex &complexR);
+	static Value ApplyBinaryFunc_array_complex(
+		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
+	static Array *ApplyBinaryFunc_complex_array(
+		Signal &sig, const BinaryFuncPack &pack, const Complex &complexL, const Array *pArrayR);
+	static Value ApplyBinaryFunc_complex_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 public:
 	static Value Dot(Environment &env, const Array *pArrayL, const Array *pArrayR);

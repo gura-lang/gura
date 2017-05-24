@@ -255,14 +255,14 @@ void CopyElementsTmpl(void *pElemRawDst, const void *pElemRawSrc, size_t nElems)
 
 typedef void (*CopyElementsT)(void *pElemRawDst, const void *pElemRawSrc, size_t nElems);
 
-void Array::CopyElements(Array *pArrayDst, const Array *pArraySrc)
+bool Array::CopyElements(Environment &env, Array *pArrayDst, const Array *pArraySrc)
 {
 	size_t nElems = ChooseMin(pArrayDst->GetElemNum(), pArraySrc->GetElemNum());
-	CopyElements(pArrayDst->GetPointerRaw(), pArrayDst->GetElemType(),
-				 pArraySrc->GetPointerRaw(), pArraySrc->GetElemType(), nElems);
+	return CopyElements(env, pArrayDst->GetPointerRaw(), pArrayDst->GetElemType(),
+						pArraySrc->GetPointerRaw(), pArraySrc->GetElemType(), nElems);
 }
 
-void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
+bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeDst,
 						 const void *pElemRawSrc, ElemType elemTypeSrc, size_t nElems)
 {
 	static const CopyElementsT copyElementsTbl[][ETYPE_Max] = {
@@ -292,7 +292,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			nullptr, //&CopyElementsTmpl<Int8, Half>,
 			&CopyElementsTmpl<Int8, Float>,
 			&CopyElementsTmpl<Int8, Double>,
-			//&CopyElementsTmpl<Int8, Complex>,
+			nullptr,
 		}, {
 			nullptr,
 			&CopyElementsTmpl<UInt8, Int8>,
@@ -306,7 +306,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			nullptr, // &CopyElementsTmpl<UInt8, Half>,
 			&CopyElementsTmpl<UInt8, Float>,
 			&CopyElementsTmpl<UInt8, Double>,
-			//&CopyElementsTmpl<UInt8, Complex>,
+			nullptr,
 		}, {
 			nullptr,
 			&CopyElementsTmpl<Int16, Int8>,
@@ -320,7 +320,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			nullptr, // &CopyElementsTmpl<Int16, Half>,
 			&CopyElementsTmpl<Int16, Float>,
 			&CopyElementsTmpl<Int16, Double>,
-			//&CopyElementsTmpl<Int16, Complex>,
+			nullptr,
 		}, {
 			nullptr,
 			&CopyElementsTmpl<UInt16, Int8>,
@@ -334,7 +334,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			nullptr, // &CopyElementsTmpl<UInt16, Half>,
 			&CopyElementsTmpl<UInt16, Float>,
 			&CopyElementsTmpl<UInt16, Double>,
-			//&CopyElementsTmpl<UInt16, Complex>,
+			nullptr,
 		}, {
 			nullptr,
 			&CopyElementsTmpl<Int32, Int8>,
@@ -348,7 +348,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			nullptr, // &CopyElementsTmpl<Int32, Half>,
 			&CopyElementsTmpl<Int32, Float>,
 			&CopyElementsTmpl<Int32, Double>,
-			//&CopyElementsTmpl<Int32, Complex>,
+			nullptr,
 		}, {
 			nullptr,
 			&CopyElementsTmpl<UInt32, Int8>,
@@ -362,7 +362,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			nullptr, // &CopyElementsTmpl<UInt32, Half>,
 			&CopyElementsTmpl<UInt32, Float>,
 			&CopyElementsTmpl<UInt32, Double>,
-			//&CopyElementsTmpl<UInt32, Complex>,
+			nullptr,
 		}, {
 			nullptr,
 			&CopyElementsTmpl<Int64, Int8>,
@@ -376,7 +376,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			nullptr, // &CopyElementsTmpl<Int64, Half>,
 			&CopyElementsTmpl<Int64, Float>,
 			&CopyElementsTmpl<Int64, Double>,
-			//&CopyElementsTmpl<Int64, Complex>,
+			nullptr,
 		}, {
 			nullptr,
 			&CopyElementsTmpl<UInt64, Int8>,
@@ -390,7 +390,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			nullptr, // &CopyElementsTmpl<UInt64, Half>,
 			&CopyElementsTmpl<UInt64, Float>,
 			&CopyElementsTmpl<UInt64, Double>,
-			//&CopyElementsTmpl<UInt64, Complex>,
+			nullptr,
 		}, {
 			nullptr,
 			nullptr,
@@ -418,7 +418,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			nullptr, // &CopyElementsTmpl<Float, Half>,
 			&CopyElementsTmpl<Float, Float>,
 			&CopyElementsTmpl<Float, Double>,
-			//&CopyElementsTmpl<Float, Complex>,
+			nullptr,
 		}, {
 			nullptr,
 			&CopyElementsTmpl<Double, Int8>,
@@ -432,7 +432,7 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			nullptr, // &CopyElementsTmpl<Double, Half>,
 			&CopyElementsTmpl<Double, Float>,
 			&CopyElementsTmpl<Double, Double>,
-			//&CopyElementsTmpl<Double, Complex>,
+			nullptr,
 		}, {
 			nullptr,
 			&CopyElementsTmpl<Complex, Int8>,
@@ -449,7 +449,13 @@ void Array::CopyElements(void *pElemRawDst, ElemType elemTypeDst,
 			&CopyElementsTmpl<Complex, Complex>,
 		},
 	};
-	(*copyElementsTbl[elemTypeDst][elemTypeSrc])(pElemRawDst, pElemRawSrc, nElems);
+	CopyElementsT copyElements = copyElementsTbl[elemTypeDst][elemTypeSrc];
+	if (copyElements == nullptr) {
+		env.SetError(ERR_TypeError, "invalid copy operation");
+		return false;
+	}
+	(*copyElements)(pElemRawDst, pElemRawSrc, nElems);
+	return true;
 }
 
 Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array *pArray)
@@ -495,7 +501,7 @@ Value Array::ApplyBinaryFunc_array_array(
 }
 
 Array *Array::ApplyBinaryFunc_array_number(
-	Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, Number numberR)
+	Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, Double numberR)
 {
 	BinaryFunc_array_number binaryFunc_array_number =
 		pack.binaryFuncs_array_number[pArrayL->GetElemType()];
@@ -511,13 +517,13 @@ Value Array::ApplyBinaryFunc_array_number(
 {
 	Array *pArray = ApplyBinaryFunc_array_number(
 		env.GetSignal(), pack,
-		Object_array::GetObject(valueL)->GetArray(), valueR.GetNumber());
+		Object_array::GetObject(valueL)->GetArray(), valueR.GetDouble());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
 }
 
 Array *Array::ApplyBinaryFunc_number_array(
-	Signal &sig, const BinaryFuncPack &pack, Number numberL, const Array *pArrayR)
+	Signal &sig, const BinaryFuncPack &pack, Double numberL, const Array *pArrayR)
 {
 	BinaryFunc_number_array binaryFunc_number_array =
 		pack.binaryFuncs_number_array[pArrayR->GetElemType()];
@@ -533,7 +539,51 @@ Value Array::ApplyBinaryFunc_number_array(
 {
 	Array *pArray = ApplyBinaryFunc_number_array(
 		env.GetSignal(), pack,
-		valueL.GetNumber(), Object_array::GetObject(valueR)->GetArray());
+		valueL.GetDouble(), Object_array::GetObject(valueR)->GetArray());
+	if (pArray == nullptr) return Value::Nil;
+	return Value(new Object_array(env, pArray));
+}
+
+Array *Array::ApplyBinaryFunc_array_complex(
+	Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, const Complex &complexR)
+{
+	BinaryFunc_array_complex binaryFunc_array_complex =
+		pack.binaryFuncs_array_complex[pArrayL->GetElemType()];
+	if (binaryFunc_array_complex == nullptr) {
+		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
+		return nullptr;
+	}
+	return (*binaryFunc_array_complex)(sig, pArrayL, complexR);
+}
+
+Value Array::ApplyBinaryFunc_array_complex(
+	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
+{
+	Array *pArray = ApplyBinaryFunc_array_complex(
+		env.GetSignal(), pack,
+		Object_array::GetObject(valueL)->GetArray(), valueR.GetComplex());
+	if (pArray == nullptr) return Value::Nil;
+	return Value(new Object_array(env, pArray));
+}
+
+Array *Array::ApplyBinaryFunc_complex_array(
+	Signal &sig, const BinaryFuncPack &pack, const Complex &complexL, const Array *pArrayR)
+{
+	BinaryFunc_complex_array binaryFunc_complex_array =
+		pack.binaryFuncs_complex_array[pArrayR->GetElemType()];
+	if (binaryFunc_complex_array == nullptr) {
+		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
+		return nullptr;
+	}
+	return (*binaryFunc_complex_array)(sig, complexL, pArrayR);
+}
+
+Value Array::ApplyBinaryFunc_complex_array(
+	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
+{
+	Array *pArray = ApplyBinaryFunc_complex_array(
+		env.GetSignal(), pack,
+		valueL.GetComplex(), Object_array::GetObject(valueR)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
 }
@@ -1446,6 +1496,10 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		&BinaryFuncTmpl_number_array<UInt64,	Operator_##op::Calc>,	\
 		nullptr, \
 		nullptr, \
+		nullptr, \
+	}, { \
+		nullptr, \
+	}, { \
 		nullptr, \
 	} \
 }

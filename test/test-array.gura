@@ -849,7 +849,7 @@ testcase('index-set with iterator assigned') {
 		println(x)
 	}
 }
-testcase('') {
+testcase('index-set with array assigned') {
 	[
 		`(x[2] = array.range(12) + 1)
 		`(x[2] = array.range(8) + 1)
@@ -864,5 +864,19 @@ testcase('') {
 		expr.eval()
 		println(x)
 		println()
+	}
+}
+testcase('index-set between array@complex and array of other type') {
+	x = array@complex.zeros([12])
+	y = array.range(12)
+	x[0..] = y
+	println(x)
+	x = array.zeros([12])
+	y = array@complex.range(12)
+	try {
+		x[0..] = y
+		println(x)
+	} catch {|e|
+		println('expected error occured: ', e.text)
 	}
 }

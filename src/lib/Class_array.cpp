@@ -282,8 +282,8 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			do {
 				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
 				size_t nElemsToCopy = ChooseMin(nElemsUnit, nElemsSrc);
-				Array::CopyElements(pElemDst, pArrayT->GetElemType(),
-									pElemSrc, pArraySrc->GetElemType(), nElemsToCopy);
+				if (!Array::CopyElements(env, pElemDst, pArrayT->GetElemType(),
+										 pElemSrc, pArraySrc->GetElemType(), nElemsToCopy)) return;
 				nElemsSrc -= nElemsToCopy;
 				if (nElemsSrc == 0) {
 					pElemSrc = pArraySrc->GetPointerRaw();
@@ -297,8 +297,8 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			char *pElemSrc = pArraySrc->GetPointerRaw();
 			size_t nElemsSrc = pArraySrc->GetElemNum();
 			size_t nElemsToCopy = ChooseMin(nElemsUnit, nElemsSrc);
-			Array::CopyElements(pElemDst, pArrayT->GetElemType(),
-								pElemSrc, pArraySrc->GetElemType(), nElemsToCopy);
+			if (!Array::CopyElements(env, pElemDst, pArrayT->GetElemType(),
+									 pElemSrc, pArraySrc->GetElemType(), nElemsToCopy)) return;
 		}
 	} else {
 		env.SetError(ERR_ValueError, "value of %s can not be stored in array",

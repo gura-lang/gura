@@ -4923,7 +4923,7 @@ x[] = '' .. ValueError: value of string can not be stored in array
  [25, 26, 27, 28, 29, 30, 31, 32],
  [ 0,  0,  0,  0,  0,  0,  0,  0]]
 
-======== #46 ========
+======== #46 index-set with array assigned ========
 
 # x[2] = array.range(12) + 1
 [[[ 0,  0,  0],
@@ -5107,3 +5107,8 @@ x[] = '' .. ValueError: value of string can not be stored in array
   [0, 0, 5],
   [0, 0, 6]]]
 
+
+======== #47 index-set between array@complex and array of other type ========
+
+[ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11]
+expected error occured: TypeError: invalid copy operation
