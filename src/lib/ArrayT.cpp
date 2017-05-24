@@ -121,10 +121,18 @@ template<> void FormatElem(char *buff, int wdPad, const Double &x) {
 
 template<> void FormatElem(char *buff, int wdPad, const Complex &x) {
 	char tmp[128];
-	if (x.imag() == 0) {
-		::sprintf(tmp, "%g", x.real());
+	if (x.real() == 0) {
+		if (x.imag() == 0) {
+			::sprintf(tmp, "0");
+		} else {
+			::sprintf(tmp, "%gj", x.imag());
+		}
 	} else {
-		::sprintf(tmp, "%g%+gj", x.real(), x.imag());
+		if (x.imag() == 0) {
+			::sprintf(tmp, "%g", x.real());
+		} else {
+			::sprintf(tmp, "%g%+gj", x.real(), x.imag());
+		}
 	}
 	::sprintf(buff, "%*s", wdPad, tmp);
 }

@@ -340,6 +340,18 @@ Gura_ImplementBinaryOperator(Add, number, array)
 		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
 }
 
+Gura_ImplementBinaryOperator(Add, array, complex)
+{
+	return Array::ApplyBinaryFunc_array_complex(
+		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Add, complex, array)
+{
+	return Array::ApplyBinaryFunc_complex_array(
+		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
+}
+
 //-----------------------------------------------------------------------------
 // [A - B] ... BinaryOperator(Sub, A, B)
 //-----------------------------------------------------------------------------
@@ -510,6 +522,18 @@ Gura_ImplementBinaryOperator(Sub, array, number)
 Gura_ImplementBinaryOperator(Sub, number, array)
 {
 	return Array::ApplyBinaryFunc_number_array(
+		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Sub, array, complex)
+{
+	return Array::ApplyBinaryFunc_array_complex(
+		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Sub, complex, array)
+{
+	return Array::ApplyBinaryFunc_complex_array(
 		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
 }
 
@@ -709,6 +733,18 @@ Gura_ImplementBinaryOperator(Mul, number, array)
 		env, Array::binaryFuncPack_Mul, valueLeft, valueRight);
 }
 
+Gura_ImplementBinaryOperator(Mul, array, complex)
+{
+	return Array::ApplyBinaryFunc_array_complex(
+		env, Array::binaryFuncPack_Mul, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Mul, complex, array)
+{
+	return Array::ApplyBinaryFunc_complex_array(
+		env, Array::binaryFuncPack_Mul, valueLeft, valueRight);
+}
+
 //-----------------------------------------------------------------------------
 // [A / B] ... BinaryOperator(Div, A, B)
 //-----------------------------------------------------------------------------
@@ -834,6 +870,18 @@ Gura_ImplementBinaryOperator(Div, array, number)
 Gura_ImplementBinaryOperator(Div, number, array)
 {
 	return Array::ApplyBinaryFunc_number_array(
+		env, Array::binaryFuncPack_Div, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Div, array, complex)
+{
+	return Array::ApplyBinaryFunc_array_complex(
+		env, Array::binaryFuncPack_Div, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Div, complex, array)
+{
+	return Array::ApplyBinaryFunc_complex_array(
 		env, Array::binaryFuncPack_Div, valueLeft, valueRight);
 }
 
@@ -963,6 +1011,18 @@ Gura_ImplementBinaryOperator(Pow, array, number)
 Gura_ImplementBinaryOperator(Pow, number, array)
 {
 	return Array::ApplyBinaryFunc_number_array(
+		env, Array::binaryFuncPack_Pow, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Pow, array, complex)
+{
+	return Array::ApplyBinaryFunc_array_complex(
+		env, Array::binaryFuncPack_Pow, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Pow, complex, array)
+{
+	return Array::ApplyBinaryFunc_complex_array(
 		env, Array::binaryFuncPack_Pow, valueLeft, valueRight);
 }
 
@@ -2161,6 +2221,8 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Add, array, array);
 	Gura_AssignBinaryOperator(Add, array, number);
 	Gura_AssignBinaryOperator(Add, number, array);
+	Gura_AssignBinaryOperator(Add, array, complex);
+	Gura_AssignBinaryOperator(Add, complex, array);
 	Gura_AssignBinaryOperator(Sub, number, number);
 	Gura_AssignBinaryOperator(Sub, boolean, boolean);
 	Gura_AssignBinaryOperator(Sub, number, boolean);
@@ -2182,6 +2244,8 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Sub, array, array);
 	Gura_AssignBinaryOperator(Sub, array, number);
 	Gura_AssignBinaryOperator(Sub, number, array);
+	Gura_AssignBinaryOperator(Sub, array, complex);
+	Gura_AssignBinaryOperator(Sub, complex, array);
 	Gura_AssignBinaryOperator(Mul, number, number);
 	Gura_AssignBinaryOperator(Mul, boolean, boolean);
 	Gura_AssignBinaryOperator(Mul, number, boolean);
@@ -2206,6 +2270,8 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Mul, array, array);
 	Gura_AssignBinaryOperator(Mul, array, number);
 	Gura_AssignBinaryOperator(Mul, number, array);
+	Gura_AssignBinaryOperator(Mul, array, complex);
+	Gura_AssignBinaryOperator(Mul, complex, array);
 	Gura_AssignBinaryOperator(Div, number, number);
 	Gura_AssignBinaryOperator(Div, number, complex);
 	Gura_AssignBinaryOperator(Div, number, rational);
@@ -2218,6 +2284,8 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Div, array, array);
 	Gura_AssignBinaryOperator(Div, array, number);
 	Gura_AssignBinaryOperator(Div, number, array);
+	Gura_AssignBinaryOperator(Div, array, complex);
+	Gura_AssignBinaryOperator(Div, complex, array);
 	Gura_AssignBinaryOperator(Mod, number, number);
 	Gura_AssignBinaryOperator(Mod, array, array);
 	Gura_AssignBinaryOperator(Mod, array, number);
@@ -2233,6 +2301,8 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Pow, array, array);
 	Gura_AssignBinaryOperator(Pow, array, number);
 	Gura_AssignBinaryOperator(Pow, number, array);
+	Gura_AssignBinaryOperator(Pow, array, complex);
+	Gura_AssignBinaryOperator(Pow, complex, array);
 	Gura_AssignBinaryOperator(Eq, any, any);
 	Gura_AssignBinaryOperator(Ne, any, any);
 	Gura_AssignBinaryOperator(Gt, any, any);
