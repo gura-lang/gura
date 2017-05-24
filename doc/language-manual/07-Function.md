@@ -616,22 +616,21 @@ to a function declaration.
     add(x, y) = {
         x + y
     } %% {
-        `en, 'markdown', 'Takes two numbers and returns an added result.'
+        `en, 'Takes two numbers and returns an added result.'
     }
 
-The content in the block has a format of `{lang:symbol, format:string, help:string}`
-which takes following values.
+The content in the block has a format of `{lang:symbol, help:string}`
+which contains following elements:
 
 - `lang` .. Specifies a symbol of language that describes the help document:
   `en` for English and `ja` for Japanese, etc.
-- `format` .. Specifies a syntax format. Only `'markdown'` is available so far.
-- `help` .. Help string formatted in a syntax specified by `format`.
+- `help` .. Help string written in Markdown format.
 
 You can access the help information by following ways:
 
 - In the interactive mode, evaluating the operator `~` with a function instance
   would print its help information on the console.
-- Calling function `function.gethelp()` would return a `help` instance
+- Calling function `help@function()` would return a `help` instance
   that provides information about the used language, syntax format and help string.
 
 A function may have multiple help blocks that contain explanatory texts written
@@ -640,19 +639,19 @@ Below is a function example that has helps written in English and Japanese:
 
     add(x, y) = {
         x + y
-    } %% {`en, 'markdown', R'''
+    } %% {`en, R'''
 
-    (.. help document in English ..)
-
-    '''
-    } %% {`ja, 'markdown', R'''
-
-    (.. help document in Japanese ..)
+        ---- help document in English ----
 
     '''
-    } %% {`de, 'markdown', R'''
+    } %% {`ja, R'''
 
-    (.. help document in German ..)
+        ---- help document in Japanese ----
+
+    '''
+    } %% {`de, R'''
+
+        ---- help document in German ----
 
     '''
     }
@@ -661,11 +660,11 @@ A predefined variable `sys.langcode` determines which help should be printed by 
 If a function doesn't have a help in the specified language,
 what appears at first in the declaration will be used.
 
-You can also pass a language symbol to `function.gethelp` function as below.
+You can also pass a language symbol to `help@function` function as below.
 
-    function.gethelp(add, `en)
-    function.gethelp(add, `ja)
-    function.gethelp(add, `de)
+    help@function(add, `en)
+    help@function(add, `ja)
+    help@function(add, `de)
 
 
 ## Anonymous Function
@@ -686,22 +685,36 @@ you can call `function()` without an argument list like below.
 
     function { /* body */ }
 
-Since a special symbol `&` is also bound to the `function()` function,
-you can create a function instance as below.
-
-    &{ /* body */ }
-
 When `function()` creates a function instance,
 it seeks variable symbols in the function body that start with `$` character,
 which are used as argument variables. For instance, see the following code:
 
     function { printf('x = %s, y = %s, z = %s\n', $x, $y, $z) }
 
-This is equivalent with the function creation shown below:
+In this case, the order of arguments is the same with the order
+in which the variables appear in the body.
+So, the example above is equivalent with the function that is created like below:
 
     function($x, $y, $z) { printf('x = %s, y = %s, z = %s\n', $x, $y, $z) }
 
-The order of arguments is the same with the order in which the variables appear in the body.
+Since a special symbol `&` is also bound to the `function()` function,
+you can create a function instance as below:
+
+    &{ /* body */ }
+
+The example above can be written like this:
+
+    &{ printf('x = %s, y = %s, z = %s\n', $x, $y, $z) }
+
+Exlicit arguments may be specified as block parameters.
+The following example creates a function that takes arguments named `x`, `y` and `z`.
+
+    &{|x, y, z| /* body */ }
+
+Of course, like an argument list in an ordinary function declartion,
+you can declare them with value types.
+
+    &{|x:number, y:string, z:string| /* body */ }
 
 
 ## Closure
