@@ -772,6 +772,52 @@ Array *BinaryFuncTmpl_Div_number_array(Signal &sig, Double numberL, const Array 
 	return BinaryFuncTmpl_number_array<T_ElemR, op>(sig, numberL, pArrayR);
 }
 
+template<typename T_ElemL, void (*op)(Complex &, const T_ElemL &, const Complex &)>
+Array *BinaryFuncTmpl_array_complex(Signal &sig, const Array *pArrayL, const Complex &complexR)
+{
+	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
+	size_t nElemsL = pArrayL->GetElemNum();
+	AutoPtr<ArrayT<Complex> > pArrayResult(ArrayT<Complex>::Create(pArrayL->GetDimensions()));
+	Complex *pElemResult = pArrayResult->GetPointer();
+	for (size_t i = 0; i < nElemsL; i++, pElemResult++, pElemL++) {
+		op(*pElemResult, *pElemL, complexR);
+	}
+	return pArrayResult.release();
+}
+
+template<typename T_ElemL, void (*op)(Complex &, const T_ElemL &, const Complex &)>
+Array *BinaryFuncTmpl_Div_array_complex(Signal &sig, const Array *pArrayL, const Complex &complexR)
+{
+	if (complexR == Complex::Zero) {
+		Operator::SetError_DivideByZero(sig);
+		return nullptr;
+	}
+	return BinaryFuncTmpl_array_complex<T_ElemL, op>(sig, pArrayL, complexR);
+}
+
+template<typename T_ElemR, void (*op)(Complex &, const Complex &, const T_ElemR &)>
+Array *BinaryFuncTmpl_complex_array(Signal &sig, const Complex &complexL, const Array *pArrayR)
+{
+	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
+	size_t nElemsR = pArrayR->GetElemNum();
+	AutoPtr<ArrayT<Complex> > pArrayResult(ArrayT<Complex>::Create(pArrayR->GetDimensions()));
+	Complex *pElemResult = pArrayResult->GetPointer();
+	for (size_t i = 0; i < nElemsR; i++, pElemResult++, pElemR++) {
+		op(*pElemResult, complexL, *pElemR);
+	}
+	return pArrayResult.release();
+}
+
+template<typename T_ElemR, void (*op)(Complex &, const Complex &, const T_ElemR &)>
+Array *BinaryFuncTmpl_Div_complex_array(Signal &sig, const Complex &complexL, const Array *pArrayR)
+{
+	if (pArrayR->DoesContainZero()) {
+		Operator::SetError_DivideByZero(sig);
+		return nullptr;
+	}
+	return BinaryFuncTmpl_complex_array<T_ElemR, op>(sig, complexL, pArrayR);
+}
+
 //------------------------------------------------------------------------------
 // DotFuncTmpl
 //------------------------------------------------------------------------------
@@ -1347,6 +1393,34 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		&funcPrefix##_number_array<Float,	Operator_##op::Calc>, \
 		&funcPrefix##_number_array<Double,	Operator_##op::Calc>, \
 		&funcPrefix##_number_array<Complex,	Operator_##op::Calc>, \
+	}, { \
+		nullptr, \
+		&funcPrefix##_array_complex<Int8,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<UInt8,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int16,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<UInt16,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int32,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<UInt32,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int64,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<UInt64,	Operator_##op::Calc>, \
+		nullptr, \
+		&funcPrefix##_array_complex<Float,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Double,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,Operator_##op::Calc>, \
+	}, { \
+		nullptr, \
+		&funcPrefix##_complex_array<Int8,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<UInt8,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int16,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<UInt16,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int32,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<UInt32,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int64,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<UInt64,	Operator_##op::Calc>, \
+		nullptr, \
+		&funcPrefix##_complex_array<Float,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Double,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,Operator_##op::Calc>, \
 	} \
 }
 
@@ -1356,7 +1430,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 	{ \
 		{ \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
-			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
 		}, { \
 			nullptr, \
 			&BinaryFuncTmpl_array_array<Int8,		Int8,		Int8,		Operator_##op::Calc>, \
@@ -1367,6 +1441,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&BinaryFuncTmpl_array_array<Int32,		Int8,		UInt32,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int64,		Int8,		Int64,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int64,		Int8,		UInt64,		Operator_##op::Calc>, \
+			nullptr, \
 			nullptr, \
 			nullptr, \
 			nullptr, \
@@ -1383,6 +1458,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 			nullptr, \
 			nullptr, \
+			nullptr, \
 		}, { \
 			nullptr, \
 			&BinaryFuncTmpl_array_array<Int16,		Int16,		Int8,		Operator_##op::Calc>, \
@@ -1393,6 +1469,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&BinaryFuncTmpl_array_array<UInt32,		Int16,		UInt32,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int64,		Int16,		Int64,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt64,		Int16,		UInt64,		Operator_##op::Calc>, \
+			nullptr, \
 			nullptr, \
 			nullptr, \
 			nullptr, \
@@ -1409,6 +1486,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 			nullptr, \
 			nullptr, \
+			nullptr, \
 		}, { \
 			nullptr, \
 			&BinaryFuncTmpl_array_array<Int32,		Int32,		Int8,		Operator_##op::Calc>, \
@@ -1419,6 +1497,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&BinaryFuncTmpl_array_array<UInt32,		Int32,		UInt32,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int64,		Int32,		Int64,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt64,		Int32,		UInt64,		Operator_##op::Calc>, \
+			nullptr, \
 			nullptr, \
 			nullptr, \
 			nullptr, \
@@ -1435,6 +1514,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 			nullptr, \
 			nullptr, \
+			nullptr, \
 		}, { \
 			nullptr, \
 			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int8,		Operator_##op::Calc>, \
@@ -1445,6 +1525,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&BinaryFuncTmpl_array_array<Int64,		Int64,		UInt32,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int64,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt64,		Int64,		UInt64,		Operator_##op::Calc>, \
+			nullptr, \
 			nullptr, \
 			nullptr, \
 			nullptr, \
@@ -1461,15 +1542,16 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 			nullptr, \
 			nullptr, \
+			nullptr, \
 		}, { \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
-			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
 		}, { \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
-			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
 		}, { \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
-			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
 		}, \
 	}, { \
 		nullptr, \
@@ -1481,6 +1563,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		&BinaryFuncTmpl_array_number<UInt32,	Operator_##op::Calc>,	\
 		&BinaryFuncTmpl_array_number<Int64,		Operator_##op::Calc>,	\
 		&BinaryFuncTmpl_array_number<UInt64,	Operator_##op::Calc>,	\
+		nullptr, \
 		nullptr, \
 		nullptr, \
 		nullptr, \
@@ -1497,10 +1580,13 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		nullptr, \
 		nullptr, \
 		nullptr, \
-	}, { \
 		nullptr, \
 	}, { \
-		nullptr, \
+		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+	}, { \
+		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
 	} \
 }
 
