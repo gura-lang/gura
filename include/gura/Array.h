@@ -33,6 +33,7 @@ public:
 	};
 public:
 	typedef Array *(*UnaryFunc)(Signal &sig, const Array *pArray);
+	typedef Array *(*InvertFunc)(Signal &sig, const Array *pArray, Double epsilon);
 	typedef Array *(*BinaryFunc_array_array)(Signal &sig, const Array *pArrayL, const Array *pArrayR);
 	typedef Array *(*BinaryFunc_array_number)(Signal &sig, const Array *pArrayL, Double numberR);
 	typedef Array *(*BinaryFunc_number_array)(Signal &sig, Double numberL, const Array *pArrayR);
@@ -172,7 +173,7 @@ public:
 	static UnaryFuncPack unaryFuncPack_Math_tanh;
 	static UnaryFuncPack unaryFuncPack_Math_unitstep;
 	static DotFunc dotFuncs[ETYPE_Max][ETYPE_Max];
-	static UnaryFunc invertFuncs[ETYPE_Max];
+	static InvertFunc invertFuncs[ETYPE_Max];
 public:
 	Gura_DeclareReferenceAccessor(Array);
 public:
@@ -260,7 +261,7 @@ public:
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 public:
 	static Value Dot(Environment &env, const Array *pArrayL, const Array *pArrayR);
-	static Array *Invert(Signal &sig, const Array *pArray);
+	static Array *Invert(Signal &sig, const Array *pArray, Double epsilon);
 };
 	
 }

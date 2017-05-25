@@ -1013,14 +1013,15 @@ Gura_ImplementMethod(array, head)
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
-// array#invert() {block?}
+// array#invert(eps?:number) {block?}
 Gura_DeclareMethod(array, invert)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "eps", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Calculates an inverted matrix."
 		);
 }
 
@@ -1029,7 +1030,8 @@ Value Method_invert(Environment &env, Argument &arg, const Function *pFunc, Arra
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
-	AutoPtr<Array> pArrayRtn(Array::Invert(sig, pArrayT));
+	Double epsilon = arg.IsValid(0)? arg.GetDouble(0) : 1.0e-6;
+	AutoPtr<Array> pArrayRtn(Array::Invert(sig, pArrayT, epsilon));
 	if (pArrayRtn.IsNull()) return Value::Nil;
 	Value value(new Object_array(env, pArrayRtn.release()));
 	return pFunc->ReturnValue(env, arg, value);

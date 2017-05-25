@@ -598,14 +598,14 @@ Value Array::Dot(Environment &env, const Array *pArrayL, const Array *pArrayR)
 	return (*dotFunc)(env, pArrayL, pArrayR);
 }
 
-Array *Array::Invert(Signal &sig, const Array *pArray)
+Array *Array::Invert(Signal &sig, const Array *pArray, Double epsilon)
 {
-	UnaryFunc invertFunc = invertFuncs[pArray->GetElemType()];
+	InvertFunc invertFunc = invertFuncs[pArray->GetElemType()];
 	if (invertFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply invert function on this array");
 		return nullptr;
 	}
-	return (*invertFunc)(sig, pArray);
+	return (*invertFunc)(sig, pArray, epsilon);
 }
 
 //-----------------------------------------------------------------------------
@@ -1059,21 +1059,27 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 //------------------------------------------------------------------------------
 // InvertFuncTmpl
 //------------------------------------------------------------------------------
-template<typename T_Elem> inline Double _Norm(T_Elem num) {
+template<typename T_Elem> inline Double _CalcInvError(const T_Elem &num) {
 	return std::abs(static_cast<Double>(num));
 }
 
-template<> inline Double _Norm<Complex>(Complex num) { return std::norm(num); }
+template<> inline Double _CalcInvError<Complex>(const Complex &num) {
+	return std::norm(num);
+}
 
-template<typename T_Elem> inline Double _NormEpsilon() { return 1.0e-6; }
+template<typename T_Elem> inline Double _CalcInvErrorThreshold(Double epsilon) {
+	return epsilon;
+}
 
-template<> inline Double _NormEpsilon<Complex>() { return _NormEpsilon<Double>() * _NormEpsilon<Double>(); }
+template<> inline Double _CalcInvErrorThreshold<Complex>(Double epsilon) {
+	return epsilon * epsilon;
+}
 
 template<typename T_Elem>
 bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemOrg, size_t nRows,
-						T_Elem &det, T_Elem *pElemWork, T_Elem *rows[])
+						T_Elem &det, T_Elem *pElemWork, T_Elem *rows[], Double epsilon)
 {
-	static const Double normEpsilon = _NormEpsilon<T_Elem>();
+	static const Double invErrThreshold = _CalcInvErrorThreshold<T_Elem>(epsilon);
 	size_t nCols = nRows;
 	size_t nCols2 = nCols * 2;
 	size_t bytesPerRow = nCols * sizeof(T_Elem);
@@ -1090,15 +1096,15 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemOrg, size_t nRow
 	} while (0);
 	for (size_t iRowPivot = 0; iRowPivot < nRows; iRowPivot++) {
 		size_t iRowMax = iRowPivot;
-		Double normMax = _Norm<T_Elem>(rows[iRowMax][iRowPivot]);
+		Double invErrMax = _CalcInvError<T_Elem>(rows[iRowMax][iRowPivot]);
 		for (size_t iRow = iRowMax + 1; iRow < nRows; iRow++) {
-			Double norm = _Norm<T_Elem>(rows[iRow][iRowPivot]);
-			if (normMax < norm) {
+			Double invErr = _CalcInvError<T_Elem>(rows[iRow][iRowPivot]);
+			if (invErrMax < invErr) {
 				iRowMax = iRow;
-				normMax = norm;
+				invErrMax = invErr;
 			}
 		}
-		if (normMax < normEpsilon) {
+		if (invErrMax < invErrThreshold) {
 			det = 0;
 			return false;
 		}
@@ -1134,7 +1140,7 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemOrg, size_t nRow
 }
 
 template<typename T_Elem>
-Array *InvertFuncTmpl(Signal &sig, const Array *pArray)
+Array *InvertFuncTmpl(Signal &sig, const Array *pArray, Double epsilon)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
@@ -1156,7 +1162,7 @@ Array *InvertFuncTmpl(Signal &sig, const Array *pArray)
 	T_Elem *pElemResult = pArrayResult->GetPointer();
 	for (size_t cnt = pArrayResult->GetElemNum() / elemNumMat; cnt > 0; cnt--) {
 		T_Elem det = 0;
-		if (!InvertFuncTmpl_Sub(pElemResult, pElemOrg, nRows, det, pElemWork.get(), rows.get())) {
+		if (!InvertFuncTmpl_Sub(pElemResult, pElemOrg, nRows, det, pElemWork.get(), rows.get(), epsilon)) {
 			sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
 			return nullptr;
 		}
@@ -1799,7 +1805,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 	},
 };
 
-Array::UnaryFunc Array::invertFuncs[ETYPE_Max] = {
+Array::InvertFunc Array::invertFuncs[ETYPE_Max] = {
 	nullptr,
 	nullptr,
 	nullptr,

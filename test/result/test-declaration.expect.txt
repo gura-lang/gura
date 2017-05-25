@@ -364,7 +364,7 @@ array
   array#head(n:number):map {block?}
   array.identity(n:number):static:map {block?}
   array.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
-  array#invert():map {block?}
+  array#invert(eps?:number):map {block?}
   array#issquare()
   array#offset(n:number):map {block?}
   array.ones(dims[]:number):static:map {block?}
