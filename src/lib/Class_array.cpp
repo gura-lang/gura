@@ -187,6 +187,7 @@ Value Object_array::EvalIndexGet(Environment &env, const ValueList &valListIdx)
 template<typename T_Elem>
 void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value &value, Object_array *pObj)
 {
+	const bool complexFlag = (ArrayT<T_Elem>::ElemTypeThis == Array::ETYPE_Complex);
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
 	if (!pArrayT->PrepareModification(env.GetSignal())) return;
 	if (valListIdx.empty()) {
@@ -194,6 +195,8 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			T_Elem num = static_cast<T_Elem>(value.GetDouble());
 			pArrayT->Fill(num);
 			return;
+		} else if (complexFlag && value.Is_complex()) {
+			
 		} else if (value.IsListOrIterator()) {
 			AutoPtr<Iterator> pIteratorSrc(value.CreateIterator(env.GetSignal()));
 			if (env.IsSignalled()) return;
@@ -205,9 +208,13 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			for (size_t i = 0; i < nElems; i++) {
 				if (!pIterator->Next(env, valueEach)) return;
 				if (valueEach.Is_number()) {
-					*pElemDst++ = static_cast<T_Elem>(valueEach.GetDouble());
+					*pElemDst = static_cast<T_Elem>(valueEach.GetDouble());
+					pElemDst++;
+				} else if (complexFlag && valueEach.Is_complex()) {
+					
 				} else {
-					env.SetError(ERR_ValueError, "stored value must be a number");
+					env.SetError(ERR_ValueError, "value of %s can not be stored in array",
+								 valueEach.MakeValueTypeName().c_str());
 					return;
 				}
 			}
@@ -227,7 +234,8 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			do {
 				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
 				for (size_t i = 0; i < nElemsUnit; i++) {
-					*pElemDst++ = num;
+					*pElemDst = num;
+					pElemDst++;
 				}
 			} while (indexer.NextGenerator());
 		} else if (nElemsUnit == 1) {
@@ -235,9 +243,12 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 		} else {
 			T_Elem *pElemDst = pElemTgt;
 			for (size_t i = 0; i < nElemsUnit; i++) {
-				*pElemDst++ = num;
+				*pElemDst = num;
+				pElemDst++;
 			}
 		}
+	} else if (complexFlag && value.Is_complex()) {
+		
 	} else if (value.IsListOrIterator()) {
 		AutoPtr<Iterator> pIteratorSrc(value.CreateIterator(env.GetSignal()));
 		if (env.IsSignalled()) return;
@@ -250,9 +261,13 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 				for (size_t i = 0; i < nElemsUnit; i++) {
 					if (!pIterator->Next(env, valueEach)) return;
 					if (valueEach.Is_number()) {
-						*pElemDst++ = static_cast<T_Elem>(valueEach.GetDouble());
+						*pElemDst = static_cast<T_Elem>(valueEach.GetDouble());
+						pElemDst++;
+					} else if (complexFlag && valueEach.Is_complex()) {
+						
 					} else {
-						env.SetError(ERR_ValueError, "stored value must be a number");
+						env.SetError(ERR_ValueError, "value of %s can not be stored in array",
+									 valueEach.MakeValueTypeName().c_str());
 						return;
 					}
 				}
@@ -261,8 +276,11 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			if (!pIterator->Next(env, valueEach)) return;
 			if (valueEach.Is_number()) {
 				*pElemTgt = static_cast<T_Elem>(valueEach.GetDouble());
+			} else if (complexFlag && valueEach.Is_complex()) {
+				
 			} else {
-				env.SetError(ERR_ValueError, "stored value must be a number");
+				env.SetError(ERR_ValueError, "value of %s can not be stored in array",
+							 valueEach.MakeValueTypeName().c_str());
 				return;
 			}
 		} else {
@@ -270,9 +288,13 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			for (size_t i = 0; i < nElemsUnit; i++) {
 				if (!pIterator->Next(env, valueEach)) return;
 				if (valueEach.Is_number()) {
-					*pElemDst++ = static_cast<T_Elem>(valueEach.GetDouble());
+					*pElemDst = static_cast<T_Elem>(valueEach.GetDouble());
+					pElemDst++;
+				} else if (complexFlag && valueEach.Is_complex()) {
+					
 				} else {
-					env.SetError(ERR_ValueError, "stored value must be a number");
+					env.SetError(ERR_ValueError, "value of %s can not be stored in array",
+								 valueEach.MakeValueTypeName().c_str());
 					return;
 				}
 			}
