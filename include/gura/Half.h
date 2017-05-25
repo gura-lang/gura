@@ -22,6 +22,38 @@ public:
 	inline Half &operator=(const Half &half) { _num = half._num; return *this; }
 public:
 	inline Float ToFloat() const { return HalfToFloat(_num); }
+	inline Half &operator+=(Float var) {
+		_num = FloatToHalf(ToFloat() + var);
+		return *this;
+	}
+	inline Half &operator-=(Float var) {
+		_num = FloatToHalf(ToFloat() - var);
+		return *this;
+	}
+	inline Half &operator*=(Float var) {
+		_num = FloatToHalf(ToFloat() * var);
+		return *this;
+	}
+	inline Half &operator/=(Float var) {
+		_num = FloatToHalf(ToFloat() / var);
+		return *this;
+	}
+	inline Half &operator+=(const Half &var) {
+		_num = FloatToHalf(ToFloat() + var.ToFloat());
+		return *this;
+	}
+	inline Half &operator-=(const Half &var) {
+		_num = FloatToHalf(ToFloat() - var.ToFloat());
+		return *this;
+	}
+	inline Half &operator*=(const Half &var) {
+		_num = FloatToHalf(ToFloat() * var.ToFloat());
+		return *this;
+	}
+	inline Half &operator/=(const Half &var) {
+		_num = FloatToHalf(ToFloat() / var.ToFloat());
+		return *this;
+	}
 	inline Half operator-() const { return Half(-HalfToFloat(_num)); }
 	inline Half operator+() const { return *this; }
 public:
@@ -37,20 +69,52 @@ private:
 	static UInt16 FloatToHalf(Float num);
 };
 
+inline Half operator+(const Half &varL, Float varR) {
+	return Half(varL) += varR;
+}
+
+inline Half operator-(const Half &varL, Float varR) {
+	return Half(varL) -= varR;
+}
+
+inline Half operator*(const Half &varL, Float varR) {
+	return Half(varL) *= varR;
+}
+
+inline Half operator/(const Half &varL, Float varR) {
+	return Half(varL) /= varR;
+}
+
+inline Half operator+(Float varL, const Half &varR) {
+	return Half(varL) += varR;
+}
+
+inline Half operator-(Float varL, const Half &varR) {
+	return Half(varL) -= varR;
+}
+
+inline Half operator*(Float varL, const Half &varR) {
+	return Half(varL) *= varR;
+}
+
+inline Half operator/(Float varL, const Half &varR) {
+	return Half(varL) /= varR;
+}
+
 inline Half operator+(const Half &varL, const Half &varR) {
-	return Half(varL.ToFloat() + varR.ToFloat());
+	return Half(varL) += varR;
 }
 
 inline Half operator-(const Half &varL, const Half &varR) {
-	return Half(varL.ToFloat() - varR.ToFloat());
+	return Half(varL) -= varR;
 }
 
 inline Half operator*(const Half &varL, const Half &varR) {
-	return Half(varL.ToFloat() * varR.ToFloat());
+	return Half(varL) *= varR;
 }
 
 inline Half operator/(const Half &varL, const Half &varR) {
-	return Half(varL.ToFloat() / varR.ToFloat());
+	return Half(varL) /= varR;
 }
 
 inline bool operator<(const Half &varL, const Half &varR) {
