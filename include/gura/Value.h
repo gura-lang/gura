@@ -5,6 +5,7 @@
 #define __GURA_VALUE_H__
 
 #include "Common.h"
+#include "Half.h"
 #include "Symbol.h"
 #include "Stream.h"
 #include "DateTime.h"
@@ -147,6 +148,9 @@ public:
 	}
 	inline Value(UInt64 num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
+	}
+	inline Value(Half num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
+		_u.num = num.ToFloat();
 	}
 	// VTYPE_rational
 	inline Value(const Rational &ratio) : _valType(VTYPE_rational), _valFlags(VFLAG_None) {

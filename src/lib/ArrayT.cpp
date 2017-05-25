@@ -1210,7 +1210,7 @@ ImplementArrayT(Int32)
 ImplementArrayT(UInt32)
 ImplementArrayT(Int64)
 ImplementArrayT(UInt64)
-//ImplementArrayT(Half)
+ImplementArrayT(Half)
 ImplementArrayT(Float)
 ImplementArrayT(Double)
 ImplementArrayT(Complex)
@@ -1226,7 +1226,7 @@ template class Iterator_ArrayT_Each<Int32>;
 template class Iterator_ArrayT_Each<UInt32>;
 template class Iterator_ArrayT_Each<Int64>;
 template class Iterator_ArrayT_Each<UInt64>;
-//template class Iterator_ArrayT_Each<Half>;
+template class Iterator_ArrayT_Each<Half>;
 template class Iterator_ArrayT_Each<Float>;
 template class Iterator_ArrayT_Each<Double>;
 template class Iterator_ArrayT_Each<Complex>;
