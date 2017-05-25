@@ -892,3 +892,43 @@ testcase('operation between array and complex') {
 	tester(`(2j * x))
 	tester(`(2j / x))
 }
+testcase('index-set to array@complex') {
+	f() {`block} = array@complex.zeros([4, 3]) {|x|
+		block.eval()
+		println(block)
+		println(x)
+	}
+	f { x[] = 3 }
+	f { x[] = 1 + 2j }
+	f { x[] = 1.. }
+	f { x[1..3, 2] = 3 }
+	f { x[1..3, 2] = 2 + 3j }
+	f {
+		x[0, 0] = 1
+		x[0, 2] = 2
+		x[3, 0] = 3
+		x[3, 2] = 4
+	}
+	f {
+		x[0, 0] = 1 + 2j
+		x[0, 2] = 2 + 1j
+		x[3, 0] = 3 - 2j
+		x[3, 2] = 4 + 3j
+	}
+	f {
+		x[0] = 1
+		x[2] = 3
+	}
+	f {
+		x[0] = 1 + 2j
+		x[2] = 3 - 2j
+	}
+	f { x[1..3, 2] = 3.. }
+	f { x[1..3, 2] = (3..) + 2j }
+	f { x[2] = array {2, 3, 4} }
+	f { x[2] = array@complex {2 + 1j, 3 - 1j, 4} }
+	f { x[2..] = array {2, 3, 4} }
+	f { x[2..] = array@complex {2 + 1j, 3 - 1j, 4} }
+	f { x[2..] = array {2, 3, 4, 1} }
+	f { x[2..] = array@complex {2 + 1j, 3 - 1j, 4, 1} }
+}
