@@ -202,9 +202,18 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	if (valListIdx.empty()) {
 		if (value.Is_number()) {
 			T_Elem num = static_cast<T_Elem>(value.GetDouble());
-			pArrayT->Fill(num);
+			T_Elem *pElemDst = pArrayT->GetPointer();
+			size_t nElems = pArrayT->GetElemNum();
+			for (size_t i = 0; i < nElems; i++, pElemDst++) {
+				*pElemDst = num;
+			}
 		} else if (complexFlag && value.Is_complex()) {
-			
+			const Complex &num = value.GetComplex();
+			T_Elem *pElemDst = pArrayT->GetPointer();
+			size_t nElems = pArrayT->GetElemNum();
+			for (size_t i = 0; i < nElems; i++, pElemDst++) {
+				_SetComplex(pElemDst, num);
+			}
 		} else if (value.IsListOrIterator()) {
 			AutoPtr<Iterator> pIteratorSrc(value.CreateIterator(env.GetSignal()));
 			if (env.IsSignalled()) return;
