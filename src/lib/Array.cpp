@@ -1060,7 +1060,7 @@ Value DotFuncTmpl(Environment &env, const Array *pArrayL, const Array *pArrayR)
 // InvertFuncTmpl
 //------------------------------------------------------------------------------
 template<typename T_Elem> inline Double _Norm(T_Elem num) {
-	return std::abs(num);
+	return std::abs(static_cast<Double>(num));
 }
 
 template<> inline Double _Norm<Complex>(Complex num) { return std::norm(num); }
@@ -1809,7 +1809,7 @@ Array::UnaryFunc Array::invertFuncs[ETYPE_Max] = {
 	nullptr,
 	nullptr,
 	nullptr,
-	nullptr,
+	&InvertFuncTmpl<Half>,
 	&InvertFuncTmpl<Float>,
 	&InvertFuncTmpl<Double>,
 	&InvertFuncTmpl<Complex>,

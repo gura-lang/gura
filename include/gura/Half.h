@@ -16,12 +16,15 @@ private:
 	static UInt16 _baseTable[];
 	static Int8 _shiftTable[];
 public:
+	inline Half() : _num(0) {}
 	inline Half(const Half &half) : _num(half._num) {}
 	inline Half(Float num) : _num(FloatToHalf(num)) {}
 public:
 	inline Half &operator=(const Half &half) { _num = half._num; return *this; }
 public:
 	inline Float ToFloat() const { return HalfToFloat(_num); }
+	inline explicit operator float() const noexcept { return HalfToFloat(_num); }
+	inline explicit operator double() const noexcept { return HalfToFloat(_num); }
 	inline Half &operator+=(Float var) {
 		_num = FloatToHalf(ToFloat() + var);
 		return *this;
