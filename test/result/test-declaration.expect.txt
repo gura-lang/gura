@@ -10,6 +10,7 @@ array:class = <class:array(src?, elemtype?:symbol) {block?}>
 array@complex:class = <class:array@complex(src?) {block?}>
 array@double:class = <class:array@double(src?) {block?}>
 array@float:class = <class:array@float(src?) {block?}>
+array@half:class = <class:array@half(src?) {block?}>
 array@int16:class = <class:array@int16(src?) {block?}>
 array@int32:class = <class:array@int32(src?) {block?}>
 array@int64:class = <class:array@int64(src?) {block?}>
@@ -425,6 +426,20 @@ array@float
   array@float.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
   array@float.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array@float.zeros(dims[]:number):static:map {block?}
+array@half
+  array@half.identity(n:number):static:map {block?}
+  array@half.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
+  array@half.ones(dims[]:number):static:map {block?}
+  array@half.rands(dims[]:number, range?:number):static:map {block?}
+  array@half.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+  array@half.range(num:number, num_end?:number, step?:number):static:map {block?}
+  array@half.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+  array@half.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@half.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@half.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@half.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+  array@half.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
+  array@half.zeros(dims[]:number):static:map {block?}
 array@int16
   array@int16.identity(n:number):static:map {block?}
   array@int16.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
