@@ -205,11 +205,10 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			Value valueEach;
 			T_Elem *pElemDst = pArrayT->GetPointer();
 			size_t nElems = pArrayT->GetElemNum();
-			for (size_t i = 0; i < nElems; i++) {
+			for (size_t i = 0; i < nElems; i++, pElemDst++) {
 				if (!pIterator->Next(env, valueEach)) return;
 				if (valueEach.Is_number()) {
 					*pElemDst = static_cast<T_Elem>(valueEach.GetDouble());
-					pElemDst++;
 				} else if (complexFlag && valueEach.Is_complex()) {
 					
 				} else {
@@ -233,18 +232,16 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 		if (indexer.HasGenerator()) {
 			do {
 				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
-				for (size_t i = 0; i < nElemsUnit; i++) {
+				for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
 					*pElemDst = num;
-					pElemDst++;
 				}
 			} while (indexer.NextGenerator());
 		} else if (nElemsUnit == 1) {
 			*pElemTgt = num;
 		} else {
 			T_Elem *pElemDst = pElemTgt;
-			for (size_t i = 0; i < nElemsUnit; i++) {
+			for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
 				*pElemDst = num;
-				pElemDst++;
 			}
 		}
 	} else if (complexFlag && value.Is_complex()) {
@@ -258,11 +255,10 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 		if (indexer.HasGenerator()) {
 			do {
 				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
-				for (size_t i = 0; i < nElemsUnit; i++) {
+				for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
 					if (!pIterator->Next(env, valueEach)) return;
 					if (valueEach.Is_number()) {
 						*pElemDst = static_cast<T_Elem>(valueEach.GetDouble());
-						pElemDst++;
 					} else if (complexFlag && valueEach.Is_complex()) {
 						
 					} else {
@@ -285,11 +281,10 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			}
 		} else {
 			T_Elem *pElemDst = pElemTgt;
-			for (size_t i = 0; i < nElemsUnit; i++) {
+			for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
 				if (!pIterator->Next(env, valueEach)) return;
 				if (valueEach.Is_number()) {
 					*pElemDst = static_cast<T_Elem>(valueEach.GetDouble());
-					pElemDst++;
 				} else if (complexFlag && valueEach.Is_complex()) {
 					
 				} else {
