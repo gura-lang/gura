@@ -9,13 +9,73 @@ namespace Gura {
 class GURA_DLLDECLARE Half {
 private:
 	UInt16 _num;
+private:
+	static UInt32 _mantissaTable[];
+	static UInt32 _exponentTable[];
+	static UInt16 _offsetTable[];
+	static UInt16 _baseTable[];
+	static Int8 _shiftTable[];
 public:
 	inline Half(const Half &half) : _num(half._num) {}
-	Half(Double num);
-	Half(Float num);
+	inline Half(Float num) : _num(FloatToHalf(num)) {}
 public:
 	inline Half &operator=(const Half &half) { _num = half._num; return *this; }
+public:
+	inline Float ToFloat() const { return HalfToFloat(_num); }
+	inline Half operator-() const { return Half(-HalfToFloat(_num)); }
+	inline Half operator+() const { return *this; }
+public:
+	static void Bootup();
+private:
+	static UInt32 ConvertMantissa(int i);
+	static void GenerateMantissaTable();
+	static void GenerateExponentTable();
+	static void GenerateOffsetTable();
+	static void GenerateBaseTable();
+	static void GenerateShiftTable();
+	static Float HalfToFloat(UInt16 num);
+	static UInt16 FloatToHalf(Float num);
 };
+
+inline Half operator+(const Half &varL, const Half &varR) {
+	return Half(varL.ToFloat() + varR.ToFloat());
+}
+
+inline Half operator-(const Half &varL, const Half &varR) {
+	return Half(varL.ToFloat() - varR.ToFloat());
+}
+
+inline Half operator*(const Half &varL, const Half &varR) {
+	return Half(varL.ToFloat() * varR.ToFloat());
+}
+
+inline Half operator/(const Half &varL, const Half &varR) {
+	return Half(varL.ToFloat() / varR.ToFloat());
+}
+
+inline bool operator<(const Half &varL, const Half &varR) {
+	return varL.ToFloat() < varR.ToFloat();
+}
+
+inline bool operator>(const Half &varL, const Half &varR) {
+	return varL.ToFloat() > varR.ToFloat();
+}
+
+inline bool operator<=(const Half &varL, const Half &varR) {
+	return varL.ToFloat() <= varR.ToFloat();
+}
+
+inline bool operator>=(const Half &varL, const Half &varR) {
+	return varL.ToFloat() >= varR.ToFloat();
+}
+
+inline bool operator==(const Half &varL, const Half &varR) {
+	return varL.ToFloat() == varR.ToFloat();
+}
+
+inline bool operator!=(const Half &varL, const Half &varR) {
+	return varL.ToFloat() != varR.ToFloat();
+}
 
 }
 

@@ -72,6 +72,7 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	Environment &env = *this;
 	Signal &sig = GetSignal();
 	OAL::Bootup();
+	Half::Bootup();
 	Symbol::Bootup();
 	Codec::Bootup();
 	Token::Bootup();
