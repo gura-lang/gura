@@ -185,6 +185,15 @@ Value Object_array::EvalIndexGet(Environment &env, const ValueList &valListIdx)
 }
 
 template<typename T_Elem>
+inline void _SetComplex(T_Elem *pElemDst, const Complex &num) {}
+
+template<>
+inline void _SetComplex(Complex *pElemDst, const Complex &num)
+{
+	*pElemDst = num;
+}
+
+template<typename T_Elem>
 void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value &value, Object_array *pObj)
 {
 	const bool complexFlag = (ArrayT<T_Elem>::ElemTypeThis == Array::ETYPE_Complex);
@@ -194,7 +203,6 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 		if (value.Is_number()) {
 			T_Elem num = static_cast<T_Elem>(value.GetDouble());
 			pArrayT->Fill(num);
-			return;
 		} else if (complexFlag && value.Is_complex()) {
 			
 		} else if (value.IsListOrIterator()) {
@@ -206,11 +214,11 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			T_Elem *pElemDst = pArrayT->GetPointer();
 			size_t nElems = pArrayT->GetElemNum();
 			for (size_t i = 0; i < nElems; i++, pElemDst++) {
-				if (!pIterator->Next(env, valueEach)) return;
+				if (!pIterator->Next(env, valueEach)) break;
 				if (valueEach.Is_number()) {
 					*pElemDst = static_cast<T_Elem>(valueEach.GetDouble());
 				} else if (complexFlag && valueEach.Is_complex()) {
-					
+					_SetComplex(pElemDst, valueEach.GetComplex());
 				} else {
 					env.SetError(ERR_ValueError, "value of %s can not be stored in array",
 								 valueEach.MakeValueTypeName().c_str());
@@ -220,8 +228,8 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 		} else {
 			env.SetError(ERR_ValueError, "value of %s can not be stored in array",
 						 value.MakeValueTypeName().c_str());
-			return;
 		}
+		return;
 	}
 	Array::Indexer indexer(pArrayT->GetDimensions());
 	if (!indexer.InitIndices(env, valListIdx)) return;
@@ -245,6 +253,22 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			}
 		}
 	} else if (complexFlag && value.Is_complex()) {
+		const Complex &num = value.GetComplex();
+		if (indexer.HasGenerator()) {
+			do {
+				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
+				for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
+					_SetComplex(pElemDst, num);
+				}
+			} while (indexer.NextGenerator());
+		} else if (nElemsUnit == 1) {
+			_SetComplex(pElemTgt, num);
+		} else {
+			T_Elem *pElemDst = pElemTgt;
+			for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
+				_SetComplex(pElemDst, num);
+			}
+		}
 		
 	} else if (value.IsListOrIterator()) {
 		AutoPtr<Iterator> pIteratorSrc(value.CreateIterator(env.GetSignal()));
@@ -260,7 +284,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 					if (valueEach.Is_number()) {
 						*pElemDst = static_cast<T_Elem>(valueEach.GetDouble());
 					} else if (complexFlag && valueEach.Is_complex()) {
-						
+						_SetComplex(pElemDst, valueEach.GetComplex());
 					} else {
 						env.SetError(ERR_ValueError, "value of %s can not be stored in array",
 									 valueEach.MakeValueTypeName().c_str());
@@ -273,7 +297,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			if (valueEach.Is_number()) {
 				*pElemTgt = static_cast<T_Elem>(valueEach.GetDouble());
 			} else if (complexFlag && valueEach.Is_complex()) {
-				
+				_SetComplex(pElemTgt, valueEach.GetComplex());
 			} else {
 				env.SetError(ERR_ValueError, "value of %s can not be stored in array",
 							 valueEach.MakeValueTypeName().c_str());
@@ -286,7 +310,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 				if (valueEach.Is_number()) {
 					*pElemDst = static_cast<T_Elem>(valueEach.GetDouble());
 				} else if (complexFlag && valueEach.Is_complex()) {
-					
+					_SetComplex<T_Elem>(pElemDst, valueEach.GetComplex());
 				} else {
 					env.SetError(ERR_ValueError, "value of %s can not be stored in array",
 								 valueEach.MakeValueTypeName().c_str());
