@@ -468,6 +468,16 @@ public:
 	}
 };
 
+#define Gura_ImplementMod_Half(T_Other) \
+template<> inline void Operator_Mod::Calc<Half, T_Other, Half>( \
+				Half &result, const T_Other &varL, const Half &varR) {		\
+	result = Half(::fmodf(static_cast<Float>(varL), static_cast<Float>(varR))); \
+} \
+template<> inline void Operator_Mod::Calc<Half, Half, T_Other>( \
+				Half &result, const Half &varL, const T_Other &varR) {		\
+	result = Half(::fmodf(static_cast<Float>(varL), static_cast<Float>(varR))); \
+}
+
 #define Gura_ImplementMod_Float(T_Other) \
 template<> inline void Operator_Mod::Calc<Float, T_Other, Float>( \
 				Float &result, const T_Other &varL, const Float &varR) {		\
@@ -498,6 +508,12 @@ template<> inline void Operator_Mod::Calc<Complex, Complex, T_Other>( \
 	result = ::fmod(varL.real(), static_cast<Double>(varR));			\
 }
 
+template<> inline void Operator_Mod::Calc<Half, Half, Half>(
+				Half &result, const Half &varL, const Half &varR)
+{
+	result = Half(::fmodf(static_cast<Float>(varL), static_cast<Float>(varR)));
+}
+
 template<> inline void Operator_Mod::Calc<Float, Float, Float>(
 				Float &result, const Float &varL, const Float &varR)
 {
@@ -514,6 +530,16 @@ template<> inline void Operator_Mod::Calc<Complex, Complex, Complex>( \
 				Complex &result, const Complex &varL, const Complex &varR) {	\
 	result = ::fmod(varL.real(), varR.real());							\
 }
+
+Gura_ImplementMod_Half(Int8)
+Gura_ImplementMod_Half(UInt8)
+Gura_ImplementMod_Half(Int16)
+Gura_ImplementMod_Half(UInt16)
+Gura_ImplementMod_Half(Int32)
+Gura_ImplementMod_Half(UInt32)
+Gura_ImplementMod_Half(Int64)
+Gura_ImplementMod_Half(UInt64)
+Gura_ImplementMod_Half(Double)
 
 Gura_ImplementMod_Float(Int8)
 Gura_ImplementMod_Float(UInt8)
@@ -820,7 +846,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::fabs(var));
+		result = static_cast<T_Result>(::fabs(static_cast<Double>(var)));
 	}
 };
 
@@ -838,7 +864,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::acos(var));
+		result = static_cast<T_Result>(::acos(static_cast<Double>(var)));
 	}
 };
 
@@ -874,7 +900,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::asin(var));
+		result = static_cast<T_Result>(::asin(static_cast<Double>(var)));
 	}
 };
 
@@ -892,7 +918,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::atan(var));
+		result = static_cast<T_Result>(::atan(static_cast<Double>(var)));
 	}
 };
 
@@ -910,7 +936,7 @@ public:
 public:
 	template<typename T_Result, typename T_VarL, typename T_VarR>
 	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
-		result = static_cast<T_Result>(::atan2(varL, varR));
+		result = static_cast<T_Result>(::atan2(static_cast<Double>(varL), static_cast<Double>(varR)));
 	}
 };
 
@@ -949,7 +975,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::ceil(var));
+		result = static_cast<T_Result>(::ceil(static_cast<Double>(var)));
 	}
 };
 
@@ -985,7 +1011,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::cos(var));
+		result = static_cast<T_Result>(::cos(static_cast<Double>(var)));
 	}
 };
 
@@ -1003,7 +1029,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::cosh(var));
+		result = static_cast<T_Result>(::cosh(static_cast<Double>(var)));
 	}
 };
 
@@ -1063,7 +1089,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::exp(var));
+		result = static_cast<T_Result>(::exp(static_cast<Double>(var)));
 	}
 };
 
@@ -1081,7 +1107,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::floor(var));
+		result = static_cast<T_Result>(::floor(static_cast<Double>(var)));
 	}
 };
 
@@ -1099,7 +1125,7 @@ public:
 public:
 	template<typename T_Result, typename T_VarL, typename T_VarR>
 	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
-		result = static_cast<T_Result>(::hypot(varL, varR));
+		result = static_cast<T_Result>(::hypot(static_cast<Double>(varL), static_cast<Double>(varR)));
 	}
 };
 
@@ -1156,7 +1182,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::log(var));
+		result = static_cast<T_Result>(::log(static_cast<Double>(var)));
 	}
 };
 
@@ -1174,7 +1200,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::log10(var));
+		result = static_cast<T_Result>(::log10(static_cast<Double>(var)));
 	}
 };
 
@@ -1247,7 +1273,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::sin(var));
+		result = static_cast<T_Result>(::sin(static_cast<Double>(var)));
 	}
 };
 
@@ -1265,7 +1291,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::sinh(var));
+		result = static_cast<T_Result>(::sinh(static_cast<Double>(var)));
 	}
 };
 
@@ -1283,7 +1309,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::sqrt(var));
+		result = static_cast<T_Result>(::sqrt(static_cast<Double>(var)));
 	}
 };
 
@@ -1301,7 +1327,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::tan(var));
+		result = static_cast<T_Result>(::tan(static_cast<Double>(var)));
 	}
 };
 
@@ -1319,7 +1345,7 @@ public:
 public:
 	template<typename T_Result, typename T_Var>
 	inline static void Calc(T_Result &result, const T_Var &var) {
-		result = static_cast<T_Result>(::tanh(var));
+		result = static_cast<T_Result>(::tanh(static_cast<Double>(var)));
 	}
 };
 

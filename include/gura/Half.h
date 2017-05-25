@@ -25,6 +25,7 @@ public:
 	inline Float ToFloat() const { return HalfToFloat(_num); }
 	inline explicit operator float() const noexcept { return HalfToFloat(_num); }
 	inline explicit operator double() const noexcept { return HalfToFloat(_num); }
+	inline explicit operator Complex() const noexcept { return Complex(HalfToFloat(_num)); }
 	inline Half &operator+=(Float var) {
 		_num = FloatToHalf(ToFloat() + var);
 		return *this;
