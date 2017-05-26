@@ -192,12 +192,15 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	if (!pArrayT->PrepareModification(env.GetSignal())) return;
 	if (valListIdx.empty()) {
 		if (value.Is_number()) {
+#if 0
 			T_Elem num = static_cast<T_Elem>(value.GetDouble());
 			T_Elem *pElemDst = pArrayT->GetPointer();
 			size_t nElems = pArrayT->GetElemNum();
 			for (size_t i = 0; i < nElems; i++, pElemDst++) {
 				*pElemDst = num;
 			}
+#endif
+			FillDouble(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetDouble());
 		} else if (complexFlag && value.Is_complex()) {
 			FillComplex(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetComplex());
 		} else if (value.IsListOrIterator()) {
@@ -222,21 +225,23 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
 	size_t nElemsUnit = indexer.GetElemNumUnit();
 	if (value.Is_number()) {
-		T_Elem num = static_cast<T_Elem>(value.GetDouble());
+		Double num = value.GetDouble();
 		if (indexer.HasGenerator()) {
 			do {
-				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
-				for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
-					*pElemDst = num;
-				}
+				FillDouble(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num);
+				//T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
+				//for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
+				//	*pElemDst = num;
+				//}
 			} while (indexer.NextGenerator());
 		} else if (nElemsUnit == 1) {
-			*pElemTgt = num;
+			*pElemTgt = static_cast<T_Elem>(num);
 		} else {
-			T_Elem *pElemDst = pElemTgt;
-			for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
-				*pElemDst = num;
-			}
+			FillDouble(pElemTgt, nElemsUnit, num);
+			//T_Elem *pElemDst = pElemTgt;
+			//for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
+			//	*pElemDst = num;
+			//}
 		}
 	} else if (complexFlag && value.Is_complex()) {
 		const Complex &num = value.GetComplex();

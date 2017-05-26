@@ -94,9 +94,14 @@ private:
 };
 
 template<typename T_Elem>
-void FillComplex(T_Elem *pElem, size_t nElems, const Complex &num)
+void FillDouble(T_Elem *pElem, size_t nElems, Double num)
 {
+	T_Elem numCasted = static_cast<T_Elem>(num);
+	for (size_t i = 0; i < nElems; i++, pElem++) *pElem = numCasted;
 }
+
+template<typename T_Elem>
+void FillComplex(T_Elem *pElem, size_t nElems, const Complex &num) {}
 
 template<typename T_Elem>
 inline bool StoreValueAt(Environment &env, T_Elem *pElem, const Value &value)
