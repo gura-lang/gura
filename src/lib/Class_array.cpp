@@ -199,10 +199,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 				*pElemDst = num;
 			}
 		} else if (complexFlag && value.Is_complex()) {
-			const Complex &num = value.GetComplex();
-			T_Elem *pElemDst = pArrayT->GetPointer();
-			size_t nElems = pArrayT->GetElemNum();
-			FillComplex(pElemDst, nElems, num);
+			FillComplex(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetComplex());
 		} else if (value.IsListOrIterator()) {
 			AutoPtr<Iterator> pIteratorSrc(value.CreateIterator(env.GetSignal()));
 			if (env.IsSignalled()) return;
@@ -245,8 +242,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 		const Complex &num = value.GetComplex();
 		if (indexer.HasGenerator()) {
 			do {
-				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
-				FillComplex(pElemDst, nElemsUnit, num);
+				FillComplex(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num);
 			} while (indexer.NextGenerator());
 		} else {
 			FillComplex(pElemTgt, nElemsUnit, num);
