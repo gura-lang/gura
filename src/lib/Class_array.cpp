@@ -192,14 +192,6 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	if (!pArrayT->PrepareModification(env.GetSignal())) return;
 	if (valListIdx.empty()) {
 		if (value.Is_number()) {
-#if 0
-			T_Elem num = static_cast<T_Elem>(value.GetDouble());
-			T_Elem *pElemDst = pArrayT->GetPointer();
-			size_t nElems = pArrayT->GetElemNum();
-			for (size_t i = 0; i < nElems; i++, pElemDst++) {
-				*pElemDst = num;
-			}
-#endif
 			FillDouble(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetDouble());
 		} else if (complexFlag && value.Is_complex()) {
 			FillComplex(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetComplex());
@@ -212,8 +204,8 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			T_Elem *pElemDst = pArrayT->GetPointer();
 			size_t nElems = pArrayT->GetElemNum();
 			for (size_t i = 0; i < nElems; i++, pElemDst++) {
-				if (!pIterator->Next(env, valueEach)) break;
-				if (!StoreValueAt(env, pElemDst, valueEach)) return;
+				if (!pIterator->Next(env, valueEach) ||
+					!StoreValueAt(env, pElemDst, valueEach)) return;
 			}
 		} else {
 			Array::SetError_UnacceptableValueAsElement(env, value);
@@ -229,19 +221,9 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 		if (indexer.HasGenerator()) {
 			do {
 				FillDouble(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num);
-				//T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
-				//for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
-				//	*pElemDst = num;
-				//}
 			} while (indexer.NextGenerator());
-		} else if (nElemsUnit == 1) {
-			*pElemTgt = static_cast<T_Elem>(num);
 		} else {
 			FillDouble(pElemTgt, nElemsUnit, num);
-			//T_Elem *pElemDst = pElemTgt;
-			//for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
-			//	*pElemDst = num;
-			//}
 		}
 	} else if (complexFlag && value.Is_complex()) {
 		const Complex &num = value.GetComplex();
@@ -263,18 +245,15 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			do {
 				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
 				for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
-					if (!pIterator->Next(env, valueEach)) return;
-					if (!StoreValueAt(env, pElemDst, valueEach)) return;
+					if (!pIterator->Next(env, valueEach) ||
+						!StoreValueAt(env, pElemDst, valueEach)) return;
 				}
 			} while (indexer.NextGenerator());
-		} else if (nElemsUnit == 1) {
-			if (!pIterator->Next(env, valueEach)) return;
-			if (!StoreValueAt(env, pElemTgt, valueEach)) return;
 		} else {
 			T_Elem *pElemDst = pElemTgt;
 			for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
-				if (!pIterator->Next(env, valueEach)) return;
-				if (!StoreValueAt(env, pElemDst, valueEach)) return;
+				if (!pIterator->Next(env, valueEach) ||
+					!StoreValueAt(env, pElemDst, valueEach)) return;
 			}
 		}
 	} else if (value.IsInstanceOf(VTYPE_array)) {
