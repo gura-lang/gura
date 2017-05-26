@@ -714,33 +714,44 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(const ValueList &valList)
 }
 
 template<typename T_Elem>
+inline bool StoreValueAt(Environment &env, T_Elem *pElemDst, const Value &value)
+{
+	if (value.Is_number()) {
+		*pElemDst = static_cast<T_Elem>(value.GetDouble());
+	} else {
+		Array::SetError_UnacceptableValueAsElement(env, value);
+		return false;
+	}
+	return true;
+}
+
+template<>
+inline bool StoreValueAt(Environment &env, Complex *pElemDst, const Value &value)
+{
+	if (value.Is_number()) {
+		*pElemDst = static_cast<Complex>(value.GetDouble());
+	} else if (value.Is_complex()) {
+		*pElemDst = value.GetComplex();
+	} else {
+		Array::SetError_UnacceptableValueAsElement(env, value);
+		return false;
+	}
+	return true;
+}
+
+template<typename T_Elem>
 bool CreateFromList_Sub(Environment &env, Array::Dimensions &dims,
 						Array::Dimensions::const_iterator pDim,
 						T_Elem *&p, const ValueList &valList)
 {
-	const bool complexFlag = (ArrayT<T_Elem>::ElemTypeThis == Array::ETYPE_Complex);
 	if (pDim->GetSize() != valList.size()) {
 		env.SetError(ERR_ValueError, "incorrect number of elements");
 		return false;
 	}
 	if (pDim + 1 == dims.end()) {
 		foreach_const (ValueList, pValue, valList) {
-			if (pValue->Is_number()) {
-				*p = static_cast<T_Elem>(pValue->GetDouble());
-			} else if (complexFlag && pValue->Is_complex()) {
-				StoreComplexAt(p, pValue->GetComplex());
-			} else {
-				Array::SetError_UnacceptableValueAsElement(env, *pValue);
-				return nullptr;
-			}
+			if (!StoreValueAt(env, p, *pValue)) return nullptr;
 			p++;
-#if 0
-			if (!successFlag) {
-				env.SetError(ERR_ValueError, "failed to convert to a number value");
-				return nullptr;
-			}
-			*p++ = static_cast<T_Elem>(num);
-#endif
 		}
 	} else {
 		if (valList.GetValueTypeOfElements() != VTYPE_list) {
