@@ -1387,7 +1387,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		&funcPrefix##_array_number<UInt32,	Operator_##op::Calc>, \
 		&funcPrefix##_array_number<Int64,	Operator_##op::Calc>, \
 		&funcPrefix##_array_number<UInt64,	Operator_##op::Calc>, \
-		nullptr, \
+		&funcPrefix##_array_number<Half,	Operator_##op::Calc>, \
 		&funcPrefix##_array_number<Float,	Operator_##op::Calc>, \
 		&funcPrefix##_array_number<Double,	Operator_##op::Calc>, \
 		&funcPrefix##_array_number<Complex,	Operator_##op::Calc>, \
@@ -1401,7 +1401,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		&funcPrefix##_number_array<UInt32,	Operator_##op::Calc>, \
 		&funcPrefix##_number_array<Int64,	Operator_##op::Calc>, \
 		&funcPrefix##_number_array<UInt64,	Operator_##op::Calc>, \
-		nullptr, \
+		&funcPrefix##_number_array<Half,	Operator_##op::Calc>, \
 		&funcPrefix##_number_array<Float,	Operator_##op::Calc>, \
 		&funcPrefix##_number_array<Double,	Operator_##op::Calc>, \
 		&funcPrefix##_number_array<Complex,	Operator_##op::Calc>, \
@@ -1415,7 +1415,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		&funcPrefix##_array_complex<UInt32,	Operator_##op::Calc>, \
 		&funcPrefix##_array_complex<Int64,	Operator_##op::Calc>, \
 		&funcPrefix##_array_complex<UInt64,	Operator_##op::Calc>, \
-		nullptr, \
+		&funcPrefix##_array_complex<Half,	Operator_##op::Calc>, \
 		&funcPrefix##_array_complex<Float,	Operator_##op::Calc>, \
 		&funcPrefix##_array_complex<Double,	Operator_##op::Calc>, \
 		&funcPrefix##_array_complex<Complex,Operator_##op::Calc>, \
@@ -1429,7 +1429,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		&funcPrefix##_complex_array<UInt32,	Operator_##op::Calc>, \
 		&funcPrefix##_complex_array<Int64,	Operator_##op::Calc>, \
 		&funcPrefix##_complex_array<UInt64,	Operator_##op::Calc>, \
-		nullptr, \
+		&funcPrefix##_complex_array<Half,	Operator_##op::Calc>, \
 		&funcPrefix##_complex_array<Float,	Operator_##op::Calc>, \
 		&funcPrefix##_complex_array<Double,	Operator_##op::Calc>, \
 		&funcPrefix##_complex_array<Complex,Operator_##op::Calc>, \
