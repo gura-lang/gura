@@ -581,7 +581,7 @@ bool Class_arrayT<T_Elem>::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	Signal &sig = GetSignal();
 	if (value.Is_list()) {
-		AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromList(sig, value.GetList()));
+		AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromList(env, value.GetList()));
 		if (pArrayT.IsNull()) return false;
 		value = Value(new Object_arrayT<T_Elem>(env, GetValueType(), pArrayT.release()));
 		return true;
@@ -599,7 +599,7 @@ bool Class_arrayT<T_Elem>::CastFrom(Environment &env, Value &value, ULong flags)
 	} else if (value.Is_array()) {
 		AutoPtr<Array> pArray(Object_array::GetObject(value)->GetArray()->Reference());
 		if (pArray->GetElemType() != ArrayT<T_Elem>::ElemTypeThis) {
-			sig.SetError(ERR_TypeError, "incompatible array type");
+			env.SetError(ERR_TypeError, "incompatible array type");
 			return false;
 		}
 		value = Value(new Object_arrayT<T_Elem>(env, GetValueType(), pArray.release()));

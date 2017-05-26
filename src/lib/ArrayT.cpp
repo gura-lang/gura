@@ -685,7 +685,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromValue(Environment &env, const Value &v
 	Signal &sig = env.GetSignal();
 	if (value.Is_list()) {
 		const ValueList &valList = value.GetList();
-		pArrayT.reset(ArrayT<T_Elem>::CreateFromList(sig, valList));
+		pArrayT.reset(ArrayT<T_Elem>::CreateFromList(env, valList));
 		if (pArrayT.IsNull()) return nullptr;
 	} else if (value.Is_iterator()) {
 		Iterator *pIterator = value.GetIterator();
@@ -714,74 +714,48 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(const ValueList &valList)
 }
 
 template<typename T_Elem>
-bool CreateFromList_Sub(Signal &sig, Array::Dimensions &dims,
+bool CreateFromList_Sub(Environment &env, Array::Dimensions &dims,
 						Array::Dimensions::const_iterator pDim,
 						T_Elem *&p, const ValueList &valList)
 {
+	const bool complexFlag = (ArrayT<T_Elem>::ElemTypeThis == Array::ETYPE_Complex);
 	if (pDim->GetSize() != valList.size()) {
-		sig.SetError(ERR_ValueError, "incorrect number of elements");
+		env.SetError(ERR_ValueError, "incorrect number of elements");
 		return false;
 	}
 	if (pDim + 1 == dims.end()) {
 		foreach_const (ValueList, pValue, valList) {
-			bool successFlag = false;
-			Number num = pValue->ToNumber(false, successFlag);
+			if (pValue->Is_number()) {
+				*p = static_cast<T_Elem>(pValue->GetDouble());
+			} else if (complexFlag && pValue->Is_complex()) {
+				StoreComplexAt(p, pValue->GetComplex());
+			} else {
+				Array::SetError_UnacceptableValueAsElement(env, *pValue);
+				return nullptr;
+			}
+			p++;
+#if 0
 			if (!successFlag) {
-				sig.SetError(ERR_ValueError, "failed to convert to a number value");
+				env.SetError(ERR_ValueError, "failed to convert to a number value");
 				return nullptr;
 			}
 			*p++ = static_cast<T_Elem>(num);
+#endif
 		}
 	} else {
 		if (valList.GetValueTypeOfElements() != VTYPE_list) {
-			sig.SetError(ERR_ValueError, "invalid format of array initializer");
+			env.SetError(ERR_ValueError, "invalid format of array initializer");
 			return false;
 		}
 		foreach_const (ValueList, pValue, valList) {
-			if (!CreateFromList_Sub(sig, dims, pDim + 1, p, pValue->GetList())) return false;
-		}
-	}
-	return true;
-}
-
-template<>
-bool CreateFromList_Sub(Signal &sig, Array::Dimensions &dims,
-						Array::Dimensions::const_iterator pDim,
-						Complex *&p, const ValueList &valList)
-{
-	if (pDim->GetSize() != valList.size()) {
-		sig.SetError(ERR_ValueError, "incorrect number of elements");
-		return false;
-	}
-	if (pDim + 1 == dims.end()) {
-		foreach_const (ValueList, pValue, valList) {
-			if (pValue->Is_complex()) {
-				*p = pValue->GetComplex();
-			} else {
-				bool successFlag = false;
-				Number num = pValue->ToNumber(false, successFlag);
-				if (!successFlag) {
-					sig.SetError(ERR_ValueError, "failed to convert to a number value");
-					return nullptr;
-				}
-				*p = static_cast<Complex>(num);
-			}
-			p++;
-		}
-	} else {
-		if (valList.GetValueTypeOfElements() != VTYPE_list) {
-			sig.SetError(ERR_ValueError, "invalid format of array initializer");
-			return false;
-		}
-		foreach_const (ValueList, pValue, valList) {
-			if (!CreateFromList_Sub(sig, dims, pDim + 1, p, pValue->GetList())) return false;
+			if (!CreateFromList_Sub(env, dims, pDim + 1, p, pValue->GetList())) return false;
 		}
 	}
 	return true;
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Signal &sig, const ValueList &valList)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Environment &env, const ValueList &valList)
 {
 	Array::Dimensions dims;
 	for (const ValueList *pValList = &valList; ; ) {
@@ -791,13 +765,14 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Signal &sig, const ValueList &val
 	}
 	AutoPtr<ArrayT> pArrayT(ArrayT::Create(dims));
 	T_Elem *p = pArrayT->GetPointer();
-	if (!CreateFromList_Sub(sig, dims, dims.begin(), p, valList)) return nullptr;
+	if (!CreateFromList_Sub(env, dims, dims.begin(), p, valList)) return nullptr;
 	return pArrayT.release();
 }
 
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, Iterator *pIterator)
 {
+	const bool complexFlag = (ArrayT<T_Elem>::ElemTypeThis == Array::ETYPE_Complex);
 	size_t len = pIterator->GetLengthEx(env);
 	if (env.IsSignalled()) return nullptr;
 	AutoPtr<ArrayT> pArrayT(new ArrayT(len));
@@ -805,8 +780,18 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, Iterator *p
 	T_Elem *p = pArrayT->GetPointer();
 	Value value;
 	while (pIteratorWork->Next(env, value)) {
+		if (value.Is_number()) {
+			*p = static_cast<T_Elem>(value.GetDouble());
+		} else if (complexFlag && value.Is_complex()) {
+			StoreComplexAt(p, value.GetComplex());
+		} else {
+			Array::SetError_UnacceptableValueAsElement(env, value);
+			return nullptr;
+		}
+		p++;
+#if 0
 		if (value.Is_complex()) {
-			//*p = value.GetComplex();
+			StoreComplexAt(p, value.GetComplex());
 		} else {
 			bool successFlag = false;
 			Number num = value.ToNumber(false, successFlag);
@@ -817,6 +802,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, Iterator *p
 			*p = static_cast<T_Elem>(num);
 		}
 		p++;
+#endif
 	}
 	return pArrayT.release();
 }
@@ -827,7 +813,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromExpr(Environment &env, const Expr *pEx
 	AutoPtr<Environment> pEnvLister(env.Derive(ENVTYPE_lister));
 	Value result = pExpr->Exec(*pEnvLister, nullptr);
 	if (!result.Is_list()) return nullptr;
-	return ArrayT<T_Elem>::CreateFromList(env.GetSignal(), result.GetList());
+	return ArrayT<T_Elem>::CreateFromList(env, result.GetList());
 }
 
 template<typename T_Elem>

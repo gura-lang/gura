@@ -289,7 +289,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			&CopyElementsTmpl<Int8, UInt32>,
 			&CopyElementsTmpl<Int8, Int64>,
 			&CopyElementsTmpl<Int8, UInt64>,
-			nullptr, //&CopyElementsTmpl<Int8, Half>,
+			&CopyElementsTmpl<Int8, Half>,
 			&CopyElementsTmpl<Int8, Float>,
 			&CopyElementsTmpl<Int8, Double>,
 			nullptr,
@@ -586,6 +586,12 @@ Value Array::ApplyBinaryFunc_complex_array(
 		valueL.GetComplex(), Object_array::GetObject(valueR)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
+}
+
+void Array::SetError_UnacceptableValueAsElement(Environment &env, const Value &value)
+{
+	env.SetError(ERR_ValueError, "value of %s can not be stored in array",
+				 value.MakeValueTypeName().c_str());
 }
 
 Value Array::Dot(Environment &env, const Array *pArrayL, const Array *pArrayR)

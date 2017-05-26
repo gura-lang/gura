@@ -259,6 +259,7 @@ public:
 		Signal &sig, const BinaryFuncPack &pack, const Complex &complexL, const Array *pArrayR);
 	static Value ApplyBinaryFunc_complex_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
+	static void SetError_UnacceptableValueAsElement(Environment &env, const Value &value);
 public:
 	static Value Dot(Environment &env, const Array *pArrayL, const Array *pArrayR);
 	static Array *Invert(Signal &sig, const Array *pArray, Double epsilon);

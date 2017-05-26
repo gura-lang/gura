@@ -23,9 +23,17 @@ public:
 	inline Half &operator=(const Half &half) { _num = half._num; return *this; }
 public:
 	inline Float ToFloat() const { return HalfToFloat(_num); }
-	inline explicit operator float() const noexcept { return HalfToFloat(_num); }
-	inline explicit operator double() const noexcept { return HalfToFloat(_num); }
-	inline explicit operator Complex() const noexcept { return Complex(HalfToFloat(_num)); }
+	inline explicit operator Int8() const noexcept { return static_cast<Int8>(HalfToFloat(_num)); }
+	inline explicit operator UInt8() const noexcept { return static_cast<UInt8>(HalfToFloat(_num)); }
+	inline explicit operator Int16() const noexcept { return static_cast<Int16>(HalfToFloat(_num)); }
+	inline explicit operator UInt16() const noexcept { return static_cast<UInt16>(HalfToFloat(_num)); }
+	inline explicit operator Int32() const noexcept { return static_cast<Int32>(HalfToFloat(_num)); }
+	inline explicit operator UInt32() const noexcept { return static_cast<UInt32>(HalfToFloat(_num)); }
+	inline explicit operator Int64() const noexcept { return static_cast<Int64>(HalfToFloat(_num)); }
+	inline explicit operator UInt64() const noexcept { return static_cast<UInt64>(HalfToFloat(_num)); }
+	inline explicit operator Float() const noexcept { return HalfToFloat(_num); }
+	inline explicit operator Double() const noexcept { return static_cast<Double>(HalfToFloat(_num)); }
+	inline explicit operator Complex() const noexcept { return static_cast<Complex>(HalfToFloat(_num)); }
 	inline Half &operator+=(Float var) {
 		_num = FloatToHalf(ToFloat() + var);
 		return *this;

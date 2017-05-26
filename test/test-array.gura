@@ -482,17 +482,6 @@ testcase('constructor with initial values') {
 		println(func([1, 2, 3, 4].each()))
 		//println(func([[1, 2], [3, 4]].each()))
 		//println(func([[1, 2, 3], [4, 5, 6]].each()))
-		println(func(['1']))
-		println(func(['1', '2']))
-		println(func(['1', '2', '3']))
-		println(func(['1', '2', '3', '4']))
-		println(func([['1', '2'], ['3', '4']]))
-		println(func([['1', '2', '3'], ['4', '5', '6']]))
-		println(func(['012', '0x12']))
-		println(func(['1'].each()))
-		println(func(['1', '2'].each()))
-		println(func(['1', '2', '3'].each()))
-		println(func(['1', '2', '3', '4'].each()))
 	}
 }
 testcase('dimension mismatch error') {
