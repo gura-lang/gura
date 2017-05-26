@@ -203,9 +203,6 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			T_Elem *pElemDst = pArrayT->GetPointer();
 			size_t nElems = pArrayT->GetElemNum();
 			FillComplex(pElemDst, nElems, num);
-			//for (size_t i = 0; i < nElems; i++, pElemDst++) {
-			//	StoreComplexAt(pElemDst, num);
-			//}
 		} else if (value.IsListOrIterator()) {
 			AutoPtr<Iterator> pIteratorSrc(value.CreateIterator(env.GetSignal()));
 			if (env.IsSignalled()) return;
@@ -217,16 +214,6 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			for (size_t i = 0; i < nElems; i++, pElemDst++) {
 				if (!pIterator->Next(env, valueEach)) break;
 				if (!StoreValueAt(env, pElemDst, valueEach)) return;
-#if 0
-				if (valueEach.Is_number()) {
-					*pElemDst = static_cast<T_Elem>(valueEach.GetDouble());
-				} else if (complexFlag && valueEach.Is_complex()) {
-					StoreComplexAt(pElemDst, valueEach.GetComplex());
-				} else {
-					Array::SetError_UnacceptableValueAsElement(env, valueEach);
-					return;
-				}
-#endif
 			}
 		} else {
 			Array::SetError_UnacceptableValueAsElement(env, value);
@@ -260,16 +247,9 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			do {
 				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
 				FillComplex(pElemDst, nElemsUnit, num);
-				//for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
-				//	StoreComplexAt(pElemDst, num);
-				//}
 			} while (indexer.NextGenerator());
 		} else {
 			FillComplex(pElemTgt, nElemsUnit, num);
-			//T_Elem *pElemDst = pElemTgt;
-			//for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
-			//	StoreComplexAt(pElemDst, num);
-			//}
 		}
 		
 	} else if (value.IsListOrIterator()) {
@@ -284,46 +264,16 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 				for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
 					if (!pIterator->Next(env, valueEach)) return;
 					if (!StoreValueAt(env, pElemDst, valueEach)) return;
-#if 0
-					if (valueEach.Is_number()) {
-						*pElemDst = static_cast<T_Elem>(valueEach.GetDouble());
-					} else if (complexFlag && valueEach.Is_complex()) {
-						StoreComplexAt(pElemDst, valueEach.GetComplex());
-					} else {
-						Array::SetError_UnacceptableValueAsElement(env, valueEach);
-						return;
-					}
-#endif
 				}
 			} while (indexer.NextGenerator());
 		} else if (nElemsUnit == 1) {
 			if (!pIterator->Next(env, valueEach)) return;
 			if (!StoreValueAt(env, pElemTgt, valueEach)) return;
-#if 0
-			if (valueEach.Is_number()) {
-				*pElemTgt = static_cast<T_Elem>(valueEach.GetDouble());
-			} else if (complexFlag && valueEach.Is_complex()) {
-				StoreComplexAt(pElemTgt, valueEach.GetComplex());
-			} else {
-				Array::SetError_UnacceptableValueAsElement(env, valueEach);
-				return;
-			}
-#endif
 		} else {
 			T_Elem *pElemDst = pElemTgt;
 			for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
 				if (!pIterator->Next(env, valueEach)) return;
 				if (!StoreValueAt(env, pElemDst, valueEach)) return;
-#if 0
-				if (valueEach.Is_number()) {
-					*pElemDst = static_cast<T_Elem>(valueEach.GetDouble());
-				} else if (complexFlag && valueEach.Is_complex()) {
-					StoreComplexAt(pElemDst, valueEach.GetComplex());
-				} else {
-					Array::SetError_UnacceptableValueAsElement(env, valueEach);
-					return;
-				}
-#endif
 			}
 		}
 	} else if (value.IsInstanceOf(VTYPE_array)) {
