@@ -1194,7 +1194,7 @@ Array::UnaryFuncPack Array::unaryFuncPack_##op = { \
 		&func<UInt32,	UInt32,	Operator_##op::Calc>,	\
 		&func<Int64,	Int64,	Operator_##op::Calc>,	\
 		&func<UInt64,	UInt64,	Operator_##op::Calc>,	\
-		nullptr, \
+		&func<Half,		Half,	Operator_##op::Calc>,	\
 		&func<Float,	Float,	Operator_##op::Calc>,	\
 		&func<Double,	Double,	Operator_##op::Calc>,	\
 		&func<Complex,	Complex,Operator_##op::Calc>,	\
@@ -1218,7 +1218,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<UInt32,	Int8,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	Int8,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	Int8,		UInt64,		Operator_##op::Calc>, \
-			nullptr,													\
+			&funcPrefix##_array_array<Half,		Int8,		Half,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	Int8,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Int8,		Double,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	Int8,		Complex,	Operator_##op::Calc>, \
@@ -1232,7 +1232,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<UInt32,	UInt8,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	UInt8,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	UInt8,		UInt64,		Operator_##op::Calc>, \
-			nullptr,													\
+			&funcPrefix##_array_array<Half,		UInt8,		Half,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	UInt8,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	UInt8,		Double,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	UInt8,		Complex,	Operator_##op::Calc>, \
@@ -1246,7 +1246,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<UInt32,	Int16,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	Int16,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	Int16,		UInt64,		Operator_##op::Calc>, \
-			nullptr,													\
+			&funcPrefix##_array_array<Half,		Int16,		Half,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	Int16,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Int16,		Double,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	Int16,		Complex,	Operator_##op::Calc>, \
@@ -1260,7 +1260,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<UInt32,	UInt16,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	UInt16,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	UInt16,		UInt64,		Operator_##op::Calc>, \
-			nullptr,													\
+			&funcPrefix##_array_array<Half,		UInt16,		Half,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	UInt16,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	UInt16,		Double,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	UInt16,		Complex,	Operator_##op::Calc>, \
@@ -1274,7 +1274,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<UInt32,	Int32,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	Int32,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	Int32,		UInt64,		Operator_##op::Calc>, \
-			nullptr,													\
+			&funcPrefix##_array_array<Half,		Int32,		Half,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	Int32,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Int32,		Double,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	Int32,		Complex,	Operator_##op::Calc>, \
@@ -1288,7 +1288,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<UInt32,	UInt32,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	UInt32,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	UInt32,		UInt64,		Operator_##op::Calc>, \
-			nullptr,													\
+			&funcPrefix##_array_array<Half,		UInt32,		Half,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	UInt32,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	UInt32,		Double,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	UInt32,		Complex,	Operator_##op::Calc>, \
@@ -1302,7 +1302,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<Int64,	Int64,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	Int64,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	Int64,		UInt64,		Operator_##op::Calc>, \
-			nullptr,													\
+			&funcPrefix##_array_array<Half,		Int64,		Half,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	Int64,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Int64,		Double,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	Int64,		Complex,	Operator_##op::Calc>, \
@@ -1316,24 +1316,24 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<UInt64,	UInt64,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	UInt64,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	UInt64,		UInt64,		Operator_##op::Calc>, \
-			nullptr,													\
+			&funcPrefix##_array_array<Half,		UInt64,		Half,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	UInt64,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	UInt64,		Double,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	UInt64,		Complex,	Operator_##op::Calc>, \
 		}, { \
 			nullptr, \
-			nullptr, \
-			nullptr, \
-			nullptr, \
-			nullptr, \
-			nullptr, \
-			nullptr, \
-			nullptr, \
-			nullptr, \
-			nullptr, \
-			nullptr, \
-			nullptr, \
-			nullptr, \
+			&funcPrefix##_array_array<Half,		Half,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Half,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Half,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Half,		Complex,	Operator_##op::Calc>, \
 		}, { \
 			nullptr, \
 			&funcPrefix##_array_array<Float,	Float,		Int8,		Operator_##op::Calc>, \
@@ -1344,7 +1344,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<Float,	Float,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	Float,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	Float,		UInt64,		Operator_##op::Calc>, \
-			nullptr,													\
+			&funcPrefix##_array_array<Float,	Float,		Half,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	Float,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Float,		Double,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	Float,		Complex,	Operator_##op::Calc>, \
@@ -1358,7 +1358,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<Double,	Double,		UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Double,		Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Double,		UInt64,		Operator_##op::Calc>, \
-			nullptr,													\
+			&funcPrefix##_array_array<Double,	Double,		Half,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Double,		Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Double,		Double,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	Double,		Complex,	Operator_##op::Calc>, \
@@ -1372,7 +1372,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&funcPrefix##_array_array<Complex,	Complex,	UInt32,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	Complex,	Int64,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	Complex,	UInt64,		Operator_##op::Calc>, \
-			nullptr,													\
+			&funcPrefix##_array_array<Complex,	Complex,	Half,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	Complex,	Float,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	Complex,	Double,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	Complex,	Complex,	Operator_##op::Calc>, \
