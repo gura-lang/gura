@@ -94,10 +94,35 @@ private:
 };
 
 template<typename T_Elem>
-inline void StoreComplexAt(T_Elem *pElemDst, const Complex &num) {}
+void FillComplex(T_Elem *pElem, size_t nElems, const Complex &num)
+{
+}
+
+template<typename T_Elem>
+inline bool StoreValueAt(Environment &env, T_Elem *pElem, const Value &value)
+{
+	if (value.Is_number()) {
+		*pElem = static_cast<T_Elem>(value.GetDouble());
+	} else {
+		Array::SetError_UnacceptableValueAsElement(env, value);
+		return false;
+	}
+	return true;
+}
 
 template<>
-inline void StoreComplexAt(Complex *pElemDst, const Complex &num) { *pElemDst = num; }
+inline bool StoreValueAt(Environment &env, Complex *pElem, const Value &value)
+{
+	if (value.Is_number()) {
+		*pElem = static_cast<Complex>(value.GetDouble());
+	} else if (value.Is_complex()) {
+		*pElem = value.GetComplex();
+	} else {
+		Array::SetError_UnacceptableValueAsElement(env, value);
+		return false;
+	}
+	return true;
+}
 
 //-----------------------------------------------------------------------------
 // Iterator_ArrayT_Each
