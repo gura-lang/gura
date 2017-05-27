@@ -176,7 +176,7 @@ public:
 	static InvertFunc invertFuncs[ETYPE_Max];
 public:
 	Gura_DeclareReferenceAccessor(Array);
-public:
+protected:
 	inline Array(ElemType elemType) : _cntRef(1),
 		_elemType(elemType), _offsetBase(0), _elemNum(0) {}
 	inline Array(ElemType elemType, const Array &src) : _cntRef(1),
@@ -230,7 +230,10 @@ public:
 	bool HasShape(const Value &valList) const;
 	bool PrepareModification(Signal &sig);
 public:
+	static Array *Create(ElemType elemType, const Dimensions &dims);
+public:
 	static ElemType SymbolToElemType(const Symbol *pSymbol);
+	static ElemType SymbolToElemTypeWithError(Environment &env, const Symbol *pSymbol);
 	static bool CheckShape(Signal &sig, const Array *pArrayA, const Array *pArrayB);
 	static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 										  const Array *pArrayL, const Array *pArrayR);

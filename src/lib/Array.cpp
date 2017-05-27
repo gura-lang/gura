@@ -213,10 +213,45 @@ bool Array::PrepareModification(Signal &sig)
 	return true;
 }
 
+template<typename T_Elem>
+inline Array *CreateTmpl(const Array::Dimensions &dims) { return ArrayT<T_Elem>::Create(dims); }
+
+typedef Array *(*CreateFunc)(const Array::Dimensions &dims);
+
+Array *Array::Create(ElemType elemType, const Array::Dimensions &dims)
+{
+	const CreateFunc createFuncs[ETYPE_Max] = {
+		nullptr,
+		&CreateTmpl<Int8>,
+		&CreateTmpl<UInt8>,
+		&CreateTmpl<Int16>,
+		&CreateTmpl<UInt16>,
+		&CreateTmpl<Int32>,
+		&CreateTmpl<UInt32>,
+		&CreateTmpl<Int64>,
+		&CreateTmpl<UInt64>,
+		&CreateTmpl<Half>,
+		&CreateTmpl<Float>,
+		&CreateTmpl<Double>,
+		&CreateTmpl<Complex>,
+	};
+	return (*createFuncs[elemType])(dims);
+}
+
 Array::ElemType Array::SymbolToElemType(const Symbol *pSymbol)
 {
 	MapToElemType::const_iterator iter = _mapToElemType.find(pSymbol);
 	return (iter == _mapToElemType.end())? ETYPE_None : iter->second;
+}
+
+Array::ElemType Array::SymbolToElemTypeWithError(Environment &env, const Symbol *pSymbol)
+{
+	ElemType elemType = SymbolToElemType(pSymbol);
+	if (elemType == ETYPE_None) {
+		env.SetError(ERR_ValueError, "invalid symbol for element type of array: %s",
+					 pSymbol->GetName());
+	}
+	return elemType;
 }
 
 bool Array::CheckShape(Signal &sig, const Array *pArrayA, const Array *pArrayB)

@@ -633,11 +633,8 @@ Gura_ImplementFunction(array)
 		&Object_arrayT<Complex>::Constructor,
 	};
 	Array::ElemType elemType = arg.IsValid(1)?
-		Array::SymbolToElemType(arg.GetSymbol(1)) : Array::ETYPE_Double;
-	if (elemType == Array::ETYPE_None) {
-		env.SetError(ERR_ValueError, "invalid symbol for elemtype");
-		return Value::Nil;
-	}
+		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(1)) : Array::ETYPE_Double;
+	if (env.IsSignalled()) return Value::Nil;
 	return (*constructorTbl[elemType])(env, arg);
 }
 
@@ -767,7 +764,7 @@ Gura_ImplementMethod(array, dump)
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
-// arrayT#each():[flat] {block?}
+// array#each():[flat] {block?}
 Gura_DeclareMethod(array, each)
 {
 	SetFuncAttr(VTYPE_iterator, RSLTMODE_Normal, FLAG_None);
@@ -811,6 +808,28 @@ Gura_ImplementMethod(array, each)
 		&Method_each<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+}
+
+// array#elemcast(elemtype:symbol) {block?}
+Gura_DeclareMethod(array, elemcast)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "elemtype", VTYPE_symbol);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Cast value type of contained elements.\n"
+		);
+}
+
+Gura_ImplementMethod(array, elemcast)
+{
+	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	Array::ElemType elemType = Array::SymbolToElemTypeWithError(env, arg.GetSymbol(0));
+	if (env.IsSignalled()) return Value::Nil;
+	AutoPtr<Array> pArrayDst(Array::Create(elemType, pArraySelf->GetDimensions()));
+	if (!Array::CopyElements(env, pArrayDst.get(), pArraySelf)) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayDst.release())));
 }
 
 // array#fill(value:number):void
@@ -1362,6 +1381,7 @@ void Class_array::DoPrepare(Environment &env)
 	Gura_AssignMethod(array, dot);
 	Gura_AssignMethod(array, dump);
 	Gura_AssignMethod(array, each);
+	Gura_AssignMethod(array, elemcast);
 	Gura_AssignMethod(array, fill);
 	Gura_AssignMethod(array, flatten);
 	Gura_AssignMethod(array, head);
