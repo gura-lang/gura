@@ -59,7 +59,7 @@ bool Array::DoesContainZeroOrMinus() const
 	return false;
 }
 
-size_t Array::GetElemBytes() const
+size_t Array::GetElemBytes(ElemType elemType)
 {
 	const static size_t elemBytesTbl[ETYPE_Max] = {
 		0,
@@ -76,10 +76,10 @@ size_t Array::GetElemBytes() const
 		ArrayT<Double>::ElemBytes,
 		ArrayT<Complex>::ElemBytes,
 	};
-	return elemBytesTbl[_elemType];
+	return elemBytesTbl[elemType];
 }
 
-const char *Array::GetElemTypeName() const
+const char *Array::GetElemTypeName(ElemType elemType)
 {
 	const static char *elemTypeNameTbl[ETYPE_Max] = {
 		"",
@@ -96,7 +96,7 @@ const char *Array::GetElemTypeName() const
 		ArrayT<Double>::ElemTypeName,
 		ArrayT<Complex>::ElemTypeName,
 	};
-	return elemTypeNameTbl[_elemType];
+	return elemTypeNameTbl[elemType];
 }
 
 void Array::SetDimension(const Dimension &dim)
@@ -259,7 +259,9 @@ bool Array::CheckShape(Signal &sig, const Array *pArrayA, const Array *pArrayB)
 	if (Dimensions::IsSameShape(pArrayA->GetDimensions(), pArrayB->GetDimensions())) {
 		return true;
 	}
-	sig.SetError(ERR_ValueError, "different dimension of arrays");
+	sig.SetError(ERR_ValueError, "mismatched dimension of arrays between (%s) and (%s)",
+				 pArrayA->GetDimensions().ToString().c_str(),
+				 pArrayB->GetDimensions().ToString().c_str());
 	return false;
 }
 
@@ -270,11 +272,18 @@ bool Array::CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 			pArrayL->GetDimensions(), pArrayR->GetDimensions())) {
 		return true;
 	}
-	sig.SetError(ERR_ValueError,
-				 "can't calcuate %s operation between arrays of dimension (%s) and (%s)",
-				 pack.name,
-				 pArrayL->GetDimensions().ToString().c_str(),
-				 pArrayR->GetDimensions().ToString().c_str());
+	if (*pack.symbol == '\0') {
+		sig.SetError(ERR_ValueError,
+					 "failed in array calculation: %s((%s), (%s))",
+					 pack.name,
+					 pArrayL->GetDimensions().ToString().c_str(),
+					 pArrayR->GetDimensions().ToString().c_str());
+	} else {
+		sig.SetError(ERR_ValueError,
+					 "failed in array calculation: (%s) %s (%s)",
+					 pArrayL->GetDimensions().ToString().c_str(), pack.symbol,
+					 pArrayR->GetDimensions().ToString().c_str());
+	}
 	return false;
 }
 
@@ -486,7 +495,8 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 	};
 	CopyElementsT copyElements = copyElementsTbl[elemTypeDst][elemTypeSrc];
 	if (copyElements == nullptr) {
-		env.SetError(ERR_TypeError, "invalid copy operation");
+		env.SetError(ERR_TypeError, "can't copy elements from array@%s to array@%s",
+					 GetElemTypeName(elemTypeSrc), GetElemTypeName(elemTypeDst));
 		return false;
 	}
 	(*copyElements)(pElemRawDst, pElemRawSrc, nElems);
@@ -937,7 +947,7 @@ void DotFuncTmpl_1d_1d(T_ElemResult &elemResult,
 void SetError_CantCalcuateDotProduct(Environment &env, const Array *pArrayL, const Array *pArrayR)
 {
 	env.SetError(ERR_ValueError,
-				 "can't calculate dot product between arrays of (%s) and (%s)",
+				 "failed in array calculation: (%s) |.| (%s)",
 				 pArrayL->GetDimensions().ToString().c_str(),
 				 pArrayR->GetDimensions().ToString().c_str());
 }
@@ -1216,9 +1226,10 @@ Array *InvertFuncTmpl(Signal &sig, const Array *pArray, Double epsilon)
 //------------------------------------------------------------------------------
 // Function tables
 //------------------------------------------------------------------------------
-#define ImplementUnaryFuncPack(op, name, func) \
+#define ImplementUnaryFuncPack(op, name, symbol, func)	\
 Array::UnaryFuncPack Array::unaryFuncPack_##op = { \
 	name, \
+	symbol, \
 	{ \
 		nullptr, \
 		&func<Int8,		Int8,	Operator_##op::Calc>,	\
@@ -1236,9 +1247,10 @@ Array::UnaryFuncPack Array::unaryFuncPack_##op = { \
 	}, \
 }
 
-#define ImplementBinaryFuncPack(op, name, funcPrefix)			 \
+#define ImplementBinaryFuncPack(op, name, symbol, funcPrefix)	\
 Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 	name, \
+	symbol, \
 	{ \
 		{ \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
@@ -1471,9 +1483,10 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 	} \
 }
 
-#define ImplementBinaryFuncPack_BitOp(op, name) \
+#define ImplementBinaryFuncPack_BitOp(op, name, symbol)	 \
 Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 	name, \
+	symbol, \
 	{ \
 		{ \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
@@ -1637,51 +1650,51 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 	} \
 }
 
-ImplementUnaryFuncPack(Pos,				"pos",				UnaryFuncTmpl);
-ImplementUnaryFuncPack(Neg,				"neg",				UnaryFuncTmpl);
+ImplementUnaryFuncPack(Pos,				"pos",				"+",	UnaryFuncTmpl);
+ImplementUnaryFuncPack(Neg,				"neg",				"-",	UnaryFuncTmpl);
 
-ImplementBinaryFuncPack(Add,			"add",				BinaryFuncTmpl);
-ImplementBinaryFuncPack(Sub,			"sub",				BinaryFuncTmpl);
-ImplementBinaryFuncPack(Mul,			"mul",				BinaryFuncTmpl);
-ImplementBinaryFuncPack(Div,			"div",				BinaryFuncTmpl_Div);
-ImplementBinaryFuncPack(Mod,			"mod",				BinaryFuncTmpl_Div);
-ImplementBinaryFuncPack(Pow,			"pow",				BinaryFuncTmpl);
+ImplementBinaryFuncPack(Add,			"add",				"+",	BinaryFuncTmpl);
+ImplementBinaryFuncPack(Sub,			"sub",				"-",	BinaryFuncTmpl);
+ImplementBinaryFuncPack(Mul,			"mul",				"*",	BinaryFuncTmpl);
+ImplementBinaryFuncPack(Div,			"div",				"/",	BinaryFuncTmpl_Div);
+ImplementBinaryFuncPack(Mod,			"mod",				"%",	BinaryFuncTmpl_Div);
+ImplementBinaryFuncPack(Pow,			"pow",				"**",	BinaryFuncTmpl);
 
-ImplementBinaryFuncPack_BitOp(And,		"and");
-ImplementBinaryFuncPack_BitOp(Or,		"or");
-ImplementBinaryFuncPack_BitOp(Xor,		"xor");
-ImplementBinaryFuncPack_BitOp(Shl,		"shl");
-ImplementBinaryFuncPack_BitOp(Shr,		"shr");
+ImplementBinaryFuncPack_BitOp(And,		"and",				"&");
+ImplementBinaryFuncPack_BitOp(Or,		"or",				"|");
+ImplementBinaryFuncPack_BitOp(Xor,		"xor",				"^");
+ImplementBinaryFuncPack_BitOp(Shl,		"shl",				"<<");
+ImplementBinaryFuncPack_BitOp(Shr,		"shr",				">>");
 
-ImplementUnaryFuncPack(Math_abs,		"math.abs",			UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_acos,		"math.acos",		UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_arg,		"math.arg",			UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_asin,		"math.asin",		UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_atan,		"math.atan",		UnaryFuncTmpl);
-ImplementBinaryFuncPack(Math_atan2,		"math.atan2",		BinaryFuncTmpl);
-ImplementUnaryFuncPack(Math_ceil,		"math.ceil",		UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_conj,		"math.conj",		UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_cos,		"math.cos",			UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_cosh,		"math.cosh",		UnaryFuncTmpl);
-//ImplementBinaryFuncPack(Math_covariance,"math.covariance",BinaryFuncTmpl);
-//ImplementBinaryFuncPack(Math_cross,	"math.cross",		BinaryFuncTmpl);
-ImplementUnaryFuncPack(Math_delta,		"math.delta",		UnaryFuncTmpl);
-//ImplementBinaryFuncPack(Math_dot,		"math.dot",			BinaryFuncTmpl);
-ImplementUnaryFuncPack(Math_exp,		"math.exp",			UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_floor,		"math.floor",		UnaryFuncTmpl);
-ImplementBinaryFuncPack(Math_hypot,		"math.hypot",		BinaryFuncTmpl);
-ImplementUnaryFuncPack(Math_imag,		"math.imag",		UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_log,		"math.log",			UnaryFuncTmpl_ExcludeZero);
-ImplementUnaryFuncPack(Math_log10,		"math.log10",		UnaryFuncTmpl_ExcludeZero);
-ImplementUnaryFuncPack(Math_norm,		"math.norm",		UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_ramp,		"math.ramp",		UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_real,		"math.real",		UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_sin,		"math.sin",			UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_sinh,		"math.sinh",		UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_sqrt,		"math.sqrt",		UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_tan,		"math.tan",			UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_tanh,		"math.tanh",		UnaryFuncTmpl);
-ImplementUnaryFuncPack(Math_unitstep,	"math.unitstep",	UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_abs,		"math.abs",			"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_acos,		"math.acos",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_arg,		"math.arg",			"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_asin,		"math.asin",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_atan,		"math.atan",		"",		UnaryFuncTmpl);
+ImplementBinaryFuncPack(Math_atan2,		"math.atan2",		"",		BinaryFuncTmpl);
+ImplementUnaryFuncPack(Math_ceil,		"math.ceil",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_conj,		"math.conj",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_cos,		"math.cos",			"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_cosh,		"math.cosh",		"",		UnaryFuncTmpl);
+//ImplementBinaryFuncPack(Math_covariance,"math.covariance","",		BinaryFuncTmpl);
+//ImplementBinaryFuncPack(Math_cross,	"math.cross",		"",		BinaryFuncTmpl);
+ImplementUnaryFuncPack(Math_delta,		"math.delta",		"",		UnaryFuncTmpl);
+//ImplementBinaryFuncPack(Math_dot,		"math.dot",			"",		BinaryFuncTmpl);
+ImplementUnaryFuncPack(Math_exp,		"math.exp",			"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_floor,		"math.floor",		"",		UnaryFuncTmpl);
+ImplementBinaryFuncPack(Math_hypot,		"math.hypot",		"",		BinaryFuncTmpl);
+ImplementUnaryFuncPack(Math_imag,		"math.imag",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_log,		"math.log",			"",		UnaryFuncTmpl_ExcludeZero);
+ImplementUnaryFuncPack(Math_log10,		"math.log10",		"",		UnaryFuncTmpl_ExcludeZero);
+ImplementUnaryFuncPack(Math_norm,		"math.norm",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_ramp,		"math.ramp",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_real,		"math.real",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_sin,		"math.sin",			"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_sinh,		"math.sinh",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_sqrt,		"math.sqrt",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_tan,		"math.tan",			"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_tanh,		"math.tanh",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_unitstep,	"math.unitstep",	"",		UnaryFuncTmpl);
 
 Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 	{

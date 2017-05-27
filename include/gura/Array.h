@@ -42,10 +42,12 @@ public:
 	typedef Value (*DotFunc)(Environment &env, const Array *pArrayL, const Array *pArrayR);
 	struct UnaryFuncPack {
 		const char *name;
+		const char *symbol;
 		UnaryFunc unaryFuncs[ETYPE_Max];
 	};
 	struct BinaryFuncPack {
 		const char *name;
+		const char *symbol;
 		BinaryFunc_array_array binaryFuncs_array_array[ETYPE_Max][ETYPE_Max];
 		BinaryFunc_array_number binaryFuncs_array_number[ETYPE_Max];
 		BinaryFunc_number_array binaryFuncs_number_array[ETYPE_Max];
@@ -208,8 +210,10 @@ public:
 	virtual bool DoesContainZero() const;
 	virtual bool DoesContainMinus() const;
 	virtual bool DoesContainZeroOrMinus() const;
-	size_t GetElemBytes() const;
-	const char *GetElemTypeName() const;
+	static size_t GetElemBytes(ElemType elemType);
+	inline size_t GetElemBytes() const { return GetElemBytes(_elemType); }
+	static const char *GetElemTypeName(ElemType elemType);
+	inline const char *GetElemTypeName() const { return GetElemTypeName(_elemType); }
 	void SetDimension(const Dimension &dim);
 	void SetDimensions(const Dimension &dimRow, const Dimension &dimCol);
 	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);

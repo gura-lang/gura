@@ -3881,9 +3881,9 @@ array.zeros([3, 4]) .. [[0, 0, 0, 0],
 
 ======== #26 dimension mismatch error ========
 
-array { 1, 2, 3 } + array { 1, 2 } .. ValueError: can't calcuate add operation between arrays of dimension (3) and (2)
-array { { 1, 2 }, { 3, 4 } } + array { { 1, 2, 3 }, { 4, 5, 6 } } .. ValueError: can't calcuate add operation between arrays of dimension (2, 2) and (2, 3)
-array { { 1, 2 }, { 3, 4 } } |.| array { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } } .. ValueError: can't calculate dot product between arrays of (2, 2) and (3, 3)
+array { 1, 2, 3 } + array { 1, 2 } .. ValueError: failed in array calculation: (3) + (2)
+array { { 1, 2 }, { 3, 4 } } + array { { 1, 2, 3 }, { 4, 5, 6 } } .. ValueError: failed in array calculation: (2, 2) + (2, 3)
+array { { 1, 2 }, { 3, 4 } } |.| array { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } } .. ValueError: failed in array calculation: (2, 2) |.| (3, 3)
 
 ======== #27 range ========
 
@@ -5279,7 +5279,7 @@ ValueError: value of string can not be stored in array
 ======== #47 index-set between array@complex and array of other type ========
 
 [ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11]
-expected error occured: TypeError: invalid copy operation
+expected error occured: TypeError: can't copy elements from array@complex to array@double
 
 ======== #48 operation between array and complex ========
 
