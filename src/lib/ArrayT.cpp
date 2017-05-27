@@ -140,6 +140,12 @@ template<> void FormatElem(char *buff, int wdPad, const Complex &x) {
 // ArrayT
 //------------------------------------------------------------------------------
 template<typename T_Elem>
+Array *ArrayT<T_Elem>::Clone() const
+{
+	return new ArrayT<T_Elem>(*this);
+}	
+
+template<typename T_Elem>
 void ToString_Sub(String &rtn, size_t colTop, int wdPad, const Array::Dimensions &dims,
 				  Array::Dimensions::const_iterator pDim, const T_Elem *&p)
 {

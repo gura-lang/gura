@@ -827,9 +827,15 @@ Gura_ImplementMethod(array, elemcast)
 	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	Array::ElemType elemType = Array::SymbolToElemTypeWithError(env, arg.GetSymbol(0));
 	if (env.IsSignalled()) return Value::Nil;
-	AutoPtr<Array> pArrayDst(Array::Create(elemType, pArraySelf->GetDimensions()));
-	if (!Array::CopyElements(env, pArrayDst.get(), pArraySelf)) return Value::Nil;
-	return ReturnValue(env, arg, Value(new Object_array(env, pArrayDst.release())));
+	Value value;
+	if (pArraySelf->GetElemType() == elemType) {
+		value = Value(new Object_array(env, pArraySelf->Clone()));
+	} else {
+		AutoPtr<Array> pArrayDst(Array::Create(elemType, pArraySelf->GetDimensions()));
+		if (!Array::CopyElements(env, pArrayDst.get(), pArraySelf)) return Value::Nil;
+		value = Value(new Object_array(env, pArrayDst.release()));
+	}
+	return ReturnValue(env, arg, value);
 }
 
 // array#fill(value:number):void

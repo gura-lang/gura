@@ -359,6 +359,7 @@ array
   array.dot(a:array, b:array):static:map {block?}
   array#dump(stream?:stream):void:[upper]
   array#each():[flat] {block?}
+  array#elemcast(elemtype:symbol) {block?}
   array#fill(value:number):map:void
   array#flatten() {block?}
   array#head(n:number):map {block?}

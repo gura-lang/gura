@@ -206,10 +206,11 @@ public:
 	inline const char *GetPointerRawOrigin() const { return _pMemory->GetPointer(); }
 	inline char *GetPointerRaw() { return GetPointerRawOrigin() + GetOffsetBase() * GetElemBytes(); }
 	inline const char *GetPointerRaw() const { return GetPointerRawOrigin() + GetOffsetBase() * GetElemBytes(); }
-	virtual String ToString(bool exprFlag) const;
-	virtual bool DoesContainZero() const;
-	virtual bool DoesContainMinus() const;
-	virtual bool DoesContainZeroOrMinus() const;
+	virtual Array *Clone() const = 0;
+	virtual String ToString(bool exprFlag) const = 0;
+	virtual bool DoesContainZero() const = 0;
+	virtual bool DoesContainMinus() const = 0;
+	virtual bool DoesContainZeroOrMinus() const = 0;
 	static size_t GetElemBytes(ElemType elemType);
 	inline size_t GetElemBytes() const { return GetElemBytes(_elemType); }
 	static const char *GetElemTypeName(ElemType elemType);

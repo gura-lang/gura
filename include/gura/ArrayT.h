@@ -39,6 +39,7 @@ public:
 	inline const T_Elem *GetPointer() const { return GetPointerOrigin() + GetOffsetBase(); }
 	inline operator T_Elem *() { return GetPointer(); }
 	inline operator const T_Elem *() const { return GetPointer(); }
+	virtual Array *Clone() const;
 	virtual String ToString(bool exprFlag) const;
 	virtual bool DoesContainZero() const;
 	virtual bool DoesContainMinus() const;

@@ -39,26 +39,6 @@ void Array::Bootup()
 	}
 }
 
-String Array::ToString(bool exprFlag) const
-{
-	return "";
-}
-
-bool Array::DoesContainZero() const
-{
-	return false;
-}
-
-bool Array::DoesContainMinus() const
-{
-	return false;
-}
-
-bool Array::DoesContainZeroOrMinus() const
-{
-	return false;
-}
-
 size_t Array::GetElemBytes(ElemType elemType)
 {
 	const static size_t elemBytesTbl[ETYPE_Max] = {

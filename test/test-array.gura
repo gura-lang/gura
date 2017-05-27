@@ -1,6 +1,11 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
+typeNames = [
+	`int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64,
+	`half, `float, `double, `complex
+]
+
 funcs = [
 	array@int8
 	array@uint8
@@ -845,4 +850,17 @@ testcase('index-set to array@complex') {
 	f { x[2..] = array@complex {2 + 1j, 3 - 1j, 4} }
 	f { x[2..] = array {2, 3, 4, 1} }
 	f { x[2..] = array@complex {2 + 1j, 3 - 1j, 4, 1} }
+}
+testcase('array#elemcast()') {
+	cross (typeNameSrc in typeNames, typeNameDst in typeNames) {
+		x = array([1..10], typeNameSrc)
+		try {
+			y = x.elemcast(typeNameDst)
+			print(y)
+		} catch {|e|
+			print(e.text)
+		}
+		println(': ', typeNameDst, ' <- ', typeNameSrc,
+				cond(x.memoryid == y.memoryid, ' [shared]', ''))
+	}
 }
