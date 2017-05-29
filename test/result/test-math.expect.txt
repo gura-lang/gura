@@ -223,6 +223,7 @@ math.real(array { 0, 3 }) .. [0, 3]
 math.sigmoid(0) .. 0.5
 math.sigmoid(1) .. 0.731059
 math.sigmoid(-1) .. 0.268941
+math.sigmoid(array { 0, 1, -1 }) .. [     0.5, 0.731059, 0.268941]
 
 ======== #24 math.sin() ========
 

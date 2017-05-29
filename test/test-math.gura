@@ -225,6 +225,7 @@ testcase('math.sigmoid()') {
 	tester(`math.sigmoid(0))
 	tester(`math.sigmoid(1))
 	tester(`math.sigmoid(-1))
+	tester(`math.sigmoid(array {0, 1, -1}))
 }
 
 testcase('math.sin()') {
