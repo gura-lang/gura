@@ -218,7 +218,13 @@ math.real(4j) .. 0
 math.real(3 + 4j) .. 3
 math.real(array { 0, 3 }) .. [0, 3]
 
-======== #23 math.sin() ========
+======== #23 math.sigmoid() ========
+
+math.sigmoid(0) .. 0.5
+math.sigmoid(1) .. 0.731059
+math.sigmoid(-1) .. 0.268941
+
+======== #24 math.sin() ========
 
 math.sin(0) .. 0
 math.sin(math.pi / 2) .. 1
@@ -228,14 +234,14 @@ math.sin(90):deg .. 1
 math.sin(180):deg .. 1.22465e-16
 math.sin(array { 0, math.pi / 2, math.pi }) .. [          0,           1, 1.22465e-16]
 
-======== #24 math.sinh() ========
+======== #25 math.sinh() ========
 
 math.sinh(0) .. 0
 math.sinh(1) .. 1.1752
 (math.exp(1) - math.exp(-1)) / 2 .. 1.1752
 math.sinh(array { 0, 1 }) .. [     0, 1.1752]
 
-======== #25 math.sqrt() ========
+======== #26 math.sqrt() ========
 
 math.sqrt(0) .. 0
 math.sqrt(1) .. 1
@@ -248,7 +254,7 @@ math.sqrt(2j) .. 1+1j
 math.sqrt(3j) .. 1.22474+1.22474j
 math.sqrt(array { 0, 1, 2, 3 }) .. [      0,       1, 1.41421, 1.73205]
 
-======== #26 math.tan() ========
+======== #27 math.tan() ========
 
 math.tan(0) .. 0
 math.tan(math.pi / 4) .. 1
@@ -260,14 +266,14 @@ math.tan(90):deg .. 1.63312e+16
 math.tan(180):deg .. -1.22465e-16
 math.tan(array { 0, math.pi / 4, math.pi / 2, math.pi }) .. [           0,            1,  1.63312e+16, -1.22465e-16]
 
-======== #27 math.tanh() ========
+======== #28 math.tanh() ========
 
 math.tanh(0) .. 0
 math.tanh(1) .. 0.761594
 (math.exp(1) - math.exp(-1)) / (math.exp(1) + math.exp(-1)) .. 0.761594
 math.tanh(array { 0, 1 }) .. [       0, 0.761594]
 
-======== #28 math.unitstep() ========
+======== #29 math.unitstep() ========
 
 math.unitstep(-2) .. 0
 math.unitstep(-1) .. 0
@@ -276,15 +282,15 @@ math.unitstep(1) .. 1
 math.unitstep(2) .. 1
 math.unitstep(array { -2, -1, 0, 1, 2 }) .. [0, 0, 1, 1, 1]
 
-======== #29 ========
+======== #30 ========
 
 rational(260, 364).reduce() .. 5/7r
 
-======== #30 ========
+======== #31 ========
 
 math.hypot(3, 4) .. 5
 
-======== #31 ========
+======== #32 ========
 
 6   3   .. GCD:3   LCM:6  
 3   6   .. GCD:3   LCM:6  
@@ -308,7 +314,7 @@ math.hypot(3, 4) .. 5
 60   84   36   .. GCD:12  LCM:1260
 60   36   84   .. GCD:12  LCM:1260
 
-======== #32 ========
+======== #33 ========
 
 math.cross([1, 2], [3, 1]) .. -5
 math.cross([3, 1], [1, 2]) .. 5
@@ -320,7 +326,7 @@ math.dot([-1, -3], [2, 2]) .. -8
 math.dot([-1, -3, 3], [2, 2, -1]) .. -11
 math.dot([-1, -3], [2, 2, 3]) .. ValueError: different length of lists
 
-======== #33 ========
+======== #34 ========
 
 f2_x(t:number):map = { a + b * t + c * t * t + d * t * t * t }
 f2_y(t:number):map = { a + b * t + c * t * t + d * t * t * t }
@@ -336,23 +342,23 @@ f2_y(t:number):map = { a + b * t + c * t * t + d * t * t * t }
    18.598080,   18.598080,   18.598080,     8.751715,    8.751715,    8.751715
    20.000000,   20.000000,   20.000000,    10.000000,   10.000000,   10.000000
 
-======== #34 ========
+======== #35 ========
 
 f(x:number):map = 3.55 + 0.35 * x
 g(temp:number):map = 2.94286 + 0.707143 * temp + (-0.0357143) * temp ** 2
 h(hoge:number):map = (-0.619643) + 4.54464 * hoge + (-0.973214) * hoge ** 2 + 0.0625 * hoge ** 3
 
-======== #35 ========
+======== #36 ========
 
 f(x:number):map = 1.00714 + 5.10714 * x
 
-======== #36 ramp, unitstep and delta ========
+======== #37 ramp, unitstep and delta ========
 
 math.ramp([(-5) .. 5]) .. [0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5]
 math.unitstep([(-5) .. 5]) .. [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1]
 math.delta([(-5) .. 5]) .. [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
 
-======== #37 random ========
+======== #38 random ========
 
 rand() .. 0.030581
 rand(100) .. 3

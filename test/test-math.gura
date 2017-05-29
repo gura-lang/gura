@@ -221,6 +221,12 @@ testcase('math.real()') {
 	tester(`math.real(array {0, 3}))
 }
 
+testcase('math.sigmoid()') {
+	tester(`math.sigmoid(0))
+	tester(`math.sigmoid(1))
+	tester(`math.sigmoid(-1))
+}
+
 testcase('math.sin()') {
 	tester(`math.sin(0))
 	tester(`math.sin(math.pi / 2))

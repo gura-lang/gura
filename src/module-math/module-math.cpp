@@ -506,6 +506,38 @@ Gura_ImplementFunction(real)
 	return env.GetOperator(OPTYPE_Math_real)->EvalMapUnary(env, arg.GetValue(0), flags);
 }
 
+// math.sigmoid(num):map
+Gura_DeclareFunctionWithMathDiff(sigmoid)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "num", VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns a sigmoid value.\n");
+}
+
+Gura_ImplementFunction(sigmoid)
+{
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_sigmoid)->EvalMapUnary(env, arg.GetValue(0), flags);
+}
+
+Gura_ImplementMathDiff(sigmoid)
+{
+	// sigmoid(x)' = sigmoid(x) * (1 - sigmoid(x))
+	return new Expr_BinaryOp(
+		env.GetOperator(OPTYPE_Mul),
+		Expr::CreateCaller(
+			Gura_Symbol(math), Gura_Symbol(sigmoid),
+			pExprArg->Clone()),
+		new Expr_BinaryOp(
+			env.GetOperator(OPTYPE_Sub),
+			new Expr_Value(1),
+			Expr::CreateCaller(
+				Gura_Symbol(math), Gura_Symbol(sigmoid),
+				pExprArg->Clone())));
+}
+
 // math.sin(num):map:[deg]
 Gura_DeclareFunctionWithMathDiff(sin)
 {
@@ -1042,6 +1074,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(norm);
 	Gura_AssignFunction(ramp);
 	Gura_AssignFunction(real);
+	Gura_AssignFunction(sigmoid);
 	Gura_AssignFunction(sin);
 	Gura_AssignFunction(sinh);
 	Gura_AssignFunction(sqrt);

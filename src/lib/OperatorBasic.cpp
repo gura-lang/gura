@@ -2002,6 +2002,31 @@ Gura_ImplementUnaryOperator(Math_real, array)
 }
 
 //-----------------------------------------------------------------------------
+// math.sigmoid(A) ... UnaryOperator(Math_sigmoid, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_sigmoid, number)
+{
+	double num = value.GetDouble();
+	if (flags & FLAG_Deg) num = DegToRad(num);
+	double result;
+	Operator_Math_sigmoid::Calc(result, num);
+	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_sigmoid, complex)
+{
+	const Complex &num = value.GetComplex();
+	Complex result;
+	Operator_Math_sigmoid::Calc(result, num);
+	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_sigmoid, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_sigmoid, value);
+}
+
+//-----------------------------------------------------------------------------
 // math.sin(A) ... UnaryOperator(Math_sin, A)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_sin, number)
@@ -2411,6 +2436,9 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignUnaryOperator(Math_real, number);
 	Gura_AssignUnaryOperator(Math_real, complex);
 	Gura_AssignUnaryOperator(Math_real, array);
+	Gura_AssignUnaryOperator(Math_sigmoid, number);
+	Gura_AssignUnaryOperator(Math_sigmoid, complex);
+	Gura_AssignUnaryOperator(Math_sigmoid, array);
 	Gura_AssignUnaryOperator(Math_sin, number);
 	Gura_AssignUnaryOperator(Math_sin, complex);
 	Gura_AssignUnaryOperator(Math_sin, array);

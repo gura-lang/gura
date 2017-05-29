@@ -241,6 +241,7 @@ math:module
   pi:number = 3.14159
   math.ramp(num):map
   math.real(num):map
+  math.sigmoid(num):map
   math.sin(num):map:[deg]
   math.sinh(num):map
   math.sqrt(num):map

@@ -767,6 +767,7 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(shrinkable);
 	Gura_RealizeSymbol(sibling);
 	Gura_RealizeSymbol(siblings);
+	Gura_RealizeSymbol(sigmoid);
 	Gura_RealizeSymbol(sin);
 	Gura_RealizeSymbol(single);
 	Gura_RealizeSymbol(size);

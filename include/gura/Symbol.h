@@ -570,6 +570,7 @@ public:
 	Gura_DeclareSymbol(shrinkable);
 	Gura_DeclareSymbol(sibling);
 	Gura_DeclareSymbol(siblings);
+	Gura_DeclareSymbol(sigmoid);
 	Gura_DeclareSymbol(sin);
 	Gura_DeclareSymbol(single);
 	Gura_DeclareSymbol(size);

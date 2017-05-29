@@ -1669,6 +1669,7 @@ ImplementUnaryFuncPack(Math_log10,		"math.log10",		"",		UnaryFuncTmpl_ExcludeZer
 ImplementUnaryFuncPack(Math_norm,		"math.norm",		"",		UnaryFuncTmpl);
 ImplementUnaryFuncPack(Math_ramp,		"math.ramp",		"",		UnaryFuncTmpl);
 ImplementUnaryFuncPack(Math_real,		"math.real",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_sigmoid,	"math.sigmoid",		"",		UnaryFuncTmpl);
 ImplementUnaryFuncPack(Math_sin,		"math.sin",			"",		UnaryFuncTmpl);
 ImplementUnaryFuncPack(Math_sinh,		"math.sinh",		"",		UnaryFuncTmpl);
 ImplementUnaryFuncPack(Math_sqrt,		"math.sqrt",		"",		UnaryFuncTmpl);

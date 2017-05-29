@@ -13,6 +13,7 @@ testcase {
 		math.log10
 		math.ramp
 		math.sin
+		math.sigmoid
 		math.sqrt
 		math.tan
 		_(x) { x ** 2 }

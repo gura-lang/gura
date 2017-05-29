@@ -9,6 +9,7 @@ math.log(num):map -> 1 / num
 math.log10(num):map -> 1 / (num * math.log(10))
 math.ramp(num):map -> math.unitstep(num)
 math.sin(num):map:[deg] -> math.cos(num)
+math.sigmoid(num):map -> math.sigmoid(num) * (1 - math.sigmoid(num))
 math.sqrt(num):map -> 1 / (2 * math.sqrt(num))
 math.tan(num):map:[deg] -> 1 / math.cos(num) ** 2
 { x ** 2 } -> 2 * x

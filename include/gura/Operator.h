@@ -107,6 +107,7 @@ enum OpType {
 	OPTYPE_Math_norm,
 	OPTYPE_Math_ramp,
 	OPTYPE_Math_real,
+	OPTYPE_Math_sigmoid,
 	OPTYPE_Math_sin,
 	OPTYPE_Math_sinh,
 	OPTYPE_Math_sqrt,
@@ -206,6 +207,7 @@ public:
 	static Operator *Math_norm;
 	static Operator *Math_ramp;
 	static Operator *Math_real;
+	static Operator *Math_sigmoid;
 	static Operator *Math_sin;
 	static Operator *Math_sinh;
 	static Operator *Math_sqrt;
@@ -1269,6 +1271,24 @@ public:
 template<> inline void Operator_Math_real::Calc(Double &result, const Complex &var)
 {
 	result = std::real(var);
+}
+
+//-----------------------------------------------------------------------------
+// Operator_Math_sigmoid
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Math_sigmoid : public Operator {
+public:
+	inline Operator_Math_sigmoid() : Operator(OPTYPE_Math_sigmoid) {}
+public:
+	template<typename T_Result, typename T_Var>
+	inline static void Calc(T_Result &result, const T_Var &var) {
+		result = static_cast<T_Result>(1 / (1 + ::exp(-static_cast<Double>(var))));
+	}
+};
+
+template<> inline void Operator_Math_sigmoid::Calc(Complex &result, const Complex &var)
+{
+	result = 1. / (1. + std::exp(-var));
 }
 
 //-----------------------------------------------------------------------------

@@ -168,6 +168,7 @@ public:
 	static UnaryFuncPack unaryFuncPack_Math_norm;
 	static UnaryFuncPack unaryFuncPack_Math_ramp;
 	static UnaryFuncPack unaryFuncPack_Math_real;
+	static UnaryFuncPack unaryFuncPack_Math_sigmoid;
 	static UnaryFuncPack unaryFuncPack_Math_sin;
 	static UnaryFuncPack unaryFuncPack_Math_sinh;
 	static UnaryFuncPack unaryFuncPack_Math_sqrt;

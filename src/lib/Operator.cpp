@@ -77,6 +77,7 @@ const Operator::SymbolInfo Operator::_symbolInfoTbl[] = {
 	{ "norm",		"Math_norm"			},
 	{ "ramp",		"Math_ramp"			},
 	{ "real",		"Math_real"			},
+	{ "sigmoid",	"Math_sigmoid"		},
 	{ "sin",		"Math_sin"			},
 	{ "sinh",		"Math_sinh"			},
 	{ "sqrt",		"Math_sqrt"			},
@@ -151,6 +152,7 @@ Operator *Operator::Math_log10		= nullptr;
 Operator *Operator::Math_norm		= nullptr;
 Operator *Operator::Math_ramp		= nullptr;
 Operator *Operator::Math_real		= nullptr;
+Operator *Operator::Math_sigmoid	= nullptr;
 Operator *Operator::Math_sin		= nullptr;
 Operator *Operator::Math_sinh		= nullptr;
 Operator *Operator::Math_sqrt		= nullptr;
@@ -1486,6 +1488,10 @@ Value Operator_AndAnd::ExecBinary(Environment &env, const Expr *pExprLeft, const
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// Operator_Math_sigmoid
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 // Operator_Math_sin
 //-----------------------------------------------------------------------------
 
@@ -1609,6 +1615,7 @@ void Operator::Bootup(Environment &env)
 	env.SetOperator(OPTYPE_Math_norm,		Operator::Math_norm			= new Operator_Math_norm());
 	env.SetOperator(OPTYPE_Math_ramp,		Operator::Math_ramp			= new Operator_Math_ramp());
 	env.SetOperator(OPTYPE_Math_real,		Operator::Math_real			= new Operator_Math_real());
+	env.SetOperator(OPTYPE_Math_sigmoid,	Operator::Math_sigmoid		= new Operator_Math_sigmoid());
 	env.SetOperator(OPTYPE_Math_sin,		Operator::Math_sin			= new Operator_Math_sin());
 	env.SetOperator(OPTYPE_Math_sinh,		Operator::Math_sinh			= new Operator_Math_sinh());
 	env.SetOperator(OPTYPE_Math_sqrt,		Operator::Math_sqrt			= new Operator_Math_sqrt());
