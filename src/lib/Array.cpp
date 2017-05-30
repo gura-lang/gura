@@ -1894,7 +1894,7 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 			_offsetTarget += idx * _pDim->GetStride();
 		} else if (valueIdx.IsListOrIterator()) {
 			AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(env.GetSignal()));
-			if (env.IsSignalled()) return InvalidSize;
+			if (env.IsSignalled()) return false;
 			std::unique_ptr<Generator> pGenerator(new Generator(*_pDim));
 			Value valueIdxEach;
 			while (pIterator->Next(env, valueIdxEach)) {

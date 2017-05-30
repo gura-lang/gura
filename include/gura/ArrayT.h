@@ -104,6 +104,9 @@ void FillDouble(T_Elem *pElem, size_t nElems, Double num)
 template<typename T_Elem>
 void FillComplex(T_Elem *pElem, size_t nElems, const Complex &num) {}
 
+template<>
+void FillComplex(Complex *pElem, size_t nElems, const Complex &num);
+
 template<typename T_Elem>
 inline bool StoreValueAt(Environment &env, T_Elem *pElem, const Value &value)
 {
