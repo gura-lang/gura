@@ -772,33 +772,29 @@ bool ValueListToRectangle(Signal &sig, cairo_rectangle_int_t &rectangle, const V
 	return true;
 }
 
-Matrix *CairoToMatrix(const cairo_matrix_t &matrix)
+ArrayT<Double> *CairoToArray(const cairo_matrix_t &matrix)
 {
-	Matrix *pMat = new Matrix(3, 3);
-	pMat->GetElements().push_back(Value(matrix.xx));
-	pMat->GetElements().push_back(Value(matrix.xy));
-	pMat->GetElements().push_back(Value(matrix.x0));
-	pMat->GetElements().push_back(Value(matrix.yx));
-	pMat->GetElements().push_back(Value(matrix.yy));
-	pMat->GetElements().push_back(Value(matrix.y0));
-	pMat->GetElements().push_back(Value(0.));
-	pMat->GetElements().push_back(Value(0.));
-	pMat->GetElements().push_back(Value(1.));
-	return pMat;
+	AutoPtr<ArrayT<Double> > pArrayT(new ArrayT<Double>(3, 3));
+	Double *pElem = pArrayT->GetPointer();
+	*pElem++ = matrix.xx;	*pElem++ = matrix.xy;	*pElem++ = matrix.x0;
+	*pElem++ = matrix.yx;	*pElem++ = matrix.yy;	*pElem++ = matrix.y0;
+	*pElem++ = 0;			*pElem++ = 0;			*pElem++ = 1;
+	return pArrayT.release();
 }
 
-bool MatrixToCairo(Signal &sig, cairo_matrix_t &matrix, Matrix *pMat)
+bool ArrayToCairo(Signal &sig, cairo_matrix_t &matrix, const ArrayT<Double> *pArrayT)
 {
-	if (pMat->GetRows() != 3 || pMat->GetCols() != 3) {
+	if (pArrayT->GetElemNum() != 9) {
 		sig.SetError(ERR_ValueError, "matrix size must be 3x3");
 		return false;
 	}
-	matrix.xx = pMat->GetElement(0, 0).GetDouble();
-	matrix.xy = pMat->GetElement(0, 1).GetDouble();
-	matrix.yx = pMat->GetElement(1, 0).GetDouble();
-	matrix.yy = pMat->GetElement(1, 1).GetDouble();
-	matrix.x0 = pMat->GetElement(0, 2).GetDouble();
-	matrix.y0 = pMat->GetElement(1, 2).GetDouble();
+	const Double *pElem = pArrayT->GetPointer();
+	matrix.xx = *pElem++;
+	matrix.xy = *pElem++;
+	matrix.x0 = *pElem++;
+	matrix.yx = *pElem++;
+	matrix.yy = *pElem++;
+	matrix.y0 = *pElem++;
 	return true;
 }
 

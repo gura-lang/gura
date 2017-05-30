@@ -30,8 +30,8 @@ Gura_DeclareClassMethod(scaled_font, create)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "font_face", VTYPE_font_face);
-	DeclareArg(env, "font_matrix", VTYPE_matrix);
-	DeclareArg(env, "ctm", VTYPE_matrix);
+	DeclareArg(env, "font_matrix", VTYPE_array_at_double);
+	DeclareArg(env, "ctm", VTYPE_array_at_double);
 	DeclareArg(env, "options", VTYPE_font_options);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
@@ -45,10 +45,10 @@ Gura_ImplementClassMethod(scaled_font, create)
 	cairo_font_face_t *font_face = Object_font_face::GetObject(arg, 0)->GetEntity();
 	cairo_matrix_t font_matrix;
 	cairo_matrix_t ctm;
-	if (!MatrixToCairo(sig, font_matrix,
-			Object_matrix::GetObject(arg, 1)->GetMatrix())) return Value::Nil;
-	if (!MatrixToCairo(sig, ctm,
-			Object_matrix::GetObject(arg, 2)->GetMatrix())) return Value::Nil;
+	if (!ArrayToCairo(sig, font_matrix,
+					  Object_arrayT<Double>::GetObject(arg, 1)->GetArrayT())) return Value::Nil;
+	if (!ArrayToCairo(sig, ctm,
+					  Object_arrayT<Double>::GetObject(arg, 2)->GetArrayT())) return Value::Nil;
 	cairo_font_options_t *options = Object_font_options::GetObject(arg, 3)->GetEntity();
 	cairo_scaled_font_t *scaled_font = ::cairo_scaled_font_create(
 			::cairo_font_face_reference(font_face), &font_matrix, &ctm, options);

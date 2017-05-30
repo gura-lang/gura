@@ -565,11 +565,11 @@ Gura_ImplementMethod(pattern, get_filter)
 	return Value(pattern);
 }
 
-// cairo.pattern#set_matrix(matrix:matrix):reduce
+// cairo.pattern#set_matrix(array:array@double):reduce
 Gura_DeclareMethod(pattern, set_matrix)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "matrix", VTYPE_matrix);
+	DeclareArg(env, "array", VTYPE_array_at_double);
 	AddHelp(Gura_Symbol(en),
 	"Sets the pattern's transformation matrix to matrix. This matrix is a transformation from user space to pattern space.\n"
 	"\n"
@@ -595,9 +595,9 @@ Gura_ImplementMethod(pattern, set_matrix)
 	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetObjectThis(arg);
 	cairo_pattern_t *pattern = pThis->GetEntity();
-	Object_matrix *pObjMatrix = Object_matrix::GetObject(arg, 0);
+	Object_arrayT<Double> *pObjArray = Object_arrayT<Double>::GetObject(arg, 0);
 	cairo_matrix_t matrix;
-	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Nil;
+	if (!ArrayToCairo(sig, matrix, pObjArray->GetArrayT())) return Value::Nil;
 	::cairo_pattern_set_matrix(pattern, &matrix);
 	if (Is_error(sig, pattern)) return Value::Nil;
 	return arg.GetValueThis();
@@ -620,8 +620,8 @@ Gura_ImplementMethod(pattern, get_matrix)
 	cairo_matrix_t matrix;
 	::cairo_pattern_get_matrix(pattern, &matrix);
 	if (Is_error(sig, pattern)) return Value::Nil;
-	AutoPtr<Matrix> pMat(CairoToMatrix(matrix));
-	return Value(new Object_matrix(env, pMat.release()));
+	AutoPtr<ArrayT<Double> > pArray(CairoToArray(matrix));
+	return Value(new Object_array(env, pArray.release()));
 }
 
 // cairo.pattern#get_type()

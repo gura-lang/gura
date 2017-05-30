@@ -2260,11 +2260,11 @@ Gura_ImplementMethod(context, rotate)
 	return arg.GetValueThis();
 }
 
-// cairo.context#transform(matrix:matrix):reduce
+// cairo.context#transform(array:array@double):reduce
 Gura_DeclareMethod(context, transform)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "matrix", VTYPE_matrix);
+	DeclareArg(env, "array", VTYPE_array_at_double);
 	AddHelp(Gura_Symbol(en),
 	"Modifies the current transformation matrix (CTM) by applying matrix as an additional transformation.\n"
 	"The new transformation of user space takes place after any existing transformation.\n"
@@ -2277,19 +2277,19 @@ Gura_ImplementMethod(context, transform)
 	Object_context *pThis = Object_context::GetObjectThis(arg);
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Nil;
-	Object_matrix *pObjMatrix = Object_matrix::GetObject(arg, 0);
+	Object_arrayT<Double> *pObjArray = Object_arrayT<Double>::GetObject(arg, 0);
 	cairo_matrix_t matrix;
-	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Nil;
+	if (!ArrayToCairo(sig, matrix, pObjArray->GetArrayT())) return Value::Nil;
 	::cairo_transform(cr, &matrix);
 	if (Is_error(sig, cr)) return Value::Nil;
 	return arg.GetValueThis();
 }
 
-// cairo.context#set_matrix(matrix:matrix):reduce
+// cairo.context#set_matrix(array:array@double):reduce
 Gura_DeclareMethod(context, set_matrix)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "matrix", VTYPE_matrix);
+	DeclareArg(env, "array", VTYPE_array_at_double);
 	AddHelp(Gura_Symbol(en),
 	"Modifies the current transformation matrix (CTM) by setting it equal to matrix.\n"
 	);
@@ -2301,9 +2301,9 @@ Gura_ImplementMethod(context, set_matrix)
 	Object_context *pThis = Object_context::GetObjectThis(arg);
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Nil;
-	Object_matrix *pObjMatrix = Object_matrix::GetObject(arg, 0);
+	Object_arrayT<Double> *pObjArray = Object_arrayT<Double>::GetObject(arg, 0);
 	cairo_matrix_t matrix;
-	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Nil;
+	if (!ArrayToCairo(sig, matrix, pObjArray->GetArrayT())) return Value::Nil;
 	::cairo_set_matrix(cr, &matrix);
 	if (Is_error(sig, cr)) return Value::Nil;
 	return arg.GetValueThis();
@@ -2327,7 +2327,7 @@ Gura_ImplementMethod(context, get_matrix)
 	cairo_matrix_t matrix;
 	::cairo_get_matrix(cr, &matrix);
 	if (Is_error(sig, cr)) return Value::Nil;
-	AutoPtr<Matrix> pMat(CairoToMatrix(matrix));
+	AutoPtr<ArrayT<Double> > pArray(CairoToArray(matrix));
 	//return Value(new Object_matrix(env, pMat.release()));
 	return Value::Nil;
 }
@@ -2534,11 +2534,11 @@ Gura_ImplementMethod(context, set_font_size)
 	return arg.GetValueThis();
 }
 
-// cairo.context#set_font_matrix(matrix:matrix):reduce
+// cairo.context#set_font_matrix(array:array@double):reduce
 Gura_DeclareMethod(context, set_font_matrix)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "matrix", VTYPE_matrix);
+	DeclareArg(env, "array", VTYPE_array_at_double);
 	AddHelp(Gura_Symbol(en),
 	"Sets the current font matrix to matrix.\n"
 	"The font matrix gives a transformation from the design space of the font (in this space, the em-square is 1 unit by 1 unit) to user space.\n"
@@ -2552,9 +2552,9 @@ Gura_ImplementMethod(context, set_font_matrix)
 	Object_context *pThis = Object_context::GetObjectThis(arg);
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Nil;
-	Object_matrix *pObjMatrix = Object_matrix::GetObject(arg, 0);
+	Object_arrayT<Double> *pObjArray = Object_arrayT<Double>::GetObject(arg, 0);
 	cairo_matrix_t matrix;
-	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Nil;
+	if (!ArrayToCairo(sig, matrix, pObjArray->GetArrayT())) return Value::Nil;
 	::cairo_set_font_matrix(cr, &matrix);
 	if (Is_error(sig, cr)) return Value::Nil;
 	return arg.GetValueThis();
@@ -2578,8 +2578,8 @@ Gura_ImplementMethod(context, get_font_matrix)
 	cairo_matrix_t matrix;
 	::cairo_get_font_matrix(cr, &matrix);
 	if (Is_error(sig, cr)) return Value::Nil;
-	AutoPtr<Matrix> pMat(CairoToMatrix(matrix));
-	return Value(new Object_matrix(env, pMat.release()));
+	AutoPtr<ArrayT<Double> > pArray(CairoToArray(matrix));
+	return Value(new Object_array(env, pArray.release()));
 }
 
 // cairo.context#set_font_options(options:cairo.font_options):reduce
