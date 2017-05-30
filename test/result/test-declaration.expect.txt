@@ -2,7 +2,6 @@
 &(`args*) {block}
 -:nil = nil
 @(func?:function) {block?}
-@@() {block}
 @rem:nil = nil
 __name__:string = __main__
 argument:class = <class:argument>
@@ -117,7 +116,6 @@ isfunction(value)
 isinstance(value, type+:expr):map
 isiterator(value)
 islist(value)
-ismatrix(value)
 ismodule(value)
 isnil(value)
 isnumber(value)
@@ -248,7 +246,6 @@ math:module
   math.tan(num):map:[deg]
   math.tanh(num):map
   math.unitstep(num):map
-matrix:class = <class:matrix(nrows:number, ncols:number, value?) {block?}>
 max(values+):map
 memory:class = <class:memory(bytes:number):map {block?}>
 min(values+):map
@@ -826,31 +823,6 @@ list
   list#variance()
   list#while (criteria) {block?}
   list.zip(values+):static {block?}
-matrix
-  matrix#col(col:number):map
-  matrix#colsize()
-  matrix.dot(a, b):static {block?}
-  matrix#each():[transpose]
-  matrix#eachcol()
-  matrix#eachrow()
-  matrix.identity(n:number):static:map {block?}
-  matrix#invert()
-  matrix#issquare()
-  matrix#list():[transpose]
-  matrix.rotation(angle:number, tx?:number, ty?:number):static:map:[deg] {block?}
-  matrix.rotation@x(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
-  matrix.rotation@y(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
-  matrix.rotation@z(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
-  matrix#roundoff(threshold:number => 1e-10) {block?}
-  matrix#row(row:number):map
-  matrix#rowsize()
-  matrix.scale(sx:number, sy:number, sz?:number):static:map:[deg] {block?}
-  matrix#set(value)
-  matrix#setcol(col:number, value)
-  matrix#setrow(row:number, value)
-  matrix#submat(row:number, col:number, nrows:number, ncols:number):map
-  matrix.translate(tx:number, ty:number, tz?:number):static:map:[deg] {block?}
-  matrix#transpose()
 memory
   memory#array@double():map {block?}
   memory#array@float():map {block?}

@@ -639,8 +639,6 @@ expected error occurs: IteratorError: cannot evaluate infinite iterator
 ======== #41 test of iterable#sum(), average() and prod() ========
 
 ['abc', 'def', 'ghi'].sum() .. abcdefghi
-x.sum() .. @@{{4, 9, 1}, {5, 14, 9}, {7, 13, 9}}
-x.average() .. @@{{1.33333, 3, 0.333333}, {1.66667, 4.66667, 3}, {2.33333, 4.33333, 3}}
 
 ======== #42 test of iterable#flatten() ========
 

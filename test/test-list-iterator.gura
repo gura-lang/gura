@@ -731,6 +731,7 @@ testcase('test of list#put()') {
 }
 testcase('test of iterable#sum(), average() and prod()') {
 	tester(`['abc', 'def', 'ghi'].sum())
+	/*
 	x = [
 		@@{{2, 5, -1}, {1, 3, 1}, {3, -1, -2}}
 		@@{{1, 1, 0}, {2, 3, -1}, {0, 1, 0}}
@@ -738,6 +739,7 @@ testcase('test of iterable#sum(), average() and prod()') {
 	]
 	tester(`x.sum())
 	tester(`x.average())
+	*/
 	//tester(`x.prod())
 }
 testcase('test of iterable#flatten()') {

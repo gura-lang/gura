@@ -44,7 +44,6 @@ set cases=%cases% korean
 set cases=%cases% list-iterator
 set cases=%cases% map
 set cases=%cases% markdown
-set cases=%cases% matrix
 set cases=%cases% math
 set cases=%cases% mathdiff
 set cases=%cases% memory
