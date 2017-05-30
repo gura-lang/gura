@@ -25,7 +25,7 @@ public:
 	virtual String ToString(bool exprFlag);
 	inline FT_Matrix *GetEntity() { return &_matrix; }
 	inline const FT_Matrix *GetEntity() const { return &_matrix; }
-	bool ConvertFrom(Signal &sig, const Gura::Matrix *pMat);
+	bool ConvertFrom(Signal &sig, const ArrayT<Double> *pArrayT);
 };
 
 Gura_EndModuleScope(freetype)

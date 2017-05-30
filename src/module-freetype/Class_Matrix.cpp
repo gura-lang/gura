@@ -21,21 +21,18 @@ String Object_Matrix::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Matrix::ConvertFrom(Signal &sig, const Gura::Matrix *pMat)
+bool Object_Matrix::ConvertFrom(Signal &sig, const ArrayT<Double> *pArrayT)
 {
-	if (pMat->GetRows() < 2 || pMat->GetCols() < 2) {
+	if (pArrayT->GetElemNum() != 4) {
 		sig.SetError(ERR_ValueError, "matrix must be larger than or equal to 2x2");
 		return false;
 	}
-	if (Gura::Matrix::CheckValueType(*pMat) != VTYPE_number) {
-		sig.SetError(ERR_ValueError, "matrix must compose of number elements");
-		return false;
-	}
 	// 16.16 fixed float format
-	_matrix.xx = static_cast<FT_Fixed>(pMat->GetElement(0, 0).GetDouble() * (1 << 16));
-	_matrix.xy = static_cast<FT_Fixed>(pMat->GetElement(0, 1).GetDouble() * (1 << 16));
-	_matrix.yx = static_cast<FT_Fixed>(pMat->GetElement(1, 0).GetDouble() * (1 << 16));
-	_matrix.yy = static_cast<FT_Fixed>(pMat->GetElement(1, 1).GetDouble() * (1 << 16));
+	const Double *pElem = pArrayT->GetPointer();
+	_matrix.xx = static_cast<FT_Fixed>(*pElem * (1 << 16)); pElem++;
+	_matrix.xy = static_cast<FT_Fixed>(*pElem * (1 << 16)); pElem++;
+	_matrix.yx = static_cast<FT_Fixed>(*pElem * (1 << 16)); pElem++;
+	_matrix.yy = static_cast<FT_Fixed>(*pElem * (1 << 16));
 	return true;
 }
 
@@ -137,11 +134,11 @@ Gura_ImplementPropertySetter(Matrix, yy)
 //-----------------------------------------------------------------------------
 // Gura interfaces for freetype.Matrix
 //-----------------------------------------------------------------------------
-// freetype.Matrix(matrix:matrix):map {block?}
+// freetype.Matrix(array:array@double):map {block?}
 Gura_DeclareFunction(Matrix)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "matrix", VTYPE_matrix);
+	DeclareArg(env, "array", VTYPE_array_at_double);
 	SetClassToConstruct(Gura_UserClass(Matrix));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -149,9 +146,9 @@ Gura_DeclareFunction(Matrix)
 Gura_ImplementFunction(Matrix)
 {
 	Signal &sig = env.GetSignal();
-	const Gura::Matrix *pMat = Object_matrix::GetObject(arg, 0)->GetMatrix();
+	const ArrayT<Double> *pArray = Object_arrayT<Double>::GetObject(arg, 0)->GetArrayT();
 	AutoPtr<Object_Matrix> pObjRtn(new Object_Matrix());
-	if (!pObjRtn->ConvertFrom(sig, pMat)) return false;
+	if (!pObjRtn->ConvertFrom(sig, pArray)) return false;
 	return ReturnValue(env, arg, Value(pObjRtn.release()));
 }
 
@@ -208,10 +205,11 @@ Gura_ImplementUserClassWithCast(Matrix)
 Gura_ImplementCastFrom(Matrix)
 {
 	Signal &sig = GetSignal();
-	if (value.Is_matrix()) {
-		Gura::Matrix *pMat = Gura::Object_matrix::GetObject(value)->GetMatrix();
+	env.LookupClass(VTYPE_array_at_double)->CastFrom(env, value, flags);
+	if (value.Is_array_at_double()) {
+		ArrayT<Double> *pArrayT = Object_arrayT<Double>::GetObject(value)->GetArrayT();
 		AutoPtr<Object_Matrix> pObjRtn(new Object_Matrix());
-		if (!pObjRtn->ConvertFrom(sig, pMat)) return false;
+		if (!pObjRtn->ConvertFrom(sig, pArrayT)) return false;
 		value = Value(pObjRtn.release());
 		return true;
 	}
