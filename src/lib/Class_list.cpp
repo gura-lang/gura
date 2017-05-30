@@ -2130,16 +2130,6 @@ bool Class_list::CastFrom(Environment &env, Value &value, ULong flags)
 		if (sig.IsSignalled()) return false;
 		value = result;
 		return true;
-	} else if (value.Is_matrix()) {
-		const Object_matrix *pObjMat = Object_matrix::GetObject(value);
-		if (pObjMat->GetMatrix()->GetRows() == 1) {
-			Value result = pObjMat->GetMatrix()->GetRow(env, 0);
-			value = result;
-		} else if (pObjMat->GetMatrix()->GetCols() == 1) {
-			Value result = pObjMat->GetMatrix()->GetCol(env, 0);
-			value = result;
-		}
-		return true;
 	}
 	return false;
 }

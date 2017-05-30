@@ -70,7 +70,6 @@ class Class_string;
 class Class_binary;
 class Class_BinaryPtr;
 class Class_list;
-class Class_matrix;
 class Class_dict;
 class Class_datetime;
 class Class_iterator;

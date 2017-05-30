@@ -86,7 +86,6 @@ GURA_DLLDECLARE extern ValueType VTYPE_help;
 GURA_DLLDECLARE extern ValueType VTYPE_image;
 GURA_DLLDECLARE extern ValueType VTYPE_iterator;
 GURA_DLLDECLARE extern ValueType VTYPE_list;
-GURA_DLLDECLARE extern ValueType VTYPE_matrix;
 GURA_DLLDECLARE extern ValueType VTYPE_memory;
 GURA_DLLDECLARE extern ValueType VTYPE_monitor;
 GURA_DLLDECLARE extern ValueType VTYPE_operator;
@@ -198,7 +197,6 @@ public:
 	Gura_DeclareVTYPE(image);
 	Gura_DeclareVTYPE(iterator);
 	Gura_DeclareVTYPE(list);
-	Gura_DeclareVTYPE(matrix);
 	Gura_DeclareVTYPE(memory);
 	Gura_DeclareVTYPE(monitor);
 	Gura_DeclareVTYPE(operator);

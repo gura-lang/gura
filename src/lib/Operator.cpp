@@ -780,9 +780,6 @@ Value Operator_Mul::EvalMapBinary(Environment &env, const Value &valueLeft,
 				return resultComposer.GetValueResult();
 			}
 		}
-	} else if ((valueLeft.Is_matrix() && valueRight.Is_list()) ||
-			   (valueLeft.Is_list() && valueRight.Is_matrix())) {
-		return EvalBinary(env, valueLeft, valueRight, flags);
 	}
 	return Operator::EvalMapBinary(env, valueLeft, valueRight, flags);
 }

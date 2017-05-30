@@ -331,11 +331,7 @@ Gura_DeclareMethod(iterator, average)
 		"\n"
 		"- `number`\n"
 		"- `complex`\n"
-		"- `matrix`\n"
-		"- `rational`\n"
-		"- `gmp.mpz`\n"
-		"- `gmp.mpq`\n"
-		"- `gmp.mpf`\n");
+		"- `rational`\n");
 }
 
 Gura_ImplementMethod(iterator, average)
@@ -1104,11 +1100,7 @@ Gura_DeclareMethod(iterator, prod)
 		"\n"
 		"- `number`\n"
 		"- `complex`\n"
-		"- `matrix`\n"
-		"- `rational`\n"
-		"- `gmp.mpz`\n"
-		"- `gmp.mpq`\n"
-		"- `gmp.mpf`\n");
+		"- `rational`\n");
 }
 
 Gura_ImplementMethod(iterator, prod)
@@ -1465,12 +1457,8 @@ Gura_DeclareMethod(iterator, sum)
 		"- `number`\n"
 		"- `complex`\n"
 		"- `string`\n"
-		"- `matrix`\n"
 		"- `rational`\n"
-		"- `timedelta`\n"
-		"- `gmp.mpz`\n"
-		"- `gmp.mpq`\n"
-		"- `gmp.mpf`\n");
+		"- `timedelta`\n");
 }
 
 Gura_ImplementMethod(iterator, sum)

@@ -31,11 +31,6 @@ Gura_ImplementUnaryOperator(Pos, rational)
 	return Value(+a);
 }
 
-Gura_ImplementUnaryOperator(Pos, matrix)
-{
-	return value;
-}
-
 Gura_ImplementUnaryOperator(Pos, timedelta)
 {
 	return value;
@@ -69,11 +64,6 @@ Gura_ImplementUnaryOperator(Neg, rational)
 	}
 	if (a.numer == 0) return Value::Zero;
 	return Value(-a);
-}
-
-Gura_ImplementUnaryOperator(Neg, matrix)
-{
-	return Matrix::Neg(env, Object_matrix::GetObject(value)->GetMatrix());
 }
 
 Gura_ImplementUnaryOperator(Neg, timedelta)
@@ -227,12 +217,6 @@ Gura_ImplementBinaryOperator(Add, number, complex)
 Gura_ImplementBinaryOperator(Add, complex, number)
 {
 	return Value(valueLeft.GetComplex() + valueRight.GetDouble());
-}
-
-Gura_ImplementBinaryOperator(Add, matrix, matrix)
-{
-	return Matrix::AddSub(env, OPTYPE_Add,
-		Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
 Gura_ImplementBinaryOperator(Add, datetime, timedelta)
@@ -432,12 +416,6 @@ Gura_ImplementBinaryOperator(Sub, complex, number)
 	return Value(valueLeft.GetComplex() - valueRight.GetDouble());
 }
 
-Gura_ImplementBinaryOperator(Sub, matrix, matrix)
-{
-	return Matrix::AddSub(env, OPTYPE_Sub,
-			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
-}
-
 Gura_ImplementBinaryOperator(Sub, datetime, timedelta)
 {
 	DateTime dateTime = Object_datetime::GetObject(valueLeft)->GetDateTime();
@@ -615,18 +593,6 @@ Gura_ImplementBinaryOperator(Mul, number, complex)
 Gura_ImplementBinaryOperator(Mul, complex, number)
 {
 	return Value(valueLeft.GetComplex() * valueRight.GetDouble());
-}
-
-Gura_ImplementBinaryOperator(Mul, any, matrix)
-{
-	return Matrix::Mul(env,
-			valueLeft, Object_matrix::GetObject(valueRight)->GetMatrix());
-}
-
-Gura_ImplementBinaryOperator(Mul, matrix, any)
-{
-	return Matrix::Mul(env,
-			Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
 }
 
 Gura_ImplementBinaryOperator(Mul, timedelta, number)
@@ -832,12 +798,6 @@ Gura_ImplementBinaryOperator(Div, complex, number)
 		return Value::Nil;
 	}
 	return Value(valueLeft.GetComplex() / numRight);
-}
-
-Gura_ImplementBinaryOperator(Div, matrix, any)
-{
-	return Matrix::Div(env,
-					Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
 }
 
 Gura_ImplementBinaryOperator(Div, vertex, number)
@@ -2203,13 +2163,11 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignUnaryOperator(Pos, number);
 	Gura_AssignUnaryOperator(Pos, complex);
 	Gura_AssignUnaryOperator(Pos, rational);
-	Gura_AssignUnaryOperator(Pos, matrix);
 	Gura_AssignUnaryOperator(Pos, timedelta);
 	Gura_AssignUnaryOperator(Pos, array);
 	Gura_AssignUnaryOperator(Neg, number);
 	Gura_AssignUnaryOperator(Neg, complex);
 	Gura_AssignUnaryOperator(Neg, rational);
-	Gura_AssignUnaryOperator(Neg, matrix);
 	Gura_AssignUnaryOperator(Neg, timedelta);
 	Gura_AssignUnaryOperator(Neg, vertex);
 	Gura_AssignUnaryOperator(Neg, array);
@@ -2229,7 +2187,6 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Add, complex, complex);
 	Gura_AssignBinaryOperator(Add, rational, number);
 	Gura_AssignBinaryOperator(Add, rational, rational);
-	Gura_AssignBinaryOperator(Add, matrix, matrix);
 	Gura_AssignBinaryOperator(Add, datetime, timedelta);
 	Gura_AssignBinaryOperator(Add, timedelta, datetime);
 	Gura_AssignBinaryOperator(Add, timedelta, timedelta);
@@ -2256,7 +2213,6 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Sub, complex, complex);
 	Gura_AssignBinaryOperator(Sub, rational, number);
 	Gura_AssignBinaryOperator(Sub, rational, rational);
-	Gura_AssignBinaryOperator(Sub, matrix, matrix);
 	Gura_AssignBinaryOperator(Sub, datetime, timedelta);
 	Gura_AssignBinaryOperator(Sub, datetime, datetime);
 	Gura_AssignBinaryOperator(Sub, timedelta, timedelta);
@@ -2279,8 +2235,6 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Mul, complex, complex);
 	Gura_AssignBinaryOperator(Mul, rational, number);
 	Gura_AssignBinaryOperator(Mul, rational, rational);
-	Gura_AssignBinaryOperator(Mul, any, matrix);
-	Gura_AssignBinaryOperator(Mul, matrix, any);
 	Gura_AssignBinaryOperator(Mul, timedelta, number);
 	Gura_AssignBinaryOperator(Mul, number, timedelta);
 	Gura_AssignBinaryOperator(Mul, function, any);
@@ -2302,7 +2256,6 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Div, complex, complex);
 	Gura_AssignBinaryOperator(Div, rational, number);
 	Gura_AssignBinaryOperator(Div, rational, rational);
-	Gura_AssignBinaryOperator(Div, matrix, any);
 	Gura_AssignBinaryOperator(Div, vertex, number);
 	Gura_AssignBinaryOperator(Div, array, array);
 	Gura_AssignBinaryOperator(Div, array, number);

@@ -236,29 +236,6 @@ void Image::GetPixel(const UChar *buff, Color &color)
 	}
 }
 
-bool Image::Store(Signal &sig, size_t x, size_t y, size_t width, size_t height,
-							const Symbol *pSymbol, const Matrix *pMat)
-{
-	if (pMat->GetRows() < height || pMat->GetCols() < width) {
-		sig.SetError(ERR_ValueError, "matrix size is too small");
-		return false;
-	}
-	size_t bytesPerLine = GetBytesPerLine();
-	size_t bytesPerPixel = GetBytesPerPixel();
-	UChar *pLine = GetPointer(x, y);
-	size_t offPixel = SymbolToPixelOffset(sig, pSymbol);
-	if (sig.IsSignalled()) return false;
-	for (size_t iLine = 0; iLine < height; iLine++, pLine += bytesPerLine) {
-		UChar *pPixel = pLine + offPixel;
-		ValueList::const_iterator pValueElem = pMat->GetPointer(iLine, 0);
-		for (size_t iPixel = 0; iPixel < width;
-							iPixel++, pPixel += bytesPerPixel, pValueElem++) {
-			*pPixel = pValueElem->GetUChar();
-		}
-	}
-	return true;
-}
-
 bool Image::Store(Environment &env, size_t x, size_t y, size_t width, size_t height,
 							const Symbol *pSymbol, Iterator *pIterator)
 {
@@ -274,29 +251,6 @@ bool Image::Store(Environment &env, size_t x, size_t y, size_t width, size_t hei
 			Value value;
 			if (!pIterator->Next(env, value)) return false;
 			*pPixel = value.GetUChar();
-		}
-	}
-	return true;
-}
-
-bool Image::Extract(Signal &sig, size_t x, size_t y, size_t width, size_t height,
-							const Symbol *pSymbol, Matrix *pMat)
-{
-	if (pMat->GetRows() < height || pMat->GetCols() < width) {
-		sig.SetError(ERR_ValueError, "matrix size is too small");
-		return false;
-	}
-	size_t bytesPerLine = GetBytesPerLine();
-	size_t bytesPerPixel = GetBytesPerPixel();
-	const UChar *pLine = GetPointer(x, y);
-	size_t offPixel = SymbolToPixelOffset(sig, pSymbol);
-	if (sig.IsSignalled()) return false;
-	for (size_t iLine = 0; iLine < height; iLine++, pLine += bytesPerLine) {
-		const UChar *pPixel = pLine + offPixel;
-		ValueList::iterator pValueElem = pMat->GetPointer(iLine, 0);
-		for (size_t iPixel = 0; iPixel < width;
-							iPixel++, pPixel += bytesPerPixel, pValueElem++) {
-			*pValueElem = Value(*pPixel);
 		}
 	}
 	return true;

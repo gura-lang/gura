@@ -240,7 +240,6 @@ public:
 	inline bool Is_image() const			{ return IsType(VTYPE_image);					}
 	inline bool Is_iterator() const			{ return IsType(VTYPE_iterator);				}
 	inline bool Is_list() const				{ return IsType(VTYPE_list);					}
-	inline bool Is_matrix() const			{ return IsType(VTYPE_matrix);					}
 	inline bool Is_memory() const			{ return IsType(VTYPE_memory);					}
 	inline bool Is_monitor() const			{ return IsType(VTYPE_monitor);					}
 	inline bool Is_operator() const			{ return IsType(VTYPE_operator);				}
@@ -351,8 +350,6 @@ public:
 								{ return MustBe(sig, Is_iterator(), 	"iterator");		}
 	inline bool MustBe_list(Signal &sig) const
 								{ return MustBe(sig, Is_list(), 		"list");			}
-	inline bool MustBe_matrix(Signal &sig) const
-								{ return MustBe(sig, Is_matrix(), 		"matrix");			}
 	inline bool MustBe_memory(Signal &sig) const
 								{ return MustBe(sig, Is_memory(), 		"memory");			}
 	inline bool MustBe_monitor(Signal &sig) const

@@ -247,7 +247,6 @@ public:
 	inline bool Is_image(size_t idxArg) const			{ return GetValue(idxArg).Is_image();			}
 	inline bool Is_iterator(size_t idxArg) const		{ return GetValue(idxArg).Is_iterator();		}
 	inline bool Is_list(size_t idxArg) const			{ return GetValue(idxArg).Is_list();			}
-	inline bool Is_matrix(size_t idxArg) const			{ return GetValue(idxArg).Is_matrix();			}
 	inline bool Is_memory(size_t idxArg) const			{ return GetValue(idxArg).Is_memory();			}
 	inline bool Is_operator(size_t idxArg) const		{ return GetValue(idxArg).Is_operator();		}
 	inline bool Is_palette(size_t idxArg) const			{ return GetValue(idxArg).Is_palette();			}

@@ -2422,7 +2422,6 @@ Gura_ModuleEntry()
 	Gura_AssignFunctionExx(istype_, "isfunction",	VTYPE_function);
 	Gura_AssignFunctionExx(istype_, "isiterator",	VTYPE_iterator);
 	Gura_AssignFunctionExx(istype_, "islist",		VTYPE_list);
-	Gura_AssignFunctionExx(istype_, "ismatrix",		VTYPE_matrix);
 	Gura_AssignFunctionExx(istype_, "ismodule",		VTYPE_Module);
 	Gura_AssignFunctionExx(istype_, "isnil",		VTYPE_nil);
 	Gura_AssignFunctionExx(istype_, "isnumber",		VTYPE_number);

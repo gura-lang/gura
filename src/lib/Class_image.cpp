@@ -429,7 +429,7 @@ Gura_DeclareMethod(image, extract)
 	AddHelp(
 		Gura_Symbol(en),
 		"Extracts the element values within the specified area of the image,\n"
-		"and store them into a list or matrix.\n"
+		"and store them into a list.\n"
 		"The argument `x` and `y` specifies the left-top position,\n"
 		"and `width`, and `height` does the size of the area.\n"
 		"\n"
@@ -442,7 +442,7 @@ Gura_DeclareMethod(image, extract)
 		"- `` `a`` .. alpha\n"
 		"\n"
 		"The argument `dst` specifies the variable into which the extracted data is stored,\n"
-		"which must be a list or matrix that has enough space to store the data.\n"
+		"which must be a list that has enough space to store the data.\n"
 		"\n"
 		"This method returns the reference to the target instance itself.\n");
 }
@@ -457,10 +457,7 @@ Gura_ImplementMethod(image, extract)
 	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Nil;
 	if (!pThis->GetImage()->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Nil;
 	const Symbol *pSymbol = arg.GetSymbol(4);
-	if (arg.Is_matrix(5)) {
-		pThis->GetImage()->Extract(sig, x, y, width, height,
-					pSymbol, Object_matrix::GetObject(arg, 5)->GetMatrix());
-	} else if (arg.Is_list(5)) {
+	if (arg.Is_list(5)) {
 		Object_list *pObjList = Object_list::GetObject(arg, 5);
 		pThis->GetImage()->Extract(sig, x, y, width, height,
 								   pSymbol, pObjList->GetListForModify());
@@ -1071,10 +1068,7 @@ Gura_ImplementMethod(image, store)
 	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Nil;
 	if (!pThis->GetImage()->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Nil;
 	const Symbol *pSymbol = arg.GetSymbol(4);
-	if (arg.Is_matrix(5)) {
-		pThis->GetImage()->Store(sig, x, y, width, height, pSymbol,
-							Object_matrix::GetObject(arg, 5)->GetMatrix());
-	} else if (arg.Is_list(5) || arg.Is_iterator(5)) {
+	if (arg.Is_list(5) || arg.Is_iterator(5)) {
 		AutoPtr<Iterator> pIterator(arg.GetValue(5).CreateIterator(sig));
 		pThis->GetImage()->Store(env, x, y, width, height, pSymbol, pIterator.get());
 	} else {
