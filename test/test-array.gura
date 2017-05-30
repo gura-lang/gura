@@ -197,6 +197,7 @@ testcase('initializer') {
 		array@float
 		array@double
 		array@complex
+		@@
 	]
 	funcs.each {|func|
 		x = func {

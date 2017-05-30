@@ -638,6 +638,26 @@ Gura_ImplementFunction(array)
 	return (*constructorTbl[elemType])(env, arg);
 }
 
+// @@ {block?}
+Gura_DeclareFunctionAlias(at_at, "@@")
+{
+	SetFuncAttr(VTYPE_array_at_double, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an `array@double` instance that contains elements described in the block.\n"
+		"The example below creates an array with a dimension of 2 rows and 3 columns:\n"
+		"\n"
+		"    @@{{0, 1, 2}, {3, 4, 5}}\n");
+}
+
+Gura_ImplementFunction(at_at)
+{
+	AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::CreateFromExpr(env, arg.GetBlockCooked(env)));
+	if (pArrayT.IsNull()) return Value::Nil;
+	return Value(new Object_array(env, pArrayT.release()));
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
@@ -1382,6 +1402,7 @@ void Class_array::DoPrepare(Environment &env)
 	Gura_AssignProperty(array, T);
 	// Assignment of function
 	Gura_AssignFunction(array);
+	Gura_AssignFunction(at_at);
 	// Assignment of methods
 	Gura_AssignMethod(array, average);
 	Gura_AssignMethod(array, dot);

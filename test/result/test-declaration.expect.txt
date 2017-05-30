@@ -2,6 +2,7 @@
 &(`args*) {block}
 -:nil = nil
 @(func?:function) {block?}
+@@() {block}
 @rem:nil = nil
 __name__:string = __main__
 argument:class = <class:argument>
