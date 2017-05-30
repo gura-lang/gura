@@ -22,23 +22,6 @@ ArrayT<T_Elem> *MakeMatrix(Environment &env, const Value &value)
 			}
 			*p++ = static_cast<T_Elem>(pValue->GetDouble());
 		}
-	} else if (value.Is_matrix()) {
-		const Matrix *pMat = Object_matrix::GetObject(value)->GetMatrix();
-		if (pMat->GetCols() != 4 && pMat->GetRows() != 4) {
-			env.SetError(ERR_ValueError, "matrix must contain 4x4 elements");
-			goto done;
-		}
-		T_Elem *p = rtn->GetPointer();
-		for (size_t iRow = 0; iRow < 4; iRow++) {
-			for (size_t iCol = 0; iCol < 4; iCol++) {
-				const Value &value = pMat->GetElement(iRow, iCol);
-				if (!value.Is_number()) {
-					env.SetError(ERR_ValueError, "element must be a number");
-					goto done;
-				}
-				*p++ = static_cast<T_Elem>(value.GetDouble());
-			}
-		}
 	} else {
 		env.SetError(ERR_ValueError, "list or matrix must be specified");
 	}
