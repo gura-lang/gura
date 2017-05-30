@@ -124,24 +124,33 @@ An instance of the `array` class stores multiple numeric values in a seamless bi
 which can be passed without any conversion to functions in C libraries
 that expect arrays of `char`, `short`, `int` and so on.
 
-There are several `array` classes for each element type as shown below:
+There are several `array` classes that deal with different element types as shown below:
 
 <table>
 <tr><th>Class Name</th><th>Element Type</th></tr>
-<tr><td><code>array@int8</code></td><td><code>char</code></td></tr>
-<tr><td><code>array@uint8</code></td><td><code>unsigned char</code></td></tr>
-<tr><td><code>array@int16</code></td><td><code>short</code></td></tr>
-<tr><td><code>array@uint16</code></td><td><code>unsigned short</code></td></tr>
-<tr><td><code>array@int32</code></td><td><code>int32_t</code></td></tr>
-<tr><td><code>array@uint32</code></td><td><code>uint32_t</code></td></tr>
-<tr><td><code>array@int64</code></td><td><code>int64_t</code></td></tr>
-<tr><td><code>array@uint64</code></td><td><code>uint64_t</code></td></tr>
-<tr><td><code>array@float</code></td><td><code>float</code></td></tr>
-<tr><td><code>array@double</code></td><td><code>double</code></td></tr>
+<tr><td><code>array@int8</code></td><td><code>Int8</code></td></tr>
+<tr><td><code>array@uint8</code></td><td><code>Uint8</code></td></tr>
+<tr><td><code>array@int16</code></td><td><code>Int16</code></td></tr>
+<tr><td><code>array@uint16</code></td><td><code>Uint16</code></td></tr>
+<tr><td><code>array@int32</code></td><td><code>Int32</code></td></tr>
+<tr><td><code>array@uint32</code></td><td><code>Uint32</code></td></tr>
+<tr><td><code>array@int64</code></td><td><code>Int64</code></td></tr>
+<tr><td><code>array@uint64</code></td><td><code>Uint64</code></td></tr>
+<tr><td><code>array@half</code></td><td><code>Half</code></td></tr>
+<tr><td><code>array@float</code></td><td><code>Float</code></td></tr>
+<tr><td><code>array@double</code></td><td><code>Double</code></td></tr>
+<tr><td><code>array@complex</code></td><td><code>Complex</code></td></tr>
 </table>
 
 In the specification described here, the class name is is represented as `array@T`
 where `T` means its element type.
+
+### Property
+
+A `array` instance has the following properties:
+
+${markdown.makedoc@property(`en, array)}
+
 
 ### Constructor
 
@@ -152,6 +161,12 @@ array@int8.interval
 array@int8.ones
 array@int8.rands
 array@int8.rands@normal
+array@int8.range
+array@int8.rotation@x
+array@int8.rotation@y
+array@int8.rotation@z
+array@int8.scaling
+array@int8.translation
 array@int8.zeros
 )}
 
@@ -162,10 +177,12 @@ array.average
 array.dot
 array.dump
 array.each
+array.elemcast
 array.fill
 array.flatten
 array.head
 array.invert
+array.issquare
 array.offset
 array.paste
 array.reshape
@@ -1382,50 +1399,6 @@ iterator.tail
 iterator.until
 iterator.variance
 iterator.while
-)}
-
-
-## matrix Class
-
-The `matrix` class provides measures to calculate matrices.
-
-#### Creating Matrix
-
-Below shows a way to create a matrix instance:
-
-    @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
-
-
-### Constructor
-
-${markdown.makedoc@function(`en
-matrix
-)}
-
-### Method
-
-${markdown.makedoc@function(`en
-matrix.col
-matrix.colsize
-matrix.each
-matrix.eachcol
-matrix.eachrow
-matrix.identity
-matrix.invert
-matrix.issquare
-matrix.list
-matrix.rotation
-matrix.rotation@x
-matrix.rotation@y
-matrix.rotation@z
-matrix.roundoff
-matrix.row
-matrix.rowsize
-matrix.set
-matrix.setcol
-matrix.setrow
-matrix.submat
-matrix.transpose
 )}
 
 

@@ -109,7 +109,6 @@ isexpr
 isfunction
 isiterator
 islist
-ismatrix
 ismodule
 isnil
 isnumber

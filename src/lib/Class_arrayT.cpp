@@ -259,9 +259,9 @@ Gura_DeclareClassMethod_arrayT(range)
 		"\n"
 		"This function can be called in three formats that generate following numbers:\n"
 		"\n"
-		"- array@T.range(num) .. Numbers between 0 and (num - 1).\n"
-		"- array@T.range(num, num_end) .. Numbers between num and (num_end - 1).\n"
-		"- array@T.range(num, num_end, step) .. Numbers between num and (num_end - 1) incremented by step.\n");
+		"- `array@T.range(num)` .. Numbers between `0` and `(num - 1)`.\n"
+		"- `array@T.range(num, num_end)` .. Numbers between `num` and `(num_end - 1)`.\n"
+		"- `array@T.range(num, num_end, step)` .. Numbers between `num` and `(num_end - 1)` incremented by `step`.\n");
 }
 
 Gura_ImplementClassMethod_arrayT(range)
