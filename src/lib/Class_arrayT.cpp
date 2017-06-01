@@ -647,6 +647,7 @@ template class Object_arrayT<Half>;
 template class Object_arrayT<Float>;
 template class Object_arrayT<Double>;
 template class Object_arrayT<Complex>;
+//template class Object_arrayT<Value>;
 
 //------------------------------------------------------------------------------
 // Realization of Class_arrayT
@@ -663,5 +664,6 @@ template class Class_arrayT<Half>;
 template class Class_arrayT<Float>;
 template class Class_arrayT<Double>;
 template class Class_arrayT<Complex>;
+//template class Class_arrayT<Value>;
 
 }

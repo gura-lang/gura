@@ -29,6 +29,7 @@ public:
 		ETYPE_Float,
 		ETYPE_Double,
 		ETYPE_Complex,
+		ETYPE_Value,
 		ETYPE_Max,
 	};
 public:

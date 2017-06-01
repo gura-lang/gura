@@ -262,19 +262,21 @@ template<> Array::ElemType ArrayT<Half>::ElemTypeThis		= ETYPE_Half;
 template<> Array::ElemType ArrayT<Float>::ElemTypeThis		= ETYPE_Float;
 template<> Array::ElemType ArrayT<Double>::ElemTypeThis		= ETYPE_Double;
 template<> Array::ElemType ArrayT<Complex>::ElemTypeThis	= ETYPE_Complex;
+//template<> Array::ElemType ArrayT<Value>::ElemTypeThis	= ETYPE_Value;
 
-template<> size_t ArrayT<Int8>::ElemBytes					= 1;
-template<> size_t ArrayT<UInt8>::ElemBytes					= 1;
-template<> size_t ArrayT<Int16>::ElemBytes					= 2;
-template<> size_t ArrayT<UInt16>::ElemBytes					= 2;
-template<> size_t ArrayT<Int32>::ElemBytes					= 4;
-template<> size_t ArrayT<UInt32>::ElemBytes					= 4;
-template<> size_t ArrayT<Int64>::ElemBytes					= 8;
-template<> size_t ArrayT<UInt64>::ElemBytes					= 8;
-template<> size_t ArrayT<Half>::ElemBytes					= 2;
-template<> size_t ArrayT<Float>::ElemBytes					= 4;
-template<> size_t ArrayT<Double>::ElemBytes					= 8;
-template<> size_t ArrayT<Complex>::ElemBytes				= 16;
+template<> size_t ArrayT<Int8>::ElemBytes					= sizeof(Int8);
+template<> size_t ArrayT<UInt8>::ElemBytes					= sizeof(UInt8);
+template<> size_t ArrayT<Int16>::ElemBytes					= sizeof(Int16);
+template<> size_t ArrayT<UInt16>::ElemBytes					= sizeof(UInt16);
+template<> size_t ArrayT<Int32>::ElemBytes					= sizeof(Int32);
+template<> size_t ArrayT<UInt32>::ElemBytes					= sizeof(UInt32);
+template<> size_t ArrayT<Int64>::ElemBytes					= sizeof(Int64);
+template<> size_t ArrayT<UInt64>::ElemBytes					= sizeof(UInt64);
+template<> size_t ArrayT<Half>::ElemBytes					= sizeof(Half);
+template<> size_t ArrayT<Float>::ElemBytes					= sizeof(Float);
+template<> size_t ArrayT<Double>::ElemBytes					= sizeof(Double);
+template<> size_t ArrayT<Complex>::ElemBytes				= sizeof(Complex);
+//template<> size_t ArrayT<Value>::ElemBytes				= sizeof(Value);
 
 template<> const char *ArrayT<Int8>::ElemTypeName			= "int8";
 template<> const char *ArrayT<UInt8>::ElemTypeName			= "uint8";
@@ -288,6 +290,7 @@ template<> const char *ArrayT<Half>::ElemTypeName			= "half";
 template<> const char *ArrayT<Float>::ElemTypeName			= "float";
 template<> const char *ArrayT<Double>::ElemTypeName			= "double";
 template<> const char *ArrayT<Complex>::ElemTypeName		= "complex";
+//template<> const char *ArrayT<Value>::ElemTypeName		= "value";
 
 template<> const char *ArrayT<Int8>::ConstructorName		= "array@int8";
 template<> const char *ArrayT<UInt8>::ConstructorName		= "array@uint8";
@@ -301,6 +304,7 @@ template<> const char *ArrayT<Half>::ConstructorName		= "array@half";
 template<> const char *ArrayT<Float>::ConstructorName		= "array@float";
 template<> const char *ArrayT<Double>::ConstructorName		= "array@double";
 template<> const char *ArrayT<Complex>::ConstructorName 	= "array@complex";
+//template<> const char *ArrayT<Value>::ConstructorName 	= "array@value";
 
 template<typename T_Elem>
 void ArrayT<T_Elem>::Fill(const T_Elem &num)
@@ -1174,6 +1178,7 @@ ImplementArrayT(Half)
 ImplementArrayT(Float)
 ImplementArrayT(Double)
 ImplementArrayT(Complex)
+//ImplementArrayT(Value)
 
 //------------------------------------------------------------------------------
 // Realization of Iterator_ArrayT_Each
@@ -1190,5 +1195,6 @@ template class Iterator_ArrayT_Each<Half>;
 template class Iterator_ArrayT_Each<Float>;
 template class Iterator_ArrayT_Each<Double>;
 template class Iterator_ArrayT_Each<Complex>;
+//template class Iterator_ArrayT_Each<Value>;
 
 }
