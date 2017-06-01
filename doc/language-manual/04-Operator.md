@@ -60,7 +60,7 @@ Operation `+x` returns the value of `x` itself.
 <tr><td><code>+number</code></td><td><code>number</code></td></tr>
 <tr><td><code>+complex</code></td><td><code>complex</code></td></tr>
 <tr><td><code>+rational</code></td><td><code>rational</code></td></tr>
-<tr><td><code>+matrix</code></td><td><code>matrix</code></td></tr>
+<tr><td><code>+array</code></td><td><code>array</code></td></tr>
 <tr><td><code>+timedelta</code></td><td><code>timedelta</code></td></tr>
 </table>
 
@@ -72,7 +72,7 @@ Operation `-x` returns a negaive value of `x`.
 <tr><td><code>-number</code></td><td><code>number</code></td></tr>
 <tr><td><code>-complex</code></td><td><code>complex</code></td></tr>
 <tr><td><code>-rational</code></td><td><code>rational</code></td></tr>
-<tr><td><code>-matrix</code></td><td><code>matrix</code></td></tr>
+<tr><td><code>-array</code></td><td><code>array</code></td></tr>
 <tr><td><code>-timedelta</code></td><td><code>timedelta</code></td></tr>
 </table>
 
@@ -129,7 +129,7 @@ Operation `x + y` returns an added result of `x` and `y`.
 <tr><td><code>rational + number</code></td><td><code>rational</code></td></tr>
 <tr><td><code>rational + complex</code></td><td>(error)</td></tr>
 <tr><td><code>rational + rational</code></td><td><code>rational</code></td></tr>
-<tr><td><code>matrix + matrix</code></td><td><code>matrix</code></td></tr>
+<tr><td><code>array + array</code></td><td><code>array</code></td></tr>
 <tr><td><code>datetime + timedelta</code></td><td><code>datetime</code></td></tr>
 <tr><td><code>timedelta + datetime</code></td><td><code>datetime</code></td></tr>
 <tr><td><code>timedelta + timedelta</code></td><td><code>timedelta</code></td></tr>
@@ -162,7 +162,7 @@ Operation `x - y` returns a subtracted result of `x` and `y`.
 <tr><td><code>rational - number</code></td><td><code>rational</code></td></tr>
 <tr><td><code>rational - complex</code></td><td>(error)</td></tr>
 <tr><td><code>rational - rational</code></td><td><code>rational</code></td></tr>
-<tr><td><code>matrix - matrix</code></td><td><code>matrix</code></td></tr>
+<tr><td><code>array - array</code></td><td><code>array</code></td></tr>
 <tr><td><code>datetime - timedelta</code></td><td><code>datetime</code></td></tr>
 <tr><td><code>datetime - datetime</code></td><td><code>timedelta</code></td></tr>
 <tr><td><code>timedelta - timedelta</code></td><td><code>timedelta</code></td></tr>
@@ -182,9 +182,7 @@ Operation `x * y` returns a multiplied result of `x` and `y`.
 <tr><td><code>rational * number</code></td><td><code>rational</code></td></tr>
 <tr><td><code>rational * complex</code></td><td>(error)</td></tr>
 <tr><td><code>rational * rational</code></td><td><code>rational</code></td></tr>
-<tr><td><code>matrix * matrix</code></td><td><code>matrix</code></td></tr>
-<tr><td><code>matrix * list</code></td><td><code>list</code></td></tr>
-<tr><td><code>list * matrix</code></td><td><code>list</code></td></tr>
+<tr><td><code>array * array</code></td><td><code>array</code></td></tr>
 <tr><td><code>timedelta * number</code></td><td><code>timedelta</code></td></tr>
 <tr><td><code>number * timedelta</code></td><td><code>timedelta</code></td></tr>
 </table>
@@ -214,7 +212,7 @@ Operation `x / y` returns a divided result of `x` and `y`.
 <tr><td><code>rational / number</code></td><td><code>rational</code></td></tr>
 <tr><td><code>rational / complex</code></td><td>(error)</td></tr>
 <tr><td><code>rational / rational</code></td><td><code>rational</code></td></tr>
-<tr><td><code>matrix / matrix</code></td><td><code>matrix</code></td></tr>
+<tr><td><code>array / array</code></td><td><code>array</code></td></tr>
 </table>
 
 
