@@ -28,6 +28,7 @@ files="$files liblinear-2.11.zip"
 files="$files liblinear-2.11-gurapatch.zip"
 files="$files libsvm-3.22.zip"
 files="$files libsvm-3.22-gurapatch.zip"
+files="$files fftw-3.3.6-pl2.tar.gz"
 for file in $files
 do
 	echo $file
@@ -203,6 +204,15 @@ popd
 rm -f include/libsvm
 ln -sf ../libsvm-3.22 include/libsvm
 setup_dylib libsvm-3.22 dylib
+#---------------------------------------------------------------------------
+tar xfz fftw-3.3.6-pl2.tar.gz
+pushd fftw-3.3.6-pl2
+./configure
+make
+popd
+rm -f include/fftw
+ln -sf ../fftw-3.3.6-pl2/api include/fftw
+ln -sf ../fftw-3.3.6-pl2/.libs/libfftw3.a lib/libfftw3.a
 #---------------------------------------------------------------------------
 if [ "$failed" != "" ] ; then
    echo ======================================================================
