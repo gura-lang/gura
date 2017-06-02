@@ -14,6 +14,10 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 inline double RadToDeg(double n) { return 180 * n / Math_PI; }
 inline double DegToRad(double n) { return Math_PI * n / 180; }
+
+//-----------------------------------------------------------------------------
+// GCD/LCM
+//-----------------------------------------------------------------------------
 GURA_DLLDECLARE int CalcGCD(int a, int b);
 GURA_DLLDECLARE int CalcLCM(int a, int b);
 
@@ -31,13 +35,6 @@ public:
 	inline ULong GetResult() const { return ~_crc32 & 0xffffffff; }
 	inline size_t GetBytes() const { return _bytes; }
 };
-
-//GURA_DLLDECLARE ULong UpdateCRC32(ULong crc32, const void *buff, size_t bytes);
-
-//-----------------------------------------------------------------------------
-// FFT
-//-----------------------------------------------------------------------------
-GURA_DLLDECLARE void CalcFFT(ComplexList &vec);
 
 //-----------------------------------------------------------------------------
 // Invert matrix
