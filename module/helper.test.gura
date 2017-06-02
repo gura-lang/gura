@@ -19,7 +19,11 @@ testcase(title?:string):void {`block} = {
 	printtitle(_idxTestCase, title)
 	_idxTestCase += 1
 	println()
-	scope {|block|}
+	try {
+		scope {|block|}
+	} catch {|e|
+		println('Error in the test case: ', e.text)
+	}
 }
 
 printtitle(idx:number, title?:string) = {

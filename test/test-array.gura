@@ -385,34 +385,42 @@ testcase('array#T') {
 	func(src)
 }
 testcase('array.dot()') {
-	a = array {1, 5, 9}
-	b = array {5, 2}
-	c = array {{7, 4, -1}, {3, 0, 5}}
-	d = array {{5, 2}, {3, 1}, {4, -1}}
-	e = array {{8, 4, 2}, {1, 3, -6}, {-7, 0, 5}}
-	tester(`array.dot(a, d))
-	tester(`array.dot(a, e))
-	tester(`array.dot(b.reshape([2, 1]), a.reshape([1, 3])))
-	tester(`array.dot(c, d))
-	tester(`array.dot(c, e))
-	tester(`array.dot(d, b))
-	tester(`array.dot(d, c))
-	tester(`array.dot(e, d))
-	tester(`(a |.| d))
-	tester(`(a |.| e))
-	tester(`(b.reshape([2, 1]) |.| a.reshape([1, 3])))
-	tester(`(c |.| d))
-	tester(`(c |.| e))
-	tester(`(d |.| b))
-	tester(`(d |.| c))
-	tester(`(e |.| d))
+	[`half, `float, `double, `complex].each {|elemtype|
+		println('elemtype: ', elemtype)
+		a = array(elemtype => elemtype) {1, 5, 9}
+		b = array(elemtype => elemtype) {5, 2}
+		c = array(elemtype => elemtype) {{7, 4, -1}, {3, 0, 5}}
+		d = array(elemtype => elemtype) {{5, 2}, {3, 1}, {4, -1}}
+		e = array(elemtype => elemtype) {{8, 4, 2}, {1, 3, -6}, {-7, 0, 5}}
+		tester(`array.dot(a, d))
+		tester(`array.dot(a, e))
+		tester(`array.dot(b.reshape([2, 1]), a.reshape([1, 3])))
+		tester(`array.dot(c, d))
+		tester(`array.dot(c, e))
+		tester(`array.dot(d, b))
+		tester(`array.dot(d, c))
+		tester(`array.dot(e, d))
+		tester(`(a |.| d))
+		tester(`(a |.| e))
+		tester(`(b.reshape([2, 1]) |.| a.reshape([1, 3])))
+		tester(`(c |.| d))
+		tester(`(c |.| e))
+		tester(`(d |.| b))
+		tester(`(d |.| c))
+		tester(`(e |.| d))
+	}
 }
 testcase('array.invert()') {
-	tester(`array([[1, 1, -1], [-2, 0, 1], [0, 2, 1]]).invert())
-	tester(`array([[1, 2, 1], [2, 1, 0], [1, 1, 2]]).invert())
-	tester(`array([
-		[[1, 1, -1], [-2, 0, 1], [0, 2, 1]],
-		[[1, 2, 1], [2, 1, 0], [1, 1, 2]]]).invert())
+	[`half, `float, `double, `complex].each {|elemtype|
+		println('elemtype: ', elemtype)
+		tester(`array([[1, 1, -1], [-2, 0, 1], [0, 2, 1]], elemtype).invert())
+		tester(`array([[1, 2, 1], [2, 1, 0], [1, 1, 2]], elemtype).invert())
+		tester(`array([[2, -1, 0], [2, -1, -1], [1, 0, -1]], elemtype).invert())
+		tester(`array([
+			[[1, 1, -1], [-2, 0, 1], [0, 2, 1]],
+			[[1, 2, 1], [2, 1, 0], [1, 1, 2]],
+			[[2, -1, 0], [2, -1, -1], [1, 0, -1]]], elemtype).invert())
+	}
 }
 testcase('properties') {
 	funcs.each {|func|
@@ -864,4 +872,12 @@ testcase('array#elemcast()') {
 		println(': ', typeNameDst, ' <- ', typeNameSrc,
 				cond(x.memoryid == y.memoryid, ' [shared]', ''))
 	}
+}
+testcase('store several matrices in a multi-dimensional array') {
+	x = array.zeros([5, 2, 2])
+	repeat(5) {|i|
+		x[i] = (array.rotation(60 * i):deg).roundoff()
+	}
+	println(x)
+	tester(`(x |.| array {1, 0}))
 }
