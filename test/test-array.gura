@@ -421,6 +421,7 @@ testcase('array.invert()') {
 			[[1, 2, 1], [2, 1, 0], [1, 1, 2]],
 			[[2, -1, 0], [2, -1, -1], [1, 0, -1]]], elemtype).invert())
 	}
+	tester(`array.zeros([3, 3]).invert())
 }
 testcase('properties') {
 	funcs.each {|func|
@@ -874,10 +875,13 @@ testcase('array#elemcast()') {
 	}
 }
 testcase('store several matrices in a multi-dimensional array') {
-	x = array.zeros([5, 2, 2])
-	repeat(5) {|i|
-		x[i] = (array.rotation(60 * i):deg).roundoff()
+	[array@half, array@float, array@double, array@complex].each {|func|
+		println(function.getname(func))
+		x = func.zeros([5, 2, 2])
+		repeat(5) {|i|
+			x[i] = (func.rotation(60 * i):deg).roundoff()
+		}
+		println(x)
+		tester(`(x |.| array {1, 0}))
 	}
-	println(x)
-	tester(`(x |.| array {1, 0}))
 }
