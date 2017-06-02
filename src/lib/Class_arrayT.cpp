@@ -108,7 +108,7 @@ Value Func_arrayT<T_Elem>::DoEval(Environment &env, Argument &arg) const
 }
 
 //-----------------------------------------------------------------------------
-// Implementation of methods
+// Implementation of array creators
 //-----------------------------------------------------------------------------
 // array@T.identity(n:number):static:map {block?}
 Gura_DeclareClassMethod_arrayT(identity)
@@ -545,6 +545,7 @@ void Class_arrayT<T_Elem>::DoPrepare(Environment &env)
 			Lookup(GetValueType())->GetSymbol();
 		env.AssignFunction(new Func_arrayT<T_Elem>(env, pSymbol, GetValueType()));
 	} while (0);
+	// assignment of array creators
 	Gura_AssignMethod_arrayT(identity);
 	Gura_AssignMethod_arrayT(interval);
 	Gura_AssignMethod_arrayT(ones);
