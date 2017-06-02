@@ -2,4 +2,11 @@
 import(modbuild)
 
 builder = modbuild.Builder()
+if (sys.platform == `mswin) {
+} elsif (sys.platform == `linux) {
+} elsif (sys.platform == `darwin) {
+	builder.incDirs.append('guest/include/fftw')
+	builder.libDirs.append('guest/lib')
+	builder.libs.append('fftw3')
+}
 builder.build('fftw', ['module-fftw.cpp'])
