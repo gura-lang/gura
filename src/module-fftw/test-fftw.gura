@@ -3,5 +3,8 @@ import(helper.test) {*}
 import(fftw)
 
 testcase {
-	println(fftw.test(3, 4))
+	x = array {1, 2, 5, 3}
+	println(x.dft())
+	x = array {{{1, 2, 5, 3}, {1, 2, 5, 3}, {1, 2, 5, 3}}, {{1, 2, 5, 3}, {1, 2, 5, 3}, {1, 2, 5, 3}}}
+	println(x.dft())
 }
