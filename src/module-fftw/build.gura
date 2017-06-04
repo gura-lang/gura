@@ -9,4 +9,4 @@ if (sys.platform == `mswin) {
 	builder.libDirs.append('guest/lib')
 	builder.libs.append('fftw3')
 }
-builder.build('fftw', ['module-fftw.cpp'])
+builder.build('fftw', ['module-fftw.cpp', 'Class_plan.cpp'])

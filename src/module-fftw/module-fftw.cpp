@@ -22,6 +22,25 @@ Value CallMethod(Environment &env, Argument &arg, const MethodT methods[],
 	return (*pMethod)(env, arg, pFunc, pArraySelf);
 }
 
+ArrayT<Complex> *MakeArrayResult(const Array::Dimensions &dims)
+{
+	AutoPtr<ArrayT<Complex> > pArrayTRtn(new ArrayT<Complex>());
+	pArrayTRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 1,
+							  Array::Dimension(dims.back().GetSize() / 2 + 1));
+	pArrayTRtn->AllocMemory();
+	return pArrayTRtn.release();
+}
+
+int *MakeDimension(const Array::Dimensions &dims)
+{
+	int *n = new int [dims.size()];
+	size_t i = 0;
+	foreach_const (Array::Dimensions, pDim, dims) {
+		n[i++] = static_cast<int>(pDim->GetSize());
+	}
+	return n;
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of array methods
 //-----------------------------------------------------------------------------
@@ -39,7 +58,25 @@ Gura_DeclareMethod(array, dft)
 template<typename T_Elem>
 Value Method_array_dft(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
-	Value valueRtn;
+	ArrayT<T_Elem> *pArrayTSelf = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	const Array::Dimensions &dims = pArrayTSelf->GetDimensions();
+	AutoPtr<ArrayT<Complex> > pArrayTRtn(MakeArrayResult(dims));
+	std::unique_ptr<int []> n(MakeDimension(dims));
+	AutoPtr<Memory> pMemoryIn(new MemoryHeap(sizeof(double) * pArrayTSelf->GetElemNum()));
+	double *in = reinterpret_cast<double *>(pMemoryIn->GetPointer());
+	do {
+		const T_Elem *pSrc = pArrayTSelf->GetPointer();
+		double *pDst = in;
+		for (size_t i = 0; i < pArrayTSelf->GetElemNum(); i++, pSrc++, pDst++) {
+			*pDst = static_cast<double>(*pSrc);
+		}
+	} while (0);
+	fftw_complex *out = reinterpret_cast<fftw_complex *>(pArrayTRtn->GetPointer());
+	fftw_plan plan = ::fftw_plan_dft_r2c(static_cast<int>(dims.size()), n.get(),
+										 in, out, FFTW_ESTIMATE);
+	::fftw_execute(plan);
+	::fftw_destroy_plan(plan);
+	Value valueRtn(new Object_array(env, pArrayTRtn.release()));
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
 
@@ -47,21 +84,13 @@ template<>
 Value Method_array_dft<Double>(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	ArrayT<Double> *pArrayTSelf = dynamic_cast<ArrayT<Double> *>(pArraySelf);
-	AutoPtr<ArrayT<Complex> > pArrayTRtn(new ArrayT<Complex>());
 	const Array::Dimensions &dims = pArrayTSelf->GetDimensions();
-	pArrayTRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 1,
-							  Array::Dimension(dims.back().GetSize() / 2 + 1));
-	pArrayTRtn->AllocMemory();
-	int rank = static_cast<int>(dims.size());
-	std::unique_ptr<int []> n(new int [rank]);
-	size_t i = 0;
-	foreach_const (Array::Dimensions, pDim, dims) {
-		n[i++] = static_cast<int>(pDim->GetSize());
-	}
+	AutoPtr<ArrayT<Complex> > pArrayTRtn(MakeArrayResult(dims));
+	std::unique_ptr<int []> n(MakeDimension(dims));
 	double *in = pArrayTSelf->GetPointer();
 	fftw_complex *out = reinterpret_cast<fftw_complex *>(pArrayTRtn->GetPointer());
-	unsigned flags = FFTW_ESTIMATE;
-	fftw_plan plan = ::fftw_plan_dft_r2c(rank, n.get(), in, out, flags);
+	fftw_plan plan = ::fftw_plan_dft_r2c(static_cast<int>(dims.size()), n.get(),
+										 in, out, FFTW_ESTIMATE);
 	::fftw_execute(plan);
 	::fftw_destroy_plan(plan);
 	Value valueRtn(new Object_array(env, pArrayTRtn.release()));
@@ -72,22 +101,13 @@ template<>
 Value Method_array_dft<Complex>(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	ArrayT<Complex> *pArrayTSelf = dynamic_cast<ArrayT<Complex> *>(pArraySelf);
-	AutoPtr<ArrayT<Complex> > pArrayTRtn(new ArrayT<Complex>());
 	const Array::Dimensions &dims = pArrayTSelf->GetDimensions();
-	pArrayTRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 1,
-							  Array::Dimension(dims.back().GetSize() / 2 + 1));
-	pArrayTRtn->AllocMemory();
-	int rank = static_cast<int>(dims.size());
-	std::unique_ptr<int []> n(new int [rank]);
-	size_t i = 0;
-	foreach_const (Array::Dimensions, pDim, dims) {
-		n[i++] = static_cast<int>(pDim->GetSize());
-	}
+	AutoPtr<ArrayT<Complex> > pArrayTRtn(MakeArrayResult(dims));
+	std::unique_ptr<int []> n(MakeDimension(dims));
 	fftw_complex *in = reinterpret_cast<fftw_complex *>(pArrayTSelf->GetPointer());
 	fftw_complex *out = reinterpret_cast<fftw_complex *>(pArrayTRtn->GetPointer());
-	int sign = FFTW_FORWARD;
-	unsigned flags = FFTW_ESTIMATE;
-	fftw_plan plan = ::fftw_plan_dft(rank, n.get(), in, out, sign, flags);
+	fftw_plan plan = ::fftw_plan_dft(static_cast<int>(dims.size()), n.get(),
+									 in, out, FFTW_FORWARD, FFTW_ESTIMATE);
 	::fftw_execute(plan);
 	::fftw_destroy_plan(plan);
 	Value valueRtn(new Object_array(env, pArrayTRtn.release()));
@@ -160,7 +180,7 @@ Gura_ModuleEntry()
 	// method assignment to array
 	Gura_AssignMethodTo(VTYPE_array, array, dft);
 	// function assignment
-	Gura_AssignFunction(test);
+	//Gura_AssignFunction(test);
 	return true;
 }
 
