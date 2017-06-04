@@ -177,6 +177,8 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	// class realization
+	Gura_RealizeAndPrepareUserClass(plan, env.LookupClass(VTYPE_object));
 	// method assignment to array
 	Gura_AssignMethodTo(VTYPE_array, array, dft);
 	// function assignment

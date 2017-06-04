@@ -25,6 +25,7 @@ String Object_plan::ToString(bool exprFlag)
 // implementation of class plan
 Gura_ImplementUserClass(plan)
 {
+	Gura_AssignValue(plan, Value(Reference()));
 }
 
 Gura_EndModuleScope(fftw)
