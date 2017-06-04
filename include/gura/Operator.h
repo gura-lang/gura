@@ -687,6 +687,10 @@ Gura_ImplementPow_Complex(Double)
 class GURA_DLLDECLARE Operator_Eq : public Operator {
 public:
 	inline Operator_Eq() : Operator(OPTYPE_Eq) {}
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL == varR);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -695,6 +699,10 @@ public:
 class GURA_DLLDECLARE Operator_Ne : public Operator {
 public:
 	inline Operator_Ne() : Operator(OPTYPE_Ne) {}
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL != varR);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -703,6 +711,10 @@ public:
 class GURA_DLLDECLARE Operator_Gt : public Operator {
 public:
 	inline Operator_Gt() : Operator(OPTYPE_Gt) {}
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL > varR);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -711,6 +723,10 @@ public:
 class GURA_DLLDECLARE Operator_Lt : public Operator {
 public:
 	inline Operator_Lt() : Operator(OPTYPE_Lt) {}
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL < varR);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -719,6 +735,10 @@ public:
 class GURA_DLLDECLARE Operator_Ge : public Operator {
 public:
 	inline Operator_Ge() : Operator(OPTYPE_Ge) {}
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL >= varR);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -727,6 +747,10 @@ public:
 class GURA_DLLDECLARE Operator_Le : public Operator {
 public:
 	inline Operator_Le() : Operator(OPTYPE_Le) {}
+	template<typename T_Result, typename T_VarL, typename T_VarR>
+	inline static void Calc(T_Result &result, const T_VarL &varL, const T_VarR &varR) {
+		result = static_cast<T_Result>(varL <= varR);
+	}
 };
 
 //-----------------------------------------------------------------------------
