@@ -1694,63 +1694,63 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		}, \
 	}, { \
 		nullptr, \
-		&funcPrefix##_array_number<Int8,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<UInt8,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int16,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<UInt16,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int32,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<UInt32,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int64,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<UInt64,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Half,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Float,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Double,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Complex,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int8,	Int8,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int8,	UInt8,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int8,	Int16,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int8,	UInt16,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int8,	Int32,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int8,	UInt32,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int8,	Int64,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int8,	UInt64,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int8,	Half,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int8,	Float,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int8,	Double,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int8,	Complex,Operator_##op::Calc>, \
 		nullptr, \
 	}, { \
 		nullptr, \
-		&funcPrefix##_number_array<Int8,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<UInt8,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int16,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<UInt16,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int32,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<UInt32,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int64,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<UInt64,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Half,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Float,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Double,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Complex,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int8,	Int8,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int8,	UInt8,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int8,	Int16,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int8,	UInt16,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int8,	Int32,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int8,	UInt32,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int8,	Int64,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int8,	UInt64,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int8,	Half,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int8,	Float,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int8,	Double,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int8,	Complex,Operator_##op::Calc>, \
 		nullptr, \
 	}, { \
 		nullptr, \
-		&funcPrefix##_array_complex<Int8,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<UInt8,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int16,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<UInt16,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int32,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<UInt32,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int64,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<UInt64,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Half,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Float,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Double,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Complex,Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int8,	Int8,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int8,	UInt8,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int8,	Int16,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int8,	UInt16,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int8,	Int32,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int8,	UInt32,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int8,	Int64,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int8,	UInt64,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int8,	Half,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int8,	Float,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int8,	Double,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Int8,	Complex,Operator_##op::Calc>, \
 		nullptr, \
 	}, { \
 		nullptr, \
-		&funcPrefix##_complex_array<Int8,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<UInt8,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int16,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<UInt16,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int32,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<UInt32,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int64,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<UInt64,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Half,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Float,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Double,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Complex,Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int8,	Int8,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int8,	UInt8,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int8,	Int16,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int8,	UInt16,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int8,	Int32,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int8,	UInt32,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int8,	Int64,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int8,	UInt64,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int8,	Half,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int8,	Float,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int8,	Double,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Int8,	Complex,Operator_##op::Calc>, \
 		nullptr, \
 	} \
 }
