@@ -766,96 +766,104 @@ Array *BinaryFuncTmpl_Div_array_array(Signal &sig, const Array *pArrayL, const A
 	return BinaryFuncTmpl_array_array<T_ElemResult, T_ElemL, T_ElemR, op>(sig, pArrayL, pArrayR);
 }
 
-template<typename T_ElemL, void (*op)(T_ElemL &, const T_ElemL &, const Double &)>
+template<typename T_ElemResult, typename T_ElemL,
+		 void (*op)(T_ElemResult &, const T_ElemL &, const Double &)>
 Array *BinaryFuncTmpl_array_number(Signal &sig, const Array *pArrayL, Double numberR)
 {
 	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
 	size_t nElemsL = pArrayL->GetElemNum();
-	AutoPtr<ArrayT<T_ElemL> > pArrayResult(ArrayT<T_ElemL>::Create(pArrayL->GetDimensions()));
-	T_ElemL *pElemResult = pArrayResult->GetPointer();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(ArrayT<T_ElemResult>::Create(pArrayL->GetDimensions()));
+	T_ElemResult *pElemResult = pArrayResult->GetPointer();
 	for (size_t i = 0; i < nElemsL; i++, pElemResult++, pElemL++) {
 		op(*pElemResult, *pElemL, numberR);
 	}
 	return pArrayResult.release();
 }
 
-template<typename T_ElemL, void (*op)(T_ElemL &, const T_ElemL &, const Double &)>
+template<typename T_ElemResult, typename T_ElemL,
+		 void (*op)(T_ElemResult &, const T_ElemL &, const Double &)>
 Array *BinaryFuncTmpl_Div_array_number(Signal &sig, const Array *pArrayL, Double numberR)
 {
 	if (numberR == 0) {
 		Operator::SetError_DivideByZero(sig);
 		return nullptr;
 	}
-	return BinaryFuncTmpl_array_number<T_ElemL, op>(sig, pArrayL, numberR);
+	return BinaryFuncTmpl_array_number<T_ElemResult, T_ElemL, op>(sig, pArrayL, numberR);
 }
 
-template<typename T_ElemR, void (*op)(T_ElemR &, const Double &, const T_ElemR &)>
+template<typename T_ElemResult, typename T_ElemR,
+		 void (*op)(T_ElemResult &, const Double &, const T_ElemR &)>
 Array *BinaryFuncTmpl_number_array(Signal &sig, Double numberL, const Array *pArrayR)
 {
 	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
 	size_t nElemsR = pArrayR->GetElemNum();
-	AutoPtr<ArrayT<T_ElemR> > pArrayResult(ArrayT<T_ElemR>::Create(pArrayR->GetDimensions()));
-	T_ElemR *pElemResult = pArrayResult->GetPointer();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(ArrayT<T_ElemResult>::Create(pArrayR->GetDimensions()));
+	T_ElemResult *pElemResult = pArrayResult->GetPointer();
 	for (size_t i = 0; i < nElemsR; i++, pElemResult++, pElemR++) {
 		op(*pElemResult, numberL, *pElemR);
 	}
 	return pArrayResult.release();
 }
 
-template<typename T_ElemR, void (*op)(T_ElemR &, const Double &, const T_ElemR &)>
+template<typename T_ElemResult, typename T_ElemR,
+		 void (*op)(T_ElemResult &, const Double &, const T_ElemR &)>
 Array *BinaryFuncTmpl_Div_number_array(Signal &sig, Double numberL, const Array *pArrayR)
 {
 	if (pArrayR->DoesContainZero()) {
 		Operator::SetError_DivideByZero(sig);
 		return nullptr;
 	}
-	return BinaryFuncTmpl_number_array<T_ElemR, op>(sig, numberL, pArrayR);
+	return BinaryFuncTmpl_number_array<T_ElemResult, T_ElemR, op>(sig, numberL, pArrayR);
 }
 
-template<typename T_ElemL, void (*op)(Complex &, const T_ElemL &, const Complex &)>
+template<typename T_ElemResult, typename T_ElemL,
+		 void (*op)(T_ElemResult &, const T_ElemL &, const Complex &)>
 Array *BinaryFuncTmpl_array_complex(Signal &sig, const Array *pArrayL, const Complex &complexR)
 {
 	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
 	size_t nElemsL = pArrayL->GetElemNum();
-	AutoPtr<ArrayT<Complex> > pArrayResult(ArrayT<Complex>::Create(pArrayL->GetDimensions()));
-	Complex *pElemResult = pArrayResult->GetPointer();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(ArrayT<T_ElemResult>::Create(pArrayL->GetDimensions()));
+	T_ElemResult *pElemResult = pArrayResult->GetPointer();
 	for (size_t i = 0; i < nElemsL; i++, pElemResult++, pElemL++) {
 		op(*pElemResult, *pElemL, complexR);
 	}
 	return pArrayResult.release();
 }
 
-template<typename T_ElemL, void (*op)(Complex &, const T_ElemL &, const Complex &)>
+template<typename T_ElemResult, typename T_ElemL,
+		 void (*op)(T_ElemResult &, const T_ElemL &, const Complex &)>
 Array *BinaryFuncTmpl_Div_array_complex(Signal &sig, const Array *pArrayL, const Complex &complexR)
 {
 	if (complexR == Complex::Zero) {
 		Operator::SetError_DivideByZero(sig);
 		return nullptr;
 	}
-	return BinaryFuncTmpl_array_complex<T_ElemL, op>(sig, pArrayL, complexR);
+	return BinaryFuncTmpl_array_complex<T_ElemResult, T_ElemL, op>(sig, pArrayL, complexR);
 }
 
-template<typename T_ElemR, void (*op)(Complex &, const Complex &, const T_ElemR &)>
+template<typename T_ElemResult, typename T_ElemR,
+		 void (*op)(T_ElemResult &, const Complex &, const T_ElemR &)>
 Array *BinaryFuncTmpl_complex_array(Signal &sig, const Complex &complexL, const Array *pArrayR)
 {
 	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
 	size_t nElemsR = pArrayR->GetElemNum();
-	AutoPtr<ArrayT<Complex> > pArrayResult(ArrayT<Complex>::Create(pArrayR->GetDimensions()));
-	Complex *pElemResult = pArrayResult->GetPointer();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(ArrayT<T_ElemResult>::Create(pArrayR->GetDimensions()));
+	T_ElemResult *pElemResult = pArrayResult->GetPointer();
 	for (size_t i = 0; i < nElemsR; i++, pElemResult++, pElemR++) {
 		op(*pElemResult, complexL, *pElemR);
 	}
 	return pArrayResult.release();
 }
 
-template<typename T_ElemR, void (*op)(Complex &, const Complex &, const T_ElemR &)>
+template<typename T_ElemResult, typename T_ElemR,
+		 void (*op)(T_ElemResult &, const Complex &, const T_ElemR &)>
 Array *BinaryFuncTmpl_Div_complex_array(Signal &sig, const Complex &complexL, const Array *pArrayR)
 {
 	if (pArrayR->DoesContainZero()) {
 		Operator::SetError_DivideByZero(sig);
 		return nullptr;
 	}
-	return BinaryFuncTmpl_complex_array<T_ElemR, op>(sig, complexL, pArrayR);
+	return BinaryFuncTmpl_complex_array<T_ElemResult, T_ElemR, op>(sig, complexL, pArrayR);
 }
 
 //------------------------------------------------------------------------------
@@ -1431,63 +1439,63 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		}, \
 	}, { \
 		nullptr, \
-		&funcPrefix##_array_number<Int8,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<UInt8,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int16,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<UInt16,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int32,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<UInt32,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int64,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<UInt64,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Half,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Float,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Double,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Complex,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int8,	Int8,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<UInt8,	UInt8,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int16,	Int16,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<UInt16,	UInt16,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int32,	Int32,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<UInt32,	UInt32,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int64,	Int64,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<UInt64,	UInt64,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Half,	Half,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Float,	Float,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Double,	Double,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Complex,	Complex,	Operator_##op::Calc>, \
 		nullptr, \
 	}, { \
 		nullptr, \
-		&funcPrefix##_number_array<Int8,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<UInt8,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int16,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<UInt16,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int32,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<UInt32,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int64,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<UInt64,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Half,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Float,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Double,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Complex,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int8,	Int8,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<UInt8,	UInt8,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int16,	Int16,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<UInt16,	UInt16,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int32,	Int32,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<UInt32,	UInt32,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int64,	Int64,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<UInt64,	UInt64,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Half,	Half,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Float,	Float,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Double,	Double,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Complex,	Complex,	Operator_##op::Calc>, \
 		nullptr, \
 	}, { \
 		nullptr, \
-		&funcPrefix##_array_complex<Int8,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<UInt8,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int16,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<UInt16,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int32,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<UInt32,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int64,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<UInt64,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Half,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Float,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Double,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Complex,Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Int8,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	UInt8,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Int16,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	UInt16,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Int32,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	UInt32,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Int64,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	UInt64,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Half,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Float,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Double,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Complex,	Operator_##op::Calc>, \
 		nullptr, \
 	}, { \
 		nullptr, \
-		&funcPrefix##_complex_array<Int8,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<UInt8,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int16,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<UInt16,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int32,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<UInt32,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int64,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<UInt64,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Half,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Float,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Double,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Complex,Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Int8,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	UInt8,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Int16,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	UInt16,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Int32,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	UInt32,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Int64,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	UInt64,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Half,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Float,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Double,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Complex,Operator_##op::Calc>, \
 		nullptr, \
 	} \
 }
@@ -1887,14 +1895,14 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		}, \
 	}, { \
 		nullptr, \
-		&BinaryFuncTmpl_array_number<Int8,		Operator_##op::Calc>,	\
-		&BinaryFuncTmpl_array_number<UInt8,		Operator_##op::Calc>,	\
-		&BinaryFuncTmpl_array_number<Int16,		Operator_##op::Calc>,	\
-		&BinaryFuncTmpl_array_number<UInt16,	Operator_##op::Calc>,	\
-		&BinaryFuncTmpl_array_number<Int32,		Operator_##op::Calc>,	\
-		&BinaryFuncTmpl_array_number<UInt32,	Operator_##op::Calc>,	\
-		&BinaryFuncTmpl_array_number<Int64,		Operator_##op::Calc>,	\
-		&BinaryFuncTmpl_array_number<UInt64,	Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<Int8,	Int8,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<UInt8,	UInt8,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<Int16,	Int16,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<UInt16,	UInt16,	Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<Int32,	Int32,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<UInt32,	UInt32,	Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<Int64,	Int64,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<UInt64,	UInt64,	Operator_##op::Calc>,	\
 		nullptr, \
 		nullptr, \
 		nullptr, \
@@ -1902,14 +1910,14 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		nullptr, \
 	}, { \
 		nullptr, \
-		&BinaryFuncTmpl_number_array<Int8,		Operator_##op::Calc>,	\
-		&BinaryFuncTmpl_number_array<UInt8,		Operator_##op::Calc>,	\
-		&BinaryFuncTmpl_number_array<Int16,		Operator_##op::Calc>,	\
-		&BinaryFuncTmpl_number_array<UInt16,	Operator_##op::Calc>,	\
-		&BinaryFuncTmpl_number_array<Int32,		Operator_##op::Calc>,	\
-		&BinaryFuncTmpl_number_array<UInt32,	Operator_##op::Calc>,	\
-		&BinaryFuncTmpl_number_array<Int64,		Operator_##op::Calc>,	\
-		&BinaryFuncTmpl_number_array<UInt64,	Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<Int8,	Int8,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<UInt8,	UInt8,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<Int16,	Int16,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<UInt16,	UInt16,	Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<Int32,	Int32,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<UInt32,	UInt32,	Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<Int64,	Int64,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<UInt64,	UInt64,	Operator_##op::Calc>,	\
 		nullptr, \
 		nullptr, \
 		nullptr, \
