@@ -74,6 +74,10 @@ void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const 
 
 template<typename T_Elem> void FormatElem(char *buff, int wdPad, const T_Elem &x);
 
+template<> void FormatElem(char *buff, int wdPad, const Boolean &x) {
+	::sprintf(buff, "%*d", wdPad, x);
+}
+
 template<> void FormatElem(char *buff, int wdPad, const Int8 &x) {
 	::sprintf(buff, "%*d", wdPad, x);
 }
@@ -250,6 +254,7 @@ bool ArrayT<Complex>::DoesContainZeroOrMinus() const
 	return DoesContainZero();
 }
 
+template<> Array::ElemType ArrayT<Boolean>::ElemTypeThis	= ETYPE_Boolean;
 template<> Array::ElemType ArrayT<Int8>::ElemTypeThis		= ETYPE_Int8;
 template<> Array::ElemType ArrayT<UInt8>::ElemTypeThis		= ETYPE_UInt8;
 template<> Array::ElemType ArrayT<Int16>::ElemTypeThis		= ETYPE_Int16;
@@ -264,6 +269,7 @@ template<> Array::ElemType ArrayT<Double>::ElemTypeThis		= ETYPE_Double;
 template<> Array::ElemType ArrayT<Complex>::ElemTypeThis	= ETYPE_Complex;
 //template<> Array::ElemType ArrayT<Value>::ElemTypeThis	= ETYPE_Value;
 
+template<> size_t ArrayT<Boolean>::ElemBytes				= sizeof(Boolean);
 template<> size_t ArrayT<Int8>::ElemBytes					= sizeof(Int8);
 template<> size_t ArrayT<UInt8>::ElemBytes					= sizeof(UInt8);
 template<> size_t ArrayT<Int16>::ElemBytes					= sizeof(Int16);
@@ -278,6 +284,7 @@ template<> size_t ArrayT<Double>::ElemBytes					= sizeof(Double);
 template<> size_t ArrayT<Complex>::ElemBytes				= sizeof(Complex);
 //template<> size_t ArrayT<Value>::ElemBytes				= sizeof(Value);
 
+template<> const char *ArrayT<Boolean>::ElemTypeName		= "boolean";
 template<> const char *ArrayT<Int8>::ElemTypeName			= "int8";
 template<> const char *ArrayT<UInt8>::ElemTypeName			= "uint8";
 template<> const char *ArrayT<Int16>::ElemTypeName			= "int16";
@@ -292,6 +299,7 @@ template<> const char *ArrayT<Double>::ElemTypeName			= "double";
 template<> const char *ArrayT<Complex>::ElemTypeName		= "complex";
 //template<> const char *ArrayT<Value>::ElemTypeName		= "value";
 
+template<> const char *ArrayT<Boolean>::ConstructorName		= "array@boolean";
 template<> const char *ArrayT<Int8>::ConstructorName		= "array@int8";
 template<> const char *ArrayT<UInt8>::ConstructorName		= "array@uint8";
 template<> const char *ArrayT<Int16>::ConstructorName		= "array@int16";
@@ -356,6 +364,12 @@ bool ArrayT<T_Elem>::Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc)
 	::memcpy(GetPointer() + offset, pArrayTSrc->GetPointer(),
 			 sizeof(T_Elem) * pArrayTSrc->GetElemNum());
 	return true;
+}
+
+template<>
+void ArrayT<Boolean>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+{
+	DumpInteger<Boolean, UInt8>(sig, stream, upperFlag? "%02X" : "%02x", 24, GetPointer(), GetElemNum());
 }
 
 template<>
@@ -1166,6 +1180,7 @@ void FillComplex(Complex *pElem, size_t nElems, const Complex &num)
 //------------------------------------------------------------------------------
 // Realization of ArrayT
 //------------------------------------------------------------------------------
+ImplementArrayT(Boolean)
 ImplementArrayT(Int8)
 ImplementArrayT(UInt8)
 ImplementArrayT(Int16)
@@ -1183,6 +1198,7 @@ ImplementArrayT(Complex)
 //------------------------------------------------------------------------------
 // Realization of Iterator_ArrayT_Each
 //------------------------------------------------------------------------------
+template class Iterator_ArrayT_Each<Boolean>;
 template class Iterator_ArrayT_Each<Int8>;
 template class Iterator_ArrayT_Each<UInt8>;
 template class Iterator_ArrayT_Each<Int16>;

@@ -61,6 +61,7 @@ typedef int					Int;		// signed native bits
 typedef long				Long;		// long
 typedef int8_t				Char;		// signed 8bit
 typedef int16_t				Short;		// signed 16bit
+typedef bool				Boolean;	// signed 8bit
 typedef int8_t				Int8;		// signed 8bit
 typedef int16_t				Int16;		// signed 16bit
 typedef int32_t				Int32;		// signed 32bit
@@ -81,6 +82,7 @@ typedef std::vector<Int,	Allocator<Int> >	IntList;
 typedef std::vector<Long,	Allocator<Long> >	LongList;
 typedef std::vector<Char,	Allocator<Char> >	CharList;
 typedef std::vector<Short,	Allocator<Short> >	ShortList;
+typedef std::vector<Boolean,Allocator<Boolean> >BooleanList;
 typedef std::vector<Int8,	Allocator<Int8> >	Int8List;
 typedef std::vector<Int16,	Allocator<Int16> >	Int16List;
 typedef std::vector<Int32,	Allocator<Int32> >	Int32List;
@@ -102,6 +104,7 @@ typedef std::deque<Int,		Allocator<Int> >	IntDeque;
 typedef std::deque<Long,	Allocator<Long> >	LongDeque;
 typedef std::deque<Char,	Allocator<Char> >	CharDeque;
 typedef std::deque<Short,	Allocator<Short> >	ShortDeque;
+typedef std::deque<Boolean,	Allocator<Boolean> >BooleanDeque;
 typedef std::deque<Int8,	Allocator<Int8> >	Int8Deque;
 typedef std::deque<Int16,	Allocator<Int16> >	Int16Deque;
 typedef std::deque<Int32,	Allocator<Int32> >	Int32Deque;

@@ -211,6 +211,7 @@ public:
 	inline bool IsStruct() const			{ return IsType(VTYPE_Struct);					}
 	inline bool Is_argument() const			{ return IsType(VTYPE_argument);				}
 	inline bool Is_array() const			{ return IsType(VTYPE_array);					}
+	inline bool Is_array_at_boolean() const	{ return IsType(VTYPE_array_at_boolean);		}
 	inline bool Is_array_at_int8() const	{ return IsType(VTYPE_array_at_int8);			}
 	inline bool Is_array_at_uint8() const	{ return IsType(VTYPE_array_at_uint8);			}
 	inline bool Is_array_at_int16() const	{ return IsType(VTYPE_array_at_int16);			}
@@ -292,6 +293,8 @@ public:
 								{ return MustBe(sig, Is_argument(), 	"argument");		}
 	inline bool MustBe_array(Signal &sig) const
 								{ return MustBe(sig, Is_array(),		"array");			}
+	inline bool MustBe_array_at_boolean(Signal &sig) const
+								{ return MustBe(sig, Is_array_at_boolean(), "array@boolean");}
 	inline bool MustBe_array_at_int8(Signal &sig) const
 								{ return MustBe(sig, Is_array_at_int8(), "array@int8");		}
 	inline bool MustBe_array_at_uint8(Signal &sig) const

@@ -29,6 +29,7 @@ ValueType VTYPE_Struct			= static_cast<ValueType>(0);
 ValueType VTYPE_object			= static_cast<ValueType>(0);
 ValueType VTYPE_argument		= static_cast<ValueType>(0);
 ValueType VTYPE_array			= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_boolean= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_int8	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_uint8	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_int16	= static_cast<ValueType>(0);
@@ -171,6 +172,7 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_RealizeVTYPEAlias(Struct,			"struct");
 	Gura_RealizeVTYPE(argument);
 	Gura_RealizeVTYPE(array);
+	Gura_RealizeVTYPEAlias(array_at_boolean,"array@boolean");
 	Gura_RealizeVTYPEAlias(array_at_int8,	"array@int8");
 	Gura_RealizeVTYPEAlias(array_at_uint8,	"array@uint8");
 	Gura_RealizeVTYPEAlias(array_at_int16,	"array@int16");
@@ -237,6 +239,8 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_VTYPEInfo(argument		)->SetClass(new Class_argument(pClass));
 	Class *pClass_array = nullptr;
 	Gura_VTYPEInfo(array		)->SetClass(pClass_array = new Class_array(pClass));
+	Gura_VTYPEInfo(array_at_boolean)->SetClass(
+		new Class_arrayT<Boolean>(pClass_array, VTYPE_array_at_boolean));
 	Gura_VTYPEInfo(array_at_int8)->SetClass(
 		new Class_arrayT<Int8>(pClass_array, VTYPE_array_at_int8));
 	Gura_VTYPEInfo(array_at_uint8)->SetClass(
@@ -320,6 +324,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	// object types
 	env.LookupClass(VTYPE_argument		)->Prepare(env);
 	env.LookupClass(VTYPE_array			)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_boolean)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_int8	)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_uint8)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_int16)->Prepare(env);

@@ -533,6 +533,7 @@ template<> inline void Operator_Mod::Calc<Complex, Complex, Complex>( \
 	result = ::fmod(varL.real(), varR.real());							\
 }
 
+Gura_ImplementMod_Half(Boolean)
 Gura_ImplementMod_Half(Int8)
 Gura_ImplementMod_Half(UInt8)
 Gura_ImplementMod_Half(Int16)
@@ -544,6 +545,7 @@ Gura_ImplementMod_Half(UInt64)
 Gura_ImplementMod_Half(Float)
 Gura_ImplementMod_Half(Double)
 
+Gura_ImplementMod_Float(Boolean)
 Gura_ImplementMod_Float(Int8)
 Gura_ImplementMod_Float(UInt8)
 Gura_ImplementMod_Float(Int16)
@@ -555,6 +557,7 @@ Gura_ImplementMod_Float(UInt64)
 Gura_ImplementMod_Float(Half)
 Gura_ImplementMod_Float(Double)
 
+Gura_ImplementMod_Double(Boolean)
 Gura_ImplementMod_Double(Int8)
 Gura_ImplementMod_Double(UInt8)
 Gura_ImplementMod_Double(Int16)
@@ -566,6 +569,7 @@ Gura_ImplementMod_Double(UInt64)
 Gura_ImplementMod_Double(Half)
 Gura_ImplementMod_Double(Float)
 
+Gura_ImplementMod_Complex(Boolean)
 Gura_ImplementMod_Complex(Int8)
 Gura_ImplementMod_Complex(UInt8)
 Gura_ImplementMod_Complex(Int16)
@@ -669,6 +673,7 @@ template<> inline void Operator_Pow::Calc<Complex, Complex, Complex>(
 	result = std::pow<Double, Double>(varL, varR);
 }
 
+Gura_ImplementPow_Complex(Boolean)
 Gura_ImplementPow_Complex(Int8)
 Gura_ImplementPow_Complex(UInt8)
 Gura_ImplementPow_Complex(Int16)
@@ -986,6 +991,7 @@ template<> inline void Operator_Math_atan2::Calc<Complex, Complex, Complex>( \
 	result = ::atan2(varL.real(), varR.real());							\
 }
 
+Gura_ImplementMath_atan2_Complex(Boolean)
 Gura_ImplementMath_atan2_Complex(Int8)
 Gura_ImplementMath_atan2_Complex(UInt8)
 Gura_ImplementMath_atan2_Complex(Int16)
@@ -1176,6 +1182,7 @@ template<> inline void Operator_Math_hypot::Calc<Complex, Complex, Complex>( \
 	result = ::hypot(varL.real(), varR.real());							\
 }
 
+Gura_ImplementMath_hypot_Complex(Boolean)
 Gura_ImplementMath_hypot_Complex(Int8)
 Gura_ImplementMath_hypot_Complex(UInt8)
 Gura_ImplementMath_hypot_Complex(Int16)

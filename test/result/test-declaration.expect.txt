@@ -7,6 +7,7 @@
 __name__:string = __main__
 argument:class = <class:argument>
 array:class = <class:array(src?, elemtype?:symbol) {block?}>
+array@boolean:class = <class:array@boolean(src?) {block?}>
 array@complex:class = <class:array@complex(src?) {block?}>
 array@double:class = <class:array@double(src?) {block?}>
 array@float:class = <class:array@float(src?) {block?}>
@@ -384,6 +385,20 @@ array
   array.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array#transpose(axes[]?:number) {block?}
   array.zeros(dims[]:number):static:map {block?}
+array@boolean
+  array@boolean.identity(n:number):static:map {block?}
+  array@boolean.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
+  array@boolean.ones(dims[]:number):static:map {block?}
+  array@boolean.rands(dims[]:number, range?:number):static:map {block?}
+  array@boolean.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+  array@boolean.range(num:number, num_end?:number, step?:number):static:map {block?}
+  array@boolean.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+  array@boolean.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@boolean.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@boolean.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array@boolean.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+  array@boolean.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
+  array@boolean.zeros(dims[]:number):static:map {block?}
 array@complex
   array@complex.identity(n:number):static:map {block?}
   array@complex.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}

@@ -21,6 +21,7 @@ void Array::Bootup()
 		const char *name;
 		ElemType elemType;
 	} tbl[] = {
+		{ "boolean",	ETYPE_Boolean	},
 		{ "int8",		ETYPE_Int8		},
 		{ "uint8",		ETYPE_UInt8		},
 		{ "int16",		ETYPE_Int16		},
@@ -44,6 +45,7 @@ size_t Array::GetElemBytes(ElemType elemType)
 {
 	const static size_t elemBytesTbl[ETYPE_Max] = {
 		0,
+		ArrayT<Boolean>::ElemBytes,
 		ArrayT<Int8>::ElemBytes,
 		ArrayT<UInt8>::ElemBytes,
 		ArrayT<Int16>::ElemBytes,
@@ -65,6 +67,7 @@ const char *Array::GetElemTypeName(ElemType elemType)
 {
 	const static char *elemTypeNameTbl[ETYPE_Max] = {
 		"",
+		ArrayT<Boolean>::ElemTypeName,
 		ArrayT<Int8>::ElemTypeName,
 		ArrayT<UInt8>::ElemTypeName,
 		ArrayT<Int16>::ElemTypeName,
@@ -205,6 +208,7 @@ Array *Array::Create(ElemType elemType, const Array::Dimensions &dims)
 {
 	const CreateFunc createFuncs[ETYPE_Max] = {
 		nullptr,
+		&CreateTmpl<Boolean>,
 		&CreateTmpl<Int8>,
 		&CreateTmpl<UInt8>,
 		&CreateTmpl<Int16>,
@@ -299,6 +303,23 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 		}, {
 			nullptr,
+			&CopyElementsTmpl<Boolean, Boolean>,
+			&CopyElementsTmpl<Boolean, Int8>,
+			&CopyElementsTmpl<Boolean, UInt8>,
+			&CopyElementsTmpl<Boolean, Int16>,
+			&CopyElementsTmpl<Boolean, UInt16>,
+			&CopyElementsTmpl<Boolean, Int32>,
+			&CopyElementsTmpl<Boolean, UInt32>,
+			&CopyElementsTmpl<Boolean, Int64>,
+			&CopyElementsTmpl<Boolean, UInt64>,
+			&CopyElementsTmpl<Boolean, Half>,
+			&CopyElementsTmpl<Boolean, Float>,
+			&CopyElementsTmpl<Boolean, Double>,
+			nullptr,
+			nullptr,
+		}, {
+			nullptr,
+			&CopyElementsTmpl<Int8, Boolean>,
 			&CopyElementsTmpl<Int8, Int8>,
 			&CopyElementsTmpl<Int8, UInt8>,
 			&CopyElementsTmpl<Int8, Int16>,
@@ -314,6 +335,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			nullptr,
 		}, {
 			nullptr,
+			&CopyElementsTmpl<UInt8, Boolean>,
 			&CopyElementsTmpl<UInt8, Int8>,
 			&CopyElementsTmpl<UInt8, UInt8>,
 			&CopyElementsTmpl<UInt8, Int16>,
@@ -329,6 +351,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			nullptr,
 		}, {
 			nullptr,
+			&CopyElementsTmpl<Int16, Boolean>,
 			&CopyElementsTmpl<Int16, Int8>,
 			&CopyElementsTmpl<Int16, UInt8>,
 			&CopyElementsTmpl<Int16, Int16>,
@@ -344,6 +367,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			nullptr,
 		}, {
 			nullptr,
+			&CopyElementsTmpl<UInt16, Boolean>,
 			&CopyElementsTmpl<UInt16, Int8>,
 			&CopyElementsTmpl<UInt16, UInt8>,
 			&CopyElementsTmpl<UInt16, Int16>,
@@ -359,6 +383,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			nullptr,
 		}, {
 			nullptr,
+			&CopyElementsTmpl<Int32, Boolean>,
 			&CopyElementsTmpl<Int32, Int8>,
 			&CopyElementsTmpl<Int32, UInt8>,
 			&CopyElementsTmpl<Int32, Int16>,
@@ -374,6 +399,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			nullptr,
 		}, {
 			nullptr,
+			&CopyElementsTmpl<UInt32, Boolean>,
 			&CopyElementsTmpl<UInt32, Int8>,
 			&CopyElementsTmpl<UInt32, UInt8>,
 			&CopyElementsTmpl<UInt32, Int16>,
@@ -389,6 +415,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			nullptr,
 		}, {
 			nullptr,
+			&CopyElementsTmpl<Int64, Boolean>,
 			&CopyElementsTmpl<Int64, Int8>,
 			&CopyElementsTmpl<Int64, UInt8>,
 			&CopyElementsTmpl<Int64, Int16>,
@@ -404,6 +431,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			nullptr,
 		}, {
 			nullptr,
+			&CopyElementsTmpl<UInt64, Boolean>,
 			&CopyElementsTmpl<UInt64, Int8>,
 			&CopyElementsTmpl<UInt64, UInt8>,
 			&CopyElementsTmpl<UInt64, Int16>,
@@ -419,6 +447,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			nullptr,
 		}, {
 			nullptr,
+			&CopyElementsTmpl<Half,	Boolean>,
 			&CopyElementsTmpl<Half,	Int8>,
 			&CopyElementsTmpl<Half, UInt8>,
 			&CopyElementsTmpl<Half, Int16>,
@@ -434,6 +463,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			nullptr,
 		}, {
 			nullptr,
+			&CopyElementsTmpl<Float, Boolean>,
 			&CopyElementsTmpl<Float, Int8>,
 			&CopyElementsTmpl<Float, UInt8>,
 			&CopyElementsTmpl<Float, Int16>,
@@ -449,6 +479,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			nullptr,
 		}, {
 			nullptr,
+			&CopyElementsTmpl<Double, Boolean>,
 			&CopyElementsTmpl<Double, Int8>,
 			&CopyElementsTmpl<Double, UInt8>,
 			&CopyElementsTmpl<Double, Int16>,
@@ -464,6 +495,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			nullptr,
 		}, {
 			nullptr,
+			&CopyElementsTmpl<Complex, Boolean>,
 			&CopyElementsTmpl<Complex, Int8>,
 			&CopyElementsTmpl<Complex, UInt8>,
 			&CopyElementsTmpl<Complex, Int16>,
@@ -1229,6 +1261,7 @@ Array::UnaryFuncPack Array::unaryFuncPack_##op = { \
 	symbol, \
 	{ \
 		nullptr, \
+		&func<Boolean,	Boolean,Operator_##op::Calc>,	\
 		&func<Int8,		Int8,	Operator_##op::Calc>,	\
 		&func<UInt8,	UInt8,	Operator_##op::Calc>,	\
 		&func<Int16,	Int16,	Operator_##op::Calc>,	\
@@ -1255,6 +1288,23 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
 		}, { \
 			nullptr, \
+			&funcPrefix##_array_array<Int8,		Boolean,	Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int8,		Boolean,	Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt8,	Boolean,	UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int16,	Boolean,	Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt16,	Boolean,	UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int32,	Boolean,	Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt32,	Boolean,	UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	Boolean,	Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	Boolean,	UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Boolean,	Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Boolean,	Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Boolean,	Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Boolean,	Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Int8,		Int8,		Boolean,	Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int8,		Int8,		Int8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt8,	Int8,		UInt8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int16,	Int8,		Int16,		Operator_##op::Calc>, \
@@ -1270,6 +1320,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&funcPrefix##_array_array<UInt8,	UInt8,		Boolean,	Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt8,	UInt8,		Int8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt8,	UInt8,		UInt8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int16,	UInt8,		Int16,		Operator_##op::Calc>, \
@@ -1285,6 +1336,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&funcPrefix##_array_array<Int16,	Int16,		Boolean,	Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int16,	Int16,		Int8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int16,	Int16,		UInt8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int16,	Int16,		Int16,		Operator_##op::Calc>, \
@@ -1300,6 +1352,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&funcPrefix##_array_array<UInt16,	UInt16,		Boolean,	Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt16,	UInt16,		Int8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt16,	UInt16,		UInt8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt16,	UInt16,		Int16,		Operator_##op::Calc>, \
@@ -1315,6 +1368,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&funcPrefix##_array_array<Int32,	Int32,		Boolean,	Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int32,	Int32,		Int8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int32,	Int32,		UInt8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int32,	Int32,		Int16,		Operator_##op::Calc>, \
@@ -1330,6 +1384,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&funcPrefix##_array_array<UInt32,	UInt32,		Boolean,	Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt32,	UInt32,		Int8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt32,	UInt32,		UInt8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt32,	UInt32,		Int16,		Operator_##op::Calc>, \
@@ -1345,6 +1400,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&funcPrefix##_array_array<Int64,	Int64,		Boolean,	Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	Int64,		Int8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	Int64,		UInt8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Int64,	Int64,		Int16,		Operator_##op::Calc>, \
@@ -1360,6 +1416,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		Boolean,	Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	UInt64,		Int8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	UInt64,		UInt8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<UInt64,	UInt64,		Int16,		Operator_##op::Calc>, \
@@ -1375,6 +1432,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&funcPrefix##_array_array<Half,		Half,		Boolean,	Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Half,		Half,		Int8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Half,		Half,		UInt8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Half,		Half,		Int16,		Operator_##op::Calc>, \
@@ -1390,6 +1448,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&funcPrefix##_array_array<Float,	Float,		Boolean,	Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	Float,		Int8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	Float,		UInt8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Float,	Float,		Int16,		Operator_##op::Calc>, \
@@ -1405,6 +1464,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&funcPrefix##_array_array<Double,	Double,		Boolean,	Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Double,		Int8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Double,		UInt8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Double,	Double,		Int16,		Operator_##op::Calc>, \
@@ -1420,6 +1480,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&funcPrefix##_array_array<Complex,	Complex,	Boolean,	Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	Complex,	Int8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	Complex,	UInt8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Complex,	Complex,	Int16,		Operator_##op::Calc>, \
@@ -1439,6 +1500,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		}, \
 	}, { \
 		nullptr, \
+		&funcPrefix##_array_number<Int8,	Boolean,Operator_##op::Calc>, \
 		&funcPrefix##_array_number<Int8,	Int8,	Operator_##op::Calc>, \
 		&funcPrefix##_array_number<UInt8,	UInt8,	Operator_##op::Calc>, \
 		&funcPrefix##_array_number<Int16,	Int16,	Operator_##op::Calc>, \
@@ -1454,6 +1516,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		nullptr, \
 	}, { \
 		nullptr, \
+		&funcPrefix##_number_array<Int8,	Boolean,Operator_##op::Calc>, \
 		&funcPrefix##_number_array<Int8,	Int8,	Operator_##op::Calc>, \
 		&funcPrefix##_number_array<UInt8,	UInt8,	Operator_##op::Calc>, \
 		&funcPrefix##_number_array<Int16,	Int16,	Operator_##op::Calc>, \
@@ -1469,6 +1532,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		nullptr, \
 	}, { \
 		nullptr, \
+		&funcPrefix##_array_complex<Complex,	Boolean,Operator_##op::Calc>, \
 		&funcPrefix##_array_complex<Complex,	Int8,	Operator_##op::Calc>, \
 		&funcPrefix##_array_complex<Complex,	UInt8,	Operator_##op::Calc>, \
 		&funcPrefix##_array_complex<Complex,	Int16,	Operator_##op::Calc>, \
@@ -1484,6 +1548,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		nullptr, \
 	}, { \
 		nullptr, \
+		&funcPrefix##_complex_array<Complex,	Boolean,Operator_##op::Calc>, \
 		&funcPrefix##_complex_array<Complex,	Int8,	Operator_##op::Calc>, \
 		&funcPrefix##_complex_array<Complex,	UInt8,	Operator_##op::Calc>, \
 		&funcPrefix##_complex_array<Complex,	Int16,	Operator_##op::Calc>, \
@@ -1510,183 +1575,211 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int8,	Int8,		Int8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int8,		UInt8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int8,		Int16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int8,		UInt16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int8,		Int32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int8,		UInt32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int8,		Int64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int8,		UInt64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int8,		Half,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int8,		Float,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int8,		Double,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int8,		Complex,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Complex,	Operator_##op::Calc>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int8,	UInt8,		Int8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt8,		UInt8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt8,		Int16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt8,		UInt16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt8,		Int32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt8,		UInt32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt8,		Int64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt8,		UInt64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt8,		Half,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt8,		Float,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt8,		Double,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt8,		Complex,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Complex,	Operator_##op::Calc>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int8,	Int16,		Int8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int16,		UInt8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int16,		Int16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int16,		UInt16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int16,		Int32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int16,		UInt32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int16,		Int64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int16,		UInt64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int16,		Half,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int16,		Float,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int16,		Double,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int16,		Complex,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Complex,	Operator_##op::Calc>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int8,	UInt16,		Int8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt16,		UInt8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt16,		Int16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt16,		UInt16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt16,		Int32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt16,		UInt32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt16,		Int64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt16,		UInt64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt16,		Half,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt16,		Float,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt16,		Double,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt16,		Complex,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Boolean,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Complex,	Operator_##op::Calc>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int8,	Int32,		Int8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int32,		UInt8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int32,		Int16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int32,		UInt16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int32,		Int32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int32,		UInt32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int32,		Int64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int32,		UInt64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int32,		Half,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int32,		Float,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int32,		Double,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int32,		Complex,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Complex,	Operator_##op::Calc>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int8,	UInt32,		Int8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt32,		UInt8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt32,		Int16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt32,		UInt16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt32,		Int32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt32,		UInt32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt32,		Int64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt32,		UInt64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt32,		Half,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt32,		Float,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt32,		Double,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt32,		Complex,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Complex,	Operator_##op::Calc>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int8,	Int64,		Int8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int64,		UInt8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int64,		Int16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int64,		UInt16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int64,		Int32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int64,		UInt32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int64,		Int64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int64,		UInt64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int64,		Half,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int64,		Float,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int64,		Double,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Int64,		Complex,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Complex,	Operator_##op::Calc>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int8,	UInt64,		Int8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt64,		UInt8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt64,		Int16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt64,		UInt16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt64,		Int32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt64,		UInt32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt64,		Int64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt64,		UInt64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt64,		Half,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt64,		Float,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt64,		Double,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	UInt64,		Complex,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Complex,	Operator_##op::Calc>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int8,	Half,		Int8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Half,		UInt8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Half,		Int16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Half,		UInt16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Half,		Int32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Half,		UInt32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Half,		Int64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Half,		UInt64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Half,		Half,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Half,		Float,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Half,		Double,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Half,		Complex,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Complex,	Operator_##op::Calc>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int8,	Float,		Int8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Float,		UInt8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Float,		Int16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Float,		UInt16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Float,		Int32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Float,		UInt32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Float,		Int64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Float,		UInt64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Float,		Half,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Float,		Float,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Float,		Double,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Float,		Complex,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Complex,	Operator_##op::Calc>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int8,	Double,		Int8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Double,		UInt8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Double,		Int16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Double,		UInt16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Double,		Int32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Double,		UInt32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Double,		Int64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Double,		UInt64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Double,		Half,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Double,		Float,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Double,		Double,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Double,		Complex,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Complex,	Operator_##op::Calc>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int8,	Complex,	Int8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Complex,	UInt8,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Complex,	Int16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Complex,	UInt16,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Complex,	Int32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Complex,	UInt32,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Complex,	Int64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Complex,	UInt64,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Complex,	Half,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Complex,	Float,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Complex,	Double,		Operator_##op::Calc>, \
-			&funcPrefix##_array_array<Int8,	Complex,	Complex,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Complex,	Operator_##op::Calc>, \
 			nullptr, \
 		}, { \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
@@ -1694,63 +1787,67 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		}, \
 	}, { \
 		nullptr, \
-		&funcPrefix##_array_number<Int8,	Int8,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int8,	UInt8,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int8,	Int16,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int8,	UInt16,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int8,	Int32,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int8,	UInt32,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int8,	Int64,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int8,	UInt64,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int8,	Half,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int8,	Float,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int8,	Double,	Operator_##op::Calc>, \
-		&funcPrefix##_array_number<Int8,	Complex,Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,	Boolean,Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,	Int8,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,	UInt8,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,	Int16,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,	UInt16,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,	Int32,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,	UInt32,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,	Int64,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,	UInt64,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,	Half,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,	Float,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,	Double,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,	Complex,Operator_##op::Calc>, \
 		nullptr, \
 	}, { \
 		nullptr, \
-		&funcPrefix##_number_array<Int8,	Int8,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int8,	UInt8,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int8,	Int16,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int8,	UInt16,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int8,	Int32,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int8,	UInt32,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int8,	Int64,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int8,	UInt64,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int8,	Half,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int8,	Float,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int8,	Double,	Operator_##op::Calc>, \
-		&funcPrefix##_number_array<Int8,	Complex,Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,	Boolean,Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,	Int8,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,	UInt8,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,	Int16,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,	UInt16,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,	Int32,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,	UInt32,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,	Int64,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,	UInt64,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,	Half,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,	Float,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,	Double,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,	Complex,Operator_##op::Calc>, \
 		nullptr, \
 	}, { \
 		nullptr, \
-		&funcPrefix##_array_complex<Int8,	Int8,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int8,	UInt8,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int8,	Int16,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int8,	UInt16,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int8,	Int32,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int8,	UInt32,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int8,	Int64,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int8,	UInt64,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int8,	Half,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int8,	Float,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int8,	Double,	Operator_##op::Calc>, \
-		&funcPrefix##_array_complex<Int8,	Complex,Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Boolean,Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Int8,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	UInt8,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Int16,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	UInt16,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Int32,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	UInt32,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Int64,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	UInt64,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Half,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Float,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Double,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Complex,Operator_##op::Calc>, \
 		nullptr, \
 	}, { \
 		nullptr, \
-		&funcPrefix##_complex_array<Int8,	Int8,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int8,	UInt8,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int8,	Int16,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int8,	UInt16,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int8,	Int32,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int8,	UInt32,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int8,	Int64,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int8,	UInt64,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int8,	Half,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int8,	Float,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int8,	Double,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Int8,	Complex,Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Boolean,Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Int8,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	UInt8,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Int16,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	UInt16,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Int32,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	UInt32,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Int64,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	UInt64,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Half,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Float,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Double,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Complex,Operator_##op::Calc>, \
 		nullptr, \
 	} \
 }
@@ -1765,6 +1862,23 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
 		}, { \
 			nullptr, \
+			&BinaryFuncTmpl_array_array<Int8,		Boolean,	Boolean,	Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int8,		Boolean,	Int8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt8,		Boolean,	UInt8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int16,		Boolean,	Int16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt16,		Boolean,	UInt16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int32,		Boolean,	Int32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int32,		Boolean,	UInt32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Boolean,	Int64,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Boolean,	UInt64,		Operator_##op::Calc>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<Int8,		Int8,		Boolean,	Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int8,		Int8,		Int8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt8,		Int8,		UInt8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int16,		Int8,		Int16,		Operator_##op::Calc>, \
@@ -1780,6 +1894,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&BinaryFuncTmpl_array_array<UInt8,		UInt8,		Boolean,	Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt8,		UInt8,		Int8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt8,		UInt8,		UInt8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int16,		UInt8,		Int16,		Operator_##op::Calc>, \
@@ -1795,6 +1910,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&BinaryFuncTmpl_array_array<Int16,		Int16,		Boolean,	Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int16,		Int16,		Int8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int16,		Int16,		UInt8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int16,		Int16,		Int16,		Operator_##op::Calc>, \
@@ -1810,6 +1926,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		Boolean,	Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		Int8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		UInt8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		Int16,		Operator_##op::Calc>, \
@@ -1825,6 +1942,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		Boolean,	Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int32,		Int32,		Int8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int32,		Int32,		UInt8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int32,		Int32,		Int16,		Operator_##op::Calc>, \
@@ -1840,6 +1958,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		Boolean,	Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		Int8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		UInt8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		Int16,		Operator_##op::Calc>, \
@@ -1855,6 +1974,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		Boolean,	Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int64,		Int64,		UInt8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int16,		Operator_##op::Calc>, \
@@ -1870,6 +1990,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Boolean,	Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		UInt8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int16,		Operator_##op::Calc>, \
@@ -1895,6 +2016,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		}, \
 	}, { \
 		nullptr, \
+		&BinaryFuncTmpl_array_number<Int8,	Boolean,		Operator_##op::Calc>,	\
 		&BinaryFuncTmpl_array_number<Int8,	Int8,		Operator_##op::Calc>,	\
 		&BinaryFuncTmpl_array_number<UInt8,	UInt8,		Operator_##op::Calc>,	\
 		&BinaryFuncTmpl_array_number<Int16,	Int16,		Operator_##op::Calc>,	\
@@ -1910,6 +2032,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		nullptr, \
 	}, { \
 		nullptr, \
+		&BinaryFuncTmpl_number_array<Int8,	Boolean,	Operator_##op::Calc>,	\
 		&BinaryFuncTmpl_number_array<Int8,	Int8,		Operator_##op::Calc>,	\
 		&BinaryFuncTmpl_number_array<UInt8,	UInt8,		Operator_##op::Calc>,	\
 		&BinaryFuncTmpl_number_array<Int16,	Int16,		Operator_##op::Calc>,	\
@@ -1985,6 +2108,23 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 	}, {
 		nullptr,
+		&DotFuncTmpl<Int8,		Boolean,	Boolean	>,
+		&DotFuncTmpl<Int8,		Boolean,	Int8	>,
+		&DotFuncTmpl<UInt8,		Boolean,	UInt8	>,
+		&DotFuncTmpl<Int16,		Boolean,	Int16	>,
+		&DotFuncTmpl<UInt16,	Boolean,	UInt16	>,
+		&DotFuncTmpl<Int32,		Boolean,	Int32	>,
+		&DotFuncTmpl<UInt32,	Boolean,	UInt32	>,
+		&DotFuncTmpl<Int64,		Boolean,	Int64	>,
+		&DotFuncTmpl<UInt64,	Boolean,	UInt64	>,
+		&DotFuncTmpl<Half,		Boolean,	Half	>,
+		&DotFuncTmpl<Float,		Boolean,	Float	>,
+		&DotFuncTmpl<Double,	Boolean,	Double	>,
+		&DotFuncTmpl<Complex,	Boolean,	Complex	>,
+		nullptr,
+	}, {
+		nullptr,
+		&DotFuncTmpl<Int8,		Int8,		Boolean	>,
 		&DotFuncTmpl<Int8,		Int8,		Int8	>,
 		&DotFuncTmpl<UInt8,		Int8,		UInt8	>,
 		&DotFuncTmpl<Int16,		Int8,		Int16	>,
@@ -1996,10 +2136,11 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		&DotFuncTmpl<Half,		Int8,		Half	>,
 		&DotFuncTmpl<Float,		Int8,		Float	>,
 		&DotFuncTmpl<Double,	Int8,		Double	>,
-		&DotFuncTmpl<Complex,	UInt8,		Complex	>,
+		&DotFuncTmpl<Complex,	Int8,		Complex	>,
 		nullptr,
 	}, {
 		nullptr,
+		&DotFuncTmpl<UInt8,		UInt8,		Boolean	>,
 		&DotFuncTmpl<UInt8,		UInt8,		Int8	>,
 		&DotFuncTmpl<UInt8,		UInt8,		UInt8	>,
 		&DotFuncTmpl<Int16,		UInt8,		Int16	>,
@@ -2015,6 +2156,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 	}, {
 		nullptr,
+		&DotFuncTmpl<Int16,		Int16,		Boolean	>,
 		&DotFuncTmpl<Int16,		Int16,		Int8	>,
 		&DotFuncTmpl<Int16,		Int16,		UInt8	>,
 		&DotFuncTmpl<Int16,		Int16,		Int16	>,
@@ -2030,6 +2172,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 	}, {
 		nullptr,
+		&DotFuncTmpl<UInt16,	UInt16,		Boolean	>,
 		&DotFuncTmpl<UInt16,	UInt16,		Int8	>,
 		&DotFuncTmpl<UInt16,	UInt16,		UInt8	>,
 		&DotFuncTmpl<UInt16,	UInt16,		Int16	>,
@@ -2045,6 +2188,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 	}, {
 		nullptr,
+		&DotFuncTmpl<Int32,		Int32,		Boolean	>,
 		&DotFuncTmpl<Int32,		Int32,		Int8	>,
 		&DotFuncTmpl<Int32,		Int32,		UInt8	>,
 		&DotFuncTmpl<Int32,		Int32,		Int16	>,
@@ -2060,6 +2204,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 	}, {
 		nullptr,
+		&DotFuncTmpl<UInt32,	UInt32,		Boolean	>,
 		&DotFuncTmpl<UInt32,	UInt32,		Int8	>,
 		&DotFuncTmpl<UInt32,	UInt32,		UInt8	>,
 		&DotFuncTmpl<UInt32,	UInt32,		Int16	>,
@@ -2075,6 +2220,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 	}, {
 		nullptr,
+		&DotFuncTmpl<Int64,		Int64,		Boolean	>,
 		&DotFuncTmpl<Int64,		Int64,		Int8	>,
 		&DotFuncTmpl<Int64,		Int64,		UInt8	>,
 		&DotFuncTmpl<Int64,		Int64,		Int16	>,
@@ -2090,6 +2236,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 	}, {
 		nullptr,
+		&DotFuncTmpl<UInt64,	UInt64,		Boolean	>,
 		&DotFuncTmpl<UInt64,	UInt64,		Int8	>,
 		&DotFuncTmpl<UInt64,	UInt64,		UInt8	>,
 		&DotFuncTmpl<UInt64,	UInt64,		Int16	>,
@@ -2105,6 +2252,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 	}, {
 		nullptr,
+		&DotFuncTmpl<Half,		Half,		Boolean	>,
 		&DotFuncTmpl<Half,		Half,		Int8	>,
 		&DotFuncTmpl<Half,		Half,		UInt8	>,
 		&DotFuncTmpl<Half,		Half,		Int16	>,
@@ -2120,6 +2268,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 	}, {
 		nullptr,
+		&DotFuncTmpl<Float,		Float,		Boolean	>,
 		&DotFuncTmpl<Float,		Float,		Int8	>,
 		&DotFuncTmpl<Float,		Float,		UInt8	>,
 		&DotFuncTmpl<Float,		Float,		Int16	>,
@@ -2135,6 +2284,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 	}, {
 		nullptr,
+		&DotFuncTmpl<Double,	Double,		Boolean	>,
 		&DotFuncTmpl<Double,	Double,		Int8	>,
 		&DotFuncTmpl<Double,	Double,		UInt8	>,
 		&DotFuncTmpl<Double,	Double,		Int16	>,
@@ -2150,6 +2300,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 		nullptr,
 	}, {
 		nullptr,
+		&DotFuncTmpl<Complex,	Complex,	Boolean	>,
 		&DotFuncTmpl<Complex,	Complex,	Int8	>,
 		&DotFuncTmpl<Complex,	Complex,	UInt8	>,
 		&DotFuncTmpl<Complex,	Complex,	Int16	>,
@@ -2170,6 +2321,7 @@ Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 };
 
 Array::InvertFunc Array::invertFuncs[ETYPE_Max] = {
+	nullptr,
 	nullptr,
 	nullptr,
 	nullptr,

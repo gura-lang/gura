@@ -168,6 +168,7 @@ Value Object_array::EvalIndexGet(Environment &env, const ValueList &valListIdx)
 {
 	static const EvalIndexGetT evalIndexGetTbl[] = {
 		nullptr,
+		&EvalIndexGetTmpl<Boolean>,
 		&EvalIndexGetTmpl<Int8>,
 		&EvalIndexGetTmpl<UInt8>,
 		&EvalIndexGetTmpl<Int16>,
@@ -293,6 +294,7 @@ void Object_array::EvalIndexSet(Environment &env, const ValueList &valListIdx, c
 {
 	static const EvalIndexSetT evalIndexSetTbl[] = {
 		nullptr,
+		&EvalIndexSetTmpl<Boolean>,
 		&EvalIndexSetTmpl<Int8>,
 		&EvalIndexSetTmpl<UInt8>,
 		&EvalIndexSetTmpl<Int16>,
@@ -322,6 +324,7 @@ Iterator *Object_array::CreateIterator(Signal &sig)
 {
 	static const CreateIteratorT createIteratorTbl[] = {
 		nullptr,
+		&CreateIteratorTmpl<Boolean>,
 		&CreateIteratorTmpl<Int8>,
 		&CreateIteratorTmpl<UInt8>,
 		&CreateIteratorTmpl<Int16>,
@@ -439,6 +442,7 @@ Gura_DeclareProperty_R(array, elemtype)
 	AddHelp(
 		Gura_Symbol(en),
 		"Returns the typename of the elements as a `symbol` such as\n"
+		"`` `boolean``,\n"
 		"`` `int8``,\n"
 		"`` `uint8``,\n"
 		"`` `int16``,\n"
@@ -565,6 +569,7 @@ Gura_ImplementPropertyGetter(array, T)
 {
 	static const PropertyGetterT propertyGetters[] = {
 		nullptr,
+		&PropertyGetter_T<Boolean>,
 		&PropertyGetter_T<Int8>,
 		&PropertyGetter_T<UInt8>,
 		&PropertyGetter_T<Int16>,
@@ -604,6 +609,7 @@ Gura_DeclareFunction(array)
 		"Specifying the argument `elemtype` would create an array of other type than `array@double`.\n"
 		"Available symbols for `elemtype and their created type are as follows:\n"
 		"\n"
+		"- `` `boolean`` .. array@boolean\n"
 		"- `` `int8`` .. array@int8\n"
 		"- `` `uint8`` .. array@uint8\n"
 		"- `` `int16`` .. array@int16\n"
@@ -623,6 +629,7 @@ Gura_ImplementFunction(array)
 {
 	static const ConstructorT constructorTbl[] = {
 		nullptr,
+		&Object_arrayT<Boolean>::Constructor,
 		&Object_arrayT<Int8>::Constructor,
 		&Object_arrayT<UInt8>::Constructor,
 		&Object_arrayT<Int16>::Constructor,
@@ -707,6 +714,7 @@ Gura_ImplementMethod(array, average)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_average<Boolean>,
 		&Method_average<Int8>,
 		&Method_average<UInt8>,
 		&Method_average<Int16>,
@@ -774,6 +782,7 @@ Gura_ImplementMethod(array, dump)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_dump<Boolean>,
 		&Method_dump<Int8>,
 		&Method_dump<UInt8>,
 		&Method_dump<Int16>,
@@ -821,6 +830,7 @@ Gura_ImplementMethod(array, each)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_each<Boolean>,
 		&Method_each<Int8>,
 		&Method_each<UInt8>,
 		&Method_each<Int16>,
@@ -890,6 +900,7 @@ Gura_ImplementMethod(array, fill)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_fill<Boolean>,
 		&Method_fill<Int8>,
 		&Method_fill<UInt8>,
 		&Method_fill<Int16>,
@@ -930,6 +941,7 @@ Gura_ImplementMethod(array, flatten)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_flatten<Boolean>,
 		&Method_flatten<Int8>,
 		&Method_flatten<UInt8>,
 		&Method_flatten<Int16>,
@@ -980,6 +992,7 @@ Gura_ImplementMethod(array, head)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_head<Boolean>,
 		&Method_head<Int8>,
 		&Method_head<UInt8>,
 		&Method_head<Int16>,
@@ -1025,6 +1038,7 @@ Gura_ImplementMethod(array, invert)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_invert<Boolean>,
 		&Method_invert<Int8>,
 		&Method_invert<UInt8>,
 		&Method_invert<Int16>,
@@ -1090,6 +1104,7 @@ Gura_ImplementMethod(array, offset)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_offset<Boolean>,
 		&Method_offset<Int8>,
 		&Method_offset<UInt8>,
 		&Method_offset<Int16>,
@@ -1143,6 +1158,7 @@ Gura_ImplementMethod(array, paste)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_paste<Boolean>,
 		&Method_paste<Int8>,
 		&Method_paste<UInt8>,
 		&Method_paste<Int16>,
@@ -1186,6 +1202,7 @@ Gura_ImplementMethod(array, reshape)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_reshape<Boolean>,
 		&Method_reshape<Int8>,
 		&Method_reshape<UInt8>,
 		&Method_reshape<Int16>,
@@ -1228,6 +1245,7 @@ Gura_ImplementMethod(array, roundoff)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_roundoff<Boolean>,
 		&Method_roundoff<Int8>,
 		&Method_roundoff<UInt8>,
 		&Method_roundoff<Int16>,
@@ -1286,6 +1304,7 @@ Gura_ImplementMethod(array, sum)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_sum<Boolean>,
 		&Method_sum<Int8>,
 		&Method_sum<UInt8>,
 		&Method_sum<Int16>,
@@ -1336,6 +1355,7 @@ Gura_ImplementMethod(array, tail)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_tail<Boolean>,
 		&Method_tail<Int8>,
 		&Method_tail<UInt8>,
 		&Method_tail<Int16>,
@@ -1384,6 +1404,7 @@ Gura_ImplementMethod(array, transpose)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_transpose<Boolean>,
 		&Method_transpose<Int8>,
 		&Method_transpose<UInt8>,
 		&Method_transpose<Int16>,
@@ -1477,6 +1498,7 @@ bool Class_array::CastTo(Environment &env, Value &value, const Declaration &decl
 	const Array *pArray = Object_array::GetObject(value)->GetArray();
 	static const CastToT castTos[] = {
 		nullptr,
+		&CastToTmpl<Boolean>,
 		&CastToTmpl<Int8>,
 		&CastToTmpl<UInt8>,
 		&CastToTmpl<Int16>,
