@@ -17,7 +17,6 @@ class GURA_DLLDECLARE Array {
 public:
 	enum ElemType {
 		ETYPE_None,
-		ETYPE_Boolean,
 		ETYPE_Int8,
 		ETYPE_UInt8,
 		ETYPE_Int16,
