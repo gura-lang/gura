@@ -218,6 +218,7 @@ public:
 	inline bool IsStruct(size_t idxArg) const			{ return GetValue(idxArg).IsStruct();			}
 	inline bool Is_argument(size_t idxArg) const		{ return GetValue(idxArg).Is_argument();		}
 	inline bool Is_array(size_t idxArg) const			{ return GetValue(idxArg).Is_array();			}
+	inline bool Is_array_at_boolean(size_t idxArg) const{ return GetValue(idxArg).Is_array_at_boolean();}
 	inline bool Is_array_at_int8(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_int8();	}
 	inline bool Is_array_at_uint8(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_uint8();	}
 	inline bool Is_array_at_int16(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_int16();	}

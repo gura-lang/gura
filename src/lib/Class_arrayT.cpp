@@ -636,6 +636,7 @@ bool Class_arrayT<T_Elem>::CastTo(Environment &env, Value &value, const Declarat
 //------------------------------------------------------------------------------
 // Realization of Object_arrayT
 //------------------------------------------------------------------------------
+template class Object_arrayT<Boolean>;
 template class Object_arrayT<Int8>;
 template class Object_arrayT<UInt8>;
 template class Object_arrayT<Int16>;
@@ -653,6 +654,7 @@ template class Object_arrayT<Complex>;
 //------------------------------------------------------------------------------
 // Realization of Class_arrayT
 //------------------------------------------------------------------------------
+template class Class_arrayT<Boolean>;
 template class Class_arrayT<Int8>;
 template class Class_arrayT<UInt8>;
 template class Class_arrayT<Int16>;

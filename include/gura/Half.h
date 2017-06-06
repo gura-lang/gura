@@ -18,11 +18,22 @@ private:
 public:
 	inline Half() : _num(0) {}
 	inline Half(const Half &half) : _num(half._num) {}
+	inline Half(Boolean num) : _num(FloatToHalf(num)) {}
+	inline Half(Int8 num) : _num(FloatToHalf(num)) {}
+	inline Half(UInt8 num) : _num(FloatToHalf(num)) {}
+	inline Half(Int16 num) : _num(FloatToHalf(num)) {}
+	inline Half(UInt16 num) : _num(FloatToHalf(num)) {}
+	inline Half(Int32 num) : _num(FloatToHalf(num)) {}
+	inline Half(UInt32 num) : _num(FloatToHalf(num)) {}
+	inline Half(Int64 num) : _num(FloatToHalf(num)) {}
+	inline Half(UInt64 num) : _num(FloatToHalf(num)) {}
 	inline Half(Float num) : _num(FloatToHalf(num)) {}
+	inline Half(Double num) : _num(FloatToHalf(num)) {}
 public:
 	inline Half &operator=(const Half &half) { _num = half._num; return *this; }
 public:
 	inline Float ToFloat() const { return HalfToFloat(_num); }
+	inline explicit operator Boolean() const noexcept { return _num != 0x0000; }
 	inline explicit operator Int8() const noexcept { return static_cast<Int8>(HalfToFloat(_num)); }
 	inline explicit operator UInt8() const noexcept { return static_cast<UInt8>(HalfToFloat(_num)); }
 	inline explicit operator Int16() const noexcept { return static_cast<Int16>(HalfToFloat(_num)); }

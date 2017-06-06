@@ -57,6 +57,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_Struct;
 GURA_DLLDECLARE extern ValueType VTYPE_object;
 GURA_DLLDECLARE extern ValueType VTYPE_argument;
 GURA_DLLDECLARE extern ValueType VTYPE_array;
+GURA_DLLDECLARE extern ValueType VTYPE_array_at_boolean;
 GURA_DLLDECLARE extern ValueType VTYPE_array_at_int8;
 GURA_DLLDECLARE extern ValueType VTYPE_array_at_uint8;
 GURA_DLLDECLARE extern ValueType VTYPE_array_at_int16;
@@ -168,6 +169,7 @@ public:
 	Gura_DeclareVTYPE(object);
 	Gura_DeclareVTYPE(argument);
 	Gura_DeclareVTYPE(array);
+	Gura_DeclareVTYPE(array_at_boolean);
 	Gura_DeclareVTYPE(array_at_int8);
 	Gura_DeclareVTYPE(array_at_uint8);
 	Gura_DeclareVTYPE(array_at_int16);
