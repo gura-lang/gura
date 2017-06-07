@@ -75,7 +75,7 @@ void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const 
 template<typename T_Elem> void FormatElem(char *buff, int wdPad, const T_Elem &x);
 
 template<> void FormatElem(char *buff, int wdPad, const Boolean &x) {
-	::sprintf(buff, "%*d", wdPad, x);
+	::sprintf(buff, "%*s", wdPad, x? "true" : "false");
 }
 
 template<> void FormatElem(char *buff, int wdPad, const Int8 &x) {
