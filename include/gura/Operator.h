@@ -122,6 +122,36 @@ class Function;
 class OperatorEntry;
 
 //-----------------------------------------------------------------------------
+// additional operators
+//-----------------------------------------------------------------------------
+inline bool operator==(Half a, Boolean b) { return static_cast<Boolean>(a) == b; }
+inline bool operator==(Boolean a, Half b) { return operator==(b, a); }
+
+inline bool operator==(Int8 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
+inline bool operator==(UInt8 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
+inline bool operator==(Int16 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
+inline bool operator==(UInt16 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
+inline bool operator==(Int32 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
+inline bool operator==(UInt32 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
+inline bool operator==(Int64 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
+inline bool operator==(UInt64 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
+inline bool operator==(Half a, const Complex &b) { return a.ToFloat() == b.real() && b.imag() == 0; }
+inline bool operator==(Float a, const Complex &b) { return a == b.real() && b.imag() == 0; }
+inline bool operator==(Double a, const Complex &b) { return a == b.real() && b.imag() == 0; }
+
+inline bool operator==(const Complex &a, Int8 b) { return operator==(b, a); }
+inline bool operator==(const Complex &a, UInt8 b) { return operator==(b, a); }
+inline bool operator==(const Complex &a, Int16 b) { return operator==(b, a); }
+inline bool operator==(const Complex &a, UInt16 b) { return operator==(b, a); }
+inline bool operator==(const Complex &a, Int32 b) { return operator==(b, a); }
+inline bool operator==(const Complex &a, UInt32 b) { return operator==(b, a); }
+inline bool operator==(const Complex &a, Int64 b) { return operator==(b, a); }
+inline bool operator==(const Complex &a, UInt64 b) { return operator==(b, a); }
+inline bool operator==(const Complex &a, Half b) { return operator==(b, a); }
+inline bool operator==(const Complex &a, Float b) { return operator==(b, a); }
+inline bool operator==(const Complex &a, Double b) { return operator==(b, a); }
+
+//-----------------------------------------------------------------------------
 // Operator
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Operator {

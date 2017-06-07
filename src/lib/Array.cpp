@@ -2065,6 +2065,8 @@ ImplementBinaryFuncPack(Div,			"div",				"/",	BinaryFuncTmpl_Div);
 ImplementBinaryFuncPack(Mod,			"mod",				"%",	BinaryFuncTmpl_Div);
 ImplementBinaryFuncPack(Pow,			"pow",				"**",	BinaryFuncTmpl);
 
+ImplementBinaryFuncPack_Cmp(Eq,			"eq",				"==",	BinaryFuncTmpl);
+
 ImplementBinaryFuncPack_BitOp(And,		"and",				"&");
 ImplementBinaryFuncPack_BitOp(Or,		"or",				"|");
 ImplementBinaryFuncPack_BitOp(Xor,		"xor",				"^");

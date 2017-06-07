@@ -142,6 +142,12 @@ public:
 	static BinaryFuncPack binaryFuncPack_Div;
 	static BinaryFuncPack binaryFuncPack_Mod;
 	static BinaryFuncPack binaryFuncPack_Pow;
+	static BinaryFuncPack binaryFuncPack_Eq;
+	static BinaryFuncPack binaryFuncPack_Ne;
+	static BinaryFuncPack binaryFuncPack_Gt;
+	static BinaryFuncPack binaryFuncPack_Lt;
+	static BinaryFuncPack binaryFuncPack_Ge;
+	static BinaryFuncPack binaryFuncPack_Le;
 	static BinaryFuncPack binaryFuncPack_And;
 	static BinaryFuncPack binaryFuncPack_Or;
 	static BinaryFuncPack binaryFuncPack_Xor;
