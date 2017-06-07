@@ -886,3 +886,15 @@ testcase('store several matrices in a multi-dimensional array') {
 		tester(`(x |.| array {1, 0}))
 	}
 }
+testcase('comparator') {
+	funcs.each {|func|
+		println(function.getname(func))
+		x = func(0..9)
+		tester(`(x == 5))
+		tester(`(x != 5))
+		tester(`(x > 5))
+		tester(`(x < 5))
+		tester(`(x >= 5))
+		tester(`(x <= 5))
+	}	
+}
