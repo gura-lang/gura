@@ -3398,8 +3398,8 @@ x / 0 .. ZeroDivisionError: divide by zero
 ======== #14 sum/average ========
 
 <class:array@boolean(src?) {block?}>
-sum = true
-avg = false
+sum = 10
+avg = 1
 <class:array@int8(src?) {block?}>
 sum = 55
 avg = 5

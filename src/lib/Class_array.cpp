@@ -47,7 +47,7 @@ ArrayT<T_ElemResult> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 							  Array::Dimensions::const_iterator pDimAxis)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	AutoPtr<ArrayT<T_Elem> > pArrayTResult(
+	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(
 		ArrayT<T_ElemResult>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTResult->FillZero();
 	const T_Elem *pElem = pArrayT->GetPointer();
@@ -685,7 +685,7 @@ Gura_DeclareMethod(array, average)
 		);
 }
 
-template<typename T_Elem>
+template<typename T_ElemResult, typename T_Elem>
 Value Method_average(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
@@ -697,15 +697,15 @@ Value Method_average(Environment &env, Argument &arg, const Function *pFunc, Arr
 			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 			return Value::Nil;
 		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcAverageFlat<T_Elem, T_Elem>(pArrayT));
+			valueRtn = Value(CalcAverageFlat<T_ElemResult, T_Elem>(pArrayT));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			ArrayT<T_Elem> *pArrayTResult = CalcAverage<T_Elem, T_Elem>(pArrayT, pDimAxis);
+			ArrayT<T_ElemResult> *pArrayTResult = CalcAverage<T_ElemResult, T_Elem>(pArrayT, pDimAxis);
 			if (pArrayTResult == nullptr) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayTResult));
 		}
 	} else {
-		valueRtn = Value(CalcAverageFlat<T_Elem, T_Elem>(pArrayT));
+		valueRtn = Value(CalcAverageFlat<T_ElemResult, T_Elem>(pArrayT));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
@@ -714,20 +714,20 @@ Gura_ImplementMethod(array, average)
 {
 	static const MethodT methods[] = {
 		nullptr,
-		&Method_average<Boolean>,
-		&Method_average<Int8>,
-		&Method_average<UInt8>,
-		&Method_average<Int16>,
-		&Method_average<UInt16>,
-		&Method_average<Int32>,
-		&Method_average<UInt32>,
-		&Method_average<Int64>,
-		&Method_average<UInt64>,
-		&Method_average<Half>,
-		&Method_average<Float>,
-		&Method_average<Double>,
-		&Method_average<Complex>,
-		//&Method_average<Value>,
+		&Method_average<UInt32, Boolean>,
+		&Method_average<Int8, Int8>,
+		&Method_average<UInt8, UInt8>,
+		&Method_average<Int16, Int16>,
+		&Method_average<UInt16, UInt16>,
+		&Method_average<Int32, Int32>,
+		&Method_average<UInt32, UInt32>,
+		&Method_average<Int64, Int64>,
+		&Method_average<UInt64, UInt64>,
+		&Method_average<Half, Half>,
+		&Method_average<Float, Float>,
+		&Method_average<Double, Double>,
+		&Method_average<Complex, Complex>,
+		//&Method_average<Value, Value>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -1275,7 +1275,7 @@ Gura_DeclareMethod(array, sum)
 		);
 }
 
-template<typename T_Elem>
+template<typename T_ElemResult, typename T_Elem>
 Value Method_sum(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
@@ -1287,15 +1287,15 @@ Value Method_sum(Environment &env, Argument &arg, const Function *pFunc, Array *
 			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 			return Value::Nil;
 		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcSumFlat<T_Elem, T_Elem>(pArrayT));
+			valueRtn = Value(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			ArrayT<T_Elem> *pArrayTResult = CalcSum<T_Elem, T_Elem>(pArrayT, pDimAxis);
+			ArrayT<T_ElemResult> *pArrayTResult = CalcSum<T_ElemResult, T_Elem>(pArrayT, pDimAxis);
 			if (pArrayTResult == nullptr) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayTResult));
 		}
 	} else {
-		valueRtn = Value(CalcSumFlat<T_Elem, T_Elem>(pArrayT));
+		valueRtn = Value(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
@@ -1304,20 +1304,20 @@ Gura_ImplementMethod(array, sum)
 {
 	static const MethodT methods[] = {
 		nullptr,
-		&Method_sum<Boolean>,
-		&Method_sum<Int8>,
-		&Method_sum<UInt8>,
-		&Method_sum<Int16>,
-		&Method_sum<UInt16>,
-		&Method_sum<Int32>,
-		&Method_sum<UInt32>,
-		&Method_sum<Int64>,
-		&Method_sum<UInt64>,
-		&Method_sum<Half>,
-		&Method_sum<Float>,
-		&Method_sum<Double>,
-		&Method_sum<Complex>,
-		//&Method_sum<Value>,
+		&Method_sum<UInt32, Boolean>,
+		&Method_sum<Int8, Int8>,
+		&Method_sum<UInt8, UInt8>,
+		&Method_sum<Int16, Int16>,
+		&Method_sum<UInt16, UInt16>,
+		&Method_sum<Int32, Int32>,
+		&Method_sum<UInt32, UInt32>,
+		&Method_sum<Int64, Int64>,
+		&Method_sum<UInt64, UInt64>,
+		&Method_sum<Half, Half>,
+		&Method_sum<Float, Float>,
+		&Method_sum<Double, Double>,
+		&Method_sum<Complex, Complex>,
+		//&Method_sum<Value, Value>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
