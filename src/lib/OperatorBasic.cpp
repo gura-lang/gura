@@ -995,6 +995,36 @@ Gura_ImplementBinaryOperator(Eq, any, any)
 	return Value(cmp == 0);
 }
 
+Gura_ImplementBinaryOperator(Eq, array, array)
+{
+	return Array::ApplyBinaryFunc_array_array(
+		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Eq, array, number)
+{
+	return Array::ApplyBinaryFunc_array_number(
+		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Eq, number, array)
+{
+	return Array::ApplyBinaryFunc_number_array(
+		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Eq, array, complex)
+{
+	return Array::ApplyBinaryFunc_array_complex(
+		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Eq, complex, array)
+{
+	return Array::ApplyBinaryFunc_complex_array(
+		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
+}
+
 //-----------------------------------------------------------------------------
 // [A != B] ... BinaryOperator(Ne, A, B)
 //-----------------------------------------------------------------------------
@@ -1004,6 +1034,36 @@ Gura_ImplementBinaryOperator(Ne, any, any)
 	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Nil;
 	return Value(cmp != 0);
+}
+
+Gura_ImplementBinaryOperator(Ne, array, array)
+{
+	return Array::ApplyBinaryFunc_array_array(
+		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Ne, array, number)
+{
+	return Array::ApplyBinaryFunc_array_number(
+		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Ne, number, array)
+{
+	return Array::ApplyBinaryFunc_number_array(
+		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Ne, array, complex)
+{
+	return Array::ApplyBinaryFunc_array_complex(
+		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Ne, complex, array)
+{
+	return Array::ApplyBinaryFunc_complex_array(
+		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1017,6 +1077,36 @@ Gura_ImplementBinaryOperator(Gt, any, any)
 	return Value(cmp > 0);
 }
 
+Gura_ImplementBinaryOperator(Gt, array, array)
+{
+	return Array::ApplyBinaryFunc_array_array(
+		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Gt, array, number)
+{
+	return Array::ApplyBinaryFunc_array_number(
+		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Gt, number, array)
+{
+	return Array::ApplyBinaryFunc_number_array(
+		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Gt, array, complex)
+{
+	return Array::ApplyBinaryFunc_array_complex(
+		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Gt, complex, array)
+{
+	return Array::ApplyBinaryFunc_complex_array(
+		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
+}
+
 //-----------------------------------------------------------------------------
 // [A < B] ... BinaryOperator(Lt, A, B)
 //-----------------------------------------------------------------------------
@@ -1026,6 +1116,36 @@ Gura_ImplementBinaryOperator(Lt, any, any)
 	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Nil;
 	return Value(cmp < 0);
+}
+
+Gura_ImplementBinaryOperator(Lt, array, array)
+{
+	return Array::ApplyBinaryFunc_array_array(
+		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Lt, array, number)
+{
+	return Array::ApplyBinaryFunc_array_number(
+		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Lt, number, array)
+{
+	return Array::ApplyBinaryFunc_number_array(
+		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Lt, array, complex)
+{
+	return Array::ApplyBinaryFunc_array_complex(
+		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Lt, complex, array)
+{
+	return Array::ApplyBinaryFunc_complex_array(
+		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1039,6 +1159,36 @@ Gura_ImplementBinaryOperator(Ge, any, any)
 	return Value(cmp >= 0);
 }
 
+Gura_ImplementBinaryOperator(Ge, array, array)
+{
+	return Array::ApplyBinaryFunc_array_array(
+		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Ge, array, number)
+{
+	return Array::ApplyBinaryFunc_array_number(
+		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Ge, number, array)
+{
+	return Array::ApplyBinaryFunc_number_array(
+		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Ge, array, complex)
+{
+	return Array::ApplyBinaryFunc_array_complex(
+		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Ge, complex, array)
+{
+	return Array::ApplyBinaryFunc_complex_array(
+		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
+}
+
 //-----------------------------------------------------------------------------
 // [A <= B] ... BinaryOperator(Le, A, B)
 //-----------------------------------------------------------------------------
@@ -1048,6 +1198,36 @@ Gura_ImplementBinaryOperator(Le, any, any)
 	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Nil;
 	return Value(cmp <= 0);
+}
+
+Gura_ImplementBinaryOperator(Le, array, array)
+{
+	return Array::ApplyBinaryFunc_array_array(
+		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Le, array, number)
+{
+	return Array::ApplyBinaryFunc_array_number(
+		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Le, number, array)
+{
+	return Array::ApplyBinaryFunc_number_array(
+		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Le, array, complex)
+{
+	return Array::ApplyBinaryFunc_array_complex(
+		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(Le, complex, array)
+{
+	return Array::ApplyBinaryFunc_complex_array(
+		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -2280,11 +2460,41 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Pow, array, complex);
 	Gura_AssignBinaryOperator(Pow, complex, array);
 	Gura_AssignBinaryOperator(Eq, any, any);
+	Gura_AssignBinaryOperator(Eq, array, array);
+	Gura_AssignBinaryOperator(Eq, array, number);
+	Gura_AssignBinaryOperator(Eq, number, array);
+	Gura_AssignBinaryOperator(Eq, array, complex);
+	Gura_AssignBinaryOperator(Eq, complex, array);
 	Gura_AssignBinaryOperator(Ne, any, any);
+	Gura_AssignBinaryOperator(Ne, array, array);
+	Gura_AssignBinaryOperator(Ne, array, number);
+	Gura_AssignBinaryOperator(Ne, number, array);
+	Gura_AssignBinaryOperator(Ne, array, complex);
+	Gura_AssignBinaryOperator(Ne, complex, array);
 	Gura_AssignBinaryOperator(Gt, any, any);
+	Gura_AssignBinaryOperator(Gt, array, array);
+	Gura_AssignBinaryOperator(Gt, array, number);
+	Gura_AssignBinaryOperator(Gt, number, array);
+	Gura_AssignBinaryOperator(Gt, array, complex);
+	Gura_AssignBinaryOperator(Gt, complex, array);
 	Gura_AssignBinaryOperator(Lt, any, any);
+	Gura_AssignBinaryOperator(Lt, array, array);
+	Gura_AssignBinaryOperator(Lt, array, number);
+	Gura_AssignBinaryOperator(Lt, number, array);
+	Gura_AssignBinaryOperator(Lt, array, complex);
+	Gura_AssignBinaryOperator(Lt, complex, array);
 	Gura_AssignBinaryOperator(Ge, any, any);
+	Gura_AssignBinaryOperator(Ge, array, array);
+	Gura_AssignBinaryOperator(Ge, array, number);
+	Gura_AssignBinaryOperator(Ge, number, array);
+	Gura_AssignBinaryOperator(Ge, array, complex);
+	Gura_AssignBinaryOperator(Ge, complex, array);
 	Gura_AssignBinaryOperator(Le, any, any);
+	Gura_AssignBinaryOperator(Le, array, array);
+	Gura_AssignBinaryOperator(Le, array, number);
+	Gura_AssignBinaryOperator(Le, number, array);
+	Gura_AssignBinaryOperator(Le, array, complex);
+	Gura_AssignBinaryOperator(Le, complex, array);
 	Gura_AssignBinaryOperator(Cmp, boolean, boolean);
 	Gura_AssignBinaryOperator(Cmp, complex, complex);
 	Gura_AssignBinaryOperator(Cmp, number, number);

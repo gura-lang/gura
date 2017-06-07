@@ -122,34 +122,318 @@ class Function;
 class OperatorEntry;
 
 //-----------------------------------------------------------------------------
-// additional operators
+// Operator == override
 //-----------------------------------------------------------------------------
-inline bool operator==(Half a, Boolean b) { return static_cast<Boolean>(a) == b; }
-inline bool operator==(Boolean a, Half b) { return operator==(b, a); }
+inline bool operator==(Boolean a, Half b)			{ return a == static_cast<Boolean>(b); }
+inline bool operator==(Int8 a, Half b)				{ return a == static_cast<Int8>(b); }
+inline bool operator==(UInt8 a, Half b)				{ return a == static_cast<UInt8>(b); }
+inline bool operator==(Int16 a, Half b)				{ return a == static_cast<Int16>(b); }
+inline bool operator==(UInt16 a, Half b)			{ return a == static_cast<UInt16>(b); }
+inline bool operator==(Int32 a, Half b)				{ return a == static_cast<Int32>(b); }
+inline bool operator==(UInt32 a, Half b)			{ return a == static_cast<UInt32>(b); }
+inline bool operator==(Int64 a, Half b)				{ return a == static_cast<Int64>(b); }
+inline bool operator==(UInt64 a, Half b)			{ return a == static_cast<UInt64>(b); }
+inline bool operator==(Float a, Half b)				{ return a == static_cast<Float>(b); }
+inline bool operator==(Double a, Half b)			{ return a == static_cast<Double>(b); }
 
-inline bool operator==(Int8 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
-inline bool operator==(UInt8 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
-inline bool operator==(Int16 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
-inline bool operator==(UInt16 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
-inline bool operator==(Int32 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
-inline bool operator==(UInt32 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
-inline bool operator==(Int64 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
-inline bool operator==(UInt64 a, const Complex &b) { return a == b.real() && b.imag() == 0; }
-inline bool operator==(Half a, const Complex &b) { return a.ToFloat() == b.real() && b.imag() == 0; }
-inline bool operator==(Float a, const Complex &b) { return a == b.real() && b.imag() == 0; }
-inline bool operator==(Double a, const Complex &b) { return a == b.real() && b.imag() == 0; }
+inline bool operator==(Half a, Boolean b)			{ return static_cast<Boolean>(a) == b; }
+inline bool operator==(Half a, Int8 b)				{ return static_cast<Int8>(a) == b; }
+inline bool operator==(Half a, UInt8 b)				{ return static_cast<UInt8>(a) == b; }
+inline bool operator==(Half a, Int16 b)				{ return static_cast<Int16>(a) == b; }
+inline bool operator==(Half a, UInt16 b)			{ return static_cast<UInt16>(a) == b; }
+inline bool operator==(Half a, Int32 b)				{ return static_cast<Int32>(a) == b; }
+inline bool operator==(Half a, UInt32 b)			{ return static_cast<UInt32>(a) == b; }
+inline bool operator==(Half a, Int64 b)				{ return static_cast<Int64>(a) == b; }
+inline bool operator==(Half a, UInt64 b)			{ return static_cast<UInt64>(a) == b; }
+inline bool operator==(Half a, Float b)				{ return static_cast<Float>(a) == b; }
+inline bool operator==(Half a, Double b)			{ return static_cast<Double>(a) == b; }
 
-inline bool operator==(const Complex &a, Int8 b) { return operator==(b, a); }
-inline bool operator==(const Complex &a, UInt8 b) { return operator==(b, a); }
-inline bool operator==(const Complex &a, Int16 b) { return operator==(b, a); }
-inline bool operator==(const Complex &a, UInt16 b) { return operator==(b, a); }
-inline bool operator==(const Complex &a, Int32 b) { return operator==(b, a); }
-inline bool operator==(const Complex &a, UInt32 b) { return operator==(b, a); }
-inline bool operator==(const Complex &a, Int64 b) { return operator==(b, a); }
-inline bool operator==(const Complex &a, UInt64 b) { return operator==(b, a); }
-inline bool operator==(const Complex &a, Half b) { return operator==(b, a); }
-inline bool operator==(const Complex &a, Float b) { return operator==(b, a); }
-inline bool operator==(const Complex &a, Double b) { return operator==(b, a); }
+inline bool operator==(Int8 a, const Complex &b)	{ return a == b.real() && b.imag() == 0; }
+inline bool operator==(UInt8 a, const Complex &b)	{ return a == b.real() && b.imag() == 0; }
+inline bool operator==(Int16 a, const Complex &b)	{ return a == b.real() && b.imag() == 0; }
+inline bool operator==(UInt16 a, const Complex &b)	{ return a == b.real() && b.imag() == 0; }
+inline bool operator==(Int32 a, const Complex &b)	{ return a == b.real() && b.imag() == 0; }
+inline bool operator==(UInt32 a, const Complex &b)	{ return a == b.real() && b.imag() == 0; }
+inline bool operator==(Int64 a, const Complex &b)	{ return a == b.real() && b.imag() == 0; }
+inline bool operator==(UInt64 a, const Complex &b)	{ return a == b.real() && b.imag() == 0; }
+inline bool operator==(Half a, const Complex &b)	{ return static_cast<Float>(a) == b.real() && b.imag() == 0; }
+inline bool operator==(Float a, const Complex &b)	{ return a == b.real() && b.imag() == 0; }
+inline bool operator==(Double a, const Complex &b)	{ return a == b.real() && b.imag() == 0; }
+
+inline bool operator==(const Complex &a, Int8 b)	{ return operator==(b, a); }
+inline bool operator==(const Complex &a, UInt8 b)	{ return operator==(b, a); }
+inline bool operator==(const Complex &a, Int16 b)	{ return operator==(b, a); }
+inline bool operator==(const Complex &a, UInt16 b)	{ return operator==(b, a); }
+inline bool operator==(const Complex &a, Int32 b)	{ return operator==(b, a); }
+inline bool operator==(const Complex &a, UInt32 b)	{ return operator==(b, a); }
+inline bool operator==(const Complex &a, Int64 b)	{ return operator==(b, a); }
+inline bool operator==(const Complex &a, UInt64 b)	{ return operator==(b, a); }
+inline bool operator==(const Complex &a, Half b)	{ return operator==(b, a); }
+inline bool operator==(const Complex &a, Float b)	{ return operator==(b, a); }
+inline bool operator==(const Complex &a, Double b)	{ return operator==(b, a); }
+
+//-----------------------------------------------------------------------------
+// Operator != override
+//-----------------------------------------------------------------------------
+inline bool operator!=(Boolean a, Half b)			{ return a != static_cast<Boolean>(b); }
+inline bool operator!=(Int8 a, Half b)				{ return a != static_cast<Int8>(b); }
+inline bool operator!=(UInt8 a, Half b)				{ return a != static_cast<UInt8>(b); }
+inline bool operator!=(Int16 a, Half b)				{ return a != static_cast<Int16>(b); }
+inline bool operator!=(UInt16 a, Half b)			{ return a != static_cast<UInt16>(b); }
+inline bool operator!=(Int32 a, Half b)				{ return a != static_cast<Int32>(b); }
+inline bool operator!=(UInt32 a, Half b)			{ return a != static_cast<UInt32>(b); }
+inline bool operator!=(Int64 a, Half b)				{ return a != static_cast<Int64>(b); }
+inline bool operator!=(UInt64 a, Half b)			{ return a != static_cast<UInt64>(b); }
+inline bool operator!=(Float a, Half b)				{ return a != static_cast<Float>(b); }
+inline bool operator!=(Double a, Half b)			{ return a != static_cast<Double>(b); }
+
+inline bool operator!=(Half a, Boolean b)			{ return static_cast<Boolean>(a) != b; }
+inline bool operator!=(Half a, Int8 b)				{ return static_cast<Int8>(a) != b; }
+inline bool operator!=(Half a, UInt8 b)				{ return static_cast<UInt8>(a) != b; }
+inline bool operator!=(Half a, Int16 b)				{ return static_cast<Int16>(a) != b; }
+inline bool operator!=(Half a, UInt16 b)			{ return static_cast<UInt16>(a) != b; }
+inline bool operator!=(Half a, Int32 b)				{ return static_cast<Int32>(a) != b; }
+inline bool operator!=(Half a, UInt32 b)			{ return static_cast<UInt32>(a) != b; }
+inline bool operator!=(Half a, Int64 b)				{ return static_cast<Int64>(a) != b; }
+inline bool operator!=(Half a, UInt64 b)			{ return static_cast<UInt64>(a) != b; }
+inline bool operator!=(Half a, Float b)				{ return static_cast<Float>(a) != b; }
+inline bool operator!=(Half a, Double b)			{ return static_cast<Double>(a) != b; }
+
+inline bool operator!=(Int8 a, const Complex &b)	{ return !operator==(a, b); }
+inline bool operator!=(UInt8 a, const Complex &b)	{ return !operator==(a, b); }
+inline bool operator!=(Int16 a, const Complex &b) 	{ return !operator==(a, b); }
+inline bool operator!=(UInt16 a, const Complex &b)	{ return !operator==(a, b); }
+inline bool operator!=(Int32 a, const Complex &b)	{ return !operator==(a, b); }
+inline bool operator!=(UInt32 a, const Complex &b)	{ return !operator==(a, b); }
+inline bool operator!=(Int64 a, const Complex &b)	{ return !operator==(a, b); }
+inline bool operator!=(UInt64 a, const Complex &b)	{ return !operator==(a, b); }
+inline bool operator!=(Half a, const Complex &b)	{ return !operator==(a, b); }
+inline bool operator!=(Float a, const Complex &b)	{ return !operator==(a, b); }
+inline bool operator!=(Double a, const Complex &b)	{ return !operator==(a, b); }
+
+inline bool operator!=(const Complex &a, Int8 b)	{ return operator!=(b, a); }
+inline bool operator!=(const Complex &a, UInt8 b)	{ return operator!=(b, a); }
+inline bool operator!=(const Complex &a, Int16 b)	{ return operator!=(b, a); }
+inline bool operator!=(const Complex &a, UInt16 b)	{ return operator!=(b, a); }
+inline bool operator!=(const Complex &a, Int32 b)	{ return operator!=(b, a); }
+inline bool operator!=(const Complex &a, UInt32 b)	{ return operator!=(b, a); }
+inline bool operator!=(const Complex &a, Int64 b)	{ return operator!=(b, a); }
+inline bool operator!=(const Complex &a, UInt64 b)	{ return operator!=(b, a); }
+inline bool operator!=(const Complex &a, Half b)	{ return operator!=(b, a); }
+inline bool operator!=(const Complex &a, Float b)	{ return operator!=(b, a); }
+inline bool operator!=(const Complex &a, Double b)	{ return operator!=(b, a); }
+
+//-----------------------------------------------------------------------------
+// Operator > override
+//-----------------------------------------------------------------------------
+inline bool operator>(Boolean a, Half b)			{ return a > static_cast<Boolean>(b); }
+inline bool operator>(Int8 a, Half b)				{ return a > static_cast<Int8>(b); }
+inline bool operator>(UInt8 a, Half b)				{ return a > static_cast<UInt8>(b); }
+inline bool operator>(Int16 a, Half b)				{ return a > static_cast<Int16>(b); }
+inline bool operator>(UInt16 a, Half b)				{ return a > static_cast<UInt16>(b); }
+inline bool operator>(Int32 a, Half b)				{ return a > static_cast<Int32>(b); }
+inline bool operator>(UInt32 a, Half b)				{ return a > static_cast<UInt32>(b); }
+inline bool operator>(Int64 a, Half b)				{ return a > static_cast<Int64>(b); }
+inline bool operator>(UInt64 a, Half b)				{ return a > static_cast<UInt64>(b); }
+inline bool operator>(Float a, Half b)				{ return a > static_cast<Float>(b); }
+inline bool operator>(Double a, Half b)				{ return a > static_cast<Double>(b); }
+
+inline bool operator>(Half a, Boolean b)			{ return static_cast<Boolean>(a) > b; }
+inline bool operator>(Half a, Int8 b)				{ return static_cast<Int8>(a) > b; }
+inline bool operator>(Half a, UInt8 b)				{ return static_cast<UInt8>(a) > b; }
+inline bool operator>(Half a, Int16 b)				{ return static_cast<Int16>(a) > b; }
+inline bool operator>(Half a, UInt16 b)				{ return static_cast<UInt16>(a) > b; }
+inline bool operator>(Half a, Int32 b)				{ return static_cast<Int32>(a) > b; }
+inline bool operator>(Half a, UInt32 b)				{ return static_cast<UInt32>(a) > b; }
+inline bool operator>(Half a, Int64 b)				{ return static_cast<Int64>(a) > b; }
+inline bool operator>(Half a, UInt64 b)				{ return static_cast<UInt64>(a) > b; }
+inline bool operator>(Half a, Float b)				{ return static_cast<Float>(a) > b; }
+inline bool operator>(Half a, Double b)				{ return static_cast<Double>(a) > b; }
+
+inline bool operator>(const Complex &a, const Complex &b) { return false; }
+
+inline bool operator>(Int8 a, const Complex &b)		{ return false; }
+inline bool operator>(UInt8 a, const Complex &b)	{ return false; }
+inline bool operator>(Int16 a, const Complex &b)	{ return false; }
+inline bool operator>(UInt16 a, const Complex &b)	{ return false; }
+inline bool operator>(Int32 a, const Complex &b)	{ return false; }
+inline bool operator>(UInt32 a, const Complex &b)	{ return false; }
+inline bool operator>(Int64 a, const Complex &b)	{ return false; }
+inline bool operator>(UInt64 a, const Complex &b)	{ return false; }
+inline bool operator>(Half a, const Complex &b)		{ return false; }
+inline bool operator>(Float a, const Complex &b)	{ return false; }
+inline bool operator>(Double a, const Complex &b)	{ return false; }
+
+inline bool operator>(const Complex &a, Int8 b)		{ return false; }
+inline bool operator>(const Complex &a, UInt8 b)	{ return false; }
+inline bool operator>(const Complex &a, Int16 b)	{ return false; }
+inline bool operator>(const Complex &a, UInt16 b)	{ return false; }
+inline bool operator>(const Complex &a, Int32 b)	{ return false; }
+inline bool operator>(const Complex &a, UInt32 b)	{ return false; }
+inline bool operator>(const Complex &a, Int64 b)	{ return false; }
+inline bool operator>(const Complex &a, UInt64 b)	{ return false; }
+inline bool operator>(const Complex &a, Half b)		{ return false; }
+inline bool operator>(const Complex &a, Float b)	{ return false; }
+inline bool operator>(const Complex &a, Double b)	{ return false; }
+
+//-----------------------------------------------------------------------------
+// Operator < override
+//-----------------------------------------------------------------------------
+inline bool operator<(Boolean a, Half b)			{ return a < static_cast<Boolean>(b); }
+inline bool operator<(Int8 a, Half b)				{ return a < static_cast<Int8>(b); }
+inline bool operator<(UInt8 a, Half b)				{ return a < static_cast<UInt8>(b); }
+inline bool operator<(Int16 a, Half b)				{ return a < static_cast<Int16>(b); }
+inline bool operator<(UInt16 a, Half b)				{ return a < static_cast<UInt16>(b); }
+inline bool operator<(Int32 a, Half b)				{ return a < static_cast<Int32>(b); }
+inline bool operator<(UInt32 a, Half b)				{ return a < static_cast<UInt32>(b); }
+inline bool operator<(Int64 a, Half b)				{ return a < static_cast<Int64>(b); }
+inline bool operator<(UInt64 a, Half b)				{ return a < static_cast<UInt64>(b); }
+inline bool operator<(Float a, Half b)				{ return a < static_cast<Float>(b); }
+inline bool operator<(Double a, Half b)				{ return a < static_cast<Double>(b); }
+
+inline bool operator<(Half a, Boolean b)			{ return static_cast<Boolean>(a) < b; }
+inline bool operator<(Half a, Int8 b)				{ return static_cast<Int8>(a) < b; }
+inline bool operator<(Half a, UInt8 b)				{ return static_cast<UInt8>(a) < b; }
+inline bool operator<(Half a, Int16 b)				{ return static_cast<Int16>(a) < b; }
+inline bool operator<(Half a, UInt16 b)				{ return static_cast<UInt16>(a) < b; }
+inline bool operator<(Half a, Int32 b)				{ return static_cast<Int32>(a) < b; }
+inline bool operator<(Half a, UInt32 b)				{ return static_cast<UInt32>(a) < b; }
+inline bool operator<(Half a, Int64 b)				{ return static_cast<Int64>(a) < b; }
+inline bool operator<(Half a, UInt64 b)				{ return static_cast<UInt64>(a) < b; }
+inline bool operator<(Half a, Float b)				{ return static_cast<Float>(a) < b; }
+inline bool operator<(Half a, Double b)				{ return static_cast<Double>(a) < b; }
+
+inline bool operator<(const Complex &a, const Complex &b) { return false; }
+
+inline bool operator<(Int8 a, const Complex &b)		{ return false; }
+inline bool operator<(UInt8 a, const Complex &b)	{ return false; }
+inline bool operator<(Int16 a, const Complex &b)	{ return false; }
+inline bool operator<(UInt16 a, const Complex &b)	{ return false; }
+inline bool operator<(Int32 a, const Complex &b)	{ return false; }
+inline bool operator<(UInt32 a, const Complex &b)	{ return false; }
+inline bool operator<(Int64 a, const Complex &b)	{ return false; }
+inline bool operator<(UInt64 a, const Complex &b)	{ return false; }
+inline bool operator<(Half a, const Complex &b)		{ return false; }
+inline bool operator<(Float a, const Complex &b)	{ return false; }
+inline bool operator<(Double a, const Complex &b)	{ return false; }
+
+inline bool operator<(const Complex &a, Int8 b)		{ return false; }
+inline bool operator<(const Complex &a, UInt8 b)	{ return false; }
+inline bool operator<(const Complex &a, Int16 b)	{ return false; }
+inline bool operator<(const Complex &a, UInt16 b)	{ return false; }
+inline bool operator<(const Complex &a, Int32 b)	{ return false; }
+inline bool operator<(const Complex &a, UInt32 b)	{ return false; }
+inline bool operator<(const Complex &a, Int64 b)	{ return false; }
+inline bool operator<(const Complex &a, UInt64 b)	{ return false; }
+inline bool operator<(const Complex &a, Half b)		{ return false; }
+inline bool operator<(const Complex &a, Float b)	{ return false; }
+inline bool operator<(const Complex &a, Double b)	{ return false; }
+
+//-----------------------------------------------------------------------------
+// Operator >= override
+//-----------------------------------------------------------------------------
+inline bool operator>=(Boolean a, Half b)			{ return a >= static_cast<Boolean>(b); }
+inline bool operator>=(Int8 a, Half b)				{ return a >= static_cast<Int8>(b); }
+inline bool operator>=(UInt8 a, Half b)				{ return a >= static_cast<UInt8>(b); }
+inline bool operator>=(Int16 a, Half b)				{ return a >= static_cast<Int16>(b); }
+inline bool operator>=(UInt16 a, Half b)			{ return a >= static_cast<UInt16>(b); }
+inline bool operator>=(Int32 a, Half b)				{ return a >= static_cast<Int32>(b); }
+inline bool operator>=(UInt32 a, Half b)			{ return a >= static_cast<UInt32>(b); }
+inline bool operator>=(Int64 a, Half b)				{ return a >= static_cast<Int64>(b); }
+inline bool operator>=(UInt64 a, Half b)			{ return a >= static_cast<UInt64>(b); }
+inline bool operator>=(Float a, Half b)				{ return a >= static_cast<Float>(b); }
+inline bool operator>=(Double a, Half b)			{ return a >= static_cast<Double>(b); }
+
+inline bool operator>=(Half a, Boolean b)			{ return static_cast<Boolean>(a) >= b; }
+inline bool operator>=(Half a, Int8 b)				{ return static_cast<Int8>(a) >= b; }
+inline bool operator>=(Half a, UInt8 b)				{ return static_cast<UInt8>(a) >= b; }
+inline bool operator>=(Half a, Int16 b)				{ return static_cast<Int16>(a) >= b; }
+inline bool operator>=(Half a, UInt16 b)			{ return static_cast<UInt16>(a) >= b; }
+inline bool operator>=(Half a, Int32 b)				{ return static_cast<Int32>(a) >= b; }
+inline bool operator>=(Half a, UInt32 b)			{ return static_cast<UInt32>(a) >= b; }
+inline bool operator>=(Half a, Int64 b)				{ return static_cast<Int64>(a) >= b; }
+inline bool operator>=(Half a, UInt64 b)			{ return static_cast<UInt64>(a) >= b; }
+inline bool operator>=(Half a, Float b)				{ return static_cast<Float>(a) >= b; }
+inline bool operator>=(Half a, Double b)			{ return static_cast<Double>(a) >= b; }
+
+inline bool operator>=(const Complex &a, const Complex &b) { return false; }
+
+inline bool operator>=(Int8 a, const Complex &b)	{ return false; }
+inline bool operator>=(UInt8 a, const Complex &b)	{ return false; }
+inline bool operator>=(Int16 a, const Complex &b)	{ return false; }
+inline bool operator>=(UInt16 a, const Complex &b)	{ return false; }
+inline bool operator>=(Int32 a, const Complex &b)	{ return false; }
+inline bool operator>=(UInt32 a, const Complex &b)	{ return false; }
+inline bool operator>=(Int64 a, const Complex &b)	{ return false; }
+inline bool operator>=(UInt64 a, const Complex &b)	{ return false; }
+inline bool operator>=(Half a, const Complex &b)	{ return false; }
+inline bool operator>=(Float a, const Complex &b)	{ return false; }
+inline bool operator>=(Double a, const Complex &b)	{ return false; }
+
+inline bool operator>=(const Complex &a, Int8 b)	{ return false; }
+inline bool operator>=(const Complex &a, UInt8 b)	{ return false; }
+inline bool operator>=(const Complex &a, Int16 b)	{ return false; }
+inline bool operator>=(const Complex &a, UInt16 b)	{ return false; }
+inline bool operator>=(const Complex &a, Int32 b)	{ return false; }
+inline bool operator>=(const Complex &a, UInt32 b)	{ return false; }
+inline bool operator>=(const Complex &a, Int64 b)	{ return false; }
+inline bool operator>=(const Complex &a, UInt64 b)	{ return false; }
+inline bool operator>=(const Complex &a, Half b)	{ return false; }
+inline bool operator>=(const Complex &a, Float b)	{ return false; }
+inline bool operator>=(const Complex &a, Double b)	{ return false; }
+
+//-----------------------------------------------------------------------------
+// Operator <= override
+//-----------------------------------------------------------------------------
+inline bool operator<=(Boolean a, Half b)			{ return a <= static_cast<Boolean>(b); }
+inline bool operator<=(Int8 a, Half b)				{ return a <= static_cast<Int8>(b); }
+inline bool operator<=(UInt8 a, Half b)				{ return a <= static_cast<UInt8>(b); }
+inline bool operator<=(Int16 a, Half b)				{ return a <= static_cast<Int16>(b); }
+inline bool operator<=(UInt16 a, Half b)			{ return a <= static_cast<UInt16>(b); }
+inline bool operator<=(Int32 a, Half b)				{ return a <= static_cast<Int32>(b); }
+inline bool operator<=(UInt32 a, Half b)			{ return a <= static_cast<UInt32>(b); }
+inline bool operator<=(Int64 a, Half b)				{ return a <= static_cast<Int64>(b); }
+inline bool operator<=(UInt64 a, Half b)			{ return a <= static_cast<UInt64>(b); }
+inline bool operator<=(Float a, Half b)				{ return a <= static_cast<Float>(b); }
+inline bool operator<=(Double a, Half b)			{ return a <= static_cast<Double>(b); }
+
+inline bool operator<=(Half a, Boolean b)			{ return static_cast<Boolean>(a) <= b; }
+inline bool operator<=(Half a, Int8 b)				{ return static_cast<Int8>(a) <= b; }
+inline bool operator<=(Half a, UInt8 b)				{ return static_cast<UInt8>(a) <= b; }
+inline bool operator<=(Half a, Int16 b)				{ return static_cast<Int16>(a) <= b; }
+inline bool operator<=(Half a, UInt16 b)			{ return static_cast<UInt16>(a) <= b; }
+inline bool operator<=(Half a, Int32 b)				{ return static_cast<Int32>(a) <= b; }
+inline bool operator<=(Half a, UInt32 b)			{ return static_cast<UInt32>(a) <= b; }
+inline bool operator<=(Half a, Int64 b)				{ return static_cast<Int64>(a) <= b; }
+inline bool operator<=(Half a, UInt64 b)			{ return static_cast<UInt64>(a) <= b; }
+inline bool operator<=(Half a, Float b)				{ return static_cast<Float>(a) <= b; }
+inline bool operator<=(Half a, Double b)			{ return static_cast<Double>(a) <= b; }
+
+inline bool operator<=(const Complex &a, const Complex &b) { return false; }
+
+inline bool operator<=(Int8 a, const Complex &b)	{ return false; }
+inline bool operator<=(UInt8 a, const Complex &b)	{ return false; }
+inline bool operator<=(Int16 a, const Complex &b)	{ return false; }
+inline bool operator<=(UInt16 a, const Complex &b)	{ return false; }
+inline bool operator<=(Int32 a, const Complex &b)	{ return false; }
+inline bool operator<=(UInt32 a, const Complex &b)	{ return false; }
+inline bool operator<=(Int64 a, const Complex &b)	{ return false; }
+inline bool operator<=(UInt64 a, const Complex &b)	{ return false; }
+inline bool operator<=(Half a, const Complex &b)	{ return false; }
+inline bool operator<=(Float a, const Complex &b)	{ return false; }
+inline bool operator<=(Double a, const Complex &b)	{ return false; }
+
+inline bool operator<=(const Complex &a, Int8 b)	{ return false; }
+inline bool operator<=(const Complex &a, UInt8 b)	{ return false; }
+inline bool operator<=(const Complex &a, Int16 b)	{ return false; }
+inline bool operator<=(const Complex &a, UInt16 b)	{ return false; }
+inline bool operator<=(const Complex &a, Int32 b)	{ return false; }
+inline bool operator<=(const Complex &a, UInt32 b)	{ return false; }
+inline bool operator<=(const Complex &a, Int64 b)	{ return false; }
+inline bool operator<=(const Complex &a, UInt64 b)	{ return false; }
+inline bool operator<=(const Complex &a, Half b)	{ return false; }
+inline bool operator<=(const Complex &a, Float b)	{ return false; }
+inline bool operator<=(const Complex &a, Double b)	{ return false; }
 
 //-----------------------------------------------------------------------------
 // Operator

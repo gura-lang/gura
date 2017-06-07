@@ -2066,6 +2066,11 @@ ImplementBinaryFuncPack(Mod,			"mod",				"%",	BinaryFuncTmpl_Div);
 ImplementBinaryFuncPack(Pow,			"pow",				"**",	BinaryFuncTmpl);
 
 ImplementBinaryFuncPack_Cmp(Eq,			"eq",				"==",	BinaryFuncTmpl);
+ImplementBinaryFuncPack_Cmp(Ne,			"ne",				"!=",	BinaryFuncTmpl);
+ImplementBinaryFuncPack_Cmp(Gt,			"gt",				">",	BinaryFuncTmpl);
+ImplementBinaryFuncPack_Cmp(Lt,			"lt",				"<",	BinaryFuncTmpl);
+ImplementBinaryFuncPack_Cmp(Ge,			"ge",				">=",	BinaryFuncTmpl);
+ImplementBinaryFuncPack_Cmp(Le,			"le",				"<=",	BinaryFuncTmpl);
 
 ImplementBinaryFuncPack_BitOp(And,		"and",				"&");
 ImplementBinaryFuncPack_BitOp(Or,		"or",				"|");

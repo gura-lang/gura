@@ -111,7 +111,7 @@ template<> void FormatElem(char *buff, int wdPad, const UInt64 &x) {
 }
 
 template<> void FormatElem(char *buff, int wdPad, const Half &x) {
-	::sprintf(buff, "%*g", wdPad, x.ToFloat());
+	::sprintf(buff, "%*g", wdPad, static_cast<Float>(x));
 }
 
 template<> void FormatElem(char *buff, int wdPad, const Float &x) {
