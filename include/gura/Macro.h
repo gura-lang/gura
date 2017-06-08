@@ -39,6 +39,7 @@
 #pragma warning(disable:4355)
 #pragma warning(disable:4800)
 #pragma warning(disable:4804)
+#pragma warning(disable:4805)
 #pragma warning(disable:4996)
 #define GURA_DLLIMPORT __declspec(dllimport)
 #define GURA_DLLEXPORT __declspec(dllexport)
