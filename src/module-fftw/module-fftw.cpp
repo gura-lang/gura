@@ -2,7 +2,6 @@
 // Gura module: fftw
 //=============================================================================
 #include "stdafx.h"
-#include "fftw3.h"
 
 Gura_BeginModuleBody(fftw)
 
@@ -118,6 +117,7 @@ Gura_ImplementMethod(array, dft)
 {
 	static const MethodT methods[] = {
 		nullptr,
+		&Method_array_dft<Boolean>,
 		&Method_array_dft<Int8>,
 		&Method_array_dft<UInt8>,
 		&Method_array_dft<Int16>,

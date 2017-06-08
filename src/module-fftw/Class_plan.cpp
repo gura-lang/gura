@@ -7,6 +7,7 @@ Gura_BeginModuleScope(fftw)
 //-----------------------------------------------------------------------------
 Object_plan::~Object_plan()
 {
+	::fftw_destroy_plan(_plan);
 }
 
 Object *Object_plan::Clone() const
