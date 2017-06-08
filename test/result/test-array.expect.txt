@@ -6144,138 +6144,163 @@ x ** 2j .. [                   1,   0.183457+0.983028j,  -0.586255+0.810127j,  -
 
 ======== #50 array#elemcast() ========
 
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int8 <- int8 [shared]
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint8 <- int8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int16 <- int8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint16 <- int8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int32 <- int8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint32 <- int8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int64 <- int8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint64 <- int8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: half <- int8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: float <- int8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: double <- int8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: complex <- int8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int8 <- uint8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint8 <- uint8 [shared]
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int16 <- uint8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint16 <- uint8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int32 <- uint8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint32 <- uint8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int64 <- uint8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint64 <- uint8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: half <- uint8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: float <- uint8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: double <- uint8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: complex <- uint8
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int8 <- int16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint8 <- int16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int16 <- int16 [shared]
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint16 <- int16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int32 <- int16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint32 <- int16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int64 <- int16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint64 <- int16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: half <- int16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: float <- int16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: double <- int16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: complex <- int16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int8 <- uint16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint8 <- uint16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int16 <- uint16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint16 <- uint16 [shared]
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int32 <- uint16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint32 <- uint16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int64 <- uint16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint64 <- uint16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: half <- uint16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: float <- uint16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: double <- uint16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: complex <- uint16
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int8 <- int32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint8 <- int32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int16 <- int32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint16 <- int32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int32 <- int32 [shared]
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint32 <- int32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int64 <- int32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint64 <- int32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: half <- int32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: float <- int32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: double <- int32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: complex <- int32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int8 <- uint32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint8 <- uint32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int16 <- uint32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint16 <- uint32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int32 <- uint32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint32 <- uint32 [shared]
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int64 <- uint32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint64 <- uint32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: half <- uint32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: float <- uint32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: double <- uint32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: complex <- uint32
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int8 <- int64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint8 <- int64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int16 <- int64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint16 <- int64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int32 <- int64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint32 <- int64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int64 <- int64 [shared]
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint64 <- int64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: half <- int64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: float <- int64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: double <- int64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: complex <- int64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int8 <- uint64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint8 <- uint64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int16 <- uint64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint16 <- uint64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int32 <- uint64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint32 <- uint64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int64 <- uint64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint64 <- uint64 [shared]
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: half <- uint64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: float <- uint64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: double <- uint64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: complex <- uint64
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int8 <- half
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint8 <- half
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int16 <- half
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint16 <- half
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int32 <- half
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint32 <- half
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int64 <- half
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint64 <- half
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: half <- half [shared]
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: float <- half
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: double <- half
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: complex <- half
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int8 <- float
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint8 <- float
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int16 <- float
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint16 <- float
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int32 <- float
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint32 <- float
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int64 <- float
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint64 <- float
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: half <- float
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: float <- float [shared]
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: double <- float
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: complex <- float
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int8 <- double
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint8 <- double
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int16 <- double
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint16 <- double
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int32 <- double
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint32 <- double
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: int64 <- double
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: uint64 <- double
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: half <- double
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: float <- double
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: double <- double [shared]
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: complex <- double
+[false,  true,  true,  true,  true,  true,  true,  true,  true,  true]: boolean <- boolean [shared]
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 1]: int8 <- boolean
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 1]: uint8 <- boolean
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 1]: int16 <- boolean
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 1]: uint16 <- boolean
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 1]: int32 <- boolean
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 1]: uint32 <- boolean
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 1]: int64 <- boolean
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 1]: uint64 <- boolean
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 1]: half <- boolean
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 1]: float <- boolean
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 1]: double <- boolean
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 1]: complex <- boolean
+[false,  true,  true,  true,  true,  true,  true,  true,  true,  true]: boolean <- int8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int8 <- int8 [shared]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint8 <- int8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int16 <- int8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint16 <- int8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int32 <- int8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint32 <- int8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int64 <- int8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint64 <- int8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: half <- int8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: float <- int8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: double <- int8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: complex <- int8
+[false,  true,  true,  true,  true,  true,  true,  true,  true,  true]: boolean <- uint8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int8 <- uint8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint8 <- uint8 [shared]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int16 <- uint8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint16 <- uint8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int32 <- uint8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint32 <- uint8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int64 <- uint8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint64 <- uint8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: half <- uint8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: float <- uint8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: double <- uint8
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: complex <- uint8
+[false,  true,  true,  true,  true,  true,  true,  true,  true,  true]: boolean <- int16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int8 <- int16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint8 <- int16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int16 <- int16 [shared]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint16 <- int16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int32 <- int16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint32 <- int16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int64 <- int16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint64 <- int16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: half <- int16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: float <- int16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: double <- int16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: complex <- int16
+[false,  true,  true,  true,  true,  true,  true,  true,  true,  true]: boolean <- uint16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int8 <- uint16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint8 <- uint16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int16 <- uint16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint16 <- uint16 [shared]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int32 <- uint16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint32 <- uint16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int64 <- uint16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint64 <- uint16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: half <- uint16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: float <- uint16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: double <- uint16
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: complex <- uint16
+[false,  true,  true,  true,  true,  true,  true,  true,  true,  true]: boolean <- int32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int8 <- int32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint8 <- int32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int16 <- int32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint16 <- int32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int32 <- int32 [shared]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint32 <- int32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int64 <- int32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint64 <- int32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: half <- int32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: float <- int32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: double <- int32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: complex <- int32
+[false,  true,  true,  true,  true,  true,  true,  true,  true,  true]: boolean <- uint32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int8 <- uint32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint8 <- uint32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int16 <- uint32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint16 <- uint32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int32 <- uint32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint32 <- uint32 [shared]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int64 <- uint32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint64 <- uint32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: half <- uint32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: float <- uint32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: double <- uint32
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: complex <- uint32
+[false,  true,  true,  true,  true,  true,  true,  true,  true,  true]: boolean <- int64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int8 <- int64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint8 <- int64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int16 <- int64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint16 <- int64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int32 <- int64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint32 <- int64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int64 <- int64 [shared]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint64 <- int64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: half <- int64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: float <- int64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: double <- int64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: complex <- int64
+[false,  true,  true,  true,  true,  true,  true,  true,  true,  true]: boolean <- uint64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int8 <- uint64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint8 <- uint64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int16 <- uint64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint16 <- uint64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int32 <- uint64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint32 <- uint64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int64 <- uint64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint64 <- uint64 [shared]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: half <- uint64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: float <- uint64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: double <- uint64
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: complex <- uint64
+[false,  true,  true,  true,  true,  true,  true,  true,  true,  true]: boolean <- half
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int8 <- half
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint8 <- half
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int16 <- half
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint16 <- half
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int32 <- half
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint32 <- half
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int64 <- half
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint64 <- half
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: half <- half [shared]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: float <- half
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: double <- half
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: complex <- half
+[false,  true,  true,  true,  true,  true,  true,  true,  true,  true]: boolean <- float
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int8 <- float
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint8 <- float
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int16 <- float
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint16 <- float
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int32 <- float
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint32 <- float
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int64 <- float
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint64 <- float
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: half <- float
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: float <- float [shared]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: double <- float
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: complex <- float
+[false,  true,  true,  true,  true,  true,  true,  true,  true,  true]: boolean <- double
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int8 <- double
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint8 <- double
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int16 <- double
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint16 <- double
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int32 <- double
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint32 <- double
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: int64 <- double
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: uint64 <- double
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: half <- double
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: float <- double
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: double <- double [shared]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: complex <- double
+[false,  true,  true,  true,  true,  true,  true,  true,  true,  true]: boolean <- complex
 TypeError: can't copy elements from array@complex to array@int8: int8 <- complex
 TypeError: can't copy elements from array@complex to array@uint8: uint8 <- complex
 TypeError: can't copy elements from array@complex to array@int16: int16 <- complex
@@ -6287,7 +6312,7 @@ TypeError: can't copy elements from array@complex to array@uint64: uint64 <- com
 TypeError: can't copy elements from array@complex to array@half: half <- complex
 TypeError: can't copy elements from array@complex to array@float: float <- complex
 TypeError: can't copy elements from array@complex to array@double: double <- complex
-[ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]: complex <- complex [shared]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: complex <- complex [shared]
 
 ======== #51 store several matrices in a multi-dimensional array ========
 

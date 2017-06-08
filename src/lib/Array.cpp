@@ -315,7 +315,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			&CopyElementsTmpl<Boolean, Half>,
 			&CopyElementsTmpl<Boolean, Float>,
 			&CopyElementsTmpl<Boolean, Double>,
-			nullptr,
+			&CopyElementsTmpl<Boolean, Complex>,
 			nullptr,
 		}, {
 			nullptr,

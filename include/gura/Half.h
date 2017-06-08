@@ -33,7 +33,8 @@ public:
 	inline Half &operator=(const Half &half) { _num = half._num; return *this; }
 public:
 	inline Float ToFloat() const { return HalfToFloat(_num); }
-	inline explicit operator Boolean() const noexcept { return _num != 0x0000; }
+	inline bool IsZero() const { return _num == 0x0000; }
+	inline explicit operator Boolean() const noexcept { return !IsZero(); }
 	inline explicit operator Int8() const noexcept { return static_cast<Int8>(HalfToFloat(_num)); }
 	inline explicit operator UInt8() const noexcept { return static_cast<UInt8>(HalfToFloat(_num)); }
 	inline explicit operator Int16() const noexcept { return static_cast<Int16>(HalfToFloat(_num)); }

@@ -29,6 +29,7 @@ public:
 	inline static Complex Polar(double abs, double arg) {
 		return Complex(abs * ::cos(arg), abs * ::sin(arg));
 	}
+	inline explicit operator Boolean() const noexcept { return !IsZero(); }
 };
 
 typedef std::vector<Complex> ComplexList;
