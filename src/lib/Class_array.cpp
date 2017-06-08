@@ -600,29 +600,31 @@ Gura_DeclareFunction(array)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an `array@double` instance from a `list` or an `iterator` specified in the argument `src`,\n"
+		"Creates an `array` instance with elements of type `double` from a `list` or an `iterator` specified in the argument `src`,\n"
 		"or elements described in a block. Below are examples:\n"
 		"\n"
 		"    array([[0, 1, 2], [3, 4, 5]])\n"
 		"    array {{0, 1, 2}, {3, 4, 5}}\n"
 		"\n"
-		"Specifying the argument `elemtype` would create an array of other type than `array@double`.\n"
-		"Available symbols for `elemtype and their created type are as follows:\n"
+		"Specifying the argument `elemtype` would create an array of other type than `double`.\n"
 		"\n"
-		"- `` `boolean`` .. array@boolean\n"
-		"- `` `int8`` .. array@int8\n"
-		"- `` `uint8`` .. array@uint8\n"
-		"- `` `int16`` .. array@int16\n"
-		"- `` `uint16`` .. array@uint16\n"
-		"- `` `int32`` .. array@int32\n"
-		"- `` `uint32`` .. array@uint32\n"
-		"- `` `int64`` .. array@int64\n"
-		"- `` `uint64`` .. array@uint64\n"
-		"- `` `half`` .. array@half\n"
-		"- `` `float`` .. array@float\n"
-		"- `` `double`` .. array@double\n"
-		"- `` `complex`` .. array@complex\n"
-		);
+		"Available symbols for `elemtype` are as follows:\n"
+		"\n"
+		"- `` `boolean``\n"
+		"- `` `int8``\n"
+		"- `` `uint8``\n"
+		"- `` `int16``\n"
+		"- `` `uint16``\n"
+		"- `` `int32``\n"
+		"- `` `uint32``\n"
+		"- `` `int64``\n"
+		"- `` `uint64``\n"
+		"- `` `half``\n"
+		"- `` `float``\n"
+		"- `` `double``\n"
+		"- `` `complex``\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
 Gura_ImplementFunction(array)
@@ -682,7 +684,8 @@ Gura_DeclareMethod(array, average)
 	AddHelp(
 		Gura_Symbol(en),
 		"Calculates an average value of elements in the array.\n"
-		);
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
 template<typename T_ElemResult, typename T_Elem>
@@ -742,7 +745,8 @@ Gura_DeclareClassMethod(array, dot)
 	AddHelp(
 		Gura_Symbol(en),
 		"Calculates a dot product between two arrays that have one or two dimensions.\n"
-		);
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
 Gura_ImplementClassMethod(array, dot)
@@ -857,7 +861,24 @@ Gura_DeclareMethod(array, elemcast)
 	AddHelp(
 		Gura_Symbol(en),
 		"Cast value type of contained elements.\n"
-		);
+		"\n"
+		"Available symbols for `elemtype` are as follows:\n"
+		"\n"
+		"- `` `boolean``\n"
+		"- `` `int8``\n"
+		"- `` `uint8``\n"
+		"- `` `int16``\n"
+		"- `` `uint16``\n"
+		"- `` `int32``\n"
+		"- `` `uint32``\n"
+		"- `` `int64``\n"
+		"- `` `uint64``\n"
+		"- `` `half``\n"
+		"- `` `float``\n"
+		"- `` `double``\n"
+		"- `` `complex``\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
 Gura_ImplementMethod(array, elemcast)
@@ -926,7 +947,8 @@ Gura_DeclareMethod(array, flatten)
 	AddHelp(
 		Gura_Symbol(en),
 		"Flatten elements in the array.\n"
-		);
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
 template<typename T_Elem>
@@ -970,10 +992,7 @@ Gura_DeclareMethod(array, head)
 		"Creates an array that has extracted specified number of elements\n"
 		"from the beginning of the source.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter\n"
-		"`|array:array@T|`, where `array` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n"
-		);
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
 template<typename T_Elem>
@@ -1019,7 +1038,8 @@ Gura_DeclareMethod(array, invert)
 	AddHelp(
 		Gura_Symbol(en),
 		"Calculates an inverted matrix."
-		);
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
 template<typename T_Elem>
@@ -1082,10 +1102,7 @@ Gura_DeclareMethod(array, offset)
 		"Creates an array that has extracted elements of the source\n"
 		"after skipping the first `n` elements.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter\n"
-		"`|array:array@T|`, where `array` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n"
-		);
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
 template<typename T_Elem>
@@ -1184,8 +1201,22 @@ Gura_DeclareMethod(array, reshape)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Modifies the shape of the array.\n"
-		);
+		"Creates an array after reshaping the original array according to a list of\n"
+		"dimension size specified by `dims`.\n"
+		"\n"
+		"Below are examples:\n"
+		"\n"
+		"    x = array(1..24)\n"
+		"    a = x.reshape([6, 4])    // a is an array of 6x4.\n"
+		"    b = x.reshape([2, 3, 4]) // b is an array of 2x3x4.\n"
+		"\n"
+		"A value of `nil` in the list of dimension means it would be calculated from the whole size\n"
+		"and other dimension sizes. Only one `nil` is allowed to exist.\n"
+		"\n"
+		"    x = array(1..24)\n"
+		"    b = x.reshape([2, nil, 4]) // b is an array of 2x3x4.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
 template<typename T_Elem>
@@ -1228,8 +1259,10 @@ Gura_DeclareMethod(array, roundoff)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns a matrix with element values being rounded off.\n"
-		);
+		"Rounds off element values to zero when they are less than the specified argument `threshold`\n"
+		"which default value is `1.0e-6` when omitted.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
 template<typename T_Elem>
@@ -1271,8 +1304,7 @@ Gura_DeclareMethod(array, sum)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Calculates a summation value of elements in the array.\n"
-		);
+		"Calculates a summation value of elements in the array.\n");
 }
 
 template<typename T_ElemResult, typename T_Elem>
@@ -1333,10 +1365,7 @@ Gura_DeclareMethod(array, tail)
 		"Creates an array that has extracted specified number of elements\n"
 		"from the bottom of the source.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter\n"
-		"`|array:array@T|`, where `array` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n"
-		);
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
 template<typename T_Elem>
@@ -1381,8 +1410,13 @@ Gura_DeclareMethod(array, transpose)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Transpose elements in the array.\n"
-		);
+		"Creates an array instance that transposes axes of the original array\n"
+		"according to the specified argument `axes`.\n"
+		"\n"
+		"If the argument is not specified, two axes at the lowest rank, which correspond to\n"
+		"row and column for a matrix, would be transposed.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
 template<typename T_Elem>
