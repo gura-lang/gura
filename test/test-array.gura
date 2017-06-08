@@ -2,7 +2,7 @@
 import(helper.test) {*}
 
 typeNames = [
-	`int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64,
+	`boolean, `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64,
 	`half, `float, `double, `complex
 ]
 
@@ -865,7 +865,7 @@ testcase('index-set to array@complex') {
 }
 testcase('array#elemcast()') {
 	cross (typeNameSrc in typeNames, typeNameDst in typeNames) {
-		x = array([1..10], typeNameSrc)
+		x = array([0..9], typeNameSrc)
 		try {
 			y = x.elemcast(typeNameDst)
 			print(y)
