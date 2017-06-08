@@ -749,6 +749,11 @@ testcase('index-set') {
 	f { x[4, 2..6] = 3 }
 	f { x[4, 3] = '' }
 	f { x[] = '' }
+	f { x[*, *] = true }
+	f { x[*, 2..6] = true }
+	f { x[1..4, *] = true }
+	f { x[1..4, 3] = true }
+	f { x[4, 2..6] = true }
 }
 testcase('index-set with iterator assigned') {
 	f() {`block} = array@complex.zeros([6, 8]) {|x|
