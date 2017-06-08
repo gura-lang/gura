@@ -193,7 +193,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
 	if (!pArrayT->PrepareModification(env.GetSignal())) return;
 	if (valListIdx.empty()) {
-		if (value.Is_number()) {
+		if (value.Is_number() || value.Is_boolean()) {
 			FillDouble(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetDouble());
 		} else if (complexFlag && value.Is_complex()) {
 			FillComplex(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetComplex());
@@ -218,7 +218,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	if (!indexer.InitIndices(env, valListIdx)) return;
 	T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
 	size_t nElemsUnit = indexer.GetElemNumUnit();
-	if (value.Is_number()) {
+	if (value.Is_number() || value.Is_boolean()) {
 		Double num = value.GetDouble();
 		if (indexer.HasGenerator()) {
 			do {

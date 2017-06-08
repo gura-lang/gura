@@ -110,7 +110,7 @@ void FillComplex(Complex *pElem, size_t nElems, const Complex &num);
 template<typename T_Elem>
 inline bool StoreValueAt(Environment &env, T_Elem *pElem, const Value &value)
 {
-	if (value.Is_number()) {
+	if (value.Is_number() || value.Is_boolean()) {
 		*pElem = static_cast<T_Elem>(value.GetDouble());
 	} else {
 		Array::SetError_UnacceptableValueAsElement(env, value);
@@ -122,7 +122,7 @@ inline bool StoreValueAt(Environment &env, T_Elem *pElem, const Value &value)
 template<>
 inline bool StoreValueAt(Environment &env, Complex *pElem, const Value &value)
 {
-	if (value.Is_number()) {
+	if (value.Is_number() || value.Is_boolean()) {
 		*pElem = static_cast<Complex>(value.GetDouble());
 	} else if (value.Is_complex()) {
 		*pElem = value.GetComplex();

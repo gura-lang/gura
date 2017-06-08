@@ -19,6 +19,7 @@ funcs = [
 	array@half
 	array@float
 	array@double
+	array@complex
 	array
 ]
 
