@@ -38,6 +38,8 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/curl-7.38.0.zip
 %CURL% -O %GUESTURL%/expat-2.1.0.tar.gz
 %CURL% -O %GUESTURL%/expat-2.1.0-gurapatch-vs2015.zip
+%CURL% -O %GUESTURL%/fftw-3.3.6-pl2.tar.gz
+%CURL% -O %GUESTURL%/fftw-3.3.6-pl2-gurapatch-vs2015.zip
 %CURL% -O %GUESTURL%/fontconfig-2.11.tar.bz2
 %CURL% -O %GUESTURL%/freeglut-2.8.1.tar.gz
 %CURL% -O %GUESTURL%/freeglut-2.8.1-gurapatch.zip
@@ -241,6 +243,13 @@ msbuild mpir-2.7.2\build.vc14\lib_mpir_cxx\lib_mpir_cxx.vcxproj /clp:DisableCons
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% mpir_cxx
 rem copy mpir-2.7.2\build.vc14\lib_mpir_gc\win32\Release\mpir.lib mpir-2.7.2\lib\win32\Release
 rem copy mpir-2.7.2\build.vc14\lib_mpir_cxx\win32\Release\mpirxx.lib mpir-2.7.2\lib\win32\Release
+rem ---------------------------------------------------------------------------
+rem vs2015 ok
+%UNZIP% x -y fftw-3.3.6-pl2.tar.gz
+%UNZIP% x -y fftw-3.3.6-pl2.tar
+%UNZIP% x -y fftw-3.3.6-pl2-gurapatch-vs2015.zip
+del fftw-3.3.6-pl2.tar
+msbuild fftw-3.3.6-pl2\msw\fftw-3.3-libs.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Static-Release" /p:Platform=win32
 rem ---------------------------------------------------------------------------
 goto done
 :err_vcvarsall_not_found
