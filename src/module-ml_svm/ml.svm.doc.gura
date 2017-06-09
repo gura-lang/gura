@@ -1,0 +1,10 @@
+#!/usr/bin/env gura
+import(markdown)
+import(ml.svm)
+
+text@en = R"""
+# ml.svm Module
+
+""".embed()
+
+markdown.makedoc@module(locals(), %{`en => text@en})
