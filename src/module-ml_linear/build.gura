@@ -3,7 +3,12 @@ import(modbuild)
 
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
+	baseDir = path.join(builder.guestDir, 'liblinear-2.11')
+	builder.incDirs.append(path.join(baseDir, ''))
+	builder.libDirs.append(path.join(baseDir, 'windows'))
+	builder.libs.append('liblinear.lib')
 } elsif (sys.platform == `linux) {
+	
 } elsif (sys.platform == `darwin) {
 	builder.incDirs.append('guest/include/liblinear')
 	builder.libDirs.append('guest/dylib')
