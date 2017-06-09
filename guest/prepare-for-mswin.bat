@@ -242,6 +242,7 @@ pushd liblinear-2.11
 nmake -f Makefile.win clean all
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% liblinear
 popd
+copy liblinear-2.11\windows\liblinear.dll dylib
 rem ---------------------------------------------------------------------------
 %UNZIP% x -y libsvm-3.22.zip
 %UNZIP% x -y libsvm-3.22-gurapatch.zip
@@ -249,6 +250,7 @@ pushd libsvm-3.22
 nmake -f Makefile.win clean all
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% libsvm
 popd
+copy libsvm-3.22\windows\libsvm.dll dylib
 rem ---------------------------------------------------------------------------
 goto done
 :err_vcvarsall_not_found
