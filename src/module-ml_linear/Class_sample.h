@@ -24,7 +24,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_sample
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Iterator_sample : public Iterator {
+class Iterator_sample : public Iterator {
 private:
 	AutoPtr<SampleOwner> _pSampleOwner;
 	size_t _idx;

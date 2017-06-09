@@ -48,6 +48,10 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/glew-1.13.0.zip
 %CURL% -O %GUESTURL%/glew-1.13.0-gurapatch.zip
 %CURL% -O %GUESTURL%/jpegsrc.v9a.tar.gz
+%CURL% -O %GUESTURL%/liblinear-2.11.zip
+%CURL% -O %GUESTURL%/liblinear-2.11-gurapatch.zip
+%CURL% -O %GUESTURL%/libsvm-3.22.zip
+%CURL% -O %GUESTURL%/libsvm-3.22-gurapatch.zip
 %CURL% -O %GUESTURL%/lpng1520.zip
 %CURL% -O %GUESTURL%/lpng1520-gurapatch-vs2015.zip
 %CURL% -O %GUESTURL%/mpir-2.7.2.tar.bz2
@@ -230,6 +234,23 @@ rem ---------------------------------------------------------------------------
 %UNZIP% x -y fftw-3.3.6-pl2-gurapatch-vs2015.zip
 del fftw-3.3.6-pl2.tar
 msbuild fftw-3.3.6-pl2\msw\fftw-3.3-libs.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Static-Release" /p:Platform=win32
+if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% fftw
+rem ---------------------------------------------------------------------------
+%UNZIP% x -y liblinear-2.11.zip
+%UNZIP% x -y liblinear-2.11-gurapatch.zip
+pushd liblinear-2.11
+nmake -f Makefile.win clean all
+if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% liblinear
+popd
+copy liblinear-2.11\windows\liblinear.dll dylib
+rem ---------------------------------------------------------------------------
+%UNZIP% x -y libsvm-3.22.zip
+%UNZIP% x -y libsvm-3.22-gurapatch.zip
+pushd libsvm-3.22
+nmake -f Makefile.win clean all
+if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% libsvm
+popd
+copy libsvm-3.22\windows\libsvm.dll dylib
 rem ---------------------------------------------------------------------------
 goto done
 :err_vcvarsall_not_found
