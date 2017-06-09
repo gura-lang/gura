@@ -3,7 +3,12 @@ import(modbuild)
 
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
+	baseDir = path.join(builder.guestDir, 'fftw-3.3.6-pl2')
+	builder.incDirs.append(path.join(baseDir, 'api'))
+	builder.libDirs.append(path.join(baseDir, 'msw/Static-Release'))
+	builder.libs.append('libfftw-3.3.lib')
 } elsif (sys.platform == `linux) {
+	
 } elsif (sys.platform == `darwin) {
 	builder.incDirs.append('guest/include/fftw')
 	builder.libDirs.append('guest/lib')
