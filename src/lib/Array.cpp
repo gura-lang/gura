@@ -1623,7 +1623,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Boolean,	Int16,		Boolean,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Boolean,	Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Boolean,	Int16,		Int8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Boolean,	Int16,		UInt8,		Operator_##op::Calc>, \
 			&funcPrefix##_array_array<Boolean,	Int16,		Int16,		Operator_##op::Calc>, \
@@ -1862,7 +1862,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
 		}, { \
 			nullptr, \
-			&BinaryFuncTmpl_array_array<Int8,		Boolean,	Boolean,	Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Boolean,	Boolean,	Boolean,	Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int8,		Boolean,	Int8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<UInt8,		Boolean,	UInt8,		Operator_##op::Calc>, \
 			&BinaryFuncTmpl_array_array<Int16,		Boolean,	Int16,		Operator_##op::Calc>, \

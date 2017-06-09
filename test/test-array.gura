@@ -904,3 +904,10 @@ testcase('comparator') {
 		tester(`(x <= 5))
 	}	
 }
+testcase('logical operation on array@boolean') {
+	x = array@boolean {false, true, false, true}
+	y = array@boolean {false, false, true, true}
+	println(x, ' & ', y, ' -> ', x & y)
+	println(x, ' | ', y, ' -> ', x | y)
+	println(x, ' ^ ', y, ' -> ', x ^ y)
+}
