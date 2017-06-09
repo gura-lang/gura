@@ -48,6 +48,10 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/glew-1.13.0.zip
 %CURL% -O %GUESTURL%/glew-1.13.0-gurapatch.zip
 %CURL% -O %GUESTURL%/jpegsrc.v9a.tar.gz
+%CURL% -O %GUESTURL%/liblinear-2.11.zip
+%CURL% -O %GUESTURL%/liblinear-2.11-gurapatch.zip
+%CURL% -O %GUESTURL%/libsvm-3.22.zip
+%CURL% -O %GUESTURL%/libsvm-3.22-gurapatch.zip
 %CURL% -O %GUESTURL%/lpng1520.zip
 %CURL% -O %GUESTURL%/lpng1520-gurapatch-vs2015.zip
 %CURL% -O %GUESTURL%/mpir-2.7.2.tar.bz2
