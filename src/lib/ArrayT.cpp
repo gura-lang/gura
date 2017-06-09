@@ -156,15 +156,15 @@ void ToString_Sub(String &rtn, size_t colTop, int wdPad, const Array::Dimensions
 	char buff[128];
 	size_t nestLevel = std::distance(dims.begin(), pDim);
 	if (pDim + 1 == dims.end()) {
-		rtn += "[";
+		rtn += "{";
 		for (size_t i = 0; i < pDim->GetSize(); i++, p++) {
 			if (i > 0) rtn += ", ";
 			FormatElem(buff, wdPad, *p);
 			rtn += buff;
 		}
-		rtn += "]";
+		rtn += "}";
 	} else {
-		rtn += "[";
+		rtn += "{";
 		for (size_t i = 0; i < pDim->GetSize(); i++) {
 			if (i > 0) {
 				rtn += ',';
@@ -174,7 +174,7 @@ void ToString_Sub(String &rtn, size_t colTop, int wdPad, const Array::Dimensions
 			}
 			ToString_Sub(rtn, colTop, wdPad, dims, pDim + 1, p);
 		}
-		rtn += "]";
+		rtn += "}";
 	}
 }
 
@@ -193,9 +193,8 @@ String ArrayT<T_Elem>::ToString(bool exprFlag) const
 	String rtn;
 	if (exprFlag) {
 		rtn += ConstructorName;
-		rtn += "(";
+		rtn += " ";
 		ToString_Sub(rtn, rtn.size(), wdPad, _dims, _dims.begin(), p);
-		rtn += ")";
 	} else {
 		ToString_Sub(rtn, 0, wdPad, _dims, _dims.begin(), p);
 	}
