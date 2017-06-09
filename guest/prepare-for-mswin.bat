@@ -234,6 +234,21 @@ rem ---------------------------------------------------------------------------
 %UNZIP% x -y fftw-3.3.6-pl2-gurapatch-vs2015.zip
 del fftw-3.3.6-pl2.tar
 msbuild fftw-3.3.6-pl2\msw\fftw-3.3-libs.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Static-Release" /p:Platform=win32
+if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% fftw
+rem ---------------------------------------------------------------------------
+%UNZIP% x -y liblinear-2.11.zip
+%UNZIP% x -y liblinear-2.11-gurapatch.zip
+pushd liblinear-2.11
+nmake -f Makefile.win clean all
+if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% liblinear
+popd
+rem ---------------------------------------------------------------------------
+%UNZIP% x -y libsvm-3.22.zip
+%UNZIP% x -y libsvm-3.22-gurapatch.zip
+pushd libsvm-3.22
+nmake -f Makefile.win clean all
+if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% libsvm
+popd
 rem ---------------------------------------------------------------------------
 goto done
 :err_vcvarsall_not_found
