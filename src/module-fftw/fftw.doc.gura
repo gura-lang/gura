@@ -1,0 +1,52 @@
+#!/usr/bin/env gura
+import(markdown)
+import(fftw)
+
+text@en = R'''
+# fftw Module
+
+The `fftw` module provides measures for FFT calculation on `array` class.
+To utilize it, import the `fftw` module using `import` function.
+
+Below is an example to FFT:
+
+    import(fftw)
+
+
+## fftw.plan Class
+
+The `fftw.plan` class provides ..
+
+### Property
+
+A `fftw.plan` instance has the following properties:
+
+
+### Constructor
+
+${markdown.makedoc@function(`en
+)}
+
+### Method
+
+${markdown.makedoc@function(`en
+)}
+
+
+## Extension to image Class
+
+This module extends the `array` class with methods described here.
+
+${markdown.makedoc@function(`en
+array.dft
+)}
+
+
+## Thanks
+
+This module uses FFTW library which is distributed in the following site:
+
+[http://www.fftw.org/](http://www.fftw.org/)
+'''.embed()
+
+markdown.makedoc@module(locals(), %{`en => text@en})
