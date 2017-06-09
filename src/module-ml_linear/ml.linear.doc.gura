@@ -5,6 +5,101 @@ import(ml.linear)
 text@en = R"""
 # ml.linear Module
 
+## ml.linear.feature Class
+
+### Property
+
+A `ml.linear.feature` instance has the following properties:
+
+
+### Constructor
+
+${markdown.makedoc@function(`en
+ml.linear.feature
+)}
+
+### Method
+
+${markdown.makedoc@function(`en
+)}
+
+
+## ml.linear.model Class
+
+### Property
+
+A `ml.linear.model` instance has the following properties:
+
+### Method
+
+${markdown.makedoc@function(`en
+ml.linear.model.predict
+ml.linear.model.predict_probability
+ml.linear.model.get_nr_feature
+ml.linear.model.get_nr_class
+ml.linear.model.get_labels
+ml.linear.model.get_decfun_coef
+ml.linear.model.get_decfun_bias
+)}
+
+
+## ml.linear.parameter Class
+
+### Property
+
+A `ml.linear.parameter` instance has the following properties:
+
+### Constructor
+
+${markdown.makedoc@function(`en
+ml.linear.parameter
+)}
+
+### Method
+
+${markdown.makedoc@function(`en
+ml.linear.parameter.add_weight
+)}
+
+
+## ml.linear.problem Class
+
+### Property
+
+A `ml.linear.problem` instance has the following properties:
+
+### Constructor
+
+${markdown.makedoc@function(`en
+ml.linear.problem
+)}
+
+### Method
+
+${markdown.makedoc@function(`en
+ml.linear.problem.add_sample
+)}
+
+
+## ml.linear.sample Class
+
+### Property
+
+A `ml.linear.sample` instance has the following properties:
+
+### Constructor
+
+${markdown.makedoc@function(`en
+ml.linear.sample
+)}
+
+
+## Module Function
+
+${markdown.makedoc@function(`en
+ml.linear.train
+)}
+
 """.embed()
 
 markdown.makedoc@module(locals(), %{`en => text@en})
