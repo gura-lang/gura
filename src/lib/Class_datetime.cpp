@@ -114,7 +114,7 @@ Gura_ImplementPropertyGetter(datetime, year)
 Gura_ImplementPropertySetter(datetime, year)
 {
 	DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
-	long num = value.GetLong();
+	Int32 num = value.GetInt32();
 	if (num < 1 || num > 9999) {
 		env.SetError(ERR_ValueError, "datetime#year must be betwen 1 and 9999 inclusive");
 		return Value::Nil;
@@ -142,7 +142,7 @@ Gura_ImplementPropertyGetter(datetime, month)
 Gura_ImplementPropertySetter(datetime, month)
 {
 	DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
-	long num = value.GetLong();
+	Int32 num = value.GetInt32();
 	if (num < 1 || num > 12) {
 		env.SetError(ERR_ValueError, "datetime#month must be between 1 and 12 inclusive");
 		return Value::Nil;
@@ -170,7 +170,7 @@ Gura_ImplementPropertyGetter(datetime, day)
 Gura_ImplementPropertySetter(datetime, day)
 {
 	DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
-	long num = value.GetLong();
+	Int32 num = value.GetInt32();
 	if (num < 1 || num > 31) {
 		env.SetError(ERR_ValueError, "datetime#day must be between 1 and 31 inclusive");
 		return Value::Nil;
@@ -198,12 +198,12 @@ Gura_ImplementPropertyGetter(datetime, hour)
 Gura_ImplementPropertySetter(datetime, hour)
 {
 	DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
-	long num = value.GetLong();
+	Int8 num = value.GetInt8();
 	if (num < 0 || num > 23) {
 		env.SetError(ERR_ValueError, "datetime#hour must be between 0 and 23 inclusive");
 		return Value::Nil;
 	}
-	dateTime.SetHour(static_cast<char>(num));
+	dateTime.SetHour(num);
 	return Value(num);
 }
 
@@ -226,12 +226,12 @@ Gura_ImplementPropertyGetter(datetime, min)
 Gura_ImplementPropertySetter(datetime, min)
 {
 	DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
-	long num = value.GetLong();
+	Int8 num = value.GetInt8();
 	if (num < 0 || num > 59) {
 		env.SetError(ERR_ValueError, "datetime#min must be betwen 0 and 59 inclusive");
 		return Value::Nil;
 	}
-	dateTime.SetMin(static_cast<char>(num));
+	dateTime.SetMin(num);
 	return Value(num);
 }
 
@@ -254,12 +254,12 @@ Gura_ImplementPropertyGetter(datetime, sec)
 Gura_ImplementPropertySetter(datetime, sec)
 {
 	DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
-	long num = value.GetLong();
+	Int8 num = value.GetInt8();
 	if (num < 0 || num > 59) {
 		env.SetError(ERR_ValueError, "datetime#sec must be between 0 and 59 inclusive");
 		return Value::Nil;
 	}
-	dateTime.SetSec(static_cast<char>(num));
+	dateTime.SetSec(num);
 	return Value(num);
 }
 
@@ -282,7 +282,7 @@ Gura_ImplementPropertyGetter(datetime, usec)
 Gura_ImplementPropertySetter(datetime, usec)
 {
 	DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
-	long num = value.GetLong();
+	Int32 num = value.GetInt32();
 	if (num < 0 || num > 999999) {
 		env.SetError(ERR_ValueError, "datetime#usec must be between 0 and 999999 inclusive");
 		return Value::Nil;

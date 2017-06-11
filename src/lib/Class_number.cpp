@@ -123,17 +123,17 @@ void Class_number::DoPrepare(Environment &env)
 	// Assignment of class
 	Gura_AssignValue(number, Value(Reference()));
 	// Assignment of values
-	Gura_AssignClassValueEx("max@int8",		Value(127));
-	Gura_AssignClassValueEx("min@int8",		Value(-128));
-	Gura_AssignClassValueEx("max@uint8",	Value(255));
-	Gura_AssignClassValueEx("min@uint8",	Value(0));
-	Gura_AssignClassValueEx("max@int16",	Value(32767));
-	Gura_AssignClassValueEx("min@int16",	Value(-32768));
-	Gura_AssignClassValueEx("max@uint16",	Value(65535));
-	Gura_AssignClassValueEx("min@uint16",	Value(0));
-	Gura_AssignClassValueEx("max@int32",	Value(2147483647));
-	Gura_AssignClassValueEx("min@int32",	Value(-2147483648.));
-	Gura_AssignClassValueEx("max@uint32",	Value(4294967295));
+	Gura_AssignClassValueEx("max@int8",		Value(static_cast<Int8>(127)));
+	Gura_AssignClassValueEx("min@int8",		Value(static_cast<Int8>(-128)));
+	Gura_AssignClassValueEx("max@uint8",	Value(static_cast<UInt8>(255)));
+	Gura_AssignClassValueEx("min@uint8",	Value(static_cast<UInt>(0)));
+	Gura_AssignClassValueEx("max@int16",	Value(static_cast<Int16>(32767)));
+	Gura_AssignClassValueEx("min@int16",	Value(static_cast<Int16>(-32768)));
+	Gura_AssignClassValueEx("max@uint16",	Value(static_cast<UInt16>(65535)));
+	Gura_AssignClassValueEx("min@uint16",	Value(static_cast<UInt16>(0)));
+	Gura_AssignClassValueEx("max@int32",	Value(static_cast<Int32>(2147483647)));
+	Gura_AssignClassValueEx("min@int32",	Value(static_cast<Int32>(-2147483648)));
+	Gura_AssignClassValueEx("max@uint32",	Value(static_cast<UInt32>(4294967295)));
 	Gura_AssignClassValueEx("min@uint32",	Value(0));
 	Gura_AssignClassValueEx("size@int8",	Value(1));
 	Gura_AssignClassValueEx("size@uint8",	Value(1));
