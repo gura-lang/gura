@@ -19,7 +19,7 @@ public:
 		unsigned char Identification2;
 		unsigned char CompressionMethod;
 		unsigned char Flags;
-		Gura_PackedULong_LE(ModificationTime);
+		Gura_PackedUInt32_LE(ModificationTime);
 		unsigned char ExtraFlags;
 		unsigned char OperatingSystem;
 		inline bool GetFTEXT() const { return (Flags & (1 << 0))? true : false; }
@@ -54,13 +54,13 @@ public:
 		}
 		if (_fields.GetFEXTRA()) {
 			struct {
-				Gura_PackedUShort_LE(ExtraLength);
+				Gura_PackedUInt16_LE(ExtraLength);
 			} fields;
 			if (stream.Read(sig, &fields, 2) < 2) {
 				SetError_InvalidFormat(sig);
 				return false;
 			}
-			unsigned short ExtraLength = Gura_UnpackUShort(fields.ExtraLength);
+			unsigned short ExtraLength = Gura_UnpackUInt16(fields.ExtraLength);
 			if (!stream.Seek(sig, ExtraLength, Stream::SeekCur)) {
 				SetError_InvalidFormat(sig);
 				return false;
@@ -103,9 +103,9 @@ public:
 		}
 		if (_fields.GetFEXTRA()) {
 			struct {
-				Gura_PackedUShort_LE(ExtraLength);
+				Gura_PackedUInt16_LE(ExtraLength);
 			} fields;
-			Gura_PackUShort(fields.ExtraLength, static_cast<unsigned short>(_extra.size()));
+			Gura_PackUInt16(fields.ExtraLength, static_cast<unsigned short>(_extra.size()));
 			if (stream.Write(sig, &fields, 2) < 2) {
 				SetError_InvalidFormat(sig);
 				return false;
@@ -128,9 +128,9 @@ public:
 		if (_fields.GetFHCRC()) {
 			unsigned short crc16 = 0x0000;
 			struct {
-				Gura_PackedUShort_LE(CRC16);
+				Gura_PackedUInt16_LE(CRC16);
 			} fields;
-			Gura_PackUShort(fields.CRC16, crc16);
+			Gura_PackUInt16(fields.CRC16, crc16);
 			if (stream.Write(sig, &fields, 2) < 2) {
 				SetError_InvalidFormat(sig);
 				return false;
@@ -142,7 +142,7 @@ public:
 	inline const char *GetFileName() const { return _fileName.c_str(); }
 	inline const char *GetComment() const { return _comment.c_str(); }
 	inline void SetModificationTime(unsigned long time) {
-		Gura_PackULong(_fields.ModificationTime, time);
+		Gura_PackUInt32(_fields.ModificationTime, time);
 	}
 	inline void SetExtra(const Binary &extra) {
 		_extra = extra;

@@ -54,9 +54,9 @@ Gura_DeclareFunction(timedelta)
 
 Gura_ImplementFunction(timedelta)
 {
-	long days = static_cast<long>(arg.GetNumber(0));
-	long secs = static_cast<long>(arg.GetNumber(1));
-	long usecs = static_cast<long>(arg.GetNumber(2));
+	Int32 days = arg.GetInt32(0);
+	Int32 secs = arg.GetInt32(1);
+	Int32 usecs = arg.GetInt32(2);
 	return ReturnValue(env, arg, Value(new Object_timedelta(env, TimeDelta(days, secs, usecs))));
 }
 
@@ -82,7 +82,7 @@ Gura_ImplementPropertyGetter(timedelta, days)
 Gura_ImplementPropertySetter(timedelta, days)
 {
 	TimeDelta &timeDelta = Object_timedelta::GetObject(valueThis)->GetTimeDelta();
-	timeDelta = TimeDelta(value.GetLong(), timeDelta.GetSecs(), timeDelta.GetUSecs());
+	timeDelta = TimeDelta(value.GetInt32(), timeDelta.GetSecs(), timeDelta.GetUSecs());
 	return value;
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementPropertyGetter(timedelta, secs)
 Gura_ImplementPropertySetter(timedelta, secs)
 {
 	TimeDelta &timeDelta = Object_timedelta::GetObject(valueThis)->GetTimeDelta();
-	timeDelta = TimeDelta(timeDelta.GetDays(), value.GetLong(), timeDelta.GetUSecs());
+	timeDelta = TimeDelta(timeDelta.GetDays(), value.GetInt32(), timeDelta.GetUSecs());
 	return value;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementPropertyGetter(timedelta, usecs)
 Gura_ImplementPropertySetter(timedelta, usecs)
 {
 	TimeDelta &timeDelta = Object_timedelta::GetObject(valueThis)->GetTimeDelta();
-	timeDelta = TimeDelta(timeDelta.GetDays(), timeDelta.GetSecs(), value.GetLong());
+	timeDelta = TimeDelta(timeDelta.GetDays(), timeDelta.GetSecs(), value.GetInt32());
 	return value;
 }
 

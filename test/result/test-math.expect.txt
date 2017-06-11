@@ -7,7 +7,7 @@ math.abs(4j) .. 4
 math.abs(4j) .. 4
 math.abs(3 + 4j) .. 5
 math.abs(3 - 4j) .. 5
-math.abs(array { 0, 3, -3 }) .. [0, 3, 3]
+math.abs(array { 0, 3, -3 }) .. {0, 3, 3}
 
 ======== #2 math.acos() ========
 
@@ -17,7 +17,7 @@ math.acos(-1) .. 3.14159
 math.acos(0):deg .. 90
 math.acos(1):deg .. 0
 math.acos(-1):deg .. 180
-math.acos(array { 0, 1, -1 }) .. [ 1.5708,       0, 3.14159]
+math.acos(array { 0, 1, -1 }) .. { 1.5708,       0, 3.14159}
 
 ======== #3 math.arg() ========
 
@@ -35,7 +35,7 @@ math.arg(4j):deg .. 90
 math.arg(-4j):deg .. -90
 math.arg(1 + 1j):deg .. 45
 math.arg(1 - 1j):deg .. -45
-math.arg(array { 0, 3, -3 }) .. [0, 0, 0]
+math.arg(array { 0, 3, -3 }) .. {0, 0, 0}
 
 ======== #4 math.asin() ========
 
@@ -45,7 +45,7 @@ math.asin(-1) .. -1.5708
 math.asin(0):deg .. 0
 math.asin(1):deg .. 90
 math.asin(-1):deg .. -90
-math.asin(array { 0, 1, -1 }) .. [      0,  1.5708, -1.5708]
+math.asin(array { 0, 1, -1 }) .. {      0,  1.5708, -1.5708}
 
 ======== #5 math.atan() ========
 
@@ -55,7 +55,7 @@ math.atan(-1) .. -0.785398
 math.atan(0):deg .. 0
 math.atan(1):deg .. 45
 math.atan(-1):deg .. -45
-math.atan(array { 0, 1, -1 }) .. [        0,  0.785398, -0.785398]
+math.atan(array { 0, 1, -1 }) .. {        0,  0.785398, -0.785398}
 
 ======== #6 math.atan2() ========
 
@@ -81,7 +81,7 @@ math.ceil(-.9) .. 0
 math.ceil(-1) .. -1
 math.ceil(-1.5) .. -1
 math.ceil(-3.5) .. -3
-math.ceil(array { 0, .1, .9, 1, 1.5, 3.5, -.1, -.9, -1, -1.5, -3.5 }) .. [ 0,  1,  1,  1,  2,  4, -0, -0, -1, -1, -3]
+math.ceil(array { 0, .1, .9, 1, 1.5, 3.5, -.1, -.9, -1, -1.5, -3.5 }) .. { 0,  1,  1,  1,  2,  4, -0, -0, -1, -1, -3}
 
 ======== #8 math.conj() ========
 
@@ -91,7 +91,7 @@ math.conj(4j) .. -4j
 math.conj(-4j) .. 4j
 math.conj(3 + 4j) .. 3-4j
 math.conj(3 - 4j) .. 3+4j
-math.conj(array { 0, 3 }) .. [0, 3]
+math.conj(array { 0, 3 }) .. {0, 3}
 
 ======== #9 math.cos() ========
 
@@ -101,14 +101,14 @@ math.cos(math.pi) .. -1
 math.cos(0):deg .. 1
 math.cos(90):deg .. 6.12323e-17
 math.cos(180):deg .. -1
-math.cos(array { 0, math.pi / 2, math.pi }) .. [          1, 6.12323e-17,          -1]
+math.cos(array { 0, math.pi / 2, math.pi }) .. {          1, 6.12323e-17,          -1}
 
 ======== #10 math.cosh() ========
 
 math.cosh(0) .. 1
 math.cosh(1) .. 1.54308
 (math.exp(1) + math.exp(-1)) / 2 .. 1.54308
-math.cosh(array { 0, 1 }) .. [      1, 1.54308]
+math.cosh(array { 0, 1 }) .. {      1, 1.54308}
 
 ======== #11 math.cross() ========
 
@@ -124,7 +124,7 @@ math.delta(-1) .. 0
 math.delta(0) .. 1
 math.delta(1) .. 0
 math.delta(2) .. 0
-math.delta(array { -2, -1, 0, 1, 2 }) .. [0, 0, 1, 0, 0]
+math.delta(array { -2, -1, 0, 1, 2 }) .. {0, 0, 1, 0, 0}
 
 ======== #13 math.dot() ========
 
@@ -139,7 +139,7 @@ math.exp(0) .. 1
 math.exp(1) .. 2.71828
 math.exp(-1) .. 0.367879
 math.exp(math.pi * 1j) .. -1+1.22465e-16j
-math.exp(array { 0, 1, -1 }) .. [       1,  2.71828, 0.367879]
+math.exp(array { 0, 1, -1 }) .. {       1,  2.71828, 0.367879}
 
 ======== #15 math.floor() ========
 
@@ -155,7 +155,7 @@ math.floor(-1) .. -1
 math.floor(-1.5) .. -2
 math.floor(-3.5) .. -4
 math.floor(3.1 + 2.3j) .. 3+2j
-math.floor(array { 0, .1, .9, 1, 1.5, 3.5, -.1, -.9, -1, -1.5, -3.5 }) .. [ 0,  0,  0,  1,  1,  3, -1, -1, -1, -2, -4]
+math.floor(array { 0, .1, .9, 1, 1.5, 3.5, -.1, -.9, -1, -1.5, -3.5 }) .. { 0,  0,  0,  1,  1,  3, -1, -1, -1, -2, -4}
 
 ======== #16 math.hypot() ========
 
@@ -169,7 +169,7 @@ math.imag(0) .. 0
 math.imag(3) .. 0
 math.imag(4j) .. 4
 math.imag(3 + 4j) .. 4
-math.imag(array { 0, 3 }) .. [0, 0]
+math.imag(array { 0, 3 }) .. {0, 0}
 
 ======== #18 math.log() ========
 
@@ -179,7 +179,7 @@ math.log(math.e) .. 1
 math.log(2 + 3j) .. 1.28247+0.982794j
 math.log(-3) .. 1.09861+3.14159j
 math.log(0) .. MathError: can't calculate a logarithm of zero
-math.log(array { 1, 3, math.e }) .. [      0, 1.09861,       1]
+math.log(array { 1, 3, math.e }) .. {      0, 1.09861,       1}
 math.log(array { 1, 3, 0, math.e }) .. MathError: the array contains zero as its element
 
 ======== #19 math.log10() ========
@@ -190,7 +190,7 @@ math.log10(10) .. 1
 math.log10(2 + 3j) .. 0.556972+0.426822j
 math.log10(-3) .. 0.477121+1.36438j
 math.log10(0) .. MathError: can't calculate a logarithm of zero
-math.log10(array { 1, 3, 10 }) .. [       0, 0.477121,        1]
+math.log10(array { 1, 3, 10 }) .. {       0, 0.477121,        1}
 math.log10(array { 1, 3, 0, 10 }) .. MathError: the array contains zero as its element
 
 ======== #20 math.norm() ========
@@ -199,7 +199,7 @@ math.norm(0) .. 0
 math.norm(3) .. 9
 math.norm(4j) .. 16
 math.norm(3 + 4j) .. 25
-math.norm(array { 0, 3 }) .. [0, 9]
+math.norm(array { 0, 3 }) .. {0, 9}
 
 ======== #21 math.ramp() ========
 
@@ -208,7 +208,7 @@ math.ramp(-1) .. 0
 math.ramp(0) .. 0
 math.ramp(1) .. 1
 math.ramp(2) .. 2
-math.ramp(array { -2, -1, 0, 1, 2 }) .. [0, 0, 0, 1, 2]
+math.ramp(array { -2, -1, 0, 1, 2 }) .. {0, 0, 0, 1, 2}
 
 ======== #22 math.real() ========
 
@@ -216,14 +216,14 @@ math.real(0) .. 0
 math.real(3) .. 3
 math.real(4j) .. 0
 math.real(3 + 4j) .. 3
-math.real(array { 0, 3 }) .. [0, 3]
+math.real(array { 0, 3 }) .. {0, 3}
 
 ======== #23 math.sigmoid() ========
 
 math.sigmoid(0) .. 0.5
 math.sigmoid(1) .. 0.731059
 math.sigmoid(-1) .. 0.268941
-math.sigmoid(array { 0, 1, -1 }) .. [     0.5, 0.731059, 0.268941]
+math.sigmoid(array { 0, 1, -1 }) .. {     0.5, 0.731059, 0.268941}
 
 ======== #24 math.sin() ========
 
@@ -233,14 +233,14 @@ math.sin(math.pi) .. 1.22465e-16
 math.sin(0):deg .. 0
 math.sin(90):deg .. 1
 math.sin(180):deg .. 1.22465e-16
-math.sin(array { 0, math.pi / 2, math.pi }) .. [          0,           1, 1.22465e-16]
+math.sin(array { 0, math.pi / 2, math.pi }) .. {          0,           1, 1.22465e-16}
 
 ======== #25 math.sinh() ========
 
 math.sinh(0) .. 0
 math.sinh(1) .. 1.1752
 (math.exp(1) - math.exp(-1)) / 2 .. 1.1752
-math.sinh(array { 0, 1 }) .. [     0, 1.1752]
+math.sinh(array { 0, 1 }) .. {     0, 1.1752}
 
 ======== #26 math.sqrt() ========
 
@@ -253,7 +253,7 @@ math.sqrt(-2) .. 1.41421j
 math.sqrt(-3) .. 1.73205j
 math.sqrt(2j) .. 1+1j
 math.sqrt(3j) .. 1.22474+1.22474j
-math.sqrt(array { 0, 1, 2, 3 }) .. [      0,       1, 1.41421, 1.73205]
+math.sqrt(array { 0, 1, 2, 3 }) .. {      0,       1, 1.41421, 1.73205}
 
 ======== #27 math.tan() ========
 
@@ -265,14 +265,14 @@ math.tan(0):deg .. 0
 math.tan(45):deg .. 1
 math.tan(90):deg .. 1.63312e+16
 math.tan(180):deg .. -1.22465e-16
-math.tan(array { 0, math.pi / 4, math.pi / 2, math.pi }) .. [           0,            1,  1.63312e+16, -1.22465e-16]
+math.tan(array { 0, math.pi / 4, math.pi / 2, math.pi }) .. {           0,            1,  1.63312e+16, -1.22465e-16}
 
 ======== #28 math.tanh() ========
 
 math.tanh(0) .. 0
 math.tanh(1) .. 0.761594
 (math.exp(1) - math.exp(-1)) / (math.exp(1) + math.exp(-1)) .. 0.761594
-math.tanh(array { 0, 1 }) .. [       0, 0.761594]
+math.tanh(array { 0, 1 }) .. {       0, 0.761594}
 
 ======== #29 math.unitstep() ========
 
@@ -281,7 +281,7 @@ math.unitstep(-1) .. 0
 math.unitstep(0) .. 1
 math.unitstep(1) .. 1
 math.unitstep(2) .. 1
-math.unitstep(array { -2, -1, 0, 1, 2 }) .. [0, 0, 1, 1, 1]
+math.unitstep(array { -2, -1, 0, 1, 2 }) .. {0, 0, 1, 1, 1}
 
 ======== #30 ========
 

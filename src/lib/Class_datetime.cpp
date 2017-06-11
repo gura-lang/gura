@@ -76,15 +76,14 @@ Gura_DeclareFunction(datetime)
 
 Gura_ImplementFunction(datetime)
 {
-	short year = static_cast<short>(arg.GetLong(0));
-	char month = static_cast<char>(arg.GetLong(1));
-	char day = static_cast<char>(arg.GetLong(2));
-	long sec = static_cast<long>(arg.GetLong(3) * 3600 +
-								arg.GetLong(4) * 60 + arg.GetLong(5));
-	long usec = arg.GetLong(6);
-	long secsOffset = 0;
+	Int16 year = arg.GetInt32(0);
+	Int8 month = arg.GetInt8(1);
+	Int8 day = arg.GetInt8(2);
+	Int32 sec = arg.GetInt32(3) * 3600 + arg.GetInt32(4) * 60 + arg.GetInt32(5);
+	Int32 usec = arg.GetInt32(6);
+	Int32 secsOffset = 0;
 	if (arg.Is_number(7)) {
-		secsOffset = arg.GetLong(7) * 60;
+		secsOffset = arg.GetInt32(7) * 60;
 	} else {
 		secsOffset = OAL::GetSecsOffsetTZ();
 	}
@@ -574,7 +573,7 @@ Gura_DeclareMethod(datetime, settzoff)
 Gura_ImplementMethod(datetime, settzoff)
 {
 	DateTime &dateTime = Object_datetime::GetObjectThis(arg)->GetDateTime();
-	dateTime.SetTZOffset(arg.GetLong(0) * 60);
+	dateTime.SetTZOffset(arg.GetInt32(0) * 60);
 	return arg.GetValueThis();
 }
 
@@ -600,10 +599,9 @@ Gura_ImplementClassMethod(datetime, time)
 	short year = 0;
 	char month = 1;
 	char day = 1;
-	long sec = static_cast<long>(arg.GetNumber(0) * 3600 +
-						arg.GetNumber(1) * 60 + arg.GetNumber(2));
-	long usec = arg.GetLong(3);
-	long secsOffset = OAL::GetSecsOffsetTZ();
+	Int32 sec = arg.GetInt32(0) * 3600 + arg.GetInt32(1) * 60 + arg.GetInt32(2);
+	Int32 usec = arg.GetInt32(3);
+	Int32 secsOffset = OAL::GetSecsOffsetTZ();
 	return ReturnValue(env, arg,
 		Value(new Object_datetime(env, DateTime(year, month, day, sec, usec, secsOffset))));
 }

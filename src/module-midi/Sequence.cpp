@@ -36,7 +36,7 @@ bool Sequence::Read(Environment &env, Stream &stream)
 			sig.SetError(ERR_FormatError, "invalid SMF format");
 			return false;
 		}
-		size_t header_length = Gura_UnpackULong(headerChunkTop.header_length);
+		size_t header_length = Gura_UnpackUInt32(headerChunkTop.header_length);
 		HeaderChunk &headerChunk = *reinterpret_cast<HeaderChunk *>(pMemory->GetPointer());
 		if (header_length > pMemory->GetSize()) {
 			sig.SetError(ERR_FormatError, "invalid SMF format");
@@ -46,13 +46,13 @@ bool Sequence::Read(Environment &env, Stream &stream)
 			sig.SetError(ERR_FormatError, "invalid SMF format");
 			return false;
 		}
-		_format = Gura_UnpackUShort(headerChunk.format);
+		_format = Gura_UnpackUInt16(headerChunk.format);
 		if (_format != 0 && _format != 1) {
 			sig.SetError(ERR_FormatError, "supported format is 0 or 1");
 			return false;
 		}
-		numTrackChunks = Gura_UnpackUShort(headerChunk.num_track_chunks);
-		_pProperty->SetDivision(Gura_UnpackUShort(headerChunk.division));
+		numTrackChunks = Gura_UnpackUInt16(headerChunk.num_track_chunks);
+		_pProperty->SetDivision(Gura_UnpackUInt16(headerChunk.division));
 	} while (0);
 	GetTrackOwner().Clear();
 	for (size_t i = 0; i < numTrackChunks; i++) {
@@ -71,12 +71,12 @@ bool Sequence::Read(Environment &env, Stream &stream)
 		UChar eventType = 0x00;
 		Binary binary;
 		Stat stat = STAT_EventStart;
-		ULong deltaTime = 0x00000000;
-		ULong timeStamp = 0x00000000;
-		ULong length = 0x00000000;
+		UInt32 deltaTime = 0x00000000;
+		UInt32 timeStamp = 0x00000000;
+		UInt32 length = 0x00000000;
 		UChar statusPrev = 0x00;
 		bool enableRunningStatus = false;
-		size_t lengthRest = Gura_UnpackULong(trackChunkTop.length);
+		size_t lengthRest = Gura_UnpackUInt32(trackChunkTop.length);
 		while  (lengthRest > 0) {
 			size_t lengthRead = ChooseMin(lengthRest, pMemory->GetSize());
 			if (stream.Read(sig, pMemory->GetPointer(), lengthRead) != lengthRead) {
@@ -205,18 +205,18 @@ bool Sequence::Write(Environment &env, Stream &stream)
 	do {
 		HeaderChunkTop headerChunkTop;
 		::memcpy(headerChunkTop.MThd, "MThd", sizeof(headerChunkTop.MThd));
-		Gura_PackULong(headerChunkTop.header_length, HeaderChunk::Size);
+		Gura_PackUInt32(headerChunkTop.header_length, HeaderChunk::Size);
 		if (stream.Write(sig, &headerChunkTop, HeaderChunkTop::Size) != HeaderChunkTop::Size) {
 			return false;
 		}
 	} while (0);
 	do {
 		HeaderChunk headerChunk;
-		UShort format = (GetTrackOwner().size() <= 1)? 0 : 1;
-		Gura_PackUShort(headerChunk.format, format);
-		Gura_PackUShort(headerChunk.num_track_chunks, GetTrackOwner().empty()? 1 :
-							static_cast<UShort>(GetTrackOwner().size()));
-		Gura_PackUShort(headerChunk.division, _pProperty->GetDivision());
+		UInt16 format = (GetTrackOwner().size() <= 1)? 0 : 1;
+		Gura_PackUInt16(headerChunk.format, format);
+		Gura_PackUInt16(headerChunk.num_track_chunks, GetTrackOwner().empty()? 1 :
+							static_cast<UInt16>(GetTrackOwner().size()));
+		Gura_PackUInt16(headerChunk.division, _pProperty->GetDivision());
 		if (stream.Write(sig, &headerChunk, HeaderChunk::Size) != HeaderChunk::Size) {
 			return false;
 		}
@@ -224,7 +224,7 @@ bool Sequence::Write(Environment &env, Stream &stream)
 	if (GetTrackOwner().empty()) {
 		TrackChunkTop trackChunkTop;
 		::memcpy(trackChunkTop.MTrk, "MTrk", sizeof(trackChunkTop.MTrk));
-		Gura_PackULong(trackChunkTop.length, 0);
+		Gura_PackUInt32(trackChunkTop.length, 0);
 		if (stream.Write(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
 			return false;
 		}
@@ -234,13 +234,13 @@ bool Sequence::Write(Environment &env, Stream &stream)
 		const Track *pTrack = *ppTrack;
 		AutoPtr<StreamMemory> pStreamMemory(new StreamMemory(env));
 		const Event *pEventPrev = nullptr;
-		ULong timeStamp = 0x00000000;
+		UInt32 timeStamp = 0x00000000;
 		AutoPtr<EventOwner> pEventOwner(new EventOwner());
 		pEventOwner->AddEvents(pTrack->GetEventOwner());
 		pEventOwner->Sort();
 		foreach_const (EventOwner, ppEvent, *pEventOwner) {
 			Event *pEvent = *ppEvent;
-			ULong timeDelta = pEvent->GetTimeStamp() - timeStamp;
+			UInt32 timeDelta = pEvent->GetTimeStamp() - timeStamp;
 			timeStamp = pEvent->GetTimeStamp();
 			if (!Event::WriteVariableFormat(sig, *pStreamMemory, timeDelta)) return false;
 			if (!pEvent->Write(sig, *pStreamMemory, pEventPrev)) return false;
@@ -248,7 +248,7 @@ bool Sequence::Write(Environment &env, Stream &stream)
 		}
 		if (pTrack->IsEndOfTrackRequested() &&
 							!MetaEvent_EndOfTrack::CheckEvent(pEventPrev)) {
-			ULong timeDelta = 0;
+			UInt32 timeDelta = 0;
 			timeStamp += timeDelta;
 			AutoPtr<Event> pEvent(new MetaEvent_EndOfTrack(timeStamp));
 			if (!Event::WriteVariableFormat(sig, *pStreamMemory, timeDelta)) return false;
@@ -256,7 +256,7 @@ bool Sequence::Write(Environment &env, Stream &stream)
 		}
 		TrackChunkTop trackChunkTop;
 		::memcpy(trackChunkTop.MTrk, "MTrk", sizeof(trackChunkTop.MTrk));
-		Gura_PackULong(trackChunkTop.length, static_cast<ULong>(pStreamMemory->GetSize()));
+		Gura_PackUInt32(trackChunkTop.length, static_cast<UInt32>(pStreamMemory->GetSize()));
 		if (stream.Write(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
 			return false;
 		}

@@ -539,7 +539,7 @@ Gura_DeclareMethod(track, tell)
 Gura_ImplementMethod(track, tell)
 {
 	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
-	return Value(pTrack->Tell());
+	return Value(static_cast<Int32>(pTrack->Tell()));
 }
 
 // midi.track#erase(n?:number):reduce

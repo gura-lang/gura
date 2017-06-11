@@ -247,86 +247,86 @@ enum {
 };
 
 struct TIFF_BE {
-	Gura_PackedUShort_BE(Code);
-	Gura_PackedULong_BE(Offset0thIFD);
+	Gura_PackedUInt16_BE(Code);
+	Gura_PackedUInt32_BE(Offset0thIFD);
 };
 
 struct TIFF_LE {
-	Gura_PackedUShort_LE(Code);
-	Gura_PackedULong_LE(Offset0thIFD);
+	Gura_PackedUInt16_LE(Code);
+	Gura_PackedUInt32_LE(Offset0thIFD);
 };
 
 struct IFDHeader_BE {
-	Gura_PackedUShort_BE(TagCount);
+	Gura_PackedUInt16_BE(TagCount);
 };
 
 struct IFDHeader_LE {
-	Gura_PackedUShort_LE(TagCount);
+	Gura_PackedUInt16_LE(TagCount);
 };
 
 struct RATIONAL_BE {
-	Gura_PackedULong_BE(numerator);
-	Gura_PackedULong_BE(denominator);
+	Gura_PackedUInt32_BE(numerator);
+	Gura_PackedUInt32_BE(denominator);
 };
 
 struct RATIONAL_LE {
-	Gura_PackedULong_LE(numerator);
-	Gura_PackedULong_LE(denominator);
+	Gura_PackedUInt32_LE(numerator);
+	Gura_PackedUInt32_LE(denominator);
 };
 
 struct SRATIONAL_BE {
-	Gura_PackedULong_BE(numerator);
-	Gura_PackedULong_BE(denominator);
+	Gura_PackedUInt32_BE(numerator);
+	Gura_PackedUInt32_BE(denominator);
 };
 
 struct SRATIONAL_LE {
-	Gura_PackedULong_LE(numerator);
-	Gura_PackedULong_LE(denominator);
+	Gura_PackedUInt32_LE(numerator);
+	Gura_PackedUInt32_LE(denominator);
 };
 
 struct SHORT_BE {
-	Gura_PackedUShort_BE(num);
+	Gura_PackedUInt16_BE(num);
 };
 
 struct SHORT_LE {
-	Gura_PackedUShort_LE(num);
+	Gura_PackedUInt16_LE(num);
 };
 
 struct LONG_BE {
-	Gura_PackedULong_BE(num);
+	Gura_PackedUInt32_BE(num);
 };
 
 struct LONG_LE {
-	Gura_PackedULong_LE(num);
+	Gura_PackedUInt32_LE(num);
 };
 
 struct SLONG_BE {
-	Gura_PackedULong_BE(num);
+	Gura_PackedUInt32_BE(num);
 };
 
 struct SLONG_LE {
-	Gura_PackedULong_LE(num);
+	Gura_PackedUInt32_LE(num);
 };
 
 union ValueRaw_BE {
 	char BYTE[4];
 	char ASCII[4];
 	struct {
-		Gura_PackedUShort_BE(num);
-		Gura_PackedUShort_BE(second);
+		Gura_PackedUInt16_BE(num);
+		Gura_PackedUInt16_BE(second);
 	} SHORT;
 	struct {
-		Gura_PackedULong_BE(num);
+		Gura_PackedUInt32_BE(num);
 	} LONG;
 	struct {
-		Gura_PackedULong_BE(num);
+		Gura_PackedUInt32_BE(num);
 	} SLONG;
 };
 
 struct TagRaw_BE {
-	Gura_PackedUShort_BE(Id);
-	Gura_PackedUShort_BE(Type);
-	Gura_PackedULong_BE(Count);
+	Gura_PackedUInt16_BE(Id);
+	Gura_PackedUInt16_BE(Type);
+	Gura_PackedUInt32_BE(Count);
 	UChar ValueRaw;
 };
 
@@ -334,33 +334,33 @@ union ValueRaw_LE {
 	char BYTE[4];
 	char ASCII[4];
 	struct {
-		Gura_PackedUShort_LE(num);
-		Gura_PackedUShort_LE(second);
+		Gura_PackedUInt16_LE(num);
+		Gura_PackedUInt16_LE(second);
 	} SHORT;
 	struct {
-		Gura_PackedULong_LE(num);
+		Gura_PackedUInt32_LE(num);
 	} LONG;
 	struct {
-		Gura_PackedULong_LE(num);
+		Gura_PackedUInt32_LE(num);
 	} SLONG;
 };
 
 struct TagRaw_LE {
-	Gura_PackedUShort_LE(Id);
-	Gura_PackedUShort_LE(Type);
-	Gura_PackedULong_LE(Count);
+	Gura_PackedUInt16_LE(Id);
+	Gura_PackedUInt16_LE(Type);
+	Gura_PackedUInt32_LE(Count);
 	UChar ValueRaw;
 };
 
 struct TagInfo {
-	UShort id;
+	UInt16 id;
 	const char *name;
-	UShort type;
+	UInt16 type;
 	const char *nameForIFD;
 };
 
 struct TypeInfo {
-	UShort type;
+	UInt16 type;
 	const char *name;
 	size_t unitSize;
 };
@@ -434,17 +434,17 @@ struct DestinationMgr {
 class SymbolAssoc {
 public:
 	struct Entry {
-		UShort num;
+		UInt16 num;
 		const char *name;
 		const Symbol *pSymbol;
 	};
 private:
-	UShort _tagId;
+	UInt16 _tagId;
 	Entry *_entryTbl;
 public:
-	SymbolAssoc(UShort tagId, Entry *entryTbl);
-	inline UShort GetTagId() const { return _tagId; }
-	const Symbol *NumToSymbol(UShort num) const;
+	SymbolAssoc(UInt16 tagId, Entry *entryTbl);
+	inline UInt16 GetTagId() const { return _tagId; }
+	const Symbol *NumToSymbol(UInt16 num) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -452,8 +452,8 @@ public:
 //-----------------------------------------------------------------------------
 class SymbolAssocList : public std::vector<SymbolAssoc *> {
 public:
-	const SymbolAssoc *FindByTagId(UShort tagId) const;
-	const Symbol *NumToSymbol(UShort tagId, UShort num) const;
+	const SymbolAssoc *FindByTagId(UInt16 tagId) const;
+	const Symbol *NumToSymbol(UInt16 tagId, UInt16 num) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -470,8 +470,8 @@ public:
 //-----------------------------------------------------------------------------
 void SetError_InvalidFormat(Signal &sig);
 bool ReadBuff(Signal &sig, Stream &stream, void *buff, size_t bytes);
-const TagInfo *TagIdToInfo(const Symbol *pSymbolOfIFD, UShort id);
-const TypeInfo *TypeToInfo(UShort type);
+const TagInfo *TagIdToInfo(const Symbol *pSymbolOfIFD, UInt16 id);
+const TypeInfo *TypeToInfo(UInt16 type);
 
 extern SymbolAssocOwner g_symbolAssocOwner;
 

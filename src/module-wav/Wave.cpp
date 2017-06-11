@@ -15,12 +15,12 @@ void Wave::Clear()
 
 bool Wave::SetAudio(Signal &sig, const Audio *pAudio)
 {
-	UShort wFormatTag = FORMAT_PCM;
-	UShort nChannels = pAudio->GetChannels();
-	ULong nSamplesPerSec = pAudio->GetSamplesPerSec();
-	ULong nAvgBytesPerSec = 0;
-	UShort nBlockAlign = 4;
-	UShort wBitsPerSample = 0;
+	UInt16 wFormatTag = FORMAT_PCM;
+	UInt16 nChannels = pAudio->GetChannels();
+	UInt32 nSamplesPerSec = pAudio->GetSamplesPerSec();
+	UInt32 nAvgBytesPerSec = 0;
+	UInt16 nBlockAlign = 4;
+	UInt16 wBitsPerSample = 0;
 	switch (pAudio->GetFormat()) {
 	case Audio::FORMAT_U8:
 		_pAudio.reset(pAudio->ConvertFormat(Audio::FORMAT_S8));
@@ -66,8 +66,8 @@ bool Wave::Read(Signal &sig, Stream &stream)
 		sig.SetError(ERR_FormatError, "invalid WAVE format");
 		return false;
 	}
-	ULong ckID = Gura_UnpackULong(chunkHdr.ckID);
-	ULong ckSize = Gura_UnpackULong(chunkHdr.ckSize);
+	UInt32 ckID = Gura_UnpackUInt32(chunkHdr.ckID);
+	UInt32 ckSize = Gura_UnpackUInt32(chunkHdr.ckSize);
 	if (ckID != CKID_RIFF) {
 		sig.SetError(ERR_FormatError, "can't find RIFF chunk");
 		return false;
@@ -95,8 +95,8 @@ bool Wave::Write(Signal &sig, Stream &stream)
 	bytesChunk += ChunkHdr::Size + bytesData;
 	do {
 		ChunkHdr chunkHdr;
-		Gura_PackULong(chunkHdr.ckID, CKID_RIFF);
-		Gura_PackULong(chunkHdr.ckSize, static_cast<ULong>(bytesChunk));
+		Gura_PackUInt32(chunkHdr.ckID, CKID_RIFF);
+		Gura_PackUInt32(chunkHdr.ckSize, static_cast<UInt32>(bytesChunk));
 		if (stream.Write(sig, &chunkHdr, ChunkHdr::Size) != ChunkHdr::Size) return false;
 		const char formHdr[] = "WAVE";
 		if (stream.Write(sig, formHdr, 4) != 4) return false;
@@ -104,8 +104,8 @@ bool Wave::Write(Signal &sig, Stream &stream)
 	if (!_pFormat->Write(sig, stream)) return false;
 	do {
 		ChunkHdr chunkHdr;
-		Gura_PackULong(chunkHdr.ckID, CKID_data);
-		Gura_PackULong(chunkHdr.ckSize, static_cast<ULong>(bytesData));
+		Gura_PackUInt32(chunkHdr.ckID, CKID_data);
+		Gura_PackUInt32(chunkHdr.ckSize, static_cast<UInt32>(bytesData));
 		if (stream.Write(sig, &chunkHdr, ChunkHdr::Size) != ChunkHdr::Size) return false;
 		for (Audio::Chain *pChain = _pAudio->GetChainTop();
 							pChain != nullptr; pChain = pChain->GetNext()) {
@@ -134,9 +134,9 @@ bool Wave::ReadSubChunk(Signal &sig, Stream &stream, size_t bytes)
 			return false;
 		}
 		bytesRest -= bytesRead;
-		ULong ckID = Gura_UnpackULong(chunkHdr.ckID);
-		ULong ckSize = Gura_UnpackULong(chunkHdr.ckSize);
-		ULong ckSizeAlign = (ckSize + 1) / 2 * 2;
+		UInt32 ckID = Gura_UnpackUInt32(chunkHdr.ckID);
+		UInt32 ckSize = Gura_UnpackUInt32(chunkHdr.ckSize);
+		UInt32 ckSizeAlign = (ckSize + 1) / 2 * 2;
 		switch (ckID) {
 		case CKID_fmt: {
 			Format::RawData rawData;
@@ -213,17 +213,17 @@ Wave::Format::Format() : _cntRef(1),
 }
 
 Wave::Format::Format(const RawData &rawData) : _cntRef(1),
-		_wFormatTag(Gura_UnpackUShort(rawData.wFormatTag)),
-		_nChannels(Gura_UnpackUShort(rawData.nChannels)),
-		_nSamplesPerSec(Gura_UnpackULong(rawData.nSamplesPerSec)),
-		_nAvgBytesPerSec(Gura_UnpackULong(rawData.nAvgBytesPerSec)),
-		_nBlockAlign(Gura_UnpackUShort(rawData.nBlockAlign)),
-		_wBitsPerSample(Gura_UnpackUShort(rawData.wBitsPerSample))
+		_wFormatTag(Gura_UnpackUInt16(rawData.wFormatTag)),
+		_nChannels(Gura_UnpackUInt16(rawData.nChannels)),
+		_nSamplesPerSec(Gura_UnpackUInt32(rawData.nSamplesPerSec)),
+		_nAvgBytesPerSec(Gura_UnpackUInt32(rawData.nAvgBytesPerSec)),
+		_nBlockAlign(Gura_UnpackUInt16(rawData.nBlockAlign)),
+		_wBitsPerSample(Gura_UnpackUInt16(rawData.wBitsPerSample))
 {
 }
 
-Wave::Format::Format(UShort wFormatTag, UShort nChannels, ULong nSamplesPerSec,
-		ULong nAvgBytesPerSec, UShort nBlockAlign, UShort wBitsPerSample) : _cntRef(1),
+Wave::Format::Format(UInt16 wFormatTag, UInt16 nChannels, UInt32 nSamplesPerSec,
+		UInt32 nAvgBytesPerSec, UInt16 nBlockAlign, UInt16 wBitsPerSample) : _cntRef(1),
 		_wFormatTag(wFormatTag),
 		_nChannels(nChannels),
 		_nSamplesPerSec(nSamplesPerSec),
@@ -248,15 +248,15 @@ bool Wave::Format::Write(Signal &sig, Stream &stream) const
 {
 	ChunkHdr chunkHdr;
 	RawData rawData;
-	Gura_PackULong(chunkHdr.ckID, CKID_fmt);
-	Gura_PackULong(chunkHdr.ckSize, RawData::Size);
+	Gura_PackUInt32(chunkHdr.ckID, CKID_fmt);
+	Gura_PackUInt32(chunkHdr.ckSize, RawData::Size);
 	if (stream.Write(sig, &chunkHdr, ChunkHdr::Size) != ChunkHdr::Size) return false;
-	Gura_PackUShort(rawData.wFormatTag, _wFormatTag);
-	Gura_PackUShort(rawData.nChannels, _nChannels);
-	Gura_PackULong(rawData.nSamplesPerSec, _nSamplesPerSec);
-	Gura_PackULong(rawData.nAvgBytesPerSec, _nAvgBytesPerSec);
-	Gura_PackUShort(rawData.nBlockAlign, _nBlockAlign);
-	Gura_PackUShort(rawData.wBitsPerSample, _wBitsPerSample);
+	Gura_PackUInt16(rawData.wFormatTag, _wFormatTag);
+	Gura_PackUInt16(rawData.nChannels, _nChannels);
+	Gura_PackUInt32(rawData.nSamplesPerSec, _nSamplesPerSec);
+	Gura_PackUInt32(rawData.nAvgBytesPerSec, _nAvgBytesPerSec);
+	Gura_PackUInt16(rawData.nBlockAlign, _nBlockAlign);
+	Gura_PackUInt16(rawData.wBitsPerSample, _wBitsPerSample);
 	return stream.Write(sig, &rawData, RawData::Size) == RawData::Size;
 }
 

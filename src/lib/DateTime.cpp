@@ -28,7 +28,7 @@ TimeDelta::TimeDelta(Int32 days, Int32 secs, Int32 usecs) :
 String TimeDelta::ToString() const
 {
 	char buff[80];
-	::sprintf(buff, "%lddays,%ldsecs(%02d:%02d:%02d),%ldusecs",
+	::sprintf(buff, "%ddays,%dsecs(%02d:%02d:%02d),%dusecs",
 		GetDays(), GetSecsRaw(), GetHours(), GetMins(), GetSecs(), GetUSecs());
 	return String(buff);
 }

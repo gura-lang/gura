@@ -5,8 +5,8 @@
 Gura_BeginModuleScope(wav)
 
 #define FOURCC(c1, c2, c3, c4) \
-	(static_cast<ULong>(c1) << 0) + (static_cast<ULong>(c2) << 8) + \
-	(static_cast<ULong>(c3) << 16) + (static_cast<ULong>(c4) << 24)
+	(static_cast<UInt32>(c1) << 0) + (static_cast<UInt32>(c2) << 8) + \
+	(static_cast<UInt32>(c3) << 16) + (static_cast<UInt32>(c4) << 24)
 
 class Wave {
 public:
@@ -59,8 +59,8 @@ public:
 	struct ChunkHdr {
 	public:
 		enum { Size = 8 };
-		Gura_PackedULong_LE(ckID);
-		Gura_PackedULong_LE(ckSize);
+		Gura_PackedUInt32_LE(ckID);
+		Gura_PackedUInt32_LE(ckSize);
 	public:
 		void Print(int indentLevel) const;
 	};
@@ -68,28 +68,28 @@ public:
 	public:
 		struct RawData {
 			enum { Size = 16 };
-			Gura_PackedUShort_LE(wFormatTag);
-			Gura_PackedUShort_LE(nChannels);
-			Gura_PackedULong_LE(nSamplesPerSec);
-			Gura_PackedULong_LE(nAvgBytesPerSec);
-			Gura_PackedUShort_LE(nBlockAlign);
-			Gura_PackedUShort_LE(wBitsPerSample);
+			Gura_PackedUInt16_LE(wFormatTag);
+			Gura_PackedUInt16_LE(nChannels);
+			Gura_PackedUInt32_LE(nSamplesPerSec);
+			Gura_PackedUInt32_LE(nAvgBytesPerSec);
+			Gura_PackedUInt16_LE(nBlockAlign);
+			Gura_PackedUInt16_LE(wBitsPerSample);
 		};
 	private:
 		int _cntRef;
-		UShort _wFormatTag;
-		UShort _nChannels;
-		ULong _nSamplesPerSec;
-		ULong _nAvgBytesPerSec;
-		UShort _nBlockAlign;
-		UShort _wBitsPerSample;
+		UInt16 _wFormatTag;
+		UInt16 _nChannels;
+		UInt32 _nSamplesPerSec;
+		UInt32 _nAvgBytesPerSec;
+		UInt16 _nBlockAlign;
+		UInt16 _wBitsPerSample;
 	public:
 		Gura_DeclareReferenceAccessor(Format);
 	public:
 		Format();
 		Format(const RawData &rawData);
-		Format(UShort wFormatTag, UShort nChannels, ULong nSamplesPerSec,
-				ULong nAvgBytesPerSec, UShort nBlockAlign, UShort wBitsPerSample);
+		Format(UInt16 wFormatTag, UInt16 nChannels, UInt32 nSamplesPerSec,
+				UInt32 nAvgBytesPerSec, UInt16 nBlockAlign, UInt16 wBitsPerSample);
 	private:
 		inline ~Format() {}
 	public:

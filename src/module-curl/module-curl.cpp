@@ -909,7 +909,7 @@ Gura_ImplementMethod(easy_handle, getinfo)
 			SetError_Curl(sig, code);
 			return Value::Nil;
 		}
-		return Value(rtn);
+		return Value(static_cast<Int32>(rtn));
 	} else if (infoType == CURLINFO_DOUBLE) {
 		double rtn = 0;
 		code = ::curl_easy_getinfo(pThis->GetEntity(), info, &rtn);

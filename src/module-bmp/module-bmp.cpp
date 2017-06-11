@@ -106,19 +106,19 @@ bool ImageStreamer_BMP::ReadStream(Environment &env, Image *pImage, Stream &stre
 		SetError_InvalidBMPFormat(sig);
 		return false;
 	}
-	if (Gura_UnpackUShort(bfh.bfType) != 0x4d42) {
+	if (Gura_UnpackUInt16(bfh.bfType) != 0x4d42) {
 		sig.SetError(ERR_FormatError, "Not a BMP file");
 		return false;
 	}
-	ULong bfOffBits = Gura_UnpackULong(bfh.bfOffBits);
+	UInt32 bfOffBits = Gura_UnpackUInt32(bfh.bfOffBits);
 	Image::BitmapInfoHeader bih;
 	if (stream.Read(sig, &bih, Image::BitmapInfoHeader::Size) < Image::BitmapInfoHeader::Size) {
 		sig.SetError(ERR_FormatError, "invalid DIB format");
 		return false;
 	}
-	int biWidth = Gura_UnpackLong(bih.biWidth);
-	int biHeight = Gura_UnpackLong(bih.biHeight);
-	UShort biBitCount = Gura_UnpackUShort(bih.biBitCount);
+	Int32 biWidth = Gura_UnpackInt32(bih.biWidth);
+	Int32 biHeight = Gura_UnpackInt32(bih.biHeight);
+	UInt16 biBitCount = Gura_UnpackUInt16(bih.biBitCount);
 	if (!pImage->ReadDIBPalette(env, stream, biBitCount)) return false;
 	if (bfOffBits != 0) {
 		stream.Seek(sig, bfOffBits, Stream::SeekSet);
@@ -137,12 +137,12 @@ bool ImageStreamer_BMP::WriteStream(Environment &env, Image *pImage, Stream &str
 	do {
 		Image::BitmapFileHeader bfh;
 		::memset(&bfh, 0x00, Image::BitmapFileHeader::Size);
-		ULong bfOffBits = Image::BitmapFileHeader::Size + Image::BitmapInfoHeader::Size;
-		bfOffBits += static_cast<ULong>(Image::CalcDIBPaletteSize(biBitCount));
-		ULong bfSize = static_cast<ULong>(pImage->GetBufferSize() + bfOffBits);
-		Gura_PackUShort(bfh.bfType,			0x4d42);
-		Gura_PackULong(bfh.bfSize,			bfSize);
-		Gura_PackULong(bfh.bfOffBits,		bfOffBits);
+		UInt32 bfOffBits = Image::BitmapFileHeader::Size + Image::BitmapInfoHeader::Size;
+		bfOffBits += static_cast<UInt32>(Image::CalcDIBPaletteSize(biBitCount));
+		UInt32 bfSize = static_cast<UInt32>(pImage->GetBufferSize() + bfOffBits);
+		Gura_PackUInt16(bfh.bfType,			0x4d42);
+		Gura_PackUInt32(bfh.bfSize,			bfSize);
+		Gura_PackUInt32(bfh.bfOffBits,		bfOffBits);
 		if (stream.Write(sig, &bfh, Image::BitmapFileHeader::Size) < Image::BitmapFileHeader::Size) {
 			sig.SetError(ERR_IOError, "failed to write bitmap data");
 			return false;
@@ -151,17 +151,17 @@ bool ImageStreamer_BMP::WriteStream(Environment &env, Image *pImage, Stream &str
 	do {
 		Image::BitmapInfoHeader bih;
 		::memset(&bih, 0x00, Image::BitmapInfoHeader::Size);
-		Gura_PackULong(bih.biSize,			Image::BitmapInfoHeader::Size);
-		Gura_PackULong(bih.biWidth,			biWidth);
-		Gura_PackULong(bih.biHeight,		biHeight);
-		Gura_PackUShort(bih.biPlanes,		1);
-		Gura_PackUShort(bih.biBitCount,		biBitCount);
-		Gura_PackULong(bih.biCompression,	0);
-		Gura_PackULong(bih.biSizeImage,		0);
-		Gura_PackULong(bih.biXPelsPerMeter,	3780);
-		Gura_PackULong(bih.biYPelsPerMeter,	3780);
-		Gura_PackULong(bih.biClrUsed,		0);
-		Gura_PackULong(bih.biClrImportant,	0);
+		Gura_PackUInt32(bih.biSize,			Image::BitmapInfoHeader::Size);
+		Gura_PackUInt32(bih.biWidth,			biWidth);
+		Gura_PackUInt32(bih.biHeight,		biHeight);
+		Gura_PackUInt16(bih.biPlanes,		1);
+		Gura_PackUInt16(bih.biBitCount,		biBitCount);
+		Gura_PackUInt32(bih.biCompression,	0);
+		Gura_PackUInt32(bih.biSizeImage,		0);
+		Gura_PackUInt32(bih.biXPelsPerMeter,	3780);
+		Gura_PackUInt32(bih.biYPelsPerMeter,	3780);
+		Gura_PackUInt32(bih.biClrUsed,		0);
+		Gura_PackUInt32(bih.biClrImportant,	0);
 		if (stream.Write(sig, &bih, Image::BitmapInfoHeader::Size) < Image::BitmapInfoHeader::Size) {
 			sig.SetError(ERR_IOError, "failed to write bitmap data");
 			return false;

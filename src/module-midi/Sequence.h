@@ -14,27 +14,27 @@ public:
 	struct HeaderChunkTop {
 		enum { Size = 8 };
 		char MThd[4];
-		Gura_PackedULong_BE(header_length);
+		Gura_PackedUInt32_BE(header_length);
 	};
 	struct HeaderChunk {
 		enum { Size = 6 };
-		Gura_PackedUShort_BE(format);
-		Gura_PackedUShort_BE(num_track_chunks);
-		Gura_PackedUShort_BE(division);
+		Gura_PackedUInt16_BE(format);
+		Gura_PackedUInt16_BE(num_track_chunks);
+		Gura_PackedUInt16_BE(division);
 	};
 	struct TrackChunkTop {
 		enum { Size = 8 };
 		char MTrk[4];
-		Gura_PackedULong_BE(length);
+		Gura_PackedUInt32_BE(length);
 	};
 private:
-	UShort _format;
+	UInt16 _format;
 	AutoPtr<TrackOwner> _pTrackOwner;
 	AutoPtr<Property> _pProperty;
 public:
 	Sequence();
-	inline void SetFormat(UShort format) { _format = format; }
-	inline UShort GetFormat() const { return _format; }
+	inline void SetFormat(UInt16 format) { _format = format; }
+	inline UInt16 GetFormat() const { return _format; }
 	inline TrackOwner &GetTrackOwner() { return *_pTrackOwner; }
 	inline const TrackOwner &GetTrackOwner() const { return *_pTrackOwner; }
 	Property *GetProperty() { return _pProperty.get(); }

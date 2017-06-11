@@ -44,8 +44,8 @@ public:
 		}
 	};
 	struct LogicalScreenDescriptor {
-		Gura_PackedUShort_LE(LogicalScreenWidth);
-		Gura_PackedUShort_LE(LogicalScreenHeight);
+		Gura_PackedUInt16_LE(LogicalScreenWidth);
+		Gura_PackedUInt16_LE(LogicalScreenHeight);
 		UChar PackedFields;
 		UChar BackgroundColorIndex;
 		UChar PixelAspectRatio;
@@ -55,16 +55,16 @@ public:
 		inline size_t SizeOfGlobalColorTable() const { return (PackedFields >> 0) & 7; }
 	};
 	struct ImageDescriptor {
-		Gura_PackedUShort_LE(ImageLeftPosition);
-		Gura_PackedUShort_LE(ImageTopPosition);
-		Gura_PackedUShort_LE(ImageWidth);
-		Gura_PackedUShort_LE(ImageHeight);
+		Gura_PackedUInt16_LE(ImageLeftPosition);
+		Gura_PackedUInt16_LE(ImageTopPosition);
+		Gura_PackedUInt16_LE(ImageWidth);
+		Gura_PackedUInt16_LE(ImageHeight);
 		UChar PackedFields;
 		inline ImageDescriptor() {
-			Gura_PackUShort(ImageLeftPosition, 0);
-			Gura_PackUShort(ImageTopPosition, 0);
-			Gura_PackUShort(ImageWidth, 0);
-			Gura_PackUShort(ImageHeight, 0);
+			Gura_PackUInt16(ImageLeftPosition, 0);
+			Gura_PackUInt16(ImageTopPosition, 0);
+			Gura_PackUInt16(ImageWidth, 0);
+			Gura_PackUInt16(ImageHeight, 0);
 			PackedFields = 0x00;
 		}
 		inline UChar LocalColorTableFlag() const { return (PackedFields >> 7) & 1; }
@@ -75,13 +75,13 @@ public:
 	struct GraphicControlExtension {
 		UChar BlockSize;
 		UChar PackedFields;
-		Gura_PackedUShort_LE(DelayTime);
+		Gura_PackedUInt16_LE(DelayTime);
 		UChar TransparentColorIndex;
 		enum { Label = 0xf9 };
 		inline GraphicControlExtension() {
 			BlockSize = 4;
 			PackedFields = 0x00;
-			Gura_PackUShort(DelayTime, 0);
+			Gura_PackUInt16(DelayTime, 0);
 			TransparentColorIndex = 0;
 		}
 		inline UChar DisposalMethod() const { return (PackedFields >> 2) & 7; }
@@ -98,10 +98,10 @@ public:
 	};
 	struct PlainTextExtension {
 		UChar BlockSize;
-		Gura_PackedUShort_LE(TextGridLeftPosition);
-		Gura_PackedUShort_LE(TextGridTopPosition);
-		Gura_PackedUShort_LE(TextGridWidth);
-		Gura_PackedUShort_LE(TextGridHeight);
+		Gura_PackedUInt16_LE(TextGridLeftPosition);
+		Gura_PackedUInt16_LE(TextGridTopPosition);
+		Gura_PackedUInt16_LE(TextGridWidth);
+		Gura_PackedUInt16_LE(TextGridHeight);
 		UChar CharacterCellWidth;
 		UChar CharacterCellHeight;
 		UChar TextForegroundColorIndex;
@@ -111,10 +111,10 @@ public:
 		enum { Label = 0x01 };
 		inline PlainTextExtension() {
 			BlockSize = 12;
-			Gura_PackUShort(TextGridLeftPosition, 0);
-			Gura_PackUShort(TextGridTopPosition, 0);
-			Gura_PackUShort(TextGridWidth, 0);
-			Gura_PackUShort(TextGridHeight, 0);
+			Gura_PackUInt16(TextGridLeftPosition, 0);
+			Gura_PackUInt16(TextGridTopPosition, 0);
+			Gura_PackUInt16(TextGridWidth, 0);
+			Gura_PackUInt16(TextGridHeight, 0);
 			CharacterCellWidth = 0;
 			CharacterCellHeight = 0;
 			TextForegroundColorIndex = 0;
@@ -148,11 +148,11 @@ public:
 		UChar _blockData[256];
 	public:
 		ImageDataBlock();
-		bool ReadCode(Signal &sig, Stream &stream, UShort &code, int bitsOfCode);
-		bool WriteCode(Signal &sig, Stream &stream, UShort code, int bitsOfCode);
+		bool ReadCode(Signal &sig, Stream &stream, UInt16 &code, int bitsOfCode);
+		bool WriteCode(Signal &sig, Stream &stream, UInt16 code, int bitsOfCode);
 		bool Flush(Signal &sig, Stream &stream);
 	};
-	typedef std::map<Binary, UShort> TransMap;
+	typedef std::map<Binary, UInt16> TransMap;
 private:
 	Header _header;
 	LogicalScreenDescriptor _logicalScreenDescriptor;
@@ -165,7 +165,7 @@ public:
 	bool Read(Environment &env, Stream &stream,
 								Image *pImageTgt, Image::Format format);
 	bool Write(Environment &env, Stream &stream,
-		const Color &colorBackground, bool validBackgroundFlag, UShort loopCount);
+		const Color &colorBackground, bool validBackgroundFlag, UInt16 loopCount);
 	bool ReadColorTable(Signal &sig, Stream &stream, Palette *pPalette);
 	bool WriteColorTable(Signal &sig, Stream &stream, const Palette *pPalette);
 	bool ReadDataBlocks(Signal &sig, Stream &stream, Binary &binary);
@@ -186,8 +186,8 @@ public:
 	inline Extensions &GetExtensions() { return _exts; }
 	inline ValueList &GetList() { return _valList; }
 	void AddImage(const Value &value,
-			UShort imageLeftPosition, UShort imageTopPosition,
-			UShort delayTime, UChar disposalMethod);
+			UInt16 imageLeftPosition, UInt16 imageTopPosition,
+			UInt16 delayTime, UChar disposalMethod);
 	static bool ReadBuff(Signal &sig, Stream &stream, void *buff, size_t bytes);
 	static bool WriteBuff(Signal &sig, Stream &stream, const void *buff, size_t bytes);
 	static void Dump(UChar *data, int bytes);

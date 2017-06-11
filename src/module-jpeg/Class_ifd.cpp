@@ -9,8 +9,8 @@ Gura_BeginModuleScope(jpeg)
 template<typename RATIONAL_T>
 Value RationalToValue(Signal &sig, const RATIONAL_T &rational)
 {
-	unsigned long numerator = Gura_UnpackULong(rational.numerator);
-	unsigned long denominator = Gura_UnpackULong(rational.denominator);
+	unsigned long numerator = Gura_UnpackUInt32(rational.numerator);
+	unsigned long denominator = Gura_UnpackUInt32(rational.denominator);
 	if (denominator == 0) {
 		if (numerator != 0) {
 			sig.SetError(ERR_ValueError, "rational denominator can't be zero");
@@ -24,8 +24,8 @@ Value RationalToValue(Signal &sig, const RATIONAL_T &rational)
 template<typename RATIONAL_T>
 Value SRationalToValue(Signal &sig, const RATIONAL_T &rational)
 {
-	long numerator = Gura_UnpackLong(rational.numerator);
-	long denominator = Gura_UnpackLong(rational.denominator);
+	long numerator = Gura_UnpackInt32(rational.numerator);
+	long denominator = Gura_UnpackInt32(rational.denominator);
 	if (denominator == 0) {
 		if (numerator != 0) {
 			sig.SetError(ERR_ValueError, "rational denominator can't be zero");
@@ -46,7 +46,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 		return nullptr;
 	}
 	IFDHeader_T *pIFDHeader = reinterpret_cast<IFDHeader_T *>(buff + offset);
-	size_t nTags = Gura_UnpackUShort(pIFDHeader->TagCount);
+	size_t nTags = Gura_UnpackUInt16(pIFDHeader->TagCount);
 	offset += SIZE_IFDHeader;
 	if (offset + nTags * SIZE_TagRaw >= bytesAPP1 - 1) {
 		SetError_InvalidFormat(sig);
@@ -56,16 +56,16 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 		// nothing to do
 	} else if (offset + nTags * SIZE_TagRaw + UNITSIZE_LONG <= bytesAPP1) {
 		LONG_T *pLong = reinterpret_cast<LONG_T *>(buff + offset + nTags * SIZE_TagRaw);
-		*pOffsetNext = Gura_UnpackULong(pLong->num);
+		*pOffsetNext = Gura_UnpackUInt32(pLong->num);
 	} else {
 		*pOffsetNext = 0;
 	}
 	AutoPtr<Object_ifd> pObjIFD(new Object_ifd(pSymbolOfIFD));
 	for (size_t iTag = 0; iTag < nTags; iTag++, offset += SIZE_TagRaw) {
 		TagRaw_T *pTagRaw = reinterpret_cast<TagRaw_T *>(buff + offset);
-		unsigned short tagId = Gura_UnpackUShort(pTagRaw->Id);
-		unsigned short type = Gura_UnpackUShort(pTagRaw->Type);
-		unsigned long count = Gura_UnpackULong(pTagRaw->Count);
+		unsigned short tagId = Gura_UnpackUInt16(pTagRaw->Id);
+		unsigned short type = Gura_UnpackUInt16(pTagRaw->Type);
+		unsigned long count = Gura_UnpackUInt32(pTagRaw->Count);
 		ValueRaw_T *pValueRaw = reinterpret_cast<ValueRaw_T *>(&pTagRaw->ValueRaw);
 		const TagInfo *pTagInfo = TagIdToInfo(pSymbolOfIFD, tagId);
 #if 0
@@ -74,11 +74,11 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 			::printf("%s [%04x], %s [%04x], %08x, %08x\n",
 					(pTagInfo == nullptr)? "(unknown)" : pTagInfo->name, tagId,
 					(pTypeInfo == nullptr)? "(unknown)" : pTypeInfo->name, type,
-					count, Gura_UnpackULong(pValueRaw->LONG.num));
+					count, Gura_UnpackUInt32(pValueRaw->LONG.num));
 		} while (0);
 #endif
 		if (pTagInfo != nullptr && pTagInfo->nameForIFD != nullptr) {
-			size_t offsetSub = Gura_UnpackULong(pValueRaw->LONG.num);
+			size_t offsetSub = Gura_UnpackUInt32(pValueRaw->LONG.num);
 			size_t offsetNext = 0;
 			const Symbol *pSymbolOfIFDSub = Symbol::Add(pTagInfo->nameForIFD);
 			AutoPtr<Object_ifd> pObjIFDSub(ParseIFD_T<IFDHeader_T, TagRaw_T,
@@ -94,7 +94,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 			case TYPE_BYTE: {
 				char *p = pValueRaw->BYTE;
 				if (count > 4) {
-					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
+					size_t offset = Gura_UnpackUInt32(pValueRaw->LONG.num);
 					if (offset + count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
 						return nullptr;
@@ -108,7 +108,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 			case TYPE_ASCII: {
 				char *p = pValueRaw->ASCII;
 				if (count > 4) {
-					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
+					size_t offset = Gura_UnpackUInt32(pValueRaw->LONG.num);
 					if (offset + count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
 						return nullptr;
@@ -125,7 +125,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 			}
 			case TYPE_SHORT: {
 				if (count == 1) {
-					unsigned short num = Gura_UnpackUShort(pValueRaw->SHORT.num);
+					unsigned short num = Gura_UnpackUInt16(pValueRaw->SHORT.num);
 					const Symbol *pSymbol = g_symbolAssocOwner.NumToSymbol(tagId, num);
 					value = Value(num);
 					if (pSymbol == nullptr) {
@@ -136,20 +136,20 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 				} else if (count == 2) {
 					Object_list *pObjList = value.InitAsList(env);
 					pObjList->Reserve(count);
-					pObjList->Add(Value(Gura_UnpackUShort(pValueRaw->SHORT.num)));
-					pObjList->Add(Value(Gura_UnpackUShort(pValueRaw->SHORT.second)));
+					pObjList->Add(Value(Gura_UnpackUInt16(pValueRaw->SHORT.num)));
+					pObjList->Add(Value(Gura_UnpackUInt16(pValueRaw->SHORT.second)));
 					valueCooked = value;
 				} else {
 					Object_list *pObjList = value.InitAsList(env);
 					pObjList->Reserve(count);
-					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
+					size_t offset = Gura_UnpackUInt32(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_SHORT * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
 						return nullptr;
 					}
 					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_SHORT) {
 						SHORT_T *pShort = reinterpret_cast<SHORT_T *>(buff + offset);
-						pObjList->Add(Value(Gura_UnpackUShort(pShort->num)));
+						pObjList->Add(Value(Gura_UnpackUInt16(pShort->num)));
 					}
 					valueCooked = value;
 				}
@@ -157,25 +157,25 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 			}
 			case TYPE_LONG: {
 				if (count == 1) {
-					value = Value(Gura_UnpackULong(pValueRaw->LONG.num));
+					value = Value(Gura_UnpackUInt32(pValueRaw->LONG.num));
 				} else {
 					Object_list *pObjList = value.InitAsList(env);
 					pObjList->Reserve(count);
-					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
+					size_t offset = Gura_UnpackUInt32(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_LONG * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
 						return nullptr;
 					}
 					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_LONG) {
 						LONG_T *pLong = reinterpret_cast<LONG_T *>(buff + offset);
-						pObjList->Add(Value(Gura_UnpackULong(pLong->num)));
+						pObjList->Add(Value(Gura_UnpackUInt32(pLong->num)));
 					}
 				}
 				valueCooked = value;
 				break;
 			}
 			case TYPE_RATIONAL: {
-				size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
+				size_t offset = Gura_UnpackUInt32(pValueRaw->LONG.num);
 				if (offset + UNITSIZE_RATIONAL * count >= bytesAPP1 - 1) {
 					SetError_InvalidFormat(sig);
 					return nullptr;
@@ -187,7 +187,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 				} else {
 					Object_list *pObjList = value.InitAsList(env);
 					pObjList->Reserve(count);
-					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
+					size_t offset = Gura_UnpackUInt32(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_RATIONAL * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
 						return nullptr;
@@ -205,7 +205,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 			case TYPE_UNDEFINED: {
 				char *p = pValueRaw->BYTE;
 				if (count > 4) {
-					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
+					size_t offset = Gura_UnpackUInt32(pValueRaw->LONG.num);
 					if (offset + count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
 						return nullptr;
@@ -218,25 +218,25 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 			}
 			case TYPE_SLONG: {
 				if (count == 1) {
-					value = Value(Gura_UnpackLong(pValueRaw->SLONG.num));
+					value = Value(Gura_UnpackInt32(pValueRaw->SLONG.num));
 				} else {
 					Object_list *pObjList = value.InitAsList(env);
 					pObjList->Reserve(count);
-					size_t offset = Gura_UnpackLong(pValueRaw->SLONG.num);
+					size_t offset = Gura_UnpackInt32(pValueRaw->SLONG.num);
 					if (offset + UNITSIZE_SLONG * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
 						return nullptr;
 					}
 					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_SLONG) {
 						SLONG_T *pLong = reinterpret_cast<SLONG_T *>(buff + offset);
-						pObjList->Add(Value(Gura_UnpackULong(pLong->num)));
+						pObjList->Add(Value(Gura_UnpackUInt32(pLong->num)));
 					}
 				}
 				valueCooked = value;
 				break;
 			}
 			case TYPE_SRATIONAL: {
-				size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
+				size_t offset = Gura_UnpackUInt32(pValueRaw->LONG.num);
 				if (offset + UNITSIZE_SRATIONAL * count >= bytesAPP1 - 1) {
 					SetError_InvalidFormat(sig);
 					return nullptr;
@@ -248,7 +248,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 				} else {
 					Object_list *pObjList = value.InitAsList(env);
 					pObjList->Reserve(count);
-					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
+					size_t offset = Gura_UnpackUInt32(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_SRATIONAL * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
 						return nullptr;
@@ -342,7 +342,7 @@ Value Object_ifd::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	if (valueIdx.Is_number()) {
-		unsigned short tagId = valueIdx.GetUShort();
+		unsigned short tagId = valueIdx.GetUInt16();
 		Object_tag *pObjTag = GetTagOwner().FindById(tagId);
 		if (pObjTag == nullptr) {
 			sig.SetError(ERR_IndexError, "can't find tag ID 0x%04x", tagId);

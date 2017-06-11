@@ -28,7 +28,7 @@ Object *Object_Vector::Clone() const
 String Object_Vector::ToString(bool exprFlag)
 {
 	char buff[80];
-	::sprintf(buff, "<freetype.Vector:x=%d,y=%d>", _pVector->x, _pVector->y);
+	::sprintf(buff, "<freetype.Vector:x=%ld,y=%ld>", _pVector->x, _pVector->y);
 	return String(buff);
 }
 
@@ -48,14 +48,14 @@ Gura_DeclareProperty_RW(Vector, x)
 Gura_ImplementPropertyGetter(Vector, x)
 {
 	const FT_Vector *pVector = Object_Vector::GetObject(valueThis)->GetEntity();
-	return Value(pVector->x);
+	return Value(static_cast<Int32>(pVector->x));
 }
 
 Gura_ImplementPropertySetter(Vector, x)
 {
 	FT_Vector *pVector = Object_Vector::GetObject(valueThis)->GetEntity();
 	pVector->x = static_cast<FT_Pos>(value.GetLong());
-	return Value(pVector->x);
+	return Value(static_cast<Int32>(pVector->x));
 }
 
 // freetype.Vector#y
@@ -71,14 +71,14 @@ Gura_DeclareProperty_RW(Vector, y)
 Gura_ImplementPropertyGetter(Vector, y)
 {
 	const FT_Vector *pVector = Object_Vector::GetObject(valueThis)->GetEntity();
-	return Value(pVector->y);
+	return Value(static_cast<Int32>(pVector->y));
 }
 
 Gura_ImplementPropertySetter(Vector, y)
 {
 	FT_Vector *pVector = Object_Vector::GetObject(valueThis)->GetEntity();
 	pVector->y = static_cast<FT_Pos>(value.GetLong());
-	return Value(pVector->y);
+	return Value(static_cast<Int32>(pVector->y));
 }
 
 //-----------------------------------------------------------------------------
@@ -114,7 +114,7 @@ Gura_ImplementMethod(Vector, Length)
 	FT_Vector *vec = Object_Vector::GetObjectThis(arg)->GetEntity();
 	FT_Fixed rtn = ::FT_Vector_Length(vec);
 	//return Value(static_cast<double>(rtn) / (1 << 16));
-	return Value(rtn);
+	return Value(static_cast<Int32>(rtn));
 }
 
 // freetype.Vector#Transform(matrix:freetype.Matrix):reduce

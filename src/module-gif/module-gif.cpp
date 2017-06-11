@@ -159,7 +159,7 @@ Gura_ImplementPropertyGetter(LogicalScreenDescriptor, LogicalScreenHeight)
 {
 	GIF &gif = Object_LogicalScreenDescriptor::GetObject(valueThis)->GetObjContent()->GetGIF();
 	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
-	return Value(Gura_UnpackUShort(lsd.LogicalScreenHeight));
+	return Value(Gura_UnpackUInt16(lsd.LogicalScreenHeight));
 }
 
 // gif.LogicalScreenDescriptor#LogicalScreenWidth
@@ -176,7 +176,7 @@ Gura_ImplementPropertyGetter(LogicalScreenDescriptor, LogicalScreenWidth)
 {
 	GIF &gif = Object_LogicalScreenDescriptor::GetObject(valueThis)->GetObjContent()->GetGIF();
 	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
-	return Value(Gura_UnpackUShort(lsd.LogicalScreenWidth));
+	return Value(Gura_UnpackUInt16(lsd.LogicalScreenWidth));
 }
 
 // gif.LogicalScreenDescriptor#PixelAspectRatio
@@ -405,7 +405,7 @@ Gura_ImplementPropertyGetter(PlainTextExtension, TextGridHeight)
 	GIF &gif = Object_PlainTextExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
 	GIF::PlainTextExtension &pltxt = gif.GetExtensions().plainText;
 	if (!pltxt.validFlag) return Value::Nil;
-	return Value(Gura_UnpackUShort(pltxt.TextGridHeight));
+	return Value(Gura_UnpackUInt16(pltxt.TextGridHeight));
 }
 
 // gif.PlainTextExtension#TextGridLeftPosition
@@ -423,7 +423,7 @@ Gura_ImplementPropertyGetter(PlainTextExtension, TextGridLeftPosition)
 	GIF &gif = Object_PlainTextExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
 	GIF::PlainTextExtension &pltxt = gif.GetExtensions().plainText;
 	if (!pltxt.validFlag) return Value::Nil;
-	return Value(Gura_UnpackUShort(pltxt.TextGridLeftPosition));
+	return Value(Gura_UnpackUInt16(pltxt.TextGridLeftPosition));
 }
 
 // gif.PlainTextExtension#TextGridTopPosition
@@ -441,7 +441,7 @@ Gura_ImplementPropertyGetter(PlainTextExtension, TextGridTopPosition)
 	GIF &gif = Object_PlainTextExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
 	GIF::PlainTextExtension &pltxt = gif.GetExtensions().plainText;
 	if (!pltxt.validFlag) return Value::Nil;
-	return Value(Gura_UnpackUShort(pltxt.TextGridTopPosition));
+	return Value(Gura_UnpackUInt16(pltxt.TextGridTopPosition));
 }
 
 // gif.PlainTextExtension#TextGridWidth
@@ -459,7 +459,7 @@ Gura_ImplementPropertyGetter(PlainTextExtension, TextGridWidth)
 	GIF &gif = Object_PlainTextExtension::GetObject(valueThis)->GetObjContent()->GetGIF();
 	GIF::PlainTextExtension &pltxt = gif.GetExtensions().plainText;
 	if (!pltxt.validFlag) return Value::Nil;
-	return Value(Gura_UnpackUShort(pltxt.TextGridWidth));
+	return Value(Gura_UnpackUInt16(pltxt.TextGridWidth));
 }
 
 Gura_ImplementUserClass(PlainTextExtension)
@@ -591,7 +591,7 @@ bool GIF::Read(Environment &env, Stream &stream,
 		// set default values
 		graphicControl.BlockSize = 4;
 		graphicControl.PackedFields = (1 << 2) | (0 << 1) | (0 << 0);
-		Gura_PackUShort(graphicControl.DelayTime, 0);
+		Gura_PackUInt16(graphicControl.DelayTime, 0);
 		graphicControl.TransparentColorIndex = 0;
 	} while (0);
 	for (;;) {
@@ -646,7 +646,7 @@ bool GIF::Read(Environment &env, Stream &stream,
 }
 
 bool GIF::Write(Environment &env, Stream &stream,
-	const Color &colorBackground, bool validBackgroundFlag, UShort loopCount)
+	const Color &colorBackground, bool validBackgroundFlag, UInt16 loopCount)
 {
 	Signal &sig = env.GetSignal();
 	if (GetList().empty()) {
@@ -704,9 +704,9 @@ bool GIF::Write(Environment &env, Stream &stream,
 		pImage->SetPalette(Palette::Reference(_pPaletteGlobal.get()));
 		ImageDescriptor *pImageDescriptor = GetImageDescriptor(pObjImage);
 		size_t width = pImage->GetWidth() +
-						Gura_UnpackUShort(pImageDescriptor->ImageLeftPosition);
+						Gura_UnpackUInt16(pImageDescriptor->ImageLeftPosition);
 		size_t height = pImage->GetHeight() +
-						Gura_UnpackUShort(pImageDescriptor->ImageTopPosition);
+						Gura_UnpackUInt16(pImageDescriptor->ImageTopPosition);
 		if (logicalScreenWidth < width) logicalScreenWidth = width;
 		if (logicalScreenHeight < height) logicalScreenHeight = height;
 		GraphicControlExtension *pGraphicControl = GetGraphicControl(pObjImage);
@@ -726,10 +726,10 @@ bool GIF::Write(Environment &env, Stream &stream,
 		int nEntries = static_cast<int>(_pPaletteGlobal->CountEntries());
 		for ( ; nEntries > (1 << sizeOfGlobalColorTable); sizeOfGlobalColorTable++) ;
 		sizeOfGlobalColorTable--;
-		Gura_PackUShort(_logicalScreenDescriptor.LogicalScreenWidth,
-						static_cast<UShort>(logicalScreenWidth));
-		Gura_PackUShort(_logicalScreenDescriptor.LogicalScreenHeight,
-						static_cast<UShort>(logicalScreenHeight));
+		Gura_PackUInt16(_logicalScreenDescriptor.LogicalScreenWidth,
+						static_cast<UInt16>(logicalScreenWidth));
+		Gura_PackUInt16(_logicalScreenDescriptor.LogicalScreenHeight,
+						static_cast<UInt16>(logicalScreenHeight));
 		_logicalScreenDescriptor.PackedFields =
 				(globalColorTableFlag << 7) | (colorResolution << 4) |
 				(sortFlag << 3) | (sizeOfGlobalColorTable << 0);
@@ -837,8 +837,8 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal &sig, Stream &stream,
 {
 	ImageDescriptor imageDescriptor;
 	if (!ReadBuff(sig, stream, &imageDescriptor, 9)) return false;
-	size_t imageWidth = Gura_UnpackUShort(imageDescriptor.ImageWidth);
-	size_t imageHeight = Gura_UnpackUShort(imageDescriptor.ImageHeight);
+	size_t imageWidth = Gura_UnpackUInt16(imageDescriptor.ImageWidth);
+	size_t imageHeight = Gura_UnpackUInt16(imageDescriptor.ImageHeight);
 	if (!pImage->AllocBuffer(sig, imageWidth, imageHeight, 0xff)) return false;
 	Palette *pPalette = nullptr;
 	if (imageDescriptor.LocalColorTableFlag()) {
@@ -870,21 +870,21 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal &sig, Stream &stream,
 		return false;
 	}
 	bool interlaceFlag = (imageDescriptor.InterlaceFlag() != 0);
-	const UShort codeInvalid = 0xffff;
-	UShort codeMaxCeiling = 1 << maximumBitsOfCode;
-	UShort codeBoundary = 1 << mininumBitsOfCode;
-	UShort codeClear = codeBoundary;
-	UShort codeEnd = codeBoundary + 1;
-	UShort codeMax = codeBoundary + 2;
-	UShort codeFirst = codeInvalid, codeOld = codeInvalid;
+	const UInt16 codeInvalid = 0xffff;
+	UInt16 codeMaxCeiling = 1 << maximumBitsOfCode;
+	UInt16 codeBoundary = 1 << mininumBitsOfCode;
+	UInt16 codeClear = codeBoundary;
+	UInt16 codeEnd = codeBoundary + 1;
+	UInt16 codeMax = codeBoundary + 2;
+	UInt16 codeFirst = codeInvalid, codeOld = codeInvalid;
 	const size_t bytesCodeTable = codeMaxCeiling * 2;
 	const size_t bytesCodeStack = codeMaxCeiling * 2;
-	UShort *codeTable = new UShort [bytesCodeTable];
-	UShort *codeStack = new UShort [bytesCodeStack];
-	UShort *pCodeStack = codeStack;
+	UInt16 *codeTable = new UInt16 [bytesCodeTable];
+	UInt16 *codeStack = new UInt16 [bytesCodeStack];
+	UInt16 *pCodeStack = codeStack;
 	do {
 		::memset(codeTable, 0x00, bytesCodeTable);
-		for (UShort code = 0; code < codeBoundary; code++) {
+		for (UInt16 code = 0; code < codeBoundary; code++) {
 			codeTable[code * 2 + 1] = code;
 		}
 	} while (0);
@@ -893,7 +893,7 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal &sig, Stream &stream,
 	int iPass = 0;
 	UChar *dstp = pImage->GetPointer(0);
 	for (;;) {
-		UShort code = 0;
+		UInt16 code = 0;
 		if (pCodeStack > codeStack) {
 			pCodeStack--;
 			code = *pCodeStack;
@@ -902,9 +902,9 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal &sig, Stream &stream,
 			// LZW (Lempel-Ziv-Welch) decompression algorithm
 			if (code == codeClear) {
 				//::printf("clear\n");
-				UShort code = 0;
+				UInt16 code = 0;
 				::memset(codeTable, 0x00, bytesCodeTable);
-				for (UShort code = 0; code < codeBoundary; code++) {
+				for (UInt16 code = 0; code < codeBoundary; code++) {
 					codeTable[code * 2 + 1] = code;
 				}
 				pCodeStack = codeStack;
@@ -924,7 +924,7 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal &sig, Stream &stream,
 			} else if (codeFirst == codeInvalid) {
 				codeFirst = codeOld = code;
 			} else {
-				UShort codeIn = code;
+				UInt16 codeIn = code;
 				if (code >= codeMax) {
 					*pCodeStack++ = codeFirst;
 					code = codeOld;
@@ -1024,12 +1024,12 @@ bool GIF::WriteImageDescriptor(Environment &env, Signal &sig, Stream &stream,
 	if (!WriteBuff(sig, stream, &minimumBitsOfCode, 1)) return false;
 	Binary word;
 	int bitsOfCode = minimumBitsOfCode + 1;
-	UShort code = 0x0000;
-	UShort codeBoundary = 1 << minimumBitsOfCode;
-	UShort codeClear = codeBoundary;
-	UShort codeEnd = codeBoundary + 1;
-	UShort codeMax = codeBoundary + 2;
-	UShort codeMaxCeiling = 1 << maximumBitsOfCode;
+	UInt16 code = 0x0000;
+	UInt16 codeBoundary = 1 << minimumBitsOfCode;
+	UInt16 codeClear = codeBoundary;
+	UInt16 codeEnd = codeBoundary + 1;
+	UInt16 codeMax = codeBoundary + 2;
+	UInt16 codeMaxCeiling = 1 << maximumBitsOfCode;
 	TransMap transMap;
 	ImageDataBlock imageDataBlock;
 	if (!imageDataBlock.WriteCode(sig, stream, codeClear, bitsOfCode)) return false;
@@ -1132,8 +1132,8 @@ bool GIF::WriteColorTable(Signal &sig, Stream &stream, const Palette *pPalette)
 	return true;
 }
 
-void GIF::AddImage(const Value &value, UShort delayTime,
-		UShort imageLeftPosition, UShort imageTopPosition,
+void GIF::AddImage(const Value &value, UInt16 delayTime,
+		UInt16 imageLeftPosition, UInt16 imageTopPosition,
 		UChar disposalMethod)
 {
 	Object_image *pObjImage = Object_image::GetObject(value);
@@ -1151,7 +1151,7 @@ void GIF::AddImage(const Value &value, UShort delayTime,
 			(disposalMethod << 2) |
 			(graphicControlOrg.UserInputFlag() << 1) |
 			(graphicControlOrg.TransparentColorFlag() << 0);
-		Gura_PackUShort(graphicControl.DelayTime, delayTime);
+		Gura_PackUInt16(graphicControl.DelayTime, delayTime);
 		graphicControl.TransparentColorIndex = graphicControlOrg.TransparentColorIndex;
 		pObjGraphicControl.reset(new Object_GraphicControl(graphicControl));
 	} while (0);
@@ -1162,12 +1162,12 @@ void GIF::AddImage(const Value &value, UShort delayTime,
 		if (pImageDescriptor != nullptr) {
 			imageDescriptorOrg = *pImageDescriptor;
 		}
-		Gura_PackUShort(imageDescriptor.ImageLeftPosition, imageLeftPosition);
-		Gura_PackUShort(imageDescriptor.ImageTopPosition, imageTopPosition);
-		Gura_PackUShort(imageDescriptor.ImageWidth,
-					static_cast<UShort>(pImage->GetWidth()));
-		Gura_PackUShort(imageDescriptor.ImageHeight,
-					static_cast<UShort>(pImage->GetHeight()));
+		Gura_PackUInt16(imageDescriptor.ImageLeftPosition, imageLeftPosition);
+		Gura_PackUInt16(imageDescriptor.ImageTopPosition, imageTopPosition);
+		Gura_PackUInt16(imageDescriptor.ImageWidth,
+					static_cast<UInt16>(pImage->GetWidth()));
+		Gura_PackUInt16(imageDescriptor.ImageHeight,
+					static_cast<UInt16>(pImage->GetHeight()));
 		imageDescriptor.PackedFields =
 			(imageDescriptorOrg.LocalColorTableFlag() << 7) |
 			(imageDescriptorOrg.InterlaceFlag() << 6) |
@@ -1289,7 +1289,7 @@ GIF::ImageDataBlock::ImageDataBlock() : _bitOffset(0), _bitsRead(0)
 }
 
 bool GIF::ImageDataBlock::ReadCode(Signal &sig, Stream &stream,
-										UShort &code, int bitsOfCode)
+										UInt16 &code, int bitsOfCode)
 {
 	for (int bitsAccum = 0; bitsAccum < bitsOfCode; ) {
 		int bitsRest = bitsOfCode - bitsAccum;
@@ -1301,7 +1301,7 @@ bool GIF::ImageDataBlock::ReadCode(Signal &sig, Stream &stream,
 			_bitsRead = blockSize * 8;
 			_bitOffset = 0;
 		}
-		UShort ch = static_cast<UShort>(_blockData[_bitOffset >> 3]);
+		UInt16 ch = static_cast<UInt16>(_blockData[_bitOffset >> 3]);
 		int bitsRight = _bitOffset & 7;
 		int bitsLeft = 8 - bitsRight;
 		if (bitsRest < bitsLeft) {
@@ -1318,7 +1318,7 @@ bool GIF::ImageDataBlock::ReadCode(Signal &sig, Stream &stream,
 }
 
 bool GIF::ImageDataBlock::WriteCode(Signal &sig, Stream &stream,
-										UShort code, int bitsOfCode)
+										UInt16 code, int bitsOfCode)
 {
 	const int bitsFull = 8 * 255;
 	for (int bitsAccum = 0; bitsAccum < bitsOfCode; ) {
@@ -1404,7 +1404,7 @@ Gura_ImplementMethod(content, write)
 	Signal &sig = env.GetSignal();
 	GIF &gif = Object_content::GetObjectThis(arg)->GetGIF();
 	Stream &stream = arg.GetStream(0);
-	UShort loopCount = 0;
+	UInt16 loopCount = 0;
 	if (!gif.Write(env, stream, Color::zero, false, loopCount)) {
 		return Value::Nil;
 	}
@@ -1452,8 +1452,8 @@ Gura_ImplementMethod(content, addimage)
 	GIF &gif = Object_content::GetObjectThis(arg)->GetGIF();
 	UChar disposalMethod = GIF::DisposalMethodFromSymbol(sig, arg.GetSymbol(4));
 	if (sig.IsSignalled()) return Value::Nil;
-	gif.AddImage(arg.GetValue(0), arg.GetUShort(1),
-					arg.GetUShort(2), arg.GetUShort(3), disposalMethod);
+	gif.AddImage(arg.GetValue(0), arg.GetUInt16(1),
+					arg.GetUInt16(2), arg.GetUInt16(3), disposalMethod);
 	return arg.GetValueThis();
 }
 
@@ -1612,7 +1612,7 @@ Gura_ImplementPropertyGetter(GraphicControl, DelayTime)
 {
 	const GIF::GraphicControlExtension &gctl =
 		*Object_GraphicControl::GetObject(valueThis)->GetGraphicControl();
-	return Value(Gura_UnpackUShort(gctl.DelayTime));
+	return Value(Gura_UnpackUInt16(gctl.DelayTime));
 }
 
 // gif.GraphicControl#DisposalMethod
@@ -1730,7 +1730,7 @@ Gura_DeclareProperty_R(ImageDescriptor, ImageHeight)
 Gura_ImplementPropertyGetter(ImageDescriptor, ImageHeight)
 {
 	GIF::ImageDescriptor &desc = *Object_ImageDescriptor::GetObject(valueThis)->GetImageDescriptor();
-	return Value(Gura_UnpackUShort(desc.ImageHeight));
+	return Value(Gura_UnpackUInt16(desc.ImageHeight));
 }
 
 // gif.ImageDescriptor#ImageLeftPosition
@@ -1746,7 +1746,7 @@ Gura_DeclareProperty_R(ImageDescriptor, ImageLeftPosition)
 Gura_ImplementPropertyGetter(ImageDescriptor, ImageLeftPosition)
 {
 	GIF::ImageDescriptor &desc = *Object_ImageDescriptor::GetObject(valueThis)->GetImageDescriptor();
-	return Value(Gura_UnpackUShort(desc.ImageLeftPosition));
+	return Value(Gura_UnpackUInt16(desc.ImageLeftPosition));
 }
 
 // gif.ImageDescriptor#ImageTopPosition
@@ -1762,7 +1762,7 @@ Gura_DeclareProperty_R(ImageDescriptor, ImageTopPosition)
 Gura_ImplementPropertyGetter(ImageDescriptor, ImageTopPosition)
 {
 	GIF::ImageDescriptor &desc = *Object_ImageDescriptor::GetObject(valueThis)->GetImageDescriptor();
-	return Value(Gura_UnpackUShort(desc.ImageTopPosition));
+	return Value(Gura_UnpackUInt16(desc.ImageTopPosition));
 }
 
 // gif.ImageDescriptor#ImageWidth
@@ -1778,7 +1778,7 @@ Gura_DeclareProperty_R(ImageDescriptor, ImageWidth)
 Gura_ImplementPropertyGetter(ImageDescriptor, ImageWidth)
 {
 	GIF::ImageDescriptor &desc = *Object_ImageDescriptor::GetObject(valueThis)->GetImageDescriptor();
-	return Value(Gura_UnpackUShort(desc.ImageWidth));
+	return Value(Gura_UnpackUInt16(desc.ImageWidth));
 }
 
 // gif.ImageDescriptor#InterlaceFlag
@@ -1977,7 +1977,7 @@ Gura_ImplementMethod(image, write_at_gif)
 	Stream &stream = arg.GetStream(0);
 	GIF gif;
 	gif.AddImage(arg.GetValueThis(), 0, 0, 0, 1);
-	UShort loopCount = 0;
+	UInt16 loopCount = 0;
 	if (!gif.Write(env, stream, Color::zero, false, loopCount)) {
 		return Value::Nil;
 	}
@@ -2095,7 +2095,7 @@ bool ImageStreamer_GIF::Write(Environment &env,
 	GIF gif;
 	Value value(new Object_image(env, Image::Reference(pImage)));
 	gif.AddImage(value, 0, 0, 0, 1);
-	UShort loopCount = 0;
+	UInt16 loopCount = 0;
 	return gif.Write(env, stream, Color::zero, false, loopCount);
 }
 

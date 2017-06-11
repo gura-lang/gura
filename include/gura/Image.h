@@ -18,25 +18,25 @@ class GURA_DLLDECLARE Image {
 public:
 	struct BitmapFileHeader {
 		enum { Size = 14 };
-		Gura_PackedUShort_LE(bfType);
-		Gura_PackedULong_LE(bfSize);
-		Gura_PackedUShort_LE(bfReserved1);
-		Gura_PackedUShort_LE(bfReserved2);
-		Gura_PackedULong_LE(bfOffBits);
+		Gura_PackedUInt16_LE(bfType);
+		Gura_PackedUInt32_LE(bfSize);
+		Gura_PackedUInt16_LE(bfReserved1);
+		Gura_PackedUInt16_LE(bfReserved2);
+		Gura_PackedUInt32_LE(bfOffBits);
 	};
 	struct BitmapInfoHeader {
 		enum { Size = 40 };
-		Gura_PackedULong_LE(biSize);
-		Gura_PackedLong_LE(biWidth);
-		Gura_PackedLong_LE(biHeight);
-		Gura_PackedUShort_LE(biPlanes);
-		Gura_PackedUShort_LE(biBitCount);
-		Gura_PackedULong_LE(biCompression);
-		Gura_PackedULong_LE(biSizeImage);
-		Gura_PackedLong_LE(biXPelsPerMeter);
-		Gura_PackedLong_LE(biYPelsPerMeter);
-		Gura_PackedULong_LE(biClrUsed);
-		Gura_PackedULong_LE(biClrImportant);
+		Gura_PackedUInt32_LE(biSize);
+		Gura_PackedInt32_LE(biWidth);
+		Gura_PackedInt32_LE(biHeight);
+		Gura_PackedUInt16_LE(biPlanes);
+		Gura_PackedUInt16_LE(biBitCount);
+		Gura_PackedUInt32_LE(biCompression);
+		Gura_PackedUInt32_LE(biSizeImage);
+		Gura_PackedInt32_LE(biXPelsPerMeter);
+		Gura_PackedInt32_LE(biYPelsPerMeter);
+		Gura_PackedUInt32_LE(biClrUsed);
+		Gura_PackedUInt32_LE(biClrImportant);
 	};
 public:
 	enum {
@@ -63,50 +63,50 @@ public:
 		size_t b;
 		size_t a;
 		size_t cnt;
-		inline void AddRGB(UChar _r, UChar _g, UChar _b) {
+		inline void AddRGB(UInt8 _r, UInt8 _g, UInt8 _b) {
 			r += _r;
 			g += _g;
 			b += _b;
 			cnt++;
 		}
-		inline void AddRGBA(UChar _r, UChar _g, UChar _b, UChar _a) {
+		inline void AddRGBA(UInt8 _r, UInt8 _g, UInt8 _b, UInt8 _a) {
 			r += _r;
 			g += _g;
 			b += _b;
 			a += _a;
 			cnt++;
 		}
-		inline void AddRGB(const UChar *pPixel) {
+		inline void AddRGB(const UInt8 *pPixel) {
 			r += Image::GetPixelR(pPixel);
 			g += Image::GetPixelG(pPixel);
 			b += Image::GetPixelB(pPixel);
 			cnt++;
 		}
-		inline void AddRGBA(const UChar *pPixel) {
+		inline void AddRGBA(const UInt8 *pPixel) {
 			r += Image::GetPixelR(pPixel);
 			g += Image::GetPixelG(pPixel);
 			b += Image::GetPixelB(pPixel);
 			a += Image::GetPixelA(pPixel);
 			cnt++;
 		}
-		inline void StoreRGB(UChar *pPixel) {
+		inline void StoreRGB(UInt8 *pPixel) {
 			StorePixel(pPixel,
-				static_cast<UChar>(r),
-				static_cast<UChar>(g),
-				static_cast<UChar>(b));
+				static_cast<UInt8>(r),
+				static_cast<UInt8>(g),
+				static_cast<UInt8>(b));
 		}
-		inline void StoreRGBA(UChar *pPixel) {
+		inline void StoreRGBA(UInt8 *pPixel) {
 			StorePixel(pPixel,
-				static_cast<UChar>(r),
-				static_cast<UChar>(g),
-				static_cast<UChar>(b),
-				static_cast<UChar>(a));
+				static_cast<UInt8>(r),
+				static_cast<UInt8>(g),
+				static_cast<UInt8>(b),
+				static_cast<UInt8>(a));
 		}
 	};
 	class GURA_DLLDECLARE Scanner {
 	private:
 		AutoPtr<Image> _pImage;
-		UChar *_pPixel;
+		UInt8 *_pPixel;
 		size_t _iPixel, _iLine;
 		size_t _nPixels, _nLines;
 		int _pitchPixel;
@@ -115,14 +115,14 @@ public:
 		Scanner(Image *pImage, size_t x, size_t y,
 								size_t width, size_t height, ScanDir scanDir);
 		~Scanner();
-		inline void SetPointer(UChar *pPixel) { _pPixel = pPixel; }
+		inline void SetPointer(UInt8 *pPixel) { _pPixel = pPixel; }
 		inline void ResetIndex() { _iPixel = 0, _iLine = 0; }
 		inline Image *GetImage() { return _pImage.get(); }
-		inline UChar *GetPointer() { return _pPixel; }
-		inline UChar GetR() const { return _pPixel[OffsetR]; }
-		inline UChar GetG() const { return _pPixel[OffsetG]; }
-		inline UChar GetB() const { return _pPixel[OffsetB]; }
-		inline UChar GetA() const { return _pPixel[OffsetA]; }
+		inline UInt8 *GetPointer() { return _pPixel; }
+		inline UInt8 GetR() const { return _pPixel[OffsetR]; }
+		inline UInt8 GetG() const { return _pPixel[OffsetG]; }
+		inline UInt8 GetB() const { return _pPixel[OffsetB]; }
+		inline UInt8 GetA() const { return _pPixel[OffsetA]; }
 		inline void FwdPixel() {
 			_iPixel++;
 			_pPixel += _pitchPixel;
@@ -177,12 +177,12 @@ public:
 		inline size_t CountLines() const { return _nLines; }
 		inline size_t GetPixelIdx() const { return _iPixel; }
 		inline size_t GetLineIdx() const { return _iLine; }
-		inline void StorePixel(UChar r, UChar g, UChar b) {
+		inline void StorePixel(UInt8 r, UInt8 g, UInt8 b) {
 			_pPixel[OffsetR] = r;
 			_pPixel[OffsetG] = g;
 			_pPixel[OffsetB] = b;
 		}
-		inline void StorePixel(UChar r, UChar g, UChar b, UChar a) {
+		inline void StorePixel(UInt8 r, UInt8 g, UInt8 b, UInt8 a) {
 			_pPixel[OffsetR] = r;
 			_pPixel[OffsetG] = g;
 			_pPixel[OffsetB] = b;
@@ -235,11 +235,11 @@ public:
 	inline Format GetFormat() const { return _format; }
 	inline size_t GetWidth() const { return _width; }
 	inline size_t GetHeight() const { return _height; }
-	inline UChar *GetBuffer() {
-		return reinterpret_cast<UChar *>(_pMemory->GetPointer());
+	inline UInt8 *GetBuffer() {
+		return reinterpret_cast<UInt8 *>(_pMemory->GetPointer());
 	}
-	inline const UChar *GetBuffer() const {
-		return reinterpret_cast<const UChar *>(_pMemory->GetPointer());
+	inline const UInt8 *GetBuffer() const {
+		return reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
 	}
 	inline bool IsValid() const { return !_pMemory.IsNull(); }
 	inline size_t GetBitsPerPixel() const { return _metrics.bitsPerPixel; }
@@ -248,16 +248,16 @@ public:
 	inline size_t GetBufferSize() const {
 		return GetBytesPerLine() * _height;
 	}
-	inline UChar *GetPointer(size_t y) {
+	inline UInt8 *GetPointer(size_t y) {
 		return GetBuffer() + GetBytesPerLine() * y;
 	}
-	inline UChar *GetPointer(size_t x, size_t y) {
+	inline UInt8 *GetPointer(size_t x, size_t y) {
 		return GetBuffer() + GetBytesPerLine() * y + GetBytesPerPixel() * x;
 	}
-	inline const UChar *GetPointer(size_t y) const {
+	inline const UInt8 *GetPointer(size_t y) const {
 		return GetBuffer() + GetBytesPerLine() * y;
 	}
-	inline const UChar *GetPointer(size_t x, size_t y) const {
+	inline const UInt8 *GetPointer(size_t x, size_t y) const {
 		return GetBuffer() + GetBytesPerLine() * y + GetBytesPerPixel() * x;
 	}
 	inline Scanner *CreateScanner(size_t x, size_t y,
@@ -270,9 +270,9 @@ public:
 	bool CheckEmpty(Signal &sig) const;
 	bool CheckValid(Signal &sig) const;
 	bool AllocBuffer(size_t width, size_t height);
-	bool AllocBuffer(size_t width, size_t height, UChar fillValue);
+	bool AllocBuffer(size_t width, size_t height, UInt8 fillValue);
 	bool AllocBuffer(Signal &sig, size_t width, size_t height);
-	bool AllocBuffer(Signal &sig, size_t width, size_t height, UChar fillValue);
+	bool AllocBuffer(Signal &sig, size_t width, size_t height, UInt8 fillValue);
 	void FreeBuffer();
 	inline bool CheckCoord(int x, int y) const {
 		return 0 <= x && x < static_cast<int>(_width) &&
@@ -280,8 +280,8 @@ public:
 	}
 	bool CheckCoord(Signal &sig, size_t x, size_t y) const;
 	bool AdjustCoord(int &x, int &y, int &width, int &height) const;
-	void PutPixel(UChar *buff, const Color &color);
-	void GetPixel(const UChar *buff, Color &color);
+	void PutPixel(UInt8 *buff, const Color &color);
+	void GetPixel(const UInt8 *buff, Color &color);
 	bool Store(Signal &sig, size_t x, size_t y, size_t width, size_t height,
 						const Symbol *pSymbol, const Matrix *pMat);
 	bool Store(Environment &env, size_t x, size_t y, size_t width, size_t height,
@@ -300,19 +300,19 @@ public:
 		FillRect(0, 0, _width, _height, color);
 	}
 	void FillRectAlpha(size_t x, size_t y,
-			size_t width, size_t height, UChar alpha);
+			size_t width, size_t height, UInt8 alpha);
 	void FillRectAlpha(size_t x, size_t y,
-			size_t width, size_t height, UChar alpha, const Color &color, double tolerance);
-	inline void FillAlpha(UChar alpha) {
+			size_t width, size_t height, UInt8 alpha, const Color &color, double tolerance);
+	inline void FillAlpha(UInt8 alpha) {
 		FillRectAlpha(0, 0, _width, _height, alpha);
 	}
-	inline void FillAlpha(UChar alpha, const Color &color, double tolerance) {
+	inline void FillAlpha(UInt8 alpha, const Color &color, double tolerance) {
 		FillRectAlpha(0, 0, _width, _height, alpha, color, tolerance);
 	}
 	const Palette *GetPalette() const { return _pPalette.get(); }
 	Image *ReduceColor(Signal &sig, const Palette *pPalette);
 	Image *GrayScale(Signal &sig);
-	Image *MapColorLevel(Signal &sig, const UChar *mapR, const UChar *mapG, const UChar *mapB);
+	Image *MapColorLevel(Signal &sig, const UInt8 *mapR, const UInt8 *mapG, const UInt8 *mapB);
 	Image *Blur(Signal &sig, int radius, Number sigma);
 	Image *Flip(Signal &sig, bool horzFlag, bool vertFlag);
 	Image *Rotate90(Signal &sig, bool clockwiseFlag);
@@ -320,7 +320,7 @@ public:
 	Image *Crop(Signal &sig, size_t x, size_t y, size_t width, size_t height);
 	Image *Resize(Signal &sig, size_t width, size_t height);
 	void Paste(size_t x, size_t y, Image *pImage,
-		size_t width, size_t height, size_t xOffset, size_t yOffset, UChar alpha);
+		size_t width, size_t height, size_t xOffset, size_t yOffset, UInt8 alpha);
 	Palette *CreateEmptyPalette(Environment &env, size_t nEntries);
 	void SetPalette(Palette *pPalette);
 	bool Read(Environment &env, Stream &stream, const char *imageType);
@@ -339,53 +339,53 @@ public:
 	size_t SymbolToPixelOffset(Signal &sig, const Symbol *pSymbol) const;
 	static Format SymbolToFormat(Signal &sig, const Symbol *pSymbol);
 	static const Symbol *FormatToSymbol(Format format);
-	static inline UChar GetPixelGray(UChar *buff) {
+	static inline UInt8 GetPixelGray(UInt8 *buff) {
 		return Color::CalcGray(GetPixelR(buff), GetPixelG(buff), GetPixelB(buff));
 	}
-	static inline void StorePixel(UChar *buff, UChar r, UChar g, UChar b) {
+	static inline void StorePixel(UInt8 *buff, UInt8 r, UInt8 g, UInt8 b) {
 		*(buff + OffsetR) = r;
 		*(buff + OffsetG) = g;
 		*(buff + OffsetB) = b;
 	}
-	static inline void StorePixel(UChar *buff, UChar r, UChar g, UChar b, UChar a) {
+	static inline void StorePixel(UInt8 *buff, UInt8 r, UInt8 g, UInt8 b, UInt8 a) {
 		*(buff + OffsetR) = r;
 		*(buff + OffsetG) = g;
 		*(buff + OffsetB) = b;
 		*(buff + OffsetA) = a;
 	}
-	static inline void StorePixel(UChar *pPixelDst, const UChar *pPixelSrc, bool alphaFlag) {
+	static inline void StorePixel(UInt8 *pPixelDst, const UInt8 *pPixelSrc, bool alphaFlag) {
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		if (alphaFlag) *pPixelDst++ = *pPixelSrc++;
 	}
-	static inline void StorePixelRGB(UChar *pPixelDst, const UChar *pPixelSrc) {
+	static inline void StorePixelRGB(UInt8 *pPixelDst, const UInt8 *pPixelSrc) {
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 	}
-	static inline void StorePixelRGBA(UChar *pPixelDst, const UChar *pPixelSrc) {
+	static inline void StorePixelRGBA(UInt8 *pPixelDst, const UInt8 *pPixelSrc) {
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 	}
-	static inline void StorePixelRGBA(UChar *pPixelDst, const UChar *pPixelSrc, UChar a) {
+	static inline void StorePixelRGBA(UInt8 *pPixelDst, const UInt8 *pPixelSrc, UInt8 a) {
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = a;
 	}
-	static inline UChar GetPixelR(const UChar *buff) {
+	static inline UInt8 GetPixelR(const UInt8 *buff) {
 		return *(buff + OffsetR);
 	}
-	static inline UChar GetPixelG(const UChar *buff) {
+	static inline UInt8 GetPixelG(const UInt8 *buff) {
 		return *(buff + OffsetG);
 	}
-	static inline UChar GetPixelB(const UChar *buff) {
+	static inline UInt8 GetPixelB(const UInt8 *buff) {
 		return *(buff + OffsetB);
 	}
-	static inline UChar GetPixelA(const UChar *buff) {
+	static inline UInt8 GetPixelA(const UInt8 *buff) {
 		return *(buff + OffsetA);
 	}
 	static inline void RotateCoord(int &xm, int &ym,

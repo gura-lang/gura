@@ -34,14 +34,14 @@ Gura_DeclareProperty_RW(BBox, xMax)
 Gura_ImplementPropertyGetter(BBox, xMax)
 {
 	const FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
-	return Value(bbox.xMax);
+	return Value(static_cast<Int32>(bbox.xMax));
 }
 
 Gura_ImplementPropertySetter(BBox, xMax)
 {
 	FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
-	bbox.xMax = static_cast<FT_Pos>(value.GetLong());
-	return Value(bbox.xMax);
+	bbox.xMax = static_cast<FT_Pos>(value.GetInt32());
+	return Value(static_cast<Int32>(bbox.xMax));
 }
 
 // freetype.BBox#xMin
@@ -57,14 +57,14 @@ Gura_DeclareProperty_RW(BBox, xMin)
 Gura_ImplementPropertyGetter(BBox, xMin)
 {
 	const FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
-	return Value(bbox.xMin);
+	return Value(static_cast<Int32>(bbox.xMin));
 }
 
 Gura_ImplementPropertySetter(BBox, xMin)
 {
 	FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
-	bbox.xMin = static_cast<FT_Pos>(value.GetLong());
-	return Value(bbox.xMin);
+	bbox.xMin = static_cast<FT_Pos>(value.GetInt32());
+	return Value(static_cast<Int32>(bbox.xMin));
 }
 
 // freetype.BBox#yMax
@@ -80,14 +80,14 @@ Gura_DeclareProperty_RW(BBox, yMax)
 Gura_ImplementPropertyGetter(BBox, yMax)
 {
 	const FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
-	return Value(bbox.yMax);
+	return Value(static_cast<Int32>(bbox.yMax));
 }
 
 Gura_ImplementPropertySetter(BBox, yMax)
 {
 	FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
-	bbox.yMax = static_cast<FT_Pos>(value.GetLong());
-	return Value(bbox.yMax);
+	bbox.yMax = static_cast<FT_Pos>(value.GetInt32());
+	return Value(static_cast<Int32>(bbox.yMax));
 }
 
 // freetype.BBox#yMin
@@ -103,14 +103,14 @@ Gura_DeclareProperty_RW(BBox, yMin)
 Gura_ImplementPropertyGetter(BBox, yMin)
 {
 	const FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
-	return Value(bbox.yMin);
+	return Value(static_cast<Int32>(bbox.yMin));
 }
 
 Gura_ImplementPropertySetter(BBox, yMin)
 {
 	FT_BBox &bbox = Object_BBox::GetObject(valueThis)->GetEntity();
-	bbox.yMin = static_cast<FT_Pos>(value.GetLong());
-	return Value(bbox.yMin);
+	bbox.yMin = static_cast<FT_Pos>(value.GetInt32());
+	return Value(static_cast<Int32>(bbox.yMin));
 }
 
 //-----------------------------------------------------------------------------

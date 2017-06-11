@@ -144,14 +144,14 @@ public:
 		UChar byLo;
 		UChar byHi;
 		inline RangesType() : byLo(0), byHi(0) {}
-		inline RangesType(UShort genAmount) :
+		inline RangesType(UInt16 genAmount) :
 				byLo(static_cast<UChar>(genAmount >> 0)),
 				byHi(static_cast<UChar>(genAmount >> 8)) {}
 		inline bool IsMatched(UChar value) const {
 			return byLo <= value && value <= byHi;
 		}
 	};
-	typedef UShort SFModulator;
+	typedef UInt16 SFModulator;
 	enum SFTransform {
 		TRANS_Linear					= 0,
 	};
@@ -159,8 +159,8 @@ public:
 	struct ChunkHdr {
 	public:
 		enum { Size = 8 };
-		Gura_PackedULong_LE(ckID);
-		Gura_PackedULong_LE(ckSize);
+		Gura_PackedUInt32_LE(ckID);
+		Gura_PackedUInt32_LE(ckSize);
 	public:
 		void Print(int indentLevel) const;
 	};
@@ -189,13 +189,13 @@ public:
 	public:
 		struct RawData {
 			enum { Size = 4 };
-			Gura_PackedUShort_LE(wMajor);
-			Gura_PackedUShort_LE(wMinor);
+			Gura_PackedUInt16_LE(wMajor);
+			Gura_PackedUInt16_LE(wMinor);
 		};
 	private:
 		int _cntRef;
-		UShort _wMajor;
-		UShort _wMinor;
+		UInt16 _wMajor;
+		UInt16 _wMinor;
 	public:
 		Gura_DeclareReferenceAccessor(sfVersionTag);
 	public:
@@ -235,22 +235,22 @@ public:
 		struct RawData {
 			enum { Size = 38 };
 			char achPresetName[20];
-			Gura_PackedUShort_LE(wPreset);
-			Gura_PackedUShort_LE(wBank);
-			Gura_PackedUShort_LE(wPresetBagNdx);
-			Gura_PackedULong_LE(dwLibrary);			// (reserved)
-			Gura_PackedULong_LE(dwGenre);			// (reserved)
-			Gura_PackedULong_LE(dwMorphology);		// (reserved)
+			Gura_PackedUInt16_LE(wPreset);
+			Gura_PackedUInt16_LE(wBank);
+			Gura_PackedUInt16_LE(wPresetBagNdx);
+			Gura_PackedUInt32_LE(dwLibrary);			// (reserved)
+			Gura_PackedUInt32_LE(dwGenre);			// (reserved)
+			Gura_PackedUInt32_LE(dwMorphology);		// (reserved)
 		};
 	private:
 		int _cntRef;
 		char _achPresetName[20];
-		UShort _wPreset;
-		UShort _wBank;
-		UShort _wPresetBagNdx;
-		ULong _dwLibrary;
-		ULong _dwGenre;
-		ULong _dwMorphology;
+		UInt16 _wPreset;
+		UInt16 _wBank;
+		UInt16 _wPresetBagNdx;
+		UInt32 _dwLibrary;
+		UInt32 _dwGenre;
+		UInt32 _dwMorphology;
 		std::unique_ptr<sfPresetBagOwner> _pPresetBagOwner;
 	public:
 		Gura_DeclareReferenceAccessor(sfPresetHeader);
@@ -262,7 +262,7 @@ public:
 	public:
 		void Print(int indentLevel) const;
 		bool SetupReference(Signal &sig, sfPresetHeader *pPresetHeaderNext, const pdta_t &pdta);
-		inline bool IsMatched(UShort wPreset, UShort wBank) const {
+		inline bool IsMatched(UInt16 wPreset, UInt16 wBank) const {
 			return wPreset == _wPreset && wBank == _wBank;
 		}
 		inline sfPresetBagOwner &GetPresetBagOwner() { return *_pPresetBagOwner; }
@@ -276,13 +276,13 @@ public:
 	public:
 		struct RawData {
 			enum { Size = 4 };
-			Gura_PackedUShort_LE(wGenNdx);
-			Gura_PackedUShort_LE(wModNdx);
+			Gura_PackedUInt16_LE(wGenNdx);
+			Gura_PackedUInt16_LE(wModNdx);
 		};
 	private:
 		int _cntRef;
-		UShort _wGenNdx;
-		UShort _wModNdx;
+		UInt16 _wGenNdx;
+		UInt16 _wModNdx;
 		std::unique_ptr<sfGenOwner> _pGenOwner;
 		std::unique_ptr<sfModOwner> _pModOwner;
 		AutoPtr<sfInst> _pInst; 				// valid only when instrument generator exists in sfGenOwner
@@ -311,11 +311,11 @@ public:
 	public:
 		struct RawData {
 			enum { Size = 10 };
-			Gura_PackedUShort_LE(sfModSrcOper);
-			Gura_PackedUShort_LE(sfModDestOper);
-			Gura_PackedUShort_LE(modAmount);
-			Gura_PackedUShort_LE(sfModAmtSrcOper);
-			Gura_PackedUShort_LE(sfModTransOper);
+			Gura_PackedUInt16_LE(sfModSrcOper);
+			Gura_PackedUInt16_LE(sfModDestOper);
+			Gura_PackedUInt16_LE(modAmount);
+			Gura_PackedUInt16_LE(sfModAmtSrcOper);
+			Gura_PackedUInt16_LE(sfModTransOper);
 		};
 	private:
 		int _cntRef;
@@ -342,13 +342,13 @@ public:
 	public:
 		struct RawData {
 			enum { Size = 4 };
-			Gura_PackedUShort_LE(sfGenOper);
-			Gura_PackedUShort_LE(genAmount);
+			Gura_PackedUInt16_LE(sfGenOper);
+			Gura_PackedUInt16_LE(genAmount);
 		};
 	private:
 		int _cntRef;
 		SFGenerator _sfGenOper;
-		UShort _genAmount;
+		UInt16 _genAmount;
 	public:
 		Gura_DeclareReferenceAccessor(sfGen);
 	public:
@@ -359,7 +359,7 @@ public:
 	public:
 		void Print(int indentLevel) const;
 		inline SFGenerator GetGenOper() const { return _sfGenOper; }
-		inline UShort GetGenAmount() const { return _genAmount; }
+		inline UInt16 GetGenAmount() const { return _genAmount; }
 	};
 	typedef ListTemplate<sfGen> sfGenList;
 	class sfGenOwner : public OwnerTemplate<sfGen, sfGenList> {
@@ -370,12 +370,12 @@ public:
 		struct RawData {
 			enum { Size = 22 };
 			char achInstName[20];
-			Gura_PackedUShort_LE(wInstBagNdx);
+			Gura_PackedUInt16_LE(wInstBagNdx);
 		};
 	private:
 		int _cntRef;
 		char _achInstName[20];
-		UShort _wInstBagNdx;
+		UInt16 _wInstBagNdx;
 		std::unique_ptr<sfInstBagOwner> _pInstBagOwner;
 	public:
 		Gura_DeclareReferenceAccessor(sfInst);
@@ -398,13 +398,13 @@ public:
 	public:
 		struct RawData {
 			enum { Size = 4 };
-			Gura_PackedUShort_LE(wInstGenNdx);
-			Gura_PackedUShort_LE(wInstModNdx);
+			Gura_PackedUInt16_LE(wInstGenNdx);
+			Gura_PackedUInt16_LE(wInstModNdx);
 		};
 	private:
 		int _cntRef;
-		UShort _wInstGenNdx;
-		UShort _wInstModNdx;
+		UInt16 _wInstGenNdx;
+		UInt16 _wInstModNdx;
 		std::unique_ptr<sfGenOwner> _pInstGenOwner;
 		std::unique_ptr<sfModOwner> _pInstModOwner;
 		std::unique_ptr<RangesType> _pKeyRange;	// valid only when keyRange generator exists in sfGenOwner
@@ -444,27 +444,27 @@ public:
 		struct RawData {
 			enum { Size = 46 };
 			char achSampleName[20];
-			Gura_PackedULong_LE(dwStart);
-			Gura_PackedULong_LE(dwEnd);
-			Gura_PackedULong_LE(dwStartloop);
-			Gura_PackedULong_LE(dwEndloop);
-			Gura_PackedULong_LE(dwSampleRate);
+			Gura_PackedUInt32_LE(dwStart);
+			Gura_PackedUInt32_LE(dwEnd);
+			Gura_PackedUInt32_LE(dwStartloop);
+			Gura_PackedUInt32_LE(dwEndloop);
+			Gura_PackedUInt32_LE(dwSampleRate);
 			UChar byOriginalKey;
 			char chCorrection;
-			Gura_PackedUShort_LE(wSampleLink);
-			Gura_PackedUShort_LE(sfSampleType);
+			Gura_PackedUInt16_LE(wSampleLink);
+			Gura_PackedUInt16_LE(sfSampleType);
 		};
 	private:
 		int _cntRef;
 		char _achSampleName[20];
-		ULong _dwStart;
-		ULong _dwEnd;
-		ULong _dwStartloop;
-		ULong _dwEndloop;
-		ULong _dwSampleRate;
+		UInt32 _dwStart;
+		UInt32 _dwEnd;
+		UInt32 _dwStartloop;
+		UInt32 _dwEndloop;
+		UInt32 _dwSampleRate;
 		UChar _byOriginalKey;
 		char _chCorrection;
-		UShort _wSampleLink;
+		UInt16 _wSampleLink;
 		SFSampleLink _sfSampleType;
 		AutoPtr<Audio> _pAudio;
 	public:
@@ -486,69 +486,69 @@ public:
 	class Synthesizer {
 	public:
 		struct Props {
-			UShort startAddrsOffset;			// 0
-			UShort endAddrsOffset;				// 1
-			UShort startloopAddrsOffset;		// 2
-			UShort endloopAddrsOffset;			// 3
-			UShort startAddrsCoarseOffset;		// 4
-			Short modLfoToPitch;				// 5
-			Short vibLfoToPitch;				// 6
-			Short modEnvToPitch;				// 7
-			Short initialFilterFc;				// 8
-			Short initiflFilterQ;				// 9
-			Short modLfoToFilterFc;				// 10
-			Short modEnvToFilterFc;				// 11
-			UShort endAddrsCoarseOffset;		// 12
-			Short modLfoToVolume;				// 13
-			UShort unnsed1;						// 14
-			UShort chorusEffectsSend;			// 15
-			UShort reverbEffectsSend;			// 16
-			Short pan;							// 17
-			UShort unused2;						// 18
-			UShort unused3;						// 19
-			UShort unused4;						// 20
-			Short delayModLFO;					// 21
-			Short freqModLFO;					// 22
-			Short delayVibLFO;					// 23
-			Short freqVibLFO;					// 24
-			Short delayModEnv;					// 25
-			Short attackModEnv;					// 26
-			Short holdModEnv;					// 27
-			Short decayModEnv;					// 28
-			Short sustainModEnv;				// 29
-			Short releaseModEnv;				// 30
-			Short keynumToModEnvHold;			// 31
-			Short keynumToModEnvDecay;			// 32
-			Short delayVolEnv;					// 33
-			Short attackVolEnv;					// 34
-			Short holdVolEnv;					// 35
-			Short decayVolEnv;					// 36
-			Short sustainVolEnv;				// 37
-			Short releaseVolEnv;				// 38
-			Short keynumToVolEnvHold;			// 39
-			Short keynumToVolEnvDecay;			// 40
-			UShort instrument;					// 41
-			UShort reserved1;					// 42
+			UInt16 startAddrsOffset;			// 0
+			UInt16 endAddrsOffset;				// 1
+			UInt16 startloopAddrsOffset;		// 2
+			UInt16 endloopAddrsOffset;			// 3
+			UInt16 startAddrsCoarseOffset;		// 4
+			Int16 modLfoToPitch;				// 5
+			Int16 vibLfoToPitch;				// 6
+			Int16 modEnvToPitch;				// 7
+			Int16 initialFilterFc;				// 8
+			Int16 initiflFilterQ;				// 9
+			Int16 modLfoToFilterFc;				// 10
+			Int16 modEnvToFilterFc;				// 11
+			UInt16 endAddrsCoarseOffset;		// 12
+			Int16 modLfoToVolume;				// 13
+			UInt16 unnsed1;						// 14
+			UInt16 chorusEffectsSend;			// 15
+			UInt16 reverbEffectsSend;			// 16
+			Int16 pan;							// 17
+			UInt16 unused2;						// 18
+			UInt16 unused3;						// 19
+			UInt16 unused4;						// 20
+			Int16 delayModLFO;					// 21
+			Int16 freqModLFO;					// 22
+			Int16 delayVibLFO;					// 23
+			Int16 freqVibLFO;					// 24
+			Int16 delayModEnv;					// 25
+			Int16 attackModEnv;					// 26
+			Int16 holdModEnv;					// 27
+			Int16 decayModEnv;					// 28
+			Int16 sustainModEnv;				// 29
+			Int16 releaseModEnv;				// 30
+			Int16 keynumToModEnvHold;			// 31
+			Int16 keynumToModEnvDecay;			// 32
+			Int16 delayVolEnv;					// 33
+			Int16 attackVolEnv;					// 34
+			Int16 holdVolEnv;					// 35
+			Int16 decayVolEnv;					// 36
+			Int16 sustainVolEnv;				// 37
+			Int16 releaseVolEnv;				// 38
+			Int16 keynumToVolEnvHold;			// 39
+			Int16 keynumToVolEnvDecay;			// 40
+			UInt16 instrument;					// 41
+			UInt16 reserved1;					// 42
 			RangesType keyRange;				// 43
 			RangesType velRange;				// 44
-			UShort startloopAddrsCoarseOffset;	// 45
-			UShort keynum;						// 46
-			UShort velocity;					// 47
-			UShort initialAttenuation;			// 48
-			UShort reserved2;					// 49
-			UShort endloopAddrsCoarseOffset;	// 50
-			Short coarseTune;					// 51
-			Short fineTune;						// 52
-			UShort sampleID;					// 53
-			UShort sampleModes;					// 54
-			UShort reserved3;					// 55
-			UShort scaleTuning;					// 56
-			UShort exclusiveClass;				// 57
-			UShort overridingRootKey;			// 58
-			UShort unused5;						// 59
-			UShort endOper;						// 60
+			UInt16 startloopAddrsCoarseOffset;	// 45
+			UInt16 keynum;						// 46
+			UInt16 velocity;					// 47
+			UInt16 initialAttenuation;			// 48
+			UInt16 reserved2;					// 49
+			UInt16 endloopAddrsCoarseOffset;	// 50
+			Int16 coarseTune;					// 51
+			Int16 fineTune;						// 52
+			UInt16 sampleID;					// 53
+			UInt16 sampleModes;					// 54
+			UInt16 reserved3;					// 55
+			UInt16 scaleTuning;					// 56
+			UInt16 exclusiveClass;				// 57
+			UInt16 overridingRootKey;			// 58
+			UInt16 unused5;						// 59
+			UInt16 endOper;						// 60
 			void Reset();
-			bool Update(SFGenerator sfGenOper, UShort genAmount);
+			bool Update(SFGenerator sfGenOper, UInt16 genAmount);
 		};
 	private:
 		int _cntRef;
@@ -601,8 +601,8 @@ public:
 	SoundFont(Stream *pStream);
 	void Clear();
 	bool ReadChunks(Environment &env, Signal &sig);
-	const sfPresetHeader *LookupPresetHeader(UShort wPreset, UShort wBank) const;
-	Synthesizer *CreateSynthesizer(Signal &sig, UShort wPreset, UShort wBank, UChar key, UChar velocity) const;
+	const sfPresetHeader *LookupPresetHeader(UInt16 wPreset, UInt16 wBank) const;
+	Synthesizer *CreateSynthesizer(Signal &sig, UInt16 wPreset, UInt16 wBank, UChar key, UChar velocity) const;
 	void Print() const;
 	inline INFO_t &GetINFO() { return _INFO; }
 	inline pdta_t &GetPdta() { return _pdta; }

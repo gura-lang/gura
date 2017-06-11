@@ -41,20 +41,20 @@ class CentralFileHeader;
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-UShort SymbolToCompressionMethod(const Symbol *pSymbol);
-UShort GetDosTime(const DateTime &dt);
-UShort GetDosDate(const DateTime &dt);
-DateTime MakeDateTimeFromDos(UShort dosDate, UShort dosTime);
+UInt16 SymbolToCompressionMethod(const Symbol *pSymbol);
+UInt16 GetDosTime(const DateTime &dt);
+UInt16 GetDosDate(const DateTime &dt);
+DateTime MakeDateTimeFromDos(UInt16 dosDate, UInt16 dosTime);
 bool IsMatchedName(const char *name1, const char *name2);
 
-ULong SeekCentralDirectory(Signal &sig, Stream *pStream);
+UInt32 SeekCentralDirectory(Signal &sig, Stream *pStream);
 Directory *CreateDirectory(Environment &env, Stream *pStreamSrc,
 	Directory *pParent, const char **pPathName, PathMgr::NotFoundMode notFoundMode);
 Stream *CreateStream(Environment &env, Stream *pStreamSrc, const CentralFileHeader *pHdr);
 
 bool SkipStream(Signal &sig, Stream &stream, size_t bytes);
 bool ReadStream(Signal &sig, Stream &stream, void *buff, size_t bytes, size_t offset = 0);
-bool ReadStream(Signal &sig, Stream &stream, ULong *pSignature);
+bool ReadStream(Signal &sig, Stream &stream, UInt32 *pSignature);
 bool ReadStream(Signal &sig, Stream &stream, Binary &binary, size_t bytes);
 bool WriteStream(Signal &sig, Stream &stream, void *buff, size_t bytes);
 bool WriteStream(Signal &sig, Stream &stream, Binary &binary);
@@ -98,17 +98,17 @@ class LocalFileHeader {
 public:
 	enum { Signature = 0x04034b50 };
 	struct Fields {
-		Gura_PackedULong_LE(Signature);
-		Gura_PackedUShort_LE(VersionNeededToExtract);
-		Gura_PackedUShort_LE(GeneralPurposeBitFlag);
-		Gura_PackedUShort_LE(CompressionMethod);
-		Gura_PackedUShort_LE(LastModFileTime);
-		Gura_PackedUShort_LE(LastModFileDate);
-		Gura_PackedULong_LE(Crc32);				// zero if Data Descriptor exists
-		Gura_PackedULong_LE(CompressedSize);	// zero if Data Descriptor exists
-		Gura_PackedULong_LE(UncompressedSize);	// zero if Data Descriptor exists
-		Gura_PackedUShort_LE(FileNameLength);
-		Gura_PackedUShort_LE(ExtraFieldLength);
+		Gura_PackedUInt32_LE(Signature);
+		Gura_PackedUInt16_LE(VersionNeededToExtract);
+		Gura_PackedUInt16_LE(GeneralPurposeBitFlag);
+		Gura_PackedUInt16_LE(CompressionMethod);
+		Gura_PackedUInt16_LE(LastModFileTime);
+		Gura_PackedUInt16_LE(LastModFileDate);
+		Gura_PackedUInt32_LE(Crc32);				// zero if Data Descriptor exists
+		Gura_PackedUInt32_LE(CompressedSize);	// zero if Data Descriptor exists
+		Gura_PackedUInt32_LE(UncompressedSize);	// zero if Data Descriptor exists
+		Gura_PackedUInt16_LE(FileNameLength);
+		Gura_PackedUInt16_LE(ExtraFieldLength);
 		// FileName (FileNameLength bytes)
 		// ExtraField (ExtraFieldLength bytes)
 	};
@@ -117,60 +117,60 @@ private:
 	Binary _fileName;
 	Binary _extraField;
 public:
-	inline LocalFileHeader() { Gura_PackULong(_fields.Signature, Signature); }
+	inline LocalFileHeader() { Gura_PackUInt32(_fields.Signature, Signature); }
 	inline Fields &GetFields() { return _fields; }
 	inline const Fields &GetFields() const { return _fields; }
 	inline bool Read(Signal &sig, Stream &stream) {
 		if (!ReadStream(sig, stream, &_fields, 30 - 4, 4)) return false;
 		if (!ReadStream(sig, stream, _fileName,
-						Gura_UnpackUShort(_fields.FileNameLength))) return false;
+						Gura_UnpackUInt16(_fields.FileNameLength))) return false;
 		if (!ReadStream(sig, stream, _extraField,
-						Gura_UnpackUShort(_fields.ExtraFieldLength))) return false;
+						Gura_UnpackUInt16(_fields.ExtraFieldLength))) return false;
 		return true;
 	}
 	bool SkipOver(Signal &sig, Stream &stream);
 	inline bool Write(Signal &sig, Stream &stream) {
-		Gura_PackUShort(_fields.FileNameLength, _fileName.size());
-		Gura_PackUShort(_fields.FileNameLength, _extraField.size());
+		Gura_PackUInt16(_fields.FileNameLength, _fileName.size());
+		Gura_PackUInt16(_fields.FileNameLength, _extraField.size());
 		if (!WriteStream(sig, stream, &_fields, 30)) return false;
 		if (!WriteStream(sig, stream, _fileName)) return false;
 		if (!WriteStream(sig, stream, _extraField)) return false;
 		return true;
 	}
 	inline bool SkipFileData(Signal &sig, Stream &stream) {
-		return SkipStream(sig, stream, Gura_UnpackULong(_fields.CompressedSize));
+		return SkipStream(sig, stream, Gura_UnpackUInt32(_fields.CompressedSize));
 	}
 	inline void SetFileName(const char *fileName) { _fileName = fileName; }
 	inline const char *GetFileName() const { return _fileName.c_str(); }
 	inline bool IsEncrypted() const {
-		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 0)) != 0;
+		return (Gura_UnpackUInt16(_fields.GeneralPurposeBitFlag) & (1 << 0)) != 0;
 	}
 	inline bool IsExistDataDescriptor() const {
-		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 3)) != 0;
+		return (Gura_UnpackUInt16(_fields.GeneralPurposeBitFlag) & (1 << 3)) != 0;
 	}
 	inline bool IsStrongEncrypted() const {
-		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 6)) != 0;
+		return (Gura_UnpackUInt16(_fields.GeneralPurposeBitFlag) & (1 << 6)) != 0;
 	}
 	inline bool IsUtf8() const {
-		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 11)) != 0;
+		return (Gura_UnpackUInt16(_fields.GeneralPurposeBitFlag) & (1 << 11)) != 0;
 	}
 	inline DateTime GetLastModDateTime() const {
-		UShort dosTime = Gura_UnpackUShort(_fields.LastModFileTime);
-		UShort dosDate = Gura_UnpackUShort(_fields.LastModFileDate);
+		UInt16 dosTime = Gura_UnpackUInt16(_fields.LastModFileTime);
+		UInt16 dosDate = Gura_UnpackUInt16(_fields.LastModFileDate);
 		return MakeDateTimeFromDos(dosDate, dosTime);
 	}
 	inline void Print() const {
-		::printf("Signature              %08lx\n", Gura_UnpackULong(_fields.Signature));
-		::printf("VersionNeededToExtract %04x\n", Gura_UnpackUShort(_fields.VersionNeededToExtract));
-		::printf("GeneralPurposeBitFlag  %04x\n", Gura_UnpackUShort(_fields.GeneralPurposeBitFlag));
-		::printf("CompressionMethod      %04x\n", Gura_UnpackUShort(_fields.CompressionMethod));
-		::printf("LastModFileTime        %04x\n", Gura_UnpackUShort(_fields.LastModFileTime));
-		::printf("LastModFileDate        %04x\n", Gura_UnpackUShort(_fields.LastModFileDate));
-		::printf("Crc32                  %08lx\n", Gura_UnpackULong(_fields.Crc32));
-		::printf("CompressedSize         %08lx\n", Gura_UnpackULong(_fields.CompressedSize));
-		::printf("UncompressedSize       %08lx\n", Gura_UnpackULong(_fields.UncompressedSize));
-		::printf("FileNameLength         %04x\n", Gura_UnpackUShort(_fields.FileNameLength));
-		::printf("ExtraFieldLength       %04x\n", Gura_UnpackUShort(_fields.ExtraFieldLength));
+		::printf("Signature              %08x\n", Gura_UnpackUInt32(_fields.Signature));
+		::printf("VersionNeededToExtract %04x\n", Gura_UnpackUInt16(_fields.VersionNeededToExtract));
+		::printf("GeneralPurposeBitFlag  %04x\n", Gura_UnpackUInt16(_fields.GeneralPurposeBitFlag));
+		::printf("CompressionMethod      %04x\n", Gura_UnpackUInt16(_fields.CompressionMethod));
+		::printf("LastModFileTime        %04x\n", Gura_UnpackUInt16(_fields.LastModFileTime));
+		::printf("LastModFileDate        %04x\n", Gura_UnpackUInt16(_fields.LastModFileDate));
+		::printf("Crc32                  %08x\n", Gura_UnpackUInt32(_fields.Crc32));
+		::printf("CompressedSize         %08x\n", Gura_UnpackUInt32(_fields.CompressedSize));
+		::printf("UncompressedSize       %08x\n", Gura_UnpackUInt32(_fields.UncompressedSize));
+		::printf("FileNameLength         %04x\n", Gura_UnpackUInt16(_fields.FileNameLength));
+		::printf("ExtraFieldLength       %04x\n", Gura_UnpackUInt16(_fields.ExtraFieldLength));
 	}
 };
 
@@ -180,9 +180,9 @@ public:
 class DataDescriptor {
 public:
 	struct Fields {
-		Gura_PackedULong_LE(Crc32);
-		Gura_PackedULong_LE(CompressedSize);
-		Gura_PackedULong_LE(UncompressedSize);
+		Gura_PackedUInt32_LE(Crc32);
+		Gura_PackedUInt32_LE(CompressedSize);
+		Gura_PackedUInt32_LE(UncompressedSize);
 	};
 private:
 	Fields _fields;
@@ -205,25 +205,25 @@ class ArchiveExtraDataRecord {
 public:
 	enum { Signature = 0x08064b50 };
 	struct Fields {
-		Gura_PackedULong_LE(Signature);
-		Gura_PackedULong_LE(ExtraFieldLength);
+		Gura_PackedUInt32_LE(Signature);
+		Gura_PackedUInt32_LE(ExtraFieldLength);
 		// ExtraField (ExtraFieldLength bytes)
 	};
 private:
 	Fields _fields;
 	Binary _extraField;
 public:
-	inline ArchiveExtraDataRecord() { Gura_PackULong(_fields.Signature, Signature); }
+	inline ArchiveExtraDataRecord() { Gura_PackUInt32(_fields.Signature, Signature); }
 	inline Fields &GetFields() { return _fields; }
 	inline const Fields &GetFields() const { return _fields; }
 	inline bool Read(Signal &sig, Stream &stream) {
 		if (!ReadStream(sig, stream, &_fields, 8 - 4, 4)) return false;
 		if (!ReadStream(sig, stream, _extraField,
-						Gura_UnpackULong(_fields.ExtraFieldLength))) return false;
+						Gura_UnpackUInt32(_fields.ExtraFieldLength))) return false;
 		return true;
 	}
 	inline bool Write(Signal &sig, Stream &stream) {
-		Gura_PackULong(_fields.ExtraFieldLength, _extraField.size());
+		Gura_PackUInt32(_fields.ExtraFieldLength, _extraField.size());
 		if (!WriteStream(sig, stream, &_fields, 8)) return false;
 		if (!WriteStream(sig, stream, _extraField)) return false;
 		return true;
@@ -235,23 +235,23 @@ class CentralFileHeader {
 public:
 	enum { Signature = 0x02014b50 };
 	struct Fields {
-		Gura_PackedULong_LE(Signature);
-		Gura_PackedUShort_LE(VersionMadeBy);				// only in CentralFileHeader
-		Gura_PackedUShort_LE(VersionNeededToExtract);
-		Gura_PackedUShort_LE(GeneralPurposeBitFlag);
-		Gura_PackedUShort_LE(CompressionMethod);
-		Gura_PackedUShort_LE(LastModFileTime);
-		Gura_PackedUShort_LE(LastModFileDate);
-		Gura_PackedULong_LE(Crc32);
-		Gura_PackedULong_LE(CompressedSize);
-		Gura_PackedULong_LE(UncompressedSize);
-		Gura_PackedUShort_LE(FileNameLength);
-		Gura_PackedUShort_LE(ExtraFieldLength);
-		Gura_PackedUShort_LE(FileCommentLength);			// only in CentralFileHeader
-		Gura_PackedUShort_LE(DiskNumberStart);				// only in CentralFileHeader
-		Gura_PackedUShort_LE(InternalFileAttributes);		// only in CentralFileHeader
-		Gura_PackedULong_LE(ExternalFileAttributes);		// only in CentralFileHeader
-		Gura_PackedULong_LE(RelativeOffsetOfLocalHeader);	// only in CentralFileHeader
+		Gura_PackedUInt32_LE(Signature);
+		Gura_PackedUInt16_LE(VersionMadeBy);				// only in CentralFileHeader
+		Gura_PackedUInt16_LE(VersionNeededToExtract);
+		Gura_PackedUInt16_LE(GeneralPurposeBitFlag);
+		Gura_PackedUInt16_LE(CompressionMethod);
+		Gura_PackedUInt16_LE(LastModFileTime);
+		Gura_PackedUInt16_LE(LastModFileDate);
+		Gura_PackedUInt32_LE(Crc32);
+		Gura_PackedUInt32_LE(CompressedSize);
+		Gura_PackedUInt32_LE(UncompressedSize);
+		Gura_PackedUInt16_LE(FileNameLength);
+		Gura_PackedUInt16_LE(ExtraFieldLength);
+		Gura_PackedUInt16_LE(FileCommentLength);			// only in CentralFileHeader
+		Gura_PackedUInt16_LE(DiskNumberStart);				// only in CentralFileHeader
+		Gura_PackedUInt16_LE(InternalFileAttributes);		// only in CentralFileHeader
+		Gura_PackedUInt32_LE(ExternalFileAttributes);		// only in CentralFileHeader
+		Gura_PackedUInt32_LE(RelativeOffsetOfLocalHeader);	// only in CentralFileHeader
 		// FileName (FileNameLength bytes)
 		// ExtraField (ExtraFieldLength bytes)
 		// FileComment (FileCommentLength bytes)
@@ -262,7 +262,7 @@ private:
 	Binary _extraField;
 	Binary _fileComment;
 public:
-	inline CentralFileHeader() { Gura_PackULong(_fields.Signature, Signature); }
+	inline CentralFileHeader() { Gura_PackUInt32(_fields.Signature, Signature); }
 	inline CentralFileHeader(const CentralFileHeader &hdr) :
 		_fields(hdr._fields), _fileName(hdr._fileName),
 		_extraField(hdr._extraField), _fileComment(hdr._fileComment) {}
@@ -271,17 +271,17 @@ public:
 	inline bool Read(Signal &sig, Stream &stream) {
 		if (!ReadStream(sig, stream, &_fields, 46 - 4, 4)) return false;
 		if (!ReadStream(sig, stream, _fileName,
-						Gura_UnpackUShort(_fields.FileNameLength))) return false;
+						Gura_UnpackUInt16(_fields.FileNameLength))) return false;
 		if (!ReadStream(sig, stream, _extraField,
-						Gura_UnpackUShort(_fields.ExtraFieldLength))) return false;
+						Gura_UnpackUInt16(_fields.ExtraFieldLength))) return false;
 		if (!ReadStream(sig, stream, _fileComment,
-						Gura_UnpackUShort(_fields.FileCommentLength))) return false;
+						Gura_UnpackUInt16(_fields.FileCommentLength))) return false;
 		return true;
 	}
 	inline bool Write(Signal &sig, Stream &stream) {
-		Gura_PackUShort(_fields.FileNameLength, _fileName.size());
-		Gura_PackUShort(_fields.ExtraFieldLength, _extraField.size());
-		Gura_PackUShort(_fields.FileCommentLength, _fileComment.size());
+		Gura_PackUInt16(_fields.FileNameLength, _fileName.size());
+		Gura_PackUInt16(_fields.ExtraFieldLength, _extraField.size());
+		Gura_PackUInt16(_fields.FileCommentLength, _fileComment.size());
 		if (!WriteStream(sig, stream, &_fields, 46)) return false;
 		if (!WriteStream(sig, stream, _fileName)) return false;
 		if (!WriteStream(sig, stream, _extraField)) return false;
@@ -291,26 +291,26 @@ public:
 	inline bool WriteAsLocalFileHeader(Signal &sig, Stream &stream) {
 		LocalFileHeader hdr;
 		LocalFileHeader::Fields &fields = hdr.GetFields();
-		Gura_PackUShort(fields.VersionNeededToExtract,
-						Gura_UnpackUShort(_fields.VersionNeededToExtract));
-		Gura_PackUShort(fields.GeneralPurposeBitFlag,
-						Gura_UnpackUShort(_fields.GeneralPurposeBitFlag));
-		Gura_PackUShort(fields.CompressionMethod,
-						Gura_UnpackUShort(_fields.CompressionMethod));
-		Gura_PackUShort(fields.LastModFileTime,
-						Gura_UnpackUShort(_fields.LastModFileTime));
-		Gura_PackUShort(fields.LastModFileDate,
-						Gura_UnpackUShort(_fields.LastModFileDate));
-		Gura_PackULong(fields.Crc32,
-						Gura_UnpackULong(_fields.Crc32));
-		Gura_PackULong(fields.CompressedSize,
-						Gura_UnpackULong(_fields.CompressedSize));
-		Gura_PackULong(fields.UncompressedSize,
-						Gura_UnpackULong(_fields.UncompressedSize));
-		UShort fileNameLength = static_cast<UShort>(_fileName.size());
-		Gura_PackUShort(fields.FileNameLength, fileNameLength);
-		UShort extraFieldLength = static_cast<UShort>(_extraField.size());
-		Gura_PackUShort(fields.ExtraFieldLength, extraFieldLength);
+		Gura_PackUInt16(fields.VersionNeededToExtract,
+						Gura_UnpackUInt16(_fields.VersionNeededToExtract));
+		Gura_PackUInt16(fields.GeneralPurposeBitFlag,
+						Gura_UnpackUInt16(_fields.GeneralPurposeBitFlag));
+		Gura_PackUInt16(fields.CompressionMethod,
+						Gura_UnpackUInt16(_fields.CompressionMethod));
+		Gura_PackUInt16(fields.LastModFileTime,
+						Gura_UnpackUInt16(_fields.LastModFileTime));
+		Gura_PackUInt16(fields.LastModFileDate,
+						Gura_UnpackUInt16(_fields.LastModFileDate));
+		Gura_PackUInt32(fields.Crc32,
+						Gura_UnpackUInt32(_fields.Crc32));
+		Gura_PackUInt32(fields.CompressedSize,
+						Gura_UnpackUInt32(_fields.CompressedSize));
+		Gura_PackUInt32(fields.UncompressedSize,
+						Gura_UnpackUInt32(_fields.UncompressedSize));
+		UInt16 fileNameLength = static_cast<UInt16>(_fileName.size());
+		Gura_PackUInt16(fields.FileNameLength, fileNameLength);
+		UInt16 extraFieldLength = static_cast<UInt16>(_extraField.size());
+		Gura_PackUInt16(fields.ExtraFieldLength, extraFieldLength);
 		if (!WriteStream(sig, stream, &fields, 30)) return false;
 		if (!WriteStream(sig, stream, _fileName)) return false;
 		if (!WriteStream(sig, stream, _extraField)) return false;
@@ -320,58 +320,58 @@ public:
 	inline const char *GetFileName() const { return _fileName.c_str(); }
 	inline const char *GetFileComment() const { return _fileComment.c_str(); }
 	inline bool IsEncrypted() const {
-		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 0)) != 0;
+		return (Gura_UnpackUInt16(_fields.GeneralPurposeBitFlag) & (1 << 0)) != 0;
 	}
 	inline bool IsExistDataDescriptor() const {
-		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 3)) != 0;
+		return (Gura_UnpackUInt16(_fields.GeneralPurposeBitFlag) & (1 << 3)) != 0;
 	}
 	inline bool IsStrongEncrypted() const {
-		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 6)) != 0;
+		return (Gura_UnpackUInt16(_fields.GeneralPurposeBitFlag) & (1 << 6)) != 0;
 	}
 	inline bool IsUtf8() const {
-		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 11)) != 0;
+		return (Gura_UnpackUInt16(_fields.GeneralPurposeBitFlag) & (1 << 11)) != 0;
 	}
-	inline ULong GetRelativeOffsetOfLocalHeader() const {
-		return Gura_UnpackULong(_fields.RelativeOffsetOfLocalHeader);
+	inline UInt32 GetRelativeOffsetOfLocalHeader() const {
+		return Gura_UnpackUInt32(_fields.RelativeOffsetOfLocalHeader);
 	}
-	inline UShort GetCompressionMethod() const {
-		return Gura_UnpackUShort(_fields.CompressionMethod);
+	inline UInt16 GetCompressionMethod() const {
+		return Gura_UnpackUInt16(_fields.CompressionMethod);
 	}
 	inline DateTime GetLastModDateTime() const {
-		UShort dosTime = Gura_UnpackUShort(_fields.LastModFileTime);
-		UShort dosDate = Gura_UnpackUShort(_fields.LastModFileDate);
+		UInt16 dosTime = Gura_UnpackUInt16(_fields.LastModFileTime);
+		UInt16 dosDate = Gura_UnpackUInt16(_fields.LastModFileDate);
 		return MakeDateTimeFromDos(dosDate, dosTime);
 	}
-	inline ULong GetCrc32() const {
-		return Gura_UnpackULong(_fields.Crc32);
+	inline UInt32 GetCrc32() const {
+		return Gura_UnpackUInt32(_fields.Crc32);
 	}
-	inline ULong GetCompressedSize() const {
-		return Gura_UnpackULong(_fields.CompressedSize);
+	inline UInt32 GetCompressedSize() const {
+		return Gura_UnpackUInt32(_fields.CompressedSize);
 	}
-	inline ULong GetUncompressedSize() const {
-		return Gura_UnpackULong(_fields.UncompressedSize);
+	inline UInt32 GetUncompressedSize() const {
+		return Gura_UnpackUInt32(_fields.UncompressedSize);
 	}
-	inline ULong GetExternalFileAttributes() const {
-		return Gura_UnpackULong(_fields.ExternalFileAttributes);
+	inline UInt32 GetExternalFileAttributes() const {
+		return Gura_UnpackUInt32(_fields.ExternalFileAttributes);
 	}
 	inline void Print() const {
-		::printf("Signature              %08lx\n", Gura_UnpackULong(_fields.Signature));
-		::printf("VersionMadeBy          %04x\n", Gura_UnpackUShort(_fields.VersionMadeBy));
-		::printf("VersionNeededToExtract %04x\n", Gura_UnpackUShort(_fields.VersionNeededToExtract));
-		::printf("GeneralPurposeBitFlag  %04x\n", Gura_UnpackUShort(_fields.GeneralPurposeBitFlag));
-		::printf("CompressionMethod      %04x\n", Gura_UnpackUShort(_fields.CompressionMethod));
-		::printf("LastModFileTime        %04x\n", Gura_UnpackUShort(_fields.LastModFileTime));
-		::printf("LastModFileDate        %04x\n", Gura_UnpackUShort(_fields.LastModFileDate));
-		::printf("Crc32                  %08lx\n", Gura_UnpackULong(_fields.Crc32));
-		::printf("CompressedSize         %08lx\n", Gura_UnpackULong(_fields.CompressedSize));
-		::printf("UncompressedSize       %08lx\n", Gura_UnpackULong(_fields.UncompressedSize));
-		::printf("FileNameLength         %04x\n", Gura_UnpackUShort(_fields.FileNameLength));
-		::printf("ExtraFieldLength       %04x\n", Gura_UnpackUShort(_fields.ExtraFieldLength));
-		::printf("FileCommentLength      %04x\n", Gura_UnpackUShort(_fields.FileCommentLength));
-		::printf("DiskNumberStart        %04x\n", Gura_UnpackUShort(_fields.DiskNumberStart));
-		::printf("InternalFileAttributes %04x\n", Gura_UnpackUShort(_fields.InternalFileAttributes));
-		::printf("ExternalFileAttributes %08lx\n", Gura_UnpackULong(_fields.ExternalFileAttributes));
-		::printf("RelativeOffsetOfLocalHeader %08lx\n", Gura_UnpackULong(_fields.RelativeOffsetOfLocalHeader));
+		::printf("Signature              %08x\n", Gura_UnpackUInt32(_fields.Signature));
+		::printf("VersionMadeBy          %04x\n", Gura_UnpackUInt16(_fields.VersionMadeBy));
+		::printf("VersionNeededToExtract %04x\n", Gura_UnpackUInt16(_fields.VersionNeededToExtract));
+		::printf("GeneralPurposeBitFlag  %04x\n", Gura_UnpackUInt16(_fields.GeneralPurposeBitFlag));
+		::printf("CompressionMethod      %04x\n", Gura_UnpackUInt16(_fields.CompressionMethod));
+		::printf("LastModFileTime        %04x\n", Gura_UnpackUInt16(_fields.LastModFileTime));
+		::printf("LastModFileDate        %04x\n", Gura_UnpackUInt16(_fields.LastModFileDate));
+		::printf("Crc32                  %08x\n", Gura_UnpackUInt32(_fields.Crc32));
+		::printf("CompressedSize         %08x\n", Gura_UnpackUInt32(_fields.CompressedSize));
+		::printf("UncompressedSize       %08x\n", Gura_UnpackUInt32(_fields.UncompressedSize));
+		::printf("FileNameLength         %04x\n", Gura_UnpackUInt16(_fields.FileNameLength));
+		::printf("ExtraFieldLength       %04x\n", Gura_UnpackUInt16(_fields.ExtraFieldLength));
+		::printf("FileCommentLength      %04x\n", Gura_UnpackUInt16(_fields.FileCommentLength));
+		::printf("DiskNumberStart        %04x\n", Gura_UnpackUInt16(_fields.DiskNumberStart));
+		::printf("InternalFileAttributes %04x\n", Gura_UnpackUInt16(_fields.InternalFileAttributes));
+		::printf("ExternalFileAttributes %08x\n", Gura_UnpackUInt32(_fields.ExternalFileAttributes));
+		::printf("RelativeOffsetOfLocalHeader %08x\n", Gura_UnpackUInt32(_fields.RelativeOffsetOfLocalHeader));
 	}
 };
 
@@ -379,24 +379,24 @@ class DigitalSignature {
 public:
 	enum { Signature = 0x05054b50 };
 	struct Fields {
-		Gura_PackedULong_LE(Signature);
-		Gura_PackedUShort_LE(SizeOfData);
+		Gura_PackedUInt32_LE(Signature);
+		Gura_PackedUInt16_LE(SizeOfData);
 		// Data (SizeOfData bytes)
 	};
 private:
 	Fields _fields;
 	Binary _data;
 public:
-	inline DigitalSignature() { Gura_PackULong(_fields.Signature, Signature); }
+	inline DigitalSignature() { Gura_PackUInt32(_fields.Signature, Signature); }
 	inline const Fields &GetFields() const { return _fields; }
 	inline bool Read(Signal &sig, Stream &stream) {
 		if (!ReadStream(sig, stream, &_fields, 8 - 4, 4)) return false;
 		if (!ReadStream(sig, stream, _data,
-						Gura_UnpackUShort(_fields.SizeOfData))) return false;
+						Gura_UnpackUInt16(_fields.SizeOfData))) return false;
 		return true;
 	}
 	inline bool Write(Signal &sig, Stream &stream) {
-		Gura_PackUShort(_fields.SizeOfData, _data.size());
+		Gura_PackUInt16(_fields.SizeOfData, _data.size());
 		if (!WriteStream(sig, stream, &_fields, 8)) return false;
 		if (!WriteStream(sig, stream, _data)) return false;
 		return true;
@@ -408,12 +408,12 @@ class Zip64EndOfCentralDirectory {
 public:
 	enum { Signature = 0x06064b50 };
 	struct Fields {
-		Gura_PackedULong_LE(Signature);
+		Gura_PackedUInt32_LE(Signature);
 		Gura_PackedUInt64_LE(SizeOfZip64EndOfCentralDirectoryRecord);
-		Gura_PackedUShort_LE(VersionMadeBy);
-		Gura_PackedUShort_LE(VersionNeededToExtract);
-		Gura_PackedULong_LE(NumberOfThisDisk);
-		Gura_PackedULong_LE(NumberOfTheDiskWithTheStartOfTheCentralDirectory);
+		Gura_PackedUInt16_LE(VersionMadeBy);
+		Gura_PackedUInt16_LE(VersionNeededToExtract);
+		Gura_PackedUInt32_LE(NumberOfThisDisk);
+		Gura_PackedUInt32_LE(NumberOfTheDiskWithTheStartOfTheCentralDirectory);
 		Gura_PackedUInt64_LE(TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk);
 		Gura_PackedUInt64_LE(TotalNumberOfEntriesInTheCentralDirectory);
 		Gura_PackedUInt64_LE(SizeOfTheCentralDirectory);
@@ -423,7 +423,7 @@ public:
 private:
 	Fields _fields;
 public:
-	inline Zip64EndOfCentralDirectory() { Gura_PackULong(_fields.Signature, Signature); }
+	inline Zip64EndOfCentralDirectory() { Gura_PackUInt32(_fields.Signature, Signature); }
 	inline const Fields &GetFields() const { return _fields; }
 	inline bool Read(Signal &sig, Stream &stream) {
 		if (!ReadStream(sig, stream, &_fields, 56 - 4, 4)) return false;
@@ -440,15 +440,15 @@ class Zip64EndOfCentralDirectoryLocator {
 public:
 	enum { Signature = 0x07064b50 };
 	struct Fields {
-		Gura_PackedULong_LE(Signature);
-		Gura_PackedULong_LE(NumberOfTheDiskWithTheStartOfTheZip64EndOfCentralDirectory);
+		Gura_PackedUInt32_LE(Signature);
+		Gura_PackedUInt32_LE(NumberOfTheDiskWithTheStartOfTheZip64EndOfCentralDirectory);
 		Gura_PackedUInt64_LE(RelativeOffsetOfTheZip64EndOfCentralDirectoryRecord);
-		Gura_PackedULong_LE(TotalNumberOfDisks);
+		Gura_PackedUInt32_LE(TotalNumberOfDisks);
 	};
 private:
 	Fields _fields;
 public:
-	inline Zip64EndOfCentralDirectoryLocator() { Gura_PackULong(_fields.Signature, Signature); }
+	inline Zip64EndOfCentralDirectoryLocator() { Gura_PackUInt32(_fields.Signature, Signature); }
 	inline const Fields &GetFields() const { return _fields; }
 	inline bool Read(Signal &sig, Stream &stream) {
 		return ReadStream(sig, stream, &_fields, 20 - 4, 4);
@@ -464,44 +464,44 @@ public:
 	enum { Signature = 0x06054b50 };
 	enum { MinSize = 22, MaxSize = 22 + 65536 };
 	struct Fields {
-		Gura_PackedULong_LE(Signature);
-		Gura_PackedUShort_LE(NumberOfThisDisk);
-		Gura_PackedUShort_LE(NumberOfTheDiskWithTheStartOfTheCentralDirectory);
-		Gura_PackedUShort_LE(TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk);
-		Gura_PackedUShort_LE(TotalNumberOfEntriesInTheCentralDirectory);
-		Gura_PackedULong_LE(SizeOfTheCentralDirectory);
-		Gura_PackedULong_LE(OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber);
-		Gura_PackedUShort_LE(ZIPFileCommentLength);
+		Gura_PackedUInt32_LE(Signature);
+		Gura_PackedUInt16_LE(NumberOfThisDisk);
+		Gura_PackedUInt16_LE(NumberOfTheDiskWithTheStartOfTheCentralDirectory);
+		Gura_PackedUInt16_LE(TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk);
+		Gura_PackedUInt16_LE(TotalNumberOfEntriesInTheCentralDirectory);
+		Gura_PackedUInt32_LE(SizeOfTheCentralDirectory);
+		Gura_PackedUInt32_LE(OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber);
+		Gura_PackedUInt16_LE(ZIPFileCommentLength);
 		// ZIPFileComment (ZIPFileCommentLength bytes)
 	};
 private:
 	Fields _fields;
 	Binary _zipFileComment;
 public:
-	inline EndOfCentralDirectoryRecord() { Gura_PackULong(_fields.Signature, Signature); }
+	inline EndOfCentralDirectoryRecord() { Gura_PackUInt32(_fields.Signature, Signature); }
 	inline Fields &GetFields() { return _fields; }
 	inline const Fields &GetFields() const { return _fields; }
 	inline bool Read(Signal &sig, Stream &stream) {
 		if (!ReadStream(sig, stream, &_fields, 22 - 4, 4)) return false;
 		if (!ReadStream(sig, stream, _zipFileComment,
-						Gura_UnpackUShort(_fields.ZIPFileCommentLength))) return false;
+						Gura_UnpackUInt16(_fields.ZIPFileCommentLength))) return false;
 		return true;
 	}
 	inline bool Write(Signal &sig, Stream &stream) {
-		Gura_PackUShort(_fields.ZIPFileCommentLength, _zipFileComment.size());
+		Gura_PackUInt16(_fields.ZIPFileCommentLength, _zipFileComment.size());
 		if (!WriteStream(sig, stream, &_fields, 22)) return false;
 		if (!WriteStream(sig, stream, _zipFileComment)) return false;
 		return true;
 	}
 	void Print() const {
-		::printf("Signature                                                         %08lx\n", Gura_UnpackULong(_fields.Signature));
-		::printf("NumberOfThisDisk                                                  %04x\n", Gura_UnpackUShort(_fields.NumberOfThisDisk));
-		::printf("NumberOfTheDiskWithTheStartOfTheCentralDirectory                  %04x\n", Gura_UnpackUShort(_fields.NumberOfTheDiskWithTheStartOfTheCentralDirectory));
-		::printf("TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk               %04x\n", Gura_UnpackUShort(_fields.TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk));
-		::printf("TotalNumberOfEntriesInTheCentralDirectory                         %04x\n", Gura_UnpackUShort(_fields.TotalNumberOfEntriesInTheCentralDirectory));
-		::printf("SizeOfTheCentralDirectory                                         %08lx\n", Gura_UnpackULong(_fields.SizeOfTheCentralDirectory));
-		::printf("OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber %08lx\n", Gura_UnpackULong(_fields.OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber));
-		::printf("ZIPFileCommentLength                                              %04x\n", Gura_UnpackUShort(_fields.ZIPFileCommentLength));
+		::printf("Signature                                                         %08x\n", Gura_UnpackUInt32(_fields.Signature));
+		::printf("NumberOfThisDisk                                                  %04x\n", Gura_UnpackUInt16(_fields.NumberOfThisDisk));
+		::printf("NumberOfTheDiskWithTheStartOfTheCentralDirectory                  %04x\n", Gura_UnpackUInt16(_fields.NumberOfTheDiskWithTheStartOfTheCentralDirectory));
+		::printf("TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk               %04x\n", Gura_UnpackUInt16(_fields.TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk));
+		::printf("TotalNumberOfEntriesInTheCentralDirectory                         %04x\n", Gura_UnpackUInt16(_fields.TotalNumberOfEntriesInTheCentralDirectory));
+		::printf("SizeOfTheCentralDirectory                                         %08x\n", Gura_UnpackUInt32(_fields.SizeOfTheCentralDirectory));
+		::printf("OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber %08x\n", Gura_UnpackUInt32(_fields.OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber));
+		::printf("ZIPFileCommentLength                                              %04x\n", Gura_UnpackUInt16(_fields.ZIPFileCommentLength));
 	}
 };
 
@@ -510,12 +510,12 @@ class Extra_ZIP64 {
 public:
 	enum { Tag = 0x0001 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(Size);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(Size);
 		Gura_PackedUInt64_LE(OriginalSize);
 		Gura_PackedUInt64_LE(CompressedSize);
 		Gura_PackedUInt64_LE(RelativeHeaderOffset);
-		Gura_PackedULong_LE(DiskStartNumber);
+		Gura_PackedUInt32_LE(DiskStartNumber);
 	};
 };
 
@@ -524,11 +524,11 @@ class Extra_OS2 {
 public:
 	enum { Tag = 0x0009 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
-		Gura_PackedULong_LE(BSize);
-		Gura_PackedUShort_LE(CType);
-		Gura_PackedULong_LE(EACRC);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
+		Gura_PackedUInt32_LE(BSize);
+		Gura_PackedUInt16_LE(CType);
+		Gura_PackedUInt32_LE(EACRC);
 		// CompressedBlock
 	};
 };
@@ -538,8 +538,8 @@ class Extra_NTFS {
 public:
 	enum { Tag = 0x000a };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
 		// Tag1, Size1, ...
 	};
 };
@@ -549,9 +549,9 @@ class Extra_VMS {
 public:
 	enum { Tag = 0x000c };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
-		Gura_PackedULong_LE(CRC);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
+		Gura_PackedUInt32_LE(CRC);
 		// Tag1, Size1, ...
 	};
 };
@@ -561,12 +561,12 @@ class Extra_UNIX {
 public:
 	enum { Tag = 0x000d };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
-		Gura_PackedULong_LE(Atime);
-		Gura_PackedULong_LE(Mtime);
-		Gura_PackedUShort_LE(Uid);
-		Gura_PackedUShort_LE(Gid);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
+		Gura_PackedUInt32_LE(Atime);
+		Gura_PackedUInt32_LE(Mtime);
+		Gura_PackedUInt16_LE(Uid);
+		Gura_PackedUInt16_LE(Gid);
 		// VariableLengthDataField
 	};
 };
@@ -576,14 +576,14 @@ class Extra_Patch {
 public:
 	enum { Tag = 0x000f };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
-		Gura_PackedUShort_LE(Version);
-		Gura_PackedULong_LE(Flags);
-		Gura_PackedULong_LE(OldSize);
-		Gura_PackedULong_LE(OldCRC);
-		Gura_PackedULong_LE(NewSize);
-		Gura_PackedULong_LE(NewCRC);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
+		Gura_PackedUInt16_LE(Version);
+		Gura_PackedUInt32_LE(Flags);
+		Gura_PackedUInt32_LE(OldSize);
+		Gura_PackedUInt32_LE(OldCRC);
+		Gura_PackedUInt32_LE(NewSize);
+		Gura_PackedUInt32_LE(NewCRC);
 	};
 };
 
@@ -592,8 +592,8 @@ class Extra_Store {
 public:
 	enum { Tag = 0x0014 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
 		// TData (TSize bytes)
 	};
 };
@@ -603,8 +603,8 @@ class Extra_CID {
 public:
 	enum { Tag = 0x0015 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
 		// TData (TSize bytes)
 	};
 };
@@ -614,8 +614,8 @@ class Extra_CDID {
 public:
 	enum { Tag = 0x0016 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
 		// TData (TSize bytes)
 	};
 };
@@ -625,8 +625,8 @@ class Extra_RecCTL {
 public:
 	enum { Tag = 0x0018 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(CSize);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(CSize);
 		// Tag1, Size1, Data1, ..
 	};
 };
@@ -636,8 +636,8 @@ class Extra_CStore {
 public:
 	enum { Tag = 0x0019 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
 		// TData (TSize bytes)
 	};
 };
@@ -647,8 +647,8 @@ class Extra_MVS {
 public:
 	enum { Tag = 0x0065 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
 		Gura_PackedUInt64_LE(ID);
 		// AttributeData ((TSize - 4) bytes)
 	};
@@ -659,8 +659,8 @@ class Extra_OS400 {
 public:
 	enum { Tag = 0x0065 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(Size);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(Size);
 		Gura_PackedUInt64_LE(ID);
 		// AttributeData ((TSize - 4) bytes)
 	};
@@ -671,9 +671,9 @@ class Extra_Mac2 {
 public:
 	enum { Tag = 0x2605 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
-		Gura_PackedULong_BE(Signature);	// "ZPIT"
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
+		Gura_PackedUInt32_BE(Signature);	// "ZPIT"
 		UChar FnLen;
 		// FileName, FileType, Creator
 	};
@@ -684,9 +684,9 @@ class Extra_Mac2b {
 public:
 	enum { Tag = 0x2705 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
-		Gura_PackedULong_BE(Signature);	// "ZPIT"
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
+		Gura_PackedUInt32_BE(Signature);	// "ZPIT"
 		// FileType, Creator, fdFlags, reserved
 	};
 };
@@ -696,9 +696,9 @@ class Extra_Mac2c {
 public:
 	enum { Tag = 0x2805 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
-		Gura_PackedULong_BE(Signature);	// "ZPIT"
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
+		Gura_PackedUInt32_BE(Signature);	// "ZPIT"
 		// frFlags, View
 	};
 };
@@ -708,10 +708,10 @@ class Extra_UCom {
 public:
 	enum { Tag = 0x6375 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
 		UChar Version;
-		Gura_PackedULong_LE(ComCRC32);
+		Gura_PackedUInt32_LE(ComCRC32);
 		// UnicodeCom
 	};
 };
@@ -721,10 +721,10 @@ class Extra_UPath {
 public:
 	enum { Tag = 0x7075 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
 		UChar Version;
-		Gura_PackedULong_LE(NameCRC32);
+		Gura_PackedUInt32_LE(NameCRC32);
 		// UnicodeName
 	};
 };
@@ -734,10 +734,10 @@ class Extra_MSOpen {
 public:
 	enum { Tag = 0xa220 };
 	struct Fields {
-		Gura_PackedUShort_LE(Tag);
-		Gura_PackedUShort_LE(TSize);
-		Gura_PackedUShort_LE(Signature);
-		Gura_PackedUShort_LE(PadVal);
+		Gura_PackedUInt16_LE(Tag);
+		Gura_PackedUInt16_LE(TSize);
+		Gura_PackedUInt16_LE(Signature);
+		Gura_PackedUInt16_LE(PadVal);
 		// Padding
 	};
 };
@@ -795,21 +795,21 @@ class Object_writer : public Object {
 private:
 	Signal &_sig;
 	AutoPtr<Stream> _pStreamDst;
-	UShort _compressionMethod;
+	UInt16 _compressionMethod;
 	CentralFileHeaderList _hdrList;
 public:
 	Gura_DeclareObjectAccessor(writer)
 public:
-	Object_writer(Signal &sig, Stream *pStreamDst, UShort compressionMethod);
+	Object_writer(Signal &sig, Stream *pStreamDst, UInt16 compressionMethod);
 	inline CentralFileHeaderList &GetHeaderList() { return _hdrList; }
 	virtual ~Object_writer();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	inline Stream *GetStreamDst() { return _pStreamDst.get(); }
 	bool Add(Environment &env, Stream &streamSrc,
-					const char *fileName, UShort compressionMethod);
+					const char *fileName, UInt16 compressionMethod);
 	bool Finish();
-	inline UShort GetCompressionMethod() const { return _compressionMethod; }
+	inline UInt16 GetCompressionMethod() const { return _compressionMethod; }
 };
 
 //-----------------------------------------------------------------------------
@@ -884,7 +884,7 @@ protected:
 	String _name;
 	size_t _bytesUncompressed;
 	size_t _bytesCompressed;
-	ULong _crc32Expected;
+	UInt32 _crc32Expected;
 	bool _seekedFlag;
 	CRC32 _crc32;
 public:

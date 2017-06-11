@@ -101,8 +101,8 @@ Gura_ImplementPropertyGetter(Face, bbox)
 	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
 	return Value::CreateList(
 		env,
-		Value(face->bbox.xMin), Value(face->bbox.yMin),
-		Value(face->bbox.xMax), Value(face->bbox.yMax)); // font_units
+		Value(static_cast<Int32>(face->bbox.xMin)), Value(static_cast<Int32>(face->bbox.yMin)),
+		Value(static_cast<Int32>(face->bbox.xMax)), Value(static_cast<Int32>(face->bbox.yMax))); // font_units
 }
 
 // freetype.Face#charmap
@@ -169,7 +169,7 @@ Gura_DeclareProperty_R(Face, face_flags)
 Gura_ImplementPropertyGetter(Face, face_flags)
 {
 	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
-	return Value(face->face_flags);
+	return Value(static_cast<Int32>(face->face_flags));
 }
 
 // freetype.Face#face_index
@@ -185,7 +185,7 @@ Gura_DeclareProperty_R(Face, face_index)
 Gura_ImplementPropertyGetter(Face, face_index)
 {
 	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
-	return Value(face->face_index);
+	return Value(static_cast<Int32>(face->face_index));
 }
 
 // freetype.Face#family_name
@@ -329,7 +329,7 @@ Gura_DeclareProperty_R(Face, num_faces)
 Gura_ImplementPropertyGetter(Face, num_faces)
 {
 	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
-	return Value(face->num_faces);
+	return Value(static_cast<Int32>(face->num_faces));
 }
 
 // freetype.Face#num_fixed_sizes
@@ -361,7 +361,7 @@ Gura_DeclareProperty_R(Face, num_glyphs)
 Gura_ImplementPropertyGetter(Face, num_glyphs)
 {
 	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
-	return Value(face->num_glyphs);
+	return Value(static_cast<Int32>(face->num_glyphs));
 }
 
 // freetype.Face#size
@@ -392,7 +392,7 @@ Gura_DeclareProperty_R(Face, style_flags)
 Gura_ImplementPropertyGetter(Face, style_flags)
 {
 	const FT_Face &face = Object_Face::GetObject(valueThis)->GetEntity();
-	return Value(face->style_flags);
+	return Value(static_cast<Int32>(face->style_flags));
 }
 
 // freetype.Face#style_name

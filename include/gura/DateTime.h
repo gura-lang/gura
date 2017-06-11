@@ -19,7 +19,7 @@ public:
 	TimeDelta(Int32 days = 0, Int32 secs = 0, Int32 usecs = 0);
 	inline TimeDelta(const TimeDelta &td) :
 					_days(td._days), _secs(td._secs), _usecs(td._usecs) {}
-	inline Int32 GetDays() const		{ return _days; }
+	inline Int32 GetDays() const	{ return _days; }
 	inline Int8 GetHours() const	{ return static_cast<Int8>(_secs / 3600); }		// 0-23
 	inline Int8 GetMins() const		{ return static_cast<Int8>((_secs / 60) % 60); }	// 0-59
 	inline Int8 GetSecs() const		{ return static_cast<Int8>(_secs % 60); }			// 0-59
@@ -78,7 +78,7 @@ public:
 	inline Int8 GetMin() const			{ return static_cast<Int8>((_sec / 60) % 60); }	// 0-59
 	inline Int8 GetSec() const			{ return static_cast<Int8>(_sec % 60); }			// 0-59
 	inline Int32 GetSecRaw() const		{ return _sec; }	// 0 - (3600 * 24 - 1)
-	inline Int32 GetUSec() const			{ return _usec; }	// 0 - 999999
+	inline Int32 GetUSec() const		{ return _usec; }	// 0 - 999999
 	inline bool IsLeapYear() const		{ return IsLeapYear(_year); }
 	inline Int32 GetMSecOfDay() const	{ return _sec * 1000 + _usec / 1000; }
 	inline Int16 GetDaysOfYear() const	{ return GetDaysOfYear(_year); }
