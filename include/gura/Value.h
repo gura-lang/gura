@@ -149,7 +149,10 @@ public:
 	inline Value(Double num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = num;
 	}
-	inline Value(size_t num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
+	inline Value(Long num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
+		_u.num = num;
+	}
+	inline Value(ULong num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = num;
 	}
 	// VTYPE_rational
