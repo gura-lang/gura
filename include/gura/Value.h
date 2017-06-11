@@ -116,31 +116,22 @@ public:
 		_u.pComp = new Complex(comp);
 	}
 	// VTYPE_number
-	inline Value(Number num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
-		_u.num = num;
-	}
-	inline Value(int num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
+	inline Value(Int8 num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(UInt num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
+	inline Value(UInt8 num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(char num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
+	inline Value(Int16 num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(UChar num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
+	inline Value(UInt16 num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(short num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
+	inline Value(Int32 num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(UShort num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
-		_u.num = static_cast<Number>(num);
-	}
-	inline Value(long num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
-		_u.num = static_cast<Number>(num);
-	}
-	inline Value(ULong num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
+	inline Value(UInt32 num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
 	inline Value(Int64 num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
@@ -150,7 +141,13 @@ public:
 		_u.num = static_cast<Number>(num);
 	}
 	inline Value(Half num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
-		_u.num = num.ToFloat();
+		_u.num = static_cast<Float>(num);
+	}
+	inline Value(Float num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
+		_u.num = num;
+	}
+	inline Value(Double num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
+		_u.num = num;
 	}
 	// VTYPE_rational
 	inline Value(const Rational &ratio) : _valType(VTYPE_rational), _valFlags(VFLAG_None) {
@@ -523,18 +520,17 @@ public:
 			const Value &v3, const Value &v4, const Value &v5);
 	static Value CreateList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3, const Value &v4, const Value &v5, const Value &v6);
-	static Value CreateList(Environment &env, const char *buff, size_t n);
-	static Value CreateList(Environment &env, const UChar *buff, size_t n);
-	static Value CreateList(Environment &env, const short *buff, size_t n);
-	static Value CreateList(Environment &env, const UShort *buff, size_t n);
-	static Value CreateList(Environment &env, const long *buff, size_t n);
-	static Value CreateList(Environment &env, const ULong *buff, size_t n);
-	static Value CreateList(Environment &env, const int *buff, size_t n);
-	static Value CreateList(Environment &env, const UInt *buff, size_t n);
+	static Value CreateList(Environment &env, const Int8 *buff, size_t n);
+	static Value CreateList(Environment &env, const UInt8 *buff, size_t n);
+	static Value CreateList(Environment &env, const Int16 *buff, size_t n);
+	static Value CreateList(Environment &env, const UInt16 *buff, size_t n);
+	static Value CreateList(Environment &env, const Int32 *buff, size_t n);
+	static Value CreateList(Environment &env, const UInt32 *buff, size_t n);
 	static Value CreateList(Environment &env, const Int64 *buff, size_t n);
 	static Value CreateList(Environment &env, const UInt64 *buff, size_t n);
-	static Value CreateList(Environment &env, const float *buff, size_t n);
-	static Value CreateList(Environment &env, const double *buff, size_t n);
+	static Value CreateList(Environment &env, const Half *buff, size_t n);
+	static Value CreateList(Environment &env, const Float *buff, size_t n);
+	static Value CreateList(Environment &env, const Double *buff, size_t n);
 	static Value CreateList(Environment &env, const char *strs[], size_t n);
 	static bool Serialize(Environment &env, Stream &stream, const Value &value);
 	static bool Deserialize(Environment &env, Stream &stream, Value &value, bool mustBeValidFlag);

@@ -642,42 +642,32 @@ Value CreateListTmpl(Environment &env, T buff, size_t n)
 	return rtn;
 }
 
-Value Value::CreateList(Environment &env, const char *buff, size_t n)
+Value Value::CreateList(Environment &env, const Int8 *buff, size_t n)
 {
 	return CreateListTmpl(env, buff, n);
 }
 
-Value Value::CreateList(Environment &env, const UChar *buff, size_t n)
+Value Value::CreateList(Environment &env, const UInt8 *buff, size_t n)
 {
 	return CreateListTmpl(env, buff, n);
 }
 
-Value Value::CreateList(Environment &env, const short *buff, size_t n)
+Value Value::CreateList(Environment &env, const Int16 *buff, size_t n)
 {
 	return CreateListTmpl(env, buff, n);
 }
 
-Value Value::CreateList(Environment &env, const UShort *buff, size_t n)
+Value Value::CreateList(Environment &env, const UInt16 *buff, size_t n)
 {
 	return CreateListTmpl(env, buff, n);
 }
 
-Value Value::CreateList(Environment &env, const long *buff, size_t n)
+Value Value::CreateList(Environment &env, const Int32 *buff, size_t n)
 {
 	return CreateListTmpl(env, buff, n);
 }
 
-Value Value::CreateList(Environment &env, const ULong *buff, size_t n)
-{
-	return CreateListTmpl(env, buff, n);
-}
-
-Value Value::CreateList(Environment &env, const int *buff, size_t n)
-{
-	return CreateListTmpl(env, buff, n);
-}
-
-Value Value::CreateList(Environment &env, const UInt *buff, size_t n)
+Value Value::CreateList(Environment &env, const UInt32 *buff, size_t n)
 {
 	return CreateListTmpl(env, buff, n);
 }
@@ -692,12 +682,17 @@ Value Value::CreateList(Environment &env, const UInt64 *buff, size_t n)
 	return CreateListTmpl(env, buff, n);
 }
 
-Value Value::CreateList(Environment &env, const float *buff, size_t n)
+Value Value::CreateList(Environment &env, const Half *buff, size_t n)
 {
 	return CreateListTmpl(env, buff, n);
 }
 
-Value Value::CreateList(Environment &env, const double *buff, size_t n)
+Value Value::CreateList(Environment &env, const Float *buff, size_t n)
+{
+	return CreateListTmpl(env, buff, n);
+}
+
+Value Value::CreateList(Environment &env, const Double *buff, size_t n)
 {
 	return CreateListTmpl(env, buff, n);
 }
