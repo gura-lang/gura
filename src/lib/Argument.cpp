@@ -93,20 +93,20 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 				Slot *pSlot = _slots.FindBySymbol(pSymbol);
 				if (pSlot == nullptr) {
 					Value valueKey(pSymbol);
-					Value value = pExprRight->Exec(env, nullptr);
+					Value value = pExprRight->Exec(env);
 					if (sig.IsSignalled()) return false;
 					AddValueDictItem(valueKey, value);
 				} else if (pSlot->GetDeclaration().IsQuote()) {
 					Value value(new Object_expr(env, pExprRight->Reference()));
 					if (!pSlot->StoreValue(env, value, mapFlag, &_mapMode)) return false;
 				} else {
-					Value value = pExprRight->Exec(env, nullptr);
+					Value value = pExprRight->Exec(env);
 					if (sig.IsSignalled()) return false;
 					if (!pSlot->StoreValue(env, value, mapFlag, &_mapMode)) return false;
 				}
 			} else if (pExprLeft->IsValue()) {
 				const Value &valueKey = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue();
-				Value value = pExprRight->Exec(env, nullptr);
+				Value value = pExprRight->Exec(env);
 				if (sig.IsSignalled()) return false;
 				AddValueDictItem(valueKey, value);
 			} else {
@@ -117,7 +117,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Percnt)) {
 			// func(..., value%, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
-			Value value = pExprUnaryOp->GetChild()->Exec(env, nullptr);
+			Value value = pExprUnaryOp->GetChild()->Exec(env);
 			if (sig.IsSignalled()) return false;
 			if (!value.Is_dict()) {
 				sig.SetError(ERR_ValueError, "modulo argument must take a dictionary");
@@ -153,7 +153,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Ast)) {
 			// func(..., value*, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
-			Value value = pExprUnaryOp->GetChild()->Exec(env, nullptr);
+			Value value = pExprUnaryOp->GetChild()->Exec(env);
 			if (sig.IsSignalled()) return false;
 			if (value.Is_list()) {
 				const ValueList &valList = value.GetList();
@@ -165,7 +165,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 			}
 		} else {
 			// func(..., value, ...)
-			Value value = pExprArg->Exec(env, nullptr);
+			Value value = pExprArg->Exec(env);
 			if (sig.IsSignalled()) return false;
 			if (!StoreValue(env, value)) return false;
 		}
@@ -229,7 +229,7 @@ bool Argument::Complete(Environment &env)
 			Value value(new Object_expr(env, pExprDefault->Reference()));
 			if (!_pSlotCur->StoreValue(env, value, mapFlag, &_mapMode)) return false;
 		} else {
-			Value value = pExprDefault->Exec(env, nullptr);
+			Value value = pExprDefault->Exec(env);
 			if (env.IsSignalled()) return false;
 			if (!_pSlotCur->StoreValue(env, value, mapFlag, &_mapMode)) return false;
 		}
