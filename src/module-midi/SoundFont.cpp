@@ -900,12 +900,12 @@ bool SoundFont::sfSample::CreateAudio(Signal &sig, Stream &stream, size_t offset
 		sig.SetError(ERR_FormatError, "invalid value in sfSample");
 		return false;
 	}
-	if (!stream.Seek(sig, offsetSdta + _dwStart * 2, Stream::SeekSet)) return nullptr;
+	if (!stream.Seek(sig, offsetSdta + _dwStart * 2, Stream::SeekSet)) return false;
 	size_t nSamples = _dwEnd - _dwStart;
 	Audio::Chain *pChain = _pAudio->AllocChain(nSamples);
 	size_t bytesToRead = nSamples * 2;
 	size_t bytesRead = stream.Read(sig, pChain->GetPointer(), bytesToRead);
-	if (sig.IsSignalled()) return nullptr;
+	if (sig.IsSignalled()) return false;
 	if (bytesRead < bytesToRead) {
 		sig.SetError(ERR_FormatError, "invalid format of SoundFont");
 		return false;
