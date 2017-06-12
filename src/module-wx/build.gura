@@ -680,15 +680,15 @@ if (sys.platform == `mswin) {
 	IsExist(filename:string) = {
 		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
 	}
-	builder.debFiles = ['libwxgtk3.1-dev']
-	builder.rpmFiles = ['wxGTK3-3.1.0']
-	builder.debFilesDevel = ['libwxgtk3.1-dev']
-	builder.rpmFilesDevel = ['wxGTK3-devel-3.1.0']
+	builder.debFiles = ['libwxgtk3.0-dev']
+	builder.rpmFiles = ['wxGTK3-3.0.3-2.fc27.x86_64']
+	builder.debFilesDevel = ['libwxgtk3.0-dev']
+	builder.rpmFilesDevel = ['wxGTK3-3.0.3-2.fc27.x86_64']
 	if (IsExist('wx-config')) {
 		cflags = scope {
 			buff = binary()
 			os.redirect(nil, buff) {
-				os.exec('wx-config', '--version=3.1', '--cppflags')
+				os.exec('wx-config', '--version=3.0', '--cppflags')
 			}
 			os.fromnative(buff).strip().split(' '):list
 		}
@@ -696,7 +696,7 @@ if (sys.platform == `mswin) {
 		ldflags = scope {
 			buff = binary()
 			os.redirect(nil, buff) {
-				os.exec('wx-config', '--version=3.1', '--libs',
+				os.exec('wx-config', '--version=3.0', '--libs',
 					'xrc,stc,richtext,ribbon,propgrid,aui,gl,html,qa,adv,core,xml,net,base')
 			}
 			str = os.fromnative(buff).replace('\n', ' ')
