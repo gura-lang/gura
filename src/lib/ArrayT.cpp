@@ -747,7 +747,7 @@ bool CreateFromList_Sub(Environment &env, Array::Dimensions &dims,
 	}
 	if (pDim + 1 == dims.end()) {
 		foreach_const (ValueList, pValue, valList) {
-			if (!StoreValueAt(env, pElem, *pValue)) return nullptr;
+			if (!StoreValueAt(env, pElem, *pValue)) return false;
 			pElem++;
 		}
 	} else {
