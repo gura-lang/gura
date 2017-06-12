@@ -1040,7 +1040,7 @@ Gura_DeclarePropertyAlias_R(edit_at_line, lineno_at_new, "lineno@new")
 Gura_ImplementPropertyGetter(edit_at_line, lineno_at_new)
 {
 	const DiffLine::Edit &edit = Object_edit_at_line::GetObject(valueThis)->GetEdit();
-	return Value(edit.second.afterIdx);
+	return Value(static_cast<Int64>(edit.second.afterIdx));
 }
 
 // diff.edit@line#lineno@org
@@ -1056,7 +1056,7 @@ Gura_DeclarePropertyAlias_R(edit_at_line, lineno_at_org, "lineno@org")
 Gura_ImplementPropertyGetter(edit_at_line, lineno_at_org)
 {
 	const DiffLine::Edit &edit = Object_edit_at_line::GetObject(valueThis)->GetEdit();
-	return Value(edit.second.beforeIdx);
+	return Value(static_cast<Int64>(edit.second.beforeIdx));
 }
 
 // diff.edit@line#mark@context

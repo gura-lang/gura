@@ -179,7 +179,7 @@ public:
 	static Format SymbolToFormat(Signal &sig, const Symbol *pSymbol);
 	inline bool GetIgnoreCaseFlag() const { return cmp.GetIgnoreCaseFlag(); }
 	inline Sequence &GetSequence(size_t iSeq) { return (iSeq == 0)? getA() : getB(); }
-	inline long long GetEditDistance() const { return getEditDistance(); }
+	inline Int64 GetEditDistance() const { return getEditDistance(); }
 	inline const EditList &GetEditList() const { return getSes().getSequence(); }
 	inline const Edit &GetEdit(size_t idxEdit) const {
 		return GetEditList()[idxEdit];
@@ -257,7 +257,7 @@ public:
 	void FeedString(size_t iSeq, const char *src);
 	inline bool GetIgnoreCaseFlag() const { return cmp.GetIgnoreCaseFlag(); }
 	inline Sequence &GetSequence(size_t iSeq) { return (iSeq == 0)? getA() : getB(); }
-	inline long long GetEditDistance() const { return getEditDistance(); }
+	inline Int64 GetEditDistance() const { return getEditDistance(); }
 	inline const EditOwner &GetEditOwner() const { return *_pEditOwner; }
 	inline const Edit *GetEdit(size_t idxEdit) const {
 		return GetEditOwner()[idxEdit];
