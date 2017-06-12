@@ -149,12 +149,14 @@ public:
 	inline Value(Double num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = num;
 	}
+#if defined(GURA_ON_MSWIN) || defined(GURA_ON_DARWIN)
 	inline Value(Long num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = num;
 	}
 	inline Value(ULong num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = num;
 	}
+#endif
 	// VTYPE_rational
 	inline Value(const Rational &ratio) : _valType(VTYPE_rational), _valFlags(VFLAG_None) {
 		_u.pRatio = new Rational(ratio);
