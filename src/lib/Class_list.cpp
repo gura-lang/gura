@@ -755,7 +755,7 @@ Gura_ImplementFunction(ListInit)
 		}
 	} else {
 		AutoPtr<Environment> pEnvLister(env.Derive(ENVTYPE_lister));
-		result = pExprBlock->Exec(*pEnvLister, nullptr);
+		result = pExprBlock->Exec(*pEnvLister);
 	}
 	return result;
 }

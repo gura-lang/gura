@@ -797,7 +797,7 @@ template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromExpr(Environment &env, const Expr *pExpr)
 {
 	AutoPtr<Environment> pEnvLister(env.Derive(ENVTYPE_lister));
-	Value result = pExpr->Exec(*pEnvLister, nullptr);
+	Value result = pExpr->Exec(*pEnvLister);
 	if (!result.Is_list()) return nullptr;
 	return ArrayT<T_Elem>::CreateFromList(env, result.GetList());
 }
