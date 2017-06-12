@@ -12,6 +12,7 @@
 #define GLEW_STATIC
 #include <glew.h>
 #else
+#define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>
 #endif
 #include "Utils.h"
