@@ -109,6 +109,7 @@ argopt.Parser {|p|
 	p.addFlag('debug',		'd', 'build module with debug information')
 	p.addFlag('rebuild',	'r', 'clean output files before building')
 	p.addParam('exclude',	'x', 'specify module to exclude', 'NAME', '')
+	p.addParam('filter',	'f', 'specify module name to build', 'NAME', '')
 	p.addParam('incdir',	'I', 'specify include directory', 'DIR')
 	p.addParam('libdir',	'L', 'specify library directory', 'DIR')
 	p.addParam('moddir',	'M', 'specify directory to which module is installed', 'DIR')
@@ -144,13 +145,24 @@ argopt.Parser {|p|
 		sys.exit(1)
 	}
 }
-moduleNamesExcept = cfg['exclude'].split(',')
+getCommaSepList(str:string) = {
+	if (str.isempty()) {
+		[]
+	} else {
+		str.split(','):list
+	}
+}
+moduleNamesExcept = getCommaSepList(cfg['exclude'])
+moduleNamesFilter = getCommaSepList(cfg['filter'])
 dirNamePre = path.dirname(sys.argv[0])
 moduleNamesError = []
 debFilesDevel = []
 rpmFilesDevel = []
 moduleInfos.each {|moduleInfo|
 	moduleName = moduleInfo.moduleName
+	if (!moduleNamesFilter.isempty() && !(moduleName in moduleNamesFilter)) {
+		continue
+	}
 	actualFlag = (moduleInfo.action == `build && moduleInfo.platforms.contains(platform))
 	if (moduleName in moduleNamesExcept) {
 		printf('[%s]', moduleName)
