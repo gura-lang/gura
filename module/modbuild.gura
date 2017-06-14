@@ -341,7 +341,7 @@ if (sys.build == `msc) {
 		doPrecompile() = {
 			fileNameSrc = this.precompile
 			cflags = this.cflags.clone()
-			cflags.append('-std=c++0x')
+			cflags.append('-std=c++11')
 			cflags.append('-I' + this.incDirs)
 			cflags.append('-I' + sys.incdir)
 			this.debugFlag && cflags.append('-g')
@@ -360,7 +360,7 @@ if (sys.build == `msc) {
 			fileNameObj = this.makeFileNameObj(fileNameSrc)
 			cflags = this.cflags.clone()
 			if (!fileNameSrc.endswith('.c'):icase) {
-				cflags.append('-std=c++0x')
+				cflags.append('-std=c++11')
 			}
 			cflags.append('-I' + this.incDirs)
 			cflags.append('-I' + sys.incdir)

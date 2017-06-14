@@ -98,6 +98,7 @@ class GURA_DLLDECLARE HelpProvider {
 public:
 	class GURA_DLLDECLARE Holder {
 	public:
+		virtual ~Holder() {}
 		virtual String MakeHelpTitle() const = 0;
 	};
 protected:

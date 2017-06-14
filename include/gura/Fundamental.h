@@ -19,6 +19,7 @@ public:
 	typedef std::pair<ValueList::const_iterator, ValueList::const_iterator> IteratorPair;
 	typedef std::vector<IteratorPair> IteratorPairStack;
 public:
+	virtual ~Indexer() {}
 	virtual Value EvalIndexGet(Environment &env, const ValueList &valListIdx);
 	virtual void EvalIndexSet(Environment &env, const ValueList &valListIdx, const Value &value);
 	virtual Value EmptyIndexGet(Environment &env);
