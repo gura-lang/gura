@@ -269,7 +269,7 @@ public:
 	void SetError_NoConstructor() const;
 public:
 	// inherited from HelpProvider
-	virtual String MakeHelpTitle() const;
+	virtual String GURA_CXX11_ABI MakeHelpTitle() const;
 };
 
 //-----------------------------------------------------------------------------

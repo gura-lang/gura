@@ -7,15 +7,19 @@
 #if defined(_MSC_VER)
 #define GURA_ON_MSWIN
 #define GURA_PLATFORM_NAME "mswin"
+#define GURA_CXX11_ABI
 #elif defined(__linux__)
 #define GURA_ON_LINUX
 #define GURA_PLATFORM_NAME "linux"
+#define GURA_CXX11_ABI __attribute__((abi_tag("cxx11")))
 #elif defined(__APPLE__)
 #define GURA_ON_DARWIN
 #define GURA_PLATFORM_NAME "darwin"
+#define GURA_CXX11_ABI
 #else
 #define GURA_ON_UNKNOWN
 #define GURA_PLATFORM_NAME "unknown"
+#define GURA_CXX11_ABI
 #endif
 
 #if defined(_MSC_VER)
