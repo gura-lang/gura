@@ -94,7 +94,9 @@ Func_arrayT<T_Elem>::Func_arrayT(Environment &env, const Symbol *pSymbol, ValueT
 	AddHelp(
 		Gura_Symbol(en),
 		"Creates an `array@T` instance from a `list` or an `iterator` specified in the argument `src`,\n"
-		"or elements described in a block. Below are examples:\n"
+		"or elements described in a block.\n"
+		"\n"
+		"Example:\n"
 		"\n"
 		"    array@int32 ([[0, 1, 2], [3, 4, 5]])\n"
 		"    array@int32 {{0, 1, 2}, {3, 4, 5}}\n"
@@ -118,7 +120,12 @@ Gura_DeclareClassMethod_arrayT(identity)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that represents a identity matrix with specified size.\n"
+		"Creates an array that represents a identity matrix with specified size `n`.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = array@double.identity(3)\n"
+		"        // array@double {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}\n"
 		);
 }
 
@@ -142,7 +149,7 @@ Gura_DeclareClassMethod_arrayT(interval)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that contains a sequence of numbers\n"
+		"Creates a one-dimentional array that contains a sequence of numbers\n"
 		"by specifying the beginning and ending numbers, and the number of samples between them.\n"
 		"\n"
 		"In default, it creates a sequence that contains the beginning and ending numbers.\n"
@@ -150,7 +157,13 @@ Gura_DeclareClassMethod_arrayT(interval)
 		"\n"
 		"- `:open` .. Numbers in range of `(begin, end)` that doesn't contain either `begin` or `end`.\n"
 		"- `:open_l` .. Numbers in range of `(begin, end]` that doesn't contain `begin`.\n"
-		"- `:open_r` .. Numbers in range of `[begin, end)` that doesn't contain `end`.\n");
+		"- `:open_r` .. Numbers in range of `[begin, end)` that doesn't contain `end`.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = array@double.interval(0, 3, 7)\n"
+		"        // array@double {0, 0.5, 1, 1.5, 2, 2.5, 3}\n"
+		);
 }
 
 Gura_ImplementClassMethod_arrayT(interval)
@@ -192,6 +205,11 @@ Gura_DeclareClassMethod_arrayT(ones)
 	AddHelp(
 		Gura_Symbol(en),
 		"Creates an array with the specified dimensions, which elements are initialized by one.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = array@double.ones([3, 4])\n"
+		"        // array@double {{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}}\n"
 		);
 }
 
@@ -261,7 +279,17 @@ Gura_DeclareClassMethod_arrayT(range)
 		"\n"
 		"- `array@T.range(num)` .. Numbers between `0` and `(num - 1)`.\n"
 		"- `array@T.range(num, num_end)` .. Numbers between `num` and `(num_end - 1)`.\n"
-		"- `array@T.range(num, num_end, step)` .. Numbers between `num` and `(num_end - 1)` incremented by `step`.\n");
+		"- `array@T.range(num, num_end, step)` .. Numbers between `num` and `(num_end - 1)` incremented by `step`.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = array@double.range(5)\n"
+        "        // array@double {0, 1, 2, 3, 4}\n"
+		"    x = array@double.range(2, 5)\n"
+		"        // array@double {2, 3, 4}\n"
+		"    x = array@double.range(2, 10, 2)\n"
+		"        // array@double {2, 4, 6, 8}\n"
+		);
 }
 
 Gura_ImplementClassMethod_arrayT(range)
@@ -519,6 +547,11 @@ Gura_DeclareClassMethod_arrayT(zeros)
 	AddHelp(
 		Gura_Symbol(en),
 		"Creates an array with the specified dimensions, which elements are initialized by zero.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = array@double.zeros([3, 4])\n"
+		"        // array@double {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}\n"
 		);
 }
 
