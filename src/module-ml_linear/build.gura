@@ -8,7 +8,11 @@ if (sys.platform == `mswin) {
 	builder.libDirs.append(path.join(baseDir, 'windows'))
 	builder.libs.append('liblinear.lib')
 } elsif (sys.platform == `linux) {
-	
+	builder.libs.append('linear')
+	builder.debFiles = ['liblinear3']
+	builder.rpmFiles = ['liblinear3']
+	builder.debFilesDevel = ['liblinear-dev']
+	builder.rpmFilesDevel = ['liblinear-devel']
 } elsif (sys.platform == `darwin) {
 	builder.incDirs.append('guest/include/liblinear')
 	builder.libDirs.append('guest/dylib')
