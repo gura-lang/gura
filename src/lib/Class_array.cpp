@@ -946,7 +946,8 @@ Gura_DeclareMethod(array, flatten)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Flatten elements in the array.\n"
+		"Returns an `array` instance as a result that\n"
+		"has flattened elements in the target `array`.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
@@ -989,8 +990,8 @@ Gura_DeclareMethod(array, head)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that has extracted specified number of elements\n"
-		"from the beginning of the source.\n"
+		"Returns an `array` instance as a result that\n"
+		"has extracted `n` elements from the beginning of the target `array`.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
@@ -1037,7 +1038,8 @@ Gura_DeclareMethod(array, invert)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Calculates an inverted matrix."
+		"Returns an `array` instance as a result that\n"
+		"has elements of inverted matrix of the target `array`."
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
@@ -1082,7 +1084,7 @@ Gura_DeclareMethod(array, issquare)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns `true` if the array consists square matrixes.");
+		"Returns `true` if the target `array` consists square matrices.");
 }
 
 Gura_ImplementMethod(array, issquare)
@@ -1099,8 +1101,8 @@ Gura_DeclareMethod(array, offset)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that has extracted elements of the source\n"
-		"after skipping the first `n` elements.\n"
+		"Returns an `array` instance as a result that\n"
+		"has extracted elements of the target `array` after skipping its first `n` elements.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
@@ -1201,7 +1203,8 @@ Gura_DeclareMethod(array, reshape)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array after reshaping the original array according to a list of\n"
+		"Returns an `array` instance as a result that\n"
+		"has reshaped the target `array` according to a list of\n"
 		"dimension size specified by `dims`.\n"
 		"\n"
 		"Below are examples:\n"
@@ -1259,8 +1262,9 @@ Gura_DeclareMethod(array, roundoff)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Rounds off element values to zero when they are less than the specified argument `threshold`\n"
-		"which default value is `1.0e-6` when omitted.\n"
+		"Returns an `array` instance as a result that\n"
+		"has rounded off elements less than `threshold` to zero in the target `array`.\n"
+		"The default value for `threshold` is `1.0e-6` when omitted.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
@@ -1304,7 +1308,7 @@ Gura_DeclareMethod(array, sum)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Calculates a summation value of elements in the array.\n");
+		"Calculates a summation value of elements in the target `array`.\n");
 }
 
 template<typename T_ElemResult, typename T_Elem>
@@ -1362,8 +1366,8 @@ Gura_DeclareMethod(array, tail)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that has extracted specified number of elements\n"
-		"from the bottom of the source.\n"
+		"Returns an `array` instance as a result that\n"
+		"has extracted `n` elements from the bottom of the target `array`.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
