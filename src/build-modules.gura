@@ -228,7 +228,7 @@ if (!moduleNamesError.isempty()) {
 }
 if (command == `setup_guest) {
 	if (platform in [`ubuntu, `debian]) {
-		os.exec('apt-get', 'install', '-y', set(debFilesDevel))
+		os.exec('apt', 'install', '-y', set(debFilesDevel))
 	} elsif (platform in [`fedora, `centos, `redhat]) {
 		os.exec('yum', 'install', '-y', set(rpmFilesDevel))
 	}
