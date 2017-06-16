@@ -10,7 +10,7 @@ if (sys.platform == `mswin) {
 } elsif (sys.platform == `linux) {
 	builder.libs.append('linear')
 	builder.debFiles = ['liblinear3']
-	builder.rpmFiles = ['liblinear3']
+	builder.rpmFiles = ['liblinear']
 	builder.debFilesDevel = ['liblinear-dev']
 	builder.rpmFilesDevel = ['liblinear-devel']
 } elsif (sys.platform == `darwin) {
