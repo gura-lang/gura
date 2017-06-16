@@ -55,7 +55,7 @@ BuilderBase = class {
 			this.command = if (argv.len() == 0) {
 				`build
 			} elsif (argv[0] == 'help') {
-				this.printHelp(p)
+				printHelp(p)
 				sys.exit(1)
 			} elsif (argv[0] == 'clean') {
 				`clean
@@ -63,8 +63,8 @@ BuilderBase = class {
 				`build_install
 			} elsif (argv[0] == 'install') {
 				`install
-			} elsif (argv[0] == 'guest') {
-				`guest
+			} elsif (argv[0] == 'nothing') {
+				`nothing
 			} else {
 				sys.stderr.println('unknown command: ', argv[0])
 				sys.exit(1)
@@ -109,7 +109,7 @@ BuilderBase = class {
 			this.doInstall(fileNamesScript, 'site')
 			return(this)
 		}
-		if (this.command == `guest) {
+		if (this.command == `nothing) {
 			return(this)
 		}
 		if (this.cfg['rebuild']) {
@@ -178,19 +178,24 @@ BuilderBase = class {
 		}
 		println('-- installed: ', pathNameDst)
 	}
-	printHelp(p:argopt.Parser) = {
-		sys.stderr.printf('usage: %s [options] command\n', path.filename(sys.argv[0]))
-		sys.stderr.println('command:')
-		sys.stderr.println(' clean              clean output files')
-		sys.stderr.println(' install            install built files')
-		sys.stderr.println(' build-install      build and install files')
-		sys.stderr.println('options:')
-		sys.stderr.println(' ', p.formatHelp())
-	}
 	addRule(fileNameTgt:string, fileNamesSrc[]:string) {block} = {
 		this.rules.add(Rule(fileNameTgt, fileNamesSrc, block))
 	}
 }
+
+//-----------------------------------------------------------------------------
+// Help
+//-----------------------------------------------------------------------------
+printHelp(p:argopt.Parser) = sys.stderr.print(eR'''
+usage: ${path.filename(sys.argv[0])} [options] command
+command:
+ clean              clean output files
+ install            install built files
+ build-install      build and install files
+ help               print this help
+options:
+ ${p.formatHelp():linefeed}
+''')
 
 //-----------------------------------------------------------------------------
 // Builder

@@ -21,7 +21,7 @@ moduleInfos = @(ModuleInfo) {
 	['example',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['freetype',		`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['fs',				`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
-	['fftw',			`build,	[`mswin,	`darwin													]]
+	['fftw',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['gif',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['glu',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['glut',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
@@ -66,6 +66,17 @@ moduleInfos = @(ModuleInfo) {
 	['yaml',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['zip',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 }
+
+printHelp(p:argopt.Parser) = sys.stderr.print(eR'''
+usage: ${path.filename(sys.argv[0])} [options] command
+command:
+ clean          clean output files
+ install        install built files to the module directory
+ setup-guest    set up guest library packages
+ help           print this help
+options:
+ ${p.formatHelp():linefeed}
+ ''')
 
 if (sys.platform == `linux) {
 	platform = nil
@@ -122,15 +133,7 @@ argopt.Parser {|p|
 	command = if (argv.len() == 0) {
 		cond(cfg['moddir'], `build_install, `build)
 	} elsif (argv[0] == 'help') {
-		R'''
-		usage: ${path.filename(sys.argv[0])} [options] command
-		command:
-		 clean          clean output files
-		 install        install built files to the module directory
-
-		options:
-		 ${p.formatHelp() + '\n'}
-		'''.template().render(sys.stderr)
+		printHelp(p)
 		sys.exit(1)
 	} elsif (argv[0] == 'build-install') {
 		`build_install
@@ -165,11 +168,13 @@ moduleInfos.each {|moduleInfo|
 	}
 	actualFlag = (moduleInfo.action == `build && moduleInfo.platforms.contains(platform))
 	if (moduleName in moduleNamesExcept) {
-		printf('[%s]', moduleName)
-		printf(' .. skipped\n')
+		printf('[%s] .. skipped\n', moduleName)
 		continue
+	} elsif (command == `setup_guest) {
+		// nothing to do
+	} else {
+		printf('[%s]\n', moduleName)
 	}
-	printf('[%s]\n', moduleName)
 	if (!dirNamePre.isempty()) {
 		pathName = path.join(dirNamePre, 'module-' + moduleName)
 	}
@@ -185,7 +190,7 @@ moduleInfos.each {|moduleInfo|
 		} elsif (command == `build_install) {
 			sys.argv.append('build-install')
 		} elsif (command == `setup_guest) {
-			sys.argv.append('guest')
+			sys.argv.append('nothing')
 		} else {
 			// nothing to do
 		}
