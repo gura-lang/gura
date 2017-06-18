@@ -957,6 +957,9 @@ Gura_ImplementFunction(least_square)
 		sig.SetError(ERR_ValueError, "number of x and y must be the same");
 		return Value::Nil;
 	}
+	DoubleList alphaList;
+	alphaList.reserve(nCols);
+#if 1
 	DoubleList mat;
 	mat.reserve(nCols * nRows * 2);
 	DoubleList::iterator pSumXXBase = sumListXX.begin();
@@ -974,9 +977,6 @@ Gura_ImplementFunction(least_square)
 		sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
 		return Value::Nil;
 	}
-	DoubleList alphaList;
-	alphaList.reserve(nCols);
-	//DoubleList::iterator pMat = mat.begin() + nCols;
 	size_t offset = nCols;
 	for (size_t iRow = 0; iRow < nRows; iRow++) {
 		Double alpha = 0;
@@ -987,6 +987,37 @@ Gura_ImplementFunction(least_square)
 		alphaList.push_back(alpha);
 		offset += nCols;
 	}
+#elif 1
+#else
+	do {
+		AutoPtr<ArrayT<Double> > pMat(new ArrayT<Double>(nCols, nRows));
+		do {
+			DoubleList::iterator pSumXXBase = sumListXX.begin();
+			Double *mat = pMat->GetPointer();
+			for (size_t iRow = 0; iRow < nRows; iRow++, pSumXXBase++) {
+				DoubleList::iterator pSumXX = pSumXXBase;
+				for (size_t iCol = 0; iCol < nCols; iCol++, pSumXX++) {
+					*mat++ = *pSumXX;
+				}
+			}
+		} while (0);
+		do {
+			Double det = 0.0;
+			AutoPtr<Array> pMatInv(Array::Invert(sig, pMat.get(), det));
+			const Double *matInv = reinterpret_cast<const Double *>(pMatInv->GetPointerRaw());
+			size_t offset = nCols;
+			for (size_t iRow = 0; iRow < nRows; iRow++) {
+				Double alpha = 0;
+				DoubleList::iterator pSumXY = sumListXY.begin();
+				for (size_t iCol = 0; iCol < nCols; iCol++, offset++, pSumXY++) {
+					alpha += matInv[offset] * *pSumXY;
+				}
+				alphaList.push_back(alpha);
+				offset += nCols;
+			}
+		} while (0);
+	} while (0);
+#endif
 	Value result;
 	do {
 		DoubleList::iterator pAlpha = alphaList.begin();
