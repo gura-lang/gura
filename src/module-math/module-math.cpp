@@ -922,7 +922,7 @@ Gura_ImplementFunction(least_square)
 	Iterator *pIterX = arg.GetIterator(0);
 	Iterator *pIterY = arg.GetIterator(1);
 	const Symbol *pSymbolVar = arg.GetSymbol(3);
-	NumberList sumListXX(nCols * 2, 0), sumListXY(nCols, 0);
+	DoubleList sumListXX(nCols * 2, 0), sumListXY(nCols, 0);
 	bool flagX = false, flagY = false;
 	for (;;) {
 		Value valueX, valueY;
@@ -939,10 +939,10 @@ Gura_ImplementFunction(least_square)
 			sig.SetError(ERR_ValueError, "cannot calculate non-number value");
 			return Value::Nil;
 		}
-		Number numX = valueX.GetNumber(), numY = valueY.GetNumber();
-		Number productX = 1;
-		NumberList::iterator pSumXX = sumListXX.begin();
-		NumberList::iterator pSumXY = sumListXY.begin();
+		Double numX = valueX.GetDouble(), numY = valueY.GetDouble();
+		Double productX = 1;
+		DoubleList::iterator pSumXX = sumListXX.begin();
+		DoubleList::iterator pSumXY = sumListXY.begin();
 		for ( ; pSumXY != sumListXY.end(); pSumXX++, pSumXY++) {
 			*pSumXX += productX;
 			*pSumXY += productX * numY;
@@ -957,11 +957,11 @@ Gura_ImplementFunction(least_square)
 		sig.SetError(ERR_ValueError, "number of x and y must be the same");
 		return Value::Nil;
 	}
-	NumberList mat;
+	DoubleList mat;
 	mat.reserve(nCols * nRows * 2);
-	NumberList::iterator pSumXXBase = sumListXX.begin();
+	DoubleList::iterator pSumXXBase = sumListXX.begin();
 	for (size_t iRow = 0; iRow < nRows; iRow++, pSumXXBase++) {
-		NumberList::iterator pSumXX = pSumXXBase;
+		DoubleList::iterator pSumXX = pSumXXBase;
 		for (size_t iCol = 0; iCol < nCols; iCol++, pSumXX++) {
 			mat.push_back(*pSumXX);
 		}
@@ -969,18 +969,18 @@ Gura_ImplementFunction(least_square)
 			mat.push_back((iCol == iRow)? 1. : 0.);
 		}
 	}
-	Number det;
+	Double det;
 	if (!Gura::InvertMatrix(mat, nCols, det)) {
 		sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
 		return Value::Nil;
 	}
-	NumberList alphaList;
+	DoubleList alphaList;
 	alphaList.reserve(nCols);
-	//NumberList::iterator pMat = mat.begin() + nCols;
+	//DoubleList::iterator pMat = mat.begin() + nCols;
 	size_t offset = nCols;
 	for (size_t iRow = 0; iRow < nRows; iRow++) {
-		Number alpha = 0;
-		NumberList::iterator pSumXY = sumListXY.begin();
+		Double alpha = 0;
+		DoubleList::iterator pSumXY = sumListXY.begin();
 		for (size_t iCol = 0; iCol < nCols; iCol++, offset++, pSumXY++) {
 			alpha += mat[offset] * *pSumXY;
 		}
@@ -989,7 +989,7 @@ Gura_ImplementFunction(least_square)
 	}
 	Value result;
 	do {
-		NumberList::iterator pAlpha = alphaList.begin();
+		DoubleList::iterator pAlpha = alphaList.begin();
 		Expr *pExpr = new Expr_Value(*pAlpha);
 		pAlpha++;
 		Expr *pExprLeft = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mul),
