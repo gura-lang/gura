@@ -75,6 +75,8 @@ public:
 	class GURA_DLLDECLARE Dimensions : public std::vector<Dimension> {
 	public:
 		String ToString(const char *sep = ", ") const;
+		bool Serialize(Environment &env, Stream &stream) const;
+		bool Deserialize(Environment &env, Stream &stream);
 		static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB);
 		static bool IsElemwiseCalculatable(const Dimensions &dimsA, const Dimensions &dimsB);
 	};
@@ -243,6 +245,8 @@ public:
 	bool HasShape(size_t sizeRow, size_t sizeCol) const;
 	bool HasShape(const Value &valList) const;
 	bool PrepareModification(Signal &sig);
+	bool Serialize(Environment &env, Stream &stream) const;
+	static Array *Deserialize(Environment &env, Stream &stream);
 public:
 	static Array *Create(ElemType elemType, const Dimensions &dims);
 public:

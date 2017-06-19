@@ -199,6 +199,21 @@ bool Array::PrepareModification(Signal &sig)
 	return true;
 }
 
+//**************
+bool Array::Serialize(Environment &env, Stream &stream) const
+{
+	return false;
+}
+
+//**************
+Array *Array::Deserialize(Environment &env, Stream &stream)
+{
+	ElemType elemType = ETYPE_None;
+	Array::Dimensions dims;
+	AutoPtr<Array> pArray(Create(elemType, dims));
+	return pArray.release();
+}
+
 template<typename T_Elem>
 inline Array *CreateTmpl(const Array::Dimensions &dims) { return ArrayT<T_Elem>::Create(dims); }
 
@@ -697,6 +712,18 @@ String Array::Dimensions::ToString(const char *sep) const
 		rtn += buff;
 	}
 	return rtn;
+}
+
+//**************
+bool Array::Dimensions::Serialize(Environment &env, Stream &stream) const
+{
+	return false;
+}
+
+//**************
+bool Array::Dimensions::Deserialize(Environment &env, Stream &stream)
+{
+	return false;
 }
 
 bool Array::Dimensions::IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB)

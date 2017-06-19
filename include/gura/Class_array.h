@@ -63,6 +63,8 @@ class GURA_DLLDECLARE Class_array : public ClassFundamental {
 public:
 	Class_array(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
+	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Stream &stream, Value &value) const;
 	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
 };
