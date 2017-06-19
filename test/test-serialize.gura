@@ -1,6 +1,30 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
+test_serial(var:nomap) = {
+	buff = binary()
+	buff.writer() {|w|
+		w.serialize(var):nomap
+		println('original:    ', var):nomap
+	}
+	buff.dump()
+	buff.reader() {|r|
+		varDec = r.deserialize()
+		println('deserialize: ', varDec):nomap
+	}
+}
+
+testcase {
+	test_serial(0)
+	test_serial(0xffffffff)
+	test_serial(0x100000000)
+	test_serial('')
+	test_serial('abcdefghijklmnopqrstuvwxyz')
+	test_serial(%{'apple' => 100, 'orange' => 120, 'grape' => 200})
+	test_serial([0, 1, 2, 3])
+}
+
+/*
 testcase {
 	buff = binary()
 	buff.writer() {|w|
@@ -88,3 +112,4 @@ testcase {
 		println(r.deserialize()):nomap
 	}
 }
+*/
