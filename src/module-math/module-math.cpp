@@ -917,107 +917,76 @@ Gura_ImplementFunction(least_square)
 		sig.SetError(ERR_ValueError, "invalid dimension");
 		return Value::Nil;
 	}
+	const Symbol *pSymbolVar = arg.GetSymbol(3);
 	size_t nCols = nDim + 1;
 	size_t nRows = nCols;
-	Iterator *pIterX = arg.GetIterator(0);
-	Iterator *pIterY = arg.GetIterator(1);
-	const Symbol *pSymbolVar = arg.GetSymbol(3);
 	DoubleList sumListXX(nCols * 2, 0), sumListXY(nCols, 0);
-	bool flagX = false, flagY = false;
-	for (;;) {
-		Value valueX, valueY;
-		flagX = pIterX->Next(env, valueX);
-		if (sig.IsSignalled()) return Value::Nil;
-		flagY = pIterY->Next(env, valueY);
-		if (sig.IsSignalled()) return Value::Nil;
-		if (!(flagX && flagY)) break;
-		if (!valueX.Is_number()) {
-			sig.SetError(ERR_ValueError, "cannot calculate non-number value");
+	do {
+		Iterator *pIterX = arg.GetIterator(0);
+		Iterator *pIterY = arg.GetIterator(1);
+		bool flagX = false, flagY = false;
+		for (;;) {
+			Value valueX, valueY;
+			flagX = pIterX->Next(env, valueX);
+			if (sig.IsSignalled()) return Value::Nil;
+			flagY = pIterY->Next(env, valueY);
+			if (sig.IsSignalled()) return Value::Nil;
+			if (!(flagX && flagY)) break;
+			if (!valueX.Is_number()) {
+				sig.SetError(ERR_ValueError, "cannot calculate non-number value");
+				return Value::Nil;
+			}
+			if (!valueY.Is_number()) {
+				sig.SetError(ERR_ValueError, "cannot calculate non-number value");
+				return Value::Nil;
+			}
+			Double numX = valueX.GetDouble(), numY = valueY.GetDouble();
+			Double productX = 1;
+			DoubleList::iterator pSumXX = sumListXX.begin();
+			DoubleList::iterator pSumXY = sumListXY.begin();
+			for ( ; pSumXY != sumListXY.end(); pSumXX++, pSumXY++) {
+				*pSumXX += productX;
+				*pSumXY += productX * numY;
+				productX *= numX;
+			}
+			for ( ; pSumXX != sumListXX.end(); pSumXX++) {
+				*pSumXX += productX;
+				productX *= numX;
+			}
+		}
+		if (flagX || flagY) {
+			sig.SetError(ERR_ValueError, "number of x and y must be the same");
 			return Value::Nil;
 		}
-		if (!valueY.Is_number()) {
-			sig.SetError(ERR_ValueError, "cannot calculate non-number value");
-			return Value::Nil;
-		}
-		Double numX = valueX.GetDouble(), numY = valueY.GetDouble();
-		Double productX = 1;
-		DoubleList::iterator pSumXX = sumListXX.begin();
-		DoubleList::iterator pSumXY = sumListXY.begin();
-		for ( ; pSumXY != sumListXY.end(); pSumXX++, pSumXY++) {
-			*pSumXX += productX;
-			*pSumXY += productX * numY;
-			productX *= numX;
-		}
-		for ( ; pSumXX != sumListXX.end(); pSumXX++) {
-			*pSumXX += productX;
-			productX *= numX;
-		}
-	}
-	if (flagX || flagY) {
-		sig.SetError(ERR_ValueError, "number of x and y must be the same");
-		return Value::Nil;
-	}
+	} while (0);
 	DoubleList alphaList;
 	alphaList.reserve(nCols);
-#if 1
-	DoubleList mat;
-	mat.reserve(nCols * nRows * 2);
-	DoubleList::iterator pSumXXBase = sumListXX.begin();
-	for (size_t iRow = 0; iRow < nRows; iRow++, pSumXXBase++) {
-		DoubleList::iterator pSumXX = pSumXXBase;
-		for (size_t iCol = 0; iCol < nCols; iCol++, pSumXX++) {
-			mat.push_back(*pSumXX);
-		}
-		for (size_t iCol = 0; iCol < nCols; iCol++) {
-			mat.push_back((iCol == iRow)? 1. : 0.);
-		}
-	}
-	Double det;
-	if (!Gura::InvertMatrix(mat, nCols, det)) {
-		sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
-		return Value::Nil;
-	}
-	size_t offset = nCols;
-	for (size_t iRow = 0; iRow < nRows; iRow++) {
-		Double alpha = 0;
-		DoubleList::iterator pSumXY = sumListXY.begin();
-		for (size_t iCol = 0; iCol < nCols; iCol++, offset++, pSumXY++) {
-			alpha += mat[offset] * *pSumXY;
-		}
-		alphaList.push_back(alpha);
-		offset += nCols;
-	}
-#elif 1
-#else
 	do {
 		AutoPtr<ArrayT<Double> > pMat(new ArrayT<Double>(nCols, nRows));
 		do {
 			DoubleList::iterator pSumXXBase = sumListXX.begin();
-			Double *mat = pMat->GetPointer();
+			Double *pElem = pMat->GetPointer();
 			for (size_t iRow = 0; iRow < nRows; iRow++, pSumXXBase++) {
 				DoubleList::iterator pSumXX = pSumXXBase;
-				for (size_t iCol = 0; iCol < nCols; iCol++, pSumXX++) {
-					*mat++ = *pSumXX;
+				for (size_t iCol = 0; iCol < nCols; iCol++, pElem++, pSumXX++) {
+					*pElem = *pSumXX;
 				}
 			}
 		} while (0);
 		do {
 			Double det = 0.0;
 			AutoPtr<Array> pMatInv(Array::Invert(sig, pMat.get(), det));
-			const Double *matInv = reinterpret_cast<const Double *>(pMatInv->GetPointerRaw());
-			size_t offset = nCols;
+			const Double *pElem = reinterpret_cast<const Double *>(pMatInv->GetPointerRaw());
 			for (size_t iRow = 0; iRow < nRows; iRow++) {
 				Double alpha = 0;
 				DoubleList::iterator pSumXY = sumListXY.begin();
-				for (size_t iCol = 0; iCol < nCols; iCol++, offset++, pSumXY++) {
-					alpha += matInv[offset] * *pSumXY;
+				for (size_t iCol = 0; iCol < nCols; iCol++, pElem++, pSumXY++) {
+					alpha += *pElem * *pSumXY;
 				}
 				alphaList.push_back(alpha);
-				offset += nCols;
 			}
 		} while (0);
 	} while (0);
-#endif
 	Value result;
 	do {
 		DoubleList::iterator pAlpha = alphaList.begin();
