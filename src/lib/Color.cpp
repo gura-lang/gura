@@ -853,7 +853,7 @@ Color Color::CreateNamedColor(Environment &env, const char *name, UChar a)
 	if (*name == '#') {
 		name++;
 		int nCols = 0;
-		ULong num = 0;
+		UInt32 num = 0;
 		for ( ; *name != '\0'; name++, nCols++) {
 			char ch = *name;
 			if (IsDigit(ch)) {

@@ -98,7 +98,7 @@ template<> void Packer::Store<UInt16>(UInt16 num, bool bigEndianFlag);
 template<> void Packer::Store<UInt32>(UInt32 num, bool bigEndianFlag);
 template<> void Packer::Store<UInt64>(UInt64 num, bool bigEndianFlag);
 
-template<> inline void Packer::Store<Char>(Char num, bool bigEndianFlag)
+template<> inline void Packer::Store<Int8>(Int8 num, bool bigEndianFlag)
 {
 	Store<UInt8>(static_cast<UInt8>(num), bigEndianFlag);
 }
@@ -137,9 +137,9 @@ template<> UInt16 Packer::Extract<UInt16>(const UInt8 *pByte, bool bigEndianFlag
 template<> UInt32 Packer::Extract<UInt32>(const UInt8 *pByte, bool bigEndianFlag);
 template<> UInt64 Packer::Extract<UInt64>(const UInt8 *pByte, bool bigEndianFlag);
 
-template<> inline Char Packer::Extract<Char>(const UInt8 *pByte, bool bigEndianFlag)
+template<> inline Int8 Packer::Extract<Int8>(const UInt8 *pByte, bool bigEndianFlag)
 {
-	return static_cast<Char>(Extract<UInt8>(pByte, bigEndianFlag));
+	return static_cast<Int8>(Extract<UInt8>(pByte, bigEndianFlag));
 }
 
 template<> inline Int16 Packer::Extract<Int16>(const UInt8 *pByte, bool bigEndianFlag)
