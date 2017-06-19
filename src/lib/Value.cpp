@@ -706,16 +706,16 @@ bool Value::Serialize(Environment &env, Stream &stream, const Value &value)
 {
 	Signal &sig = env.GetSignal();
 	const ValueTypeInfo *pValueTypeInfo = value.GetValueTypeInfo();
-	ULong valType = static_cast<ULong>(value.GetValueType());
-	if (!stream.SerializePackedULong(sig, valType)) return false;
+	UInt32 valType = static_cast<ULong>(value.GetValueType());
+	if (!stream.SerializePackedUInt32(sig, valType)) return false;
 	return pValueTypeInfo->GetClass()->Serialize(env, stream, value);
 }
 
 bool Value::Deserialize(Environment &env, Stream &stream, Value &value, bool mustBeValidFlag)
 {
 	Signal &sig = env.GetSignal();
-	ULong valType = static_cast<ULong>(VTYPE_nil);
-	if (!stream.DeserializePackedULong(sig, valType)) return false;
+	UInt32 valType = static_cast<ULong>(VTYPE_nil);
+	if (!stream.DeserializePackedUInt32(sig, valType)) return false;
 	if (mustBeValidFlag && valType == VTYPE_nil) {
 		sig.SetError(ERR_IOError, "invalid value in the stream");
 		return false;
@@ -969,8 +969,8 @@ ValueType ValueList::GetValueTypeOfElements() const
 bool ValueList::Serialize(Environment &env, Stream &stream) const
 {
 	Signal &sig = env.GetSignal();
-	ULong num = static_cast<ULong>(size());
-	if (!stream.SerializePackedULong(sig, num)) return false;
+	UInt32 num = static_cast<ULong>(size());
+	if (!stream.SerializePackedUInt32(sig, num)) return false;
 	foreach_const (ValueList, pValue, *this) {
 		if (!Value::Serialize(env, stream, *pValue)) return false;
 	}
@@ -980,8 +980,8 @@ bool ValueList::Serialize(Environment &env, Stream &stream) const
 bool ValueList::Deserialize(Environment &env, Stream &stream)
 {
 	Signal &sig = env.GetSignal();
-	ULong num = 0;
-	if (!stream.DeserializePackedULong(sig, num)) return false;
+	UInt32 num = 0;
+	if (!stream.DeserializePackedUInt32(sig, num)) return false;
 	reserve(num);
 	Value value;
 	while (num-- > 0) {
@@ -1115,8 +1115,8 @@ bool ValueDict::Store(Signal &sig, const Value &valueIdx, const Value &value, St
 bool ValueDict::Serialize(Environment &env, Stream &stream) const
 {
 	Signal &sig = env.GetSignal();
-	ULong num = static_cast<ULong>(size());
-	if (!stream.SerializePackedULong(sig, num)) return false;
+	UInt32 num = static_cast<ULong>(size());
+	if (!stream.SerializePackedUInt32(sig, num)) return false;
 	foreach_const (ValueDict, iter, *this) {
 		if (!Value::Serialize(env, stream, iter->first)) return false;
 		if (!Value::Serialize(env, stream, iter->second)) return false;
@@ -1127,8 +1127,8 @@ bool ValueDict::Serialize(Environment &env, Stream &stream) const
 bool ValueDict::Deserialize(Environment &env, Stream &stream)
 {
 	Signal &sig = env.GetSignal();
-	ULong num = 0;
-	if (!stream.DeserializePackedULong(sig, num)) return false;
+	UInt32 num = 0;
+	if (!stream.DeserializePackedUInt32(sig, num)) return false;
 	Value valueIdx, value;
 	while (num-- > 0) {
 		if (!Value::Deserialize(env, stream, valueIdx, false)) return false;

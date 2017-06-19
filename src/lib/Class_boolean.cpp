@@ -36,14 +36,14 @@ bool Class_boolean::CastFrom(Environment &env, Value &value, ULong flags)
 bool Class_boolean::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
-	return stream.SerializeUChar(sig, static_cast<UChar>(value.GetBoolean()));
+	return stream.SerializeUInt8(sig, static_cast<UInt8>(value.GetBoolean()));
 }
 
 bool Class_boolean::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
 	Signal &sig = GetSignal();
-	UChar num = 0;
-	if (!stream.DeserializeUChar(sig, num)) return false;
+	UInt8 num = 0;
+	if (!stream.DeserializeUInt8(sig, num)) return false;
 	value = Value(num != 0);
 	return true;
 }
