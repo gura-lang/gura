@@ -893,7 +893,7 @@ Gura_ImplementFunction(lcm)
 	return Value(lcm);
 }
 
-// math.least_square(x:iterator, y:iterator, dim:number = 1, var:symbol = `x)
+// math.least_square(x:iterator, y:iterator, dim:number => 1, var:symbol => `x)
 Gura_DeclareFunction(least_square)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -903,10 +903,12 @@ Gura_DeclareFunction(least_square)
 	DeclareArg(env, "var", VTYPE_symbol, OCCUR_Once, FLAG_None, 0, new Expr_Value(Gura_Symbol(x)));
 	AddHelp(
 		Gura_Symbol(en), 
-		"Calculates a least square method using a sequence of pairs of `x` and `y`,\n"
-		"and returns an expression of the fitted curve. You can specify the dimension\n"
-		"by an argument `dim`. In default, a symbol of the expression's variable is `x\n"
-		"and it can be changed by specifying an argument `var`.");
+		"Takes two iterators `x` and `y` that return coordinate of points\n"
+		"and returns a function that fits them using least square metho.\n"
+		"You can specify the fitting curve's dimension by an argument `dim`,\n"
+		"which default value is one.\n"
+		"The variable symbol used in the function is `x`,\n"
+		"which can be changed by specifying an argument `var`.\n");
 }
 
 Gura_ImplementFunction(least_square)
@@ -917,7 +919,6 @@ Gura_ImplementFunction(least_square)
 		sig.SetError(ERR_ValueError, "invalid dimension");
 		return Value::Nil;
 	}
-	const Symbol *pSymbolVar = arg.GetSymbol(3);
 	size_t nCols = nDim + 1;
 	size_t nRows = nCols;
 	DoubleList sumListXX(nCols * 2, 0), sumListXY(nCols, 0);
@@ -959,8 +960,8 @@ Gura_ImplementFunction(least_square)
 			return Value::Nil;
 		}
 	} while (0);
-	DoubleList alphaList;
-	alphaList.reserve(nCols);
+	DoubleList coefList;
+	coefList.reserve(nCols);
 	do {
 		AutoPtr<ArrayT<Double> > pMat(new ArrayT<Double>(nCols, nRows));
 		do {
@@ -976,43 +977,44 @@ Gura_ImplementFunction(least_square)
 		do {
 			Double det = 0.0;
 			AutoPtr<Array> pMatInv(Array::Invert(sig, pMat.get(), det));
+			if (pMatInv.IsNull()) return Value::Nil;
 			const Double *pElem = reinterpret_cast<const Double *>(pMatInv->GetPointerRaw());
 			for (size_t iRow = 0; iRow < nRows; iRow++) {
-				Double alpha = 0;
+				Double coef = 0;
 				DoubleList::iterator pSumXY = sumListXY.begin();
 				for (size_t iCol = 0; iCol < nCols; iCol++, pElem++, pSumXY++) {
-					alpha += *pElem * *pSumXY;
+					coef += *pElem * *pSumXY;
 				}
-				alphaList.push_back(alpha);
+				coefList.push_back(coef);
 			}
 		} while (0);
 	} while (0);
-	Value result;
+	AutoPtr<Function> pFunc;
 	do {
-		DoubleList::iterator pAlpha = alphaList.begin();
-		Expr *pExpr = new Expr_Value(*pAlpha);
-		pAlpha++;
+		const Symbol *pSymbolVar = arg.GetSymbol(3);
+		DoubleList::iterator pCoef = coefList.begin();
+		Expr *pExpr = new Expr_Value(*pCoef);
+		pCoef++;
 		Expr *pExprLeft = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mul),
-			new Expr_Value(*pAlpha),
+			new Expr_Value(*pCoef),
 			new Expr_Identifier(pSymbolVar));
-		pAlpha++;
+		pCoef++;
 		pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Add), pExpr, pExprLeft);
-		for ( ; pAlpha != alphaList.end(); pAlpha++) {
-			size_t n = pAlpha - alphaList.begin();
+		for ( ; pCoef != coefList.end(); pCoef++) {
+			size_t n = pCoef - coefList.begin();
 			pExprLeft = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mul),
-				new Expr_Value(*pAlpha),
+				new Expr_Value(*pCoef),
 				new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow),
 					new Expr_Identifier(pSymbolVar),
 					new Expr_Value(n)));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Add), pExpr, pExprLeft);
 		}
-		Function *pFunc = new FunctionCustom(env,
-							Gura_Symbol(_anonymous_), pExpr, FUNCTYPE_Function);
+		pFunc.reset(new FunctionCustom(
+						env, Gura_Symbol(_anonymous_), pExpr, FUNCTYPE_Function));
 		pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 		pFunc->DeclareArg(env, pSymbolVar, VTYPE_number);
-		result = Value(new Object_function(env, pFunc));
 	} while (0);
-	return result;
+	return Value(new Object_function(env, pFunc.release()));
 }
 
 // math.optimize(expr:expr):map {block?}
