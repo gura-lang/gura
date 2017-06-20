@@ -707,8 +707,10 @@ bool Value::Serialize(Environment &env, Stream &stream, const Value &value)
 	const ValueTypeInfo *pValueTypeInfo = value.GetValueTypeInfo();
 	UInt32 valType = static_cast<ULong>(value.GetValueType());
 	if (!stream.SerializePackedUInt32(env, valType)) return false;
-
-	return pValueTypeInfo->GetClass()->Serialize(env, stream, value);
+	Class *pClass = pValueTypeInfo->GetClass();
+	Class::SerializeFmtVer serializeFmtVer = pClass->GetSerializeFmtVer();
+	if (!stream.SerializeUInt8(env, static_cast<UInt8>(serializeFmtVer))) return false;
+	return pClass->Serialize(env, stream, value);
 }
 
 bool Value::Deserialize(Environment &env, Stream &stream, Value &value, bool mustBeValidFlag)
@@ -725,7 +727,8 @@ bool Value::Deserialize(Environment &env, Stream &stream, Value &value, bool mus
 		env.SetError(ERR_IOError, "invalid value type in the stream");
 		return false;
 	}
-	
+	UInt8 serializeFmtVer = 0;
+	if (!stream.DeserializeUInt8(env, serializeFmtVer)) return false;
 	return pValueTypeInfo->GetClass()->Deserialize(env, stream, value);
 }
 

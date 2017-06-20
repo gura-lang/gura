@@ -541,6 +541,11 @@ void Class::DoPrepare(Environment &env)
 	Gura_AssignMethod(Object, tostring);	// primitive method
 }
 
+Class::SerializeFmtVer Class::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool Class::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	SetError(ERR_IOError, "can't serialize %s", MakeValueTypeName().c_str());
