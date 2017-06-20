@@ -187,6 +187,15 @@ bool Array::HasShape(size_t sizeRow, size_t sizeCol) const
 	return (_dims.size() == 2) && _dims[0].GetSize() == sizeRow && _dims[1].GetSize() == sizeCol;
 }
 
+bool Array::HasSameElements(const Array &array) const
+{
+	if (GetElemType() != array.GetElemType()) return false;
+	if (!Dimensions::IsSameShape(GetDimensions(), array.GetDimensions())) return false;
+	size_t bytes = GetElemBytes() * GetElemNum();
+	if (memcmp(GetPointerRaw(), array.GetPointerRaw(), bytes) != 0) return false;
+	return true;
+}
+
 bool Array::PrepareModification(Signal &sig)
 {
 	if (_pMemory->GetCntRef() > 1) {
@@ -199,22 +208,24 @@ bool Array::PrepareModification(Signal &sig)
 	return true;
 }
 
-//**************
 bool Array::Serialize(Environment &env, Stream &stream) const
 {
-	if (!stream.SerializeUInt8(env, _elemType)) return false;
+	if (!stream.SerializeUInt8(env, static_cast<UInt8>(_elemType))) return false;
 	if (!_dims.Serialize(env, stream)) return false;
-	
-	return false;
+	size_t bytes = GetElemBytes() * GetElemNum();
+	if (stream.Write(env, GetPointerRaw(), bytes) < bytes) return false;
+	return true;
 }
 
-//**************
 Array *Array::Deserialize(Environment &env, Stream &stream)
 {
 	UInt8 elemType = 0;
 	if (!stream.DeserializeUInt8(env, elemType)) return nullptr;
 	Array::Dimensions dims;
+	if (!dims.Deserialize(env, stream)) return nullptr;
 	AutoPtr<Array> pArray(Create(static_cast<ElemType>(elemType), dims));
+	size_t bytes = pArray->GetElemBytes() * pArray->GetElemNum();
+	if (stream.Read(env, pArray->GetPointerRaw(), bytes) < bytes) return nullptr;
 	return pArray.release();
 }
 
@@ -718,16 +729,27 @@ String Array::Dimensions::ToString(const char *sep) const
 	return rtn;
 }
 
-//**************
 bool Array::Dimensions::Serialize(Environment &env, Stream &stream) const
 {
-	return false;
+	if (!stream.SerializePackedUInt64(env, static_cast<UInt64>(size()))) return false;
+	foreach_const (Dimensions, pDim, *this) {
+		if (!stream.SerializePackedUInt64(env, static_cast<UInt64>(pDim->GetSize()))) return false;
+	}	
+	return true;
 }
 
-//**************
 bool Array::Dimensions::Deserialize(Environment &env, Stream &stream)
 {
-	return false;
+	clear();
+	UInt64 nDims = 0;
+	if (!stream.DeserializePackedUInt64(env, nDims)) return false;
+	reserve(nDims);
+	for (UInt64 i = 0; i < nDims; i++) {
+		UInt64 size = 0;
+		if (!stream.DeserializePackedUInt64(env, size)) return false;
+		push_back(size);
+	}
+	return true;
 }
 
 bool Array::Dimensions::IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB)

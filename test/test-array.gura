@@ -911,3 +911,10 @@ testcase('logical operation on array@boolean') {
 	println(x, ' | ', y, ' -> ', x | y)
 	println(x, ' ^ ', y, ' -> ', x ^ y)
 }
+testcase('array#iselemsame()') {
+	tester(`array@double(1..1000).iselemsame(array@double(1..1000)))
+	tester(`array@double(1..1000).iselemsame(array@float(1..1000)))
+	tester(`array@double(1..1000).iselemsame(array@double(1000..1)))
+	tester(`array@double(1..1000).iselemsame(array@double(1..1000).reshape([nil])))
+	tester(`array@double(1..1000).iselemsame(array@double(1..1000).reshape([100, nil])))
+}

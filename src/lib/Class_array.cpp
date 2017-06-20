@@ -1078,6 +1078,24 @@ Gura_ImplementMethod(array, invert)
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
+// array#iselemsame(array:array)
+Gura_DeclareMethod(array, iselemsame)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "array", VTYPE_array);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns `true` if the target `array` instance has the same elements\n"
+		"with the specified `array`.\n");
+}
+
+Gura_ImplementMethod(array, iselemsame)
+{
+	Array *pArray = Object_array::GetObjectThis(arg)->GetArray();
+	Array *pArrayCmp = Object_array::GetObject(arg, 0)->GetArray();
+	return Value(pArray->HasSameElements(*pArrayCmp));
+}
+
 // array#issquare()
 Gura_DeclareMethod(array, issquare)
 {
@@ -1491,6 +1509,7 @@ void Class_array::DoPrepare(Environment &env)
 	Gura_AssignMethod(array, flatten);
 	Gura_AssignMethod(array, head);
 	Gura_AssignMethod(array, invert);
+	Gura_AssignMethod(array, iselemsame);
 	Gura_AssignMethod(array, issquare);
 	Gura_AssignMethod(array, offset);
 	Gura_AssignMethod(array, paste);

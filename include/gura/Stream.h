@@ -169,6 +169,8 @@ public:
 	bool DeserializeSymbolList(Signal &sig, SymbolList &symbolList);
 	bool SerializePackedUInt32(Signal &sig, UInt32 num);
 	bool DeserializePackedUInt32(Signal &sig, UInt32 &num);
+	bool SerializePackedUInt64(Signal &sig, UInt64 num);
+	bool DeserializePackedUInt64(Signal &sig, UInt64 &num);
 public:
 	static Stream *Open(Environment &env, const char *pathName, ULong attr);
 	static Stream *Prefetch(Environment &env, Stream *pStreamSrc,

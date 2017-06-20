@@ -61,8 +61,8 @@ public:
 	class GURA_DLLDECLARE Dimension {
 	private:
 		size_t _size;
-		size_t _elemNumProd;
-		size_t _stride;
+		size_t _elemNumProd;	// calculated by Array::UpdateMetrics()
+		size_t _stride;			// calculated by Array::UpdateMetrics() 
 	public:
 		inline Dimension() : _size(0), _elemNumProd(0), _stride(0) {}
 		inline Dimension(size_t size) : _size(size), _elemNumProd(0), _stride(0) {}
@@ -244,6 +244,7 @@ public:
 	bool HasShape(size_t size) const;
 	bool HasShape(size_t sizeRow, size_t sizeCol) const;
 	bool HasShape(const Value &valList) const;
+	bool HasSameElements(const Array &array) const;
 	bool PrepareModification(Signal &sig);
 	bool Serialize(Environment &env, Stream &stream) const;
 	static Array *Deserialize(Environment &env, Stream &stream);

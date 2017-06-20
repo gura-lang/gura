@@ -721,15 +721,50 @@ bool Stream::SerializePackedUInt32(Signal &sig, UInt32 num)
 
 bool Stream::DeserializePackedUInt32(Signal &sig, UInt32 &num)
 {
+	const size_t bytesBuffMax = 5;	// 32 / 7 = 4.6
 	num = 0;
 	UChar data = 0x00;
-	for (size_t bytesBuff = 0; bytesBuff < 5; bytesBuff++) {
+	for (size_t bytesBuff = 0; bytesBuff < bytesBuffMax; bytesBuff++) {
 		if (Read(sig, &data, sizeof(data)) != sizeof(data)) return false;
 		num = (num << 7) + (data & 0x7f);
 		if ((data & 0x80) == 0x00) break;
 	}
 	if (data & 0x80) {
-		sig.SetError(ERR_FormatError, "invalid format of packed ULong in serialized data");
+		sig.SetError(ERR_FormatError, "invalid serialization format for packed 32bit number");
+		return false;
+	}
+	return true;
+}
+
+bool Stream::SerializePackedUInt64(Signal &sig, UInt64 num)
+{
+	UChar buff[16];
+	size_t bytesBuff = 0;
+	if (num == 0) {
+		buff[bytesBuff++] = 0x00;
+	} else {
+		while (num > 0) {
+			UChar data = static_cast<UChar>(num & 0x7f);
+			num >>= 7;
+			if (num != 0) data |= 0x80;
+			buff[bytesBuff++] = data;
+		}
+	}
+	return Write(sig, buff, bytesBuff) == bytesBuff;
+}
+
+bool Stream::DeserializePackedUInt64(Signal &sig, UInt64 &num)
+{
+	const size_t bytesBuffMax = 10;	// 64 / 7 = 9.2
+	num = 0;
+	UChar data = 0x00;
+	for (size_t bytesBuff = 0; bytesBuff < bytesBuffMax; bytesBuff++) {
+		if (Read(sig, &data, sizeof(data)) != sizeof(data)) return false;
+		num = (num << 7) + (data & 0x7f);
+		if ((data & 0x80) == 0x00) break;
+	}
+	if (data & 0x80) {
+		sig.SetError(ERR_FormatError, "invalid serialization format for packed 64bit number");
 		return false;
 	}
 	return true;
