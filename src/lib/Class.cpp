@@ -552,7 +552,7 @@ bool Class::Serialize(Environment &env, Stream &stream, const Value &value) cons
 	return false;
 }
 
-bool Class::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool Class::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
 	SetError(ERR_IOError, "can't deserialize %s", MakeValueTypeName().c_str());
 	return false;

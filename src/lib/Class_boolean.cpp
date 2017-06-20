@@ -33,13 +33,18 @@ bool Class_boolean::CastFrom(Environment &env, Value &value, ULong flags)
 	}
 }
 
+Class::SerializeFmtVer Class_boolean::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool Class_boolean::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	return stream.SerializeUInt8(sig, static_cast<UInt8>(value.GetBoolean()));
 }
 
-bool Class_boolean::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool Class_boolean::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
 	Signal &sig = GetSignal();
 	UInt8 num = 0;

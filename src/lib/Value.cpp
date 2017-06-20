@@ -729,7 +729,8 @@ bool Value::Deserialize(Environment &env, Stream &stream, Value &value, bool mus
 	}
 	UInt8 serializeFmtVer = 0;
 	if (!stream.DeserializeUInt8(env, serializeFmtVer)) return false;
-	return pValueTypeInfo->GetClass()->Deserialize(env, stream, value);
+	return pValueTypeInfo->GetClass()->Deserialize(
+		env, stream, value, static_cast<Class::SerializeFmtVer>(serializeFmtVer));
 }
 
 bool Value::LessThan::operator()(const Value &value1, const Value &value2) const

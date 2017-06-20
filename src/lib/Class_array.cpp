@@ -1522,13 +1522,18 @@ void Class_array::DoPrepare(Environment &env)
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
+Class::SerializeFmtVer Class_array::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool Class_array::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	const Array *pArray = Object_array::GetObject(value)->GetArray();
 	return pArray->Serialize(env, stream);
 }
 
-bool Class_array::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool Class_array::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
 	AutoPtr<Array> pArray(Array::Deserialize(env, stream));
 	if (pArray.IsNull()) return false;

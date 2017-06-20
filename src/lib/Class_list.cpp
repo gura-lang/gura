@@ -2134,12 +2134,17 @@ bool Class_list::CastFrom(Environment &env, Value &value, ULong flags)
 	return false;
 }
 
+Class::SerializeFmtVer Class_list::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool Class_list::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	return value.GetList().Serialize(env, stream);
 }
 
-bool Class_list::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool Class_list::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
 	Object_list *pObjList = value.InitAsList(env);
 	return pObjList->Deserialize(env, stream);

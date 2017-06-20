@@ -170,13 +170,18 @@ bool Class_number::CastFrom(Environment &env, Value &value, ULong flags)
 	return false;
 }
 
+Class::SerializeFmtVer Class_number::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool Class_number::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	return stream.SerializeDouble(sig, value.GetDouble());
 }
 
-bool Class_number::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool Class_number::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
 	Signal &sig = GetSignal();
 	double num = 0;

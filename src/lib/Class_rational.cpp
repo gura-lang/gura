@@ -141,6 +141,11 @@ bool Class_rational::CastFrom(Environment &env, Value &value, ULong flags)
 	return false;
 }
 
+Class::SerializeFmtVer Class_rational::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool Class_rational::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -150,7 +155,7 @@ bool Class_rational::Serialize(Environment &env, Stream &stream, const Value &va
 	return true;
 }
 
-bool Class_rational::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool Class_rational::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
 	Signal &sig = GetSignal();
 	double numer = 0, denom = 0;

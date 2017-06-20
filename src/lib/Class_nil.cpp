@@ -26,12 +26,17 @@ bool Class_nil::CastFrom(Environment &env, Value &value, ULong flags)
 	return false;
 }
 
+Class::SerializeFmtVer Class_nil::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool Class_nil::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	return true;
 }
 
-bool Class_nil::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool Class_nil::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
 	value = Value::Nil;
 	return true;

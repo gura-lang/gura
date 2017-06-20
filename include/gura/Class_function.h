@@ -17,8 +17,9 @@ public:
 	Class_function(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
+	virtual SerializeFmtVer GetSerializeFmtVer() const;
 	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Stream &stream, Value &value) const;
+	virtual bool Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const;
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 

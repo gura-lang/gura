@@ -236,6 +236,11 @@ bool Class_complex::CastFrom(Environment &env, Value &value, ULong flags)
 	return false;
 }
 
+Class::SerializeFmtVer Class_complex::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool Class_complex::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -245,7 +250,7 @@ bool Class_complex::Serialize(Environment &env, Stream &stream, const Value &val
 	return true;
 }
 
-bool Class_complex::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool Class_complex::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
 	Signal &sig = GetSignal();
 	double re = 0, im = 0;

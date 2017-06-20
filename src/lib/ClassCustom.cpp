@@ -129,21 +129,24 @@ bool ClassCustom::CastTo(Environment &env, Value &value, const Declaration &decl
 	return true;
 }
 
+Class::SerializeFmtVer ClassCustom::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool ClassCustom::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__serialize__), ENVREF_NoEscalate));
 	if (pFunc == nullptr) return false;
-
 	return false;
 }
 
-bool ClassCustom::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool ClassCustom::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__deserialize__), ENVREF_NoEscalate));
 	if (pFunc == nullptr) return false;
-
 	return false;
 }
 

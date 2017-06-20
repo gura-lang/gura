@@ -449,12 +449,17 @@ bool Class_binary::CastFrom(Environment &env, Value &value, ULong flags)
 	return false;
 }
 
+Class::SerializeFmtVer Class_binary::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool Class_binary::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	return false;
 }
 
-bool Class_binary::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool Class_binary::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
 	return false;
 }
