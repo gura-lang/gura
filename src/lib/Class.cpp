@@ -54,10 +54,9 @@ bool Object::IsInstanceOf(ValueType valType) const
 
 Value Object::EmptyIndexGet(Environment &env)
 {
-	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getitemx__), ENVREF_Escalate);
 	if (pFunc == nullptr) {
-		sig.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
+		SetError(ERR_ValueError, "empty-indexed getting access is not supported");
 		return Value::Nil;
 	}
 	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
@@ -68,10 +67,9 @@ Value Object::EmptyIndexGet(Environment &env)
 
 void Object::EmptyIndexSet(Environment &env, const Value &value)
 {
-	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setitemx__), ENVREF_Escalate);
 	if (pFunc == nullptr) {
-		sig.SetError(ERR_ValueError, "empty-indexed setting access is not supported");
+		SetError(ERR_ValueError, "empty-indexed setting access is not supported");
 		return;
 	}
 	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
@@ -83,10 +81,9 @@ void Object::EmptyIndexSet(Environment &env, const Value &value)
 
 Value Object::IndexGet(Environment &env, const Value &valueIdx)
 {
-	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getitem__), ENVREF_Escalate);
 	if (pFunc == nullptr) {
-		sig.SetError(ERR_ValueError, "indexed getting access is not supported");
+		SetError(ERR_ValueError, "indexed getting access is not supported");
 		return Value::Nil;
 	}
 	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
@@ -98,10 +95,9 @@ Value Object::IndexGet(Environment &env, const Value &valueIdx)
 
 void Object::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
 {
-	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setitem__), ENVREF_Escalate);
 	if (pFunc == nullptr) {
-		sig.SetError(ERR_ValueError, "indexed setting access is not supported");
+		SetError(ERR_ValueError, "indexed setting access is not supported");
 		return;
 	}
 	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
@@ -180,7 +176,7 @@ String Object::ToString(bool exprFlag)
 	Signal sig;
 	bool evaluatedFlag = false;
 	Value value = EvalMethod(*this, Gura_Symbol(__str__),
-											ValueList::Empty, evaluatedFlag);
+							 ValueList::Empty, evaluatedFlag);
 	if (sig.IsSignalled()) return String("");
 	if (evaluatedFlag) return value.ToString(false);
 	String str;
@@ -220,7 +216,6 @@ Gura_DeclareMethod(Object, __call__)
 
 Gura_ImplementMethod(Object, __call__)
 {
-	Signal &sig = env.GetSignal();
 	const Symbol *pSymbol = arg.GetSymbol(0);
 	Fundamental *pThis = arg.GetValueThis().IsFundamental()?
 					arg.GetFundamentalThis() : arg.GetValueThis().GetClass();
@@ -228,12 +223,12 @@ Gura_ImplementMethod(Object, __call__)
 	const Value *pValue = pThis->LookupValue(pSymbol, ENVREF_Escalate);
 	if (pValue == nullptr) {
 		valueToCall = pThis->GetProp(pSymbol, SymbolSet::Empty);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 	} else {
 		valueToCall = *pValue;
 	}
 	if (!valueToCall.IsFundamental()) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 					 "instance associated with a symbol '%s' is not a callable",
 					 pSymbol->GetName());
 		return Value::Nil;
@@ -258,9 +253,8 @@ Gura_DeclareMethod(Object, __iter__)
 
 Gura_ImplementMethod(Object, __iter__)
 {
-	Signal &sig = env.GetSignal();
-	Iterator *pIterator = arg.GetValueThis().CreateIterator(sig);
-	if (sig.IsSignalled()) return Value::Nil;
+	Iterator *pIterator = arg.GetValueThis().CreateIterator(env);
+	if (env.IsSignalled()) return Value::Nil;
 	return Value(new Object_iterator(env, pIterator));
 }
 
@@ -319,10 +313,9 @@ Gura_DeclareMethod(Object, clone)
 
 Gura_ImplementMethod(Object, clone)
 {
-	Signal &sig = env.GetSignal();
 	Object *pObj = arg.GetObjectThis()->Clone();
 	if (pObj == nullptr) {
-		sig.SetError(ERR_ValueError, "failed to create a clone object");
+		env.SetError(ERR_ValueError, "failed to create a clone object");
 		return Value::Nil;
 	}
 	return Value(pObj);
@@ -410,14 +403,13 @@ Gura_DeclareMethodPrimitive(Object, tonumber)
 
 Gura_ImplementMethod(Object, tonumber)
 {
-	Signal &sig = env.GetSignal();
 	bool allowPartFlag = !arg.IsSet(Gura_Symbol(strict));
 	bool successFlag;
 	Number num = arg.GetValueThis().ToNumber(allowPartFlag, successFlag);
 	if (successFlag) {
 		return Value(num);
 	} else if (arg.IsSet(Gura_Symbol(raise))) {
-		sig.SetError(ERR_ValueError, "failed to convert to number");
+		env.SetError(ERR_ValueError, "failed to convert to number");
 		return Value::Nil;
 	} else if (arg.IsSet(Gura_Symbol(zero))) {
 		return Value(0.);
@@ -434,9 +426,8 @@ Gura_DeclareMethodPrimitive(Object, tostring)
 
 Gura_ImplementMethod(Object, tostring)
 {
-	Signal &sig = env.GetSignal();
 	String str = arg.GetValueThis().ToString(false);
-	if (sig.IsSignalled()) return Value::Nil;
+	if (env.IsSignalled()) return Value::Nil;
 	return Value(str);
 }
 
@@ -552,113 +543,101 @@ void Class::DoPrepare(Environment &env)
 
 bool Class::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_IOError, "can't serialize class or module");
+	SetError(ERR_IOError, "can't serialize class or module");
 	return false;
 }
 
 bool Class::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_IOError, "can't deserialize class or module");
+	SetError(ERR_IOError, "can't deserialize class or module");
 	return false;
 }
 
 bool Class::Format_d(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %%d qualifier",
-			MakeValueTypeName().c_str());
+	SetError(ERR_ValueError,
+			 "value type %s can not be formatted with %%d qualifier",
+			 MakeValueTypeName().c_str());
 	return false;
 }
 
 bool Class::Format_u(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %%u qualifier",
-			MakeValueTypeName().c_str());
+	SetError(ERR_ValueError,
+			 "value type %s can not be formatted with %%u qualifier",
+			 MakeValueTypeName().c_str());
 	return false;
 }
 
 bool Class::Format_b(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %%b qualifier",
-			MakeValueTypeName().c_str());
+	SetError(ERR_ValueError,
+			 "value type %s can not be formatted with %%b qualifier",
+			 MakeValueTypeName().c_str());
 	return false;
 }
 
 bool Class::Format_o(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %%o qualifier",
-			MakeValueTypeName().c_str());
+	SetError(ERR_ValueError,
+			 "value type %s can not be formatted with %%o qualifier",
+			 MakeValueTypeName().c_str());
 	return false;
 }
 
 bool Class::Format_x(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %%x qualifier",
-			MakeValueTypeName().c_str());
+	SetError(ERR_ValueError,
+			 "value type %s can not be formatted with %%x qualifier",
+			 MakeValueTypeName().c_str());
 	return false;
 }
 
 bool Class::Format_e(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %%e qualifier",
-			MakeValueTypeName().c_str());
+	SetError(ERR_ValueError,
+			 "value type %s can not be formatted with %%e qualifier",
+			 MakeValueTypeName().c_str());
 	return false;
 }
 
 bool Class::Format_f(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %%f qualifier",
-			MakeValueTypeName().c_str());
+	SetError(ERR_ValueError,
+			 "value type %s can not be formatted with %%f qualifier",
+			 MakeValueTypeName().c_str());
 	return false;
 }
 
 bool Class::Format_g(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %%g qualifier",
-			MakeValueTypeName().c_str());
+	SetError(ERR_ValueError,
+			 "value type %s can not be formatted with %%g qualifier",
+			 MakeValueTypeName().c_str());
 	return false;
 }
 
 bool Class::Format_s(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	Signal &sig = GetSignal();
-	return pFormatter->PutAlignedString(sig, flags,
+	return pFormatter->PutAlignedString(GetSignal(), flags,
 							value.ToString(false).c_str(), flags.precision);
 }
 
 bool Class::Format_c(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	Signal &sig = GetSignal();
-	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %%c qualifier",
-			MakeValueTypeName().c_str());
+	SetError(ERR_ValueError,
+			 "value type %s can not be formatted with %%c qualifier",
+			 MakeValueTypeName().c_str());
 	return false;
 }
 
@@ -738,7 +717,6 @@ void Class::ListPropDeclarationSymbols(SymbolSet &symbols, bool escalateFlag)
 
 bool Class::BuildContent(Environment &env, const Value &valueThis, const Expr_Block *pExprBlock)
 {
-	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvLocal(Derive(ENVTYPE_local));
 	foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
@@ -748,23 +726,23 @@ bool Class::BuildContent(Environment &env, const Value &valueThis, const Expr_Bl
 		} else if (pExpr->IsCaller()) {
 			const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(pExpr);
 			Value valueCar = pExprCaller->GetCar()->Exec(*pEnvLocal);
-			if (sig.IsSignalled()) return false;
+			if (IsSignalled()) return false;
 			if (valueCar.IsObject()) {
 				Callable *pObj = valueCar.GetObject();
 				pObj->DoCall(*this, pExprCaller->GetCallerInfo(), FLAG_None,
 							 valueThis, nullptr, nullptr);
-				if (sig.IsSignalled()) {
-					sig.AddExprCause(pExprCaller);
+				if (IsSignalled()) {
+					GetSignal().AddExprCause(pExprCaller);
 					return false;
 				}
 			} else {
-				sig.SetError(ERR_TypeError, "object is not callable");
+				SetError(ERR_TypeError, "object is not callable");
 				return false;
 			}
 		} else {
-			sig.SetError(ERR_SyntaxError, "invalid element in class constructor");
+			SetError(ERR_SyntaxError, "invalid element in class constructor");
 		}
-		if (sig.IsSignalled()) return false;
+		if (IsSignalled()) return false;
 	}
 	return true;
 }
