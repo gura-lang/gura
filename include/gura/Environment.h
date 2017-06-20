@@ -319,6 +319,7 @@ public:
 	inline InteractiveHandler *GetInteractiveHandler() {
 		return GetGlobal()->GetInteractiveHandler();
 	}
+	inline operator Signal&() { return _sig; }
 	Value ExecInteractiveHandler();
 public:
 	const SymbolSet &GetSymbolsPublic() const;

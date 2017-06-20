@@ -38,7 +38,7 @@ Gura_ImplementUnaryOperator(Pos, timedelta)
 
 Gura_ImplementUnaryOperator(Pos, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Pos, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Pos, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -80,7 +80,7 @@ Gura_ImplementUnaryOperator(Neg, vertex)
 
 Gura_ImplementUnaryOperator(Neg, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Neg, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Neg, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -308,31 +308,31 @@ Gura_ImplementBinaryOperator(Add, vertex, vertex)
 
 Gura_ImplementBinaryOperator(Add, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Add, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Add, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Add, array, complex)
 {
-	return Array::ApplyBinaryFunc_array_complex(
+	return Array::ApplyBinaryFuncOnValue_array_complex(
 		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Add, complex, array)
 {
-	return Array::ApplyBinaryFunc_complex_array(
+	return Array::ApplyBinaryFuncOnValue_complex_array(
 		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
 }
 
@@ -487,31 +487,31 @@ Gura_ImplementBinaryOperator(Sub, vertex, vertex)
 
 Gura_ImplementBinaryOperator(Sub, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Sub, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Sub, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Sub, array, complex)
 {
-	return Array::ApplyBinaryFunc_array_complex(
+	return Array::ApplyBinaryFuncOnValue_array_complex(
 		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Sub, complex, array)
 {
-	return Array::ApplyBinaryFunc_complex_array(
+	return Array::ApplyBinaryFuncOnValue_complex_array(
 		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
 }
 
@@ -683,31 +683,31 @@ Gura_ImplementBinaryOperator(Mul, vertex, number)
 
 Gura_ImplementBinaryOperator(Mul, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Mul, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Mul, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Mul, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Mul, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Mul, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Mul, array, complex)
 {
-	return Array::ApplyBinaryFunc_array_complex(
+	return Array::ApplyBinaryFuncOnValue_array_complex(
 		env, Array::binaryFuncPack_Mul, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Mul, complex, array)
 {
-	return Array::ApplyBinaryFunc_complex_array(
+	return Array::ApplyBinaryFuncOnValue_complex_array(
 		env, Array::binaryFuncPack_Mul, valueLeft, valueRight);
 }
 
@@ -817,31 +817,31 @@ Gura_ImplementBinaryOperator(Div, vertex, number)
 
 Gura_ImplementBinaryOperator(Div, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Div, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Div, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Div, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Div, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Div, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Div, array, complex)
 {
-	return Array::ApplyBinaryFunc_array_complex(
+	return Array::ApplyBinaryFuncOnValue_array_complex(
 		env, Array::binaryFuncPack_Div, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Div, complex, array)
 {
-	return Array::ApplyBinaryFunc_complex_array(
+	return Array::ApplyBinaryFuncOnValue_complex_array(
 		env, Array::binaryFuncPack_Div, valueLeft, valueRight);
 }
 
@@ -861,19 +861,19 @@ Gura_ImplementBinaryOperator(Mod, number, number)
 
 Gura_ImplementBinaryOperator(Mod, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Mod, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Mod, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Mod, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Mod, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Mod, valueLeft, valueRight);
 }
 
@@ -956,31 +956,31 @@ Gura_ImplementBinaryOperator(Pow, complex, number)
 
 Gura_ImplementBinaryOperator(Pow, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Pow, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Pow, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Pow, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Pow, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Pow, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Pow, array, complex)
 {
-	return Array::ApplyBinaryFunc_array_complex(
+	return Array::ApplyBinaryFuncOnValue_array_complex(
 		env, Array::binaryFuncPack_Pow, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Pow, complex, array)
 {
-	return Array::ApplyBinaryFunc_complex_array(
+	return Array::ApplyBinaryFuncOnValue_complex_array(
 		env, Array::binaryFuncPack_Pow, valueLeft, valueRight);
 }
 
@@ -997,31 +997,31 @@ Gura_ImplementBinaryOperator(Eq, any, any)
 
 Gura_ImplementBinaryOperator(Eq, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Eq, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Eq, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Eq, array, complex)
 {
-	return Array::ApplyBinaryFunc_array_complex(
+	return Array::ApplyBinaryFuncOnValue_array_complex(
 		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Eq, complex, array)
 {
-	return Array::ApplyBinaryFunc_complex_array(
+	return Array::ApplyBinaryFuncOnValue_complex_array(
 		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
 }
 
@@ -1038,31 +1038,31 @@ Gura_ImplementBinaryOperator(Ne, any, any)
 
 Gura_ImplementBinaryOperator(Ne, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ne, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ne, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ne, array, complex)
 {
-	return Array::ApplyBinaryFunc_array_complex(
+	return Array::ApplyBinaryFuncOnValue_array_complex(
 		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ne, complex, array)
 {
-	return Array::ApplyBinaryFunc_complex_array(
+	return Array::ApplyBinaryFuncOnValue_complex_array(
 		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
 }
 
@@ -1079,31 +1079,31 @@ Gura_ImplementBinaryOperator(Gt, any, any)
 
 Gura_ImplementBinaryOperator(Gt, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Gt, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Gt, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Gt, array, complex)
 {
-	return Array::ApplyBinaryFunc_array_complex(
+	return Array::ApplyBinaryFuncOnValue_array_complex(
 		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Gt, complex, array)
 {
-	return Array::ApplyBinaryFunc_complex_array(
+	return Array::ApplyBinaryFuncOnValue_complex_array(
 		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
 }
 
@@ -1120,31 +1120,31 @@ Gura_ImplementBinaryOperator(Lt, any, any)
 
 Gura_ImplementBinaryOperator(Lt, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Lt, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Lt, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Lt, array, complex)
 {
-	return Array::ApplyBinaryFunc_array_complex(
+	return Array::ApplyBinaryFuncOnValue_array_complex(
 		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Lt, complex, array)
 {
-	return Array::ApplyBinaryFunc_complex_array(
+	return Array::ApplyBinaryFuncOnValue_complex_array(
 		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
 }
 
@@ -1161,31 +1161,31 @@ Gura_ImplementBinaryOperator(Ge, any, any)
 
 Gura_ImplementBinaryOperator(Ge, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ge, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ge, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ge, array, complex)
 {
-	return Array::ApplyBinaryFunc_array_complex(
+	return Array::ApplyBinaryFuncOnValue_array_complex(
 		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ge, complex, array)
 {
-	return Array::ApplyBinaryFunc_complex_array(
+	return Array::ApplyBinaryFuncOnValue_complex_array(
 		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
 }
 
@@ -1202,31 +1202,31 @@ Gura_ImplementBinaryOperator(Le, any, any)
 
 Gura_ImplementBinaryOperator(Le, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Le, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Le, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Le, array, complex)
 {
-	return Array::ApplyBinaryFunc_array_complex(
+	return Array::ApplyBinaryFuncOnValue_array_complex(
 		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Le, complex, array)
 {
-	return Array::ApplyBinaryFunc_complex_array(
+	return Array::ApplyBinaryFuncOnValue_complex_array(
 		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
 }
 
@@ -1393,19 +1393,19 @@ Gura_ImplementBinaryOperator(And, any, nil)
 
 Gura_ImplementBinaryOperator(And, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_And, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(And, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_And, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(And, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_And, valueLeft, valueRight);
 }
 
@@ -1434,19 +1434,19 @@ Gura_ImplementBinaryOperator(Or, any, nil)
 
 Gura_ImplementBinaryOperator(Or, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Or, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Or, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Or, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Or, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Or, valueLeft, valueRight);
 }
 
@@ -1467,19 +1467,19 @@ Gura_ImplementBinaryOperator(Xor, boolean, boolean)
 
 Gura_ImplementBinaryOperator(Xor, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Xor, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Xor, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Xor, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Xor, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Xor, valueLeft, valueRight);
 }
 
@@ -1511,19 +1511,19 @@ Gura_ImplementBinaryOperator(Shl, stream, any)
 
 Gura_ImplementBinaryOperator(Shl, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Shl, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Shl, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Shl, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Shl, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Shl, valueLeft, valueRight);
 }
 
@@ -1537,19 +1537,19 @@ Gura_ImplementBinaryOperator(Shr, number, number)
 
 Gura_ImplementBinaryOperator(Shr, array, array)
 {
-	return Array::ApplyBinaryFunc_array_array(
+	return Array::ApplyBinaryFuncOnValue_array_array(
 		env, Array::binaryFuncPack_Shr, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Shr, array, number)
 {
-	return Array::ApplyBinaryFunc_array_number(
+	return Array::ApplyBinaryFuncOnValue_array_number(
 		env, Array::binaryFuncPack_Shr, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Shr, number, array)
 {
-	return Array::ApplyBinaryFunc_number_array(
+	return Array::ApplyBinaryFuncOnValue_number_array(
 		env, Array::binaryFuncPack_Shr, valueLeft, valueRight);
 }
 
@@ -1619,7 +1619,7 @@ Gura_ImplementUnaryOperator(Math_abs, complex)
 
 Gura_ImplementUnaryOperator(Math_abs, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_abs, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_abs, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1635,7 +1635,7 @@ Gura_ImplementUnaryOperator(Math_acos, number)
 
 Gura_ImplementUnaryOperator(Math_acos, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_acos, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_acos, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1658,7 +1658,7 @@ Gura_ImplementUnaryOperator(Math_arg, complex)
 
 Gura_ImplementUnaryOperator(Math_arg, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_arg, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_arg, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1674,7 +1674,7 @@ Gura_ImplementUnaryOperator(Math_asin, number)
 
 Gura_ImplementUnaryOperator(Math_asin, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_asin, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_asin, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1690,7 +1690,7 @@ Gura_ImplementUnaryOperator(Math_atan, number)
 
 Gura_ImplementUnaryOperator(Math_atan, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_atan, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_atan, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1723,7 +1723,7 @@ Gura_ImplementUnaryOperator(Math_ceil, complex)
 
 Gura_ImplementUnaryOperator(Math_ceil, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_ceil, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_ceil, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1745,7 +1745,7 @@ Gura_ImplementUnaryOperator(Math_conj, complex)
 
 Gura_ImplementUnaryOperator(Math_conj, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_conj, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_conj, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1770,7 +1770,7 @@ Gura_ImplementUnaryOperator(Math_cos, complex)
 
 Gura_ImplementUnaryOperator(Math_cos, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_cos, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_cos, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1794,7 +1794,7 @@ Gura_ImplementUnaryOperator(Math_cosh, complex)
 
 Gura_ImplementUnaryOperator(Math_cosh, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_cosh, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_cosh, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1908,7 +1908,7 @@ Gura_ImplementUnaryOperator(Math_delta, complex)
 
 Gura_ImplementUnaryOperator(Math_delta, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_delta, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_delta, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1958,7 +1958,7 @@ Gura_ImplementUnaryOperator(Math_exp, complex)
 
 Gura_ImplementUnaryOperator(Math_exp, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_exp, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_exp, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1980,7 +1980,7 @@ Gura_ImplementUnaryOperator(Math_floor, complex)
 
 Gura_ImplementUnaryOperator(Math_floor, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_floor, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_floor, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2012,7 +2012,7 @@ Gura_ImplementUnaryOperator(Math_imag, complex)
 
 Gura_ImplementUnaryOperator(Math_imag, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_imag, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_imag, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2042,7 +2042,7 @@ Gura_ImplementUnaryOperator(Math_log, complex)
 
 Gura_ImplementUnaryOperator(Math_log, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_log, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_log, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2072,7 +2072,7 @@ Gura_ImplementUnaryOperator(Math_log10, complex)
 
 Gura_ImplementUnaryOperator(Math_log10, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_log10, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_log10, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2094,7 +2094,7 @@ Gura_ImplementUnaryOperator(Math_norm, complex)
 
 Gura_ImplementUnaryOperator(Math_norm, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_norm, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_norm, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2116,7 +2116,7 @@ Gura_ImplementUnaryOperator(Math_ramp, complex)
 
 Gura_ImplementUnaryOperator(Math_ramp, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_ramp, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_ramp, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2138,7 +2138,7 @@ Gura_ImplementUnaryOperator(Math_real, complex)
 
 Gura_ImplementUnaryOperator(Math_real, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_real, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_real, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2163,7 +2163,7 @@ Gura_ImplementUnaryOperator(Math_sigmoid, complex)
 
 Gura_ImplementUnaryOperator(Math_sigmoid, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_sigmoid, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_sigmoid, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2188,7 +2188,7 @@ Gura_ImplementUnaryOperator(Math_sin, complex)
 
 Gura_ImplementUnaryOperator(Math_sin, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_sin, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_sin, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2210,7 +2210,7 @@ Gura_ImplementUnaryOperator(Math_sinh, complex)
 
 Gura_ImplementUnaryOperator(Math_sinh, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_sinh, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_sinh, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2230,7 +2230,7 @@ Gura_ImplementUnaryOperator(Math_sqrt, complex)
 
 Gura_ImplementUnaryOperator(Math_sqrt, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_sqrt, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_sqrt, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2255,7 +2255,7 @@ Gura_ImplementUnaryOperator(Math_tan, complex)
 
 Gura_ImplementUnaryOperator(Math_tan, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_tan, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_tan, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2277,7 +2277,7 @@ Gura_ImplementUnaryOperator(Math_tanh, complex)
 
 Gura_ImplementUnaryOperator(Math_tanh, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_tanh, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_tanh, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2299,7 +2299,7 @@ Gura_ImplementUnaryOperator(Math_unitstep, complex)
 
 Gura_ImplementUnaryOperator(Math_unitstep, array)
 {
-	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Math_unitstep, value);
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_unitstep, value);
 }
 
 //-----------------------------------------------------------------------------

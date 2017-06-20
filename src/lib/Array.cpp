@@ -202,15 +202,19 @@ bool Array::PrepareModification(Signal &sig)
 //**************
 bool Array::Serialize(Environment &env, Stream &stream) const
 {
+	if (!stream.SerializeUInt8(env, _elemType)) return false;
+	if (!_dims.Serialize(env, stream)) return false;
+	
 	return false;
 }
 
 //**************
 Array *Array::Deserialize(Environment &env, Stream &stream)
 {
-	ElemType elemType = ETYPE_None;
+	UInt8 elemType = 0;
+	if (!stream.DeserializeUInt8(env, elemType)) return nullptr;
 	Array::Dimensions dims;
-	AutoPtr<Array> pArray(Create(elemType, dims));
+	AutoPtr<Array> pArray(Create(static_cast<ElemType>(elemType), dims));
 	return pArray.release();
 }
 
@@ -549,10 +553,10 @@ Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array
 	return (*unaryFunc)(sig, pArray);
 }
 
-Value Array::ApplyUnaryFunc(Environment &env, const UnaryFuncPack &pack, const Value &value)
+Value Array::ApplyUnaryFuncOnValue(Environment &env, const UnaryFuncPack &pack, const Value &value)
 {
 	Array *pArray = ApplyUnaryFunc(
-		env.GetSignal(), pack, Object_array::GetObject(value)->GetArray());
+		env, pack, Object_array::GetObject(value)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
 }
@@ -570,11 +574,11 @@ Array *Array::ApplyBinaryFunc_array_array(
 	return (*binaryFunc_array_array)(sig, pArrayL, pArrayR);
 }
 
-Value Array::ApplyBinaryFunc_array_array(
+Value Array::ApplyBinaryFuncOnValue_array_array(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
 	Array *pArray = ApplyBinaryFunc_array_array(
-		env.GetSignal(), pack,
+		env, pack,
 		Object_array::GetObject(valueL)->GetArray(),
 		Object_array::GetObject(valueR)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
@@ -593,11 +597,11 @@ Array *Array::ApplyBinaryFunc_array_number(
 	return (*binaryFunc_array_number)(sig, pArrayL, numberR);
 }
 
-Value Array::ApplyBinaryFunc_array_number(
+Value Array::ApplyBinaryFuncOnValue_array_number(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
 	Array *pArray = ApplyBinaryFunc_array_number(
-		env.GetSignal(), pack,
+		env, pack,
 		Object_array::GetObject(valueL)->GetArray(), valueR.GetDouble());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
@@ -615,11 +619,11 @@ Array *Array::ApplyBinaryFunc_number_array(
 	return (*binaryFunc_number_array)(sig, numberL, pArrayR);
 }
 
-Value Array::ApplyBinaryFunc_number_array(
+Value Array::ApplyBinaryFuncOnValue_number_array(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
 	Array *pArray = ApplyBinaryFunc_number_array(
-		env.GetSignal(), pack,
+		env, pack,
 		valueL.GetDouble(), Object_array::GetObject(valueR)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
@@ -637,11 +641,11 @@ Array *Array::ApplyBinaryFunc_array_complex(
 	return (*binaryFunc_array_complex)(sig, pArrayL, complexR);
 }
 
-Value Array::ApplyBinaryFunc_array_complex(
+Value Array::ApplyBinaryFuncOnValue_array_complex(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
 	Array *pArray = ApplyBinaryFunc_array_complex(
-		env.GetSignal(), pack,
+		env, pack,
 		Object_array::GetObject(valueL)->GetArray(), valueR.GetComplex());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
@@ -659,11 +663,11 @@ Array *Array::ApplyBinaryFunc_complex_array(
 	return (*binaryFunc_complex_array)(sig, complexL, pArrayR);
 }
 
-Value Array::ApplyBinaryFunc_complex_array(
+Value Array::ApplyBinaryFuncOnValue_complex_array(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
 	Array *pArray = ApplyBinaryFunc_complex_array(
-		env.GetSignal(), pack,
+		env, pack,
 		valueL.GetComplex(), Object_array::GetObject(valueR)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
@@ -2401,7 +2405,7 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 			}
 			_offsetTarget += idx * _pDim->GetStride();
 		} else if (valueIdx.IsListOrIterator()) {
-			AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(env.GetSignal()));
+			AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(env));
 			if (env.IsSignalled()) return false;
 			std::unique_ptr<Generator> pGenerator(new Generator(*_pDim));
 			Value valueIdxEach;
