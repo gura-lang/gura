@@ -543,13 +543,13 @@ void Class::DoPrepare(Environment &env)
 
 bool Class::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
-	SetError(ERR_IOError, "can't serialize class or module");
+	SetError(ERR_IOError, "can't serialize %s", MakeValueTypeName().c_str());
 	return false;
 }
 
 bool Class::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
-	SetError(ERR_IOError, "can't deserialize class or module");
+	SetError(ERR_IOError, "can't deserialize %s", MakeValueTypeName().c_str());
 	return false;
 }
 
