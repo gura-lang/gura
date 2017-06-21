@@ -3,6 +3,7 @@ import(argopt)
 
 ModuleInfo = struct(moduleName:string, action:symbol, platforms[]:symbol)
 moduleInfos = @(ModuleInfo) {
+	['arrayutil',		`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['base64',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['basement',		`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['bmp',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
