@@ -3,113 +3,79 @@ import(helper.test) {*}
 
 test_serial(var:nomap) = {
 	buff = binary()
-	buff.writer() {|w|
+	buff.writer {|w|
 		w.serialize(var):nomap
-		println('original:    ', var):nomap
+		printf('[%s]: %s\n', typename(var), var):nomap
+	}
+	buff.reader {|r|
+		varDec = r.deserialize()
+		printf('[%s]: %s\n', typename(varDec), varDec):nomap
 	}
 	buff.dump()
-	buff.reader() {|r|
-		varDec = r.deserialize()
-		println('deserialize: ', varDec):nomap
-	}
 }
 
-testcase {
+testcase('nil') {
+	test_serial(nil)
+}
+
+testcase('boolean') {
+	test_serial(false)
+	test_serial(true)
+}
+
+testcase('number') {
 	test_serial(0)
 	test_serial(0xffffffff)
 	test_serial(0x100000000)
-	test_serial('')
-	test_serial('abcdefghijklmnopqrstuvwxyz')
-	test_serial(%{'apple' => 100, 'orange' => 120, 'grape' => 200})
-	test_serial([0, 1, 2, 3])
 }
 
-/*
-testcase {
-	buff = binary()
-	buff.writer() {|w|
-		x = %{'apple' => 100, 'orange' => 120, 'grape' => 200}
-		w.serialize(x)
-		println(x)
-	}
-	buff.reader() {|r|
-		x = r.deserialize()
-		println(x)
-	}
+testcase('symbol') {
+	test_serial(`a)
+	test_serial(`abcdefg)
+	test_serial(`hijklmn)
+	test_serial(`-)
+	test_serial(`+)
+	test_serial(`*)
+	test_serial(`|.|)
 }
-testcase {
-	buff = binary()
-	buff.writer() {|w|
-		x = @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
-		w.serialize(x)
-		println(x)
-	}
-	buff.reader() {|r|
-		x = r.deserialize()
-		println(x)
-	}
+
+testcase('string') {
+	test_serial('')
+	test_serial('abcdefghijklmnopqrstuvwxyz')
 }
-testcase {
-	f() = {
-		buff = binary()
-		buff.writer() {|w|
-			x = `a('A', 'B', 1, 2) {} b(1, 2, 3) {}
-			w.serialize(x)
-			println(x)
-		}
-		buff.reader() {|r|
-			x = r.deserialize()
-			println(x)
-		}
-	}
-	println(f.expr)
-	buff = binary()
-	buff.writer() {|w|
-		w.serialize(f.expr)
-	}
-	buff.dump()
-	buff.reader() {|r|
-		println(r.deserialize())
-	}
+
+testcase('complex') {
+	test_serial(1j)
+	test_serial(2+3j)
+	test_serial(2-3j)
+	test_serial(-2-3j)
 }
-testcase {
-	buff = binary()
-	buff.writer() {|w|
-		x = `a('A', 'B', 1, 2) {} b(1, 2, 3) {}
-		w.serialize(x)
-		println(x)
-	}
-	buff.reader() {|r|
-		x = r.deserialize()
-		println(x)
-	}
+
+testcase('rational') {
+	test_serial(2r)
+	test_serial(3/2r)
 }
-testcase {
-	buff = binary()
-	buff.writer() {|w|
-		w.serialize('hello world')
-	}
-	buff.reader() {|r|
-		println(r.deserialize())
-	}
+
+testcase('array') {
+	test_serial(@@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}})
 }
-testcase {
-	buff = binary()
-	buff.writer() {|w|
-		w.serialize(['hello world', 'line1', 'line2'])
-	}
-	buff.reader() {|r|
-		println(r.deserialize()):nomap
-	}
+
+testcase('binary') {
 }
-testcase {
-	buff = binary()
-	buff.writer() {|w|
-		w.serialize([12345, 3.1415926, 'hello world', 3 + 2j])
-	}
-	buff.dump()
-	buff.reader() {|r|
-		println(r.deserialize()):nomap
-	}
+
+testcase('dict') {
+	test_serial(%{`apple => 100, `orange => 120, `grape => 200})
+	test_serial(%{3 => 100, 4 => 120, 5 => 200})
+	test_serial(%{'apple' => 100, 'orange' => 120, 'grape' => 200})
+	test_serial(%{`apple => '100', `orange => '120', `grape => '200'})
+	test_serial(%{3 => '100', 4 => '120', 5 => '200'})
+	test_serial(%{'apple' => '100', 'orange' => '120', 'grape' => '200'})
+	test_serial(%{`apple => [1, 2, 3], `orange => [4, 5, 6], `grape => [7, 8, 9]})
 }
-*/
+
+testcase('list') {
+	test_serial([0, 1, 2, 3])
+	test_serial(['hello world', 'line1', 'line2'])
+	test_serial([12345, 3.1415926, 'hello world', 3 + 2j])
+	test_serial([9, [0, 1, 2, 3], [12345, 3.1415926, 'hello world', 3 + 2j], 'xxx'])
+}
