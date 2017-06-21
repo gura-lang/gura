@@ -36,6 +36,7 @@ Gura_ModuleEntry()
 {
 	// function assignment
 	Gura_AssignFunction(test);
+	// operator assignment
 	AssignOperators(env);
 	return true;
 }
