@@ -41,10 +41,9 @@ bool Class_Class::Deserialize(Environment &env, Stream &stream, Value &value, Se
 	if (serializeFmtVer == SerializeFmtVer_1) {
 		value = Value::Nil;
 		return true;
-	} else {
-		SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
-		return false;
 	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
+	return false;
 }
 
 }

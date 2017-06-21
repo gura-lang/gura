@@ -46,11 +46,14 @@ bool Class_boolean::Serialize(Environment &env, Stream &stream, const Value &val
 
 bool Class_boolean::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
-	Signal &sig = GetSignal();
-	UInt8 num = 0;
-	if (!stream.DeserializeUInt8(sig, num)) return false;
-	value = Value(num != 0);
-	return true;
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		UInt8 num = 0;
+		if (!stream.DeserializeUInt8(env, num)) return false;
+		value = Value(num != 0);
+		return true;
+	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
+	return false;
 }
 
 bool Class_boolean::Format_d(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const

@@ -1535,10 +1535,14 @@ bool Class_array::Serialize(Environment &env, Stream &stream, const Value &value
 
 bool Class_array::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
-	AutoPtr<Array> pArray(Array::Deserialize(env, stream));
-	if (pArray.IsNull()) return false;
-	value = Value(new Object_array(env, pArray.release()));
-	return true;
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		AutoPtr<Array> pArray(Array::Deserialize(env, stream));
+		if (pArray.IsNull()) return false;
+		value = Value(new Object_array(env, pArray.release()));
+		return true;
+	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
+	return false;
 }
 
 bool Class_array::CastFrom(Environment &env, Value &value, ULong flags)

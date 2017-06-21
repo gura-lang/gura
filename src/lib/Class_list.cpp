@@ -2146,8 +2146,12 @@ bool Class_list::Serialize(Environment &env, Stream &stream, const Value &value)
 
 bool Class_list::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
-	Object_list *pObjList = value.InitAsList(env);
-	return pObjList->Deserialize(env, stream);
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		Object_list *pObjList = value.InitAsList(env);
+		return pObjList->Deserialize(env, stream);
+	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
+	return false;
 }
 
 Object *Class_list::CreateDescendant(Environment &env, Class *pClass)

@@ -252,12 +252,15 @@ bool Class_complex::Serialize(Environment &env, Stream &stream, const Value &val
 
 bool Class_complex::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
-	Signal &sig = GetSignal();
-	double re = 0, im = 0;
-	if (!stream.DeserializeDouble(sig, re)) return false;
-	if (!stream.DeserializeDouble(sig, im)) return false;
-	value = Value(Complex(re, im));
-	return true;
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		double re = 0, im = 0;
+		if (!stream.DeserializeDouble(env, re)) return false;
+		if (!stream.DeserializeDouble(env, im)) return false;
+		value = Value(Complex(re, im));
+		return true;
+	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
+	return false;
 }
 
 bool Class_complex::Format_d(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const

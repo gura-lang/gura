@@ -1062,11 +1062,14 @@ bool Class_string::Serialize(Environment &env, Stream &stream, const Value &valu
 
 bool Class_string::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
-	Signal &sig = GetSignal();
-	String str;
-	if (!stream.DeserializeString(sig, str)) return false;
-	value = Value(str);
-	return true;
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		String str;
+		if (!stream.DeserializeString(env, str)) return false;
+		value = Value(str);
+		return true;
+	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
+	return false;
 }
 
 Object *Class_string::CreateDescendant(Environment &env, Class *pClass)

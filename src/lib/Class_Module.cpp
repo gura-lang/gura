@@ -38,8 +38,12 @@ bool Class_Module::Serialize(Environment &env, Stream &stream, const Value &valu
 
 bool Class_Module::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
-	value = Value::Nil;
-	return true;
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		value = Value::Nil;
+		return true;
+	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
+	return false;
 }
 
 }

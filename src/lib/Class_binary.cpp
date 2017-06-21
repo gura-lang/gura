@@ -461,6 +461,10 @@ bool Class_binary::Serialize(Environment &env, Stream &stream, const Value &valu
 
 bool Class_binary::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		return false;
+	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
 	return false;
 }
 

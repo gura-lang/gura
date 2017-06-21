@@ -157,16 +157,19 @@ bool Class_rational::Serialize(Environment &env, Stream &stream, const Value &va
 
 bool Class_rational::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
-	Signal &sig = GetSignal();
-	double numer = 0, denom = 0;
-	if (!stream.DeserializeDouble(sig, numer)) return false;
-	if (!stream.DeserializeDouble(sig, denom)) return false;
-	if (denom == 0) {
-		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
-		return false;
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		double numer = 0, denom = 0;
+		if (!stream.DeserializeDouble(env, numer)) return false;
+		if (!stream.DeserializeDouble(env, denom)) return false;
+		if (denom == 0) {
+			env.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
+			return false;
+		}
+		value = Value(Rational(static_cast<int>(numer), static_cast<int>(denom)));
+		return true;
 	}
-	value = Value(Rational(static_cast<int>(numer), static_cast<int>(denom)));
-	return true;
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
+	return false;
 }
 
 bool Class_rational::Format_d(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const

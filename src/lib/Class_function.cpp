@@ -553,6 +553,10 @@ bool Class_function::Serialize(Environment &env, Stream &stream, const Value &va
 
 bool Class_function::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		return false;
+	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
 	return false;
 }
 

@@ -655,11 +655,14 @@ bool Class_dict::Serialize(Environment &env, Stream &stream, const Value &value)
 
 bool Class_dict::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
-	Signal &sig = GetSignal();
-	bool ignoreCaseFlag = false;
-	if (!stream.DeserializeBoolean(sig, ignoreCaseFlag)) return false;
-	ValueDict &valDict = value.InitAsDict(env, ignoreCaseFlag);
-	return valDict.Deserialize(env, stream);
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		bool ignoreCaseFlag = false;
+		if (!stream.DeserializeBoolean(env, ignoreCaseFlag)) return false;
+		ValueDict &valDict = value.InitAsDict(env, ignoreCaseFlag);
+		return valDict.Deserialize(env, stream);
+	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
+	return false;
 }
 
 Object *Class_dict::CreateDescendant(Environment &env, Class *pClass)
