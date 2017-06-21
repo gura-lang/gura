@@ -20,6 +20,9 @@ array@uint16:class = <class:array@uint16(src?) {block?}>
 array@uint32:class = <class:array@uint32(src?) {block?}>
 array@uint64:class = <class:array@uint64(src?) {block?}>
 array@uint8:class = <class:array@uint8(src?) {block?}>
+arrayutil:module
+  __name__:string = arrayutil
+  __symbol__:symbol = arrayutil
 audio:class = <class:audio(args+):map {block?}>
 base64:module
   __name__:string = base64
@@ -355,7 +358,6 @@ argument
   argument#isset(symbol:symbol)
   argument#quit_trailer():void
 array
-  array#average(axis?:number):map {block?}
   array.dot(a:array, b:array):static:map {block?}
   array#dump(stream?:stream):void:[upper]
   array#each():[flat] {block?}
@@ -368,6 +370,7 @@ array
   array#invert(eps?:number):map {block?}
   array#iselemsame(array:array)
   array#issquare()
+  array#mean(axis?:number):map {block?}
   array#offset(n:number):map {block?}
   array.ones(dims[]:number):static:map {block?}
   array#paste(offset:number, src:array):map
