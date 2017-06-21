@@ -300,12 +300,12 @@ testcase('divide by zero') {
 		tester(`(2 / y))
 	}
 }
-testcase('sum/average') {
+testcase('sum/mean') {
 	funcs.each {|func|
 		println(func)
 		x = func([1..10])
 		println('sum = ', x.sum())
-		println('avg = ', x.average())
+		println('avg = ', x.mean())
 	}	
 }
 testcase('identity') {
@@ -507,7 +507,7 @@ testcase('sum') {
 		tester(`a.sum(4))
 	}
 }
-testcase('average') {
+testcase('mean') {
 	[
 		array {}
 		array.range(6)
@@ -517,12 +517,12 @@ testcase('average') {
 	].each {|a|
 		println('----')
 		println(a)
-		tester(`a.average())
-		tester(`a.average(0))
-		tester(`a.average(1))
-		tester(`a.average(2))
-		tester(`a.average(3))
-		tester(`a.average(4))
+		tester(`a.mean())
+		tester(`a.mean(0))
+		tester(`a.mean(1))
+		tester(`a.mean(2))
+		tester(`a.mean(3))
+		tester(`a.mean(4))
 	}
 }
 testcase('constructor with elemtype') {

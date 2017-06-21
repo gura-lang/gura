@@ -87,7 +87,7 @@ T_ElemResult CalcSumFlat(const ArrayT<T_Elem> *pArrayT)
 }
 
 template<typename T_ElemResult, typename T_Elem>
-ArrayT<T_ElemResult> *CalcAverage(const ArrayT<T_Elem> *pArrayT,
+ArrayT<T_ElemResult> *CalcMean(const ArrayT<T_Elem> *pArrayT,
 								  Array::Dimensions::const_iterator pDimAxis)
 {
 	ArrayT<T_ElemResult> *pArrayTResult = CalcSum<T_ElemResult, T_Elem>(pArrayT, pDimAxis);
@@ -102,14 +102,14 @@ ArrayT<T_ElemResult> *CalcAverage(const ArrayT<T_Elem> *pArrayT,
 }
 
 template<typename T_ElemResult, typename T_Elem>
-T_ElemResult CalcAverageFlat(const ArrayT<T_Elem> *pArrayT)
+T_ElemResult CalcMeanFlat(const ArrayT<T_Elem> *pArrayT)
 {
 	if (pArrayT->GetElemNum() == 0) return 0;
 	return static_cast<T_ElemResult>(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT) / pArrayT->GetElemNum());
 }
 
 template<>
-Complex CalcAverageFlat(const ArrayT<Complex> *pArrayT)
+Complex CalcMeanFlat(const ArrayT<Complex> *pArrayT)
 {
 	if (pArrayT->GetElemNum() == 0) return 0;
 	return CalcSumFlat<Complex, Complex>(pArrayT) / static_cast<double>(pArrayT->GetElemNum());
@@ -675,66 +675,6 @@ Gura_ImplementFunction(at_at)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// array#average(axis?:number) {block?}
-Gura_DeclareMethod(array, average)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"Calculates an average value of elements in the array.\n"
-		"\n"
-		GURA_HELPTEXT_BLOCK_en("array", "array"));
-}
-
-template<typename T_ElemResult, typename T_Elem>
-Value Method_average(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Value valueRtn;
-	if (arg.IsValid(0)) {
-		size_t axis = arg.GetSizeT(0);
-		const Array::Dimensions &dims = pArrayT->GetDimensions();
-		if (axis >= dims.size()) {
-			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
-			return Value::Nil;
-		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcAverageFlat<T_ElemResult, T_Elem>(pArrayT));
-		} else {
-			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			ArrayT<T_ElemResult> *pArrayTResult = CalcAverage<T_ElemResult, T_Elem>(pArrayT, pDimAxis);
-			if (pArrayTResult == nullptr) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayTResult));
-		}
-	} else {
-		valueRtn = Value(CalcAverageFlat<T_ElemResult, T_Elem>(pArrayT));
-	}
-	return pFunc->ReturnValue(env, arg, valueRtn);
-}
-
-Gura_ImplementMethod(array, average)
-{
-	static const MethodT methods[] = {
-		nullptr,
-		&Method_average<UInt32, Boolean>,
-		&Method_average<Int8, Int8>,
-		&Method_average<UInt8, UInt8>,
-		&Method_average<Int16, Int16>,
-		&Method_average<UInt16, UInt16>,
-		&Method_average<Int32, Int32>,
-		&Method_average<UInt32, UInt32>,
-		&Method_average<Int64, Int64>,
-		&Method_average<UInt64, UInt64>,
-		&Method_average<Half, Half>,
-		&Method_average<Float, Float>,
-		&Method_average<Double, Double>,
-		&Method_average<Complex, Complex>,
-		//&Method_average<Value, Value>,
-	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
-}
-
 // array.dot(a:array, b:array):static:map {block?}
 Gura_DeclareClassMethod(array, dot)
 {
@@ -1109,6 +1049,66 @@ Gura_ImplementMethod(array, issquare)
 {
 	Array *pArray = Object_array::GetObjectThis(arg)->GetArray();
 	return Value(pArray->IsSquare());
+}
+
+// array#mean(axis?:number) {block?}
+Gura_DeclareMethod(array, mean)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Calculates an mean value of elements in the array.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
+}
+
+template<typename T_ElemResult, typename T_Elem>
+Value Method_mean(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	Value valueRtn;
+	if (arg.IsValid(0)) {
+		size_t axis = arg.GetSizeT(0);
+		const Array::Dimensions &dims = pArrayT->GetDimensions();
+		if (axis >= dims.size()) {
+			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+			return Value::Nil;
+		} else if (axis == 0 && dims.size() == 1) {
+			valueRtn = Value(CalcMeanFlat<T_ElemResult, T_Elem>(pArrayT));
+		} else {
+			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
+			ArrayT<T_ElemResult> *pArrayTResult = CalcMean<T_ElemResult, T_Elem>(pArrayT, pDimAxis);
+			if (pArrayTResult == nullptr) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayTResult));
+		}
+	} else {
+		valueRtn = Value(CalcMeanFlat<T_ElemResult, T_Elem>(pArrayT));
+	}
+	return pFunc->ReturnValue(env, arg, valueRtn);
+}
+
+Gura_ImplementMethod(array, mean)
+{
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_mean<UInt32, Boolean>,
+		&Method_mean<Int8, Int8>,
+		&Method_mean<UInt8, UInt8>,
+		&Method_mean<Int16, Int16>,
+		&Method_mean<UInt16, UInt16>,
+		&Method_mean<Int32, Int32>,
+		&Method_mean<UInt32, UInt32>,
+		&Method_mean<Int64, Int64>,
+		&Method_mean<UInt64, UInt64>,
+		&Method_mean<Half, Half>,
+		&Method_mean<Float, Float>,
+		&Method_mean<Double, Double>,
+		&Method_mean<Complex, Complex>,
+		//&Method_mean<Value, Value>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#offset(n:number):map {block?}
@@ -1500,7 +1500,6 @@ void Class_array::DoPrepare(Environment &env)
 	Gura_AssignFunction(array);
 	Gura_AssignFunction(at_at);
 	// Assignment of methods
-	Gura_AssignMethod(array, average);
 	Gura_AssignMethod(array, dot);
 	Gura_AssignMethod(array, dump);
 	Gura_AssignMethod(array, each);
@@ -1511,6 +1510,7 @@ void Class_array::DoPrepare(Environment &env)
 	Gura_AssignMethod(array, invert);
 	Gura_AssignMethod(array, iselemsame);
 	Gura_AssignMethod(array, issquare);
+	Gura_AssignMethod(array, mean);
 	Gura_AssignMethod(array, offset);
 	Gura_AssignMethod(array, paste);
 	Gura_AssignMethod(array, reshape);
