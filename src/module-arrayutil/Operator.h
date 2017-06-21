@@ -4,6 +4,7 @@
 Gura_BeginModuleScope(arrayutil)
 
 void AssignOperators(Environment &env);
+Value CalcDot(Environment &env, const Array *pArrayL, const Array *pArrayR);
 
 Gura_EndModuleScope(arrayutil)
 

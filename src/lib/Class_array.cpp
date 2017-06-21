@@ -675,29 +675,6 @@ Gura_ImplementFunction(at_at)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// array.dot(a:array, b:array):static:map {block?}
-Gura_DeclareClassMethod(array, dot)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "a", VTYPE_array);
-	DeclareArg(env, "b", VTYPE_array);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"Calculates a dot product between two arrays that have one or two dimensions.\n"
-		"\n"
-		GURA_HELPTEXT_BLOCK_en("array", "array"));
-}
-
-Gura_ImplementClassMethod(array, dot)
-{
-	const Array *pArrayL = Object_array::GetObject(arg, 0)->GetArray();
-	const Array *pArrayR = Object_array::GetObject(arg, 1)->GetArray();
-	Value valResult = Array::Dot(env, pArrayL, pArrayR);
-	if (env.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, arg, valResult);
-}
-
 // array#dump():void
 Gura_DeclareMethod(array, dump)
 {
@@ -1500,7 +1477,6 @@ void Class_array::DoPrepare(Environment &env)
 	Gura_AssignFunction(array);
 	Gura_AssignFunction(at_at);
 	// Assignment of methods
-	Gura_AssignMethod(array, dot);
 	Gura_AssignMethod(array, dump);
 	Gura_AssignMethod(array, each);
 	Gura_AssignMethod(array, elemcast);

@@ -136,7 +136,6 @@ protected:
 	size_t _elemNum;
 	static MapToElemType _mapToElemType;
 public:
-	static DotFunc dotFuncs[ETYPE_Max][ETYPE_Max];
 	static InvertFunc invertFuncs[ETYPE_Max];
 public:
 	Gura_DeclareReferenceAccessor(Array);
