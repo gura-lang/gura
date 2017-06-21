@@ -752,6 +752,11 @@ bool Class::BuildContent(Environment &env, const Value &valueThis, const Expr_Bl
 	return true;
 }
 
+void Class::SetError_UnsupportedSerializeFmtVer(SerializeFmtVer serializeFmtVer) const
+{
+	SetError(ERR_FormatError, "unsupported serialization format version: %d", serializeFmtVer + 1);
+}
+
 void Class::SetError_NoConstructor() const
 {
 	SetError(ERR_ValueError, "class %s doesn't have a constructor", GetName());

@@ -286,6 +286,7 @@ public:
 	const PropDeclaration *LookupPropDeclaration(const Symbol *pSymbol);
 	void ListPropDeclarationSymbols(SymbolSet &symbols, bool escalateFlag);
 	bool BuildContent(Environment &env, const Value &valueThis, const Expr_Block *pExprBlock);
+	void SetError_UnsupportedSerializeFmtVer(SerializeFmtVer serializeFmtVer) const;
 	void SetError_NoConstructor() const;
 public:
 	// inherited from HelpProvider
