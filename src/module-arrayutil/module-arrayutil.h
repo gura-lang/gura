@@ -4,6 +4,7 @@
 #ifndef __GURA_MODULE_ARRAYUTIL_H__
 #define __GURA_MODULE_ARRAYUTIL_H__
 #include <gura.h>
+#include "Operator.h"
 
 Gura_BeginModuleHeader(arrayutil)
 Gura_EndModuleHeader(arrayutil)

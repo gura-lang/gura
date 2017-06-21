@@ -36,11 +36,6 @@ Gura_ImplementUnaryOperator(Pos, timedelta)
 	return value;
 }
 
-Gura_ImplementUnaryOperator(Pos, array)
-{
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Pos, value);
-}
-
 //-----------------------------------------------------------------------------
 // [-A] ... UnaryOperator(Neg, A)
 //-----------------------------------------------------------------------------
@@ -76,11 +71,6 @@ Gura_ImplementUnaryOperator(Neg, vertex)
 {
 	const Vertex &vertex = Object_vertex::GetObject(value)->GetVertex();
 	return Value(new Object_vertex(env, Vertex(-vertex.x, -vertex.y, -vertex.z)));
-}
-
-Gura_ImplementUnaryOperator(Neg, array)
-{
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Neg, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -306,36 +296,6 @@ Gura_ImplementBinaryOperator(Add, vertex, vertex)
 									   vertexL.z + vertexR.z)));
 }
 
-Gura_ImplementBinaryOperator(Add, array, array)
-{
-	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
-}
-
-Gura_ImplementBinaryOperator(Add, array, number)
-{
-	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
-}
-
-Gura_ImplementBinaryOperator(Add, number, array)
-{
-	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
-}
-
-Gura_ImplementBinaryOperator(Add, array, complex)
-{
-	return Array::ApplyBinaryFuncOnValue_array_complex(
-		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
-}
-
-Gura_ImplementBinaryOperator(Add, complex, array)
-{
-	return Array::ApplyBinaryFuncOnValue_complex_array(
-		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // [A - B] ... BinaryOperator(Sub, A, B)
 //-----------------------------------------------------------------------------
@@ -483,36 +443,6 @@ Gura_ImplementBinaryOperator(Sub, vertex, vertex)
 									   vertexL.x - vertexR.x,
 									   vertexL.y - vertexR.y,
 									   vertexL.z - vertexR.z)));
-}
-
-Gura_ImplementBinaryOperator(Sub, array, array)
-{
-	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
-}
-
-Gura_ImplementBinaryOperator(Sub, array, number)
-{
-	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
-}
-
-Gura_ImplementBinaryOperator(Sub, number, array)
-{
-	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
-}
-
-Gura_ImplementBinaryOperator(Sub, array, complex)
-{
-	return Array::ApplyBinaryFuncOnValue_array_complex(
-		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
-}
-
-Gura_ImplementBinaryOperator(Sub, complex, array)
-{
-	return Array::ApplyBinaryFuncOnValue_complex_array(
-		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -2344,13 +2274,11 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignUnaryOperator(Pos, complex);
 	Gura_AssignUnaryOperator(Pos, rational);
 	Gura_AssignUnaryOperator(Pos, timedelta);
-	Gura_AssignUnaryOperator(Pos, array);
 	Gura_AssignUnaryOperator(Neg, number);
 	Gura_AssignUnaryOperator(Neg, complex);
 	Gura_AssignUnaryOperator(Neg, rational);
 	Gura_AssignUnaryOperator(Neg, timedelta);
 	Gura_AssignUnaryOperator(Neg, vertex);
-	Gura_AssignUnaryOperator(Neg, array);
 	Gura_AssignUnaryOperator(Inv, number);
 	Gura_AssignUnaryOperator(Not, any);
 	Gura_AssignUnaryOperator(SeqInf, number);
@@ -2378,11 +2306,6 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Add, string, any);
 	Gura_AssignBinaryOperator(Add, any, string);
 	Gura_AssignBinaryOperator(Add, vertex, vertex);
-	Gura_AssignBinaryOperator(Add, array, array);
-	Gura_AssignBinaryOperator(Add, array, number);
-	Gura_AssignBinaryOperator(Add, number, array);
-	Gura_AssignBinaryOperator(Add, array, complex);
-	Gura_AssignBinaryOperator(Add, complex, array);
 	Gura_AssignBinaryOperator(Sub, number, number);
 	Gura_AssignBinaryOperator(Sub, boolean, boolean);
 	Gura_AssignBinaryOperator(Sub, number, boolean);
@@ -2400,11 +2323,6 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Sub, pointer, number);
 	Gura_AssignBinaryOperator(Sub, pointer, pointer);
 	Gura_AssignBinaryOperator(Sub, vertex, vertex);
-	Gura_AssignBinaryOperator(Sub, array, array);
-	Gura_AssignBinaryOperator(Sub, array, number);
-	Gura_AssignBinaryOperator(Sub, number, array);
-	Gura_AssignBinaryOperator(Sub, array, complex);
-	Gura_AssignBinaryOperator(Sub, complex, array);
 	Gura_AssignBinaryOperator(Mul, number, number);
 	Gura_AssignBinaryOperator(Mul, boolean, boolean);
 	Gura_AssignBinaryOperator(Mul, number, boolean);
