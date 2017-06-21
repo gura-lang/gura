@@ -1,13 +1,1048 @@
 #include "stdafx.h"
 
+#define ImplementUnaryFuncPack(op, name, symbol, func)	\
+Array::UnaryFuncPack g_unaryFuncPack_##op = { \
+	name, \
+	symbol, \
+	{ \
+		nullptr, \
+		&func<Boolean,	Boolean,Operator_##op::Calc>,	\
+		&func<Int8,		Int8,	Operator_##op::Calc>,	\
+		&func<UInt8,	UInt8,	Operator_##op::Calc>,	\
+		&func<Int16,	Int16,	Operator_##op::Calc>,	\
+		&func<UInt16,	UInt16,	Operator_##op::Calc>,	\
+		&func<Int32,	Int32,	Operator_##op::Calc>,	\
+		&func<UInt32,	UInt32,	Operator_##op::Calc>,	\
+		&func<Int64,	Int64,	Operator_##op::Calc>,	\
+		&func<UInt64,	UInt64,	Operator_##op::Calc>,	\
+		&func<Half,		Half,	Operator_##op::Calc>,	\
+		&func<Float,	Float,	Operator_##op::Calc>,	\
+		&func<Double,	Double,	Operator_##op::Calc>,	\
+		&func<Complex,	Complex,Operator_##op::Calc>,	\
+		nullptr, \
+	}, \
+}
+
+#define ImplementBinaryFuncPack(op, name, symbol, funcPrefix)	\
+Array::BinaryFuncPack g_binaryFuncPack_##op = { \
+	name, \
+	symbol, \
+	{ \
+		{ \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Int8,		Boolean,	Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int8,		Boolean,	Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt8,	Boolean,	UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int16,	Boolean,	Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt16,	Boolean,	UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int32,	Boolean,	Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt32,	Boolean,	UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	Boolean,	Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	Boolean,	UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Boolean,	Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Boolean,	Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Boolean,	Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Boolean,	Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Int8,		Int8,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int8,		Int8,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt8,	Int8,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int16,	Int8,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt16,	Int8,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int32,	Int8,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt32,	Int8,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	Int8,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	Int8,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Int8,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Int8,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Int8,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Int8,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<UInt8,	UInt8,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt8,	UInt8,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt8,	UInt8,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int16,	UInt8,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt16,	UInt8,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int32,	UInt8,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt32,	UInt8,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	UInt8,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	UInt8,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		UInt8,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	UInt8,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	UInt8,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	UInt8,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Int16,	Int16,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int16,	Int16,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int16,	Int16,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int16,	Int16,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt16,	Int16,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int32,	Int16,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt32,	Int16,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	Int16,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	Int16,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Int16,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Int16,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Int16,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Int16,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<UInt16,	UInt16,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt16,	UInt16,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt16,	UInt16,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt16,	UInt16,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt16,	UInt16,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int32,	UInt16,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt32,	UInt16,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	UInt16,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	UInt16,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		UInt16,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	UInt16,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	UInt16,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	UInt16,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Int32,	Int32,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int32,	Int32,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int32,	Int32,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int32,	Int32,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int32,	Int32,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int32,	Int32,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt32,	Int32,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	Int32,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	Int32,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Int32,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Int32,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Int32,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Int32,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<UInt32,	UInt32,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt32,	UInt32,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt32,	UInt32,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt32,	UInt32,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt32,	UInt32,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt32,	UInt32,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt32,	UInt32,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	UInt32,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	UInt32,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		UInt32,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	UInt32,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	UInt32,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	UInt32,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Int64,	Int64,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	Int64,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	Int64,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	Int64,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	Int64,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	Int64,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	Int64,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Int64,	Int64,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	Int64,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Int64,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Int64,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Int64,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Int64,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		UInt64,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	UInt64,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	UInt64,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	UInt64,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Half,		Half,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Half,		Half,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Half,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Half,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Half,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Float,	Float,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Float,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Float,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Float,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Float,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Float,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Float,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Float,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Float,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Float,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Float,	Float,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Float,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Float,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Double,	Double,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Double,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Double,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Double,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Double,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Double,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Double,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Double,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Double,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Double,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Double,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Double,	Double,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Double,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Complex,	Complex,	Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Complex,	Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Complex,	UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Complex,	Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Complex,	UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Complex,	Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Complex,	UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Complex,	Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Complex,	UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Complex,	Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Complex,	Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Complex,	Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Complex,	Complex,	Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
+		}, \
+	}, { \
+		nullptr, \
+		&funcPrefix##_array_number<Int8,		Boolean,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int8,		Int8,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<UInt8,		UInt8,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int16,		Int16,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<UInt16,		UInt16,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int32,		Int32,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<UInt32,		UInt32,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Int64,		Int64,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<UInt64,		UInt64,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Half,		Half,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Float,		Float,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Double,		Double,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Complex,		Complex,	Operator_##op::Calc>, \
+		nullptr, \
+	}, { \
+		nullptr, \
+		&funcPrefix##_number_array<Int8,		Boolean,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int8,		Int8,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<UInt8,		UInt8,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int16,		Int16,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<UInt16,		UInt16,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int32,		Int32,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<UInt32,		UInt32,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Int64,		Int64,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<UInt64,		UInt64,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Half,		Half,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Float,		Float,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Double,		Double,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Complex,		Complex,	Operator_##op::Calc>, \
+		nullptr, \
+	}, { \
+		nullptr, \
+		&funcPrefix##_array_complex<Complex,	Boolean,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Int8,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	UInt8,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Int16,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	UInt16,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Int32,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	UInt32,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Int64,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	UInt64,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Half,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Float,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Double,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Complex,	Complex,	Operator_##op::Calc>, \
+		nullptr, \
+	}, { \
+		nullptr, \
+		&funcPrefix##_complex_array<Complex,	Boolean,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Int8,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	UInt8,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Int16,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	UInt16,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Int32,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	UInt32,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Int64,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	UInt64,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Half,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Float,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Double,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Complex,	Complex,	Operator_##op::Calc>, \
+		nullptr, \
+	} \
+}
+
+#define ImplementBinaryFuncPack_Cmp(op, name, symbol, funcPrefix)	\
+Array::BinaryFuncPack g_binaryFuncPack_##op = { \
+	name, \
+	symbol, \
+	{ \
+		{ \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Boolean,	Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int8,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt8,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int16,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt16,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int32,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt32,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Int64,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	UInt64,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Boolean,	Half,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Half,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Boolean,	Float,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Float,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Boolean,	Double,		Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Double,		Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Boolean,	Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Int8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	UInt8,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Int16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	UInt16,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Int32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	UInt32,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Int64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	UInt64,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Half,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Float,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Double,		Operator_##op::Calc>, \
+			&funcPrefix##_array_array<Boolean,	Complex,	Complex,	Operator_##op::Calc>, \
+			nullptr, \
+		}, { \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
+		}, \
+	}, { \
+		nullptr, \
+		&funcPrefix##_array_number<Boolean,		Boolean,	Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,		Int8,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,		UInt8,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,		Int16,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,		UInt16,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,		Int32,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,		UInt32,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,		Int64,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,		UInt64,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,		Half,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,		Float,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,		Double,		Operator_##op::Calc>, \
+		&funcPrefix##_array_number<Boolean,		Complex,	Operator_##op::Calc>, \
+		nullptr, \
+	}, { \
+		nullptr, \
+		&funcPrefix##_number_array<Boolean,		Boolean,	Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,		Int8,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,		UInt8,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,		Int16,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,		UInt16,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,		Int32,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,		UInt32,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,		Int64,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,		UInt64,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,		Half,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,		Float,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,		Double,		Operator_##op::Calc>, \
+		&funcPrefix##_number_array<Boolean,		Complex,	Operator_##op::Calc>, \
+		nullptr, \
+	}, { \
+		nullptr, \
+		&funcPrefix##_array_complex<Boolean,	Boolean,	Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Int8,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	UInt8,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Int16,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	UInt16,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Int32,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	UInt32,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Int64,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	UInt64,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Half,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Float,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Double,		Operator_##op::Calc>, \
+		&funcPrefix##_array_complex<Boolean,	Complex,	Operator_##op::Calc>, \
+		nullptr, \
+	}, { \
+		nullptr, \
+		&funcPrefix##_complex_array<Boolean,	Boolean,	Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Int8,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	UInt8,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Int16,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	UInt16,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Int32,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	UInt32,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Int64,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	UInt64,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Half,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Float,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Double,		Operator_##op::Calc>, \
+		&funcPrefix##_complex_array<Boolean,	Complex,	Operator_##op::Calc>, \
+		nullptr, \
+	} \
+}
+
+#define ImplementBinaryFuncPack_BitOp(op, name, symbol)	 \
+Array::BinaryFuncPack g_binaryFuncPack_##op = { \
+	name, \
+	symbol, \
+	{ \
+		{ \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<Boolean,	Boolean,	Boolean,	Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int8,		Boolean,	Int8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt8,		Boolean,	UInt8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int16,		Boolean,	Int16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt16,		Boolean,	UInt16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int32,		Boolean,	Int32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int32,		Boolean,	UInt32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Boolean,	Int64,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Boolean,	UInt64,		Operator_##op::Calc>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<Int8,		Int8,		Boolean,	Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int8,		Int8,		Int8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt8,		Int8,		UInt8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int16,		Int8,		Int16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt16,		Int8,		UInt16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int8,		Int32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int8,		UInt32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int8,		Int64,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int8,		UInt64,		Operator_##op::Calc>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<UInt8,		UInt8,		Boolean,	Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt8,		UInt8,		Int8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt8,		UInt8,		UInt8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int16,		UInt8,		Int16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt16,		UInt8,		UInt16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int32,		UInt8,		Int32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt8,		UInt32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		UInt8,		Int64,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt8,		UInt64,		Operator_##op::Calc>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<Int16,		Int16,		Boolean,	Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int16,		Int16,		Int8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int16,		Int16,		UInt8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int16,		Int16,		Int16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt16,		Int16,		UInt16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int16,		Int32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt32,		Int16,		UInt32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int16,		Int64,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt64,		Int16,		UInt64,		Operator_##op::Calc>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		Boolean,	Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		Int8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		UInt8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		Int16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		UInt16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int32,		UInt16,		Int32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt16,		UInt32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		UInt16,		Int64,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt16,		UInt64,		Operator_##op::Calc>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		Boolean,	Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		Int8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		UInt8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		Int16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		UInt16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		Int32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt32,		Int32,		UInt32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int32,		Int64,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt64,		Int32,		UInt64,		Operator_##op::Calc>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		Boolean,	Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		Int8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		UInt8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		Int16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		UInt16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		Int32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		UInt32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		UInt32,		Int64,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt32,		UInt64,		Operator_##op::Calc>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		Boolean,	Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		UInt8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		UInt16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		UInt32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int64,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt64,		Int64,		UInt64,		Operator_##op::Calc>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Boolean,	Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		UInt8,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		UInt16,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		UInt32,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int64,		Operator_##op::Calc>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		UInt64,		Operator_##op::Calc>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+		}, { \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+		}, { \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+		}, \
+	}, { \
+		nullptr, \
+		&BinaryFuncTmpl_array_number<Int8,		Boolean,	Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<Int8,		Int8,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<UInt8,		UInt8,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<Int16,		Int16,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<UInt16,	UInt16,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<Int32,		Int32,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<UInt32,	UInt32,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<Int64,		Int64,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_array_number<UInt64,	UInt64,		Operator_##op::Calc>,	\
+		nullptr, \
+		nullptr, \
+		nullptr, \
+		nullptr, \
+		nullptr, \
+	}, { \
+		nullptr, \
+		&BinaryFuncTmpl_number_array<Int8,		Boolean,	Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<Int8,		Int8,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<UInt8,		UInt8,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<Int16,		Int16,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<UInt16,	UInt16,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<Int32,		Int32,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<UInt32,	UInt32,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<Int64,		Int64,		Operator_##op::Calc>,	\
+		&BinaryFuncTmpl_number_array<UInt64,	UInt64,		Operator_##op::Calc>,	\
+		nullptr, \
+		nullptr, \
+		nullptr, \
+		nullptr, \
+		nullptr, \
+	}, { \
+		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+	}, { \
+		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+	} \
+}
+
 Gura_BeginModuleScope(arrayutil)
+
+//------------------------------------------------------------------------------
+// UnaryFuncTmpl
+//------------------------------------------------------------------------------
+template<typename T_ElemResult, typename T_Elem, void (*op)(T_ElemResult &, const T_Elem &)>
+Array *UnaryFuncTmpl(Signal &sig, const Array *pArray)
+{
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(ArrayT<T_ElemResult>::
+												Create(pArray->GetDimensions()));
+	T_ElemResult *pResult = pArrayResult->GetPointer();
+	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
+	size_t nElems = pArray->GetElemNum();
+	for (size_t i = 0; i < nElems; i++, pResult++, pElem++) {
+		op(*pResult, *pElem);
+	}
+	return pArrayResult.release();
+}
+
+template<typename T_ElemResult, typename T_Elem, void (*op)(T_ElemResult &, const T_Elem &)>
+Array *UnaryFuncTmpl_ExcludeZero(Signal &sig, const Array *pArray)
+{
+	if (pArray->DoesContainZero()) {
+		sig.SetError(ERR_MathError, "the array contains zero as its element");
+		return nullptr;
+	}
+	return UnaryFuncTmpl<T_ElemResult, T_Elem, op>(sig, pArray);
+}
+
+//------------------------------------------------------------------------------
+// BinaryFuncTmpl
+//------------------------------------------------------------------------------
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+		 void (*op)(T_ElemResult &, const T_ElemL &, const T_ElemR &)>
+Array *BinaryFuncTmpl_array_array(Signal &sig, const Array *pArrayL, const Array *pArrayR)
+{
+	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
+	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
+	size_t nElemsL = pArrayL->GetElemNum();
+	size_t nElemsR = pArrayR->GetElemNum();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult;
+	if (nElemsL == nElemsR) {
+		pArrayResult.reset(ArrayT<T_ElemResult>::Create(pArrayL->GetDimensions()));
+		T_ElemResult *pElemResult = pArrayResult->GetPointer();
+		for (size_t offset = 0; offset < nElemsL; offset++, pElemResult++) {
+			op(*pElemResult, *(pElemL + offset), *(pElemR + offset));
+		}
+	} else if (nElemsL < nElemsR) {
+		pArrayResult.reset(ArrayT<T_ElemResult>::Create(pArrayR->GetDimensions()));
+		T_ElemResult *pElemResult = pArrayResult->GetPointer();
+		size_t offsetL = 0;
+		for (size_t offsetR = 0; offsetR < nElemsR; offsetR++, pElemResult++) {
+			op(*pElemResult, *(pElemL + offsetL), *(pElemR + offsetR));
+			offsetL++;
+			if (offsetL >= nElemsL) offsetL = 0;
+		}
+	} else { // nElemsL > nElemsR
+		pArrayResult.reset(ArrayT<T_ElemResult>::Create(pArrayL->GetDimensions()));
+		T_ElemResult *pElemResult = pArrayResult->GetPointer();
+		size_t offsetR = 0;
+		for (size_t offsetL = 0; offsetL < nElemsL; offsetL++, pElemResult++) {
+			op(*pElemResult, *(pElemL + offsetL), *(pElemR + offsetR));
+			offsetR++;
+			if (offsetR >= nElemsR) offsetR = 0;
+		}
+	}
+	return pArrayResult.release();
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+		 void (*op)(T_ElemResult &, const T_ElemL &, const T_ElemR &)>
+Array *BinaryFuncTmpl_Div_array_array(Signal &sig, const Array *pArrayL, const Array *pArrayR)
+{
+	if (pArrayR->DoesContainZero()) {
+		Operator::SetError_DivideByZero(sig);
+		return nullptr;
+	}
+	return BinaryFuncTmpl_array_array<T_ElemResult, T_ElemL, T_ElemR, op>(sig, pArrayL, pArrayR);
+}
+
+template<typename T_ElemResult, typename T_ElemL,
+		 void (*op)(T_ElemResult &, const T_ElemL &, const Double &)>
+Array *BinaryFuncTmpl_array_number(Signal &sig, const Array *pArrayL, Double numberR)
+{
+	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
+	size_t nElemsL = pArrayL->GetElemNum();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(ArrayT<T_ElemResult>::Create(pArrayL->GetDimensions()));
+	T_ElemResult *pElemResult = pArrayResult->GetPointer();
+	for (size_t i = 0; i < nElemsL; i++, pElemResult++, pElemL++) {
+		op(*pElemResult, *pElemL, numberR);
+	}
+	return pArrayResult.release();
+}
+
+template<typename T_ElemResult, typename T_ElemL,
+		 void (*op)(T_ElemResult &, const T_ElemL &, const Double &)>
+Array *BinaryFuncTmpl_Div_array_number(Signal &sig, const Array *pArrayL, Double numberR)
+{
+	if (numberR == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return nullptr;
+	}
+	return BinaryFuncTmpl_array_number<T_ElemResult, T_ElemL, op>(sig, pArrayL, numberR);
+}
+
+template<typename T_ElemResult, typename T_ElemR,
+		 void (*op)(T_ElemResult &, const Double &, const T_ElemR &)>
+Array *BinaryFuncTmpl_number_array(Signal &sig, Double numberL, const Array *pArrayR)
+{
+	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
+	size_t nElemsR = pArrayR->GetElemNum();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(ArrayT<T_ElemResult>::Create(pArrayR->GetDimensions()));
+	T_ElemResult *pElemResult = pArrayResult->GetPointer();
+	for (size_t i = 0; i < nElemsR; i++, pElemResult++, pElemR++) {
+		op(*pElemResult, numberL, *pElemR);
+	}
+	return pArrayResult.release();
+}
+
+template<typename T_ElemResult, typename T_ElemR,
+		 void (*op)(T_ElemResult &, const Double &, const T_ElemR &)>
+Array *BinaryFuncTmpl_Div_number_array(Signal &sig, Double numberL, const Array *pArrayR)
+{
+	if (pArrayR->DoesContainZero()) {
+		Operator::SetError_DivideByZero(sig);
+		return nullptr;
+	}
+	return BinaryFuncTmpl_number_array<T_ElemResult, T_ElemR, op>(sig, numberL, pArrayR);
+}
+
+template<typename T_ElemResult, typename T_ElemL,
+		 void (*op)(T_ElemResult &, const T_ElemL &, const Complex &)>
+Array *BinaryFuncTmpl_array_complex(Signal &sig, const Array *pArrayL, const Complex &complexR)
+{
+	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
+	size_t nElemsL = pArrayL->GetElemNum();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(ArrayT<T_ElemResult>::Create(pArrayL->GetDimensions()));
+	T_ElemResult *pElemResult = pArrayResult->GetPointer();
+	for (size_t i = 0; i < nElemsL; i++, pElemResult++, pElemL++) {
+		op(*pElemResult, *pElemL, complexR);
+	}
+	return pArrayResult.release();
+}
+
+template<typename T_ElemResult, typename T_ElemL,
+		 void (*op)(T_ElemResult &, const T_ElemL &, const Complex &)>
+Array *BinaryFuncTmpl_Div_array_complex(Signal &sig, const Array *pArrayL, const Complex &complexR)
+{
+	if (complexR == Complex::Zero) {
+		Operator::SetError_DivideByZero(sig);
+		return nullptr;
+	}
+	return BinaryFuncTmpl_array_complex<T_ElemResult, T_ElemL, op>(sig, pArrayL, complexR);
+}
+
+template<typename T_ElemResult, typename T_ElemR,
+		 void (*op)(T_ElemResult &, const Complex &, const T_ElemR &)>
+Array *BinaryFuncTmpl_complex_array(Signal &sig, const Complex &complexL, const Array *pArrayR)
+{
+	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
+	size_t nElemsR = pArrayR->GetElemNum();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(ArrayT<T_ElemResult>::Create(pArrayR->GetDimensions()));
+	T_ElemResult *pElemResult = pArrayResult->GetPointer();
+	for (size_t i = 0; i < nElemsR; i++, pElemResult++, pElemR++) {
+		op(*pElemResult, complexL, *pElemR);
+	}
+	return pArrayResult.release();
+}
+
+template<typename T_ElemResult, typename T_ElemR,
+		 void (*op)(T_ElemResult &, const Complex &, const T_ElemR &)>
+Array *BinaryFuncTmpl_Div_complex_array(Signal &sig, const Complex &complexL, const Array *pArrayR)
+{
+	if (pArrayR->DoesContainZero()) {
+		Operator::SetError_DivideByZero(sig);
+		return nullptr;
+	}
+	return BinaryFuncTmpl_complex_array<T_ElemResult, T_ElemR, op>(sig, complexL, pArrayR);
+}
+
+//------------------------------------------------------------------------------
+// Function tables
+//------------------------------------------------------------------------------
+ImplementUnaryFuncPack(Pos,				"pos",				"+",	UnaryFuncTmpl);
+ImplementUnaryFuncPack(Neg,				"neg",				"-",	UnaryFuncTmpl);
+
+ImplementBinaryFuncPack(Add,			"add",				"+",	BinaryFuncTmpl);
+ImplementBinaryFuncPack(Sub,			"sub",				"-",	BinaryFuncTmpl);
+ImplementBinaryFuncPack(Mul,			"mul",				"*",	BinaryFuncTmpl);
+ImplementBinaryFuncPack(Div,			"div",				"/",	BinaryFuncTmpl_Div);
+ImplementBinaryFuncPack(Mod,			"mod",				"%",	BinaryFuncTmpl_Div);
+ImplementBinaryFuncPack(Pow,			"pow",				"**",	BinaryFuncTmpl);
+
+ImplementBinaryFuncPack_Cmp(Eq,			"eq",				"==",	BinaryFuncTmpl);
+ImplementBinaryFuncPack_Cmp(Ne,			"ne",				"!=",	BinaryFuncTmpl);
+ImplementBinaryFuncPack_Cmp(Gt,			"gt",				">",	BinaryFuncTmpl);
+ImplementBinaryFuncPack_Cmp(Lt,			"lt",				"<",	BinaryFuncTmpl);
+ImplementBinaryFuncPack_Cmp(Ge,			"ge",				">=",	BinaryFuncTmpl);
+ImplementBinaryFuncPack_Cmp(Le,			"le",				"<=",	BinaryFuncTmpl);
+
+ImplementBinaryFuncPack_BitOp(And,		"and",				"&");
+ImplementBinaryFuncPack_BitOp(Or,		"or",				"|");
+ImplementBinaryFuncPack_BitOp(Xor,		"xor",				"^");
+ImplementBinaryFuncPack_BitOp(Shl,		"shl",				"<<");
+ImplementBinaryFuncPack_BitOp(Shr,		"shr",				">>");
+
+ImplementUnaryFuncPack(Math_abs,		"math.abs",			"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_acos,		"math.acos",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_arg,		"math.arg",			"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_asin,		"math.asin",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_atan,		"math.atan",		"",		UnaryFuncTmpl);
+ImplementBinaryFuncPack(Math_atan2,		"math.atan2",		"",		BinaryFuncTmpl);
+ImplementUnaryFuncPack(Math_ceil,		"math.ceil",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_conj,		"math.conj",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_cos,		"math.cos",			"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_cosh,		"math.cosh",		"",		UnaryFuncTmpl);
+//ImplementBinaryFuncPack(Math_covariance,"math.covariance","",		BinaryFuncTmpl);
+//ImplementBinaryFuncPack(Math_cross,	"math.cross",		"",		BinaryFuncTmpl);
+ImplementUnaryFuncPack(Math_delta,		"math.delta",		"",		UnaryFuncTmpl);
+//ImplementBinaryFuncPack(Math_dot,		"math.dot",			"",		BinaryFuncTmpl);
+ImplementUnaryFuncPack(Math_exp,		"math.exp",			"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_floor,		"math.floor",		"",		UnaryFuncTmpl);
+ImplementBinaryFuncPack(Math_hypot,		"math.hypot",		"",		BinaryFuncTmpl);
+ImplementUnaryFuncPack(Math_imag,		"math.imag",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_log,		"math.log",			"",		UnaryFuncTmpl_ExcludeZero);
+ImplementUnaryFuncPack(Math_log10,		"math.log10",		"",		UnaryFuncTmpl_ExcludeZero);
+ImplementUnaryFuncPack(Math_norm,		"math.norm",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_ramp,		"math.ramp",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_real,		"math.real",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_sigmoid,	"math.sigmoid",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_sin,		"math.sin",			"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_sinh,		"math.sinh",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_sqrt,		"math.sqrt",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_tan,		"math.tan",			"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_tanh,		"math.tanh",		"",		UnaryFuncTmpl);
+ImplementUnaryFuncPack(Math_unitstep,	"math.unitstep",	"",		UnaryFuncTmpl);
 
 //-----------------------------------------------------------------------------
 // [+A] ... UnaryOperator(Pos, A)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Pos, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Pos, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Pos, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -15,7 +1050,7 @@ Gura_ImplementUnaryOperator(Pos, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Neg, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Neg, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Neg, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -52,31 +1087,31 @@ Gura_ImplementUnaryOperator(Neg, array)
 Gura_ImplementBinaryOperator(Add, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
+		env, g_binaryFuncPack_Add, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Add, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
+		env, g_binaryFuncPack_Add, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Add, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
+		env, g_binaryFuncPack_Add, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Add, array, complex)
 {
 	return Array::ApplyBinaryFuncOnValue_array_complex(
-		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
+		env, g_binaryFuncPack_Add, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Add, complex, array)
 {
 	return Array::ApplyBinaryFuncOnValue_complex_array(
-		env, Array::binaryFuncPack_Add, valueLeft, valueRight);
+		env, g_binaryFuncPack_Add, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -85,31 +1120,31 @@ Gura_ImplementBinaryOperator(Add, complex, array)
 Gura_ImplementBinaryOperator(Sub, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
+		env, g_binaryFuncPack_Sub, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Sub, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
+		env, g_binaryFuncPack_Sub, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Sub, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
+		env, g_binaryFuncPack_Sub, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Sub, array, complex)
 {
 	return Array::ApplyBinaryFuncOnValue_array_complex(
-		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
+		env, g_binaryFuncPack_Sub, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Sub, complex, array)
 {
 	return Array::ApplyBinaryFuncOnValue_complex_array(
-		env, Array::binaryFuncPack_Sub, valueLeft, valueRight);
+		env, g_binaryFuncPack_Sub, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -118,31 +1153,31 @@ Gura_ImplementBinaryOperator(Sub, complex, array)
 Gura_ImplementBinaryOperator(Mul, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Mul, valueLeft, valueRight);
+		env, g_binaryFuncPack_Mul, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Mul, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Mul, valueLeft, valueRight);
+		env, g_binaryFuncPack_Mul, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Mul, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Mul, valueLeft, valueRight);
+		env, g_binaryFuncPack_Mul, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Mul, array, complex)
 {
 	return Array::ApplyBinaryFuncOnValue_array_complex(
-		env, Array::binaryFuncPack_Mul, valueLeft, valueRight);
+		env, g_binaryFuncPack_Mul, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Mul, complex, array)
 {
 	return Array::ApplyBinaryFuncOnValue_complex_array(
-		env, Array::binaryFuncPack_Mul, valueLeft, valueRight);
+		env, g_binaryFuncPack_Mul, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -151,31 +1186,31 @@ Gura_ImplementBinaryOperator(Mul, complex, array)
 Gura_ImplementBinaryOperator(Div, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Div, valueLeft, valueRight);
+		env, g_binaryFuncPack_Div, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Div, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Div, valueLeft, valueRight);
+		env, g_binaryFuncPack_Div, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Div, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Div, valueLeft, valueRight);
+		env, g_binaryFuncPack_Div, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Div, array, complex)
 {
 	return Array::ApplyBinaryFuncOnValue_array_complex(
-		env, Array::binaryFuncPack_Div, valueLeft, valueRight);
+		env, g_binaryFuncPack_Div, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Div, complex, array)
 {
 	return Array::ApplyBinaryFuncOnValue_complex_array(
-		env, Array::binaryFuncPack_Div, valueLeft, valueRight);
+		env, g_binaryFuncPack_Div, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -184,19 +1219,19 @@ Gura_ImplementBinaryOperator(Div, complex, array)
 Gura_ImplementBinaryOperator(Mod, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Mod, valueLeft, valueRight);
+		env, g_binaryFuncPack_Mod, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Mod, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Mod, valueLeft, valueRight);
+		env, g_binaryFuncPack_Mod, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Mod, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Mod, valueLeft, valueRight);
+		env, g_binaryFuncPack_Mod, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -239,31 +1274,31 @@ Gura_ImplementBinaryOperator(DotProd, array, array)
 Gura_ImplementBinaryOperator(Pow, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Pow, valueLeft, valueRight);
+		env, g_binaryFuncPack_Pow, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Pow, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Pow, valueLeft, valueRight);
+		env, g_binaryFuncPack_Pow, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Pow, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Pow, valueLeft, valueRight);
+		env, g_binaryFuncPack_Pow, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Pow, array, complex)
 {
 	return Array::ApplyBinaryFuncOnValue_array_complex(
-		env, Array::binaryFuncPack_Pow, valueLeft, valueRight);
+		env, g_binaryFuncPack_Pow, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Pow, complex, array)
 {
 	return Array::ApplyBinaryFuncOnValue_complex_array(
-		env, Array::binaryFuncPack_Pow, valueLeft, valueRight);
+		env, g_binaryFuncPack_Pow, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -272,31 +1307,31 @@ Gura_ImplementBinaryOperator(Pow, complex, array)
 Gura_ImplementBinaryOperator(Eq, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
+		env, g_binaryFuncPack_Eq, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Eq, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
+		env, g_binaryFuncPack_Eq, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Eq, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
+		env, g_binaryFuncPack_Eq, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Eq, array, complex)
 {
 	return Array::ApplyBinaryFuncOnValue_array_complex(
-		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
+		env, g_binaryFuncPack_Eq, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Eq, complex, array)
 {
 	return Array::ApplyBinaryFuncOnValue_complex_array(
-		env, Array::binaryFuncPack_Eq, valueLeft, valueRight);
+		env, g_binaryFuncPack_Eq, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -305,31 +1340,31 @@ Gura_ImplementBinaryOperator(Eq, complex, array)
 Gura_ImplementBinaryOperator(Ne, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
+		env, g_binaryFuncPack_Ne, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ne, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
+		env, g_binaryFuncPack_Ne, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ne, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
+		env, g_binaryFuncPack_Ne, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ne, array, complex)
 {
 	return Array::ApplyBinaryFuncOnValue_array_complex(
-		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
+		env, g_binaryFuncPack_Ne, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ne, complex, array)
 {
 	return Array::ApplyBinaryFuncOnValue_complex_array(
-		env, Array::binaryFuncPack_Ne, valueLeft, valueRight);
+		env, g_binaryFuncPack_Ne, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -338,31 +1373,31 @@ Gura_ImplementBinaryOperator(Ne, complex, array)
 Gura_ImplementBinaryOperator(Gt, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
+		env, g_binaryFuncPack_Gt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Gt, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
+		env, g_binaryFuncPack_Gt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Gt, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
+		env, g_binaryFuncPack_Gt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Gt, array, complex)
 {
 	return Array::ApplyBinaryFuncOnValue_array_complex(
-		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
+		env, g_binaryFuncPack_Gt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Gt, complex, array)
 {
 	return Array::ApplyBinaryFuncOnValue_complex_array(
-		env, Array::binaryFuncPack_Gt, valueLeft, valueRight);
+		env, g_binaryFuncPack_Gt, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -371,31 +1406,31 @@ Gura_ImplementBinaryOperator(Gt, complex, array)
 Gura_ImplementBinaryOperator(Lt, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
+		env, g_binaryFuncPack_Lt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Lt, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
+		env, g_binaryFuncPack_Lt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Lt, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
+		env, g_binaryFuncPack_Lt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Lt, array, complex)
 {
 	return Array::ApplyBinaryFuncOnValue_array_complex(
-		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
+		env, g_binaryFuncPack_Lt, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Lt, complex, array)
 {
 	return Array::ApplyBinaryFuncOnValue_complex_array(
-		env, Array::binaryFuncPack_Lt, valueLeft, valueRight);
+		env, g_binaryFuncPack_Lt, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -404,31 +1439,31 @@ Gura_ImplementBinaryOperator(Lt, complex, array)
 Gura_ImplementBinaryOperator(Ge, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
+		env, g_binaryFuncPack_Ge, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ge, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
+		env, g_binaryFuncPack_Ge, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ge, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
+		env, g_binaryFuncPack_Ge, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ge, array, complex)
 {
 	return Array::ApplyBinaryFuncOnValue_array_complex(
-		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
+		env, g_binaryFuncPack_Ge, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Ge, complex, array)
 {
 	return Array::ApplyBinaryFuncOnValue_complex_array(
-		env, Array::binaryFuncPack_Ge, valueLeft, valueRight);
+		env, g_binaryFuncPack_Ge, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -437,31 +1472,31 @@ Gura_ImplementBinaryOperator(Ge, complex, array)
 Gura_ImplementBinaryOperator(Le, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
+		env, g_binaryFuncPack_Le, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Le, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
+		env, g_binaryFuncPack_Le, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Le, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
+		env, g_binaryFuncPack_Le, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Le, array, complex)
 {
 	return Array::ApplyBinaryFuncOnValue_array_complex(
-		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
+		env, g_binaryFuncPack_Le, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Le, complex, array)
 {
 	return Array::ApplyBinaryFuncOnValue_complex_array(
-		env, Array::binaryFuncPack_Le, valueLeft, valueRight);
+		env, g_binaryFuncPack_Le, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -478,19 +1513,19 @@ Gura_ImplementBinaryOperator(Le, complex, array)
 Gura_ImplementBinaryOperator(And, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_And, valueLeft, valueRight);
+		env, g_binaryFuncPack_And, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(And, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_And, valueLeft, valueRight);
+		env, g_binaryFuncPack_And, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(And, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_And, valueLeft, valueRight);
+		env, g_binaryFuncPack_And, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -499,19 +1534,19 @@ Gura_ImplementBinaryOperator(And, number, array)
 Gura_ImplementBinaryOperator(Or, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Or, valueLeft, valueRight);
+		env, g_binaryFuncPack_Or, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Or, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Or, valueLeft, valueRight);
+		env, g_binaryFuncPack_Or, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Or, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Or, valueLeft, valueRight);
+		env, g_binaryFuncPack_Or, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -520,19 +1555,19 @@ Gura_ImplementBinaryOperator(Or, number, array)
 Gura_ImplementBinaryOperator(Xor, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Xor, valueLeft, valueRight);
+		env, g_binaryFuncPack_Xor, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Xor, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Xor, valueLeft, valueRight);
+		env, g_binaryFuncPack_Xor, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Xor, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Xor, valueLeft, valueRight);
+		env, g_binaryFuncPack_Xor, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -541,19 +1576,19 @@ Gura_ImplementBinaryOperator(Xor, number, array)
 Gura_ImplementBinaryOperator(Shl, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Shl, valueLeft, valueRight);
+		env, g_binaryFuncPack_Shl, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Shl, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Shl, valueLeft, valueRight);
+		env, g_binaryFuncPack_Shl, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Shl, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Shl, valueLeft, valueRight);
+		env, g_binaryFuncPack_Shl, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -562,19 +1597,19 @@ Gura_ImplementBinaryOperator(Shl, number, array)
 Gura_ImplementBinaryOperator(Shr, array, array)
 {
 	return Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_Shr, valueLeft, valueRight);
+		env, g_binaryFuncPack_Shr, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Shr, array, number)
 {
 	return Array::ApplyBinaryFuncOnValue_array_number(
-		env, Array::binaryFuncPack_Shr, valueLeft, valueRight);
+		env, g_binaryFuncPack_Shr, valueLeft, valueRight);
 }
 
 Gura_ImplementBinaryOperator(Shr, number, array)
 {
 	return Array::ApplyBinaryFuncOnValue_number_array(
-		env, Array::binaryFuncPack_Shr, valueLeft, valueRight);
+		env, g_binaryFuncPack_Shr, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -598,7 +1633,7 @@ Gura_ImplementBinaryOperator(Shr, number, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_abs, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_abs, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_abs, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -606,7 +1641,7 @@ Gura_ImplementUnaryOperator(Math_abs, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_acos, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_acos, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_acos, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -614,7 +1649,7 @@ Gura_ImplementUnaryOperator(Math_acos, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_arg, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_arg, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_arg, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -622,7 +1657,7 @@ Gura_ImplementUnaryOperator(Math_arg, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_asin, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_asin, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_asin, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -630,7 +1665,7 @@ Gura_ImplementUnaryOperator(Math_asin, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_atan, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_atan, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_atan, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -642,7 +1677,7 @@ Gura_ImplementUnaryOperator(Math_atan, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_ceil, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_ceil, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_ceil, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -650,7 +1685,7 @@ Gura_ImplementUnaryOperator(Math_ceil, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_conj, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_conj, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_conj, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -658,7 +1693,7 @@ Gura_ImplementUnaryOperator(Math_conj, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_cos, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_cos, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_cos, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -666,7 +1701,7 @@ Gura_ImplementUnaryOperator(Math_cos, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_cosh, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_cosh, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_cosh, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -682,7 +1717,7 @@ Gura_ImplementUnaryOperator(Math_cosh, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_delta, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_delta, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_delta, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -694,7 +1729,7 @@ Gura_ImplementUnaryOperator(Math_delta, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_exp, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_exp, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_exp, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -702,7 +1737,7 @@ Gura_ImplementUnaryOperator(Math_exp, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_floor, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_floor, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_floor, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -714,7 +1749,7 @@ Gura_ImplementUnaryOperator(Math_floor, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_imag, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_imag, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_imag, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -722,7 +1757,7 @@ Gura_ImplementUnaryOperator(Math_imag, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_log, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_log, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_log, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -730,7 +1765,7 @@ Gura_ImplementUnaryOperator(Math_log, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_log10, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_log10, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_log10, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -738,7 +1773,7 @@ Gura_ImplementUnaryOperator(Math_log10, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_norm, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_norm, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_norm, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -746,7 +1781,7 @@ Gura_ImplementUnaryOperator(Math_norm, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_ramp, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_ramp, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_ramp, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -754,7 +1789,7 @@ Gura_ImplementUnaryOperator(Math_ramp, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_real, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_real, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_real, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -762,7 +1797,7 @@ Gura_ImplementUnaryOperator(Math_real, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_sigmoid, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_sigmoid, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_sigmoid, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -770,7 +1805,7 @@ Gura_ImplementUnaryOperator(Math_sigmoid, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_sin, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_sin, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_sin, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -778,7 +1813,7 @@ Gura_ImplementUnaryOperator(Math_sin, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_sinh, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_sinh, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_sinh, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -786,7 +1821,7 @@ Gura_ImplementUnaryOperator(Math_sinh, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_sqrt, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_sqrt, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_sqrt, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -794,7 +1829,7 @@ Gura_ImplementUnaryOperator(Math_sqrt, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_tan, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_tan, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_tan, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -802,7 +1837,7 @@ Gura_ImplementUnaryOperator(Math_tan, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_tanh, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_tanh, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_tanh, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -810,7 +1845,7 @@ Gura_ImplementUnaryOperator(Math_tanh, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_unitstep, array)
 {
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_unitstep, value);
+	return Array::ApplyUnaryFuncOnValue(env, g_unaryFuncPack_Math_unitstep, value);
 }
 
 void AssignOperators(Environment &env)
