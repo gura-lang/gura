@@ -105,6 +105,20 @@ f0 3f                                            .?
 
 ======== #9 binary ========
 
+[binary]: <binary:R:0byte>
+[binary]: <binary:R:0byte>
+1e 00 00 00                                      ....
+[binary]: <binary:R:14byte:'abcdefghijklmn'>
+[binary]: <binary:R:14byte:'abcdefghijklmn'>
+1e 00 00 0e 61 62 63 64 65 66 67 68 69 6a 6b 6c  ....abcdefghijkl
+6d 6e                                            mn
+[binary]: <binary:RW:0byte>
+[binary]: <binary:RW:0byte>
+1e 00 01 00                                      ....
+[binary]: <binary:RW:14byte:'abcdefghijklmn'>
+[binary]: <binary:RW:14byte:'abcdefghijklmn'>
+1e 00 01 0e 61 62 63 64 65 66 67 68 69 6a 6b 6c  ....abcdefghijkl
+6d 6e                                            mn
 
 ======== #10 dict ========
 
