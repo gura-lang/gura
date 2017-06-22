@@ -61,6 +61,10 @@ testcase('array') {
 }
 
 testcase('binary') {
+	test_serial(b'')
+	test_serial(b'abcdefghijklmn')
+	test_serial(binary())
+	test_serial(binary('abcdefghijklmn'))
 }
 
 testcase('dict') {

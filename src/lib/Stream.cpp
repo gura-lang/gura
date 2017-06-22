@@ -604,14 +604,9 @@ bool Stream::DeserializeString(Signal &sig, String &str)
 		str.clear();
 		return true;
 	}
-	char *buff = new char [len + 1];
-	if (Read(sig, buff, len) != len) {
-		delete[] buff;
-		return false;
-	}
-	buff[len] = '\0';
-	str = buff;
-	delete[] buff;
+	str = String(len + 1, '\0');
+	if (Read(sig, &str[0], len) != len) return false;
+	str.resize(len);
 	return true;
 }
 
@@ -630,13 +625,8 @@ bool Stream::DeserializeBinary(Signal &sig, Binary &binary)
 		binary.clear();
 		return true;
 	}
-	char *buff = new char [len];
-	if (Read(sig, buff, len) != len) {
-		delete[] buff;
-		return false;
-	}
-	binary = Binary(buff, len);
-	delete[] buff;
+	binary = Binary(len);
+	if (Read(sig, &binary[0], len) != len) return false;
 	return true;
 }
 

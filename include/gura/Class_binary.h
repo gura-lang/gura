@@ -59,6 +59,9 @@ private:
 public:
 	inline Object_binary(Class *pClass) : Object(pClass), _writableFlag(true) {}
 	inline Object_binary(Environment &env) : Object(env.LookupClass(VTYPE_binary)), _writableFlag(true) {}
+	inline Object_binary(Environment &env, bool writableFlag) :
+						Object(env.LookupClass(VTYPE_binary)),
+						_writableFlag(writableFlag) {}
 	inline Object_binary(Environment &env, const Binary &binary, bool writableFlag) :
 						Object(env.LookupClass(VTYPE_binary)),
 						_binary(binary), _writableFlag(writableFlag) {}
@@ -76,30 +79,6 @@ public:
 	inline const Binary &GetBinary() const { return _binary; }
 	inline bool IsWritable() const { return _writableFlag; }
 };
-
-#if 0
-//-----------------------------------------------------------------------------
-// Stream_Binary
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Stream_Binary : public Stream {
-private:
-	AutoPtr<Object_binary> _pObjBinary;
-	size_t _offset;
-public:
-	Stream_Binary(Environment &env, Object_binary *pObjBinary, bool seekEndFlag);
-	virtual ~Stream_Binary();
-	virtual const char *GetName() const;
-	virtual const char *GetIdentifier() const;
-	virtual size_t DoRead(Signal &sig, void *buff, size_t len);
-	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
-	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal &sig);
-	virtual bool DoClose(Signal &sig);
-	virtual size_t DoGetSize();
-	inline Binary &GetBinary() { return _pObjBinary->GetBinary(); }
-	inline const Binary &GetBinary() const { return _pObjBinary->GetBinary(); }
-};
-#endif
 
 }
 

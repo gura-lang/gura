@@ -456,13 +456,21 @@ Class::SerializeFmtVer Class_binary::GetSerializeFmtVer() const
 
 bool Class_binary::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
-	return false;
+	Object_binary *pObj = Object_binary::GetObject(value);
+	if (!stream.SerializeBoolean(env, pObj->IsWritable())) return false;
+	if (!stream.SerializeBinary(env, pObj->GetBinary())) return false;
+	return true;
 }
 
 bool Class_binary::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
 	if (serializeFmtVer == SerializeFmtVer_1) {
-		return false;
+		bool writableFlag = false;
+		if (!stream.DeserializeBoolean(env, writableFlag)) return false;
+		AutoPtr<Object_binary> pObj(new Object_binary(env, writableFlag));
+		if (!stream.DeserializeBinary(env, pObj->GetBinary())) return false;
+		value = Value(pObj.release());
+		return true;
 	}
 	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
 	return false;
