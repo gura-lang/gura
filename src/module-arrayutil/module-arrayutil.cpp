@@ -117,8 +117,11 @@ Gura_DeclareClassMethod(array, identity)
 
 Gura_ImplementClassMethod(array, identity)
 {
-	AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::CreateIdentity(arg.GetSizeT(0)));
-	Value value(new Object_array(env, pArrayT.release()));
+	Array::ElemType elemType = arg.IsValid(1)?
+		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(1)) : Array::ETYPE_Double;
+	if (env.IsSignalled()) return Value::Nil;
+	AutoPtr<Array> pArray(ArrayT<Double>::CreateIdentity(arg.GetSizeT(0)));
+	Value value(new Object_array(env, pArray.release()));
 	return ReturnValue(env, arg, value);
 }
 
@@ -155,6 +158,9 @@ Gura_DeclareClassMethod(array, interval)
 
 Gura_ImplementClassMethod(array, interval)
 {
+	Array::ElemType elemType = arg.IsValid(3)?
+		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) : Array::ETYPE_Double;
+	if (env.IsSignalled()) return Value::Nil;
 	Number numBegin = arg.GetNumber(0);
 	Number numEnd = arg.GetNumber(1);
 	int numSamples = arg.GetInt(2);
@@ -177,9 +183,9 @@ Gura_ImplementClassMethod(array, interval)
 		numDenom = numSamples;
 		iFactor = 0;
 	}
-	AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::CreateInterval(
+	AutoPtr<Array> pArray(ArrayT<Double>::CreateInterval(
 										 numBegin, numEnd, numSamples, numDenom, iFactor));
-	Value value(new Object_array(env, pArrayT.release()));
+	Value value(new Object_array(env, pArray.release()));
 	return ReturnValue(env, arg, value);
 }
 
@@ -203,6 +209,9 @@ Gura_DeclareClassMethod(array, ones)
 
 Gura_ImplementClassMethod(array, ones)
 {
+	Array::ElemType elemType = arg.IsValid(1)?
+		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(1)) : Array::ETYPE_Double;
+	if (env.IsSignalled()) return Value::Nil;
 	Value value(new Object_array(env, ArrayT<Double>::CreateOnes(arg.GetList(0))));
 	return ReturnValue(env, arg, value);
 }
@@ -223,6 +232,9 @@ Gura_DeclareClassMethod(array, rands)
 
 Gura_ImplementClassMethod(array, rands)
 {
+	Array::ElemType elemType = arg.IsValid(2)?
+		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(2)) : Array::ETYPE_Double;
+	if (env.IsSignalled()) return Value::Nil;
 	UInt range = arg.IsValid(1)? arg.GetUInt(1) : 0;
 	Value value(new Object_array(env, ArrayT<Double>::CreateRands(arg.GetList(0), range)));
 	return ReturnValue(env, arg, value);
@@ -246,6 +258,9 @@ Gura_DeclareClassMethodAlias(array, rands_at_normal, "rands@normal")
 
 Gura_ImplementClassMethod(array, rands_at_normal)
 {
+	Array::ElemType elemType = arg.IsValid(3)?
+		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) : Array::ETYPE_Double;
+	if (env.IsSignalled()) return Value::Nil;
 	double mu = arg.IsValid(1)? arg.GetDouble(1) : 0;
 	double sigma = arg.IsValid(2)? arg.GetDouble(2) : 1;
 	Value value(new Object_array(env, ArrayT<Double>::CreateRandsNormal(
@@ -285,6 +300,9 @@ Gura_DeclareClassMethod(array, range)
 
 Gura_ImplementClassMethod(array, range)
 {
+	Array::ElemType elemType = arg.IsValid(3)?
+		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) : Array::ETYPE_Double;
+	if (env.IsSignalled()) return Value::Nil;
 	Double numBegin = 0.;
 	Double numEnd = 0.;
 	Double numStep = 1.;
@@ -337,17 +355,20 @@ Gura_DeclareClassMethod(array, rotation)
 
 Gura_ImplementClassMethod(array, rotation)
 {
+	Array::ElemType elemType = arg.IsValid(3)?
+		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) : Array::ETYPE_Double;
+	if (env.IsSignalled()) return Value::Nil;
 	double angle = arg.GetDouble(0);
 	if (arg.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
-	AutoPtr<ArrayT<Double> > pArrayT;
+	AutoPtr<Array> pArray;
 	if (arg.IsValid(1) || arg.IsValid(2)) {
 		Double xTrans = arg.IsValid(1)? static_cast<Double>(arg.GetDouble(1)) : 0;
 		Double yTrans = arg.IsValid(2)? static_cast<Double>(arg.GetDouble(2)) : 0;
-		pArrayT.reset(ArrayT<Double>::CreateRotation(angle, true, xTrans, yTrans));
+		pArray.reset(ArrayT<Double>::CreateRotation(angle, true, xTrans, yTrans));
 	} else {
-		pArrayT.reset(ArrayT<Double>::CreateRotation(angle, false, 0, 0));
+		pArray.reset(ArrayT<Double>::CreateRotation(angle, false, 0, 0));
 	}
-	Value value(new Object_array(env, pArrayT.release()));
+	Value value(new Object_array(env, pArray.release()));
 	return ReturnValue(env, arg, value);
 }
 
@@ -376,18 +397,21 @@ Gura_DeclareClassMethodAlias(array, rotation_at_x, "rotation@x")
 
 Gura_ImplementClassMethod(array, rotation_at_x)
 {
+	Array::ElemType elemType = arg.IsValid(4)?
+		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(4)) : Array::ETYPE_Double;
+	if (env.IsSignalled()) return Value::Nil;
 	double angle = arg.GetDouble(0);
 	if (arg.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
-	AutoPtr<ArrayT<Double> > pArrayT;
+	AutoPtr<Array> pArray;
 	if (arg.IsValid(1) || arg.IsValid(2) || arg.IsValid(3)) {
 		Double xTrans = arg.IsValid(1)? static_cast<Double>(arg.GetDouble(1)) : 0;
 		Double yTrans = arg.IsValid(2)? static_cast<Double>(arg.GetDouble(2)) : 0;
 		Double zTrans = arg.IsValid(3)? static_cast<Double>(arg.GetDouble(3)) : 0;
-		pArrayT.reset(ArrayT<Double>::CreateRotationX(angle, true, xTrans, yTrans, zTrans));
+		pArray.reset(ArrayT<Double>::CreateRotationX(angle, true, xTrans, yTrans, zTrans));
 	} else {
-		pArrayT.reset(ArrayT<Double>::CreateRotationX(angle, false, 0, 0, 0));
+		pArray.reset(ArrayT<Double>::CreateRotationX(angle, false, 0, 0, 0));
 	}
-	Value value(new Object_array(env, pArrayT.release()));
+	Value value(new Object_array(env, pArray.release()));
 	return ReturnValue(env, arg, value);
 }
 
@@ -416,18 +440,21 @@ Gura_DeclareClassMethodAlias(array, rotation_at_y, "rotation@y")
 
 Gura_ImplementClassMethod(array, rotation_at_y)
 {
+	Array::ElemType elemType = arg.IsValid(4)?
+		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(4)) : Array::ETYPE_Double;
+	if (env.IsSignalled()) return Value::Nil;
 	double angle = arg.GetDouble(0);
 	if (arg.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
-	AutoPtr<ArrayT<Double> > pArrayT;
+	AutoPtr<Array> pArray;
 	if (arg.IsValid(1) || arg.IsValid(2) || arg.IsValid(3)) {
 		Double xTrans = arg.IsValid(1)? static_cast<Double>(arg.GetDouble(1)) : 0;
 		Double yTrans = arg.IsValid(2)? static_cast<Double>(arg.GetDouble(2)) : 0;
 		Double zTrans = arg.IsValid(3)? static_cast<Double>(arg.GetDouble(3)) : 0;
-		pArrayT.reset(ArrayT<Double>::CreateRotationY(angle, true, xTrans, yTrans, zTrans));
+		pArray.reset(ArrayT<Double>::CreateRotationY(angle, true, xTrans, yTrans, zTrans));
 	} else {
-		pArrayT.reset(ArrayT<Double>::CreateRotationY(angle, false, 0, 0, 0));
+		pArray.reset(ArrayT<Double>::CreateRotationY(angle, false, 0, 0, 0));
 	}
-	Value value(new Object_array(env, pArrayT.release()));
+	Value value(new Object_array(env, pArray.release()));
 	return ReturnValue(env, arg, value);
 }
 
@@ -456,18 +483,21 @@ Gura_DeclareClassMethodAlias(array, rotation_at_z, "rotation@z")
 
 Gura_ImplementClassMethod(array, rotation_at_z)
 {
+	Array::ElemType elemType = arg.IsValid(4)?
+		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(4)) : Array::ETYPE_Double;
+	if (env.IsSignalled()) return Value::Nil;
 	double angle = arg.GetDouble(0);
 	if (arg.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
-	AutoPtr<ArrayT<Double> > pArrayT;
+	AutoPtr<Array> pArray;
 	if (arg.IsValid(1) || arg.IsValid(2) || arg.IsValid(3)) {
 		Double xTrans = arg.IsValid(1)? static_cast<Double>(arg.GetDouble(1)) : 0;
 		Double yTrans = arg.IsValid(2)? static_cast<Double>(arg.GetDouble(2)) : 0;
 		Double zTrans = arg.IsValid(3)? static_cast<Double>(arg.GetDouble(3)) : 0;
-		pArrayT.reset(ArrayT<Double>::CreateRotationZ(angle, true, xTrans, yTrans, zTrans));
+		pArray.reset(ArrayT<Double>::CreateRotationZ(angle, true, xTrans, yTrans, zTrans));
 	} else {
-		pArrayT.reset(ArrayT<Double>::CreateRotationZ(angle, false, 0, 0, 0));
+		pArray.reset(ArrayT<Double>::CreateRotationZ(angle, false, 0, 0, 0));
 	}
-	Value value(new Object_array(env, pArrayT.release()));
+	Value value(new Object_array(env, pArray.release()));
 	return ReturnValue(env, arg, value);
 }
 
@@ -490,16 +520,19 @@ Gura_DeclareClassMethod(array, scaling)
 
 Gura_ImplementClassMethod(array, scaling)
 {
+	Array::ElemType elemType = arg.IsValid(3)?
+		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) : Array::ETYPE_Double;
+	if (env.IsSignalled()) return Value::Nil;
 	Double xScale = static_cast<Double>(arg.GetDouble(0));
 	Double yScale = static_cast<Double>(arg.GetDouble(1));
-	AutoPtr<ArrayT<Double> > pArrayT;
+	AutoPtr<Array> pArray;
 	if (arg.IsValid(2)) {
 		Double zScale = static_cast<Double>(arg.GetDouble(2));
-		pArrayT.reset(ArrayT<Double>::CreateScaling3D(xScale, yScale, zScale));
+		pArray.reset(ArrayT<Double>::CreateScaling3D(xScale, yScale, zScale));
 	} else {
-		pArrayT.reset(ArrayT<Double>::CreateScaling2D(xScale, yScale));
+		pArray.reset(ArrayT<Double>::CreateScaling2D(xScale, yScale));
 	}
-	Value value(new Object_array(env, pArrayT.release()));
+	Value value(new Object_array(env, pArray.release()));
 	return ReturnValue(env, arg, value);
 }
 
@@ -524,14 +557,14 @@ Gura_ImplementClassMethod(array, translation)
 {
 	Double xTrans = static_cast<Double>(arg.GetDouble(0));
 	Double yTrans = static_cast<Double>(arg.GetDouble(1));
-	AutoPtr<ArrayT<Double> > pArrayT;
+	AutoPtr<Array> pArray;
 	if (arg.IsValid(2)) {
 		Double zTrans = static_cast<Double>(arg.GetDouble(2));
-		pArrayT.reset(ArrayT<Double>::CreateTranslation3D(xTrans, yTrans, zTrans));
+		pArray.reset(ArrayT<Double>::CreateTranslation3D(xTrans, yTrans, zTrans));
 	} else {
-		pArrayT.reset(ArrayT<Double>::CreateTranslation2D(xTrans, yTrans));
+		pArray.reset(ArrayT<Double>::CreateTranslation2D(xTrans, yTrans));
 	}
-	Value value(new Object_array(env, pArrayT.release()));
+	Value value(new Object_array(env, pArray.release()));
 	return ReturnValue(env, arg, value);
 }
 
@@ -611,7 +644,7 @@ Value Method_dump(Environment &env, Argument &arg, const Function *pFunc, Array 
 
 Gura_ImplementMethod(array, dump)
 {
-	static const MethodT methods[] = {
+	static const MethodT methods[Array::ETYPE_Max] = {
 		nullptr,
 		&Method_dump<Boolean>,
 		&Method_dump<Int8>,
@@ -659,7 +692,7 @@ Value Method_each(Environment &env, Argument &arg, const Function *pFunc, Array 
 
 Gura_ImplementMethod(array, each)
 {
-	static const MethodT methods[] = {
+	static const MethodT methods[Array::ETYPE_Max] = {
 		nullptr,
 		&Method_each<Boolean>,
 		&Method_each<Int8>,
@@ -746,7 +779,7 @@ Value Method_fill(Environment &env, Argument &arg, const Function *pFunc, Array 
 
 Gura_ImplementMethod(array, fill)
 {
-	static const MethodT methods[] = {
+	static const MethodT methods[Array::ETYPE_Max] = {
 		nullptr,
 		&Method_fill<Boolean>,
 		&Method_fill<Int8>,
@@ -789,7 +822,7 @@ Value Method_flatten(Environment &env, Argument &arg, const Function *pFunc, Arr
 
 Gura_ImplementMethod(array, flatten)
 {
-	static const MethodT methods[] = {
+	static const MethodT methods[Array::ETYPE_Max] = {
 		nullptr,
 		&Method_flatten<Boolean>,
 		&Method_flatten<Int8>,
@@ -837,7 +870,7 @@ Value Method_head(Environment &env, Argument &arg, const Function *pFunc, Array 
 
 Gura_ImplementMethod(array, head)
 {
-	static const MethodT methods[] = {
+	static const MethodT methods[Array::ETYPE_Max] = {
 		nullptr,
 		&Method_head<Boolean>,
 		&Method_head<Int8>,
@@ -885,7 +918,7 @@ Value Method_invert(Environment &env, Argument &arg, const Function *pFunc, Arra
 
 Gura_ImplementMethod(array, invert)
 {
-	static const MethodT methods[] = {
+	static const MethodT methods[Array::ETYPE_Max] = {
 		nullptr,
 		&Method_invert<Boolean>,
 		&Method_invert<Int8>,
@@ -978,7 +1011,7 @@ Value Method_mean(Environment &env, Argument &arg, const Function *pFunc, Array 
 
 Gura_ImplementMethod(array, mean)
 {
-	static const MethodT methods[] = {
+	static const MethodT methods[Array::ETYPE_Max] = {
 		nullptr,
 		&Method_mean<UInt32, Boolean>,
 		&Method_mean<Int8, Int8>,
@@ -1026,7 +1059,7 @@ Value Method_offset(Environment &env, Argument &arg, const Function *pFunc, Arra
 
 Gura_ImplementMethod(array, offset)
 {
-	static const MethodT methods[] = {
+	static const MethodT methods[Array::ETYPE_Max] = {
 		nullptr,
 		&Method_offset<Boolean>,
 		&Method_offset<Int8>,
@@ -1080,7 +1113,7 @@ Value Method_paste(Environment &env, Argument &arg, const Function *pFunc, Array
 
 Gura_ImplementMethod(array, paste)
 {
-	static const MethodT methods[] = {
+	static const MethodT methods[Array::ETYPE_Max] = {
 		nullptr,
 		&Method_paste<Boolean>,
 		&Method_paste<Int8>,
@@ -1139,7 +1172,7 @@ Value Method_reshape(Environment &env, Argument &arg, const Function *pFunc, Arr
 
 Gura_ImplementMethod(array, reshape)
 {
-	static const MethodT methods[] = {
+	static const MethodT methods[Array::ETYPE_Max] = {
 		nullptr,
 		&Method_reshape<Boolean>,
 		&Method_reshape<Int8>,
@@ -1185,7 +1218,7 @@ Value Method_roundoff(Environment &env, Argument &arg, const Function *pFunc, Ar
 
 Gura_ImplementMethod(array, roundoff)
 {
-	static const MethodT methods[] = {
+	static const MethodT methods[Array::ETYPE_Max] = {
 		nullptr,
 		&Method_roundoff<Boolean>,
 		&Method_roundoff<Int8>,
@@ -1243,7 +1276,7 @@ Value Method_sum(Environment &env, Argument &arg, const Function *pFunc, Array *
 
 Gura_ImplementMethod(array, sum)
 {
-	static const MethodT methods[] = {
+	static const MethodT methods[Array::ETYPE_Max] = {
 		nullptr,
 		&Method_sum<UInt32, Boolean>,
 		&Method_sum<Int8, Int8>,
@@ -1291,7 +1324,7 @@ Value Method_tail(Environment &env, Argument &arg, const Function *pFunc, Array 
 
 Gura_ImplementMethod(array, tail)
 {
-	static const MethodT methods[] = {
+	static const MethodT methods[Array::ETYPE_Max] = {
 		nullptr,
 		&Method_tail<Boolean>,
 		&Method_tail<Int8>,
@@ -1345,7 +1378,7 @@ Value Method_transpose(Environment &env, Argument &arg, const Function *pFunc, A
 
 Gura_ImplementMethod(array, transpose)
 {
-	static const MethodT methods[] = {
+	static const MethodT methods[Array::ETYPE_Max] = {
 		nullptr,
 		&Method_transpose<Boolean>,
 		&Method_transpose<Int8>,
