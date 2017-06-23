@@ -3,46 +3,6 @@
 //=============================================================================
 #include "stdafx.h"
 
-#define Gura_DeclareMethodAlias_arrayT(name, nameAlias) \
-template<typename T_Elem> class Func_arrayT__##name : public Function { \
-private: \
-	ValueType _valType; \
-public: \
-	Func_arrayT__##name(Environment &env, ValueType valType); \
-	virtual Value DoEval(Environment &env, Argument &arg) const; \
-}; \
-template<typename T_Elem> \
-Func_arrayT__##name<T_Elem>::Func_arrayT__##name(Environment &env, ValueType valType) : \
-	Function(env, Symbol::Add(nameAlias), FUNCTYPE_Instance, FLAG_None), _valType(valType)
-
-#define Gura_DeclareMethod_arrayT(name) Gura_DeclareMethodAlias_arrayT(name, #name)
-
-#define Gura_DeclareClassMethodAlias_arrayT(name, nameAlias) \
-template<typename T_Elem> class Func_arrayT__##name : public Function { \
-private: \
-	ValueType _valType; \
-public: \
-	Func_arrayT__##name(Environment &env, ValueType valType); \
-	virtual Value DoEval(Environment &env, Argument &arg) const; \
-}; \
-template<typename T_Elem> \
-Func_arrayT__##name<T_Elem>::Func_arrayT__##name(Environment &env, ValueType valType) : \
-	Function(env, Symbol::Add(nameAlias), FUNCTYPE_Class, FLAG_None), _valType(valType)
-
-#define Gura_DeclareClassMethod_arrayT(name) Gura_DeclareClassMethodAlias_arrayT(name, #name)
-
-#define Gura_ImplementMethod_arrayT(name) \
-template<typename T_Elem> \
-Value Func_arrayT__##name<T_Elem>::DoEval(Environment &env, Argument &arg) const
-
-#define Gura_ImplementClassMethod_arrayT(name) Gura_ImplementMethod_arrayT(name)
-
-#define Gura_AssignMethod_arrayT(name) \
-AssignFunction(new Func_arrayT__##name<T_Elem>(env, GetValueType()))
-
-#define Gura_AssignMethodTo_arrayT(pClass, name, T_Elem, valType)	\
-pClass->AssignFunction(new Func_arrayT__##name<T_Elem>(env, valType))
-
 Gura_BeginModuleBody(arrayutil)
 
 typedef Value (*MethodT)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);
@@ -138,9 +98,9 @@ Value CallMethod(Environment &env, Argument &arg, const MethodT methods[],
 // Implementation of array creators
 //-----------------------------------------------------------------------------
 // array@T.identity(n:number):static:map {block?}
-Gura_DeclareClassMethod_arrayT(identity)
+Gura_DeclareClassMethod(array, identity)
 {
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -154,17 +114,17 @@ Gura_DeclareClassMethod_arrayT(identity)
 		);
 }
 
-Gura_ImplementClassMethod_arrayT(identity)
+Gura_ImplementClassMethod(array, identity)
 {
-	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateIdentity(arg.GetSizeT(0)));
+	AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::CreateIdentity(arg.GetSizeT(0)));
 	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
 }
 
 // array@T.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
-Gura_DeclareClassMethod_arrayT(interval)
+Gura_DeclareClassMethod(array, interval)
 {
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "begin", VTYPE_number);
 	DeclareArg(env, "end", VTYPE_number);
 	DeclareArg(env, "samples", VTYPE_number);
@@ -191,7 +151,7 @@ Gura_DeclareClassMethod_arrayT(interval)
 		);
 }
 
-Gura_ImplementClassMethod_arrayT(interval)
+Gura_ImplementClassMethod(array, interval)
 {
 	Number numBegin = arg.GetNumber(0);
 	Number numEnd = arg.GetNumber(1);
@@ -215,16 +175,16 @@ Gura_ImplementClassMethod_arrayT(interval)
 		numDenom = numSamples;
 		iFactor = 0;
 	}
-	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateInterval(
+	AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::CreateInterval(
 										 numBegin, numEnd, numSamples, numDenom, iFactor));
 	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
 }
 
 // array@T.ones(dims[]:number):static:map {block?}
-Gura_DeclareClassMethod_arrayT(ones)
+Gura_DeclareClassMethod(array, ones)
 {
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -238,16 +198,16 @@ Gura_DeclareClassMethod_arrayT(ones)
 		);
 }
 
-Gura_ImplementClassMethod_arrayT(ones)
+Gura_ImplementClassMethod(array, ones)
 {
-	Value value(new Object_array(env, ArrayT<T_Elem>::CreateOnes(arg.GetList(0))));
+	Value value(new Object_array(env, ArrayT<Double>::CreateOnes(arg.GetList(0))));
 	return ReturnValue(env, arg, value);
 }
 
 // array@T.rands(dims[]:number, range?:number):static:map {block?}
-Gura_DeclareClassMethod_arrayT(rands)
+Gura_DeclareClassMethod(array, rands)
 {
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "range", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -257,17 +217,17 @@ Gura_DeclareClassMethod_arrayT(rands)
 		);
 }
 
-Gura_ImplementClassMethod_arrayT(rands)
+Gura_ImplementClassMethod(array, rands)
 {
 	UInt range = arg.IsValid(1)? arg.GetUInt(1) : 0;
-	Value value(new Object_array(env, ArrayT<T_Elem>::CreateRands(arg.GetList(0), range)));
+	Value value(new Object_array(env, ArrayT<Double>::CreateRands(arg.GetList(0), range)));
 	return ReturnValue(env, arg, value);
 }
 
 // array@T.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
-Gura_DeclareClassMethodAlias_arrayT(rands_at_normal, "rands@normal")
+Gura_DeclareClassMethodAlias(array, rands_at_normal, "rands@normal")
 {
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "mu", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "sigma", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -279,19 +239,19 @@ Gura_DeclareClassMethodAlias_arrayT(rands_at_normal, "rands@normal")
 		);
 }
 
-Gura_ImplementClassMethod_arrayT(rands_at_normal)
+Gura_ImplementClassMethod(array, rands_at_normal)
 {
 	double mu = arg.IsValid(1)? arg.GetDouble(1) : 0;
 	double sigma = arg.IsValid(2)? arg.GetDouble(2) : 1;
-	Value value(new Object_array(env, ArrayT<T_Elem>::CreateRandsNormal(
+	Value value(new Object_array(env, ArrayT<Double>::CreateRandsNormal(
 									 arg.GetList(0), mu, sigma)));
 	return ReturnValue(env, arg, value);
 }
 
 // array@T.range(num:number, num_end?:number, step?:number):static:map {block?}
-Gura_DeclareClassMethod_arrayT(range)
+Gura_DeclareClassMethod(array, range)
 {
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_number);
 	DeclareArg(env, "num_end", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "step", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -317,7 +277,7 @@ Gura_DeclareClassMethod_arrayT(range)
 		);
 }
 
-Gura_ImplementClassMethod_arrayT(range)
+Gura_ImplementClassMethod(array, range)
 {
 	Double numBegin = 0.;
 	Double numEnd = 0.;
@@ -343,14 +303,14 @@ Gura_ImplementClassMethod_arrayT(range)
 	} else {
 		numEnd = arg.GetDouble(0);
 	}
-	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateRange(numBegin, numEnd, numStep));
+	AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::CreateRange(numBegin, numEnd, numStep));
 	return ReturnValue(env, arg, Value(new Object_array(env, pArrayT.release())));
 }
 
 // array@T.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
-Gura_DeclareClassMethod_arrayT(rotation)
+Gura_DeclareClassMethod(array, rotation)
 {
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -368,26 +328,26 @@ Gura_DeclareClassMethod_arrayT(rotation)
 		);
 }
 
-Gura_ImplementClassMethod_arrayT(rotation)
+Gura_ImplementClassMethod(array, rotation)
 {
 	double angle = arg.GetDouble(0);
 	if (arg.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
-	AutoPtr<ArrayT<T_Elem> > pArrayT;
+	AutoPtr<ArrayT<Double> > pArrayT;
 	if (arg.IsValid(1) || arg.IsValid(2)) {
-		T_Elem xTrans = arg.IsValid(1)? static_cast<T_Elem>(arg.GetDouble(1)) : 0;
-		T_Elem yTrans = arg.IsValid(2)? static_cast<T_Elem>(arg.GetDouble(2)) : 0;
-		pArrayT.reset(ArrayT<T_Elem>::CreateRotation(angle, true, xTrans, yTrans));
+		Double xTrans = arg.IsValid(1)? static_cast<Double>(arg.GetDouble(1)) : 0;
+		Double yTrans = arg.IsValid(2)? static_cast<Double>(arg.GetDouble(2)) : 0;
+		pArrayT.reset(ArrayT<Double>::CreateRotation(angle, true, xTrans, yTrans));
 	} else {
-		pArrayT.reset(ArrayT<T_Elem>::CreateRotation(angle, false, 0, 0));
+		pArrayT.reset(ArrayT<Double>::CreateRotation(angle, false, 0, 0));
 	}
 	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
 }
 
 // array@T.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
-Gura_DeclareClassMethodAlias_arrayT(rotation_at_x, "rotation@x")
+Gura_DeclareClassMethodAlias(array, rotation_at_x, "rotation@x")
 {
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -406,27 +366,27 @@ Gura_DeclareClassMethodAlias_arrayT(rotation_at_x, "rotation@x")
 		);
 }
 
-Gura_ImplementClassMethod_arrayT(rotation_at_x)
+Gura_ImplementClassMethod(array, rotation_at_x)
 {
 	double angle = arg.GetDouble(0);
 	if (arg.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
-	AutoPtr<ArrayT<T_Elem> > pArrayT;
+	AutoPtr<ArrayT<Double> > pArrayT;
 	if (arg.IsValid(1) || arg.IsValid(2) || arg.IsValid(3)) {
-		T_Elem xTrans = arg.IsValid(1)? static_cast<T_Elem>(arg.GetDouble(1)) : 0;
-		T_Elem yTrans = arg.IsValid(2)? static_cast<T_Elem>(arg.GetDouble(2)) : 0;
-		T_Elem zTrans = arg.IsValid(3)? static_cast<T_Elem>(arg.GetDouble(3)) : 0;
-		pArrayT.reset(ArrayT<T_Elem>::CreateRotationX(angle, true, xTrans, yTrans, zTrans));
+		Double xTrans = arg.IsValid(1)? static_cast<Double>(arg.GetDouble(1)) : 0;
+		Double yTrans = arg.IsValid(2)? static_cast<Double>(arg.GetDouble(2)) : 0;
+		Double zTrans = arg.IsValid(3)? static_cast<Double>(arg.GetDouble(3)) : 0;
+		pArrayT.reset(ArrayT<Double>::CreateRotationX(angle, true, xTrans, yTrans, zTrans));
 	} else {
-		pArrayT.reset(ArrayT<T_Elem>::CreateRotationX(angle, false, 0, 0, 0));
+		pArrayT.reset(ArrayT<Double>::CreateRotationX(angle, false, 0, 0, 0));
 	}
 	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
 }
 
 // array@T.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
-Gura_DeclareClassMethodAlias_arrayT(rotation_at_y, "rotation@y")
+Gura_DeclareClassMethodAlias(array, rotation_at_y, "rotation@y")
 {
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -445,27 +405,27 @@ Gura_DeclareClassMethodAlias_arrayT(rotation_at_y, "rotation@y")
 		);
 }
 
-Gura_ImplementClassMethod_arrayT(rotation_at_y)
+Gura_ImplementClassMethod(array, rotation_at_y)
 {
 	double angle = arg.GetDouble(0);
 	if (arg.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
-	AutoPtr<ArrayT<T_Elem> > pArrayT;
+	AutoPtr<ArrayT<Double> > pArrayT;
 	if (arg.IsValid(1) || arg.IsValid(2) || arg.IsValid(3)) {
-		T_Elem xTrans = arg.IsValid(1)? static_cast<T_Elem>(arg.GetDouble(1)) : 0;
-		T_Elem yTrans = arg.IsValid(2)? static_cast<T_Elem>(arg.GetDouble(2)) : 0;
-		T_Elem zTrans = arg.IsValid(3)? static_cast<T_Elem>(arg.GetDouble(3)) : 0;
-		pArrayT.reset(ArrayT<T_Elem>::CreateRotationY(angle, true, xTrans, yTrans, zTrans));
+		Double xTrans = arg.IsValid(1)? static_cast<Double>(arg.GetDouble(1)) : 0;
+		Double yTrans = arg.IsValid(2)? static_cast<Double>(arg.GetDouble(2)) : 0;
+		Double zTrans = arg.IsValid(3)? static_cast<Double>(arg.GetDouble(3)) : 0;
+		pArrayT.reset(ArrayT<Double>::CreateRotationY(angle, true, xTrans, yTrans, zTrans));
 	} else {
-		pArrayT.reset(ArrayT<T_Elem>::CreateRotationY(angle, false, 0, 0, 0));
+		pArrayT.reset(ArrayT<Double>::CreateRotationY(angle, false, 0, 0, 0));
 	}
 	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
 }
 
 // array@T.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
-Gura_DeclareClassMethodAlias_arrayT(rotation_at_z, "rotation@z")
+Gura_DeclareClassMethodAlias(array, rotation_at_z, "rotation@z")
 {
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -484,27 +444,27 @@ Gura_DeclareClassMethodAlias_arrayT(rotation_at_z, "rotation@z")
 		);
 }
 
-Gura_ImplementClassMethod_arrayT(rotation_at_z)
+Gura_ImplementClassMethod(array, rotation_at_z)
 {
 	double angle = arg.GetDouble(0);
 	if (arg.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
-	AutoPtr<ArrayT<T_Elem> > pArrayT;
+	AutoPtr<ArrayT<Double> > pArrayT;
 	if (arg.IsValid(1) || arg.IsValid(2) || arg.IsValid(3)) {
-		T_Elem xTrans = arg.IsValid(1)? static_cast<T_Elem>(arg.GetDouble(1)) : 0;
-		T_Elem yTrans = arg.IsValid(2)? static_cast<T_Elem>(arg.GetDouble(2)) : 0;
-		T_Elem zTrans = arg.IsValid(3)? static_cast<T_Elem>(arg.GetDouble(3)) : 0;
-		pArrayT.reset(ArrayT<T_Elem>::CreateRotationZ(angle, true, xTrans, yTrans, zTrans));
+		Double xTrans = arg.IsValid(1)? static_cast<Double>(arg.GetDouble(1)) : 0;
+		Double yTrans = arg.IsValid(2)? static_cast<Double>(arg.GetDouble(2)) : 0;
+		Double zTrans = arg.IsValid(3)? static_cast<Double>(arg.GetDouble(3)) : 0;
+		pArrayT.reset(ArrayT<Double>::CreateRotationZ(angle, true, xTrans, yTrans, zTrans));
 	} else {
-		pArrayT.reset(ArrayT<T_Elem>::CreateRotationZ(angle, false, 0, 0, 0));
+		pArrayT.reset(ArrayT<Double>::CreateRotationZ(angle, false, 0, 0, 0));
 	}
 	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
 }
 
 // array@T.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
-Gura_DeclareClassMethod_arrayT(scaling)
+Gura_DeclareClassMethod(array, scaling)
 {
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "xscale", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "yscale", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "zscale", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -517,25 +477,25 @@ Gura_DeclareClassMethod_arrayT(scaling)
 		);
 }
 
-Gura_ImplementClassMethod_arrayT(scaling)
+Gura_ImplementClassMethod(array, scaling)
 {
-	T_Elem xScale = static_cast<T_Elem>(arg.GetDouble(0));
-	T_Elem yScale = static_cast<T_Elem>(arg.GetDouble(1));
-	AutoPtr<ArrayT<T_Elem> > pArrayT;
+	Double xScale = static_cast<Double>(arg.GetDouble(0));
+	Double yScale = static_cast<Double>(arg.GetDouble(1));
+	AutoPtr<ArrayT<Double> > pArrayT;
 	if (arg.IsValid(2)) {
-		T_Elem zScale = static_cast<T_Elem>(arg.GetDouble(2));
-		pArrayT.reset(ArrayT<T_Elem>::CreateScaling3D(xScale, yScale, zScale));
+		Double zScale = static_cast<Double>(arg.GetDouble(2));
+		pArrayT.reset(ArrayT<Double>::CreateScaling3D(xScale, yScale, zScale));
 	} else {
-		pArrayT.reset(ArrayT<T_Elem>::CreateScaling2D(xScale, yScale));
+		pArrayT.reset(ArrayT<Double>::CreateScaling2D(xScale, yScale));
 	}
 	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
 }
 
 // array@T.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
-Gura_DeclareClassMethod_arrayT(translation)
+Gura_DeclareClassMethod(array, translation)
 {
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "ztrans", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -548,25 +508,25 @@ Gura_DeclareClassMethod_arrayT(translation)
 		);
 }
 
-Gura_ImplementClassMethod_arrayT(translation)
+Gura_ImplementClassMethod(array, translation)
 {
-	T_Elem xTrans = static_cast<T_Elem>(arg.GetDouble(0));
-	T_Elem yTrans = static_cast<T_Elem>(arg.GetDouble(1));
-	AutoPtr<ArrayT<T_Elem> > pArrayT;
+	Double xTrans = static_cast<Double>(arg.GetDouble(0));
+	Double yTrans = static_cast<Double>(arg.GetDouble(1));
+	AutoPtr<ArrayT<Double> > pArrayT;
 	if (arg.IsValid(2)) {
-		T_Elem zTrans = static_cast<T_Elem>(arg.GetDouble(2));
-		pArrayT.reset(ArrayT<T_Elem>::CreateTranslation3D(xTrans, yTrans, zTrans));
+		Double zTrans = static_cast<Double>(arg.GetDouble(2));
+		pArrayT.reset(ArrayT<Double>::CreateTranslation3D(xTrans, yTrans, zTrans));
 	} else {
-		pArrayT.reset(ArrayT<T_Elem>::CreateTranslation2D(xTrans, yTrans));
+		pArrayT.reset(ArrayT<Double>::CreateTranslation2D(xTrans, yTrans));
 	}
 	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
 }
 
 // array@T.zeros(dims[]:number):static:map {block?}
-Gura_DeclareClassMethod_arrayT(zeros)
+Gura_DeclareClassMethod(array, zeros)
 {
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -580,9 +540,9 @@ Gura_DeclareClassMethod_arrayT(zeros)
 		);
 }
 
-Gura_ImplementClassMethod_arrayT(zeros)
+Gura_ImplementClassMethod(array, zeros)
 {
-	Value value(new Object_array(env, ArrayT<T_Elem>::CreateZeros(arg.GetList(0))));
+	Value value(new Object_array(env, ArrayT<Double>::CreateZeros(arg.GetList(0))));
 	return ReturnValue(env, arg, value);
 }
 
@@ -1409,21 +1369,20 @@ Gura_ModuleValidate()
 Gura_ModuleEntry()
 {
 	// assignment of array creators
+	Gura_AssignMethodTo(VTYPE_array, array, identity);
+	Gura_AssignMethodTo(VTYPE_array, array, interval);
+	Gura_AssignMethodTo(VTYPE_array, array, ones);
+	Gura_AssignMethodTo(VTYPE_array, array, rands);
+	Gura_AssignMethodTo(VTYPE_array, array, rands_at_normal);
+	Gura_AssignMethodTo(VTYPE_array, array, range);
+	Gura_AssignMethodTo(VTYPE_array, array, rotation);
+	Gura_AssignMethodTo(VTYPE_array, array, rotation_at_x);
+	Gura_AssignMethodTo(VTYPE_array, array, rotation_at_y);
+	Gura_AssignMethodTo(VTYPE_array, array, rotation_at_z);
+	Gura_AssignMethodTo(VTYPE_array, array, scaling);
+	Gura_AssignMethodTo(VTYPE_array, array, translation);
+	Gura_AssignMethodTo(VTYPE_array, array, zeros);
 #if 0
-	Gura_AssignMethod_arrayT(identity);
-	Gura_AssignMethod_arrayT(interval);
-	Gura_AssignMethod_arrayT(ones);
-	Gura_AssignMethod_arrayT(rands);
-	Gura_AssignMethod_arrayT(rands_at_normal);
-	Gura_AssignMethod_arrayT(range);
-	Gura_AssignMethod_arrayT(rotation);
-	Gura_AssignMethod_arrayT(rotation_at_x);
-	Gura_AssignMethod_arrayT(rotation_at_y);
-	Gura_AssignMethod_arrayT(rotation_at_z);
-	Gura_AssignMethod_arrayT(scaling);
-	Gura_AssignMethod_arrayT(translation);
-	Gura_AssignMethod_arrayT(zeros);
-#endif
 	do {
 		Class *pClass = env.LookupClass(VTYPE_array);
 		Gura_AssignMethodTo_arrayT(pClass, identity,		Double, VTYPE_array_at_double);
@@ -1440,6 +1399,7 @@ Gura_ModuleEntry()
 		Gura_AssignMethodTo_arrayT(pClass, translation,		Double, VTYPE_array_at_double);
 		Gura_AssignMethodTo_arrayT(pClass, zeros,			Double, VTYPE_array_at_double);
 	} while (0);
+#endif
 	// Assignment of methods
 	Gura_AssignMethodTo(VTYPE_array, array, dot);
 	Gura_AssignMethodTo(VTYPE_array, array, dump);
