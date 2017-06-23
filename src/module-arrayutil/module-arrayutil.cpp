@@ -97,11 +97,12 @@ Value CallMethod(Environment &env, Argument &arg, const MethodT methods[],
 //-----------------------------------------------------------------------------
 // Implementation of array creators
 //-----------------------------------------------------------------------------
-// array@T.identity(n:number):static:map {block?}
+// array.identity(n:number, elemtype?:symbol):static:map {block?}
 Gura_DeclareClassMethod(array, identity)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -121,13 +122,14 @@ Gura_ImplementClassMethod(array, identity)
 	return ReturnValue(env, arg, value);
 }
 
-// array@T.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
+// array.interval(begin:number, end:number, samples:number, elemtype?:symbol):static:map:[open,open_l,open_r] {block?}
 Gura_DeclareClassMethod(array, interval)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "begin", VTYPE_number);
 	DeclareArg(env, "end", VTYPE_number);
 	DeclareArg(env, "samples", VTYPE_number);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(open));
 	DeclareAttr(Gura_Symbol(open_l));
 	DeclareAttr(Gura_Symbol(open_r));
@@ -181,11 +183,12 @@ Gura_ImplementClassMethod(array, interval)
 	return ReturnValue(env, arg, value);
 }
 
-// array@T.ones(dims[]:number):static:map {block?}
+// array.ones(dims[]:number, elemtype?:symbol):static:map {block?}
 Gura_DeclareClassMethod(array, ones)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -204,12 +207,13 @@ Gura_ImplementClassMethod(array, ones)
 	return ReturnValue(env, arg, value);
 }
 
-// array@T.rands(dims[]:number, range?:number):static:map {block?}
+// array.rands(dims[]:number, range?:number, elemtype?:symbol):static:map {block?}
 Gura_DeclareClassMethod(array, rands)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "range", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -224,13 +228,14 @@ Gura_ImplementClassMethod(array, rands)
 	return ReturnValue(env, arg, value);
 }
 
-// array@T.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+// array.rands@normal(dims[]:number, mu?:number, sigma?:number, elemtype?:symbol):static:map {block?}
 Gura_DeclareClassMethodAlias(array, rands_at_normal, "rands@normal")
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "mu", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "sigma", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -248,13 +253,14 @@ Gura_ImplementClassMethod(array, rands_at_normal)
 	return ReturnValue(env, arg, value);
 }
 
-// array@T.range(num:number, num_end?:number, step?:number):static:map {block?}
+// array.range(num:number, num_end?:number, step?:number, elemtype?:symbol):static:map {block?}
 Gura_DeclareClassMethod(array, range)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_number);
 	DeclareArg(env, "num_end", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "step", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -262,9 +268,9 @@ Gura_DeclareClassMethod(array, range)
 		"\n"
 		"This function can be called in three formats that generate following numbers:\n"
 		"\n"
-		"- `array@T.range(num)` .. Numbers between `0` and `(num - 1)`.\n"
-		"- `array@T.range(num, num_end)` .. Numbers between `num` and `(num_end - 1)`.\n"
-		"- `array@T.range(num, num_end, step)` .. Numbers between `num` and `(num_end - 1)` incremented by `step`.\n"
+		"- `array.range(num)` .. Numbers between `0` and `(num - 1)`.\n"
+		"- `array.range(num, num_end)` .. Numbers between `num` and `(num_end - 1)`.\n"
+		"- `array.range(num, num_end, step)` .. Numbers between `num` and `(num_end - 1)` incremented by `step`.\n"
 		"\n"
 		"Example:\n"
 		"\n"
@@ -307,13 +313,14 @@ Gura_ImplementClassMethod(array, range)
 	return ReturnValue(env, arg, Value(new Object_array(env, pArrayT.release())));
 }
 
-// array@T.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
+// array.rotation(angle:number, xtrans?:number, ytrans?:number, elemtype?:symbol):static:map:[deg] {block?}
 Gura_DeclareClassMethod(array, rotation)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -344,7 +351,7 @@ Gura_ImplementClassMethod(array, rotation)
 	return ReturnValue(env, arg, value);
 }
 
-// array@T.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+// array.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number, elemtype?:symbol):static:map:[deg] {block?}
 Gura_DeclareClassMethodAlias(array, rotation_at_x, "rotation@x")
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
@@ -352,6 +359,7 @@ Gura_DeclareClassMethodAlias(array, rotation_at_x, "rotation@x")
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ztrans", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -383,7 +391,7 @@ Gura_ImplementClassMethod(array, rotation_at_x)
 	return ReturnValue(env, arg, value);
 }
 
-// array@T.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+// array.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number, elemtype?:symbol):static:map:[deg] {block?}
 Gura_DeclareClassMethodAlias(array, rotation_at_y, "rotation@y")
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
@@ -391,6 +399,7 @@ Gura_DeclareClassMethodAlias(array, rotation_at_y, "rotation@y")
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ztrans", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -422,7 +431,7 @@ Gura_ImplementClassMethod(array, rotation_at_y)
 	return ReturnValue(env, arg, value);
 }
 
-// array@T.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+// array.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number, elemtype?:symbol):static:map:[deg] {block?}
 Gura_DeclareClassMethodAlias(array, rotation_at_z, "rotation@z")
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
@@ -430,6 +439,7 @@ Gura_DeclareClassMethodAlias(array, rotation_at_z, "rotation@z")
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ztrans", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -461,13 +471,14 @@ Gura_ImplementClassMethod(array, rotation_at_z)
 	return ReturnValue(env, arg, value);
 }
 
-// array@T.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+// array.scaling(xscale:number, yscale:number, zscale?:number, elemtype?:symbol):static:map {block?}
 Gura_DeclareClassMethod(array, scaling)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "xscale", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "yscale", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "zscale", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -492,13 +503,14 @@ Gura_ImplementClassMethod(array, scaling)
 	return ReturnValue(env, arg, value);
 }
 
-// array@T.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
+// array.translation(xtrans:number, ytrans:number, ztrans?:number, elemtype?:symbol):static:map {block?}
 Gura_DeclareClassMethod(array, translation)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "ztrans", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -523,11 +535,12 @@ Gura_ImplementClassMethod(array, translation)
 	return ReturnValue(env, arg, value);
 }
 
-// array@T.zeros(dims[]:number):static:map {block?}
+// array.zeros(dims[]:number, elemtype?:symbol):static:map {block?}
 Gura_DeclareClassMethod(array, zeros)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
