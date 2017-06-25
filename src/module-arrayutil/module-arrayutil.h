@@ -5,6 +5,8 @@
 #define __GURA_MODULE_ARRAYUTIL_H__
 #include <gura.h>
 #include "Operator.h"
+#include "Creator.h"
+#include "Method.h"
 
 Gura_BeginModuleHeader(arrayutil)
 Gura_EndModuleHeader(arrayutil)
