@@ -774,8 +774,7 @@ Gura_ImplementClassMethod(array, scaling)
 		}
 		pArray.reset((*func)(xScale, yScale));
 	}
-	Value value(new Object_array(env, pArray.release()));
-	return ReturnValue(env, arg, value);
+	return ReturnValue(env, arg, Value(new Object_array(env, pArray.release())));
 }
 
 // array.translation(xtrans:number, ytrans:number, ztrans?:number, elemtype?:symbol):static:map {block?}
@@ -795,19 +794,81 @@ Gura_DeclareClassMethod(array, translation)
 		);
 }
 
+template<typename T_Elem> Array *FuncTmpl_translation2D(Double xTrans, Double yTrans)
+{
+	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(3, 3));
+	T_Elem *p = pArrayT->GetPointer();
+	// row-1
+	*p++ = 1;
+	*p++ = 0;
+	*p++ = xTrans;
+	// row-2
+	*p++ = 0;
+	*p++ = 1;
+	*p++ = yTrans;
+	// row-3
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 1;
+	return pArrayT.release();
+}
+
+template<typename T_Elem> Array *FuncTmpl_translation3D(Double xTrans, Double yTrans, Double zTrans)
+{
+	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(4, 4));
+	T_Elem *p = pArrayT->GetPointer();
+	// row-1
+	*p++ = 1;
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = xTrans;
+	// row-2
+	*p++ = 0;
+	*p++ = 1;
+	*p++ = 0;
+	*p++ = yTrans;
+	// row-3
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 1;
+	*p++ = zTrans;
+	// row-4
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 1;
+	return pArrayT.release();
+}
+
 Gura_ImplementClassMethod(array, translation)
 {
-	Double xTrans = static_cast<Double>(arg.GetDouble(0));
-	Double yTrans = static_cast<Double>(arg.GetDouble(1));
+	typedef Array *(*FuncT2D)(Double xTrans, Double yTrans);
+	typedef Array *(*FuncT3D)(Double xTrans, Double yTrans, Double zTrans);
+	DeclareFunctionTable1D(FuncT2D, funcTbl2D, FuncTmpl_translation2D);
+	DeclareFunctionTable1D(FuncT3D, funcTbl3D, FuncTmpl_translation3D);
+	Double xTrans = arg.GetDouble(0);
+	Double yTrans = arg.GetDouble(1);
 	AutoPtr<Array> pArray;
+	Array::ElemType elemType = arg.IsValid(3)?
+		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) : Array::ETYPE_Double;
+	if (env.IsSignalled()) return Value::Nil;
 	if (arg.IsValid(2)) {
-		Double zTrans = static_cast<Double>(arg.GetDouble(2));
-		pArray.reset(ArrayT<Double>::CreateTranslation3D(xTrans, yTrans, zTrans));
+		FuncT3D func = funcTbl3D[elemType];
+		if (func == nullptr) {
+			SetError_CreationError(env, elemType);
+			return Value::Nil;
+		}
+		Double zTrans = arg.GetDouble(2);
+		pArray.reset((*func)(xTrans, yTrans, zTrans));
 	} else {
-		pArray.reset(ArrayT<Double>::CreateTranslation2D(xTrans, yTrans));
+		FuncT2D func = funcTbl2D[elemType];
+		if (func == nullptr) {
+			SetError_CreationError(env, elemType);
+			return Value::Nil;
+		}
+		pArray.reset((*func)(xTrans, yTrans));
 	}
-	Value value(new Object_array(env, pArray.release()));
-	return ReturnValue(env, arg, value);
+	return ReturnValue(env, arg, Value(new Object_array(env, pArray.release())));
 }
 
 // array.zeros(dims[]:number, elemtype?:symbol):static:map {block?}
