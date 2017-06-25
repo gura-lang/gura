@@ -802,6 +802,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromExpr(Environment &env, const Expr *pEx
 	return ArrayT<T_Elem>::CreateFromList(env, result.GetList());
 }
 
+#if 0
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateIdentity(size_t n)
 {
@@ -1116,6 +1117,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateTranslation3D(T_Elem xTrans, T_Elem yTrans
 	*p++ = 1;
 	return pArrayT.release();
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Iterator_ArrayT_Each

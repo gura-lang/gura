@@ -889,10 +889,29 @@ Gura_DeclareClassMethod(array, zeros)
 		);
 }
 
+template<typename T_Elem> Array *FuncTmpl_zeros(const ValueList &valList)
+{
+	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
+	pArrayT->SetDimensions(valList);
+	pArrayT->AllocMemory();
+	pArrayT->FillZero();
+	return pArrayT.release();
+}
+
 Gura_ImplementClassMethod(array, zeros)
 {
-	Value value(new Object_array(env, ArrayT<Double>::CreateZeros(arg.GetList(0))));
-	return ReturnValue(env, arg, value);
+	typedef Array *(*FuncT)(const ValueList &valList);
+	DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl_zeros);
+	Array::ElemType elemType = arg.IsValid(1)?
+		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(1)) : Array::ETYPE_Double;
+	if (env.IsSignalled()) return Value::Nil;
+	FuncT func = funcTbl[elemType];
+	if (func == nullptr) {
+		SetError_CreationError(env, elemType);
+		return Value::Nil;
+	}
+	AutoPtr<Array> pArray((*func)(arg.GetList(0)));
+	return ReturnValue(env, arg, Value(new Object_array(env, pArray.release())));
 }
 
 void AssignCreators(Environment &env)

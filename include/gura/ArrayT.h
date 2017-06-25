@@ -74,6 +74,7 @@ public:
 	static ArrayT *CreateFromList(Environment &env, const ValueList &valList);
 	static ArrayT *CreateFromIterator(Environment &env, Iterator *pIterator);
 	static ArrayT *CreateFromExpr(Environment &env, const Expr *pExpr);
+#if 0
 	static ArrayT *CreateIdentity(size_t n);
 	static ArrayT *CreateRange(Double numBegin, Double numEnd, Double numStep);
 	static ArrayT *CreateInterval(
@@ -90,6 +91,7 @@ public:
 	static ArrayT *CreateScaling3D(T_Elem xScale, T_Elem yScale, T_Elem zScale);
 	static ArrayT *CreateTranslation2D(T_Elem xTrans, T_Elem yTrans);
 	static ArrayT *CreateTranslation3D(T_Elem xTrans, T_Elem yTrans, T_Elem zTrans);
+#endif
 private:
 	inline ~ArrayT() {}
 };
