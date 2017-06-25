@@ -700,8 +700,58 @@ Gura_DeclareClassMethod(array, scaling)
 		);
 }
 
+template<typename T_Elem> Array *FuncTmpl_scaling2D(Double xScale, Double yScale)
+{
+	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(3, 3));
+	T_Elem *p = pArrayT->GetPointer();
+	// row-1
+	*p++ = static_cast<T_Elem>(xScale);
+	*p++ = 0;
+	*p++ = 0;
+	// row-2
+	*p++ = 0;
+	*p++ = static_cast<T_Elem>(yScale);
+	*p++ = 0;
+	// row-3
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 1;
+	return pArrayT.release();
+}
+
+template<typename T_Elem> Array *FuncTmpl_scaling3D(Double xScale, Double yScale, Double zScale)
+{
+	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(4, 4));
+	T_Elem *p = pArrayT->GetPointer();
+	// row-1
+	*p++ = static_cast<T_Elem>(xScale);
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 0;
+	// row-2
+	*p++ = 0;
+	*p++ = static_cast<T_Elem>(yScale);
+	*p++ = 0;
+	*p++ = 0;
+	// row-3
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = static_cast<T_Elem>(zScale);
+	*p++ = 0;
+	// row-4
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 0;
+	*p++ = 1;
+	return pArrayT.release();
+}
+
 Gura_ImplementClassMethod(array, scaling)
 {
+	typedef Array *(*FuncT2D)(Double xTrans, Double yTrans);
+	typedef Array *(*FuncT3D)(Double xTrans, Double yTrans, Double zTrans);
+	DeclareFunctionTable1D(FuncT2D, funcTbl2D, FuncTmpl_scaling2D);
+	DeclareFunctionTable1D(FuncT3D, funcTbl3D, FuncTmpl_scaling3D);
 	Array::ElemType elemType = arg.IsValid(3)?
 		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) : Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
@@ -709,10 +759,20 @@ Gura_ImplementClassMethod(array, scaling)
 	Double yScale = static_cast<Double>(arg.GetDouble(1));
 	AutoPtr<Array> pArray;
 	if (arg.IsValid(2)) {
+		FuncT3D func = funcTbl3D[elemType];
+		if (func == nullptr) {
+			SetError_CreationError(env, elemType);
+			return Value::Nil;
+		}
 		Double zScale = static_cast<Double>(arg.GetDouble(2));
-		pArray.reset(ArrayT<Double>::CreateScaling3D(xScale, yScale, zScale));
+		pArray.reset((*func)(xScale, yScale, zScale));
 	} else {
-		pArray.reset(ArrayT<Double>::CreateScaling2D(xScale, yScale));
+		FuncT2D func = funcTbl2D[elemType];
+		if (func == nullptr) {
+			SetError_CreationError(env, elemType);
+			return Value::Nil;
+		}
+		pArray.reset((*func)(xScale, yScale));
 	}
 	Value value(new Object_array(env, pArray.release()));
 	return ReturnValue(env, arg, value);
