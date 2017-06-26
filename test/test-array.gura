@@ -7,6 +7,16 @@ elemtypeTbl = [
 	`half, `float, `double, `complex
 ]
 
+funcTbl = [
+	array@boolean, array@int8, array@uint8, array@int16, array@uint16,
+	array@int32, array@uint32, array@int64, array@uint64,
+	array@half, array@float, array@double, array@complex,
+]
+
+elemtypeTbl_float = [
+	`half, `float, `double, `complex
+]
+
 FormatArray(fmt:string, array:array):map = {
 	if (array.ndim == 1) {
 		'[' + format(fmt, array.each()).join(' ') + ']'
@@ -42,16 +52,63 @@ testcase('constructor') {
 		x.each {|n| printf('%d ', n)}, println()
 		x = array(0..29, elemtype => elemtype)
 		println(x[0..29].each().join(' '))
-		println(array.zeros([3, 4], elemtype => elemtype))
-		println(array.zeros([2, 3, 4], elemtype => elemtype))
+	}
+}
+testcase('array.identity()') {
+	elemtypeTbl.each {|elemtype|
+		println(elemtype)
+		x = array.identity(1, elemtype => elemtype)
+		println((x.each():flat).fold(1):*join(' '))
+		x = array.identity(2, elemtype => elemtype)
+		println((x.each():flat).fold(2):*join(' '))
+		x = array.identity(3, elemtype => elemtype)
+		println((x.each():flat).fold(3):*join(' '))
+		x = array.identity(5, elemtype => elemtype)
+		println((x.each():flat).fold(5):*join(' '))
+	}
+	funcTbl.each {|func|
+		method = func.interval
+		method(5) {|x|
+			println(function.getfullname(method), ' .. ', x.elemtype)
+			println(x)
+		}
+	}
+}
+testcase('array.interval()') {
+	elemtypeTbl.each {|elemtype|
+		println(elemtype)
+		tester(`array.interval(0, 8, 5, elemtype => elemtype))
+		tester(`array.interval(0, 10, 5, elemtype => elemtype))
+	}
+	funcTbl.each {|func|
+		method = func.interval
+		method(0, 10, 5) {|x|
+			println(function.getfullname(method), ' .. ', x.elemtype)
+			println(x)
+		}
+	}
+}
+testcase('array.ones()') {
+	elemtypeTbl.each {|elemtype|
+		println(elemtype)
 		println(array.ones([3, 4], elemtype => elemtype))
 		println(array.ones([2, 3, 4], elemtype => elemtype))
+	}
+}
+testcase('array.rands()') {
+	elemtypeTbl.each {|elemtype|
+		println(elemtype)
 		randseed(0), println(array.rands([12], elemtype => elemtype))
 		randseed(0), println(array.rands([3, 4], elemtype => elemtype))
 		randseed(0), println(array.rands([2, 3, 4], elemtype => elemtype))
 		randseed(0), println(array.rands([12], 100, elemtype => elemtype))
 		randseed(0), println(array.rands([3, 4], 100, elemtype => elemtype))
 		randseed(0), println(array.rands([2, 3, 4], 100, elemtype => elemtype))
+	}
+}
+testcase('array.rands@normal()') {
+	elemtypeTbl.each {|elemtype|
+		println(elemtype)
 		randseed(0), println(array.rands@normal([12], elemtype => elemtype))
 		randseed(0), println(array.rands@normal([3, 4], elemtype => elemtype))
 		randseed(0), println(array.rands@normal([2, 3, 4], elemtype => elemtype))
@@ -61,6 +118,93 @@ testcase('constructor') {
 		randseed(0), println(array.rands@normal([12], 10, 6, elemtype => elemtype))
 		randseed(0), println(array.rands@normal([3, 4], 10, 6, elemtype => elemtype))
 		randseed(0), println(array.rands@normal([2, 3, 4], 10, 6, elemtype => elemtype))
+	}
+}
+testcase('array.range()') {
+	elemtypeTbl.each {|elemtype|
+		println(elemtype)
+		tester(`array.range(10, elemtype => elemtype))
+		tester(`array.range(0, 10, elemtype => elemtype))
+		tester(`array.range(0, -10, elemtype => elemtype))
+		tester(`array.range(3, 10, elemtype => elemtype))
+		tester(`array.range(3, -10, elemtype => elemtype))
+		tester(`array.range(-3, 10, elemtype => elemtype))
+		tester(`array.range(-3, -10, elemtype => elemtype))
+		tester(`array.range(3, 10, 2, elemtype => elemtype))
+		tester(`array.range(3, -10, -2, elemtype => elemtype))
+		tester(`array.range(-3, 10, 2, elemtype => elemtype))
+		tester(`array.range(-3, -10, -2, elemtype => elemtype))
+		tester(`array.range(3, 10, -2, elemtype => elemtype))
+		tester(`array.range(3, -10, 2, elemtype => elemtype))
+		tester(`array.range(3, 10, 0, elemtype => elemtype))
+	}
+}
+testcase('array.rotation()') {
+	elemtypeTbl_float.each {|elemtype|
+		println(elemtype)
+		tester(`array.rotation(0, elemtype => elemtype))
+		tester(`array.rotation(0, 2, elemtype => elemtype))
+		tester(`array.rotation(0, 2, 3, elemtype => elemtype))
+		tester(`array.rotation(math.pi / 6, elemtype => elemtype))
+		tester(`array.rotation(30, elemtype => elemtype):deg)
+	}
+}
+testcase('array.rotation@x()') {
+	elemtypeTbl_float.each {|elemtype|
+		println(elemtype)
+		tester(`array.rotation@x(0, elemtype => elemtype))
+		tester(`array.rotation@x(0, 2, elemtype => elemtype))
+		tester(`array.rotation@x(0, 2, 3, elemtype => elemtype))
+		tester(`array.rotation@x(0, 2, 3, 4, elemtype => elemtype))
+		tester(`array.rotation@x(math.pi / 6, elemtype => elemtype))
+		tester(`array.rotation@x(30, elemtype => elemtype):deg)
+	}
+}
+testcase('array.rotation@y()') {
+	elemtypeTbl_float.each {|elemtype|
+		println(elemtype)
+		tester(`array.rotation@y(0, elemtype => elemtype))
+		tester(`array.rotation@y(0, 2, elemtype => elemtype))
+		tester(`array.rotation@y(0, 2, 3, elemtype => elemtype))
+		tester(`array.rotation@y(0, 2, 3, 4, elemtype => elemtype))
+		tester(`array.rotation@y(math.pi / 6, elemtype => elemtype))
+		tester(`array.rotation@y(30, elemtype => elemtype):deg)
+	}
+}
+testcase('array.rotation@z()') {
+	elemtypeTbl_float.each {|elemtype|
+		println(elemtype)
+		tester(`array.rotation@z(0, elemtype => elemtype))
+		tester(`array.rotation@z(0, 2, elemtype => elemtype))
+		tester(`array.rotation@z(0, 2, 3, elemtype => elemtype))
+		tester(`array.rotation@z(0, 2, 3, 4, elemtype => elemtype))
+		tester(`array.rotation@z(math.pi / 6, elemtype => elemtype))
+		tester(`array.rotation@z(30, elemtype => elemtype):deg)
+	}
+}
+testcase('array.scaling()') {
+	elemtypeTbl.each {|elemtype|
+		println(elemtype)
+		tester(`array.scaling(0, 0, elemtype => elemtype))
+		tester(`array.scaling(0, 0, 0, elemtype => elemtype))
+		tester(`array.scaling(2, 3, elemtype => elemtype))
+		tester(`array.scaling(2, 3, 4, elemtype => elemtype))
+	}
+}
+testcase('array.translation()') {
+	elemtypeTbl.each {|elemtype|
+		println(elemtype)
+		tester(`array.translation(0, 0, elemtype => elemtype))
+		tester(`array.translation(0, 0, 0, elemtype => elemtype))
+		tester(`array.translation(2, 3, elemtype => elemtype))
+		tester(`array.translation(2, 3, 4, elemtype => elemtype))
+	}
+}
+testcase('array.zeros()') {
+	elemtypeTbl.each {|elemtype|
+		println(elemtype)
+		println(array.zeros([3, 4], elemtype => elemtype))
+		println(array.zeros([2, 3, 4], elemtype => elemtype))
 	}
 }
 testcase('cast to list') {
@@ -278,19 +422,6 @@ testcase('sum/mean') {
 		println('avg = ', x.mean())
 	}	
 }
-testcase('identity') {
-	elemtypeTbl.each {|elemtype|
-		println(elemtype)
-		x = array.identity(1, elemtype => elemtype)
-		println((x.each():flat).fold(1):*join(' '))
-		x = array.identity(2, elemtype => elemtype)
-		println((x.each():flat).fold(2):*join(' '))
-		x = array.identity(3, elemtype => elemtype)
-		println((x.each():flat).fold(3):*join(' '))
-		x = array.identity(5, elemtype => elemtype)
-		println((x.each():flat).fold(5):*join(' '))
-	}
-}
 testcase('modification on referenced instance') {
 	x = array([[1, 2], [3, 4], [5, 6]], elemtype => `int32)
 	println(x)
@@ -441,24 +572,6 @@ testcase('dimension mismatch error') {
 	tester(`(array {{1, 2}, {3, 4}} + array {{1, 2, 3}, {4, 5, 6}}))
 	tester(`(array {{1, 2}, {3, 4}} |.| array {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}))
 }
-testcase('range') {
-	elemtype = `int32
-	println(elemtype)
-	tester(`array.range(10, elemtype => elemtype))
-	tester(`array.range(0, 10, elemtype => elemtype))
-	tester(`array.range(0, -10, elemtype => elemtype))
-	tester(`array.range(3, 10, elemtype => elemtype))
-	tester(`array.range(3, -10, elemtype => elemtype))
-	tester(`array.range(-3, 10, elemtype => elemtype))
-	tester(`array.range(-3, -10, elemtype => elemtype))
-	tester(`array.range(3, 10, 2, elemtype => elemtype))
-	tester(`array.range(3, -10, -2, elemtype => elemtype))
-	tester(`array.range(-3, 10, 2, elemtype => elemtype))
-	tester(`array.range(-3, -10, -2, elemtype => elemtype))
-	tester(`array.range(3, 10, -2, elemtype => elemtype))
-	tester(`array.range(3, -10, 2, elemtype => elemtype))
-	tester(`array.range(3, 10, 0, elemtype => elemtype))
-}
 testcase('sum') {
 	[
 		array {}
@@ -543,49 +656,6 @@ testcase('tranpsose() and T') {
 		tester(`x.transpose())
 		tester(`x.T)
 	}
-}
-testcase('array.rotation()') {
-	tester(`array.rotation(0))
-	tester(`array.rotation(0, 2))
-	tester(`array.rotation(0, 2, 3))
-	tester(`array.rotation(math.pi / 6))
-	tester(`array.rotation(30):deg)
-}
-testcase('array.rotation@x()') {
-	tester(`array.rotation@x(0))
-	tester(`array.rotation@x(0, 2))
-	tester(`array.rotation@x(0, 2, 3))
-	tester(`array.rotation@x(0, 2, 3, 4))
-	tester(`array.rotation@x(math.pi / 6))
-	tester(`array.rotation@x(30):deg)
-}
-testcase('array.rotation@y()') {
-	tester(`array.rotation@y(0))
-	tester(`array.rotation@y(0, 2))
-	tester(`array.rotation@y(0, 2, 3))
-	tester(`array.rotation@y(0, 2, 3, 4))
-	tester(`array.rotation@y(math.pi / 6))
-	tester(`array.rotation@y(30):deg)
-}
-testcase('array.rotation@z()') {
-	tester(`array.rotation@z(0))
-	tester(`array.rotation@z(0, 2))
-	tester(`array.rotation@z(0, 2, 3))
-	tester(`array.rotation@z(0, 2, 3, 4))
-	tester(`array.rotation@z(math.pi / 6))
-	tester(`array.rotation@z(30):deg)
-}
-testcase('array.scaling()') {
-	tester(`array.scaling(0, 0))
-	tester(`array.scaling(0, 0, 0))
-	tester(`array.scaling(2, 3))
-	tester(`array.scaling(2, 3, 4))
-}
-testcase('array.translation()') {
-	tester(`array.translation(0, 0))
-	tester(`array.translation(0, 0, 0))
-	tester(`array.translation(2, 3))
-	tester(`array.translation(2, 3, 4))
 }
 testcase('array#transpose() sharing memory') {
 	testcases = [
