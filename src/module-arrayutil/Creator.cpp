@@ -20,6 +20,9 @@ Gura_DeclareClassMethod(array, identity)
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+
+	
+	
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -27,7 +30,7 @@ Gura_DeclareClassMethod(array, identity)
 		"\n"
 		"Example:\n"
 		"\n"
-		"    x = array@double.identity(3)\n"
+		"    x = array.identity(3)\n"
 		"        // array@double {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}\n"
 		);
 }
@@ -85,7 +88,7 @@ Gura_DeclareClassMethod(array, interval)
 		"\n"
 		"Example:\n"
 		"\n"
-		"    x = array@double.interval(0, 3, 7)\n"
+		"    x = array.interval(0, 3, 7)\n"
 		"        // array@double {0, 0.5, 1, 1.5, 2, 2.5, 3}\n"
 		);
 }
@@ -153,7 +156,7 @@ Gura_DeclareClassMethod(array, ones)
 		"\n"
 		"Example:\n"
 		"\n"
-		"    x = array@double.ones([3, 4])\n"
+		"    x = array.ones([3, 4])\n"
 		"        // array@double {{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}}\n"
 		);
 }
@@ -287,11 +290,11 @@ Gura_DeclareClassMethod(array, range)
 		"\n"
 		"Example:\n"
 		"\n"
-		"    x = array@double.range(5)\n"
+		"    x = array.range(5)\n"
         "        // array@double {0, 1, 2, 3, 4}\n"
-		"    x = array@double.range(2, 5)\n"
+		"    x = array.range(2, 5)\n"
 		"        // array@double {2, 3, 4}\n"
-		"    x = array@double.range(2, 10, 2)\n"
+		"    x = array.range(2, 10, 2)\n"
 		"        // array@double {2, 4, 6, 8}\n"
 		);
 }
@@ -884,7 +887,7 @@ Gura_DeclareClassMethod(array, zeros)
 		"\n"
 		"Example:\n"
 		"\n"
-		"    x = array@double.zeros([3, 4])\n"
+		"    x = array.zeros([3, 4])\n"
 		"        // array@double {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}\n"
 		);
 }
