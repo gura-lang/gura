@@ -320,6 +320,14 @@ Environment *Argument::PrepareEnvironment(Environment &env)
 	if (pSymbolDict != nullptr) {
 		_pEnvPrepared->AssignValue(pSymbolDict,
 			   Value(new Object_dict(env, GetValueDictArg().Reference(), false)), EXTRA_Public);
+	} else if (!_pValDictArg.IsNull() && !_pValDictArg->empty()) {
+		String str;
+		foreach_const (ValueDict, iter, *_pValDictArg) {
+			if (!str.empty()) str += ", ";
+			str += iter->first.ToString(false);
+		}
+		env.SetError(ERR_ArgumentError, "unhandled argument key exists: %s", str.c_str());
+		return nullptr;
 	}
 	const Function::BlockInfo &blockInfo = _pFunc->GetBlockInfo();
 	if (blockInfo.pSymbol == nullptr) return _pEnvPrepared->Reference();
