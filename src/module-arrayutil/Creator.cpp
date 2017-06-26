@@ -107,7 +107,9 @@ Gura_DeclareClassMethod_Array(array, interval)
 	DeclareArg(env, "begin", VTYPE_number);
 	DeclareArg(env, "end", VTYPE_number);
 	DeclareArg(env, "samples", VTYPE_number);
-	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	if (_elemType == Array::ETYPE_None) {
+		DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	}
 	DeclareAttr(Gura_Symbol(open));
 	DeclareAttr(Gura_Symbol(open_l));
 	DeclareAttr(Gura_Symbol(open_r));
@@ -187,7 +189,9 @@ Gura_DeclareClassMethod_Array(array, ones)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	if (_elemType == Array::ETYPE_None) {
+		DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	}
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -213,8 +217,9 @@ Gura_ImplementClassMethod(array, ones)
 {
 	typedef Array *(*FuncT)(const ValueList &valList);
 	DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl_ones);
-	Array::ElemType elemType = arg.IsValid(1)?
-		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(1)) : Array::ETYPE_Double;
+	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
+		arg.IsValid(1)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(1)) :
+		Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	FuncT func = funcTbl[elemType];
 	if (func == nullptr) {
@@ -231,7 +236,9 @@ Gura_DeclareClassMethod_Array(array, rands)
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "range", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	if (_elemType == Array::ETYPE_None) {
+		DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	}
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -252,8 +259,9 @@ Gura_ImplementClassMethod(array, rands)
 {
 	typedef Array *(*FuncT)(const ValueList &valList, UInt range);
 	DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl_rands);
-	Array::ElemType elemType = arg.IsValid(2)?
-		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(2)) : Array::ETYPE_Double;
+	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
+		arg.IsValid(2)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(2)) :
+		Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	FuncT func = funcTbl[elemType];
 	if (func == nullptr) {
@@ -272,7 +280,9 @@ Gura_DeclareClassMethodAlias_Array(array, rands_at_normal, "rands@normal")
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "mu", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "sigma", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	if (_elemType == Array::ETYPE_None) {
+		DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	}
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -294,8 +304,9 @@ Gura_ImplementClassMethod(array, rands_at_normal)
 {
 	typedef Array *(*FuncT)(const ValueList &valList, double mu, double sigma);
 	DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl_rands_at_normal);
-	Array::ElemType elemType = arg.IsValid(3)?
-		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) : Array::ETYPE_Double;
+	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
+		arg.IsValid(3)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) :
+		Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	FuncT func = funcTbl[elemType];
 	if (func == nullptr) {
@@ -315,7 +326,9 @@ Gura_DeclareClassMethod_Array(array, range)
 	DeclareArg(env, "num", VTYPE_number);
 	DeclareArg(env, "num_end", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "step", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	if (_elemType == Array::ETYPE_None) {
+		DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	}
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -361,8 +374,9 @@ Gura_ImplementClassMethod(array, range)
 {
 	typedef Array *(*FuncT)(Double numBegin, Double numEnd, Double numStep);
 	DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl_range);
-	Array::ElemType elemType = arg.IsValid(3)?
-		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) : Array::ETYPE_Double;
+	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
+		arg.IsValid(3)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) :
+		Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	FuncT func = funcTbl[elemType];
 	if (func == nullptr) {
@@ -404,7 +418,9 @@ Gura_DeclareClassMethod_Array(array, rotation)
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	if (_elemType == Array::ETYPE_None) {
+		DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	}
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -447,8 +463,9 @@ Gura_ImplementClassMethod(array, rotation)
 {
 	typedef Array *(*FuncT)(double rad, bool transFlag, double xTrans, double yTrans);
 	DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl_rotation);
-	Array::ElemType elemType = arg.IsValid(3)?
-		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) : Array::ETYPE_Double;
+	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
+		arg.IsValid(3)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) :
+		Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	FuncT func = funcTbl[elemType];
 	if (func == nullptr) {
@@ -476,7 +493,9 @@ Gura_DeclareClassMethodAlias_Array(array, rotation_at_x, "rotation@x")
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ztrans", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	if (_elemType == Array::ETYPE_None) {
+		DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	}
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -531,8 +550,9 @@ Gura_ImplementClassMethod(array, rotation_at_x)
 {
 	typedef Array *(*FuncT)(Double rad, bool transFlag, Double xTrans, Double yTrans, Double zTrans);
 	DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl_rotation_at_x);
-	Array::ElemType elemType = arg.IsValid(4)?
-		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(4)) : Array::ETYPE_Double;
+	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
+		arg.IsValid(4)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(4)) :
+		Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	FuncT func = funcTbl[elemType];
 	if (func == nullptr) {
@@ -561,7 +581,9 @@ Gura_DeclareClassMethodAlias_Array(array, rotation_at_y, "rotation@y")
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ztrans", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	if (_elemType == Array::ETYPE_None) {
+		DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	}
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -618,8 +640,9 @@ Gura_ImplementClassMethod(array, rotation_at_y)
 {
 	typedef Array *(*FuncT)(Double rad, bool transFlag, Double xTrans, Double yTrans, Double zTrans);
 	DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl_rotation_at_y);
-	Array::ElemType elemType = arg.IsValid(4)?
-		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(4)) : Array::ETYPE_Double;
+	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
+		arg.IsValid(4)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(4)) :
+		Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	FuncT func = funcTbl[elemType];
 	if (func == nullptr) {
@@ -648,7 +671,9 @@ Gura_DeclareClassMethodAlias_Array(array, rotation_at_z, "rotation@z")
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ztrans", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	if (_elemType == Array::ETYPE_None) {
+		DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	}
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -703,8 +728,9 @@ Gura_ImplementClassMethod(array, rotation_at_z)
 {
 	typedef Array *(*FuncT)(Double rad, bool transFlag, Double xTrans, Double yTrans, Double zTrans);
 	DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl_rotation_at_z);
-	Array::ElemType elemType = arg.IsValid(4)?
-		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(4)) : Array::ETYPE_Double;
+	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
+		arg.IsValid(4)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(4)) :
+		Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	FuncT func = funcTbl[elemType];
 	if (func == nullptr) {
@@ -732,7 +758,9 @@ Gura_DeclareClassMethod_Array(array, scaling)
 	DeclareArg(env, "xscale", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "yscale", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "zscale", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	if (_elemType == Array::ETYPE_None) {
+		DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	}
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -794,8 +822,9 @@ Gura_ImplementClassMethod(array, scaling)
 	typedef Array *(*FuncT3D)(Double xTrans, Double yTrans, Double zTrans);
 	DeclareFunctionTable1D(FuncT2D, funcTbl2D, FuncTmpl_scaling2D);
 	DeclareFunctionTable1D(FuncT3D, funcTbl3D, FuncTmpl_scaling3D);
-	Array::ElemType elemType = arg.IsValid(3)?
-		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) : Array::ETYPE_Double;
+	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
+		arg.IsValid(3)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) :
+		Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	Double xScale = static_cast<Double>(arg.GetDouble(0));
 	Double yScale = static_cast<Double>(arg.GetDouble(1));
@@ -826,7 +855,9 @@ Gura_DeclareClassMethod_Array(array, translation)
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "ytrans", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "ztrans", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	if (_elemType == Array::ETYPE_None) {
+		DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	}
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -891,8 +922,9 @@ Gura_ImplementClassMethod(array, translation)
 	Double xTrans = arg.GetDouble(0);
 	Double yTrans = arg.GetDouble(1);
 	AutoPtr<Array> pArray;
-	Array::ElemType elemType = arg.IsValid(3)?
-		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) : Array::ETYPE_Double;
+	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
+		arg.IsValid(3)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) :
+		Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	if (arg.IsValid(2)) {
 		FuncT3D func = funcTbl3D[elemType];
@@ -918,7 +950,9 @@ Gura_DeclareClassMethod_Array(array, zeros)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	if (_elemType == Array::ETYPE_None) {
+		DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	}
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -944,8 +978,9 @@ Gura_ImplementClassMethod(array, zeros)
 {
 	typedef Array *(*FuncT)(const ValueList &valList);
 	DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl_zeros);
-	Array::ElemType elemType = arg.IsValid(1)?
-		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(1)) : Array::ETYPE_Double;
+	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
+		arg.IsValid(1)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(1)) :
+		Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	FuncT func = funcTbl[elemType];
 	if (func == nullptr) {
