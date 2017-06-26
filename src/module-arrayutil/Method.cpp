@@ -144,25 +144,6 @@ Value FuncTmpl_dump(Environment &env, Argument &arg, const Function *pFunc, Arra
 Gura_ImplementMethod(array, dump)
 {
 	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_dump);
-#if 0	
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_dump<Boolean>,
-		&FuncTmpl_dump<Int8>,
-		&FuncTmpl_dump<UInt8>,
-		&FuncTmpl_dump<Int16>,
-		&FuncTmpl_dump<UInt16>,
-		&FuncTmpl_dump<Int32>,
-		&FuncTmpl_dump<UInt32>,
-		&FuncTmpl_dump<Int64>,
-		&FuncTmpl_dump<UInt64>,
-		&FuncTmpl_dump<Half>,
-		&FuncTmpl_dump<Float>,
-		&FuncTmpl_dump<Double>,
-		&FuncTmpl_dump<Complex>,
-		//&FuncTmpl_dump<Value>,
-	};
-#endif
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
@@ -194,23 +175,7 @@ Value FuncTmpl_each(Environment &env, Argument &arg, const Function *pFunc, Arra
 
 Gura_ImplementMethod(array, each)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_each<Boolean>,
-		&FuncTmpl_each<Int8>,
-		&FuncTmpl_each<UInt8>,
-		&FuncTmpl_each<Int16>,
-		&FuncTmpl_each<UInt16>,
-		&FuncTmpl_each<Int32>,
-		&FuncTmpl_each<UInt32>,
-		&FuncTmpl_each<Int64>,
-		&FuncTmpl_each<UInt64>,
-		&FuncTmpl_each<Half>,
-		&FuncTmpl_each<Float>,
-		&FuncTmpl_each<Double>,
-		&FuncTmpl_each<Complex>,
-		//&FuncTmpl_each<Value>,
-	};
+	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_each);
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
@@ -281,23 +246,7 @@ Value FuncTmpl_fill(Environment &env, Argument &arg, const Function *pFunc, Arra
 
 Gura_ImplementMethod(array, fill)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_fill<Boolean>,
-		&FuncTmpl_fill<Int8>,
-		&FuncTmpl_fill<UInt8>,
-		&FuncTmpl_fill<Int16>,
-		&FuncTmpl_fill<UInt16>,
-		&FuncTmpl_fill<Int32>,
-		&FuncTmpl_fill<UInt32>,
-		&FuncTmpl_fill<Int64>,
-		&FuncTmpl_fill<UInt64>,
-		&FuncTmpl_fill<Half>,
-		&FuncTmpl_fill<Float>,
-		&FuncTmpl_fill<Double>,
-		&FuncTmpl_fill<Complex>,
-		//&FuncTmpl_fill<Value>,
-	};
+	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_fill);
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
@@ -324,23 +273,7 @@ Value FuncTmpl_flatten(Environment &env, Argument &arg, const Function *pFunc, A
 
 Gura_ImplementMethod(array, flatten)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_flatten<Boolean>,
-		&FuncTmpl_flatten<Int8>,
-		&FuncTmpl_flatten<UInt8>,
-		&FuncTmpl_flatten<Int16>,
-		&FuncTmpl_flatten<UInt16>,
-		&FuncTmpl_flatten<Int32>,
-		&FuncTmpl_flatten<UInt32>,
-		&FuncTmpl_flatten<Int64>,
-		&FuncTmpl_flatten<UInt64>,
-		&FuncTmpl_flatten<Half>,
-		&FuncTmpl_flatten<Float>,
-		&FuncTmpl_flatten<Double>,
-		&FuncTmpl_flatten<Complex>,
-		//&FuncTmpl_flatten<Value>,
-	};
+	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_flatten);
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
@@ -372,23 +305,7 @@ Value FuncTmpl_head(Environment &env, Argument &arg, const Function *pFunc, Arra
 
 Gura_ImplementMethod(array, head)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_head<Boolean>,
-		&FuncTmpl_head<Int8>,
-		&FuncTmpl_head<UInt8>,
-		&FuncTmpl_head<Int16>,
-		&FuncTmpl_head<UInt16>,
-		&FuncTmpl_head<Int32>,
-		&FuncTmpl_head<UInt32>,
-		&FuncTmpl_head<Int64>,
-		&FuncTmpl_head<UInt64>,
-		&FuncTmpl_head<Half>,
-		&FuncTmpl_head<Float>,
-		&FuncTmpl_head<Double>,
-		&FuncTmpl_head<Complex>,
-		//&FuncTmpl_head<Value>,
-	};
+	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_head);
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
@@ -420,23 +337,7 @@ Value FuncTmpl_invert(Environment &env, Argument &arg, const Function *pFunc, Ar
 
 Gura_ImplementMethod(array, invert)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_invert<Boolean>,
-		&FuncTmpl_invert<Int8>,
-		&FuncTmpl_invert<UInt8>,
-		&FuncTmpl_invert<Int16>,
-		&FuncTmpl_invert<UInt16>,
-		&FuncTmpl_invert<Int32>,
-		&FuncTmpl_invert<UInt32>,
-		&FuncTmpl_invert<Int64>,
-		&FuncTmpl_invert<UInt64>,
-		&FuncTmpl_invert<Half>,
-		&FuncTmpl_invert<Float>,
-		&FuncTmpl_invert<Double>,
-		&FuncTmpl_invert<Complex>,
-		//&FuncTmpl_invert<Value>,
-	};
+	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_invert);
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
@@ -561,23 +462,7 @@ Value FuncTmpl_offset(Environment &env, Argument &arg, const Function *pFunc, Ar
 
 Gura_ImplementMethod(array, offset)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_offset<Boolean>,
-		&FuncTmpl_offset<Int8>,
-		&FuncTmpl_offset<UInt8>,
-		&FuncTmpl_offset<Int16>,
-		&FuncTmpl_offset<UInt16>,
-		&FuncTmpl_offset<Int32>,
-		&FuncTmpl_offset<UInt32>,
-		&FuncTmpl_offset<Int64>,
-		&FuncTmpl_offset<UInt64>,
-		&FuncTmpl_offset<Half>,
-		&FuncTmpl_offset<Float>,
-		&FuncTmpl_offset<Double>,
-		&FuncTmpl_offset<Complex>,
-		//&FuncTmpl_offset<Value>,
-	};
+	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_offset);
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
@@ -615,23 +500,7 @@ Value FuncTmpl_paste(Environment &env, Argument &arg, const Function *pFunc, Arr
 
 Gura_ImplementMethod(array, paste)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_paste<Boolean>,
-		&FuncTmpl_paste<Int8>,
-		&FuncTmpl_paste<UInt8>,
-		&FuncTmpl_paste<Int16>,
-		&FuncTmpl_paste<UInt16>,
-		&FuncTmpl_paste<Int32>,
-		&FuncTmpl_paste<UInt32>,
-		&FuncTmpl_paste<Int64>,
-		&FuncTmpl_paste<UInt64>,
-		&FuncTmpl_paste<Half>,
-		&FuncTmpl_paste<Float>,
-		&FuncTmpl_paste<Double>,
-		&FuncTmpl_paste<Complex>,
-		//&FuncTmpl_paste<Value>,
-	};
+	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_paste);
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
@@ -674,23 +543,7 @@ Value FuncTmpl_reshape(Environment &env, Argument &arg, const Function *pFunc, A
 
 Gura_ImplementMethod(array, reshape)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_reshape<Boolean>,
-		&FuncTmpl_reshape<Int8>,
-		&FuncTmpl_reshape<UInt8>,
-		&FuncTmpl_reshape<Int16>,
-		&FuncTmpl_reshape<UInt16>,
-		&FuncTmpl_reshape<Int32>,
-		&FuncTmpl_reshape<UInt32>,
-		&FuncTmpl_reshape<Int64>,
-		&FuncTmpl_reshape<UInt64>,
-		&FuncTmpl_reshape<Half>,
-		&FuncTmpl_reshape<Float>,
-		&FuncTmpl_reshape<Double>,
-		&FuncTmpl_reshape<Complex>,
-		//&FuncTmpl_reshape<Value>,
-	};
+	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_reshape);
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
@@ -720,23 +573,7 @@ Value FuncTmpl_roundoff(Environment &env, Argument &arg, const Function *pFunc, 
 
 Gura_ImplementMethod(array, roundoff)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_roundoff<Boolean>,
-		&FuncTmpl_roundoff<Int8>,
-		&FuncTmpl_roundoff<UInt8>,
-		&FuncTmpl_roundoff<Int16>,
-		&FuncTmpl_roundoff<UInt16>,
-		&FuncTmpl_roundoff<Int32>,
-		&FuncTmpl_roundoff<UInt32>,
-		&FuncTmpl_roundoff<Int64>,
-		&FuncTmpl_roundoff<UInt64>,
-		&FuncTmpl_roundoff<Half>,
-		&FuncTmpl_roundoff<Float>,
-		&FuncTmpl_roundoff<Double>,
-		&FuncTmpl_roundoff<Complex>,
-		//&FuncTmpl_roundoff<Value>,
-	};
+	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_roundoff);
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
@@ -826,23 +663,7 @@ Value FuncTmpl_tail(Environment &env, Argument &arg, const Function *pFunc, Arra
 
 Gura_ImplementMethod(array, tail)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_tail<Boolean>,
-		&FuncTmpl_tail<Int8>,
-		&FuncTmpl_tail<UInt8>,
-		&FuncTmpl_tail<Int16>,
-		&FuncTmpl_tail<UInt16>,
-		&FuncTmpl_tail<Int32>,
-		&FuncTmpl_tail<UInt32>,
-		&FuncTmpl_tail<Int64>,
-		&FuncTmpl_tail<UInt64>,
-		&FuncTmpl_tail<Half>,
-		&FuncTmpl_tail<Float>,
-		&FuncTmpl_tail<Double>,
-		&FuncTmpl_tail<Complex>,
-		//&FuncTmpl_tail<Value>,
-	};
+	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_tail);
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
@@ -880,23 +701,7 @@ Value FuncTmpl_transpose(Environment &env, Argument &arg, const Function *pFunc,
 
 Gura_ImplementMethod(array, transpose)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_transpose<Boolean>,
-		&FuncTmpl_transpose<Int8>,
-		&FuncTmpl_transpose<UInt8>,
-		&FuncTmpl_transpose<Int16>,
-		&FuncTmpl_transpose<UInt16>,
-		&FuncTmpl_transpose<Int32>,
-		&FuncTmpl_transpose<UInt32>,
-		&FuncTmpl_transpose<Int64>,
-		&FuncTmpl_transpose<UInt64>,
-		&FuncTmpl_transpose<Half>,
-		&FuncTmpl_transpose<Float>,
-		&FuncTmpl_transpose<Double>,
-		&FuncTmpl_transpose<Complex>,
-		//&FuncTmpl_transpose<Value>,
-	};
+	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_transpose);
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
