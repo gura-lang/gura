@@ -357,3 +357,8 @@ f([1, 2, 3, 4, 5, 6, 7]) .. TypeError: unmatched element size
 ======== #50 lack of closure attribute ========
 
 f() .. ValueError: function f must have :closure attribute to return a function object
+
+======== #51 unknown argument keys ========
+
+f(1, 2, 3, d => 3) .. ArgumentError: unhandled argument key exists: d
+f(1, 2, 3, d => 3, e => 2, f => 3) .. ArgumentError: unhandled argument key exists: d, e, f

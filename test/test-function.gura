@@ -517,3 +517,8 @@ testcase('lack of closure attribute') {
 	f() = { function {} }
 	tester(`f())
 }
+testcase('unknown argument keys') {
+	f(a, b, c) = {}
+	tester(`f(1, 2, 3, d => 3))
+	tester(`f(1, 2, 3, d => 3, e => 2, f => 3))
+}
