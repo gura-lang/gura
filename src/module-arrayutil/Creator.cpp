@@ -20,9 +20,6 @@ Gura_DeclareClassMethod(array, identity)
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
-
-	
-	
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
