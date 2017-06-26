@@ -1,5 +1,43 @@
 #include "stdafx.h"
 
+//-----------------------------------------------------------------------------
+// macros
+//-----------------------------------------------------------------------------
+#define Gura_DeclareClassMethodAlias_Array(className, funcName, funcNameAlias) \
+class Func_##className##__##funcName : public Function { \
+private: \
+	Array::ElemType _elemType; \
+public: \
+	Func_##className##__##funcName(Environment &env, Array::ElemType elemType); \
+	virtual Value DoEval(Environment &env, Argument &arg) const; \
+}; \
+Func_##className##__##funcName::Func_##className##__##funcName(Environment &env, Array::ElemType elemType) : \
+	Function(env, Symbol::Add(funcNameAlias), FUNCTYPE_Class, FLAG_None), _elemType(elemType)
+
+#define Gura_DeclareClassMethod_Array(className, funcName) Gura_DeclareClassMethodAlias_Array(className, funcName, #funcName)
+
+#define Gura_AssignMethod_Array(valType, className, name, elemType)	\
+do { \
+	Class *pClass = env.LookupClass(valType); \
+	pClass->AssignFunction(new Func_##className##__##name(*pClass, elemType));	\
+} while (0) \
+
+#define Gura_AssignMethodMultiple_Array(className, name) \
+Gura_AssignMethod_Array(VTYPE_array, className, name, Array::ETYPE_None); \
+Gura_AssignMethod_Array(VTYPE_array_at_boolean, className, name, Array::ETYPE_Boolean); \
+Gura_AssignMethod_Array(VTYPE_array_at_int8, className, name, Array::ETYPE_Int8); \
+Gura_AssignMethod_Array(VTYPE_array_at_uint8, className, name, Array::ETYPE_UInt8); \
+Gura_AssignMethod_Array(VTYPE_array_at_int16, className, name, Array::ETYPE_Int16); \
+Gura_AssignMethod_Array(VTYPE_array_at_uint16, className, name, Array::ETYPE_UInt16); \
+Gura_AssignMethod_Array(VTYPE_array_at_int32, className, name, Array::ETYPE_Int32); \
+Gura_AssignMethod_Array(VTYPE_array_at_uint32, className, name, Array::ETYPE_UInt32); \
+Gura_AssignMethod_Array(VTYPE_array_at_int64, className, name, Array::ETYPE_Int64); \
+Gura_AssignMethod_Array(VTYPE_array_at_uint64, className, name, Array::ETYPE_UInt64); \
+Gura_AssignMethod_Array(VTYPE_array_at_half, className, name, Array::ETYPE_Half); \
+Gura_AssignMethod_Array(VTYPE_array_at_float, className, name, Array::ETYPE_Float); \
+Gura_AssignMethod_Array(VTYPE_array_at_double, className, name, Array::ETYPE_Double); \
+Gura_AssignMethod_Array(VTYPE_array_at_complex, className, name, Array::ETYPE_Complex);
+
 Gura_BeginModuleScope(arrayutil)
 
 //-----------------------------------------------------------------------------
@@ -15,11 +53,13 @@ void SetError_CreationError(Environment &env, Array::ElemType elemType)
 // Implementation of array creators
 //-----------------------------------------------------------------------------
 // array.identity(n:number, elemtype?:symbol):static:map {block?}
-Gura_DeclareClassMethod(array, identity)
+Gura_DeclareClassMethod_Array(array, identity)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
-	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	if (_elemType == Array::ETYPE_None) {
+		DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	}
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -47,8 +87,9 @@ Gura_ImplementClassMethod(array, identity)
 {
 	typedef Array *(*FuncT)(size_t n);
 	DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl_identity);
-	Array::ElemType elemType = arg.IsValid(1)?
-		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(1)) : Array::ETYPE_Double;
+	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
+		arg.IsValid(1)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(1)) :
+		Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	FuncT func = funcTbl[elemType];
 	if (func == nullptr) {
@@ -60,7 +101,7 @@ Gura_ImplementClassMethod(array, identity)
 }
 
 // array.interval(begin:number, end:number, samples:number, elemtype?:symbol):static:map:[open,open_l,open_r] {block?}
-Gura_DeclareClassMethod(array, interval)
+Gura_DeclareClassMethod_Array(array, interval)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "begin", VTYPE_number);
@@ -106,8 +147,9 @@ Gura_ImplementClassMethod(array, interval)
 	typedef Array *(*FuncT)(Double numBegin, Double numEnd, int numSamples,
 							Double numDenom, int iFactor);
 	DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl_interval);
-	Array::ElemType elemType = arg.IsValid(3)?
-		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) : Array::ETYPE_Double;
+	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
+		arg.IsValid(3)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) :
+		Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	FuncT func = funcTbl[elemType];
 	if (func == nullptr) {
@@ -141,7 +183,7 @@ Gura_ImplementClassMethod(array, interval)
 }
 
 // array.ones(dims[]:number, elemtype?:symbol):static:map {block?}
-Gura_DeclareClassMethod(array, ones)
+Gura_DeclareClassMethod_Array(array, ones)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
@@ -184,7 +226,7 @@ Gura_ImplementClassMethod(array, ones)
 }
 
 // array.rands(dims[]:number, range?:number, elemtype?:symbol):static:map {block?}
-Gura_DeclareClassMethod(array, rands)
+Gura_DeclareClassMethod_Array(array, rands)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
@@ -224,7 +266,7 @@ Gura_ImplementClassMethod(array, rands)
 }
 
 // array.rands@normal(dims[]:number, mu?:number, sigma?:number, elemtype?:symbol):static:map {block?}
-Gura_DeclareClassMethodAlias(array, rands_at_normal, "rands@normal")
+Gura_DeclareClassMethodAlias_Array(array, rands_at_normal, "rands@normal")
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
@@ -267,7 +309,7 @@ Gura_ImplementClassMethod(array, rands_at_normal)
 }
 
 // array.range(num:number, num_end?:number, step?:number, elemtype?:symbol):static:map {block?}
-Gura_DeclareClassMethod(array, range)
+Gura_DeclareClassMethod_Array(array, range)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_number);
@@ -356,7 +398,7 @@ Gura_ImplementClassMethod(array, range)
 }
 
 // array.rotation(angle:number, xtrans?:number, ytrans?:number, elemtype?:symbol):static:map:[deg] {block?}
-Gura_DeclareClassMethod(array, rotation)
+Gura_DeclareClassMethod_Array(array, rotation)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
@@ -427,7 +469,7 @@ Gura_ImplementClassMethod(array, rotation)
 }
 
 // array.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number, elemtype?:symbol):static:map:[deg] {block?}
-Gura_DeclareClassMethodAlias(array, rotation_at_x, "rotation@x")
+Gura_DeclareClassMethodAlias_Array(array, rotation_at_x, "rotation@x")
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
@@ -512,7 +554,7 @@ Gura_ImplementClassMethod(array, rotation_at_x)
 }
 
 // array.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number, elemtype?:symbol):static:map:[deg] {block?}
-Gura_DeclareClassMethodAlias(array, rotation_at_y, "rotation@y")
+Gura_DeclareClassMethodAlias_Array(array, rotation_at_y, "rotation@y")
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
@@ -599,7 +641,7 @@ Gura_ImplementClassMethod(array, rotation_at_y)
 }
 
 // array.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number, elemtype?:symbol):static:map:[deg] {block?}
-Gura_DeclareClassMethodAlias(array, rotation_at_z, "rotation@z")
+Gura_DeclareClassMethodAlias_Array(array, rotation_at_z, "rotation@z")
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
@@ -684,7 +726,7 @@ Gura_ImplementClassMethod(array, rotation_at_z)
 }
 
 // array.scaling(xscale:number, yscale:number, zscale?:number, elemtype?:symbol):static:map {block?}
-Gura_DeclareClassMethod(array, scaling)
+Gura_DeclareClassMethod_Array(array, scaling)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "xscale", VTYPE_number, OCCUR_Once);
@@ -778,7 +820,7 @@ Gura_ImplementClassMethod(array, scaling)
 }
 
 // array.translation(xtrans:number, ytrans:number, ztrans?:number, elemtype?:symbol):static:map {block?}
-Gura_DeclareClassMethod(array, translation)
+Gura_DeclareClassMethod_Array(array, translation)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "xtrans", VTYPE_number, OCCUR_Once);
@@ -872,7 +914,7 @@ Gura_ImplementClassMethod(array, translation)
 }
 
 // array.zeros(dims[]:number, elemtype?:symbol):static:map {block?}
-Gura_DeclareClassMethod(array, zeros)
+Gura_DeclareClassMethod_Array(array, zeros)
 {
 	SetFuncAttr(VTYPE_array, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
@@ -917,19 +959,19 @@ Gura_ImplementClassMethod(array, zeros)
 void AssignCreators(Environment &env)
 {
 	// assignment of array creators
-	Gura_AssignMethodTo(VTYPE_array, array, identity);
-	Gura_AssignMethodTo(VTYPE_array, array, interval);
-	Gura_AssignMethodTo(VTYPE_array, array, ones);
-	Gura_AssignMethodTo(VTYPE_array, array, rands);
-	Gura_AssignMethodTo(VTYPE_array, array, rands_at_normal);
-	Gura_AssignMethodTo(VTYPE_array, array, range);
-	Gura_AssignMethodTo(VTYPE_array, array, rotation);
-	Gura_AssignMethodTo(VTYPE_array, array, rotation_at_x);
-	Gura_AssignMethodTo(VTYPE_array, array, rotation_at_y);
-	Gura_AssignMethodTo(VTYPE_array, array, rotation_at_z);
-	Gura_AssignMethodTo(VTYPE_array, array, scaling);
-	Gura_AssignMethodTo(VTYPE_array, array, translation);
-	Gura_AssignMethodTo(VTYPE_array, array, zeros);
+	Gura_AssignMethodMultiple_Array(array, identity);
+	Gura_AssignMethodMultiple_Array(array, interval);
+	Gura_AssignMethodMultiple_Array(array, ones);
+	Gura_AssignMethodMultiple_Array(array, rands);
+	Gura_AssignMethodMultiple_Array(array, rands_at_normal);
+	Gura_AssignMethodMultiple_Array(array, range);
+	Gura_AssignMethodMultiple_Array(array, rotation);
+	Gura_AssignMethodMultiple_Array(array, rotation_at_x);
+	Gura_AssignMethodMultiple_Array(array, rotation_at_y);
+	Gura_AssignMethodMultiple_Array(array, rotation_at_z);
+	Gura_AssignMethodMultiple_Array(array, scaling);
+	Gura_AssignMethodMultiple_Array(array, translation);
+	Gura_AssignMethodMultiple_Array(array, zeros);
 }
 
 Gura_EndModuleScope(arrayutil)
