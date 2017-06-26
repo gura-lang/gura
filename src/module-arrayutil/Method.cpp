@@ -2,7 +2,7 @@
 
 Gura_BeginModuleScope(arrayutil)
 
-typedef Value (*MethodT)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);
+typedef Value (*FuncT_Method)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);
 
 //-----------------------------------------------------------------------------
 // utilities
@@ -80,15 +80,15 @@ Complex CalcMeanFlat(const ArrayT<Complex> *pArrayT)
 	return CalcSumFlat<Complex, Complex>(pArrayT) / static_cast<double>(pArrayT->GetElemNum());
 }
 
-Value CallMethod(Environment &env, Argument &arg, const MethodT methods[],
+Value CallMethod(Environment &env, Argument &arg, const FuncT_Method funcTbl[],
 				 const Function *pFunc, Array *pArraySelf)
 {
-	MethodT pMethod = methods[pArraySelf->GetElemType()];
-	if (pMethod == nullptr) {
-		env.SetError(ERR_TypeError, "no methods implemented");
+	FuncT_Method func = funcTbl[pArraySelf->GetElemType()];
+	if (func == nullptr) {
+		env.SetError(ERR_TypeError, "no method implemented");
 		return Value::Nil;
 	}
-	return (*pMethod)(env, arg, pFunc, pArraySelf);
+	return (*func)(env, arg, pFunc, pArraySelf);
 }
 
 //-----------------------------------------------------------------------------
@@ -130,7 +130,7 @@ Gura_DeclareMethod(array, dump)
 }
 
 template<typename T_Elem>
-Value Method_dump(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+Value FuncTmpl_dump(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
@@ -143,24 +143,27 @@ Value Method_dump(Environment &env, Argument &arg, const Function *pFunc, Array 
 
 Gura_ImplementMethod(array, dump)
 {
-	static const MethodT methods[Array::ETYPE_Max] = {
+	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_dump);
+#if 0	
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
-		&Method_dump<Boolean>,
-		&Method_dump<Int8>,
-		&Method_dump<UInt8>,
-		&Method_dump<Int16>,
-		&Method_dump<UInt16>,
-		&Method_dump<Int32>,
-		&Method_dump<UInt32>,
-		&Method_dump<Int64>,
-		&Method_dump<UInt64>,
-		&Method_dump<Half>,
-		&Method_dump<Float>,
-		&Method_dump<Double>,
-		&Method_dump<Complex>,
-		//&Method_dump<Value>,
+		&FuncTmpl_dump<Boolean>,
+		&FuncTmpl_dump<Int8>,
+		&FuncTmpl_dump<UInt8>,
+		&FuncTmpl_dump<Int16>,
+		&FuncTmpl_dump<UInt16>,
+		&FuncTmpl_dump<Int32>,
+		&FuncTmpl_dump<UInt32>,
+		&FuncTmpl_dump<Int64>,
+		&FuncTmpl_dump<UInt64>,
+		&FuncTmpl_dump<Half>,
+		&FuncTmpl_dump<Float>,
+		&FuncTmpl_dump<Double>,
+		&FuncTmpl_dump<Complex>,
+		//&FuncTmpl_dump<Value>,
 	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+#endif
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#each():[flat] {block?}
@@ -181,7 +184,7 @@ Gura_DeclareMethod(array, each)
 }
 
 template<typename T_Elem>
-Value Method_each(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+Value FuncTmpl_each(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(
@@ -191,24 +194,24 @@ Value Method_each(Environment &env, Argument &arg, const Function *pFunc, Array 
 
 Gura_ImplementMethod(array, each)
 {
-	static const MethodT methods[Array::ETYPE_Max] = {
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
-		&Method_each<Boolean>,
-		&Method_each<Int8>,
-		&Method_each<UInt8>,
-		&Method_each<Int16>,
-		&Method_each<UInt16>,
-		&Method_each<Int32>,
-		&Method_each<UInt32>,
-		&Method_each<Int64>,
-		&Method_each<UInt64>,
-		&Method_each<Half>,
-		&Method_each<Float>,
-		&Method_each<Double>,
-		&Method_each<Complex>,
-		//&Method_each<Value>,
+		&FuncTmpl_each<Boolean>,
+		&FuncTmpl_each<Int8>,
+		&FuncTmpl_each<UInt8>,
+		&FuncTmpl_each<Int16>,
+		&FuncTmpl_each<UInt16>,
+		&FuncTmpl_each<Int32>,
+		&FuncTmpl_each<UInt32>,
+		&FuncTmpl_each<Int64>,
+		&FuncTmpl_each<UInt64>,
+		&FuncTmpl_each<Half>,
+		&FuncTmpl_each<Float>,
+		&FuncTmpl_each<Double>,
+		&FuncTmpl_each<Complex>,
+		//&FuncTmpl_each<Value>,
 	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#elemcast(elemtype:symbol) {block?}
@@ -268,7 +271,7 @@ Gura_DeclareMethod(array, fill)
 }
 
 template<typename T_Elem>
-Value Method_fill(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+Value FuncTmpl_fill(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	if (!pArrayT->PrepareModification(env.GetSignal())) return Value::Nil;
@@ -278,24 +281,24 @@ Value Method_fill(Environment &env, Argument &arg, const Function *pFunc, Array 
 
 Gura_ImplementMethod(array, fill)
 {
-	static const MethodT methods[Array::ETYPE_Max] = {
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
-		&Method_fill<Boolean>,
-		&Method_fill<Int8>,
-		&Method_fill<UInt8>,
-		&Method_fill<Int16>,
-		&Method_fill<UInt16>,
-		&Method_fill<Int32>,
-		&Method_fill<UInt32>,
-		&Method_fill<Int64>,
-		&Method_fill<UInt64>,
-		&Method_fill<Half>,
-		&Method_fill<Float>,
-		&Method_fill<Double>,
-		&Method_fill<Complex>,
-		//&Method_fill<Value>,
+		&FuncTmpl_fill<Boolean>,
+		&FuncTmpl_fill<Int8>,
+		&FuncTmpl_fill<UInt8>,
+		&FuncTmpl_fill<Int16>,
+		&FuncTmpl_fill<UInt16>,
+		&FuncTmpl_fill<Int32>,
+		&FuncTmpl_fill<UInt32>,
+		&FuncTmpl_fill<Int64>,
+		&FuncTmpl_fill<UInt64>,
+		&FuncTmpl_fill<Half>,
+		&FuncTmpl_fill<Float>,
+		&FuncTmpl_fill<Double>,
+		&FuncTmpl_fill<Complex>,
+		//&FuncTmpl_fill<Value>,
 	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#flatten() {block?}
@@ -312,7 +315,7 @@ Gura_DeclareMethod(array, flatten)
 }
 
 template<typename T_Elem>
-Value Method_flatten(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+Value FuncTmpl_flatten(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	AutoPtr<Array> pArrayTRtn(pArrayT->Flatten());
@@ -321,24 +324,24 @@ Value Method_flatten(Environment &env, Argument &arg, const Function *pFunc, Arr
 
 Gura_ImplementMethod(array, flatten)
 {
-	static const MethodT methods[Array::ETYPE_Max] = {
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
-		&Method_flatten<Boolean>,
-		&Method_flatten<Int8>,
-		&Method_flatten<UInt8>,
-		&Method_flatten<Int16>,
-		&Method_flatten<UInt16>,
-		&Method_flatten<Int32>,
-		&Method_flatten<UInt32>,
-		&Method_flatten<Int64>,
-		&Method_flatten<UInt64>,
-		&Method_flatten<Half>,
-		&Method_flatten<Float>,
-		&Method_flatten<Double>,
-		&Method_flatten<Complex>,
-		//&Method_flatten<Value>,
+		&FuncTmpl_flatten<Boolean>,
+		&FuncTmpl_flatten<Int8>,
+		&FuncTmpl_flatten<UInt8>,
+		&FuncTmpl_flatten<Int16>,
+		&FuncTmpl_flatten<UInt16>,
+		&FuncTmpl_flatten<Int32>,
+		&FuncTmpl_flatten<UInt32>,
+		&FuncTmpl_flatten<Int64>,
+		&FuncTmpl_flatten<UInt64>,
+		&FuncTmpl_flatten<Half>,
+		&FuncTmpl_flatten<Float>,
+		&FuncTmpl_flatten<Double>,
+		&FuncTmpl_flatten<Complex>,
+		//&FuncTmpl_flatten<Value>,
 	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#head(n:number):map {block?}
@@ -356,7 +359,7 @@ Gura_DeclareMethod(array, head)
 }
 
 template<typename T_Elem>
-Value Method_head(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+Value FuncTmpl_head(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
@@ -369,24 +372,24 @@ Value Method_head(Environment &env, Argument &arg, const Function *pFunc, Array 
 
 Gura_ImplementMethod(array, head)
 {
-	static const MethodT methods[Array::ETYPE_Max] = {
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
-		&Method_head<Boolean>,
-		&Method_head<Int8>,
-		&Method_head<UInt8>,
-		&Method_head<Int16>,
-		&Method_head<UInt16>,
-		&Method_head<Int32>,
-		&Method_head<UInt32>,
-		&Method_head<Int64>,
-		&Method_head<UInt64>,
-		&Method_head<Half>,
-		&Method_head<Float>,
-		&Method_head<Double>,
-		&Method_head<Complex>,
-		//&Method_head<Value>,
+		&FuncTmpl_head<Boolean>,
+		&FuncTmpl_head<Int8>,
+		&FuncTmpl_head<UInt8>,
+		&FuncTmpl_head<Int16>,
+		&FuncTmpl_head<UInt16>,
+		&FuncTmpl_head<Int32>,
+		&FuncTmpl_head<UInt32>,
+		&FuncTmpl_head<Int64>,
+		&FuncTmpl_head<UInt64>,
+		&FuncTmpl_head<Half>,
+		&FuncTmpl_head<Float>,
+		&FuncTmpl_head<Double>,
+		&FuncTmpl_head<Complex>,
+		//&FuncTmpl_head<Value>,
 	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#invert(eps?:number) {block?}
@@ -404,7 +407,7 @@ Gura_DeclareMethod(array, invert)
 }
 
 template<typename T_Elem>
-Value Method_invert(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+Value FuncTmpl_invert(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
@@ -417,24 +420,24 @@ Value Method_invert(Environment &env, Argument &arg, const Function *pFunc, Arra
 
 Gura_ImplementMethod(array, invert)
 {
-	static const MethodT methods[Array::ETYPE_Max] = {
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
-		&Method_invert<Boolean>,
-		&Method_invert<Int8>,
-		&Method_invert<UInt8>,
-		&Method_invert<Int16>,
-		&Method_invert<UInt16>,
-		&Method_invert<Int32>,
-		&Method_invert<UInt32>,
-		&Method_invert<Int64>,
-		&Method_invert<UInt64>,
-		&Method_invert<Half>,
-		&Method_invert<Float>,
-		&Method_invert<Double>,
-		&Method_invert<Complex>,
-		//&Method_invert<Value>,
+		&FuncTmpl_invert<Boolean>,
+		&FuncTmpl_invert<Int8>,
+		&FuncTmpl_invert<UInt8>,
+		&FuncTmpl_invert<Int16>,
+		&FuncTmpl_invert<UInt16>,
+		&FuncTmpl_invert<Int32>,
+		&FuncTmpl_invert<UInt32>,
+		&FuncTmpl_invert<Int64>,
+		&FuncTmpl_invert<UInt64>,
+		&FuncTmpl_invert<Half>,
+		&FuncTmpl_invert<Float>,
+		&FuncTmpl_invert<Double>,
+		&FuncTmpl_invert<Complex>,
+		//&FuncTmpl_invert<Value>,
 	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#iselemsame(array:array)
@@ -484,7 +487,7 @@ Gura_DeclareMethod(array, mean)
 }
 
 template<typename T_ElemResult, typename T_Elem>
-Value Method_mean(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+Value FuncTmpl_mean(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Value valueRtn;
@@ -510,24 +513,24 @@ Value Method_mean(Environment &env, Argument &arg, const Function *pFunc, Array 
 
 Gura_ImplementMethod(array, mean)
 {
-	static const MethodT methods[Array::ETYPE_Max] = {
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
-		&Method_mean<UInt32, Boolean>,
-		&Method_mean<Int8, Int8>,
-		&Method_mean<UInt8, UInt8>,
-		&Method_mean<Int16, Int16>,
-		&Method_mean<UInt16, UInt16>,
-		&Method_mean<Int32, Int32>,
-		&Method_mean<UInt32, UInt32>,
-		&Method_mean<Int64, Int64>,
-		&Method_mean<UInt64, UInt64>,
-		&Method_mean<Half, Half>,
-		&Method_mean<Float, Float>,
-		&Method_mean<Double, Double>,
-		&Method_mean<Complex, Complex>,
-		//&Method_mean<Value, Value>,
+		&FuncTmpl_mean<UInt32, Boolean>,
+		&FuncTmpl_mean<Int8, Int8>,
+		&FuncTmpl_mean<UInt8, UInt8>,
+		&FuncTmpl_mean<Int16, Int16>,
+		&FuncTmpl_mean<UInt16, UInt16>,
+		&FuncTmpl_mean<Int32, Int32>,
+		&FuncTmpl_mean<UInt32, UInt32>,
+		&FuncTmpl_mean<Int64, Int64>,
+		&FuncTmpl_mean<UInt64, UInt64>,
+		&FuncTmpl_mean<Half, Half>,
+		&FuncTmpl_mean<Float, Float>,
+		&FuncTmpl_mean<Double, Double>,
+		&FuncTmpl_mean<Complex, Complex>,
+		//&FuncTmpl_mean<Value, Value>,
 	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#offset(n:number):map {block?}
@@ -545,7 +548,7 @@ Gura_DeclareMethod(array, offset)
 }
 
 template<typename T_Elem>
-Value Method_offset(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+Value FuncTmpl_offset(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
@@ -558,24 +561,24 @@ Value Method_offset(Environment &env, Argument &arg, const Function *pFunc, Arra
 
 Gura_ImplementMethod(array, offset)
 {
-	static const MethodT methods[Array::ETYPE_Max] = {
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
-		&Method_offset<Boolean>,
-		&Method_offset<Int8>,
-		&Method_offset<UInt8>,
-		&Method_offset<Int16>,
-		&Method_offset<UInt16>,
-		&Method_offset<Int32>,
-		&Method_offset<UInt32>,
-		&Method_offset<Int64>,
-		&Method_offset<UInt64>,
-		&Method_offset<Half>,
-		&Method_offset<Float>,
-		&Method_offset<Double>,
-		&Method_offset<Complex>,
-		//&Method_offset<Value>,
+		&FuncTmpl_offset<Boolean>,
+		&FuncTmpl_offset<Int8>,
+		&FuncTmpl_offset<UInt8>,
+		&FuncTmpl_offset<Int16>,
+		&FuncTmpl_offset<UInt16>,
+		&FuncTmpl_offset<Int32>,
+		&FuncTmpl_offset<UInt32>,
+		&FuncTmpl_offset<Int64>,
+		&FuncTmpl_offset<UInt64>,
+		&FuncTmpl_offset<Half>,
+		&FuncTmpl_offset<Float>,
+		&FuncTmpl_offset<Double>,
+		&FuncTmpl_offset<Complex>,
+		//&FuncTmpl_offset<Value>,
 	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#paste(offset:number, src:array):map:void
@@ -593,7 +596,7 @@ Gura_DeclareMethod(array, paste)
 }
 
 template<typename T_Elem>
-Value Method_paste(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+Value FuncTmpl_paste(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
@@ -612,24 +615,24 @@ Value Method_paste(Environment &env, Argument &arg, const Function *pFunc, Array
 
 Gura_ImplementMethod(array, paste)
 {
-	static const MethodT methods[Array::ETYPE_Max] = {
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
-		&Method_paste<Boolean>,
-		&Method_paste<Int8>,
-		&Method_paste<UInt8>,
-		&Method_paste<Int16>,
-		&Method_paste<UInt16>,
-		&Method_paste<Int32>,
-		&Method_paste<UInt32>,
-		&Method_paste<Int64>,
-		&Method_paste<UInt64>,
-		&Method_paste<Half>,
-		&Method_paste<Float>,
-		&Method_paste<Double>,
-		&Method_paste<Complex>,
-		//&Method_paste<Value>,
+		&FuncTmpl_paste<Boolean>,
+		&FuncTmpl_paste<Int8>,
+		&FuncTmpl_paste<UInt8>,
+		&FuncTmpl_paste<Int16>,
+		&FuncTmpl_paste<UInt16>,
+		&FuncTmpl_paste<Int32>,
+		&FuncTmpl_paste<UInt32>,
+		&FuncTmpl_paste<Int64>,
+		&FuncTmpl_paste<UInt64>,
+		&FuncTmpl_paste<Half>,
+		&FuncTmpl_paste<Float>,
+		&FuncTmpl_paste<Double>,
+		&FuncTmpl_paste<Complex>,
+		//&FuncTmpl_paste<Value>,
 	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#reshape(dims[]:number:nil) {block?}
@@ -660,7 +663,7 @@ Gura_DeclareMethod(array, reshape)
 }
 
 template<typename T_Elem>
-Value Method_reshape(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+Value FuncTmpl_reshape(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	Signal &sig = env.GetSignal();
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
@@ -671,24 +674,24 @@ Value Method_reshape(Environment &env, Argument &arg, const Function *pFunc, Arr
 
 Gura_ImplementMethod(array, reshape)
 {
-	static const MethodT methods[Array::ETYPE_Max] = {
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
-		&Method_reshape<Boolean>,
-		&Method_reshape<Int8>,
-		&Method_reshape<UInt8>,
-		&Method_reshape<Int16>,
-		&Method_reshape<UInt16>,
-		&Method_reshape<Int32>,
-		&Method_reshape<UInt32>,
-		&Method_reshape<Int64>,
-		&Method_reshape<UInt64>,
-		&Method_reshape<Half>,
-		&Method_reshape<Float>,
-		&Method_reshape<Double>,
-		&Method_reshape<Complex>,
-		//&Method_reshape<Value>,
+		&FuncTmpl_reshape<Boolean>,
+		&FuncTmpl_reshape<Int8>,
+		&FuncTmpl_reshape<UInt8>,
+		&FuncTmpl_reshape<Int16>,
+		&FuncTmpl_reshape<UInt16>,
+		&FuncTmpl_reshape<Int32>,
+		&FuncTmpl_reshape<UInt32>,
+		&FuncTmpl_reshape<Int64>,
+		&FuncTmpl_reshape<UInt64>,
+		&FuncTmpl_reshape<Half>,
+		&FuncTmpl_reshape<Float>,
+		&FuncTmpl_reshape<Double>,
+		&FuncTmpl_reshape<Complex>,
+		//&FuncTmpl_reshape<Value>,
 	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#roundoff(threshold?:number) {block?}
@@ -707,7 +710,7 @@ Gura_DeclareMethod(array, roundoff)
 }
 
 template<typename T_Elem>
-Value Method_roundoff(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+Value FuncTmpl_roundoff(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	double threshold = arg.IsValid(0)? arg.GetDouble(0) : 1.e-6;
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
@@ -717,24 +720,24 @@ Value Method_roundoff(Environment &env, Argument &arg, const Function *pFunc, Ar
 
 Gura_ImplementMethod(array, roundoff)
 {
-	static const MethodT methods[Array::ETYPE_Max] = {
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
-		&Method_roundoff<Boolean>,
-		&Method_roundoff<Int8>,
-		&Method_roundoff<UInt8>,
-		&Method_roundoff<Int16>,
-		&Method_roundoff<UInt16>,
-		&Method_roundoff<Int32>,
-		&Method_roundoff<UInt32>,
-		&Method_roundoff<Int64>,
-		&Method_roundoff<UInt64>,
-		&Method_roundoff<Half>,
-		&Method_roundoff<Float>,
-		&Method_roundoff<Double>,
-		&Method_roundoff<Complex>,
-		//&Method_roundoff<Value>,
+		&FuncTmpl_roundoff<Boolean>,
+		&FuncTmpl_roundoff<Int8>,
+		&FuncTmpl_roundoff<UInt8>,
+		&FuncTmpl_roundoff<Int16>,
+		&FuncTmpl_roundoff<UInt16>,
+		&FuncTmpl_roundoff<Int32>,
+		&FuncTmpl_roundoff<UInt32>,
+		&FuncTmpl_roundoff<Int64>,
+		&FuncTmpl_roundoff<UInt64>,
+		&FuncTmpl_roundoff<Half>,
+		&FuncTmpl_roundoff<Float>,
+		&FuncTmpl_roundoff<Double>,
+		&FuncTmpl_roundoff<Complex>,
+		//&FuncTmpl_roundoff<Value>,
 	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#sum(axis?:number) {block?}
@@ -749,7 +752,7 @@ Gura_DeclareMethod(array, sum)
 }
 
 template<typename T_ElemResult, typename T_Elem>
-Value Method_sum(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+Value FuncTmpl_sum(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Value valueRtn;
@@ -775,24 +778,24 @@ Value Method_sum(Environment &env, Argument &arg, const Function *pFunc, Array *
 
 Gura_ImplementMethod(array, sum)
 {
-	static const MethodT methods[Array::ETYPE_Max] = {
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
-		&Method_sum<UInt32, Boolean>,
-		&Method_sum<Int8, Int8>,
-		&Method_sum<UInt8, UInt8>,
-		&Method_sum<Int16, Int16>,
-		&Method_sum<UInt16, UInt16>,
-		&Method_sum<Int32, Int32>,
-		&Method_sum<UInt32, UInt32>,
-		&Method_sum<Int64, Int64>,
-		&Method_sum<UInt64, UInt64>,
-		&Method_sum<Half, Half>,
-		&Method_sum<Float, Float>,
-		&Method_sum<Double, Double>,
-		&Method_sum<Complex, Complex>,
-		//&Method_sum<Value, Value>,
+		&FuncTmpl_sum<UInt32, Boolean>,
+		&FuncTmpl_sum<Int8, Int8>,
+		&FuncTmpl_sum<UInt8, UInt8>,
+		&FuncTmpl_sum<Int16, Int16>,
+		&FuncTmpl_sum<UInt16, UInt16>,
+		&FuncTmpl_sum<Int32, Int32>,
+		&FuncTmpl_sum<UInt32, UInt32>,
+		&FuncTmpl_sum<Int64, Int64>,
+		&FuncTmpl_sum<UInt64, UInt64>,
+		&FuncTmpl_sum<Half, Half>,
+		&FuncTmpl_sum<Float, Float>,
+		&FuncTmpl_sum<Double, Double>,
+		&FuncTmpl_sum<Complex, Complex>,
+		//&FuncTmpl_sum<Value, Value>,
 	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#tail(n:number):map {block?}
@@ -810,7 +813,7 @@ Gura_DeclareMethod(array, tail)
 }
 
 template<typename T_Elem>
-Value Method_tail(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+Value FuncTmpl_tail(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
@@ -823,24 +826,24 @@ Value Method_tail(Environment &env, Argument &arg, const Function *pFunc, Array 
 
 Gura_ImplementMethod(array, tail)
 {
-	static const MethodT methods[Array::ETYPE_Max] = {
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
-		&Method_tail<Boolean>,
-		&Method_tail<Int8>,
-		&Method_tail<UInt8>,
-		&Method_tail<Int16>,
-		&Method_tail<UInt16>,
-		&Method_tail<Int32>,
-		&Method_tail<UInt32>,
-		&Method_tail<Int64>,
-		&Method_tail<UInt64>,
-		&Method_tail<Half>,
-		&Method_tail<Float>,
-		&Method_tail<Double>,
-		&Method_tail<Complex>,
-		//&Method_tail<Value>,
+		&FuncTmpl_tail<Boolean>,
+		&FuncTmpl_tail<Int8>,
+		&FuncTmpl_tail<UInt8>,
+		&FuncTmpl_tail<Int16>,
+		&FuncTmpl_tail<UInt16>,
+		&FuncTmpl_tail<Int32>,
+		&FuncTmpl_tail<UInt32>,
+		&FuncTmpl_tail<Int64>,
+		&FuncTmpl_tail<UInt64>,
+		&FuncTmpl_tail<Half>,
+		&FuncTmpl_tail<Float>,
+		&FuncTmpl_tail<Double>,
+		&FuncTmpl_tail<Complex>,
+		//&FuncTmpl_tail<Value>,
 	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#transpose(axes[]?:number) {block?}
@@ -861,7 +864,7 @@ Gura_DeclareMethod(array, transpose)
 }
 
 template<typename T_Elem>
-Value Method_transpose(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+Value FuncTmpl_transpose(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
@@ -877,24 +880,24 @@ Value Method_transpose(Environment &env, Argument &arg, const Function *pFunc, A
 
 Gura_ImplementMethod(array, transpose)
 {
-	static const MethodT methods[Array::ETYPE_Max] = {
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
-		&Method_transpose<Boolean>,
-		&Method_transpose<Int8>,
-		&Method_transpose<UInt8>,
-		&Method_transpose<Int16>,
-		&Method_transpose<UInt16>,
-		&Method_transpose<Int32>,
-		&Method_transpose<UInt32>,
-		&Method_transpose<Int64>,
-		&Method_transpose<UInt64>,
-		&Method_transpose<Half>,
-		&Method_transpose<Float>,
-		&Method_transpose<Double>,
-		&Method_transpose<Complex>,
-		//&Method_transpose<Value>,
+		&FuncTmpl_transpose<Boolean>,
+		&FuncTmpl_transpose<Int8>,
+		&FuncTmpl_transpose<UInt8>,
+		&FuncTmpl_transpose<Int16>,
+		&FuncTmpl_transpose<UInt16>,
+		&FuncTmpl_transpose<Int32>,
+		&FuncTmpl_transpose<UInt32>,
+		&FuncTmpl_transpose<Int64>,
+		&FuncTmpl_transpose<UInt64>,
+		&FuncTmpl_transpose<Half>,
+		&FuncTmpl_transpose<Float>,
+		&FuncTmpl_transpose<Double>,
+		&FuncTmpl_transpose<Complex>,
+		//&FuncTmpl_transpose<Value>,
 	};
-	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 void AssignMethods(Environment &env)
