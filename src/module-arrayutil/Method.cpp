@@ -129,6 +129,137 @@ Gura_DeclareMethod(array, dump)
 		);
 }
 
+template<typename T_Elem, typename T_ElemCast>
+void DumpInteger(Signal &sig, Stream &stream, const char *fmt, size_t cols, const T_Elem *p, size_t n)
+{
+	size_t col = 0;
+	for (size_t i = 0; i < n; i++, p++) {
+		if (col != 0) {
+			stream.Printf(sig, " ");
+		}
+		stream.Printf(sig, fmt, static_cast<T_ElemCast>(*p));
+		col++;
+		if (col == cols) {
+			stream.Printf(sig, "\n");
+			col = 0;
+		}
+	}
+	if (col != 0) stream.Printf(sig, "\n");
+}
+
+template<typename T_Elem, typename T_ElemCast>
+void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const T_Elem *p, size_t n)
+{
+	size_t col = 0;
+	for (size_t i = 0; i < n; i++, p++) {
+		if (col != 0) {
+			stream.Printf(sig, " ");
+		}
+		T_ElemCast num = *reinterpret_cast<const T_ElemCast *>(p);
+		stream.Printf(sig, fmt, num);
+		col++;
+		if (col == cols) {
+			stream.Printf(sig, "\n");
+			col = 0;
+		}
+	}
+	if (col != 0) stream.Printf(sig, "\n");
+}
+
+template<typename T_Elem>
+void Dump(Signal &sig, Stream &stream, const ArrayT<T_Elem> *pArrayT, bool upperFlag) {}
+
+template<>
+void Dump(Signal &sig, Stream &stream, const ArrayT<Boolean> *pArrayT, bool upperFlag)
+{
+	DumpInteger<Boolean, UInt8>(sig, stream, upperFlag? "%02X" : "%02x",
+								24, pArrayT->GetPointer(), pArrayT->GetElemNum());
+}
+
+template<>
+void Dump(Signal &sig, Stream &stream, const ArrayT<Int8> *pArrayT, bool upperFlag)
+{
+	DumpInteger<Int8, UInt8>(sig, stream, upperFlag? "%02X" : "%02x",
+							 24, pArrayT->GetPointer(), pArrayT->GetElemNum());
+}
+
+template<>
+void Dump(Signal &sig, Stream &stream, const ArrayT<UInt8> *pArrayT, bool upperFlag)
+{
+	DumpInteger<UInt8, UInt8>(sig, stream, upperFlag? "%02X" : "%02x",
+							  24, pArrayT->GetPointer(), pArrayT->GetElemNum());
+}
+
+template<>
+void Dump(Signal &sig, Stream &stream, const ArrayT<Int16> *pArrayT, bool upperFlag)
+{
+	DumpInteger<Int16, UInt16>(sig, stream, upperFlag? "%04X" : "%04x",
+							   16, pArrayT->GetPointer(), pArrayT->GetElemNum());
+}
+
+template<>
+void Dump(Signal &sig, Stream &stream, const ArrayT<UInt16> *pArrayT, bool upperFlag)
+{
+	DumpInteger<UInt16, UInt16>(sig, stream, upperFlag? "%04X" : "%04x",
+								16, pArrayT->GetPointer(), pArrayT->GetElemNum());
+}
+
+template<>
+void Dump(Signal &sig, Stream &stream, const ArrayT<Int32> *pArrayT, bool upperFlag)
+{
+	DumpInteger<Int32, UInt32>(sig, stream, upperFlag? "%08X" : "%08x",
+							   8, pArrayT->GetPointer(), pArrayT->GetElemNum());
+}
+
+template<>
+void Dump(Signal &sig, Stream &stream, const ArrayT<UInt32> *pArrayT, bool upperFlag)
+{
+	DumpInteger<UInt32, UInt32>(sig, stream, upperFlag? "%08X" : "%08x",
+								8, pArrayT->GetPointer(), pArrayT->GetElemNum());
+}
+
+template<>
+void Dump(Signal &sig, Stream &stream, const ArrayT<Int64> *pArrayT, bool upperFlag)
+{
+	DumpInteger<Int64, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx",
+							   4, pArrayT->GetPointer(), pArrayT->GetElemNum());
+}
+
+template<>
+void Dump(Signal &sig, Stream &stream, const ArrayT<UInt64> *pArrayT, bool upperFlag)
+{
+	DumpInteger<UInt64, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx",
+								4, pArrayT->GetPointer(), pArrayT->GetElemNum());
+}
+
+template<>
+void Dump(Signal &sig, Stream &stream, const ArrayT<Half> *pArrayT, bool upperFlag)
+{
+	DumpFloat<Half, UInt16>(sig, stream, upperFlag? "%04X" : "%04x",
+							16, pArrayT->GetPointer(), pArrayT->GetElemNum());
+}
+
+template<>
+void Dump(Signal &sig, Stream &stream, const ArrayT<Float> *pArrayT, bool upperFlag)
+{
+	DumpFloat<Float, UInt32>(sig, stream, upperFlag? "%08lX" : "%08lx",
+							 8, pArrayT->GetPointer(), pArrayT->GetElemNum());
+}
+
+template<>
+void Dump(Signal &sig, Stream &stream, const ArrayT<Double> *pArrayT, bool upperFlag)
+{
+	DumpFloat<Double, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx",
+							  4, pArrayT->GetPointer(), pArrayT->GetElemNum());
+}
+
+template<>
+void Dump(Signal &sig, Stream &stream, const ArrayT<Complex> *pArrayT, bool upperFlag)
+{
+	DumpFloat<Complex, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx",
+							   4, pArrayT->GetPointer(), pArrayT->GetElemNum() * 2);
+}
+
 template<typename T_Elem>
 Value FuncTmpl_dump(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
@@ -137,7 +268,7 @@ Value FuncTmpl_dump(Environment &env, Argument &arg, const Function *pFunc, Arra
 	bool upperFlag = arg.IsSet(Gura_Symbol(upper));
 	Stream *pStream = arg.IsValid(0)?
 		&Object_stream::GetObject(arg, 0)->GetStream() : env.GetConsole();
-	pArrayT->Dump(sig, *pStream, upperFlag);
+	Dump<T_Elem>(sig, *pStream, pArrayT, upperFlag);
 	return Value::Nil;
 }
 

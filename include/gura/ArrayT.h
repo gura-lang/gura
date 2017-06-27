@@ -49,7 +49,6 @@ public:
 	void FillRand(UInt range);
 	void FillRandNormal(double mu, double sigma);
 	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc);
-	void Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 	void CopyToList(ValueList &valList) const;
 	ArrayT *Flatten() const;
 	ArrayT *Reshape(Signal &sig, const ValueList &valList) const;

@@ -35,43 +35,6 @@ namespace Gura {
 //------------------------------------------------------------------------------
 // Utility functions
 //------------------------------------------------------------------------------
-template<typename T_Elem, typename T_ElemCast>
-void DumpInteger(Signal &sig, Stream &stream, const char *fmt, size_t cols, const T_Elem *p, size_t n)
-{
-	size_t col = 0;
-	for (size_t i = 0; i < n; i++, p++) {
-		if (col != 0) {
-			stream.Printf(sig, " ");
-		}
-		stream.Printf(sig, fmt, static_cast<T_ElemCast>(*p));
-		col++;
-		if (col == cols) {
-			stream.Printf(sig, "\n");
-			col = 0;
-		}
-	}
-	if (col != 0) stream.Printf(sig, "\n");
-}
-
-template<typename T_Elem, typename T_ElemCast>
-void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const T_Elem *p, size_t n)
-{
-	size_t col = 0;
-	for (size_t i = 0; i < n; i++, p++) {
-		if (col != 0) {
-			stream.Printf(sig, " ");
-		}
-		T_ElemCast num = *reinterpret_cast<const T_ElemCast *>(p);
-		stream.Printf(sig, fmt, num);
-		col++;
-		if (col == cols) {
-			stream.Printf(sig, "\n");
-			col = 0;
-		}
-	}
-	if (col != 0) stream.Printf(sig, "\n");
-}
-
 template<typename T_Elem> void FormatElem(char *buff, int wdPad, const T_Elem &x);
 
 template<> void FormatElem(char *buff, int wdPad, const Boolean &x) {
@@ -363,83 +326,6 @@ bool ArrayT<T_Elem>::Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc)
 	::memcpy(GetPointer() + offset, pArrayTSrc->GetPointer(),
 			 sizeof(T_Elem) * pArrayTSrc->GetElemNum());
 	return true;
-}
-
-template<>
-void ArrayT<Boolean>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
-{
-	DumpInteger<Boolean, UInt8>(sig, stream, upperFlag? "%02X" : "%02x", 24, GetPointer(), GetElemNum());
-}
-
-template<>
-void ArrayT<Int8>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
-{
-	DumpInteger<Int8, UInt8>(sig, stream, upperFlag? "%02X" : "%02x", 24, GetPointer(), GetElemNum());
-}
-
-template<>
-void ArrayT<UInt8>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
-{
-	DumpInteger<UInt8, UInt8>(sig, stream, upperFlag? "%02X" : "%02x", 24, GetPointer(), GetElemNum());
-}
-
-template<>
-void ArrayT<Int16>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
-{
-	DumpInteger<Int16, UInt16>(sig, stream, upperFlag? "%04X" : "%04x", 16, GetPointer(), GetElemNum());
-}
-
-template<>
-void ArrayT<UInt16>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
-{
-	DumpInteger<UInt16, UInt16>(sig, stream, upperFlag? "%04X" : "%04x", 16, GetPointer(), GetElemNum());
-}
-
-template<>
-void ArrayT<Int32>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
-{
-	DumpInteger<Int32, UInt32>(sig, stream, upperFlag? "%08X" : "%08x", 8, GetPointer(), GetElemNum());
-}
-
-template<> void ArrayT<UInt32>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
-{
-	DumpInteger<UInt32, UInt32>(sig, stream, upperFlag? "%08X" : "%08x", 8, GetPointer(), GetElemNum());
-}
-
-template<>
-void ArrayT<Int64>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
-{
-	DumpInteger<Int64, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx", 4, GetPointer(), GetElemNum());
-}
-
-template<>
-void ArrayT<UInt64>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
-{
-	DumpInteger<UInt64, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx", 4, GetPointer(), GetElemNum());
-}
-
-template<>
-void ArrayT<Half>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
-{
-	DumpFloat<Half, UInt16>(sig, stream, upperFlag? "%04X" : "%04x", 16, GetPointer(), GetElemNum());
-}
-
-template<>
-void ArrayT<Float>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
-{
-	DumpFloat<Float, UInt32>(sig, stream, upperFlag? "%08lX" : "%08lx", 8, GetPointer(), GetElemNum());
-}
-
-template<>
-void ArrayT<Double>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
-{
-	DumpFloat<Double, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx", 4, GetPointer(), GetElemNum());
-}
-
-template<>
-void ArrayT<Complex>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
-{
-	DumpFloat<Complex, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx", 4, GetPointer(), GetElemNum() * 2);
 }
 
 template<typename T_Elem>
