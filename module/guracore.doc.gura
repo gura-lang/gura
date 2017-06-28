@@ -1,79 +1,8 @@
 #!/usr/bin/env gura
 import(markdown)
+import(arrayutil)
 
 text@en = R'''
-# Built-in Operator
-
-<table>
-<tr><th>Operation</th><th>Explanation</th></tr>
-<tr><td><code>+number</code></td><td></td></tr>
-<tr><td><code>+complex</code></td><td></td></tr>
-<tr><td><code>+rational</code></td><td></td></tr>
-<tr><td><code>+matrix</code></td><td></td></tr>
-<tr><td><code>+timedelta</code></td><td></td></tr>
-<tr><td><code>+array@int8</code></td><td></td></tr>
-<tr><td><code>+array@uint8</code></td><td></td></tr>
-<tr><td><code>+array@int16</code></td><td></td></tr>
-<tr><td><code>+array@uint16</code></td><td></td></tr>
-<tr><td><code>+array@int32</code></td><td></td></tr>
-<tr><td><code>+array@uint32</code></td><td></td></tr>
-<tr><td><code>+array@int64</code></td><td></td></tr>
-<tr><td><code>+array@uint64</code></td><td></td></tr>
-<tr><td><code>+array@float</code></td><td></td></tr>
-<tr><td><code>+array@double</code></td><td></td></tr>
-<tr><td><code>-number</code></td><td></td></tr>
-<tr><td><code>-complex</code></td><td></td></tr>
-<tr><td><code>-rational</code></td><td></td></tr>
-<tr><td><code>-matrix</code></td><td></td></tr>
-<tr><td><code>-timedelta</code></td><td></td></tr>
-<tr><td><code>-array@int8</code></td><td></td></tr>
-<tr><td><code>-array@uint8</code></td><td></td></tr>
-<tr><td><code>-array@int16</code></td><td></td></tr>
-<tr><td><code>-array@uint16</code></td><td></td></tr>
-<tr><td><code>-array@int32</code></td><td></td></tr>
-<tr><td><code>-array@uint32</code></td><td></td></tr>
-<tr><td><code>-array@int64</code></td><td></td></tr>
-<tr><td><code>-array@uint64</code></td><td></td></tr>
-<tr><td><code>-array@float</code></td><td></td></tr>
-<tr><td><code>-array@double</code></td><td></td></tr>
-<tr><td><code>~number</code></td><td></td></tr>
-<tr><td><code>!any</code></td><td></td></tr>
-<tr><td><code>number..</code></td><td></td></tr>
-<tr><td><code>any?</code></td><td></td></tr>
-<tr><td><code>any*</code></td><td></td></tr>
-<tr><td><code>number + number</code></td><td></td></tr>
-<tr><td><code>number + complex</code></td><td></td></tr>
-<tr><td><code>number + rational</code></td><td></td></tr>
-<tr><td><code>complex + number</code></td><td></td></tr>
-<tr><td><code>complex + complex</code></td><td></td></tr>
-<tr><td><code>rational + number</code></td><td></td></tr>
-<tr><td><code>rational + rational</code></td><td></td></tr>
-<tr><td><code>matrix + matrix</code></td><td></td></tr>
-<tr><td><code>datetime + timedelta</code></td><td></td></tr>
-<tr><td><code>timedelta + datetime</code></td><td></td></tr>
-<tr><td><code>string + string</code></td><td></td></tr>
-<tr><td><code>binary + binary</code></td><td></td></tr>
-<tr><td><code>binary + string</code></td><td></td></tr>
-<tr><td><code>string + binary</code></td><td></td></tr>
-<tr><td><code>pointer + number</code></td><td></td></tr>
-<tr><td><code>string + any</code></td><td></td></tr>
-<tr><td><code>any + string</code></td><td></td></tr>
-<tr><td><code>number - number</code></td><td></td></tr>
-<tr><td><code>number - complex</code></td><td></td></tr>
-<tr><td><code>number - rational</code></td><td></td></tr>
-<tr><td><code>complex - number</code></td><td></td></tr>
-<tr><td><code>complex - complex</code></td><td></td></tr>
-<tr><td><code>rational - number</code></td><td></td></tr>
-<tr><td><code>rational - rational</code></td><td></td></tr>
-<tr><td><code>matrix - matrix</code></td><td></td></tr>
-<tr><td><code>datetime - timedelta</code></td><td></td></tr>
-<tr><td><code>datetime - datetime</code></td><td></td></tr>
-<tr><td><code>timedelta - timedelta</code></td><td></td></tr>
-<tr><td><code>color - color</code></td><td></td></tr>
-<tr><td><code>pointer - number</code></td><td></td></tr>
-<tr><td><code>pointer - pointer</code></td><td></td></tr>
-</table>
-
 # Built-in Class
 
 ## argument Class
@@ -120,9 +49,9 @@ argument.quit_trailer
 
 ## array Class
 
-An instance of the `array` class stores multiple numeric values in a seamless binary sequence,
-which can be passed without any conversion to functions in C libraries
-that expect arrays of `char`, `short`, `int` and so on.
+An instance of the `array` class stores multiple numeric values in a seamless binary sequence.
+It can directly be passed to functions in C libraries without any modification
+that expect arrays of `char`, `short`, `int`, `float`, `double` and so on.
 
 There are several `array` classes that deal with different element types as shown below:
 
@@ -145,6 +74,13 @@ There are several `array` classes that deal with different element types as show
 In the specification described here, the class name is is represented as `array@T`
 where `T` means its element type.
 
+Most of methods in `array` class are implemented in `arrayutil` module
+while the class itself is provided by the intepreter.
+This is because array features cost much code size
+and it would be preferable to reduce the size of the intepreter body
+by separating the implementation of array methods.
+So, you have to import `arrayutil` module before using the `array` class in your program.
+
 ### Property
 
 A `array` instance has the following properties:
@@ -154,26 +90,26 @@ ${markdown.makedoc@property(`en, array)}
 
 ### Constructor
 
-${markdown.makedoc@function$(`en, '@int8', '@T'
-array@int8
-array@int8.identity
-array@int8.interval
-array@int8.ones
-array@int8.rands
-array@int8.rands@normal
-array@int8.range
-array@int8.rotation@x
-array@int8.rotation@y
-array@int8.rotation@z
-array@int8.scaling
-array@int8.translation
-array@int8.zeros
+${markdown.makedoc@function(`en
+array
+array.identity
+array.interval
+array.ones
+array.rands
+array.rands@normal
+array.range
+array.rotation
+array.rotation@x
+array.rotation@y
+array.rotation@z
+array.scaling
+array.translation
+array.zeros
 )}
 
 ### Method
 
 ${markdown.makedoc@function(`en
-array.average
 array.dot
 array.dump
 array.each
@@ -182,7 +118,9 @@ array.fill
 array.flatten
 array.head
 array.invert
+array.iselemsame
 array.issquare
+array.mean
 array.offset
 array.paste
 array.reshape
@@ -605,7 +543,7 @@ datetime.weekday
 
 ## declaration Class
 
-The `declaration` class provides information about argument's declaration defined in a function.
+The `declaration` class provides information about argument\'s declaration defined in a function.
 You can get an iterator of `declaration` instances with the following measures
 that the `function` class provides:
 
@@ -774,7 +712,7 @@ about an error that has occured in the `try` block.
 <td>An error that could happen in command line.</td></tr>
 
 <tr><td><code>error.DeclarationError</code></td>
-<td>An error in a function's declarations.</td></tr>
+<td>An error in a function\'s declarations.</td></tr>
 
 <tr><td><code>error.FormatError</code></td>
 <td></td></tr>
@@ -864,7 +802,7 @@ If an attribute `:lineno` is specified, it would contain a line number.</td></tr
 
 ## expr Class
 
-The `expr` class provides inromation about the language's syntax expression.
+The `expr` class provides inromation about the language\'s syntax expression.
 
 ### Property
 
@@ -1020,7 +958,7 @@ and the method name of their format handlers:
 <tr><td><code>%c</code></td><td><code>__format_c__</code></td></tr>
 </table>
 
-This feature is supposed to be used when you want your original class's instance
+This feature is supposed to be used when you want your original class\'s instance
 properly formatted in `printf`. Below is an example to implement a format handler
 for the specifier `%d`:
 
@@ -1113,7 +1051,7 @@ A `function` instance has the following properties:
 
 ### Operator
 
-You can print a function's help from the interactive prompt using the unary operator "`~`".
+You can print a function\'s help from the interactive prompt using the unary operator "`~`".
 Below is an example to print the help of `printf()` function:
 
     >>> ~printf
@@ -1227,7 +1165,7 @@ An `image` instance has the following properties:
 
 <tr><td><code>palette</code></td><td><code>palette</code></td><td>R/W</td>
 <td>A <code>palette</code> instance associated with this image.
-If there's no palette associated, this property returns <code>nil</code>.</td></tr>
+If there is no palette associated, this property returns <code>nil</code>.</td></tr>
 
 </table>
 
