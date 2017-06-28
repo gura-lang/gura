@@ -54,7 +54,7 @@ Func_arrayT<T_Elem>::Func_arrayT(Environment &env, const Symbol *pSymbol, ValueT
 	AddHelp(
 		Gura_Symbol(en),
 		"Creates an `array@T` instance from a `list` or an `iterator` specified in the argument `src`,\n"
-		"or elements described in a block.\n"
+		"or from elements described in the block.\n"
 		"\n"
 		"Example:\n"
 		"\n"

@@ -63,13 +63,29 @@ Gura_DeclareClassMethod_Array(array, identity)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that represents a identity matrix with specified size `n`.\n"
+		"Creates an array of `double` type of elements\n"
+		"that represents an identity matrix with specified size `n`.\n"
 		"\n"
 		"Example:\n"
 		"\n"
 		"    x = array.identity(3)\n"
-		"        // array@double {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}\n"
-		);
+		"    // x is array@double {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}\n"
+		"\n"
+		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
+		"The followings examples create an `array` instance of `int32` elements:\n"
+		"\n"
+		"    array.identity(3, elemtype => `int32)\n"
+		"\n"
+		"Available element types are:\n"
+		"\n"
+		"    `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64\n"
+		"    `half, `float, `double, `complex\n"
+		"\n"
+		"Methods named `array@T.identity` where `T` gets an element type name are also provided\n"
+		"to create an `array` instance of a specific type more easily.\n"
+		"Using these functions could simplify the code above like this:"
+		"\n"
+		"    array@int32.identity(3)\n");
 }
 
 template<typename T_Elem> Array *FuncTmpl_identity(size_t n)
@@ -116,11 +132,13 @@ Gura_DeclareClassMethod_Array(array, interval)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates a one-dimentional array that contains a sequence of numbers\n"
-		"by specifying the beginning and ending numbers, and the number of samples between them.\n"
+		"Creates a one-dimentional array with `double` type of element\n"
+		"that contains a sequence of numbers\n"
+		"according to the beginning, ending numbers and the number of samples between them.\n"
 		"\n"
-		"In default, it creates a sequence that contains the beginning and ending numbers.\n"
-		"Following attributes would generate the following numbers:\n"
+		"In default, it creates a sequence with a range of `[begin, end]`\n"
+		"meaning that the sequence contains the beginning and ending numbers.\n"
+		"Following attributes would control the range:\n"
 		"\n"
 		"- `:open` .. Numbers in range of `(begin, end)` that doesn't contain either `begin` or `end`.\n"
 		"- `:open_l` .. Numbers in range of `(begin, end]` that doesn't contain `begin`.\n"
@@ -129,8 +147,23 @@ Gura_DeclareClassMethod_Array(array, interval)
 		"Example:\n"
 		"\n"
 		"    x = array.interval(0, 3, 7)\n"
-		"        // array@double {0, 0.5, 1, 1.5, 2, 2.5, 3}\n"
-		);
+		"    // x is array@double {0, 0.5, 1, 1.5, 2, 2.5, 3}\n"
+		"\n"
+		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
+		"The followings examples create an `array` instance of `float` elements:\n"
+		"\n"
+		"    array.interval(0, 3, 7, elemtype => `float)\n"
+		"\n"
+		"Available element types are:\n"
+		"\n"
+		"    `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64\n"
+		"    `half, `float, `double, `complex\n"
+		"\n"
+		"Methods named `array@T.interval` where `T` gets an element type name are also provided\n"
+		"to create an `array` instance of a specific type more easily.\n"
+		"Using these functions could simplify the code above like this:"
+		"\n"
+		"    array@float.interval(0, 3, 7)\n");
 }
 
 template<typename T_Elem> Array *FuncTmpl_interval(
@@ -195,13 +228,29 @@ Gura_DeclareClassMethod_Array(array, ones)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array with the specified dimensions, which elements are initialized by one.\n"
+		"Creates an array of `double` type of elements, which are initialized by one.\n"
+		"The argument `dims` specifies the dimension of the created array.\n"
 		"\n"
 		"Example:\n"
 		"\n"
 		"    x = array.ones([3, 4])\n"
-		"        // array@double {{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}}\n"
-		);
+		"    // x is array@double {{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}}\n"
+		"\n"
+		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
+		"The followings examples create an `array` instance of `int32` elements:\n"
+		"\n"
+		"    array.ones([3, 4], elemtype => `int32)\n"
+		"\n"
+		"Available element types are:\n"
+		"\n"
+		"    `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64\n"
+		"    `half, `float, `double, `complex\n"
+		"\n"
+		"Methods named `array@T.ones` where `T` gets an element type name are also provided\n"
+		"to create an `array` instance of a specific type more easily.\n"
+		"Using these functions could simplify the code above like this:"
+		"\n"
+		"    array@int32.ones([3, 4])\n");
 }
 
 template<typename T_Elem> Array *FuncTmpl_ones(const ValueList &valList)
@@ -242,8 +291,32 @@ Gura_DeclareClassMethod_Array(array, rands)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array with the specified dimensions, which contains random numbers.\n"
-		);
+		"Creates an array of `double` type of elements which are initialized with random numbers.\n"
+		"The argument `dims` specifies the dimension of the created array.\n"
+		"When the argument `range` is specified, the generated are all integer numbers\n"
+		"that are ranged within `[0, range)`.\n"
+		"Otherwise, the generated are real numbers ranged within `[0, 1)`.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = array.rands([3, 4], 10)\n"
+		"    // x is like array@double {{6, 7, 6, 9}, {3, 3, 6, 0}, {7, 9, 5, 5}}\n"
+		"\n"
+		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
+		"The followings examples create an `array` instance of `int32` elements:\n"
+		"\n"
+		"    array.rands([3, 4], 10, elemtype => `int32)\n"
+		"\n"
+		"Available element types are:\n"
+		"\n"
+		"    `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64\n"
+		"    `half, `float, `double, `complex\n"
+		"\n"
+		"Methods named `array@T.rands` where `T` gets an element type name are also provided\n"
+		"to create an `array` instance of a specific type more easily.\n"
+		"Using these functions could simplify the code above like this:"
+		"\n"
+		"    array@int32.rands([3, 4], 10)\n");
 }
 
 template<typename T_Elem> Array *FuncTmpl_rands(const ValueList &valList, UInt range)
@@ -286,9 +359,31 @@ Gura_DeclareClassMethodAlias_Array(array, rands_at_normal, "rands@normal")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array with the specified dimensions,\n"
-		"which contains normal distribution random numbers.\n"
-		);
+		"Creates an array of `double` type of elements which are initialized with normal distribution random numbers.\n"
+		"The argument `dims` specifies the dimension of the created array.\n"
+		"The arguments `mu` and `sigma` supply parameters for normal distribution\n"
+		"where `mu` specifies the mean value and `sigma` the standard deviation.\n"
+		"In default, the `mu` is zero and `sigma` one.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = array.rands@normal([3, 4], 1, 3)\n"
+		"\n"
+		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
+		"The followings examples create an `array` instance of `float` elements:\n"
+		"\n"
+		"    array.rands@normal([3, 4], 1, 3, elemtype => `float)\n"
+		"\n"
+		"Available element types are:\n"
+		"\n"
+		"    `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64\n"
+		"    `half, `float, `double, `complex\n"
+		"\n"
+		"Methods named `array@T.rands@normal` where `T` gets an element type name are also provided\n"
+		"to create an `array` instance of a specific type more easily.\n"
+		"Using these functions could simplify the code above like this:"
+		"\n"
+		"    array@int32.rands@normal([3, 4], 1, 3)\n");
 }
 
 template<typename T_Elem> Array *FuncTmpl_rands_at_normal(const ValueList &valList, double mu, double sigma)
@@ -343,11 +438,11 @@ Gura_DeclareClassMethod_Array(array, range)
 		"Example:\n"
 		"\n"
 		"    x = array.range(5)\n"
-        "        // array@double {0, 1, 2, 3, 4}\n"
+        "    // x is array@double {0, 1, 2, 3, 4}\n"
 		"    x = array.range(2, 5)\n"
-		"        // array@double {2, 3, 4}\n"
+		"    // x is array@double {2, 3, 4}\n"
 		"    x = array.range(2, 10, 2)\n"
-		"        // array@double {2, 4, 6, 8}\n"
+		"    // x is array@double {2, 4, 6, 8}\n"
 		);
 }
 
@@ -956,12 +1051,13 @@ Gura_DeclareClassMethod_Array(array, zeros)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array with the specified dimensions, which elements are initialized by zero.\n"
+		"Creates an array of `double` type of elements that are initialized with zero.\n"
+		"The argument `dims` specifies the dimension of the created array.\n"
 		"\n"
 		"Example:\n"
 		"\n"
 		"    x = array.zeros([3, 4])\n"
-		"        // array@double {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}\n"
+		"    // x is array@double {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}\n"
 		);
 }
 

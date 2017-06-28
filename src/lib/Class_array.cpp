@@ -515,31 +515,31 @@ Gura_DeclareFunction(array)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an `array` instance with elements of type `double` from a `list` or an `iterator` specified in the argument `src`,\n"
-		"or elements described in a block. Below are examples:\n"
+		"Creates an `array` instance that contains `double` type of elements\n"
+		"from a `list` or an `iterator` specified as an argument `src`\n"
+		"or from elements described in the block.\n"
+		"The followings are examples to create an `array` instance:\n"
 		"\n"
 		"    array([[0, 1, 2], [3, 4, 5]])\n"
 		"    array {{0, 1, 2}, {3, 4, 5}}\n"
 		"\n"
-		"Specifying the argument `elemtype` would create an array of other type than `double`.\n"
+		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
+		"The following examples create an `array` instance of `int32` elements:\n"
 		"\n"
-		"Available symbols for `elemtype` are as follows:\n"
+		"    array([[0, 1, 2], [3, 4, 5]], elemtype => `int32)\n"
+		"    array(elemtype => `int32) {{0, 1, 2}, {3, 4, 5}}\n"
 		"\n"
-		"- `` `boolean``\n"
-		"- `` `int8``\n"
-		"- `` `uint8``\n"
-		"- `` `int16``\n"
-		"- `` `uint16``\n"
-		"- `` `int32``\n"
-		"- `` `uint32``\n"
-		"- `` `int64``\n"
-		"- `` `uint64``\n"
-		"- `` `half``\n"
-		"- `` `float``\n"
-		"- `` `double``\n"
-		"- `` `complex``\n"
+		"Available element types are:\n"
 		"\n"
-		GURA_HELPTEXT_BLOCK_en("array", "array"));
+		"    `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64\n"
+		"    `half, `float, `double, `complex\n"
+		"\n"
+		"Functions named `array@T` where `T` gets an element type name are also provided\n"
+		"to create an `array` instance of a specific type more easily.\n"
+		"Using these functions could simplify the code above like this:"
+		"\n"
+		"    array@int32 ([[0, 1, 2], [3, 4, 5]])\n"
+		"    array@int32 {{0, 1, 2}, {3, 4, 5}}\n");
 }
 
 Gura_ImplementFunction(array)
@@ -586,10 +586,6 @@ Gura_ImplementFunction(at_at)
 	if (pArrayT.IsNull()) return Value::Nil;
 	return Value(new Object_array(env, pArrayT.release()));
 }
-
-//-----------------------------------------------------------------------------
-// Implementation of methods
-//-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // Implementation of class
