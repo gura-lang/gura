@@ -71,6 +71,8 @@ Gura_DeclareClassMethod_Array(array, identity)
 		"    x = array.identity(3)\n"
 		"    // x is array@double {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}\n"
 		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array")
+		"\n"
 		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
 		"The followings examples create an `array` instance of `int32` elements:\n"
 		"\n"
@@ -148,6 +150,8 @@ Gura_DeclareClassMethod_Array(array, interval)
 		"\n"
 		"    x = array.interval(0, 3, 7)\n"
 		"    // x is array@double {0, 0.5, 1, 1.5, 2, 2.5, 3}\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array")
 		"\n"
 		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
 		"The followings examples create an `array` instance of `float` elements:\n"
@@ -236,6 +240,8 @@ Gura_DeclareClassMethod_Array(array, ones)
 		"    x = array.ones([3, 4])\n"
 		"    // x is array@double {{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}}\n"
 		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array")
+		"\n"
 		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
 		"The followings examples create an `array` instance of `int32` elements:\n"
 		"\n"
@@ -301,6 +307,8 @@ Gura_DeclareClassMethod_Array(array, rands)
 		"\n"
 		"    x = array.rands([3, 4], 10)\n"
 		"    // x is like array@double {{6, 7, 6, 9}, {3, 3, 6, 0}, {7, 9, 5, 5}}\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array")
 		"\n"
 		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
 		"The followings examples create an `array` instance of `int32` elements:\n"
@@ -369,6 +377,8 @@ Gura_DeclareClassMethodAlias_Array(array, rands_at_normal, "rands@normal")
 		"\n"
 		"    x = array.rands@normal([3, 4], 1, 3)\n"
 		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array")
+		"\n"
 		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
 		"The followings examples create an `array` instance of `float` elements:\n"
 		"\n"
@@ -427,13 +437,14 @@ Gura_DeclareClassMethod_Array(array, range)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that contains a sequence of integer numbers.\n"
+		"Creates an array of `double` type of elements\n"
+		"that are initialized with a sequence of integer numbers.\n"
 		"\n"
-		"This function can be called in three formats that generate following numbers:\n"
+		"This function can generate three types of sequence like below:\n"
 		"\n"
-		"- `array.range(num)` .. Numbers between `0` and `(num - 1)`.\n"
-		"- `array.range(num, num_end)` .. Numbers between `num` and `(num_end - 1)`.\n"
-		"- `array.range(num, num_end, step)` .. Numbers between `num` and `(num_end - 1)` incremented by `step`.\n"
+		"- `array.range(num)` .. between `0` and `(num - 1)`.\n"
+		"- `array.range(num, num_end)` .. between `num` and `(num_end - 1)`.\n"
+		"- `array.range(num, num_end, step)` .. between `num` and `(num_end - 1)` incremented by `step`.\n"
 		"\n"
 		"Example:\n"
 		"\n"
@@ -443,7 +454,24 @@ Gura_DeclareClassMethod_Array(array, range)
 		"    // x is array@double {2, 3, 4}\n"
 		"    x = array.range(2, 10, 2)\n"
 		"    // x is array@double {2, 4, 6, 8}\n"
-		);
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array")
+		"\n"
+		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
+		"The followings examples create an `array` instance of `int32` elements:\n"
+		"\n"
+		"    array.range(5, elemtype => `int32)\n"
+		"\n"
+		"Available element types are:\n"
+		"\n"
+		"    `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64\n"
+		"    `half, `float, `double, `complex\n"
+		"\n"
+		"Methods named `array@T.range` where `T` gets an element type name are also provided\n"
+		"to create an `array` instance of a specific type more easily.\n"
+		"Using these functions could simplify the code above like this:"
+		"\n"
+		"    array@int32.range(5)\n");
 }
 
 template<typename T_Elem> Array *FuncTmpl_range(Double numBegin, Double numEnd, Double numStep)
@@ -1058,6 +1086,8 @@ Gura_DeclareClassMethod_Array(array, zeros)
 		"\n"
 		"    x = array.zeros([3, 4])\n"
 		"    // x is array@double {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array")
 		);
 }
 
