@@ -732,7 +732,6 @@ iterator
   iterator#after(criteria) {block?}
   iterator#align(n:number, value?) {block?}
   iterator#and()
-  iterator#average()
   iterator#before(criteria) {block?}
   iterator#contains(value)
   iterator#count(criteria?)
@@ -753,6 +752,7 @@ iterator
   iterator#len()
   iterator#map(func:function) {block?}
   iterator#max():[index,indices,last_index]
+  iterator#mean()
   iterator#min():[index,indices,last_index]
   iterator#next()
   iterator#nilto(replace) {block?}
@@ -787,7 +787,6 @@ list
   list#align(n:number, value?):map {block?}
   list#and()
   list#append(elem+):reduce
-  list#average()
   list#before(criteria) {block?}
   list#clear():reduce
   list#combination(n:number) {block?}
@@ -812,6 +811,7 @@ list
   list#len()
   list#map(func:function) {block?}
   list#max():[index,indices,last_index]
+  list#mean()
   list#min():[index,indices,last_index]
   list#nilto(replace) {block?}
   list#offset(n:number):map {block?}

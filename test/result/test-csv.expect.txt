@@ -46,9 +46,9 @@ people.filter(people:*age < 40):*name.sort():stable:list .. ['Aoi Tatsuya', 'Fuj
 
 ======== #5 ========
 
-average=0.95
-len=20, sum=19, average=0.95, min=0, max=1.9
-len=20, sum=13.695, average=0.684751, min=0, max=0.999574
+mean=0.95
+len=20, sum=19, mean=0.95, min=0, max=1.9
+len=20, sum=13.695, mean=0.684751, min=0, max=0.999574
 "t","rand","f","t * t","sqrt"
 0.000000,0.681244,0.000000,0.000000,0.000000
 0.100000,0.798522,0.009967,0.010000,0.316228

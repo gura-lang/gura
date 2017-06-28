@@ -81,10 +81,10 @@ testcase {
 }
 testcase {
 	#fit(f(x), x, y)
-	print_statinfo(x) = printf('len=%d, sum=%g, average=%g, min=%g, max=%g\n',
-							x.len(), x.sum(), x.average(), x.min(), x.max())
+	print_statinfo(x) = printf('len=%d, sum=%g, mean=%g, min=%g, max=%g\n',
+							x.len(), x.sum(), x.mean(), x.min(), x.max())
 	t = [range(0, 2, .1)]
-	print('average=', t.average(), '\n')
+	print('mean=', t.mean(), '\n')
 	print_statinfo(t)
 	print_statinfo(math.abs(math.sin(t)))
 	f(x):map = math.sin(x) * math.sin(x)

@@ -318,34 +318,6 @@ Gura_ImplementMethod(iterator, and_)
 	return result;
 }
 
-// iterator#average()
-Gura_DeclareMethod(iterator, average)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en),
-		"Calculates an average of elements in the iterable.\n"
-		"\n"
-		"It can work on an iterable with elements of type that supports addition and division operators.\n"
-		"Below is a list of acceptable value types:\n"
-		"\n"
-		"- `number`\n"
-		"- `complex`\n"
-		"- `rational`\n");
-}
-
-Gura_ImplementMethod(iterator, average)
-{
-	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
-	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
-	if (sig.IsSignalled()) return Value::Nil;
-	size_t cnt;
-	Value result = pIterator->Average(env, cnt);
-	if (sig.IsSignalled()) return Value::Nil;
-	return result;
-}
-
 // iterator#before(criteria) {block?}
 Gura_DeclareMethod(iterator, before)
 {
@@ -797,6 +769,34 @@ Gura_ImplementMethod(iterator, max)
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value result = pIterator->MinMax(env, true, arg.GetAttrs());
+	if (sig.IsSignalled()) return Value::Nil;
+	return result;
+}
+
+// iterator#mean()
+Gura_DeclareMethod(iterator, mean)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"Calculates an average of elements in the iterable.\n"
+		"\n"
+		"It can work on an iterable with elements of type that supports addition and division operators.\n"
+		"Below is a list of acceptable value types:\n"
+		"\n"
+		"- `number`\n"
+		"- `complex`\n"
+		"- `rational`\n");
+}
+
+Gura_ImplementMethod(iterator, mean)
+{
+	Signal &sig = env.GetSignal();
+	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
+	if (sig.IsSignalled()) return Value::Nil;
+	size_t cnt;
+	Value result = pIterator->Average(env, cnt);
 	if (sig.IsSignalled()) return Value::Nil;
 	return result;
 }
@@ -1596,7 +1596,6 @@ void Class_iterator::DoPrepare(Environment &env)
 	Gura_AssignMethod(iterator, after);
 	Gura_AssignMethod(iterator, align);
 	Gura_AssignMethod(iterator, and_);
-	Gura_AssignMethod(iterator, average);
 	Gura_AssignMethod(iterator, before);
 	Gura_AssignMethod(iterator, contains);
 	Gura_AssignMethod(iterator, count);
@@ -1613,6 +1612,7 @@ void Class_iterator::DoPrepare(Environment &env)
 	Gura_AssignMethod(iterator, len);
 	Gura_AssignMethod(iterator, map);
 	Gura_AssignMethod(iterator, max);
+	Gura_AssignMethod(iterator, mean);
 	Gura_AssignMethod(iterator, min);
 	Gura_AssignMethod(iterator, nilto);
 	Gura_AssignMethod(iterator, offset);

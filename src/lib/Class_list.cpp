@@ -1203,25 +1203,6 @@ Gura_ImplementMethod(list, and_)
 	return result;
 }
 
-// list#average()
-Gura_DeclareMethod(list, average)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
-}
-
-Gura_ImplementMethod(list, average)
-{
-	Signal &sig = env.GetSignal();
-	Object_list *pThis = Object_list::GetObjectThis(arg);
-	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
-	if (sig.IsSignalled()) return Value::Nil;
-	size_t cnt;
-	Value result = pIterator->Average(env, cnt);
-	if (sig.IsSignalled()) return Value::Nil;
-	return result;
-}
-
 // list#before(criteria) {block?}
 Gura_DeclareMethod(list, before)
 {
@@ -1530,6 +1511,25 @@ Gura_ImplementMethod(list, max)
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
 	Value result = pIterator->MinMax(env, true, arg.GetAttrs());
+	if (sig.IsSignalled()) return Value::Nil;
+	return result;
+}
+
+// list#mean()
+Gura_DeclareMethod(list, mean)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
+}
+
+Gura_ImplementMethod(list, mean)
+{
+	Signal &sig = env.GetSignal();
+	Object_list *pThis = Object_list::GetObjectThis(arg);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
+	if (sig.IsSignalled()) return Value::Nil;
+	size_t cnt;
+	Value result = pIterator->Average(env, cnt);
 	if (sig.IsSignalled()) return Value::Nil;
 	return result;
 }
@@ -2070,7 +2070,6 @@ void Class_list::DoPrepare(Environment &env)
 	Gura_AssignMethod(list, after);
 	Gura_AssignMethod(list, align);
 	Gura_AssignMethod(list, and_);
-	Gura_AssignMethod(list, average);
 	Gura_AssignMethod(list, before);
 	Gura_AssignMethod(list, contains);
 	Gura_AssignMethod(list, count);
@@ -2087,6 +2086,7 @@ void Class_list::DoPrepare(Environment &env)
 	Gura_AssignMethod(list, len);
 	Gura_AssignMethod(list, map);
 	Gura_AssignMethod(list, max);
+	Gura_AssignMethod(list, mean);
 	Gura_AssignMethod(list, min);
 	Gura_AssignMethod(list, nilto);
 	Gura_AssignMethod(list, offset);
