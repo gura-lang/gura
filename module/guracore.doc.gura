@@ -1295,7 +1295,6 @@ ${markdown.makedoc@function$(`en, 'iterator#', 'iterable#'
 iterator.after
 iterator.align
 iterator.and
-iterator.average
 iterator.before
 iterator.contains
 iterator.count
@@ -1312,6 +1311,7 @@ iterator.joinb
 iterator.len
 iterator.map
 iterator.max
+iterator.mean
 iterator.min
 iterator.nilto
 iterator.offset
