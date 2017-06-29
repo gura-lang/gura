@@ -32,6 +32,7 @@
 import(opengl) {*}
 import(glu) {*}
 import(glut) {*}
+import(arrayutil)
 
 W = 600
 H = 600
