@@ -98,7 +98,7 @@ TestGLCanvas = class(wx.GLCanvas) {
 			// Swap
 			this.SwapBuffers()
 		} catch {|e|
-			println(e.message)
+			println(e.text)
 		}
 		dc = nil
 	}

@@ -104,7 +104,7 @@ fogIndex = \
 @{0.0};
 
 shadowPattern = \
-@uchar {
+array@uint8 {
   0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,  /* 50% Grey */
   0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
   0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
@@ -124,7 +124,7 @@ shadowPattern = \
 };
 
 sgiPattern = \
-@uchar {
+array@uint8 {
   0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,  /* SGI Logo */
   0xff, 0xbd, 0xff, 0x83, 0xff, 0x5a, 0xff, 0xef,
   0xfe, 0xdb, 0x7f, 0xef, 0xfd, 0xdb, 0xbf, 0xef,
@@ -371,7 +371,7 @@ myShadowMatrix(ground[]:number, light[]:number) = {
 	shadowMat[2][3] = 0.0 - light[3] * ground[2];
 	shadowMat[3][3] = dot - light[3] * ground[3];
 
-	glMultMatrixf(shadowMat.flat():list);
+	glMultMatrixf(shadowMat.flatten():list);
 }
 
 
@@ -464,7 +464,7 @@ display() = {
 	glPushMatrix {
 		myShadowMatrix(groundPlane, lightPos);
 		glTranslatef(0.0, 0.0, 2.0);
-		glMultMatrixf(cubeXform.flat():list);
+		glMultMatrixf(cubeXform.flatten():list);
 
 		drawCube(BLACK);      /* draw ground shadow */
 	}
@@ -472,7 +472,7 @@ display() = {
 	glPushMatrix {
 		myShadowMatrix(backPlane, lightPos);
 		glTranslatef(0.0, 0.0, 2.0);
-		glMultMatrixf(cubeXform.flat():list);
+		glMultMatrixf(cubeXform.flatten():list);
 	
 		drawCube(BLACK);      /* draw back shadow */
 	}
