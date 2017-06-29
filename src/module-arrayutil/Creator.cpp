@@ -232,7 +232,7 @@ Gura_DeclareClassMethod_Array(array, ones)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array of `double` type of elements, which are initialized by one.\n"
+		"Creates an array of `double` type of elements, which are initialized with one.\n"
 		"The argument `dims` specifies the dimension of the created array.\n"
 		"\n"
 		"Example:\n"
@@ -548,14 +548,40 @@ Gura_DeclareClassMethod_Array(array, rotation)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that rotates 2-D coords by the specified `angle`.\n"
+		"Creates an `array` of `double` type of elements representing a matrix to rotate a 2-D coord.\n"
 		"\n"
-		"The `angle` is specified in radian value.\n"
+		"The rotation `angle` is specified in radian value.\n"
 		"If the attribute `:deg` is specified, the `angle` is specified in degree value.\n"
 		"\n"
-		"If one or more of `xtrans` or `ytrans` is specified,\n"
+		"If one or both of `xtrans` and `ytrans` are specified,\n"
 		"it would create an array that works as translation as well as rotation.\n"
-		);
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = array.rotation(math.pi / 6)\n"
+		"    // x is a matrix to rotate by pi/6.\n"
+		"    x = array.rotation(30):deg\n"
+		"    // x is a matrix to rotate by 30 degree, which is pi/6 in radian.\n"
+		"    x = array.rotation(math.pi / 6, 3, 5)\n"
+		"    // x is a matrix to rotate by pi/6 and translate by [3, 5].\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array")
+		"\n"
+		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
+		"The followings examples create an `array` instance of `float` elements:\n"
+		"\n"
+		"    array.rotation(math.pi / 6, elemtype => `float)\n"
+		"\n"
+		"Available element types are:\n"
+		"\n"
+		"    `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64\n"
+		"    `half, `float, `double, `complex\n"
+		"\n"
+		"Methods named `array@T.rotation` where `T` gets an element type name are also provided\n"
+		"to create an `array` instance of a specific type more easily.\n"
+		"Using these functions could simplify the code above like this:"
+		"\n"
+		"    array@float.rotation(math.pi / 6)\n");
 }
 
 template<typename T_Elem> Array *FuncTmpl_rotation(double rad, bool transFlag, double xTrans, double yTrans)
@@ -623,14 +649,40 @@ Gura_DeclareClassMethodAlias_Array(array, rotation_at_x, "rotation@x")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that rotates 3-D coords around x-axis by the specified `angle`.\n"
+		"Creates an `array` of `double` type of elements representing a matrix to rotate a 3-D coord around x-axis.\n"
 		"\n"
-		"The `angle` is specified in radian value.\n"
+		"The rotation `angle` is specified in radian value.\n"
 		"If the attribute `:deg` is specified, the `angle` is specified in degree value.\n"
 		"\n"
-		"If one or more of `xtrans`, `ytrans` or `ztrans` is specified,\n"
+		"If one or more of `xtrans`, `ytrans` and `ztrans` are specified,\n"
 		"it would create an array that works as translation as well as rotation.\n"
-		);
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = array.rotation@x(math.pi / 6)\n"
+		"    // x is a matrix to rotate by pi/6.\n"
+		"    x = array.rotation@x(30):deg\n"
+		"    // x is a matrix to rotate by 30 degree, which is pi/6 in radian.\n"
+		"    x = array.rotation@x(math.pi / 6, 3, -2, 5)\n"
+		"    // x is a matrix to rotate by pi/6 and translate by [3, -2, 5].\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array")
+		"\n"
+		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
+		"The followings examples create an `array` instance of `float` elements:\n"
+		"\n"
+		"    array.rotation@x(math.pi / 6, elemtype => `float)\n"
+		"\n"
+		"Available element types are:\n"
+		"\n"
+		"    `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64\n"
+		"    `half, `float, `double, `complex\n"
+		"\n"
+		"Methods named `array@T.rotation@x` where `T` gets an element type name are also provided\n"
+		"to create an `array` instance of a specific type more easily.\n"
+		"Using these functions could simplify the code above like this:"
+		"\n"
+		"    array@float.rotation@x(math.pi / 6)\n");
 }
 
 template<typename T_Elem> Array *FuncTmpl_rotation_at_x(Double rad, bool transFlag, Double xTrans, Double yTrans, Double zTrans)
@@ -711,14 +763,40 @@ Gura_DeclareClassMethodAlias_Array(array, rotation_at_y, "rotation@y")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that rotates 3-D coords around y-axis by the specified `angle`.\n"
+		"Creates an `array` of `double` type of elements representing a matrix to rotate a 3-D coord around y-axis.\n"
 		"\n"
-		"The `angle` is specified in radian value.\n"
+		"The rotation `angle` is specified in radian value.\n"
 		"If the attribute `:deg` is specified, the `angle` is specified in degree value.\n"
 		"\n"
-		"If one or more of `xtrans`, `ytrans` or `ztrans` is specified,\n"
+		"If one or more of `xtrans`, `ytrans` and `ztrans` are specified,\n"
 		"it would create an array that works as translation as well as rotation.\n"
-		);
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = array.rotation@y(math.pi / 6)\n"
+		"    // x is a matrix to rotate by pi/6.\n"
+		"    x = array.rotation@y(30):deg\n"
+		"    // x is a matrix to rotate by 30 degree, which is pi/6 in radian.\n"
+		"    x = array.rotation@y(math.pi / 6, 3, -2, 5)\n"
+		"    // x is a matrix to rotate by pi/6 and translate by [3, -2, 5].\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array")
+		"\n"
+		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
+		"The followings examples create an `array` instance of `float` elements:\n"
+		"\n"
+		"    array.rotation@y(math.pi / 6, elemtype => `float)\n"
+		"\n"
+		"Available element types are:\n"
+		"\n"
+		"    `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64\n"
+		"    `half, `float, `double, `complex\n"
+		"\n"
+		"Methods named `array@T.rotation@y` where `T` gets an element type name are also provided\n"
+		"to create an `array` instance of a specific type more easily.\n"
+		"Using these functions could simplify the code above like this:"
+		"\n"
+		"    array@float.rotation@y(math.pi / 6)\n");
 }
 
 template<typename T_Elem> Array *FuncTmpl_rotation_at_y(Double rad, bool transFlag, Double xTrans, Double yTrans, Double zTrans)
@@ -801,14 +879,40 @@ Gura_DeclareClassMethodAlias_Array(array, rotation_at_z, "rotation@z")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that rotates 3-D coords around z-axis by the specified `angle`.\n"
+		"Creates an `array` of `double` type of elements representing a matrix to rotate a 3-D coord around z-axis.\n"
 		"\n"
-		"The `angle` is specified in radian value.\n"
+		"The rotation `angle` is specified in radian value.\n"
 		"If the attribute `:deg` is specified, the `angle` is specified in degree value.\n"
 		"\n"
-		"If one or more of `xtrans`, `ytrans` or `ztrans` is specified,\n"
+		"If one or more of `xtrans`, `ytrans` and `ztrans` are specified,\n"
 		"it would create an array that works as translation as well as rotation.\n"
-		);
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = array.rotation@z(math.pi / 6)\n"
+		"    // x is a matrix to rotate by pi/6.\n"
+		"    x = array.rotation@z(30):deg\n"
+		"    // x is a matrix to rotate by 30 degree, which is pi/6 in radian.\n"
+		"    x = array.rotation@z(math.pi / 6, 3, -2, 5)\n"
+		"    // x is a matrix to rotate by pi/6 and translate by [3, -2, 5].\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array")
+		"\n"
+		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
+		"The followings examples create an `array` instance of `float` elements:\n"
+		"\n"
+		"    array.rotation@z(math.pi / 6, elemtype => `float)\n"
+		"\n"
+		"Available element types are:\n"
+		"\n"
+		"    `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64\n"
+		"    `half, `float, `double, `complex\n"
+		"\n"
+		"Methods named `array@T.rotation@z` where `T` gets an element type name are also provided\n"
+		"to create an `array` instance of a specific type more easily.\n"
+		"Using these functions could simplify the code above like this:"
+		"\n"
+		"    array@float.rotation@z(math.pi / 6)\n");
 }
 
 template<typename T_Elem> Array *FuncTmpl_rotation_at_z(Double rad, bool transFlag, Double xTrans, Double yTrans, Double zTrans)
@@ -887,10 +991,35 @@ Gura_DeclareClassMethod_Array(array, scaling)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that scales coords.\n"
-		"If the argument `zscale` is specified, it would create an array that works with 3-D coords.\n"
-		"Otherwise, it would create what works with 2-D coord.n"
-		);
+		"Creates an `array` of `double` type of elements representing a matrix to scale a coord.\n"
+		"\n"
+		"It creates a matrix that works on a 2-D coord if `xscale` and `yscale` are specified\n"
+		"while it creates a matrix on a 3-D coord if `xscale`, `yscale` and `zscale` are specified.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = array.scaling(3, 4)\n"
+		"    // x is a matrix to scale a 2-D coord by [3, 4].\n"
+		"    x = array.scaling(3, 4, -2)\n"
+		"    // x is a matrix to scale a 3-D coord by [3, 4, -2].\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array")
+		"\n"
+		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
+		"The followings examples create an `array` instance of `float` elements:\n"
+		"\n"
+		"    array.scaling(3, 4, elemtype => `float)\n"
+		"\n"
+		"Available element types are:\n"
+		"\n"
+		"    `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64\n"
+		"    `half, `float, `double, `complex\n"
+		"\n"
+		"Methods named `array@T.scaling` where `T` gets an element type name are also provided\n"
+		"to create an `array` instance of a specific type more easily.\n"
+		"Using these functions could simplify the code above like this:"
+		"\n"
+		"    array@float.scaling(3, 4\n");
 }
 
 template<typename T_Elem> Array *FuncTmpl_scaling2D(Double xScale, Double yScale)
@@ -984,10 +1113,35 @@ Gura_DeclareClassMethod_Array(array, translation)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array that translates coords.\n"
-		"If the argument `ztrans` is specified, it would create an array that works with 3-D coords.\n"
-		"Otherwise, it would create what works with 2-D coords.n"
-		);
+		"Creates an `array` of `double` type of elements representing a matrix to translate a coord.\n"
+		"\n"
+		"It creates a matrix that works on a 2-D coord if `xtrans` and `ytrans` are specified\n"
+		"while it creates a matrix on a 3-D coord if `xtrans`, `ytrans` and `ztrans` are specified.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = array.translation(3, 4)\n"
+		"    // x is a matrix to translate a 2-D coord by [3, 4].\n"
+		"    x = array.translation(3, 4, -2)\n"
+		"    // x is a matrix to translate a 3-D coord by [3, 4, -2].\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array")
+		"\n"
+		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
+		"The followings examples create an `array` instance of `float` elements:\n"
+		"\n"
+		"    array.translation(3, 4, elemtype => `float)\n"
+		"\n"
+		"Available element types are:\n"
+		"\n"
+		"    `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64\n"
+		"    `half, `float, `double, `complex\n"
+		"\n"
+		"Methods named `array@T.translation` where `T` gets an element type name are also provided\n"
+		"to create an `array` instance of a specific type more easily.\n"
+		"Using these functions could simplify the code above like this:"
+		"\n"
+		"    array@float.translation(3, 4\n");
 }
 
 template<typename T_Elem> Array *FuncTmpl_translation2D(Double xTrans, Double yTrans)
@@ -1079,7 +1233,7 @@ Gura_DeclareClassMethod_Array(array, zeros)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an array of `double` type of elements that are initialized with zero.\n"
+		"Creates an array of `double` type of elements, which are initialized with zero.\n"
 		"The argument `dims` specifies the dimension of the created array.\n"
 		"\n"
 		"Example:\n"
@@ -1088,7 +1242,22 @@ Gura_DeclareClassMethod_Array(array, zeros)
 		"    // x is array@double {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("array", "array")
-		);
+		"\n"
+		"Specifying the argument `elemtype` would create an array of element type other than `double`.\n"
+		"The followings examples create an `array` instance of `int32` elements:\n"
+		"\n"
+		"    array.zeros([3, 4], elemtype => `int32)\n"
+		"\n"
+		"Available element types are:\n"
+		"\n"
+		"    `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64\n"
+		"    `half, `float, `double, `complex\n"
+		"\n"
+		"Methods named `array@T.zeros` where `T` gets an element type name are also provided\n"
+		"to create an `array` instance of a specific type more easily.\n"
+		"Using these functions could simplify the code above like this:"
+		"\n"
+		"    array@int32.zeros([3, 4])\n");
 }
 
 template<typename T_Elem> Array *FuncTmpl_zeros(const ValueList &valList)
