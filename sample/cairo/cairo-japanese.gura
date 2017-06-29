@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 // coding: utf-8
-import(tk)
+import(show)
 import(cairo)
 import(units)
 
@@ -25,7 +25,7 @@ drawContent(cr:cairo.context) = {
 	cr.set_line_width(.1)
 	cr.move_to(20, 20)
 	[x, y] = [20, 20]
-	text = 'おじさんの家に遊びに行きます。あいうえお、かきくけこ。'
+	text = '古池や蛙飛びこむ水の音。あいうえお、かきくけこ。'
 	text.each {|ch|
 		extents = cr.text_extents(ch)
 		if (ch == '、' || ch == '。') {
@@ -50,23 +50,7 @@ drawContent(cr:cairo.context) = {
 	*/
 	cr.show_page()
 }
-tk.mainwindow() {|mw|
-	[wdCanvas, htCanvas] = [210, 297] * 2
-	imgTk = nil
-	showGraphic() = {
-		imgTk && imgTk.delete()
-		img = image(`rgba, wdCanvas, htCanvas, `white)
-		img.cairo {|cr| drawContent(cr)}
-		imgTk = img.to_tk()
-		canvas.Image(wdCanvas / 2, htCanvas / 2, image => imgTk, anchor => 'c')
-	}
-	mw.Button(text => 'push') {|w|
-		w.pack(fill => 'both', expand => true)
-		w.bind(`command) {showGraphic()}
-	}
-	canvas = mw.Canvas(bg => 'gray', width => wdCanvas, height => htCanvas) {|w|
-		w.pack(fill => 'both', expand => true)
-	}
-	showGraphic()
-}
-tk.mainloop()
+[wdCanvas, htCanvas] = [210, 297] * 2
+img = image(`rgba, wdCanvas, htCanvas, `white)
+img.cairo {|cr| drawContent(cr)}
+img.show()
