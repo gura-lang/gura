@@ -456,7 +456,7 @@ testList = @{
 }
 
 Canvas = class(wx.Panel) {
-	__init__(parent:tk.Window, style:number, size:wx.Size) = \
+	__init__(parent:wx.Window, style:number, size:wx.Size) = \
 								{|parent, style => style, size => size|
 		this.bmp = nil
 		this.Bind(wx.EVT_PAINT) {|event|
@@ -474,7 +474,7 @@ Canvas = class(wx.Panel) {
 Entry = struct(name:string, func:function)
 
 Frame = class(wx.Frame) {
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0]),
+	__init__(parent:wx.Window:nil) = {|parent, wx.ID_ANY, path.filename(sys.argv[0]),
 								   size => wx.Size(800, 640)|
 		this.SetIcon(wx.IconFromXPMData(sample_xpm))
 		wx.MenuBar {|menuBar|
