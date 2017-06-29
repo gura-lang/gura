@@ -1,6 +1,7 @@
 #!/usr/bin/env gura
 import(show)
 import(freetype, ft)
+import(arrayutil)
 
 fileName = path.join(sys.fontdir, 'mplus-1p-regular.ttf')
 img = image(`rgb, 640, 480, `white)
@@ -51,14 +52,14 @@ ft.font(fileName) {|font|
 	img.drawtext(font, 10, y, 'rotate + slant + strength')
 }
 ft.font(fileName) {|font|
-	mat = matrix.rotation(30):deg
+	mat = array.rotation(30):deg
 	y += 200
 	img.drawtext(font, 30, y, 'custom') {|code|
 		face = font.face
 		face.Set_Pixel_Sizes(200, 200)
 		face.Load_Char(code, ft.LOAD_DEFAULT)
 		face.glyph.outline.Transform(mat)
-		face.glyph.advance.Transform(matrix.rotation(-30):deg)
+		face.glyph.advance.Transform(array.rotation(-30):deg)
 	}
 }
 ft.font(fileName) {|font|
