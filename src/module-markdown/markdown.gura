@@ -740,7 +740,7 @@ Renderer@console = class {
 		separator = ('-' * widths).join('+')
 		rows.each {|row|
 			textsFolded = row.cols:*text.each():list {|text, i|
-				text.split('\n'):*foldw(widths[i]).flat().each()
+				text.split('\n'):*foldw(widths[i]).flatten().each()
 			}
 			while ((texts = textsFolded:*next()).or()) {
 				//println(format('%-*s', widths, texts || '').join('|'))
