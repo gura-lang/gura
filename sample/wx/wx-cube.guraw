@@ -105,6 +105,8 @@ TestGLCanvas = class(wx.GLCanvas) {
 			this.InitGL()
 			this.m_init = true
 		}
+		[w, h] = this.GetClientSizeWH()
+		glViewport(0, 0, w, h)
 		glMatrixMode(GL_PROJECTION)
 		glLoadIdentity()
 		glFrustum(-0.5, 0.5, -0.5, 0.5, 1.0, 3.0)
@@ -150,9 +152,9 @@ TestGLCanvas = class(wx.GLCanvas) {
 	}
 	OnSize(event:wx.SizeEvent) = {
 		// set GL viewport (not called by wxGLCanvas::OnSize on all platforms...)
-		[w, h] = this.GetClientSizeWH()
-		this.m_context.SetCurrent(this)
-		glViewport(0, 0, w, h)
+		//[w, h] = this.GetClientSizeWH()
+		//this.m_context.SetCurrent(this)
+		//glViewport(0, 0, w, h)
 	}
 	OnEraseBackground(event:wx.EraseEvent) = {
 		// Do nothing, to avoid flashing.

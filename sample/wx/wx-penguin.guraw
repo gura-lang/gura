@@ -106,7 +106,7 @@ TestGLCanvas = class(wx.GLCanvas) {
 		// this is also necessary to update the context on some platforms
 		//super(this).OnSize(event)
 		// Reset the OpenGL view aspect
-		this.ResetProjectionMode()
+		//this.ResetProjectionMode()
 	}
 	OnEraseBackground(event:wx.EraseEvent) = {
 		// Do nothing, to avoid flashing on MSW
