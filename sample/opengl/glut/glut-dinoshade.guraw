@@ -710,7 +710,7 @@ main() = {
 
 	if (glutGet(GLUT_WINDOW_STENCIL_SIZE) <= 1) {
 		printf("dinoshade: Sorry, I need at least 2 bits of stencil.\n");
-		exit(1);
+		sys.exit(1);
 	}
 
 	/* Register GLUT callbacks. */
