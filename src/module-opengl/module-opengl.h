@@ -11,9 +11,12 @@
 #elif defined(GURA_ON_MSWIN)
 #define GLEW_STATIC
 #include <glew.h>
-#else
+#elif defined(GURA_ON_LINUX)
 #define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>
+#include <GL/osmesa.h>
+#else
+#error unsupported platform
 #endif
 #include "Utils.h"
 
@@ -25,7 +28,7 @@
 
 Gura_BeginModuleHeader(opengl)
 
-bool DoGLSection(Environment &env, Signal &sig, Argument &args, Image *pImage);
+bool DoGLSection(Environment &env, Argument &args, Image *pImage);
 
 //-----------------------------------------------------------------------------
 // helper

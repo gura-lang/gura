@@ -1465,7 +1465,7 @@ Gura_ImplementMethod(image, opengl)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetObjectThis(arg);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Nil;
-	if (!DoGLSection(env, sig, arg, pThis->GetImage())) return Value::Nil;
+	if (!DoGLSection(env, arg, pThis->GetImage())) return Value::Nil;
 	return arg.GetValueThis();
 }
 
@@ -1493,7 +1493,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-bool DoGLSection(Environment &env, Signal &sig, Argument &arg, Image *pImage)
+bool DoGLSection(Environment &env, Argument &arg, Image *pImage)
 {
 #if GURA_USE_MSWIN_DIB
 	PIXELFORMATDESCRIPTOR pfd = { 
@@ -1510,7 +1510,7 @@ bool DoGLSection(Environment &env, Signal &sig, Argument &arg, Image *pImage)
 	HGLRC hglrc = ::wglCreateContext(hdc);
 	::wglMakeCurrent(hdc, hglrc);
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-	if (!sig.IsSignalled()) {
+	if (!env.IsSignalled()) {
 		pExprBlock->Exec(env);
 	}
 	::wglMakeCurrent(nullptr, nullptr);
@@ -1549,13 +1549,13 @@ bool DoGLSection(Environment &env, Signal &sig, Argument &arg, Image *pImage)
 	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	if (status == GL_FRAMEBUFFER_COMPLETE) {
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (!sig.IsSignalled()) {
+		if (!env.IsSignalled()) {
 			pExprBlock->Exec(env);
 		}
 	}
 	do {
 		GLenum format = GetImageFormat(env, pImage);
-		if (sig.IsSignalled()) return false;
+		if (env.IsSignalled()) return false;
 		glBindTexture(GL_TEXTURE_2D, texOut);
 		glGetTexImage(GL_TEXTURE_2D, 0, format, GL_UNSIGNED_BYTE, pImage->GetBuffer());
 	} while (0);
@@ -1564,24 +1564,22 @@ bool DoGLSection(Environment &env, Signal &sig, Argument &arg, Image *pImage)
 	CGLSetCurrentContext(ctxOrg);
 	CGLDestroyContext(ctx);
 	return true;
-#else
-#if 0
-	int width = static_cast<int>(pImage->GetWidth());
-	int height = static_cast<int>(pImage->GetHeight());
-	GLXFBConfig config;
-	Pixmap pixmap = ::XCreatePixmap(nullptr, d, width, height, 32);
-	GLXPixmap xid = ::glXCreatePixmap(nullptr, config, pixmap, nullptr);
-	GLXContext ctx;
-	::glXMakeCurrent(nullptr, xid, ctx);
+#elif defined(GURA_ON_LINUX)
+	GLenum format = (pImage->GetFormat() == Image::FORMAT_RGB)? OSMESA_BGR : OSMESA_BGRA;
+	GLsizei width = static_cast<GLsizei>(pImage->GetWidth());
+	GLsizei height = static_cast<GLsizei>(pImage->GetHeight());
+	OSMesaContext ctx = ::OSMesaCreateContext(format, nullptr);
+	if (!::OSMesaMakeCurrent(ctx, pImage->GetBuffer(), GL_UNSIGNED_BYTE, width, height)) {
+		env.SetError(ERR_RuntimeError, "failed to create OpenGL off-line context");
+		return false;
+	}
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-	if (!sig.IsSignalled()) {
+	if (!env.IsSignalled()) {
 		pExprBlock->Exec(env);
 	}
-	::glReadPixels(0, 0, width, height, GL_BGRA_EXT,
-									GL_UNSIGNED_BYTE, pImage->GetBuffer());
-#endif
-#endif
+	//::OSMesaDestroyContext(ctx);
 	return true;
+#endif
 }
 
 Gura_EndModuleBody(opengl, opengl)
