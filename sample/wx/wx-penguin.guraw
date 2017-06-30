@@ -50,10 +50,10 @@ MyApp = class(wx.App) {
 
 TestGLCanvas = class(wx.GLCanvas) {
 	__init__(parent:wx.Window, id:number => wx.ID_ANY,
-				pos:wx.Point => wx.DefaultPosition,
-				size:wx.Size => wx.DefaultSize, style:number => 0,
-				name:string => 'TestGLCanvas') = \
-			{|parent, id, [], pos, size, (style | wx.FULL_REPAINT_ON_RESIZE), name|
+			 pos:wx.Point => wx.DefaultPosition,
+			 size:wx.Size => wx.DefaultSize, style:number => 0,
+			 name:string => 'TestGLCanvas') = {
+		|parent, id, [], pos, size, (style | wx.FULL_REPAINT_ON_RESIZE), name|
 		this.EventTable()
 		this.m_gldata = GLData(
 			initialized => false
@@ -65,6 +65,7 @@ TestGLCanvas = class(wx.GLCanvas) {
 		)
 		this.m_gldata.quat = trackball(0.0, 0.0, 0.0, 0.0)
 		this.m_renderer = DXFRenderer()
+		this.m_context = wx.GLContext(this)
 	}
 	EventTable() = {
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
@@ -75,9 +76,8 @@ TestGLCanvas = class(wx.GLCanvas) {
 	OnPaint(event:wx.PaintEvent) = {
 		// must always be here
 		dc = wx.PaintDC(this)
-		if (!this.GetContext()) { return }
 		try {
-			this.SetCurrent()
+			this.m_context.SetCurrent(this)
 			// Initialize OpenGL
 			if (!this.m_gldata.initialized) {
 				this.InitGL()
@@ -166,15 +166,13 @@ TestGLCanvas = class(wx.GLCanvas) {
 	}
 	ResetProjectionMode() = {
 		[w, h] = this.GetClientSizeWH()
-		if (this.GetContext()) {
-			this.SetCurrent()
-			glViewport(0, 0, w, h)
-			glMatrixMode(GL_PROJECTION)
-			glLoadIdentity()
-			gluPerspective(45.0, w / h, 1.0, 100.0)
-			glMatrixMode(GL_MODELVIEW)
-			glLoadIdentity()
-		}
+		this.m_context.SetCurrent(this)
+		glViewport(0, 0, w, h)
+		glMatrixMode(GL_PROJECTION)
+		glLoadIdentity()
+		gluPerspective(45.0, w / h, 1.0, 100.0)
+		glMatrixMode(GL_MODELVIEW)
+		glLoadIdentity()
 	}
 }
 
