@@ -15,8 +15,9 @@ class GURA_DLLDECLARE Class_dict : public ClassFundamental {
 public:
 	Class_dict(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
+	virtual SerializeFmtVer GetSerializeFmtVer() const;
 	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Stream &stream, Value &value) const;
+	virtual bool Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const;
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 

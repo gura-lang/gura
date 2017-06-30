@@ -33,7 +33,7 @@ ${markdown.makedoc@function(`en
 )}
 
 
-## Extension to image Class
+## Extension to array Class
 
 This module extends the `array` class with methods described here.
 

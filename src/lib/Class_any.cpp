@@ -26,15 +26,24 @@ bool Class_any::CastFrom(Environment &env, Value &value, ULong flags)
 	return false;
 }
 
+Class::SerializeFmtVer Class_any::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool Class_any::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	return true;
 }
 
-bool Class_any::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool Class_any::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
-	value = Value::Nil;
-	return true;
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		value = Value::Nil;
+		return true;
+	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
+	return false;
 }
 
 

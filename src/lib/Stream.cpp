@@ -494,17 +494,17 @@ bool Stream::DeserializeBoolean(Signal &sig, bool &num)
 	return true;
 }
 
-bool Stream::SerializeUChar(Signal &sig, UChar num)
+bool Stream::SerializeUInt8(Signal &sig, UInt8 num)
 {
 	return Write(sig, &num, sizeof(num)) == sizeof(num);
 }
 
-bool Stream::DeserializeUChar(Signal &sig, UChar &num)
+bool Stream::DeserializeUInt8(Signal &sig, UInt8 &num)
 {
 	return Read(sig, &num, sizeof(num)) == sizeof(num);
 }
 
-bool Stream::SerializeUShort(Signal &sig, UShort num)
+bool Stream::SerializeUInt16(Signal &sig, UInt16 num)
 {
 	UChar buff[2] = {
 		static_cast<UChar>((num >> 0) & 0xff),
@@ -513,17 +513,17 @@ bool Stream::SerializeUShort(Signal &sig, UShort num)
 	return Write(sig, buff, sizeof(buff)) == sizeof(buff);
 }
 
-bool Stream::DeserializeUShort(Signal &sig, UShort &num)
+bool Stream::DeserializeUInt16(Signal &sig, UInt16 &num)
 {
 	UChar buff[2];
 	if (Read(sig, buff, sizeof(buff)) != sizeof(buff)) return false;
 	num =
-		(static_cast<UShort>(buff[0]) << 0) +
-		(static_cast<UShort>(buff[1]) << 8);
+		(static_cast<UInt16>(buff[0]) << 0) +
+		(static_cast<UInt16>(buff[1]) << 8);
 	return true;
 }
 
-bool Stream::SerializeULong(Signal &sig, ULong num)
+bool Stream::SerializeUInt32(Signal &sig, UInt32 num)
 {
 	UChar buff[4] = {
 		static_cast<UChar>((num >> 0) & 0xff),
@@ -534,15 +534,15 @@ bool Stream::SerializeULong(Signal &sig, ULong num)
 	return Write(sig, buff, sizeof(buff)) == sizeof(buff);
 }
 
-bool Stream::DeserializeULong(Signal &sig, ULong &num)
+bool Stream::DeserializeUInt32(Signal &sig, UInt32 &num)
 {
 	UChar buff[4];
 	if (Read(sig, buff, sizeof(buff)) != sizeof(buff)) return false;
 	num =
-		(static_cast<ULong>(buff[0]) << 0) +
-		(static_cast<ULong>(buff[1]) << 8) +
-		(static_cast<ULong>(buff[2]) << 16) +
-		(static_cast<ULong>(buff[3]) << 24);
+		(static_cast<UInt32>(buff[0]) << 0) +
+		(static_cast<UInt32>(buff[1]) << 8) +
+		(static_cast<UInt32>(buff[2]) << 16) +
+		(static_cast<UInt32>(buff[3]) << 24);
 	return true;
 }
 
@@ -577,13 +577,13 @@ bool Stream::DeserializeUInt64(Signal &sig, UInt64 &num)
 	return true;
 }
 
-bool Stream::SerializeDouble(Signal &sig, double num)
+bool Stream::SerializeDouble(Signal &sig, Double num)
 {
 	UChar *buff = reinterpret_cast<UChar *>(&num);
 	return Write(sig, buff, sizeof(num)) == sizeof(num);
 }
 
-bool Stream::DeserializeDouble(Signal &sig, double &num)
+bool Stream::DeserializeDouble(Signal &sig, Double &num)
 {
 	UChar *buff = reinterpret_cast<UChar *>(&num);
 	return Read(sig, buff, sizeof(num)) == sizeof(num);
@@ -592,51 +592,41 @@ bool Stream::DeserializeDouble(Signal &sig, double &num)
 bool Stream::SerializeString(Signal &sig, const char *str)
 {
 	ULong len = static_cast<ULong>(::strlen(str));
-	if (!SerializePackedULong(sig, len)) return false;
+	if (!SerializePackedUInt32(sig, len)) return false;
 	return Write(sig, str, len) == len;
 }
 
 bool Stream::DeserializeString(Signal &sig, String &str)
 {
-	ULong len = 0;
-	if (!DeserializePackedULong(sig, len)) return false;
+	UInt32 len = 0;
+	if (!DeserializePackedUInt32(sig, len)) return false;
 	if (len == 0) {
 		str.clear();
 		return true;
 	}
-	char *buff = new char [len + 1];
-	if (Read(sig, buff, len) != len) {
-		delete[] buff;
-		return false;
-	}
-	buff[len] = '\0';
-	str = buff;
-	delete[] buff;
+	str = String(len + 1, '\0');
+	if (Read(sig, &str[0], len) != len) return false;
+	str.resize(len);
 	return true;
 }
 
 bool Stream::SerializeBinary(Signal &sig, const Binary &binary)
 {
 	ULong len = static_cast<ULong>(binary.size());
-	if (!SerializePackedULong(sig, len)) return false;
+	if (!SerializePackedUInt32(sig, len)) return false;
 	return Write(sig, binary.data(), len) == len;
 }
 
 bool Stream::DeserializeBinary(Signal &sig, Binary &binary)
 {
-	ULong len = 0;
-	if (!DeserializePackedULong(sig, len)) return false;
+	UInt32 len = 0;
+	if (!DeserializePackedUInt32(sig, len)) return false;
 	if (len == 0) {
 		binary.clear();
 		return true;
 	}
-	char *buff = new char [len];
-	if (Read(sig, buff, len) != len) {
-		delete[] buff;
-		return false;
-	}
-	binary = Binary(buff, len);
-	delete[] buff;
+	binary = Binary(len);
+	if (Read(sig, &binary[0], len) != len) return false;
 	return true;
 }
 
@@ -656,7 +646,7 @@ bool Stream::DeserializeSymbol(Signal &sig, const Symbol **ppSymbol)
 bool Stream::SerializeSymbolSet(Signal &sig, const SymbolSet &symbolSet)
 {
 	ULong len = static_cast<ULong>(symbolSet.size());
-	if (!SerializePackedULong(sig, len)) return false;
+	if (!SerializePackedUInt32(sig, len)) return false;
 	foreach_const (SymbolSet, ppSymbol, symbolSet) {
 		if (!SerializeSymbol(sig, *ppSymbol)) return false;
 	}
@@ -665,8 +655,8 @@ bool Stream::SerializeSymbolSet(Signal &sig, const SymbolSet &symbolSet)
 
 bool Stream::DeserializeSymbolSet(Signal &sig, SymbolSet &symbolSet)
 {
-	ULong len = 0;
-	if (!DeserializePackedULong(sig, len)) return false;
+	UInt32 len = 0;
+	if (!DeserializePackedUInt32(sig, len)) return false;
 	symbolSet.clear();
 	if (len == 0) return true;
 	const Symbol *pSymbol = nullptr;
@@ -680,7 +670,7 @@ bool Stream::DeserializeSymbolSet(Signal &sig, SymbolSet &symbolSet)
 bool Stream::SerializeSymbolList(Signal &sig, const SymbolList &symbolList)
 {
 	ULong len = static_cast<ULong>(symbolList.size());
-	if (!SerializePackedULong(sig, len)) return false;
+	if (!SerializePackedUInt32(sig, len)) return false;
 	foreach_const (SymbolList, ppSymbol, symbolList) {
 		if (!SerializeSymbol(sig, *ppSymbol)) return false;
 	}
@@ -689,8 +679,8 @@ bool Stream::SerializeSymbolList(Signal &sig, const SymbolList &symbolList)
 
 bool Stream::DeserializeSymbolList(Signal &sig, SymbolList &symbolList)
 {
-	ULong len = 0;
-	if (!DeserializePackedULong(sig, len)) return false;
+	UInt32 len = 0;
+	if (!DeserializePackedUInt32(sig, len)) return false;
 	symbolList.clear();
 	if (len == 0) return true;
 	symbolList.reserve(len);
@@ -702,7 +692,7 @@ bool Stream::DeserializeSymbolList(Signal &sig, SymbolList &symbolList)
 	return true;
 }
 
-bool Stream::SerializePackedULong(Signal &sig, ULong num)
+bool Stream::SerializePackedUInt32(Signal &sig, UInt32 num)
 {
 	UChar buff[16];
 	size_t bytesBuff = 0;
@@ -719,17 +709,52 @@ bool Stream::SerializePackedULong(Signal &sig, ULong num)
 	return Write(sig, buff, bytesBuff) == bytesBuff;
 }
 
-bool Stream::DeserializePackedULong(Signal &sig, ULong &num)
+bool Stream::DeserializePackedUInt32(Signal &sig, UInt32 &num)
 {
+	const size_t bytesBuffMax = 5;	// 32 / 7 = 4.6
 	num = 0;
 	UChar data = 0x00;
-	for (size_t bytesBuff = 0; bytesBuff < 5; bytesBuff++) {
+	for (size_t bytesBuff = 0; bytesBuff < bytesBuffMax; bytesBuff++) {
 		if (Read(sig, &data, sizeof(data)) != sizeof(data)) return false;
 		num = (num << 7) + (data & 0x7f);
 		if ((data & 0x80) == 0x00) break;
 	}
 	if (data & 0x80) {
-		sig.SetError(ERR_FormatError, "invalid format of packed ULong in serialized data");
+		sig.SetError(ERR_FormatError, "invalid serialization format for packed 32bit number");
+		return false;
+	}
+	return true;
+}
+
+bool Stream::SerializePackedUInt64(Signal &sig, UInt64 num)
+{
+	UChar buff[16];
+	size_t bytesBuff = 0;
+	if (num == 0) {
+		buff[bytesBuff++] = 0x00;
+	} else {
+		while (num > 0) {
+			UChar data = static_cast<UChar>(num & 0x7f);
+			num >>= 7;
+			if (num != 0) data |= 0x80;
+			buff[bytesBuff++] = data;
+		}
+	}
+	return Write(sig, buff, bytesBuff) == bytesBuff;
+}
+
+bool Stream::DeserializePackedUInt64(Signal &sig, UInt64 &num)
+{
+	const size_t bytesBuffMax = 10;	// 64 / 7 = 9.2
+	num = 0;
+	UChar data = 0x00;
+	for (size_t bytesBuff = 0; bytesBuff < bytesBuffMax; bytesBuff++) {
+		if (Read(sig, &data, sizeof(data)) != sizeof(data)) return false;
+		num = (num << 7) + (data & 0x7f);
+		if ((data & 0x80) == 0x00) break;
+	}
+	if (data & 0x80) {
+		sig.SetError(ERR_FormatError, "invalid serialization format for packed 64bit number");
 		return false;
 	}
 	return true;

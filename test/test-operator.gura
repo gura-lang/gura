@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
+import(arrayutil)
 
 testcase('script generation test') {
 	x = [

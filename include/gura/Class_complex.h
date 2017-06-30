@@ -16,8 +16,9 @@ public:
 	Class_complex(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Value &value, ULong flags);
+	virtual SerializeFmtVer GetSerializeFmtVer() const;
 	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Stream &stream, Value &value) const;
+	virtual bool Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const;
 	virtual bool Format_d(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_e(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_f(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;

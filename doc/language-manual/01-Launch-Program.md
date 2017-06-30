@@ -221,7 +221,7 @@ This feature makes it easier to install different versions of Gura in a certain 
 When the interpret is launched, it creates a working directory if it's not exist,
 which Gura applications can use to store working files.
 
-The directory name comes like below where GURA_VERSION is the Gura's version.
+The directory name comes like below where `GURA_VERSION` is the Gura's version.
 
 For Windows:
 

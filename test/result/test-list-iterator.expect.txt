@@ -176,19 +176,19 @@ expected error occurs: ValueError: no items
 [].each().sum() .. nil
 [].prod() .. nil
 [].each().prod() .. nil
-[].average() .. nil
-[].each().average() .. nil
+[].mean() .. nil
+[].each().mean() .. nil
 [1 .. 10].sum() .. 55
 (1 .. 10).sum() .. 55
 [1 .. 10].prod() .. 3628800
 (1 .. 10).prod() .. 3628800
-[1 .. 10].average() .. 5.5
-(1 .. 10).average() .. 5.5
+[1 .. 10].mean() .. 5.5
+(1 .. 10).mean() .. 5.5
 complex(1 .. 10, 1 .. 10).sum() .. 55+55j
 complex(1 .. 3, 1 .. 3).prod() .. -12+12j
-complex(1 .. 10, 1 .. 10).average() .. 5.5+5.5j
+complex(1 .. 10, 1 .. 10).mean() .. 5.5+5.5j
 complex((-10) .. 10, (-10) .. 10).sum() .. 0
-complex((-10) .. 10, (-10) .. 10).average() .. 0
+complex((-10) .. 10, (-10) .. 10).mean() .. 0
 [true, true, true].and() .. true
 [true, true, true, false].and() .. false
 [true, true, true, false].or() .. true
@@ -217,12 +217,12 @@ x.since(& { $i < 0 }).offset(1).while(& { $i >= 0 }):list .. [3, 1, 2, 3, 4]
 
 ======== #20 ========
 
-sum=695 average=69.5 variance=243.65 standard-deviation=15.6093
-sum=695 average=69.5 variance=243.65 standard-deviation=15.6093
-sum=0+695j average=0+69.5j variance=243.65 standard-deviation=15.6093
-sum=0+695j average=0+69.5j variance=243.65 standard-deviation=15.6093
-sum=nil average=nil variance=nil standard-deviation=nil
-sum=nil average=nil variance=nil standard-deviation=nil
+sum=695 mean=69.5 variance=243.65 standard-deviation=15.6093
+sum=695 mean=69.5 variance=243.65 standard-deviation=15.6093
+sum=0+695j mean=0+69.5j variance=243.65 standard-deviation=15.6093
+sum=0+695j mean=0+69.5j variance=243.65 standard-deviation=15.6093
+sum=nil mean=nil variance=nil standard-deviation=nil
+sum=nil mean=nil variance=nil standard-deviation=nil
 
 ======== #21 ========
 
@@ -636,7 +636,7 @@ expected error occurs: IteratorError: cannot evaluate infinite iterator
 [0, 1, 99, 99, 99, [1, 1, 1, 1], 99, 7, 99, 9]
 [[1, 2, 99], [4, 5, 99], [7, 8, 99]]
 
-======== #41 test of iterable#sum(), average() and prod() ========
+======== #41 test of iterable#sum(), mean() and prod() ========
 
 ['abc', 'def', 'ghi'].sum() .. abcdefghi
 

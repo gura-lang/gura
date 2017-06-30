@@ -61,6 +61,7 @@ set cases=%cases% pointer
 set cases=%cases% rational
 set cases=%cases% re
 set cases=%cases% repeater
+set cases=%cases% serialize
 set cases=%cases% sqlite3
 set cases=%cases% stream
 set cases=%cases% string

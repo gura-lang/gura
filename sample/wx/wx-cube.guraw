@@ -73,13 +73,13 @@ TestGLCanvas = class(wx.GLCanvas) {
 	__init__(parent:wx.Window,
 			id:number => wx.ID_ANY, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.DefaultSize, style:number => 0,
-			name:string => 'TestGLCanvas') = \
-		{|parent, id, [], pos, size, (style | wx.FULL_REPAINT_ON_RESIZE), name|
+			 name:string => 'TestGLCanvas') = {
+		|parent, id, [], pos, size, (style | wx.FULL_REPAINT_ON_RESIZE), name|
 		this.EventTable()
 		this.m_init = false
 		this.m_gllist = nil
-		this.m_rleft = wx.WXK_LEFT
-		this.m_rright = wx.WXK_RIGHT
+		this.m_rleft:public = wx.WXK_LEFT
+		this.m_rright:public = wx.WXK_RIGHT
 		this.m_TimeInitialized = 0
 		this.m_xsynct = 0
 		this.m_gsynct = 0
@@ -87,6 +87,7 @@ TestGLCanvas = class(wx.GLCanvas) {
 		this.m_StartTime = 0
 		this.m_LastTime = 0
 		this.m_LastRedraw = 0
+		this.m_context = wx.GLContext(this)
 	}
 	EventTable() = {
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
@@ -98,8 +99,7 @@ TestGLCanvas = class(wx.GLCanvas) {
 	}
 	Render() = {
 		dc = wx.PaintDC(this)
-		if (!this.GetContext()) { dc = nil; return }
-		this.SetCurrent()
+		this.m_context.SetCurrent(this)
 		// Init OpenGL once, but after SetCurrent
 		if (!this.m_init) {
 			this.InitGL()
@@ -151,16 +151,14 @@ TestGLCanvas = class(wx.GLCanvas) {
 	OnSize(event:wx.SizeEvent) = {
 		// set GL viewport (not called by wxGLCanvas::OnSize on all platforms...)
 		[w, h] = this.GetClientSizeWH()
-		if (this.GetContext()) {
-			this.SetCurrent()
-			glViewport(0, 0, w, h)
-		}
+		this.m_context.SetCurrent(this)
+		glViewport(0, 0, w, h)
 	}
 	OnEraseBackground(event:wx.EraseEvent) = {
 		// Do nothing, to avoid flashing.
 	}
 	InitGL() = {
-		this.SetCurrent()
+		this.m_context.SetCurrent(this)
 		/* set viewing projection */
 		glMatrixMode(GL_PROJECTION)
 		glFrustum(-0.5, 0.5, -0.5, 0.5, 1.0, 3.0)
@@ -232,7 +230,7 @@ TestGLCanvas = class(wx.GLCanvas) {
 		event.Skip()
 	}
 	Rotate(deg:number) = {
-		this.SetCurrent()
+		this.m_context.SetCurrent(this)
 		glMatrixMode(GL_MODELVIEW)
 		glRotatef(deg, 0.0, 0.0, 1.0)
 		this.Refresh(false)

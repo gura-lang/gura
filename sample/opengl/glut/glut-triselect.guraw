@@ -44,6 +44,7 @@
 import(opengl) {*}
 import(glu) {*}
 import(glut) {*}
+import(arrayutil)
 
 MAXOBJS = 10000
 MAXSELECT = 100
@@ -54,8 +55,8 @@ POINT = 3
 
 windW = 300, windH = 300;
 
-selectBuf = array@uint.zeros(MAXSELECT)
-feedBuf = array@float.zeros(MAXFEED)
+selectBuf = array@uint32.zeros([MAXSELECT])
+feedBuf = array@float.zeros([MAXFEED])
 vp = dim(4) {0}
 zRotation = 90.0;
 zoom = 1.0;

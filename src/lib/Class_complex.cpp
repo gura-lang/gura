@@ -236,6 +236,11 @@ bool Class_complex::CastFrom(Environment &env, Value &value, ULong flags)
 	return false;
 }
 
+Class::SerializeFmtVer Class_complex::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool Class_complex::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -245,14 +250,17 @@ bool Class_complex::Serialize(Environment &env, Stream &stream, const Value &val
 	return true;
 }
 
-bool Class_complex::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool Class_complex::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
-	Signal &sig = GetSignal();
-	double re = 0, im = 0;
-	if (!stream.DeserializeDouble(sig, re)) return false;
-	if (!stream.DeserializeDouble(sig, im)) return false;
-	value = Value(Complex(re, im));
-	return true;
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		double re = 0, im = 0;
+		if (!stream.DeserializeDouble(env, re)) return false;
+		if (!stream.DeserializeDouble(env, im)) return false;
+		value = Value(Complex(re, im));
+		return true;
+	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
+	return false;
 }
 
 bool Class_complex::Format_d(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const

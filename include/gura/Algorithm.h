@@ -36,12 +36,6 @@ public:
 	inline size_t GetBytes() const { return _bytes; }
 };
 
-//-----------------------------------------------------------------------------
-// Invert matrix
-//-----------------------------------------------------------------------------
-GURA_DLLDECLARE bool InvertMatrix(NumberList &mat, size_t nFold, Number &det);
-GURA_DLLDECLARE bool InvertMatrix(ComplexList &mat, size_t nFold, Complex &det);
-
 }
 
 #endif

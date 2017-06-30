@@ -53,6 +53,7 @@
 import(opengl) {*}
 import(glu) {*}
 import(glut) {*}
+import(arrayutil)
 
 BUFSIZE = 512
 
@@ -60,7 +61,7 @@ TORUS		= 1
 TETRAHEDRON	= 2
 ICOSAHEDRON	= 3
 
-selectBuf = array@uint.zeros(BUFSIZE)
+selectBuf = array@uint32.zeros([BUFSIZE])
 
 W = 500, H = 500;
 x = 0, y = 0;
@@ -83,13 +84,13 @@ output(x:number, y:number, fmt:string, args*) = {
 /* Initialize material property and light source. */
 myinit() = {
 	light_ambient = \
-		@float {0.2, 0.2, 0.2, 1.0};
+		array@float {0.2, 0.2, 0.2, 1.0};
 	light_diffuse = \
-		@float {1.0, 1.0, 1.0, 1.0};
+		array@float {1.0, 1.0, 1.0, 1.0};
 	light_specular = \
-		@float {1.0, 1.0, 1.0, 1.0};
+		array@float {1.0, 1.0, 1.0, 1.0};
 	light_position = \
-		@float {1.0, 1.0, 1.0, 0.0};
+		array@float {1.0, 1.0, 1.0, 0.0};
 
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
@@ -184,7 +185,7 @@ myortho() = {
 /*  processHits() prints out the contents of the 
  *  selection array.
  */
-processHits(hits:number, buffer:array@uint) = {
+processHits(hits:number, buffer:array@uint32) = {
 	depth = ~0
 	iBuffer = 0
 	newObject = 0;

@@ -893,7 +893,7 @@ Gura_ImplementFunction(lcm)
 	return Value(lcm);
 }
 
-// math.least_square(x:iterator, y:iterator, dim:number = 1, var:symbol = `x)
+// math.least_square(x:iterator, y:iterator, dim:number => 1, var:symbol => `x)
 Gura_DeclareFunction(least_square)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -903,10 +903,12 @@ Gura_DeclareFunction(least_square)
 	DeclareArg(env, "var", VTYPE_symbol, OCCUR_Once, FLAG_None, 0, new Expr_Value(Gura_Symbol(x)));
 	AddHelp(
 		Gura_Symbol(en), 
-		"Calculates a least square method using a sequence of pairs of `x` and `y`,\n"
-		"and returns an expression of the fitted curve. You can specify the dimension\n"
-		"by an argument `dim`. In default, a symbol of the expression's variable is `x\n"
-		"and it can be changed by specifying an argument `var`.");
+		"Takes two iterators `x` and `y` that return coordinate of points\n"
+		"and returns a function that fits them using least square metho.\n"
+		"You can specify the fitting curve's dimension by an argument `dim`,\n"
+		"which default value is one.\n"
+		"The variable symbol used in the function is `x`,\n"
+		"which can be changed by specifying an argument `var`.\n");
 }
 
 Gura_ImplementFunction(least_square)
@@ -919,100 +921,100 @@ Gura_ImplementFunction(least_square)
 	}
 	size_t nCols = nDim + 1;
 	size_t nRows = nCols;
-	Iterator *pIterX = arg.GetIterator(0);
-	Iterator *pIterY = arg.GetIterator(1);
-	const Symbol *pSymbolVar = arg.GetSymbol(3);
-	NumberList sumListXX(nCols * 2, 0), sumListXY(nCols, 0);
-	bool flagX = false, flagY = false;
-	for (;;) {
-		Value valueX, valueY;
-		flagX = pIterX->Next(env, valueX);
-		if (sig.IsSignalled()) return Value::Nil;
-		flagY = pIterY->Next(env, valueY);
-		if (sig.IsSignalled()) return Value::Nil;
-		if (!(flagX && flagY)) break;
-		if (!valueX.Is_number()) {
-			sig.SetError(ERR_ValueError, "cannot calculate non-number value");
-			return Value::Nil;
-		}
-		if (!valueY.Is_number()) {
-			sig.SetError(ERR_ValueError, "cannot calculate non-number value");
-			return Value::Nil;
-		}
-		Number numX = valueX.GetNumber(), numY = valueY.GetNumber();
-		Number productX = 1;
-		NumberList::iterator pSumXX = sumListXX.begin();
-		NumberList::iterator pSumXY = sumListXY.begin();
-		for ( ; pSumXY != sumListXY.end(); pSumXX++, pSumXY++) {
-			*pSumXX += productX;
-			*pSumXY += productX * numY;
-			productX *= numX;
-		}
-		for ( ; pSumXX != sumListXX.end(); pSumXX++) {
-			*pSumXX += productX;
-			productX *= numX;
-		}
-	}
-	if (flagX || flagY) {
-		sig.SetError(ERR_ValueError, "number of x and y must be the same");
-		return Value::Nil;
-	}
-	NumberList mat;
-	mat.reserve(nCols * nRows * 2);
-	NumberList::iterator pSumXXBase = sumListXX.begin();
-	for (size_t iRow = 0; iRow < nRows; iRow++, pSumXXBase++) {
-		NumberList::iterator pSumXX = pSumXXBase;
-		for (size_t iCol = 0; iCol < nCols; iCol++, pSumXX++) {
-			mat.push_back(*pSumXX);
-		}
-		for (size_t iCol = 0; iCol < nCols; iCol++) {
-			mat.push_back((iCol == iRow)? 1. : 0.);
-		}
-	}
-	Number det;
-	if (!Gura::InvertMatrix(mat, nCols, det)) {
-		sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
-		return Value::Nil;
-	}
-	NumberList alphaList;
-	alphaList.reserve(nCols);
-	//NumberList::iterator pMat = mat.begin() + nCols;
-	size_t offset = nCols;
-	for (size_t iRow = 0; iRow < nRows; iRow++) {
-		Number alpha = 0;
-		NumberList::iterator pSumXY = sumListXY.begin();
-		for (size_t iCol = 0; iCol < nCols; iCol++, offset++, pSumXY++) {
-			alpha += mat[offset] * *pSumXY;
-		}
-		alphaList.push_back(alpha);
-		offset += nCols;
-	}
-	Value result;
+	DoubleList sumListXX(nCols * 2, 0), sumListXY(nCols, 0);
 	do {
-		NumberList::iterator pAlpha = alphaList.begin();
-		Expr *pExpr = new Expr_Value(*pAlpha);
-		pAlpha++;
+		Iterator *pIterX = arg.GetIterator(0);
+		Iterator *pIterY = arg.GetIterator(1);
+		bool flagX = false, flagY = false;
+		for (;;) {
+			Value valueX, valueY;
+			flagX = pIterX->Next(env, valueX);
+			if (sig.IsSignalled()) return Value::Nil;
+			flagY = pIterY->Next(env, valueY);
+			if (sig.IsSignalled()) return Value::Nil;
+			if (!(flagX && flagY)) break;
+			if (!valueX.Is_number()) {
+				sig.SetError(ERR_ValueError, "cannot calculate non-number value");
+				return Value::Nil;
+			}
+			if (!valueY.Is_number()) {
+				sig.SetError(ERR_ValueError, "cannot calculate non-number value");
+				return Value::Nil;
+			}
+			Double numX = valueX.GetDouble(), numY = valueY.GetDouble();
+			Double productX = 1;
+			DoubleList::iterator pSumXX = sumListXX.begin();
+			DoubleList::iterator pSumXY = sumListXY.begin();
+			for ( ; pSumXY != sumListXY.end(); pSumXX++, pSumXY++) {
+				*pSumXX += productX;
+				*pSumXY += productX * numY;
+				productX *= numX;
+			}
+			for ( ; pSumXX != sumListXX.end(); pSumXX++) {
+				*pSumXX += productX;
+				productX *= numX;
+			}
+		}
+		if (flagX || flagY) {
+			sig.SetError(ERR_ValueError, "number of x and y must be the same");
+			return Value::Nil;
+		}
+	} while (0);
+	DoubleList coefList;
+	coefList.reserve(nCols);
+	do {
+		AutoPtr<ArrayT<Double> > pMat(new ArrayT<Double>(nCols, nRows));
+		do {
+			DoubleList::iterator pSumXXBase = sumListXX.begin();
+			Double *pElem = pMat->GetPointer();
+			for (size_t iRow = 0; iRow < nRows; iRow++, pSumXXBase++) {
+				DoubleList::iterator pSumXX = pSumXXBase;
+				for (size_t iCol = 0; iCol < nCols; iCol++, pElem++, pSumXX++) {
+					*pElem = *pSumXX;
+				}
+			}
+		} while (0);
+		do {
+			Double det = 0.0;
+			AutoPtr<Array> pMatInv(Array::Invert(sig, pMat.get(), det));
+			if (pMatInv.IsNull()) return Value::Nil;
+			const Double *pElem = reinterpret_cast<const Double *>(pMatInv->GetPointerRaw());
+			for (size_t iRow = 0; iRow < nRows; iRow++) {
+				Double coef = 0;
+				DoubleList::iterator pSumXY = sumListXY.begin();
+				for (size_t iCol = 0; iCol < nCols; iCol++, pElem++, pSumXY++) {
+					coef += *pElem * *pSumXY;
+				}
+				coefList.push_back(coef);
+			}
+		} while (0);
+	} while (0);
+	AutoPtr<Function> pFunc;
+	do {
+		const Symbol *pSymbolVar = arg.GetSymbol(3);
+		DoubleList::iterator pCoef = coefList.begin();
+		Expr *pExpr = new Expr_Value(*pCoef);
+		pCoef++;
 		Expr *pExprLeft = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mul),
-			new Expr_Value(*pAlpha),
+			new Expr_Value(*pCoef),
 			new Expr_Identifier(pSymbolVar));
-		pAlpha++;
+		pCoef++;
 		pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Add), pExpr, pExprLeft);
-		for ( ; pAlpha != alphaList.end(); pAlpha++) {
-			size_t n = pAlpha - alphaList.begin();
+		for ( ; pCoef != coefList.end(); pCoef++) {
+			size_t n = pCoef - coefList.begin();
 			pExprLeft = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mul),
-				new Expr_Value(*pAlpha),
+				new Expr_Value(*pCoef),
 				new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow),
 					new Expr_Identifier(pSymbolVar),
 					new Expr_Value(n)));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Add), pExpr, pExprLeft);
 		}
-		Function *pFunc = new FunctionCustom(env,
-							Gura_Symbol(_anonymous_), pExpr, FUNCTYPE_Function);
+		pFunc.reset(new FunctionCustom(
+						env, Gura_Symbol(_anonymous_), pExpr, FUNCTYPE_Function));
 		pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 		pFunc->DeclareArg(env, pSymbolVar, VTYPE_number);
-		result = Value(new Object_function(env, pFunc));
 	} while (0);
-	return result;
+	return Value(new Object_function(env, pFunc.release()));
 }
 
 // math.optimize(expr:expr):map {block?}

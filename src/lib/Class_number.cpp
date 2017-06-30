@@ -170,19 +170,27 @@ bool Class_number::CastFrom(Environment &env, Value &value, ULong flags)
 	return false;
 }
 
+Class::SerializeFmtVer Class_number::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool Class_number::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	return stream.SerializeDouble(sig, value.GetDouble());
 }
 
-bool Class_number::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool Class_number::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
-	Signal &sig = GetSignal();
-	double num = 0;
-	if (!stream.DeserializeDouble(sig, num)) return false;
-	value = Value(num);
-	return true;
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		double num = 0;
+		if (!stream.DeserializeDouble(env, num)) return false;
+		value = Value(num);
+		return true;
+	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
+	return false;
 }
 
 bool Class_number::Format_d(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const

@@ -90,7 +90,6 @@ vscale(v[]:number, div:number) = {
 vnormal(v[]:number) = {
 	vscale(v, 1.0 / vlength(v))
 }
-
 vdot(v1[]:number, v2[]:number) = {
 	v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2]
 }
@@ -230,5 +229,5 @@ build_rotmatrix(q[]:number) = {
 	m[3][1] = 0.0
 	m[3][2] = 0.0
 	m[3][3] = 1.0
-	m.flat():list
+	m.flatten():list
 }

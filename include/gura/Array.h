@@ -61,8 +61,8 @@ public:
 	class GURA_DLLDECLARE Dimension {
 	private:
 		size_t _size;
-		size_t _elemNumProd;
-		size_t _stride;
+		size_t _elemNumProd;	// calculated by Array::UpdateMetrics()
+		size_t _stride;			// calculated by Array::UpdateMetrics() 
 	public:
 		inline Dimension() : _size(0), _elemNumProd(0), _stride(0) {}
 		inline Dimension(size_t size) : _size(size), _elemNumProd(0), _stride(0) {}
@@ -75,6 +75,8 @@ public:
 	class GURA_DLLDECLARE Dimensions : public std::vector<Dimension> {
 	public:
 		String ToString(const char *sep = ", ") const;
+		bool Serialize(Environment &env, Stream &stream) const;
+		bool Deserialize(Environment &env, Stream &stream);
 		static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB);
 		static bool IsElemwiseCalculatable(const Dimensions &dimsA, const Dimensions &dimsB);
 	};
@@ -134,56 +136,6 @@ protected:
 	size_t _elemNum;
 	static MapToElemType _mapToElemType;
 public:
-	static UnaryFuncPack unaryFuncPack_Pos;
-	static UnaryFuncPack unaryFuncPack_Neg;
-	static BinaryFuncPack binaryFuncPack_Add;
-	static BinaryFuncPack binaryFuncPack_Sub;
-	static BinaryFuncPack binaryFuncPack_Mul;
-	static BinaryFuncPack binaryFuncPack_Div;
-	static BinaryFuncPack binaryFuncPack_Mod;
-	static BinaryFuncPack binaryFuncPack_Pow;
-	static BinaryFuncPack binaryFuncPack_Eq;
-	static BinaryFuncPack binaryFuncPack_Ne;
-	static BinaryFuncPack binaryFuncPack_Gt;
-	static BinaryFuncPack binaryFuncPack_Lt;
-	static BinaryFuncPack binaryFuncPack_Ge;
-	static BinaryFuncPack binaryFuncPack_Le;
-	static BinaryFuncPack binaryFuncPack_And;
-	static BinaryFuncPack binaryFuncPack_Or;
-	static BinaryFuncPack binaryFuncPack_Xor;
-	static BinaryFuncPack binaryFuncPack_Shl;
-	static BinaryFuncPack binaryFuncPack_Shr;
-	static UnaryFuncPack unaryFuncPack_Math_abs;
-	static UnaryFuncPack unaryFuncPack_Math_acos;
-	static UnaryFuncPack unaryFuncPack_Math_arg;
-	static UnaryFuncPack unaryFuncPack_Math_asin;
-	static UnaryFuncPack unaryFuncPack_Math_atan;
-	static BinaryFuncPack binaryFuncPack_Math_atan2;
-	static UnaryFuncPack unaryFuncPack_Math_ceil;
-	static UnaryFuncPack unaryFuncPack_Math_conj;
-	static UnaryFuncPack unaryFuncPack_Math_cos;
-	static UnaryFuncPack unaryFuncPack_Math_cosh;
-	static BinaryFuncPack binaryFuncPack_Math_covariance;
-	//static UnaryFuncPack unaryFuncPack_Math_cross;
-	static UnaryFuncPack unaryFuncPack_Math_delta;
-	//static UnaryFuncPack unaryFuncPack_Math_dot;
-	static UnaryFuncPack unaryFuncPack_Math_exp;
-	static UnaryFuncPack unaryFuncPack_Math_floor;
-	static BinaryFuncPack binaryFuncPack_Math_hypot;
-	static UnaryFuncPack unaryFuncPack_Math_imag;
-	static UnaryFuncPack unaryFuncPack_Math_log;
-	static UnaryFuncPack unaryFuncPack_Math_log10;
-	static UnaryFuncPack unaryFuncPack_Math_norm;
-	static UnaryFuncPack unaryFuncPack_Math_ramp;
-	static UnaryFuncPack unaryFuncPack_Math_real;
-	static UnaryFuncPack unaryFuncPack_Math_sigmoid;
-	static UnaryFuncPack unaryFuncPack_Math_sin;
-	static UnaryFuncPack unaryFuncPack_Math_sinh;
-	static UnaryFuncPack unaryFuncPack_Math_sqrt;
-	static UnaryFuncPack unaryFuncPack_Math_tan;
-	static UnaryFuncPack unaryFuncPack_Math_tanh;
-	static UnaryFuncPack unaryFuncPack_Math_unitstep;
-	static DotFunc dotFuncs[ETYPE_Max][ETYPE_Max];
 	static InvertFunc invertFuncs[ETYPE_Max];
 public:
 	Gura_DeclareReferenceAccessor(Array);
@@ -242,7 +194,10 @@ public:
 	bool HasShape(size_t size) const;
 	bool HasShape(size_t sizeRow, size_t sizeCol) const;
 	bool HasShape(const Value &valList) const;
+	bool HasSameElements(const Array &array) const;
 	bool PrepareModification(Signal &sig);
+	bool Serialize(Environment &env, Stream &stream) const;
+	static Array *Deserialize(Environment &env, Stream &stream);
 public:
 	static Array *Create(ElemType elemType, const Dimensions &dims);
 public:
@@ -254,27 +209,29 @@ public:
 	static bool CopyElements(Environment &env, Array *pArrayDst, const Array *pArraySrc);
 	static bool CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeDst,
 							 const void *pElemRawSrc, ElemType elemTypeSrc, size_t nElems);
-	static Array *ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array *pArray);
-	static Value ApplyUnaryFunc(Environment &env, const UnaryFuncPack &pack, const Value &value);
+	static Array *ApplyUnaryFunc(
+		Signal &sig, const UnaryFuncPack &pack, const Array *pArray);
+	static Value ApplyUnaryFuncOnValue(
+		Environment &env, const UnaryFuncPack &pack, const Value &value);
 	static Array *ApplyBinaryFunc_array_array(
 		Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, const Array *pArrayR);
-	static Value ApplyBinaryFunc_array_array(
+	static Value ApplyBinaryFuncOnValue_array_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_array_number(
 		Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, Double numberR);
-	static Value ApplyBinaryFunc_array_number(
+	static Value ApplyBinaryFuncOnValue_array_number(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_number_array(
 		Signal &sig, const BinaryFuncPack &pack, Double numberL, const Array *pArrayR);
-	static Value ApplyBinaryFunc_number_array(
+	static Value ApplyBinaryFuncOnValue_number_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_array_complex(
 		Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, const Complex &complexR);
-	static Value ApplyBinaryFunc_array_complex(
+	static Value ApplyBinaryFuncOnValue_array_complex(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_complex_array(
 		Signal &sig, const BinaryFuncPack &pack, const Complex &complexL, const Array *pArrayR);
-	static Value ApplyBinaryFunc_complex_array(
+	static Value ApplyBinaryFuncOnValue_complex_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static void SetError_UnacceptableValueAsElement(Environment &env, const Value &value);
 public:

@@ -59,7 +59,7 @@ function(nRange:number, nTrial:number) {
 	regular_distrib(nSamples:number) = {
 		hist = repeat(nRange):list { 0 }
 		repeat (nTrial) {
-			//x = (dim(nSamples) {rand(nRange)}).average()
+			//x = (dim(nSamples) {rand(nRange)}).mean()
 			repeat {
 				x = rand@normal(nRange / 2, 3)
 				(0 <= x && x < nRange) && break

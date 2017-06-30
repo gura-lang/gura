@@ -20,6 +20,9 @@ array@uint16:class = <class:array@uint16(src?) {block?}>
 array@uint32:class = <class:array@uint32(src?) {block?}>
 array@uint64:class = <class:array@uint64(src?) {block?}>
 array@uint8:class = <class:array@uint8(src?) {block?}>
+arrayutil:module
+  __name__:string = arrayutil
+  __symbol__:symbol = arrayutil
 audio:class = <class:audio(args+):map {block?}>
 base64:module
   __name__:string = base64
@@ -355,7 +358,6 @@ argument
   argument#isset(symbol:symbol)
   argument#quit_trailer():void
 array
-  array#average(axis?:number):map {block?}
   array.dot(a:array, b:array):static:map {block?}
   array#dump(stream?:stream):void:[upper]
   array#each():[flat] {block?}
@@ -363,28 +365,30 @@ array
   array#fill(value:number):map:void
   array#flatten() {block?}
   array#head(n:number):map {block?}
-  array.identity(n:number):static:map {block?}
-  array.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
+  array.identity(n:number, elemtype?:symbol):static:map {block?}
+  array.interval(begin:number, end:number, samples:number, elemtype?:symbol):static:map:[open,open_l,open_r] {block?}
   array#invert(eps?:number):map {block?}
+  array#iselemsame(array:array)
   array#issquare()
+  array#mean(axis?:number):map {block?}
   array#offset(n:number):map {block?}
-  array.ones(dims[]:number):static:map {block?}
+  array.ones(dims[]:number, elemtype?:symbol):static:map {block?}
   array#paste(offset:number, src:array):map
-  array.rands(dims[]:number, range?:number):static:map {block?}
-  array.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
-  array.range(num:number, num_end?:number, step?:number):static:map {block?}
+  array.rands(dims[]:number, range?:number, elemtype?:symbol):static:map {block?}
+  array.rands@normal(dims[]:number, mu?:number, sigma?:number, elemtype?:symbol):static:map {block?}
+  array.range(num:number, num_end?:number, step?:number, elemtype?:symbol):static:map {block?}
   array#reshape(dims[]:number:nil) {block?}
-  array.rotation(angle:number, xtrans?:number, ytrans?:number):static:map:[deg] {block?}
-  array.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
-  array.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
-  array.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number):static:map:[deg] {block?}
+  array.rotation(angle:number, xtrans?:number, ytrans?:number, elemtype?:symbol):static:map:[deg] {block?}
+  array.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number, elemtype?:symbol):static:map:[deg] {block?}
+  array.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number, elemtype?:symbol):static:map:[deg] {block?}
+  array.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number, elemtype?:symbol):static:map:[deg] {block?}
   array#roundoff(threshold?:number) {block?}
-  array.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
+  array.scaling(xscale:number, yscale:number, zscale?:number, elemtype?:symbol):static:map {block?}
   array#sum(axis?:number):map {block?}
   array#tail(n:number):map {block?}
-  array.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
+  array.translation(xtrans:number, ytrans:number, ztrans?:number, elemtype?:symbol):static:map {block?}
   array#transpose(axes[]?:number) {block?}
-  array.zeros(dims[]:number):static:map {block?}
+  array.zeros(dims[]:number, elemtype?:symbol):static:map {block?}
 array@boolean
   array@boolean.identity(n:number):static:map {block?}
   array@boolean.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
@@ -728,7 +732,6 @@ iterator
   iterator#after(criteria) {block?}
   iterator#align(n:number, value?) {block?}
   iterator#and()
-  iterator#average()
   iterator#before(criteria) {block?}
   iterator#contains(value)
   iterator#count(criteria?)
@@ -749,6 +752,7 @@ iterator
   iterator#len()
   iterator#map(func:function) {block?}
   iterator#max():[index,indices,last_index]
+  iterator#mean()
   iterator#min():[index,indices,last_index]
   iterator#next()
   iterator#nilto(replace) {block?}
@@ -783,7 +787,6 @@ list
   list#align(n:number, value?):map {block?}
   list#and()
   list#append(elem+):reduce
-  list#average()
   list#before(criteria) {block?}
   list#clear():reduce
   list#combination(n:number) {block?}
@@ -808,6 +811,7 @@ list
   list#len()
   list#map(func:function) {block?}
   list#max():[index,indices,last_index]
+  list#mean()
   list#min():[index,indices,last_index]
   list#nilto(replace) {block?}
   list#offset(n:number):map {block?}

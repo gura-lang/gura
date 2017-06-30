@@ -279,19 +279,19 @@ testcase {
 	tester(`[].each().sum())
 	tester(`[].prod())
 	tester(`[].each().prod())
-	tester(`[].average())
-	tester(`[].each().average())
+	tester(`[].mean())
+	tester(`[].each().mean())
 	tester(`[1..10].sum())
 	tester(`(1..10).sum())
 	tester(`[1..10].prod())
 	tester(`(1..10).prod())
-	tester(`[1..10].average())
-	tester(`(1..10).average())
+	tester(`[1..10].mean())
+	tester(`(1..10).mean())
 	tester(`complex(1..10, 1..10).sum())
 	tester(`complex(1..3, 1..3).prod())
-	tester(`complex(1..10, 1..10).average())
+	tester(`complex(1..10, 1..10).mean())
 	tester(`complex(-10..10, -10..10).sum())
-	tester(`complex(-10..10, -10..10).average())
+	tester(`complex(-10..10, -10..10).mean())
 	tester(`[true, true, true].and())
 	tester(`[true, true, true, false].and())
 	tester(`[true, true, true, false].or())
@@ -322,11 +322,11 @@ testcase {
 }
 testcase {
 	func(samples[]) = {
-		printf('sum=%g average=%g variance=%g standard-deviation=%g\n',
-					samples.sum(), samples.average(),
+		printf('sum=%g mean=%g variance=%g standard-deviation=%g\n',
+					samples.sum(), samples.mean(),
 					samples.variance(), samples.stddev())
-		printf('sum=%g average=%g variance=%g standard-deviation=%g\n',
-					samples.each().sum(), samples.each().average(),
+		printf('sum=%g mean=%g variance=%g standard-deviation=%g\n',
+					samples.each().sum(), samples.each().mean(),
 					samples.each().variance(), samples.each().stddev())
 	}
 	func([80, 76, 59, 87, 66, 54, 40, 78, 94, 61])
@@ -335,7 +335,7 @@ testcase {
 }
 testcase {
 	correlation1(x:iterator, y:iterator) = {
-		u_x = x.average(), u_y = y.average()
+		u_x = x.mean(), u_y = y.mean()
 		((x - u_x) * (y - u_y)).sum() / \
 					math.sqrt(((x - u_x) ** 2).sum() * ((y - u_y) ** 2).sum())
 	}
@@ -729,7 +729,7 @@ testcase('test of list#put()') {
 	x::put(2, 99)
 	println(x):nomap
 }
-testcase('test of iterable#sum(), average() and prod()') {
+testcase('test of iterable#sum(), mean() and prod()') {
 	tester(`['abc', 'def', 'ghi'].sum())
 	/*
 	x = [
@@ -738,7 +738,7 @@ testcase('test of iterable#sum(), average() and prod()') {
 		@@{{1, 3, 2}, {2, 8, 9}, {4, 13, 11}}
 	]
 	tester(`x.sum())
-	tester(`x.average())
+	tester(`x.mean())
 	*/
 	//tester(`x.prod())
 }

@@ -58,19 +58,27 @@ bool Class_symbol::CastFrom(Environment &env, Value &value, ULong flags)
 	return false;
 }
 
+Class::SerializeFmtVer Class_symbol::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool Class_symbol::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	return stream.SerializeSymbol(sig, value.GetSymbol());
 }
 
-bool Class_symbol::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool Class_symbol::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
-	Signal &sig = GetSignal();
-	const Symbol *pSymbol = nullptr;
-	if (!stream.DeserializeSymbol(sig, &pSymbol)) return false;
-	value = Value(pSymbol);
-	return true;
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		const Symbol *pSymbol = nullptr;
+		if (!stream.DeserializeSymbol(env, &pSymbol)) return false;
+		value = Value(pSymbol);
+		return true;
+	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
+	return false;
 }
 
 }

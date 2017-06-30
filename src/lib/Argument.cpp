@@ -77,7 +77,6 @@ bool Argument::IsSet(const Symbol *pSymbol) const
 
 bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 {
-	Signal &sig = env.GetSignal();
 	bool mapFlag = GetFlag(FLAG_Map);
 	bool namedArgFlag = !GetFlag(FLAG_NoNamed);
 	foreach_const (ExprList, ppExprArg, exprListArg) {
@@ -94,23 +93,23 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 				if (pSlot == nullptr) {
 					Value valueKey(pSymbol);
 					Value value = pExprRight->Exec(env);
-					if (sig.IsSignalled()) return false;
+					if (env.IsSignalled()) return false;
 					AddValueDictItem(valueKey, value);
 				} else if (pSlot->GetDeclaration().IsQuote()) {
 					Value value(new Object_expr(env, pExprRight->Reference()));
 					if (!pSlot->StoreValue(env, value, mapFlag, &_mapMode)) return false;
 				} else {
 					Value value = pExprRight->Exec(env);
-					if (sig.IsSignalled()) return false;
+					if (env.IsSignalled()) return false;
 					if (!pSlot->StoreValue(env, value, mapFlag, &_mapMode)) return false;
 				}
 			} else if (pExprLeft->IsValue()) {
 				const Value &valueKey = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue();
 				Value value = pExprRight->Exec(env);
-				if (sig.IsSignalled()) return false;
+				if (env.IsSignalled()) return false;
 				AddValueDictItem(valueKey, value);
 			} else {
-				pExprBinaryOp->SetError(sig, ERR_KeyError,
+				pExprBinaryOp->SetError(env, ERR_KeyError,
 					"l-value of dictionary assignment must be an identifier or a constant value");
 				return false;
 			}
@@ -118,9 +117,9 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 			// func(..., value%, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
 			Value value = pExprUnaryOp->GetChild()->Exec(env);
-			if (sig.IsSignalled()) return false;
+			if (env.IsSignalled()) return false;
 			if (!value.Is_dict()) {
-				sig.SetError(ERR_ValueError, "modulo argument must take a dictionary");
+				env.SetError(ERR_ValueError, "modulo argument must take a dictionary");
 				return false;
 			}
 			foreach_const (ValueDict, item, value.GetDict()) {
@@ -133,7 +132,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 						Value valueKey(pSymbol);
 						AddValueDictItem(valueKey, value);
 					} else if (pSlot->GetDeclaration().IsQuote()) {
-						sig.SetError(ERR_ValueError, "invalid argument");
+						env.SetError(ERR_ValueError, "invalid argument");
 						return false;
 					} else if (!pSlot->StoreValue(env, value, mapFlag, &_mapMode)) {
 						return false;
@@ -154,7 +153,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 			// func(..., value*, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
 			Value value = pExprUnaryOp->GetChild()->Exec(env);
-			if (sig.IsSignalled()) return false;
+			if (env.IsSignalled()) return false;
 			if (value.Is_list()) {
 				const ValueList &valList = value.GetList();
 				foreach_const (ValueList, pValue, valList) {
@@ -166,7 +165,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 		} else {
 			// func(..., value, ...)
 			Value value = pExprArg->Exec(env);
-			if (sig.IsSignalled()) return false;
+			if (env.IsSignalled()) return false;
 			if (!StoreValue(env, value)) return false;
 		}
 	}
@@ -312,7 +311,6 @@ Environment *Argument::PrepareEnvironment(Environment &env)
 		AssignSlotValuesToEnvironmentFast(*_pEnvPrepared);
 		return _pEnvPrepared->Reference();
 	}
-	Signal &sig = env.GetSignal();
 	Environment *pEnvOuter = GetFlag(FLAG_DynamicScope)? &env : &_pFunc->GetEnvScope();
 	EnvType envType = (_pFunc->GetType() == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
 	_pEnvPrepared.reset(pEnvOuter->Derive(envType));
@@ -322,11 +320,19 @@ Environment *Argument::PrepareEnvironment(Environment &env)
 	if (pSymbolDict != nullptr) {
 		_pEnvPrepared->AssignValue(pSymbolDict,
 			   Value(new Object_dict(env, GetValueDictArg().Reference(), false)), EXTRA_Public);
+	} else if (!_pValDictArg.IsNull() && !_pValDictArg->empty()) {
+		String str;
+		foreach_const (ValueDict, iter, *_pValDictArg) {
+			if (!str.empty()) str += ", ";
+			str += iter->first.ToString(false);
+		}
+		env.SetError(ERR_ArgumentError, "unhandled argument key exists: %s", str.c_str());
+		return nullptr;
 	}
 	const Function::BlockInfo &blockInfo = _pFunc->GetBlockInfo();
 	if (blockInfo.pSymbol == nullptr) return _pEnvPrepared->Reference();
 	const Expr_Block *pExprBlock = GetBlockCooked(env);
-	if (sig.IsSignalled()) return nullptr;
+	if (env.IsSignalled()) return nullptr;
 	if (pExprBlock == nullptr) {
 		// set nil value to the variable with a symbol specified by blockInfo.pSymbol
 		_pEnvPrepared->AssignValue(blockInfo.pSymbol, Value::Nil, EXTRA_Public);
@@ -365,7 +371,6 @@ bool Argument::IsInfiniteMap() const
 
 const Expr_Block *Argument::GetBlockCooked(Environment &env) const
 {
-	Signal &sig = env.GetSignal();
 	// check if the block parameter specifies a delegated block information
 	// like "g() {|block|}"
 	// scope problem remains: 2010.11.02
@@ -387,7 +392,7 @@ const Expr_Block *Argument::GetBlockCooked(Environment &env) const
 		} else if (pValue->Is_expr()) {
 			const Expr *pExpr = pValue->GetExpr();
 			if (!pExpr->IsBlock()) {
-				sig.SetError(ERR_ValueError, "invalid value for block delegation");
+				env.SetError(ERR_ValueError, "invalid value for block delegation");
 				return nullptr;
 			}
 			pExprBlock = dynamic_cast<const Expr_Block *>(pExpr);
@@ -484,19 +489,18 @@ void Argument::Iterator_VarLength::AddIterator(Iterator *pIterator)
 //-----------------------------------------------------------------------------
 bool Argument::Slot::StoreValue(Environment &env, const Value &value, bool mapFlag, MapMode *pMapMode)
 {
-	Signal &sig = env.GetSignal();
 	if (mapFlag && _pDecl->ShouldImplicitMap(value)) {
 		if (*pMapMode != MAPMODE_ToIter) {
 			*pMapMode = value.Is_iterator()? MAPMODE_ToIter : MAPMODE_ToList;
 		}
 		if (_pDecl->IsVariableLength()) {
 			_value.GetObjList()->AddUndefined();
-			AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
+			AutoPtr<Iterator> pIterator(value.CreateIterator(env));
 			if (pIterator.IsNull()) return false;
 			dynamic_cast<Iterator_VarLength *>(_pIteratorMap.get())->
 											AddIterator(pIterator.release());
 		} else if (_value.IsUndefined()) {
-			AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
+			AutoPtr<Iterator> pIterator(value.CreateIterator(env));
 			if (pIterator.IsNull()) return false;
 			_pIteratorMap.reset(pIterator.release());
 		} else {

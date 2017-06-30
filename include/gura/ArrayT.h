@@ -49,7 +49,6 @@ public:
 	void FillRand(UInt range);
 	void FillRandNormal(double mu, double sigma);
 	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc);
-	void Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 	void CopyToList(ValueList &valList) const;
 	ArrayT *Flatten() const;
 	ArrayT *Reshape(Signal &sig, const ValueList &valList) const;
@@ -74,22 +73,6 @@ public:
 	static ArrayT *CreateFromList(Environment &env, const ValueList &valList);
 	static ArrayT *CreateFromIterator(Environment &env, Iterator *pIterator);
 	static ArrayT *CreateFromExpr(Environment &env, const Expr *pExpr);
-	static ArrayT *CreateIdentity(size_t n);
-	static ArrayT *CreateRange(Double numBegin, Double numEnd, Double numStep);
-	static ArrayT *CreateInterval(
-		Double numBegin, Double numEnd, int numSamples, Double numDenom, int iFactor);
-	static ArrayT *CreateOnes(const ValueList &valList);
-	static ArrayT *CreateZeros(const ValueList &valList);
-	static ArrayT *CreateRands(const ValueList &valList, UInt range);
-	static ArrayT *CreateRandsNormal(const ValueList &valList, double mu, double sigma);
-	static ArrayT *CreateRotation(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans);
-	static ArrayT *CreateRotationX(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans, T_Elem zTrans);
-	static ArrayT *CreateRotationY(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans, T_Elem zTrans);
-	static ArrayT *CreateRotationZ(double rad, bool transFlag, T_Elem xTrans, T_Elem yTrans, T_Elem zTrans);
-	static ArrayT *CreateScaling2D(T_Elem xScale, T_Elem yScale);
-	static ArrayT *CreateScaling3D(T_Elem xScale, T_Elem yScale, T_Elem zScale);
-	static ArrayT *CreateTranslation2D(T_Elem xTrans, T_Elem yTrans);
-	static ArrayT *CreateTranslation3D(T_Elem xTrans, T_Elem yTrans, T_Elem zTrans);
 private:
 	inline ~ArrayT() {}
 };

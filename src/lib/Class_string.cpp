@@ -1049,19 +1049,27 @@ bool Class_string::CastFrom(Environment &env, Value &value, ULong flags)
 	return !sig.IsSignalled();
 }
 
+Class::SerializeFmtVer Class_string::GetSerializeFmtVer() const
+{
+	return SerializeFmtVer_1;
+}
+
 bool Class_string::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	return stream.SerializeString(sig, value.GetString());
 }
 
-bool Class_string::Deserialize(Environment &env, Stream &stream, Value &value) const
+bool Class_string::Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const
 {
-	Signal &sig = GetSignal();
-	String str;
-	if (!stream.DeserializeString(sig, str)) return false;
-	value = Value(str);
-	return true;
+	if (serializeFmtVer == SerializeFmtVer_1) {
+		String str;
+		if (!stream.DeserializeString(env, str)) return false;
+		value = Value(str);
+		return true;
+	}
+	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);
+	return false;
 }
 
 Object *Class_string::CreateDescendant(Environment &env, Class *pClass)

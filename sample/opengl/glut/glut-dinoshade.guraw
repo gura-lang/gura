@@ -39,6 +39,7 @@
 import(opengl) {*}
 import(glu) {*}
 import(glut) {*}
+import(arrayutil)
 
 /* Variable controlling various rendering modes. */
 stencilReflection = true, stencilShadow = true, offsetShadow = true;
@@ -103,16 +104,16 @@ circles = @{
 };
 
 makeFloorTexture() = {
-	floorTexture = array@uchar.zeros(16 * 16 * 3);
+	floorTexture = array@uint8.zeros([16 * 16 * 3]);
 
 	/* Setup RGB image for the texture. */
 	i = 0
 	circles.each {|line|
 		line.each {|ch|
 			if (ch == 'x') {
-				floorTexture[i, i + 1, i + 2] = [0x1f, 0x8f, 0x1f]
+				floorTexture[[i, i + 1, i + 2]] = [0x1f, 0x8f, 0x1f]
 			} else {
-				floorTexture[i, i + 1, i + 2] = [0xaa, 0xaa, 0xaa]
+				floorTexture[[i, i + 1, i + 2]] = [0xaa, 0xaa, 0xaa]
 			}
 			i += 3
 		}
@@ -483,7 +484,7 @@ redraw() = {
 
 		glPushMatrix();
 		/* Project the shadow. */
-        glMultMatrixf(floorShadow.flat():list);
+        glMultMatrixf(floorShadow.flatten():list);
         drawDinosaur();
 		glPopMatrix();
 

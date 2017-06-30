@@ -147,16 +147,16 @@ public:
 					const Function *pFuncFilter = nullptr);
 	bool SerializeBoolean(Signal &sig, bool num);
 	bool DeserializeBoolean(Signal &sig, bool &num);
-	bool SerializeUChar(Signal &sig, UChar num);
-	bool DeserializeUChar(Signal &sig, UChar &num);
-	bool SerializeUShort(Signal &sig, UShort num);
-	bool DeserializeUShort(Signal &sig, UShort &num);
-	bool SerializeULong(Signal &sig, ULong num);
-	bool DeserializeULong(Signal &sig, ULong &num);
+	bool SerializeUInt8(Signal &sig, UInt8 num);
+	bool DeserializeUInt8(Signal &sig, UInt8 &num);
+	bool SerializeUInt16(Signal &sig, UInt16 num);
+	bool DeserializeUInt16(Signal &sig, UInt16 &num);
+	bool SerializeUInt32(Signal &sig, UInt32 num);
+	bool DeserializeUInt32(Signal &sig, UInt32 &num);
 	bool SerializeUInt64(Signal &sig, UInt64 num);
 	bool DeserializeUInt64(Signal &sig, UInt64 &num);
-	bool SerializeDouble(Signal &sig, double num);
-	bool DeserializeDouble(Signal &sig, double &num);
+	bool SerializeDouble(Signal &sig, Double num);
+	bool DeserializeDouble(Signal &sig, Double &num);
 	bool SerializeString(Signal &sig, const char *str);
 	bool DeserializeString(Signal &sig, String &str);
 	bool SerializeBinary(Signal &sig, const Binary &binary);
@@ -167,8 +167,10 @@ public:
 	bool DeserializeSymbolSet(Signal &sig, SymbolSet &symbolSet);
 	bool SerializeSymbolList(Signal &sig, const SymbolList &symbolList);
 	bool DeserializeSymbolList(Signal &sig, SymbolList &symbolList);
-	bool SerializePackedULong(Signal &sig, ULong num);
-	bool DeserializePackedULong(Signal &sig, ULong &num);
+	bool SerializePackedUInt32(Signal &sig, UInt32 num);
+	bool DeserializePackedUInt32(Signal &sig, UInt32 &num);
+	bool SerializePackedUInt64(Signal &sig, UInt64 num);
+	bool DeserializePackedUInt64(Signal &sig, UInt64 &num);
 public:
 	static Stream *Open(Environment &env, const char *pathName, ULong attr);
 	static Stream *Prefetch(Environment &env, Stream *pStreamSrc,

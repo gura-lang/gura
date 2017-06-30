@@ -3,7 +3,8 @@ import(show)
 import(freetype, ft)
 import(curl)
 
-fontName = 'https://github.com/gura-lang/gura/raw/master/sample/resource/mplus-1p-regular.ttf'
+//fontName = 'https://github.com/gura-lang/gura/raw/master/sample/resource/mplus-1p-regular.ttf'
+fontName = path.join(sys.fontdir, 'mplus-1p-regular.ttf')
 img = image(`rgb, 640, 480, `white)
 println('downloading: ', fontName)
 font = ft.font(fontName)

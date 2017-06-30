@@ -1,90 +1,85 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
-testcase {
+test_serial(var:nomap) = {
 	buff = binary()
-	buff.writer() {|w|
-		x = %{'apple' => 100, 'orange' => 120, 'grape' => 200}
-		w.serialize(x)
-		println(x)
+	buff.writer {|w|
+		w.serialize(var):nomap
+		printf('[%s]: %s\n', typename(var), var):nomap
 	}
-	buff.reader() {|r|
-		x = r.deserialize()
-		println(x)
-	}
-}
-testcase {
-	buff = binary()
-	buff.writer() {|w|
-		x = @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
-		w.serialize(x)
-		println(x)
-	}
-	buff.reader() {|r|
-		x = r.deserialize()
-		println(x)
-	}
-}
-testcase {
-	f() = {
-		buff = binary()
-		buff.writer() {|w|
-			x = `a('A', 'B', 1, 2) {} b(1, 2, 3) {}
-			w.serialize(x)
-			println(x)
-		}
-		buff.reader() {|r|
-			x = r.deserialize()
-			println(x)
-		}
-	}
-	println(f.expr)
-	buff = binary()
-	buff.writer() {|w|
-		w.serialize(f.expr)
+	buff.reader {|r|
+		varDec = r.deserialize()
+		printf('[%s]: %s\n', typename(varDec), varDec):nomap
 	}
 	buff.dump()
-	buff.reader() {|r|
-		println(r.deserialize())
-	}
 }
-testcase {
-	buff = binary()
-	buff.writer() {|w|
-		x = `a('A', 'B', 1, 2) {} b(1, 2, 3) {}
-		w.serialize(x)
-		println(x)
-	}
-	buff.reader() {|r|
-		x = r.deserialize()
-		println(x)
-	}
+
+testcase('nil') {
+	test_serial(nil)
 }
-testcase {
-	buff = binary()
-	buff.writer() {|w|
-		w.serialize('hello world')
-	}
-	buff.reader() {|r|
-		println(r.deserialize())
-	}
+
+testcase('boolean') {
+	test_serial(false)
+	test_serial(true)
 }
-testcase {
-	buff = binary()
-	buff.writer() {|w|
-		w.serialize(['hello world', 'line1', 'line2'])
-	}
-	buff.reader() {|r|
-		println(r.deserialize()):nomap
-	}
+
+testcase('number') {
+	test_serial(0)
+	test_serial(0xffffffff)
+	test_serial(0x100000000)
 }
-testcase {
-	buff = binary()
-	buff.writer() {|w|
-		w.serialize([12345, 3.1415926, 'hello world', 3 + 2j])
-	}
-	buff.dump()
-	buff.reader() {|r|
-		println(r.deserialize()):nomap
-	}
+
+testcase('symbol') {
+	test_serial(`a)
+	test_serial(`abcdefg)
+	test_serial(`hijklmn)
+	test_serial(`-)
+	test_serial(`+)
+	test_serial(`*)
+	test_serial(`|.|)
+}
+
+testcase('string') {
+	test_serial('')
+	test_serial('abcdefghijklmnopqrstuvwxyz')
+}
+
+testcase('complex') {
+	test_serial(1j)
+	test_serial(2+3j)
+	test_serial(2-3j)
+	test_serial(-2-3j)
+}
+
+testcase('rational') {
+	test_serial(2r)
+	test_serial(3/2r)
+}
+
+testcase('array') {
+	test_serial(@@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}})
+}
+
+testcase('binary') {
+	test_serial(b'')
+	test_serial(b'abcdefghijklmn')
+	test_serial(binary())
+	test_serial(binary('abcdefghijklmn'))
+}
+
+testcase('dict') {
+	test_serial(%{`apple => 100, `orange => 120, `grape => 200})
+	test_serial(%{3 => 100, 4 => 120, 5 => 200})
+	test_serial(%{'apple' => 100, 'orange' => 120, 'grape' => 200})
+	test_serial(%{`apple => '100', `orange => '120', `grape => '200'})
+	test_serial(%{3 => '100', 4 => '120', 5 => '200'})
+	test_serial(%{'apple' => '100', 'orange' => '120', 'grape' => '200'})
+	test_serial(%{`apple => [1, 2, 3], `orange => [4, 5, 6], `grape => [7, 8, 9]})
+}
+
+testcase('list') {
+	test_serial([0, 1, 2, 3])
+	test_serial(['hello world', 'line1', 'line2'])
+	test_serial([12345, 3.1415926, 'hello world', 3 + 2j])
+	test_serial([9, [0, 1, 2, 3], [12345, 3.1415926, 'hello world', 3 + 2j], 'xxx'])
 }

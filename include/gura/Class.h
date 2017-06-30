@@ -175,6 +175,25 @@ public:
 // Class
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Class : public Fundamental, public HelpProvider::Holder {
+public:
+	enum SerializeFmtVer {
+		SerializeFmtVer_1,
+		SerializeFmtVer_2,
+		SerializeFmtVer_3,
+		SerializeFmtVer_4,
+		SerializeFmtVer_5,
+		SerializeFmtVer_6,
+		SerializeFmtVer_7,
+		SerializeFmtVer_8,
+		SerializeFmtVer_9,
+		SerializeFmtVer_10,
+		SerializeFmtVer_11,
+		SerializeFmtVer_12,
+		SerializeFmtVer_13,
+		SerializeFmtVer_14,
+		SerializeFmtVer_15,
+		SerializeFmtVer_16,
+	};
 protected:
 	AutoPtr<Class> _pClassSuper;
 	ValueType _valType;
@@ -247,8 +266,9 @@ public:
 		Environment &env, const CallerInfo &callerInfo, ULong flags,
 		const Value &valueThis, const Iterator *pIteratorThis,
 		const TrailCtrlHolder *pTrailCtrlHolder);
+	virtual SerializeFmtVer GetSerializeFmtVer() const;
 	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Stream &stream, Value &value) const;
+	virtual bool Deserialize(Environment &env, Stream &stream, Value &value, SerializeFmtVer serializeFmtVer) const;
 	virtual bool Format_d(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_u(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_b(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
@@ -266,6 +286,7 @@ public:
 	const PropDeclaration *LookupPropDeclaration(const Symbol *pSymbol);
 	void ListPropDeclarationSymbols(SymbolSet &symbols, bool escalateFlag);
 	bool BuildContent(Environment &env, const Value &valueThis, const Expr_Block *pExprBlock);
+	void SetError_UnsupportedSerializeFmtVer(SerializeFmtVer serializeFmtVer) const;
 	void SetError_NoConstructor() const;
 public:
 	// inherited from HelpProvider

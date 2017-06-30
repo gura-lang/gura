@@ -100,7 +100,7 @@ Gura_DeclareProperty_RW(datetime, year)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Year value between 1 and 9999."
 		);
 }
 
@@ -128,7 +128,7 @@ Gura_DeclareProperty_RW(datetime, month)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Month value between 1 and 12."
 		);
 }
 
@@ -156,7 +156,7 @@ Gura_DeclareProperty_RW(datetime, day)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Day value betwen 1 and 31."
 		);
 }
 
@@ -184,7 +184,7 @@ Gura_DeclareProperty_RW(datetime, hour)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Hour value between 0 and 23."
 		);
 }
 
@@ -212,7 +212,7 @@ Gura_DeclareProperty_RW(datetime, min)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Minute value between 0 and 59."
 		);
 }
 
@@ -240,7 +240,7 @@ Gura_DeclareProperty_RW(datetime, sec)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Second value between 0 and 59."
 		);
 }
 
@@ -268,7 +268,7 @@ Gura_DeclareProperty_RW(datetime, usec)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Milli second value between 0 and 999999."
 		);
 }
 
@@ -296,7 +296,7 @@ Gura_DeclareProperty_R(datetime, wday)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Week day value between 0 and 6."
 		);
 }
 
@@ -338,7 +338,7 @@ Gura_DeclareProperty_R(datetime, yday)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Day in a year between 1 and 366."
 		);
 }
 
@@ -354,7 +354,7 @@ Gura_DeclareProperty_R(datetime, unixtime)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Unixtime."
 		);
 }
 
