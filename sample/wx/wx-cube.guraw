@@ -78,8 +78,8 @@ TestGLCanvas = class(wx.GLCanvas) {
 		this.EventTable()
 		this.m_init = false
 		this.m_gllist = nil
-		this.m_rleft = wx.WXK_LEFT
-		this.m_rright = wx.WXK_RIGHT
+		this.m_rleft:public = wx.WXK_LEFT
+		this.m_rright:public = wx.WXK_RIGHT
 		this.m_TimeInitialized = 0
 		this.m_xsynct = 0
 		this.m_gsynct = 0
