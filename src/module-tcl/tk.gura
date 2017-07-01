@@ -404,7 +404,7 @@ CanvasItem = class {
 	}
 	__tclname__() = this._tagOrId
 	__str__() = format('<canvasitem:%s>', this.__tclname__())
-	genDynamicMethod(symbol:symbol) = {
+	genDynamicMethod(symbol:symbol):closure = {
 		if (this.methodDict.haskey(symbol)) {
 			method = genItemMethod(this._canvas, this.methodDict[symbol])
 		} else {
