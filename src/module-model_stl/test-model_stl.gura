@@ -4,8 +4,7 @@ import(model.stl)
 
 testcase {
 	ratio = 0.05
-	fileName = 'sample/cube-ascii.stl'
-	//fileName = 'Voyager_17.stl'
+	fileName = '../../sample/model/sample/cube-ascii.stl'
 	model.stl.solid(fileName) {|solid|
 		println(solid.name || solid.header)
 		solid.faces.each {|face|
