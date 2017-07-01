@@ -313,22 +313,26 @@ Menu = class(Widget) {
 	Separator(opts%)	= this.add('separator', opts%)
 	Cascade(opts%) {block?} = {
 		m = this.Menu(tearoff => false)
-		opts[`menu] = m
-		this.add('cascade', opts%)
+		optsClone = opts.clone()
+		optsClone[`menu] = m
+		this.add('cascade', optsClone%)
 		block && block(m)
 		m
 	}
 	Command(opts%) {block?} = {
-		if (block) { opts[`command] = block }
-		this.add('command', opts%)
+		optsClone = opts.clone()
+		if (block) { optsClone[`command] = block }
+		this.add('command', optsClone%)
 	}
 	Checkbutton(opts%) {block?} = {
-		if (block) { opts[`command] = block }
-		this.add('checkbutton', opts%)
+		optsClone = opts.clone()
+		if (block) { optsClone[`command] = block }
+		this.add('checkbutton', optsClone%)
 	}
 	Radiobutton(opts%) {block?} = {
-		if (block) { opts[`command] = block }
-		this.add('radiobutton', opts%)
+		optsClone = opts.clone()
+		if (block) { optsClone[`command] = block }
+		this.add('radiobutton', optsClone%)
 	}
 	popup(x:number, y:number) = {
 		tclEval('tk_popup', this, x, y)
