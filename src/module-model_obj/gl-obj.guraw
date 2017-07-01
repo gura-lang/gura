@@ -1,0 +1,123 @@
+#!/usr/bin/env gura
+
+// Orignal source file is written in C and is available from the site below.
+// http://www.wakayama-u.ac.jp/~tokoi/opengl/libglut.html
+
+import(glu) {*}
+import(opengl) {*}
+import(model.obj)
+
+content = nil
+objList = nil
+
+prepare() = {
+	objList:extern = glGenLists(1)
+	faces = [content.faces]
+	xMax = max(faces:*v1:*x.max(), faces:*v2:*x.max(), faces:*v3:*x.max())
+	yMax = max(faces:*v1:*y.max(), faces:*v2:*y.max(), faces:*v3:*y.max())
+	zMax = max(faces:*v1:*z.max(), faces:*v2:*z.max(), faces:*v3:*z.max())
+	coordMax = max(xMax, yMax, zMax)
+	scale = 1 / coordMax
+	glNewList(objList, GL_COMPILE) {
+		faces.each {|face|
+			//glNormal3(face.vn1)
+			glVertex3(face.v1 * scale)
+			glVertex3(face.v2 * scale)
+			glVertex3(face.v3 * scale)
+		}
+	}	
+}
+
+init(w:number, h:number) = {
+	glClearColor(1, 1, 1, 1)
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+	glEnable([GL_DEPTH_TEST, GL_CULL_FACE])
+	glEnable([GL_LIGHTING, GL_LIGHT0, GL_LIGHT1])
+	glCullFace(GL_FRONT)
+	glViewport(0, 0, w, h)
+	glMatrixMode(GL_PROJECTION)
+	//glMatrixMode(GL_MODELVIEW)
+	glLoadIdentity()
+	gluPerspective(30, w / h, 1, 100)
+	//glOrtho(-1, 1, -1, 1, 1, 100)
+
+	position = @{0.0, 0.0, 0.0, 0.0}
+	glLightfv(GL_LIGHT0, GL_POSITION, position)
+}
+
+display(degreeH:number, degreeV:number, z:number) = {
+	glMatrixMode(GL_MODELVIEW)
+	glLoadIdentity()
+	gluLookAt(z, 0, 0,
+			  0, 0, 0,
+			  0, 0, 1)
+	glRotated(degreeH, 1, 0, 0)
+	glRotated(degreeV, 0, 1, 0)
+	glMaterialfv(GL_FRONT_AND_BACK,
+				 GL_AMBIENT_AND_DIFFUSE, [.8, .8, .8, 1])
+	glBegin(GL_TRIANGLES) {
+		glCallList(objList)
+	}
+	glFlush()
+}
+
+scope {
+	import(sdl2, sdl)
+	import(glapp)
+	degreeH = 0, degreeV = 0, z = 5
+	[width, height] = [600, 600]
+	App = class(glapp.App) {
+		OnInit() = {
+			prepare()
+		}
+		OnResize(width:number, height:number) = {
+		}
+		OnDraw() = {
+			init(width, height)
+			display(degreeH, degreeV, z)
+			this.SwapWindow()
+		}
+		OnIdle() = {
+			updateFlag = false
+			if (this.CheckKeyboardState(sdl.SCANCODE_LEFT)) {
+				updateFlag = true
+				degreeH += 5
+			}
+			if (this.CheckKeyboardState(sdl.SCANCODE_RIGHT)) {
+				updateFlag = true
+				degreeH -= 5
+			}
+			if (this.CheckKeyboardState(sdl.SCANCODE_DOWN)) {
+				updateFlag = true
+				degreeV += 5
+			}
+			if (this.CheckKeyboardState(sdl.SCANCODE_UP)) {
+				updateFlag = true
+				degreeV -= 5
+			}
+			if (this.CheckKeyboardState(sdl.SCANCODE_A)) {
+				if (z > 2) {
+					updateFlag = true
+					z -= .1
+				}
+			}
+			if (this.CheckKeyboardState(sdl.SCANCODE_Z)) {
+				updateFlag = true
+				z += .1
+			}
+			init(width, height)
+			if (updateFlag) {
+				display(degreeH, degreeV, z)
+				this.SwapWindow()
+			}
+		}
+	}
+	if (sys.argv.len() < 2) {
+		sys.stderr.println('usage: gura gl-stl.guraw <stl-file>')
+		sys.exit(1)
+	}
+	content:extern = model.obj.content(sys.argv[1])
+	//println(solid.name || solid.header)
+	app = App()
+	app.MainLoop(nil, width, height, 0)
+}
