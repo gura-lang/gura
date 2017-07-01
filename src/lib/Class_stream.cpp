@@ -142,7 +142,7 @@ Gura_ImplementFunction(readlines)
 }
 
 //-----------------------------------------------------------------------------
-// Implementation of methods
+// Implementation of properties
 //-----------------------------------------------------------------------------
 // stream#stat
 Gura_DeclareProperty_R(stream, stat)

@@ -141,3 +141,11 @@ expected error occurs: KeyError: invalid iterator of dict
 % {}.isempty() .. true
 % { 'a' => 3 }.isempty() .. false
 % { 'a' => 3, 'b' => 2, 'c' => 1 }.isempty() .. false
+
+======== #17 check if a cloned dictionary is writable ========
+
+original writable: false
+cloned writable:   true
+ValueError: not a writable dictionary
+original: %{key1 => 3}
+cloned:   %{key1 => 3, key2 => 3}

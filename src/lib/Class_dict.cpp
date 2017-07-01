@@ -615,6 +615,25 @@ Gura_ImplementMethod(dict, values)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// dict#writable
+Gura_DeclareProperty_R(dict, writable)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(dict, writable)
+{
+	Object_dict *pThis = Object_dict::GetObject(valueThis);
+	return Value(pThis->IsWritable());
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
 Class_dict::Class_dict(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_dict)
@@ -623,8 +642,12 @@ Class_dict::Class_dict(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTY
 
 void Class_dict::DoPrepare(Environment &env)
 {
+	// Assignment of functions
 	Gura_AssignFunction(dict);
 	Gura_AssignFunctionEx(dict, "%");
+	// Assignment of properties
+	Gura_AssignProperty(dict, writable);
+	// Assignment of methods
 	Gura_AssignMethod(dict, append);
 	Gura_AssignMethod(dict, clear);
 	Gura_AssignMethod(dict, erase);
