@@ -81,7 +81,7 @@ public:
 	inline Object_dict(Environment &env, ValueDict *pValDict, bool writableFlag) :
 		Object(env.LookupClass(VTYPE_dict)), _pValDict(pValDict), _writableFlag(writableFlag) {}
 	inline Object_dict(const Object_dict &obj) :
-		Object(obj), _pValDict(new ValueDict(obj.GetDict())), _writableFlag(obj._writableFlag) {}
+		Object(obj), _pValDict(new ValueDict(obj.GetDict())), _writableFlag(true) {}
 	virtual Object *Clone() const;
 	inline void AddIterator(IteratorEx *pIterator) { _iterList.push_back(pIterator); }
 	inline void RemoveIterator(IteratorEx *pIterator) {

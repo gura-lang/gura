@@ -256,3 +256,19 @@ testcase('dict#isempty()') {
 	tester(`%{'a' => 3}.isempty())
 	tester(`%{'a' => 3, 'b' => 2, 'c' => 1}.isempty())
 }
+testcase('check if a cloned dictionary is writable') {
+	f(opt%) = {
+		optClone = opt.clone()
+		println('original writable: ', opt.writable)
+		println('cloned writable:   ', optClone.writable)
+		try {
+			opt[`key2] = 3
+		} catch {|e|
+			println(e.text)
+		}
+		optClone[`key2] = 3
+		println('original: ', opt)
+		println('cloned:   ', optClone)
+	}
+	f(`key1 => 3)
+}
