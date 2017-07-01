@@ -25,8 +25,10 @@ pattern = [
 ]
 
 SetCursor(pattern[]:string) = {
-	data = b''
-	mask = b''
+	data = binary()
+	mask = binary()
+	pData = data.pointer()
+	pMask = mask.pointer()
 	w = pattern:*len().max(), h = pattern.len()
 	pattern.each {|line|
 		numData = 0
@@ -35,8 +37,8 @@ SetCursor(pattern[]:string) = {
 			numData = (numData << 1) + cond(ch == '@', 1, 0)
 			numMask = (numMask << 1) + cond(ch in ['X', '@'], 1, 0)
 		}
-		data += binary.pack('>H', numData)
-		mask += binary.pack('>H', numMask)
+		pData.pack('>H', numData)
+		pMask.pack('>H', numMask)
 	}
 	sdl.SetCursor(sdl.CreateCursor(data, mask, w, h, 0, 0))
 }
