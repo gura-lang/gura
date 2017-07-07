@@ -20,31 +20,31 @@ ArrayT<T_Elem> *FindMinMax(const ArrayT<T_Elem> *pArrayT,
 		ArrayT<T_Elem>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTResult->FillZero();
 	const T_Elem *pElem = pArrayT->GetPointer();
-	T_Elem *pElemResult = pArrayTResult->GetPointer();
+	T_Elem *pElemValue = pArrayTResult->GetPointer();
 	if (pDimAxis + 1 == dims.end()) {
 		size_t cnt = pArrayT->GetElemNum() / pDimAxis->GetSize();
 		while (cnt-- > 0) {
-			*pElemResult = *pElem;
+			*pElemValue = *pElem;
 			pElem++;
 			for (size_t i = 1; i < pDimAxis->GetSize(); i++, pElem++) {
-				if ((*op)(*pElemResult, *pElem)) *pElemResult = *pElem;
+				if ((*op)(*pElemValue, *pElem)) *pElemValue = *pElem;
 			}
-			pElemResult++;
+			pElemValue++;
 		}
 	} else {
 		size_t stride = pDimAxis->GetStride();
 		size_t cnt = pArrayT->GetElemNum() / (pDimAxis->GetSize() * stride);
 		while (cnt-- > 0) {
 			for (size_t j = 0; j < stride; j++, pElem++) {
-				*(pElemResult + j) = *pElem;
+				*(pElemValue + j) = *pElem;
 			}
 			for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
-				T_Elem *pElemResultWk = pElemResult;
-				for (size_t j = 0; j < stride; j++, pElemResultWk++, pElem++) {
-					if ((*op)(*pElemResultWk, *pElem)) *pElemResultWk = *pElem;
+				T_Elem *pElemValueWk = pElemValue;
+				for (size_t j = 0; j < stride; j++, pElemValueWk++, pElem++) {
+					if ((*op)(*pElemValueWk, *pElem)) *pElemValueWk = *pElem;
 				}
 			}
-			pElemResult += stride;
+			pElemValue += stride;
 		}
 	}
 	return pArrayTResult.release();
