@@ -358,6 +358,8 @@ argument
   argument#isset(symbol:symbol)
   argument#quit_trailer():void
 array
+  array#argmax(axis?:number):map {block?}
+  array#argmin(axis?:number):map {block?}
   array.dot(a:array, b:array):static:map {block?}
   array#dump(stream?:stream):void:[upper]
   array#each():[flat] {block?}

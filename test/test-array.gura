@@ -989,3 +989,34 @@ testcase('array#max(), array#min()') {
 	tester(`x.min(1))
 	tester(`x.min(2))
 }
+testcase('array#argmax(), array#argmin()') {
+	x = array@int32 {
+		{{ 1,  2,  1,  4},
+		 {-2, -2,  1, -5},
+		 { 2,  4,  0,  0}},
+		
+		{{ 2,  0,  1,  0},
+		 { 3,  2,  3, -3},
+		 { 4, -2,  3,  0}},
+		
+		{{-4,  3, -3,  3},
+		 { 0, -1,  3,  1},
+		 {-2, -5, -2, -3}},
+		
+		{{-3,  0,  3,  3},
+		 {-1, -2, -3, -1},
+		 { 2, -1, -3,  4}},
+		
+		{{-4, -3,  3,  1},
+		 { 1,  2, -1,  4},
+		 { 0, -3,  1,  3}}}
+	println(x)
+	tester(`x.argmax())
+	tester(`x.argmax(0))
+	tester(`x.argmax(1))
+	tester(`x.argmax(2))
+	tester(`x.argmin())
+	tester(`x.argmin(0))
+	tester(`x.argmin(1))
+	tester(`x.argmin(2))
+}

@@ -16,11 +16,11 @@ ArrayT<T_Elem> *FindMinMax(const ArrayT<T_Elem> *pArrayT,
 						   Array::Dimensions::const_iterator pDimAxis)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	AutoPtr<ArrayT<T_Elem> > pArrayTResult(
+	AutoPtr<ArrayT<T_Elem> > pArrayTValue(
 		ArrayT<T_Elem>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
-	pArrayTResult->FillZero();
+	pArrayTValue->FillZero();
 	const T_Elem *pElem = pArrayT->GetPointer();
-	T_Elem *pElemValue = pArrayTResult->GetPointer();
+	T_Elem *pElemValue = pArrayTValue->GetPointer();
 	if (pDimAxis + 1 == dims.end()) {
 		size_t cnt = pArrayT->GetElemNum() / pDimAxis->GetSize();
 		while (cnt-- > 0) {
@@ -47,7 +47,58 @@ ArrayT<T_Elem> *FindMinMax(const ArrayT<T_Elem> *pArrayT,
 			pElemValue += stride;
 		}
 	}
-	return pArrayTResult.release();
+	return pArrayTValue.release();
+}
+
+template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
+ArrayT<UInt32> *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT,
+						   Array::Dimensions::const_iterator pDimAxis)
+{
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	AutoPtr<ArrayT<UInt32> > pArrayTIndex(
+		ArrayT<UInt32>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
+	AutoPtr<Memory> pMemoryValue(new MemoryHeap(pArrayTIndex->GetElemNum() * sizeof(T_Elem)));
+	pArrayTIndex->FillZero();
+	const T_Elem *pElem = pArrayT->GetPointer();
+	UInt32 *pElemIndex = pArrayTIndex->GetPointer();
+	T_Elem *pElemValue = reinterpret_cast<T_Elem *>(pMemoryValue->GetPointer());
+	if (pDimAxis + 1 == dims.end()) {
+		size_t cnt = pArrayT->GetElemNum() / pDimAxis->GetSize();
+		while (cnt-- > 0) {
+			*pElemIndex = 0;
+			*pElemValue = *pElem;
+			pElem++;
+			for (size_t i = 1; i < pDimAxis->GetSize(); i++, pElem++) {
+				if ((*op)(*pElemValue, *pElem)) {
+					*pElemIndex = static_cast<UInt32>(i);
+					*pElemValue = *pElem;
+				}
+			}
+			pElemIndex++;
+			pElemValue++;
+		}
+	} else {
+		size_t stride = pDimAxis->GetStride();
+		size_t cnt = pArrayT->GetElemNum() / (pDimAxis->GetSize() * stride);
+		while (cnt-- > 0) {
+			for (size_t j = 0; j < stride; j++, pElem++) {
+				*(pElemIndex + j) = 0;
+				*(pElemValue + j) = *pElem;
+			}
+			for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
+				T_Elem *pElemValueWk = pElemValue;
+				for (size_t j = 0; j < stride; j++, pElemValueWk++, pElem++) {
+					if ((*op)(*pElemValueWk, *pElem)) {
+						*(pElemIndex + j) = static_cast<UInt32>(i);
+						*pElemValueWk = *pElem;
+					}
+				}
+			}
+			pElemIndex += stride;
+			pElemValue += stride;
+		}
+	}
+	return pArrayTIndex.release();
 }
 
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
@@ -59,6 +110,21 @@ T_Elem FindMinMaxFlat(const ArrayT<T_Elem> *pArrayT)
 		if ((*op)(rtn, *p)) rtn = *p;
 	}
 	return rtn;
+}
+
+template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
+size_t FindMinMaxIndexFlat(const ArrayT<T_Elem> *pArrayT)
+{
+	const T_Elem *p = pArrayT->GetPointer();
+	size_t index = 0;
+	T_Elem value = *p++;
+	for (size_t i = 1; i < pArrayT->GetElemNum(); i++, p++) {
+		if ((*op)(value, *p)) {
+			index = i;
+			value = *p;
+		}
+	}
+	return index;
 }
 
 template<typename T_ElemResult, typename T_Elem>
@@ -148,6 +214,124 @@ Value CallMethod(Environment &env, Argument &arg, const FuncT_Method funcTbl[],
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+// array#argmax(axis?:number) {block?}
+Gura_DeclareMethod(array, argmax)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns index of a maximum number of elements in the target `array`.\n");
+}
+
+template<typename T_Elem>
+Value FuncTmpl_argmax(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	if (pArrayT->GetElemNum() == 0) return Value::Nil;
+	Value valueRtn;
+	if (arg.IsValid(0)) {
+		size_t axis = arg.GetSizeT(0);
+		const Array::Dimensions &dims = pArrayT->GetDimensions();
+		if (axis >= dims.size()) {
+			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+			return Value::Nil;
+		} else if (axis == 0 && dims.size() == 1) {
+			valueRtn = Value(FindMinMaxIndexFlat<T_Elem, CompareLT>(pArrayT));
+		} else {
+			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
+			ArrayT<UInt32> *pArrayTResult = FindMinMaxIndex<T_Elem, CompareLT>(pArrayT, pDimAxis);
+			if (pArrayTResult == nullptr) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayTResult));
+		}
+	} else {
+		valueRtn = Value(FindMinMaxIndexFlat<T_Elem, CompareLT>(pArrayT));
+	}
+	return pFunc->ReturnValue(env, arg, valueRtn);
+}
+
+Gura_ImplementMethod(array, argmax)
+{
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
+		nullptr,
+		&FuncTmpl_argmax<Boolean>,
+		&FuncTmpl_argmax<Int8>,
+		&FuncTmpl_argmax<UInt8>,
+		&FuncTmpl_argmax<Int16>,
+		&FuncTmpl_argmax<UInt16>,
+		&FuncTmpl_argmax<Int32>,
+		&FuncTmpl_argmax<UInt32>,
+		&FuncTmpl_argmax<Int64>,
+		&FuncTmpl_argmax<UInt64>,
+		&FuncTmpl_argmax<Half>,
+		&FuncTmpl_argmax<Float>,
+		&FuncTmpl_argmax<Double>,
+		nullptr,
+		//&FuncTmpl_argmax<Value, Value>,
+	};
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+}
+
+// array#argmin(axis?:number) {block?}
+Gura_DeclareMethod(array, argmin)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns index of a minimum number of elements in the target `array`.\n");
+}
+
+template<typename T_Elem>
+Value FuncTmpl_argmin(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	if (pArrayT->GetElemNum() == 0) return Value::Nil;
+	Value valueRtn;
+	if (arg.IsValid(0)) {
+		size_t axis = arg.GetSizeT(0);
+		const Array::Dimensions &dims = pArrayT->GetDimensions();
+		if (axis >= dims.size()) {
+			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+			return Value::Nil;
+		} else if (axis == 0 && dims.size() == 1) {
+			valueRtn = Value(FindMinMaxIndexFlat<T_Elem, CompareGT>(pArrayT));
+		} else {
+			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
+			ArrayT<UInt32> *pArrayTResult = FindMinMaxIndex<T_Elem, CompareGT>(pArrayT, pDimAxis);
+			if (pArrayTResult == nullptr) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayTResult));
+		}
+	} else {
+		valueRtn = Value(FindMinMaxIndexFlat<T_Elem, CompareGT>(pArrayT));
+	}
+	return pFunc->ReturnValue(env, arg, valueRtn);
+}
+
+Gura_ImplementMethod(array, argmin)
+{
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
+		nullptr,
+		&FuncTmpl_argmin<Boolean>,
+		&FuncTmpl_argmin<Int8>,
+		&FuncTmpl_argmin<UInt8>,
+		&FuncTmpl_argmin<Int16>,
+		&FuncTmpl_argmin<UInt16>,
+		&FuncTmpl_argmin<Int32>,
+		&FuncTmpl_argmin<UInt32>,
+		&FuncTmpl_argmin<Int64>,
+		&FuncTmpl_argmin<UInt64>,
+		&FuncTmpl_argmin<Half>,
+		&FuncTmpl_argmin<Float>,
+		&FuncTmpl_argmin<Double>,
+		nullptr,
+		//&FuncTmpl_argmin<Value, Value>,
+	};
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+}
+
 // array.dot(a:array, b:array):static:map {block?}
 Gura_DeclareClassMethod(array, dot)
 {
@@ -1010,6 +1194,8 @@ Gura_ImplementMethod(array, transpose)
 
 void AssignMethods(Environment &env)
 {
+	Gura_AssignMethodTo(VTYPE_array, array, argmax);
+	Gura_AssignMethodTo(VTYPE_array, array, argmin);
 	Gura_AssignMethodTo(VTYPE_array, array, dot);
 	Gura_AssignMethodTo(VTYPE_array, array, dump);
 	Gura_AssignMethodTo(VTYPE_array, array, each);
