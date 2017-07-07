@@ -4,9 +4,63 @@ Gura_BeginModuleScope(arrayutil)
 
 typedef Value (*FuncT_Method)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);
 
+
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
+template<typename T_Elem> inline bool CompareLT(T_Elem a, T_Elem b) { return a < b; }
+template<typename T_Elem> inline bool CompareGT(T_Elem a, T_Elem b) { return a > b; }
+
+template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
+ArrayT<T_Elem> *FindMinMax(const ArrayT<T_Elem> *pArrayT,
+						   Array::Dimensions::const_iterator pDimAxis)
+{
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	AutoPtr<ArrayT<T_Elem> > pArrayTResult(
+		ArrayT<T_Elem>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
+	pArrayTResult->FillZero();
+	const T_Elem *pElem = pArrayT->GetPointer();
+	T_Elem *pElemResult = pArrayTResult->GetPointer();
+	if (pDimAxis + 1 == dims.end()) {
+		size_t cnt = pArrayT->GetElemNum() / pDimAxis->GetSize();
+		while (cnt-- > 0) {
+			*pElemResult = *pElem;
+			pElem++;
+			for (size_t i = 1; i < pDimAxis->GetSize(); i++, pElem++) {
+				if ((*op)(*pElemResult, *pElem)) *pElemResult = *pElem;
+			}
+			pElemResult++;
+		}
+	} else {
+		size_t stride = pDimAxis->GetStride();
+		size_t cnt = pArrayT->GetElemNum() / (pDimAxis->GetSize() * stride);
+		while (cnt-- > 0) {
+			for (size_t j = 0; j < stride; j++, pElem++) {
+				*(pElemResult + j) = *pElem;
+			}
+			for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
+				T_Elem *pElemResultWk = pElemResult;
+				for (size_t j = 0; j < stride; j++, pElemResultWk++, pElem++) {
+					if ((*op)(*pElemResultWk, *pElem)) *pElemResultWk = *pElem;
+				}
+			}
+			pElemResult += stride;
+		}
+	}
+	return pArrayTResult.release();
+}
+
+template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
+T_Elem FindMinMaxFlat(const ArrayT<T_Elem> *pArrayT)
+{
+	const T_Elem *p = pArrayT->GetPointer();
+	T_Elem rtn = *p++;
+	for (size_t i = 1; i < pArrayT->GetElemNum(); i++, p++) {
+		if ((*op)(rtn, *p)) rtn = *p;
+	}
+	return rtn;
+}
+
 template<typename T_ElemResult, typename T_Elem>
 ArrayT<T_ElemResult> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 							  Array::Dimensions::const_iterator pDimAxis)
@@ -505,6 +559,65 @@ Gura_ImplementMethod(array, issquare)
 	return Value(pArray->IsSquare());
 }
 
+// array#max(axis?:number) {block?}
+Gura_DeclareMethod(array, max)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Finds a maximum number of elements in the target `array`.\n");
+}
+
+template<typename T_Elem>
+Value FuncTmpl_max(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	if (pArrayT->GetElemNum() == 0) return Value::Nil;
+	Value valueRtn;
+	if (arg.IsValid(0)) {
+		size_t axis = arg.GetSizeT(0);
+		const Array::Dimensions &dims = pArrayT->GetDimensions();
+		if (axis >= dims.size()) {
+			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+			return Value::Nil;
+		} else if (axis == 0 && dims.size() == 1) {
+			valueRtn = Value(FindMinMaxFlat<T_Elem, CompareLT>(pArrayT));
+		} else {
+			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
+			ArrayT<T_Elem> *pArrayTResult = FindMinMax<T_Elem, CompareLT>(pArrayT, pDimAxis);
+			if (pArrayTResult == nullptr) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayTResult));
+		}
+	} else {
+		valueRtn = Value(FindMinMaxFlat<T_Elem, CompareLT>(pArrayT));
+	}
+	return pFunc->ReturnValue(env, arg, valueRtn);
+}
+
+Gura_ImplementMethod(array, max)
+{
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
+		nullptr,
+		&FuncTmpl_max<Boolean>,
+		&FuncTmpl_max<Int8>,
+		&FuncTmpl_max<UInt8>,
+		&FuncTmpl_max<Int16>,
+		&FuncTmpl_max<UInt16>,
+		&FuncTmpl_max<Int32>,
+		&FuncTmpl_max<UInt32>,
+		&FuncTmpl_max<Int64>,
+		&FuncTmpl_max<UInt64>,
+		&FuncTmpl_max<Half>,
+		&FuncTmpl_max<Float>,
+		&FuncTmpl_max<Double>,
+		nullptr,
+		//&FuncTmpl_max<Value, Value>,
+	};
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+}
+
 // array#mean(axis?:number) {block?}
 Gura_DeclareMethod(array, mean)
 {
@@ -561,6 +674,65 @@ Gura_ImplementMethod(array, mean)
 		&FuncTmpl_mean<Double, Double>,
 		&FuncTmpl_mean<Complex, Complex>,
 		//&FuncTmpl_mean<Value, Value>,
+	};
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+}
+
+// array#min(axis?:number) {block?}
+Gura_DeclareMethod(array, min)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Finds a minimum number of elements in the target `array`.\n");
+}
+
+template<typename T_Elem>
+Value FuncTmpl_min(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	if (pArrayT->GetElemNum() == 0) return Value::Nil;
+	Value valueRtn;
+	if (arg.IsValid(0)) {
+		size_t axis = arg.GetSizeT(0);
+		const Array::Dimensions &dims = pArrayT->GetDimensions();
+		if (axis >= dims.size()) {
+			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+			return Value::Nil;
+		} else if (axis == 0 && dims.size() == 1) {
+			valueRtn = Value(FindMinMaxFlat<T_Elem, CompareGT>(pArrayT));
+		} else {
+			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
+			ArrayT<T_Elem> *pArrayTResult = FindMinMax<T_Elem, CompareGT>(pArrayT, pDimAxis);
+			if (pArrayTResult == nullptr) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayTResult));
+		}
+	} else {
+		valueRtn = Value(FindMinMaxFlat<T_Elem, CompareGT>(pArrayT));
+	}
+	return pFunc->ReturnValue(env, arg, valueRtn);
+}
+
+Gura_ImplementMethod(array, min)
+{
+	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
+		nullptr,
+		&FuncTmpl_min<Boolean>,
+		&FuncTmpl_min<Int8>,
+		&FuncTmpl_min<UInt8>,
+		&FuncTmpl_min<Int16>,
+		&FuncTmpl_min<UInt16>,
+		&FuncTmpl_min<Int32>,
+		&FuncTmpl_min<UInt32>,
+		&FuncTmpl_min<Int64>,
+		&FuncTmpl_min<UInt64>,
+		&FuncTmpl_min<Half>,
+		&FuncTmpl_min<Float>,
+		&FuncTmpl_min<Double>,
+		nullptr,
+		//&FuncTmpl_min<Value, Value>,
 	};
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -848,7 +1020,9 @@ void AssignMethods(Environment &env)
 	Gura_AssignMethodTo(VTYPE_array, array, invert);
 	Gura_AssignMethodTo(VTYPE_array, array, iselemsame);
 	Gura_AssignMethodTo(VTYPE_array, array, issquare);
+	Gura_AssignMethodTo(VTYPE_array, array, max);
 	Gura_AssignMethodTo(VTYPE_array, array, mean);
+	Gura_AssignMethodTo(VTYPE_array, array, min);
 	Gura_AssignMethodTo(VTYPE_array, array, offset);
 	Gura_AssignMethodTo(VTYPE_array, array, paste);
 	Gura_AssignMethodTo(VTYPE_array, array, reshape);

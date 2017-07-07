@@ -370,7 +370,9 @@ array
   array#invert(eps?:number):map {block?}
   array#iselemsame(array:array)
   array#issquare()
+  array#max(axis?:number):map {block?}
   array#mean(axis?:number):map {block?}
+  array#min(axis?:number):map {block?}
   array#offset(n:number):map {block?}
   array.ones(dims[]:number, elemtype?:symbol):static:map {block?}
   array#paste(offset:number, src:array):map
