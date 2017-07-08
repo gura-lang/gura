@@ -94,6 +94,10 @@ public:
 	Value ToList(Environment &env, bool alwaysListFlag, bool excludeNilFlag);
 	Value Reduce(Environment &env, Value valueAccum, const Function *pFuncBlock);
 	Value MinMax(Environment &env, bool maxFlag, const SymbolSet &attrs);
+	Value FindMinMax(Environment &env, bool maxFlag);
+	Value FindMinMaxIndex(Environment &env, bool maxFlag);
+	Value FindMinMaxLastIndex(Environment &env, bool maxFlag);
+	Value FindMinMaxIndices(Environment &env, bool maxFlag);
 	Value Sum(Environment &env, size_t &cnt);
 	Value Prod(Environment &env);
 	Value Average(Environment &env, size_t &cnt);

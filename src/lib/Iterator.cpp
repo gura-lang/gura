@@ -213,6 +213,108 @@ Value Iterator::MinMax(Environment &env, bool maxFlag, const SymbolSet &attrs)
 	return result;
 }
 
+Value Iterator::FindMinMax(Environment &env, bool maxFlag)
+{
+	Signal &sig = env.GetSignal();
+	if (IsInfinite()) {
+		SetError_InfiniteNotAllowed(sig);
+		return Value::Nil;
+	}
+	Value valueHit;
+	if (!Next(env, valueHit)) return Value::Nil;
+	Value value;
+	while (Next(env, value)) {
+		int cmp = Value::Compare(env, valueHit, value);
+		if (sig.IsSignalled()) return Value::Nil;
+		if (maxFlag) cmp = -cmp;
+		if (cmp > 0) {
+			valueHit = value;
+		}
+	}
+	if (sig.IsSignalled()) return Value::Nil;
+	return valueHit;
+}
+
+Value Iterator::FindMinMaxIndex(Environment &env, bool maxFlag)
+{
+	Signal &sig = env.GetSignal();
+	if (IsInfinite()) {
+		SetError_InfiniteNotAllowed(sig);
+		return Value::Nil;
+	}
+	Value valueHit;
+	if (!Next(env, valueHit)) return Value::Nil;
+	int idxHit = GetIndexCur();
+	Value value;
+	while (Next(env, value)) {
+		int cmp = Value::Compare(env, valueHit, value);
+		if (sig.IsSignalled()) return Value::Nil;
+		if (maxFlag) cmp = -cmp;
+		if (cmp > 0) {
+			valueHit = value;
+			idxHit = GetIndexCur();
+		}
+	}
+	if (sig.IsSignalled()) return Value::Nil;
+	return Value(idxHit);
+}
+
+Value Iterator::FindMinMaxLastIndex(Environment &env, bool maxFlag)
+{
+	Signal &sig = env.GetSignal();
+	if (IsInfinite()) {
+		SetError_InfiniteNotAllowed(sig);
+		return Value::Nil;
+	}
+	Value valueHit;
+	if (!Next(env, valueHit)) return Value::Nil;
+	int idxHit = GetIndexCur();
+	Value value;
+	while (Next(env, value)) {
+		int cmp = Value::Compare(env, valueHit, value);
+		if (sig.IsSignalled()) return Value::Nil;
+		if (maxFlag) cmp = -cmp;
+		if (cmp >= 0) {
+			valueHit = value;
+			idxHit = GetIndexCur();
+		}
+	}
+	if (sig.IsSignalled()) return Value::Nil;
+	return Value(idxHit);
+}
+
+Value Iterator::FindMinMaxIndices(Environment &env, bool maxFlag)
+{
+	Signal &sig = env.GetSignal();
+	if (IsInfinite()) {
+		SetError_InfiniteNotAllowed(sig);
+		return Value::Nil;
+	}
+	Value valueHit;
+	if (!Next(env, valueHit)) return Value::Nil;
+	Value result;
+	int idxHit = GetIndexCur();
+	Object_list *pObjListResult = result.InitAsList(env);
+	pObjListResult->Add(Value(idxHit));
+	Value value;
+	while (Next(env, value)) {
+		int cmp = Value::Compare(env, valueHit, value);
+		if (sig.IsSignalled()) return Value::Nil;
+		if (maxFlag) cmp = -cmp;
+		if (cmp > 0) {
+			int idxHit = GetIndexCur();
+			valueHit = value;
+			pObjListResult->Clear();
+			pObjListResult->Add(Value(idxHit));
+		} else if (cmp == 0) {
+			int idxHit = GetIndexCur();
+			pObjListResult->Add(Value(static_cast<Number>(idxHit)));
+		}
+	}
+	if (sig.IsSignalled()) return Value::Nil;
+	return result;
+}
+
 void Iterator::SetError_InvalidDataTypeOfElement(Signal &sig)
 {
 	sig.SetError(ERR_ValueError, "invalid data type of element");
