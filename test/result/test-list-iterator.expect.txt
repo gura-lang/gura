@@ -313,11 +313,11 @@ tbl.max() .. 69
 tbl.max():index .. 3
 tbl.max():last_index .. 3
 tbl.max():indices .. [3]
-iter.min() .. 1
+iter.min() .. 23
 iter.min():index .. 1
 iter.min():last_index .. 2
 iter.min():indices .. [1, 2]
-iter.max() .. 3
+iter.max() .. 69
 iter.max():index .. 3
 iter.max():last_index .. 3
 iter.max():indices .. [3]

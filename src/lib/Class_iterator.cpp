@@ -771,7 +771,7 @@ Gura_ImplementMethod(iterator, max)
 		arg.IsSet(Gura_Symbol(index))? pIterator->FindMinMaxIndex(env, true) :
 		arg.IsSet(Gura_Symbol(last_index))? pIterator->FindMinMaxLastIndex(env, true) :
 		arg.IsSet(Gura_Symbol(indices))? pIterator->FindMinMaxIndices(env, true) :
-		pIterator->FindMinMaxIndex(env, true);
+		pIterator->FindMinMax(env, true);
 }
 
 // iterator#mean()
@@ -830,7 +830,7 @@ Gura_ImplementMethod(iterator, min)
 		arg.IsSet(Gura_Symbol(index))? pIterator->FindMinMaxIndex(env, false) :
 		arg.IsSet(Gura_Symbol(last_index))? pIterator->FindMinMaxLastIndex(env, false) :
 		arg.IsSet(Gura_Symbol(indices))? pIterator->FindMinMaxIndices(env, false) :
-		pIterator->FindMinMaxIndex(env, false);
+		pIterator->FindMinMax(env, false);
 }
 
 // iterator#nilto(replace) {block?}

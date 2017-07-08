@@ -1506,13 +1506,14 @@ Gura_DeclareMethod(list, max)
 
 Gura_ImplementMethod(list, max)
 {
-	Signal &sig = env.GetSignal();
 	Object_list *pThis = Object_list::GetObjectThis(arg);
-	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
-	if (sig.IsSignalled()) return Value::Nil;
-	Value result = pIterator->MinMax(env, true, arg.GetAttrs());
-	if (sig.IsSignalled()) return Value::Nil;
-	return result;
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(env));
+	if (env.IsSignalled()) return Value::Nil;
+	return
+		arg.IsSet(Gura_Symbol(index))? pIterator->FindMinMaxIndex(env, true) :
+		arg.IsSet(Gura_Symbol(last_index))? pIterator->FindMinMaxLastIndex(env, true) :
+		arg.IsSet(Gura_Symbol(indices))? pIterator->FindMinMaxIndices(env, true) :
+		pIterator->FindMinMax(env, true);
 }
 
 // list#mean()
@@ -1546,13 +1547,14 @@ Gura_DeclareMethod(list, min)
 
 Gura_ImplementMethod(list, min)
 {
-	Signal &sig = env.GetSignal();
 	Object_list *pThis = Object_list::GetObjectThis(arg);
-	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
-	if (sig.IsSignalled()) return Value::Nil;
-	Value result = pIterator->MinMax(env, false, arg.GetAttrs());
-	if (sig.IsSignalled()) return Value::Nil;
-	return result;
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(env));
+	if (env.IsSignalled()) return Value::Nil;
+	return
+		arg.IsSet(Gura_Symbol(index))? pIterator->FindMinMaxIndex(env, false) :
+		arg.IsSet(Gura_Symbol(last_index))? pIterator->FindMinMaxLastIndex(env, false) :
+		arg.IsSet(Gura_Symbol(indices))? pIterator->FindMinMaxIndices(env, false) :
+		pIterator->FindMinMax(env, false);
 }
 
 // list#nilto(replace) {block?}
