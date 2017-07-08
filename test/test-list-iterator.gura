@@ -383,6 +383,7 @@ testcase {
 }
 testcase {
 	tbl = [49, 23, 23, 69]
+	iter = tbl.each()
 	tester(`tbl)
 	tester(`tbl.min())
 	tester(`tbl.min():index)
@@ -392,6 +393,14 @@ testcase {
 	tester(`tbl.max():index)
 	tester(`tbl.max():last_index)
 	tester(`tbl.max():indices)
+	tester(`iter.min())
+	tester(`iter.min():index)
+	tester(`iter.min():last_index)
+	tester(`iter.min():indices)
+	tester(`iter.max())
+	tester(`iter.max():index)
+	tester(`iter.max():last_index)
+	tester(`iter.max():indices)
 }
 testcase {
 	printf('%3d   %s\n', 1.., (['first', 'second', 'third', 'fourth'].permutation()):*join(', '))

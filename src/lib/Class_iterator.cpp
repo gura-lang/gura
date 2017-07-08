@@ -765,12 +765,13 @@ Gura_DeclareMethod(iterator, max)
 
 Gura_ImplementMethod(iterator, max)
 {
-	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
-	Value result = pIterator->MinMax(env, true, arg.GetAttrs());
-	if (sig.IsSignalled()) return Value::Nil;
-	return result;
+	return
+		arg.IsSet(Gura_Symbol(index))? pIterator->FindMinMaxIndex(env, true) :
+		arg.IsSet(Gura_Symbol(last_index))? pIterator->FindMinMaxLastIndex(env, true) :
+		arg.IsSet(Gura_Symbol(indices))? pIterator->FindMinMaxIndices(env, true) :
+		pIterator->FindMinMaxIndex(env, true);
 }
 
 // iterator#mean()
@@ -823,12 +824,13 @@ Gura_DeclareMethod(iterator, min)
 
 Gura_ImplementMethod(iterator, min)
 {
-	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
-	Value result = pIterator->MinMax(env, false, arg.GetAttrs());
-	if (sig.IsSignalled()) return Value::Nil;
-	return result;
+	return
+		arg.IsSet(Gura_Symbol(index))? pIterator->FindMinMaxIndex(env, false) :
+		arg.IsSet(Gura_Symbol(last_index))? pIterator->FindMinMaxLastIndex(env, false) :
+		arg.IsSet(Gura_Symbol(indices))? pIterator->FindMinMaxIndices(env, false) :
+		pIterator->FindMinMaxIndex(env, false);
 }
 
 // iterator#nilto(replace) {block?}
