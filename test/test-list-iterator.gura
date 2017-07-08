@@ -381,9 +381,8 @@ testcase {
 		println()
 	}
 }
-testcase {
+testcase('list#min()/list#max()') {
 	tbl = [49, 23, 23, 69]
-	iter = tbl.each()
 	tester(`tbl)
 	tester(`tbl.min())
 	tester(`tbl.min():index)
@@ -393,6 +392,9 @@ testcase {
 	tester(`tbl.max():index)
 	tester(`tbl.max():last_index)
 	tester(`tbl.max():indices)
+}
+testcase('iterator#min()/iterator#max()') {
+	iter = [49, 23, 23, 69].each()
 	tester(`iter.min())
 	tester(`iter.min():index)
 	tester(`iter.min():last_index)
@@ -903,4 +905,23 @@ testcase('indexing assignment') {
 	assign_tester {x[[8, 7, 6, 5, 4]] = 0..}
 	assign_tester {x[[1, 2, 3], [5, 6, 7, 8]] = 0..}
 	assign_tester {x[[0, 1, 2], [3, 4, 5], [6, 7, 8, 9]] = 0..}
+}
+testcase('list#argmin()/list#argmax()') {
+	tbl = [49, 23, 23, 69]
+	tester(`tbl)
+	tester(`tbl.argmin())
+	tester(`tbl.argmin():last)
+	tester(`tbl.argmin():indices)
+	tester(`tbl.argmax())
+	tester(`tbl.argmax():last)
+	tester(`tbl.argmax():indices)
+}
+testcase('iterator#argmin()/iterator#argmax()') {
+	iter = [49, 23, 23, 69].each()
+	tester(`iter.argmin())
+	tester(`iter.argmin():last)
+	tester(`iter.argmin():indices)
+	tester(`iter.argmax())
+	tester(`iter.argmax():last)
+	tester(`iter.argmax():indices)
 }

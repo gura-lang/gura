@@ -355,6 +355,7 @@ public:
 	Gura_DeclareSymbol(finalize);
 	Gura_DeclareSymbol(finalizer);
 	Gura_DeclareSymbol(finally);
+	Gura_DeclareSymbol(first);
 	Gura_DeclareSymbol(firsteol);
 	Gura_DeclareSymbol(flat);
 	Gura_DeclareSymbol(float_);
@@ -414,6 +415,7 @@ public:
 	Gura_DeclareSymbol(l);
 	Gura_DeclareSymbol(L);
 	Gura_DeclareSymbol(lang);
+	Gura_DeclareSymbol(last);
 	Gura_DeclareSymbol(last_index);
 	Gura_DeclareSymbol(langcode);
 	Gura_DeclareSymbol(lasteol);

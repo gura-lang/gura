@@ -552,6 +552,7 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(finalize);
 	Gura_RealizeSymbol(finalizer);
 	Gura_RealizeSymbol(finally);
+	Gura_RealizeSymbol(first);
 	Gura_RealizeSymbol(firsteol);
 	Gura_RealizeSymbol(flat);
 	Gura_RealizeSymbolAlias(float_,			"float");
@@ -613,6 +614,7 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(lang);
 	Gura_RealizeSymbol(last_index);
 	Gura_RealizeSymbol(langcode);
+	Gura_RealizeSymbol(last);
 	Gura_RealizeSymbol(lasteol);
 	Gura_RealizeSymbol(le);
 	Gura_RealizeSymbol(leader);

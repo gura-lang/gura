@@ -736,6 +736,8 @@ iterator
   iterator#after(criteria) {block?}
   iterator#align(n:number, value?) {block?}
   iterator#and()
+  iterator#argmax():[indices,last]
+  iterator#argmin():[indices,last]
   iterator#before(criteria) {block?}
   iterator#contains(value)
   iterator#count(criteria?)
@@ -791,6 +793,8 @@ list
   list#align(n:number, value?):map {block?}
   list#and()
   list#append(elem+):reduce
+  list#argmax():[indices,last]
+  list#argmin():[indices,last]
   list#before(criteria) {block?}
   list#clear():reduce
   list#combination(n:number) {block?}

@@ -318,6 +318,56 @@ Gura_ImplementMethod(iterator, and_)
 	return result;
 }
 
+// iterator#argmax():[last,indices]
+Gura_DeclareMethod(iterator, argmax)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(last));
+	DeclareAttr(Gura_Symbol(indices));
+	AddHelp(
+		Gura_Symbol(en), 
+		"Returns a position index where the maximum value is found at first.\n"
+		"\n"
+		"When attribute `:last` is specified, it returns the index where the maximum value is found at last.\n"
+		"\n"
+		"When attribute `:indices` is specified, it returns a list of all indices where the maximum value is found.\n");
+}
+
+Gura_ImplementMethod(iterator, argmax)
+{
+	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
+	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
+	return
+		arg.IsSet(Gura_Symbol(last))? pIterator->FindMinMaxLastIndex(env, true) :
+		arg.IsSet(Gura_Symbol(indices))? pIterator->FindMinMaxIndices(env, true) :
+		pIterator->FindMinMaxIndex(env, true);
+}
+
+// iterator#argmin():[last,indices]
+Gura_DeclareMethod(iterator, argmin)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(last));
+	DeclareAttr(Gura_Symbol(indices));
+	AddHelp(
+		Gura_Symbol(en), 
+		"Returns a position index where the minimum value is found at first.\n"
+		"\n"
+		"When attribute `:last` is specified, it returns the index where the minimum value is found at last.\n"
+		"\n"
+		"When attribute `:indices` is specified, it returns a list of all indices where the minimum value is found.\n");
+}
+
+Gura_ImplementMethod(iterator, argmin)
+{
+	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
+	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
+	return
+		arg.IsSet(Gura_Symbol(last))? pIterator->FindMinMaxLastIndex(env, false) :
+		arg.IsSet(Gura_Symbol(indices))? pIterator->FindMinMaxIndices(env, false) :
+		pIterator->FindMinMaxIndex(env, false);
+}
+
 // iterator#before(criteria) {block?}
 Gura_DeclareMethod(iterator, before)
 {
@@ -1598,6 +1648,8 @@ void Class_iterator::DoPrepare(Environment &env)
 	Gura_AssignMethod(iterator, after);
 	Gura_AssignMethod(iterator, align);
 	Gura_AssignMethod(iterator, and_);
+	Gura_AssignMethod(iterator, argmax);
+	Gura_AssignMethod(iterator, argmin);
 	Gura_AssignMethod(iterator, before);
 	Gura_AssignMethod(iterator, contains);
 	Gura_AssignMethod(iterator, count);
