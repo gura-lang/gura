@@ -910,18 +910,18 @@ testcase('list#argmin()/list#argmax()') {
 	tbl = [49, 23, 23, 69]
 	tester(`tbl)
 	tester(`tbl.argmin())
-	tester(`tbl.argmin():last)
+	tester(`tbl.argmin():last_index)
 	tester(`tbl.argmin():indices)
 	tester(`tbl.argmax())
-	tester(`tbl.argmax():last)
+	tester(`tbl.argmax():last_index)
 	tester(`tbl.argmax():indices)
 }
 testcase('iterator#argmin()/iterator#argmax()') {
 	iter = [49, 23, 23, 69].each()
 	tester(`iter.argmin())
-	tester(`iter.argmin():last)
+	tester(`iter.argmin():last_index)
 	tester(`iter.argmin():indices)
 	tester(`iter.argmax())
-	tester(`iter.argmax():last)
+	tester(`iter.argmax():last_index)
 	tester(`iter.argmax():indices)
 }

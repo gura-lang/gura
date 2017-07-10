@@ -1203,11 +1203,11 @@ Gura_ImplementMethod(list, and_)
 	return result;
 }
 
-// list#argmax():[last,indices]
+// list#argmax():[last_index,indices]
 Gura_DeclareMethod(list, argmax)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(last));
+	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
 	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
@@ -1218,16 +1218,16 @@ Gura_ImplementMethod(list, argmax)
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(env));
 	if (env.IsSignalled()) return Value::Nil;
 	return
-		arg.IsSet(Gura_Symbol(last))? pIterator->FindMinMaxLastIndex(env, true) :
+		arg.IsSet(Gura_Symbol(last_index))? pIterator->FindMinMaxLastIndex(env, true) :
 		arg.IsSet(Gura_Symbol(indices))? pIterator->FindMinMaxIndices(env, true) :
 		pIterator->FindMinMaxIndex(env, true);
 }
 
-// list#argmin():[last,indices]
+// list#argmin():[last_index,indices]
 Gura_DeclareMethod(list, argmin)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(last));
+	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
 	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
@@ -1238,7 +1238,7 @@ Gura_ImplementMethod(list, argmin)
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(env));
 	if (env.IsSignalled()) return Value::Nil;
 	return
-		arg.IsSet(Gura_Symbol(last))? pIterator->FindMinMaxLastIndex(env, false) :
+		arg.IsSet(Gura_Symbol(last_index))? pIterator->FindMinMaxLastIndex(env, false) :
 		arg.IsSet(Gura_Symbol(indices))? pIterator->FindMinMaxIndices(env, false) :
 		pIterator->FindMinMaxIndex(env, false);
 }

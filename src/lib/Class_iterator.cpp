@@ -318,19 +318,27 @@ Gura_ImplementMethod(iterator, and_)
 	return result;
 }
 
-// iterator#argmax():[last,indices]
+// iterator#argmax():[last_index,indices]
 Gura_DeclareMethod(iterator, argmax)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(last));
+	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
 	AddHelp(
 		Gura_Symbol(en), 
 		"Returns a position index where the maximum value is found at first.\n"
 		"\n"
-		"When attribute `:last` is specified, it returns the index where the maximum value is found at last.\n"
+		"The following attributes modify the behavior:\n"
 		"\n"
-		"When attribute `:indices` is specified, it returns a list of all indices where the maximum value is found.\n");
+		"- `:last_index` .. returns an index where the maximum value is found at last.\n"
+		"- `:indices` .. returns a list of all indices where the maximum value is found.\n"
+		"\n"
+		"Calling of methods `iterable#argmas()` and `iteraboe#max()` have the same effect\n"
+		"when attributes are specified as follows:\n"
+		"\n"
+		"- `iterable.argmax()` and `iterable.max():index\n"
+		"- `iterable.argmax():last_index` and `iterable.max():last_index\n"
+		"- `iterable.argmax():indices` and `iterable.max():indices\n");
 }
 
 Gura_ImplementMethod(iterator, argmax)
@@ -338,24 +346,32 @@ Gura_ImplementMethod(iterator, argmax)
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	return
-		arg.IsSet(Gura_Symbol(last))? pIterator->FindMinMaxLastIndex(env, true) :
+		arg.IsSet(Gura_Symbol(last_index))? pIterator->FindMinMaxLastIndex(env, true) :
 		arg.IsSet(Gura_Symbol(indices))? pIterator->FindMinMaxIndices(env, true) :
 		pIterator->FindMinMaxIndex(env, true);
 }
 
-// iterator#argmin():[last,indices]
+// iterator#argmin():[last_index,indices]
 Gura_DeclareMethod(iterator, argmin)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(last));
+	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
 	AddHelp(
 		Gura_Symbol(en), 
 		"Returns a position index where the minimum value is found at first.\n"
 		"\n"
-		"When attribute `:last` is specified, it returns the index where the minimum value is found at last.\n"
+		"The following attributes modify the behavior:\n"
 		"\n"
-		"When attribute `:indices` is specified, it returns a list of all indices where the minimum value is found.\n");
+		"- `:last_index` .. returns an index where the minimum value is found at last.\n"
+		"- `:indices` .. returns a list of all indices where the minimum value is found.\n"
+		"\n"
+		"Calling of methods `iterable#argmas()` and `iteraboe#max()` have the same effect\n"
+		"when attributes are specified as follows:\n"
+		"\n"
+		"- `iterable.argmax()` and `iterable.max():index\n"
+		"- `iterable.argmax():last_index` and `iterable.max():last_index\n"
+		"- `iterable.argmax():indices` and `iterable.max():indices\n");
 }
 
 Gura_ImplementMethod(iterator, argmin)
@@ -363,7 +379,7 @@ Gura_ImplementMethod(iterator, argmin)
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	return
-		arg.IsSet(Gura_Symbol(last))? pIterator->FindMinMaxLastIndex(env, false) :
+		arg.IsSet(Gura_Symbol(last_index))? pIterator->FindMinMaxLastIndex(env, false) :
 		arg.IsSet(Gura_Symbol(indices))? pIterator->FindMinMaxIndices(env, false) :
 		pIterator->FindMinMaxIndex(env, false);
 }
@@ -805,12 +821,11 @@ Gura_DeclareMethod(iterator, max)
 		"Returns the maximum value in the iterable.\n"
 		"\n"
 		"It would return a position index where the maximum value is found\n"
-		"when one of the following attribute is specified:\n"
+		"when one of the following attributes is specified:\n"
 		"\n"
 		"- `:index` .. an index of the maximum value.\n"
-		"- `:indices` .. a list of indices where the maximum value is found.\n"
-		"- `:last_index` .. the last index of the maximum value\n"
-		"                   when the value exists at multiple positions.\n");
+		"- `:last_index` .. an index where the maximum value is found at last.\n"
+		"- `:indices` .. a list of all indices where the maximum value is found.\n");
 }
 
 Gura_ImplementMethod(iterator, max)
@@ -864,12 +879,11 @@ Gura_DeclareMethod(iterator, min)
 		"Returns the minimum value in the iterable.\n"
 		"\n"
 		"It would return a position index where the minimum value is found\n"
-		"when one of the following attribute is specified:\n"
+		"when one of the following attributes is specified:\n"
 		"\n"
 		"- `:index` .. an index of the minimum value.\n"
-		"- `:indices` .. a list of indices where the minimum value is found.\n"
-		"- `:last_index` .. the last index of the minimum value\n"
-		"                   when the value exists at multiple positions.\n");
+		"- `:last_index` .. an index where the minimum value is found at last.\n"
+		"- `:indices` .. a list of all indices where the minimum value is found.\n");
 }
 
 Gura_ImplementMethod(iterator, min)
