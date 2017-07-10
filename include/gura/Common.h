@@ -18,11 +18,6 @@ Gura_BeginNameSpace()
 typedef void *HBITMAP;
 #endif
 
-template<typename T>
-inline T ChooseMin(T a, T b) { return (a < b)? a : b; }
-template<typename T>
-inline T ChooseMax(T a, T b) { return (a > b)? a : b; }
-
 #if defined(GURA_ON_LINUX)
 // Linux doesn't provide a function to change mode of a symbolic link.
 inline int lchmod(const char *path, mode_t mode) { return 0; }
@@ -244,6 +239,33 @@ public:
 	inline const char *GetString() const { return _str.c_str(); }
 	inline const String &GetStringSTL() const { return _str; }
 };
+
+//-----------------------------------------------------------------------------
+// Comparator functions
+//-----------------------------------------------------------------------------
+template<typename T>
+inline T ChooseMin(T a, T b) { return (a < b)? a : b; }
+
+template<typename T>
+inline T ChooseMax(T a, T b) { return (a > b)? a : b; }
+
+template<typename T>
+inline bool CompareEq(T a, T b) { return a == b; }
+
+template<typename T>
+inline bool CompareNe(T a, T b) { return a != b; }
+
+template<typename T>
+inline bool CompareGt(T a, T b) { return a > b; }
+
+template<typename T>
+inline bool CompareLt(T a, T b) { return a < b; }
+
+template<typename T>
+inline bool CompareGe(T a, T b) { return a >= b; }
+
+template<typename T>
+inline bool CompareLe(T a, T b) { return a <= b; }
 
 Gura_EndNameSpace()
 

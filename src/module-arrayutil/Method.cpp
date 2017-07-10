@@ -4,18 +4,12 @@ Gura_BeginModuleScope(arrayutil)
 
 typedef Value (*FuncT_Method)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);
 
-
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-template<typename T_Elem> inline bool CompareLT(T_Elem a, T_Elem b) { return a < b; }
-template<typename T_Elem> inline bool CompareLE(T_Elem a, T_Elem b) { return a <= b; }
-template<typename T_Elem> inline bool CompareGT(T_Elem a, T_Elem b) { return a > b; }
-template<typename T_Elem> inline bool CompareGE(T_Elem a, T_Elem b) { return a >= b; }
-
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
-ArrayT<T_Elem> *FindMinMax(const ArrayT<T_Elem> *pArrayT,
-						   Array::Dimensions::const_iterator pDimAxis)
+Array *FindMinMax(const ArrayT<T_Elem> *pArrayT,
+				  Array::Dimensions::const_iterator pDimAxis)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	AutoPtr<ArrayT<T_Elem> > pArrayTValue(
@@ -53,8 +47,8 @@ ArrayT<T_Elem> *FindMinMax(const ArrayT<T_Elem> *pArrayT,
 }
 
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
-ArrayT<UInt32> *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT,
-						   Array::Dimensions::const_iterator pDimAxis)
+Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT,
+					   Array::Dimensions::const_iterator pDimAxis)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	AutoPtr<ArrayT<UInt32> > pArrayTIndex(
@@ -216,11 +210,12 @@ Value CallMethod(Environment &env, Argument &arg, const FuncT_Method funcTbl[],
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// array#argmax(axis?:number) {block?}
+// array#argmax(axis?:number):[last_index] {block?}
 Gura_DeclareMethod(array, argmax)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(last_index));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -230,6 +225,7 @@ Gura_DeclareMethod(array, argmax)
 template<typename T_Elem>
 Value FuncTmpl_argmax(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
+	bool lastIndexFlag = arg.IsSet(Gura_Symbol(last_index));
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	if (pArrayT->GetElemNum() == 0) return Value::Nil;
 	Value valueRtn;
@@ -240,15 +236,21 @@ Value FuncTmpl_argmax(Environment &env, Argument &arg, const Function *pFunc, Ar
 			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 			return Value::Nil;
 		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(FindMinMaxIndexFlat<T_Elem, CompareLT>(pArrayT));
+			valueRtn = Value(
+				lastIndexFlag? FindMinMaxIndexFlat<T_Elem, CompareLe>(pArrayT) :
+				FindMinMaxIndexFlat<T_Elem, CompareLt>(pArrayT));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<UInt32> > pArrayTResult(FindMinMaxIndex<T_Elem, CompareLT>(pArrayT, pDimAxis));
-			if (pArrayTResult.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayTResult.release()));
+			AutoPtr<Array> pArrayResult(
+				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareLe>(pArrayT, pDimAxis) :
+				FindMinMaxIndex<T_Elem, CompareLt>(pArrayT, pDimAxis));
+			if (pArrayResult.IsNull()) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayResult.release()));
 		}
 	} else {
-		valueRtn = Value(FindMinMaxIndexFlat<T_Elem, CompareLT>(pArrayT));
+		valueRtn = Value(
+			lastIndexFlag? FindMinMaxIndexFlat<T_Elem, CompareLe>(pArrayT) :
+			FindMinMaxIndexFlat<T_Elem, CompareLt>(pArrayT));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
@@ -275,11 +277,12 @@ Gura_ImplementMethod(array, argmax)
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
-// array#argmin(axis?:number) {block?}
+// array#argmin(axis?:number):[last_index] {block?}
 Gura_DeclareMethod(array, argmin)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(last_index));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -289,6 +292,7 @@ Gura_DeclareMethod(array, argmin)
 template<typename T_Elem>
 Value FuncTmpl_argmin(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
+	bool lastIndexFlag = arg.IsSet(Gura_Symbol(last_index));
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	if (pArrayT->GetElemNum() == 0) return Value::Nil;
 	Value valueRtn;
@@ -299,15 +303,21 @@ Value FuncTmpl_argmin(Environment &env, Argument &arg, const Function *pFunc, Ar
 			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 			return Value::Nil;
 		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(FindMinMaxIndexFlat<T_Elem, CompareGT>(pArrayT));
+			valueRtn = Value(
+				lastIndexFlag? FindMinMaxIndexFlat<T_Elem, CompareGe>(pArrayT) :
+				FindMinMaxIndexFlat<T_Elem, CompareGt>(pArrayT));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<UInt32> > pArrayTResult(FindMinMaxIndex<T_Elem, CompareGT>(pArrayT, pDimAxis));
-			if (pArrayTResult.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayTResult.release()));
+			AutoPtr<Array> pArrayResult(
+				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareGe>(pArrayT, pDimAxis) :
+				FindMinMaxIndex<T_Elem, CompareGt>(pArrayT, pDimAxis));
+			if (pArrayResult.IsNull()) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayResult.release()));
 		}
 	} else {
-		valueRtn = Value(FindMinMaxIndexFlat<T_Elem, CompareGT>(pArrayT));
+		valueRtn = Value(
+			lastIndexFlag? FindMinMaxIndexFlat<T_Elem, CompareGe>(pArrayT) :
+			FindMinMaxIndexFlat<T_Elem, CompareGt>(pArrayT));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
@@ -745,11 +755,13 @@ Gura_ImplementMethod(array, issquare)
 	return Value(pArray->IsSquare());
 }
 
-// array#max(axis?:number) {block?}
+// array#max(axis?:number):[index,last_index] {block?}
 Gura_DeclareMethod(array, max)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(index));
+	DeclareAttr(Gura_Symbol(last_index));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -759,6 +771,8 @@ Gura_DeclareMethod(array, max)
 template<typename T_Elem>
 Value FuncTmpl_max(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
+	bool indexFlag = arg.IsSet(Gura_Symbol(index));
+	bool lastIndexFlag = arg.IsSet(Gura_Symbol(last_index));
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	if (pArrayT->GetElemNum() == 0) return Value::Nil;
 	Value valueRtn;
@@ -769,15 +783,24 @@ Value FuncTmpl_max(Environment &env, Argument &arg, const Function *pFunc, Array
 			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 			return Value::Nil;
 		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(FindMinMaxFlat<T_Elem, CompareLT>(pArrayT));
+			valueRtn =
+				indexFlag? Value(FindMinMaxIndexFlat<T_Elem, CompareLt>(pArrayT)) :
+				lastIndexFlag? Value(FindMinMaxIndexFlat<T_Elem, CompareLe>(pArrayT)) :
+				Value(FindMinMaxFlat<T_Elem, CompareLt>(pArrayT));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<T_Elem> > pArrayTResult(FindMinMax<T_Elem, CompareLT>(pArrayT, pDimAxis));
-			if (pArrayTResult.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayTResult.release()));
+			AutoPtr<Array> pArrayResult(
+				indexFlag? FindMinMaxIndex<T_Elem, CompareLt>(pArrayT, pDimAxis) :
+				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareLe>(pArrayT, pDimAxis) :
+				FindMinMax<T_Elem, CompareLt>(pArrayT, pDimAxis));
+			if (pArrayResult.IsNull()) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayResult.release()));
 		}
 	} else {
-		valueRtn = Value(FindMinMaxFlat<T_Elem, CompareLT>(pArrayT));
+		valueRtn =
+			indexFlag? Value(FindMinMaxIndexFlat<T_Elem, CompareLt>(pArrayT)) :
+			lastIndexFlag? Value(FindMinMaxIndexFlat<T_Elem, CompareLe>(pArrayT)) :
+			Value(FindMinMaxFlat<T_Elem, CompareLt>(pArrayT));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
@@ -864,11 +887,13 @@ Gura_ImplementMethod(array, mean)
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
-// array#min(axis?:number) {block?}
+// array#min(axis?:number):[index,last_index] {block?}
 Gura_DeclareMethod(array, min)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(index));
+	DeclareAttr(Gura_Symbol(last_index));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -878,6 +903,8 @@ Gura_DeclareMethod(array, min)
 template<typename T_Elem>
 Value FuncTmpl_min(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
+	bool indexFlag = arg.IsSet(Gura_Symbol(index));
+	bool lastIndexFlag = arg.IsSet(Gura_Symbol(last_index));
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	if (pArrayT->GetElemNum() == 0) return Value::Nil;
 	Value valueRtn;
@@ -888,15 +915,24 @@ Value FuncTmpl_min(Environment &env, Argument &arg, const Function *pFunc, Array
 			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 			return Value::Nil;
 		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(FindMinMaxFlat<T_Elem, CompareGT>(pArrayT));
+			valueRtn =
+				indexFlag? Value(FindMinMaxIndexFlat<T_Elem, CompareGt>(pArrayT)) :
+				lastIndexFlag? Value(FindMinMaxIndexFlat<T_Elem, CompareGe>(pArrayT)) :
+				Value(FindMinMaxFlat<T_Elem, CompareGt>(pArrayT));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<T_Elem> > pArrayTResult(FindMinMax<T_Elem, CompareGT>(pArrayT, pDimAxis));
-			if (pArrayTResult.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayTResult.release()));
+			AutoPtr<Array> pArrayResult(
+				indexFlag? FindMinMaxIndex<T_Elem, CompareGt>(pArrayT, pDimAxis) :
+				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareGe>(pArrayT, pDimAxis) :
+				FindMinMax<T_Elem, CompareGt>(pArrayT, pDimAxis));
+			if (pArrayResult.IsNull()) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayResult.release()));
 		}
 	} else {
-		valueRtn = Value(FindMinMaxFlat<T_Elem, CompareGT>(pArrayT));
+		valueRtn =
+			indexFlag? Value(FindMinMaxIndexFlat<T_Elem, CompareGt>(pArrayT)) :
+			lastIndexFlag? Value(FindMinMaxIndexFlat<T_Elem, CompareGe>(pArrayT)) :
+			Value(FindMinMaxFlat<T_Elem, CompareGt>(pArrayT));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
