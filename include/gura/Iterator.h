@@ -100,8 +100,8 @@ public:
 	Value Sum(Environment &env, size_t &cnt);
 	Value Prod(Environment &env);
 	Value Average(Environment &env, size_t &cnt);
-	Value Variance(Environment &env, size_t &cnt);
-	Value StandardDeviation(Environment &env, size_t &cnt);
+	Value Variance(Environment &env, size_t &cnt, bool populationFlag);
+	Value StandardDeviation(Environment &env, size_t &cnt, bool populationFlag);
 	Value And(Environment &env);
 	Value Or(Environment &env);
 	size_t Find(Environment &env, const Value &criteria, Value &value);

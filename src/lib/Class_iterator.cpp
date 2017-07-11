@@ -1488,10 +1488,11 @@ Gura_ImplementMethod(iterator, sort)
 	return ReturnIterator(env, arg, pIterator);
 }
 
-// iterator#std()
+// iterator#std():[p]
 Gura_DeclareMethod(iterator, std)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(p));
 	AddHelp(
 		Gura_Symbol(en),
 		"Calculates a standard deviation of elements in the iterable.\n");
@@ -1501,10 +1502,11 @@ Gura_ImplementMethod(iterator, std)
 {
 	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
+	bool populationFlag = arg.IsSet(Gura_Symbol(p));
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
 	size_t cnt;
-	Value result = pIterator->StandardDeviation(env, cnt);
+	Value result = pIterator->StandardDeviation(env, cnt, populationFlag);
 	if (sig.IsSignalled()) return Value::Nil;
 	return result;
 }
@@ -1594,10 +1596,11 @@ Gura_ImplementMethod(iterator, until)
 	return ReturnIterator(env, arg, pIterator);
 }
 
-// iterator#var()
+// iterator#var():[p]
 Gura_DeclareMethod(iterator, var)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(p));
 	AddHelp(
 		Gura_Symbol(en),
 		"Calculates a variance of elements in the iterable.\n");
@@ -1607,10 +1610,11 @@ Gura_ImplementMethod(iterator, var)
 {
 	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
+	bool populationFlag = arg.IsSet(Gura_Symbol(p));
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
 	size_t cnt;
-	Value result = pIterator->Variance(env, cnt);
+	Value result = pIterator->Variance(env, cnt, populationFlag);
 	if (sig.IsSignalled()) return Value::Nil;
 	return result;
 }

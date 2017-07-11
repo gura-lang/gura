@@ -340,7 +340,7 @@ Value Iterator::Average(Environment &env, size_t &cnt)
 	}
 }
 
-Value Iterator::Variance(Environment &env, size_t &cnt)
+Value Iterator::Variance(Environment &env, size_t &cnt, bool populationFlag)
 {
 	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
@@ -351,6 +351,7 @@ Value Iterator::Variance(Environment &env, size_t &cnt)
 	// to minimize calculation error.
 	Value valueAve = Clone()->Average(env, cnt);
 	if (!valueAve.IsNumberOrComplex()) return Value::Nil;
+	Number denom = static_cast<Number>((cnt <= 1)? 1 : populationFlag? cnt : cnt - 1);
 	Value value;
 	if (!Next(env, value)) return Value::Nil;
 	if (value.Is_number() && valueAve.Is_number()) {
@@ -380,7 +381,7 @@ Value Iterator::Variance(Environment &env, size_t &cnt)
 			}
 		}
 		if (sig.IsSignalled()) return Value::Nil;
-		return Value(result / static_cast<Number>(cnt));
+		return Value(result / denom);
 	} else if (value.IsNumberOrComplex()) {
 		Number result;
 		Complex average = valueAve.GetComplex();
@@ -398,21 +399,21 @@ Value Iterator::Variance(Environment &env, size_t &cnt)
 			}
 		}
 		if (sig.IsSignalled()) return Value::Nil;
-		return Value(result / static_cast<Number>(cnt));
+		return Value(result / denom);
 	} else {
 		SetError_InvalidDataTypeOfElement(sig);
 		return Value::Nil;
 	}
 }
 
-Value Iterator::StandardDeviation(Environment &env, size_t &cnt)
+Value Iterator::StandardDeviation(Environment &env, size_t &cnt, bool populationFlag)
 {
 	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return Value::Nil;
 	}
-	Value valueVar = Clone()->Variance(env, cnt);
+	Value valueVar = Clone()->Variance(env, cnt, populationFlag);
 	if (!valueVar.Is_number()) return Value::Nil;
 	return Value(::sqrt(valueVar.GetNumber()));
 }

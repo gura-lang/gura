@@ -1959,10 +1959,11 @@ Gura_ImplementMethod(list, sort)
 	return ReturnIterator(env, arg, pIterator);
 }
 
-// list#std()
+// list#std():[p]
 Gura_DeclareMethod(list, std)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(p));
 	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
@@ -1970,10 +1971,11 @@ Gura_ImplementMethod(list, std)
 {
 	Signal &sig = env.GetSignal();
 	Object_list *pThis = Object_list::GetObjectThis(arg);
+	bool populationFlag = arg.IsSet(Gura_Symbol(p));
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
 	size_t cnt;
-	Value result = pIterator->StandardDeviation(env, cnt);
+	Value result = pIterator->StandardDeviation(env, cnt, populationFlag);
 	if (sig.IsSignalled()) return Value::Nil;
 	return result;
 }
@@ -2037,10 +2039,11 @@ Gura_ImplementMethod(list, until)
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
-// list#var()
+// list#var():[p]
 Gura_DeclareMethod(list, var)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(p));
 	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
@@ -2048,10 +2051,11 @@ Gura_ImplementMethod(list, var)
 {
 	Signal &sig = env.GetSignal();
 	Object_list *pThis = Object_list::GetObjectThis(arg);
+	bool populationFlag = arg.IsSet(Gura_Symbol(p));
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
 	size_t cnt;
-	Value result = pIterator->Variance(env, cnt);
+	Value result = pIterator->Variance(env, cnt, populationFlag);
 	if (sig.IsSignalled()) return Value::Nil;
 	return result;
 }
