@@ -131,7 +131,7 @@ ArrayT<T_ElemResult> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(
 		ArrayT<T_ElemResult>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTResult->FillZero();
-	T_ElemResult denom = static_cast<T_ElemResult>(static_cast<UInt64>(pDimAxis->GetSize()));
+	Double denom = static_cast<Double>(pDimAxis->GetSize());
 	const T_Elem *pElemTop = pArrayT->GetPointer();
 	T_ElemResult *pElemResult = pArrayTResult->GetPointer();
 	if (pDimAxis + 1 == dims.end()) {
@@ -164,7 +164,7 @@ ArrayT<T_ElemResult> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 template<typename T_ElemResult, typename T_Elem>
 T_ElemResult CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
 {
-	T_ElemResult denom = static_cast<T_ElemResult>(static_cast<UInt64>(pArrayT->GetElemNum()));
+	Double denom = static_cast<Double>(pArrayT->GetElemNum());
 	if (denom == 0) return 0;
 	T_ElemResult accum = 0;
 	const T_Elem *pElem = pArrayT->GetPointer();
@@ -173,37 +173,6 @@ T_ElemResult CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
 	}
 	return meanFlag? accum / denom : accum;
 }
-
-#if 0
-template<typename T_ElemResult, typename T_Elem>
-ArrayT<T_ElemResult> *CalcMean(const ArrayT<T_Elem> *pArrayT,
-								  Array::Dimensions::const_iterator pDimAxis)
-{
-	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(CalcSum<T_ElemResult, T_Elem>(pArrayT, pDimAxis));
-	size_t n = pDimAxis->GetSize();
-	if (n != 0) {
-		T_ElemResult *p = pArrayTResult->GetPointer();
-		for (size_t i = 0; i < pArrayTResult->GetElemNum(); i++, p++) {
-			*p /= n;
-		}
-	}
-	return pArrayTResult.release();
-}
-
-template<typename T_ElemResult, typename T_Elem>
-T_ElemResult CalcMeanFlat(const ArrayT<T_Elem> *pArrayT)
-{
-	if (pArrayT->GetElemNum() == 0) return 0;
-	return static_cast<T_ElemResult>(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT) / pArrayT->GetElemNum());
-}
-
-template<>
-Complex CalcMeanFlat(const ArrayT<Complex> *pArrayT)
-{
-	if (pArrayT->GetElemNum() == 0) return 0;
-	return CalcSumFlat<Complex, Complex>(pArrayT) / static_cast<double>(pArrayT->GetElemNum());
-}
-#endif
 
 Value CallMethod(Environment &env, Argument &arg, const FuncT_Method funcTbl[],
 				 const Function *pFunc, Array *pArraySelf)
