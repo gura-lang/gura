@@ -131,26 +131,30 @@ ArrayT<T_ElemResult> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(
 		ArrayT<T_ElemResult>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTResult->FillZero();
-	const T_Elem *pElem = pArrayT->GetPointer();
+	const T_Elem *pElemTop = pArrayT->GetPointer();
 	T_ElemResult *pElemResult = pArrayTResult->GetPointer();
 	if (pDimAxis + 1 == dims.end()) {
-		size_t cnt = pArrayT->GetElemNum() / pDimAxis->GetSize();
-		while (cnt-- > 0) {
+		size_t step = pDimAxis->GetSize();
+		const T_Elem *pElem = pElemTop;
+		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += step) {
+			T_ElemResult accum = 0;
 			for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElem++) {
-				*pElemResult += *pElem;
+				accum += *pElem;
 			}
-			pElemResult++;
+			*pElemResult++ = accum;
 		}
 	} else {
 		size_t stride = pDimAxis->GetStride();
-		size_t cnt = pArrayT->GetElemNum() / (pDimAxis->GetSize() * stride);
-		while (cnt-- > 0) {
-			for (size_t i = 0; i < pDimAxis->GetSize(); i++) {
-				for (size_t j = 0; j < stride; j++, pElem++) {
-					*(pElemResult + j) += *pElem;
+		size_t step = pDimAxis->GetSize() * stride;
+		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += step) {
+			for (size_t j = 0; j < stride; j++) {
+				const T_Elem *pElem = pElemTop + offset + j;
+				T_ElemResult accum = 0;
+				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElem += stride) {
+					accum += *pElem;
 				}
+				*pElemResult++ = accum;
 			}
-			pElemResult += stride;
 		}
 	}
 	return pArrayTResult.release();
@@ -159,12 +163,12 @@ ArrayT<T_ElemResult> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 template<typename T_ElemResult, typename T_Elem>
 T_ElemResult CalcSumFlat(const ArrayT<T_Elem> *pArrayT)
 {
-	T_ElemResult rtn = 0;
-	const T_Elem *p = pArrayT->GetPointer();
-	for (size_t i = 0; i < pArrayT->GetElemNum(); i++, p++) {
-		rtn += *p;
+	T_ElemResult accum = 0;
+	const T_Elem *pElem = pArrayT->GetPointer();
+	for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
+		accum += *pElem;
 	}
-	return rtn;
+	return accum;
 }
 
 template<typename T_ElemResult, typename T_Elem>
