@@ -783,11 +783,11 @@ iterator
   iterator#skip(n:number) {block?}
   iterator#skipnil() {block?}
   iterator#sort(directive?, keys[]?):[stable] {block?}
-  iterator#stddev()
+  iterator#std():[p]
   iterator#sum()
   iterator#tail(n:number) {block?}
   iterator#until(criteria) {block?}
-  iterator#variance()
+  iterator#var():[p]
   iterator#while (criteria) {block?}
 list
   list#add(elem+):reduce
@@ -846,11 +846,11 @@ list
   list#skip(n:number):map {block?}
   list#skipnil() {block?}
   list#sort(directive?, keys[]?):[stable] {block?}
-  list#stddev()
+  list#std():[p]
   list#sum()
   list#tail(n:number):map {block?}
   list#until(criteria) {block?}
-  list#variance()
+  list#var():[p]
   list#while (criteria) {block?}
   list.zip(values+):static {block?}
 memory
