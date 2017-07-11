@@ -125,12 +125,13 @@ size_t FindMinMaxIndexFlat(const ArrayT<T_Elem> *pArrayT)
 
 template<typename T_ElemResult, typename T_Elem>
 ArrayT<T_ElemResult> *CalcSum(const ArrayT<T_Elem> *pArrayT,
-							  Array::Dimensions::const_iterator pDimAxis)
+							  Array::Dimensions::const_iterator pDimAxis, bool meanFlag)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(
 		ArrayT<T_ElemResult>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTResult->FillZero();
+	T_ElemResult denom = static_cast<T_ElemResult>(static_cast<UInt64>(pDimAxis->GetSize()));
 	const T_Elem *pElemTop = pArrayT->GetPointer();
 	T_ElemResult *pElemResult = pArrayTResult->GetPointer();
 	if (pDimAxis + 1 == dims.end()) {
@@ -141,7 +142,7 @@ ArrayT<T_ElemResult> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 			for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElem++) {
 				accum += *pElem;
 			}
-			*pElemResult++ = accum;
+			*pElemResult++ = meanFlag? accum / denom : accum;
 		}
 	} else {
 		size_t stride = pDimAxis->GetStride();
@@ -153,7 +154,7 @@ ArrayT<T_ElemResult> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElem += stride) {
 					accum += *pElem;
 				}
-				*pElemResult++ = accum;
+				*pElemResult++ = meanFlag? accum / denom : accum;
 			}
 		}
 	}
@@ -161,16 +162,19 @@ ArrayT<T_ElemResult> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 }
 
 template<typename T_ElemResult, typename T_Elem>
-T_ElemResult CalcSumFlat(const ArrayT<T_Elem> *pArrayT)
+T_ElemResult CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
 {
+	T_ElemResult denom = static_cast<T_ElemResult>(static_cast<UInt64>(pArrayT->GetElemNum()));
+	if (denom == 0) return 0;
 	T_ElemResult accum = 0;
 	const T_Elem *pElem = pArrayT->GetPointer();
 	for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
 		accum += *pElem;
 	}
-	return accum;
+	return meanFlag? accum / denom : accum;
 }
 
+#if 0
 template<typename T_ElemResult, typename T_Elem>
 ArrayT<T_ElemResult> *CalcMean(const ArrayT<T_Elem> *pArrayT,
 								  Array::Dimensions::const_iterator pDimAxis)
@@ -199,6 +203,7 @@ Complex CalcMeanFlat(const ArrayT<Complex> *pArrayT)
 	if (pArrayT->GetElemNum() == 0) return 0;
 	return CalcSumFlat<Complex, Complex>(pArrayT) / static_cast<double>(pArrayT->GetElemNum());
 }
+#endif
 
 Value CallMethod(Environment &env, Argument &arg, const FuncT_Method funcTbl[],
 				 const Function *pFunc, Array *pArraySelf)
@@ -856,15 +861,15 @@ Value FuncTmpl_mean(Environment &env, Argument &arg, const Function *pFunc, Arra
 			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 			return Value::Nil;
 		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcMeanFlat<T_ElemResult, T_Elem>(pArrayT));
+			valueRtn = Value(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT, true));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(CalcMean<T_ElemResult, T_Elem>(pArrayT, pDimAxis));
+			AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(CalcSum<T_ElemResult, T_Elem>(pArrayT, pDimAxis, true));
 			if (pArrayTResult.IsNull()) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayTResult.release()));
 		}
 	} else {
-		valueRtn = Value(CalcMeanFlat<T_ElemResult, T_Elem>(pArrayT));
+		valueRtn = Value(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT, true));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
@@ -1129,15 +1134,15 @@ Value FuncTmpl_sum(Environment &env, Argument &arg, const Function *pFunc, Array
 			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 			return Value::Nil;
 		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT));
+			valueRtn = Value(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT, false));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(CalcSum<T_ElemResult, T_Elem>(pArrayT, pDimAxis));
+			AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(CalcSum<T_ElemResult, T_Elem>(pArrayT, pDimAxis, false));
 			if (pArrayTResult.IsNull()) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayTResult.release()));
 		}
 	} else {
-		valueRtn = Value(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT));
+		valueRtn = Value(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT, false));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
