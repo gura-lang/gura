@@ -1488,8 +1488,8 @@ Gura_ImplementMethod(iterator, sort)
 	return ReturnIterator(env, arg, pIterator);
 }
 
-// iterator#stddev()
-Gura_DeclareMethod(iterator, stddev)
+// iterator#std()
+Gura_DeclareMethod(iterator, std)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
@@ -1497,7 +1497,7 @@ Gura_DeclareMethod(iterator, stddev)
 		"Calculates a standard deviation of elements in the iterable.\n");
 }
 
-Gura_ImplementMethod(iterator, stddev)
+Gura_ImplementMethod(iterator, std)
 {
 	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
@@ -1594,8 +1594,8 @@ Gura_ImplementMethod(iterator, until)
 	return ReturnIterator(env, arg, pIterator);
 }
 
-// iterator#variance()
-Gura_DeclareMethod(iterator, variance)
+// iterator#var()
+Gura_DeclareMethod(iterator, var)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
@@ -1603,7 +1603,7 @@ Gura_DeclareMethod(iterator, variance)
 		"Calculates a variance of elements in the iterable.\n");
 }
 
-Gura_ImplementMethod(iterator, variance)
+Gura_ImplementMethod(iterator, var)
 {
 	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
@@ -1701,11 +1701,11 @@ void Class_iterator::DoPrepare(Environment &env)
 	Gura_AssignMethod(iterator, skip);
 	Gura_AssignMethod(iterator, skipnil);
 	Gura_AssignMethod(iterator, sort);
-	Gura_AssignMethod(iterator, stddev);
+	Gura_AssignMethod(iterator, std);
 	Gura_AssignMethod(iterator, sum);
 	Gura_AssignMethod(iterator, tail);
 	Gura_AssignMethod(iterator, until);
-	Gura_AssignMethod(iterator, variance);
+	Gura_AssignMethod(iterator, var);
 	Gura_AssignMethod(iterator, while_);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);

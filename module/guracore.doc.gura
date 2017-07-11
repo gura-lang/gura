@@ -1333,11 +1333,11 @@ iterator.since
 iterator.skip
 iterator.skipnil
 iterator.sort
-iterator.stddev
+iterator.std
 iterator.sum
 iterator.tail
 iterator.until
-iterator.variance
+iterator.var
 iterator.while
 )}
 

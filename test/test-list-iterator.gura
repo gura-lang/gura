@@ -324,10 +324,10 @@ testcase {
 	func(samples[]) = {
 		printf('sum=%g mean=%g variance=%g standard-deviation=%g\n',
 					samples.sum(), samples.mean(),
-					samples.variance(), samples.stddev())
+					samples.var(), samples.std())
 		printf('sum=%g mean=%g variance=%g standard-deviation=%g\n',
 					samples.each().sum(), samples.each().mean(),
-					samples.each().variance(), samples.each().stddev())
+					samples.each().var(), samples.each().std())
 	}
 	func([80, 76, 59, 87, 66, 54, 40, 78, 94, 61])
 	func([80, 76, 59, 87, 66, 54, 40, 78, 94, 61] * 1j)
@@ -340,7 +340,7 @@ testcase {
 					math.sqrt(((x - u_x) ** 2).sum() * ((y - u_y) ** 2).sum())
 	}
 	correlation2(x:iterator, y:iterator) = {
-		math.covariance(x, y) / math.sqrt(x.variance() * y.variance())
+		math.covariance(x, y) / math.sqrt(x.var() * y.var())
 	}
 	func(seqA[], seqB[]) = {
 		printf('calculation with explicit script:    %f\n', correlation1(seqA, seqB))

@@ -1959,14 +1959,14 @@ Gura_ImplementMethod(list, sort)
 	return ReturnIterator(env, arg, pIterator);
 }
 
-// list#stddev()
-Gura_DeclareMethod(list, stddev)
+// list#std()
+Gura_DeclareMethod(list, std)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
-Gura_ImplementMethod(list, stddev)
+Gura_ImplementMethod(list, std)
 {
 	Signal &sig = env.GetSignal();
 	Object_list *pThis = Object_list::GetObjectThis(arg);
@@ -2037,14 +2037,14 @@ Gura_ImplementMethod(list, until)
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
-// list#variance()
-Gura_DeclareMethod(list, variance)
+// list#var()
+Gura_DeclareMethod(list, var)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
-Gura_ImplementMethod(list, variance)
+Gura_ImplementMethod(list, var)
 {
 	Signal &sig = env.GetSignal();
 	Object_list *pThis = Object_list::GetObjectThis(arg);
@@ -2151,11 +2151,11 @@ void Class_list::DoPrepare(Environment &env)
 	Gura_AssignMethod(list, skip);
 	Gura_AssignMethod(list, skipnil);
 	Gura_AssignMethod(list, sort);
-	Gura_AssignMethod(list, stddev);
+	Gura_AssignMethod(list, std);
 	Gura_AssignMethod(list, sum);
 	Gura_AssignMethod(list, tail);
 	Gura_AssignMethod(list, until);
-	Gura_AssignMethod(list, variance);
+	Gura_AssignMethod(list, var);
 	Gura_AssignMethod(list, while_);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
