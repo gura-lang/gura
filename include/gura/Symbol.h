@@ -251,6 +251,8 @@ public:
 	Gura_DeclareSymbol(bg);
 	Gura_DeclareSymbol(bgr);
 	Gura_DeclareSymbol(bgra);
+	Gura_DeclareSymbol(bias);
+	Gura_DeclareSymbol(biased);
 	Gura_DeclareSymbol(binary);
 	Gura_DeclareSymbol(bitmap);
 	Gura_DeclareSymbol(bitspersample);
@@ -559,6 +561,7 @@ public:
 	Gura_DeclareSymbol(s64be);
 	Gura_DeclareSymbol(s64le);
 	Gura_DeclareSymbol(s8);
+	Gura_DeclareSymbol(sample);
 	Gura_DeclareSymbol(samples);
 	Gura_DeclareSymbol(samplespersec);
 	Gura_DeclareSymbol(saturday);
@@ -632,6 +635,8 @@ public:
 	Gura_DeclareSymbol(u64le);
 	Gura_DeclareSymbol(u8);
 	Gura_DeclareSymbol(unary);
+	Gura_DeclareSymbol(unbias);
+	Gura_DeclareSymbol(unbiased);
 	Gura_DeclareSymbol(unit);
 	Gura_DeclareSymbol(unitstep);
 	Gura_DeclareSymbol(unix);

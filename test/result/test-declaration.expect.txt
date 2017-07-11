@@ -358,8 +358,8 @@ argument
   argument#isset(symbol:symbol)
   argument#quit_trailer():void
 array
-  array#argmax(axis?:number):map {block?}
-  array#argmin(axis?:number):map {block?}
+  array#argmax(axis?:number):map:[last_index] {block?}
+  array#argmin(axis?:number):map:[last_index] {block?}
   array.dot(a:array, b:array):static:map {block?}
   array#dump(stream?:stream):void:[upper]
   array#each():[flat] {block?}
@@ -372,9 +372,9 @@ array
   array#invert(eps?:number):map {block?}
   array#iselemsame(array:array)
   array#issquare()
-  array#max(axis?:number):map {block?}
+  array#max(axis?:number):map:[index,last_index] {block?}
   array#mean(axis?:number):map {block?}
-  array#min(axis?:number):map {block?}
+  array#min(axis?:number):map:[index,last_index] {block?}
   array#offset(n:number):map {block?}
   array.ones(dims[]:number, elemtype?:symbol):static:map {block?}
   array#paste(offset:number, src:array):map
@@ -388,10 +388,12 @@ array
   array.rotation@z(angle:number, xtrans?:number, ytrans?:number, ztrans?:number, elemtype?:symbol):static:map:[deg] {block?}
   array#roundoff(threshold?:number) {block?}
   array.scaling(xscale:number, yscale:number, zscale?:number, elemtype?:symbol):static:map {block?}
+  array#std(axis?:number):map:[p] {block?}
   array#sum(axis?:number):map {block?}
   array#tail(n:number):map {block?}
   array.translation(xtrans:number, ytrans:number, ztrans?:number, elemtype?:symbol):static:map {block?}
   array#transpose(axes[]?:number) {block?}
+  array#var(axis?:number):map:[p] {block?}
   array.zeros(dims[]:number, elemtype?:symbol):static:map {block?}
 array@boolean
   array@boolean.identity(n:number):static:map {block?}
@@ -736,8 +738,8 @@ iterator
   iterator#after(criteria) {block?}
   iterator#align(n:number, value?) {block?}
   iterator#and()
-  iterator#argmax():[indices,last]
-  iterator#argmin():[indices,last]
+  iterator#argmax():[indices,last_index]
+  iterator#argmin():[indices,last_index]
   iterator#before(criteria) {block?}
   iterator#contains(value)
   iterator#count(criteria?)
@@ -793,8 +795,8 @@ list
   list#align(n:number, value?):map {block?}
   list#and()
   list#append(elem+):reduce
-  list#argmax():[indices,last]
-  list#argmin():[indices,last]
+  list#argmax():[indices,last_index]
+  list#argmin():[indices,last_index]
   list#before(criteria) {block?}
   list#clear():reduce
   list#combination(n:number) {block?}

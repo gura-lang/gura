@@ -177,13 +177,15 @@ T_ElemResult CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
 
 template<typename T_ElemResult, typename T_Elem>
 ArrayT<T_ElemResult> *CalcVar(const ArrayT<T_Elem> *pArrayT,
-							  Array::Dimensions::const_iterator pDimAxis, bool stdFlag)
+							  Array::Dimensions::const_iterator pDimAxis,
+							  bool populationFlag, bool stdFlag)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(
 		ArrayT<T_ElemResult>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTResult->FillZero();
 	Double denom = static_cast<Double>(pDimAxis->GetSize());
+	Double denomVar = (denom <= 1)? 1 : populationFlag? denom : denom - 1;
 	const T_Elem *pElemTop = pArrayT->GetPointer();
 	T_ElemResult *pElemResult = pArrayTResult->GetPointer();
 	if (pDimAxis + 1 == dims.end()) {
@@ -205,7 +207,7 @@ ArrayT<T_ElemResult> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 					T_ElemResult tmp = *pElem - mean;
 					accum += tmp * tmp;
 				}
-				accum /= denom;
+				accum /= denomVar;
 			} while (0);
 			if (stdFlag) Operator_Math_sqrt::Calc(accum, accum);
 			*pElemResult++ = accum;
@@ -232,7 +234,7 @@ ArrayT<T_ElemResult> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 						T_ElemResult tmp = *pElem - mean;
 						accum += tmp * tmp;
 					}
-					accum /= denom;
+					accum /= denomVar;
 				} while (0);
 				if (stdFlag) Operator_Math_sqrt::Calc(accum, accum);
 				*pElemResult++ = accum;
@@ -243,10 +245,11 @@ ArrayT<T_ElemResult> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 }
 
 template<typename T_ElemResult, typename T_Elem>
-T_ElemResult CalcVarFlat(const ArrayT<T_Elem> *pArrayT, bool stdFlag)
+T_ElemResult CalcVarFlat(const ArrayT<T_Elem> *pArrayT, bool populationFlag, bool stdFlag)
 {
 	Double denom = static_cast<Double>(pArrayT->GetElemNum());
 	if (denom == 0) return 0;
+	Double denomVar = (denom <= 1)? 1 : populationFlag? denom : denom - 1;
 	T_ElemResult mean = 0;
 	do {
 		const T_Elem *pElem = pArrayT->GetPointer();
@@ -262,7 +265,7 @@ T_ElemResult CalcVarFlat(const ArrayT<T_Elem> *pArrayT, bool stdFlag)
 			T_ElemResult tmp = *pElem - mean;
 			accum += tmp * tmp;
 		}
-		accum /= denom;
+		accum /= denomVar;
 	} while (0);
 	if (stdFlag) Operator_Math_sqrt::Calc(accum, accum);
 	return accum;
@@ -276,7 +279,7 @@ Value CallMethod(Environment &env, Argument &arg, const FuncT_Method funcTbl[],
 		env.SetError(ERR_TypeError, "no method implemented");
 		return Value::Nil;
 	}
-	return (*func)(env, arg, pFunc, pArraySelf);
+	return env, arg, (*func)(env, arg, pFunc, pArraySelf);
 }
 
 //-----------------------------------------------------------------------------
@@ -1174,20 +1177,27 @@ Gura_ImplementMethod(array, roundoff)
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
-// array#std(axis?:number) {block?}
+// array#std(axis?:number):[p] {block?}
 Gura_DeclareMethod(array, std)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(p));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Calculates a standard deviation value of elements in the target `array`.\n");
+		"Calculates a standard deviation value of elements in the target `array`.\n"
+		"\n"
+		"In default, it calculates an unbiased estimation of standard deviation\n"
+		"in which the summation of squared deviations is divided by `(n - 1)`.\n"
+		"Specifying `:p` attributes will calculate a population variance that divides\n"
+		"that summation by `n`.\n");
 }
 
 template<typename T_ElemResult, typename T_Elem>
 Value FuncTmpl_std(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
+	bool populationFlag = arg.IsSet(Gura_Symbol(p));
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Value valueRtn;
 	if (arg.IsValid(0)) {
@@ -1197,15 +1207,15 @@ Value FuncTmpl_std(Environment &env, Argument &arg, const Function *pFunc, Array
 			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 			return Value::Nil;
 		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcVarFlat<T_ElemResult, T_Elem>(pArrayT, true));
+			valueRtn = Value(CalcVarFlat<T_ElemResult, T_Elem>(pArrayT, populationFlag, true));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(CalcVar<T_ElemResult, T_Elem>(pArrayT, pDimAxis, true));
+			AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(CalcVar<T_ElemResult, T_Elem>(pArrayT, pDimAxis, populationFlag, true));
 			if (pArrayTResult.IsNull()) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayTResult.release()));
 		}
 	} else {
-		valueRtn = Value(CalcVarFlat<T_ElemResult, T_Elem>(pArrayT, true));
+		valueRtn = Value(CalcVarFlat<T_ElemResult, T_Elem>(pArrayT, populationFlag, true));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
@@ -1360,20 +1370,27 @@ Gura_ImplementMethod(array, transpose)
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
-// array#var(axis?:number) {block?}
+// array#var(axis?:number):[p] {block?}
 Gura_DeclareMethod(array, var)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(p));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Calculates a variation value of elements in the target `array`.\n");
+		"Calculates a variation value of elements in the target `array`.\n"
+		"\n"
+		"In default, it calculates an unbiased estimation of standard deviation\n"
+		"in which the summation of squared deviations is divided by `(n - 1)`.\n"
+		"Specifying `:p` attributes will calculate a population variance that divides\n"
+		"that summation by `n`.\n");
 }
 
 template<typename T_ElemResult, typename T_Elem>
 Value FuncTmpl_var(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
+	bool populationFlag = arg.IsSet(Gura_Symbol(p));
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Value valueRtn;
 	if (arg.IsValid(0)) {
@@ -1383,15 +1400,15 @@ Value FuncTmpl_var(Environment &env, Argument &arg, const Function *pFunc, Array
 			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 			return Value::Nil;
 		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcVarFlat<T_ElemResult, T_Elem>(pArrayT, false));
+			valueRtn = Value(CalcVarFlat<T_ElemResult, T_Elem>(pArrayT, populationFlag, false));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(CalcVar<T_ElemResult, T_Elem>(pArrayT, pDimAxis, false));
+			AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(CalcVar<T_ElemResult, T_Elem>(pArrayT, pDimAxis, populationFlag, false));
 			if (pArrayTResult.IsNull()) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayTResult.release()));
 		}
 	} else {
-		valueRtn = Value(CalcVarFlat<T_ElemResult, T_Elem>(pArrayT, false));
+		valueRtn = Value(CalcVarFlat<T_ElemResult, T_Elem>(pArrayT, populationFlag, false));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }

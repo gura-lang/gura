@@ -448,6 +448,8 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(bg);
 	Gura_RealizeSymbol(bgr);
 	Gura_RealizeSymbol(bgra);
+	Gura_RealizeSymbol(bias);
+	Gura_RealizeSymbol(biased);
 	Gura_RealizeSymbol(binary);
 	Gura_RealizeSymbol(bitmap);
 	Gura_RealizeSymbol(bitspersample);
@@ -756,6 +758,7 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(s64be);
 	Gura_RealizeSymbol(s64le);
 	Gura_RealizeSymbol(s8);
+	Gura_RealizeSymbol(sample);
 	Gura_RealizeSymbol(samples);
 	Gura_RealizeSymbol(samplespersec);
 	Gura_RealizeSymbol(saturday);
@@ -829,6 +832,8 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(u64le);
 	Gura_RealizeSymbol(u8);
 	Gura_RealizeSymbol(unary);
+	Gura_RealizeSymbol(unbias);
+	Gura_RealizeSymbol(unbiased);
 	Gura_RealizeSymbol(unit);
 	Gura_RealizeSymbol(unitstep);
 	Gura_RealizeSymbol(unix);
