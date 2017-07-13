@@ -1126,3 +1126,9 @@ testcase('array#var()') {
 	tester(`x.var(1):p)
 	tester(`x.var(2):p)
 }
+testcase('index-access test') {
+	dst = array.zeros([5, 6])
+	src = array.range(12).reshape([nil, 3])
+	dst[*, [2, 3]] = src[*, [1, 2]]
+	println(dst)
+}
