@@ -110,6 +110,8 @@ array.zeros
 ### Method
 
 ${markdown.makedoc@function(`en
+array.argmax
+array.argmin
 array.dot
 array.dump
 array.each
@@ -120,14 +122,18 @@ array.head
 array.invert
 array.iselemsame
 array.issquare
+array.max
 array.mean
+array.min
 array.offset
 array.paste
 array.reshape
 array.roundoff
+array.std
 array.sum
 array.tail
 array.transpose
+array.var
 )}
 
 
