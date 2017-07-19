@@ -10,11 +10,14 @@ Gura_BeginModuleScope(ceres)
 Gura_DeclareUserClass(Solver_Options);
 
 class Object_Solver_Options : public Object {
+private:
+	ceres::Solver::Options _options;
 public:
 	Gura_DeclareObjectAccessor(Solver_Options)
 public:
 	Object_Solver_Options();
 	virtual String ToString(bool exprFlag);
+	inline ceres::Solver::Options &GetOptions() { return _options; }
 };
 
 Gura_EndModuleScope(ceres)

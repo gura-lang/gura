@@ -10,11 +10,14 @@ Gura_BeginModuleScope(ceres)
 Gura_DeclareUserClass(Problem);
 
 class Object_Problem : public Object {
+private:
+	ceres::Problem _problem;
 public:
 	Gura_DeclareObjectAccessor(Problem)
 public:
 	Object_Problem();
 	virtual String ToString(bool exprFlag);
+	inline ceres::Problem &GetProblem() { return _problem; }
 };
 
 Gura_EndModuleScope(ceres)

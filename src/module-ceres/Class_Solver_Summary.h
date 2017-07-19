@@ -10,11 +10,14 @@ Gura_BeginModuleScope(ceres)
 Gura_DeclareUserClass(Solver_Summary);
 
 class Object_Solver_Summary : public Object {
+private:
+	ceres::Solver::Summary _summary;
 public:
 	Gura_DeclareObjectAccessor(Solver_Summary)
 public:
 	Object_Solver_Summary();
 	virtual String ToString(bool exprFlag);
+	inline ceres::Solver::Summary &GetSummary() { return _summary; }
 };
 
 Gura_EndModuleScope(ceres)
