@@ -72,7 +72,7 @@ int helloworld() {
 
   // Run the solver!
   Solver::Options options;
-  options.minimizer_progress_to_stdout = true;
+  // options.minimizer_progress_to_stdout = true;
   Solver::Summary summary;
   Solve(options, &problem, &summary);
 

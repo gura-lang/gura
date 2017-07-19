@@ -23,5 +23,5 @@ testcase('ceres.Solver$Summary') {
 	}
 }
 testcase {
-	//println(ceres.test())
+	ceres.test()
 }
