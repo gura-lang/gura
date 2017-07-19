@@ -39,7 +39,10 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
-	// 
+	// Realization of class
+	Gura_RealizeUserClass(Problem, env.LookupClass(VTYPE_object));
+	// Preparation of class
+	Gura_PrepareUserClass(Problem);
 	// Assignment of function
 	Gura_AssignFunction(test);
 	return true;

@@ -3,5 +3,10 @@ import(helper.test) {*}
 import(ceres)
 
 testcase {
-	println(ceres.test())
+	ceres.Problem() {|prob|
+		println(prob)
+	}
+}
+testcase {
+	//println(ceres.test())
 }
