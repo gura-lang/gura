@@ -76,7 +76,7 @@ int helloworld() {
   Solver::Summary summary;
   Solve(options, &problem, &summary);
 
-  std::cout << summary.BriefReport() << "\n";
+  //std::cout << summary.BriefReport() << "\n";
   std::cout << "x : " << initial_x
             << " -> " << x << "\n";
   return 0;

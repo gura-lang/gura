@@ -53,7 +53,7 @@ tmpl_fileSrc = R'''
 Gura_BeginModuleBody(${ubarName})
 
 //-----------------------------------------------------------------------------
-// Module functions
+// Implementation of function
 //-----------------------------------------------------------------------------
 // ${dotName}.test(num1:number, num2:number)
 Gura_DeclareFunction(test)
@@ -72,7 +72,7 @@ Gura_ImplementFunction(test)
 }
 
 //-----------------------------------------------------------------------------
-// Module Entries
+// Module Entry
 //-----------------------------------------------------------------------------
 Gura_ModuleValidate()
 {
@@ -81,7 +81,7 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
-	// function assignment
+	// Assignment of function
 	Gura_AssignFunction(test);
 	return true;
 }

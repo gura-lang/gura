@@ -39,7 +39,8 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
-	// function assignment
+	// 
+	// Assignment of function
 	Gura_AssignFunction(test);
 	return true;
 }
