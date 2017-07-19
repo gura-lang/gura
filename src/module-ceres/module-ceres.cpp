@@ -40,9 +40,15 @@ Gura_ModuleValidate()
 Gura_ModuleEntry()
 {
 	// Realization of class
+	Gura_RealizeUserClass(CostFunction, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Problem, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassAlias(Solver_Options, "Solver$Options", env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassAlias(Solver_Summary, "Solver$Summary", env.LookupClass(VTYPE_object));
 	// Preparation of class
+	Gura_PrepareUserClass(CostFunction);
 	Gura_PrepareUserClass(Problem);
+	Gura_PrepareUserClass(Solver_Options);
+	Gura_PrepareUserClass(Solver_Summary);
 	// Assignment of function
 	Gura_AssignFunction(test);
 	return true;

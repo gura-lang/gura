@@ -22,7 +22,7 @@ String Object_Solver_Options::ToString(bool exprFlag)
 // Implementation of function
 //-----------------------------------------------------------------------------
 // ceres.Solver$Options() {block?}
-Gura_DeclareFunction(Solver_Options)
+Gura_DeclareFunctionAlias(Solver_Options, "Solver$Options")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);

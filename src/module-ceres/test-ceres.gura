@@ -2,9 +2,24 @@
 import(helper.test) {*}
 import(ceres)
 
-testcase {
-	ceres.Problem() {|prob|
-		println(prob)
+testcase('ceres.CostFunction') {
+	ceres.CostFunction() {|costFunction|
+		println(costFunction)
+	}
+}
+testcase('ceres.Problem') {
+	ceres.Problem() {|problem|
+		println(problem)
+	}
+}
+testcase('ceres.Solver$Options') {
+	ceres.Solver$Options() {|options|
+		println(options)
+	}
+}
+testcase('ceres.Solver$Summary') {
+	ceres.Solver$Summary() {|summary|
+		println(summary)
 	}
 }
 testcase {

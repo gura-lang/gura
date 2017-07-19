@@ -22,7 +22,7 @@ String Object_Solver_Summary::ToString(bool exprFlag)
 // Implementation of function
 //-----------------------------------------------------------------------------
 // ceres.Solver$Summary() {block?}
-Gura_DeclareFunction(Solver_Summary)
+Gura_DeclareFunctionAlias(Solver_Summary, "Solver$Summary")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
