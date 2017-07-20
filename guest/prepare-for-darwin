@@ -9,6 +9,7 @@ if [ "$1" == "install" ] ; then
 fi
 #---------------------------------------------------------------------------
 files=""
+files="$files eigen-eigen-5a0156e40feb.zip"
 files="$files SDL-1.2.15.tar.gz"
 files="$files SDL2-2.0.4.tar.gz"
 files="$files cairo-1.12.18.tar.xz"
@@ -47,6 +48,9 @@ function setup_dylib() {
 		cp -a $file $dstdir
 	done
 }
+#---------------------------------------------------------------------------
+unzip -o eigen-eigen-5a0156e40feb.zip
+ln -sf ../eigen-eigen-5a0156e40feb/Eigen include/Eigen
 #---------------------------------------------------------------------------
 #tar xfz SDL-1.2.15.tar.gz
 #pushd SDL-1.2.15

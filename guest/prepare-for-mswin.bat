@@ -36,6 +36,7 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/cairo-1.12.18.tar.xz
 %CURL% -O %GUESTURL%/cairo-1.12.18-gurapatch.zip
 %CURL% -O %GUESTURL%/curl-7.38.0.zip
+%CURL% -O %GUESTURL%/eigen-eigen-5a0156e40feb.zip
 %CURL% -O %GUESTURL%/expat-2.1.0.tar.gz
 %CURL% -O %GUESTURL%/expat-2.1.0-gurapatch-vs2015.zip
 %CURL% -O %GUESTURL%/fftw-3.3.6-pl2.tar.gz
@@ -73,6 +74,9 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/zlib127.zip
 rem ---------------------------------------------------------------------------
 :skip_curl
+rem ---------------------------------------------------------------------------
+%UNZIP% x -y eigen-eigen-5a0156e40feb.zip
+move eigen-eigen-5a0156e40feb/Eigen include/Eigen
 rem ---------------------------------------------------------------------------
 %UNZIP% x -y -osqlite-amalgamation sqlite-amalgamation-201409011821.zip
 rem ---------------------------------------------------------------------------
