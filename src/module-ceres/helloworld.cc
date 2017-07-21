@@ -54,7 +54,7 @@ struct CostFunctor {
 };
 
 int helloworld() {
-  //google::InitGoogleLogging(argv[0]);
+  google::InitGoogleLogging(const_cast<char *>("XXX"));
 
   // The variable to solve for with its initial value. It will be
   // mutated in place by the solver.
@@ -72,11 +72,11 @@ int helloworld() {
 
   // Run the solver!
   Solver::Options options;
-  // options.minimizer_progress_to_stdout = true;
+  options.minimizer_progress_to_stdout = false;
   Solver::Summary summary;
   Solve(options, &problem, &summary);
 
-  //std::cout << summary.BriefReport() << "\n";
+  std::cout << summary.BriefReport() << "\n";
   std::cout << "x : " << initial_x
             << " -> " << x << "\n";
   return 0;
