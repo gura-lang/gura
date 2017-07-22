@@ -23,5 +23,6 @@ testcase('ceres.Solver$Summary') {
 	}
 }
 testcase {
-	ceres.test()
+	ceres.sample@helloworld()
+	ceres.sample@helloworld_analytic_diff()
 }

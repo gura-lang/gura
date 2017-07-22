@@ -6,6 +6,7 @@
 #include "glog/logging.h"
 
 int helloworld();
+int helloworld_analytic_diff();
 int curve_fitting();
 
 Gura_BeginModuleBody(ceres)
@@ -13,19 +14,48 @@ Gura_BeginModuleBody(ceres)
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// ceres.test()
-Gura_DeclareFunction(test)
+// ceres.sample@helloworld():void
+Gura_DeclareFunctionAlias(sample_at_helloworld, "sample@helloworld")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
 }
 
-Gura_ImplementFunction(test)
+Gura_ImplementFunction(sample_at_helloworld)
+{
+	helloworld();
+	return Value::Nil;
+}
+
+// ceres.sample@helloworld_analytic_diff():void
+Gura_DeclareFunctionAlias(sample_at_helloworld_analytic_diff, "sample@helloworld_analytic_diff")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementFunction(sample_at_helloworld_analytic_diff)
+{
+	helloworld_analytic_diff();
+	return Value::Nil;
+}
+
+// ceres.sample@curve_fitting():void
+Gura_DeclareFunctionAlias(sample_at_curve_fitting, "sample@curve_fitting")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementFunction(sample_at_curve_fitting)
 {
 	curve_fitting();
-	//helloworld();
 	return Value::Nil;
 }
 
@@ -50,7 +80,9 @@ Gura_ModuleEntry()
 	Gura_PrepareUserClass(Solver_Options);
 	Gura_PrepareUserClass(Solver_Summary);
 	// Assignment of function
-	Gura_AssignFunction(test);
+	Gura_AssignFunction(sample_at_helloworld);
+	Gura_AssignFunction(sample_at_helloworld_analytic_diff);
+	Gura_AssignFunction(sample_at_curve_fitting);
 	return true;
 }
 

@@ -28,9 +28,10 @@ if (sys.platform == `mswin) {
 	//builder.cflags.append('-framework', 'Accelerate')
 	builder.ldflags.append('-framework', 'Accelerate')
 }
-builder.build('ceres', ['module-ceres.cpp', 'helloworld.cc', 'curve_fitting.cc',
+builder.build('ceres', ['module-ceres.cpp',
 	'Class_CostFunction.cpp'
 	'Class_Problem.cpp'
 	'Class_Solver_Options.cpp'
 	'Class_Solver_Summary.cpp'
+	'helloworld.cc', 'helloworld_analytic_diff.cc', 'curve_fitting.cc',
 	])
