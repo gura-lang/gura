@@ -24,8 +24,8 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	//curve_fitting();
-	helloworld();
+	curve_fitting();
+	//helloworld();
 	return Value::Nil;
 }
 

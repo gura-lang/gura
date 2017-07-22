@@ -118,46 +118,94 @@ const double data[] = {
   4.950000e+00, 4.669206e+00,
 };
 
+#if 0
 struct ExponentialResidual {
-  ExponentialResidual(double x, double y)
-      : x_(x), y_(y) {}
+	ExponentialResidual(double x, double y)
+		: x_(x), y_(y) {}
 
-  template <typename T> bool operator()(const T* const m,
-                                        const T* const c,
-                                        T* residual) const {
-    residual[0] = T(y_) - exp(m[0] * T(x_) + c[0]);
-    return true;
-  }
+	template <typename T> bool operator()(const T* const m_c,
+										  T* residual) const {
+		residual[0] = T(y_) - exp(m_c[0] * T(x_) + m_c[1]);
+		return true;
+	}
 
- private:
-  const double x_;
-  const double y_;
+private:
+	const double x_;
+	const double y_;
 };
 
-int curve_fitting() {
+int curve_fitting()
+{
 	//google::InitGoogleLogging(argv[0]);
 
-  double m = 0.0;
-  double c = 0.0;
+	double m_c[2] = {0.0, 0.0};
 
-  Problem problem;
-  for (int i = 0; i < kNumObservations; ++i) {
-    problem.AddResidualBlock(
-        new AutoDiffCostFunction<ExponentialResidual, 1, 1, 1>(
-            new ExponentialResidual(data[2 * i], data[2 * i + 1])),
-        NULL,
-        &m, &c);
-  }
+	Problem problem;
+	for (int i = 0; i < kNumObservations; ++i) {
+		problem.AddResidualBlock(
+			new AutoDiffCostFunction<ExponentialResidual, 1, 2>(
+				new ExponentialResidual(data[2 * i], data[2 * i + 1])),
+			NULL,
+			m_c);
+	}
 
-  Solver::Options options;
-  options.max_num_iterations = 25;
-  options.linear_solver_type = ceres::DENSE_QR;
-  options.minimizer_progress_to_stdout = true;
+	Solver::Options options;
+	options.max_num_iterations = 25;
+	options.linear_solver_type = ceres::DENSE_QR;
+	options.minimizer_progress_to_stdout = true;
 
-  Solver::Summary summary;
-  Solve(options, &problem, &summary);
-  std::cout << summary.BriefReport() << "\n";
-  std::cout << "Initial m: " << 0.0 << " c: " << 0.0 << "\n";
-  std::cout << "Final   m: " << m << " c: " << c << "\n";
-  return 0;
+	Solver::Summary summary;
+	Solve(options, &problem, &summary);
+	std::cout << summary.BriefReport() << "\n";
+	std::cout << "Initial m: " << 0.0 << " c: " << 0.0 << "\n";
+	std::cout << "Final   m: " << m_c[0] << " c: " << m_c[1] << "\n";
+	return 0;
 }
+
+#else
+
+struct ExponentialResidual {
+	ExponentialResidual(double x, double y)
+		: x_(x), y_(y) {}
+
+	template <typename T> bool operator()(const T* const m,
+										  const T* const c,
+										  T* residual) const {
+		residual[0] = T(y_) - exp(m[0] * T(x_) + c[0]);
+		return true;
+	}
+
+private:
+	const double x_;
+	const double y_;
+};
+
+int curve_fitting()
+{
+	//google::InitGoogleLogging(argv[0]);
+
+	double m = 0.0;
+	double c = 0.0;
+
+	Problem problem;
+	for (int i = 0; i < kNumObservations; ++i) {
+		problem.AddResidualBlock(
+			new AutoDiffCostFunction<ExponentialResidual, 1, 1, 1>(
+				new ExponentialResidual(data[2 * i], data[2 * i + 1])),
+			NULL,
+			&m, &c);
+	}
+
+	Solver::Options options;
+	options.max_num_iterations = 25;
+	options.linear_solver_type = ceres::DENSE_QR;
+	options.minimizer_progress_to_stdout = true;
+
+	Solver::Summary summary;
+	Solve(options, &problem, &summary);
+	std::cout << summary.BriefReport() << "\n";
+	std::cout << "Initial m: " << 0.0 << " c: " << 0.0 << "\n";
+	std::cout << "Final   m: " << m << " c: " << c << "\n";
+	return 0;
+}
+#endif
