@@ -5,13 +5,16 @@ Gura_BeginModuleScope(ceres)
 //-----------------------------------------------------------------------------
 // Object_LossFunction implementation
 //-----------------------------------------------------------------------------
-Object_LossFunction::Object_LossFunction() : Object(Gura_UserClass(LossFunction))
+Object_LossFunction::Object_LossFunction() : Object(Gura_UserClass(LossFunction)), _pLossFunction(nullptr)
 {
 }
 
 String Object_LossFunction::ToString(bool exprFlag)
 {
-	return String("<ceres.LossFunction>");
+	String str = "<ceres.LossFunction";
+	if (_pLossFunction == nullptr) str += ":invalid";
+	str += ">";
+	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -40,9 +43,8 @@ Gura_ImplementFunction(LossFunction)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for ceres.LossFunction
+// Implementation of class ceres.LossFunction
 //-----------------------------------------------------------------------------
-// implementation of class ceres.LossFunction
 Gura_ImplementUserClass(LossFunction)
 {
 	// Assignment of properties

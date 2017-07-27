@@ -40,9 +40,8 @@ Gura_ImplementFunction(Solver_Options)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for ceres.Solver_Options
+// Implementation of class ceres.Solver$Options
 //-----------------------------------------------------------------------------
-// implementation of class ceres.Solver_Options
 Gura_ImplementUserClass(Solver_Options)
 {
 	// Assignment of properties

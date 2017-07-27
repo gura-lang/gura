@@ -5,13 +5,16 @@ Gura_BeginModuleScope(ceres)
 //-----------------------------------------------------------------------------
 // Object_CostFunction implementation
 //-----------------------------------------------------------------------------
-Object_CostFunction::Object_CostFunction() : Object(Gura_UserClass(CostFunction))
+Object_CostFunction::Object_CostFunction() : Object(Gura_UserClass(CostFunction)), _pCostFunction(nullptr)
 {
 }
 
 String Object_CostFunction::ToString(bool exprFlag)
 {
-	return String("<ceres.CostFunction>");
+	String str = "<ceres.CostFunction";
+	if (_pCostFunction == nullptr) str += ":invalid";
+	str += ">";
+	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -40,9 +43,8 @@ Gura_ImplementFunction(CostFunction)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for ceres.CostFunction
+// Implementation of class ceres.CostFunction
 //-----------------------------------------------------------------------------
-// implementation of class ceres.CostFunction
 Gura_ImplementUserClass(CostFunction)
 {
 	// Assignment of properties

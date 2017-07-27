@@ -40,9 +40,8 @@ Gura_ImplementFunction(Solver_Summary)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for ceres.Solver$Summary
+// Implementation of class ceres.Solver$Summary
 //-----------------------------------------------------------------------------
-// implementation of class ceres.Solver$Summary
 Gura_ImplementUserClass(Solver_Summary)
 {
 	// Assignment of properties

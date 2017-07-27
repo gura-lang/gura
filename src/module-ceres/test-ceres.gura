@@ -13,6 +13,7 @@ testcase('ceres.LossFunction') {
 	}
 }
 testcase('ceres.Problem') {
+	println(ceres.Problem.AddResidualBlock)
 	ceres.Problem() {|problem|
 		println(problem)
 	}
