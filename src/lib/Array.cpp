@@ -1043,4 +1043,29 @@ void Array::Indexer::GeneratorOwner::Clear()
 	clear();
 }
 
+//-----------------------------------------------------------------------------
+// ArrayList
+//-----------------------------------------------------------------------------
+const ArrayList ArrayList::Empty;
+
+//-----------------------------------------------------------------------------
+// ArrayOwner
+//-----------------------------------------------------------------------------
+ArrayOwner::ArrayOwner() : _cntRef(1)
+{
+}
+
+ArrayOwner::~ArrayOwner()
+{
+	Clear();
+}
+
+void ArrayOwner::Clear()
+{
+	foreach (ArrayOwner, ppArray, *this) {
+		Array::Delete(*ppArray);
+	}
+	clear();
+}
+
 }

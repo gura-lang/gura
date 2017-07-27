@@ -5,7 +5,7 @@ Gura_BeginModuleScope(ceres)
 //-----------------------------------------------------------------------------
 // Object_Problem implementation
 //-----------------------------------------------------------------------------
-Object_Problem::Object_Problem() : Object(Gura_UserClass(Problem))
+Object_Problem::Object_Problem() : Object(Gura_UserClass(Problem)), _pArrayOwner(new ArrayOwner())
 {
 }
 
@@ -63,6 +63,11 @@ Gura_ImplementMethod(Problem, AddResidualBlock)
 	ceres::LossFunction *loss_function = arg.IsValid(1)?
 		Object_LossFunction::GetObject(arg, 1)->ReleaseLossFunction() : nullptr;
 	std::vector<double *> parameter_blocks;
+	foreach_const (ValueList, pValue, arg.GetList(2)) {
+		ArrayT<Double> *pArrayT = dynamic_cast<ArrayT<Double> *>(Object_array::GetObject(*pValue)->GetArray());
+		pThis->GetArrayOwner().push_back(pArrayT->Reference());
+		parameter_blocks.push_back(pArrayT->GetPointer());
+	}
 	ceres::ResidualBlockId rtn = problem.AddResidualBlock(cost_function, loss_function, parameter_blocks);
 	return Value(rtn);
 }

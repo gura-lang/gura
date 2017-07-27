@@ -12,12 +12,14 @@ Gura_DeclareUserClass(Problem);
 class Object_Problem : public Object {
 private:
 	ceres::Problem _problem;
+	AutoPtr<ArrayOwner> _pArrayOwner;
 public:
 	Gura_DeclareObjectAccessor(Problem)
 public:
 	Object_Problem();
 	virtual String ToString(bool exprFlag);
 	inline ceres::Problem &GetProblem() { return _problem; }
+	inline ArrayOwner &GetArrayOwner() { return *_pArrayOwner; }
 };
 
 Gura_EndModuleScope(ceres)

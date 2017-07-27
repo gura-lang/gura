@@ -239,6 +239,34 @@ public:
 	static Array *Invert(Signal &sig, const Array *pArray, Double epsilon);
 };
 	
+//-----------------------------------------------------------------------------
+// ArrayList
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE ArrayList : public std::vector<Array *> {
+public:
+	static const ArrayList Empty;
+public:
+	inline ArrayList() {}
+};
+
+//-----------------------------------------------------------------------------
+// ArrayOwner
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE ArrayOwner : public ArrayList {
+private:
+	int _cntRef;
+public:
+	Gura_DeclareReferenceAccessor(ArrayOwner);
+public:
+	ArrayOwner();
+private:
+	~ArrayOwner();
+public:
+	void Clear();
+};
+
+
+
 }
 
 #endif
