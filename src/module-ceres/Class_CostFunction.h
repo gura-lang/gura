@@ -4,15 +4,18 @@
 
 Gura_BeginModuleScope(ceres)
 
+class Object_CostFunction;
+
 //-----------------------------------------------------------------------------
 // CostFunctionCustom
 //-----------------------------------------------------------------------------
 class CostFunctionCustom : public ceres::CostFunction {
 private:
-	
+	AutoPtr<Object_CostFunction> _pObjAssoc;
 public:
 	virtual bool Evaluate(double const *const *parameters,
 						  double *residuals, double **jacobians) const;
+	inline void SetAssocObj(Object_CostFunction *pObjAssoc) { _pObjAssoc.reset(pObjAssoc); }
 };
 
 //-----------------------------------------------------------------------------

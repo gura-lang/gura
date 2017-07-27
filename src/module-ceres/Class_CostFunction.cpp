@@ -8,6 +8,7 @@ Gura_BeginModuleScope(ceres)
 Object_CostFunction::Object_CostFunction(Class *pClass) :
 					Object(pClass), _pCostFunctionCustom(new CostFunctionCustom())
 {
+	_pCostFunctionCustom->SetAssocObj(Reference());
 }
 
 String Object_CostFunction::ToString(bool exprFlag)
@@ -68,7 +69,11 @@ Gura_ImplementDescendantCreator(CostFunction)
 bool CostFunctionCustom::Evaluate(double const *const *parameters,
 								  double *residuals, double **jacobians) const
 {
-	
+	const Function *pFunc = _pObjAssoc->LookupFunction(Gura_UserSymbol(Evaluate), ENVREF_Escalate);
+	if (pFunc == nullptr) {
+		return false;
+	}
+	Value rtn = _pObjAssoc->EvalMethod(*_pObjAssoc, pFunc, ValueList::Empty);
 	return false;
 }
 

@@ -13,6 +13,9 @@
 #include "Class_Solver_Summary.h"
 
 Gura_BeginModuleHeader(ceres)
+
+Gura_DeclareUserSymbol(Evaluate);
+
 Gura_EndModuleHeader(ceres)
 
 #endif

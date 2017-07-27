@@ -69,6 +69,8 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	// symbol realization
+	Gura_RealizeUserSymbol(Evaluate);
 	// Realization of class
 	Gura_RealizeUserClass(CostFunction, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(LossFunction, env.LookupClass(VTYPE_object));
