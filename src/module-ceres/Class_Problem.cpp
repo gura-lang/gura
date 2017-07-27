@@ -62,6 +62,10 @@ Gura_ImplementMethod(Problem, AddResidualBlock)
 	ceres::CostFunction *cost_function = Object_CostFunction::GetObject(arg, 0)->ReleaseCostFunction();
 	ceres::LossFunction *loss_function = arg.IsValid(1)?
 		Object_LossFunction::GetObject(arg, 1)->ReleaseLossFunction() : nullptr;
+	if (cost_function == nullptr) {
+		env.SetError(ERR_ValueError, "cost_function is invalid");
+		return Value::Nil;
+	}
 	std::vector<double *> parameter_blocks;
 	foreach_const (ValueList, pValue, arg.GetList(2)) {
 		ArrayT<Double> *pArrayT = dynamic_cast<ArrayT<Double> *>(Object_array::GetObject(*pValue)->GetArray());

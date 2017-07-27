@@ -15,7 +15,7 @@ private:
 public:
 	Gura_DeclareObjectAccessor(CostFunction)
 public:
-	Object_CostFunction();
+	Object_CostFunction(Class *pClass);
 	virtual String ToString(bool exprFlag);
 	inline ceres::CostFunction *GetCostFunction() { return _pCostFunction; }
 	inline ceres::CostFunction *ReleaseCostFunction() {

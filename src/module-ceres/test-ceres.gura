@@ -1,6 +1,7 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 import(ceres)
+import(arrayutil)
 
 testcase('ceres.CostFunction') {
 	ceres.CostFunction() {|costFunction|
@@ -27,6 +28,19 @@ testcase('ceres.Solver$Summary') {
 	ceres.Solver$Summary() {|summary|
 		println(summary)
 	}
+}
+testcase() {
+	CostFunctionEx = class(ceres.CostFunction) {
+		Evaluate(param1:array, param2:array) = {
+			//[residuals, jacobians]
+		}
+	}
+	costFunc = CostFunctionEx()
+	println(costFunc)
+	problem = ceres.Problem()
+	param1 = array.zeros([3])
+	param2 = array.zeros([3])
+	problem.AddResidualBlock(costFunc, nil, param1, param2)
 }
 testcase {
 	ceres.sample@helloworld()

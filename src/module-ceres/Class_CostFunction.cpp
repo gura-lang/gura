@@ -5,7 +5,8 @@ Gura_BeginModuleScope(ceres)
 //-----------------------------------------------------------------------------
 // Object_CostFunction implementation
 //-----------------------------------------------------------------------------
-Object_CostFunction::Object_CostFunction() : Object(Gura_UserClass(CostFunction)), _pCostFunction(nullptr)
+Object_CostFunction::Object_CostFunction(Class *pClass) :
+								Object(pClass), _pCostFunction(nullptr)
 {
 }
 
@@ -38,18 +39,27 @@ Gura_DeclareFunction(CostFunction)
 
 Gura_ImplementFunction(CostFunction)
 {
-	Object_CostFunction *pObj = new Object_CostFunction();
-	return ReturnValue(env, arg, Value(pObj));
+	Object_CostFunction *pObj = Object_CostFunction::GetObjectThis(arg);
+	if (pObj == nullptr) {
+		pObj = new Object_CostFunction(Gura_UserClass(CostFunction));
+		return ReturnValue(env, arg, Value(pObj));
+	}
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of class ceres.CostFunction
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(CostFunction)
+Gura_ImplementUserInheritableClass(CostFunction)
 {
 	// Assignment of properties
 	// Assignment of function
 	Gura_AssignFunction(CostFunction);
+}
+
+Gura_ImplementDescendantCreator(CostFunction)
+{
+	return new Object_CostFunction((pClass == nullptr)? this : pClass);
 }
 
 Gura_EndModuleScope(ceres)
