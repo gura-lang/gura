@@ -43,6 +43,6 @@ testcase() {
 	problem.AddResidualBlock(costFunc, nil, param1, param2)
 }
 testcase {
-	ceres.sample@helloworld()
-	ceres.sample@helloworld_analytic_diff()
+	//ceres.sample@helloworld()
+	//ceres.sample@helloworld_analytic_diff()
 }

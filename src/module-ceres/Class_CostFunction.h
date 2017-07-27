@@ -5,22 +5,33 @@
 Gura_BeginModuleScope(ceres)
 
 //-----------------------------------------------------------------------------
+// CostFunctionCustom
+//-----------------------------------------------------------------------------
+class CostFunctionCustom : public ceres::CostFunction {
+private:
+	
+public:
+	virtual bool Evaluate(double const *const *parameters,
+						  double *residuals, double **jacobians) const;
+};
+
+//-----------------------------------------------------------------------------
 // Object_CostFunction declaration
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(CostFunction);
 
 class Object_CostFunction : public Object {
 private:
-	ceres::CostFunction *_pCostFunction; // set to nullptr after released
+	CostFunctionCustom *_pCostFunctionCustom; // set to nullptr after released
 public:
 	Gura_DeclareObjectAccessor(CostFunction)
 public:
 	Object_CostFunction(Class *pClass);
 	virtual String ToString(bool exprFlag);
-	inline ceres::CostFunction *GetCostFunction() { return _pCostFunction; }
+	inline ceres::CostFunction *GetCostFunction() { return _pCostFunctionCustom; }
 	inline ceres::CostFunction *ReleaseCostFunction() {
-		ceres::CostFunction *pCostFunction = _pCostFunction;
-		_pCostFunction = nullptr;
+		ceres::CostFunction *pCostFunction = _pCostFunctionCustom;
+		_pCostFunctionCustom = nullptr;
 		return pCostFunction;
 	}
 };

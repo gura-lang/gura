@@ -6,14 +6,14 @@ Gura_BeginModuleScope(ceres)
 // Object_CostFunction implementation
 //-----------------------------------------------------------------------------
 Object_CostFunction::Object_CostFunction(Class *pClass) :
-								Object(pClass), _pCostFunction(nullptr)
+					Object(pClass), _pCostFunctionCustom(new CostFunctionCustom())
 {
 }
 
 String Object_CostFunction::ToString(bool exprFlag)
 {
 	String str = "<ceres.CostFunction";
-	if (_pCostFunction == nullptr) str += ":invalid";
+	if (_pCostFunctionCustom == nullptr) str += ":invalid";
 	str += ">";
 	return str;
 }
@@ -41,8 +41,8 @@ Gura_ImplementFunction(CostFunction)
 {
 	Object_CostFunction *pObj = Object_CostFunction::GetObjectThis(arg);
 	if (pObj == nullptr) {
-		pObj = new Object_CostFunction(Gura_UserClass(CostFunction));
-		return ReturnValue(env, arg, Value(pObj));
+		env.SetError(ERR_ValueError, "pure class can not be instantiated");
+		return Value::Nil;
 	}
 	return ReturnValue(env, arg, arg.GetValueThis());
 }
@@ -60,6 +60,16 @@ Gura_ImplementUserInheritableClass(CostFunction)
 Gura_ImplementDescendantCreator(CostFunction)
 {
 	return new Object_CostFunction((pClass == nullptr)? this : pClass);
+}
+
+//-----------------------------------------------------------------------------
+// CostFunctionCustom
+//-----------------------------------------------------------------------------
+bool CostFunctionCustom::Evaluate(double const *const *parameters,
+								  double *residuals, double **jacobians) const
+{
+	
+	return false;
 }
 
 Gura_EndModuleScope(ceres)
