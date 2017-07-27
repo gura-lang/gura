@@ -30,6 +30,7 @@ if (sys.platform == `mswin) {
 }
 builder.build('ceres', ['module-ceres.cpp',
 	'Class_CostFunction.cpp'
+	'Class_LossFunction.cpp'
 	'Class_Problem.cpp'
 	'Class_Solver_Options.cpp'
 	'Class_Solver_Summary.cpp'

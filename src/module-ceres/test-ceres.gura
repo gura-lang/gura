@@ -7,6 +7,11 @@ testcase('ceres.CostFunction') {
 		println(costFunction)
 	}
 }
+testcase('ceres.LossFunction') {
+	ceres.LossFunction() {|lossFunction|
+		println(lossFunction)
+	}
+}
 testcase('ceres.Problem') {
 	ceres.Problem() {|problem|
 		println(problem)
