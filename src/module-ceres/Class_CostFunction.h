@@ -9,7 +9,7 @@ class Object_CostFunction;
 //-----------------------------------------------------------------------------
 // CostFunctionCustom
 //-----------------------------------------------------------------------------
-class CostFunctionCustom : public ceres::CostFunction {
+class CostFunctionCustom : public ceres::DynamicCostFunction {
 private:
 	AutoPtr<Object_CostFunction> _pObjAssoc;
 public:

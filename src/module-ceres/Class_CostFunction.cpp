@@ -76,9 +76,9 @@ CostFunctionCustom::CostFunctionCustom()
 
 void CostFunctionCustom::Prepare(const Value &value_numResiduals, const ValueList &valList_parameterBlockSizes)
 {
-	set_num_residuals(value_numResiduals.GetInt());
+	SetNumResiduals(value_numResiduals.GetInt());
 	foreach_const (ValueList, pValue, valList_parameterBlockSizes) {
-		mutable_parameter_block_sizes()->push_back(pValue->GetInt());
+		AddParameterBlock(pValue->GetInt());
 	}
 }
 
@@ -99,23 +99,50 @@ bool CostFunctionCustom::Evaluate(double const *const *parameters,
 		valListArg.push_back(Value(new Object_array(env, new ArrayT<Double>(parameter, size))));
 	}
 	Value rtn = _pObjAssoc->EvalMethod(*_pObjAssoc, pFunc, valListArg);
-	if (rtn.Is_list()) {
-		
-	} else if (rtn.Is_array()) {
-		const Array *pArray = Object_array::GetObject(rtn)->GetArray();
-		if (pArray->GetElemType() != Array::ETYPE_Double) {
-			env.SetError(ERR_ValueError, "type of elements in the returned array must be double");
+	const Array *pArray_residuals = nullptr;
+	const Array *pArray_jacobians = nullptr;
+	if (rtn.Is_array()) {
+		pArray_residuals = Object_array::GetObject(rtn)->GetArray();
+	} else if (rtn.Is_list()) {
+		const ValueList &valList = rtn.GetList();
+		if (valList.size() != 2 || !valList[0].Is_array() || !valList[1].Is_array()) {
+			env.SetError(ERR_ValueError, "the list must contain a pair of arrays");
 			return false;
 		}
-		const ArrayT<Double> *pArrayT = dynamic_cast<const ArrayT<Double> *>(pArray);
-		if (static_cast<size_t>(num_residuals()) != pArrayT->GetElemNum()) {
-			env.SetError(ERR_ValueError, "number of residuals doesn't match");
-			return false;
-		}
-		::memcpy(residuals, pArrayT->GetPointer(), sizeof(Double) * pArrayT->GetElemNum());
+		pArray_residuals = Object_array::GetObject(valList[0])->GetArray();
+		pArray_jacobians = Object_array::GetObject(valList[1])->GetArray();
 	} else {
 		env.SetError(ERR_ValueError, "returned value must be a single array or a pair of arrays");
 		return false;
+	}
+	do {
+		if (pArray_residuals->GetElemType() != Array::ETYPE_Double) {
+			env.SetError(ERR_ValueError, "type of elements in the returned array must be double");
+			return false;
+		}
+		const ArrayT<Double> *pArrayT_residuals = dynamic_cast<const ArrayT<Double> *>(pArray_residuals);
+		if (static_cast<size_t>(num_residuals()) != pArrayT_residuals->GetElemNum()) {
+			env.SetError(ERR_ValueError, "number of residuals doesn't match");
+			return false;
+		}
+		::memcpy(residuals, pArrayT_residuals->GetPointer(), sizeof(Double) * pArrayT_residuals->GetElemNum());
+	} while (0);
+	if (pArray_jacobians == nullptr) {
+		
+	} else {
+		if (pArray_jacobians->GetElemType() != Array::ETYPE_Double) {
+			env.SetError(ERR_ValueError, "type of elements in the returned array must be double");
+			return false;
+		}
+		const ArrayT<Double> *pArrayT_jacobians = dynamic_cast<const ArrayT<Double> *>(pArray_jacobians);
+		//if (static_cast<size_t>(num_residuals()) != pArrayT_jacobians->GetElemNum()) {
+		//	env.SetError(ERR_ValueError, "number of residuals doesn't match");
+		//	return false;
+		//}
+		//::memcpy(residuals, pArrayT_residuals->GetPointer(), sizeof(Double) * pArrayT_residuals->GetElemNum());
+	}
+	if (jacobians != nullptr) {
+		jacobians[0][0] = -1;
 	}
 	return true;
 }
