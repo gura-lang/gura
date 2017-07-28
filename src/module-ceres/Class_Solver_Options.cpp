@@ -17,6 +17,28 @@ String Object_Solver_Options::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
+// ceres.Solver$Options#minimizer_progress_to_stdout
+Gura_DeclareProperty_RW(Solver_Options, minimizer_progress_to_stdout)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Solver_Options, minimizer_progress_to_stdout)
+{
+	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
+	return Value(options.minimizer_progress_to_stdout);
+}
+
+Gura_ImplementPropertySetter(Solver_Options, minimizer_progress_to_stdout)
+{
+	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
+	options.minimizer_progress_to_stdout = value.GetBoolean();
+	return Value(options.minimizer_progress_to_stdout);
+}
 
 //-----------------------------------------------------------------------------
 // Implementation of function
@@ -45,6 +67,7 @@ Gura_ImplementFunction(Solver_Options)
 Gura_ImplementUserClass(Solver_Options)
 {
 	// Assignment of properties
+	Gura_AssignProperty(Solver_Options, minimizer_progress_to_stdout);
 	// Assignment of function
 	Gura_AssignFunction(Solver_Options);
 }

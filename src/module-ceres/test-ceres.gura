@@ -5,24 +5,21 @@ import(arrayutil)
 
 testcase() {
 	CostFunctionEx = class(ceres.CostFunction) {
-		__init__() = {|1, 1, 1|
-		}
-		Evaluate(param1:array, param2:array) = {
-			println('Evaluate')
-			println(param1)
-			println(param2)
-			//[residuals, jacobians]
+		__init__() = {|1, 1|}
+		Evaluate(x:array) = {
+			array@double {10 - x[0]}
 		}
 	}
 	costFunc = CostFunctionEx()
 	println(costFunc)
 	problem = ceres.Problem()
-	param1 = array.zeros([1])
-	param2 = array.zeros([1])
-	problem.AddResidualBlock(costFunc, nil, param1, param2)
+	x = array@double {0.5}
+	problem.AddResidualBlock(costFunc, nil, x)
 	options = ceres.Solver$Options()
+	options.minimizer_progress_to_stdout = true
 	summary = ceres.Solver$Summary()
 	ceres.Solve(options, problem, summary)
+	println(x)
 }
 sys.exit()
 testcase('ceres.CostFunction') {

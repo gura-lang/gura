@@ -88,15 +88,36 @@ bool CostFunctionCustom::Evaluate(double const *const *parameters,
 	Environment &env = *_pObjAssoc;
 	const Function *pFunc = _pObjAssoc->LookupFunction(Gura_UserSymbol(Evaluate), ENVREF_Escalate);
 	if (pFunc == nullptr) {
+		env.SetError(ERR_KeyError, "can't find a method named Evaluate");
 		return false;
 	}
 	ValueList valListArg;
-	for (size_t i = 0; i < parameter_block_sizes().size(); i++) {
-		double const *parameter = parameters[i];
-		//valListArg.push_back(Value(new Object_array());
+	size_t i = 0;
+	foreach_const (std::vector<ceres::int32>, pSize, parameter_block_sizes()) {
+		ceres::int32 size = *pSize;
+		double const *parameter = parameters[i++];
+		valListArg.push_back(Value(new Object_array(env, new ArrayT<Double>(parameter, size))));
 	}
 	Value rtn = _pObjAssoc->EvalMethod(*_pObjAssoc, pFunc, valListArg);
-	return false;
+	if (rtn.Is_list()) {
+		
+	} else if (rtn.Is_array()) {
+		const Array *pArray = Object_array::GetObject(rtn)->GetArray();
+		if (pArray->GetElemType() != Array::ETYPE_Double) {
+			env.SetError(ERR_ValueError, "type of elements in the returned array must be double");
+			return false;
+		}
+		const ArrayT<Double> *pArrayT = dynamic_cast<const ArrayT<Double> *>(pArray);
+		if (static_cast<size_t>(num_residuals()) != pArrayT->GetElemNum()) {
+			env.SetError(ERR_ValueError, "number of residuals doesn't match");
+			return false;
+		}
+		::memcpy(residuals, pArrayT->GetPointer(), sizeof(Double) * pArrayT->GetElemNum());
+	} else {
+		env.SetError(ERR_ValueError, "returned value must be a single array or a pair of arrays");
+		return false;
+	}
+	return true;
 }
 
 Gura_EndModuleScope(ceres)
