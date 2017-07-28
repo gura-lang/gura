@@ -28,6 +28,20 @@ ArrayT<T_Elem>::ArrayT(size_t sizeRow, size_t sizeCol) : Array(ETYPE_##T_Elem) \
 	SetDimensions(Dimension(sizeRow), Dimension(sizeCol)); \
 	AllocMemory(); \
 } \
+template<> \
+ArrayT<T_Elem>::ArrayT(const T_Elem *pElemInit, size_t size) : Array(ETYPE_##T_Elem) \
+{ \
+	SetDimension(Dimension(size)); \
+	AllocMemory(); \
+	::memcpy(GetPointer(), pElemInit, GetElemNum() * sizeof(T_Elem)); \
+} \
+template<> \
+ArrayT<T_Elem>::ArrayT(const T_Elem *pElemInit, size_t sizeRow, size_t sizeCol) : Array(ETYPE_##T_Elem) \
+{ \
+	SetDimensions(Dimension(sizeRow), Dimension(sizeCol)); \
+	AllocMemory(); \
+	::memcpy(GetPointer(), pElemInit, GetElemNum() * sizeof(T_Elem)); \
+} \
 template class ArrayT<T_Elem>;
 
 namespace Gura {
