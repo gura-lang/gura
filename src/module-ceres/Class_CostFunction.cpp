@@ -26,10 +26,12 @@ String Object_CostFunction::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
-// ceres.CostFunction() {block?}
+// ceres.CostFunction(numResiduals:number, parameterBlockSizes+:number) {block?}
 Gura_DeclareFunction(CostFunction)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "numResiduals", VTYPE_number);
+	DeclareArg(env, "parameterBlockSizes", VTYPE_number, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(CostFunction));
 	AddHelp(
@@ -45,6 +47,8 @@ Gura_ImplementFunction(CostFunction)
 		env.SetError(ERR_ValueError, "pure class can not be instantiated");
 		return Value::Nil;
 	}
+	CostFunctionCustom *pCostFunctionCustom = pObj->GetCostFunctionCustom();
+	pCostFunctionCustom->Prepare(arg.GetValue(0), arg.GetList(1));
 	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
@@ -66,14 +70,32 @@ Gura_ImplementDescendantCreator(CostFunction)
 //-----------------------------------------------------------------------------
 // CostFunctionCustom
 //-----------------------------------------------------------------------------
+CostFunctionCustom::CostFunctionCustom()
+{
+}
+
+void CostFunctionCustom::Prepare(const Value &value_numResiduals, const ValueList &valList_parameterBlockSizes)
+{
+	set_num_residuals(value_numResiduals.GetInt());
+	foreach_const (ValueList, pValue, valList_parameterBlockSizes) {
+		mutable_parameter_block_sizes()->push_back(pValue->GetInt());
+	}
+}
+
 bool CostFunctionCustom::Evaluate(double const *const *parameters,
 								  double *residuals, double **jacobians) const
 {
+	Environment &env = *_pObjAssoc;
 	const Function *pFunc = _pObjAssoc->LookupFunction(Gura_UserSymbol(Evaluate), ENVREF_Escalate);
 	if (pFunc == nullptr) {
 		return false;
 	}
-	Value rtn = _pObjAssoc->EvalMethod(*_pObjAssoc, pFunc, ValueList::Empty);
+	ValueList valListArg;
+	for (size_t i = 0; i < parameter_block_sizes().size(); i++) {
+		double const *parameter = parameters[i];
+		//valListArg.push_back(Value(new Object_array());
+	}
+	Value rtn = _pObjAssoc->EvalMethod(*_pObjAssoc, pFunc, valListArg);
 	return false;
 }
 

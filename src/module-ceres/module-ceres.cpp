@@ -14,6 +14,27 @@ Gura_BeginModuleBody(ceres)
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
+// ceres.Solve(options:ceres.Solver$Options, problem:ceres.Problem, summary:ceres.Solver$Summary):void
+Gura_DeclareFunction(Solve)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "options", VTYPE_Solver_Options);
+	DeclareArg(env, "problem", VTYPE_Problem);
+	DeclareArg(env, "summary", VTYPE_Solver_Summary);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementFunction(Solve)
+{
+	ceres::Solver::Options &options = Object_Solver_Options::GetObject(arg, 0)->GetOptions();
+	ceres::Problem &problem = Object_Problem::GetObject(arg, 1)->GetProblem();
+	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(arg, 2)->GetSummary();
+	ceres::Solve(options, &problem, &summary);
+	return Value::Nil;
+}
+
 // ceres.sample@helloworld():void
 Gura_DeclareFunctionAlias(sample_at_helloworld, "sample@helloworld")
 {
@@ -84,6 +105,7 @@ Gura_ModuleEntry()
 	Gura_PrepareUserClass(Solver_Options);
 	Gura_PrepareUserClass(Solver_Summary);
 	// Assignment of function
+	Gura_AssignFunction(Solve);
 	Gura_AssignFunction(sample_at_helloworld);
 	Gura_AssignFunction(sample_at_helloworld_analytic_diff);
 	Gura_AssignFunction(sample_at_curve_fitting);

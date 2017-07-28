@@ -13,6 +13,8 @@ class CostFunctionCustom : public ceres::CostFunction {
 private:
 	AutoPtr<Object_CostFunction> _pObjAssoc;
 public:
+	CostFunctionCustom();
+	void Prepare(const Value &value_numResiduals, const ValueList &valList_parameterBlockSizes);
 	virtual bool Evaluate(double const *const *parameters,
 						  double *residuals, double **jacobians) const;
 	inline void SetAssocObj(Object_CostFunction *pObjAssoc) { _pObjAssoc.reset(pObjAssoc); }
@@ -31,11 +33,11 @@ public:
 public:
 	Object_CostFunction(Class *pClass);
 	virtual String ToString(bool exprFlag);
-	inline ceres::CostFunction *GetCostFunction() { return _pCostFunctionCustom; }
-	inline ceres::CostFunction *ReleaseCostFunction() {
-		ceres::CostFunction *pCostFunction = _pCostFunctionCustom;
+	inline CostFunctionCustom *GetCostFunctionCustom() { return _pCostFunctionCustom; }
+	inline CostFunctionCustom *ReleaseCostFunctionCustom() {
+		CostFunctionCustom *pCostFunctionCustom = _pCostFunctionCustom;
 		_pCostFunctionCustom = nullptr;
-		return pCostFunction;
+		return pCostFunctionCustom;
 	}
 };
 
