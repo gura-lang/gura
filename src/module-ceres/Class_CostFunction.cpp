@@ -48,7 +48,10 @@ Gura_ImplementFunction(CostFunction)
 		return Value::Nil;
 	}
 	CostFunctionCustom *pCostFunctionCustom = pObj->GetCostFunctionCustom();
-	pCostFunctionCustom->Prepare(arg.GetValue(0), arg.GetList(1));
+	pCostFunctionCustom->SetNumResiduals(arg.GetInt(0));
+	foreach_const (ValueList, pValue, arg.GetList(1)) {
+		pCostFunctionCustom->AddParameterBlock(pValue->GetInt());
+	}
 	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
@@ -72,14 +75,6 @@ Gura_ImplementDescendantCreator(CostFunction)
 //-----------------------------------------------------------------------------
 CostFunctionCustom::CostFunctionCustom()
 {
-}
-
-void CostFunctionCustom::Prepare(const Value &value_numResiduals, const ValueList &valList_parameterBlockSizes)
-{
-	SetNumResiduals(value_numResiduals.GetInt());
-	foreach_const (ValueList, pValue, valList_parameterBlockSizes) {
-		AddParameterBlock(pValue->GetInt());
-	}
 }
 
 bool CostFunctionCustom::Evaluate(double const *const *parameters,

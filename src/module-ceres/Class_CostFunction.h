@@ -14,7 +14,6 @@ private:
 	AutoPtr<Object_CostFunction> _pObjAssoc;
 public:
 	CostFunctionCustom();
-	void Prepare(const Value &value_numResiduals, const ValueList &valList_parameterBlockSizes);
 	virtual bool Evaluate(double const *const *parameters,
 						  double *residuals, double **jacobians) const;
 	inline void SetAssocObj(Object_CostFunction *pObjAssoc) { _pObjAssoc.reset(pObjAssoc); }
