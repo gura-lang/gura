@@ -6,9 +6,10 @@ import(arrayutil)
 testcase() {
 	CostFunctionEx = class(ceres.CostFunction) {
 		__init__() = {|1, 1|}
-		Evaluate(x:array) = {
-			array@double {10 - x[0]}
-		}
+		Evaluate(x:array) = [
+			array@double {10 - x[0]}	// residual
+			array@double {{-1}}			// diff of residual
+		]
 	}
 	costFunc = CostFunctionEx()
 	println(costFunc)
