@@ -4,7 +4,7 @@ import(ceres)
 import(arrayutil)
 
 testcase() {
-	CostFunctionEx = class(ceres.AutoDiffCostFunction) {
+	CostFunctionEx = class(ceres.CostFunction) {
 		__init__() = {|1, 1|}
 		Evaluate(x:array) = {
 			println('Evaluate()')
