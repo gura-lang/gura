@@ -7,6 +7,7 @@ testcase() {
 	CostFunctionEx = class(ceres.AutoDiffCostFunction) {
 		__init__() = {|1, 1|}
 		Evaluate(x:array) = [
+			println('Evaluate()')
 			array@double {10 - x[0]}	// residual
 			array@double {{-1}}			// diff of residual
 		]
