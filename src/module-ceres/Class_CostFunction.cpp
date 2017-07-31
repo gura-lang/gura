@@ -74,7 +74,7 @@ Gura_ImplementDescendantCreator(CostFunction)
 //-----------------------------------------------------------------------------
 // CostFunctionCustom
 //-----------------------------------------------------------------------------
-CostFunctionCustom::CostFunctionCustom(Object_CostFunction *pObjAssoc) : _pObjAssoc(pObjAssoc)
+CostFunctionCustom::CostFunctionCustom(Object *pObjAssoc) : _pObjAssoc(pObjAssoc)
 {
 }
 

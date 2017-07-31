@@ -11,9 +11,9 @@ class Object_CostFunction;
 //-----------------------------------------------------------------------------
 class CostFunctionCustom : public ceres::DynamicCostFunction {
 private:
-	AutoPtr<Object_CostFunction> _pObjAssoc;
+	AutoPtr<Object> _pObjAssoc;
 public:
-	CostFunctionCustom(Object_CostFunction *pObjAssoc);
+	CostFunctionCustom(Object *pObjAssoc);
 	virtual bool Evaluate(double const *const *parameters,
 						  double *residuals, double **jacobians) const;
 };

@@ -5,26 +5,13 @@
 Gura_BeginModuleScope(ceres)
 
 //-----------------------------------------------------------------------------
-// Object_AutoDiffCostFunction declaration
-//-----------------------------------------------------------------------------
-Gura_DeclareUserClass(AutoDiffCostFunction);
-
-class Object_AutoDiffCostFunction : public Object_CostFunction {
-public:
-	Gura_DeclareObjectAccessor(AutoDiffCostFunction)
-public:
-	Object_AutoDiffCostFunction(Class *pClass);
-	virtual String ToString(bool exprFlag);
-};
-
-//-----------------------------------------------------------------------------
 // AutoDiffCostFunctorCustom
 //-----------------------------------------------------------------------------
 class AutoDiffCostFunctorCustom {
 private:
-	AutoPtr<Object_AutoDiffCostFunction> _pObjAssoc;
+	AutoPtr<Object> _pObjAssoc;
 public:
-	inline AutoDiffCostFunctorCustom(Object_AutoDiffCostFunction *pObjAssoc) : _pObjAssoc(pObjAssoc) {}
+	inline AutoDiffCostFunctorCustom(Object *pObjAssoc) : _pObjAssoc(pObjAssoc) {}
 	template<typename T> bool operator()(T const *const *parameters, T *residuals) const{
 		::printf("operator()\n");
 		return false;
@@ -37,6 +24,19 @@ public:
 class AutoDiffCostFunctionCustom : public ceres::DynamicAutoDiffCostFunction<AutoDiffCostFunctorCustom> {
 public:
 	AutoDiffCostFunctionCustom(AutoDiffCostFunctorCustom *pCostFunctor);
+};
+
+//-----------------------------------------------------------------------------
+// Object_AutoDiffCostFunction declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(AutoDiffCostFunction);
+
+class Object_AutoDiffCostFunction : public Object_CostFunction {
+public:
+	Gura_DeclareObjectAccessor(AutoDiffCostFunction)
+public:
+	Object_AutoDiffCostFunction(Class *pClass);
+	virtual String ToString(bool exprFlag);
 };
 
 Gura_EndModuleScope(ceres)
