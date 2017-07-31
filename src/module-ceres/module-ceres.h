@@ -12,10 +12,9 @@
 #include "Class_Problem.h"
 #include "Class_Solver_Options.h"
 #include "Class_Solver_Summary.h"
+#include "Symbol.h"
 
 Gura_BeginModuleHeader(ceres)
-
-Gura_DeclareUserSymbol(Evaluate);
 
 Gura_EndModuleHeader(ceres)
 
