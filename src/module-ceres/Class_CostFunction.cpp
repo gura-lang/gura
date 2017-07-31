@@ -95,23 +95,17 @@ bool CostFunctionCustom::Evaluate(double const *const *parameters,
 		valListArg.push_back(Value(new Object_array(env, new ArrayT<Double>(parameter, size))));
 	}
 	Value rtn = _pObjAssoc->EvalMethod(*_pObjAssoc, pFunc, valListArg);
-	const Array *pArray_residuals = nullptr;
-	const Array *pArray_jacobians = nullptr;
-	if (rtn.Is_array()) {
-		pArray_residuals = Object_array::GetObject(rtn)->GetArray();
-	} else if (rtn.Is_list()) {
-		const ValueList &valList = rtn.GetList();
-		if (valList.size() != 2 || !valList[0].Is_array() || !valList[1].Is_array()) {
-			env.SetError(ERR_ValueError, "the list must contain a pair of arrays");
-			return false;
-		}
-		pArray_residuals = Object_array::GetObject(valList[0])->GetArray();
-		pArray_jacobians = Object_array::GetObject(valList[1])->GetArray();
-	} else {
-		env.SetError(ERR_ValueError, "returned value must be a single array or a pair of arrays");
+	if (!rtn.Is_list()) {
+		env.SetError(ERR_ValueError, "returned value must be a pair of arrays");
+		return false;
+	}
+	const ValueList &valList = rtn.GetList();
+	if (valList.size() != 2 || !valList[0].Is_array() || !valList[1].Is_array()) {
+		env.SetError(ERR_ValueError, "the list must contain a pair of arrays");
 		return false;
 	}
 	do {
+		const Array *pArray_residuals = Object_array::GetObject(valList[0])->GetArray();
 		if (pArray_residuals->GetElemType() != Array::ETYPE_Double) {
 			env.SetError(ERR_ValueError, "type of elements in the returned array must be double");
 			return false;
@@ -123,11 +117,8 @@ bool CostFunctionCustom::Evaluate(double const *const *parameters,
 		}
 		::memcpy(residuals, pArrayT_residuals->GetPointer(), sizeof(Double) * pArrayT_residuals->GetElemNum());
 	} while (0);
-	if (jacobians == nullptr) {
-		// nothing to do
-	} else if (pArray_jacobians == nullptr) {
-		
-	} else {
+	if (jacobians != nullptr) {
+		const Array *pArray_jacobians = Object_array::GetObject(valList[1])->GetArray();
 		if (pArray_jacobians->GetElemType() != Array::ETYPE_Double) {
 			env.SetError(ERR_ValueError, "type of elements in the returned array must be double");
 			return false;
