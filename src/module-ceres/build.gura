@@ -24,12 +24,11 @@ if (sys.platform == `mswin) {
 	builder.incDirs.append('guest/include/ceres/internal/ceres/miniglog')
 	builder.libDirs.append('guest/lib')
 	builder.libs.append('ceres')
-	//builder.cflags.append('-DEIGEN_MPL2_ONLY')
-	//builder.cflags.append('-framework', 'Accelerate')
 	builder.ldflags.append('-framework', 'Accelerate')
 }
 builder.build('ceres', ['module-ceres.cpp',
 	'Class_CostFunction.cpp'
+	'Class_AutoDiffCostFunction.cpp'
 	'Class_LossFunction.cpp'
 	'Class_Problem.cpp'
 	'Class_Solver_Options.cpp'
