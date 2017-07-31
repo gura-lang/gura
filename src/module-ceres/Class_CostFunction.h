@@ -13,10 +13,9 @@ class CostFunctionCustom : public ceres::DynamicCostFunction {
 private:
 	AutoPtr<Object_CostFunction> _pObjAssoc;
 public:
-	CostFunctionCustom();
+	CostFunctionCustom(Object_CostFunction *pObjAssoc);
 	virtual bool Evaluate(double const *const *parameters,
 						  double *residuals, double **jacobians) const;
-	inline void SetAssocObj(Object_CostFunction *pObjAssoc) { _pObjAssoc.reset(pObjAssoc); }
 };
 
 //-----------------------------------------------------------------------------
@@ -26,17 +25,20 @@ Gura_DeclareUserClass(CostFunction);
 
 class Object_CostFunction : public Object {
 protected:
-	CostFunctionCustom *_pCostFunctionCustom; // set to nullptr after released
+	ceres::DynamicCostFunction *_pCostFunction; // set to nullptr after released
 public:
 	Gura_DeclareObjectAccessor(CostFunction)
 public:
 	Object_CostFunction(Class *pClass);
 	virtual String ToString(bool exprFlag);
-	inline CostFunctionCustom *GetCostFunctionCustom() { return _pCostFunctionCustom; }
-	inline CostFunctionCustom *ReleaseCostFunctionCustom() {
-		CostFunctionCustom *pCostFunctionCustom = _pCostFunctionCustom;
-		_pCostFunctionCustom = nullptr;
-		return pCostFunctionCustom;
+	inline void SetCostFunction(ceres::DynamicCostFunction *pCostFunction) {
+		_pCostFunction = pCostFunction;
+	}
+	inline ceres::DynamicCostFunction *GetCostFunction() { return _pCostFunction; }
+	inline ceres::DynamicCostFunction *ReleaseCostFunction() {
+		ceres::DynamicCostFunction *pCostFunction = _pCostFunction;
+		_pCostFunction = nullptr;
+		return pCostFunction;
 	}
 };
 

@@ -8,13 +8,13 @@ Gura_BeginModuleScope(ceres)
 Object_AutoDiffCostFunction::Object_AutoDiffCostFunction(Class *pClass) :
 	Object_CostFunction(pClass)
 {
-	_pCostFunctionCustom->SetAssocObj(Reference());
+	//_pCostFunctionCustom->SetAssocObj(Reference());
 }
 
 String Object_AutoDiffCostFunction::ToString(bool exprFlag)
 {
 	String str = "<ceres.AutoDiffCostFunction";
-	if (_pCostFunctionCustom == nullptr) str += ":invalid";
+	if (_pCostFunction == nullptr) str += ":invalid";
 	str += ">";
 	return str;
 }
@@ -42,6 +42,7 @@ Gura_DeclareFunction(AutoDiffCostFunction)
 
 Gura_ImplementFunction(AutoDiffCostFunction)
 {
+#if 0
 	Object_AutoDiffCostFunction *pObj = Object_AutoDiffCostFunction::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		env.SetError(ERR_ValueError, "pure class can not be instantiated");
@@ -53,6 +54,8 @@ Gura_ImplementFunction(AutoDiffCostFunction)
 		pCostFunctionCustom->AddParameterBlock(pValue->GetInt());
 	}
 	return ReturnValue(env, arg, arg.GetValueThis());
+#endif
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

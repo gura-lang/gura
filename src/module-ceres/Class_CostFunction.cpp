@@ -6,15 +6,14 @@ Gura_BeginModuleScope(ceres)
 // Object_CostFunction implementation
 //-----------------------------------------------------------------------------
 Object_CostFunction::Object_CostFunction(Class *pClass) :
-					Object(pClass), _pCostFunctionCustom(new CostFunctionCustom())
+								Object(pClass), _pCostFunction(nullptr)
 {
-	_pCostFunctionCustom->SetAssocObj(Reference());
 }
 
 String Object_CostFunction::ToString(bool exprFlag)
 {
 	String str = "<ceres.CostFunction";
-	if (_pCostFunctionCustom == nullptr) str += ":invalid";
+	if (_pCostFunction == nullptr) str += ":invalid";
 	str += ">";
 	return str;
 }
@@ -47,10 +46,10 @@ Gura_ImplementFunction(CostFunction)
 		env.SetError(ERR_ValueError, "pure class can not be instantiated");
 		return Value::Nil;
 	}
-	CostFunctionCustom *pCostFunctionCustom = pObj->GetCostFunctionCustom();
-	pCostFunctionCustom->SetNumResiduals(arg.GetInt(0));
+	ceres::DynamicCostFunction *pCostFunction = pObj->GetCostFunction();
+	pCostFunction->SetNumResiduals(arg.GetInt(0));
 	foreach_const (ValueList, pValue, arg.GetList(1)) {
-		pCostFunctionCustom->AddParameterBlock(pValue->GetInt());
+		pCostFunction->AddParameterBlock(pValue->GetInt());
 	}
 	return ReturnValue(env, arg, arg.GetValueThis());
 }
@@ -67,13 +66,15 @@ Gura_ImplementUserInheritableClass(CostFunction)
 
 Gura_ImplementDescendantCreator(CostFunction)
 {
-	return new Object_CostFunction((pClass == nullptr)? this : pClass);
+	Object_CostFunction *pObj = new Object_CostFunction((pClass == nullptr)? this : pClass);
+	pObj->SetCostFunction(new CostFunctionCustom(pObj->Reference()));
+	return pObj;
 }
 
 //-----------------------------------------------------------------------------
 // CostFunctionCustom
 //-----------------------------------------------------------------------------
-CostFunctionCustom::CostFunctionCustom()
+CostFunctionCustom::CostFunctionCustom(Object_CostFunction *pObjAssoc) : _pObjAssoc(pObjAssoc)
 {
 }
 
