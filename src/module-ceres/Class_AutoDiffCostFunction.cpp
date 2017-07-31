@@ -6,9 +6,8 @@ Gura_BeginModuleScope(ceres)
 // Object_AutoDiffCostFunction implementation
 //-----------------------------------------------------------------------------
 Object_AutoDiffCostFunction::Object_AutoDiffCostFunction(Class *pClass) :
-	Object_CostFunction(pClass)
+								Object_CostFunction(pClass)
 {
-	//_pCostFunctionCustom->SetAssocObj(Reference());
 }
 
 String Object_AutoDiffCostFunction::ToString(bool exprFlag)
@@ -42,20 +41,17 @@ Gura_DeclareFunction(AutoDiffCostFunction)
 
 Gura_ImplementFunction(AutoDiffCostFunction)
 {
-#if 0
 	Object_AutoDiffCostFunction *pObj = Object_AutoDiffCostFunction::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		env.SetError(ERR_ValueError, "pure class can not be instantiated");
 		return Value::Nil;
 	}
-	CostFunctionCustom *pCostFunctionCustom = pObj->GetCostFunctionCustom();
-	pCostFunctionCustom->SetNumResiduals(arg.GetInt(0));
+	ceres::DynamicCostFunction *pCostFunction = pObj->GetCostFunction();
+	pCostFunction->SetNumResiduals(arg.GetInt(0));
 	foreach_const (ValueList, pValue, arg.GetList(1)) {
-		pCostFunctionCustom->AddParameterBlock(pValue->GetInt());
+		pCostFunction->AddParameterBlock(pValue->GetInt());
 	}
 	return ReturnValue(env, arg, arg.GetValueThis());
-#endif
-	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -70,7 +66,9 @@ Gura_ImplementUserInheritableClass(AutoDiffCostFunction)
 
 Gura_ImplementDescendantCreator(AutoDiffCostFunction)
 {
-	return new Object_AutoDiffCostFunction((pClass == nullptr)? this : pClass);
+	Object_AutoDiffCostFunction *pObj = new Object_AutoDiffCostFunction((pClass == nullptr)? this : pClass);
+	pObj->SetCostFunction(new AutoDiffCostFunctionCustom(new AutoDiffCostFunctorCustom(pObj->Reference())));
+	return pObj;
 }
 
 //-----------------------------------------------------------------------------

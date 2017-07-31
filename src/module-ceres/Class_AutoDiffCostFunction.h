@@ -10,7 +10,11 @@ class Object_AutoDiffCostFunction;
 //-----------------------------------------------------------------------------
 // AutoDiffCostFunctorCustom
 //-----------------------------------------------------------------------------
-struct AutoDiffCostFunctorCustom {
+class AutoDiffCostFunctorCustom {
+private:
+	AutoPtr<Object_AutoDiffCostFunction> _pObjAssoc;
+public:
+	inline AutoDiffCostFunctorCustom(Object_AutoDiffCostFunction *pObjAssoc) : _pObjAssoc(pObjAssoc) {}
 	template<typename T>
 	bool operator()(T const *const *parameters, T *residuals) const {
 		::printf("operator()\n");
@@ -22,11 +26,8 @@ struct AutoDiffCostFunctorCustom {
 // AutoDiffCostFunctionCustom
 //-----------------------------------------------------------------------------
 class AutoDiffCostFunctionCustom : public ceres::DynamicAutoDiffCostFunction<AutoDiffCostFunctorCustom> {
-private:
-	AutoPtr<Object_AutoDiffCostFunction> _pObjAssoc;
 public:
 	AutoDiffCostFunctionCustom(AutoDiffCostFunctorCustom *pCostFunctor);
-	inline void SetAssocObj(Object_AutoDiffCostFunction *pObjAssoc) { _pObjAssoc.reset(pObjAssoc); }
 };
 
 //-----------------------------------------------------------------------------
