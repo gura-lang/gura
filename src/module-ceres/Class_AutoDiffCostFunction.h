@@ -13,6 +13,7 @@ class Object_AutoDiffCostFunction;
 struct AutoDiffCostFunctorCustom {
 	template<typename T>
 	bool operator()(T const *const *parameters, T *residuals) const {
+		::printf("operator()\n");
 		return false;
 	}
 };
@@ -33,20 +34,12 @@ public:
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(AutoDiffCostFunction);
 
-class Object_AutoDiffCostFunction : public Object {
-private:
-	AutoDiffCostFunctionCustom *_pAutoDiffCostFunctionCustom; // set to nullptr after released
+class Object_AutoDiffCostFunction : public Object_CostFunction {
 public:
 	Gura_DeclareObjectAccessor(AutoDiffCostFunction)
 public:
 	Object_AutoDiffCostFunction(Class *pClass);
 	virtual String ToString(bool exprFlag);
-	inline AutoDiffCostFunctionCustom *GetAutoDiffCostFunctionCustom() { return _pAutoDiffCostFunctionCustom; }
-	inline AutoDiffCostFunctionCustom *ReleaseAutoDiffCostFunctionCustom() {
-		AutoDiffCostFunctionCustom *pAutoDiffCostFunctionCustom = _pAutoDiffCostFunctionCustom;
-		_pAutoDiffCostFunctionCustom = nullptr;
-		return pAutoDiffCostFunctionCustom;
-	}
 };
 
 Gura_EndModuleScope(ceres)

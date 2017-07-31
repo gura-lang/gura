@@ -25,7 +25,7 @@ public:
 Gura_DeclareUserClass(CostFunction);
 
 class Object_CostFunction : public Object {
-private:
+protected:
 	CostFunctionCustom *_pCostFunctionCustom; // set to nullptr after released
 public:
 	Gura_DeclareObjectAccessor(CostFunction)

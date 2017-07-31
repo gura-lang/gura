@@ -6,16 +6,15 @@ Gura_BeginModuleScope(ceres)
 // Object_AutoDiffCostFunction implementation
 //-----------------------------------------------------------------------------
 Object_AutoDiffCostFunction::Object_AutoDiffCostFunction(Class *pClass) :
-	Object(pClass),
-	_pAutoDiffCostFunctionCustom(new AutoDiffCostFunctionCustom(new AutoDiffCostFunctorCustom()))
+	Object_CostFunction(pClass)
 {
-	_pAutoDiffCostFunctionCustom->SetAssocObj(Reference());
+	_pCostFunctionCustom->SetAssocObj(Reference());
 }
 
 String Object_AutoDiffCostFunction::ToString(bool exprFlag)
 {
 	String str = "<ceres.AutoDiffCostFunction";
-	if (_pAutoDiffCostFunctionCustom == nullptr) str += ":invalid";
+	if (_pCostFunctionCustom == nullptr) str += ":invalid";
 	str += ">";
 	return str;
 }
@@ -48,10 +47,10 @@ Gura_ImplementFunction(AutoDiffCostFunction)
 		env.SetError(ERR_ValueError, "pure class can not be instantiated");
 		return Value::Nil;
 	}
-	AutoDiffCostFunctionCustom *pAutoDiffCostFunctionCustom = pObj->GetAutoDiffCostFunctionCustom();
-	pAutoDiffCostFunctionCustom->SetNumResiduals(arg.GetInt(0));
+	CostFunctionCustom *pCostFunctionCustom = pObj->GetCostFunctionCustom();
+	pCostFunctionCustom->SetNumResiduals(arg.GetInt(0));
 	foreach_const (ValueList, pValue, arg.GetList(1)) {
-		pAutoDiffCostFunctionCustom->AddParameterBlock(pValue->GetInt());
+		pCostFunctionCustom->AddParameterBlock(pValue->GetInt());
 	}
 	return ReturnValue(env, arg, arg.GetValueThis());
 }
