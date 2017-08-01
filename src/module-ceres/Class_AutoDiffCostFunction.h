@@ -37,13 +37,11 @@ public:
 		}
 		ValueList valListArg;
 		size_t i = 0;
-#if 0
-		foreach_const (std::vector<ceres::int32>, pSize, parameter_block_sizes()) {
+		foreach_const (std::vector<ceres::int32>, pSize, pCostFunction->parameter_block_sizes()) {
 			ceres::int32 size = *pSize;
 			double const *parameter = parameters[i++];
 			valListArg.push_back(Value(new Object_array(env, new ArrayT<Double>(parameter, size))));
 		}
-#endif
 		Value rtn = _pObjAssoc->EvalMethod(*_pObjAssoc, pFunc, valListArg);
 		if (!rtn.Is_list()) {
 			env.SetError(ERR_ValueError, "returned value must be a pair of arrays");
@@ -61,12 +59,10 @@ public:
 				return false;
 			}
 			const ArrayT<Double> *pArrayT_residuals = dynamic_cast<const ArrayT<Double> *>(pArray_residuals);
-#if 0
-			if (static_cast<size_t>(num_residuals()) != pArrayT_residuals->GetElemNum()) {
+			if (static_cast<size_t>(pCostFunction->num_residuals()) != pArrayT_residuals->GetElemNum()) {
 				env.SetError(ERR_ValueError, "number of residuals doesn't match");
 				return false;
 			}
-#endif
 			::memcpy(residuals, pArrayT_residuals->GetPointer(), sizeof(Double) * pArrayT_residuals->GetElemNum());
 		} while (0);
 		return true;
