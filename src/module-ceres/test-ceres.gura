@@ -94,7 +94,6 @@ testcase('curve_fitting') {
 	println('Final   m: ', m[0], ' c: ', c[0])
 	ceres.sample@curve_fitting():void
 }
-sys.exit()
 testcase('helloworld_analytic_diff') {
 	CostFunctionEx = class(ceres.CostFunction) {
 		__init__() = {|1, 1|}
@@ -103,11 +102,9 @@ testcase('helloworld_analytic_diff') {
 			array@double {{-1}}			// diff of residual
 		]
 	}
-	costFunc = CostFunctionEx()
-	println(costFunc)
 	problem = ceres.Problem()
 	x = array@double {0.5}
-	problem.AddResidualBlock(costFunc, nil, x)
+	problem.AddResidualBlock(CostFunctionEx(), nil, x)
 	options = ceres.Solver$Options()
 	options.minimizer_progress_to_stdout = true
 	summary = ceres.Solver$Summary()
@@ -121,11 +118,9 @@ testcase('helloworld') {
 			array@double {10 - x[0]}	// residual
 		}
 	}
-	costFunc = CostFunctionEx()
-	println(costFunc)
 	problem = ceres.Problem()
 	x = array@double {0.5}
-	problem.AddResidualBlock(costFunc, nil, x)
+	problem.AddResidualBlock(CostFunctionEx(), nil, x)
 	options = ceres.Solver$Options()
 	options.minimizer_progress_to_stdout = true
 	summary = ceres.Solver$Summary()
