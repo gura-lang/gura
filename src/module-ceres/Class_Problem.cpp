@@ -67,9 +67,9 @@ Gura_ImplementMethod(Problem, AddResidualBlock)
 	Object_Problem *pThis = Object_Problem::GetObjectThis(arg);
 	ceres::Problem &problem = pThis->GetProblem();
 #if 1
-	ceres::CostFunction *cost_function = Object_CostFunction::GetObject(arg, 0)->ReleaseCostFunction();
+	ceres::CostFunction *cost_function = Object_CostFunction::GetObject(arg, 0)->GetCostFunction();
 	ceres::LossFunction *loss_function = arg.IsValid(1)?
-		Object_LossFunction::GetObject(arg, 1)->ReleaseLossFunction() : nullptr;
+		Object_LossFunction::GetObject(arg, 1)->GetLossFunction() : nullptr;
 	if (cost_function == nullptr) {
 		env.SetError(ERR_ValueError, "cost_function is invalid");
 		return Value::Nil;

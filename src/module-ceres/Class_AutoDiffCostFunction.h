@@ -29,6 +29,7 @@ public:
 	template<typename T> bool operator()(T const *const *parameters, T *residuals) const{
 		::printf("operator()\n");
 		Environment &env = *_pObjAssoc;
+		ceres::DynamicCostFunction *pCostFunction = _pObjAssoc->GetCostFunction();
 		const Function *pFunc = _pObjAssoc->LookupFunction(Gura_UserSymbol(Evaluate), ENVREF_Escalate);
 		if (pFunc == nullptr) {
 			env.SetError(ERR_KeyError, "can't find a method Evaluate");

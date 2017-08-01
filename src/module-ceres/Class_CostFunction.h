@@ -25,7 +25,7 @@ Gura_DeclareUserClass(CostFunction);
 
 class Object_CostFunction : public Object {
 protected:
-	ceres::DynamicCostFunction *_pCostFunction; // set to nullptr after released
+	ceres::DynamicCostFunction *_pCostFunction;
 public:
 	Gura_DeclareObjectAccessor(CostFunction)
 public:
@@ -35,11 +35,6 @@ public:
 		_pCostFunction = pCostFunction;
 	}
 	inline ceres::DynamicCostFunction *GetCostFunction() { return _pCostFunction; }
-	inline ceres::DynamicCostFunction *ReleaseCostFunction() {
-		ceres::DynamicCostFunction *pCostFunction = _pCostFunction;
-		_pCostFunction = nullptr;
-		return pCostFunction;
-	}
 };
 
 Gura_EndModuleScope(ceres)
