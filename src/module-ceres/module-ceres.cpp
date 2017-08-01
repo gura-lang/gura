@@ -94,14 +94,14 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(Evaluate);
 	// Realization of class
 	Gura_RealizeUserClass(CostFunction, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(AutoDiffCostFunction, Gura_UserClass(CostFunction));
+	Gura_RealizeUserClass(NumericDiffCostFunction, Gura_UserClass(CostFunction));
 	Gura_RealizeUserClass(LossFunction, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Problem, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassAlias(Solver_Options, "Solver$Options", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassAlias(Solver_Summary, "Solver$Summary", env.LookupClass(VTYPE_object));
 	// Preparation of class
 	Gura_PrepareUserClass(CostFunction);
-	Gura_PrepareUserClass(AutoDiffCostFunction);
+	Gura_PrepareUserClass(NumericDiffCostFunction);
 	Gura_PrepareUserClass(LossFunction);
 	Gura_PrepareUserClass(Problem);
 	Gura_PrepareUserClass(Solver_Options);

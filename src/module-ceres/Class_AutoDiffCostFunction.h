@@ -6,27 +6,27 @@
 Gura_BeginModuleScope(ceres)
 
 //-----------------------------------------------------------------------------
-// Object_AutoDiffCostFunction declaration
+// Object_NumericDiffCostFunction declaration
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(AutoDiffCostFunction);
+Gura_DeclareUserClass(NumericDiffCostFunction);
 
-class Object_AutoDiffCostFunction : public Object_CostFunction {
+class Object_NumericDiffCostFunction : public Object_CostFunction {
 public:
-	Gura_DeclareObjectAccessor(AutoDiffCostFunction)
+	Gura_DeclareObjectAccessor(NumericDiffCostFunction)
 public:
-	Object_AutoDiffCostFunction(Class *pClass);
+	Object_NumericDiffCostFunction(Class *pClass);
 	virtual String ToString(bool exprFlag);
 };
 
 //-----------------------------------------------------------------------------
-// AutoDiffCostFunctorCustom
+// NumericDiffCostFunctorCustom
 //-----------------------------------------------------------------------------
-class AutoDiffCostFunctorCustom {
+class NumericDiffCostFunctorCustom {
 private:
-	AutoPtr<Object_AutoDiffCostFunction> _pObjAssoc;
+	AutoPtr<Object_NumericDiffCostFunction> _pObjAssoc;
 public:
-	inline AutoDiffCostFunctorCustom(Object_AutoDiffCostFunction *pObjAssoc) : _pObjAssoc(pObjAssoc) {}
-	template<typename T> bool operator()(T const *const *parameters, T *residuals) const{
+	inline NumericDiffCostFunctorCustom(Object_NumericDiffCostFunction *pObjAssoc) : _pObjAssoc(pObjAssoc) {}
+	bool operator()(double const *const *parameters, double *residuals) const{
 		::printf("operator()\n");
 		Environment &env = *_pObjAssoc;
 		ceres::DynamicCostFunction *pCostFunction = _pObjAssoc->GetCostFunction();
@@ -74,11 +74,11 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// AutoDiffCostFunctionCustom
+// NumericDiffCostFunctionCustom
 //-----------------------------------------------------------------------------
-class AutoDiffCostFunctionCustom : public ceres::DynamicAutoDiffCostFunction<AutoDiffCostFunctorCustom> {
+class NumericDiffCostFunctionCustom : public ceres::DynamicNumericDiffCostFunction<NumericDiffCostFunctorCustom> {
 public:
-	AutoDiffCostFunctionCustom(AutoDiffCostFunctorCustom *pCostFunctor);
+	NumericDiffCostFunctionCustom(NumericDiffCostFunctorCustom *pCostFunctor);
 };
 
 Gura_EndModuleScope(ceres)

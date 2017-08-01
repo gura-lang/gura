@@ -3,16 +3,16 @@
 Gura_BeginModuleScope(ceres)
 
 //-----------------------------------------------------------------------------
-// Object_AutoDiffCostFunction implementation
+// Object_NumericDiffCostFunction implementation
 //-----------------------------------------------------------------------------
-Object_AutoDiffCostFunction::Object_AutoDiffCostFunction(Class *pClass) :
+Object_NumericDiffCostFunction::Object_NumericDiffCostFunction(Class *pClass) :
 								Object_CostFunction(pClass)
 {
 }
 
-String Object_AutoDiffCostFunction::ToString(bool exprFlag)
+String Object_NumericDiffCostFunction::ToString(bool exprFlag)
 {
-	String str = "<ceres.AutoDiffCostFunction";
+	String str = "<ceres.NumericDiffCostFunction";
 	if (_pCostFunction == nullptr) str += ":invalid";
 	str += ">";
 	return str;
@@ -25,23 +25,23 @@ String Object_AutoDiffCostFunction::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
-// ceres.AutoDiffCostFunction(numResiduals:number, parameterBlockSizes+:number) {block?}
-Gura_DeclareFunction(AutoDiffCostFunction)
+// ceres.NumericDiffCostFunction(numResiduals:number, parameterBlockSizes+:number) {block?}
+Gura_DeclareFunction(NumericDiffCostFunction)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "numResiduals", VTYPE_number);
 	DeclareArg(env, "parameterBlockSizes", VTYPE_number, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(Gura_UserClass(AutoDiffCostFunction));
+	SetClassToConstruct(Gura_UserClass(NumericDiffCostFunction));
 	AddHelp(
 		Gura_Symbol(en),
 		"");
 
 }
 
-Gura_ImplementFunction(AutoDiffCostFunction)
+Gura_ImplementFunction(NumericDiffCostFunction)
 {
-	Object_AutoDiffCostFunction *pObj = Object_AutoDiffCostFunction::GetObjectThis(arg);
+	Object_NumericDiffCostFunction *pObj = Object_NumericDiffCostFunction::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		env.SetError(ERR_ValueError, "pure class can not be instantiated");
 		return Value::Nil;
@@ -55,27 +55,27 @@ Gura_ImplementFunction(AutoDiffCostFunction)
 }
 
 //-----------------------------------------------------------------------------
-// Implementation of class ceres.AutoDiffCostFunction
+// Implementation of class ceres.NumericDiffCostFunction
 //-----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(AutoDiffCostFunction)
+Gura_ImplementUserInheritableClass(NumericDiffCostFunction)
 {
 	// Assignment of properties
 	// Assignment of function
-	Gura_AssignFunction(AutoDiffCostFunction);
+	Gura_AssignFunction(NumericDiffCostFunction);
 }
 
-Gura_ImplementDescendantCreator(AutoDiffCostFunction)
+Gura_ImplementDescendantCreator(NumericDiffCostFunction)
 {
-	Object_AutoDiffCostFunction *pObj = new Object_AutoDiffCostFunction((pClass == nullptr)? this : pClass);
-	pObj->SetCostFunction(new AutoDiffCostFunctionCustom(new AutoDiffCostFunctorCustom(pObj->Reference())));
+	Object_NumericDiffCostFunction *pObj = new Object_NumericDiffCostFunction((pClass == nullptr)? this : pClass);
+	pObj->SetCostFunction(new NumericDiffCostFunctionCustom(new NumericDiffCostFunctorCustom(pObj->Reference())));
 	return pObj;
 }
 
 //-----------------------------------------------------------------------------
-// AutoDiffCostFunctionCustom
+// NumericDiffCostFunctionCustom
 //-----------------------------------------------------------------------------
-AutoDiffCostFunctionCustom::AutoDiffCostFunctionCustom(AutoDiffCostFunctorCustom *pCostFunctor) :
-	ceres::DynamicAutoDiffCostFunction<AutoDiffCostFunctorCustom>(pCostFunctor)
+NumericDiffCostFunctionCustom::NumericDiffCostFunctionCustom(NumericDiffCostFunctorCustom *pCostFunctor) :
+	ceres::DynamicNumericDiffCostFunction<NumericDiffCostFunctorCustom>(pCostFunctor)
 {
 }
 
