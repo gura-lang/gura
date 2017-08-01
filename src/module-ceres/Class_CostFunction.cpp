@@ -96,12 +96,12 @@ bool CostFunctionCustom::Evaluate(double const *const *parameters,
 	}
 	Value rtn = _pObjAssoc->EvalMethod(*_pObjAssoc, pFunc, valListArg);
 	if (!rtn.Is_list()) {
-		env.SetError(ERR_ValueError, "returned value must be a pair of arrays");
+		env.SetError(ERR_ValueError, "Evaluate() method is expected to return a pair of arrays");
 		return false;
 	}
 	const ValueList &valList = rtn.GetList();
 	if (valList.size() != 2 || !valList[0].Is_array() || !valList[1].Is_array()) {
-		env.SetError(ERR_ValueError, "the list must contain a pair of arrays");
+		env.SetError(ERR_ValueError, "Evaluate() method is expected to return a pair of arrays");
 		return false;
 	}
 	do {

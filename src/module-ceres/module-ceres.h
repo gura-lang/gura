@@ -7,7 +7,7 @@
 #include <ceres/ceres.h>
 #include <glog/logging.h>
 #include "Class_CostFunction.h"
-#include "Class_AutoDiffCostFunction.h"
+#include "Class_NumericDiffCostFunction.h"
 #include "Class_LossFunction.h"
 #include "Class_Problem.h"
 #include "Class_Solver_Options.h"

@@ -27,7 +27,6 @@ private:
 public:
 	inline NumericDiffCostFunctorCustom(Object_NumericDiffCostFunction *pObjAssoc) : _pObjAssoc(pObjAssoc) {}
 	bool operator()(double const *const *parameters, double *residuals) const{
-		::printf("operator()\n");
 		Environment &env = *_pObjAssoc;
 		ceres::DynamicCostFunction *pCostFunction = _pObjAssoc->GetCostFunction();
 		const Function *pFunc = _pObjAssoc->LookupFunction(Gura_UserSymbol(Evaluate), ENVREF_Escalate);
@@ -43,17 +42,12 @@ public:
 			valListArg.push_back(Value(new Object_array(env, new ArrayT<Double>(parameter, size))));
 		}
 		Value rtn = _pObjAssoc->EvalMethod(*_pObjAssoc, pFunc, valListArg);
-		if (!rtn.Is_list()) {
-			env.SetError(ERR_ValueError, "returned value must be a pair of arrays");
-			return false;
-		}
-		const ValueList &valList = rtn.GetList();
-		if (valList.size() != 2 || !valList[0].Is_array() || !valList[1].Is_array()) {
-			env.SetError(ERR_ValueError, "the list must contain a pair of arrays");
+		if (!rtn.Is_array()) {
+			env.SetError(ERR_ValueError, "Evaluate() method is expected to return an array");
 			return false;
 		}
 		do {
-			const Array *pArray_residuals = Object_array::GetObject(valList[0])->GetArray();
+			const Array *pArray_residuals = Object_array::GetObject(rtn)->GetArray();
 			if (pArray_residuals->GetElemType() != Array::ETYPE_Double) {
 				env.SetError(ERR_ValueError, "type of elements in the returned array must be double");
 				return false;
