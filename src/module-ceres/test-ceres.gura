@@ -109,7 +109,8 @@ testcase('helloworld_analytic_diff') {
 	options.minimizer_progress_to_stdout = true
 	summary = ceres.Solver$Summary()
 	ceres.Solve(options, problem, summary)
-	println(x)
+	println(summary.BriefReport())
+	println('x : ', x[0])
 }
 testcase('helloworld') {
 	CostFunctionEx = class(ceres.NumericDiffCostFunction) {
@@ -125,7 +126,8 @@ testcase('helloworld') {
 	options.minimizer_progress_to_stdout = true
 	summary = ceres.Solver$Summary()
 	ceres.Solve(options, problem, summary)
-	println(x)
+	println(summary.BriefReport())
+	println('x : ', x[0])
 }
 testcase('ceres.CostFunction') {
 	ceres.CostFunction() {|costFunction|

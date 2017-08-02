@@ -55,18 +55,10 @@ Gura_DeclareMethod(Problem, AddResidualBlock)
 		"");
 }
 
-struct CostFunctor {
-	template <typename T> bool operator()(const T* const x, T* residual) const {
-		residual[0] = T(10.0) - x[0];
-		return true;
-	}
-};
-
 Gura_ImplementMethod(Problem, AddResidualBlock)
 {
 	Object_Problem *pThis = Object_Problem::GetObjectThis(arg);
 	ceres::Problem &problem = pThis->GetProblem();
-#if 1
 	ceres::CostFunction *cost_function = Object_CostFunction::GetObject(arg, 0)->GetCostFunction();
 	ceres::LossFunction *loss_function = arg.IsValid(1)?
 		Object_LossFunction::GetObject(arg, 1)->GetLossFunction() : nullptr;
@@ -82,12 +74,6 @@ Gura_ImplementMethod(Problem, AddResidualBlock)
 	}
 	ceres::ResidualBlockId rtn = problem.AddResidualBlock(cost_function, loss_function, parameter_blocks);
 	return Value(rtn);
-#else
-	static double x = 0.5;
-	ceres::CostFunction *cost_function = new ceres::AutoDiffCostFunction<CostFunctor, 1, 1>(new CostFunctor);
-	problem.AddResidualBlock(cost_function, nullptr, &x);
-	return Value::Nil;
-#endif
 }
 
 //-----------------------------------------------------------------------------
