@@ -950,6 +950,15 @@ void ValueList::ToStringList(StringList &strList) const
 	}
 }
 
+bool ValueList::CheckIfElementsInstanceOf(ValueType valType) const
+{
+	if (empty()) return false;
+	foreach_const (ValueList, pValue, *this) {
+		if (!pValue->IsInstanceOf(valType)) return false;
+	}
+	return true;
+}
+
 // no elements ... VTYPE_undefined
 // mixed type .... VTYPE_any
 // single type ... that type

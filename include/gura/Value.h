@@ -600,6 +600,7 @@ public:
 	void PrintfEach(Environment &env, Stream *pStream, const char *format) const;
 	void PrintlnEach(Environment &env, Stream *pStream) const;
 	void ToStringList(StringList &strList) const;
+	bool CheckIfElementsInstanceOf(ValueType valType) const;
 	ValueType GetValueTypeOfElements() const;
 	static bool AssumeSameLength(Signal &sig,
 					const ValueList &valList1, const ValueList &valList2);

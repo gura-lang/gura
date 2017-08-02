@@ -100,10 +100,11 @@ bool CostFunctionCustom::Evaluate(double const *const *parameters,
 		return false;
 	}
 	const ValueList &valList = rtn.GetList();
-	if (valList.size() != 2 || !valList[0].Is_array() || !valList[1].Is_array()) {
-		env.SetError(ERR_ValueError, "Evaluate() method is expected to return a pair of arrays");
+	if (valList.empty() || !valList.CheckIfElementsInstanceOf(VTYPE_array)) {
+		env.SetError(ERR_ValueError, "Evaluate() method is expected to return a list of arrays");
 		return false;
 	}
+	ValueList::const_iterator pValue = valList.begin();
 	do {
 		const Array *pArray_residuals = Object_array::GetObject(valList[0])->GetArray();
 		if (pArray_residuals->GetElemType() != Array::ETYPE_Double) {
