@@ -36,8 +36,8 @@ testcase('helloworld') {
 			array@double {10 - x[0]}	// residual
 		}
 	}
-	problem = ceres.Problem()
 	x = array@double {0.5}
+	problem = ceres.Problem()
 	problem.AddResidualBlock(CostFunctionEx(), nil, x)
 	options = ceres.Solver$Options()
 	options.minimizer_progress_to_stdout = true
@@ -56,8 +56,8 @@ testcase('helloworld_analytic_diff') {
 			]
 		}
 	}
-	problem = ceres.Problem()
 	x = array@double {0.5}
+	problem = ceres.Problem()
 	problem.AddResidualBlock(CostFunctionEx(), nil, x)
 	options = ceres.Solver$Options()
 	options.minimizer_progress_to_stdout = true
@@ -144,9 +144,9 @@ testcase('curve_fitting') {
 		4.875000e+00, 4.727863e+00,
 		4.950000e+00, 4.669206e+00,
 	}
-	problem = ceres.Problem()
 	m = array@double {0.0}
 	c = array@double {0.0}
+	problem = ceres.Problem()
 	data.fold(2).each {|d|
 		problem.AddResidualBlock(CostFunctionEx(d[0], d[1]), nil, m, c)
 	}
