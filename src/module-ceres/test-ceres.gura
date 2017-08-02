@@ -3,6 +3,69 @@ import(helper.test) {*}
 import(ceres)
 import(arrayutil)
 
+testcase('ceres.CostFunction') {
+	ceres.CostFunction() {|costFunction|
+		println(costFunction)
+	}
+}
+testcase('ceres.LossFunction') {
+	ceres.LossFunction() {|lossFunction|
+		println(lossFunction)
+	}
+}
+testcase('ceres.Problem') {
+	println(ceres.Problem.AddResidualBlock)
+	ceres.Problem() {|problem|
+		println(problem)
+	}
+}
+testcase('ceres.Solver$Options') {
+	ceres.Solver$Options() {|options|
+		println(options)
+	}
+}
+testcase('ceres.Solver$Summary') {
+	ceres.Solver$Summary() {|summary|
+		println(summary)
+	}
+}
+testcase('helloworld') {
+	CostFunctionEx = class(ceres.NumericDiffCostFunction) {
+		__init__() = {|1, 1|}
+		Evaluate(x:array) = {
+			array@double {10 - x[0]}	// residual
+		}
+	}
+	problem = ceres.Problem()
+	x = array@double {0.5}
+	problem.AddResidualBlock(CostFunctionEx(), nil, x)
+	options = ceres.Solver$Options()
+	options.minimizer_progress_to_stdout = true
+	summary = ceres.Solver$Summary()
+	ceres.Solve(options, problem, summary)
+	println(summary.BriefReport())
+	println('x: ', x[0])
+}
+testcase('helloworld_analytic_diff') {
+	CostFunctionEx = class(ceres.CostFunction) {
+		__init__() = {|1, 1|}
+		Evaluate(x:array) = {
+			[
+				array@double {10 - x[0]}	// residual
+				array@double {-1}			// diff of residual for x
+			]
+		}
+	}
+	problem = ceres.Problem()
+	x = array@double {0.5}
+	problem.AddResidualBlock(CostFunctionEx(), nil, x)
+	options = ceres.Solver$Options()
+	options.minimizer_progress_to_stdout = true
+	summary = ceres.Solver$Summary()
+	ceres.Solve(options, problem, summary)
+	println(summary.BriefReport())
+	println('x: ', x[0])
+}
 testcase('curve_fitting') {
 	CostFunctionEx = class(ceres.NumericDiffCostFunction) {
 		__init__(x:number, y:number) = {|1, 1, 1|
@@ -91,71 +154,6 @@ testcase('curve_fitting') {
 	options.minimizer_progress_to_stdout = true
 	summary = ceres.Solver$Summary()
 	ceres.Solve(options, problem, summary)
-	println('Final   m: ', m[0], ' c: ', c[0])
-	ceres.sample@curve_fitting():void
-}
-testcase('helloworld_analytic_diff') {
-	CostFunctionEx = class(ceres.CostFunction) {
-		__init__() = {|1, 1|}
-		Evaluate(x:array) = [
-			array@double {10 - x[0]}	// residual
-			array@double {-1}			// diff of residual
-		]
-	}
-	problem = ceres.Problem()
-	x = array@double {0.5}
-	problem.AddResidualBlock(CostFunctionEx(), nil, x)
-	options = ceres.Solver$Options()
-	options.minimizer_progress_to_stdout = true
-	summary = ceres.Solver$Summary()
-	ceres.Solve(options, problem, summary)
 	println(summary.BriefReport())
-	println('x : ', x[0])
-}
-testcase('helloworld') {
-	CostFunctionEx = class(ceres.NumericDiffCostFunction) {
-		__init__() = {|1, 1|}
-		Evaluate(x:array) = {
-			array@double {10 - x[0]}	// residual
-		}
-	}
-	problem = ceres.Problem()
-	x = array@double {0.5}
-	problem.AddResidualBlock(CostFunctionEx(), nil, x)
-	options = ceres.Solver$Options()
-	options.minimizer_progress_to_stdout = true
-	summary = ceres.Solver$Summary()
-	ceres.Solve(options, problem, summary)
-	println(summary.BriefReport())
-	println('x : ', x[0])
-}
-testcase('ceres.CostFunction') {
-	ceres.CostFunction() {|costFunction|
-		println(costFunction)
-	}
-}
-testcase('ceres.LossFunction') {
-	ceres.LossFunction() {|lossFunction|
-		println(lossFunction)
-	}
-}
-testcase('ceres.Problem') {
-	println(ceres.Problem.AddResidualBlock)
-	ceres.Problem() {|problem|
-		println(problem)
-	}
-}
-testcase('ceres.Solver$Options') {
-	ceres.Solver$Options() {|options|
-		println(options)
-	}
-}
-testcase('ceres.Solver$Summary') {
-	ceres.Solver$Summary() {|summary|
-		println(summary)
-	}
-}
-testcase {
-	//ceres.sample@helloworld()
-	//ceres.sample@helloworld_analytic_diff()
+	println('m: ', m[0], ' c: ', c[0])
 }
