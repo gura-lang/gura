@@ -3,6 +3,12 @@ import(helper.test) {*}
 import(ceres)
 import(arrayutil)
 
+/*
+testcase {
+	ceres.sample@ellipse_approximation()
+}
+sys.exit()
+*/
 testcase('ceres.CostFunction') {
 	ceres.CostFunction() {|costFunction|
 		println(costFunction)

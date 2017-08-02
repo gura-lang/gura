@@ -33,5 +33,5 @@ builder.build('ceres', ['module-ceres.cpp',
 	'Class_Problem.cpp'
 	'Class_Solver_Options.cpp'
 	'Class_Solver_Summary.cpp'
-	'helloworld.cc', 'helloworld_analytic_diff.cc', 'curve_fitting.cc',
+	'helloworld.cc', 'helloworld_analytic_diff.cc', 'curve_fitting.cc', 'ellipse_approximation.cc'
 	])

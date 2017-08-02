@@ -8,6 +8,7 @@
 int helloworld();
 int helloworld_analytic_diff();
 int curve_fitting();
+int ellipse_approximation();
 
 Gura_BeginModuleBody(ceres)
 
@@ -80,6 +81,21 @@ Gura_ImplementFunction(sample_at_curve_fitting)
 	return Value::Nil;
 }
 
+// ceres.sample@ellipse_approximation():void
+Gura_DeclareFunctionAlias(sample_at_ellipse_approximation, "sample@ellipse_approximation")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementFunction(sample_at_ellipse_approximation)
+{
+	ellipse_approximation();
+	return Value::Nil;
+}
+
 //-----------------------------------------------------------------------------
 // Module Entries
 //-----------------------------------------------------------------------------
@@ -111,6 +127,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(sample_at_helloworld);
 	Gura_AssignFunction(sample_at_helloworld_analytic_diff);
 	Gura_AssignFunction(sample_at_curve_fitting);
+	Gura_AssignFunction(sample_at_ellipse_approximation);
 	return true;
 }
 
