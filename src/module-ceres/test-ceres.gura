@@ -3,21 +3,20 @@ import(helper.test) {*}
 import(ceres)
 import(arrayutil)
 
-/*
-testcase {
-	ceres.sample@ellipse_approximation()
-}
-sys.exit()
-*/
 testcase('ceres.CostFunction') {
 	ceres.CostFunction() {|costFunction|
 		println(costFunction)
 	}
 }
 testcase('ceres.LossFunction') {
-	ceres.LossFunction() {|lossFunction|
-		println(lossFunction)
-	}
+	tester(`ceres.TrivialLoss())
+	tester(`ceres.HuberLoss(0))
+	tester(`ceres.SoftLOneLoss(0))
+	tester(`ceres.CauchyLoss(0))
+	tester(`ceres.ArctanLoss(0))
+	tester(`ceres.TolerantLoss(0, 1))
+	tester(`ceres.ComposedLoss())
+	tester(`ceres.ScaledLoss())
 }
 testcase('ceres.Problem') {
 	println(ceres.Problem.AddResidualBlock)
