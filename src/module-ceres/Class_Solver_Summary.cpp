@@ -18,9 +18,8 @@ String Object_Solver_Summary::ToString(bool exprFlag)
 // Implementation of properties
 //-----------------------------------------------------------------------------
 /*
-MinimizerType minimizer_type;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#minimizer_type
+Gura_DeclareProperty_RW(Solver_Summary, minimizer_type)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -29,22 +28,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, minimizer_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.minimizer_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, minimizer_type)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.minimizer_type = MinimizerType value.Get();
+	return Value(summary.minimizer_type);
 }
 
-TerminationType termination_type;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#termination_type
+Gura_DeclareProperty_RW(Solver_Summary, termination_type)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -53,22 +51,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, termination_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.termination_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, termination_type)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.termination_type = TerminationType value.Get();
+	return Value(summary.termination_type);
 }
 
-std::string message;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#string message
+Gura_DeclareProperty_RW(Solver_Summary, string message)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -77,22 +74,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, string message)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.string message);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, string message)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.string message = std value.Get();
+	return Value(summary.string message);
 }
 
-double initial_cost;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#initial_cost
+Gura_DeclareProperty_RW(Solver_Summary, initial_cost)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -101,22 +97,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, initial_cost)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.initial_cost);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, initial_cost)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.initial_cost = double value.Get();
+	return Value(summary.initial_cost);
 }
 
-double final_cost;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#final_cost
+Gura_DeclareProperty_RW(Solver_Summary, final_cost)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -125,22 +120,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, final_cost)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.final_cost);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, final_cost)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.final_cost = double value.Get();
+	return Value(summary.final_cost);
 }
 
-double fixed_cost;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#fixed_cost
+Gura_DeclareProperty_RW(Solver_Summary, fixed_cost)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -149,22 +143,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, fixed_cost)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.fixed_cost);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, fixed_cost)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.fixed_cost = double value.Get();
+	return Value(summary.fixed_cost);
 }
 
-int num_successful_steps;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_successful_steps
+Gura_DeclareProperty_RW(Solver_Summary, num_successful_steps)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -173,22 +166,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_successful_steps)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_successful_steps);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_successful_steps)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_successful_steps = int value.Get();
+	return Value(summary.num_successful_steps);
 }
 
-int num_unsuccessful_steps;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_unsuccessful_steps
+Gura_DeclareProperty_RW(Solver_Summary, num_unsuccessful_steps)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -197,22 +189,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_unsuccessful_steps)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_unsuccessful_steps);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_unsuccessful_steps)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_unsuccessful_steps = int value.Get();
+	return Value(summary.num_unsuccessful_steps);
 }
 
-int num_inner_iteration_steps;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_inner_iteration_steps
+Gura_DeclareProperty_RW(Solver_Summary, num_inner_iteration_steps)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -221,22 +212,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_inner_iteration_steps)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_inner_iteration_steps);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_inner_iteration_steps)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_inner_iteration_steps = int value.Get();
+	return Value(summary.num_inner_iteration_steps);
 }
 
-int num_line_search_steps;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_line_search_steps
+Gura_DeclareProperty_RW(Solver_Summary, num_line_search_steps)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -245,22 +235,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_line_search_steps)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_line_search_steps);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_line_search_steps)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_line_search_steps = int value.Get();
+	return Value(summary.num_line_search_steps);
 }
 
-double preprocessor_time_in_seconds;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#preprocessor_time_in_seconds
+Gura_DeclareProperty_RW(Solver_Summary, preprocessor_time_in_seconds)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -269,22 +258,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, preprocessor_time_in_seconds)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.preprocessor_time_in_seconds);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, preprocessor_time_in_seconds)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.preprocessor_time_in_seconds = double value.Get();
+	return Value(summary.preprocessor_time_in_seconds);
 }
 
-double minimizer_time_in_seconds;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#minimizer_time_in_seconds
+Gura_DeclareProperty_RW(Solver_Summary, minimizer_time_in_seconds)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -293,22 +281,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, minimizer_time_in_seconds)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.minimizer_time_in_seconds);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, minimizer_time_in_seconds)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.minimizer_time_in_seconds = double value.Get();
+	return Value(summary.minimizer_time_in_seconds);
 }
 
-double postprocessor_time_in_seconds;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#postprocessor_time_in_seconds
+Gura_DeclareProperty_RW(Solver_Summary, postprocessor_time_in_seconds)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -317,22 +304,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, postprocessor_time_in_seconds)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.postprocessor_time_in_seconds);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, postprocessor_time_in_seconds)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.postprocessor_time_in_seconds = double value.Get();
+	return Value(summary.postprocessor_time_in_seconds);
 }
 
-double total_time_in_seconds;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#total_time_in_seconds
+Gura_DeclareProperty_RW(Solver_Summary, total_time_in_seconds)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -341,22 +327,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, total_time_in_seconds)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.total_time_in_seconds);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, total_time_in_seconds)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.total_time_in_seconds = double value.Get();
+	return Value(summary.total_time_in_seconds);
 }
 
-double linear_solver_time_in_seconds;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#linear_solver_time_in_seconds
+Gura_DeclareProperty_RW(Solver_Summary, linear_solver_time_in_seconds)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -365,22 +350,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, linear_solver_time_in_seconds)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.linear_solver_time_in_seconds);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, linear_solver_time_in_seconds)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.linear_solver_time_in_seconds = double value.Get();
+	return Value(summary.linear_solver_time_in_seconds);
 }
 
-double residual_evaluation_time_in_seconds;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#residual_evaluation_time_in_seconds
+Gura_DeclareProperty_RW(Solver_Summary, residual_evaluation_time_in_seconds)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -389,22 +373,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, residual_evaluation_time_in_seconds)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.residual_evaluation_time_in_seconds);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, residual_evaluation_time_in_seconds)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.residual_evaluation_time_in_seconds = double value.Get();
+	return Value(summary.residual_evaluation_time_in_seconds);
 }
 
-double jacobian_evaluation_time_in_seconds;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#jacobian_evaluation_time_in_seconds
+Gura_DeclareProperty_RW(Solver_Summary, jacobian_evaluation_time_in_seconds)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -413,22 +396,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, jacobian_evaluation_time_in_seconds)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.jacobian_evaluation_time_in_seconds);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, jacobian_evaluation_time_in_seconds)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.jacobian_evaluation_time_in_seconds = double value.Get();
+	return Value(summary.jacobian_evaluation_time_in_seconds);
 }
 
-double inner_iteration_time_in_seconds;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#inner_iteration_time_in_seconds
+Gura_DeclareProperty_RW(Solver_Summary, inner_iteration_time_in_seconds)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -437,22 +419,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, inner_iteration_time_in_seconds)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.inner_iteration_time_in_seconds);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, inner_iteration_time_in_seconds)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.inner_iteration_time_in_seconds = double value.Get();
+	return Value(summary.inner_iteration_time_in_seconds);
 }
 
-double line_search_cost_evaluation_time_in_seconds;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#line_search_cost_evaluation_time_in_seconds
+Gura_DeclareProperty_RW(Solver_Summary, line_search_cost_evaluation_time_in_seconds)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -461,22 +442,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, line_search_cost_evaluation_time_in_seconds)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.line_search_cost_evaluation_time_in_seconds);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, line_search_cost_evaluation_time_in_seconds)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.line_search_cost_evaluation_time_in_seconds = double value.Get();
+	return Value(summary.line_search_cost_evaluation_time_in_seconds);
 }
 
-double line_search_gradient_evaluation_time_in_seconds;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#line_search_gradient_evaluation_time_in_seconds
+Gura_DeclareProperty_RW(Solver_Summary, line_search_gradient_evaluation_time_in_seconds)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -485,22 +465,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, line_search_gradient_evaluation_time_in_seconds)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.line_search_gradient_evaluation_time_in_seconds);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, line_search_gradient_evaluation_time_in_seconds)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.line_search_gradient_evaluation_time_in_seconds = double value.Get();
+	return Value(summary.line_search_gradient_evaluation_time_in_seconds);
 }
 
-double line_search_polynomial_minimization_time_in_seconds;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#line_search_polynomial_minimization_time_in_seconds
+Gura_DeclareProperty_RW(Solver_Summary, line_search_polynomial_minimization_time_in_seconds)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -509,22 +488,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, line_search_polynomial_minimization_time_in_seconds)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.line_search_polynomial_minimization_time_in_seconds);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, line_search_polynomial_minimization_time_in_seconds)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.line_search_polynomial_minimization_time_in_seconds = double value.Get();
+	return Value(summary.line_search_polynomial_minimization_time_in_seconds);
 }
 
-double line_search_total_time_in_seconds;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#line_search_total_time_in_seconds
+Gura_DeclareProperty_RW(Solver_Summary, line_search_total_time_in_seconds)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -533,22 +511,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, line_search_total_time_in_seconds)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.line_search_total_time_in_seconds);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, line_search_total_time_in_seconds)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.line_search_total_time_in_seconds = double value.Get();
+	return Value(summary.line_search_total_time_in_seconds);
 }
 
-int num_parameter_blocks;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_parameter_blocks
+Gura_DeclareProperty_RW(Solver_Summary, num_parameter_blocks)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -557,22 +534,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_parameter_blocks)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_parameter_blocks);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_parameter_blocks)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_parameter_blocks = int value.Get();
+	return Value(summary.num_parameter_blocks);
 }
 
-int num_parameters;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_parameters
+Gura_DeclareProperty_RW(Solver_Summary, num_parameters)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -581,22 +557,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_parameters)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_parameters);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_parameters)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_parameters = int value.Get();
+	return Value(summary.num_parameters);
 }
 
-int num_effective_parameters;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_effective_parameters
+Gura_DeclareProperty_RW(Solver_Summary, num_effective_parameters)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -605,22 +580,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_effective_parameters)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_effective_parameters);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_effective_parameters)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_effective_parameters = int value.Get();
+	return Value(summary.num_effective_parameters);
 }
 
-int num_residual_blocks;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_residual_blocks
+Gura_DeclareProperty_RW(Solver_Summary, num_residual_blocks)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -629,22 +603,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_residual_blocks)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_residual_blocks);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_residual_blocks)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_residual_blocks = int value.Get();
+	return Value(summary.num_residual_blocks);
 }
 
-int num_residuals;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_residuals
+Gura_DeclareProperty_RW(Solver_Summary, num_residuals)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -653,22 +626,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_residuals)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_residuals);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_residuals)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_residuals = int value.Get();
+	return Value(summary.num_residuals);
 }
 
-int num_parameter_blocks_reduced;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_parameter_blocks_reduced
+Gura_DeclareProperty_RW(Solver_Summary, num_parameter_blocks_reduced)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -677,22 +649,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_parameter_blocks_reduced)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_parameter_blocks_reduced);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_parameter_blocks_reduced)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_parameter_blocks_reduced = int value.Get();
+	return Value(summary.num_parameter_blocks_reduced);
 }
 
-int num_parameters_reduced;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_parameters_reduced
+Gura_DeclareProperty_RW(Solver_Summary, num_parameters_reduced)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -701,22 +672,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_parameters_reduced)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_parameters_reduced);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_parameters_reduced)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_parameters_reduced = int value.Get();
+	return Value(summary.num_parameters_reduced);
 }
 
-int num_effective_parameters_reduced;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_effective_parameters_reduced
+Gura_DeclareProperty_RW(Solver_Summary, num_effective_parameters_reduced)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -725,22 +695,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_effective_parameters_reduced)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_effective_parameters_reduced);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_effective_parameters_reduced)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_effective_parameters_reduced = int value.Get();
+	return Value(summary.num_effective_parameters_reduced);
 }
 
-int num_residual_blocks_reduced;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_residual_blocks_reduced
+Gura_DeclareProperty_RW(Solver_Summary, num_residual_blocks_reduced)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -749,22 +718,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_residual_blocks_reduced)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_residual_blocks_reduced);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_residual_blocks_reduced)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_residual_blocks_reduced = int value.Get();
+	return Value(summary.num_residual_blocks_reduced);
 }
 
-int num_residuals_reduced;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_residuals_reduced
+Gura_DeclareProperty_RW(Solver_Summary, num_residuals_reduced)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -773,22 +741,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_residuals_reduced)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_residuals_reduced);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_residuals_reduced)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_residuals_reduced = int value.Get();
+	return Value(summary.num_residuals_reduced);
 }
 
-bool is_constrained;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#is_constrained
+Gura_DeclareProperty_RW(Solver_Summary, is_constrained)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -797,22 +764,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, is_constrained)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.is_constrained);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, is_constrained)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.is_constrained = bool value.Get();
+	return Value(summary.is_constrained);
 }
 
-int num_threads_given;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_threads_given
+Gura_DeclareProperty_RW(Solver_Summary, num_threads_given)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -821,22 +787,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_threads_given)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_threads_given);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_threads_given)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_threads_given = int value.Get();
+	return Value(summary.num_threads_given);
 }
 
-int num_threads_used;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_threads_used
+Gura_DeclareProperty_RW(Solver_Summary, num_threads_used)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -845,22 +810,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_threads_used)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_threads_used);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_threads_used)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_threads_used = int value.Get();
+	return Value(summary.num_threads_used);
 }
 
-int num_linear_solver_threads_given;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_linear_solver_threads_given
+Gura_DeclareProperty_RW(Solver_Summary, num_linear_solver_threads_given)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -869,22 +833,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_linear_solver_threads_given)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_linear_solver_threads_given);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_linear_solver_threads_given)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_linear_solver_threads_given = int value.Get();
+	return Value(summary.num_linear_solver_threads_given);
 }
 
-int num_linear_solver_threads_used;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#num_linear_solver_threads_used
+Gura_DeclareProperty_RW(Solver_Summary, num_linear_solver_threads_used)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -893,22 +856,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, num_linear_solver_threads_used)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.num_linear_solver_threads_used);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, num_linear_solver_threads_used)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.num_linear_solver_threads_used = int value.Get();
+	return Value(summary.num_linear_solver_threads_used);
 }
 
-LinearSolverType linear_solver_type_given;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#linear_solver_type_given
+Gura_DeclareProperty_RW(Solver_Summary, linear_solver_type_given)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -917,22 +879,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, linear_solver_type_given)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.linear_solver_type_given);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, linear_solver_type_given)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.linear_solver_type_given = LinearSolverType value.Get();
+	return Value(summary.linear_solver_type_given);
 }
 
-LinearSolverType linear_solver_type_used;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#linear_solver_type_used
+Gura_DeclareProperty_RW(Solver_Summary, linear_solver_type_used)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -941,22 +902,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, linear_solver_type_used)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.linear_solver_type_used);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, linear_solver_type_used)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.linear_solver_type_used = LinearSolverType value.Get();
+	return Value(summary.linear_solver_type_used);
 }
 
-bool inner_iterations_given;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#inner_iterations_given
+Gura_DeclareProperty_RW(Solver_Summary, inner_iterations_given)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -965,22 +925,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, inner_iterations_given)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.inner_iterations_given);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, inner_iterations_given)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.inner_iterations_given = bool value.Get();
+	return Value(summary.inner_iterations_given);
 }
 
-bool inner_iterations_used;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#inner_iterations_used
+Gura_DeclareProperty_RW(Solver_Summary, inner_iterations_used)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -989,22 +948,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, inner_iterations_used)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.inner_iterations_used);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, inner_iterations_used)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.inner_iterations_used = bool value.Get();
+	return Value(summary.inner_iterations_used);
 }
 
-PreconditionerType preconditioner_type_given;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#preconditioner_type_given
+Gura_DeclareProperty_RW(Solver_Summary, preconditioner_type_given)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -1013,22 +971,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, preconditioner_type_given)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.preconditioner_type_given);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, preconditioner_type_given)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.preconditioner_type_given = PreconditionerType value.Get();
+	return Value(summary.preconditioner_type_given);
 }
 
-PreconditionerType preconditioner_type_used;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#preconditioner_type_used
+Gura_DeclareProperty_RW(Solver_Summary, preconditioner_type_used)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -1037,22 +994,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, preconditioner_type_used)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.preconditioner_type_used);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, preconditioner_type_used)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.preconditioner_type_used = PreconditionerType value.Get();
+	return Value(summary.preconditioner_type_used);
 }
 
-VisibilityClusteringType visibility_clustering_type;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#visibility_clustering_type
+Gura_DeclareProperty_RW(Solver_Summary, visibility_clustering_type)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -1061,22 +1017,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, visibility_clustering_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.visibility_clustering_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, visibility_clustering_type)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.visibility_clustering_type = VisibilityClusteringType value.Get();
+	return Value(summary.visibility_clustering_type);
 }
 
-TrustRegionStrategyType trust_region_strategy_type;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#trust_region_strategy_type
+Gura_DeclareProperty_RW(Solver_Summary, trust_region_strategy_type)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -1085,22 +1040,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, trust_region_strategy_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.trust_region_strategy_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, trust_region_strategy_type)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.trust_region_strategy_type = TrustRegionStrategyType value.Get();
+	return Value(summary.trust_region_strategy_type);
 }
 
-DoglegType dogleg_type;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#dogleg_type
+Gura_DeclareProperty_RW(Solver_Summary, dogleg_type)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -1109,22 +1063,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, dogleg_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.dogleg_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, dogleg_type)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.dogleg_type = DoglegType value.Get();
+	return Value(summary.dogleg_type);
 }
 
-DenseLinearAlgebraLibraryType dense_linear_algebra_library_type;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#dense_linear_algebra_library_type
+Gura_DeclareProperty_RW(Solver_Summary, dense_linear_algebra_library_type)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -1133,22 +1086,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, dense_linear_algebra_library_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.dense_linear_algebra_library_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, dense_linear_algebra_library_type)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.dense_linear_algebra_library_type = DenseLinearAlgebraLibraryType value.Get();
+	return Value(summary.dense_linear_algebra_library_type);
 }
 
-SparseLinearAlgebraLibraryType sparse_linear_algebra_library_type;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#sparse_linear_algebra_library_type
+Gura_DeclareProperty_RW(Solver_Summary, sparse_linear_algebra_library_type)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -1157,22 +1109,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, sparse_linear_algebra_library_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.sparse_linear_algebra_library_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, sparse_linear_algebra_library_type)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.sparse_linear_algebra_library_type = SparseLinearAlgebraLibraryType value.Get();
+	return Value(summary.sparse_linear_algebra_library_type);
 }
 
-LineSearchDirectionType line_search_direction_type;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#line_search_direction_type
+Gura_DeclareProperty_RW(Solver_Summary, line_search_direction_type)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -1181,22 +1132,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, line_search_direction_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.line_search_direction_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, line_search_direction_type)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.line_search_direction_type = LineSearchDirectionType value.Get();
+	return Value(summary.line_search_direction_type);
 }
 
-LineSearchType line_search_type;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#line_search_type
+Gura_DeclareProperty_RW(Solver_Summary, line_search_type)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -1205,22 +1155,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, line_search_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.line_search_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, line_search_type)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.line_search_type = LineSearchType value.Get();
+	return Value(summary.line_search_type);
 }
 
-LineSearchInterpolationType line_search_interpolation_type;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#line_search_interpolation_type
+Gura_DeclareProperty_RW(Solver_Summary, line_search_interpolation_type)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -1229,22 +1178,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, line_search_interpolation_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.line_search_interpolation_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, line_search_interpolation_type)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.line_search_interpolation_type = LineSearchInterpolationType value.Get();
+	return Value(summary.line_search_interpolation_type);
 }
 
-NonlinearConjugateGradientType nonlinear_conjugate_gradient_type;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#nonlinear_conjugate_gradient_type
+Gura_DeclareProperty_RW(Solver_Summary, nonlinear_conjugate_gradient_type)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -1253,22 +1201,21 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, nonlinear_conjugate_gradient_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.nonlinear_conjugate_gradient_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, nonlinear_conjugate_gradient_type)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.nonlinear_conjugate_gradient_type = NonlinearConjugateGradientType value.Get();
+	return Value(summary.nonlinear_conjugate_gradient_type);
 }
 
-int max_lbfgs_rank;
-// ceres.Solver$Summary#
-Gura_DeclareProperty_RW(Solver_Summary, )
+// ceres.Solver$Summary#max_lbfgs_rank
+Gura_DeclareProperty_RW(Solver_Summary, max_lbfgs_rank)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -1277,17 +1224,17 @@ Gura_DeclareProperty_RW(Solver_Summary, )
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, )
+Gura_ImplementPropertyGetter(Solver_Summary, max_lbfgs_rank)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.);
+	return Value(summary.max_lbfgs_rank);
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, )
+Gura_ImplementPropertySetter(Solver_Summary, max_lbfgs_rank)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary. = value.Get();
-	return Value(summary.);
+	summary.max_lbfgs_rank = int value.Get();
+	return Value(summary.max_lbfgs_rank);
 }
 
 std::vector<IterationSummary> iterations;
