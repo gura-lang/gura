@@ -18,1273 +18,1109 @@ String Object_Solver_Options::ToString(bool exprFlag)
 // Implementation of properties
 //-----------------------------------------------------------------------------
 /*
-number      minimizer_type
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+// ceres.Solver$Options#minimizer_type
+Gura_DeclareProperty_RW(Solver_Options, minimizer_type)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, minimizer_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.minimizer_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, minimizer_type)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.minimizer_type = value.Get();
+	return Value(options.minimizer_type);
 }
-number      line_search_direction_type
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#line_search_direction_type
+Gura_DeclareProperty_RW(Solver_Options, line_search_direction_type)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, line_search_direction_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.line_search_direction_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, line_search_direction_type)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.line_search_direction_type = value.Get();
+	return Value(options.line_search_direction_type);
 }
-number      line_search_type
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#line_search_type
+Gura_DeclareProperty_RW(Solver_Options, line_search_type)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, line_search_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.line_search_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, line_search_type)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.line_search_type = value.Get();
+	return Value(options.line_search_type);
 }
-number      nonlinear_conjugate_gradient_type
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#nonlinear_conjugate_gradient_type
+Gura_DeclareProperty_RW(Solver_Options, nonlinear_conjugate_gradient_type)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, nonlinear_conjugate_gradient_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.nonlinear_conjugate_gradient_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, nonlinear_conjugate_gradient_type)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.nonlinear_conjugate_gradient_type = value.Get();
+	return Value(options.nonlinear_conjugate_gradient_type);
 }
-number      max_lbfgs_rank
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#max_lbfgs_rank
+Gura_DeclareProperty_RW(Solver_Options, max_lbfgs_rank)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, max_lbfgs_rank)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.max_lbfgs_rank);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, max_lbfgs_rank)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.max_lbfgs_rank = value.Get();
+	return Value(options.max_lbfgs_rank);
 }
-boolean      use_approximate_eigenvalue_bfgs_scaling
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#use_approximate_eigenvalue_bfgs_scaling
+Gura_DeclareProperty_RW(Solver_Options, use_approximate_eigenvalue_bfgs_scaling)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, use_approximate_eigenvalue_bfgs_scaling)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.use_approximate_eigenvalue_bfgs_scaling);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, use_approximate_eigenvalue_bfgs_scaling)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.use_approximate_eigenvalue_bfgs_scaling = value.Get();
+	return Value(options.use_approximate_eigenvalue_bfgs_scaling);
 }
-number      line_search_interpolation_type
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#line_search_interpolation_type
+Gura_DeclareProperty_RW(Solver_Options, line_search_interpolation_type)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, line_search_interpolation_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.line_search_interpolation_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, line_search_interpolation_type)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.line_search_interpolation_type = value.Get();
+	return Value(options.line_search_interpolation_type);
 }
-number      min_line_search_step_size
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#min_line_search_step_size
+Gura_DeclareProperty_RW(Solver_Options, min_line_search_step_size)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, min_line_search_step_size)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.min_line_search_step_size);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, min_line_search_step_size)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.min_line_search_step_size = value.Get();
+	return Value(options.min_line_search_step_size);
 }
-number      line_search_sufficient_function_decrease
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#line_search_sufficient_function_decrease
+Gura_DeclareProperty_RW(Solver_Options, line_search_sufficient_function_decrease)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, line_search_sufficient_function_decrease)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.line_search_sufficient_function_decrease);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, line_search_sufficient_function_decrease)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.line_search_sufficient_function_decrease = value.Get();
+	return Value(options.line_search_sufficient_function_decrease);
 }
-number      max_line_search_step_contraction
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#max_line_search_step_contraction
+Gura_DeclareProperty_RW(Solver_Options, max_line_search_step_contraction)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, max_line_search_step_contraction)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.max_line_search_step_contraction);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, max_line_search_step_contraction)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.max_line_search_step_contraction = value.Get();
+	return Value(options.max_line_search_step_contraction);
 }
-number      min_line_search_step_contraction
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#min_line_search_step_contraction
+Gura_DeclareProperty_RW(Solver_Options, min_line_search_step_contraction)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, min_line_search_step_contraction)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.min_line_search_step_contraction);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, min_line_search_step_contraction)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.min_line_search_step_contraction = value.Get();
+	return Value(options.min_line_search_step_contraction);
 }
-number      max_num_line_search_step_size_iterations
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#max_num_line_search_step_size_iterations
+Gura_DeclareProperty_RW(Solver_Options, max_num_line_search_step_size_iterations)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, max_num_line_search_step_size_iterations)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.max_num_line_search_step_size_iterations);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, max_num_line_search_step_size_iterations)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.max_num_line_search_step_size_iterations = value.Get();
+	return Value(options.max_num_line_search_step_size_iterations);
 }
-number      max_num_line_search_direction_restarts
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#max_num_line_search_direction_restarts
+Gura_DeclareProperty_RW(Solver_Options, max_num_line_search_direction_restarts)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, max_num_line_search_direction_restarts)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.max_num_line_search_direction_restarts);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, max_num_line_search_direction_restarts)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.max_num_line_search_direction_restarts = value.Get();
+	return Value(options.max_num_line_search_direction_restarts);
 }
-number      line_search_sufficient_curvature_decrease
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#line_search_sufficient_curvature_decrease
+Gura_DeclareProperty_RW(Solver_Options, line_search_sufficient_curvature_decrease)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, line_search_sufficient_curvature_decrease)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.line_search_sufficient_curvature_decrease);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, line_search_sufficient_curvature_decrease)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.line_search_sufficient_curvature_decrease = value.Get();
+	return Value(options.line_search_sufficient_curvature_decrease);
 }
-number      max_line_search_step_expansion
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#max_line_search_step_expansion
+Gura_DeclareProperty_RW(Solver_Options, max_line_search_step_expansion)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, max_line_search_step_expansion)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.max_line_search_step_expansion);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, max_line_search_step_expansion)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.max_line_search_step_expansion = value.Get();
+	return Value(options.max_line_search_step_expansion);
 }
-number      trust_region_strategy_type
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#trust_region_strategy_type
+Gura_DeclareProperty_RW(Solver_Options, trust_region_strategy_type)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, trust_region_strategy_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.trust_region_strategy_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, trust_region_strategy_type)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.trust_region_strategy_type = value.Get();
+	return Value(options.trust_region_strategy_type);
 }
-number      dogleg_type
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#dogleg_type
+Gura_DeclareProperty_RW(Solver_Options, dogleg_type)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, dogleg_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.dogleg_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, dogleg_type)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.dogleg_type = value.Get();
+	return Value(options.dogleg_type);
 }
-boolean      use_nonmonotonic_steps
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#use_nonmonotonic_steps
+Gura_DeclareProperty_RW(Solver_Options, use_nonmonotonic_steps)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, use_nonmonotonic_steps)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.use_nonmonotonic_steps);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, use_nonmonotonic_steps)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.use_nonmonotonic_steps = value.Get();
+	return Value(options.use_nonmonotonic_steps);
 }
-number      max_consecutive_nonmonotonic_steps
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#max_consecutive_nonmonotonic_steps
+Gura_DeclareProperty_RW(Solver_Options, max_consecutive_nonmonotonic_steps)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, max_consecutive_nonmonotonic_steps)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.max_consecutive_nonmonotonic_steps);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, max_consecutive_nonmonotonic_steps)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.max_consecutive_nonmonotonic_steps = value.Get();
+	return Value(options.max_consecutive_nonmonotonic_steps);
 }
-number      max_num_iterations
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#max_num_iterations
+Gura_DeclareProperty_RW(Solver_Options, max_num_iterations)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, max_num_iterations)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.max_num_iterations);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, max_num_iterations)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.max_num_iterations = value.Get();
+	return Value(options.max_num_iterations);
 }
-number      max_solver_time_in_seconds
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#max_solver_time_in_seconds
+Gura_DeclareProperty_RW(Solver_Options, max_solver_time_in_seconds)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, max_solver_time_in_seconds)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.max_solver_time_in_seconds);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, max_solver_time_in_seconds)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.max_solver_time_in_seconds = value.Get();
+	return Value(options.max_solver_time_in_seconds);
 }
-number      num_threads
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#num_threads
+Gura_DeclareProperty_RW(Solver_Options, num_threads)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, num_threads)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.num_threads);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, num_threads)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.num_threads = value.Get();
+	return Value(options.num_threads);
 }
-number      initial_trust_region_radius
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#initial_trust_region_radius
+Gura_DeclareProperty_RW(Solver_Options, initial_trust_region_radius)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, initial_trust_region_radius)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.initial_trust_region_radius);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, initial_trust_region_radius)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.initial_trust_region_radius = value.Get();
+	return Value(options.initial_trust_region_radius);
 }
-number      max_trust_region_radius
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#max_trust_region_radius
+Gura_DeclareProperty_RW(Solver_Options, max_trust_region_radius)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, max_trust_region_radius)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.max_trust_region_radius);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, max_trust_region_radius)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.max_trust_region_radius = value.Get();
+	return Value(options.max_trust_region_radius);
 }
-number      min_trust_region_radius
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#min_trust_region_radius
+Gura_DeclareProperty_RW(Solver_Options, min_trust_region_radius)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, min_trust_region_radius)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.min_trust_region_radius);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, min_trust_region_radius)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.min_trust_region_radius = value.Get();
+	return Value(options.min_trust_region_radius);
 }
-number      min_relative_decrease
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#min_relative_decrease
+Gura_DeclareProperty_RW(Solver_Options, min_relative_decrease)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, min_relative_decrease)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.min_relative_decrease);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, min_relative_decrease)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.min_relative_decrease = value.Get();
+	return Value(options.min_relative_decrease);
 }
-number      min_lm_diagonal
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#min_lm_diagonal
+Gura_DeclareProperty_RW(Solver_Options, min_lm_diagonal)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, min_lm_diagonal)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.min_lm_diagonal);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, min_lm_diagonal)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.min_lm_diagonal = value.Get();
+	return Value(options.min_lm_diagonal);
 }
-number      max_lm_diagonal
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#max_lm_diagonal
+Gura_DeclareProperty_RW(Solver_Options, max_lm_diagonal)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, max_lm_diagonal)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.max_lm_diagonal);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, max_lm_diagonal)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.max_lm_diagonal = value.Get();
+	return Value(options.max_lm_diagonal);
 }
-number      max_num_consecutive_invalid_steps
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#max_num_consecutive_invalid_steps
+Gura_DeclareProperty_RW(Solver_Options, max_num_consecutive_invalid_steps)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, max_num_consecutive_invalid_steps)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.max_num_consecutive_invalid_steps);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, max_num_consecutive_invalid_steps)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.max_num_consecutive_invalid_steps = value.Get();
+	return Value(options.max_num_consecutive_invalid_steps);
 }
-number      function_tolerance
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#function_tolerance
+Gura_DeclareProperty_RW(Solver_Options, function_tolerance)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, function_tolerance)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.function_tolerance);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, function_tolerance)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.function_tolerance = value.Get();
+	return Value(options.function_tolerance);
 }
-number      gradient_tolerance
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#gradient_tolerance
+Gura_DeclareProperty_RW(Solver_Options, gradient_tolerance)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, gradient_tolerance)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.gradient_tolerance);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, gradient_tolerance)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.gradient_tolerance = value.Get();
+	return Value(options.gradient_tolerance);
 }
-number      parameter_tolerance
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#parameter_tolerance
+Gura_DeclareProperty_RW(Solver_Options, parameter_tolerance)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, parameter_tolerance)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.parameter_tolerance);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, parameter_tolerance)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.parameter_tolerance = value.Get();
+	return Value(options.parameter_tolerance);
 }
-number      linear_solver_type
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#linear_solver_type
+Gura_DeclareProperty_RW(Solver_Options, linear_solver_type)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, linear_solver_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.linear_solver_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, linear_solver_type)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.linear_solver_type = value.Get();
+	return Value(options.linear_solver_type);
 }
-number      preconditioner_type
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#preconditioner_type
+Gura_DeclareProperty_RW(Solver_Options, preconditioner_type)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, preconditioner_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.preconditioner_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, preconditioner_type)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.preconditioner_type = value.Get();
+	return Value(options.preconditioner_type);
 }
-number      visibility_clustering_type
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#visibility_clustering_type
+Gura_DeclareProperty_RW(Solver_Options, visibility_clustering_type)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, visibility_clustering_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.visibility_clustering_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, visibility_clustering_type)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.visibility_clustering_type = value.Get();
+	return Value(options.visibility_clustering_type);
 }
-number      dense_linear_algebra_library_type
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#dense_linear_algebra_library_type
+Gura_DeclareProperty_RW(Solver_Options, dense_linear_algebra_library_type)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, dense_linear_algebra_library_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.dense_linear_algebra_library_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, dense_linear_algebra_library_type)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.dense_linear_algebra_library_type = value.Get();
+	return Value(options.dense_linear_algebra_library_type);
 }
-number      sparse_linear_algebra_library_type
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#sparse_linear_algebra_library_type
+Gura_DeclareProperty_RW(Solver_Options, sparse_linear_algebra_library_type)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, sparse_linear_algebra_library_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.sparse_linear_algebra_library_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, sparse_linear_algebra_library_type)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.sparse_linear_algebra_library_type = value.Get();
+	return Value(options.sparse_linear_algebra_library_type);
 }
-number      num_linear_solver_threads
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#num_linear_solver_threads
+Gura_DeclareProperty_RW(Solver_Options, num_linear_solver_threads)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, num_linear_solver_threads)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.num_linear_solver_threads);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, num_linear_solver_threads)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.num_linear_solver_threads = value.Get();
+	return Value(options.num_linear_solver_threads);
 }
-boolean      use_explicit_schur_complement
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#use_explicit_schur_complement
+Gura_DeclareProperty_RW(Solver_Options, use_explicit_schur_complement)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, use_explicit_schur_complement)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.use_explicit_schur_complement);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, use_explicit_schur_complement)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.use_explicit_schur_complement = value.Get();
+	return Value(options.use_explicit_schur_complement);
 }
-boolean      use_postordering
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#use_postordering
+Gura_DeclareProperty_RW(Solver_Options, use_postordering)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, use_postordering)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.use_postordering);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, use_postordering)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.use_postordering = value.Get();
+	return Value(options.use_postordering);
 }
-boolean      dynamic_sparsity
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#dynamic_sparsity
+Gura_DeclareProperty_RW(Solver_Options, dynamic_sparsity)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, dynamic_sparsity)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.dynamic_sparsity);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, dynamic_sparsity)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.dynamic_sparsity = value.Get();
+	return Value(options.dynamic_sparsity);
 }
-number      min_linear_solver_iterations
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#min_linear_solver_iterations
+Gura_DeclareProperty_RW(Solver_Options, min_linear_solver_iterations)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, min_linear_solver_iterations)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.min_linear_solver_iterations);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, min_linear_solver_iterations)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.min_linear_solver_iterations = value.Get();
+	return Value(options.min_linear_solver_iterations);
 }
-number      max_linear_solver_iterations
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#max_linear_solver_iterations
+Gura_DeclareProperty_RW(Solver_Options, max_linear_solver_iterations)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, max_linear_solver_iterations)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.max_linear_solver_iterations);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, max_linear_solver_iterations)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.max_linear_solver_iterations = value.Get();
+	return Value(options.max_linear_solver_iterations);
 }
-number      eta
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#eta
+Gura_DeclareProperty_RW(Solver_Options, eta)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, eta)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.eta);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, eta)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.eta = value.Get();
+	return Value(options.eta);
 }
-boolean      jacobi_scaling
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#jacobi_scaling
+Gura_DeclareProperty_RW(Solver_Options, jacobi_scaling)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, jacobi_scaling)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.jacobi_scaling);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, jacobi_scaling)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.jacobi_scaling = value.Get();
+	return Value(options.jacobi_scaling);
 }
-boolean      use_inner_iterations
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#use_inner_iterations
+Gura_DeclareProperty_RW(Solver_Options, use_inner_iterations)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, use_inner_iterations)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.use_inner_iterations);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, use_inner_iterations)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.use_inner_iterations = value.Get();
+	return Value(options.use_inner_iterations);
 }
-number      inner_iteration_tolerance
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#inner_iteration_tolerance
+Gura_DeclareProperty_RW(Solver_Options, inner_iteration_tolerance)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, inner_iteration_tolerance)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.inner_iteration_tolerance);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, inner_iteration_tolerance)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.inner_iteration_tolerance = value.Get();
+	return Value(options.inner_iteration_tolerance);
 }
-number      logging_type
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
+
+// ceres.Solver$Options#logging_type
+Gura_DeclareProperty_RW(Solver_Options, logging_type)
 {
-	SetPropAttr(VTYPE_);
+	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Options, )
+Gura_ImplementPropertyGetter(Solver_Options, logging_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
+	return Value(options.logging_type);
 }
 
-Gura_ImplementPropertySetter(Solver_Options, )
+Gura_ImplementPropertySetter(Solver_Options, logging_type)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
+	options.logging_type = value.Get();
+	return Value(options.logging_type);
 }
-boolean      minimizer_progress_to_stdout
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
-{
-	SetPropAttr(VTYPE_);
-	AddHelp(
-		Gura_Symbol(en),
-		""
-		);
-}
-
-Gura_ImplementPropertyGetter(Solver_Options, )
-{
-	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
-}
-
-Gura_ImplementPropertySetter(Solver_Options, )
-{
-	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
-}
-string      trust_region_problem_dump_directory
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
-{
-	SetPropAttr(VTYPE_);
-	AddHelp(
-		Gura_Symbol(en),
-		""
-		);
-}
-
-Gura_ImplementPropertyGetter(Solver_Options, )
-{
-	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
-}
-
-Gura_ImplementPropertySetter(Solver_Options, )
-{
-	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
-}
-number      trust_region_problem_dump_format_type
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
-{
-	SetPropAttr(VTYPE_);
-	AddHelp(
-		Gura_Symbol(en),
-		""
-		);
-}
-
-Gura_ImplementPropertyGetter(Solver_Options, )
-{
-	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
-}
-
-Gura_ImplementPropertySetter(Solver_Options, )
-{
-	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
-}
-boolean      check_gradients
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
-{
-	SetPropAttr(VTYPE_);
-	AddHelp(
-		Gura_Symbol(en),
-		""
-		);
-}
-
-Gura_ImplementPropertyGetter(Solver_Options, )
-{
-	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
-}
-
-Gura_ImplementPropertySetter(Solver_Options, )
-{
-	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
-}
-number      gradient_check_relative_precision
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
-{
-	SetPropAttr(VTYPE_);
-	AddHelp(
-		Gura_Symbol(en),
-		""
-		);
-}
-
-Gura_ImplementPropertyGetter(Solver_Options, )
-{
-	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
-}
-
-Gura_ImplementPropertySetter(Solver_Options, )
-{
-	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
-}
-number      gradient_check_numeric_derivative_relative_step_size
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
-{
-	SetPropAttr(VTYPE_);
-	AddHelp(
-		Gura_Symbol(en),
-		""
-		);
-}
-
-Gura_ImplementPropertyGetter(Solver_Options, )
-{
-	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
-}
-
-Gura_ImplementPropertySetter(Solver_Options, )
-{
-	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
-}
-boolean      update_state_every_iteration
-// ceres.Solver$Options#
-Gura_DeclareProperty_RW(Solver_Options, )
-{
-	SetPropAttr(VTYPE_);
-	AddHelp(
-		Gura_Symbol(en),
-		""
-		);
-}
-
-Gura_ImplementPropertyGetter(Solver_Options, )
-{
-	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.);
-}
-
-Gura_ImplementPropertySetter(Solver_Options, )
-{
-	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options. = value.Get();
-	return Value(options.);
-}
-*/
-
 
 // ceres.Solver$Options#minimizer_progress_to_stdout
 Gura_DeclareProperty_RW(Solver_Options, minimizer_progress_to_stdout)
@@ -1305,9 +1141,148 @@ Gura_ImplementPropertyGetter(Solver_Options, minimizer_progress_to_stdout)
 Gura_ImplementPropertySetter(Solver_Options, minimizer_progress_to_stdout)
 {
 	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	options.minimizer_progress_to_stdout = value.GetBoolean();
+	options.minimizer_progress_to_stdout = value.Get();
 	return Value(options.minimizer_progress_to_stdout);
 }
+
+// ceres.Solver$Options#trust_region_problem_dump_directory
+Gura_DeclareProperty_RW(Solver_Options, trust_region_problem_dump_directory)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Solver_Options, trust_region_problem_dump_directory)
+{
+	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
+	return Value(options.trust_region_problem_dump_directory);
+}
+
+Gura_ImplementPropertySetter(Solver_Options, trust_region_problem_dump_directory)
+{
+	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
+	options.trust_region_problem_dump_directory = value.Get();
+	return Value(options.trust_region_problem_dump_directory);
+}
+
+// ceres.Solver$Options#trust_region_problem_dump_format_type
+Gura_DeclareProperty_RW(Solver_Options, trust_region_problem_dump_format_type)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Solver_Options, trust_region_problem_dump_format_type)
+{
+	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
+	return Value(options.trust_region_problem_dump_format_type);
+}
+
+Gura_ImplementPropertySetter(Solver_Options, trust_region_problem_dump_format_type)
+{
+	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
+	options.trust_region_problem_dump_format_type = value.Get();
+	return Value(options.trust_region_problem_dump_format_type);
+}
+
+// ceres.Solver$Options#check_gradients
+Gura_DeclareProperty_RW(Solver_Options, check_gradients)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Solver_Options, check_gradients)
+{
+	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
+	return Value(options.check_gradients);
+}
+
+Gura_ImplementPropertySetter(Solver_Options, check_gradients)
+{
+	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
+	options.check_gradients = value.Get();
+	return Value(options.check_gradients);
+}
+
+// ceres.Solver$Options#gradient_check_relative_precision
+Gura_DeclareProperty_RW(Solver_Options, gradient_check_relative_precision)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Solver_Options, gradient_check_relative_precision)
+{
+	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
+	return Value(options.gradient_check_relative_precision);
+}
+
+Gura_ImplementPropertySetter(Solver_Options, gradient_check_relative_precision)
+{
+	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
+	options.gradient_check_relative_precision = value.Get();
+	return Value(options.gradient_check_relative_precision);
+}
+
+// ceres.Solver$Options#gradient_check_numeric_derivative_relative_step_size
+Gura_DeclareProperty_RW(Solver_Options, gradient_check_numeric_derivative_relative_step_size)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Solver_Options, gradient_check_numeric_derivative_relative_step_size)
+{
+	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
+	return Value(options.gradient_check_numeric_derivative_relative_step_size);
+}
+
+Gura_ImplementPropertySetter(Solver_Options, gradient_check_numeric_derivative_relative_step_size)
+{
+	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
+	options.gradient_check_numeric_derivative_relative_step_size = value.Get();
+	return Value(options.gradient_check_numeric_derivative_relative_step_size);
+}
+
+// ceres.Solver$Options#update_state_every_iteration
+Gura_DeclareProperty_RW(Solver_Options, update_state_every_iteration)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Solver_Options, update_state_every_iteration)
+{
+	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
+	return Value(options.update_state_every_iteration);
+}
+
+Gura_ImplementPropertySetter(Solver_Options, update_state_every_iteration)
+{
+	ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
+	options.update_state_every_iteration = value.Get();
+	return Value(options.update_state_every_iteration);
+}
+*/
 
 //-----------------------------------------------------------------------------
 // Implementation of function
@@ -1394,7 +1369,6 @@ Gura_AssignProperty(Solver_Options, gradient_check_relative_precision);
 Gura_AssignProperty(Solver_Options, gradient_check_numeric_derivative_relative_step_size);
 Gura_AssignProperty(Solver_Options, update_state_every_iteration);
 */
-	Gura_AssignProperty(Solver_Options, minimizer_progress_to_stdout);
 	// Assignment of function
 	Gura_AssignFunction(Solver_Options);
 }
