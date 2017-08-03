@@ -157,6 +157,8 @@ testcase('curve_fitting') {
 		problem.AddResidualBlock(CostFunctionEx(d[0], d[1]), nil, m, c)
 	}
 	options = ceres.Solver$Options()
+	options.max_num_iterations = 25
+	options.linear_solver_type = ceres.DENSE_QR
 	options.minimizer_progress_to_stdout = true
 	summary = ceres.Solver$Summary()
 	ceres.Solve(options, problem, summary)
