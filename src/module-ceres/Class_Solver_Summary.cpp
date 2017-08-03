@@ -17,7 +17,6 @@ String Object_Solver_Summary::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-/*
 // ceres.Solver$Summary#minimizer_type
 Gura_DeclareProperty_RW(Solver_Summary, minimizer_type)
 {
@@ -65,7 +64,7 @@ Gura_ImplementPropertySetter(Solver_Summary, termination_type)
 }
 
 // ceres.Solver$Summary#message
-Gura_DeclareProperty_RW(Solver_Summary, string message)
+Gura_DeclareProperty_RW(Solver_Summary, message)
 {
 	SetPropAttr(VTYPE_string);
 	AddHelp(
@@ -74,16 +73,16 @@ Gura_DeclareProperty_RW(Solver_Summary, string message)
 		);
 }
 
-Gura_ImplementPropertyGetter(Solver_Summary, string message)
+Gura_ImplementPropertyGetter(Solver_Summary, message)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
 	return Value(summary.message.c_str());
 }
 
-Gura_ImplementPropertySetter(Solver_Summary, string message)
+Gura_ImplementPropertySetter(Solver_Summary, message)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary.message = std value.GetString();
+	summary.message = value.GetString();
 	return Value(summary.message.c_str());
 }
 
@@ -773,7 +772,7 @@ Gura_ImplementPropertyGetter(Solver_Summary, is_constrained)
 Gura_ImplementPropertySetter(Solver_Summary, is_constrained)
 {
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	summary.is_constrained = value.Getboolean();
+	summary.is_constrained = value.GetBoolean();
 	return Value(summary.is_constrained);
 }
 
@@ -1237,6 +1236,7 @@ Gura_ImplementPropertySetter(Solver_Summary, max_lbfgs_rank)
 	return Value(summary.max_lbfgs_rank);
 }
 
+/*
 std::vector<IterationSummary> iterations;
 std::vector<int> linear_solver_ordering_given;
 std::vector<int> linear_solver_ordering_used;
@@ -1302,6 +1302,58 @@ Gura_ImplementMethod(Solver_Summary, FullReport)
 Gura_ImplementUserClass(Solver_Summary)
 {
 	// Assignment of properties
+	Gura_AssignProperty(Solver_Summary, termination_type);
+	Gura_AssignProperty(Solver_Summary, message);
+	Gura_AssignProperty(Solver_Summary, initial_cost);
+	Gura_AssignProperty(Solver_Summary, final_cost);
+	Gura_AssignProperty(Solver_Summary, fixed_cost);
+	Gura_AssignProperty(Solver_Summary, num_successful_steps);
+	Gura_AssignProperty(Solver_Summary, num_unsuccessful_steps);
+	Gura_AssignProperty(Solver_Summary, num_inner_iteration_steps);
+	Gura_AssignProperty(Solver_Summary, num_line_search_steps);
+	Gura_AssignProperty(Solver_Summary, preprocessor_time_in_seconds);
+	Gura_AssignProperty(Solver_Summary, minimizer_time_in_seconds);
+	Gura_AssignProperty(Solver_Summary, postprocessor_time_in_seconds);
+	Gura_AssignProperty(Solver_Summary, total_time_in_seconds);
+	Gura_AssignProperty(Solver_Summary, linear_solver_time_in_seconds);
+	Gura_AssignProperty(Solver_Summary, residual_evaluation_time_in_seconds);
+	Gura_AssignProperty(Solver_Summary, jacobian_evaluation_time_in_seconds);
+	Gura_AssignProperty(Solver_Summary, inner_iteration_time_in_seconds);
+	Gura_AssignProperty(Solver_Summary, line_search_cost_evaluation_time_in_seconds);
+	Gura_AssignProperty(Solver_Summary, line_search_gradient_evaluation_time_in_seconds);
+	Gura_AssignProperty(Solver_Summary, line_search_polynomial_minimization_time_in_seconds);
+	Gura_AssignProperty(Solver_Summary, line_search_total_time_in_seconds);
+	Gura_AssignProperty(Solver_Summary, num_parameter_blocks);
+	Gura_AssignProperty(Solver_Summary, num_parameters);
+	Gura_AssignProperty(Solver_Summary, num_effective_parameters);
+	Gura_AssignProperty(Solver_Summary, num_residual_blocks);
+	Gura_AssignProperty(Solver_Summary, num_residuals);
+	Gura_AssignProperty(Solver_Summary, num_parameter_blocks_reduced);
+	Gura_AssignProperty(Solver_Summary, num_parameters_reduced);
+	Gura_AssignProperty(Solver_Summary, num_effective_parameters_reduced);
+	Gura_AssignProperty(Solver_Summary, num_residual_blocks_reduced);
+	Gura_AssignProperty(Solver_Summary, num_residuals_reduced);
+	Gura_AssignProperty(Solver_Summary, is_constrained);
+	Gura_AssignProperty(Solver_Summary, num_threads_given);
+	Gura_AssignProperty(Solver_Summary, num_threads_used);
+	Gura_AssignProperty(Solver_Summary, num_linear_solver_threads_given);
+	Gura_AssignProperty(Solver_Summary, num_linear_solver_threads_used);
+	Gura_AssignProperty(Solver_Summary, linear_solver_type_given);
+	Gura_AssignProperty(Solver_Summary, linear_solver_type_used);
+	Gura_AssignProperty(Solver_Summary, inner_iterations_given);
+	Gura_AssignProperty(Solver_Summary, inner_iterations_used);
+	Gura_AssignProperty(Solver_Summary, preconditioner_type_given);
+	Gura_AssignProperty(Solver_Summary, preconditioner_type_used);
+	Gura_AssignProperty(Solver_Summary, visibility_clustering_type);
+	Gura_AssignProperty(Solver_Summary, trust_region_strategy_type);
+	Gura_AssignProperty(Solver_Summary, dogleg_type);
+	Gura_AssignProperty(Solver_Summary, dense_linear_algebra_library_type);
+	Gura_AssignProperty(Solver_Summary, sparse_linear_algebra_library_type);
+	Gura_AssignProperty(Solver_Summary, line_search_direction_type);
+	Gura_AssignProperty(Solver_Summary, line_search_type);
+	Gura_AssignProperty(Solver_Summary, line_search_interpolation_type);
+	Gura_AssignProperty(Solver_Summary, nonlinear_conjugate_gradient_type);
+	Gura_AssignProperty(Solver_Summary, max_lbfgs_rank);
 	// Assignment of function
 	Gura_AssignFunction(Solver_Summary);
 	// Assignment of method
