@@ -82,6 +82,7 @@ bool CostFunctionCustom::Evaluate(double const *const *parameters,
 								  double *residuals, double **jacobians) const
 {
 	Environment &env = *_pObjAssoc;
+	const char *errMsg_ListOfArraysExpected = "Evaluate method is expected to return a list of arrays";
 	const Function *pFunc = _pObjAssoc->LookupFunction(Gura_UserSymbol(Evaluate), ENVREF_Escalate);
 	if (pFunc == nullptr) {
 		env.SetError(ERR_KeyError, "can't find a method Evaluate");
@@ -96,16 +97,20 @@ bool CostFunctionCustom::Evaluate(double const *const *parameters,
 	}
 	Value rtn = _pObjAssoc->EvalMethod(*_pObjAssoc, pFunc, valListArg);
 	if (!rtn.Is_list()) {
-		env.SetError(ERR_ValueError, "Evaluate() method is expected to return a pair of arrays");
+		env.SetError(ERR_ValueError, errMsg_ListOfArraysExpected);
 		return false;
 	}
 	const ValueList &valList = rtn.GetList();
-	if (valList.empty() || !valList.CheckIfElementsInstanceOf(VTYPE_array)) {
-		env.SetError(ERR_ValueError, "Evaluate() method is expected to return a list of arrays");
+	if (valList.empty()) {
+		env.SetError(ERR_ValueError, errMsg_ListOfArraysExpected);
 		return false;
 	}
 	ValueList::const_iterator pValue = valList.begin();
 	do {
+		if (!pValue->Is_array()) {
+			env.SetError(ERR_ValueError, errMsg_ListOfArraysExpected);
+			return false;
+		}
 		const Array *pArray_residuals = Object_array::GetObject(*pValue)->GetArray();
 		if (pArray_residuals->GetElemType() != Array::ETYPE_Double) {
 			env.SetError(ERR_ValueError, "type of elements in the returned array must be double");
@@ -119,11 +124,16 @@ bool CostFunctionCustom::Evaluate(double const *const *parameters,
 		::memcpy(residuals, pArrayT_residuals->GetPointer(), sizeof(Double) * pArrayT_residuals->GetElemNum());
 		pValue++;
 	} while (0);
-	if (jacobians != nullptr) {
-		size_t i = 0;
-		foreach_const (std::vector<ceres::int32>, pSize, parameter_block_sizes()) {
-			double *jacobian = jacobians[i++];
-			if (pValue == valList.end()) break;
+	if (jacobians == nullptr) return true;
+	size_t idxJacobian = 0;
+	foreach_const (std::vector<ceres::int32>, pSize, parameter_block_sizes()) {
+		if (pValue == valList.end()) break;
+		double *jacobian = jacobians[idxJacobian];
+		if (jacobian != nullptr && pValue->IsValid()) {
+			if (!pValue->Is_array()) {
+				env.SetError(ERR_ValueError, errMsg_ListOfArraysExpected);
+				return false;
+			}
 			const Array *pArray_jacobian = Object_array::GetObject(*pValue)->GetArray();
 			if (pArray_jacobian->GetElemType() != Array::ETYPE_Double) {
 				env.SetError(ERR_ValueError, "type of elements in the returned array must be double");
@@ -132,8 +142,9 @@ bool CostFunctionCustom::Evaluate(double const *const *parameters,
 			const ArrayT<Double> *pArrayT_jacobian = dynamic_cast<const ArrayT<Double> *>(pArray_jacobian);
 			size_t sizeMin = ChooseMin(pArrayT_jacobian->GetElemNum(), static_cast<size_t>(*pSize));
 			::memcpy(jacobian, pArrayT_jacobian->GetPointer(), sizeMin * sizeof(double));
-			pValue++;
 		}
+		idxJacobian++;
+		pValue++;
 	}
 	return true;
 }

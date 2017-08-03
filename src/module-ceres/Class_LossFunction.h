@@ -12,10 +12,11 @@ Gura_DeclareUserClass(LossFunction);
 class Object_LossFunction : public Object {
 private:
 	ceres::LossFunction *_pLossFunction;
+	String _name;
 public:
 	Gura_DeclareObjectAccessor(LossFunction)
 public:
-	Object_LossFunction();
+	Object_LossFunction(ceres::LossFunction *pLossFunction, const char *name);
 	virtual String ToString(bool exprFlag);
 	inline void SetLossFunction(ceres::LossFunction *pLossFunction) {
 		_pLossFunction = pLossFunction;
