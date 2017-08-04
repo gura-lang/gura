@@ -152,7 +152,7 @@ testcase('ceres.Solver$Summary') {
 }
 testcase('helloworld') {
 	CostFunctionEx = class(ceres.NumericDiffCostFunction) {
-		__init__() = {|1, 1|}
+		__init__() = {|ceres.CENTRAL, 1, 1|}
 		Evaluate(x:array) = {
 			array@double {10 - x[0]}	// residual
 		}
@@ -260,7 +260,7 @@ testcase('curve_fitting') {
 		4.950000e+00, 4.669206e+00,
 	}
 	CostFunctionEx = class(ceres.NumericDiffCostFunction) {
-		__init__(x:number, y:number) = {|1, 1, 1|
+		__init__(x:number, y:number) = {|ceres.CENTRAL, 1, 1, 1|
 			this.x = x, this.y = y
 		}
 		Evaluate(m:array, c:array) = {
@@ -354,7 +354,7 @@ testcase('robust_curve_fitting') {
 		4.950000e+00, 4.669206e+00
 	}
 	CostFunctionEx = class(ceres.NumericDiffCostFunction) {
-		__init__(x:number, y:number) = {|1, 1, 1|
+		__init__(x:number, y:number) = {|ceres.CENTRAL, 1, 1, 1|
 			this.x = x, this.y = y
 		}
 		Evaluate(m:array, c:array) = {

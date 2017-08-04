@@ -25,10 +25,11 @@ String Object_NumericDiffCostFunction::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
-// ceres.NumericDiffCostFunction(numResiduals:number, parameterBlockSizes+:number) {block?}
+// ceres.NumericDiffCostFunction(method:number, numResiduals:number, parameterBlockSizes+:number) {block?}
 Gura_DeclareFunction(NumericDiffCostFunction)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "method", VTYPE_number);
 	DeclareArg(env, "numResiduals", VTYPE_number);
 	DeclareArg(env, "parameterBlockSizes", VTYPE_number, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -46,9 +47,12 @@ Gura_ImplementFunction(NumericDiffCostFunction)
 		env.SetError(ERR_ValueError, "pure class can not be instantiated");
 		return Value::Nil;
 	}
-	ceres::DynamicCostFunction *pCostFunction = pObj->GetCostFunction();
-	pCostFunction->SetNumResiduals(arg.GetInt(0));
-	foreach_const (ValueList, pValue, arg.GetList(1)) {
+	ceres::DynamicCostFunction *pCostFunction =
+		new NumericDiffCostFunctionCustom(new NumericDiffCostFunctorCustom(pObj->Reference()));
+	pObj->SetCostFunction(pCostFunction);
+	//ceres::DynamicCostFunction *pCostFunction = pObj->GetCostFunction();
+	pCostFunction->SetNumResiduals(arg.GetInt(1));
+	foreach_const (ValueList, pValue, arg.GetList(2)) {
 		pCostFunction->AddParameterBlock(pValue->GetInt());
 	}
 	return ReturnValue(env, arg, arg.GetValueThis());
@@ -66,9 +70,7 @@ Gura_ImplementUserInheritableClass(NumericDiffCostFunction)
 
 Gura_ImplementDescendantCreator(NumericDiffCostFunction)
 {
-	Object_NumericDiffCostFunction *pObj = new Object_NumericDiffCostFunction((pClass == nullptr)? this : pClass);
-	pObj->SetCostFunction(new NumericDiffCostFunctionCustom(new NumericDiffCostFunctorCustom(pObj->Reference())));
-	return pObj;
+	return new Object_NumericDiffCostFunction((pClass == nullptr)? this : pClass);
 }
 
 //-----------------------------------------------------------------------------
