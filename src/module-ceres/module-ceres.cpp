@@ -52,7 +52,7 @@ Gura_ImplementFunction(test)
 	const Expr_Block *pExprBlock = arg.GetBlock();
 	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
-		::printf("%s\n", pExpr->ToString(Expr::SCRSTYLE_Fancy).c_str());
+		::printf("%s: %s\n", pExpr->GetTypeName(), pExpr->ToString(Expr::SCRSTYLE_Fancy).c_str());
 	}
 	return Value::Nil;
 }
