@@ -37,6 +37,7 @@ using ceres::Problem;
 using ceres::Solver;
 using ceres::Solve;
 
+namespace curve_fitting {
 // Data generated using the following octave code.
 //   randn('seed', 23497);
 //   m = 0.3;
@@ -180,7 +181,7 @@ private:
 	const double y_;
 };
 
-int curve_fitting()
+int main()
 {
 	//google::InitGoogleLogging(argv[0]);
 
@@ -208,4 +209,6 @@ int curve_fitting()
 	std::cout << "Final   m: " << m << " c: " << c << "\n";
 	return 0;
 }
+
 #endif
+}

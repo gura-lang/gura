@@ -51,6 +51,7 @@
 //                 [b, a]])
 //   Y = np.dot(np.c_[4.0 * np.cos(t), np.sin(t)], R.T)
 
+namespace ellipse_approximation {
 const int kYRows = 212;
 const int kYCols = 2;
 const double kYData[kYRows * kYCols] = {
@@ -372,7 +373,7 @@ bool SolveWithFullReport(ceres::Solver::Options options,
   return summary.termination_type == ceres::CONVERGENCE;
 }
 
-int ellipse_approximation()
+int main()
 {
 	google::InitGoogleLogging(const_cast<char *>("ellipse_approximation"));
 
@@ -450,3 +451,5 @@ int ellipse_approximation()
 
   return 0;
 }
+}
+

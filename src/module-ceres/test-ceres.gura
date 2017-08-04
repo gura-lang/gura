@@ -166,6 +166,7 @@ testcase('helloworld') {
 	ceres.Solve(options, problem, summary)
 	println(summary.BriefReport())
 	println('x: ', x[0])
+	ceres.example@helloworld()
 }
 testcase('helloworld_analytic_diff') {
 	CostFunctionEx = class(ceres.CostFunction) {
@@ -186,6 +187,7 @@ testcase('helloworld_analytic_diff') {
 	ceres.Solve(options, problem, summary)
 	println(summary.BriefReport())
 	println('x: ', x[0])
+	ceres.example@helloworld_analytic_diff()
 }
 testcase('curve_fitting') {
 	data = @{
@@ -279,6 +281,7 @@ testcase('curve_fitting') {
 	ceres.Solve(options, problem, summary)
 	println(summary.BriefReport())
 	println('m: ', m[0], ' c: ', c[0])
+	ceres.example@curve_fitting()
 }
 testcase('robust_curve_fitting') {
 	data = @{
@@ -301,8 +304,8 @@ testcase('robust_curve_fitting') {
 		1.200000e+00, 1.527021e+00,
 		1.275000e+00, 1.702632e+00,
 		1.350000e+00, 1.423899e+00,
-		1.425000e+00, 1.543078e+00,
-		1.500000e+00, 1.664015e+00,
+		1.425000e+00, 5.543078e+00, // Outlier point
+		1.500000e+00, 5.664015e+00, // Outlier point
 		1.575000e+00, 1.732484e+00,
 		1.650000e+00, 1.543296e+00,
 		1.725000e+00, 1.959523e+00,
@@ -348,7 +351,7 @@ testcase('robust_curve_fitting') {
 		4.725000e+00, 4.619728e+00,
 		4.800000e+00, 4.737410e+00,
 		4.875000e+00, 4.727863e+00,
-		4.950000e+00, 4.669206e+00,
+		4.950000e+00, 4.669206e+00
 	}
 	CostFunctionEx = class(ceres.NumericDiffCostFunction) {
 		__init__(x:number, y:number) = {|1, 1, 1|
@@ -362,14 +365,14 @@ testcase('robust_curve_fitting') {
 	c = array@double {0.0}
 	problem = ceres.Problem()
 	data.fold(2).each {|d|
-		problem.AddResidualBlock(CostFunctionEx(d[0], d[1]), nil, m, c)
+		problem.AddResidualBlock(CostFunctionEx(d[0], d[1]), ceres.CauchyLoss(0.5), m, c)
 	}
 	options = ceres.Solver$Options()
-	options.max_num_iterations = 25
 	options.linear_solver_type = ceres.DENSE_QR
 	options.minimizer_progress_to_stdout = true
 	summary = ceres.Solver$Summary()
 	ceres.Solve(options, problem, summary)
 	println(summary.BriefReport())
 	println('m: ', m[0], ' c: ', c[0])
+	ceres.example@robust_curve_fitting()
 }

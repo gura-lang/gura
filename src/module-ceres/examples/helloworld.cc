@@ -42,6 +42,7 @@ using ceres::Problem;
 using ceres::Solver;
 using ceres::Solve;
 
+namespace helloworld {
 // A templated cost functor that implements the residual r = 10 -
 // x. The method operator() is templated so that we can then use an
 // automatic differentiation wrapper around it to generate its
@@ -53,7 +54,7 @@ struct CostFunctor {
 	}
 };
 
-int helloworld()
+int main()
 {
 	google::InitGoogleLogging(const_cast<char *>("helloworld"));
 
@@ -81,4 +82,5 @@ int helloworld()
 	std::cout << "x : " << initial_x
 			  << " -> " << x << "\n";
 	return 0;
+}
 }

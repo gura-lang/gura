@@ -5,10 +5,11 @@
 #include "ceres/ceres.h"
 #include "glog/logging.h"
 
-int helloworld();
-int helloworld_analytic_diff();
-int curve_fitting();
-int ellipse_approximation();
+namespace helloworld { int main(); }
+namespace helloworld_analytic_diff { int main(); }
+namespace curve_fitting { int main(); }
+namespace robust_curve_fitting { int main(); }
+namespace ellipse_approximation { int main(); }
 
 Gura_BeginModuleBody(ceres)
 
@@ -36,8 +37,8 @@ Gura_ImplementFunction(Solve)
 	return Value::Nil;
 }
 
-// ceres.sample@helloworld():void
-Gura_DeclareFunctionAlias(sample_at_helloworld, "sample@helloworld")
+// ceres.example@helloworld():void
+Gura_DeclareFunctionAlias(example_at_helloworld, "example@helloworld")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -45,14 +46,14 @@ Gura_DeclareFunctionAlias(sample_at_helloworld, "sample@helloworld")
 		"");
 }
 
-Gura_ImplementFunction(sample_at_helloworld)
+Gura_ImplementFunction(example_at_helloworld)
 {
-	helloworld();
+	helloworld::main();
 	return Value::Nil;
 }
 
-// ceres.sample@helloworld_analytic_diff():void
-Gura_DeclareFunctionAlias(sample_at_helloworld_analytic_diff, "sample@helloworld_analytic_diff")
+// ceres.example@helloworld_analytic_diff():void
+Gura_DeclareFunctionAlias(example_at_helloworld_analytic_diff, "example@helloworld_analytic_diff")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -60,14 +61,14 @@ Gura_DeclareFunctionAlias(sample_at_helloworld_analytic_diff, "sample@helloworld
 		"");
 }
 
-Gura_ImplementFunction(sample_at_helloworld_analytic_diff)
+Gura_ImplementFunction(example_at_helloworld_analytic_diff)
 {
-	helloworld_analytic_diff();
+	helloworld_analytic_diff::main();
 	return Value::Nil;
 }
 
-// ceres.sample@curve_fitting():void
-Gura_DeclareFunctionAlias(sample_at_curve_fitting, "sample@curve_fitting")
+// ceres.example@curve_fitting():void
+Gura_DeclareFunctionAlias(example_at_curve_fitting, "example@curve_fitting")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -75,14 +76,14 @@ Gura_DeclareFunctionAlias(sample_at_curve_fitting, "sample@curve_fitting")
 		"");
 }
 
-Gura_ImplementFunction(sample_at_curve_fitting)
+Gura_ImplementFunction(example_at_curve_fitting)
 {
-	curve_fitting();
+	curve_fitting::main();
 	return Value::Nil;
 }
 
-// ceres.sample@ellipse_approximation():void
-Gura_DeclareFunctionAlias(sample_at_ellipse_approximation, "sample@ellipse_approximation")
+// ceres.example@robust_curve_fitting():void
+Gura_DeclareFunctionAlias(example_at_robust_curve_fitting, "example@robust_curve_fitting")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -90,9 +91,24 @@ Gura_DeclareFunctionAlias(sample_at_ellipse_approximation, "sample@ellipse_appro
 		"");
 }
 
-Gura_ImplementFunction(sample_at_ellipse_approximation)
+Gura_ImplementFunction(example_at_robust_curve_fitting)
 {
-	ellipse_approximation();
+	robust_curve_fitting::main();
+	return Value::Nil;
+}
+
+// ceres.example@ellipse_approximation():void
+Gura_DeclareFunctionAlias(example_at_ellipse_approximation, "example@ellipse_approximation")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementFunction(example_at_ellipse_approximation)
+{
+	ellipse_approximation::main();
 	return Value::Nil;
 }
 
@@ -124,10 +140,11 @@ Gura_ModuleEntry()
 	Gura_PrepareUserClass(Solver_Summary);
 	// Assignment of function
 	Gura_AssignFunction(Solve);
-	Gura_AssignFunction(sample_at_helloworld);
-	Gura_AssignFunction(sample_at_helloworld_analytic_diff);
-	Gura_AssignFunction(sample_at_curve_fitting);
-	Gura_AssignFunction(sample_at_ellipse_approximation);
+	Gura_AssignFunction(example_at_helloworld);
+	Gura_AssignFunction(example_at_helloworld_analytic_diff);
+	Gura_AssignFunction(example_at_curve_fitting);
+	Gura_AssignFunction(example_at_robust_curve_fitting);
+	Gura_AssignFunction(example_at_ellipse_approximation);
 	// Assignment of value
 	// Ownership
 	Gura_AssignValueEx("DO_NOT_TAKE_OWNERSHIP", ceres::DO_NOT_TAKE_OWNERSHIP);

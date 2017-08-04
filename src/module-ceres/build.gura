@@ -36,5 +36,6 @@ builder.build('ceres', ['module-ceres.cpp',
 	'examples/helloworld.cc',
 	'examples/helloworld_analytic_diff.cc',
 	'examples/curve_fitting.cc',
+	'examples/robust_curve_fitting.cc',
 	'examples/ellipse_approximation.cc'
 	])

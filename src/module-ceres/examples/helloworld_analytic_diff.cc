@@ -42,6 +42,8 @@ using ceres::Problem;
 using ceres::Solver;
 using ceres::Solve;
 
+namespace helloworld_analytic_diff {
+
 // A CostFunction implementing analytically derivatives for the
 // function f(x) = 10 - x.
 class QuadraticCostFunction
@@ -77,7 +79,7 @@ public:
 	}
 };
 
-int helloworld_analytic_diff()
+int main()
 {
 	google::InitGoogleLogging(const_cast<char *>("helloworld_analytic_diff"));
 
@@ -104,4 +106,5 @@ int helloworld_analytic_diff()
 			  << " -> " << x << "\n";
 
 	return 0;
+}
 }

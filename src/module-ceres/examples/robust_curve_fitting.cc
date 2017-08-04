@@ -42,6 +42,7 @@
 //   y_observed = y + noise + outlier_noise;
 //   data = [x', y_observed'];
 
+namespace robust_curve_fitting {
 const int kNumObservations = 67;
 const double data[] = {
 0.000000e+00, 1.133898e+00,
@@ -136,8 +137,9 @@ struct ExponentialResidual {
   const double y_;
 };
 
-int main(int argc, char** argv) {
-  google::InitGoogleLogging(argv[0]);
+int main()
+{
+	google::InitGoogleLogging(const_cast<char *>("robust_curve_fitting"));
 
   double m = 0.0;
   double c = 0.0;
@@ -162,4 +164,5 @@ int main(int argc, char** argv) {
   std::cout << "Initial m: " << 0.0 << " c: " << 0.0 << "\n";
   std::cout << "Final   m: " << m << " c: " << c << "\n";
   return 0;
+}
 }
