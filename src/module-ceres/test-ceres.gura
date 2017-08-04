@@ -83,10 +83,10 @@ testcase('ceres.Solver$Options') {
 		`gradient_check_numeric_derivative_relative_step_size
 		`update_state_every_iteration
 	]
-	propNames:*len()
+	wdMax = propNames:*width().max()
 	ceres.Solver$Options() {|options|
 		println(options)
-		printf('%-50s %s\n', propNames, options.getprop!(propNames, attrs => [`name]))
+		printf('%-*s %s\n', wdMax, propNames, options.getprop!(propNames, attrs => [`name]))
 	}
 }
 testcase('ceres.Solver$Summary') {
@@ -144,9 +144,10 @@ testcase('ceres.Solver$Summary') {
 		`nonlinear_conjugate_gradient_type
 		`max_lbfgs_rank
 	]
+	wdMax = propNames:*width().max()
 	ceres.Solver$Summary() {|summary|
 		println(summary)
-		printf('%-50s %s\n', propNames, summary.getprop!(propNames, attrs => [`name]))
+		printf('%-*s %s\n', wdMax, propNames, summary.getprop!(propNames, attrs => [`name]))
 	}
 }
 testcase('helloworld') {
