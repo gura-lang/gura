@@ -47,10 +47,23 @@ Gura_ImplementFunction(NumericDiffCostFunction)
 		env.SetError(ERR_ValueError, "pure class can not be instantiated");
 		return Value::Nil;
 	}
-	ceres::DynamicCostFunction *pCostFunction =
-		new NumericDiffCostFunctionCustom(new NumericDiffCostFunctorCustom(pObj->Reference()));
+	NumericDiffCostFunctorCustom *pCostFunctor = new NumericDiffCostFunctorCustom(pObj->Reference());
+	ceres::NumericDiffMethodType method = static_cast<ceres::NumericDiffMethodType>(arg.GetInt(0));
+	ceres::DynamicCostFunction *pCostFunction = nullptr;
+	if (method == ceres::CENTRAL) {
+		pCostFunction =
+			new ceres::DynamicNumericDiffCostFunction<NumericDiffCostFunctorCustom, ceres::CENTRAL>(pCostFunctor);
+	} else if (method == ceres::FORWARD) {
+		pCostFunction =
+			new ceres::DynamicNumericDiffCostFunction<NumericDiffCostFunctorCustom, ceres::FORWARD>(pCostFunctor);
+	} else if (method == ceres::RIDDERS) {
+		pCostFunction =
+			new ceres::DynamicNumericDiffCostFunction<NumericDiffCostFunctorCustom, ceres::RIDDERS>(pCostFunctor);
+	} else {
+		env.SetError(ERR_ValueError, "invalid value for method");
+		return Value::Nil;
+	}
 	pObj->SetCostFunction(pCostFunction);
-	//ceres::DynamicCostFunction *pCostFunction = pObj->GetCostFunction();
 	pCostFunction->SetNumResiduals(arg.GetInt(1));
 	foreach_const (ValueList, pValue, arg.GetList(2)) {
 		pCostFunction->AddParameterBlock(pValue->GetInt());
@@ -71,14 +84,6 @@ Gura_ImplementUserInheritableClass(NumericDiffCostFunction)
 Gura_ImplementDescendantCreator(NumericDiffCostFunction)
 {
 	return new Object_NumericDiffCostFunction((pClass == nullptr)? this : pClass);
-}
-
-//-----------------------------------------------------------------------------
-// NumericDiffCostFunctionCustom
-//-----------------------------------------------------------------------------
-NumericDiffCostFunctionCustom::NumericDiffCostFunctionCustom(NumericDiffCostFunctorCustom *pCostFunctor) :
-	ceres::DynamicNumericDiffCostFunction<NumericDiffCostFunctorCustom>(pCostFunctor)
-{
 }
 
 Gura_EndModuleScope(ceres)

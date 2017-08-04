@@ -63,14 +63,6 @@ public:
 	}		
 };
 
-//-----------------------------------------------------------------------------
-// NumericDiffCostFunctionCustom
-//-----------------------------------------------------------------------------
-class NumericDiffCostFunctionCustom : public ceres::DynamicNumericDiffCostFunction<NumericDiffCostFunctorCustom> {
-public:
-	NumericDiffCostFunctionCustom(NumericDiffCostFunctorCustom *pCostFunctor);
-};
-
 Gura_EndModuleScope(ceres)
 
 #endif
