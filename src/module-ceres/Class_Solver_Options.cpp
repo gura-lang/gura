@@ -30,7 +30,9 @@ Gura_DeclareProperty_RW(Solver_Options, minimizer_type)
 Gura_ImplementPropertyGetter(Solver_Options, minimizer_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.minimizer_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::MinimizerTypeToString(options.minimizer_type)) :
+		Value(options.minimizer_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Options, minimizer_type)
@@ -53,7 +55,9 @@ Gura_DeclareProperty_RW(Solver_Options, line_search_direction_type)
 Gura_ImplementPropertyGetter(Solver_Options, line_search_direction_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.line_search_direction_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::LineSearchDirectionTypeToString(options.line_search_direction_type)) :
+		Value(options.line_search_direction_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Options, line_search_direction_type)
@@ -76,7 +80,9 @@ Gura_DeclareProperty_RW(Solver_Options, line_search_type)
 Gura_ImplementPropertyGetter(Solver_Options, line_search_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.line_search_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::LineSearchTypeToString(options.line_search_type)) :
+		Value(options.line_search_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Options, line_search_type)
@@ -99,7 +105,9 @@ Gura_DeclareProperty_RW(Solver_Options, nonlinear_conjugate_gradient_type)
 Gura_ImplementPropertyGetter(Solver_Options, nonlinear_conjugate_gradient_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.nonlinear_conjugate_gradient_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::NonlinearConjugateGradientTypeToString(options.nonlinear_conjugate_gradient_type)) :
+		Value(options.nonlinear_conjugate_gradient_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Options, nonlinear_conjugate_gradient_type)
@@ -168,7 +176,9 @@ Gura_DeclareProperty_RW(Solver_Options, line_search_interpolation_type)
 Gura_ImplementPropertyGetter(Solver_Options, line_search_interpolation_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.line_search_interpolation_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::LineSearchInterpolationTypeToString(options.line_search_interpolation_type)) :
+		Value(options.line_search_interpolation_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Options, line_search_interpolation_type)
@@ -375,7 +385,9 @@ Gura_DeclareProperty_RW(Solver_Options, trust_region_strategy_type)
 Gura_ImplementPropertyGetter(Solver_Options, trust_region_strategy_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.trust_region_strategy_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::TrustRegionStrategyTypeToString(options.trust_region_strategy_type)) :
+		Value(options.trust_region_strategy_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Options, trust_region_strategy_type)
@@ -398,7 +410,9 @@ Gura_DeclareProperty_RW(Solver_Options, dogleg_type)
 Gura_ImplementPropertyGetter(Solver_Options, dogleg_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.dogleg_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::DoglegTypeToString(options.dogleg_type)) :
+		Value(options.dogleg_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Options, dogleg_type)
@@ -766,7 +780,9 @@ Gura_DeclareProperty_RW(Solver_Options, linear_solver_type)
 Gura_ImplementPropertyGetter(Solver_Options, linear_solver_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.linear_solver_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::LinearSolverTypeToString(options.linear_solver_type)) :
+		Value(options.linear_solver_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Options, linear_solver_type)
@@ -789,7 +805,9 @@ Gura_DeclareProperty_RW(Solver_Options, preconditioner_type)
 Gura_ImplementPropertyGetter(Solver_Options, preconditioner_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.preconditioner_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::PreconditionerTypeToString(options.preconditioner_type)) :
+		Value(options.preconditioner_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Options, preconditioner_type)
@@ -812,7 +830,9 @@ Gura_DeclareProperty_RW(Solver_Options, visibility_clustering_type)
 Gura_ImplementPropertyGetter(Solver_Options, visibility_clustering_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.visibility_clustering_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::VisibilityClusteringTypeToString(options.visibility_clustering_type)) :
+		Value(options.visibility_clustering_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Options, visibility_clustering_type)
@@ -835,7 +855,9 @@ Gura_DeclareProperty_RW(Solver_Options, dense_linear_algebra_library_type)
 Gura_ImplementPropertyGetter(Solver_Options, dense_linear_algebra_library_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.dense_linear_algebra_library_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::DenseLinearAlgebraLibraryTypeToString(options.dense_linear_algebra_library_type)) :
+		Value(options.dense_linear_algebra_library_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Options, dense_linear_algebra_library_type)
@@ -858,7 +880,9 @@ Gura_DeclareProperty_RW(Solver_Options, sparse_linear_algebra_library_type)
 Gura_ImplementPropertyGetter(Solver_Options, sparse_linear_algebra_library_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.sparse_linear_algebra_library_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::SparseLinearAlgebraLibraryTypeToString(options.sparse_linear_algebra_library_type)) :
+		Value(options.sparse_linear_algebra_library_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Options, sparse_linear_algebra_library_type)
@@ -1111,7 +1135,11 @@ Gura_DeclareProperty_RW(Solver_Options, logging_type)
 Gura_ImplementPropertyGetter(Solver_Options, logging_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.logging_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(
+			(options.logging_type == ceres::SILENT)? "SILENT" :
+			(options.logging_type == ceres::PER_MINIMIZER_ITERATION)? "PER_MINIMIZER_ITERATION" : "?") :
+		Value(options.logging_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Options, logging_type)
@@ -1180,7 +1208,11 @@ Gura_DeclareProperty_RW(Solver_Options, trust_region_problem_dump_format_type)
 Gura_ImplementPropertyGetter(Solver_Options, trust_region_problem_dump_format_type)
 {
 	const ceres::Solver::Options &options = Object_Solver_Options::GetObject(valueThis)->GetOptions();
-	return Value(options.trust_region_problem_dump_format_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(
+			(options.trust_region_problem_dump_format_type == ceres::CONSOLE)? "CONSOLE" :
+			(options.trust_region_problem_dump_format_type == ceres::TEXTFILE)? "TEXTFILE" : "?") :
+		Value(options.trust_region_problem_dump_format_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Options, trust_region_problem_dump_format_type)
