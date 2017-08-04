@@ -30,7 +30,9 @@ Gura_DeclareProperty_RW(Solver_Summary, minimizer_type)
 Gura_ImplementPropertyGetter(Solver_Summary, minimizer_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.minimizer_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::MinimizerTypeToString(summary.minimizer_type)) :
+		Value(summary.minimizer_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, minimizer_type)
@@ -53,7 +55,9 @@ Gura_DeclareProperty_RW(Solver_Summary, termination_type)
 Gura_ImplementPropertyGetter(Solver_Summary, termination_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.termination_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::TerminationTypeToString(summary.termination_type)) :
+		Value(summary.termination_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, termination_type)
@@ -881,7 +885,9 @@ Gura_DeclareProperty_RW(Solver_Summary, linear_solver_type_given)
 Gura_ImplementPropertyGetter(Solver_Summary, linear_solver_type_given)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.linear_solver_type_given);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::LinearSolverTypeToString(summary.linear_solver_type_given)) :
+		Value(summary.linear_solver_type_given);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, linear_solver_type_given)
@@ -904,7 +910,9 @@ Gura_DeclareProperty_RW(Solver_Summary, linear_solver_type_used)
 Gura_ImplementPropertyGetter(Solver_Summary, linear_solver_type_used)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.linear_solver_type_used);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::LinearSolverTypeToString(summary.linear_solver_type_used)) :
+		Value(summary.linear_solver_type_used);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, linear_solver_type_used)
@@ -973,7 +981,9 @@ Gura_DeclareProperty_RW(Solver_Summary, preconditioner_type_given)
 Gura_ImplementPropertyGetter(Solver_Summary, preconditioner_type_given)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.preconditioner_type_given);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::PreconditionerTypeToString(summary.preconditioner_type_given)) :
+		Value(summary.preconditioner_type_given);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, preconditioner_type_given)
@@ -996,7 +1006,9 @@ Gura_DeclareProperty_RW(Solver_Summary, preconditioner_type_used)
 Gura_ImplementPropertyGetter(Solver_Summary, preconditioner_type_used)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.preconditioner_type_used);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::PreconditionerTypeToString(summary.preconditioner_type_used)) :
+		Value(summary.preconditioner_type_used);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, preconditioner_type_used)
@@ -1019,7 +1031,9 @@ Gura_DeclareProperty_RW(Solver_Summary, visibility_clustering_type)
 Gura_ImplementPropertyGetter(Solver_Summary, visibility_clustering_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.visibility_clustering_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::VisibilityClusteringTypeToString(summary.visibility_clustering_type)) :
+		Value(summary.visibility_clustering_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, visibility_clustering_type)
@@ -1042,7 +1056,9 @@ Gura_DeclareProperty_RW(Solver_Summary, trust_region_strategy_type)
 Gura_ImplementPropertyGetter(Solver_Summary, trust_region_strategy_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.trust_region_strategy_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::TrustRegionStrategyTypeToString(summary.trust_region_strategy_type)) :
+		Value(summary.trust_region_strategy_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, trust_region_strategy_type)
@@ -1065,7 +1081,9 @@ Gura_DeclareProperty_RW(Solver_Summary, dogleg_type)
 Gura_ImplementPropertyGetter(Solver_Summary, dogleg_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.dogleg_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::DoglegTypeToString(summary.dogleg_type)) :
+		Value(summary.dogleg_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, dogleg_type)
@@ -1088,7 +1106,9 @@ Gura_DeclareProperty_RW(Solver_Summary, dense_linear_algebra_library_type)
 Gura_ImplementPropertyGetter(Solver_Summary, dense_linear_algebra_library_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.dense_linear_algebra_library_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::DenseLinearAlgebraLibraryTypeToString(summary.dense_linear_algebra_library_type)) :
+		Value(summary.dense_linear_algebra_library_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, dense_linear_algebra_library_type)
@@ -1111,7 +1131,9 @@ Gura_DeclareProperty_RW(Solver_Summary, sparse_linear_algebra_library_type)
 Gura_ImplementPropertyGetter(Solver_Summary, sparse_linear_algebra_library_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.sparse_linear_algebra_library_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::SparseLinearAlgebraLibraryTypeToString(summary.sparse_linear_algebra_library_type)) :
+		Value(summary.sparse_linear_algebra_library_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, sparse_linear_algebra_library_type)
@@ -1134,7 +1156,9 @@ Gura_DeclareProperty_RW(Solver_Summary, line_search_direction_type)
 Gura_ImplementPropertyGetter(Solver_Summary, line_search_direction_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.line_search_direction_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::LineSearchDirectionTypeToString(summary.line_search_direction_type)) :
+		Value(summary.line_search_direction_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, line_search_direction_type)
@@ -1157,7 +1181,9 @@ Gura_DeclareProperty_RW(Solver_Summary, line_search_type)
 Gura_ImplementPropertyGetter(Solver_Summary, line_search_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.line_search_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::LineSearchTypeToString(summary.line_search_type)) :
+		Value(summary.line_search_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, line_search_type)
@@ -1180,7 +1206,9 @@ Gura_DeclareProperty_RW(Solver_Summary, line_search_interpolation_type)
 Gura_ImplementPropertyGetter(Solver_Summary, line_search_interpolation_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.line_search_interpolation_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::LineSearchInterpolationTypeToString(summary.line_search_interpolation_type)) :
+		Value(summary.line_search_interpolation_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, line_search_interpolation_type)
@@ -1203,7 +1231,9 @@ Gura_DeclareProperty_RW(Solver_Summary, nonlinear_conjugate_gradient_type)
 Gura_ImplementPropertyGetter(Solver_Summary, nonlinear_conjugate_gradient_type)
 {
 	const ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(valueThis)->GetSummary();
-	return Value(summary.nonlinear_conjugate_gradient_type);
+	return attrs.IsSet(Gura_Symbol(name))?
+		Value(ceres::NonlinearConjugateGradientTypeToString(summary.nonlinear_conjugate_gradient_type)) :
+		Value(summary.nonlinear_conjugate_gradient_type);
 }
 
 Gura_ImplementPropertySetter(Solver_Summary, nonlinear_conjugate_gradient_type)
