@@ -1,0 +1,32 @@
+#!/usr/bin/env gura
+# -*- coding: utf-8 -*-
+import(helper.test) {*}
+
+sys.stdout.setcodec('shift_jis').addcr(false)
+
+testcase('symbol#len()') {
+	symbols = [
+		`a
+		`aa
+		`aaa
+		`aaaa
+		`aaaaa
+		`aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+		`あ
+		`あいうえお
+	]
+	printf('%-30s %d\n', symbols, symbols:*len())
+}
+testcase('symbol#width()') {
+	symbols = [
+		`a
+		`aa
+		`aaa
+		`aaaa
+		`aaaaa
+		`aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+		`あ
+		`あいうえお
+	]
+	printf('%-30s %d\n', symbols, symbols:*width())
+}

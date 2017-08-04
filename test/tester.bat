@@ -66,6 +66,7 @@ set cases=%cases% sqlite3
 set cases=%cases% stream
 set cases=%cases% string
 set cases=%cases% suffixmgr
+set cases=%cases% symbol
 set cases=%cases% tar
 set cases=%cases% template
 set cases=%cases% uri

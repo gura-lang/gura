@@ -365,6 +365,11 @@ void SymbolSet::Insert(const SymbolSet &symbolSet)
 	foreach_const (SymbolSet, ppSymbol, symbolSet) Insert(*ppSymbol);
 }
 
+void SymbolSet::Insert(const ValueList &valList)
+{
+	foreach_const (ValueList, pValue, valList) Insert(pValue->GetSymbol());
+}
+
 //-----------------------------------------------------------------------------
 // SymbolPool
 //-----------------------------------------------------------------------------

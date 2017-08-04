@@ -277,18 +277,21 @@ Gura_ImplementMethod(Object, __propdecls__)
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
-// object.getprop!(symbol:symbol, default?:nomap):map
+// object.getprop!(symbol:symbol, default?:nomap, attrs[]?:symbol:nomap):map
 Gura_DeclareClassMethodAlias(Object, getprop_X, "getprop!")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "default", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
+	DeclareArg(env, "attrs", VTYPE_symbol, OCCUR_ZeroOrOnce, FLAG_ListVar | FLAG_NoMap);
 }
 
 Gura_ImplementClassMethod(Object, getprop_X)
 {
 	const Value *pValueDefault = arg.IsDefined(1)? &arg.GetValue(1) : nullptr;
-	return arg.GetValueThis().GetProp(env, arg.GetSymbol(0), SymbolSet::Empty, pValueDefault);
+	SymbolSet attrs;
+	if (arg.IsValid(2)) attrs.Insert(arg.GetList(2));
+	return arg.GetValueThis().GetProp(env, arg.GetSymbol(0), attrs, pValueDefault);
 }
 
 // object.setprop!(symbol:symbol, value):map

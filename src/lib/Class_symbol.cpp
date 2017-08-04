@@ -32,6 +32,38 @@ Gura_ImplementMethod(symbol, eval)
 	return pExpr->Exec(*pEnv);
 }
 
+// symbol#len()
+Gura_DeclareMethod(symbol, len)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns the length of the symbol in characters.");
+}
+
+Gura_ImplementMethod(symbol, len)
+{
+	return Value(Length(arg.GetValueThis().GetSymbol()->GetName()));
+}
+
+// symbol#width()
+Gura_DeclareMethod(symbol, width)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns the width of the symbol.\n"
+		"\n"
+		"This method takes into account the character width based on the specification\n"
+		"of East Asian Width.\n"
+		"For example, a kanji-character of Japanese occupies two characters in width.\n");
+}
+
+Gura_ImplementMethod(symbol, width)
+{
+	return Value(Width(arg.GetValueThis().GetSymbol()->GetName()));
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -45,6 +77,8 @@ void Class_symbol::DoPrepare(Environment &env)
 	Gura_AssignValue(symbol, Value(Reference()));
 	// method assignment
 	Gura_AssignMethod(symbol, eval);	// primitive method
+	Gura_AssignMethod(symbol, len);
+	Gura_AssignMethod(symbol, width);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

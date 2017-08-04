@@ -897,7 +897,7 @@ object
   object#__iter__()
   object.__propdecls__() {block?}
   object#clone()
-  object.getprop!(symbol:symbol, default?:nomap):static:map
+  object.getprop!(symbol:symbol, default?:nomap, attrs[]?:symbol:nomap):static:map
   object.is(obj):map
   object.isinstance(type+:expr):map
   object.isnil():map
@@ -1046,6 +1046,8 @@ suffixmgr
   suffixmgr#assign(suffix:symbol):void:[overwrite] {block}
 symbol
   symbol#eval(env?:environment)
+  symbol#len()
+  symbol#width()
 template
   template#block(symbol:symbol):void
   template#call(symbol:symbol, args*)

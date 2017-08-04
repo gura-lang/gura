@@ -40,6 +40,7 @@ namespace Gura {
 
 class Expr;
 class SymbolSet;
+class ValueList;
 
 //-----------------------------------------------------------------------------
 // Symbol
@@ -161,6 +162,7 @@ public:
 		insert(pSymbol);
 	}
 	void Insert(const SymbolSet &symbolSet);
+	void Insert(const ValueList &valList);
 };
 
 //-----------------------------------------------------------------------------

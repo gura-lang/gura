@@ -25,13 +25,128 @@ testcase('ceres.Problem') {
 	}
 }
 testcase('ceres.Solver$Options') {
+	propNames = [
+		`minimizer_progress_to_stdout
+		`minimizer_type
+		`line_search_direction_type
+		`line_search_type
+		`nonlinear_conjugate_gradient_type
+		`max_lbfgs_rank
+		`use_approximate_eigenvalue_bfgs_scaling
+		`line_search_interpolation_type
+		`min_line_search_step_size
+		`line_search_sufficient_function_decrease
+		`max_line_search_step_contraction
+		`min_line_search_step_contraction
+		`max_num_line_search_step_size_iterations
+		`max_num_line_search_direction_restarts
+		`line_search_sufficient_curvature_decrease
+		`max_line_search_step_expansion
+		`trust_region_strategy_type
+		`dogleg_type
+		`use_nonmonotonic_steps
+		`max_consecutive_nonmonotonic_steps
+		`max_num_iterations
+		`max_solver_time_in_seconds
+		`num_threads
+		`initial_trust_region_radius
+		`max_trust_region_radius
+		`min_trust_region_radius
+		`min_relative_decrease
+		`min_lm_diagonal
+		`max_lm_diagonal
+		`max_num_consecutive_invalid_steps
+		`function_tolerance
+		`gradient_tolerance
+		`parameter_tolerance
+		`linear_solver_type
+		`preconditioner_type
+		`visibility_clustering_type
+		`dense_linear_algebra_library_type
+		`sparse_linear_algebra_library_type
+		`num_linear_solver_threads
+		`use_explicit_schur_complement
+		`use_postordering
+		`dynamic_sparsity
+		`min_linear_solver_iterations
+		`max_linear_solver_iterations
+		`eta
+		`jacobi_scaling
+		`use_inner_iterations
+		`inner_iteration_tolerance
+		`logging_type
+		`minimizer_progress_to_stdout
+		`trust_region_problem_dump_directory
+		`trust_region_problem_dump_format_type
+		`check_gradients
+		`gradient_check_relative_precision
+		`gradient_check_numeric_derivative_relative_step_size
+		`update_state_every_iteration
+	]
+	propNames:*len()
 	ceres.Solver$Options() {|options|
 		println(options)
+		printf('%-50s %s\n', propNames, options.getprop!(propNames, attrs => [`name]))
 	}
 }
 testcase('ceres.Solver$Summary') {
+	propNames = [
+		`termination_type
+		`message
+		`initial_cost
+		`final_cost
+		`fixed_cost
+		`num_successful_steps
+		`num_unsuccessful_steps
+		`num_inner_iteration_steps
+		`num_line_search_steps
+		`preprocessor_time_in_seconds
+		`minimizer_time_in_seconds
+		`postprocessor_time_in_seconds
+		`total_time_in_seconds
+		`linear_solver_time_in_seconds
+		`residual_evaluation_time_in_seconds
+		`jacobian_evaluation_time_in_seconds
+		`inner_iteration_time_in_seconds
+		`line_search_cost_evaluation_time_in_seconds
+		`line_search_gradient_evaluation_time_in_seconds
+		`line_search_polynomial_minimization_time_in_seconds
+		`line_search_total_time_in_seconds
+		`num_parameter_blocks
+		`num_parameters
+		`num_effective_parameters
+		`num_residual_blocks
+		`num_residuals
+		`num_parameter_blocks_reduced
+		`num_parameters_reduced
+		`num_effective_parameters_reduced
+		`num_residual_blocks_reduced
+		`num_residuals_reduced
+		`is_constrained
+		`num_threads_given
+		`num_threads_used
+		`num_linear_solver_threads_given
+		`num_linear_solver_threads_used
+		`linear_solver_type_given
+		`linear_solver_type_used
+		`inner_iterations_given
+		`inner_iterations_used
+		`preconditioner_type_given
+		`preconditioner_type_used
+		`visibility_clustering_type
+		`trust_region_strategy_type
+		`dogleg_type
+		`dense_linear_algebra_library_type
+		`sparse_linear_algebra_library_type
+		`line_search_direction_type
+		`line_search_type
+		`line_search_interpolation_type
+		`nonlinear_conjugate_gradient_type
+		`max_lbfgs_rank
+	]
 	ceres.Solver$Summary() {|summary|
 		println(summary)
+		printf('%-50s %s\n', propNames, summary.getprop!(propNames, attrs => [`name]))
 	}
 }
 testcase('helloworld') {
