@@ -47,27 +47,30 @@ Gura_ImplementFunction(NumericDiffCostFunction)
 		env.SetError(ERR_ValueError, "pure class can not be instantiated");
 		return Value::Nil;
 	}
-	NumericDiffCostFunctorCustom *pCostFunctor = new NumericDiffCostFunctorCustom(pObj->Reference());
+	std::unique_ptr<NumericDiffCostFunctorCustom> pCostFunctor(new NumericDiffCostFunctorCustom(pObj->Reference()));
 	ceres::NumericDiffMethodType method = static_cast<ceres::NumericDiffMethodType>(arg.GetInt(0));
-	ceres::DynamicCostFunction *pCostFunction = nullptr;
+	std::unique_ptr<ceres::DynamicCostFunction> pCostFunction;
 	if (method == ceres::CENTRAL) {
-		pCostFunction =
-			new ceres::DynamicNumericDiffCostFunction<NumericDiffCostFunctorCustom, ceres::CENTRAL>(pCostFunctor);
+		pCostFunction.reset(
+			new ceres::DynamicNumericDiffCostFunction<NumericDiffCostFunctorCustom, ceres::CENTRAL>(
+				pCostFunctor.release()));
 	} else if (method == ceres::FORWARD) {
-		pCostFunction =
-			new ceres::DynamicNumericDiffCostFunction<NumericDiffCostFunctorCustom, ceres::FORWARD>(pCostFunctor);
+		pCostFunction.reset(
+			new ceres::DynamicNumericDiffCostFunction<NumericDiffCostFunctorCustom, ceres::FORWARD>(
+				pCostFunctor.release()));
 	} else if (method == ceres::RIDDERS) {
-		pCostFunction =
-			new ceres::DynamicNumericDiffCostFunction<NumericDiffCostFunctorCustom, ceres::RIDDERS>(pCostFunctor);
+		pCostFunction.reset(
+			new ceres::DynamicNumericDiffCostFunction<NumericDiffCostFunctorCustom, ceres::RIDDERS>(
+				pCostFunctor.release()));
 	} else {
 		env.SetError(ERR_ValueError, "invalid value for method");
 		return Value::Nil;
 	}
-	pObj->SetCostFunction(pCostFunction);
 	pCostFunction->SetNumResiduals(arg.GetInt(1));
 	foreach_const (ValueList, pValue, arg.GetList(2)) {
 		pCostFunction->AddParameterBlock(pValue->GetInt());
 	}
+	pObj->SetCostFunction(pCostFunction.release());
 	return ReturnValue(env, arg, arg.GetValueThis());
 }
 

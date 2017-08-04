@@ -46,11 +46,12 @@ Gura_ImplementFunction(CostFunction)
 		env.SetError(ERR_ValueError, "pure class can not be instantiated");
 		return Value::Nil;
 	}
-	ceres::DynamicCostFunction *pCostFunction = pObj->GetCostFunction();
+	std::unique_ptr<ceres::DynamicCostFunction> pCostFunction(new CostFunctionCustom(pObj->Reference()));
 	pCostFunction->SetNumResiduals(arg.GetInt(0));
 	foreach_const (ValueList, pValue, arg.GetList(1)) {
 		pCostFunction->AddParameterBlock(pValue->GetInt());
 	}
+	pObj->SetCostFunction(pCostFunction.release());
 	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
@@ -66,9 +67,7 @@ Gura_ImplementUserInheritableClass(CostFunction)
 
 Gura_ImplementDescendantCreator(CostFunction)
 {
-	Object_CostFunction *pObj = new Object_CostFunction((pClass == nullptr)? this : pClass);
-	pObj->SetCostFunction(new CostFunctionCustom(pObj->Reference()));
-	return pObj;
+	return new Object_CostFunction((pClass == nullptr)? this : pClass);
 }
 
 //-----------------------------------------------------------------------------
