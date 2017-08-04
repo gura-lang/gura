@@ -305,7 +305,7 @@ public:
 	}
 	inline bool IsUnaryable() const { return GetDeclOwner().size() == 1; }
 	void DeclareBlock(OccurPattern occurPattern, const Symbol *pSymbol = nullptr,
-			BlockScope blockScope = BLKSCOPE_Through, bool quoteFlag = false);
+					  bool quoteFlag = false, BlockScope blockScope = BLKSCOPE_Through);
 	bool LinkHelp(const Environment *pEnv, const Symbol *pSymbol);
 	String MakeFullName() const;
 	String ToString() const;

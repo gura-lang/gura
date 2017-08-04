@@ -103,7 +103,7 @@ Gura_DeclareMethod(wx_EvtHandler, Bind)
 	DeclareArg(env, "eventType", VTYPE_wx_EventFactory);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "lastId", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_Once, nullptr, Function::BLKSCOPE_SameAsFunc);
+	DeclareBlock(OCCUR_Once, nullptr, false, Function::BLKSCOPE_SameAsFunc);
 }
 
 Gura_ImplementMethod(wx_EvtHandler, Bind)

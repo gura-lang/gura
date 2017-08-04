@@ -179,8 +179,7 @@ bool Function::CustomDeclare(Environment &env,
 		return false;
 	}
 	const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
-	DeclareBlock(occurPattern, pExprIdentifier->GetSymbol(),
-										BLKSCOPE_Through, quoteFlag);
+	DeclareBlock(occurPattern, pExprIdentifier->GetSymbol(), quoteFlag);
 	foreach_const (SymbolSet, ppSymbol, pExprIdentifier->GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (pSymbol->IsIdentical(Gura_Symbol(inside_scope))) {
@@ -223,7 +222,7 @@ Declaration *Function::DeclareArg(
 }
 
 void Function::DeclareBlock(OccurPattern occurPattern,
-				const Symbol *pSymbol, BlockScope blockScope, bool quoteFlag)
+							const Symbol *pSymbol, bool quoteFlag, BlockScope blockScope)
 {
 	_blockInfo.occurPattern = occurPattern;
 	_blockInfo.pSymbol =

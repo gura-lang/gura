@@ -37,6 +37,26 @@ Gura_ImplementFunction(Solve)
 	return Value::Nil;
 }
 
+// ceres.test() {`block}
+Gura_DeclareFunction(test)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_Once, nullptr, true);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementFunction(test)
+{
+	const Expr_Block *pExprBlock = arg.GetBlock();
+	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
+		const Expr *pExpr = *ppExpr;
+		::printf("%s\n", pExpr->ToString(Expr::SCRSTYLE_Fancy).c_str());
+	}
+	return Value::Nil;
+}
+
 // ceres.example@helloworld():void
 Gura_DeclareFunctionAlias(example_at_helloworld, "example@helloworld")
 {
@@ -140,6 +160,7 @@ Gura_ModuleEntry()
 	Gura_PrepareUserClass(Solver_Summary);
 	// Assignment of function
 	Gura_AssignFunction(Solve);
+	Gura_AssignFunction(test);
 	Gura_AssignFunction(example_at_helloworld);
 	Gura_AssignFunction(example_at_helloworld_analytic_diff);
 	Gura_AssignFunction(example_at_curve_fitting);
