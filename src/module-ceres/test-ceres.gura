@@ -166,7 +166,7 @@ testcase('helloworld') {
 	ceres.Solve(options, problem, summary)
 	println(summary.BriefReport())
 	println('x: ', x[0])
-	ceres.example@helloworld()
+	//ceres.example@helloworld()
 }
 testcase('helloworld_analytic_diff') {
 	CostFunctionEx = class(ceres.CostFunction) {
@@ -187,7 +187,7 @@ testcase('helloworld_analytic_diff') {
 	ceres.Solve(options, problem, summary)
 	println(summary.BriefReport())
 	println('x: ', x[0])
-	ceres.example@helloworld_analytic_diff()
+	//ceres.example@helloworld_analytic_diff()
 }
 testcase('curve_fitting') {
 	data = @{
@@ -281,7 +281,7 @@ testcase('curve_fitting') {
 	ceres.Solve(options, problem, summary)
 	println(summary.BriefReport())
 	println('m: ', m[0], ' c: ', c[0])
-	ceres.example@curve_fitting()
+	//ceres.example@curve_fitting()
 }
 testcase('robust_curve_fitting') {
 	data = @{
@@ -365,6 +365,7 @@ testcase('robust_curve_fitting') {
 	c = array@double {0.0}
 	problem = ceres.Problem()
 	data.fold(2).each {|d|
+		//problem.AddResidualBlock(CostFunctionEx(d[0], d[1]), nil, m, c)
 		problem.AddResidualBlock(CostFunctionEx(d[0], d[1]), ceres.CauchyLoss(0.5), m, c)
 	}
 	options = ceres.Solver$Options()
@@ -374,5 +375,5 @@ testcase('robust_curve_fitting') {
 	ceres.Solve(options, problem, summary)
 	println(summary.BriefReport())
 	println('m: ', m[0], ' c: ', c[0])
-	ceres.example@robust_curve_fitting()
+	//ceres.example@robust_curve_fitting()
 }
