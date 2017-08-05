@@ -26,16 +26,18 @@ if (sys.platform == `mswin) {
 	builder.libs.append('ceres')
 	builder.ldflags.append('-framework', 'Accelerate')
 }
-builder.build('ceres', ['module-ceres.cpp',
+builder.build('ceres', [
+	'module-ceres.cpp'
+	'ArrayChain.cpp'
 	'Class_CostFunction.cpp'
 	'Class_NumericDiffCostFunction.cpp'
 	'Class_LossFunction.cpp'
 	'Class_Problem.cpp'
 	'Class_Solver_Options.cpp'
 	'Class_Solver_Summary.cpp'
-	'examples/helloworld.cc',
-	'examples/helloworld_analytic_diff.cc',
-	'examples/curve_fitting.cc',
-	'examples/robust_curve_fitting.cc',
+	'examples/helloworld.cc'
+	'examples/helloworld_analytic_diff.cc'
+	'examples/curve_fitting.cc'
+	'examples/robust_curve_fitting.cc'
 	'examples/ellipse_approximation.cc'
 	])
