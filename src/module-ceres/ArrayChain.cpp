@@ -21,8 +21,8 @@ public:
 	private:
 		ArrayChain *_pArrayChainSrc;
 		ArrayChain *_pArrayChainDst;
-		AutoPtr<Array> _pArrayFwd_In;
-		AutoPtr<Array> _pArrayBwd_Out;
+		AutoPtr<Array> _pArrayFwd;
+		AutoPtr<Array> _pArrayBwd;
 	public:
 		inline Connector(ArrayChain *pArrayChainDst) :
 			_pArrayChainSrc(nullptr), _pArrayChainDst(pArrayChainDst) {}
@@ -31,32 +31,37 @@ public:
 		inline void SetArrayChainSrc(ArrayChain *pArrayChainSrc) {
 			_pArrayChainSrc = pArrayChainSrc;
 		}
+		inline void SetArrayFwd(Array *pArrayFwd) { _pArrayFwd.reset(pArrayFwd); }
+		inline void SetArrayBwd(Array *pArrayBwd) { _pArrayBwd.reset(pArrayBwd); }
+		inline Array *GetArrayFwd() { return _pArrayFwd.get(); }
+		inline Array *GetArrayBwd() { return _pArrayBwd.get(); }
 	};
 	class ConnectorList : public std::vector<Connector *> {
 	public:
 		inline ConnectorList() {}
+		inline void SetArrayFwd(Array *pArrayFwd);
+		inline void SetArrayBwd(Array *pArrayBwd);
 	};
-private:
+protected:
 	ConnectorList _connectorsDst;
-	AutoPtr<Array> _pArrayFwd_Out;
-	AutoPtr<ArrayOwner> _pArraysBwd_In;
 public:
-	inline ArrayChain() : _pArraysBwd_In(new ArrayOwner()) {}
-	inline ArrayChain(Connector *pConnectorDst) : _pArraysBwd_In(new ArrayOwner()) {
+	inline ArrayChain() {}
+	inline ArrayChain(Connector *pConnectorDst) {
 		pConnectorDst->SetArrayChainSrc(this);
 		_connectorsDst.push_back(pConnectorDst);
 	}
 	inline void AddConnectorDst(Connector *pConnectorDst) { _connectorsDst.push_back(pConnectorDst); }
-	virtual void ActivateConnection() = 0;
 };
 
 //-----------------------------------------------------------------------------
 // ArrayChainHead
 //-----------------------------------------------------------------------------
 class ArrayChainHead : public ArrayChain {
+private:
+	AutoPtr<Expr> _pExpr;
 public:
-	inline ArrayChainHead(Connector *pConnectorDst) : ArrayChain(pConnectorDst) {}
-	virtual void ActivateConnection();
+	inline ArrayChainHead(Connector *pConnectorDst, Expr *pExpr) : ArrayChain(pConnectorDst), _pExpr(pExpr) {}
+	virtual bool ActivateForward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
@@ -67,7 +72,6 @@ private:
 	Connector _connectorSrc;
 public:
 	inline ArrayChainTail() : ArrayChain(), _connectorSrc(this) {}
-	virtual void ActivateConnection();
 };
 
 //-----------------------------------------------------------------------------
@@ -78,7 +82,6 @@ private:
 	Connector _connectorSrc;
 public:
 	inline ArrayChainUnary(Connector *pConnectorDst) : ArrayChain(pConnectorDst), _connectorSrc(this) {}
-	virtual void ActivateConnection();
 };
 
 //-----------------------------------------------------------------------------
@@ -91,7 +94,6 @@ private:
 public:
 	inline ArrayChainBinary(Connector *pConnectorDst) :
 		ArrayChain(pConnectorDst), _connectorSrcLeft(this), _connectorSrcRight(this) {}
-	virtual void ActivateConnection();
 };
 
 //-----------------------------------------------------------------------------
@@ -108,32 +110,53 @@ public:
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// ArrayChain::Connector
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// ArrayChain::ConnectorList
+//-----------------------------------------------------------------------------
+void ArrayChain::ConnectorList::SetArrayFwd(Array *pArrayFwd)
+{
+	foreach (ConnectorList, ppConnector, *this) {
+		(*ppConnector)->SetArrayFwd(pArrayFwd->Reference());
+	}
+	Array::Delete(pArrayFwd);
+}
+
+void ArrayChain::ConnectorList::SetArrayBwd(Array *pArrayBwd)
+{
+	foreach (ConnectorList, ppConnector, *this) {
+		(*ppConnector)->SetArrayBwd(pArrayBwd->Reference());
+	}
+	Array::Delete(pArrayBwd);
+}
+
+//-----------------------------------------------------------------------------
 // ArrayChainHead
 //-----------------------------------------------------------------------------
-void ArrayChainHead::ActivateConnection()
+bool ArrayChainHead::ActivateForward(Environment &env)
 {
+	Value value = _pExpr->Exec(env);
+	if (!value.Is_array()) {
+		env.SetError(ERR_ValueError, "variable must be an array");
+		return false;
+	}
+	_connectorsDst.SetArrayFwd(Object_array::GetObject(value)->GetArray()->Reference());
+	return true;
 }
 
 //-----------------------------------------------------------------------------
 // ArrayChainTail
 //-----------------------------------------------------------------------------
-void ArrayChainTail::ActivateConnection()
-{
-}
 
 //-----------------------------------------------------------------------------
 // ArrayChainUnary
 //-----------------------------------------------------------------------------
-void ArrayChainUnary::ActivateConnection()
-{
-}
 
 //-----------------------------------------------------------------------------
 // ArrayChainBinary
 //-----------------------------------------------------------------------------
-void ArrayChainBinary::ActivateConnection()
-{
-}
 
 //-----------------------------------------------------------------------------
 // ArrayChainOwner
