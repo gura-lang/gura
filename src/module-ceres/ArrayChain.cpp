@@ -4,49 +4,103 @@ namespace Gura {
 
 class ArrayChain;
 
-typedef std::vector<ArrayChain *> ArrayChainList;
-
-class ArrayChain {
-private:
-	ArrayChainList _arrayChainsDst;
-	AutoPtr<Array> _pArrayOut_Fwd;
-	ArrayOwner _arraysIn_Bwd;
+//-----------------------------------------------------------------------------
+// ArrayChainList
+//-----------------------------------------------------------------------------
+class ArrayChainList : public std::vector<ArrayChain *> {
 public:
-	inline void AddArrayChainDst(ArrayChain *pArrayChain) { _arrayChainsDst.push_back(pArrayChain); }
+	inline ArrayChainList() {}
 };
 
+//-----------------------------------------------------------------------------
+// ArrayChain
+//-----------------------------------------------------------------------------
+class ArrayChain {
+public:
+	class Connector {
+	private:
+		ArrayChain *_pArrayChainSrc;
+		ArrayChain *_pArrayChainDst;
+		AutoPtr<Array> _pArrayFwd_In;
+		AutoPtr<Array> _pArrayBwd_Out;
+	public:
+		inline Connector(ArrayChain *pArrayChainDst) :
+			_pArrayChainSrc(nullptr), _pArrayChainDst(pArrayChainDst) {}
+		inline ArrayChain *GetArrayChainSrc() { return _pArrayChainSrc; }
+		inline ArrayChain *GetArrayChainDst() { return _pArrayChainDst; }
+		inline void SetArrayChainSrc(ArrayChain *pArrayChainSrc) {
+			_pArrayChainSrc = pArrayChainSrc;
+		}
+	};
+	class ConnectorList : public std::vector<Connector *> {
+	public:
+		inline ConnectorList() {}
+	};
+private:
+	ConnectorList _connectorsDst;
+	AutoPtr<Array> _pArrayFwd_Out;
+	AutoPtr<ArrayOwner> _pArraysBwd_In;
+public:
+	inline ArrayChain() : _pArraysBwd_In(new ArrayOwner()) {}
+	inline ArrayChain(Connector *pConnectorDst) : _pArraysBwd_In(new ArrayOwner()) {
+		pConnectorDst->SetArrayChainSrc(this);
+		_connectorsDst.push_back(pConnectorDst);
+	}
+	inline void AddConnectorDst(Connector *pConnectorDst) { _connectorsDst.push_back(pConnectorDst); }
+	virtual void ActivateConnection() = 0;
+};
+
+//-----------------------------------------------------------------------------
+// ArrayChainHead
+//-----------------------------------------------------------------------------
 class ArrayChainHead : public ArrayChain {
+public:
+	inline ArrayChainHead(Connector *pConnectorDst) : ArrayChain(pConnectorDst) {}
+	virtual void ActivateConnection();
 };
 
+//-----------------------------------------------------------------------------
+// ArrayChainTail
+//-----------------------------------------------------------------------------
 class ArrayChainTail : public ArrayChain {
 private:
-	ArrayChain *_pArrayChainSrc;
-	AutoPtr<Array> _pArrayIn_Fwd;
-	AutoPtr<Array> _pArrayOut_Bwd;
+	Connector _connectorSrc;
 public:
-	void Connect(ArrayChain *pArrayChain);
+	inline ArrayChainTail() : ArrayChain(), _connectorSrc(this) {}
+	virtual void ActivateConnection();
 };
 
+//-----------------------------------------------------------------------------
+// ArrayChainUnary
+//-----------------------------------------------------------------------------
 class ArrayChainUnary : public ArrayChain {
 private:
-	ArrayChain *_pArrayChainSrc;
-	AutoPtr<Array> _pArrayIn_Fwd;
-	AutoPtr<Array> _pArrayOut_Bwd;
+	Connector _connectorSrc;
 public:
-	void Connect(ArrayChain *pArrayChain);
+	inline ArrayChainUnary(Connector *pConnectorDst) : ArrayChain(pConnectorDst), _connectorSrc(this) {}
+	virtual void ActivateConnection();
 };
 
+//-----------------------------------------------------------------------------
+// ArrayChainBinary
+//-----------------------------------------------------------------------------
 class ArrayChainBinary : public ArrayChain {
 private:
-	ArrayChain *_pArrayChainLeftSrc;
-	ArrayChain *_pArrayChainRightSrc;
-	AutoPtr<Array> _pArrayLeftIn_Fwd;
-	AutoPtr<Array> _pArrayLeftOut_Bwd;
-	AutoPtr<Array> _pArrayRightIn_Fwd;
-	AutoPtr<Array> _pArrayRightOut_Bwd;
+	Connector _connectorSrcLeft;
+	Connector _connectorSrcRight;
 public:
-	void ConnectLeft(ArrayChain *pArrayChain);
-	void ConnectRight(ArrayChain *pArrayChain);
+	inline ArrayChainBinary(Connector *pConnectorDst) :
+		ArrayChain(pConnectorDst), _connectorSrcLeft(this), _connectorSrcRight(this) {}
+	virtual void ActivateConnection();
+};
+
+//-----------------------------------------------------------------------------
+// ArrayChainOwner
+//-----------------------------------------------------------------------------
+class ArrayChainOwner : public ArrayChainList {
+public:
+	~ArrayChainOwner();
+	void Clear();
 };
 
 //-----------------------------------------------------------------------------
@@ -56,38 +110,45 @@ public:
 //-----------------------------------------------------------------------------
 // ArrayChainHead
 //-----------------------------------------------------------------------------
+void ArrayChainHead::ActivateConnection()
+{
+}
 
 //-----------------------------------------------------------------------------
 // ArrayChainTail
 //-----------------------------------------------------------------------------
-void ArrayChainTail::Connect(ArrayChain *pArrayChain)
+void ArrayChainTail::ActivateConnection()
 {
-	_pArrayChainSrc = pArrayChain;
-	pArrayChain->AddArrayChainDst(this);
 }
 
 //-----------------------------------------------------------------------------
 // ArrayChainUnary
 //-----------------------------------------------------------------------------
-void ArrayChainUnary::Connect(ArrayChain *pArrayChain)
+void ArrayChainUnary::ActivateConnection()
 {
-	_pArrayChainSrc = pArrayChain;
-	pArrayChain->AddArrayChainDst(this);
 }
 
 //-----------------------------------------------------------------------------
 // ArrayChainBinary
 //-----------------------------------------------------------------------------
-void ArrayChainBinary::ConnectLeft(ArrayChain *pArrayChain)
+void ArrayChainBinary::ActivateConnection()
 {
-	_pArrayChainLeftSrc = pArrayChain;
-	pArrayChain->AddArrayChainDst(this);
 }
 
-void ArrayChainBinary::ConnectRight(ArrayChain *pArrayChain)
+//-----------------------------------------------------------------------------
+// ArrayChainOwner
+//-----------------------------------------------------------------------------
+ArrayChainOwner::~ArrayChainOwner()
 {
-	_pArrayChainRightSrc = pArrayChain;
-	pArrayChain->AddArrayChainDst(this);
+	Clear();
+}
+
+void ArrayChainOwner::Clear()
+{
+	foreach (ArrayChainOwner, ppArrayChain, *this) {
+		delete *ppArrayChain;
+	}
+	clear();
 }
 
 }
