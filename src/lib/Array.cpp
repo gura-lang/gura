@@ -561,7 +561,7 @@ Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
-	return (*unaryFunc)(sig, pArray);
+	return (*unaryFunc)(sig, nullptr, pArray);
 }
 
 Value Array::ApplyUnaryFuncOnValue(Environment &env, const UnaryFuncPack &pack, const Value &value)
@@ -582,7 +582,7 @@ Array *Array::ApplyBinaryFunc_array_array(
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
-	return (*binaryFunc_array_array)(sig, pArrayL, pArrayR);
+	return (*binaryFunc_array_array)(sig, nullptr, pArrayL, pArrayR);
 }
 
 Value Array::ApplyBinaryFuncOnValue_array_array(
@@ -605,7 +605,7 @@ Array *Array::ApplyBinaryFunc_array_number(
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
-	return (*binaryFunc_array_number)(sig, pArrayL, numberR);
+	return (*binaryFunc_array_number)(sig, nullptr, pArrayL, numberR);
 }
 
 Value Array::ApplyBinaryFuncOnValue_array_number(
@@ -627,7 +627,7 @@ Array *Array::ApplyBinaryFunc_number_array(
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
-	return (*binaryFunc_number_array)(sig, numberL, pArrayR);
+	return (*binaryFunc_number_array)(sig, nullptr, numberL, pArrayR);
 }
 
 Value Array::ApplyBinaryFuncOnValue_number_array(
@@ -649,7 +649,7 @@ Array *Array::ApplyBinaryFunc_array_complex(
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
-	return (*binaryFunc_array_complex)(sig, pArrayL, complexR);
+	return (*binaryFunc_array_complex)(sig, nullptr, pArrayL, complexR);
 }
 
 Value Array::ApplyBinaryFuncOnValue_array_complex(
@@ -671,7 +671,7 @@ Array *Array::ApplyBinaryFunc_complex_array(
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
-	return (*binaryFunc_complex_array)(sig, complexL, pArrayR);
+	return (*binaryFunc_complex_array)(sig, nullptr, complexL, pArrayR);
 }
 
 Value Array::ApplyBinaryFuncOnValue_complex_array(
@@ -697,7 +697,7 @@ Array *Array::Invert(Signal &sig, const Array *pArray, Double epsilon)
 		sig.SetError(ERR_TypeError, "can't apply invert function on this array");
 		return nullptr;
 	}
-	return (*invertFunc)(sig, pArray, epsilon);
+	return (*invertFunc)(sig, nullptr, pArray, epsilon);
 }
 
 //-----------------------------------------------------------------------------
@@ -851,7 +851,7 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemResult, const T_Elem *pElemOrg, size_t nRow
 }
 
 template<typename T_Elem>
-Array *InvertFuncTmpl(Signal &sig, const Array *pArray, Double epsilon)
+Array *InvertFuncTmpl(Signal &sig, Array *pArrayResult, const Array *pArray, Double epsilon)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
@@ -867,11 +867,11 @@ Array *InvertFuncTmpl(Signal &sig, const Array *pArray, Double epsilon)
 	}
 	std::unique_ptr<T_Elem []> pElemWork(new T_Elem [nRows * nCols * 2]);
 	std::unique_ptr<T_Elem *[]> rows(new T_Elem *[nRows]);
-	AutoPtr<ArrayT<T_Elem> > pArrayResult(ArrayT<T_Elem>::Create(pArrayT->GetDimensions()));
+	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(pArrayT->GetDimensions()));
 	size_t elemNumMat = nRows * nCols;
 	const T_Elem *pElemOrg = pArrayT->GetPointer();
-	T_Elem *pElemResult = pArrayResult->GetPointer();
-	for (size_t cnt = pArrayResult->GetElemNum() / elemNumMat; cnt > 0; cnt--) {
+	T_Elem *pElemResult = pArrayTResult->GetPointer();
+	for (size_t cnt = pArrayTResult->GetElemNum() / elemNumMat; cnt > 0; cnt--) {
 		T_Elem det = 0;
 		if (!InvertFuncTmpl_Sub(pElemResult, pElemOrg, nRows, det, pElemWork.get(), rows.get(), epsilon)) {
 			sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
@@ -880,7 +880,7 @@ Array *InvertFuncTmpl(Signal &sig, const Array *pArray, Double epsilon)
 		pElemResult += elemNumMat;
 		pElemOrg += elemNumMat;
 	}
-	return pArrayResult.release();
+	return pArrayTResult.release();
 }
 
 //------------------------------------------------------------------------------

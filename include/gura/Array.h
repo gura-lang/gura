@@ -34,14 +34,20 @@ public:
 		ETYPE_Max,
 	};
 public:
-	typedef Array *(*UnaryFunc)(Signal &sig, const Array *pArray);
-	typedef Array *(*InvertFunc)(Signal &sig, const Array *pArray, Double epsilon);
-	typedef Array *(*BinaryFunc_array_array)(Signal &sig, const Array *pArrayL, const Array *pArrayR);
-	typedef Array *(*BinaryFunc_array_number)(Signal &sig, const Array *pArrayL, Double numberR);
-	typedef Array *(*BinaryFunc_number_array)(Signal &sig, Double numberL, const Array *pArrayR);
-	typedef Array *(*BinaryFunc_array_complex)(Signal &sig, const Array *pArrayL, const Complex &complexR);
-	typedef Array *(*BinaryFunc_complex_array)(Signal &sig, const Complex &complexL, const Array *pArrayR);
-	typedef Value (*DotFunc)(Environment &env, const Array *pArrayL, const Array *pArrayR);
+	typedef Array *(*UnaryFunc)(Signal &sig, Array *pArrayResult, const Array *pArray);
+	typedef Array *(*InvertFunc)(Signal &sig, Array *pArrayResult, const Array *pArray, Double epsilon);
+	typedef Array *(*BinaryFunc_array_array)(Signal &sig, Array *pArrayResult,
+											 const Array *pArrayL, const Array *pArrayR);
+	typedef Array *(*BinaryFunc_array_number)(Signal &sig, Array *pArrayResult,
+											  const Array *pArrayL, Double numberR);
+	typedef Array *(*BinaryFunc_number_array)(Signal &sig, Array *pArrayResult,
+											  Double numberL, const Array *pArrayR);
+	typedef Array *(*BinaryFunc_array_complex)(Signal &sig, Array *pArrayResult,
+											   const Array *pArrayL, const Complex &complexR);
+	typedef Array *(*BinaryFunc_complex_array)(Signal &sig, Array *pArrayResult,
+											   const Complex &complexL, const Array *pArrayR);
+	typedef Value (*DotFunc)(Environment &env, Array *pArrayResult,
+							 const Array *pArrayL, const Array *pArrayR);
 	struct UnaryFuncPack {
 		const char *name;
 		const char *symbol;
