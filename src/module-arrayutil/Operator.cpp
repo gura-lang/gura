@@ -6,19 +6,19 @@ Array::UnaryFuncPack g_unaryFuncPack_##op = { \
 	symbol, \
 	{ \
 		nullptr, \
-		&func<Boolean,	Boolean,Operator_##op::Calc>,	\
-		&func<Int8,		Int8,	Operator_##op::Calc>,	\
-		&func<UInt8,	UInt8,	Operator_##op::Calc>,	\
-		&func<Int16,	Int16,	Operator_##op::Calc>,	\
-		&func<UInt16,	UInt16,	Operator_##op::Calc>,	\
-		&func<Int32,	Int32,	Operator_##op::Calc>,	\
-		&func<UInt32,	UInt32,	Operator_##op::Calc>,	\
-		&func<Int64,	Int64,	Operator_##op::Calc>,	\
-		&func<UInt64,	UInt64,	Operator_##op::Calc>,	\
-		&func<Half,		Half,	Operator_##op::Calc>,	\
-		&func<Float,	Float,	Operator_##op::Calc>,	\
-		&func<Double,	Double,	Operator_##op::Calc>,	\
-		&func<Complex,	Complex,Operator_##op::Calc>,	\
+		&func<Boolean,	Boolean,	Operator_##op::Calc>,	\
+		&func<Int8,		Int8,		Operator_##op::Calc>,	\
+		&func<UInt8,	UInt8,		Operator_##op::Calc>,	\
+		&func<Int16,	Int16,		Operator_##op::Calc>,	\
+		&func<UInt16,	UInt16,		Operator_##op::Calc>,	\
+		&func<Int32,	Int32,		Operator_##op::Calc>,	\
+		&func<UInt32,	UInt32,		Operator_##op::Calc>,	\
+		&func<Int64,	Int64,		Operator_##op::Calc>,	\
+		&func<UInt64,	UInt64,		Operator_##op::Calc>,	\
+		&func<Half,		Half,		Operator_##op::Calc>,	\
+		&func<Float,	Float,		Operator_##op::Calc>,	\
+		&func<Double,	Double,		Operator_##op::Calc>,	\
+		&func<Complex,	Complex,	Operator_##op::Calc>,	\
 		nullptr, \
 	}, \
 }

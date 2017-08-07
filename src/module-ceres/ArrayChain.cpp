@@ -51,6 +51,11 @@ public:
 		_connectorsDst.push_back(pConnectorDst);
 	}
 	inline void AddConnectorDst(Connector *pConnectorDst) { _connectorsDst.push_back(pConnectorDst); }
+	virtual bool InitForward(Environment &env) = 0;
+	virtual bool InitBackward(Environment &env) = 0;
+	virtual bool EvalForward(Environment &env) = 0;
+	virtual bool EvalBackward(Environment &env) = 0;
+	static ArrayChain *CreateFromExpr(const Expr *pExpr);
 };
 
 //-----------------------------------------------------------------------------
@@ -61,7 +66,10 @@ private:
 	AutoPtr<Expr> _pExpr;
 public:
 	inline ArrayChainHead(Connector *pConnectorDst, Expr *pExpr) : ArrayChain(pConnectorDst), _pExpr(pExpr) {}
-	virtual bool ActivateForward(Environment &env);
+	virtual bool InitForward(Environment &env);
+	virtual bool InitBackward(Environment &env);
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
@@ -72,6 +80,10 @@ private:
 	Connector _connectorSrc;
 public:
 	inline ArrayChainTail() : ArrayChain(), _connectorSrc(this) {}
+	virtual bool InitForward(Environment &env);
+	virtual bool InitBackward(Environment &env);
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
@@ -82,6 +94,10 @@ private:
 	Connector _connectorSrc;
 public:
 	inline ArrayChainUnary(Connector *pConnectorDst) : ArrayChain(pConnectorDst), _connectorSrc(this) {}
+	virtual bool InitForward(Environment &env);
+	virtual bool InitBackward(Environment &env);
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
@@ -94,6 +110,10 @@ private:
 public:
 	inline ArrayChainBinary(Connector *pConnectorDst) :
 		ArrayChain(pConnectorDst), _connectorSrcLeft(this), _connectorSrcRight(this) {}
+	virtual bool InitForward(Environment &env);
+	virtual bool InitBackward(Environment &env);
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
@@ -108,6 +128,11 @@ public:
 //-----------------------------------------------------------------------------
 // ArrayChain
 //-----------------------------------------------------------------------------
+ArrayChain *ArrayChain::CreateFromExpr(const Expr *pExpr)
+{
+	
+	return nullptr;
+}
 
 //-----------------------------------------------------------------------------
 // ArrayChain::Connector
@@ -135,7 +160,7 @@ void ArrayChain::ConnectorList::SetArrayBwd(Array *pArrayBwd)
 //-----------------------------------------------------------------------------
 // ArrayChainHead
 //-----------------------------------------------------------------------------
-bool ArrayChainHead::ActivateForward(Environment &env)
+bool ArrayChainHead::InitForward(Environment &env)
 {
 	Value value = _pExpr->Exec(env);
 	if (!value.Is_array()) {
@@ -146,17 +171,90 @@ bool ArrayChainHead::ActivateForward(Environment &env)
 	return true;
 }
 
+bool ArrayChainHead::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainHead::EvalForward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainHead::EvalBackward(Environment &env)
+{
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // ArrayChainTail
 //-----------------------------------------------------------------------------
+bool ArrayChainTail::InitForward(Environment &env)
+{
+	// nothing to do
+	return true;
+}
+
+bool ArrayChainTail::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainTail::EvalForward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainTail::EvalBackward(Environment &env)
+{
+	return false;
+}
 
 //-----------------------------------------------------------------------------
 // ArrayChainUnary
 //-----------------------------------------------------------------------------
+bool ArrayChainUnary::InitForward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainUnary::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainUnary::EvalForward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainUnary::EvalBackward(Environment &env)
+{
+	return false;
+}
 
 //-----------------------------------------------------------------------------
 // ArrayChainBinary
 //-----------------------------------------------------------------------------
+bool ArrayChainBinary::InitForward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainBinary::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainBinary::EvalForward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainBinary::EvalBackward(Environment &env)
+{
+	return false;
+}
 
 //-----------------------------------------------------------------------------
 // ArrayChainOwner
