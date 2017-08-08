@@ -578,15 +578,33 @@ Array *Array::ApplyBinaryFunc(
 	if (!pArrayL->IsScalar() && !pArrayR->IsScalar()) {
 		return ApplyBinaryFunc_array_array(sig, pack, pArrayResult, pArrayL, pArrayR);
 	} else if (!pArrayL->IsScalar() && pArrayR->IsScalar()) {
-		if (pArrayR->GetElemType() == ETYPE_Complex) {
-			
+		if (pArrayR->IsElemType(ETYPE_Complex)) {
+			return ApplyBinaryFunc_array_complex(sig, pack, pArrayResult, pArrayL, pArrayR->GetScalarComplex());
 		} else {
-			
+			return ApplyBinaryFunc_array_number(sig, pack, pArrayResult, pArrayL, pArrayR->GetScalarNumber());
 		}
 	} else if (pArrayL->IsScalar() && !pArrayR->IsScalar()) {
-
+		if (pArrayL->IsElemType(ETYPE_Complex)) {
+			return ApplyBinaryFunc_complex_array(sig, pack, pArrayResult, pArrayL->GetScalarComplex(), pArrayR);
+		} else {
+			return ApplyBinaryFunc_number_array(sig, pack, pArrayResult, pArrayL->GetScalarNumber(), pArrayR);
+		}
 	} else {
-
+		if (!pArrayL->IsElemType(ETYPE_Complex) && !pArrayR->IsElemType(ETYPE_Complex)) {
+			if (pack.binaryFunc_number_number == nullptr) {
+				sig.SetError(ERR_TypeError, "can't apply %s function on these scalars", pack.name);
+				return nullptr;
+			}
+			return (*pack.binaryFunc_number_number)(
+				sig, pArrayResult, pArrayL->GetScalarNumber(), pArrayR->GetScalarNumber());
+		} else {
+			if (pack.binaryFunc_complex_complex == nullptr) {
+				sig.SetError(ERR_TypeError, "can't apply %s function on these scalars", pack.name);
+				return nullptr;
+			}
+			return (*pack.binaryFunc_complex_complex)(
+				sig, pArrayResult, pArrayL->GetScalarComplex(), pArrayR->GetScalarComplex());
+		}
 	}
 	return nullptr;
 }

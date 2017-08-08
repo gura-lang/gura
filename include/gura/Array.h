@@ -46,6 +46,10 @@ public:
 											   const Array *pArrayL, const Complex &complexR);
 	typedef Array *(*BinaryFunc_complex_array)(Signal &sig, Array *pArrayResult,
 											   const Complex &complexL, const Array *pArrayR);
+	typedef Array *(*BinaryFunc_number_number)(Signal &sig, Array *pArrayResult,
+											   Double numberL, Double numberR);
+	typedef Array *(*BinaryFunc_complex_complex)(Signal &sig, Array *pArrayResult,
+												 const Complex &complexL, const Complex &complexR);
 	typedef Value (*DotFunc)(Environment &env, Array *pArrayResult,
 							 const Array *pArrayL, const Array *pArrayR);
 	struct UnaryFuncPack {
@@ -61,6 +65,8 @@ public:
 		BinaryFunc_number_array binaryFuncs_number_array[ETYPE_Max];
 		BinaryFunc_array_complex binaryFuncs_array_complex[ETYPE_Max];
 		BinaryFunc_complex_array binaryFuncs_complex_array[ETYPE_Max];
+		BinaryFunc_number_number binaryFunc_number_number;
+		BinaryFunc_complex_complex binaryFunc_complex_complex;
 	};
 	typedef std::map<const Symbol *, ElemType, Symbol::LessThan> MapToElemType;
 public:
@@ -159,6 +165,7 @@ public:
 	static void Bootup();
 public:
 	inline ElemType GetElemType() const { return _elemType; }
+	inline bool IsElemType(ElemType elemType) const { return _elemType == elemType; }
 	inline void SetMemory(Memory *pMemory, size_t offsetBase) {
 		_pMemory.reset(pMemory), _offsetBase = offsetBase;
 	}
