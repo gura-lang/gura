@@ -1105,4 +1105,49 @@ void ArrayOwner::Clear()
 	clear();
 }
 
+Array::UnaryFuncPack Array::unaryFuncPack_Pos =				{ "pos",			"+"		};
+Array::UnaryFuncPack Array::unaryFuncPack_Neg =				{ "neg",			"-"		};
+Array::BinaryFuncPack Array::binaryFuncPack_Add =			{ "add",			"+"		};
+Array::BinaryFuncPack Array::binaryFuncPack_Sub =			{ "sub",			"-"		};
+Array::BinaryFuncPack Array::binaryFuncPack_Mul =			{ "mul",			"*"		};
+Array::BinaryFuncPack Array::binaryFuncPack_Div =			{ "div",			"/"		};
+Array::BinaryFuncPack Array::binaryFuncPack_Mod =			{ "mod",			"%"		};
+Array::BinaryFuncPack Array::binaryFuncPack_Pow =			{ "pow",			"**"	};
+Array::BinaryFuncPack Array::binaryFuncPack_Eq =			{ "eq",				"=="	};
+Array::BinaryFuncPack Array::binaryFuncPack_Ne =			{ "ne",				"!="	};
+Array::BinaryFuncPack Array::binaryFuncPack_Gt =			{ "gt",				">"		};
+Array::BinaryFuncPack Array::binaryFuncPack_Lt =			{ "lt",				"<"		};
+Array::BinaryFuncPack Array::binaryFuncPack_Ge =			{ "ge",				">="	};
+Array::BinaryFuncPack Array::binaryFuncPack_Le =			{ "le",				"<="	};
+Array::BinaryFuncPack Array::binaryFuncPack_And =			{ "and",			"&"		};
+Array::BinaryFuncPack Array::binaryFuncPack_Or =			{ "or",				"|"		};
+Array::BinaryFuncPack Array::binaryFuncPack_Xor =			{ "xor",			"^"		};
+Array::BinaryFuncPack Array::binaryFuncPack_Shl =			{ "shl",			"<<"	};
+Array::BinaryFuncPack Array::binaryFuncPack_Shr =			{ "shr",			">>"	};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_abs =		{ "math.abs",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_acos =		{ "math.acos",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_arg =		{ "math.arg",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_asin =		{ "math.asin",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_atan =		{ "math.atan",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_ceil =		{ "math.ceil",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_conj	=		{ "math.conj",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_cos =		{ "math.cos",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_cosh =		{ "math.cosh",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_delta =		{ "math.delta",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_exp =		{ "math.exp",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_floor =		{ "math.floor",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_imag =		{ "math.imag",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_log =		{ "math.log",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_log10 =		{ "math.log10",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_norm =		{ "math.norm",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_ramp =		{ "math.ramp",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_real =		{ "math.real",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_sigmoid =	{ "math.sigmoid",	""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_sin =		{ "math.sin",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_sinh =		{ "math.sinh",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_sqrt =		{ "math.sqrt",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_tan =		{ "math.tan",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_tanh =		{ "math.tanh",		""		};
+Array::UnaryFuncPack Array::unaryFuncPack_Math_unitstep =	{ "math.unitstep",	""		};
+
 }

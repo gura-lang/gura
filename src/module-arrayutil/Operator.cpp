@@ -2418,6 +2418,52 @@ Gura_ImplementUnaryOperator(Math_unitstep, array)
 
 void AssignOperators(Environment &env)
 {
+#if 0
+	Array::unaryFuncPack_Pos.table =			g_unaryFuncTable_Pos;
+	Array::unaryFuncPack_Neg.table = 			g_unaryFuncTable_Neg;
+	Array::binaryFuncPack_Add.table =			g_unaryFuncTable_Add;
+	Array::binaryFuncPack_Sub.table =			g_binaryFuncTable_Sub;
+	Array::binaryFuncPack_Mul.table =			g_binaryFuncTable_Mul;
+	Array::binaryFuncPack_Div.table =			g_binaryFuncTable_Div;
+	Array::binaryFuncPack_Mod.table =			g_binaryFuncTable_Mod;
+	Array::binaryFuncPack_Pow.table =			g_binaryFuncTable_Pow;
+	Array::binaryFuncPack_Eq.table =			g_binaryFuncTable_Eq;
+	Array::binaryFuncPack_Ne.table =			g_binaryFuncTable_Ne;
+	Array::binaryFuncPack_Gt.table =			g_binaryFuncTable_Gt;
+	Array::binaryFuncPack_Lt.table =			g_binaryFuncTable_Lt;
+	Array::binaryFuncPack_Ge.table =			g_binaryFuncTable_Ge;
+	Array::binaryFuncPack_Le.table =			g_binaryFuncTable_Le;
+	Array::binaryFuncPack_And.table =			g_binaryFuncTable_And;
+	Array::binaryFuncPack_Or.table =			g_binaryFuncTable_Or;
+	Array::binaryFuncPack_Xor.table =			g_binaryFuncTable_Xor;
+	Array::binaryFuncPack_Shl.table =			g_binaryFuncTable_Shl;
+	Array::binaryFuncPack_Shr.table =			g_binaryFuncTable_Shr;
+	Array::unaryFuncPack_Math_abs.table =		g_unaryFuncTable_Math_abs;
+	Array::unaryFuncPack_Math_acos.table =		g_unaryFuncTable_Math_acos;
+	Array::unaryFuncPack_Math_arg.table =		g_unaryFuncTable_Math_arg;
+	Array::unaryFuncPack_Math_asin.table =		g_unaryFuncTable_Math_asin;
+	Array::unaryFuncPack_Math_atan.table =		g_unaryFuncTable_Math_atan;
+	Array::unaryFuncPack_Math_ceil.table =		g_unaryFuncTable_Math_ceil;
+	Array::unaryFuncPack_Math_conj.table =		g_unaryFuncTable_Math_conj;
+	Array::unaryFuncPack_Math_cos.table =		g_unaryFuncTable_Math_cos;
+	Array::unaryFuncPack_Math_cosh.table =		g_unaryFuncTable_Math_cosh;
+	Array::unaryFuncPack_Math_delta.table =		g_unaryFuncTable_Math_delta;
+	Array::unaryFuncPack_Math_exp.table =		g_unaryFuncTable_Math_exp;
+	Array::unaryFuncPack_Math_floor.table =		g_unaryFuncTable_Math_floor;
+	Array::unaryFuncPack_Math_imag.table =		g_unaryFuncTable_Math_imag;
+	Array::unaryFuncPack_Math_log.table =		g_unaryFuncTable_Math_log;
+	Array::unaryFuncPack_Math_log10.table =		g_unaryFuncTable_Math_log10;
+	Array::unaryFuncPack_Math_norm.table =		g_unaryFuncTable_Math_norm;
+	Array::unaryFuncPack_Math_ramp.table =		g_unaryFuncTable_Math_ramp;
+	Array::unaryFuncPack_Math_real.table =		g_unaryFuncTable_Math_real;
+	Array::unaryFuncPack_Math_sigmoid.table =	g_unaryFuncTable_Math_sigmoid;
+	Array::unaryFuncPack_Math_sin.table =		g_unaryFuncTable_Math_sin;
+	Array::unaryFuncPack_Math_sinh.table =		g_unaryFuncTable_Math_sinh;
+	Array::unaryFuncPack_Math_sqrt.table =		g_unaryFuncTable_Math_sqrt;
+	Array::unaryFuncPack_Math_tan.table =		g_unaryFuncTable_Math_tan;
+	Array::unaryFuncPack_Math_tanh.table =		g_unaryFuncTable_Math_tanh;
+	Array::unaryFuncPack_Math_unitstep.table =	g_unaryFuncTable_Math_unitstep;
+#endif
 	// unary operators
 	Gura_AssignUnaryOperator(Pos, array);
 	Gura_AssignUnaryOperator(Neg, array);

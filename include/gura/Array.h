@@ -76,6 +76,51 @@ public:
 	};
 	typedef std::map<const Symbol *, ElemType, Symbol::LessThan> MapToElemType;
 public:
+	static UnaryFuncPack unaryFuncPack_Pos;
+	static UnaryFuncPack unaryFuncPack_Neg;
+	static BinaryFuncPack binaryFuncPack_Add;
+	static BinaryFuncPack binaryFuncPack_Sub;
+	static BinaryFuncPack binaryFuncPack_Mul;
+	static BinaryFuncPack binaryFuncPack_Div;
+	static BinaryFuncPack binaryFuncPack_Mod;
+	static BinaryFuncPack binaryFuncPack_Pow;
+	static BinaryFuncPack binaryFuncPack_Eq;
+	static BinaryFuncPack binaryFuncPack_Ne;
+	static BinaryFuncPack binaryFuncPack_Gt;
+	static BinaryFuncPack binaryFuncPack_Lt;
+	static BinaryFuncPack binaryFuncPack_Ge;
+	static BinaryFuncPack binaryFuncPack_Le;
+	static BinaryFuncPack binaryFuncPack_And;
+	static BinaryFuncPack binaryFuncPack_Or;
+	static BinaryFuncPack binaryFuncPack_Xor;
+	static BinaryFuncPack binaryFuncPack_Shl;
+	static BinaryFuncPack binaryFuncPack_Shr;
+	static UnaryFuncPack unaryFuncPack_Math_abs;
+	static UnaryFuncPack unaryFuncPack_Math_acos;
+	static UnaryFuncPack unaryFuncPack_Math_arg;
+	static UnaryFuncPack unaryFuncPack_Math_asin;
+	static UnaryFuncPack unaryFuncPack_Math_atan;
+	static UnaryFuncPack unaryFuncPack_Math_ceil;
+	static UnaryFuncPack unaryFuncPack_Math_conj;
+	static UnaryFuncPack unaryFuncPack_Math_cos;
+	static UnaryFuncPack unaryFuncPack_Math_cosh;
+	static UnaryFuncPack unaryFuncPack_Math_delta;
+	static UnaryFuncPack unaryFuncPack_Math_exp;
+	static UnaryFuncPack unaryFuncPack_Math_floor;
+	static UnaryFuncPack unaryFuncPack_Math_imag;
+	static UnaryFuncPack unaryFuncPack_Math_log;
+	static UnaryFuncPack unaryFuncPack_Math_log10;
+	static UnaryFuncPack unaryFuncPack_Math_norm;
+	static UnaryFuncPack unaryFuncPack_Math_ramp;
+	static UnaryFuncPack unaryFuncPack_Math_real;
+	static UnaryFuncPack unaryFuncPack_Math_sigmoid;
+	static UnaryFuncPack unaryFuncPack_Math_sin;
+	static UnaryFuncPack unaryFuncPack_Math_sinh;
+	static UnaryFuncPack unaryFuncPack_Math_sqrt;
+	static UnaryFuncPack unaryFuncPack_Math_tan;
+	static UnaryFuncPack unaryFuncPack_Math_tanh;
+	static UnaryFuncPack unaryFuncPack_Math_unitstep;
+public:
 	class GURA_DLLDECLARE Dimension {
 	private:
 		size_t _size;
