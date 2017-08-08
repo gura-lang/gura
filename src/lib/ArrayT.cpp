@@ -634,6 +634,14 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create(
 }
 
 template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScalar(const T_Elem &num)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetScalar(num);
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromValue(Environment &env, const Value &value)
 {
 	AutoPtr<ArrayT<T_Elem> > pArrayT;

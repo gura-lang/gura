@@ -1270,6 +1270,20 @@ Array *BinaryFuncTmpl_Div_complex_array(Signal &sig, Array *pArrayResult,
 	return BinaryFuncTmpl_complex_array<T_ElemResult, T_ElemR, op>(sig, pArrayResult, complexL, pArrayR);
 }
 
+#if 0
+template<typename T_ElemResult, void (*op)(T_ElemResult &, const Double &, const Double &)>
+Array *BinaryFuncTmpl_number_number(Signal &sig, Array *pArrayResult, Double numberL, Double numberR)
+{
+	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult;
+	pArrayTResult.reset(
+		(pArrayResult == nullptr)?
+		ArrayT<T_ElemResult>::CreateScalar() :
+		dynamic_cast<ArrayT<T_ElemResult> *>(pArrayResult));
+	op(*pArrayTResult->GetPointer(), numberL, numberR);
+	return pArrayTResult.release();
+}
+#endif
+
 //------------------------------------------------------------------------------
 // Function tables
 //------------------------------------------------------------------------------

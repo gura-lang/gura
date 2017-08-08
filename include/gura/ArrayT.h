@@ -73,6 +73,7 @@ public:
 	static ArrayT *Create(
 		Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
 		Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
+	static ArrayT *CreateScalar(const T_Elem &num);
 	static ArrayT *CreateFromValue(Environment &env, const Value &value);
 	static ArrayT *CreateFromList(const ValueList &valList);
 	static ArrayT *CreateFromList(Environment &env, const ValueList &valList);
