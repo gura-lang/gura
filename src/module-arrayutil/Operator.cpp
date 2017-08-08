@@ -3,7 +3,7 @@
 #define ImplementUnaryFuncPack(op, name, symbol, func)	\
 Array::UnaryFuncPack g_unaryFuncPack_##op = { \
 	name, \
-	symbol, \
+	symbol, { \
 	{ \
 		nullptr, \
 		&func<Boolean,	Boolean,	Operator_##op::Calc>,	\
@@ -20,13 +20,13 @@ Array::UnaryFuncPack g_unaryFuncPack_##op = { \
 		&func<Double,	Double,		Operator_##op::Calc>,	\
 		&func<Complex,	Complex,	Operator_##op::Calc>,	\
 		nullptr, \
-	}, \
+	} } \
 }
 
 #define ImplementBinaryFuncPack(op, name, symbol, funcPrefix)	\
 Array::BinaryFuncPack g_binaryFuncPack_##op = { \
 	name, \
-	symbol, \
+	symbol, { \
 	{ \
 		{ \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
@@ -309,13 +309,13 @@ Array::BinaryFuncPack g_binaryFuncPack_##op = { \
 		nullptr, \
 	}, \
 	&funcPrefix##_number_number<Operator_##op::Calc>, \
-	&funcPrefix##_complex_complex<Operator_##op::Calc>, \
+	&funcPrefix##_complex_complex<Operator_##op::Calc> } \
 }
 
 #define ImplementBinaryFuncPack_Cmp(op, name, symbol, funcPrefix)	\
 Array::BinaryFuncPack g_binaryFuncPack_##op = { \
 	name, \
-	symbol, \
+	symbol, { \
 	{ \
 		{ \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
@@ -598,13 +598,13 @@ Array::BinaryFuncPack g_binaryFuncPack_##op = { \
 		nullptr, \
 	}, \
 	&funcPrefix##_number_number<Operator_##op::Calc>, \
-	&funcPrefix##_complex_complex<Operator_##op::Calc>, \
+	&funcPrefix##_complex_complex<Operator_##op::Calc> } \
 }
 
 #define ImplementBinaryFuncPack_BitOp(op, name, symbol)	 \
 Array::BinaryFuncPack g_binaryFuncPack_##op = { \
 	name, \
-	symbol, \
+	symbol, { \
 	{ \
 		{ \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,  \
@@ -803,7 +803,7 @@ Array::BinaryFuncPack g_binaryFuncPack_##op = { \
 		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
 	}, \
 	nullptr, \
-	nullptr, \
+	nullptr } \
 }
 
 Gura_BeginModuleScope(arrayutil)

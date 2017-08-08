@@ -52,14 +52,15 @@ public:
 												 const Complex &complexL, const Complex &complexR);
 	typedef Value (*DotFunc)(Environment &env, Array *pArrayResult,
 							 const Array *pArrayL, const Array *pArrayR);
+	struct UnaryFuncTable {
+		UnaryFunc unaryFuncs[ETYPE_Max];
+	};
 	struct UnaryFuncPack {
 		const char *name;
 		const char *symbol;
-		UnaryFunc unaryFuncs[ETYPE_Max];
+		UnaryFuncTable table;
 	};
-	struct BinaryFuncPack {
-		const char *name;
-		const char *symbol;
+	struct BinaryFuncTable {
 		BinaryFunc_array_array binaryFuncs_array_array[ETYPE_Max][ETYPE_Max];
 		BinaryFunc_array_number binaryFuncs_array_number[ETYPE_Max];
 		BinaryFunc_number_array binaryFuncs_number_array[ETYPE_Max];
@@ -67,6 +68,11 @@ public:
 		BinaryFunc_complex_array binaryFuncs_complex_array[ETYPE_Max];
 		BinaryFunc_number_number binaryFunc_number_number;
 		BinaryFunc_complex_complex binaryFunc_complex_complex;
+	};
+	struct BinaryFuncPack {
+		const char *name;
+		const char *symbol;
+		BinaryFuncTable table;
 	};
 	typedef std::map<const Symbol *, ElemType, Symbol::LessThan> MapToElemType;
 public:

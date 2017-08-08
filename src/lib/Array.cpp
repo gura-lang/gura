@@ -556,7 +556,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 
 Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, Array *pArrayResult, const Array *pArray)
 {
-	UnaryFunc unaryFunc = pack.unaryFuncs[pArray->GetElemType()];
+	UnaryFunc unaryFunc = pack.table.unaryFuncs[pArray->GetElemType()];
 	if (unaryFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
@@ -591,18 +591,18 @@ Array *Array::ApplyBinaryFunc(
 		}
 	} else {
 		if (!pArrayL->IsElemType(ETYPE_Complex) && !pArrayR->IsElemType(ETYPE_Complex)) {
-			if (pack.binaryFunc_number_number == nullptr) {
+			if (pack.table.binaryFunc_number_number == nullptr) {
 				sig.SetError(ERR_TypeError, "can't apply %s function on these scalars", pack.name);
 				return nullptr;
 			}
-			return (*pack.binaryFunc_number_number)(
+			return (*pack.table.binaryFunc_number_number)(
 				sig, pArrayResult, pArrayL->GetScalarNumber(), pArrayR->GetScalarNumber());
 		} else {
-			if (pack.binaryFunc_complex_complex == nullptr) {
+			if (pack.table.binaryFunc_complex_complex == nullptr) {
 				sig.SetError(ERR_TypeError, "can't apply %s function on these scalars", pack.name);
 				return nullptr;
 			}
-			return (*pack.binaryFunc_complex_complex)(
+			return (*pack.table.binaryFunc_complex_complex)(
 				sig, pArrayResult, pArrayL->GetScalarComplex(), pArrayR->GetScalarComplex());
 		}
 	}
@@ -614,7 +614,7 @@ Array *Array::ApplyBinaryFunc_array_array(
 {
 	if (!CheckElemwiseCalculatable(sig, pack, pArrayL, pArrayR)) return nullptr;
 	BinaryFunc_array_array binaryFunc_array_array =
-		pack.binaryFuncs_array_array[pArrayL->GetElemType()][pArrayR->GetElemType()];
+		pack.table.binaryFuncs_array_array[pArrayL->GetElemType()][pArrayR->GetElemType()];
 	if (binaryFunc_array_array == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
@@ -637,7 +637,7 @@ Array *Array::ApplyBinaryFunc_array_number(
 	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, Double numberR)
 {
 	BinaryFunc_array_number binaryFunc_array_number =
-		pack.binaryFuncs_array_number[pArrayL->GetElemType()];
+		pack.table.binaryFuncs_array_number[pArrayL->GetElemType()];
 	if (binaryFunc_array_number == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
@@ -659,7 +659,7 @@ Array *Array::ApplyBinaryFunc_number_array(
 	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, Double numberL, const Array *pArrayR)
 {
 	BinaryFunc_number_array binaryFunc_number_array =
-		pack.binaryFuncs_number_array[pArrayR->GetElemType()];
+		pack.table.binaryFuncs_number_array[pArrayR->GetElemType()];
 	if (binaryFunc_number_array == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
@@ -681,7 +681,7 @@ Array *Array::ApplyBinaryFunc_array_complex(
 	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, const Complex &complexR)
 {
 	BinaryFunc_array_complex binaryFunc_array_complex =
-		pack.binaryFuncs_array_complex[pArrayL->GetElemType()];
+		pack.table.binaryFuncs_array_complex[pArrayL->GetElemType()];
 	if (binaryFunc_array_complex == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
@@ -703,7 +703,7 @@ Array *Array::ApplyBinaryFunc_complex_array(
 	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Complex &complexL, const Array *pArrayR)
 {
 	BinaryFunc_complex_array binaryFunc_complex_array =
-		pack.binaryFuncs_complex_array[pArrayR->GetElemType()];
+		pack.table.binaryFuncs_complex_array[pArrayR->GetElemType()];
 	if (binaryFunc_complex_array == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
