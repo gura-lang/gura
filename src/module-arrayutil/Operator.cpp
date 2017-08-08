@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#define ImplementUnaryFuncTable(op, name, symbol, func)	\
+#define ImplementUnaryFuncTable(op, func)	\
 Array::UnaryFuncTable g_unaryFuncTable_##op = { \
 	{ \
 		nullptr, \
@@ -21,7 +21,7 @@ Array::UnaryFuncTable g_unaryFuncTable_##op = { \
 	} \
 }
 
-#define ImplementBinaryFuncTable(op, name, symbol, funcPrefix)	\
+#define ImplementBinaryFuncTable(op, funcPrefix)	\
 Array::BinaryFuncTable g_binaryFuncTable_##op = { \
 	{ \
 		{ \
@@ -308,7 +308,7 @@ Array::BinaryFuncTable g_binaryFuncTable_##op = { \
 	&funcPrefix##_complex_complex<Operator_##op::Calc>, \
 }
 
-#define ImplementBinaryFuncTable_Cmp(op, name, symbol, funcPrefix)	\
+#define ImplementBinaryFuncTable_Cmp(op, funcPrefix)	\
 Array::BinaryFuncTable g_binaryFuncTable_##op = { \
 	{ \
 		{ \
@@ -595,7 +595,7 @@ Array::BinaryFuncTable g_binaryFuncTable_##op = { \
 	&funcPrefix##_complex_complex<Operator_##op::Calc>, \
 }
 
-#define ImplementBinaryFuncTable_BitOp(op, name, symbol)	 \
+#define ImplementBinaryFuncTable_BitOp(op)	 \
 Array::BinaryFuncTable g_binaryFuncTable_##op = { \
 	{ \
 		{ \
@@ -1315,59 +1315,59 @@ Array *BinaryFuncTmpl_Div_complex_complex(Signal &sig, Array *pArrayResult, cons
 //------------------------------------------------------------------------------
 // Function tables
 //------------------------------------------------------------------------------
-ImplementUnaryFuncTable(Pos,				"pos",				"+",	UnaryFuncTmpl);
-ImplementUnaryFuncTable(Neg,				"neg",				"-",	UnaryFuncTmpl);
+ImplementUnaryFuncTable(Pos,			UnaryFuncTmpl);
+ImplementUnaryFuncTable(Neg,			UnaryFuncTmpl);
 
-ImplementBinaryFuncTable(Add,			"add",				"+",	BinaryFuncTmpl);
-ImplementBinaryFuncTable(Sub,			"sub",				"-",	BinaryFuncTmpl);
-ImplementBinaryFuncTable(Mul,			"mul",				"*",	BinaryFuncTmpl);
-ImplementBinaryFuncTable(Div,			"div",				"/",	BinaryFuncTmpl_Div);
-ImplementBinaryFuncTable(Mod,			"mod",				"%",	BinaryFuncTmpl_Div);
-ImplementBinaryFuncTable(Pow,			"pow",				"**",	BinaryFuncTmpl);
+ImplementBinaryFuncTable(Add,			BinaryFuncTmpl);
+ImplementBinaryFuncTable(Sub,			BinaryFuncTmpl);
+ImplementBinaryFuncTable(Mul,			BinaryFuncTmpl);
+ImplementBinaryFuncTable(Div,			BinaryFuncTmpl_Div);
+ImplementBinaryFuncTable(Mod,			BinaryFuncTmpl_Div);
+ImplementBinaryFuncTable(Pow,			BinaryFuncTmpl);
 
-ImplementBinaryFuncTable_Cmp(Eq,			"eq",				"==",	BinaryFuncTmpl);
-ImplementBinaryFuncTable_Cmp(Ne,			"ne",				"!=",	BinaryFuncTmpl);
-ImplementBinaryFuncTable_Cmp(Gt,			"gt",				">",	BinaryFuncTmpl);
-ImplementBinaryFuncTable_Cmp(Lt,			"lt",				"<",	BinaryFuncTmpl);
-ImplementBinaryFuncTable_Cmp(Ge,			"ge",				">=",	BinaryFuncTmpl);
-ImplementBinaryFuncTable_Cmp(Le,			"le",				"<=",	BinaryFuncTmpl);
+ImplementBinaryFuncTable_Cmp(Eq,		BinaryFuncTmpl);
+ImplementBinaryFuncTable_Cmp(Ne,		BinaryFuncTmpl);
+ImplementBinaryFuncTable_Cmp(Gt,		BinaryFuncTmpl);
+ImplementBinaryFuncTable_Cmp(Lt,		BinaryFuncTmpl);
+ImplementBinaryFuncTable_Cmp(Ge,		BinaryFuncTmpl);
+ImplementBinaryFuncTable_Cmp(Le,		BinaryFuncTmpl);
 
-ImplementBinaryFuncTable_BitOp(And,		"and",				"&");
-ImplementBinaryFuncTable_BitOp(Or,		"or",				"|");
-ImplementBinaryFuncTable_BitOp(Xor,		"xor",				"^");
-ImplementBinaryFuncTable_BitOp(Shl,		"shl",				"<<");
-ImplementBinaryFuncTable_BitOp(Shr,		"shr",				">>");
+ImplementBinaryFuncTable_BitOp(And);
+ImplementBinaryFuncTable_BitOp(Or);
+ImplementBinaryFuncTable_BitOp(Xor);
+ImplementBinaryFuncTable_BitOp(Shl);
+ImplementBinaryFuncTable_BitOp(Shr);
 
-ImplementUnaryFuncTable(Math_abs,		"math.abs",			"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_acos,		"math.acos",		"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_arg,		"math.arg",			"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_asin,		"math.asin",		"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_atan,		"math.atan",		"",		UnaryFuncTmpl);
-ImplementBinaryFuncTable(Math_atan2,		"math.atan2",		"",		BinaryFuncTmpl);
-ImplementUnaryFuncTable(Math_ceil,		"math.ceil",		"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_conj,		"math.conj",		"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_cos,		"math.cos",			"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_cosh,		"math.cosh",		"",		UnaryFuncTmpl);
-//ImplementBinaryFuncTable(Math_covariance,"math.covariance","",		BinaryFuncTmpl);
-//ImplementBinaryFuncTable(Math_cross,	"math.cross",		"",		BinaryFuncTmpl);
-ImplementUnaryFuncTable(Math_delta,		"math.delta",		"",		UnaryFuncTmpl);
-//ImplementBinaryFuncTable(Math_dot,		"math.dot",			"",		BinaryFuncTmpl);
-ImplementUnaryFuncTable(Math_exp,		"math.exp",			"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_floor,		"math.floor",		"",		UnaryFuncTmpl);
-ImplementBinaryFuncTable(Math_hypot,		"math.hypot",		"",		BinaryFuncTmpl);
-ImplementUnaryFuncTable(Math_imag,		"math.imag",		"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_log,		"math.log",			"",		UnaryFuncTmpl_ExcludeZero);
-ImplementUnaryFuncTable(Math_log10,		"math.log10",		"",		UnaryFuncTmpl_ExcludeZero);
-ImplementUnaryFuncTable(Math_norm,		"math.norm",		"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_ramp,		"math.ramp",		"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_real,		"math.real",		"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_sigmoid,	"math.sigmoid",		"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_sin,		"math.sin",			"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_sinh,		"math.sinh",		"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_sqrt,		"math.sqrt",		"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_tan,		"math.tan",			"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_tanh,		"math.tanh",		"",		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_unitstep,	"math.unitstep",	"",		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_abs,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_acos,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_arg,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_asin,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_atan,		UnaryFuncTmpl);
+ImplementBinaryFuncTable(Math_atan2,	BinaryFuncTmpl);
+ImplementUnaryFuncTable(Math_ceil,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_conj,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_cos,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_cosh,		UnaryFuncTmpl);
+//ImplementBinaryFuncTable(Math_covariance,	BinaryFuncTmpl);
+//ImplementBinaryFuncTable(Math_cross,	BinaryFuncTmpl);
+ImplementUnaryFuncTable(Math_delta,		UnaryFuncTmpl);
+//ImplementBinaryFuncTable(Math_dot,	BinaryFuncTmpl);
+ImplementUnaryFuncTable(Math_exp,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_floor,		UnaryFuncTmpl);
+ImplementBinaryFuncTable(Math_hypot,	BinaryFuncTmpl);
+ImplementUnaryFuncTable(Math_imag,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_log,		UnaryFuncTmpl_ExcludeZero);
+ImplementUnaryFuncTable(Math_log10,		UnaryFuncTmpl_ExcludeZero);
+ImplementUnaryFuncTable(Math_norm,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_ramp,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_real,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_sigmoid,	UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_sin,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_sinh,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_sqrt,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_tan,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_tanh,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_unitstep,	UnaryFuncTmpl);
 
 Array::DotFunc g_dotFuncs[Array::ETYPE_Max][Array::ETYPE_Max] = {
 	{
