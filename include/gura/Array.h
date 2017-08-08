@@ -30,7 +30,7 @@ public:
 		ETYPE_Float,
 		ETYPE_Double,
 		ETYPE_Complex,
-		ETYPE_Value,
+		ETYPE_reserved1,
 		ETYPE_Max,
 	};
 public:
@@ -179,6 +179,8 @@ public:
 	virtual bool DoesContainZero() const = 0;
 	virtual bool DoesContainMinus() const = 0;
 	virtual bool DoesContainZeroOrMinus() const = 0;
+	virtual Double GetScalarNumber() const = 0;
+	virtual Complex GetScalarComplex() const = 0;
 	static size_t GetElemBytes(ElemType elemType);
 	inline size_t GetElemBytes() const { return GetElemBytes(_elemType); }
 	static const char *GetElemTypeName(ElemType elemType);
@@ -220,6 +222,8 @@ public:
 		Signal &sig, const UnaryFuncPack &pack, Array *pArrayResult, const Array *pArray);
 	static Value ApplyUnaryFuncOnValue(
 		Environment &env, const UnaryFuncPack &pack, const Value &value);
+	static Array *ApplyBinaryFunc(
+		Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, const Array *pArrayR);
 	static Array *ApplyBinaryFunc_array_array(
 		Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, const Array *pArrayR);
 	static Value ApplyBinaryFuncOnValue_array_array(

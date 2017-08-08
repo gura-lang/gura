@@ -46,6 +46,8 @@ public:
 	virtual bool DoesContainZero() const;
 	virtual bool DoesContainMinus() const;
 	virtual bool DoesContainZeroOrMinus() const;
+	virtual Double GetScalarNumber() const;
+	virtual Complex GetScalarComplex() const;
 	void SetScalar(const T_Elem &num);
 	void Fill(const T_Elem &num);
 	void FillZero();

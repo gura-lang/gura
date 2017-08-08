@@ -34,7 +34,7 @@ void Array::Bootup()
 		{ "float",		ETYPE_Float		},
 		{ "double",		ETYPE_Double	},
 		{ "complex",	ETYPE_Complex	},
-		{ "value",		ETYPE_Value		},
+		{ "value",		ETYPE_reserved1	},
 	};
 	for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 		_mapToElemType[Symbol::Add(tbl[i].name)] = tbl[i].elemType;
@@ -570,6 +570,25 @@ Value Array::ApplyUnaryFuncOnValue(Environment &env, const UnaryFuncPack &pack, 
 		env, pack, nullptr, Object_array::GetObject(value)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
+}
+
+Array *Array::ApplyBinaryFunc(
+	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, const Array *pArrayR)
+{
+	if (!pArrayL->IsScalar() && !pArrayR->IsScalar()) {
+		return ApplyBinaryFunc_array_array(sig, pack, pArrayResult, pArrayL, pArrayR);
+	} else if (!pArrayL->IsScalar() && pArrayR->IsScalar()) {
+		if (pArrayR->GetElemType() == ETYPE_Complex) {
+			
+		} else {
+			
+		}
+	} else if (pArrayL->IsScalar() && !pArrayR->IsScalar()) {
+
+	} else {
+
+	}
+	return nullptr;
 }
 
 Array *Array::ApplyBinaryFunc_array_array(

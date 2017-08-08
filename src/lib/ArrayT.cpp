@@ -230,6 +230,30 @@ bool ArrayT<Complex>::DoesContainZeroOrMinus() const
 	return DoesContainZero();
 }
 
+template<typename T_Elem>
+Double ArrayT<T_Elem>::GetScalarNumber() const
+{
+	return static_cast<Double>(*GetPointer());
+}
+
+template<>
+Double ArrayT<Complex>::GetScalarNumber() const
+{
+	return 0;
+}
+
+template<typename T_Elem>
+Complex ArrayT<T_Elem>::GetScalarComplex() const
+{
+	return Complex(static_cast<Double>(*GetPointer()));
+}
+
+template<>
+Complex ArrayT<Complex>::GetScalarComplex() const
+{
+	return *GetPointer();
+}
+
 template<> Array::ElemType ArrayT<Boolean>::ElemTypeThis	= ETYPE_Boolean;
 template<> Array::ElemType ArrayT<Int8>::ElemTypeThis		= ETYPE_Int8;
 template<> Array::ElemType ArrayT<UInt8>::ElemTypeThis		= ETYPE_UInt8;
