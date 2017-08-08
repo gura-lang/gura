@@ -166,6 +166,7 @@ public:
 	inline const Memory &GetMemory() const { return *_pMemory; }
 	inline Dimensions &GetDimensions() { return _dims; }
 	inline const Dimensions &GetDimensions() const { return _dims; }
+	inline bool IsScalar() const { return _dims.empty(); }
 	inline size_t GetElemNum() const { return _elemNum; }
 	inline void SetOffsetBase(size_t offsetBase) { _offsetBase = offsetBase; }
 	inline size_t GetOffsetBase() const { return _offsetBase; }

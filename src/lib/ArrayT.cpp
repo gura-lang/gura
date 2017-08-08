@@ -42,6 +42,13 @@ ArrayT<T_Elem>::ArrayT(const T_Elem *pElemInit, size_t sizeRow, size_t sizeCol) 
 	AllocMemory(); \
 	::memcpy(GetPointer(), pElemInit, GetElemNum() * sizeof(T_Elem)); \
 } \
+template<> \
+ArrayT<T_Elem>::ArrayT(const T_Elem &num) : Array(ETYPE_##T_Elem) \
+{ \
+	_elemNum = 1; \
+	AllocMemory(); \
+	*GetPointer() = num; \
+} \
 template class ArrayT<T_Elem>;
 
 namespace Gura {

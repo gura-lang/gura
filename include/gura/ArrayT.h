@@ -28,6 +28,7 @@ public:
 	ArrayT(size_t sizeRow, size_t sizeCol);
 	ArrayT(const T_Elem *pElemInit, size_t size);
 	ArrayT(const T_Elem *pElemInit, size_t sizeRow, size_t sizeCol);
+	ArrayT(const T_Elem &num);
 	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetElemNum()));
 	}
