@@ -307,7 +307,9 @@ Array::BinaryFuncPack g_binaryFuncPack_##op = { \
 		&funcPrefix##_complex_array<Complex,	Double,		Operator_##op::Calc>, \
 		&funcPrefix##_complex_array<Complex,	Complex,	Operator_##op::Calc>, \
 		nullptr, \
-	} \
+	}, \
+	&funcPrefix##_number_number<Operator_##op::Calc>, \
+	&funcPrefix##_complex_complex<Operator_##op::Calc>, \
 }
 
 #define ImplementBinaryFuncPack_Cmp(op, name, symbol, funcPrefix)	\
@@ -594,7 +596,9 @@ Array::BinaryFuncPack g_binaryFuncPack_##op = { \
 		&funcPrefix##_complex_array<Boolean,	Double,		Operator_##op::Calc>, \
 		&funcPrefix##_complex_array<Boolean,	Complex,	Operator_##op::Calc>, \
 		nullptr, \
-	} \
+	}, \
+	&funcPrefix##_number_number<Operator_##op::Calc>, \
+	&funcPrefix##_complex_complex<Operator_##op::Calc>, \
 }
 
 #define ImplementBinaryFuncPack_BitOp(op, name, symbol)	 \
@@ -797,7 +801,9 @@ Array::BinaryFuncPack g_binaryFuncPack_##op = { \
 	}, { \
 		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
 		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
-	} \
+	}, \
+	nullptr, \
+	nullptr, \
 }
 
 Gura_BeginModuleScope(arrayutil)
@@ -1270,19 +1276,49 @@ Array *BinaryFuncTmpl_Div_complex_array(Signal &sig, Array *pArrayResult,
 	return BinaryFuncTmpl_complex_array<T_ElemResult, T_ElemR, op>(sig, pArrayResult, complexL, pArrayR);
 }
 
-#if 0
-template<typename T_ElemResult, void (*op)(T_ElemResult &, const Double &, const Double &)>
+template<void (*op)(Double &, const Double &, const Double &)>
 Array *BinaryFuncTmpl_number_number(Signal &sig, Array *pArrayResult, Double numberL, Double numberR)
 {
-	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult;
+	AutoPtr<ArrayT<Double> > pArrayTResult;
 	pArrayTResult.reset(
 		(pArrayResult == nullptr)?
-		ArrayT<T_ElemResult>::CreateScalar() :
-		dynamic_cast<ArrayT<T_ElemResult> *>(pArrayResult));
+		ArrayT<Double>::CreateScalar(0) :
+		dynamic_cast<ArrayT<Double> *>(pArrayResult));
 	op(*pArrayTResult->GetPointer(), numberL, numberR);
 	return pArrayTResult.release();
 }
-#endif
+
+template<void (*op)(Double &, const Double &, const Double &)>
+Array *BinaryFuncTmpl_Div_number_number(Signal &sig, Array *pArrayResult, Double numberL, Double numberR)
+{
+	if (numberR == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return nullptr;
+	}
+	return BinaryFuncTmpl_number_number<op>(sig, pArrayResult, numberL, numberR);
+}
+
+template<void (*op)(Complex &, const Complex &, const Complex &)>
+Array *BinaryFuncTmpl_complex_complex(Signal &sig, Array *pArrayResult, const Complex &complexL, const Complex &complexR)
+{
+	AutoPtr<ArrayT<Complex> > pArrayTResult;
+	pArrayTResult.reset(
+		(pArrayResult == nullptr)?
+		ArrayT<Complex>::CreateScalar(0) :
+		dynamic_cast<ArrayT<Complex> *>(pArrayResult));
+	op(*pArrayTResult->GetPointer(), complexL, complexR);
+	return pArrayTResult.release();
+}
+
+template<void (*op)(Complex &, const Complex &, const Complex &)>
+Array *BinaryFuncTmpl_Div_complex_complex(Signal &sig, Array *pArrayResult, const Complex &complexL, const Complex &complexR)
+{
+	if (complexR.IsZero()) {
+		Operator::SetError_DivideByZero(sig);
+		return nullptr;
+	}
+	return BinaryFuncTmpl_complex_complex<op>(sig, pArrayResult, complexL, complexR);
+}
 
 //------------------------------------------------------------------------------
 // Function tables
