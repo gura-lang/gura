@@ -217,33 +217,32 @@ public:
 	static bool CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeDst,
 							 const void *pElemRawSrc, ElemType elemTypeSrc, size_t nElems);
 	static Array *ApplyUnaryFunc(
-		Signal &sig, const UnaryFuncPack &pack, const Array *pArray);
+		Signal &sig, const UnaryFuncPack &pack, Array *pArrayResult, const Array *pArray);
 	static Value ApplyUnaryFuncOnValue(
 		Environment &env, const UnaryFuncPack &pack, const Value &value);
 	static Array *ApplyBinaryFunc_array_array(
-		Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, const Array *pArrayR);
+		Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, const Array *pArrayR);
 	static Value ApplyBinaryFuncOnValue_array_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_array_number(
-		Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, Double numberR);
+		Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, Double numberR);
 	static Value ApplyBinaryFuncOnValue_array_number(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_number_array(
-		Signal &sig, const BinaryFuncPack &pack, Double numberL, const Array *pArrayR);
+		Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, Double numberL, const Array *pArrayR);
 	static Value ApplyBinaryFuncOnValue_number_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_array_complex(
-		Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, const Complex &complexR);
+		Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, const Complex &complexR);
 	static Value ApplyBinaryFuncOnValue_array_complex(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_complex_array(
-		Signal &sig, const BinaryFuncPack &pack, const Complex &complexL, const Array *pArrayR);
+		Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Complex &complexL, const Array *pArrayR);
 	static Value ApplyBinaryFuncOnValue_complex_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static void SetError_UnacceptableValueAsElement(Environment &env, const Value &value);
 public:
-	static Value Dot(Environment &env, const Array *pArrayL, const Array *pArrayR);
-	static Array *Invert(Signal &sig, const Array *pArray, Double epsilon);
+	static Array *Invert(Signal &sig, Array *pArrayResult, const Array *pArray, Double epsilon);
 };
 	
 //-----------------------------------------------------------------------------

@@ -42,13 +42,6 @@ ArrayT<T_Elem>::ArrayT(const T_Elem *pElemInit, size_t sizeRow, size_t sizeCol) 
 	AllocMemory(); \
 	::memcpy(GetPointer(), pElemInit, GetElemNum() * sizeof(T_Elem)); \
 } \
-template<> \
-ArrayT<T_Elem>::ArrayT(const T_Elem &num) : Array(ETYPE_##T_Elem) \
-{ \
-	_elemNum = 1; \
-	AllocMemory(); \
-	*GetPointer() = num; \
-} \
 template class ArrayT<T_Elem>;
 
 namespace Gura {
@@ -296,6 +289,14 @@ template<> const char *ArrayT<Float>::ConstructorName		= "array@float";
 template<> const char *ArrayT<Double>::ConstructorName		= "array@double";
 template<> const char *ArrayT<Complex>::ConstructorName 	= "array@complex";
 //template<> const char *ArrayT<Value>::ConstructorName 	= "array@value";
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::SetScalar(const T_Elem &num)
+{
+	_elemNum = 1;
+	AllocMemory();
+	*GetPointer() = num;
+}
 
 template<typename T_Elem>
 void ArrayT<T_Elem>::Fill(const T_Elem &num)

@@ -785,7 +785,7 @@ Value FuncTmpl_invert(Environment &env, Argument &arg, const Function *pFunc, Ar
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
 	Double epsilon = arg.IsValid(0)? arg.GetDouble(0) : 1.0e-6;
-	AutoPtr<Array> pArrayRtn(Array::Invert(sig, pArrayT, epsilon));
+	AutoPtr<Array> pArrayRtn(Array::Invert(sig, nullptr, pArrayT, epsilon));
 	if (pArrayRtn.IsNull()) return Value::Nil;
 	Value value(new Object_array(env, pArrayRtn.release()));
 	return pFunc->ReturnValue(env, arg, value);

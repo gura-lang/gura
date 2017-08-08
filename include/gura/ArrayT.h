@@ -28,7 +28,6 @@ public:
 	ArrayT(size_t sizeRow, size_t sizeCol);
 	ArrayT(const T_Elem *pElemInit, size_t size);
 	ArrayT(const T_Elem *pElemInit, size_t sizeRow, size_t sizeCol);
-	ArrayT(const T_Elem &num);
 	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetElemNum()));
 	}
@@ -47,6 +46,7 @@ public:
 	virtual bool DoesContainZero() const;
 	virtual bool DoesContainMinus() const;
 	virtual bool DoesContainZeroOrMinus() const;
+	void SetScalar(const T_Elem &num);
 	void Fill(const T_Elem &num);
 	void FillZero();
 	void FillRand(UInt range);

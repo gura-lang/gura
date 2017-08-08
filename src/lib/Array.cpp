@@ -554,26 +554,26 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 	return true;
 }
 
-Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array *pArray)
+Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, Array *pArrayResult, const Array *pArray)
 {
 	UnaryFunc unaryFunc = pack.unaryFuncs[pArray->GetElemType()];
 	if (unaryFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
-	return (*unaryFunc)(sig, nullptr, pArray);
+	return (*unaryFunc)(sig, pArrayResult, pArray);
 }
 
 Value Array::ApplyUnaryFuncOnValue(Environment &env, const UnaryFuncPack &pack, const Value &value)
 {
 	Array *pArray = ApplyUnaryFunc(
-		env, pack, Object_array::GetObject(value)->GetArray());
+		env, pack, nullptr, Object_array::GetObject(value)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
 }
 
 Array *Array::ApplyBinaryFunc_array_array(
-	Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, const Array *pArrayR)
+	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, const Array *pArrayR)
 {
 	if (!CheckElemwiseCalculatable(sig, pack, pArrayL, pArrayR)) return nullptr;
 	BinaryFunc_array_array binaryFunc_array_array =
@@ -582,14 +582,14 @@ Array *Array::ApplyBinaryFunc_array_array(
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
-	return (*binaryFunc_array_array)(sig, nullptr, pArrayL, pArrayR);
+	return (*binaryFunc_array_array)(sig, pArrayResult, pArrayL, pArrayR);
 }
 
 Value Array::ApplyBinaryFuncOnValue_array_array(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
 	Array *pArray = ApplyBinaryFunc_array_array(
-		env, pack,
+		env, pack, nullptr,
 		Object_array::GetObject(valueL)->GetArray(),
 		Object_array::GetObject(valueR)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
@@ -597,7 +597,7 @@ Value Array::ApplyBinaryFuncOnValue_array_array(
 }
 
 Array *Array::ApplyBinaryFunc_array_number(
-	Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, Double numberR)
+	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, Double numberR)
 {
 	BinaryFunc_array_number binaryFunc_array_number =
 		pack.binaryFuncs_array_number[pArrayL->GetElemType()];
@@ -605,21 +605,21 @@ Array *Array::ApplyBinaryFunc_array_number(
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
-	return (*binaryFunc_array_number)(sig, nullptr, pArrayL, numberR);
+	return (*binaryFunc_array_number)(sig, pArrayResult, pArrayL, numberR);
 }
 
 Value Array::ApplyBinaryFuncOnValue_array_number(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
 	Array *pArray = ApplyBinaryFunc_array_number(
-		env, pack,
+		env, pack, nullptr,
 		Object_array::GetObject(valueL)->GetArray(), valueR.GetDouble());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
 }
 
 Array *Array::ApplyBinaryFunc_number_array(
-	Signal &sig, const BinaryFuncPack &pack, Double numberL, const Array *pArrayR)
+	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, Double numberL, const Array *pArrayR)
 {
 	BinaryFunc_number_array binaryFunc_number_array =
 		pack.binaryFuncs_number_array[pArrayR->GetElemType()];
@@ -627,21 +627,21 @@ Array *Array::ApplyBinaryFunc_number_array(
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
-	return (*binaryFunc_number_array)(sig, nullptr, numberL, pArrayR);
+	return (*binaryFunc_number_array)(sig, pArrayResult, numberL, pArrayR);
 }
 
 Value Array::ApplyBinaryFuncOnValue_number_array(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
 	Array *pArray = ApplyBinaryFunc_number_array(
-		env, pack,
+		env, pack, nullptr,
 		valueL.GetDouble(), Object_array::GetObject(valueR)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
 }
 
 Array *Array::ApplyBinaryFunc_array_complex(
-	Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, const Complex &complexR)
+	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, const Complex &complexR)
 {
 	BinaryFunc_array_complex binaryFunc_array_complex =
 		pack.binaryFuncs_array_complex[pArrayL->GetElemType()];
@@ -649,21 +649,21 @@ Array *Array::ApplyBinaryFunc_array_complex(
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
-	return (*binaryFunc_array_complex)(sig, nullptr, pArrayL, complexR);
+	return (*binaryFunc_array_complex)(sig, pArrayResult, pArrayL, complexR);
 }
 
 Value Array::ApplyBinaryFuncOnValue_array_complex(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
 	Array *pArray = ApplyBinaryFunc_array_complex(
-		env, pack,
+		env, pack, nullptr,
 		Object_array::GetObject(valueL)->GetArray(), valueR.GetComplex());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
 }
 
 Array *Array::ApplyBinaryFunc_complex_array(
-	Signal &sig, const BinaryFuncPack &pack, const Complex &complexL, const Array *pArrayR)
+	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Complex &complexL, const Array *pArrayR)
 {
 	BinaryFunc_complex_array binaryFunc_complex_array =
 		pack.binaryFuncs_complex_array[pArrayR->GetElemType()];
@@ -671,14 +671,14 @@ Array *Array::ApplyBinaryFunc_complex_array(
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
-	return (*binaryFunc_complex_array)(sig, nullptr, complexL, pArrayR);
+	return (*binaryFunc_complex_array)(sig, pArrayResult, complexL, pArrayR);
 }
 
 Value Array::ApplyBinaryFuncOnValue_complex_array(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
 	Array *pArray = ApplyBinaryFunc_complex_array(
-		env, pack,
+		env, pack, nullptr,
 		valueL.GetComplex(), Object_array::GetObject(valueR)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
@@ -690,14 +690,14 @@ void Array::SetError_UnacceptableValueAsElement(Environment &env, const Value &v
 				 value.MakeValueTypeName().c_str());
 }
 
-Array *Array::Invert(Signal &sig, const Array *pArray, Double epsilon)
+Array *Array::Invert(Signal &sig, Array *pArrayResult, const Array *pArray, Double epsilon)
 {
 	InvertFunc invertFunc = invertFuncs[pArray->GetElemType()];
 	if (invertFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply invert function on this array");
 		return nullptr;
 	}
-	return (*invertFunc)(sig, nullptr, pArray, epsilon);
+	return (*invertFunc)(sig, pArrayResult, pArray, epsilon);
 }
 
 //-----------------------------------------------------------------------------
