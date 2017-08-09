@@ -16,6 +16,9 @@ ArrayT<T_Elem>::ArrayT(const ArrayT &src) : Array(ETYPE_##T_Elem, src) \
 template<> \
 ArrayT<T_Elem>::ArrayT(Memory *pMemory, size_t offsetBase) : Array(ETYPE_##T_Elem, pMemory, offsetBase) \
 {} \
+template class ArrayT<T_Elem>;
+
+#if 0
 template<> \
 ArrayT<T_Elem>::ArrayT(size_t size) : Array(ETYPE_##T_Elem) \
 { \
@@ -42,7 +45,8 @@ ArrayT<T_Elem>::ArrayT(const T_Elem *pElemInit, size_t sizeRow, size_t sizeCol) 
 	AllocMemory(); \
 	::memcpy(GetPointer(), pElemInit, GetElemNum() * sizeof(T_Elem)); \
 } \
-template class ArrayT<T_Elem>;
+
+#endif
 
 namespace Gura {
 
@@ -706,7 +710,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromValue(Environment &env, const Value &v
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(const ValueList &valList)
 {
-	AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
+	AutoPtr<ArrayT> pArrayT(ArrayT::Create(valList.size()));
 	T_Elem *p = pArrayT->GetPointer();
 	foreach_const (ValueList, pValue, valList) {
 		*p++ = static_cast<T_Elem>(pValue->GetNumber());
@@ -760,7 +764,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, Iterator *p
 {
 	size_t len = pIterator->GetLengthEx(env);
 	if (env.IsSignalled()) return nullptr;
-	AutoPtr<ArrayT> pArrayT(new ArrayT(len));
+	AutoPtr<ArrayT> pArrayT(ArrayT::Create(len));
 	AutoPtr<Iterator> pIteratorWork(pIterator->Clone());
 	T_Elem *pElem = pArrayT->GetPointer();
 	Value value;

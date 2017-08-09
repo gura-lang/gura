@@ -92,7 +92,7 @@ Gura_DeclareClassMethod_Array(array, identity)
 
 template<typename T_Elem> Array *FuncTmpl_identity(size_t n)
 {
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(n, n));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(n, n));
 	pArrayT->FillZero();
 	T_Elem *p = pArrayT->GetPointer();
 	size_t stride = n + 1;
@@ -173,7 +173,7 @@ Gura_DeclareClassMethod_Array(array, interval)
 template<typename T_Elem> Array *FuncTmpl_interval(
 	Double numBegin, Double numEnd, int numSamples, Double numDenom, int iFactor)
 {
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(numSamples));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(numSamples));
 	T_Elem *p = pArrayT->GetPointer();
 	for (int i = 0; i < numSamples; i++, iFactor++) {
 		p[i] = static_cast<T_Elem>((numEnd - numBegin) * iFactor / numDenom + numBegin);
@@ -485,7 +485,7 @@ template<typename T_Elem> Array *FuncTmpl_range(Double numBegin, Double numEnd, 
 		numSamples = static_cast<int>(-(numRange - 1) / numStep) + 1;
 	}
 	if (numSamples < 0) numSamples = 0;
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(numSamples));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(numSamples));
 	T_Elem *p = pArrayT->GetPointer();
 	for (size_t i = 0; i < numSamples; i++) {
 		p[i] = static_cast<T_Elem>(numBegin + numStep * i);
@@ -589,7 +589,7 @@ template<typename T_Elem> Array *FuncTmpl_rotation(double rad, bool transFlag, d
 	int sizeMat = transFlag? 3 : 2;
 	T_Elem numCos = static_cast<T_Elem>(::cos(rad));
 	T_Elem numSin = static_cast<T_Elem>(::sin(rad));
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(sizeMat, sizeMat));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(sizeMat, sizeMat));
 	T_Elem *p = pArrayT->GetPointer();
 	// row-1
 	*p++ = numCos;
@@ -690,7 +690,7 @@ template<typename T_Elem> Array *FuncTmpl_rotation_at_x(Double rad, bool transFl
 	int sizeMat = transFlag? 4 : 3;
 	T_Elem numCos = static_cast<T_Elem>(::cos(rad));
 	T_Elem numSin = static_cast<T_Elem>(::sin(rad));
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(sizeMat, sizeMat));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(sizeMat, sizeMat));
 	T_Elem *p = pArrayT->GetPointer();
 	// row-1
 	*p++ = 1;
@@ -806,7 +806,7 @@ template<typename T_Elem> Array *FuncTmpl_rotation_at_y(Double rad, bool transFl
 	int sizeMat = transFlag? 4 : 3;
 	T_Elem numCos = static_cast<T_Elem>(::cos(rad));
 	T_Elem numSin = static_cast<T_Elem>(::sin(rad));
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(sizeMat, sizeMat));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(sizeMat, sizeMat));
 	T_Elem *p = pArrayT->GetPointer();
 	// row-1
 	*p++ = numCos;
@@ -920,7 +920,7 @@ template<typename T_Elem> Array *FuncTmpl_rotation_at_z(Double rad, bool transFl
 	int sizeMat = transFlag? 4 : 3;
 	T_Elem numCos = static_cast<T_Elem>(::cos(rad));
 	T_Elem numSin = static_cast<T_Elem>(::sin(rad));
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(sizeMat, sizeMat));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(sizeMat, sizeMat));
 	T_Elem *p = pArrayT->GetPointer();
 	// row-1
 	*p++ = numCos;
@@ -1024,7 +1024,7 @@ Gura_DeclareClassMethod_Array(array, scaling)
 
 template<typename T_Elem> Array *FuncTmpl_scaling2D(Double xScale, Double yScale)
 {
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(3, 3));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(3, 3));
 	T_Elem *p = pArrayT->GetPointer();
 	// row-1
 	*p++ = static_cast<T_Elem>(xScale);
@@ -1043,7 +1043,7 @@ template<typename T_Elem> Array *FuncTmpl_scaling2D(Double xScale, Double yScale
 
 template<typename T_Elem> Array *FuncTmpl_scaling3D(Double xScale, Double yScale, Double zScale)
 {
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(4, 4));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(4, 4));
 	T_Elem *p = pArrayT->GetPointer();
 	// row-1
 	*p++ = static_cast<T_Elem>(xScale);
@@ -1146,7 +1146,7 @@ Gura_DeclareClassMethod_Array(array, translation)
 
 template<typename T_Elem> Array *FuncTmpl_translation2D(Double xTrans, Double yTrans)
 {
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(3, 3));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(3, 3));
 	T_Elem *p = pArrayT->GetPointer();
 	// row-1
 	*p++ = 1;
@@ -1165,7 +1165,7 @@ template<typename T_Elem> Array *FuncTmpl_translation2D(Double xTrans, Double yT
 
 template<typename T_Elem> Array *FuncTmpl_translation3D(Double xTrans, Double yTrans, Double zTrans)
 {
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(4, 4));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(4, 4));
 	T_Elem *p = pArrayT->GetPointer();
 	// row-1
 	*p++ = 1;

@@ -24,10 +24,12 @@ public:
 	ArrayT();
 	ArrayT(const ArrayT &src);
 	ArrayT(Memory *pMemory, size_t offsetBase);
+#if 0
 	ArrayT(size_t size);
 	ArrayT(size_t sizeRow, size_t sizeCol);
 	ArrayT(const T_Elem *pElemInit, size_t size);
 	ArrayT(const T_Elem *pElemInit, size_t sizeRow, size_t sizeCol);
+#endif
 	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetElemNum()));
 	}

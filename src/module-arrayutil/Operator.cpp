@@ -912,7 +912,7 @@ Value DotFuncTmpl(Environment &env, Array *pArrayResult, const Array *pArrayL, c
 		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
-		pArrayTResult.reset((pArrayResult == nullptr)? new ArrayT<T_ElemResult>(nColR) :
+		pArrayTResult.reset((pArrayResult == nullptr)? ArrayT<T_ElemResult>::Create(nColR) :
 							dynamic_cast<ArrayT<T_ElemResult> *>(pArrayResult));
 		T_ElemResult *pElemResult = pArrayTResult->GetPointer();
 		DotFuncTmpl_1d_2d(pElemResult, pElemL, pElemR, nRowR, nColR);
@@ -926,7 +926,7 @@ Value DotFuncTmpl(Environment &env, Array *pArrayResult, const Array *pArrayL, c
 		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
-		pArrayTResult.reset((pArrayResult == nullptr)? new ArrayT<T_ElemResult>(nRowL) :
+		pArrayTResult.reset((pArrayResult == nullptr)? ArrayT<T_ElemResult>::Create(nRowL) :
 							dynamic_cast<ArrayT<T_ElemResult> *>(pArrayResult));
 		T_ElemResult *pElemResult = pArrayTResult->GetPointer();
 		DotFuncTmpl_2d_1d(pElemResult, pElemL, pElemR, nRowL, nColL);
@@ -941,7 +941,7 @@ Value DotFuncTmpl(Environment &env, Array *pArrayResult, const Array *pArrayL, c
 		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
-		pArrayTResult.reset((pArrayResult == nullptr)? new ArrayT<T_ElemResult>(nRowL, nColR) :
+		pArrayTResult.reset((pArrayResult == nullptr)? ArrayT<T_ElemResult>::Create(nRowL, nColR) :
 							dynamic_cast<ArrayT<T_ElemResult> *>(pArrayResult));
 		T_ElemResult *pElemResult = pArrayTResult->GetPointer();
 		DotFuncTmpl_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL, nColR);

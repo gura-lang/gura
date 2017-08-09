@@ -963,7 +963,7 @@ Gura_ImplementFunction(least_square)
 	DoubleList coefList;
 	coefList.reserve(nCols);
 	do {
-		AutoPtr<ArrayT<Double> > pMat(new ArrayT<Double>(nCols, nRows));
+		AutoPtr<ArrayT<Double> > pMat(ArrayT<Double>::Create(nCols, nRows));
 		do {
 			DoubleList::iterator pSumXXBase = sumListXX.begin();
 			Double *pElem = pMat->GetPointer();
