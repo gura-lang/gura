@@ -102,6 +102,18 @@ public:
 	virtual bool EvalBackward(Environment &env);
 };
 
+class ArrayChainUnary_Pos : public ArrayChainUnary {
+public:
+	inline ArrayChainUnary_Pos(Connector *pConnectorDst) :
+		ArrayChainUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
+};
+
+class ArrayChainUnary_Neg : public ArrayChainUnary {
+public:
+	inline ArrayChainUnary_Neg(Connector *pConnectorDst) :
+		ArrayChainUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
+};
+
 //-----------------------------------------------------------------------------
 // ArrayChainBinary
 //-----------------------------------------------------------------------------
@@ -118,6 +130,42 @@ public:
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalForward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
+};
+
+class ArrayChainBinary_Add : public ArrayChainBinary {
+public:
+	inline ArrayChainBinary_Add(Connector *pConnectorDst) :
+		ArrayChainBinary(Array::binaryFuncPack_Add, pConnectorDst) {}
+};
+
+class ArrayChainBinary_Sub : public ArrayChainBinary {
+public:
+	inline ArrayChainBinary_Sub(Connector *pConnectorDst) :
+		ArrayChainBinary(Array::binaryFuncPack_Sub, pConnectorDst) {}
+};
+
+class ArrayChainBinary_Mul : public ArrayChainBinary {
+public:
+	inline ArrayChainBinary_Mul(Connector *pConnectorDst) :
+		ArrayChainBinary(Array::binaryFuncPack_Mul, pConnectorDst) {}
+};
+
+class ArrayChainBinary_Div : public ArrayChainBinary {
+public:
+	inline ArrayChainBinary_Div(Connector *pConnectorDst) :
+		ArrayChainBinary(Array::binaryFuncPack_Div, pConnectorDst) {}
+};
+
+class ArrayChainBinary_Pow : public ArrayChainBinary {
+public:
+	inline ArrayChainBinary_Pow(Connector *pConnectorDst) :
+		ArrayChainBinary(Array::binaryFuncPack_Pow, pConnectorDst) {}
+};
+
+class ArrayChainBinary_DotProd : public ArrayChainBinary {
+public:
+	inline ArrayChainBinary_DotProd(Connector *pConnectorDst) :
+		ArrayChainBinary(Array::binaryFuncPack_DotProd, pConnectorDst) {}
 };
 
 //-----------------------------------------------------------------------------
