@@ -91,9 +91,11 @@ public:
 //-----------------------------------------------------------------------------
 class ArrayChainUnary : public ArrayChain {
 private:
+	const Array::UnaryFuncPack &_unaryFuncPack;
 	Connector _connectorSrc;
 public:
-	inline ArrayChainUnary(Connector *pConnectorDst) : ArrayChain(pConnectorDst), _connectorSrc(this) {}
+	inline ArrayChainUnary(const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
+		_unaryFuncPack(unaryFuncPack), ArrayChain(pConnectorDst), _connectorSrc(this) {}
 	virtual bool InitForward(Environment &env);
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalForward(Environment &env);
@@ -105,11 +107,13 @@ public:
 //-----------------------------------------------------------------------------
 class ArrayChainBinary : public ArrayChain {
 private:
+	const Array::BinaryFuncPack &_binaryFuncPack;
 	Connector _connectorSrcLeft;
 	Connector _connectorSrcRight;
 public:
-	inline ArrayChainBinary(Connector *pConnectorDst) :
-		ArrayChain(pConnectorDst), _connectorSrcLeft(this), _connectorSrcRight(this) {}
+	inline ArrayChainBinary(const Array::BinaryFuncPack &binaryFuncPack, Connector *pConnectorDst) :
+		_binaryFuncPack(binaryFuncPack), ArrayChain(pConnectorDst),
+		_connectorSrcLeft(this), _connectorSrcRight(this) {}
 	virtual bool InitForward(Environment &env);
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalForward(Environment &env);
