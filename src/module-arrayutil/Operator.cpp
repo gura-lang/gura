@@ -864,12 +864,12 @@ void DotFuncTmpl_2d_2d(T_ElemResult *pElemResult,
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-void DotFuncTmpl_1d_1d(T_ElemResult &elemResult,
+void DotFuncTmpl_1d_1d(T_ElemResult *pElemResult,
 					   const T_ElemL *pElemL, const T_ElemR *pElemR, size_t nColL)
 {
-	elemResult = 0;
+	*pElemResult = 0;
 	for (size_t iColL = 0; iColL < nColL; iColL++, pElemL++, pElemR++) {
-		elemResult +=
+		*pElemResult +=
 			static_cast<T_ElemResult>(*pElemL) *
 			static_cast<T_ElemResult>(*pElemR);
 	}
@@ -886,10 +886,10 @@ void SetError_CantCalcuateDotProduct(Environment &env, const Array *pArrayL, con
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 Value DotFuncTmpl(Environment &env, Array *pArrayResult, const Array *pArrayL, const Array *pArrayR)
 {
+	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult;
 	const Array::Dimensions &dimsL = pArrayL->GetDimensions();
 	const Array::Dimensions &dimsR = pArrayR->GetDimensions();
 	if (dimsL.size() == 1 && dimsR.size() == 1) {
-		T_ElemResult elemResult = 0;
 		size_t nColL = dimsL[0].GetSize();
 		size_t nRowR = dimsR[0].GetSize();
 		if (nColL != nRowR) {
@@ -898,11 +898,11 @@ Value DotFuncTmpl(Environment &env, Array *pArrayResult, const Array *pArrayL, c
 		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
-		DotFuncTmpl_1d_1d(elemResult, pElemL, pElemR, nColL);
-		return Value(elemResult);
-	}
-	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult;
-	if (dimsL.size() == 1 && dimsR.size() == 2) {
+		pArrayTResult.reset((pArrayResult == nullptr)? ArrayT<T_ElemResult>::CreateScalar(0) :
+							dynamic_cast<ArrayT<T_ElemResult> *>(pArrayResult));
+		T_ElemResult *pElemResult = pArrayTResult->GetPointer();
+		DotFuncTmpl_1d_1d(pElemResult, pElemL, pElemR, nColL);
+	} else if (dimsL.size() == 1 && dimsR.size() == 2) {
 		size_t nColL = dimsL[0].GetSize();
 		size_t nRowR = dimsR[0].GetSize();
 		size_t nColR = dimsR[1].GetSize();

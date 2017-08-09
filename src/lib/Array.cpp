@@ -210,7 +210,9 @@ bool Array::PrepareModification(Signal &sig)
 
 Value Array::ToValue(Environment &env, Array *pArray)
 {
-	return Value(new Object_array(env, pArray));
+	return !pArray->IsScalar()? Value(new Object_array(env, pArray)) :
+		pArray->IsElemType(ETYPE_Complex)? Value(pArray->GetScalarComplex()) :
+		Value(pArray->GetScalarNumber());
 }
 
 bool Array::Serialize(Environment &env, Stream &stream) const
