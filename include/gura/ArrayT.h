@@ -65,6 +65,10 @@ public:
 	ArrayT *Offset(Signal &sig, size_t n) const;
 	ArrayT *RoundOff(double threshold) const;
 	// functions to create an ArrayT instance
+	static ArrayT *Create(size_t size);
+	static ArrayT *Create(size_t sizeRow, size_t sizeCol);
+	static ArrayT *Create(const T_Elem *pElemInit, size_t size);
+	static ArrayT *Create(const T_Elem *pElemInit, size_t sizeRow, size_t sizeCol);
 	static ArrayT *Create(const Dimension &dim);
 	static ArrayT *Create(const Dimensions &dims);
 	static ArrayT *Create(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);

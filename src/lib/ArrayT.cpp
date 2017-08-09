@@ -585,6 +585,44 @@ ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
 
 /// functions to create an ArrayT instance
 template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(size_t size)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimension(Dimension(size));
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(size_t sizeRow, size_t sizeCol)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(Dimension(sizeRow), Dimension(sizeCol));
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const T_Elem *pElemInit, size_t size)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimension(Dimension(size));
+	pArrayT->AllocMemory();
+	::memcpy(pArrayT->GetPointer(), pElemInit, pArrayT->GetElemNum() * sizeof(T_Elem));
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const T_Elem *pElemInit, size_t sizeRow, size_t sizeCol)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(Dimension(sizeRow), Dimension(sizeCol));
+	pArrayT->AllocMemory();
+	::memcpy(pArrayT->GetPointer(), pElemInit, pArrayT->GetElemNum() * sizeof(T_Elem));
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const Dimension &dim)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT());
