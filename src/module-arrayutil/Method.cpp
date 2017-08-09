@@ -435,9 +435,8 @@ Gura_DeclareClassMethod(array, dot)
 
 Gura_ImplementClassMethod(array, dot)
 {
-	const Array *pArrayL = Object_array::GetObject(arg, 0)->GetArray();
-	const Array *pArrayR = Object_array::GetObject(arg, 1)->GetArray();
-	Value valResult = CalcDot(env, pArrayL, pArrayR);
+	Value valResult = Array::ApplyBinaryFuncOnValue_array_array(
+		env, Array::binaryFuncPack_DotProd, arg.GetValue(0), arg.GetValue(1));
 	if (env.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, arg, valResult);
 }
