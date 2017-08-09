@@ -94,7 +94,7 @@ in
 ..
 [[`number, `number]]
 |.|
-[[`number, `number], [`array, `array], [`vertex, `vertex]]
+[[`number, `number], [`array, `number], [`array, `complex], [`number, `array], [`complex, `array], [`array, `array], [`vertex, `vertex]]
 |*|
 [[`vertex, `vertex]]
 |+|

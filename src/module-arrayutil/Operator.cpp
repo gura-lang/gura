@@ -1850,6 +1850,30 @@ Gura_ImplementBinaryOperator(DotProd, array, array)
 		env, Array::binaryFuncPack_DotProd, valueLeft, valueRight);
 }
 
+Gura_ImplementBinaryOperator(DotProd, array, number)
+{
+	return Array::ApplyBinaryFuncOnValue_array_number(
+		env, Array::binaryFuncPack_DotProd, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(DotProd, number, array)
+{
+	return Array::ApplyBinaryFuncOnValue_number_array(
+		env, Array::binaryFuncPack_DotProd, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(DotProd, array, complex)
+{
+	return Array::ApplyBinaryFuncOnValue_array_complex(
+		env, Array::binaryFuncPack_DotProd, valueLeft, valueRight);
+}
+
+Gura_ImplementBinaryOperator(DotProd, complex, array)
+{
+	return Array::ApplyBinaryFuncOnValue_complex_array(
+		env, Array::binaryFuncPack_DotProd, valueLeft, valueRight);
+}
+
 //-----------------------------------------------------------------------------
 // [A |*| B] ... BinaryOperator(CrossProd, A, B)
 //-----------------------------------------------------------------------------
@@ -2526,6 +2550,10 @@ void AssignOperators(Environment &env)
 	Gura_AssignBinaryOperator(Mod, array, number);
 	Gura_AssignBinaryOperator(Mod, number, array);
 	Gura_AssignBinaryOperator(DotProd, array, array);
+	Gura_AssignBinaryOperator(DotProd, array, number);
+	Gura_AssignBinaryOperator(DotProd, number, array);
+	Gura_AssignBinaryOperator(DotProd, array, complex);
+	Gura_AssignBinaryOperator(DotProd, complex, array);
 	Gura_AssignBinaryOperator(Pow, array, array);
 	Gura_AssignBinaryOperator(Pow, array, number);
 	Gura_AssignBinaryOperator(Pow, number, array);

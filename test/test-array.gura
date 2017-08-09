@@ -514,6 +514,10 @@ testcase('array.dot()') {
 		tester(`(d |.| b))
 		tester(`(d |.| c))
 		tester(`(e |.| d))
+		tester(`(d |.| 3))
+		tester(`(3 |.| d))
+		tester(`(d |.| 3j))
+		tester(`(3j |.| d))
 	}
 }
 testcase('array.invert()') {
