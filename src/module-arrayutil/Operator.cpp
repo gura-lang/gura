@@ -1038,7 +1038,7 @@ Value DotFuncTmpl(Environment &env, Array *pArrayResult, const Array *pArrayL, c
 			offsetL += elemNumMatL;
 		}
 	}
-	return Value(new Object_array(env, pArrayTResult.release()));
+	return Array::ToValue(env, pArrayTResult.release());
 }
 
 //------------------------------------------------------------------------------

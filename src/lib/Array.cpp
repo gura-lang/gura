@@ -208,6 +208,11 @@ bool Array::PrepareModification(Signal &sig)
 	return true;
 }
 
+Value Array::ToValue(Environment &env, Array *pArray)
+{
+	return Value(new Object_array(env, pArray));
+}
+
 bool Array::Serialize(Environment &env, Stream &stream) const
 {
 	if (!stream.SerializeUInt8(env, static_cast<UInt8>(_elemType))) return false;

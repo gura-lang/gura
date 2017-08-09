@@ -263,6 +263,7 @@ public:
 	bool HasShape(const Value &valList) const;
 	bool HasSameElements(const Array &array) const;
 	bool PrepareModification(Signal &sig);
+	static Value ToValue(Environment &env, Array *pArray);
 	bool Serialize(Environment &env, Stream &stream) const;
 	static Array *Deserialize(Environment &env, Stream &stream);
 public:
