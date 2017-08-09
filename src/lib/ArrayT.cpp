@@ -18,36 +18,6 @@ ArrayT<T_Elem>::ArrayT(Memory *pMemory, size_t offsetBase) : Array(ETYPE_##T_Ele
 {} \
 template class ArrayT<T_Elem>;
 
-#if 0
-template<> \
-ArrayT<T_Elem>::ArrayT(size_t size) : Array(ETYPE_##T_Elem) \
-{ \
-	SetDimension(Dimension(size)); \
-	AllocMemory(); \
-} \
-template<> \
-ArrayT<T_Elem>::ArrayT(size_t sizeRow, size_t sizeCol) : Array(ETYPE_##T_Elem) \
-{ \
-	SetDimensions(Dimension(sizeRow), Dimension(sizeCol)); \
-	AllocMemory(); \
-} \
-template<> \
-ArrayT<T_Elem>::ArrayT(const T_Elem *pElemInit, size_t size) : Array(ETYPE_##T_Elem) \
-{ \
-	SetDimension(Dimension(size)); \
-	AllocMemory(); \
-	::memcpy(GetPointer(), pElemInit, GetElemNum() * sizeof(T_Elem)); \
-} \
-template<> \
-ArrayT<T_Elem>::ArrayT(const T_Elem *pElemInit, size_t sizeRow, size_t sizeCol) : Array(ETYPE_##T_Elem) \
-{ \
-	SetDimensions(Dimension(sizeRow), Dimension(sizeCol)); \
-	AllocMemory(); \
-	::memcpy(GetPointer(), pElemInit, GetElemNum() * sizeof(T_Elem)); \
-} \
-
-#endif
-
 namespace Gura {
 
 //------------------------------------------------------------------------------
@@ -660,6 +630,17 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim,
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT());
 	pArrayT->SetDimensions(pDim, pDimEnd, dim);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim,
+									   Dimensions::const_iterator pDimEnd,
+									   const Dimension &dimRow, const Dimension &dimCol)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(pDim, pDimEnd, dimRow, dimCol);
 	pArrayT->AllocMemory();
 	return pArrayT.release();
 }

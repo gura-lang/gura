@@ -963,14 +963,10 @@ Value DotFuncTmpl(Environment &env, Array *pArrayResult, const Array *pArrayL, c
 		size_t elemNumMatR = nRowR * nColR;
 		size_t offsetL = 0, offsetR = 0;
 		if (dimsL.size() < dimsR.size()) {
-			if (pArrayResult == nullptr) {
-				pArrayTResult.reset(new ArrayT<T_ElemResult>());
-				pArrayTResult->SetDimensions(dimsR.begin(), dimsR.begin() + dimsR.size() - 2,
-											 Array::Dimension(nRowL), Array::Dimension(nColR));
-				pArrayTResult->AllocMemory();
-			} else {
-				pArrayTResult.reset(dynamic_cast<ArrayT<T_ElemResult> *>(pArrayResult));
-			}
+			pArrayTResult.reset((pArrayResult == nullptr)? ArrayT<T_ElemResult>::Create(
+									dimsR.begin(), dimsR.begin() + dimsR.size() - 2,
+									Array::Dimension(nRowL), Array::Dimension(nColR)) :
+								dynamic_cast<ArrayT<T_ElemResult> *>(pArrayResult));
 			T_ElemResult *pElemResult = pArrayTResult->GetPointer();
 			while (offsetR < elemNumR) {
 				DotFuncTmpl_2d_2d(pElemResult, pElemL + offsetL, pElemR + offsetR,
@@ -981,14 +977,10 @@ Value DotFuncTmpl(Environment &env, Array *pArrayResult, const Array *pArrayL, c
 				if (offsetL >= elemNumL) offsetL = 0;
 			}
 		} else { // dimsL.size() >= dimsR.size()
-			if (pArrayResult == nullptr) {
-				pArrayTResult.reset(new ArrayT<T_ElemResult>());
-				pArrayTResult->SetDimensions(dimsL.begin(), dimsL.begin() + dimsL.size() - 2,
-											 Array::Dimension(nRowL), Array::Dimension(nColR));
-				pArrayTResult->AllocMemory();
-			} else {
-				pArrayTResult.reset(dynamic_cast<ArrayT<T_ElemResult> *>(pArrayResult));
-			}
+			pArrayTResult.reset((pArrayResult == nullptr)? ArrayT<T_ElemResult>::Create(
+									dimsL.begin(), dimsL.begin() + dimsL.size() - 2,
+									Array::Dimension(nRowL), Array::Dimension(nColR)) :
+								dynamic_cast<ArrayT<T_ElemResult> *>(pArrayResult));
 			T_ElemResult *pElemResult = pArrayTResult->GetPointer();
 			while (offsetL < elemNumL) {
 				DotFuncTmpl_2d_2d(pElemResult, pElemL + offsetL, pElemR + offsetR,
@@ -1012,14 +1004,10 @@ Value DotFuncTmpl(Environment &env, Array *pArrayResult, const Array *pArrayL, c
 		size_t elemNumR = pArrayR->GetElemNum();
 		size_t elemNumMatR = nRowR * nColR;
 		size_t offsetR = 0;
-		if (pArrayResult == nullptr) {
-			pArrayTResult.reset(new ArrayT<T_ElemResult>());
-			pArrayTResult->SetDimensions(dimsR.begin(), dimsR.begin() + dimsR.size() - 2,
-										 Array::Dimension(nColR));
-			pArrayTResult->AllocMemory();
-		} else {
-			pArrayTResult.reset(dynamic_cast<ArrayT<T_ElemResult> *>(pArrayResult));
-		}
+		pArrayTResult.reset((pArrayResult == nullptr)? ArrayT<T_ElemResult>::Create(
+								dimsR.begin(), dimsR.begin() + dimsR.size() - 2,
+								Array::Dimension(nColR)) :
+							dynamic_cast<ArrayT<T_ElemResult> *>(pArrayResult));
 		T_ElemResult *pElemResult = pArrayTResult->GetPointer();
 		while (offsetR < elemNumR) {
 			DotFuncTmpl_1d_2d(pElemResult, pElemL, pElemR + offsetR, nRowR, nColR);
@@ -1039,14 +1027,10 @@ Value DotFuncTmpl(Environment &env, Array *pArrayResult, const Array *pArrayL, c
 		size_t elemNumL = pArrayL->GetElemNum();
 		size_t elemNumMatL = nRowL * nColL;
 		size_t offsetL = 0;
-		if (pArrayResult == nullptr) {
-			pArrayTResult.reset(new ArrayT<T_ElemResult>());
-			pArrayTResult->SetDimensions(dimsL.begin(), dimsL.begin() + dimsL.size() - 2,
-										 Array::Dimension(nRowL));
-			pArrayTResult->AllocMemory();
-		} else {
-			pArrayTResult.reset(dynamic_cast<ArrayT<T_ElemResult> *>(pArrayResult));
-		}
+		pArrayTResult.reset((pArrayResult == nullptr)? ArrayT<T_ElemResult>::Create(
+								dimsL.begin(), dimsL.begin() + dimsL.size() - 2,
+								Array::Dimension(nRowL)) :
+							dynamic_cast<ArrayT<T_ElemResult> *>(pArrayResult));
 		T_ElemResult *pElemResult = pArrayTResult->GetPointer();
 		while (offsetL < elemNumL) {
 			DotFuncTmpl_2d_1d(pElemResult, pElemL + offsetL, pElemR, nRowL, nColL);

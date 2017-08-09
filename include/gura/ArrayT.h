@@ -24,12 +24,6 @@ public:
 	ArrayT();
 	ArrayT(const ArrayT &src);
 	ArrayT(Memory *pMemory, size_t offsetBase);
-#if 0
-	ArrayT(size_t size);
-	ArrayT(size_t sizeRow, size_t sizeCol);
-	ArrayT(const T_Elem *pElemInit, size_t size);
-	ArrayT(const T_Elem *pElemInit, size_t sizeRow, size_t sizeCol);
-#endif
 	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetElemNum()));
 	}
@@ -76,6 +70,8 @@ public:
 	static ArrayT *Create(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
 	static ArrayT *Create(Dimensions::const_iterator pDim,
 						  Dimensions::const_iterator pDimEnd, const Dimension &dim);
+	static ArrayT *Create(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+						  const Dimension &dimRow, const Dimension &dimCol);
 	static ArrayT *Create(
 		Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
 		Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
