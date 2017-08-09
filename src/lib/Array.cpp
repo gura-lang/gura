@@ -927,27 +927,6 @@ Array *InvertFuncTmpl(Signal &sig, Array *pArrayResult, const Array *pArray, Dou
 	return pArrayTResult.release();
 }
 
-//------------------------------------------------------------------------------
-// Function tables
-//------------------------------------------------------------------------------
-Array::InvertFunc Array::invertFuncs[ETYPE_Max] = {
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr,
-	&InvertFuncTmpl<Half>,
-	&InvertFuncTmpl<Float>,
-	&InvertFuncTmpl<Double>,
-	&InvertFuncTmpl<Complex>,
-	nullptr,
-};
-
 //-----------------------------------------------------------------------------
 // Array::Indexer
 //-----------------------------------------------------------------------------
@@ -1111,6 +1090,27 @@ void ArrayOwner::Clear()
 	}
 	clear();
 }
+
+//-----------------------------------------------------------------------------
+// Function Pack
+//-----------------------------------------------------------------------------
+Array::InvertFunc Array::invertFuncs[ETYPE_Max] = {
+	nullptr,
+	nullptr,
+	nullptr,
+	nullptr,
+	nullptr,
+	nullptr,
+	nullptr,
+	nullptr,
+	nullptr,
+	nullptr,
+	&InvertFuncTmpl<Half>,
+	&InvertFuncTmpl<Float>,
+	&InvertFuncTmpl<Double>,
+	&InvertFuncTmpl<Complex>,
+	nullptr,
+};
 
 Array::UnaryFuncPack Array::unaryFuncPack_Pos =				{ "pos",			"+",			};
 Array::UnaryFuncPack Array::unaryFuncPack_Neg =				{ "neg",			"-",			};
