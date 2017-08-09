@@ -27,7 +27,7 @@ Value Object_arrayT<T_Elem>::Constructor(Environment &env, Argument &arg)
 		return Value::Nil;
 	}
 	if (pArrayT.IsNull()) return Value::Nil;
-	return Value(new Object_array(env, pArrayT.release()));
+	return Array::ToValue(env, pArrayT.release());
 }
 
 //-----------------------------------------------------------------------------
@@ -138,7 +138,7 @@ bool Class_arrayT<T_Elem>::CastTo(Environment &env, Value &value, const Declarat
 	} else if (decl.IsType(VTYPE_array)) {
 		const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
 		AutoPtr<Array> pArray(pArrayT->Reference());
-		value = Value(new Object_array(env, pArray.release()));
+		value = Array::ToValue(env, pArray.release());
 		return true;
 	}
 	return false;

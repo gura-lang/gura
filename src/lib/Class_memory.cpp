@@ -192,8 +192,7 @@ Gura_ImplementMethod(memory, array_at_##name) \
 	size_t cnt = memory.GetSize() / sizeof(T); \
 	AutoPtr<ArrayT<T> > pArrayT(new ArrayT<T>(memory.Reference(), 0));	\
 	pArrayT->SetDimension(Array::Dimension(cnt)); \
-	return ReturnValue(env, arg, Value(new Object_arrayT<T>( \
-										   env, VTYPE_array_at_##name, pArrayT.release()))); \
+	return ReturnValue(env, arg, Array::ToValue(env, pArrayT.release())); \
 }
 
 ImplementArrayConstructor(int8, Int8)

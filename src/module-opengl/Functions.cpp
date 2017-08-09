@@ -78,7 +78,7 @@ Gura_ImplementFunction(__glAreTexturesResident)
 	ArrayT<UInt> *_textures = Object_arrayT<UInt>::GetObject(arg, 0)->GetArrayT();
 	GLuint *textures = reinterpret_cast<GLuint *>(_textures->GetPointer());
 	GLsizei n = _textures->GetElemNum();
-	AutoPtr<ArrayT<GLboolean> > _residences(new ArrayT<GLboolean>(n));
+	AutoPtr<ArrayT<GLboolean> > _residences(ArrayT<GLboolean>::Create(n));
 	GLboolean *residences = _residences->GetPointer();
 	GLboolean _rtn = glAreTexturesResident(n, textures, residences);
 	if (_rtn == 0) return Value::Nil;
@@ -1954,7 +1954,6 @@ Gura_ImplementFunction(__glDrawPixels)
 	GLenum format = static_cast<GLenum>(arg.GetInt(2));
 	GLenum type = static_cast<GLenum>(arg.GetInt(3));
 	Array *pixels = Object_array::GetObject(arg, 4)->GetArray();
-	
 	const void *p = GetArrayTPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
 	glDrawPixels(width, height, format, type, p);
@@ -2544,7 +2543,7 @@ Gura_DeclareFunctionAlias(__glGenTextures, "glGenTextures")
 Gura_ImplementFunction(__glGenTextures)
 {
 	GLsizei n = arg.GetInt(0);
-	AutoPtr<ArrayT<GLuint> > _textures(new ArrayT<GLuint>(n));
+	AutoPtr<ArrayT<GLuint> > _textures(ArrayT<GLuint>::Create(n));
 	GLuint *textures = _textures->GetPointer();
 	glGenTextures(n, textures);
 	return Value::CreateList(env, textures, n);
@@ -2565,7 +2564,7 @@ Gura_ImplementFunction(__glGetBooleanv)
 {
 	GLenum pname = static_cast<GLenum>(arg.GetInt(0));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLboolean> > _params(new ArrayT<GLboolean>(n));
+	AutoPtr<ArrayT<GLboolean> > _params(ArrayT<GLboolean>::Create(n));
 	GLboolean *params = _params->GetPointer();
 	glGetBooleanv(pname, params);
 	Value _rtnVal;
@@ -2617,7 +2616,7 @@ Gura_ImplementFunction(__glGetColorTableParameterfv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLfloat> > _params(new ArrayT<GLfloat>(n));
+	AutoPtr<ArrayT<GLfloat> > _params(ArrayT<GLfloat>::Create(n));
 	GLfloat *params = _params->GetPointer();
 	glGetColorTableParameterfv(target, pname, params);
 	return ReturnValue(env, arg, Value::CreateList(env, params, n));
@@ -2646,7 +2645,7 @@ Gura_ImplementFunction(__glGetColorTableParameteriv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetColorTableParameteriv(target, pname, params);
 	return ReturnValue(env, arg, Value::CreateList(env, params, n));
@@ -2675,7 +2674,7 @@ Gura_ImplementFunction(__glGetConvolutionParameterfv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLfloat> > _params(new ArrayT<GLfloat>(n));
+	AutoPtr<ArrayT<GLfloat> > _params(ArrayT<GLfloat>::Create(n));
 	GLfloat *params = _params->GetPointer();
 	glGetColorTableParameterfv(target, pname, params);
 	return ReturnValue(env, arg, Value::CreateList(env, params, n));
@@ -2704,7 +2703,7 @@ Gura_ImplementFunction(__glGetConvolutionParameteriv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetColorTableParameteriv(target, pname, params);
 	return ReturnValue(env, arg, Value::CreateList(env, params, n));
@@ -2729,7 +2728,7 @@ Gura_ImplementFunction(__glGetDoublev)
 {
 	GLenum pname = static_cast<GLenum>(arg.GetInt(0));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLdouble> > _params(new ArrayT<GLdouble>(n));
+	AutoPtr<ArrayT<GLdouble> > _params(ArrayT<GLdouble>::Create(n));
 	GLdouble *params = _params->GetPointer();
 	glGetDoublev(pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -2766,7 +2765,7 @@ Gura_ImplementFunction(__glGetFloatv)
 {
 	GLenum pname = static_cast<GLenum>(arg.GetInt(0));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLfloat> > _params(new ArrayT<GLfloat>(n));
+	AutoPtr<ArrayT<GLfloat> > _params(ArrayT<GLfloat>::Create(n));
 	GLfloat *params = _params->GetPointer();
 	glGetFloatv(pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -2791,7 +2790,7 @@ Gura_ImplementFunction(__glGetHistogramParameterfv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLfloat> > _params(new ArrayT<GLfloat>(n));
+	AutoPtr<ArrayT<GLfloat> > _params(ArrayT<GLfloat>::Create(n));
 	GLfloat *params = _params->GetPointer();
 	glGetHistogramParameterfv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -2820,7 +2819,7 @@ Gura_ImplementFunction(__glGetHistogramParameteriv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetHistogramParameteriv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -2845,7 +2844,7 @@ Gura_ImplementFunction(__glGetIntegerv)
 {
 	GLenum pname = static_cast<GLenum>(arg.GetInt(0));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetIntegerv(pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -2868,7 +2867,7 @@ Gura_ImplementFunction(__glGetLightfv)
 	GLenum light = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLfloat> > _params(new ArrayT<GLfloat>(n));
+	AutoPtr<ArrayT<GLfloat> > _params(ArrayT<GLfloat>::Create(n));
 	GLfloat *params = _params->GetPointer();
 	glGetLightfv(light, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -2891,7 +2890,7 @@ Gura_ImplementFunction(__glGetLightiv)
 	GLenum light = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetLightiv(light, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -2992,7 +2991,7 @@ Gura_ImplementFunction(__glGetMaterialfv)
 	GLenum face = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLfloat> > _params(new ArrayT<GLfloat>(n));
+	AutoPtr<ArrayT<GLfloat> > _params(ArrayT<GLfloat>::Create(n));
 	GLfloat *params = _params->GetPointer();
 	glGetMaterialfv(face, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -3015,7 +3014,7 @@ Gura_ImplementFunction(__glGetMaterialiv)
 	GLenum face = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetMaterialiv(face, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -3040,7 +3039,7 @@ Gura_ImplementFunction(__glGetMinmaxParameterfv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLfloat> > _params(new ArrayT<GLfloat>(n));
+	AutoPtr<ArrayT<GLfloat> > _params(ArrayT<GLfloat>::Create(n));
 	GLfloat *params = _params->GetPointer();
 	glGetMinmaxParameterfv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -3069,7 +3068,7 @@ Gura_ImplementFunction(__glGetMinmaxParameteriv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetMinmaxParameteriv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -3162,7 +3161,7 @@ Gura_DeclareFunctionAlias(__glGetPolygonStipple, "glGetPolygonStipple")
 
 Gura_ImplementFunction(__glGetPolygonStipple)
 {
-	AutoPtr<ArrayT<UInt8> > pArrayT(new ArrayT<UInt8>(32 * 4));
+	AutoPtr<ArrayT<UInt8> > pArrayT(ArrayT<UInt8>::Create(32 * 4));
 	glGetPolygonStipple(pArrayT->GetPointer());
 	return Value(new Object_arrayT<UInt8>(env, VTYPE_array_at_uint8, pArrayT.release()));
 }
@@ -3206,7 +3205,7 @@ Gura_ImplementFunction(__glGetTexEnvfv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLfloat> > _params(new ArrayT<GLfloat>(n));
+	AutoPtr<ArrayT<GLfloat> > _params(ArrayT<GLfloat>::Create(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexEnvfv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -3229,7 +3228,7 @@ Gura_ImplementFunction(__glGetTexEnviv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetTexEnviv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -3252,7 +3251,7 @@ Gura_ImplementFunction(__glGetTexGendv)
 	GLenum coord = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLdouble> > _params(new ArrayT<GLdouble>(n));
+	AutoPtr<ArrayT<GLdouble> > _params(ArrayT<GLdouble>::Create(n));
 	GLdouble *params = _params->GetPointer();
 	glGetTexGendv(coord, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -3275,7 +3274,7 @@ Gura_ImplementFunction(__glGetTexGenfv)
 	GLenum coord = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLfloat> > _params(new ArrayT<GLfloat>(n));
+	AutoPtr<ArrayT<GLfloat> > _params(ArrayT<GLfloat>::Create(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexGenfv(coord, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -3298,7 +3297,7 @@ Gura_ImplementFunction(__glGetTexGeniv)
 	GLenum coord = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetTexGeniv(coord, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -3323,7 +3322,7 @@ Gura_ImplementFunction(__glGetTexLevelParameterfv)
 	GLint level = arg.GetInt(1);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(2));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLfloat> > _params(new ArrayT<GLfloat>(n));
+	AutoPtr<ArrayT<GLfloat> > _params(ArrayT<GLfloat>::Create(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexLevelParameterfv(target, level, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -3348,7 +3347,7 @@ Gura_ImplementFunction(__glGetTexLevelParameteriv)
 	GLint level = arg.GetInt(1);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(2));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetTexLevelParameteriv(target, level, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -3371,7 +3370,7 @@ Gura_ImplementFunction(__glGetTexParameterfv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLfloat> > _params(new ArrayT<GLfloat>(n));
+	AutoPtr<ArrayT<GLfloat> > _params(ArrayT<GLfloat>::Create(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexParameterfv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -3394,7 +3393,7 @@ Gura_ImplementFunction(__glGetTexParameteriv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetTexParameteriv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -10189,7 +10188,7 @@ Gura_ImplementFunction(__glGenQueries)
 #if defined(GL_VERSION_1_5)
 	ImplementGLExtension();
 	GLsizei n = arg.GetInt(0);
-	AutoPtr<ArrayT<GLuint> > _ids(new ArrayT<GLuint>(n));
+	AutoPtr<ArrayT<GLuint> > _ids(ArrayT<GLuint>::Create(n));
 	GLuint *ids = _ids->GetPointer();
 	glGenQueries(n, ids);
 	return ReturnValue(env, arg, Value::CreateList(env, ids, n));
@@ -10322,7 +10321,7 @@ Gura_ImplementFunction(__glGetQueryiv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetQueryiv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -10351,7 +10350,7 @@ Gura_ImplementFunction(__glGetQueryObjectiv)
 	GLuint id = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetQueryObjectiv(id, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -10380,7 +10379,7 @@ Gura_ImplementFunction(__glGetQueryObjectuiv)
 	GLuint id = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLuint> > _params(new ArrayT<GLuint>(n));
+	AutoPtr<ArrayT<GLuint> > _params(ArrayT<GLuint>::Create(n));
 	GLuint *params = _params->GetPointer();
 	glGetQueryObjectuiv(id, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -10456,7 +10455,7 @@ Gura_ImplementFunction(__glGenBuffers)
 #if defined(GL_VERSION_1_5)
 	ImplementGLExtension();
 	GLsizei n = arg.GetInt(0);
-	AutoPtr<ArrayT<GLuint> > _buffers(new ArrayT<GLuint>(n));
+	AutoPtr<ArrayT<GLuint> > _buffers(ArrayT<GLuint>::Create(n));
 	GLuint *buffers = _buffers->GetPointer();
 	glGenBuffers(n, buffers);
 	return Value::CreateList(env, buffers, n);
@@ -10594,7 +10593,7 @@ Gura_ImplementFunction(__glGetBufferParameteriv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetBufferParameteriv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -11785,7 +11784,7 @@ Gura_ImplementFunction(__glGetVertexAttribdv)
 	GLuint index = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLdouble> > _params(new ArrayT<GLdouble>(n));
+	AutoPtr<ArrayT<GLdouble> > _params(ArrayT<GLdouble>::Create(n));
 	GLdouble *params = _params->GetPointer();
 	glGetVertexAttribdv(index, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -11814,7 +11813,7 @@ Gura_ImplementFunction(__glGetVertexAttribfv)
 	GLuint index = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLfloat> > _params(new ArrayT<GLfloat>(n));
+	AutoPtr<ArrayT<GLfloat> > _params(ArrayT<GLfloat>::Create(n));
 	GLfloat *params = _params->GetPointer();
 	glGetVertexAttribfv(index, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -11843,7 +11842,7 @@ Gura_ImplementFunction(__glGetVertexAttribiv)
 	GLuint index = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetVertexAttribiv(index, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -12716,7 +12715,7 @@ Gura_ImplementFunction(__glGetShaderiv)
 	GLuint shader = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetShaderiv(shader, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
@@ -12745,7 +12744,7 @@ Gura_ImplementFunction(__glGetProgramiv)
 	GLuint program = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
-	AutoPtr<ArrayT<GLint> > _params(new ArrayT<GLint>(n));
+	AutoPtr<ArrayT<GLint> > _params(ArrayT<GLint>::Create(n));
 	GLint *params = _params->GetPointer();
 	glGetProgramiv(program, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));

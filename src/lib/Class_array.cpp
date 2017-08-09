@@ -63,7 +63,7 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 			::memcpy(pElemDst, pElemTgt + indexer.GenerateOffset(), bytesUnit);
 			pElemDst += nElemsUnit;
 		} while (indexer.NextGenerator());
-		valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
+		valueRtn = Array::ToValue(env, pArrayTRtn.release());
 	} else if (indexer.IsTargetScalar()) {
 		const T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
 		valueRtn = Value(*pElemTgt);
@@ -74,7 +74,7 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 		Array::Dimensions dimsRtn;
 		indexer.MakeResultDimensions(dimsRtn);
 		pArrayTRtn->SetDimensions(dimsRtn);
-		valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
+		valueRtn = Array::ToValue(env, pArrayTRtn.release());
 	}
 	return valueRtn;
 }
@@ -477,7 +477,7 @@ template<typename T_Elem>
 Value PropertyGetter_T(Environment &env, Array *pArraySelf)
 {
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	return Value(new Object_array(env, pArrayT->Transpose()));
+	return Array::ToValue(env, pArrayT->Transpose());
 }
 
 Gura_ImplementPropertyGetter(array, T)
@@ -584,7 +584,7 @@ Gura_ImplementFunction(at_at)
 {
 	AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::CreateFromExpr(env, arg.GetBlockCooked(env)));
 	if (pArrayT.IsNull()) return Value::Nil;
-	return Value(new Object_array(env, pArrayT.release()));
+	return Array::ToValue(env, pArrayT.release());
 }
 
 //-----------------------------------------------------------------------------
@@ -628,7 +628,7 @@ bool Class_array::Deserialize(Environment &env, Stream &stream, Value &value, Se
 	if (serializeFmtVer == SerializeFmtVer_1) {
 		AutoPtr<Array> pArray(Array::Deserialize(env, stream));
 		if (pArray.IsNull()) return false;
-		value = Value(new Object_array(env, pArray.release()));
+		value = Array::ToValue(env, pArray.release());
 		return true;
 	}
 	SetError_UnsupportedSerializeFmtVer(serializeFmtVer);

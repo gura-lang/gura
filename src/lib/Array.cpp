@@ -574,7 +574,7 @@ Value Array::ApplyUnaryFuncOnValue(Environment &env, const UnaryFuncPack &pack, 
 	Array *pArray = ApplyUnaryFunc(
 		env, pack, nullptr, Object_array::GetObject(value)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
-	return Value(new Object_array(env, pArray));
+	return ToValue(env, pArray);
 }
 
 Array *Array::ApplyBinaryFunc(
@@ -635,7 +635,7 @@ Value Array::ApplyBinaryFuncOnValue_array_array(
 		Object_array::GetObject(valueL)->GetArray(),
 		Object_array::GetObject(valueR)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
-	return Value(new Object_array(env, pArray));
+	return ToValue(env, pArray);
 }
 
 Array *Array::ApplyBinaryFunc_array_number(
@@ -657,7 +657,7 @@ Value Array::ApplyBinaryFuncOnValue_array_number(
 		env, pack, nullptr,
 		Object_array::GetObject(valueL)->GetArray(), valueR.GetDouble());
 	if (pArray == nullptr) return Value::Nil;
-	return Value(new Object_array(env, pArray));
+	return ToValue(env, pArray);
 }
 
 Array *Array::ApplyBinaryFunc_number_array(
@@ -679,7 +679,7 @@ Value Array::ApplyBinaryFuncOnValue_number_array(
 		env, pack, nullptr,
 		valueL.GetDouble(), Object_array::GetObject(valueR)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
-	return Value(new Object_array(env, pArray));
+	return ToValue(env, pArray);
 }
 
 Array *Array::ApplyBinaryFunc_array_complex(
@@ -701,7 +701,7 @@ Value Array::ApplyBinaryFuncOnValue_array_complex(
 		env, pack, nullptr,
 		Object_array::GetObject(valueL)->GetArray(), valueR.GetComplex());
 	if (pArray == nullptr) return Value::Nil;
-	return Value(new Object_array(env, pArray));
+	return ToValue(env, pArray);
 }
 
 Array *Array::ApplyBinaryFunc_complex_array(
@@ -723,7 +723,7 @@ Value Array::ApplyBinaryFuncOnValue_complex_array(
 		env, pack, nullptr,
 		valueL.GetComplex(), Object_array::GetObject(valueR)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
-	return Value(new Object_array(env, pArray));
+	return ToValue(env, pArray);
 }
 
 void Array::SetError_UnacceptableValueAsElement(Environment &env, const Value &value)

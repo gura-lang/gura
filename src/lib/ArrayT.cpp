@@ -797,7 +797,7 @@ bool Iterator_ArrayT_Each<T_Elem>::DoNext(Environment &env, Value &value)
 			AutoPtr<ArrayT<T_Elem> > pArrayRtn(
 				new ArrayT<T_Elem>(_pArrayT->GetMemory().Reference(), offsetBase));
 			pArrayRtn->SetDimensions(pDim + 1, dims.end());
-			value = Value(new Object_array(env, pArrayRtn.release()));
+			value = Array::ToValue(env, pArrayRtn.release());
 		}
 	}
 	_idx++;

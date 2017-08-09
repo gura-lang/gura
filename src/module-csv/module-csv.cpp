@@ -303,7 +303,7 @@ Gura_ImplementMethod(array, read_csv)
 		valList.push_back(value);
 	}
 	size_t sizeRow = valList.size();
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(sizeRow, sizeCol));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(sizeRow, sizeCol));
 	pArrayT->FillZero();
 	T_Elem *pRow = pArrayT->GetPointer();
 	foreach_const (ValueList, pValueRow, valList) {

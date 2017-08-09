@@ -7,7 +7,7 @@ namespace Gura {
 template<typename T_Elem>
 ArrayT<T_Elem> *MakeMatrix(Environment &env, const Value &value)
 {
-	AutoPtr<ArrayT<T_Elem> > rtn(new ArrayT<T_Elem>(16));
+	AutoPtr<ArrayT<T_Elem> > rtn(ArrayT<T_Elem>::Create(16));
 	if (value.Is_list()) {
 		const ValueList &valList = value.GetList();
 		if (valList.size() != 16) {
