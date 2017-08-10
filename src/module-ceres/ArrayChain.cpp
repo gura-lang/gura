@@ -2,62 +2,6 @@
 
 namespace Gura {
 
-class ArrayChain;
-
-//-----------------------------------------------------------------------------
-// ArrayChainList
-//-----------------------------------------------------------------------------
-class ArrayChainList : public std::vector<ArrayChain *> {
-public:
-	inline ArrayChainList() {}
-};
-
-//-----------------------------------------------------------------------------
-// ArrayChain
-//-----------------------------------------------------------------------------
-class ArrayChain {
-public:
-	class Connector {
-	private:
-		ArrayChain *_pArrayChainSrc;
-		ArrayChain *_pArrayChainDst;
-		AutoPtr<Array> _pArrayFwd;
-		AutoPtr<Array> _pArrayBwd;
-	public:
-		inline Connector(ArrayChain *pArrayChainDst) :
-			_pArrayChainSrc(nullptr), _pArrayChainDst(pArrayChainDst) {}
-		inline ArrayChain *GetArrayChainSrc() { return _pArrayChainSrc; }
-		inline ArrayChain *GetArrayChainDst() { return _pArrayChainDst; }
-		inline void SetArrayChainSrc(ArrayChain *pArrayChainSrc) {
-			_pArrayChainSrc = pArrayChainSrc;
-		}
-		inline void SetArrayFwd(Array *pArrayFwd) { _pArrayFwd.reset(pArrayFwd); }
-		inline void SetArrayBwd(Array *pArrayBwd) { _pArrayBwd.reset(pArrayBwd); }
-		inline Array *GetArrayFwd() { return _pArrayFwd.get(); }
-		inline Array *GetArrayBwd() { return _pArrayBwd.get(); }
-	};
-	class ConnectorList : public std::vector<Connector *> {
-	public:
-		inline ConnectorList() {}
-		inline void SetArrayFwd(Array *pArrayFwd);
-		inline void SetArrayBwd(Array *pArrayBwd);
-	};
-protected:
-	ConnectorList _connectorsDst;
-public:
-	inline ArrayChain() {}
-	inline ArrayChain(Connector *pConnectorDst) {
-		pConnectorDst->SetArrayChainSrc(this);
-		_connectorsDst.push_back(pConnectorDst);
-	}
-	inline void AddConnectorDst(Connector *pConnectorDst) { _connectorsDst.push_back(pConnectorDst); }
-	virtual bool InitForward(Environment &env) = 0;
-	virtual bool InitBackward(Environment &env) = 0;
-	virtual bool EvalForward(Environment &env) = 0;
-	virtual bool EvalBackward(Environment &env) = 0;
-	static ArrayChain *CreateFromExpr(const Expr *pExpr);
-};
-
 //-----------------------------------------------------------------------------
 // ArrayChainHead
 //-----------------------------------------------------------------------------
@@ -80,6 +24,7 @@ private:
 	Connector _connectorSrc;
 public:
 	inline ArrayChainTail() : ArrayChain(), _connectorSrc(this) {}
+	inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 	virtual bool InitForward(Environment &env);
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalForward(Environment &env);
@@ -96,6 +41,7 @@ private:
 public:
 	inline ArrayChainUnary(const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
 		_unaryFuncPack(unaryFuncPack), ArrayChain(pConnectorDst), _connectorSrc(this) {}
+	inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 	virtual bool InitForward(Environment &env);
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalForward(Environment &env);
@@ -126,6 +72,8 @@ public:
 	inline ArrayChainBinary(const Array::BinaryFuncPack &binaryFuncPack, Connector *pConnectorDst) :
 		_binaryFuncPack(binaryFuncPack), ArrayChain(pConnectorDst),
 		_connectorSrcLeft(this), _connectorSrcRight(this) {}
+	inline Connector *GetConnectorSrcLeft() { return &_connectorSrcLeft; }
+	inline Connector *GetConnectorSrcRight() { return &_connectorSrcRight; }
 	virtual bool InitForward(Environment &env);
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalForward(Environment &env);
@@ -171,19 +119,73 @@ public:
 //-----------------------------------------------------------------------------
 // ArrayChainOwner
 //-----------------------------------------------------------------------------
-class ArrayChainOwner : public ArrayChainList {
-public:
-	~ArrayChainOwner();
-	void Clear();
-};
+bool ArrayChainOwner::CreateFromExpr(Environment &env, const Expr *pExpr)
+{
+	std::unique_ptr<ArrayChainTail> pArrayChain(new ArrayChainTail());
+	if (!CreateFromExprSub(env, pExpr, pArrayChain->GetConnectorSrc())) return false;
+	push_back(pArrayChain.release());
+	return true;
+}
+
+bool ArrayChainOwner::CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayChain::Connector *pConnector)
+{
+	if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
+		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
+		const Operator *pOperator = pExprEx->GetOperator();
+		std::unique_ptr<ArrayChainUnary> pArrayChain;
+		if (pOperator->IsOpType(OPTYPE_Pos)) {
+			pArrayChain.reset(new ArrayChainUnary_Pos(pConnector));
+		} else if (pOperator->IsOpType(OPTYPE_Neg)) {
+			pArrayChain.reset(new ArrayChainUnary_Neg(pConnector));
+		} else {
+			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
+			return false;
+		}
+		if (!CreateFromExprSub(env, pExprEx->GetChild(), pArrayChain->GetConnectorSrc())) {
+			return false;
+		}
+		push_back(pArrayChain.release());
+	} else if (pExpr->IsType(EXPRTYPE_BinaryOp)) {
+		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExpr);
+		const Operator *pOperator = pExprEx->GetOperator();
+		std::unique_ptr<ArrayChainBinary> pArrayChain;
+		if (pOperator->IsOpType(OPTYPE_Add)) {
+			pArrayChain.reset(new ArrayChainBinary_Add(pConnector));
+		} else if (pOperator->IsOpType(OPTYPE_Sub)) {
+			pArrayChain.reset(new ArrayChainBinary_Sub(pConnector));
+		} else if (pOperator->IsOpType(OPTYPE_Mul)) {
+			pArrayChain.reset(new ArrayChainBinary_Mul(pConnector));
+		} else if (pOperator->IsOpType(OPTYPE_Div)) {
+			pArrayChain.reset(new ArrayChainBinary_Div(pConnector));
+		} else if (pOperator->IsOpType(OPTYPE_Pow)) {
+			pArrayChain.reset(new ArrayChainBinary_Pow(pConnector));
+		} else if (pOperator->IsOpType(OPTYPE_DotProd)) {
+			pArrayChain.reset(new ArrayChainBinary_DotProd(pConnector));
+		} else {
+			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
+			return false;
+		}
+		if (!CreateFromExprSub(env, pExprEx->GetLeft(), pArrayChain->GetConnectorSrcLeft()) ||
+			!CreateFromExprSub(env, pExprEx->GetRight(), pArrayChain->GetConnectorSrcRight())) {
+			return false;
+		}
+		push_back(pArrayChain.release());
+	} else if (pExpr->IsType(EXPRTYPE_Caller)) {
+		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr);
+
+	} else {
+		std::unique_ptr<ArrayChainHead> pArrayChain(
+			new ArrayChainHead(pConnector, Expr::Reference(pExpr)));
+		push_back(pArrayChain.release());
+	}
+	return true;
+}
 
 //-----------------------------------------------------------------------------
 // ArrayChain
 //-----------------------------------------------------------------------------
-ArrayChain *ArrayChain::CreateFromExpr(const Expr *pExpr)
+ArrayChain::~ArrayChain()
 {
-	
-	return nullptr;
 }
 
 //-----------------------------------------------------------------------------

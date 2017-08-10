@@ -532,6 +532,7 @@ public:
 	inline Operator(OpType opType, bool mapFlag = true) :
 		_opType(opType), _pSymbol(Symbol::Add(_symbolInfoTbl[opType].symbol)), _mapFlag(mapFlag) {}
 	inline OpType GetOpType() const { return _opType; }
+	inline bool IsOpType(OpType opType) const { return _opType == opType; }
 	inline EntryDict &GetEntryDict() { return _entryDict; }
 	inline const EntryDict &GetEntryDict() const { return _entryDict; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }

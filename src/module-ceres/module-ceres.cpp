@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "ceres/ceres.h"
 #include "glog/logging.h"
+#include "ArrayChain.h"
 
 namespace helloworld { int main(); }
 namespace helloworld_analytic_diff { int main(); }
@@ -37,11 +38,11 @@ Gura_ImplementFunction(Solve)
 	return Value::Nil;
 }
 
-// ceres.test() {`block}
+// ceres.test(expr:expr)
 Gura_DeclareFunction(test)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_Once, nullptr, true);
+	DeclareArg(env, "expr", VTYPE_expr);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -49,11 +50,8 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	const Expr_Block *pExprBlock = arg.GetBlock();
-	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
-		const Expr *pExpr = *ppExpr;
-		::printf("%s: %s\n", pExpr->GetTypeName(), pExpr->ToString(Expr::SCRSTYLE_Fancy).c_str());
-	}
+	ArrayChainOwner arrayChainOwner;
+	arrayChainOwner.CreateFromExpr(env, Object_expr::GetObject(arg, 0)->GetExpr());
 	return Value::Nil;
 }
 
