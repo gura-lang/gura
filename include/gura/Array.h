@@ -259,6 +259,7 @@ public:
 	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 					   const Dimension &dimRow, const Dimension &dimCol);
 	void UpdateMetrics();
+	void FillZero();
 	bool IsSquare() const;
 	bool HasShape(size_t size) const;
 	bool HasShape(size_t sizeRow, size_t sizeCol) const;

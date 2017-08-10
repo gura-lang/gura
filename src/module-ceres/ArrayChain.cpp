@@ -195,21 +195,6 @@ ArrayChain::~ArrayChain()
 //-----------------------------------------------------------------------------
 // ArrayChain::ConnectorList
 //-----------------------------------------------------------------------------
-void ArrayChain::ConnectorList::SetArrayFwd(Array *pArrayFwd)
-{
-	foreach (ConnectorList, ppConnector, *this) {
-		(*ppConnector)->SetArrayFwd(pArrayFwd->Reference());
-	}
-	Array::Delete(pArrayFwd);
-}
-
-void ArrayChain::ConnectorList::SetArrayBwd(Array *pArrayBwd)
-{
-	foreach (ConnectorList, ppConnector, *this) {
-		(*ppConnector)->SetArrayBwd(pArrayBwd->Reference());
-	}
-	Array::Delete(pArrayBwd);
-}
 
 //-----------------------------------------------------------------------------
 // ArrayChainHead
@@ -221,7 +206,7 @@ bool ArrayChainHead::InitForward(Environment &env)
 		env.SetError(ERR_ValueError, "variable must be an array");
 		return false;
 	}
-	_connectorsDst.SetArrayFwd(Object_array::GetObject(value)->GetArray()->Reference());
+	_pArrayFwd.reset(Object_array::GetObject(value)->GetArray()->Reference());
 	return true;
 }
 

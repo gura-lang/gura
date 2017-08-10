@@ -306,12 +306,6 @@ void ArrayT<T_Elem>::Fill(const T_Elem &num)
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::FillZero()
-{
-	::memset(GetPointer(), 0x00, sizeof(T_Elem) * GetElemNum());
-}
-
-template<typename T_Elem>
 void ArrayT<T_Elem>::FillRand(UInt range)
 {
 	T_Elem *p = GetPointer();

@@ -167,7 +167,12 @@ void Array::UpdateMetrics()
 		stride *= pDim->GetSize();
 		pDim->SetElemNumProd(stride);
 	}
-	_elemNum = stride;
+	_elemNum = stride;	// set to one when _dims is empty
+}
+
+void Array::FillZero()
+{
+	::memset(GetPointerRaw(), 0x00, GetElemBytes() * GetElemNum());
 }
 
 bool Array::IsSquare() const
