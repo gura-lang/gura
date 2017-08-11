@@ -44,15 +44,15 @@ bool ArrayChainHead::InitForward(Environment &env)
 	return true;
 }
 
-bool ArrayChainHead::InitBackward(Environment &env)
-{
-	return false;
-}
-
 bool ArrayChainHead::EvalForward(Environment &env)
 {
 	::printf("ArrayChainHead::EvalForward()\n");
 	return true;
+}
+
+bool ArrayChainHead::InitBackward(Environment &env)
+{
+	return false;
 }
 
 bool ArrayChainHead::EvalBackward(Environment &env)
@@ -74,15 +74,15 @@ bool ArrayChainTail::InitForward(Environment &env)
 	return true;
 }
 
-bool ArrayChainTail::InitBackward(Environment &env)
-{
-	return false;
-}
-
 bool ArrayChainTail::EvalForward(Environment &env)
 {
 	::printf("ArrayChainTail::EvalForward()\n");
 	return true;
+}
+
+bool ArrayChainTail::InitBackward(Environment &env)
+{
+	return false;
 }
 
 bool ArrayChainTail::EvalBackward(Environment &env)
@@ -109,11 +109,6 @@ bool ArrayChainUnary::InitForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-bool ArrayChainUnary::InitBackward(Environment &env)
-{
-	return false;
-}
-
 bool ArrayChainUnary::EvalForward(Environment &env)
 {
 	::printf("ArrayChainUnary::EvalForward()\n");
@@ -123,16 +118,37 @@ bool ArrayChainUnary::EvalForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-bool ArrayChainUnary::EvalBackward(Environment &env)
-{
-	return false;
-}
-
 void ArrayChainUnary::Print(int indentLevel)
 {
 	::printf("%-*sArrayChainUnary[fwd:%p,bwd:%p]\n", indentLevel * 2, "",
 			 _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
 	_connectorSrc.GetArrayChainSrc()->Print(indentLevel + 1);
+}
+
+//-----------------------------------------------------------------------------
+// ArrayChainUnary_Pos
+//-----------------------------------------------------------------------------
+bool ArrayChainUnary_Pos::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainUnary_Pos::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// ArrayChainUnary_Neg
+//-----------------------------------------------------------------------------
+bool ArrayChainUnary_Neg::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainUnary_Neg::EvalBackward(Environment &env)
+{
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -148,11 +164,6 @@ bool ArrayChainBinary::InitForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-bool ArrayChainBinary::InitBackward(Environment &env)
-{
-	return false;
-}
-
 bool ArrayChainBinary::EvalForward(Environment &env)
 {
 	::printf("ArrayChainBinary::EvalForward()\n");
@@ -163,11 +174,6 @@ bool ArrayChainBinary::EvalForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-bool ArrayChainBinary::EvalBackward(Environment &env)
-{
-	return false;
-}
-
 void ArrayChainBinary::Print(int indentLevel)
 {
 	::printf("%-*sArrayChainBinary[fwd:%p,bwd:%p][fwd:%p,bwd:%p]\n", indentLevel * 2, "",
@@ -175,6 +181,84 @@ void ArrayChainBinary::Print(int indentLevel)
 			 _connectorSrcRight.GetArrayFwd(), _connectorSrcRight.GetArrayBwd());
 	_connectorSrcLeft.GetArrayChainSrc()->Print(indentLevel + 1);
 	_connectorSrcRight.GetArrayChainSrc()->Print(indentLevel + 1);
+}
+
+//-----------------------------------------------------------------------------
+// ArrayChainBinary_Add
+//-----------------------------------------------------------------------------
+bool ArrayChainBinary_Add::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainBinary_Add::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// ArrayChainBinary_Sub
+//-----------------------------------------------------------------------------
+bool ArrayChainBinary_Sub::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainBinary_Sub::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// ArrayChainBinary_Mul
+//-----------------------------------------------------------------------------
+bool ArrayChainBinary_Mul::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainBinary_Mul::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// ArrayChainBinary_Div
+//-----------------------------------------------------------------------------
+bool ArrayChainBinary_Div::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainBinary_Div::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// ArrayChainBinary_Pow
+//-----------------------------------------------------------------------------
+bool ArrayChainBinary_Pow::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainBinary_Pow::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// ArrayChainBinary_DotProd
+//-----------------------------------------------------------------------------
+bool ArrayChainBinary_DotProd::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainBinary_DotProd::EvalBackward(Environment &env)
+{
+	return false;
 }
 
 //-----------------------------------------------------------------------------
