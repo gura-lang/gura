@@ -36,6 +36,7 @@ public:
 		inline void SetArrayChainSrc(ArrayChain *pArrayChainSrc) {
 			_pArrayChainSrc = pArrayChainSrc;
 		}
+		inline void SetArrayBwd(Array *pArrayBwd) { _pArrayBwd.reset(pArrayBwd); }
 		inline Array *GetArrayFwd() { return _pArrayChainSrc->GetArrayFwd(); }
 		inline Array *GetArrayBwd() { return _pArrayBwd.get(); }
 	};
@@ -63,7 +64,7 @@ public:
 // ArrayChainHead
 //-----------------------------------------------------------------------------
 class ArrayChainHead : public ArrayChain {
-private:
+protected:
 	AutoPtr<Expr> _pExpr;
 public:
 	inline ArrayChainHead(Connector *pConnectorDst, Expr *pExpr) : ArrayChain(pConnectorDst), _pExpr(pExpr) {}
@@ -94,7 +95,7 @@ public:
 // ArrayChainUnary
 //-----------------------------------------------------------------------------
 class ArrayChainUnary : public ArrayChain {
-private:
+protected:
 	const Array::UnaryFuncPack &_unaryFuncPack;
 	Connector _connectorSrc;
 public:
@@ -132,7 +133,7 @@ public:
 // ArrayChainBinary
 //-----------------------------------------------------------------------------
 class ArrayChainBinary : public ArrayChain {
-private:
+protected:
 	const Array::BinaryFuncPack &_binaryFuncPack;
 	Connector _connectorSrcLeft;
 	Connector _connectorSrcRight;

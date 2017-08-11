@@ -132,22 +132,27 @@ void ToString_Sub(String &rtn, size_t colTop, int wdPad, const Array::Dimensions
 template<typename T_Elem>
 String ArrayT<T_Elem>::ToString(bool exprFlag) const
 {
+	String rtn;
 	char buff[128];
 	const T_Elem *p = GetPointer();
-	int wdPad = 0;
-	for (size_t i = 0; i < GetElemNum(); i++, p++) {
-		FormatElem(buff, wdPad, *p);
-		int wdElem = ::strlen(buff);
-		if (wdPad < wdElem) wdPad = wdElem;
-	}
-	p = GetPointer();
-	String rtn;
-	if (exprFlag) {
-		rtn += ConstructorName;
-		rtn += " ";
-		ToString_Sub(rtn, rtn.size(), wdPad, _dims, _dims.begin(), p);
+	if (IsScalar()) {
+		FormatElem(buff, 0, *p);
+		rtn = buff;
 	} else {
-		ToString_Sub(rtn, 0, wdPad, _dims, _dims.begin(), p);
+		int wdPad = 0;
+		for (size_t i = 0; i < GetElemNum(); i++, p++) {
+			FormatElem(buff, wdPad, *p);
+			int wdElem = ::strlen(buff);
+			if (wdPad < wdElem) wdPad = wdElem;
+		}
+		p = GetPointer();
+		if (exprFlag) {
+			rtn += ConstructorName;
+			rtn += " ";
+			ToString_Sub(rtn, rtn.size(), wdPad, _dims, _dims.begin(), p);
+		} else {
+			ToString_Sub(rtn, 0, wdPad, _dims, _dims.begin(), p);
+		}
 	}
 	return rtn;
 }
