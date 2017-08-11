@@ -175,6 +175,35 @@ void Array::FillZero()
 	::memset(GetPointerRaw(), 0x00, GetElemBytes() * GetElemNum());
 }
 
+template<typename T_Elem>
+void FillTmpl(Array *pArray, Double num) {
+	dynamic_cast<ArrayT<T_Elem> *>(pArray)->Fill(static_cast<T_Elem>(num));
+}
+
+typedef void (*FillFuncT)(Array *pArray, Double num);
+
+void Array::Fill(Double num)
+{
+	const FillFuncT fillFuncs[ETYPE_Max] = {
+		nullptr,
+		&FillTmpl<Boolean>,
+		&FillTmpl<Int8>,
+		&FillTmpl<UInt8>,
+		&FillTmpl<Int16>,
+		&FillTmpl<UInt16>,
+		&FillTmpl<Int32>,
+		&FillTmpl<UInt32>,
+		&FillTmpl<Int64>,
+		&FillTmpl<UInt64>,
+		&FillTmpl<Half>,
+		&FillTmpl<Float>,
+		&FillTmpl<Double>,
+		&FillTmpl<Complex>,
+		//&FillTmpl<Value>,
+	};
+	(*fillFuncs[GetElemType()])(this, num);
+}
+
 bool Array::IsSquare() const
 {
 	if (_dims.size() < 2) return false;
@@ -242,13 +271,13 @@ Array *Array::Deserialize(Environment &env, Stream &stream)
 }
 
 template<typename T_Elem>
-inline Array *CreateTmpl(const Array::Dimensions &dims) { return ArrayT<T_Elem>::Create(dims); }
+Array *CreateTmpl(const Array::Dimensions &dims) { return ArrayT<T_Elem>::Create(dims); }
 
-typedef Array *(*CreateFunc)(const Array::Dimensions &dims);
+typedef Array *(*CreateFuncT)(const Array::Dimensions &dims);
 
 Array *Array::Create(ElemType elemType, const Array::Dimensions &dims)
 {
-	const CreateFunc createFuncs[ETYPE_Max] = {
+	const CreateFuncT createFuncs[ETYPE_Max] = {
 		nullptr,
 		&CreateTmpl<Boolean>,
 		&CreateTmpl<Int8>,
@@ -327,7 +356,7 @@ void CopyElementsTmpl(void *pElemRawDst, const void *pElemRawSrc, size_t nElems)
 	}
 }
 
-typedef void (*CopyElementsT)(void *pElemRawDst, const void *pElemRawSrc, size_t nElems);
+typedef void (*CopyElementsFuncT)(void *pElemRawDst, const void *pElemRawSrc, size_t nElems);
 
 bool Array::CopyElements(Environment &env, Array *pArrayDst, const Array *pArraySrc)
 {
@@ -339,7 +368,7 @@ bool Array::CopyElements(Environment &env, Array *pArrayDst, const Array *pArray
 bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeDst,
 						 const void *pElemRawSrc, ElemType elemTypeSrc, size_t nElems)
 {
-	static const CopyElementsT copyElementsTbl[][ETYPE_Max] = {
+	static const CopyElementsFuncT copyElementsFuncs[][ETYPE_Max] = {
 		{
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
@@ -556,13 +585,13 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 		},
 	};
-	CopyElementsT copyElements = copyElementsTbl[elemTypeDst][elemTypeSrc];
-	if (copyElements == nullptr) {
+	CopyElementsFuncT copyElementsFunc = copyElementsFuncs[elemTypeDst][elemTypeSrc];
+	if (copyElementsFunc == nullptr) {
 		env.SetError(ERR_TypeError, "can't copy elements from array@%s to array@%s",
 					 GetElemTypeName(elemTypeSrc), GetElemTypeName(elemTypeDst));
 		return false;
 	}
-	(*copyElements)(pElemRawDst, pElemRawSrc, nElems);
+	(*copyElementsFunc)(pElemRawDst, pElemRawSrc, nElems);
 	return true;
 }
 

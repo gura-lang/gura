@@ -260,6 +260,7 @@ public:
 					   const Dimension &dimRow, const Dimension &dimCol);
 	void UpdateMetrics();
 	void FillZero();
+	void Fill(Double num); // overwritten by ArrayT
 	bool IsSquare() const;
 	bool HasShape(size_t size) const;
 	bool HasShape(size_t sizeRow, size_t sizeCol) const;
