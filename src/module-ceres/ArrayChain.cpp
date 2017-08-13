@@ -52,12 +52,14 @@ bool ArrayChainHead::EvalForward(Environment &env)
 
 bool ArrayChainHead::InitBackward(Environment &env)
 {
-	return false;
+	// nothing to do
+	return true;
 }
 
 bool ArrayChainHead::EvalBackward(Environment &env)
 {
-	return false;
+	// nothing to do
+	return true;
 }
 
 void ArrayChainHead::Print(int indentLevel)
