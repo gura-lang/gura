@@ -27,18 +27,18 @@ public:
 	private:
 		ArrayChain *_pArrayChainSrc;
 		ArrayChain *_pArrayChainDst;
-		AutoPtr<Array> _pArrayBwd;
+		AutoPtr<ArrayOwner> _pArraysBwd;
 	public:
 		inline Connector(ArrayChain *pArrayChainDst) :
-			_pArrayChainSrc(nullptr), _pArrayChainDst(pArrayChainDst) {}
+		_pArrayChainSrc(nullptr), _pArrayChainDst(pArrayChainDst), _pArraysBwd(new ArrayOwner()) {}
 		inline ArrayChain *GetArrayChainSrc() { return _pArrayChainSrc; }
 		inline ArrayChain *GetArrayChainDst() { return _pArrayChainDst; }
 		inline void SetArrayChainSrc(ArrayChain *pArrayChainSrc) {
 			_pArrayChainSrc = pArrayChainSrc;
 		}
-		inline void SetArrayBwd(Array *pArrayBwd) { _pArrayBwd.reset(pArrayBwd); }
+		inline void AddArrayBwd(Array *pArrayBwd) { _pArraysBwd->push_back(pArrayBwd); }
 		inline Array *GetArrayFwd() { return _pArrayChainSrc->GetArrayFwd(); }
-		inline Array *GetArrayBwd() { return _pArrayBwd.get(); }
+		inline Array *GetArrayBwd() { return _pArraysBwd->empty()? nullptr : _pArraysBwd->back(); }
 	};
 	class ConnectorList : public std::vector<Connector *> {
 	public:
