@@ -88,7 +88,7 @@ bool ArrayChainTail::InitBackward(Environment &env)
 	Array *pArrayFwd = _connectorSrc.GetArrayFwd();
 	AutoPtr<Array> pArrayBwd(Array::Create(pArrayFwd->GetElemType(), pArrayFwd->GetDimensions()));
 	pArrayBwd->Fill(1);
-	_connectorSrc.AddArrayBwd(pArrayBwd.release());
+	_connectorSrc.SetArrayBwd(pArrayBwd.release());
 	return true;
 }
 
@@ -141,16 +141,9 @@ void ArrayChainUnary::Print(int indentLevel)
 bool ArrayChainUnary_Pos::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	Array *pArrayPrev = (*ppConnectorDst)->GetArrayBwd()->Reference();
-	_connectorSrc.AddArrayBwd(pArrayPrev);
-	ppConnectorDst++;
-	for ( ; ppConnectorDst != _connectorsDst.end(); ppConnectorDst++) {
-		pArrayPrev = Array::ApplyBinaryFunc(
-			env, Array::binaryFuncPack_Add, nullptr,
-			pArrayPrev, (*ppConnectorDst)->GetArrayBwd());
-		_connectorSrc.AddArrayBwd(pArrayPrev);
-	}
-	return env.IsNoSignalled();
+	Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd()->Reference();
+	_connectorSrc.SetArrayBwd(pArrayBwd);
+	return true;
 }
 
 bool ArrayChainUnary_Pos::EvalBackward(Environment &env)
@@ -165,15 +158,12 @@ bool ArrayChainUnary_Pos::EvalBackward(Environment &env)
 bool ArrayChainUnary_Neg::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	Array *pArrayPrev = Array::ApplyUnaryFunc(
+	Array *pArrayBwd = Array::ApplyUnaryFunc(
 		env, Array::unaryFuncPack_Neg, nullptr,
 		(*ppConnectorDst)->GetArrayBwd());
-	_connectorSrc.AddArrayBwd(pArrayPrev);
-	ppConnectorDst++;
-	for ( ; ppConnectorDst != _connectorsDst.end(); ppConnectorDst++) {
-		
-	}
-	return env.IsNoSignalled();
+	if (pArrayBwd == nullptr) return false;
+	_connectorSrc.SetArrayBwd(pArrayBwd);
+	return true;
 }
 
 bool ArrayChainUnary_Neg::EvalBackward(Environment &env)
@@ -226,13 +216,10 @@ void ArrayChainBinary::Print(int indentLevel)
 bool ArrayChainBinary_Add::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	Array *pArrayPrev = (*ppConnectorDst)->GetArrayBwd()->Reference();
-	_connectorSrcLeft.AddArrayBwd(pArrayPrev);
-	_connectorSrcRight.AddArrayBwd(pArrayPrev->Reference());
-	ppConnectorDst++;
-	for ( ; ppConnectorDst != _connectorsDst.end(); ppConnectorDst++) {
-		
-	}
+	Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd()->Reference();
+	_connectorSrcLeft.SetArrayBwd(pArrayBwd);
+	_connectorSrcRight.SetArrayBwd(pArrayBwd->Reference());
+	return true;
 }
 
 bool ArrayChainBinary_Add::EvalBackward(Environment &env)
@@ -247,16 +234,14 @@ bool ArrayChainBinary_Add::EvalBackward(Environment &env)
 bool ArrayChainBinary_Sub::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	Array *pArrayLeftPrev = (*ppConnectorDst)->GetArrayBwd()->Reference();
-	Array *pArrayRightPrev = Array::ApplyUnaryFunc(
+	Array *pArrayBwdLeft = (*ppConnectorDst)->GetArrayBwd()->Reference();
+	Array *pArrayBwdRight = Array::ApplyUnaryFunc(
 		env, Array::unaryFuncPack_Neg, nullptr,
 		(*ppConnectorDst)->GetArrayBwd());
-	_connectorSrcLeft.AddArrayBwd(pArrayLeftPrev);
-	_connectorSrcRight.AddArrayBwd(pArrayRightPrev);
-	ppConnectorDst++;
-	for ( ; ppConnectorDst != _connectorsDst.end(); ppConnectorDst++) {
-		
-	}
+	if (pArrayBwdRight == nullptr) return false;
+	_connectorSrcLeft.SetArrayBwd(pArrayBwdLeft);
+	_connectorSrcRight.SetArrayBwd(pArrayBwdRight);
+	return true;
 }
 
 bool ArrayChainBinary_Sub::EvalBackward(Environment &env)
@@ -275,20 +260,18 @@ bool ArrayChainBinary_Sub::EvalBackward(Environment &env)
 bool ArrayChainBinary_Mul::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	Array *pArrayLeftPrev = Array::ApplyBinaryFunc(
+	Array *pArrayBwdLeft = Array::ApplyBinaryFunc(
 		env, Array::binaryFuncPack_Mul, nullptr,
 		_connectorSrcRight.GetArrayFwd(),
 		(*ppConnectorDst)->GetArrayBwd());
-	Array *pArrayRightPrev = Array::ApplyBinaryFunc(
+	if (pArrayBwdLeft == nullptr) return false;
+	Array *pArrayBwdRight = Array::ApplyBinaryFunc(
 		env, Array::binaryFuncPack_Mul, nullptr,
 		_connectorSrcLeft.GetArrayFwd(),
 		(*ppConnectorDst)->GetArrayBwd());
-	_connectorSrcLeft.AddArrayBwd(pArrayLeftPrev);
-	_connectorSrcRight.AddArrayBwd(pArrayRightPrev);
-	ppConnectorDst++;
-	for ( ; ppConnectorDst != _connectorsDst.end(); ppConnectorDst++) {
-		
-	}
+	if (pArrayBwdRight == nullptr) return false;
+	_connectorSrcLeft.SetArrayBwd(pArrayBwdLeft);
+	_connectorSrcRight.SetArrayBwd(pArrayBwdRight);
 	return env.IsNoSignalled();
 }
 
