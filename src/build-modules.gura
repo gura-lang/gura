@@ -210,8 +210,11 @@ moduleInfos.each {|moduleInfo|
 			continue
 		}
 	}
-	sys.argv.append('--quiet')
-	cfg['verbose'] && sys.argv.append('--verbose')
+	if (cfg['verbose']) {
+		sys.argv.append('--verbose')
+	} else {
+		sys.argv.append('--quiet')
+	}
 	cfg['debug'] && sys.argv.append('--debug')
 	cfg['rebuild'] && sys.argv.append('--rebuild')
 	cfg['incdir'] && sys.argv.append('--incdir=' + cfg['incdir'])
