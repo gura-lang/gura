@@ -100,7 +100,7 @@ bool ArrayChainTail::EvalBackward(Environment &env)
 
 void ArrayChainTail::Print(int indentLevel)
 {
-	::printf("%*-sArrayChainTail[fwd:%p,bwd:%p]\n", indentLevel * 2, "",
+	::printf("%*sArrayChainTail[fwd:%p,bwd:%p]\n", indentLevel * 2, "",
 			 _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
 	_connectorSrc.GetArrayChainSrc()->Print(indentLevel + 1);
 }
@@ -174,6 +174,32 @@ bool ArrayChainUnary_Neg::EvalBackward(Environment &env)
 			env, _unaryFuncPack, _connectorSrc.GetArrayBwd(),
 			pConnectorDst->GetArrayBwd()));
 	return env.IsNoSignalled();
+}
+
+//-----------------------------------------------------------------------------
+// ArrayChainUnary_Math_ramp
+//-----------------------------------------------------------------------------
+bool ArrayChainUnary_Math_ramp::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainUnary_Math_ramp::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// ArrayChainUnary_Math_sigmoid
+//-----------------------------------------------------------------------------
+bool ArrayChainUnary_Math_sigmoid::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainUnary_Math_sigmoid::EvalBackward(Environment &env)
+{
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -409,6 +435,7 @@ bool ArrayChainOwner::CreateFromExprSub(Environment &env, const Expr *pExpr, Arr
 		if (!CreateFromExprSub(env, pExprEx->GetChild(), pConnectorSrc)) {
 			return false;
 		}
+		return true;
 	} else if (pExpr->IsType(EXPRTYPE_BinaryOp)) {
 		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExpr);
 		const Operator *pOperator = pExprEx->GetOperator();
@@ -436,14 +463,38 @@ bool ArrayChainOwner::CreateFromExprSub(Environment &env, const Expr *pExpr, Arr
 			!CreateFromExprSub(env, pExprEx->GetRight(), pConnectorSrcRight)) {
 			return false;
 		}
+		return true;
 	} else if (pExpr->IsType(EXPRTYPE_Caller)) {
 		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr);
-
-	} else {
-		std::unique_ptr<ArrayChainHead> pArrayChain(
-			new ArrayChainHead(pConnector, Expr::Reference(pExpr)));
-		push_back(pArrayChain.release());
+		const ExprOwner &exprsArg = pExprEx->GetExprOwner();
+		std::unique_ptr<ArrayChainUnary> pArrayChain;
+		if (pExprEx->GetCar()->IsMember()) {
+			const Expr_Member *pExprCar = dynamic_cast<const Expr_Member *>(pExprEx->GetCar());
+			if (pExprCar->GetTarget()->IsSymbol(Gura_Symbol(math)) && pExprCar->GetSelector()->IsIdentifier()) {
+				const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExprCar->GetSelector())->GetSymbol();
+				if (pSymbol->IsIdentical(Gura_Symbol(ramp))) {
+					pArrayChain.reset(new ArrayChainUnary_Math_ramp(pConnector));
+				} else if (pSymbol->IsIdentical(Gura_Symbol(sigmoid))) {
+					pArrayChain.reset(new ArrayChainUnary_Math_sigmoid(pConnector));
+				}
+			}
+		}
+		if (pArrayChain.get() != nullptr) {
+			if (exprsArg.size() != 1) {
+				env.SetError(ERR_ValueError, "invalid number of arguments");
+				return false;
+			}
+			ArrayChain::Connector *pConnectorSrc = pArrayChain->GetConnectorSrc();
+			push_back(pArrayChain.release());
+			if (!CreateFromExprSub(env, exprsArg.front(), pConnectorSrc)) {
+				return false;
+			}
+			return true;
+		}
 	}
+	std::unique_ptr<ArrayChainHead> pArrayChain(
+		new ArrayChainHead(pConnector, Expr::Reference(pExpr)));
+	push_back(pArrayChain.release());
 	return true;
 }
 

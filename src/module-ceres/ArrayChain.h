@@ -130,6 +130,28 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// ArrayChainUnary_Math_ramp
+//-----------------------------------------------------------------------------
+class ArrayChainUnary_Math_ramp : public ArrayChainUnary {
+public:
+	inline ArrayChainUnary_Math_ramp(Connector *pConnectorDst) :
+		ArrayChainUnary(Array::unaryFuncPack_Math_ramp, pConnectorDst) {}
+	virtual bool InitBackward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
+};
+
+//-----------------------------------------------------------------------------
+// ArrayChainUnary_Math_sigmoid
+//-----------------------------------------------------------------------------
+class ArrayChainUnary_Math_sigmoid : public ArrayChainUnary {
+public:
+	inline ArrayChainUnary_Math_sigmoid(Connector *pConnectorDst) :
+		ArrayChainUnary(Array::unaryFuncPack_Math_sigmoid, pConnectorDst) {}
+	virtual bool InitBackward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
+};
+
+//-----------------------------------------------------------------------------
 // ArrayChainBinary
 //-----------------------------------------------------------------------------
 class ArrayChainBinary : public ArrayChain {
