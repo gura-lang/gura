@@ -210,6 +210,7 @@ moduleInfos.each {|moduleInfo|
 			continue
 		}
 	}
+	sys.argv.append('--quiet')
 	cfg['verbose'] && sys.argv.append('--verbose')
 	cfg['debug'] && sys.argv.append('--debug')
 	cfg['rebuild'] && sys.argv.append('--rebuild')

@@ -37,6 +37,7 @@ BuilderBase = class {
 	__init__(outDir:string) = {
 		argopt.Parser {|p|
 			p.addFlag('verbose',	'v', 'verbose mode')
+			p.addFlag('quiet',		'q', 'suppress warning messages')
 			p.addFlag('debug',		'd', 'build module with debug information')
 			p.addFlag('progress',	'p', 'print building progress')
 			p.addFlag('here',		'h', 'output files in the current directory')
@@ -84,6 +85,7 @@ BuilderBase = class {
 		this.hint = nil
 		this.skipErrorFlag = false
 		this.verboseFlag = this.cfg['verbose']
+		this.quietFlag = this.cfg['quiet']
 		this.debugFlag = this.cfg['debug']
 		this.progressFlag = this.cfg['progress']
 		baseDir = this.cfg['basedir']
@@ -140,7 +142,7 @@ BuilderBase = class {
 		buff = binary()
 		os.redirect(nil, buff) {
 			result = (os.exec(pathname, args*) == 0)
-			!result && sys.stderr.print(os.fromnative(buff))
+			(!result || !this.quietFlag) && sys.stderr.print(os.fromnative(buff))
 			result
 		}
 	}
