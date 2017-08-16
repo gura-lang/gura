@@ -1563,23 +1563,6 @@ Gura_ImplementUnaryOperator(Math_norm, complex)
 }
 
 //-----------------------------------------------------------------------------
-// math.ramp(A) ... UnaryOperator(Math_ramp, A)
-//-----------------------------------------------------------------------------
-Gura_ImplementUnaryOperator(Math_ramp, number)
-{
-	double result;
-	Operator_Math_ramp::Calc(result, value.GetDouble());
-	return Value(result);
-}
-
-Gura_ImplementUnaryOperator(Math_ramp, complex)
-{
-	Complex result;
-	Operator_Math_ramp::Calc(result, value.GetComplex());
-	return Value(result);
-}
-
-//-----------------------------------------------------------------------------
 // math.real(A) ... UnaryOperator(Math_real, A)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_real, number)
@@ -1593,6 +1576,23 @@ Gura_ImplementUnaryOperator(Math_real, complex)
 {
 	double result;
 	Operator_Math_real::Calc(result, value.GetComplex());
+	return Value(result);
+}
+
+//-----------------------------------------------------------------------------
+// math.relu(A) ... UnaryOperator(Math_relu, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_relu, number)
+{
+	double result;
+	Operator_Math_relu::Calc(result, value.GetDouble());
+	return Value(result);
+}
+
+Gura_ImplementUnaryOperator(Math_relu, complex)
+{
+	Complex result;
+	Operator_Math_relu::Calc(result, value.GetComplex());
 	return Value(result);
 }
 
@@ -1921,10 +1921,10 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignUnaryOperator(Math_log10, complex);
 	Gura_AssignUnaryOperator(Math_norm, number);
 	Gura_AssignUnaryOperator(Math_norm, complex);
-	Gura_AssignUnaryOperator(Math_ramp, number);
-	Gura_AssignUnaryOperator(Math_ramp, complex);
 	Gura_AssignUnaryOperator(Math_real, number);
 	Gura_AssignUnaryOperator(Math_real, complex);
+	Gura_AssignUnaryOperator(Math_relu, number);
+	Gura_AssignUnaryOperator(Math_relu, complex);
 	Gura_AssignUnaryOperator(Math_sigmoid, number);
 	Gura_AssignUnaryOperator(Math_sigmoid, complex);
 	Gura_AssignUnaryOperator(Math_sin, number);

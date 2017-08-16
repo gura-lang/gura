@@ -11,7 +11,7 @@ testcase {
 		math.exp
 		math.log
 		math.log10
-		math.ramp
+		math.relu
 		math.sin
 		math.sigmoid
 		math.sqrt

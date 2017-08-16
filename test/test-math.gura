@@ -205,21 +205,21 @@ testcase('math.norm()') {
 	tester(`math.norm(array {0, 3}))
 }
 
-testcase('math.ramp()') {
-	tester(`math.ramp(-2))
-	tester(`math.ramp(-1))
-	tester(`math.ramp(0))
-	tester(`math.ramp(1))
-	tester(`math.ramp(2))
-	tester(`math.ramp(array {-2, -1, 0, 1, 2}))
-}
-
 testcase('math.real()') {
 	tester(`math.real(0))
 	tester(`math.real(3))
 	tester(`math.real(4j))
 	tester(`math.real(3 + 4j))
 	tester(`math.real(array {0, 3}))
+}
+
+testcase('math.relu()') {
+	tester(`math.relu(-2))
+	tester(`math.relu(-1))
+	tester(`math.relu(0))
+	tester(`math.relu(1))
+	tester(`math.relu(2))
+	tester(`math.relu(array {-2, -1, 0, 1, 2}))
 }
 
 testcase('math.sigmoid()') {
@@ -375,8 +375,8 @@ testcase {
 	f = math.least_square(x, y, 1)
 	print_func(f)
 }
-testcase('ramp, unitstep and delta') {
-	tester(`math.ramp([-5..5]))
+testcase('relu, unitstep and delta') {
+	tester(`math.relu([-5..5]))
 	tester(`math.unitstep([-5..5]))
 	tester(`math.delta([-5..5]))
 }

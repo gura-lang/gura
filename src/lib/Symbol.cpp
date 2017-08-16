@@ -732,7 +732,6 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(r);
 	Gura_RealizeSymbol(R);
 	Gura_RealizeSymbol(raise);
-	Gura_RealizeSymbol(ramp);
 	Gura_RealizeSymbol(ratio);
 	Gura_RealizeSymbol(raw);
 	Gura_RealizeSymbol(read);
@@ -740,6 +739,7 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(real);
 	Gura_RealizeSymbol(red);
 	Gura_RealizeSymbol(reduce);
+	Gura_RealizeSymbol(relu);
 	Gura_RealizeSymbol(repeat);
 	Gura_RealizeSymbol(rest);
 	Gura_RealizeSymbol(rev);

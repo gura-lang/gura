@@ -113,8 +113,8 @@ public:
 	static UnaryFuncPack unaryFuncPack_Math_log;
 	static UnaryFuncPack unaryFuncPack_Math_log10;
 	static UnaryFuncPack unaryFuncPack_Math_norm;
-	static UnaryFuncPack unaryFuncPack_Math_ramp;
 	static UnaryFuncPack unaryFuncPack_Math_real;
+	static UnaryFuncPack unaryFuncPack_Math_relu;
 	static UnaryFuncPack unaryFuncPack_Math_sigmoid;
 	static UnaryFuncPack unaryFuncPack_Math_sin;
 	static UnaryFuncPack unaryFuncPack_Math_sinh;

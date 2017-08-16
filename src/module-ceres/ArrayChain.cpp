@@ -177,14 +177,14 @@ bool ArrayChainUnary_Neg::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// ArrayChainUnary_Math_ramp
+// ArrayChainUnary_Math_relu
 //-----------------------------------------------------------------------------
-bool ArrayChainUnary_Math_ramp::InitBackward(Environment &env)
+bool ArrayChainUnary_Math_relu::InitBackward(Environment &env)
 {
 	return false;
 }
 
-bool ArrayChainUnary_Math_ramp::EvalBackward(Environment &env)
+bool ArrayChainUnary_Math_relu::EvalBackward(Environment &env)
 {
 	return false;
 }
@@ -472,8 +472,8 @@ bool ArrayChainOwner::CreateFromExprSub(Environment &env, const Expr *pExpr, Arr
 			const Expr_Member *pExprCar = dynamic_cast<const Expr_Member *>(pExprEx->GetCar());
 			if (pExprCar->GetTarget()->IsSymbol(Gura_Symbol(math)) && pExprCar->GetSelector()->IsIdentifier()) {
 				const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExprCar->GetSelector())->GetSymbol();
-				if (pSymbol->IsIdentical(Gura_Symbol(ramp))) {
-					pArrayChain.reset(new ArrayChainUnary_Math_ramp(pConnector));
+				if (pSymbol->IsIdentical(Gura_Symbol(relu))) {
+					pArrayChain.reset(new ArrayChainUnary_Math_relu(pConnector));
 				} else if (pSymbol->IsIdentical(Gura_Symbol(sigmoid))) {
 					pArrayChain.reset(new ArrayChainUnary_Math_sigmoid(pConnector));
 				}

@@ -532,7 +532,6 @@ public:
 	Gura_DeclareSymbol(r);
 	Gura_DeclareSymbol(R);
 	Gura_DeclareSymbol(raise);
-	Gura_DeclareSymbol(ramp);
 	Gura_DeclareSymbol(ratio);
 	Gura_DeclareSymbol(raw);
 	Gura_DeclareSymbol(read);
@@ -540,6 +539,7 @@ public:
 	Gura_DeclareSymbol(real);
 	Gura_DeclareSymbol(red);
 	Gura_DeclareSymbol(reduce);
+	Gura_DeclareSymbol(relu);
 	Gura_DeclareSymbol(repeat);
 	Gura_DeclareSymbol(rest);
 	Gura_DeclareSymbol(rev);

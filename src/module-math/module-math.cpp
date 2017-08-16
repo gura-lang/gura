@@ -465,31 +465,6 @@ Gura_ImplementFunction(norm)
 	return env.GetOperator(OPTYPE_Math_norm)->EvalMapUnary(env, arg.GetValue(0), flags);
 }
 
-// math.ramp(num):map
-Gura_DeclareFunctionWithMathDiff(ramp)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(
-		Gura_Symbol(en),
-		"Evaluates a ramp function with a given argument `num`\n"
-		"that returns `num` when `num >= 0` and `0` otherwise.");
-}
-
-Gura_ImplementFunction(ramp)
-{
-	ULong flags = FLAG_None;
-	return env.GetOperator(OPTYPE_Math_ramp)->EvalMapUnary(env, arg.GetValue(0), flags);
-}
-
-Gura_ImplementMathDiff(ramp)
-{
-	// ramp(x)' = unitstep(x)
-	return Expr::CreateCaller(
-		Gura_Symbol(math), Gura_Symbol(unitstep),
-		pExprArg->Clone());
-}
-
 // math.real(num):map
 Gura_DeclareFunction(real)
 {
@@ -504,6 +479,31 @@ Gura_ImplementFunction(real)
 {
 	ULong flags = FLAG_None;
 	return env.GetOperator(OPTYPE_Math_real)->EvalMapUnary(env, arg.GetValue(0), flags);
+}
+
+// math.relu(num):map
+Gura_DeclareFunctionWithMathDiff(relu)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "num", VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en),
+		"Evaluates a rectified linear unit function with a given argument `num`\n"
+		"that returns `num` when `num >= 0` and `0` otherwise.");
+}
+
+Gura_ImplementFunction(relu)
+{
+	ULong flags = FLAG_None;
+	return env.GetOperator(OPTYPE_Math_relu)->EvalMapUnary(env, arg.GetValue(0), flags);
+}
+
+Gura_ImplementMathDiff(relu)
+{
+	// relu(x)' = unitstep(x)
+	return Expr::CreateCaller(
+		Gura_Symbol(math), Gura_Symbol(unitstep),
+		pExprArg->Clone());
 }
 
 // math.sigmoid(num):map
@@ -1074,8 +1074,8 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(log);
 	Gura_AssignFunction(log10);
 	Gura_AssignFunction(norm);
-	Gura_AssignFunction(ramp);
 	Gura_AssignFunction(real);
+	Gura_AssignFunction(relu);
 	Gura_AssignFunction(sigmoid);
 	Gura_AssignFunction(sin);
 	Gura_AssignFunction(sinh);

@@ -201,22 +201,22 @@ math.norm(4j) .. 16
 math.norm(3 + 4j) .. 25
 math.norm(array { 0, 3 }) .. {0, 9}
 
-======== #21 math.ramp() ========
-
-math.ramp(-2) .. 0
-math.ramp(-1) .. 0
-math.ramp(0) .. 0
-math.ramp(1) .. 1
-math.ramp(2) .. 2
-math.ramp(array { -2, -1, 0, 1, 2 }) .. {0, 0, 0, 1, 2}
-
-======== #22 math.real() ========
+======== #21 math.real() ========
 
 math.real(0) .. 0
 math.real(3) .. 3
 math.real(4j) .. 0
 math.real(3 + 4j) .. 3
 math.real(array { 0, 3 }) .. {0, 3}
+
+======== #22 math.relu() ========
+
+math.relu(-2) .. 0
+math.relu(-1) .. 0
+math.relu(0) .. 0
+math.relu(1) .. 1
+math.relu(2) .. 2
+math.relu(array { -2, -1, 0, 1, 2 }) .. {0, 0, 0, 1, 2}
 
 ======== #23 math.sigmoid() ========
 
@@ -353,9 +353,9 @@ h(hoge:number):map = (-0.619643) + 4.54464 * hoge + (-0.973214) * hoge ** 2 + 0.
 
 f(x:number):map = 1.00714 + 5.10714 * x
 
-======== #37 ramp, unitstep and delta ========
+======== #37 relu, unitstep and delta ========
 
-math.ramp([(-5) .. 5]) .. [0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5]
+math.relu([(-5) .. 5]) .. [0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5]
 math.unitstep([(-5) .. 5]) .. [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1]
 math.delta([(-5) .. 5]) .. [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
 

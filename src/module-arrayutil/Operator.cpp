@@ -1343,8 +1343,8 @@ ImplementUnaryFuncTable(Math_imag,		UnaryFuncTmpl);
 ImplementUnaryFuncTable(Math_log,		UnaryFuncTmpl_ExcludeZero);
 ImplementUnaryFuncTable(Math_log10,		UnaryFuncTmpl_ExcludeZero);
 ImplementUnaryFuncTable(Math_norm,		UnaryFuncTmpl);
-ImplementUnaryFuncTable(Math_ramp,		UnaryFuncTmpl);
 ImplementUnaryFuncTable(Math_real,		UnaryFuncTmpl);
+ImplementUnaryFuncTable(Math_relu,		UnaryFuncTmpl);
 ImplementUnaryFuncTable(Math_sigmoid,	UnaryFuncTmpl);
 ImplementUnaryFuncTable(Math_sin,		UnaryFuncTmpl);
 ImplementUnaryFuncTable(Math_sinh,		UnaryFuncTmpl);
@@ -2403,19 +2403,19 @@ Gura_ImplementUnaryOperator(Math_norm, array)
 }
 
 //-----------------------------------------------------------------------------
-// math.ramp(A) ... UnaryOperator(Math_ramp, A)
-//-----------------------------------------------------------------------------
-Gura_ImplementUnaryOperator(Math_ramp, array)
-{
-	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_ramp, value);
-}
-
-//-----------------------------------------------------------------------------
 // math.real(A) ... UnaryOperator(Math_real, A)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Math_real, array)
 {
 	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_real, value);
+}
+
+//-----------------------------------------------------------------------------
+// math.relu(A) ... UnaryOperator(Math_relu, A)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Math_relu, array)
+{
+	return Array::ApplyUnaryFuncOnValue(env, Array::unaryFuncPack_Math_relu, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -2513,8 +2513,8 @@ void AssignOperators(Environment &env)
 	Array::unaryFuncPack_Math_log.table =		g_unaryFuncTable_Math_log;
 	Array::unaryFuncPack_Math_log10.table =		g_unaryFuncTable_Math_log10;
 	Array::unaryFuncPack_Math_norm.table =		g_unaryFuncTable_Math_norm;
-	Array::unaryFuncPack_Math_ramp.table =		g_unaryFuncTable_Math_ramp;
 	Array::unaryFuncPack_Math_real.table =		g_unaryFuncTable_Math_real;
+	Array::unaryFuncPack_Math_relu.table =		g_unaryFuncTable_Math_relu;
 	Array::unaryFuncPack_Math_sigmoid.table =	g_unaryFuncTable_Math_sigmoid;
 	Array::unaryFuncPack_Math_sin.table =		g_unaryFuncTable_Math_sin;
 	Array::unaryFuncPack_Math_sinh.table =		g_unaryFuncTable_Math_sinh;
@@ -2621,8 +2621,8 @@ void AssignOperators(Environment &env)
 	Gura_AssignUnaryOperator(Math_log, array);
 	Gura_AssignUnaryOperator(Math_log10, array);
 	Gura_AssignUnaryOperator(Math_norm, array);
-	Gura_AssignUnaryOperator(Math_ramp, array);
 	Gura_AssignUnaryOperator(Math_real, array);
+	Gura_AssignUnaryOperator(Math_relu, array);
 	Gura_AssignUnaryOperator(Math_sigmoid, array);
 	Gura_AssignUnaryOperator(Math_sin, array);
 	Gura_AssignUnaryOperator(Math_sinh, array);

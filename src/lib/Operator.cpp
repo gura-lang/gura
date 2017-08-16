@@ -75,8 +75,8 @@ const Operator::SymbolInfo Operator::_symbolInfoTbl[] = {
 	{ "log",		"Math_log"			},
 	{ "log10",		"Math_log10"		},
 	{ "norm",		"Math_norm"			},
-	{ "ramp",		"Math_ramp"			},
 	{ "real",		"Math_real"			},
+	{ "relu",		"Math_relu"			},
 	{ "sigmoid",	"Math_sigmoid"		},
 	{ "sin",		"Math_sin"			},
 	{ "sinh",		"Math_sinh"			},
@@ -150,8 +150,8 @@ Operator *Operator::Math_imag		= nullptr;
 Operator *Operator::Math_log		= nullptr;
 Operator *Operator::Math_log10		= nullptr;
 Operator *Operator::Math_norm		= nullptr;
-Operator *Operator::Math_ramp		= nullptr;
 Operator *Operator::Math_real		= nullptr;
+Operator *Operator::Math_relu		= nullptr;
 Operator *Operator::Math_sigmoid	= nullptr;
 Operator *Operator::Math_sin		= nullptr;
 Operator *Operator::Math_sinh		= nullptr;
@@ -1477,11 +1477,11 @@ Value Operator_AndAnd::ExecBinary(Environment &env, const Expr *pExprLeft, const
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// Operator_Math_ramp
+// Operator_Math_real
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// Operator_Math_real
+// Operator_Math_relu
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -1610,8 +1610,8 @@ void Operator::Bootup(Environment &env)
 	env.SetOperator(OPTYPE_Math_log,		Operator::Math_log			= new Operator_Math_log());
 	env.SetOperator(OPTYPE_Math_log10,		Operator::Math_log10		= new Operator_Math_log10());
 	env.SetOperator(OPTYPE_Math_norm,		Operator::Math_norm			= new Operator_Math_norm());
-	env.SetOperator(OPTYPE_Math_ramp,		Operator::Math_ramp			= new Operator_Math_ramp());
 	env.SetOperator(OPTYPE_Math_real,		Operator::Math_real			= new Operator_Math_real());
+	env.SetOperator(OPTYPE_Math_relu,		Operator::Math_relu			= new Operator_Math_relu());
 	env.SetOperator(OPTYPE_Math_sigmoid,	Operator::Math_sigmoid		= new Operator_Math_sigmoid());
 	env.SetOperator(OPTYPE_Math_sin,		Operator::Math_sin			= new Operator_Math_sin());
 	env.SetOperator(OPTYPE_Math_sinh,		Operator::Math_sinh			= new Operator_Math_sinh());
