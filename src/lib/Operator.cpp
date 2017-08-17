@@ -29,8 +29,9 @@ const Operator::SymbolInfo Operator::_symbolInfoTbl[] = {
 	{ "/",			"Div"				},
 	{ "%",			"Mod"				},
 	{ "%%",			"ModMod"			},
-	{ "|.|",		"DotProd"			},
-	{ "|*|",		"CrossProd"			},
+	{ "|.|",		"Dot"				},
+	{ "|^|",		"Cross"				},
+	{ "|*|",		"Filter"			},
 	{ "|+|",		"Concat"			},
 	{ "|-|",		"Difference"		},
 	{ "|&|",		"Intersection"		},
@@ -104,8 +105,9 @@ Operator *Operator::Mul				= nullptr;
 Operator *Operator::Div				= nullptr;
 Operator *Operator::Mod				= nullptr;
 Operator *Operator::ModMod			= nullptr;
-Operator *Operator::DotProd			= nullptr;
-Operator *Operator::CrossProd		= nullptr;
+Operator *Operator::Dot				= nullptr;
+Operator *Operator::Cross			= nullptr;
+Operator *Operator::Filter			= nullptr;
 Operator *Operator::Concat			= nullptr;
 Operator *Operator::Difference		= nullptr;
 Operator *Operator::Intersection	= nullptr;
@@ -1185,11 +1187,15 @@ Value Operator_ModMod::ExecBinary(Environment &env, const Expr *pExprLeft, const
 
 
 //-----------------------------------------------------------------------------
-// Operator_DotProd
+// Operator_Dot
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// Operator_CrossProd
+// Operator_Cross
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Filter
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -1564,8 +1570,9 @@ void Operator::Bootup(Environment &env)
 	env.SetOperator(OPTYPE_Div,				Operator::Div				= new Operator_Div());
 	env.SetOperator(OPTYPE_Mod,				Operator::Mod				= new Operator_Mod());
 	env.SetOperator(OPTYPE_ModMod,			Operator::ModMod			= new Operator_ModMod());
-	env.SetOperator(OPTYPE_DotProd,			Operator::DotProd			= new Operator_DotProd());
-	env.SetOperator(OPTYPE_CrossProd,		Operator::CrossProd			= new Operator_CrossProd());
+	env.SetOperator(OPTYPE_Dot,				Operator::Dot				= new Operator_Dot());
+	env.SetOperator(OPTYPE_Cross,			Operator::Cross				= new Operator_Cross());
+	env.SetOperator(OPTYPE_Filter,			Operator::Filter			= new Operator_Filter());
 	env.SetOperator(OPTYPE_Concat,			Operator::Concat			= new Operator_Concat());
 	env.SetOperator(OPTYPE_Difference,		Operator::Difference		= new Operator_Difference());	
 	env.SetOperator(OPTYPE_Intersection,	Operator::Intersection		= new Operator_Intersection());

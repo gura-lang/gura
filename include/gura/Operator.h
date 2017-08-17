@@ -58,8 +58,9 @@ enum OpType {
 	OPTYPE_Div,
 	OPTYPE_Mod,
 	OPTYPE_ModMod,
-	OPTYPE_DotProd,
-	OPTYPE_CrossProd,
+	OPTYPE_Dot,
+	OPTYPE_Cross,
+	OPTYPE_Filter,
 	OPTYPE_Concat,
 	OPTYPE_Difference,
 	OPTYPE_Intersection,
@@ -473,8 +474,9 @@ public:
 	static Operator *Div;
 	static Operator *Mod;
 	static Operator *ModMod;
-	static Operator *DotProd;
-	static Operator *CrossProd;
+	static Operator *Dot;
+	static Operator *Cross;
+	static Operator *Filter;
 	static Operator *Concat;
 	static Operator *Difference;
 	static Operator *Intersection;
@@ -907,19 +909,27 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Operator_DotProd
+// Operator_Dot
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Operator_DotProd : public Operator {
+class GURA_DLLDECLARE Operator_Dot : public Operator {
 public:
-	inline Operator_DotProd() : Operator(OPTYPE_DotProd) {}
+	inline Operator_Dot() : Operator(OPTYPE_Dot) {}
 };
 
 //-----------------------------------------------------------------------------
-// Operator_CrossProd
+// Operator_Cross
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Operator_CrossProd : public Operator {
+class GURA_DLLDECLARE Operator_Cross : public Operator {
 public:
-	inline Operator_CrossProd() : Operator(OPTYPE_CrossProd) {}
+	inline Operator_Cross() : Operator(OPTYPE_Cross) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Filter
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Filter : public Operator {
+public:
+	inline Operator_Filter() : Operator(OPTYPE_Filter) {}
 };
 
 //-----------------------------------------------------------------------------

@@ -436,7 +436,7 @@ Gura_DeclareClassMethod(array, dot)
 Gura_ImplementClassMethod(array, dot)
 {
 	Value valResult = Array::ApplyBinaryFuncOnValue_array_array(
-		env, Array::binaryFuncPack_DotProd, arg.GetValue(0), arg.GetValue(1));
+		env, Array::binaryFuncPack_Dot, arg.GetValue(0), arg.GetValue(1));
 	if (env.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, arg, valResult);
 }

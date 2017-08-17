@@ -265,6 +265,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				{ '=', &TOKEN_AssignOr 		},
 				{ '|', &TOKEN_TripleChars	},
 				{ '.', &TOKEN_TripleChars	},
+				{ '^', &TOKEN_TripleChars	},
 				{ '*', &TOKEN_TripleChars	},
 				{ '+', &TOKEN_TripleChars	},
 				{ '-', &TOKEN_TripleChars	},
@@ -356,10 +357,13 @@ bool Parser::ParseChar(Environment &env, char ch)
 				{ '=', &TOKEN_AssignShr		},
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ "|.", &TOKEN_Or, true, {
-				{ '|', &TOKEN_DotProd		},
+				{ '|', &TOKEN_DotP			},
+				{ '\0', &TOKEN_Unknown		}, } },
+			{ "|^", &TOKEN_Or, true, {
+				{ '|', &TOKEN_Cross			},
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ "|*", &TOKEN_Or, true, {
-				{ '|', &TOKEN_CrossProd		},
+				{ '|', &TOKEN_Filter		},
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ "|+", &TOKEN_Or, true, {
 				{ '|', &TOKEN_Concat		},
@@ -1863,12 +1867,15 @@ bool Parser::ReduceThreeTokens(Environment &env)
 		} else if (token2.IsType(TOKEN_ModMod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr %%%% Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_ModMod), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_DotProd)) {
+		} else if (token2.IsType(TOKEN_DotP)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr |.| Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_DotProd), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_CrossProd)) {
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Dot), pExprLeft, pExprRight);
+		} else if (token2.IsType(TOKEN_Cross)) {
+			DBGPARSER(::printf("Reduce: Expr -> Expr |^| Expr\n"));
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Cross), pExprLeft, pExprRight);
+		} else if (token2.IsType(TOKEN_Filter)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr |*| Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_CrossProd), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Filter), pExprLeft, pExprRight);
 		} else if (token2.IsType(TOKEN_Concat)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr |+| Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Concat), pExprLeft, pExprRight);

@@ -1154,7 +1154,7 @@ Array::BinaryFuncPack Array::binaryFuncPack_Mul =			{ "mul",			"*",	true	};
 Array::BinaryFuncPack Array::binaryFuncPack_Div =			{ "div",			"/",	true	};
 Array::BinaryFuncPack Array::binaryFuncPack_Mod =			{ "mod",			"%",	true	};
 Array::BinaryFuncPack Array::binaryFuncPack_Pow =			{ "pow",			"**",	true	};
-Array::BinaryFuncPack Array::binaryFuncPack_DotProd =		{ "dotprod",		"|.|",	false	};
+Array::BinaryFuncPack Array::binaryFuncPack_Dot =			{ "dot",			"|.|",	false	};
 Array::BinaryFuncPack Array::binaryFuncPack_Eq =			{ "eq",				"==",	true	};
 Array::BinaryFuncPack Array::binaryFuncPack_Ne =			{ "ne",				"!=",	true	};
 Array::BinaryFuncPack Array::binaryFuncPack_Gt =			{ "gt",				">",	true	};

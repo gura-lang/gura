@@ -734,14 +734,14 @@ Gura_ImplementBinaryOperator(Mod, number, number)
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// [A |.| B] ... BinaryOperator(DotProd, A, B)
+// [A |.| B] ... BinaryOperator(Dot, A, B)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(DotProd, number, number)
+Gura_ImplementBinaryOperator(Dot, number, number)
 {
 	return Value(valueLeft.GetDouble() * valueRight.GetDouble());
 }
 
-Gura_ImplementBinaryOperator(DotProd, vertex, vertex)
+Gura_ImplementBinaryOperator(Dot, vertex, vertex)
 {
 	const Vertex &v1 = Object_vertex::GetObject(valueLeft)->GetVertex();
 	const Vertex &v2 = Object_vertex::GetObject(valueRight)->GetVertex();
@@ -749,9 +749,9 @@ Gura_ImplementBinaryOperator(DotProd, vertex, vertex)
 }
 
 //-----------------------------------------------------------------------------
-// [A |*| B] ... BinaryOperator(CrossProd, A, B)
+// [A |*| B] ... BinaryOperator(Cross, A, B)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(CrossProd, vertex, vertex)
+Gura_ImplementBinaryOperator(Cross, vertex, vertex)
 {
 	const Vertex &v1 = Object_vertex::GetObject(valueLeft)->GetVertex();
 	const Vertex &v2 = Object_vertex::GetObject(valueRight)->GetVertex();
@@ -1841,9 +1841,9 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Div, rational, rational);
 	Gura_AssignBinaryOperator(Div, vertex, number);
 	Gura_AssignBinaryOperator(Mod, number, number);
-	Gura_AssignBinaryOperator(DotProd, number, number);
-	Gura_AssignBinaryOperator(DotProd, vertex, vertex);
-	Gura_AssignBinaryOperator(CrossProd, vertex, vertex);
+	Gura_AssignBinaryOperator(Dot, number, number);
+	Gura_AssignBinaryOperator(Dot, vertex, vertex);
+	Gura_AssignBinaryOperator(Cross, vertex, vertex);
 	Gura_AssignBinaryOperator(Pow, number, number);
 	Gura_AssignBinaryOperator(Pow, complex, complex);
 	Gura_AssignBinaryOperator(Pow, number, complex);

@@ -54,8 +54,9 @@ const TokenInfo TOKEN_Mul =				{ 15, "Mul",			"*",	OPTYPE_Mul	};		// *
 const TokenInfo TOKEN_Div =				{ 15, "Div",			"/",	OPTYPE_Div	};
 const TokenInfo TOKEN_Mod =				{ 15, "Mod",			"%",	OPTYPE_Mod	};
 const TokenInfo TOKEN_ModMod =			{ 15, "ModMod",			"%%",	OPTYPE_ModMod };
-const TokenInfo TOKEN_DotProd =			{ 15, "DotProd",		"|.|",	OPTYPE_DotProd };
-const TokenInfo TOKEN_CrossProd =		{ 15, "CrossProd",		"|*|",	OPTYPE_CrossProd };
+const TokenInfo TOKEN_DotP =			{ 15, "DotP",			"|.|",	OPTYPE_Dot	};
+const TokenInfo TOKEN_Cross =			{ 15, "Cross",			"|^|",	OPTYPE_Cross };
+const TokenInfo TOKEN_Filter =			{ 15, "Filter",			"|*|",	OPTYPE_Filter };
 const TokenInfo TOKEN_Concat =			{  3, "Concat",			"|+|",	OPTYPE_Concat };
 const TokenInfo TOKEN_Difference =		{  3, "Difference",		"|-|",	OPTYPE_Difference };
 const TokenInfo TOKEN_Intersection =	{  3, "Intersection",	"|&|",	OPTYPE_Intersection };
@@ -177,8 +178,9 @@ void Token::Bootup()
 		&TOKEN_Div,
 		&TOKEN_Mod,
 		&TOKEN_ModMod,
-		&TOKEN_DotProd,
-		&TOKEN_CrossProd,
+		&TOKEN_DotP,
+		&TOKEN_Cross,
+		&TOKEN_Filter,
 		&TOKEN_Concat,
 		&TOKEN_Difference,
 		&TOKEN_Intersection,
