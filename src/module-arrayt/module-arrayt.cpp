@@ -1,9 +1,9 @@
 //=============================================================================
-// Gura module: arrayutil
+// Gura module: arrayt
 //=============================================================================
 #include "stdafx.h"
 
-Gura_BeginModuleBody(arrayutil)
+Gura_BeginModuleBody(arrayt)
 
 //-----------------------------------------------------------------------------
 // Module Entries
@@ -28,6 +28,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModuleBody(arrayutil, arrayutil)
+Gura_EndModuleBody(arrayt, arrayt)
 
-Gura_RegisterModule(arrayutil)
+Gura_RegisterModule(arrayt)

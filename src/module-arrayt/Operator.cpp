@@ -798,7 +798,7 @@ Array::BinaryFuncTable g_binaryFuncTable_##op = { \
 	nullptr, \
 }
 
-Gura_BeginModuleScope(arrayutil)
+Gura_BeginModuleScope(arrayt)
 
 //------------------------------------------------------------------------------
 // DotFuncTmpl
@@ -2632,4 +2632,4 @@ void AssignOperators(Environment &env)
 	Gura_AssignUnaryOperator(Math_unitstep, array);
 }
 
-Gura_EndModuleScope(arrayutil)
+Gura_EndModuleScope(arrayt)

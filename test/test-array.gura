@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
-import(arrayutil)
+import(arrayt)
 
 elemtypeTbl = [
 	`boolean, `int8, `uint8, `int16, `uint16, `int32, `uint32, `int64, `uint64,

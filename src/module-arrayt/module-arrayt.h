@@ -1,5 +1,5 @@
 //=============================================================================
-// Gura module: arrayutil
+// Gura module: arrayt
 //=============================================================================
 #ifndef __GURA_MODULE_ARRAYUTIL_H__
 #define __GURA_MODULE_ARRAYUTIL_H__
@@ -27,7 +27,7 @@ const static FuncT funcTbl[Array::ETYPE_Max] = { \
 	nullptr, \
 }
 
-Gura_BeginModuleHeader(arrayutil)
-Gura_EndModuleHeader(arrayutil)
+Gura_BeginModuleHeader(arrayt)
+Gura_EndModuleHeader(arrayt)
 
 #endif

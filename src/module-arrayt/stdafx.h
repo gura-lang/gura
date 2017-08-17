@@ -1,4 +1,4 @@
 #ifndef __GURA_MODULE_ARRAYUTIL_STDAFX_H__
 #define __GURA_MODULE_ARRAYUTIL_STDAFX_H__
-#include "module-arrayutil.h"
+#include "module-arrayt.h"
 #endif

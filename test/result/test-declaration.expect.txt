@@ -20,9 +20,9 @@ array@uint16:class = <class:array@uint16(src?) {block?}>
 array@uint32:class = <class:array@uint32(src?) {block?}>
 array@uint64:class = <class:array@uint64(src?) {block?}>
 array@uint8:class = <class:array@uint8(src?) {block?}>
-arrayutil:module
-  __name__:string = arrayutil
-  __symbol__:symbol = arrayutil
+arrayt:module
+  __name__:string = arrayt
+  __symbol__:symbol = arrayt
 audio:class = <class:audio(args+):map {block?}>
 base64:module
   __name__:string = base64

@@ -38,7 +38,7 @@ Gura_AssignMethod_Array(VTYPE_array_at_float, className, name, Array::ETYPE_Floa
 Gura_AssignMethod_Array(VTYPE_array_at_double, className, name, Array::ETYPE_Double); \
 Gura_AssignMethod_Array(VTYPE_array_at_complex, className, name, Array::ETYPE_Complex);
 
-Gura_BeginModuleScope(arrayutil)
+Gura_BeginModuleScope(arrayt)
 
 //-----------------------------------------------------------------------------
 // utilities
@@ -1304,4 +1304,4 @@ void AssignCreators(Environment &env)
 	Gura_AssignMethodMultiple_Array(array, zeros);
 }
 
-Gura_EndModuleScope(arrayutil)
+Gura_EndModuleScope(arrayt)

@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 import(helper.test)
-import(arrayutil)
+import(arrayt)
 
 listSymbols(skipWords:list, indent:number => 0, m?:module) = {
 	skipWordsMap = %{

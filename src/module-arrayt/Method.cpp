@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModuleScope(arrayutil)
+Gura_BeginModuleScope(arrayt)
 
 typedef Value (*FuncT_Method)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);
 
@@ -1462,4 +1462,4 @@ void AssignMethods(Environment &env)
 	Gura_AssignMethodTo(VTYPE_array, array, var);
 }
 
-Gura_EndModuleScope(arrayutil)
+Gura_EndModuleScope(arrayt)

@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
-import(arrayutil)
+import(arrayt)
 
 text@en = R'''
 # Built-in Class
@@ -74,12 +74,12 @@ There are several `array` classes that deal with different element types as show
 In the specification described here, the class name is is represented as `array@T`
 where `T` means its element type.
 
-Most of methods in `array` class are implemented in `arrayutil` module
+Most of methods in `array` class are implemented in `arrayt` module
 while the class itself is provided by the intepreter.
 This is because array features cost much code size
 and it would be preferable to reduce the size of the intepreter body
 by separating the implementation of array methods.
-So, you have to import `arrayutil` module before using the `array` class in your program.
+So, you have to import `arrayt` module before using the `array` class in your program.
 
 ### Property
 
