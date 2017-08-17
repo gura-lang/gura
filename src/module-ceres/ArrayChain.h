@@ -130,12 +130,12 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainUnary_Math_ramp
+// ArrayChainUnary_Math_relu
 //-----------------------------------------------------------------------------
-class ArrayChainUnary_Math_ramp : public ArrayChainUnary {
+class ArrayChainUnary_Math_relu : public ArrayChainUnary {
 public:
-	inline ArrayChainUnary_Math_ramp(Connector *pConnectorDst) :
-		ArrayChainUnary(Array::unaryFuncPack_Math_ramp, pConnectorDst) {}
+	inline ArrayChainUnary_Math_relu(Connector *pConnectorDst) :
+		ArrayChainUnary(Array::unaryFuncPack_Math_relu, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
