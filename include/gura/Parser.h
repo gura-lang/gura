@@ -41,7 +41,7 @@ private:
 		STAT_Error, STAT_ErrorRecovery,
 		STAT_AfterLBrace,
 		STAT_NumberPre, STAT_NumberHex, STAT_NumberOct, STAT_NumberBin,
-		STAT_NumberAfterDot, STAT_Number,
+		STAT_NumberAfterPeriod, STAT_Number,
 		STAT_NumberExpAfterE, STAT_NumberExpAfterSign, STAT_NumberExp,
 		STAT_NumberSuffixed,
 		STAT_Symbol, STAT_SymbolExclamation,

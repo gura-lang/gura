@@ -67,7 +67,7 @@ const TokenInfo TOKEN_Pow =				{ 17, "Pow",			"**",	OPTYPE_Pow	};		// **
 const TokenInfo TOKEN_Quote =			{ 18, "Quote",			"`",	OPTYPE_None	};		// `
 const TokenInfo TOKEN_Colon =			{ 19, "Colon",			":",	OPTYPE_None	};		// :
 const TokenInfo TOKEN_ColonAfterSuffix ={ 20, "ColonAfterSuffix",":",	OPTYPE_None	};		// *:
-const TokenInfo TOKEN_Dot =				{ 21, "Dot",			".",	OPTYPE_None	};		// .
+const TokenInfo TOKEN_Period =			{ 21, "Period",			".",	OPTYPE_None	};		// .
 const TokenInfo TOKEN_ColonColon =		{ 21, "ColonColon",		"::",	OPTYPE_None	};
 const TokenInfo TOKEN_ColonAsterisk =	{ 21, "ColonAsterisk",	":*",	OPTYPE_None	};
 const TokenInfo TOKEN_ColonAnd =		{ 21, "ColonAnd",		":&",	OPTYPE_None	};
@@ -191,7 +191,7 @@ void Token::Bootup()
 		&TOKEN_Quote,
 		&TOKEN_Colon,
 		&TOKEN_ColonAfterSuffix,
-		&TOKEN_Dot,
+		&TOKEN_Period,
 		&TOKEN_ColonColon,
 		&TOKEN_ColonAsterisk,
 		&TOKEN_ColonAnd,

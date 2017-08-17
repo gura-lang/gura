@@ -92,7 +92,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 		} else if (ch == '.') {
 			_field.clear();
 			_field.push_back(ch);
-			_stat = STAT_NumberAfterDot;
+			_stat = STAT_NumberAfterPeriod;
 		} else if (IsWhite(ch) || ch == '\x0c') { // code 0x0c is page-break
 			if (IsTokenWatched()) {
 				_field.clear();
@@ -555,7 +555,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 		}
 		break;
 	}
-	case STAT_NumberAfterDot: {
+	case STAT_NumberAfterPeriod: {
 		if (ch == '.') {
 			if (_tokenStack.back().IsType(TOKEN_Quote)) {
 				_field.push_back(ch);
@@ -568,7 +568,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_field.push_back(ch);
 			_stat = STAT_Number;
 		} else {
-			FeedToken(env, Token(TOKEN_Dot, GetLineNo()));
+			FeedToken(env, Token(TOKEN_Period, GetLineNo()));
 			Gura_PushbackEx(ch);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -589,7 +589,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			} else if (pos == String::npos) {
 				_field.push_back(ch);
 			} else {
-				SetError(ERR_SyntaxError, "dot has already been scanned");
+				SetError(ERR_SyntaxError, "period has already been scanned");
 				_stat = STAT_Error;
 			}
 		} else if (ch == 'e' || ch == 'E') {
@@ -2046,7 +2046,7 @@ bool Parser::ReduceThreeTokens(Environment &env)
 				SetError_InvalidToken(__LINE__);
 				goto error_done;
 			}
-		} else if (token2.IsType(TOKEN_Dot)) {
+		} else if (token2.IsType(TOKEN_Period)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr . Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
 				SetError_InvalidToken(__LINE__);

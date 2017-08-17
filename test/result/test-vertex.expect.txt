@@ -42,8 +42,8 @@ vertex.normal(vertex.zero, vertex.zero, vertex.zero):unit .. <vertex:0,0,0>
 
 vertex.cross(vertex(2, -1, 3), vertex(1, -2, -3)) .. <vertex:9,9,-3>
 vertex.cross(vertex(1, 2, -4), vertex(2, 3, 1)) .. <vertex:14,-9,-1>
-vertex(2, -1, 3) |*| vertex(1, -2, -3) .. <vertex:9,9,-3>
-vertex(1, 2, -4) |*| vertex(2, 3, 1) .. <vertex:14,-9,-1>
+vertex(2, -1, 3) |^| vertex(1, -2, -3) .. <vertex:9,9,-3>
+vertex(1, 2, -4) |^| vertex(2, 3, 1) .. <vertex:14,-9,-1>
 
 ======== #8 vertex.dot ========
 

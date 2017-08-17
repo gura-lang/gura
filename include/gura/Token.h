@@ -69,7 +69,7 @@ extern const TokenInfo TOKEN_Pow;
 extern const TokenInfo TOKEN_Quote;
 extern const TokenInfo TOKEN_Colon;
 extern const TokenInfo TOKEN_ColonAfterSuffix;
-extern const TokenInfo TOKEN_Dot;
+extern const TokenInfo TOKEN_Period;
 extern const TokenInfo TOKEN_ColonColon;
 extern const TokenInfo TOKEN_ColonAsterisk;
 extern const TokenInfo TOKEN_ColonAnd;

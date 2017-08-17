@@ -17,6 +17,7 @@ func(a) {|(3 | 4 | 5), b, c|}
 func(a) {|(3 * 4 | 5), b, c|}
 func(a) {|(3 | 4 | 5), b, (a | b | c)|}
 func(a) {|(a |.| b), c, d|}
+func(a) {|(a |^| b), c, d|}
 func(a) {|(a |*| b), c, d|}
 func(a) {|(a |+| b), c, d|}
 func(a) {|(a |-| b), c, d|}
@@ -35,6 +36,7 @@ func(a, b, c, d, e%, f*) = {}
 `(a:hoge).func()
 `(a[0]:hoge).func()
 a |.| b * 3
+a |^| b * 3
 a |*| b * 3
 
 ======== #2 acceptable value types ========
@@ -95,8 +97,10 @@ in
 [[`number, `number]]
 |.|
 [[`number, `number], [`array, `number], [`array, `complex], [`number, `array], [`complex, `array], [`array, `array], [`vertex, `vertex]]
-|*|
+|^|
 [[`vertex, `vertex]]
+|*|
+[]
 |+|
 []
 |-|
