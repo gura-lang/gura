@@ -56,7 +56,7 @@ extern const TokenInfo TOKEN_Mul;
 extern const TokenInfo TOKEN_Div;
 extern const TokenInfo TOKEN_Mod;
 extern const TokenInfo TOKEN_ModMod;
-extern const TokenInfo TOKEN_DotP;
+extern const TokenInfo TOKEN_Dot;
 extern const TokenInfo TOKEN_Cross;
 extern const TokenInfo TOKEN_Filter;
 extern const TokenInfo TOKEN_Concat;

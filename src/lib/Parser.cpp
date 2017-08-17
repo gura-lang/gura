@@ -357,7 +357,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				{ '=', &TOKEN_AssignShr		},
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ "|.", &TOKEN_Or, true, {
-				{ '|', &TOKEN_DotP			},
+				{ '|', &TOKEN_Dot			},
 				{ '\0', &TOKEN_Unknown		}, } },
 			{ "|^", &TOKEN_Or, true, {
 				{ '|', &TOKEN_Cross			},
@@ -1867,7 +1867,7 @@ bool Parser::ReduceThreeTokens(Environment &env)
 		} else if (token2.IsType(TOKEN_ModMod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr %%%% Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_ModMod), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_DotP)) {
+		} else if (token2.IsType(TOKEN_Dot)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr |.| Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Dot), pExprLeft, pExprRight);
 		} else if (token2.IsType(TOKEN_Cross)) {
