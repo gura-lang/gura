@@ -1627,6 +1627,7 @@ void Operator::Bootup(Environment &env)
 	env.SetOperator(OPTYPE_Math_tanh,		Operator::Math_tanh			= new Operator_Math_tanh());
 	env.SetOperator(OPTYPE_Math_unitstep,	Operator::Math_unitstep		= new Operator_Math_unitstep());
 	AssignOperatorBasic(env);
+	AssignOperatorArray(env);
 }
 
 }

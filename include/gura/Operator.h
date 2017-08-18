@@ -606,6 +606,7 @@ public:
 	static void Bootup(Environment &env);
 private:
 	static void AssignOperatorBasic(Environment &env);
+	static void AssignOperatorArray(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
