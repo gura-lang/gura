@@ -749,7 +749,7 @@ Gura_ImplementBinaryOperator(Dot, vertex, vertex)
 }
 
 //-----------------------------------------------------------------------------
-// [A |*| B] ... BinaryOperator(Cross, A, B)
+// [A |^| B] ... BinaryOperator(Cross, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Cross, vertex, vertex)
 {
@@ -757,6 +757,10 @@ Gura_ImplementBinaryOperator(Cross, vertex, vertex)
 	const Vertex &v2 = Object_vertex::GetObject(valueRight)->GetVertex();
 	return Value(new Object_vertex(env, Vertex::CalcCrossProduct(v1, v2)));
 }
+
+//-----------------------------------------------------------------------------
+// [A |*| B] ... BinaryOperator(Filter, A, B)
+//-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // [A |+| B] ... BinaryOperator(Join, A, B)

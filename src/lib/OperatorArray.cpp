@@ -241,8 +241,17 @@ Gura_ImplementBinaryOperator(Dot, complex, array)
 }
 
 //-----------------------------------------------------------------------------
-// [A |*| B] ... BinaryOperator(CrossProd, A, B)
+// [A |^| B] ... BinaryOperator(Cross, A, B)
 //-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// [A |*| B] ... BinaryOperator(Filter, A, B)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Filter, array, filter_at_maxpool)
+{
+	//return Array::ApplyFilterOnValue_MaxPool(valueLeft, valueRight);
+	return Value::Nil;
+}
 
 //-----------------------------------------------------------------------------
 // [A |+| B] ... BinaryOperator(Join, A, B)
@@ -877,6 +886,7 @@ void Operator::AssignOperatorArray(Environment &env)
 	Gura_AssignBinaryOperator(Dot, number, array);
 	Gura_AssignBinaryOperator(Dot, array, complex);
 	Gura_AssignBinaryOperator(Dot, complex, array);
+	Gura_AssignBinaryOperator(Filter, array, filter_at_maxpool);
 	Gura_AssignBinaryOperator(Pow, array, array);
 	Gura_AssignBinaryOperator(Pow, array, number);
 	Gura_AssignBinaryOperator(Pow, number, array);
