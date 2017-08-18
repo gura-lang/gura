@@ -22,7 +22,18 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Filter_MaxPool : public Filter {
 public:
+	typedef Array *(*FilterFuncT)(Signal &sig, Array *pArrayResult,
+								  const Array *pArray, const Filter_MaxPool &filter);
+	struct FilterFuncTable {
+		FilterFuncT funcs[Array::ETYPE_Max];
+	};
+public:
+	static FilterFuncTable filterFuncTable;
+public:
 	inline Filter_MaxPool() {}
+public:
+	static Array *Apply(
+		Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool &filter);
 };
 
 //-----------------------------------------------------------------------------

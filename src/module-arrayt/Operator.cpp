@@ -1652,7 +1652,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 	BinaryFuncTmpl_complex_complex<Operator_Mul::Calc>,
 };
 
-Array::MaxPoolFilterFuncTable g_maxPoolFilterFuncTable = {
+Filter_MaxPool::FilterFuncTable g_maxPoolFilterFuncTable = {
 	{
 		&MaxPoolFilterFuncTmpl<Boolean>,
 		&MaxPoolFilterFuncTmpl<Int8>,
@@ -1719,7 +1719,7 @@ void AssignOperators(Environment &env)
 	Array::unaryFuncPack_Math_tan.table =		g_unaryFuncTable_Math_tan;
 	Array::unaryFuncPack_Math_tanh.table =		g_unaryFuncTable_Math_tanh;
 	Array::unaryFuncPack_Math_unitstep.table =	g_unaryFuncTable_Math_unitstep;
-	Array::maxPoolFilterFuncTable =				g_maxPoolFilterFuncTable;
+	Filter_MaxPool::filterFuncTable =			g_maxPoolFilterFuncTable;
 }
 
 Gura_EndModuleScope(arrayt)

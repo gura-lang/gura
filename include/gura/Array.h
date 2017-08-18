@@ -10,8 +10,6 @@
 
 namespace Gura {
 
-class Filter_MaxPool;
-	
 //-----------------------------------------------------------------------------
 // Array
 //-----------------------------------------------------------------------------
@@ -52,8 +50,6 @@ public:
 	typedef Array *(*BinaryFuncT_complex_complex)(Signal &sig, Array *pArrayResult,
 												 const Complex &complexL, const Complex &complexR);
 	typedef Array *(*InvertFuncT)(Signal &sig, Array *pArrayResult, const Array *pArray, Double epsilon);
-	typedef Array *(*MaxPoolFilterFuncT)(Signal &sig, Array *pArrayResult,
-										 const Array *pArray, const Filter_MaxPool &filter);
 	struct UnaryFuncTable {
 		UnaryFuncT funcs[ETYPE_Max];
 	};
@@ -79,9 +75,6 @@ public:
 	};
 	struct InvertFuncTable {
 		InvertFuncT funcs[ETYPE_Max];
-	};
-	struct MaxPoolFilterFuncTable {
-		MaxPoolFilterFuncT funcs[ETYPE_Max];
 	};
 	typedef std::map<const Symbol *, ElemType, Symbol::LessThan> MapToElemType;
 public:
@@ -131,7 +124,6 @@ public:
 	static UnaryFuncPack unaryFuncPack_Math_tanh;
 	static UnaryFuncPack unaryFuncPack_Math_unitstep;
 	static InvertFuncTable invertFuncTable;
-	static MaxPoolFilterFuncTable maxPoolFilterFuncTable;
 public:
 	class GURA_DLLDECLARE Dimension {
 	private:
@@ -317,9 +309,6 @@ public:
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyInvertFunc(
 		Signal &sig, Array *pArrayResult, const Array *pArray, Double epsilon);
-	template<typename FilterT>
-	static Array *ApplyFilterFunc(
-		Signal &sig, Array *pArrayResult, const Array *pArray, const FilterT &filter);
 	static void SetError_UnacceptableValueAsElement(Environment &env, const Value &value);
 };
 	

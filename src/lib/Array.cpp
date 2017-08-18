@@ -772,18 +772,6 @@ Array *Array::ApplyInvertFunc(Signal &sig, Array *pArrayResult, const Array *pAr
 	return (*invertFunc)(sig, pArrayResult, pArray, epsilon);
 }
 
-template<>
-Array *Array::ApplyFilterFunc(
-	Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool &filter)
-{
-	MaxPoolFilterFuncT filterFunc = maxPoolFilterFuncTable.funcs[pArray->GetElemType()];
-	if (filterFunc == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply invert function on this array");
-		return nullptr;
-	}
-	return (*filterFunc)(sig, pArrayResult, pArray, filter);
-}
-
 void Array::SetError_UnacceptableValueAsElement(Environment &env, const Value &value)
 {
 	env.SetError(ERR_ValueError, "value of %s can not be stored in array",
@@ -1208,7 +1196,5 @@ Array::InvertFuncTable Array::invertFuncTable = {
 		nullptr,
 	}
 };
-
-Array::MaxPoolFilterFuncTable Array::maxPoolFilterFuncTable = {{nullptr}};
 
 }

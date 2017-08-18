@@ -15,6 +15,18 @@ Filter::~Filter()
 //-----------------------------------------------------------------------------
 // Filter_MaxPool
 //-----------------------------------------------------------------------------
+Filter_MaxPool::FilterFuncTable Filter_MaxPool::filterFuncTable = {{nullptr}};
+
+Array *Filter_MaxPool::Apply(
+	Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool &filter)
+{
+	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
+	if (filterFunc == nullptr) {
+		sig.SetError(ERR_TypeError, "can't apply max pool filter on this array");
+		return nullptr;
+	}
+	return (*filterFunc)(sig, pArrayResult, pArray, filter);
+}
 
 //-----------------------------------------------------------------------------
 // Filter_Conv1d
