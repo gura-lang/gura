@@ -55,7 +55,7 @@ public:
 	typedef Array *(*MaxPoolFilterFuncT)(Signal &sig, Array *pArrayResult,
 										 const Array *pArray, const Filter_MaxPool &filter);
 	struct UnaryFuncTable {
-		UnaryFuncT unaryFuncs[ETYPE_Max];
+		UnaryFuncT funcs[ETYPE_Max];
 	};
 	struct UnaryFuncPack {
 		const char *name;
@@ -63,19 +63,25 @@ public:
 		UnaryFuncTable table;
 	};
 	struct BinaryFuncTable {
-		BinaryFuncT_array_array binaryFuncs_array_array[ETYPE_Max][ETYPE_Max];
-		BinaryFuncT_array_number binaryFuncs_array_number[ETYPE_Max];
-		BinaryFuncT_number_array binaryFuncs_number_array[ETYPE_Max];
-		BinaryFuncT_array_complex binaryFuncs_array_complex[ETYPE_Max];
-		BinaryFuncT_complex_array binaryFuncs_complex_array[ETYPE_Max];
-		BinaryFuncT_number_number binaryFunc_number_number;
-		BinaryFuncT_complex_complex binaryFunc_complex_complex;
+		BinaryFuncT_array_array funcs_array_array[ETYPE_Max][ETYPE_Max];
+		BinaryFuncT_array_number funcs_array_number[ETYPE_Max];
+		BinaryFuncT_number_array funcs_number_array[ETYPE_Max];
+		BinaryFuncT_array_complex funcs_array_complex[ETYPE_Max];
+		BinaryFuncT_complex_array funcs_complex_array[ETYPE_Max];
+		BinaryFuncT_number_number func_number_number;
+		BinaryFuncT_complex_complex func_complex_complex;
 	};
 	struct BinaryFuncPack {
 		const char *name;
 		const char *symbol;
 		bool elemwiseFlag;
 		BinaryFuncTable table;
+	};
+	struct InvertFuncTable {
+		InvertFuncT funcs[ETYPE_Max];
+	};
+	struct MaxPoolFilterFuncTable {
+		MaxPoolFilterFuncT funcs[ETYPE_Max];
 	};
 	typedef std::map<const Symbol *, ElemType, Symbol::LessThan> MapToElemType;
 public:
@@ -124,7 +130,8 @@ public:
 	static UnaryFuncPack unaryFuncPack_Math_tan;
 	static UnaryFuncPack unaryFuncPack_Math_tanh;
 	static UnaryFuncPack unaryFuncPack_Math_unitstep;
-	static InvertFuncT invertFuncs[ETYPE_Max];
+	static InvertFuncTable invertFuncTable;
+	static MaxPoolFilterFuncTable maxPoolFilterFuncTable;
 public:
 	class GURA_DLLDECLARE Dimension {
 	private:
@@ -310,6 +317,9 @@ public:
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyInvertFunc(
 		Signal &sig, Array *pArrayResult, const Array *pArray, Double epsilon);
+	template<typename FilterT>
+	static Array *ApplyFilterFunc(
+		Signal &sig, Array *pArrayResult, const Array *pArray, const FilterT &filter);
 	static void SetError_UnacceptableValueAsElement(Environment &env, const Value &value);
 };
 	

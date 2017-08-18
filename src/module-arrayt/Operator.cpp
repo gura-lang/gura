@@ -1298,6 +1298,18 @@ Array *BinaryFuncTmpl_Div_complex_complex(Signal &sig, Array *pArrayResult, cons
 }
 
 //------------------------------------------------------------------------------
+// MaxPoolFilterFuncTmpl
+//------------------------------------------------------------------------------
+template<typename T_Elem>
+Array *MaxPoolFilterFuncTmpl(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool &filter)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(dims));
+	return pArrayTResult.release();
+}
+
+//------------------------------------------------------------------------------
 // Function tables
 //------------------------------------------------------------------------------
 ImplementUnaryFuncTable(Pos,			UnaryFuncTmpl);
@@ -1640,6 +1652,25 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 	BinaryFuncTmpl_complex_complex<Operator_Mul::Calc>,
 };
 
+Array::MaxPoolFilterFuncTable g_maxPoolFilterFuncTable = {
+	{
+		&MaxPoolFilterFuncTmpl<Boolean>,
+		&MaxPoolFilterFuncTmpl<Int8>,
+		&MaxPoolFilterFuncTmpl<UInt8>,
+		&MaxPoolFilterFuncTmpl<Int16>,
+		&MaxPoolFilterFuncTmpl<UInt16>,
+		&MaxPoolFilterFuncTmpl<Int32>,
+		&MaxPoolFilterFuncTmpl<UInt32>,
+		&MaxPoolFilterFuncTmpl<Int64>,
+		&MaxPoolFilterFuncTmpl<UInt64>,
+		&MaxPoolFilterFuncTmpl<Half>,
+		&MaxPoolFilterFuncTmpl<Float>,
+		&MaxPoolFilterFuncTmpl<Double>,
+		nullptr,
+		nullptr,
+	}
+};
+
 void AssignOperators(Environment &env)
 {
 	// register function table
@@ -1688,6 +1719,7 @@ void AssignOperators(Environment &env)
 	Array::unaryFuncPack_Math_tan.table =		g_unaryFuncTable_Math_tan;
 	Array::unaryFuncPack_Math_tanh.table =		g_unaryFuncTable_Math_tanh;
 	Array::unaryFuncPack_Math_unitstep.table =	g_unaryFuncTable_Math_unitstep;
+	Array::maxPoolFilterFuncTable =				g_maxPoolFilterFuncTable;
 }
 
 Gura_EndModuleScope(arrayt)

@@ -249,8 +249,12 @@ Gura_ImplementBinaryOperator(Dot, complex, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Filter, array, filter_at_maxpool)
 {
-	//return Array::ApplyMaxPoolFilterOnValue(valueLeft, valueRight);
-	return Value::Nil;
+	Array *pArray = Array::ApplyFilterFunc(
+		env, nullptr,
+		Object_array::GetObject(valueLeft)->GetArray(),
+		Object_filter_at_maxpool::GetObject(valueRight)->GetFilter());
+	if (pArray == nullptr) return Value::Nil;
+	return Array::ToValue(env, pArray);
 }
 
 //-----------------------------------------------------------------------------

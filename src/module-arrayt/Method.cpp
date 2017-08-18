@@ -279,7 +279,7 @@ Value CallMethod(Environment &env, Argument &arg, const FuncT_Method funcTbl[],
 		env.SetError(ERR_TypeError, "no method implemented");
 		return Value::Nil;
 	}
-	return env, arg, (*func)(env, arg, pFunc, pArraySelf);
+	return (*func)(env, arg, pFunc, pArraySelf);
 }
 
 //-----------------------------------------------------------------------------

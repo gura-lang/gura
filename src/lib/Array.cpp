@@ -597,7 +597,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 
 Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, Array *pArrayResult, const Array *pArray)
 {
-	UnaryFuncT unaryFunc = pack.table.unaryFuncs[pArray->GetElemType()];
+	UnaryFuncT unaryFunc = pack.table.funcs[pArray->GetElemType()];
 	if (unaryFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
@@ -632,18 +632,18 @@ Array *Array::ApplyBinaryFunc(
 		}
 	} else {
 		if (!pArrayL->IsElemType(ETYPE_Complex) && !pArrayR->IsElemType(ETYPE_Complex)) {
-			if (pack.table.binaryFunc_number_number == nullptr) {
+			if (pack.table.func_number_number == nullptr) {
 				sig.SetError(ERR_TypeError, "can't apply %s function on these scalars", pack.name);
 				return nullptr;
 			}
-			return (*pack.table.binaryFunc_number_number)(
+			return (*pack.table.func_number_number)(
 				sig, pArrayResult, pArrayL->GetScalarNumber(), pArrayR->GetScalarNumber());
 		} else {
-			if (pack.table.binaryFunc_complex_complex == nullptr) {
+			if (pack.table.func_complex_complex == nullptr) {
 				sig.SetError(ERR_TypeError, "can't apply %s function on these scalars", pack.name);
 				return nullptr;
 			}
-			return (*pack.table.binaryFunc_complex_complex)(
+			return (*pack.table.func_complex_complex)(
 				sig, pArrayResult, pArrayL->GetScalarComplex(), pArrayR->GetScalarComplex());
 		}
 	}
@@ -655,7 +655,7 @@ Array *Array::ApplyBinaryFunc_array_array(
 {
 	if (pack.elemwiseFlag && !CheckElemwiseCalculatable(sig, pack, pArrayL, pArrayR)) return nullptr;
 	BinaryFuncT_array_array binaryFunc_array_array =
-		pack.table.binaryFuncs_array_array[pArrayL->GetElemType()][pArrayR->GetElemType()];
+		pack.table.funcs_array_array[pArrayL->GetElemType()][pArrayR->GetElemType()];
 	if (binaryFunc_array_array == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
@@ -678,7 +678,7 @@ Array *Array::ApplyBinaryFunc_array_number(
 	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, Double numberR)
 {
 	BinaryFuncT_array_number binaryFunc_array_number =
-		pack.table.binaryFuncs_array_number[pArrayL->GetElemType()];
+		pack.table.funcs_array_number[pArrayL->GetElemType()];
 	if (binaryFunc_array_number == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
@@ -700,7 +700,7 @@ Array *Array::ApplyBinaryFunc_number_array(
 	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, Double numberL, const Array *pArrayR)
 {
 	BinaryFuncT_number_array binaryFunc_number_array =
-		pack.table.binaryFuncs_number_array[pArrayR->GetElemType()];
+		pack.table.funcs_number_array[pArrayR->GetElemType()];
 	if (binaryFunc_number_array == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
@@ -722,7 +722,7 @@ Array *Array::ApplyBinaryFunc_array_complex(
 	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, const Complex &complexR)
 {
 	BinaryFuncT_array_complex binaryFunc_array_complex =
-		pack.table.binaryFuncs_array_complex[pArrayL->GetElemType()];
+		pack.table.funcs_array_complex[pArrayL->GetElemType()];
 	if (binaryFunc_array_complex == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
@@ -744,7 +744,7 @@ Array *Array::ApplyBinaryFunc_complex_array(
 	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Complex &complexL, const Array *pArrayR)
 {
 	BinaryFuncT_complex_array binaryFunc_complex_array =
-		pack.table.binaryFuncs_complex_array[pArrayR->GetElemType()];
+		pack.table.funcs_complex_array[pArrayR->GetElemType()];
 	if (binaryFunc_complex_array == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
@@ -764,12 +764,24 @@ Value Array::ApplyBinaryFuncOnValue_complex_array(
 
 Array *Array::ApplyInvertFunc(Signal &sig, Array *pArrayResult, const Array *pArray, Double epsilon)
 {
-	InvertFuncT invertFunc = invertFuncs[pArray->GetElemType()];
+	InvertFuncT invertFunc = invertFuncTable.funcs[pArray->GetElemType()];
 	if (invertFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply invert function on this array");
 		return nullptr;
 	}
 	return (*invertFunc)(sig, pArrayResult, pArray, epsilon);
+}
+
+template<>
+Array *Array::ApplyFilterFunc(
+	Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool &filter)
+{
+	MaxPoolFilterFuncT filterFunc = maxPoolFilterFuncTable.funcs[pArray->GetElemType()];
+	if (filterFunc == nullptr) {
+		sig.SetError(ERR_TypeError, "can't apply invert function on this array");
+		return nullptr;
+	}
+	return (*filterFunc)(sig, pArrayResult, pArray, filter);
 }
 
 void Array::SetError_UnacceptableValueAsElement(Environment &env, const Value &value)
@@ -1128,24 +1140,6 @@ void ArrayOwner::Clear()
 //-----------------------------------------------------------------------------
 // Function Pack
 //-----------------------------------------------------------------------------
-Array::InvertFuncT Array::invertFuncs[ETYPE_Max] = {
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr,
-	&InvertFuncTmpl<Half>,
-	&InvertFuncTmpl<Float>,
-	&InvertFuncTmpl<Double>,
-	&InvertFuncTmpl<Complex>,
-	nullptr,
-};
-
 Array::UnaryFuncPack Array::unaryFuncPack_Pos =				{ "pos",			"+",			};
 Array::UnaryFuncPack Array::unaryFuncPack_Neg =				{ "neg",			"-",			};
 Array::BinaryFuncPack Array::binaryFuncPack_Add =			{ "add",			"+",	true	};
@@ -1191,5 +1185,30 @@ Array::UnaryFuncPack Array::unaryFuncPack_Math_sqrt =		{ "math.sqrt",		"",				};
 Array::UnaryFuncPack Array::unaryFuncPack_Math_tan =		{ "math.tan",		"",				};
 Array::UnaryFuncPack Array::unaryFuncPack_Math_tanh =		{ "math.tanh",		"",				};
 Array::UnaryFuncPack Array::unaryFuncPack_Math_unitstep =	{ "math.unitstep",	"",				};
+
+//-----------------------------------------------------------------------------
+// Function Table
+//-----------------------------------------------------------------------------
+Array::InvertFuncTable Array::invertFuncTable = {
+	{
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr,
+		&InvertFuncTmpl<Half>,
+		&InvertFuncTmpl<Float>,
+		&InvertFuncTmpl<Double>,
+		&InvertFuncTmpl<Complex>,
+		nullptr,
+	}
+};
+
+Array::MaxPoolFilterFuncTable Array::maxPoolFilterFuncTable = {{nullptr}};
 
 }
