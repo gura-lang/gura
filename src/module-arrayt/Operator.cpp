@@ -1654,6 +1654,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 
 Filter_MaxPool::FilterFuncTable g_maxPoolFilterFuncTable = {
 	{
+		nullptr,
 		&MaxPoolFilterFuncTmpl<Boolean>,
 		&MaxPoolFilterFuncTmpl<Int8>,
 		&MaxPoolFilterFuncTmpl<UInt8>,
