@@ -81,6 +81,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_directory;
 GURA_DLLDECLARE extern ValueType VTYPE_environment;
 GURA_DLLDECLARE extern ValueType VTYPE_error;
 GURA_DLLDECLARE extern ValueType VTYPE_expr;
+GURA_DLLDECLARE extern ValueType VTYPE_filter_at_maxpool;
 GURA_DLLDECLARE extern ValueType VTYPE_formatter;
 GURA_DLLDECLARE extern ValueType VTYPE_function;
 GURA_DLLDECLARE extern ValueType VTYPE_help;
@@ -193,6 +194,7 @@ public:
 	Gura_DeclareVTYPE(environment);
 	Gura_DeclareVTYPE(error);
 	Gura_DeclareVTYPE(expr);
+	Gura_DeclareVTYPE(filter_at_maxpool);
 	Gura_DeclareVTYPE(formatter);
 	Gura_DeclareVTYPE(function);
 	Gura_DeclareVTYPE(help);

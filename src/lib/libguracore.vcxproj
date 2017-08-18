@@ -213,6 +213,7 @@
     <ClCompile Include="Class_environment.cpp" />
     <ClCompile Include="Class_error.cpp" />
     <ClCompile Include="Class_expr.cpp" />
+    <ClCompile Include="Class_filter_at_maxpool.cpp" />
     <ClCompile Include="Class_formatter.cpp" />
     <ClCompile Include="Class_function.cpp" />
     <ClCompile Include="Class_help.cpp" />
@@ -252,6 +253,7 @@
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Expr.cpp" />
+    <ClCompile Include="Filter.cpp" />
     <ClCompile Include="Formatter.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="FunctionCustom.cpp" />
@@ -349,6 +351,7 @@
     <ClInclude Include="..\..\include\gura\Class_environment.h" />
     <ClInclude Include="..\..\include\gura\Class_error.h" />
     <ClInclude Include="..\..\include\gura\Class_expr.h" />
+    <ClInclude Include="..\..\include\gura\Class_filter_at_maxpool.h" />
     <ClInclude Include="..\..\include\gura\Class_formatter.h" />
     <ClInclude Include="..\..\include\gura\Class_function.h" />
     <ClInclude Include="..\..\include\gura\Class_help.h" />
@@ -386,6 +389,7 @@
     <ClInclude Include="..\..\include\gura\Environment.h" />
     <ClInclude Include="..\..\include\gura\Error.h" />
     <ClInclude Include="..\..\include\gura\Expr.h" />
+    <ClInclude Include="..\..\include\gura\Filter.h" />
     <ClInclude Include="..\..\include\gura\Formatter.h" />
     <ClInclude Include="..\..\include\gura\Function.h" />
     <ClInclude Include="..\..\include\gura\Fundamental.h" />

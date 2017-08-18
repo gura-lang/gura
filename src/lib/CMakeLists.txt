@@ -29,6 +29,7 @@ Class_directory.cpp
 Class_environment.cpp
 Class_error.cpp
 Class_expr.cpp
+Class_filter_at_maxpool.cpp
 Class_formatter.cpp
 Class_function.cpp
 Class_help.cpp
@@ -67,6 +68,7 @@ Directory.cpp
 Error.cpp
 Environment.cpp
 Expr.cpp
+Filter.cpp
 Formatter.cpp
 Function.cpp
 FunctionCustom.cpp

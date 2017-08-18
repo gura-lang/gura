@@ -80,6 +80,7 @@ environment:class = <class:environment>
 error:class = <class:error>
 expr:class = <class:expr(src:stream:r):map {block?}>
 false:boolean = false
+filter@maxpool:class = <class:filter@maxpool():map {block?}>
 finally():finalizer:trailer {block}
 for (`expr+) {block}
 format(format:string, values*):map
@@ -684,6 +685,7 @@ expr
   expr#tofunction(`args*)
   expr#unquote()
   expr#write(dst:stream:w, style?:symbol, indent?:string)
+filter@maxpool
 formatter
   formatter#getminwidth()
   formatter#getpadding()

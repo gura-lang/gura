@@ -240,6 +240,7 @@ public:
 	inline bool Is_environment() const		{ return IsType(VTYPE_environment);				}
 	inline bool Is_error() const			{ return IsType(VTYPE_error);					}
 	inline bool Is_expr() const				{ return IsType(VTYPE_expr);					}
+	inline bool Is_filter_at_maxpool() const{ return IsType(VTYPE_filter_at_maxpool);		}
 	inline bool Is_formatter() const		{ return IsType(VTYPE_formatter);				}
 	inline bool Is_function() const			{ return IsType(VTYPE_function);				}
 	inline bool Is_help() const				{ return IsType(VTYPE_help);					}
@@ -346,6 +347,8 @@ public:
 								{ return MustBe(sig, Is_error(), 		"error");			}
 	inline bool MustBe_expr(Signal &sig) const
 								{ return MustBe(sig, Is_expr(), 		"expr");			}
+	inline bool MustBe_filter_at_maxpool(Signal &sig) const
+								{ return MustBe(sig, Is_monitor(), 		"filter@maxpool");	}
 	inline bool MustBe_formatter(Signal &sig) const
 								{ return MustBe(sig, Is_formatter(), 	"formatter");		}
 	inline bool MustBe_function(Signal &sig) const
