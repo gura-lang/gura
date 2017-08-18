@@ -10,6 +10,8 @@
 
 namespace Gura {
 
+class Filter_MaxPool;
+	
 //-----------------------------------------------------------------------------
 // Array
 //-----------------------------------------------------------------------------
@@ -34,26 +36,26 @@ public:
 		ETYPE_Max,
 	};
 public:
-	typedef Array *(*UnaryFunc)(Signal &sig, Array *pArrayResult, const Array *pArray);
-	typedef Array *(*InvertFunc)(Signal &sig, Array *pArrayResult, const Array *pArray, Double epsilon);
-	typedef Array *(*BinaryFunc_array_array)(Signal &sig, Array *pArrayResult,
+	typedef Array *(*UnaryFuncT)(Signal &sig, Array *pArrayResult, const Array *pArray);
+	typedef Array *(*BinaryFuncT_array_array)(Signal &sig, Array *pArrayResult,
 											 const Array *pArrayL, const Array *pArrayR);
-	typedef Array *(*BinaryFunc_array_number)(Signal &sig, Array *pArrayResult,
+	typedef Array *(*BinaryFuncT_array_number)(Signal &sig, Array *pArrayResult,
 											  const Array *pArrayL, Double numberR);
-	typedef Array *(*BinaryFunc_number_array)(Signal &sig, Array *pArrayResult,
+	typedef Array *(*BinaryFuncT_number_array)(Signal &sig, Array *pArrayResult,
 											  Double numberL, const Array *pArrayR);
-	typedef Array *(*BinaryFunc_array_complex)(Signal &sig, Array *pArrayResult,
+	typedef Array *(*BinaryFuncT_array_complex)(Signal &sig, Array *pArrayResult,
 											   const Array *pArrayL, const Complex &complexR);
-	typedef Array *(*BinaryFunc_complex_array)(Signal &sig, Array *pArrayResult,
+	typedef Array *(*BinaryFuncT_complex_array)(Signal &sig, Array *pArrayResult,
 											   const Complex &complexL, const Array *pArrayR);
-	typedef Array *(*BinaryFunc_number_number)(Signal &sig, Array *pArrayResult,
+	typedef Array *(*BinaryFuncT_number_number)(Signal &sig, Array *pArrayResult,
 											   Double numberL, Double numberR);
-	typedef Array *(*BinaryFunc_complex_complex)(Signal &sig, Array *pArrayResult,
+	typedef Array *(*BinaryFuncT_complex_complex)(Signal &sig, Array *pArrayResult,
 												 const Complex &complexL, const Complex &complexR);
-	typedef Value (*DotFunc)(Environment &env, Array *pArrayResult,
-							 const Array *pArrayL, const Array *pArrayR);
+	typedef Array *(*InvertFuncT)(Signal &sig, Array *pArrayResult, const Array *pArray, Double epsilon);
+	typedef Array *(*MaxPoolFilterFuncT)(Signal &sig, Array *pArrayResult,
+										 const Array *pArray, const Filter_MaxPool &filter);
 	struct UnaryFuncTable {
-		UnaryFunc unaryFuncs[ETYPE_Max];
+		UnaryFuncT unaryFuncs[ETYPE_Max];
 	};
 	struct UnaryFuncPack {
 		const char *name;
@@ -61,13 +63,13 @@ public:
 		UnaryFuncTable table;
 	};
 	struct BinaryFuncTable {
-		BinaryFunc_array_array binaryFuncs_array_array[ETYPE_Max][ETYPE_Max];
-		BinaryFunc_array_number binaryFuncs_array_number[ETYPE_Max];
-		BinaryFunc_number_array binaryFuncs_number_array[ETYPE_Max];
-		BinaryFunc_array_complex binaryFuncs_array_complex[ETYPE_Max];
-		BinaryFunc_complex_array binaryFuncs_complex_array[ETYPE_Max];
-		BinaryFunc_number_number binaryFunc_number_number;
-		BinaryFunc_complex_complex binaryFunc_complex_complex;
+		BinaryFuncT_array_array binaryFuncs_array_array[ETYPE_Max][ETYPE_Max];
+		BinaryFuncT_array_number binaryFuncs_array_number[ETYPE_Max];
+		BinaryFuncT_number_array binaryFuncs_number_array[ETYPE_Max];
+		BinaryFuncT_array_complex binaryFuncs_array_complex[ETYPE_Max];
+		BinaryFuncT_complex_array binaryFuncs_complex_array[ETYPE_Max];
+		BinaryFuncT_number_number binaryFunc_number_number;
+		BinaryFuncT_complex_complex binaryFunc_complex_complex;
 	};
 	struct BinaryFuncPack {
 		const char *name;
@@ -122,6 +124,7 @@ public:
 	static UnaryFuncPack unaryFuncPack_Math_tan;
 	static UnaryFuncPack unaryFuncPack_Math_tanh;
 	static UnaryFuncPack unaryFuncPack_Math_unitstep;
+	static InvertFuncT invertFuncs[ETYPE_Max];
 public:
 	class GURA_DLLDECLARE Dimension {
 	private:
@@ -200,8 +203,6 @@ protected:
 	size_t _offsetBase;
 	size_t _elemNum;
 	static MapToElemType _mapToElemType;
-public:
-	static InvertFunc invertFuncs[ETYPE_Max];
 public:
 	Gura_DeclareReferenceAccessor(Array);
 protected:
@@ -307,9 +308,9 @@ public:
 		Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Complex &complexL, const Array *pArrayR);
 	static Value ApplyBinaryFuncOnValue_complex_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
+	static Array *ApplyInvertFunc(
+		Signal &sig, Array *pArrayResult, const Array *pArray, Double epsilon);
 	static void SetError_UnacceptableValueAsElement(Environment &env, const Value &value);
-public:
-	static Array *Invert(Signal &sig, Array *pArrayResult, const Array *pArray, Double epsilon);
 };
 	
 //-----------------------------------------------------------------------------

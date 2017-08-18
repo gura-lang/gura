@@ -249,7 +249,7 @@ Gura_ImplementBinaryOperator(Dot, complex, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Filter, array, filter_at_maxpool)
 {
-	//return Array::ApplyFilterOnValue_MaxPool(valueLeft, valueRight);
+	//return Array::ApplyMaxPoolFilterOnValue(valueLeft, valueRight);
 	return Value::Nil;
 }
 

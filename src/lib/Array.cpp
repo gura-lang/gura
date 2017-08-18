@@ -597,7 +597,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 
 Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, Array *pArrayResult, const Array *pArray)
 {
-	UnaryFunc unaryFunc = pack.table.unaryFuncs[pArray->GetElemType()];
+	UnaryFuncT unaryFunc = pack.table.unaryFuncs[pArray->GetElemType()];
 	if (unaryFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
@@ -654,7 +654,7 @@ Array *Array::ApplyBinaryFunc_array_array(
 	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, const Array *pArrayR)
 {
 	if (pack.elemwiseFlag && !CheckElemwiseCalculatable(sig, pack, pArrayL, pArrayR)) return nullptr;
-	BinaryFunc_array_array binaryFunc_array_array =
+	BinaryFuncT_array_array binaryFunc_array_array =
 		pack.table.binaryFuncs_array_array[pArrayL->GetElemType()][pArrayR->GetElemType()];
 	if (binaryFunc_array_array == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
@@ -677,7 +677,7 @@ Value Array::ApplyBinaryFuncOnValue_array_array(
 Array *Array::ApplyBinaryFunc_array_number(
 	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, Double numberR)
 {
-	BinaryFunc_array_number binaryFunc_array_number =
+	BinaryFuncT_array_number binaryFunc_array_number =
 		pack.table.binaryFuncs_array_number[pArrayL->GetElemType()];
 	if (binaryFunc_array_number == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
@@ -699,7 +699,7 @@ Value Array::ApplyBinaryFuncOnValue_array_number(
 Array *Array::ApplyBinaryFunc_number_array(
 	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, Double numberL, const Array *pArrayR)
 {
-	BinaryFunc_number_array binaryFunc_number_array =
+	BinaryFuncT_number_array binaryFunc_number_array =
 		pack.table.binaryFuncs_number_array[pArrayR->GetElemType()];
 	if (binaryFunc_number_array == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
@@ -721,7 +721,7 @@ Value Array::ApplyBinaryFuncOnValue_number_array(
 Array *Array::ApplyBinaryFunc_array_complex(
 	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Array *pArrayL, const Complex &complexR)
 {
-	BinaryFunc_array_complex binaryFunc_array_complex =
+	BinaryFuncT_array_complex binaryFunc_array_complex =
 		pack.table.binaryFuncs_array_complex[pArrayL->GetElemType()];
 	if (binaryFunc_array_complex == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
@@ -743,7 +743,7 @@ Value Array::ApplyBinaryFuncOnValue_array_complex(
 Array *Array::ApplyBinaryFunc_complex_array(
 	Signal &sig, const BinaryFuncPack &pack, Array *pArrayResult, const Complex &complexL, const Array *pArrayR)
 {
-	BinaryFunc_complex_array binaryFunc_complex_array =
+	BinaryFuncT_complex_array binaryFunc_complex_array =
 		pack.table.binaryFuncs_complex_array[pArrayR->GetElemType()];
 	if (binaryFunc_complex_array == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
@@ -762,20 +762,20 @@ Value Array::ApplyBinaryFuncOnValue_complex_array(
 	return ToValue(env, pArray);
 }
 
-void Array::SetError_UnacceptableValueAsElement(Environment &env, const Value &value)
+Array *Array::ApplyInvertFunc(Signal &sig, Array *pArrayResult, const Array *pArray, Double epsilon)
 {
-	env.SetError(ERR_ValueError, "value of %s can not be stored in array",
-				 value.MakeValueTypeName().c_str());
-}
-
-Array *Array::Invert(Signal &sig, Array *pArrayResult, const Array *pArray, Double epsilon)
-{
-	InvertFunc invertFunc = invertFuncs[pArray->GetElemType()];
+	InvertFuncT invertFunc = invertFuncs[pArray->GetElemType()];
 	if (invertFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply invert function on this array");
 		return nullptr;
 	}
 	return (*invertFunc)(sig, pArrayResult, pArray, epsilon);
+}
+
+void Array::SetError_UnacceptableValueAsElement(Environment &env, const Value &value)
+{
+	env.SetError(ERR_ValueError, "value of %s can not be stored in array",
+				 value.MakeValueTypeName().c_str());
 }
 
 //-----------------------------------------------------------------------------
@@ -1128,7 +1128,7 @@ void ArrayOwner::Clear()
 //-----------------------------------------------------------------------------
 // Function Pack
 //-----------------------------------------------------------------------------
-Array::InvertFunc Array::invertFuncs[ETYPE_Max] = {
+Array::InvertFuncT Array::invertFuncs[ETYPE_Max] = {
 	nullptr,
 	nullptr,
 	nullptr,
