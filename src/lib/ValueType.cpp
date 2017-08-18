@@ -9,71 +9,71 @@ namespace Gura {
 // Built-in Value Types
 //-----------------------------------------------------------------------------
 // invalid types
-ValueType VTYPE_undefined		= static_cast<ValueType>(0);	// dumb copiable
-ValueType VTYPE_nil				= static_cast<ValueType>(1);	// dumb copiable
+ValueType VTYPE_undefined				= static_cast<ValueType>(0);	// dumb copiable
+ValueType VTYPE_nil						= static_cast<ValueType>(1);	// dumb copiable
 // pseudo types
-ValueType VTYPE_quote			= static_cast<ValueType>(2);	// dumb copiable
-ValueType VTYPE_any				= static_cast<ValueType>(3);	// dumb copiable
+ValueType VTYPE_quote					= static_cast<ValueType>(2);	// dumb copiable
+ValueType VTYPE_any						= static_cast<ValueType>(3);	// dumb copiable
 // primitive types
-ValueType VTYPE_boolean			= static_cast<ValueType>(4);	// dumb copiable
-ValueType VTYPE_number			= static_cast<ValueType>(5);	// dumb copiable
-ValueType VTYPE_symbol			= static_cast<ValueType>(6);	// dumb copiable
-ValueType VTYPE_string			= static_cast<ValueType>(7);
-ValueType VTYPE_complex			= static_cast<ValueType>(8);
-ValueType VTYPE_rational		= static_cast<ValueType>(9);
+ValueType VTYPE_boolean					= static_cast<ValueType>(4);	// dumb copiable
+ValueType VTYPE_number					= static_cast<ValueType>(5);	// dumb copiable
+ValueType VTYPE_symbol					= static_cast<ValueType>(6);	// dumb copiable
+ValueType VTYPE_string					= static_cast<ValueType>(7);
+ValueType VTYPE_complex					= static_cast<ValueType>(8);
+ValueType VTYPE_rational				= static_cast<ValueType>(9);
 // container types
-ValueType VTYPE_Module			= static_cast<ValueType>(0);
-ValueType VTYPE_Class			= static_cast<ValueType>(0);
-ValueType VTYPE_Struct			= static_cast<ValueType>(0);
+ValueType VTYPE_Module					= static_cast<ValueType>(0);
+ValueType VTYPE_Class					= static_cast<ValueType>(0);
+ValueType VTYPE_Struct					= static_cast<ValueType>(0);
 // object types
-ValueType VTYPE_object			= static_cast<ValueType>(0);
-ValueType VTYPE_argument		= static_cast<ValueType>(0);
-ValueType VTYPE_array			= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_boolean= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_int8	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_uint8	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_int16	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_uint16	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_int32	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_uint32	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_int64	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_uint64	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_half	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_float	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_double	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_complex= static_cast<ValueType>(0);
-ValueType VTYPE_audio			= static_cast<ValueType>(0);
-ValueType VTYPE_binary			= static_cast<ValueType>(0);
-ValueType VTYPE_codec			= static_cast<ValueType>(0);
-ValueType VTYPE_color			= static_cast<ValueType>(0);
-ValueType VTYPE_datetime		= static_cast<ValueType>(0);
-ValueType VTYPE_declaration		= static_cast<ValueType>(0);
-ValueType VTYPE_dict			= static_cast<ValueType>(0);
-ValueType VTYPE_directory		= static_cast<ValueType>(0);
-ValueType VTYPE_environment		= static_cast<ValueType>(0);
-ValueType VTYPE_error			= static_cast<ValueType>(0);
-ValueType VTYPE_expr			= static_cast<ValueType>(0);
-ValueType VTYPE_filter_at_maxpool = static_cast<ValueType>(0);
-ValueType VTYPE_formatter		= static_cast<ValueType>(0);
-ValueType VTYPE_function		= static_cast<ValueType>(0);
-ValueType VTYPE_help			= static_cast<ValueType>(0);
-ValueType VTYPE_image			= static_cast<ValueType>(0);
-ValueType VTYPE_iterator		= static_cast<ValueType>(0);
-ValueType VTYPE_list			= static_cast<ValueType>(0);
-ValueType VTYPE_memory			= static_cast<ValueType>(0);
-ValueType VTYPE_monitor			= static_cast<ValueType>(0);
-ValueType VTYPE_operator		= static_cast<ValueType>(0);
-ValueType VTYPE_palette			= static_cast<ValueType>(0);
-ValueType VTYPE_pointer			= static_cast<ValueType>(0);
-ValueType VTYPE_propdeclaration	= static_cast<ValueType>(0);
-ValueType VTYPE_semaphore		= static_cast<ValueType>(0);
-ValueType VTYPE_stream			= static_cast<ValueType>(0);
-ValueType VTYPE_suffixmgr		= static_cast<ValueType>(0);
-ValueType VTYPE_template		= static_cast<ValueType>(0);
-ValueType VTYPE_timedelta		= static_cast<ValueType>(0);
-ValueType VTYPE_token			= static_cast<ValueType>(0);
-ValueType VTYPE_uri				= static_cast<ValueType>(0);
-ValueType VTYPE_vertex			= static_cast<ValueType>(0);
+ValueType VTYPE_object					= static_cast<ValueType>(0);
+ValueType VTYPE_argument				= static_cast<ValueType>(0);
+ValueType VTYPE_array					= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_boolean		= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_int8			= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_uint8			= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_int16			= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_uint16			= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_int32			= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_uint32			= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_int64			= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_uint64			= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_half			= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_float			= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_double			= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_complex		= static_cast<ValueType>(0);
+ValueType VTYPE_audio					= static_cast<ValueType>(0);
+ValueType VTYPE_binary					= static_cast<ValueType>(0);
+ValueType VTYPE_codec					= static_cast<ValueType>(0);
+ValueType VTYPE_color					= static_cast<ValueType>(0);
+ValueType VTYPE_datetime				= static_cast<ValueType>(0);
+ValueType VTYPE_declaration				= static_cast<ValueType>(0);
+ValueType VTYPE_dict					= static_cast<ValueType>(0);
+ValueType VTYPE_directory				= static_cast<ValueType>(0);
+ValueType VTYPE_environment				= static_cast<ValueType>(0);
+ValueType VTYPE_error					= static_cast<ValueType>(0);
+ValueType VTYPE_expr					= static_cast<ValueType>(0);
+ValueType VTYPE_filter_at_maxpool		= static_cast<ValueType>(0);
+ValueType VTYPE_formatter				= static_cast<ValueType>(0);
+ValueType VTYPE_function				= static_cast<ValueType>(0);
+ValueType VTYPE_help					= static_cast<ValueType>(0);
+ValueType VTYPE_image					= static_cast<ValueType>(0);
+ValueType VTYPE_iterator				= static_cast<ValueType>(0);
+ValueType VTYPE_list					= static_cast<ValueType>(0);
+ValueType VTYPE_memory					= static_cast<ValueType>(0);
+ValueType VTYPE_monitor					= static_cast<ValueType>(0);
+ValueType VTYPE_operator				= static_cast<ValueType>(0);
+ValueType VTYPE_palette					= static_cast<ValueType>(0);
+ValueType VTYPE_pointer					= static_cast<ValueType>(0);
+ValueType VTYPE_propdeclaration			= static_cast<ValueType>(0);
+ValueType VTYPE_semaphore				= static_cast<ValueType>(0);
+ValueType VTYPE_stream					= static_cast<ValueType>(0);
+ValueType VTYPE_suffixmgr				= static_cast<ValueType>(0);
+ValueType VTYPE_template				= static_cast<ValueType>(0);
+ValueType VTYPE_timedelta				= static_cast<ValueType>(0);
+ValueType VTYPE_token					= static_cast<ValueType>(0);
+ValueType VTYPE_uri						= static_cast<ValueType>(0);
+ValueType VTYPE_vertex					= static_cast<ValueType>(0);
 
 //-----------------------------------------------------------------------------
 // ValueTypeInfo
@@ -153,39 +153,39 @@ void ValueTypePool::_Bootup(Environment &env)
 	// - Value::IsFundamental()
 	// - Value::IsObject()
 	// invalid types
-	Gura_RealizeVTYPE(undefined);							// must be at 1st
-	Gura_RealizeVTYPE(nil);									// must be at 2nd
+	Gura_RealizeVTYPE(undefined);								// must be at 1st
+	Gura_RealizeVTYPE(nil);										// must be at 2nd
 	// pseudo types
-	Gura_RealizeVTYPE(quote);								// must be at 3rd
-	Gura_RealizeVTYPE(any);									// must be at 4th
+	Gura_RealizeVTYPE(quote);									// must be at 3rd
+	Gura_RealizeVTYPE(any);										// must be at 4th
 	// primitive types
-	Gura_RealizeVTYPE(boolean);								// must be at 5th
-	Gura_RealizeVTYPE(number);								// must be at 6th
-	Gura_RealizeVTYPE(symbol);								// must be at 7th
-	Gura_RealizeVTYPE(string);								// must be at 8th
-	Gura_RealizeVTYPE(complex);								// must be at 9th
-	Gura_RealizeVTYPE(rational);							// must be at 10th
+	Gura_RealizeVTYPE(boolean);									// must be at 5th
+	Gura_RealizeVTYPE(number);									// must be at 6th
+	Gura_RealizeVTYPE(symbol);									// must be at 7th
+	Gura_RealizeVTYPE(string);									// must be at 8th
+	Gura_RealizeVTYPE(complex);									// must be at 9th
+	Gura_RealizeVTYPE(rational);								// must be at 10th
 	// container types
-	Gura_RealizeVTYPEAlias(Module,			"module");		// must be at 11th
-	Gura_RealizeVTYPEAlias(Class,			"class");		// must be at 12th
+	Gura_RealizeVTYPEAlias(Module,					"module");	// must be at 11th
+	Gura_RealizeVTYPEAlias(Class,					"class");	// must be at 12th
 	// object types
-	Gura_RealizeVTYPE(object);								// must be at 13th
-	Gura_RealizeVTYPEAlias(Struct,			"struct");
+	Gura_RealizeVTYPE(object);									// must be at 13th
+	Gura_RealizeVTYPEAlias(Struct,					"struct");
 	Gura_RealizeVTYPE(argument);
 	Gura_RealizeVTYPE(array);
-	Gura_RealizeVTYPEAlias(array_at_boolean,"array@boolean");
-	Gura_RealizeVTYPEAlias(array_at_int8,	"array@int8");
-	Gura_RealizeVTYPEAlias(array_at_uint8,	"array@uint8");
-	Gura_RealizeVTYPEAlias(array_at_int16,	"array@int16");
-	Gura_RealizeVTYPEAlias(array_at_uint16,	"array@uint16");
-	Gura_RealizeVTYPEAlias(array_at_int32,	"array@int32");
-	Gura_RealizeVTYPEAlias(array_at_uint32,	"array@uint32");
-	Gura_RealizeVTYPEAlias(array_at_int64,	"array@int64");
-	Gura_RealizeVTYPEAlias(array_at_uint64,	"array@uint64");
-	Gura_RealizeVTYPEAlias(array_at_half,	"array@half");
-	Gura_RealizeVTYPEAlias(array_at_float,	"array@float");
-   	Gura_RealizeVTYPEAlias(array_at_double,	"array@double");
-   	Gura_RealizeVTYPEAlias(array_at_complex,"array@complex");
+	Gura_RealizeVTYPEAlias(array_at_boolean,		"array@boolean");
+	Gura_RealizeVTYPEAlias(array_at_int8,			"array@int8");
+	Gura_RealizeVTYPEAlias(array_at_uint8,			"array@uint8");
+	Gura_RealizeVTYPEAlias(array_at_int16,			"array@int16");
+	Gura_RealizeVTYPEAlias(array_at_uint16,			"array@uint16");
+	Gura_RealizeVTYPEAlias(array_at_int32,			"array@int32");
+	Gura_RealizeVTYPEAlias(array_at_uint32,			"array@uint32");
+	Gura_RealizeVTYPEAlias(array_at_int64,			"array@int64");
+	Gura_RealizeVTYPEAlias(array_at_uint64,			"array@uint64");
+	Gura_RealizeVTYPEAlias(array_at_half,			"array@half");
+	Gura_RealizeVTYPEAlias(array_at_float,			"array@float");
+	Gura_RealizeVTYPEAlias(array_at_double,			"array@double");
+	Gura_RealizeVTYPEAlias(array_at_complex,		"array@complex");
 	Gura_RealizeVTYPE(audio);
 	Gura_RealizeVTYPE(binary);
 	Gura_RealizeVTYPE(codec);
@@ -197,7 +197,7 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_RealizeVTYPE(environment);
 	Gura_RealizeVTYPE(error);
 	Gura_RealizeVTYPE(expr);
-	Gura_RealizeVTYPEAlias(filter_at_maxpool, "filter@maxpool");
+	Gura_RealizeVTYPEAlias(filter_at_maxpool,		"filter@maxpool");
 	Gura_RealizeVTYPE(formatter);
 	Gura_RealizeVTYPE(function);
 	Gura_RealizeVTYPE(help);
@@ -306,72 +306,72 @@ void ValueTypePool::_Bootup(Environment &env)
 
 void ValueTypePool::DoPrepareClass(Environment &env)
 {
-	env.LookupClass(VTYPE_object		)->Prepare(env);
+	env.LookupClass(VTYPE_object				)->Prepare(env);
 	// invalid types
-	env.LookupClass(VTYPE_undefined		)->Prepare(env);
-	env.LookupClass(VTYPE_nil			)->Prepare(env);
+	env.LookupClass(VTYPE_undefined				)->Prepare(env);
+	env.LookupClass(VTYPE_nil					)->Prepare(env);
 	// pseudo types
-	env.LookupClass(VTYPE_quote			)->Prepare(env);
-	env.LookupClass(VTYPE_any			)->Prepare(env);
+	env.LookupClass(VTYPE_quote					)->Prepare(env);
+	env.LookupClass(VTYPE_any					)->Prepare(env);
 	// primitive types
-	env.LookupClass(VTYPE_boolean		)->Prepare(env);
-	env.LookupClass(VTYPE_number		)->Prepare(env);
-	env.LookupClass(VTYPE_symbol		)->Prepare(env);
-	env.LookupClass(VTYPE_string		)->Prepare(env);
-	env.LookupClass(VTYPE_complex		)->Prepare(env);
-	env.LookupClass(VTYPE_rational		)->Prepare(env);
+	env.LookupClass(VTYPE_boolean				)->Prepare(env);
+	env.LookupClass(VTYPE_number				)->Prepare(env);
+	env.LookupClass(VTYPE_symbol				)->Prepare(env);
+	env.LookupClass(VTYPE_string				)->Prepare(env);
+	env.LookupClass(VTYPE_complex				)->Prepare(env);
+	env.LookupClass(VTYPE_rational				)->Prepare(env);
 	// container types
-	env.LookupClass(VTYPE_Module		)->Prepare(env);
-	env.LookupClass(VTYPE_Class			)->Prepare(env);
-	env.LookupClass(VTYPE_Struct		)->Prepare(env);
+	env.LookupClass(VTYPE_Module				)->Prepare(env);
+	env.LookupClass(VTYPE_Class					)->Prepare(env);
+	env.LookupClass(VTYPE_Struct				)->Prepare(env);
 	// object types
-	env.LookupClass(VTYPE_argument		)->Prepare(env);
-	env.LookupClass(VTYPE_array			)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_boolean)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_int8	)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_uint8)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_int16)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_uint16)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_int32)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_uint32)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_int64)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_uint64)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_half)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_float)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_double)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_complex)->Prepare(env);
-	env.LookupClass(VTYPE_audio			)->Prepare(env);
-	env.LookupClass(VTYPE_binary		)->Prepare(env);
-	env.LookupClass(VTYPE_codec			)->Prepare(env);
-	env.LookupClass(VTYPE_color			)->Prepare(env);
-	env.LookupClass(VTYPE_datetime		)->Prepare(env);
-	env.LookupClass(VTYPE_declaration	)->Prepare(env);
-	env.LookupClass(VTYPE_dict			)->Prepare(env);
-	env.LookupClass(VTYPE_directory		)->Prepare(env);
-	env.LookupClass(VTYPE_environment	)->Prepare(env);
-	env.LookupClass(VTYPE_error			)->Prepare(env);
-	env.LookupClass(VTYPE_expr			)->Prepare(env);
-	env.LookupClass(VTYPE_filter_at_maxpool)->Prepare(env);
-	env.LookupClass(VTYPE_formatter		)->Prepare(env);
-	env.LookupClass(VTYPE_function		)->Prepare(env);
-	env.LookupClass(VTYPE_help			)->Prepare(env);
-	env.LookupClass(VTYPE_image			)->Prepare(env);
-	env.LookupClass(VTYPE_iterator		)->Prepare(env);
-	env.LookupClass(VTYPE_list			)->Prepare(env);
-	env.LookupClass(VTYPE_memory		)->Prepare(env);
-	env.LookupClass(VTYPE_monitor		)->Prepare(env);
-	env.LookupClass(VTYPE_operator		)->Prepare(env);
-	env.LookupClass(VTYPE_palette		)->Prepare(env);
-	env.LookupClass(VTYPE_pointer		)->Prepare(env);
-	env.LookupClass(VTYPE_propdeclaration)->Prepare(env);
-	env.LookupClass(VTYPE_semaphore		)->Prepare(env);
-	env.LookupClass(VTYPE_stream		)->Prepare(env);
-	env.LookupClass(VTYPE_suffixmgr		)->Prepare(env);
-	env.LookupClass(VTYPE_template		)->Prepare(env);
-	env.LookupClass(VTYPE_timedelta		)->Prepare(env);
-	env.LookupClass(VTYPE_token			)->Prepare(env);
-	env.LookupClass(VTYPE_uri			)->Prepare(env);
-	env.LookupClass(VTYPE_vertex		)->Prepare(env);
+	env.LookupClass(VTYPE_argument				)->Prepare(env);
+	env.LookupClass(VTYPE_array					)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_boolean		)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_int8			)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_uint8		)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_int16		)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_uint16		)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_int32		)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_uint32		)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_int64		)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_uint64		)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_half			)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_float		)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_double		)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_complex		)->Prepare(env);
+	env.LookupClass(VTYPE_audio					)->Prepare(env);
+	env.LookupClass(VTYPE_binary				)->Prepare(env);
+	env.LookupClass(VTYPE_codec					)->Prepare(env);
+	env.LookupClass(VTYPE_color					)->Prepare(env);
+	env.LookupClass(VTYPE_datetime				)->Prepare(env);
+	env.LookupClass(VTYPE_declaration			)->Prepare(env);
+	env.LookupClass(VTYPE_dict					)->Prepare(env);
+	env.LookupClass(VTYPE_directory				)->Prepare(env);
+	env.LookupClass(VTYPE_environment			)->Prepare(env);
+	env.LookupClass(VTYPE_error					)->Prepare(env);
+	env.LookupClass(VTYPE_expr					)->Prepare(env);
+	env.LookupClass(VTYPE_filter_at_maxpool		)->Prepare(env);
+	env.LookupClass(VTYPE_formatter				)->Prepare(env);
+	env.LookupClass(VTYPE_function				)->Prepare(env);
+	env.LookupClass(VTYPE_help					)->Prepare(env);
+	env.LookupClass(VTYPE_image					)->Prepare(env);
+	env.LookupClass(VTYPE_iterator				)->Prepare(env);
+	env.LookupClass(VTYPE_list					)->Prepare(env);
+	env.LookupClass(VTYPE_memory				)->Prepare(env);
+	env.LookupClass(VTYPE_monitor				)->Prepare(env);
+	env.LookupClass(VTYPE_operator				)->Prepare(env);
+	env.LookupClass(VTYPE_palette				)->Prepare(env);
+	env.LookupClass(VTYPE_pointer				)->Prepare(env);
+	env.LookupClass(VTYPE_propdeclaration		)->Prepare(env);
+	env.LookupClass(VTYPE_semaphore				)->Prepare(env);
+	env.LookupClass(VTYPE_stream				)->Prepare(env);
+	env.LookupClass(VTYPE_suffixmgr				)->Prepare(env);
+	env.LookupClass(VTYPE_template				)->Prepare(env);
+	env.LookupClass(VTYPE_timedelta				)->Prepare(env);
+	env.LookupClass(VTYPE_token					)->Prepare(env);
+	env.LookupClass(VTYPE_uri					)->Prepare(env);
+	env.LookupClass(VTYPE_vertex				)->Prepare(env);
 }
 
 ValueTypeInfo *ValueTypePool::Add(const Symbol *pSymbol)
