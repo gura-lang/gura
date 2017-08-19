@@ -73,7 +73,9 @@ ValueType VTYPE_timedelta				= static_cast<ValueType>(0);
 ValueType VTYPE_token					= static_cast<ValueType>(0);
 ValueType VTYPE_uri						= static_cast<ValueType>(0);
 ValueType VTYPE_vertex					= static_cast<ValueType>(0);
+ValueType VTYPE_filter_at_maxpool1d		= static_cast<ValueType>(0);
 ValueType VTYPE_filter_at_maxpool2d		= static_cast<ValueType>(0);
+ValueType VTYPE_filter_at_maxpool3d		= static_cast<ValueType>(0);
 
 //-----------------------------------------------------------------------------
 // ValueTypeInfo
@@ -217,7 +219,9 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_RealizeVTYPE(token);
 	Gura_RealizeVTYPE(uri);
 	Gura_RealizeVTYPE(vertex);
+	Gura_RealizeVTYPEAlias(filter_at_maxpool1d,		"filter@maxpool1d");
 	Gura_RealizeVTYPEAlias(filter_at_maxpool2d,		"filter@maxpool2d");
+	Gura_RealizeVTYPEAlias(filter_at_maxpool3d,		"filter@maxpool3d");
 	Class *pClass = new ClassFundamental(&env, VTYPE_object);
 	Gura_VTYPEInfo(object		)->SetClass(pClass);
 	// invalid types
@@ -300,7 +304,9 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_VTYPEInfo(token		)->SetClass(new Class_token(pClass));
 	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
 	Gura_VTYPEInfo(vertex		)->SetClass(new Class_vertex(pClass));
+	Gura_VTYPEInfo(filter_at_maxpool1d)->SetClass(new Class_filter_at_maxpool1d(pClass));
 	Gura_VTYPEInfo(filter_at_maxpool2d)->SetClass(new Class_filter_at_maxpool2d(pClass));
+	Gura_VTYPEInfo(filter_at_maxpool3d)->SetClass(new Class_filter_at_maxpool3d(pClass));
 	//pClass->Prepare(env); // methods of Object can only be initialized here
 }
 
@@ -371,7 +377,9 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_token					)->Prepare(env);
 	env.LookupClass(VTYPE_uri					)->Prepare(env);
 	env.LookupClass(VTYPE_vertex				)->Prepare(env);
+	env.LookupClass(VTYPE_filter_at_maxpool1d	)->Prepare(env);
 	env.LookupClass(VTYPE_filter_at_maxpool2d	)->Prepare(env);
+	env.LookupClass(VTYPE_filter_at_maxpool3d	)->Prepare(env);
 }
 
 ValueTypeInfo *ValueTypePool::Add(const Symbol *pSymbol)

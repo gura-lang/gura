@@ -1,0 +1,89 @@
+//=============================================================================
+// Gura class: filter@maxpool3d
+//=============================================================================
+#include "stdafx.h"
+
+namespace Gura {
+
+static const char *helpDoc_en = R"**(
+)**";
+
+//-----------------------------------------------------------------------------
+// Filter_MaxPool3d
+//-----------------------------------------------------------------------------
+Filter_MaxPool3d::FilterFuncTable Filter_MaxPool3d::filterFuncTable = {{nullptr}};
+
+Array *Filter_MaxPool3d::Apply(
+	Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool3d &filter)
+{
+	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
+	if (filterFunc == nullptr) {
+		sig.SetError(ERR_TypeError, "can't apply max pool filter on this array");
+		return nullptr;
+	}
+	return (*filterFunc)(sig, pArrayResult, pArray, filter);
+}
+
+//-----------------------------------------------------------------------------
+// Object_filter_at_maxpool3d
+//-----------------------------------------------------------------------------
+Object_filter_at_maxpool3d::Object_filter_at_maxpool3d(Environment &env) :
+	Object(env.LookupClass(VTYPE_filter_at_maxpool3d))
+{
+}
+
+Object *Object_filter_at_maxpool3d::Clone() const
+{
+	return nullptr;
+}
+	
+String Object_filter_at_maxpool3d::ToString(bool exprFlag)
+{
+	String str;
+	str += "<filter@maxpool3d:";
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of functions
+//-----------------------------------------------------------------------------
+// filter@maxpool3d():map {block?}
+Gura_DeclareFunctionAlias(filter_at_maxpool3d, "filter@maxpool3d")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_maxpool3d));
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates a `filter@maxpool3d` instance.\n");
+}
+
+Gura_ImplementFunction(filter_at_maxpool3d)
+{
+	Object_filter_at_maxpool3d *pObj = new Object_filter_at_maxpool3d(env);
+	return ReturnValue(env, arg, Value(pObj));
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of class
+//-----------------------------------------------------------------------------
+Class_filter_at_maxpool3d::Class_filter_at_maxpool3d(Environment *pEnvOuter) :
+	ClassFundamental(pEnvOuter, VTYPE_filter_at_maxpool3d)
+{
+}
+
+void Class_filter_at_maxpool3d::DoPrepare(Environment &env)
+{
+	// function assignment
+	Gura_AssignFunction(filter_at_maxpool3d);
+	// help document
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
+}
+
+Object *Class_filter_at_maxpool3d::CreateDescendant(Environment &env, Class *pClass)
+{
+	return nullptr;
+}
+
+}

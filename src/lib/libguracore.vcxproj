@@ -213,7 +213,6 @@
     <ClCompile Include="Class_environment.cpp" />
     <ClCompile Include="Class_error.cpp" />
     <ClCompile Include="Class_expr.cpp" />
-    <ClCompile Include="Class_filter_at_maxpool2d.cpp" />
     <ClCompile Include="Class_formatter.cpp" />
     <ClCompile Include="Class_function.cpp" />
     <ClCompile Include="Class_help.cpp" />
@@ -241,6 +240,9 @@
     <ClCompile Include="Class_undefined.cpp" />
     <ClCompile Include="Class_uri.cpp" />
     <ClCompile Include="Class_vertex.cpp" />
+    <ClCompile Include="Class_filter_at_maxpool1d.cpp" />
+    <ClCompile Include="Class_filter_at_maxpool2d.cpp" />
+    <ClCompile Include="Class_filter_at_maxpool3d.cpp" />
     <ClCompile Include="ClassCustom.cpp" />
     <ClCompile Include="Codec.cpp" />
     <ClCompile Include="Color.cpp" />
@@ -352,7 +354,6 @@
     <ClInclude Include="..\..\include\gura\Class_environment.h" />
     <ClInclude Include="..\..\include\gura\Class_error.h" />
     <ClInclude Include="..\..\include\gura\Class_expr.h" />
-    <ClInclude Include="..\..\include\gura\Class_filter_at_maxpool2d.h" />
     <ClInclude Include="..\..\include\gura\Class_formatter.h" />
     <ClInclude Include="..\..\include\gura\Class_function.h" />
     <ClInclude Include="..\..\include\gura\Class_help.h" />
@@ -380,6 +381,9 @@
     <ClInclude Include="..\..\include\gura\Class_undefined.h" />
     <ClInclude Include="..\..\include\gura\Class_uri.h" />
     <ClInclude Include="..\..\include\gura\Class_vertex.h" />
+    <ClInclude Include="..\..\include\gura\Class_filter_at_maxpool1d.h" />
+    <ClInclude Include="..\..\include\gura\Class_filter_at_maxpool2d.h" />
+    <ClInclude Include="..\..\include\gura\Class_filter_at_maxpool3d.h" />
     <ClInclude Include="..\..\include\gura\Codec.h" />
     <ClInclude Include="..\..\include\gura\Color.h" />
     <ClInclude Include="..\..\include\gura\Common.h" />

@@ -247,12 +247,32 @@ Gura_ImplementBinaryOperator(Dot, complex, array)
 //-----------------------------------------------------------------------------
 // [A |*| B] ... BinaryOperator(Filter, A, B)
 //-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Filter, array, filter_at_maxpool1d)
+{
+	Array *pArray = Filter_MaxPool1d::Apply(
+		env, nullptr,
+		Object_array::GetObject(valueLeft)->GetArray(),
+		Object_filter_at_maxpool1d::GetObject(valueRight)->GetFilter());
+	if (pArray == nullptr) return Value::Nil;
+	return Array::ToValue(env, pArray);
+}
+
 Gura_ImplementBinaryOperator(Filter, array, filter_at_maxpool2d)
 {
 	Array *pArray = Filter_MaxPool2d::Apply(
 		env, nullptr,
 		Object_array::GetObject(valueLeft)->GetArray(),
 		Object_filter_at_maxpool2d::GetObject(valueRight)->GetFilter());
+	if (pArray == nullptr) return Value::Nil;
+	return Array::ToValue(env, pArray);
+}
+
+Gura_ImplementBinaryOperator(Filter, array, filter_at_maxpool3d)
+{
+	Array *pArray = Filter_MaxPool3d::Apply(
+		env, nullptr,
+		Object_array::GetObject(valueLeft)->GetArray(),
+		Object_filter_at_maxpool3d::GetObject(valueRight)->GetFilter());
 	if (pArray == nullptr) return Value::Nil;
 	return Array::ToValue(env, pArray);
 }
@@ -890,7 +910,9 @@ void Operator::AssignOperatorArray(Environment &env)
 	Gura_AssignBinaryOperator(Dot, number, array);
 	Gura_AssignBinaryOperator(Dot, array, complex);
 	Gura_AssignBinaryOperator(Dot, complex, array);
+	Gura_AssignBinaryOperator(Filter, array, filter_at_maxpool1d);
 	Gura_AssignBinaryOperator(Filter, array, filter_at_maxpool2d);
+	Gura_AssignBinaryOperator(Filter, array, filter_at_maxpool3d);
 	Gura_AssignBinaryOperator(Pow, array, array);
 	Gura_AssignBinaryOperator(Pow, array, number);
 	Gura_AssignBinaryOperator(Pow, number, array);

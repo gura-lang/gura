@@ -101,7 +101,9 @@ GURA_DLLDECLARE extern ValueType VTYPE_timedelta;
 GURA_DLLDECLARE extern ValueType VTYPE_token;
 GURA_DLLDECLARE extern ValueType VTYPE_uri;
 GURA_DLLDECLARE extern ValueType VTYPE_vertex;
+GURA_DLLDECLARE extern ValueType VTYPE_filter_at_maxpool1d;
 GURA_DLLDECLARE extern ValueType VTYPE_filter_at_maxpool2d;
+GURA_DLLDECLARE extern ValueType VTYPE_filter_at_maxpool3d;
 
 //-----------------------------------------------------------------------------
 // ValueTypeInfo
@@ -214,7 +216,9 @@ public:
 	Gura_DeclareVTYPE(token);
 	Gura_DeclareVTYPE(uri);
 	Gura_DeclareVTYPE(vertex);
+	Gura_DeclareVTYPE(filter_at_maxpool1d);
 	Gura_DeclareVTYPE(filter_at_maxpool2d);
+	Gura_DeclareVTYPE(filter_at_maxpool3d);
 private:
 	static ValueTypePool *_pInst;
 	ValueTypeList _valueTypeList;

@@ -98,7 +98,6 @@
 #include "gura/Class_environment.h"
 #include "gura/Class_error.h"
 #include "gura/Class_expr.h"
-#include "gura/Class_filter_at_maxpool2d.h"
 #include "gura/Class_formatter.h"
 #include "gura/Class_function.h"
 #include "gura/Class_help.h"
@@ -126,5 +125,8 @@
 #include "gura/Class_undefined.h"
 #include "gura/Class_uri.h"
 #include "gura/Class_vertex.h"
+#include "gura/Class_filter_at_maxpool1d.h"
+#include "gura/Class_filter_at_maxpool2d.h"
+#include "gura/Class_filter_at_maxpool3d.h"
 
 #endif

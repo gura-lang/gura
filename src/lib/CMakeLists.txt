@@ -29,7 +29,6 @@ Class_directory.cpp
 Class_environment.cpp
 Class_error.cpp
 Class_expr.cpp
-Class_filter_at_maxpool2d.cpp
 Class_formatter.cpp
 Class_function.cpp
 Class_help.cpp
@@ -57,6 +56,9 @@ Class_token.cpp
 Class_undefined.cpp
 Class_uri.cpp
 Class_vertex.cpp
+Class_filter_at_maxpool1d.cpp
+Class_filter_at_maxpool2d.cpp
+Class_filter_at_maxpool3d.cpp
 ClassCustom.cpp
 Codec.cpp
 Color.cpp
