@@ -240,7 +240,6 @@ public:
 	inline bool Is_environment() const		{ return IsType(VTYPE_environment);				}
 	inline bool Is_error() const			{ return IsType(VTYPE_error);					}
 	inline bool Is_expr() const				{ return IsType(VTYPE_expr);					}
-	inline bool Is_filter_at_maxpool() const{ return IsType(VTYPE_filter_at_maxpool);		}
 	inline bool Is_formatter() const		{ return IsType(VTYPE_formatter);				}
 	inline bool Is_function() const			{ return IsType(VTYPE_function);				}
 	inline bool Is_help() const				{ return IsType(VTYPE_help);					}
@@ -261,6 +260,7 @@ public:
 	inline bool Is_token() const			{ return IsType(VTYPE_token);					}
 	inline bool Is_uri() const				{ return IsType(VTYPE_uri);						}
 	inline bool Is_vertex() const			{ return IsType(VTYPE_vertex);					}
+	inline bool Is_filter_at_maxpool2d() const{ return IsType(VTYPE_filter_at_maxpool2d);		}
 	inline bool IsListOrIterator() const	{ return Is_list() || Is_iterator();			}
 	inline bool IsValidKey() const			{ return Is_number() || Is_string() || Is_symbol(); }
 	bool MustBe(Signal &sig, bool flag, const char *expected) const;
@@ -347,8 +347,6 @@ public:
 								{ return MustBe(sig, Is_error(), 		"error");			}
 	inline bool MustBe_expr(Signal &sig) const
 								{ return MustBe(sig, Is_expr(), 		"expr");			}
-	inline bool MustBe_filter_at_maxpool(Signal &sig) const
-								{ return MustBe(sig, Is_monitor(), 		"filter@maxpool");	}
 	inline bool MustBe_formatter(Signal &sig) const
 								{ return MustBe(sig, Is_formatter(), 	"formatter");		}
 	inline bool MustBe_function(Signal &sig) const
@@ -389,6 +387,8 @@ public:
 								{ return MustBe(sig, Is_uri(), 			"uri");				}
 	inline bool MustBe_vertex(Signal &sig) const
 								{ return MustBe(sig, Is_vertex(), 		"vertex");			}
+	inline bool MustBe_filter_at_maxpool2d(Signal &sig) const
+								{ return MustBe(sig, Is_monitor(), 		"filter@maxpool2d");	}
 	// setter methods
 	inline void SetBoolean(bool flag) {
 		Gura_ReleaseValue(*this); _valType = VTYPE_boolean, _u.flag = flag;

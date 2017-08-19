@@ -100,7 +100,7 @@ in
 |^|
 [[`vertex, `vertex]]
 |*|
-[]
+[[`array, `filter@maxpool2d], [`array@boolean, `filter@maxpool2d], [`array@int8, `filter@maxpool2d], [`array@uint8, `filter@maxpool2d], [`array@int16, `filter@maxpool2d], [`array@uint16, `filter@maxpool2d], [`array@int32, `filter@maxpool2d], [`array@uint32, `filter@maxpool2d], [`array@int64, `filter@maxpool2d], [`array@uint64, `filter@maxpool2d], [`array@half, `filter@maxpool2d], [`array@float, `filter@maxpool2d], [`array@double, `filter@maxpool2d], [`array@complex, `filter@maxpool2d]]
 |+|
 []
 |-|

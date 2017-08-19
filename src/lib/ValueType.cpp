@@ -53,7 +53,6 @@ ValueType VTYPE_directory				= static_cast<ValueType>(0);
 ValueType VTYPE_environment				= static_cast<ValueType>(0);
 ValueType VTYPE_error					= static_cast<ValueType>(0);
 ValueType VTYPE_expr					= static_cast<ValueType>(0);
-ValueType VTYPE_filter_at_maxpool		= static_cast<ValueType>(0);
 ValueType VTYPE_formatter				= static_cast<ValueType>(0);
 ValueType VTYPE_function				= static_cast<ValueType>(0);
 ValueType VTYPE_help					= static_cast<ValueType>(0);
@@ -74,6 +73,7 @@ ValueType VTYPE_timedelta				= static_cast<ValueType>(0);
 ValueType VTYPE_token					= static_cast<ValueType>(0);
 ValueType VTYPE_uri						= static_cast<ValueType>(0);
 ValueType VTYPE_vertex					= static_cast<ValueType>(0);
+ValueType VTYPE_filter_at_maxpool2d		= static_cast<ValueType>(0);
 
 //-----------------------------------------------------------------------------
 // ValueTypeInfo
@@ -197,7 +197,6 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_RealizeVTYPE(environment);
 	Gura_RealizeVTYPE(error);
 	Gura_RealizeVTYPE(expr);
-	Gura_RealizeVTYPEAlias(filter_at_maxpool,		"filter@maxpool");
 	Gura_RealizeVTYPE(formatter);
 	Gura_RealizeVTYPE(function);
 	Gura_RealizeVTYPE(help);
@@ -218,6 +217,7 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_RealizeVTYPE(token);
 	Gura_RealizeVTYPE(uri);
 	Gura_RealizeVTYPE(vertex);
+	Gura_RealizeVTYPEAlias(filter_at_maxpool2d,		"filter@maxpool2d");
 	Class *pClass = new ClassFundamental(&env, VTYPE_object);
 	Gura_VTYPEInfo(object		)->SetClass(pClass);
 	// invalid types
@@ -280,7 +280,6 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_VTYPEInfo(environment	)->SetClass(new Class_environment(pClass));
 	Gura_VTYPEInfo(error		)->SetClass(new Class_error(pClass));
 	Gura_VTYPEInfo(expr			)->SetClass(new Class_expr(pClass));
-	Gura_VTYPEInfo(filter_at_maxpool)->SetClass(new Class_filter_at_maxpool(pClass));
 	Gura_VTYPEInfo(formatter	)->SetClass(new Class_formatter(pClass));
 	Gura_VTYPEInfo(function		)->SetClass(new Class_function(pClass));
 	Gura_VTYPEInfo(help			)->SetClass(new Class_help(pClass));
@@ -301,6 +300,7 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_VTYPEInfo(token		)->SetClass(new Class_token(pClass));
 	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
 	Gura_VTYPEInfo(vertex		)->SetClass(new Class_vertex(pClass));
+	Gura_VTYPEInfo(filter_at_maxpool2d)->SetClass(new Class_filter_at_maxpool2d(pClass));
 	//pClass->Prepare(env); // methods of Object can only be initialized here
 }
 
@@ -351,7 +351,6 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_environment			)->Prepare(env);
 	env.LookupClass(VTYPE_error					)->Prepare(env);
 	env.LookupClass(VTYPE_expr					)->Prepare(env);
-	env.LookupClass(VTYPE_filter_at_maxpool		)->Prepare(env);
 	env.LookupClass(VTYPE_formatter				)->Prepare(env);
 	env.LookupClass(VTYPE_function				)->Prepare(env);
 	env.LookupClass(VTYPE_help					)->Prepare(env);
@@ -372,6 +371,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_token					)->Prepare(env);
 	env.LookupClass(VTYPE_uri					)->Prepare(env);
 	env.LookupClass(VTYPE_vertex				)->Prepare(env);
+	env.LookupClass(VTYPE_filter_at_maxpool2d	)->Prepare(env);
 }
 
 ValueTypeInfo *ValueTypePool::Add(const Symbol *pSymbol)
