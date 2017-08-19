@@ -606,6 +606,7 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(int16);
 	Gura_RealizeSymbol(int32);
 	Gura_RealizeSymbol(int64);
+	Gura_RealizeSymbol(invalid);
 	Gura_RealizeSymbol(iter);
 	Gura_RealizeSymbol(iterator);
 	Gura_RealizeSymbol(iteritem);
@@ -619,10 +620,10 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(l);
 	Gura_RealizeSymbol(L);
 	Gura_RealizeSymbol(lang);
-	Gura_RealizeSymbol(last_index);
 	Gura_RealizeSymbol(langcode);
 	Gura_RealizeSymbol(last);
 	Gura_RealizeSymbol(lasteol);
+	Gura_RealizeSymbol(last_index);
 	Gura_RealizeSymbol(le);
 	Gura_RealizeSymbol(leader);
 	Gura_RealizeSymbol(left);
@@ -763,6 +764,7 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(s64be);
 	Gura_RealizeSymbol(s64le);
 	Gura_RealizeSymbol(s8);
+	Gura_RealizeSymbol(same);
 	Gura_RealizeSymbol(sample);
 	Gura_RealizeSymbol(samples);
 	Gura_RealizeSymbol(samplespersec);
@@ -858,6 +860,7 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(utf8);
 	Gura_RealizeSymbol(v);
 	Gura_RealizeSymbol(V);
+	Gura_RealizeSymbol(valid);
 	Gura_RealizeSymbol(value);
 	Gura_RealizeSymbol(values);
 	Gura_RealizeSymbol(vert);

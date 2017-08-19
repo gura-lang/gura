@@ -21,8 +21,22 @@ public:
 	};
 public:
 	static FilterFuncTable filterFuncTable;
+private:
+	size_t _size;
+	size_t _strides;
+	PaddingType _paddingType;
+	ChannelAt _channelAt;
 public:
-	inline Filter_MaxPool1d() {}
+	inline Filter_MaxPool1d(size_t size, size_t strides, PaddingType paddingType, ChannelAt channelAt) :
+		_size(size), _strides(strides),
+		_paddingType(paddingType), _channelAt(channelAt) {}
+	inline Filter_MaxPool1d(const Filter_MaxPool1d &filter) :
+		_size(filter._size), _strides(filter._strides),
+		_paddingType(filter._paddingType), _channelAt(filter._channelAt) {}
+	inline size_t GetSize() const { return _size; }
+	inline size_t GetStrides() const { return _strides; }
+	inline PaddingType GetPaddingType() const { return _paddingType; }
+	inline ChannelAt GetChannelAt() const { return _channelAt; }
 public:
 	static Array *Apply(
 		Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool1d &filter);
@@ -47,7 +61,7 @@ private:
 public:
 	Gura_DeclareObjectAccessor(filter_at_maxpool1d)
 public:
-	Object_filter_at_maxpool1d(Environment &env);
+	Object_filter_at_maxpool1d(Environment &env, const Filter_MaxPool1d &filter);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	inline Filter_MaxPool1d &GetFilter() { return _filter; }

@@ -48,10 +48,14 @@ String Object_filter_at_maxpool3d::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter@maxpool3d():map {block?}
+// filter@maxpool3d(size[]:number, strides[]?:number, padding?:symbol, format?:symbol):map {block?}
 Gura_DeclareFunctionAlias(filter_at_maxpool3d, "filter@maxpool3d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "strides", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
+	DeclareArg(env, "padding", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_maxpool3d));
 	AddHelp(

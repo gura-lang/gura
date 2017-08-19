@@ -406,6 +406,7 @@ public:
 	Gura_DeclareSymbol(int16);
 	Gura_DeclareSymbol(int32);
 	Gura_DeclareSymbol(int64);
+	Gura_DeclareSymbol(invalid);
 	Gura_DeclareSymbol(iter);
 	Gura_DeclareSymbol(iterator);
 	Gura_DeclareSymbol(iteritem);
@@ -419,10 +420,10 @@ public:
 	Gura_DeclareSymbol(l);
 	Gura_DeclareSymbol(L);
 	Gura_DeclareSymbol(lang);
-	Gura_DeclareSymbol(last);
-	Gura_DeclareSymbol(last_index);
 	Gura_DeclareSymbol(langcode);
+	Gura_DeclareSymbol(last);
 	Gura_DeclareSymbol(lasteol);
+	Gura_DeclareSymbol(last_index);
 	Gura_DeclareSymbol(le);
 	Gura_DeclareSymbol(leader);
 	Gura_DeclareSymbol(left);
@@ -563,6 +564,7 @@ public:
 	Gura_DeclareSymbol(s64be);
 	Gura_DeclareSymbol(s64le);
 	Gura_DeclareSymbol(s8);
+	Gura_DeclareSymbol(same);
 	Gura_DeclareSymbol(sample);
 	Gura_DeclareSymbol(samples);
 	Gura_DeclareSymbol(samplespersec);
@@ -658,6 +660,7 @@ public:
 	Gura_DeclareSymbol(utf8);
 	Gura_DeclareSymbol(v);
 	Gura_DeclareSymbol(V);
+	Gura_DeclareSymbol(valid);
 	Gura_DeclareSymbol(value);
 	Gura_DeclareSymbol(values);
 	Gura_DeclareSymbol(vert);

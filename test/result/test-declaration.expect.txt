@@ -80,9 +80,9 @@ environment:class = <class:environment>
 error:class = <class:error>
 expr:class = <class:expr(src:stream:r):map {block?}>
 false:boolean = false
-filter@maxpool1d:class = <class:filter@maxpool1d():map {block?}>
-filter@maxpool2d:class = <class:filter@maxpool2d():map {block?}>
-filter@maxpool3d:class = <class:filter@maxpool3d():map {block?}>
+filter@maxpool1d:class = <class:filter@maxpool1d(size:number, strides?:number, padding?:symbol, channel_at?:symbol):map {block?}>
+filter@maxpool2d:class = <class:filter@maxpool2d(size[]:number, strides[]?:number, padding?:symbol, channel_at?:symbol):map {block?}>
+filter@maxpool3d:class = <class:filter@maxpool3d(size[]:number, strides[]?:number, padding?:symbol, format?:symbol):map {block?}>
 finally():finalizer:trailer {block}
 for (`expr+) {block}
 format(format:string, values*):map
