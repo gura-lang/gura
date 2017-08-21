@@ -21,8 +21,8 @@ bool LabelSet::Read(Signal &sig, Stream &stream)
 	}
 	_nLabels = Gura_UnpackUInt32(header.nLabels);
 	size_t bytesLabel = _nLabels;
-	AutoPtr<Memory> pMemory(new MemoryHeap(bytesLabel));
-	bytesRead = stream.Read(sig, pMemory->GetPointer(), bytesLabel);
+	_pMemory.reset(new MemoryHeap(bytesLabel));
+	bytesRead = stream.Read(sig, _pMemory->GetPointer(), bytesLabel);
 	if (bytesRead < bytesLabel) {
 		sig.SetError(ERR_FormatError, "invalid format of MNIST label file");
 		return false;

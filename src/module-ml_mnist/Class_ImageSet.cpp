@@ -23,8 +23,8 @@ bool ImageSet::Read(Signal &sig, Stream &stream)
 	_nRows = Gura_UnpackUInt32(header.nRows);
 	_nColumns = Gura_UnpackUInt32(header.nColumns);
 	size_t bytesImage = _nImages * _nRows * _nColumns;
-	AutoPtr<Memory> pMemory(new MemoryHeap(bytesImage));
-	bytesRead = stream.Read(sig, pMemory->GetPointer(), bytesImage);
+	_pMemory.reset(new MemoryHeap(bytesImage));
+	bytesRead = stream.Read(sig, _pMemory->GetPointer(), bytesImage);
 	if (bytesRead < bytesImage) {
 		sig.SetError(ERR_FormatError, "invalid format of MNIST image file");
 		return false;
@@ -102,6 +102,35 @@ Gura_ImplementFunction(ImageSet)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
+// ml.mnist.ImageSet#GetArray(format?:symbol) {block?}
+Gura_DeclareMethod(ImageSet, GetArray)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(ImageSet, GetArray)
+{
+	ImageSet &imageSet = Object_ImageSet::GetObjectThis(arg)->GetImageSet();
+	bool flattenFlag = false;
+	if (arg.IsValid(0)) {
+		const Symbol *pSymbol = arg.GetSymbol(0);
+		if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
+			flattenFlag = true;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(matrix))) {
+			flattenFlag = false;
+		} else {
+			env.SetError(ERR_ValueError, "argument format takes `` `flat` or `` `matrix``");
+			return Value::Nil;
+		}
+	}
+	AutoPtr<Object_array> pObj(new Object_array(env, imageSet.CreateArray(flattenFlag)));
+	return ReturnValue(env, arg, Value(pObj.release()));
+}
 
 //-----------------------------------------------------------------------------
 // Implementation of class ml.mnist.ImageSet
@@ -112,6 +141,7 @@ Gura_ImplementUserClass(ImageSet)
 	// Assignment of function
 	Gura_AssignFunction(ImageSet);
 	// Assignment of method
+	Gura_AssignMethod(ImageSet, GetArray);
 }
 
 Gura_EndModuleScope(ml_mnist)
