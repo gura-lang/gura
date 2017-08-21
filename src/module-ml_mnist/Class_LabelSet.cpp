@@ -30,7 +30,7 @@ bool LabelSet::Read(Signal &sig, Stream &stream)
 	return true;
 }
 
-const Array *LabelSet::GetArray() const
+Array *LabelSet::CreateArray() const
 {
 	AutoPtr<ArrayT<UInt8> > pArrayT(new ArrayT<UInt8>(_pMemory->Reference(), 0));
 	Array::Dimensions dims;
@@ -90,6 +90,22 @@ Gura_ImplementFunction(LabelSet)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
+// ml.mnist.LabelSet#GetArray() {block?}
+Gura_DeclareMethod(LabelSet, GetArray)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(LabelSet, GetArray)
+{
+	LabelSet &labelSet = Object_LabelSet::GetObjectThis(arg)->GetLabelSet();
+	AutoPtr<Object_array> pObj(new Object_array(env, labelSet.CreateArray()));
+	return ReturnValue(env, arg, Value(pObj.release()));
+}
 
 //-----------------------------------------------------------------------------
 // Implementation of class ml.mnist.LabelSet
@@ -100,6 +116,7 @@ Gura_ImplementUserClass(LabelSet)
 	// Assignment of function
 	Gura_AssignFunction(LabelSet);
 	// Assignment of method
+	Gura_AssignMethod(LabelSet, GetArray);
 }
 
 Gura_EndModuleScope(ml_mnist)

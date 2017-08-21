@@ -32,7 +32,7 @@ bool ImageSet::Read(Signal &sig, Stream &stream)
 	return true;
 }
 
-const Array *ImageSet::GetArray(bool flattenFlag) const
+Array *ImageSet::CreateArray(bool flattenFlag) const
 {
 	AutoPtr<ArrayT<UInt8> > pArrayT(new ArrayT<UInt8>(_pMemory->Reference(), 0));
 	Array::Dimensions dims;
