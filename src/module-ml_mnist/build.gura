@@ -2,4 +2,4 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.build('ml.mnist', ['module-ml_mnist.cpp', 'Class_ImageSet.cpp'])
+builder.build('ml.mnist', ['module-ml_mnist.cpp', 'Class_ImageSet.cpp', 'Class_LabelSet.cpp'])
