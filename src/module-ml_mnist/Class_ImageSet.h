@@ -8,14 +8,24 @@ Gura_BeginModuleScope(ml_mnist)
 // ImageSet
 //-----------------------------------------------------------------------------
 class ImageSet {
+public:
+	struct Header {
+		Gura_PackedUInt32_BE(magicNumber);
+		Gura_PackedUInt32_BE(nImages);
+		Gura_PackedUInt32_BE(nRows);
+		Gura_PackedUInt32_BE(nColumns);
+	};
 private:
-	int _number_of_images;
-	int _number_of_rows;
-	int _number_of_columns;
+	size_t _nImages;
+	size_t _nRows;
+	size_t _nColumns;
 	AutoPtr<Memory> _pMemory;
 public:
-	inline ImageSet() : _number_of_images(0), _number_of_rows(0), _number_of_columns(0) {}
+	inline ImageSet() : _nImages(0), _nRows(0), _nColumns(0) {}
 	bool Read(Signal &sig, Stream &stream);
+	inline size_t GetNumImages() const { return _nImages; }
+	inline size_t GetNumRows() const { return _nRows; }
+	inline size_t GetNumColumns() const { return _nColumns; }
 };
 
 //-----------------------------------------------------------------------------

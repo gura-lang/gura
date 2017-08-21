@@ -7,7 +7,28 @@ Gura_BeginModuleScope(ml_mnist)
 //-----------------------------------------------------------------------------
 bool ImageSet::Read(Signal &sig, Stream &stream)
 {
-	
+	size_t bytesRead = 0;
+	Header header;
+	bytesRead = stream.Read(sig, &header, sizeof(header));
+	if (bytesRead < sizeof(header)) {
+		sig.SetError(ERR_FormatError, "invalid format of MNIST image file");
+		return false;
+	}
+	UInt32 magicNumber = Gura_UnpackUInt32(header.magicNumber);
+	if (magicNumber != 0x00000803) {
+		sig.SetError(ERR_FormatError, "invalid magic number of MNIST image file: %08x", magicNumber);
+		return false;
+	}
+	_nImages = Gura_UnpackUInt32(header.nImages);
+	_nRows = Gura_UnpackUInt32(header.nRows);
+	_nColumns = Gura_UnpackUInt32(header.nColumns);
+	size_t bytesImage = _nImages * _nRows * _nColumns;
+	AutoPtr<Memory> pMemory(new MemoryHeap(bytesImage));
+	bytesRead = stream.Read(sig, pMemory->GetPointer(), bytesImage);
+	if (bytesRead < bytesImage) {
+		sig.SetError(ERR_FormatError, "invalid format of MNIST image file");
+		return false;
+	}
 	return true;
 }
 
@@ -21,7 +42,16 @@ Object_ImageSet::Object_ImageSet(ImageSet *pImageSet) :
 
 String Object_ImageSet::ToString(bool exprFlag)
 {
-	return String("<mnist.ImageSet>");
+	char buff[80];
+	String str = "<mnist.ImageSet";
+	::sprintf(buff, ":images=%zu", _pImageSet->GetNumImages());
+	str += buff;
+	::sprintf(buff, ":rows=%zu", _pImageSet->GetNumRows());
+	str += buff;
+	::sprintf(buff, ":columns=%zu", _pImageSet->GetNumColumns());
+	str += buff;
+	str += ">";
+	return str;
 }
 
 //-----------------------------------------------------------------------------
