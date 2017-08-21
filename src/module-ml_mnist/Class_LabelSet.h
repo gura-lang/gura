@@ -8,8 +8,18 @@ Gura_BeginModuleScope(ml_mnist)
 // LabelSet
 //-----------------------------------------------------------------------------
 class LabelSet {
-
-	
+public:
+	struct Header {
+		Gura_PackedUInt32_BE(magicNumber);
+		Gura_PackedUInt32_BE(nLabels);
+	};
+private:
+	size_t _nLabels;
+	AutoPtr<Memory> _pMemory;
+public:
+	inline LabelSet() : _nLabels(0) {}
+	bool Read(Signal &sig, Stream &stream);
+	inline size_t GetNumLabels() const { return _nLabels; }
 };
 
 //-----------------------------------------------------------------------------

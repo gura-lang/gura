@@ -61,7 +61,7 @@ String Object_ImageSet::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
-// ceres.ImageSet(stream:stream) {block?}
+// ml.mnist.ImageSet(stream:stream) {block?}
 Gura_DeclareFunction(ImageSet)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -70,8 +70,10 @@ Gura_DeclareFunction(ImageSet)
 	SetClassToConstruct(Gura_UserClass(ImageSet));
 	AddHelp(
 		Gura_Symbol(en),
-		"");
-
+		"Reads MNIST image set file from the specified `stream`\n"
+		"and returns a `ml.mnist.ImageSet` instance.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("stream", "stream"));
 }
 
 Gura_ImplementFunction(ImageSet)
@@ -87,7 +89,7 @@ Gura_ImplementFunction(ImageSet)
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// Implementation of class ceres.ImageSet
+// Implementation of class ml.mnist.ImageSet
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(ImageSet)
 {
