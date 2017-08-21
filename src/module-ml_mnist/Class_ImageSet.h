@@ -8,8 +8,14 @@ Gura_BeginModuleScope(ml_mnist)
 // ImageSet
 //-----------------------------------------------------------------------------
 class ImageSet {
-
-	
+private:
+	int _number_of_images;
+	int _number_of_rows;
+	int _number_of_columns;
+	AutoPtr<Memory> _pMemory;
+public:
+	inline ImageSet() : _number_of_images(0), _number_of_rows(0), _number_of_columns(0) {}
+	bool Read(Signal &sig, Stream &stream);
 };
 
 //-----------------------------------------------------------------------------

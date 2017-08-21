@@ -3,6 +3,15 @@
 Gura_BeginModuleScope(ml_mnist)
 
 //-----------------------------------------------------------------------------
+// ImageSet
+//-----------------------------------------------------------------------------
+bool ImageSet::Read(Signal &sig, Stream &stream)
+{
+	
+	return true;
+}
+
+//-----------------------------------------------------------------------------
 // Object_ImageSet implementation
 //-----------------------------------------------------------------------------
 Object_ImageSet::Object_ImageSet(ImageSet *pImageSet) :
@@ -37,7 +46,9 @@ Gura_DeclareFunction(ImageSet)
 
 Gura_ImplementFunction(ImageSet)
 {
-	Object_ImageSet *pObj = new Object_ImageSet(nullptr);
+	std::unique_ptr<ImageSet> pImageSet(new ImageSet());
+	if (!pImageSet->Read(env, arg.GetStream(0))) return Value::Nil;
+	Object_ImageSet *pObj = new Object_ImageSet(pImageSet.release());
 	return ReturnValue(env, arg, Value(pObj));
 }
 
