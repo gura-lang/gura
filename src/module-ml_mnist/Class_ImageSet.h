@@ -26,7 +26,7 @@ public:
 	inline size_t GetNumImages() const { return _nImages; }
 	inline size_t GetNumRows() const { return _nRows; }
 	inline size_t GetNumColumns() const { return _nColumns; }
-	const Array *GetArray() const;
+	const Array *GetArray(bool flattenFlag) const;
 };
 
 //-----------------------------------------------------------------------------
