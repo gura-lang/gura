@@ -32,6 +32,17 @@ bool ImageSet::Read(Signal &sig, Stream &stream)
 	return true;
 }
 
+const Array *ImageSet::GetArray() const
+{
+	AutoPtr<ArrayT<UInt8> > pArrayT(new ArrayT<UInt8>(_pMemory->Reference(), 0));
+	Array::Dimensions dims;
+	dims.push_back(Array::Dimension(_nImages));
+	dims.push_back(Array::Dimension(_nRows));
+	dims.push_back(Array::Dimension(_nColumns));
+	pArrayT->SetDimensions(dims);
+	return pArrayT.release();
+}
+
 //-----------------------------------------------------------------------------
 // Object_ImageSet implementation
 //-----------------------------------------------------------------------------
