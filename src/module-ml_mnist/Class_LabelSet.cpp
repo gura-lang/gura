@@ -64,7 +64,7 @@ String Object_LabelSet::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
-// ml.mnist.LabelSet(stream:stream) {block?}
+// ml.mnist.LabelSet(stream:stream):map {block?}
 Gura_DeclareFunction(LabelSet)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -90,8 +90,8 @@ Gura_ImplementFunction(LabelSet)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.mnist.LabelSet#GetArray() {block?}
-Gura_DeclareMethod(LabelSet, GetArray)
+// ml.mnist.LabelSet#ToArray() {block?}
+Gura_DeclareMethod(LabelSet, ToArray)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -100,7 +100,7 @@ Gura_DeclareMethod(LabelSet, GetArray)
 		"");
 }
 
-Gura_ImplementMethod(LabelSet, GetArray)
+Gura_ImplementMethod(LabelSet, ToArray)
 {
 	LabelSet &labelSet = Object_LabelSet::GetObjectThis(arg)->GetLabelSet();
 	AutoPtr<Object_array> pObj(new Object_array(env, labelSet.CreateArray()));
@@ -116,7 +116,7 @@ Gura_ImplementUserClass(LabelSet)
 	// Assignment of function
 	Gura_AssignFunction(LabelSet);
 	// Assignment of method
-	Gura_AssignMethod(LabelSet, GetArray);
+	Gura_AssignMethod(LabelSet, ToArray);
 }
 
 Gura_EndModuleScope(ml_mnist)

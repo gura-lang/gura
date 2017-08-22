@@ -5,15 +5,15 @@ import(ml.mnist)
 testcase('ImageSet') {
 	imageSet = ml.mnist.ImageSet('sample/t10k-images-idx3-ubyte')
 	println(imageSet)
-	imageSet.GetArray(`flat) {|arr|
+	imageSet.ToArray(`flat) {|arr|
 		println(arr[0])
 	}
 }
 testcase('LabelSet') {
 	labelSet = ml.mnist.LabelSet('sample/t10k-labels-idx1-ubyte')
 	println(labelSet)
-	//labelSet.GetArray {|lbl|
+	labelSet.ToArray {|lbl|
 	//	println(lbl)
-	//}
+	}
 	
 }

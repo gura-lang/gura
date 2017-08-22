@@ -76,7 +76,7 @@ String Object_ImageSet::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
-// ml.mnist.ImageSet(stream:stream) {block?}
+// ml.mnist.ImageSet(stream:stream):map {block?}
 Gura_DeclareFunction(ImageSet)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -102,8 +102,8 @@ Gura_ImplementFunction(ImageSet)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.mnist.ImageSet#GetArray(format?:symbol) {block?}
-Gura_DeclareMethod(ImageSet, GetArray)
+// ml.mnist.ImageSet#ToArray(format?:symbol) {block?}
+Gura_DeclareMethod(ImageSet, ToArray)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
@@ -113,7 +113,7 @@ Gura_DeclareMethod(ImageSet, GetArray)
 		"");
 }
 
-Gura_ImplementMethod(ImageSet, GetArray)
+Gura_ImplementMethod(ImageSet, ToArray)
 {
 	ImageSet &imageSet = Object_ImageSet::GetObjectThis(arg)->GetImageSet();
 	bool flattenFlag = false;
@@ -141,7 +141,7 @@ Gura_ImplementUserClass(ImageSet)
 	// Assignment of function
 	Gura_AssignFunction(ImageSet);
 	// Assignment of method
-	Gura_AssignMethod(ImageSet, GetArray);
+	Gura_AssignMethod(ImageSet, ToArray);
 }
 
 Gura_EndModuleScope(ml_mnist)
