@@ -1,19 +1,24 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 import(ml.mnist)
+import(gzip)
 
 testcase('ImageSet') {
-	imageSet = ml.mnist.ImageSet('sample/t10k-images-idx3-ubyte')
-	println(imageSet)
-	imageSet.ToArray(`flat) {|arr|
-		println(arr[0])
+	['t10k-images-idx3-ubyte.gz', 'train-images-idx3-ubyte.gz'].each {|fileName|
+		imageSet = ml.mnist.ImageSet(gzip.reader(path.join('sample', fileName)))
+		printf('nImages:%d nRows:%d nColumns:%d\n', imageSet.nImages, imageSet.nRows, imageSet.nColumns)
+		imageSet.ToArray(`flat) {|arr|
+			//println(arr[0])
+		}
 	}
 }
 testcase('LabelSet') {
-	labelSet = ml.mnist.LabelSet('sample/t10k-labels-idx1-ubyte')
-	println(labelSet)
-	labelSet.ToArray {|lbl|
-	//	println(lbl)
+	['t10k-labels-idx1-ubyte.gz', 'train-labels-idx1-ubyte.gz'].each {|fileName|
+		labelSet = ml.mnist.LabelSet(gzip.reader(path.join('sample', fileName)))
+		printf('nLabels:%d\n', labelSet.nLabels)
+		labelSet.ToArray {|lbl|
+			//println(lbl)
+		}
 	}
 	
 }
