@@ -32,7 +32,7 @@ bool ImageSet::Read(Signal &sig, Stream &stream)
 	return true;
 }
 
-Array *ImageSet::CreateArray(bool flattenFlag) const
+Array *ImageSet::ToArray(bool flattenFlag) const
 {
 	AutoPtr<ArrayT<UInt8> > pArrayT(new ArrayT<UInt8>(_pMemory->Reference(), 0));
 	Array::Dimensions dims;
@@ -72,6 +72,53 @@ String Object_ImageSet::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
+// ml.mnist.ImageSet#nImages
+Gura_DeclareProperty_R(ImageSet, nImages)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ImageSet, nImages)
+{
+	ImageSet &imageSet = Object_ImageSet::GetObject(valueThis)->GetImageSet();
+	return Value(imageSet.GetNumImages());
+}
+
+// ml.mnist.ImageSet#nRows
+Gura_DeclareProperty_R(ImageSet, nRows)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ImageSet, nRows)
+{
+	ImageSet &imageSet = Object_ImageSet::GetObject(valueThis)->GetImageSet();
+	return Value(imageSet.GetNumRows());
+}
+
+// ml.mnist.ImageSet#nColumns
+Gura_DeclareProperty_R(ImageSet, nColumns)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(ImageSet, nColumns)
+{
+	ImageSet &imageSet = Object_ImageSet::GetObject(valueThis)->GetImageSet();
+	return Value(imageSet.GetNumColumns());
+}
 
 //-----------------------------------------------------------------------------
 // Implementation of function
@@ -128,7 +175,7 @@ Gura_ImplementMethod(ImageSet, ToArray)
 			return Value::Nil;
 		}
 	}
-	AutoPtr<Object_array> pObj(new Object_array(env, imageSet.CreateArray(flattenFlag)));
+	AutoPtr<Object_array> pObj(new Object_array(env, imageSet.ToArray(flattenFlag)));
 	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
@@ -138,6 +185,9 @@ Gura_ImplementMethod(ImageSet, ToArray)
 Gura_ImplementUserClass(ImageSet)
 {
 	// Assignment of properties
+	Gura_AssignProperty(ImageSet, nImages);
+	Gura_AssignProperty(ImageSet, nRows);
+	Gura_AssignProperty(ImageSet, nColumns);
 	// Assignment of function
 	Gura_AssignFunction(ImageSet);
 	// Assignment of method

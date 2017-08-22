@@ -30,7 +30,7 @@ bool LabelSet::Read(Signal &sig, Stream &stream)
 	return true;
 }
 
-Array *LabelSet::CreateArray() const
+Array *LabelSet::ToArray() const
 {
 	AutoPtr<ArrayT<UInt8> > pArrayT(new ArrayT<UInt8>(_pMemory->Reference(), 0));
 	Array::Dimensions dims;
@@ -60,6 +60,21 @@ String Object_LabelSet::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
+// ml.mnist.LabelSet#nLabels
+Gura_DeclareProperty_R(LabelSet, nLabels)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(LabelSet, nLabels)
+{
+	LabelSet &labelSet = Object_LabelSet::GetObject(valueThis)->GetLabelSet();
+	return Value(labelSet.GetNumLabels());
+}
 
 //-----------------------------------------------------------------------------
 // Implementation of function
@@ -103,7 +118,7 @@ Gura_DeclareMethod(LabelSet, ToArray)
 Gura_ImplementMethod(LabelSet, ToArray)
 {
 	LabelSet &labelSet = Object_LabelSet::GetObjectThis(arg)->GetLabelSet();
-	AutoPtr<Object_array> pObj(new Object_array(env, labelSet.CreateArray()));
+	AutoPtr<Object_array> pObj(new Object_array(env, labelSet.ToArray()));
 	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
@@ -113,6 +128,7 @@ Gura_ImplementMethod(LabelSet, ToArray)
 Gura_ImplementUserClass(LabelSet)
 {
 	// Assignment of properties
+	Gura_AssignProperty(LabelSet, nLabels);
 	// Assignment of function
 	Gura_AssignFunction(LabelSet);
 	// Assignment of method
