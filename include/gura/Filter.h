@@ -27,6 +27,8 @@ public:
 	inline Filter() {}
 	virtual ~Filter();
 public:
+	static size_t CalcSizeOutSame(size_t size, size_t strides);
+	static size_t CalcSizeOutValid(size_t size, size_t strides, size_t sizeFilter);
 	static PaddingType SymbolToPaddingType(Signal &sig, const Symbol *pSymbol);
 	static PaddingType SymbolToPaddingType(const Symbol *pSymbol);
 	static const Symbol *PaddingTypeToSymbol(PaddingType paddingType);

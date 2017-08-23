@@ -12,6 +12,21 @@ Filter::~Filter()
 {
 }
 
+// .+++++++++++.. 12
+// *****
+//    *****
+//       *****
+//          *****
+size_t Filter::CalcSizeOutSame(size_t size, size_t strides)
+{
+	return 0;
+}
+
+size_t Filter::CalcSizeOutValid(size_t size, size_t strides, size_t sizeFilter)
+{
+	return 0;
+}
+
 Filter::PaddingType Filter::SymbolToPaddingType(Signal &sig, const Symbol *pSymbol)
 {
 	PaddingType paddingType = SymbolToPaddingType(pSymbol);

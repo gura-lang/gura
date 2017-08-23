@@ -83,6 +83,69 @@ Gura_ImplementFunction(filter_at_maxpool1d)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// filter@maxpool1d#size
+Gura_DeclareProperty_R(filter_at_maxpool1d, size)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_maxpool1d, size)
+{
+	const Filter_MaxPool1d &filter = Object_filter_at_maxpool1d::GetObject(valueThis)->GetFilter();
+	return Value(filter.GetSize());
+}
+
+// filter@maxpool1d#strides
+Gura_DeclareProperty_R(filter_at_maxpool1d, strides)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_maxpool1d, strides)
+{
+	const Filter_MaxPool1d &filter = Object_filter_at_maxpool1d::GetObject(valueThis)->GetFilter();
+	return Value(filter.GetStrides());
+}
+
+// filter@maxpool1d#padding
+Gura_DeclareProperty_R(filter_at_maxpool1d, padding)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_maxpool1d, padding)
+{
+	const Filter_MaxPool1d &filter = Object_filter_at_maxpool1d::GetObject(valueThis)->GetFilter();
+	return Value(Filter::PaddingTypeToSymbol(filter.GetPaddingType()));
+}
+
+// filter@maxpool1d#channel_at
+Gura_DeclareProperty_R(filter_at_maxpool1d, channel_at)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_maxpool1d, channel_at)
+{
+	const Filter_MaxPool1d &filter = Object_filter_at_maxpool1d::GetObject(valueThis)->GetFilter();
+	return Value(Filter::ChannelAtToSymbol(filter.GetChannelAt()));
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
 Class_filter_at_maxpool1d::Class_filter_at_maxpool1d(Environment *pEnvOuter) :
@@ -92,8 +155,13 @@ Class_filter_at_maxpool1d::Class_filter_at_maxpool1d(Environment *pEnvOuter) :
 
 void Class_filter_at_maxpool1d::DoPrepare(Environment &env)
 {
-	// function assignment
+	// Assignment of function
 	Gura_AssignFunction(filter_at_maxpool1d);
+	// Assignment of properties
+	Gura_AssignProperty(filter_at_maxpool1d, size);
+	Gura_AssignProperty(filter_at_maxpool1d, strides);
+	Gura_AssignProperty(filter_at_maxpool1d, padding);
+	Gura_AssignProperty(filter_at_maxpool1d, channel_at);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

@@ -103,6 +103,69 @@ Gura_ImplementFunction(filter_at_maxpool2d)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// filter@maxpool2d#size
+Gura_DeclareProperty_R(filter_at_maxpool2d, size)
+{
+	SetPropAttr(VTYPE_number, FLAG_ListVar);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_maxpool2d, size)
+{
+	const Filter_MaxPool2d &filter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
+	return Value::CreateList(env, Value(filter.GetSizeCol()), Value(filter.GetSizeRow()));
+}
+
+// filter@maxpool2d#strides
+Gura_DeclareProperty_R(filter_at_maxpool2d, strides)
+{
+	SetPropAttr(VTYPE_number, FLAG_ListVar);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_maxpool2d, strides)
+{
+	const Filter_MaxPool2d &filter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
+	return Value::CreateList(env, Value(filter.GetStridesCol()), Value(filter.GetStridesRow()));
+}
+
+// filter@maxpool2d#padding
+Gura_DeclareProperty_R(filter_at_maxpool2d, padding)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_maxpool2d, padding)
+{
+	const Filter_MaxPool2d &filter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
+	return Value(Filter::PaddingTypeToSymbol(filter.GetPaddingType()));
+}
+
+// filter@maxpool2d#channel_at
+Gura_DeclareProperty_R(filter_at_maxpool2d, channel_at)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_maxpool2d, channel_at)
+{
+	const Filter_MaxPool2d &filter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
+	return Value(Filter::ChannelAtToSymbol(filter.GetChannelAt()));
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
 Class_filter_at_maxpool2d::Class_filter_at_maxpool2d(Environment *pEnvOuter) :
