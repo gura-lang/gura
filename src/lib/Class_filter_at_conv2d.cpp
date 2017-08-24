@@ -75,7 +75,7 @@ Class_filter_at_conv2d::Class_filter_at_conv2d(Environment *pEnvOuter) :
 
 void Class_filter_at_conv2d::DoPrepare(Environment &env)
 {
-	// function assignment
+	// Assignment of function
 	Gura_AssignFunction(filter_at_conv2d);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);

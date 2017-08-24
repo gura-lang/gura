@@ -75,7 +75,7 @@ Class_filter_at_softmax::Class_filter_at_softmax(Environment *pEnvOuter) :
 
 void Class_filter_at_softmax::DoPrepare(Environment &env)
 {
-	// function assignment
+	// Assignment of function
 	Gura_AssignFunction(filter_at_softmax);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);

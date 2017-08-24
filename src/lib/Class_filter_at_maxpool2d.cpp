@@ -175,7 +175,7 @@ Class_filter_at_maxpool2d::Class_filter_at_maxpool2d(Environment *pEnvOuter) :
 
 void Class_filter_at_maxpool2d::DoPrepare(Environment &env)
 {
-	// function assignment
+	// Assignment of function
 	Gura_AssignFunction(filter_at_maxpool2d);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);

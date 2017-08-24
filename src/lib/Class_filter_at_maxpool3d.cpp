@@ -79,7 +79,7 @@ Class_filter_at_maxpool3d::Class_filter_at_maxpool3d(Environment *pEnvOuter) :
 
 void Class_filter_at_maxpool3d::DoPrepare(Environment &env)
 {
-	// function assignment
+	// Assignment of function
 	Gura_AssignFunction(filter_at_maxpool3d);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);

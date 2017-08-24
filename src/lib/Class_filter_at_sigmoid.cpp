@@ -75,7 +75,7 @@ Class_filter_at_sigmoid::Class_filter_at_sigmoid(Environment *pEnvOuter) :
 
 void Class_filter_at_sigmoid::DoPrepare(Environment &env)
 {
-	// function assignment
+	// Assignment of function
 	Gura_AssignFunction(filter_at_sigmoid);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
