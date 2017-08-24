@@ -1,5 +1,5 @@
 //=============================================================================
-// Gura class: filter@conv2d
+// Gura class: filter@softmax
 //=============================================================================
 #include "stdafx.h"
 
@@ -9,14 +9,14 @@ static const char *helpDoc_en = R"**(
 )**";
 
 //-----------------------------------------------------------------------------
-// Filter_Conv2d
+// Filter_Softmax
 //-----------------------------------------------------------------------------
-Filter_Conv2d::FilterFuncTable Filter_Conv2d::filterFuncTable = {{{nullptr}}};
+Filter_Softmax::FilterFuncTable Filter_Softmax::filterFuncTable = {{nullptr}};
 
-Array *Filter_Conv2d::Apply(
-	Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv2d &filter)
+Array *Filter_Softmax::Apply(
+	Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Softmax &filter)
 {
-	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()][Array::ETYPE_None];
+	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
 	if (filterFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply convolution filter on this array");
 		return nullptr;
@@ -25,22 +25,22 @@ Array *Filter_Conv2d::Apply(
 }
 
 //-----------------------------------------------------------------------------
-// Object_filter_at_conv2d
+// Object_filter_at_softmax
 //-----------------------------------------------------------------------------
-Object_filter_at_conv2d::Object_filter_at_conv2d(Environment &env, const Filter_Conv2d &filter) :
-	Object(env.LookupClass(VTYPE_filter_at_conv2d)), _filter(filter)
+Object_filter_at_softmax::Object_filter_at_softmax(Environment &env, const Filter_Softmax &filter) :
+	Object(env.LookupClass(VTYPE_filter_at_softmax)), _filter(filter)
 {
 }
 
-Object *Object_filter_at_conv2d::Clone() const
+Object *Object_filter_at_softmax::Clone() const
 {
 	return nullptr;
 }
 	
-String Object_filter_at_conv2d::ToString(bool exprFlag)
+String Object_filter_at_softmax::ToString(bool exprFlag)
 {
 	String str;
-	str += "<filter@conv2d:";
+	str += "<filter@softmax:";
 	str += ">";
 	return str;
 }
@@ -48,40 +48,40 @@ String Object_filter_at_conv2d::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter@conv2d():map {block?}
-Gura_DeclareFunctionAlias(filter_at_conv2d, "filter@conv2d")
+// filter@softmax():map {block?}
+Gura_DeclareFunctionAlias(filter_at_softmax, "filter@softmax")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_conv2d));
+	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_softmax));
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates a `filter@conv2d` instance.\n");
+		"Creates a `filter@softmax` instance.\n");
 }
 
-Gura_ImplementFunction(filter_at_conv2d)
+Gura_ImplementFunction(filter_at_softmax)
 {
-	Object_filter_at_conv2d *pObj = new Object_filter_at_conv2d(env, Filter_Conv2d());
+	Object_filter_at_softmax *pObj = new Object_filter_at_softmax(env, Filter_Softmax());
 	return ReturnValue(env, arg, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_filter_at_conv2d::Class_filter_at_conv2d(Environment *pEnvOuter) :
-	ClassFundamental(pEnvOuter, VTYPE_filter_at_conv2d)
+Class_filter_at_softmax::Class_filter_at_softmax(Environment *pEnvOuter) :
+	ClassFundamental(pEnvOuter, VTYPE_filter_at_softmax)
 {
 }
 
-void Class_filter_at_conv2d::DoPrepare(Environment &env)
+void Class_filter_at_softmax::DoPrepare(Environment &env)
 {
 	// function assignment
-	Gura_AssignFunction(filter_at_conv2d);
+	Gura_AssignFunction(filter_at_softmax);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-Object *Class_filter_at_conv2d::CreateDescendant(Environment &env, Class *pClass)
+Object *Class_filter_at_softmax::CreateDescendant(Environment &env, Class *pClass)
 {
 	return nullptr;
 }

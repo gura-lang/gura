@@ -131,5 +131,9 @@
 #include "gura/Class_filter_at_maxpool1d.h"
 #include "gura/Class_filter_at_maxpool2d.h"
 #include "gura/Class_filter_at_maxpool3d.h"
+#include "gura/Class_filter_at_relu.h"
+#include "gura/Class_filter_at_sigmoid.h"
+#include "gura/Class_filter_at_softmax.h"
+#include "gura/Class_filter_at_tanh.h"
 
 #endif

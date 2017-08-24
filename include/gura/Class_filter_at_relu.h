@@ -1,8 +1,8 @@
 //=============================================================================
-// Gura class: filter@conv3d
+// Gura class: filter@relu
 //=============================================================================
-#ifndef __GURA_CLASS_FILTER_AT_CONV3D_H__
-#define __GURA_CLASS_FILTER_AT_CONV3D_H__
+#ifndef __GURA_CLASS_FILTER_AT_RELU_H__
+#define __GURA_CLASS_FILTER_AT_RELU_H__
 
 #include "Class.h"
 #include "Filter.h"
@@ -10,31 +10,31 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Filter_Conv3d
+// Filter_Relu
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Filter_Conv3d : public Filter {
+class GURA_DLLDECLARE Filter_Relu : public Filter {
 public:
 	typedef Array *(*FilterFuncT)(Signal &sig, Array *pArrayResult,
-								  const Array *pArray, const Filter_Conv3d &filter);
+								  const Array *pArray, const Filter_Relu &filter);
 	struct FilterFuncTable {
-		FilterFuncT funcs[Array::ETYPE_Max][Array::ETYPE_Max];
+		FilterFuncT funcs[Array::ETYPE_Max];
 	};
 public:
 	static FilterFuncTable filterFuncTable;
 public:
-	inline Filter_Conv3d() {}
-	inline Filter_Conv3d(const Filter_Conv3d &filter) {}
+	inline Filter_Relu() {}
+	inline Filter_Relu(const Filter_Relu &filter) {}
 public:
 	static Array *Apply(
-		Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv3d &filter);
+		Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Relu &filter);
 };
 
 //-----------------------------------------------------------------------------
-// Class_filter_at_conv3d
+// Class_filter_at_relu
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_filter_at_conv3d : public ClassFundamental {
+class GURA_DLLDECLARE Class_filter_at_relu : public ClassFundamental {
 public:
-	Class_filter_at_conv3d(Environment *pEnvOuter);
+	Class_filter_at_relu(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
@@ -42,17 +42,17 @@ public:
 //-----------------------------------------------------------------------------
 // Object_filter
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Object_filter_at_conv3d : public Object {
+class GURA_DLLDECLARE Object_filter_at_relu : public Object {
 private:
-	Filter_Conv3d _filter;
+	Filter_Relu _filter;
 public:
-	Gura_DeclareObjectAccessor(filter_at_conv3d)
+	Gura_DeclareObjectAccessor(filter_at_relu)
 public:
-	Object_filter_at_conv3d(Environment &env, const Filter_Conv3d &filter);
+	Object_filter_at_relu(Environment &env, const Filter_Relu &filter);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline Filter_Conv3d &GetFilter() { return _filter; }
-	inline const Filter_Conv3d &GetFilter() const { return _filter; }
+	inline Filter_Relu &GetFilter() { return _filter; }
+	inline const Filter_Relu &GetFilter() const { return _filter; }
 };
 
 }

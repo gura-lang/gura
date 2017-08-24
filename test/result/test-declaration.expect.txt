@@ -80,9 +80,16 @@ environment:class = <class:environment>
 error:class = <class:error>
 expr:class = <class:expr(src:stream:r):map {block?}>
 false:boolean = false
+filter@conv1d:class = <class:filter@conv1d():map {block?}>
+filter@conv2d:class = <class:filter@conv2d():map {block?}>
+filter@conv3d:class = <class:filter@conv3d():map {block?}>
 filter@maxpool1d:class = <class:filter@maxpool1d(size:number, strides?:number, padding?:symbol, channel_at?:symbol):map {block?}>
 filter@maxpool2d:class = <class:filter@maxpool2d(size[]:number, strides[]?:number, padding?:symbol, channel_at?:symbol):map {block?}>
 filter@maxpool3d:class = <class:filter@maxpool3d(size[]:number, strides[]?:number, padding?:symbol, format?:symbol):map {block?}>
+filter@relu:class = <class:filter@relu():map {block?}>
+filter@sigmoid:class = <class:filter@sigmoid():map {block?}>
+filter@softmax:class = <class:filter@softmax():map {block?}>
+filter@tanh:class = <class:filter@tanh():map {block?}>
 finally():finalizer:trailer {block}
 for (`expr+) {block}
 format(format:string, values*):map
@@ -687,9 +694,16 @@ expr
   expr#tofunction(`args*)
   expr#unquote()
   expr#write(dst:stream:w, style?:symbol, indent?:string)
+filter@conv1d
+filter@conv2d
+filter@conv3d
 filter@maxpool1d
 filter@maxpool2d
 filter@maxpool3d
+filter@relu
+filter@sigmoid
+filter@softmax
+filter@tanh
 formatter
   formatter#getminwidth()
   formatter#getpadding()

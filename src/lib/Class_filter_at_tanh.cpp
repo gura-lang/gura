@@ -1,5 +1,5 @@
 //=============================================================================
-// Gura class: filter@conv2d
+// Gura class: filter@tanh
 //=============================================================================
 #include "stdafx.h"
 
@@ -9,14 +9,14 @@ static const char *helpDoc_en = R"**(
 )**";
 
 //-----------------------------------------------------------------------------
-// Filter_Conv2d
+// Filter_Tanh
 //-----------------------------------------------------------------------------
-Filter_Conv2d::FilterFuncTable Filter_Conv2d::filterFuncTable = {{{nullptr}}};
+Filter_Tanh::FilterFuncTable Filter_Tanh::filterFuncTable = {{nullptr}};
 
-Array *Filter_Conv2d::Apply(
-	Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv2d &filter)
+Array *Filter_Tanh::Apply(
+	Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Tanh &filter)
 {
-	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()][Array::ETYPE_None];
+	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
 	if (filterFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply convolution filter on this array");
 		return nullptr;
@@ -25,22 +25,22 @@ Array *Filter_Conv2d::Apply(
 }
 
 //-----------------------------------------------------------------------------
-// Object_filter_at_conv2d
+// Object_filter_at_tanh
 //-----------------------------------------------------------------------------
-Object_filter_at_conv2d::Object_filter_at_conv2d(Environment &env, const Filter_Conv2d &filter) :
-	Object(env.LookupClass(VTYPE_filter_at_conv2d)), _filter(filter)
+Object_filter_at_tanh::Object_filter_at_tanh(Environment &env, const Filter_Tanh &filter) :
+	Object(env.LookupClass(VTYPE_filter_at_tanh)), _filter(filter)
 {
 }
 
-Object *Object_filter_at_conv2d::Clone() const
+Object *Object_filter_at_tanh::Clone() const
 {
 	return nullptr;
 }
 	
-String Object_filter_at_conv2d::ToString(bool exprFlag)
+String Object_filter_at_tanh::ToString(bool exprFlag)
 {
 	String str;
-	str += "<filter@conv2d:";
+	str += "<filter@tanh:";
 	str += ">";
 	return str;
 }
@@ -48,40 +48,40 @@ String Object_filter_at_conv2d::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter@conv2d():map {block?}
-Gura_DeclareFunctionAlias(filter_at_conv2d, "filter@conv2d")
+// filter@tanh():map {block?}
+Gura_DeclareFunctionAlias(filter_at_tanh, "filter@tanh")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_conv2d));
+	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_tanh));
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates a `filter@conv2d` instance.\n");
+		"Creates a `filter@tanh` instance.\n");
 }
 
-Gura_ImplementFunction(filter_at_conv2d)
+Gura_ImplementFunction(filter_at_tanh)
 {
-	Object_filter_at_conv2d *pObj = new Object_filter_at_conv2d(env, Filter_Conv2d());
+	Object_filter_at_tanh *pObj = new Object_filter_at_tanh(env, Filter_Tanh());
 	return ReturnValue(env, arg, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_filter_at_conv2d::Class_filter_at_conv2d(Environment *pEnvOuter) :
-	ClassFundamental(pEnvOuter, VTYPE_filter_at_conv2d)
+Class_filter_at_tanh::Class_filter_at_tanh(Environment *pEnvOuter) :
+	ClassFundamental(pEnvOuter, VTYPE_filter_at_tanh)
 {
 }
 
-void Class_filter_at_conv2d::DoPrepare(Environment &env)
+void Class_filter_at_tanh::DoPrepare(Environment &env)
 {
 	// function assignment
-	Gura_AssignFunction(filter_at_conv2d);
+	Gura_AssignFunction(filter_at_tanh);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-Object *Class_filter_at_conv2d::CreateDescendant(Environment &env, Class *pClass)
+Object *Class_filter_at_tanh::CreateDescendant(Environment &env, Class *pClass)
 {
 	return nullptr;
 }

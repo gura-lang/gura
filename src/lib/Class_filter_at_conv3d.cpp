@@ -11,12 +11,12 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 // Filter_Conv3d
 //-----------------------------------------------------------------------------
-Filter_Conv3d::FilterFuncTable Filter_Conv3d::filterFuncTable = {{nullptr}};
+Filter_Conv3d::FilterFuncTable Filter_Conv3d::filterFuncTable = {{{nullptr}}};
 
 Array *Filter_Conv3d::Apply(
 	Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv3d &filter)
 {
-	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
+	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()][Array::ETYPE_None];
 	if (filterFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply convolution filter on this array");
 		return nullptr;

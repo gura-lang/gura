@@ -79,6 +79,10 @@ ValueType VTYPE_filter_at_conv3d		= static_cast<ValueType>(0);
 ValueType VTYPE_filter_at_maxpool1d		= static_cast<ValueType>(0);
 ValueType VTYPE_filter_at_maxpool2d		= static_cast<ValueType>(0);
 ValueType VTYPE_filter_at_maxpool3d		= static_cast<ValueType>(0);
+ValueType VTYPE_filter_at_relu			= static_cast<ValueType>(0);
+ValueType VTYPE_filter_at_sigmoid		= static_cast<ValueType>(0);
+ValueType VTYPE_filter_at_softmax		= static_cast<ValueType>(0);
+ValueType VTYPE_filter_at_tanh			= static_cast<ValueType>(0);
 
 //-----------------------------------------------------------------------------
 // ValueTypeInfo
@@ -228,6 +232,10 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_RealizeVTYPEAlias(filter_at_maxpool1d,		"filter@maxpool1d");
 	Gura_RealizeVTYPEAlias(filter_at_maxpool2d,		"filter@maxpool2d");
 	Gura_RealizeVTYPEAlias(filter_at_maxpool3d,		"filter@maxpool3d");
+	Gura_RealizeVTYPEAlias(filter_at_relu,			"filter@relu");
+	Gura_RealizeVTYPEAlias(filter_at_sigmoid,		"filter@sigmoid");
+	Gura_RealizeVTYPEAlias(filter_at_softmax,		"filter@softmax");
+	Gura_RealizeVTYPEAlias(filter_at_tanh,			"filter@tanh");
 	Class *pClass = new ClassFundamental(&env, VTYPE_object);
 	Gura_VTYPEInfo(object		)->SetClass(pClass);
 	// invalid types
@@ -316,6 +324,10 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_VTYPEInfo(filter_at_maxpool1d)->SetClass(new Class_filter_at_maxpool1d(pClass));
 	Gura_VTYPEInfo(filter_at_maxpool2d)->SetClass(new Class_filter_at_maxpool2d(pClass));
 	Gura_VTYPEInfo(filter_at_maxpool3d)->SetClass(new Class_filter_at_maxpool3d(pClass));
+	Gura_VTYPEInfo(filter_at_relu)->SetClass(new Class_filter_at_relu(pClass));
+	Gura_VTYPEInfo(filter_at_sigmoid)->SetClass(new Class_filter_at_sigmoid(pClass));
+	Gura_VTYPEInfo(filter_at_softmax)->SetClass(new Class_filter_at_softmax(pClass));
+	Gura_VTYPEInfo(filter_at_tanh)->SetClass(new Class_filter_at_tanh(pClass));
 	//pClass->Prepare(env); // methods of Object can only be initialized here
 }
 
@@ -392,6 +404,10 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_filter_at_maxpool1d	)->Prepare(env);
 	env.LookupClass(VTYPE_filter_at_maxpool2d	)->Prepare(env);
 	env.LookupClass(VTYPE_filter_at_maxpool3d	)->Prepare(env);
+	env.LookupClass(VTYPE_filter_at_relu		)->Prepare(env);
+	env.LookupClass(VTYPE_filter_at_sigmoid		)->Prepare(env);
+	env.LookupClass(VTYPE_filter_at_softmax		)->Prepare(env);
+	env.LookupClass(VTYPE_filter_at_tanh		)->Prepare(env);
 }
 
 ValueTypeInfo *ValueTypePool::Add(const Symbol *pSymbol)

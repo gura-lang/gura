@@ -1298,6 +1298,42 @@ Array *BinaryFuncTmpl_Div_complex_complex(Signal &sig, Array *pArrayResult, cons
 }
 
 //------------------------------------------------------------------------------
+// FilterFuncTmpl_Conv1d
+//------------------------------------------------------------------------------
+template<typename T_ElemResult, typename T_Elem, typename T_ElemFilter>
+Array *FilterFuncTmpl_Conv1d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv1d &filter)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(dims));
+	return pArrayTResult.release();
+}
+
+//------------------------------------------------------------------------------
+// FilterFuncTmpl_Conv2d
+//------------------------------------------------------------------------------
+template<typename T_ElemResult, typename T_Elem, typename T_ElemFilter>
+Array *FilterFuncTmpl_Conv2d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv2d &filter)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(dims));
+	return pArrayTResult.release();
+}
+
+//------------------------------------------------------------------------------
+// FilterFuncTmpl_Conv3d
+//------------------------------------------------------------------------------
+template<typename T_ElemResult, typename T_Elem, typename T_ElemFilter>
+Array *FilterFuncTmpl_Conv3d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv3d &filter)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(dims));
+	return pArrayTResult.release();
+}
+
+//------------------------------------------------------------------------------
 // FilterFuncTmpl_MaxPool1d
 //------------------------------------------------------------------------------
 template<typename T_Elem>
@@ -1326,6 +1362,54 @@ Array *FilterFuncTmpl_MaxPool2d(Signal &sig, Array *pArrayResult, const Array *p
 //------------------------------------------------------------------------------
 template<typename T_Elem>
 Array *FilterFuncTmpl_MaxPool3d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool3d &filter)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(dims));
+	return pArrayTResult.release();
+}
+
+//------------------------------------------------------------------------------
+// FilterFuncTmpl_Relu
+//------------------------------------------------------------------------------
+template<typename T_Elem>
+Array *FilterFuncTmpl_Relu(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Relu &filter)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(dims));
+	return pArrayTResult.release();
+}
+
+//------------------------------------------------------------------------------
+// FilterFuncTmpl_Sigmoid
+//------------------------------------------------------------------------------
+template<typename T_Elem>
+Array *FilterFuncTmpl_Sigmoid(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Sigmoid &filter)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(dims));
+	return pArrayTResult.release();
+}
+
+//------------------------------------------------------------------------------
+// FilterFuncTmpl_Softmax
+//------------------------------------------------------------------------------
+template<typename T_Elem>
+Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Softmax &filter)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(dims));
+	return pArrayTResult.release();
+}
+
+//------------------------------------------------------------------------------
+// FilterFuncTmpl_Tanh
+//------------------------------------------------------------------------------
+template<typename T_Elem>
+Array *FilterFuncTmpl_Tanh(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Tanh &filter)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
@@ -1392,10 +1476,10 @@ ImplementUnaryFuncTable(Math_unitstep,	UnaryFuncTmpl);
 //ImplementBinaryFuncTable(Dot)
 Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 	{
-		{
+		{ // None
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-		}, {
+		}, { // Boolean |.| any
 			nullptr,
 			&BinaryFuncTmpl_Dot<Int8,		Boolean,	Boolean	>,
 			&BinaryFuncTmpl_Dot<Int8,		Boolean,	Int8	>,
@@ -1411,7 +1495,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 			&BinaryFuncTmpl_Dot<Double,		Boolean,	Double	>,
 			&BinaryFuncTmpl_Dot<Complex,	Boolean,	Complex	>,
 			nullptr,
-		}, {
+		}, { // Int8 |.| any
 			nullptr,
 			&BinaryFuncTmpl_Dot<Int8,		Int8,		Boolean	>,
 			&BinaryFuncTmpl_Dot<Int8,		Int8,		Int8	>,
@@ -1427,7 +1511,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 			&BinaryFuncTmpl_Dot<Double,		Int8,		Double	>,
 			&BinaryFuncTmpl_Dot<Complex,	Int8,		Complex	>,
 			nullptr,
-		}, {
+		}, { // UInt8 |.| any
 			nullptr,
 			&BinaryFuncTmpl_Dot<UInt8,		UInt8,		Boolean	>,
 			&BinaryFuncTmpl_Dot<UInt8,		UInt8,		Int8	>,
@@ -1443,7 +1527,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 			&BinaryFuncTmpl_Dot<Double,		UInt8,		Double	>,
 			&BinaryFuncTmpl_Dot<Complex,	UInt8,		Complex	>,
 			nullptr,
-		}, {
+		}, { // Int16 |.| any
 			nullptr,
 			&BinaryFuncTmpl_Dot<Int16,		Int16,		Boolean	>,
 			&BinaryFuncTmpl_Dot<Int16,		Int16,		Int8	>,
@@ -1459,7 +1543,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 			&BinaryFuncTmpl_Dot<Double,		Int16,		Double	>,
 			&BinaryFuncTmpl_Dot<Complex,	Int16,		Complex	>,
 			nullptr,
-		}, {
+		}, { // UInt16 |.| any
 			nullptr,
 			&BinaryFuncTmpl_Dot<UInt16,		UInt16,		Boolean	>,
 			&BinaryFuncTmpl_Dot<UInt16,		UInt16,		Int8	>,
@@ -1475,7 +1559,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 			&BinaryFuncTmpl_Dot<Double,		UInt16,		Double	>,
 			&BinaryFuncTmpl_Dot<Complex,	UInt16,		Complex	>,
 			nullptr,
-		}, {
+		}, { // Int32 |.| any
 			nullptr,
 			&BinaryFuncTmpl_Dot<Int32,		Int32,		Boolean	>,
 			&BinaryFuncTmpl_Dot<Int32,		Int32,		Int8	>,
@@ -1491,7 +1575,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 			&BinaryFuncTmpl_Dot<Double,		Int32,		Double	>,
 			&BinaryFuncTmpl_Dot<Complex,	Int32,		Complex	>,
 			nullptr,
-		}, {
+		}, { // UInt32 |.| any
 			nullptr,
 			&BinaryFuncTmpl_Dot<UInt32,		UInt32,		Boolean	>,
 			&BinaryFuncTmpl_Dot<UInt32,		UInt32,		Int8	>,
@@ -1507,7 +1591,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 			&BinaryFuncTmpl_Dot<Double,		UInt32,		Double	>,
 			&BinaryFuncTmpl_Dot<Complex,	UInt32,		Complex	>,
 			nullptr,
-		}, {
+		}, { // Int64 |.| any
 			nullptr,
 			&BinaryFuncTmpl_Dot<Int64,		Int64,		Boolean	>,
 			&BinaryFuncTmpl_Dot<Int64,		Int64,		Int8	>,
@@ -1523,7 +1607,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 			&BinaryFuncTmpl_Dot<Double,		Int64,		Double	>,
 			&BinaryFuncTmpl_Dot<Complex,	Int64,		Complex	>,
 			nullptr,
-		}, {
+		}, { // UInt64 |.| any
 			nullptr,
 			&BinaryFuncTmpl_Dot<UInt64,		UInt64,		Boolean	>,
 			&BinaryFuncTmpl_Dot<UInt64,		UInt64,		Int8	>,
@@ -1539,7 +1623,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 			&BinaryFuncTmpl_Dot<Double,		UInt64,		Double	>,
 			&BinaryFuncTmpl_Dot<Complex,	UInt64,		Complex	>,
 			nullptr,
-		}, {
+		}, { // Half |.| any
 			nullptr,
 			&BinaryFuncTmpl_Dot<Half,		Half,		Boolean	>,
 			&BinaryFuncTmpl_Dot<Half,		Half,		Int8	>,
@@ -1555,7 +1639,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 			&BinaryFuncTmpl_Dot<Double,		Half,		Double	>,
 			&BinaryFuncTmpl_Dot<Complex,	Half,		Complex	>,
 			nullptr,
-		}, {
+		}, { // Float |.| any
 			nullptr,
 			&BinaryFuncTmpl_Dot<Float,		Float,		Boolean	>,
 			&BinaryFuncTmpl_Dot<Float,		Float,		Int8	>,
@@ -1571,7 +1655,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 			&BinaryFuncTmpl_Dot<Double,		Float,		Double	>,
 			&BinaryFuncTmpl_Dot<Complex,	Float,		Complex	>,
 			nullptr,
-		}, {
+		}, { // Double |.| any
 			nullptr,
 			&BinaryFuncTmpl_Dot<Double,		Double,		Boolean	>,
 			&BinaryFuncTmpl_Dot<Double,		Double,		Int8	>,
@@ -1582,12 +1666,12 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 			&BinaryFuncTmpl_Dot<Double,		Double,		UInt32	>,
 			&BinaryFuncTmpl_Dot<Double,		Double,		Int64	>,
 			&BinaryFuncTmpl_Dot<Double,		Double,		UInt64	>,
-			&BinaryFuncTmpl_Dot<Half,		Double,		Half	>,
+			&BinaryFuncTmpl_Dot<Double,		Double,		Half	>,
 			&BinaryFuncTmpl_Dot<Double,		Double,		Float	>,
 			&BinaryFuncTmpl_Dot<Double,		Double,		Double	>,
 			&BinaryFuncTmpl_Dot<Complex,	Double,		Complex	>,
 			nullptr,
-		}, {
+		}, { // Complex |.| any
 			nullptr,
 			&BinaryFuncTmpl_Dot<Complex,	Complex,	Boolean	>,
 			&BinaryFuncTmpl_Dot<Complex,	Complex,	Int8	>,
@@ -1603,7 +1687,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 			&BinaryFuncTmpl_Dot<Complex,	Complex,	Double	>,
 			&BinaryFuncTmpl_Dot<Complex,	Complex,	Complex	>,
 			nullptr,
-		}, {
+		}, { // reserved1 |.| any
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 		},
@@ -1676,6 +1760,267 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 	BinaryFuncTmpl_complex_complex<Operator_Mul::Calc>,
 };
 
+Filter_Conv1d::FilterFuncTable g_FilterFuncTable_Conv1d = {
+	{
+		{ // None |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Boolean |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Int8 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // UInt8 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Int16 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // UInt16 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Int32 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // UInt32 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Int64 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Half |*| any
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			&FilterFuncTmpl_Conv1d<Half,		Half,		Half	>,
+			&FilterFuncTmpl_Conv1d<Half,		Half,		Float	>,
+			&FilterFuncTmpl_Conv1d<Half,		Half,		Double	>,
+			nullptr,
+			nullptr,
+		}, { // Float |*| any
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			&FilterFuncTmpl_Conv1d<Float,		Float,		Half	>,
+			&FilterFuncTmpl_Conv1d<Float,		Float,		Float	>,
+			&FilterFuncTmpl_Conv1d<Float,		Float,		Double	>,
+			nullptr,
+			nullptr,
+		}, { // Double |*| any
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			&FilterFuncTmpl_Conv1d<Double,		Double,		Half	>,
+			&FilterFuncTmpl_Conv1d<Double,		Double,		Float	>,
+			&FilterFuncTmpl_Conv1d<Double,		Double,		Double	>,
+			nullptr,
+			nullptr,
+		}, { // Complex |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // reserved1 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}
+	}
+};
+
+Filter_Conv2d::FilterFuncTable g_FilterFuncTable_Conv2d = {
+	{
+		{ // None |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Boolean |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Int8 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // UInt8 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Int16 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // UInt16 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Int32 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // UInt32 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Int64 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Half |*| any
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			&FilterFuncTmpl_Conv2d<Half,		Half,		Half	>,
+			&FilterFuncTmpl_Conv2d<Half,		Half,		Float	>,
+			&FilterFuncTmpl_Conv2d<Half,		Half,		Double	>,
+			nullptr,
+			nullptr,
+		}, { // Float |*| any
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			&FilterFuncTmpl_Conv2d<Float,		Float,		Half	>,
+			&FilterFuncTmpl_Conv2d<Float,		Float,		Float	>,
+			&FilterFuncTmpl_Conv2d<Float,		Float,		Double	>,
+			nullptr,
+			nullptr,
+		}, { // Double |*| any
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			&FilterFuncTmpl_Conv2d<Double,		Double,		Half	>,
+			&FilterFuncTmpl_Conv2d<Double,		Double,		Float	>,
+			&FilterFuncTmpl_Conv2d<Double,		Double,		Double	>,
+			nullptr,
+			nullptr,
+		}, { // Complex |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // reserved1 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}
+	}
+};
+
+Filter_Conv3d::FilterFuncTable g_FilterFuncTable_Conv3d = {
+	{
+		{ // None |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Boolean |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Int8 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // UInt8 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Int16 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // UInt16 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Int32 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // UInt32 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Int64 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // Half |*| any
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			&FilterFuncTmpl_Conv3d<Half,		Half,		Half	>,
+			&FilterFuncTmpl_Conv3d<Half,		Half,		Float	>,
+			&FilterFuncTmpl_Conv3d<Half,		Half,		Double	>,
+			nullptr,
+			nullptr,
+		}, { // Float |*| any
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			&FilterFuncTmpl_Conv3d<Float,		Float,		Half	>,
+			&FilterFuncTmpl_Conv3d<Float,		Float,		Float	>,
+			&FilterFuncTmpl_Conv3d<Float,		Float,		Double	>,
+			nullptr,
+			nullptr,
+		}, { // Double |*| any
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			&FilterFuncTmpl_Conv3d<Double,		Double,		Half	>,
+			&FilterFuncTmpl_Conv3d<Double,		Double,		Float	>,
+			&FilterFuncTmpl_Conv3d<Double,		Double,		Double	>,
+			nullptr,
+			nullptr,
+		}, { // Complex |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, { // reserved1 |*| any
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}
+	}
+};
+
 Filter_MaxPool1d::FilterFuncTable g_FilterFuncTable_MaxPool1d = {
 	{
 		nullptr,
@@ -1736,6 +2081,86 @@ Filter_MaxPool3d::FilterFuncTable g_FilterFuncTable_MaxPool3d = {
 	}
 };
 
+Filter_Relu::FilterFuncTable g_FilterFuncTable_Relu = {
+	{
+		nullptr,
+		&FilterFuncTmpl_Relu<Boolean>,
+		&FilterFuncTmpl_Relu<Int8>,
+		&FilterFuncTmpl_Relu<UInt8>,
+		&FilterFuncTmpl_Relu<Int16>,
+		&FilterFuncTmpl_Relu<UInt16>,
+		&FilterFuncTmpl_Relu<Int32>,
+		&FilterFuncTmpl_Relu<UInt32>,
+		&FilterFuncTmpl_Relu<Int64>,
+		&FilterFuncTmpl_Relu<UInt64>,
+		&FilterFuncTmpl_Relu<Half>,
+		&FilterFuncTmpl_Relu<Float>,
+		&FilterFuncTmpl_Relu<Double>,
+		nullptr,
+		nullptr,
+	}
+};
+
+Filter_Sigmoid::FilterFuncTable g_FilterFuncTable_Sigmoid = {
+	{
+		nullptr,
+		&FilterFuncTmpl_Sigmoid<Boolean>,
+		&FilterFuncTmpl_Sigmoid<Int8>,
+		&FilterFuncTmpl_Sigmoid<UInt8>,
+		&FilterFuncTmpl_Sigmoid<Int16>,
+		&FilterFuncTmpl_Sigmoid<UInt16>,
+		&FilterFuncTmpl_Sigmoid<Int32>,
+		&FilterFuncTmpl_Sigmoid<UInt32>,
+		&FilterFuncTmpl_Sigmoid<Int64>,
+		&FilterFuncTmpl_Sigmoid<UInt64>,
+		&FilterFuncTmpl_Sigmoid<Half>,
+		&FilterFuncTmpl_Sigmoid<Float>,
+		&FilterFuncTmpl_Sigmoid<Double>,
+		nullptr,
+		nullptr,
+	}
+};
+
+Filter_Softmax::FilterFuncTable g_FilterFuncTable_Softmax = {
+	{
+		nullptr,
+		&FilterFuncTmpl_Softmax<Boolean>,
+		&FilterFuncTmpl_Softmax<Int8>,
+		&FilterFuncTmpl_Softmax<UInt8>,
+		&FilterFuncTmpl_Softmax<Int16>,
+		&FilterFuncTmpl_Softmax<UInt16>,
+		&FilterFuncTmpl_Softmax<Int32>,
+		&FilterFuncTmpl_Softmax<UInt32>,
+		&FilterFuncTmpl_Softmax<Int64>,
+		&FilterFuncTmpl_Softmax<UInt64>,
+		&FilterFuncTmpl_Softmax<Half>,
+		&FilterFuncTmpl_Softmax<Float>,
+		&FilterFuncTmpl_Softmax<Double>,
+		nullptr,
+		nullptr,
+	}
+};
+
+Filter_Tanh::FilterFuncTable g_FilterFuncTable_Tanh = {
+	{
+		nullptr,
+		&FilterFuncTmpl_Tanh<Boolean>,
+		&FilterFuncTmpl_Tanh<Int8>,
+		&FilterFuncTmpl_Tanh<UInt8>,
+		&FilterFuncTmpl_Tanh<Int16>,
+		&FilterFuncTmpl_Tanh<UInt16>,
+		&FilterFuncTmpl_Tanh<Int32>,
+		&FilterFuncTmpl_Tanh<UInt32>,
+		&FilterFuncTmpl_Tanh<Int64>,
+		&FilterFuncTmpl_Tanh<UInt64>,
+		&FilterFuncTmpl_Tanh<Half>,
+		&FilterFuncTmpl_Tanh<Float>,
+		&FilterFuncTmpl_Tanh<Double>,
+		nullptr,
+		nullptr,
+	}
+};
+
 void AssignOperators(Environment &env)
 {
 	// register function table
@@ -1784,9 +2209,16 @@ void AssignOperators(Environment &env)
 	Array::unaryFuncPack_Math_tan.table =		g_unaryFuncTable_Math_tan;
 	Array::unaryFuncPack_Math_tanh.table =		g_unaryFuncTable_Math_tanh;
 	Array::unaryFuncPack_Math_unitstep.table =	g_unaryFuncTable_Math_unitstep;
+	Filter_Conv1d::filterFuncTable =			g_FilterFuncTable_Conv1d;
+	Filter_Conv2d::filterFuncTable =			g_FilterFuncTable_Conv2d;
+	Filter_Conv3d::filterFuncTable =			g_FilterFuncTable_Conv3d;
 	Filter_MaxPool1d::filterFuncTable =			g_FilterFuncTable_MaxPool1d;
 	Filter_MaxPool2d::filterFuncTable =			g_FilterFuncTable_MaxPool2d;
 	Filter_MaxPool3d::filterFuncTable =			g_FilterFuncTable_MaxPool3d;
+	Filter_Relu::filterFuncTable =				g_FilterFuncTable_Relu;
+	Filter_Sigmoid::filterFuncTable =			g_FilterFuncTable_Sigmoid;
+	Filter_Softmax::filterFuncTable =			g_FilterFuncTable_Softmax;
+	Filter_Tanh::filterFuncTable =				g_FilterFuncTable_Tanh;
 }
 
 Gura_EndModuleScope(arrayt)

@@ -107,6 +107,10 @@ GURA_DLLDECLARE extern ValueType VTYPE_filter_at_conv3d;
 GURA_DLLDECLARE extern ValueType VTYPE_filter_at_maxpool1d;
 GURA_DLLDECLARE extern ValueType VTYPE_filter_at_maxpool2d;
 GURA_DLLDECLARE extern ValueType VTYPE_filter_at_maxpool3d;
+GURA_DLLDECLARE extern ValueType VTYPE_filter_at_relu;
+GURA_DLLDECLARE extern ValueType VTYPE_filter_at_sigmoid;
+GURA_DLLDECLARE extern ValueType VTYPE_filter_at_softmax;
+GURA_DLLDECLARE extern ValueType VTYPE_filter_at_tanh;
 
 //-----------------------------------------------------------------------------
 // ValueTypeInfo
@@ -225,6 +229,10 @@ public:
 	Gura_DeclareVTYPE(filter_at_maxpool1d);
 	Gura_DeclareVTYPE(filter_at_maxpool2d);
 	Gura_DeclareVTYPE(filter_at_maxpool3d);
+	Gura_DeclareVTYPE(filter_at_relu);
+	Gura_DeclareVTYPE(filter_at_sigmoid);
+	Gura_DeclareVTYPE(filter_at_softmax);
+	Gura_DeclareVTYPE(filter_at_tanh);
 private:
 	static ValueTypePool *_pInst;
 	ValueTypeList _valueTypeList;

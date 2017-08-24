@@ -246,6 +246,10 @@
     <ClCompile Include="Class_filter_at_maxpool1d.cpp" />
     <ClCompile Include="Class_filter_at_maxpool2d.cpp" />
     <ClCompile Include="Class_filter_at_maxpool3d.cpp" />
+    <ClCompile Include="Class_filter_at_relu.cpp" />
+    <ClCompile Include="Class_filter_at_sigmoid.cpp" />
+    <ClCompile Include="Class_filter_at_softmax.cpp" />
+    <ClCompile Include="Class_filter_at_tanh.cpp" />
     <ClCompile Include="ClassCustom.cpp" />
     <ClCompile Include="Codec.cpp" />
     <ClCompile Include="Color.cpp" />
@@ -390,6 +394,10 @@
     <ClInclude Include="..\..\include\gura\Class_filter_at_maxpool1d.h" />
     <ClInclude Include="..\..\include\gura\Class_filter_at_maxpool2d.h" />
     <ClInclude Include="..\..\include\gura\Class_filter_at_maxpool3d.h" />
+    <ClInclude Include="..\..\include\gura\Class_filter_at_relu.h" />
+    <ClInclude Include="..\..\include\gura\Class_filter_at_sigmoid.h" />
+    <ClInclude Include="..\..\include\gura\Class_filter_at_softmax.h" />
+    <ClInclude Include="..\..\include\gura\Class_filter_at_tanh.h" />
     <ClInclude Include="..\..\include\gura\Codec.h" />
     <ClInclude Include="..\..\include\gura\Color.h" />
     <ClInclude Include="..\..\include\gura\Common.h" />

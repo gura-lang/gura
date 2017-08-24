@@ -62,6 +62,10 @@ Class_filter_at_conv3d.cpp
 Class_filter_at_maxpool1d.cpp
 Class_filter_at_maxpool2d.cpp
 Class_filter_at_maxpool3d.cpp
+Class_filter_at_relu.cpp
+Class_filter_at_sigmoid.cpp
+Class_filter_at_softmax.cpp
+Class_filter_at_tanh.cpp
 ClassCustom.cpp
 Codec.cpp
 Color.cpp

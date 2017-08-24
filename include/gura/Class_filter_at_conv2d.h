@@ -17,7 +17,7 @@ public:
 	typedef Array *(*FilterFuncT)(Signal &sig, Array *pArrayResult,
 								  const Array *pArray, const Filter_Conv2d &filter);
 	struct FilterFuncTable {
-		FilterFuncT funcs[Array::ETYPE_Max];
+		FilterFuncT funcs[Array::ETYPE_Max][Array::ETYPE_Max];
 	};
 public:
 	static FilterFuncTable filterFuncTable;
