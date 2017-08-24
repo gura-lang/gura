@@ -77,6 +77,8 @@ void Class_filter_at_tanh::DoPrepare(Environment &env)
 {
 	// Assignment of function
 	Gura_AssignFunction(filter_at_tanh);
+	// Assignment of value
+	Gura_AssignClassValue(inst, Value(new Object_filter_at_tanh(env, Filter_Tanh())));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

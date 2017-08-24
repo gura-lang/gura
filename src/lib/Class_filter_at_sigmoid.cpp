@@ -77,6 +77,8 @@ void Class_filter_at_sigmoid::DoPrepare(Environment &env)
 {
 	// Assignment of function
 	Gura_AssignFunction(filter_at_sigmoid);
+	// Assignment of value
+	Gura_AssignClassValue(inst, Value(new Object_filter_at_sigmoid(env, Filter_Sigmoid())));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

@@ -78,7 +78,7 @@ void Class_filter_at_relu::DoPrepare(Environment &env)
 	// Assignment of function
 	Gura_AssignFunction(filter_at_relu);
 	// Assignment of value
-	Gura_AssignValue(inst, Value(new Object_filter_at_relu(env, Filter_Relu())));
+	Gura_AssignClassValue(inst, Value(new Object_filter_at_relu(env, Filter_Relu())));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
