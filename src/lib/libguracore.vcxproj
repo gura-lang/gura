@@ -240,6 +240,9 @@
     <ClCompile Include="Class_undefined.cpp" />
     <ClCompile Include="Class_uri.cpp" />
     <ClCompile Include="Class_vertex.cpp" />
+    <ClCompile Include="Class_filter_at_conv1d.cpp" />
+    <ClCompile Include="Class_filter_at_conv2d.cpp" />
+    <ClCompile Include="Class_filter_at_conv3d.cpp" />
     <ClCompile Include="Class_filter_at_maxpool1d.cpp" />
     <ClCompile Include="Class_filter_at_maxpool2d.cpp" />
     <ClCompile Include="Class_filter_at_maxpool3d.cpp" />
@@ -381,6 +384,9 @@
     <ClInclude Include="..\..\include\gura\Class_undefined.h" />
     <ClInclude Include="..\..\include\gura\Class_uri.h" />
     <ClInclude Include="..\..\include\gura\Class_vertex.h" />
+    <ClInclude Include="..\..\include\gura\Class_filter_at_conv1d.h" />
+    <ClInclude Include="..\..\include\gura\Class_filter_at_conv2d.h" />
+    <ClInclude Include="..\..\include\gura\Class_filter_at_conv3d.h" />
     <ClInclude Include="..\..\include\gura\Class_filter_at_maxpool1d.h" />
     <ClInclude Include="..\..\include\gura\Class_filter_at_maxpool2d.h" />
     <ClInclude Include="..\..\include\gura\Class_filter_at_maxpool3d.h" />

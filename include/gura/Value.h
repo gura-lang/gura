@@ -260,7 +260,12 @@ public:
 	inline bool Is_token() const			{ return IsType(VTYPE_token);					}
 	inline bool Is_uri() const				{ return IsType(VTYPE_uri);						}
 	inline bool Is_vertex() const			{ return IsType(VTYPE_vertex);					}
-	inline bool Is_filter_at_maxpool2d() const{ return IsType(VTYPE_filter_at_maxpool2d);		}
+	inline bool Is_filter_at_conv1d() const	{ return IsType(VTYPE_filter_at_conv1d);		}
+	inline bool Is_filter_at_conv2d() const	{ return IsType(VTYPE_filter_at_conv2d);		}
+	inline bool Is_filter_at_conv3d() const	{ return IsType(VTYPE_filter_at_conv3d);		}
+	inline bool Is_filter_at_maxpool1d() const	{ return IsType(VTYPE_filter_at_maxpool1d);		}
+	inline bool Is_filter_at_maxpool2d() const	{ return IsType(VTYPE_filter_at_maxpool2d);		}
+	inline bool Is_filter_at_maxpool3d() const	{ return IsType(VTYPE_filter_at_maxpool3d);		}
 	inline bool IsListOrIterator() const	{ return Is_list() || Is_iterator();			}
 	inline bool IsValidKey() const			{ return Is_number() || Is_string() || Is_symbol(); }
 	bool MustBe(Signal &sig, bool flag, const char *expected) const;
@@ -387,8 +392,18 @@ public:
 								{ return MustBe(sig, Is_uri(), 			"uri");				}
 	inline bool MustBe_vertex(Signal &sig) const
 								{ return MustBe(sig, Is_vertex(), 		"vertex");			}
+	inline bool MustBe_filter_at_conv1d(Signal &sig) const
+								{ return MustBe(sig, Is_filter_at_conv1d(), "filter@conv1d");	}
+	inline bool MustBe_filter_at_conv2d(Signal &sig) const
+								{ return MustBe(sig, Is_filter_at_conv2d(), "filter@conv2d");	}
+	inline bool MustBe_filter_at_conv3d(Signal &sig) const
+								{ return MustBe(sig, Is_filter_at_conv3d(), "filter@conv3d");	}
+	inline bool MustBe_filter_at_maxpool1d(Signal &sig) const
+								{ return MustBe(sig, Is_filter_at_maxpool1d(), "filter@maxpool1d");	}
 	inline bool MustBe_filter_at_maxpool2d(Signal &sig) const
-								{ return MustBe(sig, Is_monitor(), 		"filter@maxpool2d");	}
+								{ return MustBe(sig, Is_filter_at_maxpool2d(), "filter@maxpool2d");	}
+	inline bool MustBe_filter_at_maxpool3d(Signal &sig) const
+								{ return MustBe(sig, Is_filter_at_maxpool3d(), "filter@maxpool3d");	}
 	// setter methods
 	inline void SetBoolean(bool flag) {
 		Gura_ReleaseValue(*this); _valType = VTYPE_boolean, _u.flag = flag;
