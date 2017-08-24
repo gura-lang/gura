@@ -1375,10 +1375,7 @@ Array *FilterFuncTmpl_MaxPool3d(Signal &sig, Array *pArrayResult, const Array *p
 template<typename T_Elem>
 Array *FilterFuncTmpl_Relu(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Relu &filter)
 {
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(dims));
-	return pArrayTResult.release();
+	return Array::ApplyUnaryFunc(sig, Array::unaryFuncPack_Math_relu, pArrayResult, pArray);
 }
 
 //------------------------------------------------------------------------------
@@ -1387,10 +1384,7 @@ Array *FilterFuncTmpl_Relu(Signal &sig, Array *pArrayResult, const Array *pArray
 template<typename T_Elem>
 Array *FilterFuncTmpl_Sigmoid(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Sigmoid &filter)
 {
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(dims));
-	return pArrayTResult.release();
+	return Array::ApplyUnaryFunc(sig, Array::unaryFuncPack_Math_sigmoid, pArrayResult, pArray);
 }
 
 //------------------------------------------------------------------------------
@@ -1411,10 +1405,7 @@ Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayResult, const Array *pAr
 template<typename T_Elem>
 Array *FilterFuncTmpl_Tanh(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Tanh &filter)
 {
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(dims));
-	return pArrayTResult.release();
+	return Array::ApplyUnaryFunc(sig, Array::unaryFuncPack_Math_tanh, pArrayResult, pArray);
 }
 
 //------------------------------------------------------------------------------
