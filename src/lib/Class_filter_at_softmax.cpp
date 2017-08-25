@@ -48,10 +48,11 @@ String Object_filter_at_softmax::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter@softmax():map {block?}
+// filter@softmax(axis?:number):map {block?}
 Gura_DeclareFunctionAlias(filter_at_softmax, "filter@softmax")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "axis", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_softmax));
 	AddHelp(
@@ -61,7 +62,8 @@ Gura_DeclareFunctionAlias(filter_at_softmax, "filter@softmax")
 
 Gura_ImplementFunction(filter_at_softmax)
 {
-	Object_filter_at_softmax *pObj = new Object_filter_at_softmax(env, Filter_Softmax());
+	size_t axis = arg.IsValid(0)? arg.GetSizeT(0) : static_cast<size_t>(-1);
+	Object_filter_at_softmax *pObj = new Object_filter_at_softmax(env, Filter_Softmax(axis));
 	return ReturnValue(env, arg, Value(pObj));
 }
 

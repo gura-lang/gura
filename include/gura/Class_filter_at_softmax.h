@@ -21,9 +21,12 @@ public:
 	};
 public:
 	static FilterFuncTable filterFuncTable;
+private:
+	size_t _axis;
 public:
-	inline Filter_Softmax() {}
-	inline Filter_Softmax(const Filter_Softmax &filter) {}
+	inline Filter_Softmax(size_t axis = static_cast<size_t>(-1)) : _axis(axis) {}
+	inline Filter_Softmax(const Filter_Softmax &filter) : _axis(filter._axis) {}
+	inline size_t GetAxis() const { return _axis; }
 public:
 	static Array *Apply(
 		Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Softmax &filter);
