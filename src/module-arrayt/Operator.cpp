@@ -1406,7 +1406,11 @@ Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayResult, const Array *pAr
 	T_Elem *pElemResult = pArrayTResult->GetPointer();
 	size_t stride = pDimAxis->GetStride();
 	size_t cnt = pArrayT->GetElemNum() / pDimAxis->GetSize();
-	::printf("stride:%zu size:%zu\n", pDimAxis->GetStride(), pDimAxis->GetSize());
+	::printf("axis:%zu stride:%zu size:%zu\n", axis, pDimAxis->GetStride(), pDimAxis->GetSize());
+
+	// incorrect
+	size_t shift = (axis == dims.size() - 1)? pDimAxis->GetSize() : 1;
+
 	while (cnt-- > 0) {
 		T_Elem numSum = 0;
 		const T_Elem *pElemWk = pElem;
@@ -1420,8 +1424,8 @@ Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayResult, const Array *pAr
 		for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemResultWk += stride) {
 			*pElemResultWk /= numSum;
 		}
-		pElem += pDimAxis->GetSize();
-		pElemResult += pDimAxis->GetSize();
+		pElem += shift;
+		pElemResult += shift;
 	}
 	return pArrayTResult.release();
 }
