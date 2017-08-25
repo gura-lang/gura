@@ -1395,7 +1395,31 @@ Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayResult, const Array *pAr
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(dims));
+	size_t iAxis = dims.size() - 1;
+	Array::Dimensions::const_iterator pDimAxis = dims.begin() + iAxis;
+	AutoPtr<ArrayT<T_Elem> > pArrayTResult(
+		(pArrayResult == nullptr)? ArrayT<T_Elem>::Create(dims) :
+		dynamic_cast<ArrayT<T_Elem> *>(pArrayResult->Reference()));
+	pArrayTResult->FillZero();
+	const T_Elem *pElem = pArrayT->GetPointer();
+	T_Elem *pElemResult = pArrayTResult->GetPointer();
+	size_t stride = pDimAxis->GetStride();
+	size_t cnt = pArrayT->GetElemNum() / pDimAxis->GetSize();
+	while (cnt-- > 0) {
+		T_Elem numSum = 0;
+		const T_Elem *pElemWk = pElem;
+		T_Elem *pElemResultWk = pElemResult;
+		for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemResultWk += stride, pElemWk += stride) {
+			*pElemResultWk = static_cast<T_Elem>(::exp(static_cast<Double>(*pElemWk)));
+			numSum += *pElemResultWk;
+		}
+		pElemResultWk = pElemResult;
+		for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemResultWk += stride) {
+			*pElemResultWk /= numSum;
+		}
+		pElem += pDimAxis->GetSize();
+		pElemResultWk += pDimAxis->GetSize();
+	}
 	return pArrayTResult.release();
 }
 

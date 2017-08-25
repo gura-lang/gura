@@ -701,9 +701,13 @@ filter@maxpool1d
 filter@maxpool2d
 filter@maxpool3d
 filter@relu
+  inst:filter@relu = <filter@relu:>
 filter@sigmoid
+  inst:filter@sigmoid = <filter@sigmoid:>
 filter@softmax
+  inst:filter@softmax = <filter@softmax:>
 filter@tanh
+  inst:filter@tanh = <filter@tanh:>
 formatter
   formatter#getminwidth()
   formatter#getpadding()
