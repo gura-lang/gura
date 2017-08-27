@@ -256,98 +256,6 @@ Gura_ImplementBinaryOperator(Filter, array, filter)
 	return Array::ToValue(env, pArray);
 }
 
-#if 0
-Gura_ImplementBinaryOperator(Filter, array, filter_at_conv1d)
-{
-	Array *pArray = Object_filter_at_conv1d::GetObject(valueRight)->GetFilter().Apply(
-		env, nullptr,
-		Object_array::GetObject(valueLeft)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return Array::ToValue(env, pArray);
-}
-
-Gura_ImplementBinaryOperator(Filter, array, filter_at_conv2d)
-{
-	Array *pArray = Object_filter_at_conv2d::GetObject(valueRight)->GetFilter().Apply(
-		env, nullptr,
-		Object_array::GetObject(valueLeft)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return Array::ToValue(env, pArray);
-}
-
-Gura_ImplementBinaryOperator(Filter, array, filter_at_conv3d)
-{
-	Array *pArray = Object_filter_at_conv3d::GetObject(valueRight)->GetFilter().Apply(
-		env, nullptr,
-		Object_array::GetObject(valueLeft)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return Array::ToValue(env, pArray);
-}
-
-Gura_ImplementBinaryOperator(Filter, array, filter_at_maxpool1d)
-{
-	Array *pArray = Object_filter_at_maxpool1d::GetObject(valueRight)->GetFilter().Apply(
-		env, nullptr,
-		Object_array::GetObject(valueLeft)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return Array::ToValue(env, pArray);
-}
-
-Gura_ImplementBinaryOperator(Filter, array, filter_at_maxpool2d)
-{
-	Array *pArray = Object_filter_at_maxpool2d::GetObject(valueRight)->GetFilter().Apply(
-		env, nullptr,
-		Object_array::GetObject(valueLeft)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return Array::ToValue(env, pArray);
-}
-
-Gura_ImplementBinaryOperator(Filter, array, filter_at_maxpool3d)
-{
-	Array *pArray = Object_filter_at_maxpool3d::GetObject(valueRight)->GetFilter().Apply(
-		env, nullptr,
-		Object_array::GetObject(valueLeft)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return Array::ToValue(env, pArray);
-}
-
-Gura_ImplementBinaryOperator(Filter, array, filter_at_relu)
-{
-	Array *pArray = Object_filter_at_relu::GetObject(valueRight)->GetFilter().Apply(
-		env, nullptr,
-		Object_array::GetObject(valueLeft)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return Array::ToValue(env, pArray);
-}
-
-Gura_ImplementBinaryOperator(Filter, array, filter_at_sigmoid)
-{
-	Array *pArray = Object_filter_at_sigmoid::GetObject(valueRight)->GetFilter().Apply(
-		env, nullptr,
-		Object_array::GetObject(valueLeft)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return Array::ToValue(env, pArray);
-}
-
-Gura_ImplementBinaryOperator(Filter, array, filter_at_softmax)
-{
-	Array *pArray = Object_filter_at_softmax::GetObject(valueRight)->GetFilter().Apply(
-		env, nullptr,
-		Object_array::GetObject(valueLeft)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return Array::ToValue(env, pArray);
-}
-
-Gura_ImplementBinaryOperator(Filter, array, filter_at_tanh)
-{
-	Array *pArray = Object_filter_at_tanh::GetObject(valueRight)->GetFilter().Apply(
-		env, nullptr,
-		Object_array::GetObject(valueLeft)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return Array::ToValue(env, pArray);
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // [A |+| B] ... BinaryOperator(Join, A, B)
 //-----------------------------------------------------------------------------
@@ -982,18 +890,6 @@ void Operator::AssignOperatorArray(Environment &env)
 	Gura_AssignBinaryOperator(Dot, array, complex);
 	Gura_AssignBinaryOperator(Dot, complex, array);
 	Gura_AssignBinaryOperator(Filter, array, filter);
-#if 0
-	Gura_AssignBinaryOperator(Filter, array, filter_at_conv1d);
-	Gura_AssignBinaryOperator(Filter, array, filter_at_conv2d);
-	Gura_AssignBinaryOperator(Filter, array, filter_at_conv3d);
-	Gura_AssignBinaryOperator(Filter, array, filter_at_maxpool1d);
-	Gura_AssignBinaryOperator(Filter, array, filter_at_maxpool2d);
-	Gura_AssignBinaryOperator(Filter, array, filter_at_maxpool3d);
-	Gura_AssignBinaryOperator(Filter, array, filter_at_relu);
-	Gura_AssignBinaryOperator(Filter, array, filter_at_sigmoid);
-	Gura_AssignBinaryOperator(Filter, array, filter_at_softmax);
-	Gura_AssignBinaryOperator(Filter, array, filter_at_tanh);
-#endif
 	Gura_AssignBinaryOperator(Pow, array, array);
 	Gura_AssignBinaryOperator(Pow, array, number);
 	Gura_AssignBinaryOperator(Pow, number, array);
