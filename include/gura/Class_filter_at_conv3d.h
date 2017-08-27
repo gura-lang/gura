@@ -25,8 +25,7 @@ public:
 	inline Filter_Conv3d() {}
 	inline Filter_Conv3d(const Filter_Conv3d &filter) {}
 public:
-	static Array *Apply(
-		Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv3d &filter);
+	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray);
 };
 
 //-----------------------------------------------------------------------------

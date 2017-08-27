@@ -25,8 +25,7 @@ public:
 	inline Filter_Sigmoid() {}
 	inline Filter_Sigmoid(const Filter_Sigmoid &filter) {}
 public:
-	static Array *Apply(
-		Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Sigmoid &filter);
+	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray);
 };
 
 //-----------------------------------------------------------------------------

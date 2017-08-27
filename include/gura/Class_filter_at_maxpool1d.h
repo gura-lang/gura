@@ -38,8 +38,7 @@ public:
 	inline PaddingType GetPaddingType() const { return _paddingType; }
 	inline ChannelAt GetChannelAt() const { return _channelAt; }
 public:
-	static Array *Apply(
-		Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool1d &filter);
+	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray);
 };
 
 //-----------------------------------------------------------------------------

@@ -28,8 +28,7 @@ public:
 	inline Filter_Softmax(const Filter_Softmax &filter) : _axis(filter._axis) {}
 	inline size_t GetAxis() const { return _axis; }
 public:
-	static Array *Apply(
-		Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Softmax &filter);
+	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray);
 };
 
 //-----------------------------------------------------------------------------

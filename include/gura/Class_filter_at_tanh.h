@@ -25,8 +25,7 @@ public:
 	inline Filter_Tanh() {}
 	inline Filter_Tanh(const Filter_Tanh &filter) {}
 public:
-	static Array *Apply(
-		Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Tanh &filter);
+	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray);
 };
 
 //-----------------------------------------------------------------------------

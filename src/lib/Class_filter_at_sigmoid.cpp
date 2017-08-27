@@ -13,15 +13,14 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 Filter_Sigmoid::FilterFuncTable Filter_Sigmoid::filterFuncTable = {{nullptr}};
 
-Array *Filter_Sigmoid::Apply(
-	Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Sigmoid &filter)
+Array *Filter_Sigmoid::Apply(Signal &sig, Array *pArrayResult, const Array *pArray)
 {
 	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
 	if (filterFunc == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply convolution filter on this array");
+		sig.SetError(ERR_TypeError, "can't apply sigmoid filter on this array");
 		return nullptr;
 	}
-	return (*filterFunc)(sig, pArrayResult, pArray, filter);
+	return (*filterFunc)(sig, pArrayResult, pArray, *this);
 }
 
 //-----------------------------------------------------------------------------

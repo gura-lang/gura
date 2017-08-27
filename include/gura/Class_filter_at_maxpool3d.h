@@ -24,8 +24,7 @@ public:
 public:
 	inline Filter_MaxPool3d() {}
 public:
-	static Array *Apply(
-		Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool3d &filter);
+	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray);
 };
 
 //-----------------------------------------------------------------------------

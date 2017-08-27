@@ -88,7 +88,7 @@ filter@maxpool2d:class = <class:filter@maxpool2d(size[]:number, strides[]?:numbe
 filter@maxpool3d:class = <class:filter@maxpool3d(size[]:number, strides[]?:number, padding?:symbol, format?:symbol):map {block?}>
 filter@relu:class = <class:filter@relu():map {block?}>
 filter@sigmoid:class = <class:filter@sigmoid():map {block?}>
-filter@softmax:class = <class:filter@softmax():map {block?}>
+filter@softmax:class = <class:filter@softmax(axis?:number):map {block?}>
 filter@tanh:class = <class:filter@tanh():map {block?}>
 finally():finalizer:trailer {block}
 for (`expr+) {block}

@@ -13,15 +13,14 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 Filter_Conv1d::FilterFuncTable Filter_Conv1d::filterFuncTable = {{{nullptr}}};
 
-Array *Filter_Conv1d::Apply(
-	Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv1d &filter)
+Array *Filter_Conv1d::Apply(Signal &sig, Array *pArrayResult, const Array *pArray)
 {
 	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()][Array::ETYPE_None];
 	if (filterFunc == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply convolution filter on this array");
+		sig.SetError(ERR_TypeError, "can't apply 1-dimension convolution filter on this array");
 		return nullptr;
 	}
-	return (*filterFunc)(sig, pArrayResult, pArray, filter);
+	return (*filterFunc)(sig, pArrayResult, pArray, *this);
 }
 
 //-----------------------------------------------------------------------------

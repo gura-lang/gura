@@ -25,8 +25,7 @@ public:
 	inline Filter_Relu() {}
 	inline Filter_Relu(const Filter_Relu &filter) {}
 public:
-	static Array *Apply(
-		Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Relu &filter);
+	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray);
 };
 
 //-----------------------------------------------------------------------------
