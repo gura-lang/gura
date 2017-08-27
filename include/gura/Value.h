@@ -260,6 +260,7 @@ public:
 	inline bool Is_token() const			{ return IsType(VTYPE_token);					}
 	inline bool Is_uri() const				{ return IsType(VTYPE_uri);						}
 	inline bool Is_vertex() const			{ return IsType(VTYPE_vertex);					}
+	inline bool Is_filter() const			{ return IsType(VTYPE_filter);					}
 	inline bool Is_filter_at_conv1d() const		{ return IsType(VTYPE_filter_at_conv1d);		}
 	inline bool Is_filter_at_conv2d() const		{ return IsType(VTYPE_filter_at_conv2d);		}
 	inline bool Is_filter_at_conv3d() const		{ return IsType(VTYPE_filter_at_conv3d);		}
@@ -396,6 +397,8 @@ public:
 								{ return MustBe(sig, Is_uri(), 			"uri");				}
 	inline bool MustBe_vertex(Signal &sig) const
 								{ return MustBe(sig, Is_vertex(), 		"vertex");			}
+	inline bool MustBe_filter(Signal &sig) const
+								{ return MustBe(sig, Is_filter(), "filter");				}
 	inline bool MustBe_filter_at_conv1d(Signal &sig) const
 								{ return MustBe(sig, Is_filter_at_conv1d(), "filter@conv1d");	}
 	inline bool MustBe_filter_at_conv2d(Signal &sig) const

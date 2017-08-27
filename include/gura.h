@@ -125,6 +125,7 @@
 #include "gura/Class_undefined.h"
 #include "gura/Class_uri.h"
 #include "gura/Class_vertex.h"
+#include "gura/Class_filter.h"
 #include "gura/Class_filter_at_conv1d.h"
 #include "gura/Class_filter_at_conv2d.h"
 #include "gura/Class_filter_at_conv3d.h"

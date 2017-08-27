@@ -80,6 +80,7 @@ environment:class = <class:environment>
 error:class = <class:error>
 expr:class = <class:expr(src:stream:r):map {block?}>
 false:boolean = false
+filter:class = <class:filter>
 filter@conv1d:class = <class:filter@conv1d():map {block?}>
 filter@conv2d:class = <class:filter@conv2d():map {block?}>
 filter@conv3d:class = <class:filter@conv3d():map {block?}>
@@ -694,6 +695,7 @@ expr
   expr#tofunction(`args*)
   expr#unquote()
   expr#write(dst:stream:w, style?:symbol, indent?:string)
+filter
 filter@conv1d
 filter@conv2d
 filter@conv3d

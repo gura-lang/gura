@@ -56,6 +56,7 @@ Class_token.cpp
 Class_undefined.cpp
 Class_uri.cpp
 Class_vertex.cpp
+Class_filter.cpp
 Class_filter_at_conv1d.cpp
 Class_filter_at_conv2d.cpp
 Class_filter_at_conv3d.cpp

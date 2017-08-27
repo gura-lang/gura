@@ -73,6 +73,7 @@ ValueType VTYPE_timedelta				= static_cast<ValueType>(0);
 ValueType VTYPE_token					= static_cast<ValueType>(0);
 ValueType VTYPE_uri						= static_cast<ValueType>(0);
 ValueType VTYPE_vertex					= static_cast<ValueType>(0);
+ValueType VTYPE_filter					= static_cast<ValueType>(0);
 ValueType VTYPE_filter_at_conv1d		= static_cast<ValueType>(0);
 ValueType VTYPE_filter_at_conv2d		= static_cast<ValueType>(0);
 ValueType VTYPE_filter_at_conv3d		= static_cast<ValueType>(0);
@@ -226,6 +227,7 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_RealizeVTYPE(token);
 	Gura_RealizeVTYPE(uri);
 	Gura_RealizeVTYPE(vertex);
+	Gura_RealizeVTYPE(filter);
 	Gura_RealizeVTYPEAlias(filter_at_conv1d,		"filter@conv1d");
 	Gura_RealizeVTYPEAlias(filter_at_conv2d,		"filter@conv2d");
 	Gura_RealizeVTYPEAlias(filter_at_conv3d,		"filter@conv3d");
@@ -318,16 +320,18 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_VTYPEInfo(token		)->SetClass(new Class_token(pClass));
 	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
 	Gura_VTYPEInfo(vertex		)->SetClass(new Class_vertex(pClass));
-	Gura_VTYPEInfo(filter_at_conv1d)->SetClass(new Class_filter_at_conv1d(pClass));
-	Gura_VTYPEInfo(filter_at_conv2d)->SetClass(new Class_filter_at_conv2d(pClass));
-	Gura_VTYPEInfo(filter_at_conv3d)->SetClass(new Class_filter_at_conv3d(pClass));
-	Gura_VTYPEInfo(filter_at_maxpool1d)->SetClass(new Class_filter_at_maxpool1d(pClass));
-	Gura_VTYPEInfo(filter_at_maxpool2d)->SetClass(new Class_filter_at_maxpool2d(pClass));
-	Gura_VTYPEInfo(filter_at_maxpool3d)->SetClass(new Class_filter_at_maxpool3d(pClass));
-	Gura_VTYPEInfo(filter_at_relu)->SetClass(new Class_filter_at_relu(pClass));
-	Gura_VTYPEInfo(filter_at_sigmoid)->SetClass(new Class_filter_at_sigmoid(pClass));
-	Gura_VTYPEInfo(filter_at_softmax)->SetClass(new Class_filter_at_softmax(pClass));
-	Gura_VTYPEInfo(filter_at_tanh)->SetClass(new Class_filter_at_tanh(pClass));
+	Class *pClass_filter = nullptr;
+	Gura_VTYPEInfo(filter		)->SetClass(pClass_filter = new Class_filter(pClass));
+	Gura_VTYPEInfo(filter_at_conv1d)->SetClass(new Class_filter_at_conv1d(pClass_filter));
+	Gura_VTYPEInfo(filter_at_conv2d)->SetClass(new Class_filter_at_conv2d(pClass_filter));
+	Gura_VTYPEInfo(filter_at_conv3d)->SetClass(new Class_filter_at_conv3d(pClass_filter));
+	Gura_VTYPEInfo(filter_at_maxpool1d)->SetClass(new Class_filter_at_maxpool1d(pClass_filter));
+	Gura_VTYPEInfo(filter_at_maxpool2d)->SetClass(new Class_filter_at_maxpool2d(pClass_filter));
+	Gura_VTYPEInfo(filter_at_maxpool3d)->SetClass(new Class_filter_at_maxpool3d(pClass_filter));
+	Gura_VTYPEInfo(filter_at_relu)->SetClass(new Class_filter_at_relu(pClass_filter));
+	Gura_VTYPEInfo(filter_at_sigmoid)->SetClass(new Class_filter_at_sigmoid(pClass_filter));
+	Gura_VTYPEInfo(filter_at_softmax)->SetClass(new Class_filter_at_softmax(pClass_filter));
+	Gura_VTYPEInfo(filter_at_tanh)->SetClass(new Class_filter_at_tanh(pClass_filter));
 	//pClass->Prepare(env); // methods of Object can only be initialized here
 }
 
@@ -398,6 +402,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_token					)->Prepare(env);
 	env.LookupClass(VTYPE_uri					)->Prepare(env);
 	env.LookupClass(VTYPE_vertex				)->Prepare(env);
+	env.LookupClass(VTYPE_filter				)->Prepare(env);
 	env.LookupClass(VTYPE_filter_at_conv1d		)->Prepare(env);
 	env.LookupClass(VTYPE_filter_at_conv2d		)->Prepare(env);
 	env.LookupClass(VTYPE_filter_at_conv3d		)->Prepare(env);
