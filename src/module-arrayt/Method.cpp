@@ -195,10 +195,10 @@ ArrayT<T_ElemResult> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 	if (pDimAxis + 1 == dims.end()) {
 		size_t axisSize = pDimAxis->GetSize();
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += axisSize) {
-			const T_Elem *pElemSave = pElemTop + offset;
+			const T_Elem *pElemHead = pElemTop + offset;
 			T_ElemResult mean = 0;
 			do {
-				const T_Elem *pElem = pElemSave;
+				const T_Elem *pElem = pElemHead;
 				for (size_t i = 0; i < axisSize; i++, pElem++) {
 					mean += *pElem;
 				}
@@ -206,7 +206,7 @@ ArrayT<T_ElemResult> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 			} while (0);
 			T_ElemResult accum = 0;
 			do {
-				const T_Elem *pElem = pElemSave;
+				const T_Elem *pElem = pElemHead;
 				for (size_t i = 0; i < axisSize; i++, pElem++) {
 					T_ElemResult tmp = *pElem - mean;
 					accum += tmp * tmp;
@@ -222,10 +222,10 @@ ArrayT<T_ElemResult> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 		size_t stepSize = pDimAxis->GetSize() * stride;
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += stepSize) {
 			for (size_t j = 0; j < stride; j++) {
-				const T_Elem *pElemSave = pElemTop + offset + j;
+				const T_Elem *pElemHead = pElemTop + offset + j;
 				T_ElemResult mean = 0;
 				do {
-					const T_Elem *pElem = pElemSave;
+					const T_Elem *pElem = pElemHead;
 					for (size_t i = 0; i < axisSize; i++, pElem += stride) {
 						mean += *pElem;
 					}
@@ -233,7 +233,7 @@ ArrayT<T_ElemResult> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 				} while (0);
 				T_ElemResult accum = 0;
 				do {
-					const T_Elem *pElem = pElemSave;
+					const T_Elem *pElem = pElemHead;
 					for (size_t i = 0; i < axisSize; i++, pElem += stride) {
 						T_ElemResult tmp = *pElem - mean;
 						accum += tmp * tmp;

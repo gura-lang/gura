@@ -1411,24 +1411,33 @@ Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayResult, const Array *pAr
 	if (pDimAxis + 1 == dims.end()) {
 		size_t axisSize = pDimAxis->GetSize();
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += axisSize) {
-			const T_Elem *pElemSave = pElemTop + offset;
-			T_Elem *pElemResultSave = pElemResult + offset;
-			T_Elem sum = 0;
+			const T_Elem *pElemHead = pElemTop + offset;
+			T_Elem *pElemResultHead = pElemResult + offset;
+			T_Elem numMax = 0;
 			do {
-				const T_Elem *pElemWk = pElemSave;
-				T_Elem *pElemResultWk = pElemResultSave;
+				const T_Elem *pElemWk = pElemHead;
+				numMax = *pElemWk;
+				pElemWk++;
+				for (size_t i = 1; i < axisSize; i++, pElemWk++) {
+					if (numMax < *pElemWk) numMax = *pElemWk;
+				}
+			} while (0);
+			T_Elem numSum = 0;
+			do {
+				const T_Elem *pElemWk = pElemHead;
+				T_Elem *pElemResultWk = pElemResultHead;
 				for (size_t i = 0; i < axisSize; i++, pElemWk++, pElemResultWk++) {
-					T_Elem num = *pElemWk;
-					//T_Elem num = static_cast<T_Elem>(::exp(static_cast<Double>(*pElemWk)));
+					//T_Elem num = *pElemWk;
+					T_Elem num = static_cast<T_Elem>(::exp(static_cast<Double>(*pElemWk - numMax)));
 					*pElemResultWk = num;
-					sum += num;
+					numSum += num;
 				}
 			} while (0);
 			do {
-				const T_Elem *pElemWk = pElemSave;
-				T_Elem *pElemResultWk = pElemResultSave;
+				const T_Elem *pElemWk = pElemHead;
+				T_Elem *pElemResultWk = pElemResultHead;
 				for (size_t i = 0; i < axisSize; i++, pElemWk++, pElemResultWk++) {
-					*pElemResultWk /= sum;
+					*pElemResultWk /= numSum;
 				}
 			} while (0);
 		}
@@ -1438,24 +1447,33 @@ Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayResult, const Array *pAr
 		size_t stepSize = pDimAxis->GetSize() * stride;
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += stepSize) {
 			for (size_t j = 0; j < stride; j++) {
-				const T_Elem *pElemSave = pElemTop + offset + j;
-				T_Elem *pElemResultSave = pElemResult + offset + j;
-				T_Elem sum = 0;
+				const T_Elem *pElemHead = pElemTop + offset + j;
+				T_Elem *pElemResultHead = pElemResult + offset + j;
+				T_Elem numMax = 0;
 				do {
-					const T_Elem *pElemWk = pElemSave;
-					T_Elem *pElemResultWk = pElemResultSave;
+					const T_Elem *pElemWk = pElemHead;
+					numMax = *pElemWk;
+					pElemWk += stride;
+					for (size_t i = 1; i < axisSize; i++, pElemWk += stride) {
+						if (numMax < *pElemWk) numMax = *pElemWk;
+					}
+				} while (0);
+				T_Elem numSum = 0;
+				do {
+					const T_Elem *pElemWk = pElemHead;
+					T_Elem *pElemResultWk = pElemResultHead;
 					for (size_t i = 0; i < axisSize; i++, pElemWk += stride, pElemResultWk += stride) {
-						T_Elem num = *pElemWk;
-						//T_Elem num = static_cast<T_Elem>(::exp(static_cast<Double>(*pElemWk)));
+						//T_Elem num = *pElemWk;
+						T_Elem num = static_cast<T_Elem>(::exp(static_cast<Double>(*pElemWk - numMax)));
 						*pElemResultWk = num;
-						sum += num;
+						numSum += num;
 					}
 				} while (0);
 				do {
-					const T_Elem *pElemWk = pElemSave;
-					T_Elem *pElemResultWk = pElemResultSave;
+					const T_Elem *pElemWk = pElemHead;
+					T_Elem *pElemResultWk = pElemResultHead;
 					for (size_t i = 0; i < axisSize; i++, pElemWk += stride, pElemResultWk += stride) {
-						*pElemResultWk /= sum;
+						*pElemResultWk /= numSum;
 					}
 				} while (0);
 			}
