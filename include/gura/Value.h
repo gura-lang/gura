@@ -170,97 +170,95 @@ public:
 		_u.pSymbol = pSymbol;
 	}
 	Value &operator=(const Value &value);
-	inline UShort GetFlags() const			{ return _valFlags;								}
-	inline void SetFlags(UShort valFlags)	{ _valFlags = valFlags;							}
-	inline void AddFlags(UShort valFlags)	{ _valFlags |= valFlags;						}
-	inline bool IsFundOwner() const			{ return (_valFlags & VFLAG_FundOwner) != 0;		}
-	inline bool IsPrivileged() const		{ return (_valFlags & VFLAG_Privileged) != 0;	}
-	inline bool GetTinyBuffFlag() const		{ return (_valFlags & VFLAG_TinyBuff) != 0;		}
-	inline bool GetNoMapFlag() const		{ return (_valFlags & VFLAG_NoMap) != 0;		}
-	inline int GetSuperSkipCount() const	{ return (_valFlags >> 8) & 0xff;				}
+	inline UShort GetFlags() const				{ return _valFlags;								}
+	inline void SetFlags(UShort valFlags)		{ _valFlags = valFlags;							}
+	inline void AddFlags(UShort valFlags)		{ _valFlags |= valFlags;						}
+	inline bool IsFundOwner() const				{ return (_valFlags & VFLAG_FundOwner) != 0;	}
+	inline bool IsPrivileged() const			{ return (_valFlags & VFLAG_Privileged) != 0;	}
+	inline bool GetTinyBuffFlag() const			{ return (_valFlags & VFLAG_TinyBuff) != 0;		}
+	inline bool GetNoMapFlag() const			{ return (_valFlags & VFLAG_NoMap) != 0;		}
+	inline int GetSuperSkipCount() const		{ return (_valFlags >> 8) & 0xff;				}
 	inline void SetSuperSkipCount(int cntSuperSkip) {
 		_valFlags = (_valFlags & 0x00ff) | (static_cast<UShort>(cntSuperSkip & 0xff) << 8);
 	}
-	inline ValueType GetValueType() const	{ return _valType;								}
+	inline ValueType GetValueType() const		{ return _valType;								}
 	inline ValueTypeInfo *GetValueTypeInfo() const {
 		return ValueTypePool::GetInstance()->Lookup(_valType);
 	}
-	inline String MakeValueTypeName() const { return GetValueTypeInfo()->MakeFullName();	}
-	inline Class *GetClass() const			{ return GetValueTypeInfo()->GetClass();		}
-	inline bool IsType(ValueType valType) const
-											{ return _valType == valType;					}
-	inline bool IsInvalid() const			{ return _valType <= VTYPE_nil;					}
-	inline bool IsValid() const				{ return _valType > VTYPE_nil;					}
-	inline bool IsPrimitive() const			{ return _valType <= VTYPE_rational;			}
-	inline bool IsFundamental() const		{ return _valType >= VTYPE_Module;				}
-	inline bool IsObject() const			{ return _valType >= VTYPE_object;				}
-	inline bool IsDumbCopiable() const
-									{ return _valType <= VTYPE_symbol || GetTinyBuffFlag();	}
+	inline String MakeValueTypeName() const 	{ return GetValueTypeInfo()->MakeFullName();	}
+	inline Class *GetClass() const				{ return GetValueTypeInfo()->GetClass();		}
+	inline bool IsType(ValueType valType) const	{ return _valType == valType;					}
+	inline bool IsInvalid() const				{ return _valType <= VTYPE_nil;					}
+	inline bool IsValid() const					{ return _valType > VTYPE_nil;					}
+	inline bool IsPrimitive() const				{ return _valType <= VTYPE_rational;			}
+	inline bool IsFundamental() const			{ return _valType >= VTYPE_Module;				}
+	inline bool IsObject() const				{ return _valType >= VTYPE_object;				}
+	inline bool IsDumbCopiable() const			{ return _valType <= VTYPE_symbol || GetTinyBuffFlag();	}
 	// invalid types
-	inline bool IsUndefined() const			{ return IsType(VTYPE_undefined);				}
-	inline bool IsDefined() const			{ return !IsUndefined();						}
-	inline bool IsNil() const				{ return IsType(VTYPE_nil);						}
+	inline bool IsUndefined() const				{ return IsType(VTYPE_undefined);				}
+	inline bool IsDefined() const				{ return !IsUndefined();						}
+	inline bool IsNil() const					{ return IsType(VTYPE_nil);						}
 	// primitive types
-	inline bool Is_boolean() const			{ return IsType(VTYPE_boolean);					}
-	inline bool Is_complex() const			{ return IsType(VTYPE_complex);					}
-	inline bool Is_number() const			{ return IsType(VTYPE_number);					}
-	inline bool Is_rational() const			{ return IsType(VTYPE_rational);				}
-	inline bool Is_string() const			{ return IsType(VTYPE_string);					}
-	inline bool Is_symbol() const			{ return IsType(VTYPE_symbol);					}
-	inline bool IsNumberOrComplex() const	{ return Is_number() || Is_complex();			}
+	inline bool Is_boolean() const				{ return IsType(VTYPE_boolean);					}
+	inline bool Is_complex() const				{ return IsType(VTYPE_complex);					}
+	inline bool Is_number() const				{ return IsType(VTYPE_number);					}
+	inline bool Is_rational() const				{ return IsType(VTYPE_rational);				}
+	inline bool Is_string() const				{ return IsType(VTYPE_string);					}
+	inline bool Is_symbol() const				{ return IsType(VTYPE_symbol);					}
+	inline bool IsNumberOrComplex() const		{ return Is_number() || Is_complex();			}
 	// container types
-	inline bool IsModule() const			{ return IsType(VTYPE_Module);					}
-	inline bool IsClass() const				{ return IsType(VTYPE_Class);					}
+	inline bool IsModule() const				{ return IsType(VTYPE_Module);					}
+	inline bool IsClass() const					{ return IsType(VTYPE_Class);					}
 	// object types
-	inline bool IsGenericObject() const		{ return IsType(VTYPE_object);					}
-	inline bool IsStruct() const			{ return IsType(VTYPE_Struct);					}
-	inline bool Is_argument() const			{ return IsType(VTYPE_argument);				}
-	inline bool Is_array() const			{ return IsType(VTYPE_array);					}
-	inline bool Is_array_at_boolean() const	{ return IsType(VTYPE_array_at_boolean);		}
-	inline bool Is_array_at_int8() const	{ return IsType(VTYPE_array_at_int8);			}
-	inline bool Is_array_at_uint8() const	{ return IsType(VTYPE_array_at_uint8);			}
-	inline bool Is_array_at_int16() const	{ return IsType(VTYPE_array_at_int16);			}
-	inline bool Is_array_at_uint16() const	{ return IsType(VTYPE_array_at_uint16);			}
-	inline bool Is_array_at_int32() const	{ return IsType(VTYPE_array_at_int32);			}
-	inline bool Is_array_at_uint32() const	{ return IsType(VTYPE_array_at_uint32);			}
-	inline bool Is_array_at_int64() const	{ return IsType(VTYPE_array_at_int64);			}
-	inline bool Is_array_at_uint64() const	{ return IsType(VTYPE_array_at_uint64);			}
-	inline bool Is_array_at_half() const	{ return IsType(VTYPE_array_at_half);			}
-	inline bool Is_array_at_float() const	{ return IsType(VTYPE_array_at_float);			}
-	inline bool Is_array_at_double() const	{ return IsType(VTYPE_array_at_double);			}
-	inline bool Is_array_at_complex() const	{ return IsType(VTYPE_array_at_complex);			}
-	inline bool Is_audio() const			{ return IsType(VTYPE_audio);					}
-	inline bool Is_binary() const			{ return IsType(VTYPE_binary);					}
-	inline bool Is_codec() const			{ return IsType(VTYPE_codec);					}
-	inline bool Is_color() const			{ return IsType(VTYPE_color);					}
-	inline bool Is_datetime() const			{ return IsType(VTYPE_datetime);				}
-	inline bool Is_declaration() const		{ return IsType(VTYPE_declaration);				}
-	inline bool Is_dict() const				{ return IsType(VTYPE_dict);					}
-	inline bool Is_directory() const		{ return IsType(VTYPE_directory);				}
-	inline bool Is_environment() const		{ return IsType(VTYPE_environment);				}
-	inline bool Is_error() const			{ return IsType(VTYPE_error);					}
-	inline bool Is_expr() const				{ return IsType(VTYPE_expr);					}
-	inline bool Is_formatter() const		{ return IsType(VTYPE_formatter);				}
-	inline bool Is_function() const			{ return IsType(VTYPE_function);				}
-	inline bool Is_help() const				{ return IsType(VTYPE_help);					}
-	inline bool Is_image() const			{ return IsType(VTYPE_image);					}
-	inline bool Is_iterator() const			{ return IsType(VTYPE_iterator);				}
-	inline bool Is_list() const				{ return IsType(VTYPE_list);					}
-	inline bool Is_memory() const			{ return IsType(VTYPE_memory);					}
-	inline bool Is_monitor() const			{ return IsType(VTYPE_monitor);					}
-	inline bool Is_operator() const			{ return IsType(VTYPE_operator);				}
-	inline bool Is_palette() const			{ return IsType(VTYPE_palette);					}
-	inline bool Is_pointer() const			{ return IsType(VTYPE_pointer);					}
-	inline bool Is_propdeclaration() const	{ return IsType(VTYPE_propdeclaration);			}
-	inline bool Is_semaphore() const		{ return IsType(VTYPE_semaphore);				}
-	inline bool Is_stream() const			{ return IsType(VTYPE_stream);					}
-	inline bool Is_suffixmgr() const		{ return IsType(VTYPE_suffixmgr);				}
-	inline bool Is_template() const			{ return IsType(VTYPE_template);				}
-	inline bool Is_timedelta() const		{ return IsType(VTYPE_timedelta);				}
-	inline bool Is_token() const			{ return IsType(VTYPE_token);					}
-	inline bool Is_uri() const				{ return IsType(VTYPE_uri);						}
-	inline bool Is_vertex() const			{ return IsType(VTYPE_vertex);					}
-	inline bool Is_filter() const			{ return IsType(VTYPE_filter);					}
+	inline bool IsGenericObject() const			{ return IsType(VTYPE_object);					}
+	inline bool IsStruct() const				{ return IsType(VTYPE_Struct);					}
+	inline bool Is_argument() const				{ return IsType(VTYPE_argument);				}
+	inline bool Is_array() const				{ return IsType(VTYPE_array);					}
+	inline bool Is_array_at_boolean() const		{ return IsType(VTYPE_array_at_boolean);		}
+	inline bool Is_array_at_int8() const		{ return IsType(VTYPE_array_at_int8);			}
+	inline bool Is_array_at_uint8() const		{ return IsType(VTYPE_array_at_uint8);			}
+	inline bool Is_array_at_int16() const		{ return IsType(VTYPE_array_at_int16);			}
+	inline bool Is_array_at_uint16() const		{ return IsType(VTYPE_array_at_uint16);			}
+	inline bool Is_array_at_int32() const		{ return IsType(VTYPE_array_at_int32);			}
+	inline bool Is_array_at_uint32() const		{ return IsType(VTYPE_array_at_uint32);			}
+	inline bool Is_array_at_int64() const		{ return IsType(VTYPE_array_at_int64);			}
+	inline bool Is_array_at_uint64() const		{ return IsType(VTYPE_array_at_uint64);			}
+	inline bool Is_array_at_half() const		{ return IsType(VTYPE_array_at_half);			}
+	inline bool Is_array_at_float() const		{ return IsType(VTYPE_array_at_float);			}
+	inline bool Is_array_at_double() const		{ return IsType(VTYPE_array_at_double);			}
+	inline bool Is_array_at_complex() const		{ return IsType(VTYPE_array_at_complex);		}
+	inline bool Is_audio() const				{ return IsType(VTYPE_audio);					}
+	inline bool Is_binary() const				{ return IsType(VTYPE_binary);					}
+	inline bool Is_codec() const				{ return IsType(VTYPE_codec);					}
+	inline bool Is_color() const				{ return IsType(VTYPE_color);					}
+	inline bool Is_datetime() const				{ return IsType(VTYPE_datetime);				}
+	inline bool Is_declaration() const			{ return IsType(VTYPE_declaration);				}
+	inline bool Is_dict() const					{ return IsType(VTYPE_dict);					}
+	inline bool Is_directory() const			{ return IsType(VTYPE_directory);				}
+	inline bool Is_environment() const			{ return IsType(VTYPE_environment);				}
+	inline bool Is_error() const				{ return IsType(VTYPE_error);					}
+	inline bool Is_expr() const					{ return IsType(VTYPE_expr);					}
+	inline bool Is_formatter() const			{ return IsType(VTYPE_formatter);				}
+	inline bool Is_function() const				{ return IsType(VTYPE_function);				}
+	inline bool Is_help() const					{ return IsType(VTYPE_help);					}
+	inline bool Is_image() const				{ return IsType(VTYPE_image);					}
+	inline bool Is_iterator() const				{ return IsType(VTYPE_iterator);				}
+	inline bool Is_list() const					{ return IsType(VTYPE_list);					}
+	inline bool Is_memory() const				{ return IsType(VTYPE_memory);					}
+	inline bool Is_monitor() const				{ return IsType(VTYPE_monitor);					}
+	inline bool Is_operator() const				{ return IsType(VTYPE_operator);				}
+	inline bool Is_palette() const				{ return IsType(VTYPE_palette);					}
+	inline bool Is_pointer() const				{ return IsType(VTYPE_pointer);					}
+	inline bool Is_propdeclaration() const		{ return IsType(VTYPE_propdeclaration);			}
+	inline bool Is_semaphore() const			{ return IsType(VTYPE_semaphore);				}
+	inline bool Is_stream() const				{ return IsType(VTYPE_stream);					}
+	inline bool Is_suffixmgr() const			{ return IsType(VTYPE_suffixmgr);				}
+	inline bool Is_template() const				{ return IsType(VTYPE_template);				}
+	inline bool Is_timedelta() const			{ return IsType(VTYPE_timedelta);				}
+	inline bool Is_token() const				{ return IsType(VTYPE_token);					}
+	inline bool Is_uri() const					{ return IsType(VTYPE_uri);						}
+	inline bool Is_vertex() const				{ return IsType(VTYPE_vertex);					}
+	inline bool Is_filter() const				{ return IsType(VTYPE_filter);					}
 	inline bool Is_filter_at_conv1d() const		{ return IsType(VTYPE_filter_at_conv1d);		}
 	inline bool Is_filter_at_conv2d() const		{ return IsType(VTYPE_filter_at_conv2d);		}
 	inline bool Is_filter_at_conv3d() const		{ return IsType(VTYPE_filter_at_conv3d);		}
@@ -271,8 +269,8 @@ public:
 	inline bool Is_filter_at_sigmoid() const	{ return IsType(VTYPE_filter_at_sigmoid);		}
 	inline bool Is_filter_at_softmax() const	{ return IsType(VTYPE_filter_at_softmax);		}
 	inline bool Is_filter_at_tanh() const		{ return IsType(VTYPE_filter_at_tanh);			}
-	inline bool IsListOrIterator() const	{ return Is_list() || Is_iterator();			}
-	inline bool IsValidKey() const			{ return Is_number() || Is_string() || Is_symbol(); }
+	inline bool IsListOrIterator() const		{ return Is_list() || Is_iterator();			}
+	inline bool IsValidKey() const				{ return Is_number() || Is_string() || Is_symbol(); }
 	bool MustBe(Signal &sig, bool flag, const char *expected) const;
 	inline bool MustBeUndefined(Signal &sig) const
 								{ return MustBe(sig, IsUndefined(),		"undefined");		}
