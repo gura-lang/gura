@@ -5,7 +5,6 @@
 #define __GURA_CLASS_FILTER_H__
 
 #include "Class.h"
-#include "Filter.h"
 
 namespace Gura {
 

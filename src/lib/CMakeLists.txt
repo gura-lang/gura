@@ -78,7 +78,6 @@ Directory.cpp
 Error.cpp
 Environment.cpp
 Expr.cpp
-Filter.cpp
 Formatter.cpp
 Function.cpp
 FunctionCustom.cpp

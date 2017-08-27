@@ -41,7 +41,6 @@
 #include "gura/Complex.h"
 #include "gura/Directory.h"
 #include "gura/Expr.h"
-#include "gura/Filter.h"
 #include "gura/Formatter.h"
 #include "gura/FunctionCustom.h"
 #include "gura/Half.h"

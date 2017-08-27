@@ -263,7 +263,6 @@
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Expr.cpp" />
-    <ClCompile Include="Filter.cpp" />
     <ClCompile Include="Formatter.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="FunctionCustom.cpp" />
@@ -410,7 +409,6 @@
     <ClInclude Include="..\..\include\gura\Environment.h" />
     <ClInclude Include="..\..\include\gura\Error.h" />
     <ClInclude Include="..\..\include\gura\Expr.h" />
-    <ClInclude Include="..\..\include\gura\Filter.h" />
     <ClInclude Include="..\..\include\gura\Formatter.h" />
     <ClInclude Include="..\..\include\gura\Function.h" />
     <ClInclude Include="..\..\include\gura\Fundamental.h" />
