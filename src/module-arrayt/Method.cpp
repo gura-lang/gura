@@ -1,3 +1,7 @@
+//=============================================================================
+// Method.cpp
+// Implementation of methods for array class.
+//=============================================================================
 #include "stdafx.h"
 
 Gura_BeginModuleScope(arrayt)

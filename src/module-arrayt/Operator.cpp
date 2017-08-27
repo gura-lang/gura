@@ -1,3 +1,7 @@
+//=============================================================================
+// Operator.cpp
+// Implementation of operators for array class.
+//=============================================================================
 #include "stdafx.h"
 
 #define ImplementUnaryFuncTable(op, func)	\
@@ -1402,30 +1406,60 @@ Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayResult, const Array *pAr
 		(pArrayResult == nullptr)? ArrayT<T_Elem>::Create(dims) :
 		dynamic_cast<ArrayT<T_Elem> *>(pArrayResult->Reference()));
 	pArrayTResult->FillZero();
-	const T_Elem *pElem = pArrayT->GetPointer();
+	const T_Elem *pElemTop = pArrayT->GetPointer();
 	T_Elem *pElemResult = pArrayTResult->GetPointer();
-	size_t stride = pDimAxis->GetStride();
-	size_t cnt = pArrayT->GetElemNum() / pDimAxis->GetSize();
-	::printf("axis:%zu stride:%zu size:%zu\n", axis, pDimAxis->GetStride(), pDimAxis->GetSize());
-
-	// incorrect
-	size_t shift = (axis == dims.size() - 1)? pDimAxis->GetSize() : 1;
-
-	while (cnt-- > 0) {
-		T_Elem numSum = 0;
-		const T_Elem *pElemWk = pElem;
-		T_Elem *pElemResultWk = pElemResult;
-		for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemResultWk += stride, pElemWk += stride) {
-			//*pElemResultWk = static_cast<T_Elem>(::exp(static_cast<Double>(*pElemWk)));
-			*pElemResultWk = *pElemWk;
-			numSum += *pElemResultWk;
+	if (pDimAxis + 1 == dims.end()) {
+		size_t axisSize = pDimAxis->GetSize();
+		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += axisSize) {
+			const T_Elem *pElemSave = pElemTop + offset;
+			T_Elem *pElemResultSave = pElemResult + offset;
+			T_Elem sum = 0;
+			do {
+				const T_Elem *pElemWk = pElemSave;
+				T_Elem *pElemResultWk = pElemResultSave;
+				for (size_t i = 0; i < axisSize; i++, pElemWk++, pElemResultWk++) {
+					T_Elem num = *pElemWk;
+					//T_Elem num = static_cast<T_Elem>(::exp(static_cast<Double>(*pElemWk)));
+					*pElemResultWk = num;
+					sum += num;
+				}
+			} while (0);
+			do {
+				const T_Elem *pElemWk = pElemSave;
+				T_Elem *pElemResultWk = pElemResultSave;
+				for (size_t i = 0; i < axisSize; i++, pElemWk++, pElemResultWk++) {
+					*pElemResultWk /= sum;
+				}
+			} while (0);
 		}
-		pElemResultWk = pElemResult;
-		for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemResultWk += stride) {
-			*pElemResultWk /= numSum;
+	} else {
+		size_t stride = pDimAxis->GetStride();
+		size_t axisSize = pDimAxis->GetSize();
+		size_t stepSize = pDimAxis->GetSize() * stride;
+		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += stepSize) {
+			for (size_t j = 0; j < stride; j++) {
+				const T_Elem *pElemSave = pElemTop + offset + j;
+				T_Elem *pElemResultSave = pElemResult + offset + j;
+				T_Elem sum = 0;
+				do {
+					const T_Elem *pElemWk = pElemSave;
+					T_Elem *pElemResultWk = pElemResultSave;
+					for (size_t i = 0; i < axisSize; i++, pElemWk += stride, pElemResultWk += stride) {
+						T_Elem num = *pElemWk;
+						//T_Elem num = static_cast<T_Elem>(::exp(static_cast<Double>(*pElemWk)));
+						*pElemResultWk = num;
+						sum += num;
+					}
+				} while (0);
+				do {
+					const T_Elem *pElemWk = pElemSave;
+					T_Elem *pElemResultWk = pElemResultSave;
+					for (size_t i = 0; i < axisSize; i++, pElemWk += stride, pElemResultWk += stride) {
+						*pElemResultWk /= sum;
+					}
+				} while (0);
+			}
 		}
-		pElem += shift;
-		pElemResult += shift;
 	}
 	return pArrayTResult.release();
 }
