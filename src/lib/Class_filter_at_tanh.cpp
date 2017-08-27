@@ -26,8 +26,8 @@ Array *Filter_Tanh::Apply(Signal &sig, Array *pArrayResult, const Array *pArray)
 //-----------------------------------------------------------------------------
 // Object_filter_at_tanh
 //-----------------------------------------------------------------------------
-Object_filter_at_tanh::Object_filter_at_tanh(Environment &env, const Filter_Tanh &filter) :
-	Object(env.LookupClass(VTYPE_filter_at_tanh)), _filter(filter)
+Object_filter_at_tanh::Object_filter_at_tanh(Environment &env, Filter_Tanh *pFilter) :
+	Object_filter(env.LookupClass(VTYPE_filter_at_tanh), pFilter)
 {
 }
 
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(filter_at_tanh, "filter@tanh")
 
 Gura_ImplementFunction(filter_at_tanh)
 {
-	Object_filter_at_tanh *pObj = new Object_filter_at_tanh(env, Filter_Tanh());
+	Object_filter_at_tanh *pObj = new Object_filter_at_tanh(env, new Filter_Tanh());
 	return ReturnValue(env, arg, Value(pObj));
 }
 
@@ -77,7 +77,7 @@ void Class_filter_at_tanh::DoPrepare(Environment &env)
 	// Assignment of function
 	Gura_AssignFunction(filter_at_tanh);
 	// Assignment of value
-	Gura_AssignClassValue(inst, Value(new Object_filter_at_tanh(env, Filter_Tanh())));
+	Gura_AssignClassValue(inst, Value(new Object_filter_at_tanh(env, new Filter_Tanh())));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

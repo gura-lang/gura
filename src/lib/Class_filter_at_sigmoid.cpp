@@ -26,8 +26,8 @@ Array *Filter_Sigmoid::Apply(Signal &sig, Array *pArrayResult, const Array *pArr
 //-----------------------------------------------------------------------------
 // Object_filter_at_sigmoid
 //-----------------------------------------------------------------------------
-Object_filter_at_sigmoid::Object_filter_at_sigmoid(Environment &env, const Filter_Sigmoid &filter) :
-	Object(env.LookupClass(VTYPE_filter_at_sigmoid)), _filter(filter)
+Object_filter_at_sigmoid::Object_filter_at_sigmoid(Environment &env, Filter_Sigmoid *pFilter) :
+	Object_filter(env.LookupClass(VTYPE_filter_at_sigmoid), pFilter)
 {
 }
 
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(filter_at_sigmoid, "filter@sigmoid")
 
 Gura_ImplementFunction(filter_at_sigmoid)
 {
-	Object_filter_at_sigmoid *pObj = new Object_filter_at_sigmoid(env, Filter_Sigmoid());
+	Object_filter_at_sigmoid *pObj = new Object_filter_at_sigmoid(env, new Filter_Sigmoid());
 	return ReturnValue(env, arg, Value(pObj));
 }
 
@@ -77,7 +77,7 @@ void Class_filter_at_sigmoid::DoPrepare(Environment &env)
 	// Assignment of function
 	Gura_AssignFunction(filter_at_sigmoid);
 	// Assignment of value
-	Gura_AssignClassValue(inst, Value(new Object_filter_at_sigmoid(env, Filter_Sigmoid())));
+	Gura_AssignClassValue(inst, Value(new Object_filter_at_sigmoid(env, new Filter_Sigmoid())));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

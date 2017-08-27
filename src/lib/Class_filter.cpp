@@ -13,6 +13,32 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// Object_filter
+//-----------------------------------------------------------------------------
+Object_filter::Object_filter(Environment &env, Filter *pFilter) :
+	Object(env.LookupClass(VTYPE_filter_at_conv1d)), _pFilter(pFilter)
+{
+}
+
+Object_filter::Object_filter(Class *pClass, Filter *pFilter) :
+	Object(pClass), _pFilter(pFilter)
+{
+}
+
+Object *Object_filter::Clone() const
+{
+	return nullptr;
+}
+	
+String Object_filter::ToString(bool exprFlag)
+{
+	String str;
+	str += "<filter";
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
 

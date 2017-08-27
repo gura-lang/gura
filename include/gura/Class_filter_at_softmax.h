@@ -4,8 +4,7 @@
 #ifndef __GURA_CLASS_FILTER_AT_SOFTMAX_H__
 #define __GURA_CLASS_FILTER_AT_SOFTMAX_H__
 
-#include "Class.h"
-#include "Filter.h"
+#include "Class_filter.h"
 
 namespace Gura {
 
@@ -42,19 +41,17 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Object_filter
+// Object_filter_at_softmax
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Object_filter_at_softmax : public Object {
-private:
-	Filter_Softmax _filter;
+class GURA_DLLDECLARE Object_filter_at_softmax : public Object_filter {
 public:
 	Gura_DeclareObjectAccessor(filter_at_softmax)
 public:
-	Object_filter_at_softmax(Environment &env, const Filter_Softmax &filter);
+	Object_filter_at_softmax(Environment &env, Filter_Softmax *pFilter);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline Filter_Softmax &GetFilter() { return _filter; }
-	inline const Filter_Softmax &GetFilter() const { return _filter; }
+	inline Filter_Softmax *GetFilter() { return dynamic_cast<Filter_Softmax *>(_pFilter.get()); }
+	inline const Filter_Softmax *GetFilter() const { return dynamic_cast<const Filter_Softmax *>(_pFilter.get()); }
 };
 
 }

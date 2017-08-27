@@ -26,8 +26,8 @@ Array *Filter_MaxPool1d::Apply(Signal &sig, Array *pArrayResult, const Array *pA
 //-----------------------------------------------------------------------------
 // Object_filter_at_maxpool1d
 //-----------------------------------------------------------------------------
-Object_filter_at_maxpool1d::Object_filter_at_maxpool1d(Environment &env, const Filter_MaxPool1d &filter) :
-	Object(env.LookupClass(VTYPE_filter_at_maxpool1d)), _filter(filter)
+Object_filter_at_maxpool1d::Object_filter_at_maxpool1d(Environment &env, Filter_MaxPool1d *pFilter) :
+	Object_filter(env.LookupClass(VTYPE_filter_at_maxpool1d), pFilter)
 {
 }
 
@@ -77,7 +77,7 @@ Gura_ImplementFunction(filter_at_maxpool1d)
 		if (channelAt == Filter::CHANNELAT_None) return Value::Nil;
 	}
 	Object_filter_at_maxpool1d *pObj = new Object_filter_at_maxpool1d(
-		env, Filter_MaxPool1d(size, strides, paddingType, channelAt));
+		env, new Filter_MaxPool1d(size, strides, paddingType, channelAt));
 	return ReturnValue(env, arg, Value(pObj));
 }
 
@@ -95,8 +95,8 @@ Gura_DeclareProperty_R(filter_at_maxpool1d, size)
 
 Gura_ImplementPropertyGetter(filter_at_maxpool1d, size)
 {
-	const Filter_MaxPool1d &filter = Object_filter_at_maxpool1d::GetObject(valueThis)->GetFilter();
-	return Value(filter.GetSize());
+	const Filter_MaxPool1d *pFilter = Object_filter_at_maxpool1d::GetObject(valueThis)->GetFilter();
+	return Value(pFilter->GetSize());
 }
 
 // filter@maxpool1d#strides
@@ -110,8 +110,8 @@ Gura_DeclareProperty_R(filter_at_maxpool1d, strides)
 
 Gura_ImplementPropertyGetter(filter_at_maxpool1d, strides)
 {
-	const Filter_MaxPool1d &filter = Object_filter_at_maxpool1d::GetObject(valueThis)->GetFilter();
-	return Value(filter.GetStrides());
+	const Filter_MaxPool1d *pFilter = Object_filter_at_maxpool1d::GetObject(valueThis)->GetFilter();
+	return Value(pFilter->GetStrides());
 }
 
 // filter@maxpool1d#padding
@@ -125,8 +125,8 @@ Gura_DeclareProperty_R(filter_at_maxpool1d, padding)
 
 Gura_ImplementPropertyGetter(filter_at_maxpool1d, padding)
 {
-	const Filter_MaxPool1d &filter = Object_filter_at_maxpool1d::GetObject(valueThis)->GetFilter();
-	return Value(Filter::PaddingTypeToSymbol(filter.GetPaddingType()));
+	const Filter_MaxPool1d *pFilter = Object_filter_at_maxpool1d::GetObject(valueThis)->GetFilter();
+	return Value(Filter::PaddingTypeToSymbol(pFilter->GetPaddingType()));
 }
 
 // filter@maxpool1d#channel_at
@@ -140,8 +140,8 @@ Gura_DeclareProperty_R(filter_at_maxpool1d, channel_at)
 
 Gura_ImplementPropertyGetter(filter_at_maxpool1d, channel_at)
 {
-	const Filter_MaxPool1d &filter = Object_filter_at_maxpool1d::GetObject(valueThis)->GetFilter();
-	return Value(Filter::ChannelAtToSymbol(filter.GetChannelAt()));
+	const Filter_MaxPool1d *pFilter = Object_filter_at_maxpool1d::GetObject(valueThis)->GetFilter();
+	return Value(Filter::ChannelAtToSymbol(pFilter->GetChannelAt()));
 }
 
 //-----------------------------------------------------------------------------

@@ -26,8 +26,8 @@ Array *Filter_MaxPool2d::Apply(Signal &sig, Array *pArrayResult, const Array *pA
 //-----------------------------------------------------------------------------
 // Object_filter_at_maxpool2d
 //-----------------------------------------------------------------------------
-Object_filter_at_maxpool2d::Object_filter_at_maxpool2d(Environment &env, const Filter_MaxPool2d &filter) :
-	Object(env.LookupClass(VTYPE_filter_at_maxpool2d)), _filter(filter)
+Object_filter_at_maxpool2d::Object_filter_at_maxpool2d(Environment &env, Filter_MaxPool2d *pFilter) :
+	Object_filter(env.LookupClass(VTYPE_filter_at_maxpool2d), pFilter)
 {
 }
 
@@ -97,7 +97,7 @@ Gura_ImplementFunction(filter_at_maxpool2d)
 		if (channelAt == Filter::CHANNELAT_None) return Value::Nil;
 	}
 	Object_filter_at_maxpool2d *pObj = new Object_filter_at_maxpool2d(
-		env, Filter_MaxPool2d(sizeRow, sizeCol, stridesRow, stridesCol, paddingType, channelAt));
+		env, new Filter_MaxPool2d(sizeRow, sizeCol, stridesRow, stridesCol, paddingType, channelAt));
 	return ReturnValue(env, arg, Value(pObj));
 }
 
@@ -115,8 +115,8 @@ Gura_DeclareProperty_R(filter_at_maxpool2d, size)
 
 Gura_ImplementPropertyGetter(filter_at_maxpool2d, size)
 {
-	const Filter_MaxPool2d &filter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
-	return Value::CreateList(env, Value(filter.GetSizeCol()), Value(filter.GetSizeRow()));
+	const Filter_MaxPool2d *pFilter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
+	return Value::CreateList(env, Value(pFilter->GetSizeCol()), Value(pFilter->GetSizeRow()));
 }
 
 // filter@maxpool2d#strides
@@ -130,8 +130,8 @@ Gura_DeclareProperty_R(filter_at_maxpool2d, strides)
 
 Gura_ImplementPropertyGetter(filter_at_maxpool2d, strides)
 {
-	const Filter_MaxPool2d &filter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
-	return Value::CreateList(env, Value(filter.GetStridesCol()), Value(filter.GetStridesRow()));
+	const Filter_MaxPool2d *pFilter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
+	return Value::CreateList(env, Value(pFilter->GetStridesCol()), Value(pFilter->GetStridesRow()));
 }
 
 // filter@maxpool2d#padding
@@ -145,8 +145,8 @@ Gura_DeclareProperty_R(filter_at_maxpool2d, padding)
 
 Gura_ImplementPropertyGetter(filter_at_maxpool2d, padding)
 {
-	const Filter_MaxPool2d &filter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
-	return Value(Filter::PaddingTypeToSymbol(filter.GetPaddingType()));
+	const Filter_MaxPool2d *pFilter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
+	return Value(Filter::PaddingTypeToSymbol(pFilter->GetPaddingType()));
 }
 
 // filter@maxpool2d#channel_at
@@ -160,8 +160,8 @@ Gura_DeclareProperty_R(filter_at_maxpool2d, channel_at)
 
 Gura_ImplementPropertyGetter(filter_at_maxpool2d, channel_at)
 {
-	const Filter_MaxPool2d &filter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
-	return Value(Filter::ChannelAtToSymbol(filter.GetChannelAt()));
+	const Filter_MaxPool2d *pFilter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
+	return Value(Filter::ChannelAtToSymbol(pFilter->GetChannelAt()));
 }
 
 //-----------------------------------------------------------------------------

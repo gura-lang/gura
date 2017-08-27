@@ -26,8 +26,8 @@ Array *Filter_Softmax::Apply(Signal &sig, Array *pArrayResult, const Array *pArr
 //-----------------------------------------------------------------------------
 // Object_filter_at_softmax
 //-----------------------------------------------------------------------------
-Object_filter_at_softmax::Object_filter_at_softmax(Environment &env, const Filter_Softmax &filter) :
-	Object(env.LookupClass(VTYPE_filter_at_softmax)), _filter(filter)
+Object_filter_at_softmax::Object_filter_at_softmax(Environment &env, Filter_Softmax *pFilter) :
+	Object_filter(env.LookupClass(VTYPE_filter_at_softmax), pFilter)
 {
 }
 
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(filter_at_softmax, "filter@softmax")
 Gura_ImplementFunction(filter_at_softmax)
 {
 	size_t axis = arg.IsValid(0)? arg.GetSizeT(0) : static_cast<size_t>(-1);
-	Object_filter_at_softmax *pObj = new Object_filter_at_softmax(env, Filter_Softmax(axis));
+	Object_filter_at_softmax *pObj = new Object_filter_at_softmax(env, new Filter_Softmax(axis));
 	return ReturnValue(env, arg, Value(pObj));
 }
 
@@ -79,7 +79,7 @@ void Class_filter_at_softmax::DoPrepare(Environment &env)
 	// Assignment of function
 	Gura_AssignFunction(filter_at_softmax);
 	// Assignment of value
-	Gura_AssignClassValue(inst, Value(new Object_filter_at_softmax(env, Filter_Softmax())));
+	Gura_AssignClassValue(inst, Value(new Object_filter_at_softmax(env, new Filter_Softmax())));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

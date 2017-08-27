@@ -4,8 +4,7 @@
 #ifndef __GURA_CLASS_FILTER_AT_RELU_H__
 #define __GURA_CLASS_FILTER_AT_RELU_H__
 
-#include "Class.h"
-#include "Filter.h"
+#include "Class_filter.h"
 
 namespace Gura {
 
@@ -39,19 +38,17 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Object_filter
+// Object_filter_at_relu
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Object_filter_at_relu : public Object {
-private:
-	Filter_Relu _filter;
+class GURA_DLLDECLARE Object_filter_at_relu : public Object_filter {
 public:
 	Gura_DeclareObjectAccessor(filter_at_relu)
 public:
-	Object_filter_at_relu(Environment &env, const Filter_Relu &filter);
+	Object_filter_at_relu(Environment &env, Filter_Relu *pFilter);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline Filter_Relu &GetFilter() { return _filter; }
-	inline const Filter_Relu &GetFilter() const { return _filter; }
+	inline Filter_Relu *GetFilter() { return dynamic_cast<Filter_Relu *>(_pFilter.get()); }
+	inline const Filter_Relu *GetFilter() const { return dynamic_cast<const Filter_Relu *>(_pFilter.get()); }
 };
 
 }

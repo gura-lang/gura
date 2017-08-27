@@ -26,8 +26,8 @@ Array *Filter_Conv2d::Apply(Signal &sig, Array *pArrayResult, const Array *pArra
 //-----------------------------------------------------------------------------
 // Object_filter_at_conv2d
 //-----------------------------------------------------------------------------
-Object_filter_at_conv2d::Object_filter_at_conv2d(Environment &env, const Filter_Conv2d &filter) :
-	Object(env.LookupClass(VTYPE_filter_at_conv2d)), _filter(filter)
+Object_filter_at_conv2d::Object_filter_at_conv2d(Environment &env, Filter_Conv2d *pFilter) :
+	Object_filter(env.LookupClass(VTYPE_filter_at_conv2d), pFilter)
 {
 }
 
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(filter_at_conv2d, "filter@conv2d")
 
 Gura_ImplementFunction(filter_at_conv2d)
 {
-	Object_filter_at_conv2d *pObj = new Object_filter_at_conv2d(env, Filter_Conv2d());
+	Object_filter_at_conv2d *pObj = new Object_filter_at_conv2d(env, new Filter_Conv2d());
 	return ReturnValue(env, arg, Value(pObj));
 }
 

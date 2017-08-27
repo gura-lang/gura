@@ -26,8 +26,8 @@ Array *Filter_MaxPool3d::Apply(Signal &sig, Array *pArrayResult, const Array *pA
 //-----------------------------------------------------------------------------
 // Object_filter_at_maxpool3d
 //-----------------------------------------------------------------------------
-Object_filter_at_maxpool3d::Object_filter_at_maxpool3d(Environment &env) :
-	Object(env.LookupClass(VTYPE_filter_at_maxpool3d))
+Object_filter_at_maxpool3d::Object_filter_at_maxpool3d(Environment &env, Filter_MaxPool3d *pFilter) :
+	Object_filter(env.LookupClass(VTYPE_filter_at_maxpool3d), pFilter)
 {
 }
 
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(filter_at_maxpool3d, "filter@maxpool3d")
 
 Gura_ImplementFunction(filter_at_maxpool3d)
 {
-	Object_filter_at_maxpool3d *pObj = new Object_filter_at_maxpool3d(env);
+	Object_filter_at_maxpool3d *pObj = new Object_filter_at_maxpool3d(env, new Filter_MaxPool3d());
 	return ReturnValue(env, arg, Value(pObj));
 }
 

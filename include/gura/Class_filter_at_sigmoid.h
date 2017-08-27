@@ -4,8 +4,7 @@
 #ifndef __GURA_CLASS_FILTER_AT_SIGMOID_H__
 #define __GURA_CLASS_FILTER_AT_SIGMOID_H__
 
-#include "Class.h"
-#include "Filter.h"
+#include "Class_filter.h"
 
 namespace Gura {
 
@@ -39,19 +38,17 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Object_filter
+// Object_filter_at_sigmoid
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Object_filter_at_sigmoid : public Object {
-private:
-	Filter_Sigmoid _filter;
+class GURA_DLLDECLARE Object_filter_at_sigmoid : public Object_filter {
 public:
 	Gura_DeclareObjectAccessor(filter_at_sigmoid)
 public:
-	Object_filter_at_sigmoid(Environment &env, const Filter_Sigmoid &filter);
+	Object_filter_at_sigmoid(Environment &env, Filter_Sigmoid *pFilter);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline Filter_Sigmoid &GetFilter() { return _filter; }
-	inline const Filter_Sigmoid &GetFilter() const { return _filter; }
+	inline Filter_Sigmoid *GetFilter() { return dynamic_cast<Filter_Sigmoid *>(_pFilter.get()); }
+	inline const Filter_Sigmoid *GetFilter() const { return dynamic_cast<const Filter_Sigmoid *>(_pFilter.get()); }
 };
 
 }

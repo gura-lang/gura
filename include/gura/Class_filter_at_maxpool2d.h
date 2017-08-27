@@ -4,8 +4,7 @@
 #ifndef __GURA_CLASS_FILTER_AT_MAXPOOL2D_H__
 #define __GURA_CLASS_FILTER_AT_MAXPOOL2D_H__
 
-#include "Class.h"
-#include "Filter.h"
+#include "Class_filter.h"
 
 namespace Gura {
 
@@ -59,19 +58,17 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Object_filter
+// Object_filter_at_maxpool2d
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Object_filter_at_maxpool2d : public Object {
-private:
-	Filter_MaxPool2d _filter;
+class GURA_DLLDECLARE Object_filter_at_maxpool2d : public Object_filter {
 public:
 	Gura_DeclareObjectAccessor(filter_at_maxpool2d)
 public:
-	Object_filter_at_maxpool2d(Environment &env, const Filter_MaxPool2d &filter);
+	Object_filter_at_maxpool2d(Environment &env, Filter_MaxPool2d *pFilter);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline Filter_MaxPool2d &GetFilter() { return _filter; }
-	inline const Filter_MaxPool2d &GetFilter() const { return _filter; }
+	inline Filter_MaxPool2d *GetFilter() { return dynamic_cast<Filter_MaxPool2d *>(_pFilter.get()); }
+	inline const Filter_MaxPool2d *GetFilter() const { return dynamic_cast<const Filter_MaxPool2d *>(_pFilter.get()); }
 };
 
 }

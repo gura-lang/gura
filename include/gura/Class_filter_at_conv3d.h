@@ -4,8 +4,7 @@
 #ifndef __GURA_CLASS_FILTER_AT_CONV3D_H__
 #define __GURA_CLASS_FILTER_AT_CONV3D_H__
 
-#include "Class.h"
-#include "Filter.h"
+#include "Class_filter.h"
 
 namespace Gura {
 
@@ -39,19 +38,17 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Object_filter
+// Object_filter_at_conv3d
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Object_filter_at_conv3d : public Object {
-private:
-	Filter_Conv3d _filter;
+class GURA_DLLDECLARE Object_filter_at_conv3d : public Object_filter {
 public:
 	Gura_DeclareObjectAccessor(filter_at_conv3d)
 public:
-	Object_filter_at_conv3d(Environment &env, const Filter_Conv3d &filter);
+	Object_filter_at_conv3d(Environment &env, Filter_Conv3d *pFilter);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline Filter_Conv3d &GetFilter() { return _filter; }
-	inline const Filter_Conv3d &GetFilter() const { return _filter; }
+	inline Filter_Conv3d *GetFilter() { return dynamic_cast<Filter_Conv3d *>(_pFilter.get()); }
+	inline const Filter_Conv3d *GetFilter() const { return dynamic_cast<const Filter_Conv3d *>(_pFilter.get()); }
 };
 
 }
