@@ -34,9 +34,9 @@ protected:
 public:
 	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const = 0;
 public:
-	static void CalcPadding(PaddingType paddingType, size_t sizeIn, size_t sizeFilter, size_t strides,
+	static void CalcPadding(size_t sizeIn, size_t sizeFilter, size_t strides, PaddingType paddingType,
 							size_t *pSizeOut, size_t *pSizePad);
-	static void CalcPadding(PaddingType paddingType, size_t sizeIn, size_t sizeFilter, size_t strides,
+	static void CalcPadding(size_t sizeIn, size_t sizeFilter, size_t strides, PaddingType paddingType,
 							size_t *pSizeOut, size_t *pSizePadHead, size_t *pSizePadTail);
 	static PaddingType SymbolToPaddingType(Signal &sig, const Symbol *pSymbol);
 	static PaddingType SymbolToPaddingType(const Symbol *pSymbol);

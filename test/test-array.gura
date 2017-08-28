@@ -1224,3 +1224,7 @@ testcase('softmax with large number') {
 	tester(`(x |*| filter@softmax(2)))
 	tester(`(x |*| filter@softmax()))
 }
+testcase('calculation of padding amount') {
+	tester(`filter.calcpadding(13, 6, 5, `same))
+	tester(`filter.calcpadding(13, 6, 5, `valid))
+}
