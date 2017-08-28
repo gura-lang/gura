@@ -1343,9 +1343,22 @@ Array *FilterFuncTmpl_Conv3d(Signal &sig, Array *pArrayResult, const Array *pArr
 template<typename T_Elem>
 Array *FilterFuncTmpl_MaxPool1d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool1d *pFilter)
 {
+	size_t sizeFilter = pFilter->GetSize();
+	size_t strides = pFilter->GetStrides();
+	Filter::PaddingType paddingType = pFilter->GetPaddingType();
+	Filter::ChannelAt channelAt = pFilter->GetChannelAt();
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	size_t nDims = dims.size();
+	size_t sizeIn = (channelAt == Filter::CHANNELAT_First || nDims < 2)?
+		dims[nDims - 1].GetSize() : dims[nDims - 2].GetSize();
+	size_t sizeOut = 0;
+	size_t sizePad = 0;
 	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(dims));
+
+	//Filter::PADDINGTYPE_Valid, Filter::PADDINGTYPE_Same;
+	//Filter::CHANNELAT_Last, Filter::CHANNELAT_First;
+
 	return pArrayTResult.release();
 }
 

@@ -15,19 +15,54 @@ Filter::~Filter()
 {
 }
 
-// .+++++++++++.. 12
-// *****
-//    *****
-//       *****
-//          *****
-size_t Filter::CalcSizeOutSame(size_t size, size_t strides)
+void Filter::CalcPadding(PaddingType paddingType, size_t sizeIn, size_t sizeFilter, size_t strides,
+						 size_t *pSizeOut, size_t *pSizePad)
 {
-	return 0;
+	size_t sizeOut = 0, sizePad = 0;
+	if (paddingType == PADDINGTYPE_Valid) {
+		// sizeIn = 9, strides = 3
+		// +++++++++  +++++++++  +++++++++  +++++++++
+		// **         ***        ****       *****
+		//    **         ***        ****       *****
+		//       **         ***
+		//
+		// sizeIn = 10, strides = 3
+		// ++++++++++  ++++++++++  ++++++++++  ++++++++++
+		// **          ***         ****        *****
+		//    **          ***         ****        *****
+		//       **          ***         ****
+		//
+		sizeOut = (sizeIn - sizeFilter + strides) / strides;
+	} else if (paddingType == PADDINGTYPE_Same) {
+		// sizeIn = 9, strides = 3 ... sizeOut = 3
+		// +++++++++  +++++++++  +++++++++.  .+++++++++.
+		// **         ***        ****        *****
+		//    **         ***        ****        *****
+		//       **         ***        ****        *****
+		//
+		// sizeIn = 10, strides = 3 ... sizeOut = 4
+		// ++++++++++.  .++++++++++.  .++++++++++..  ..++++++++++..
+		// **           ***           ****           *****
+		//    **           ***           ****           *****
+		//       **           ***           ****           *****
+		//          **           ***           ****           *****
+		//
+		sizeOut = (sizeIn + strides - 1) / strides;
+		sizePad = strides * (sizeOut - 1) + sizeFilter - sizeIn;
+	} else {
+		// nothing to do 
+	}
+	*pSizeOut = sizeOut;
+	*pSizePad = sizePad;
 }
 
-size_t Filter::CalcSizeOutValid(size_t size, size_t strides, size_t sizeFilter)
+void Filter::CalcPadding(PaddingType paddingType, size_t sizeIn, size_t sizeFilter, size_t strides,
+						 size_t *pSizeOut, size_t *pSizePadHead, size_t *pSizePadTail)
 {
-	return 0;
+	size_t sizePad = 0;
+	CalcPadding(paddingType, sizeIn, sizeFilter, strides, pSizeOut, &sizePad);
+	*pSizePadHead = sizePad / 2;
+	*pSizePadTail = sizePad - *pSizePadHead;
 }
 
 Filter::PaddingType Filter::SymbolToPaddingType(Signal &sig, const Symbol *pSymbol)
@@ -111,6 +146,32 @@ String Object_filter::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
+// filter.calcpadding()
+Gura_DeclareClassMethod(filter, calcpadding)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "padding", VTYPE_symbol);
+	DeclareArg(env, "size_in", VTYPE_number);
+	DeclareArg(env, "size_filter", VTYPE_number);
+	DeclareArg(env, "strides", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"Calculates padding amounts from given input size, filter size and strides.\n"
+		"The argument `padding` specifies padding manner and can take `` `same`` or `` `valid``.\n"
+		"The returned value is a list of `[size_out, padding]`.");
+}
+
+Gura_ImplementClassMethod(filter, calcpadding)
+{
+	Filter::PaddingType paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(0));
+	if (paddingType == Filter::PADDINGTYPE_None) return Value::Nil;
+	size_t sizeIn = arg.GetSizeT(1);
+	size_t sizeFilter = arg.GetSizeT(2);
+	size_t strides = arg.GetSizeT(3);
+	size_t sizeOut = 0, sizePad = 0;
+	Filter::CalcPadding(paddingType, sizeIn, sizeFilter, strides, &sizeOut, &sizePad);
+	return Value::CreateList(env, Value(sizeOut), Value(sizePad));
+}
 
 //-----------------------------------------------------------------------------
 // Implementation of class
@@ -121,6 +182,8 @@ Class_filter::Class_filter(Environment *pEnvOuter) : ClassFundamental(pEnvOuter,
 
 void Class_filter::DoPrepare(Environment &env)
 {
+	// Assignment of methods
+	Gura_AssignMethod(filter, calcpadding);
 	// Assignment of value
 	Gura_AssignValue(filter, Value(this));
 	// help document

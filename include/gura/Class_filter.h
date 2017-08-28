@@ -34,8 +34,10 @@ protected:
 public:
 	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const = 0;
 public:
-	static size_t CalcSizeOutSame(size_t size, size_t strides);
-	static size_t CalcSizeOutValid(size_t size, size_t strides, size_t sizeFilter);
+	static void CalcPadding(PaddingType paddingType, size_t sizeIn, size_t sizeFilter, size_t strides,
+							size_t *pSizeOut, size_t *pSizePad);
+	static void CalcPadding(PaddingType paddingType, size_t sizeIn, size_t sizeFilter, size_t strides,
+							size_t *pSizeOut, size_t *pSizePadHead, size_t *pSizePadTail);
 	static PaddingType SymbolToPaddingType(Signal &sig, const Symbol *pSymbol);
 	static PaddingType SymbolToPaddingType(const Symbol *pSymbol);
 	static const Symbol *PaddingTypeToSymbol(PaddingType paddingType);
