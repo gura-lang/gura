@@ -17,7 +17,8 @@ Array *Filter_Relu::Apply(Signal &sig, Array *pArrayResult, const Array *pArray)
 {
 	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
 	if (filterFunc == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply ReLU filter on this array");
+		sig.SetError(ERR_TypeError, "can't apply ReLU filter on array@%s",
+					 pArray->GetElemTypeName());
 		return nullptr;
 	}
 	return (*filterFunc)(sig, pArrayResult, pArray, *this);

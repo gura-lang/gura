@@ -17,7 +17,8 @@ Array *Filter_Conv1d::Apply(Signal &sig, Array *pArrayResult, const Array *pArra
 {
 	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()][Array::ETYPE_None];
 	if (filterFunc == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply 1-dimension convolution filter on this array");
+		sig.SetError(ERR_TypeError, "can't apply 1-dimension convolution filter on array@%s",
+					 pArray->GetElemTypeName());
 		return nullptr;
 	}
 	return (*filterFunc)(sig, pArrayResult, pArray, *this);
