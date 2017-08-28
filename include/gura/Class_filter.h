@@ -32,7 +32,7 @@ public:
 protected:
 	virtual ~Filter();
 public:
-	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) = 0;
+	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const = 0;
 public:
 	static size_t CalcSizeOutSame(size_t size, size_t strides);
 	static size_t CalcSizeOutValid(size_t size, size_t strides, size_t sizeFilter);

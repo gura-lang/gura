@@ -14,7 +14,7 @@ namespace Gura {
 class GURA_DLLDECLARE Filter_Tanh : public Filter {
 public:
 	typedef Array *(*FilterFuncT)(Signal &sig, Array *pArrayResult,
-								  const Array *pArray, const Filter_Tanh &filter);
+								  const Array *pArray, const Filter_Tanh *pFilter);
 	struct FilterFuncTable {
 		FilterFuncT funcs[Array::ETYPE_Max];
 	};
@@ -22,9 +22,8 @@ public:
 	static FilterFuncTable filterFuncTable;
 public:
 	inline Filter_Tanh() {}
-	inline Filter_Tanh(const Filter_Tanh &filter) {}
 public:
-	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray);
+	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const;
 };
 
 //-----------------------------------------------------------------------------

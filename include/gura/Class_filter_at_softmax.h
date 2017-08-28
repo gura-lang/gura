@@ -14,7 +14,7 @@ namespace Gura {
 class GURA_DLLDECLARE Filter_Softmax : public Filter {
 public:
 	typedef Array *(*FilterFuncT)(Signal &sig, Array *pArrayResult,
-								  const Array *pArray, const Filter_Softmax &filter);
+								  const Array *pArray, const Filter_Softmax *pFilter);
 	struct FilterFuncTable {
 		FilterFuncT funcs[Array::ETYPE_Max];
 	};
@@ -24,10 +24,9 @@ private:
 	size_t _axis;
 public:
 	inline Filter_Softmax(size_t axis = static_cast<size_t>(-1)) : _axis(axis) {}
-	inline Filter_Softmax(const Filter_Softmax &filter) : _axis(filter._axis) {}
 	inline size_t GetAxis() const { return _axis; }
 public:
-	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray);
+	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const;
 };
 
 //-----------------------------------------------------------------------------

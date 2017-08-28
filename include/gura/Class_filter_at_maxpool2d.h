@@ -14,7 +14,7 @@ namespace Gura {
 class GURA_DLLDECLARE Filter_MaxPool2d : public Filter {
 public:
 	typedef Array *(*FilterFuncT)(Signal &sig, Array *pArrayResult,
-								  const Array *pArray, const Filter_MaxPool2d &filter);
+								  const Array *pArray, const Filter_MaxPool2d *pFilter);
 	struct FilterFuncTable {
 		FilterFuncT funcs[Array::ETYPE_Max];
 	};
@@ -33,10 +33,6 @@ public:
 		_sizeRow(sizeRow), _sizeCol(sizeCol),
 		_stridesRow(stridesRow), _stridesCol(stridesCol),
 		_paddingType(paddingType), _channelAt(channelAt) {}
-	inline Filter_MaxPool2d(const Filter_MaxPool2d &filter) :
-		_sizeRow(filter._sizeRow), _sizeCol(filter._sizeCol),
-		_stridesRow(filter._stridesRow), _stridesCol(filter._stridesCol),
-		_paddingType(filter._paddingType), _channelAt(filter._channelAt) {}
 	inline size_t GetSizeRow() const { return _sizeRow; }
 	inline size_t GetSizeCol() const { return _sizeCol; }
 	inline size_t GetStridesRow() const { return _stridesRow; }
@@ -44,7 +40,7 @@ public:
 	inline PaddingType GetPaddingType() const { return _paddingType; }
 	inline ChannelAt GetChannelAt() const { return _channelAt; }
 public:
-	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray);
+	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const;
 };
 
 //-----------------------------------------------------------------------------

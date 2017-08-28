@@ -1305,7 +1305,7 @@ Array *BinaryFuncTmpl_Div_complex_complex(Signal &sig, Array *pArrayResult, cons
 // FilterFuncTmpl_Conv1d
 //------------------------------------------------------------------------------
 template<typename T_ElemResult, typename T_Elem, typename T_ElemFilter>
-Array *FilterFuncTmpl_Conv1d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv1d &filter)
+Array *FilterFuncTmpl_Conv1d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv1d *pFilter)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
@@ -1317,7 +1317,7 @@ Array *FilterFuncTmpl_Conv1d(Signal &sig, Array *pArrayResult, const Array *pArr
 // FilterFuncTmpl_Conv2d
 //------------------------------------------------------------------------------
 template<typename T_ElemResult, typename T_Elem, typename T_ElemFilter>
-Array *FilterFuncTmpl_Conv2d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv2d &filter)
+Array *FilterFuncTmpl_Conv2d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv2d *pFilter)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
@@ -1329,7 +1329,7 @@ Array *FilterFuncTmpl_Conv2d(Signal &sig, Array *pArrayResult, const Array *pArr
 // FilterFuncTmpl_Conv3d
 //------------------------------------------------------------------------------
 template<typename T_ElemResult, typename T_Elem, typename T_ElemFilter>
-Array *FilterFuncTmpl_Conv3d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv3d &filter)
+Array *FilterFuncTmpl_Conv3d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Conv3d *pFilter)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
@@ -1341,7 +1341,7 @@ Array *FilterFuncTmpl_Conv3d(Signal &sig, Array *pArrayResult, const Array *pArr
 // FilterFuncTmpl_MaxPool1d
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-Array *FilterFuncTmpl_MaxPool1d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool1d &filter)
+Array *FilterFuncTmpl_MaxPool1d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool1d *pFilter)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
@@ -1353,7 +1353,7 @@ Array *FilterFuncTmpl_MaxPool1d(Signal &sig, Array *pArrayResult, const Array *p
 // FilterFuncTmpl_MaxPool2d
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-Array *FilterFuncTmpl_MaxPool2d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool2d &filter)
+Array *FilterFuncTmpl_MaxPool2d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool2d *pFilter)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
@@ -1365,7 +1365,7 @@ Array *FilterFuncTmpl_MaxPool2d(Signal &sig, Array *pArrayResult, const Array *p
 // FilterFuncTmpl_MaxPool3d
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-Array *FilterFuncTmpl_MaxPool3d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool3d &filter)
+Array *FilterFuncTmpl_MaxPool3d(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_MaxPool3d *pFilter)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
@@ -1377,7 +1377,7 @@ Array *FilterFuncTmpl_MaxPool3d(Signal &sig, Array *pArrayResult, const Array *p
 // FilterFuncTmpl_Relu
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-Array *FilterFuncTmpl_Relu(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Relu &filter)
+Array *FilterFuncTmpl_Relu(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Relu *pFilter)
 {
 	return Array::ApplyUnaryFunc(sig, Array::unaryFuncPack_Math_relu, pArrayResult, pArray);
 }
@@ -1386,7 +1386,7 @@ Array *FilterFuncTmpl_Relu(Signal &sig, Array *pArrayResult, const Array *pArray
 // FilterFuncTmpl_Sigmoid
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-Array *FilterFuncTmpl_Sigmoid(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Sigmoid &filter)
+Array *FilterFuncTmpl_Sigmoid(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Sigmoid *pFilter)
 {
 	return Array::ApplyUnaryFunc(sig, Array::unaryFuncPack_Math_sigmoid, pArrayResult, pArray);
 }
@@ -1395,11 +1395,11 @@ Array *FilterFuncTmpl_Sigmoid(Signal &sig, Array *pArrayResult, const Array *pAr
 // FilterFuncTmpl_Softmax
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Softmax &filter)
+Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Softmax *pFilter)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	size_t axis = filter.GetAxis();
+	size_t axis = pFilter->GetAxis();
 	if (axis > dims.size() - 1) axis = dims.size() - 1;
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	AutoPtr<ArrayT<T_Elem> > pArrayTResult(
@@ -1486,7 +1486,7 @@ Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayResult, const Array *pAr
 // FilterFuncTmpl_Tanh
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-Array *FilterFuncTmpl_Tanh(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Tanh &filter)
+Array *FilterFuncTmpl_Tanh(Signal &sig, Array *pArrayResult, const Array *pArray, const Filter_Tanh *pFilter)
 {
 	return Array::ApplyUnaryFunc(sig, Array::unaryFuncPack_Math_tanh, pArrayResult, pArray);
 }

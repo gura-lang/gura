@@ -14,7 +14,7 @@ namespace Gura {
 class GURA_DLLDECLARE Filter_Conv3d : public Filter {
 public:
 	typedef Array *(*FilterFuncT)(Signal &sig, Array *pArrayResult,
-								  const Array *pArray, const Filter_Conv3d &filter);
+								  const Array *pArray, const Filter_Conv3d *pFilter);
 	struct FilterFuncTable {
 		FilterFuncT funcs[Array::ETYPE_Max][Array::ETYPE_Max];
 	};
@@ -22,9 +22,8 @@ public:
 	static FilterFuncTable filterFuncTable;
 public:
 	inline Filter_Conv3d() {}
-	inline Filter_Conv3d(const Filter_Conv3d &filter) {}
 public:
-	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray);
+	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const;
 };
 
 //-----------------------------------------------------------------------------

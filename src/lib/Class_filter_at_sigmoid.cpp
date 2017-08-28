@@ -13,7 +13,7 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 Filter_Sigmoid::FilterFuncTable Filter_Sigmoid::filterFuncTable = {{nullptr}};
 
-Array *Filter_Sigmoid::Apply(Signal &sig, Array *pArrayResult, const Array *pArray)
+Array *Filter_Sigmoid::Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const
 {
 	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
 	if (filterFunc == nullptr) {
@@ -21,7 +21,7 @@ Array *Filter_Sigmoid::Apply(Signal &sig, Array *pArrayResult, const Array *pArr
 					 pArray->GetElemTypeName());
 		return nullptr;
 	}
-	return (*filterFunc)(sig, pArrayResult, pArray, *this);
+	return (*filterFunc)(sig, pArrayResult, pArray, this);
 }
 
 //-----------------------------------------------------------------------------
