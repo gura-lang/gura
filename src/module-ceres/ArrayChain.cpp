@@ -344,14 +344,14 @@ bool ArrayChainBinary_Pow::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// ArrayChainBinary_DotProd
+// ArrayChainBinary_Dot
 //-----------------------------------------------------------------------------
-bool ArrayChainBinary_DotProd::InitBackward(Environment &env)
+bool ArrayChainBinary_Dot::InitBackward(Environment &env)
 {
 	return false;
 }
 
-bool ArrayChainBinary_DotProd::EvalBackward(Environment &env)
+bool ArrayChainBinary_Dot::EvalBackward(Environment &env)
 {
 	return false;
 }
@@ -450,8 +450,10 @@ bool ArrayChainOwner::CreateFromExprSub(Environment &env, const Expr *pExpr, Arr
 			pArrayChain.reset(new ArrayChainBinary_Div(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Pow)) {
 			pArrayChain.reset(new ArrayChainBinary_Pow(pConnector));
-		} else if (pOperator->IsOpType(OPTYPE_DotProd)) {
-			pArrayChain.reset(new ArrayChainBinary_DotProd(pConnector));
+		} else if (pOperator->IsOpType(OPTYPE_Dot)) {
+			pArrayChain.reset(new ArrayChainBinary_Dot(pConnector));
+		} else if (pOperator->IsOpType(OPTYPE_Filter)) {
+			
 		} else {
 			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
 			return false;

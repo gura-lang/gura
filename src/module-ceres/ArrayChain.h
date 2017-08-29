@@ -226,12 +226,12 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainBinary_DotProd
+// ArrayChainBinary_Dot
 //-----------------------------------------------------------------------------
-class ArrayChainBinary_DotProd : public ArrayChainBinary {
+class ArrayChainBinary_Dot : public ArrayChainBinary {
 public:
-	inline ArrayChainBinary_DotProd(Connector *pConnectorDst) :
-		ArrayChainBinary(Array::binaryFuncPack_DotProd, pConnectorDst) {}
+	inline ArrayChainBinary_Dot(Connector *pConnectorDst) :
+		ArrayChainBinary(Array::binaryFuncPack_Dot, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
