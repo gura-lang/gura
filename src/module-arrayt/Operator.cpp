@@ -1350,15 +1350,88 @@ Array *FilterFuncTmpl_MaxPool1d(Signal &sig, Array *pArrayResult, const Array *p
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	size_t nDims = dims.size();
-	size_t sizeIn = (channelAt == Filter::CHANNELAT_First || nDims < 2)?
-		dims[nDims - 1].GetSize() : dims[nDims - 2].GetSize();
-	size_t sizeOut = 0;
-	size_t sizePad = 0;
-	AutoPtr<ArrayT<T_Elem> > pArrayTResult(ArrayT<T_Elem>::Create(dims));
-
-	//Filter::PADDINGTYPE_Valid, Filter::PADDINGTYPE_Same;
-	//Filter::CHANNELAT_Last, Filter::CHANNELAT_First;
-
+	AutoPtr<ArrayT<T_Elem> > pArrayTResult;
+	if (channelAt == Filter::CHANNELAT_First || nDims < 2) {
+		const Array::Dimension &dimCol = dims[nDims - 1];
+		size_t sizeIn = dimCol.GetSize();
+		size_t sizeOut = 0, sizePadHead = 0, sizePadTail = 0;
+		Filter::CalcPadding(sizeIn, sizeFilter, strides, paddingType, &sizeOut, &sizePadHead, &sizePadTail);
+		if (nDims < 2) {
+			pArrayTResult.reset(ArrayT<T_Elem>::Create(Array::Dimension(sizeOut)));
+		} else {
+			pArrayTResult.reset(ArrayT<T_Elem>::Create(dims.begin(), dims.begin() + nDims - 1,
+													   Array::Dimension(sizeOut)));
+		}
+		const T_Elem *pElemSrc = pArrayT->GetPointer();
+		T_Elem *pElemResult = pArrayTResult->GetPointer();
+		size_t cnt = pArray->GetElemNum() / sizeIn;
+		for (size_t j = 0; j < cnt; j++) {
+			for (size_t i = 0; i < sizeOut; i++) {
+				size_t colBegin = i * strides;
+				size_t colEnd = colBegin + sizeFilter;
+				if (colBegin < sizePadHead) {
+					colBegin = 0;
+					colEnd -= sizePadHead - colBegin;
+				} else {
+					colBegin -= sizePadHead;
+					colEnd -= sizePadHead;
+				}
+				if (colEnd > sizeIn) colEnd = sizeIn;
+				const T_Elem *pElemSrcWk = pElemSrc + colBegin;
+				bool firstFlag = true;
+				T_Elem numMax = 0;
+				for (size_t col = colBegin; col < colEnd; col++, pElemSrcWk++) {
+					if (firstFlag || numMax < *pElemSrcWk) {
+						firstFlag = false;
+						numMax = *pElemSrcWk;
+					}
+				}
+				*(pElemResult + i) = numMax;
+			}
+			pElemSrc += sizeIn;
+			pElemResult += sizeOut;
+		}
+	} else {
+		const Array::Dimension &dimChannel = dims[nDims - 1];
+		const Array::Dimension &dimCol = dims[nDims - 2];
+		size_t sizeIn = dimCol.GetSize();
+		size_t sizeChannel = dimChannel.GetSize();
+		size_t sizeOut = 0, sizePadHead = 0, sizePadTail = 0;
+		Filter::CalcPadding(sizeIn, sizeFilter, strides, paddingType, &sizeOut, &sizePadHead, &sizePadTail);
+		pArrayTResult.reset(ArrayT<T_Elem>::Create(dims.begin(), dims.begin() + nDims - 2,
+												   Array::Dimension(sizeOut), Array::Dimension(sizeChannel)));
+		const T_Elem *pElemSrc = pArrayT->GetPointer();
+		T_Elem *pElemResult = pArrayTResult->GetPointer();
+		size_t cnt = pArray->GetElemNum() / (sizeIn * sizeChannel);
+		for (size_t j = 0; j < cnt; j++) {
+			for (size_t i = 0; i < sizeOut; i++) {
+				size_t colBegin = i * strides;
+				size_t colEnd = colBegin + sizeFilter;
+				if (colBegin < sizePadHead) {
+					colBegin = 0;
+					colEnd -= sizePadHead - colBegin;
+				} else {
+					colBegin -= sizePadHead;
+					colEnd -= sizePadHead;
+				}
+				if (colEnd > sizeIn) colEnd = sizeIn;
+				for (size_t iChannel = 0; iChannel < sizeChannel; iChannel++) {
+					const T_Elem *pElemSrcWk = pElemSrc + colBegin * sizeChannel + iChannel;
+					bool firstFlag = true;
+					T_Elem numMax = 0;
+					for (size_t col = colBegin; col < colEnd; col++, pElemSrcWk += sizeChannel) {
+						if (firstFlag || numMax < *pElemSrcWk) {
+							firstFlag = false;
+							numMax = *pElemSrcWk;
+						}
+					}
+					*(pElemResult + i * sizeChannel + iChannel) = numMax;
+				}
+			}
+			pElemSrc += sizeIn * sizeChannel;
+			pElemResult += sizeOut * sizeChannel;
+		}
+	}		
 	return pArrayTResult.release();
 }
 

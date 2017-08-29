@@ -40,7 +40,17 @@ Object *Object_filter_at_maxpool1d::Clone() const
 String Object_filter_at_maxpool1d::ToString(bool exprFlag)
 {
 	String str;
-	str += "<filter@maxpool1d:";
+	char buff[80];
+	const Filter_MaxPool1d *pFilter = GetFilter();
+	str += "<filter@maxpool1d";
+	::sprintf(buff, ":size=%zu", pFilter->GetSize());
+	str += buff;
+	::sprintf(buff, ":strides=%zu", pFilter->GetStrides());
+	str += buff;
+	::sprintf(buff, ":padding=%s", Filter::PaddingTypeToSymbol(pFilter->GetPaddingType())->GetName());
+	str += buff;
+	::sprintf(buff, ":channel_at=%s", Filter::ChannelAtToSymbol(pFilter->GetChannelAt())->GetName());
+	str += buff;
 	str += ">";
 	return str;
 }
@@ -60,21 +70,26 @@ Gura_DeclareFunctionAlias(filter_at_maxpool1d, "filter@maxpool1d")
 	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_maxpool1d));
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates a `filter@maxpool1d` instance.\n");
+		"Creates a `filter@maxpool1d` instance from the following arguments:\n"
+		"\n"
+		"- `size` .. Filter size.\n"
+		"- `strides` .. Strides of sliding window. Default is one.\n"
+		"- `padding` .. Padding style `` `valid`` or `` `same``. Default is `` `same``.\n"
+		"- `channel_at` .. Channel position `` `first`` or `` `last``. Default is `` `last``. \n");
 }
 
 Gura_ImplementFunction(filter_at_maxpool1d)
 {
 	size_t size = arg.GetSizeT(0);
 	size_t strides = arg.GetSizeT(1);
-	Filter::PaddingType paddingType = Filter::PADDINGTYPE_Valid;
+	Filter::PaddingType paddingType = Filter::PADDINGTYPE_Same;
 	if (arg.IsValid(2)) {
-		Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
+		paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Filter::PADDINGTYPE_None) return Value::Nil;
 	}
 	Filter::ChannelAt channelAt = Filter::CHANNELAT_Last;
 	if (arg.IsValid(3)) {
-		Filter::SymbolToChannelAt(env, arg.GetSymbol(3));
+		channelAt = Filter::SymbolToChannelAt(env, arg.GetSymbol(3));
 		if (channelAt == Filter::CHANNELAT_None) return Value::Nil;
 	}
 	Object_filter_at_maxpool1d *pObj = new Object_filter_at_maxpool1d(

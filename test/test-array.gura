@@ -1228,3 +1228,24 @@ testcase('calculation of padding amount') {
 	tester(`filter.calcpadding(13, 6, 5, `same))
 	tester(`filter.calcpadding(13, 6, 5, `valid))
 }
+testcase('filter@maxpool1d') {
+	x = array@double {68, 79, 68, 92, 33, 30, 63,  2, 72, 90, 54, 52, 76, 54, 68, 52, 84, 79, 80, 24}
+	tester(`(x |*| filter@maxpool1d(1, 1, `same, `first)))
+	tester(`(x |*| filter@maxpool1d(2, 1, `same, `first)))
+	tester(`(x |*| filter@maxpool1d(3, 1, `same, `first)))
+	tester(`(x |*| filter@maxpool1d(4, 1, `same, `first)))
+	tester(`(x |*| filter@maxpool1d(4, 2, `same, `first)))
+	tester(`(x |*| filter@maxpool1d(4, 3, `same, `first)))
+	/*
+	x = array@double {
+		{18,  1, 35, 28, 62, 91, 98, 10, 17,  3},
+        {86, 52, 83, 23,  0, 67, 66,  5, 55, 16},
+        {41, 62,  0, 61, 48, 80, 17, 61, 17, 82}}
+	tester(`(x |*| filter@maxpool1d(1, 1, `same, `first)))
+	tester(`(x |*| filter@maxpool1d(2, 1, `same, `first)))
+	tester(`(x |*| filter@maxpool1d(3, 1, `same, `first)))
+	tester(`(x |*| filter@maxpool1d(4, 1, `same, `first)))
+	tester(`(x |*| filter@maxpool1d(4, 2, `same, `first)))
+	tester(`(x |*| filter@maxpool1d(4, 3, `same, `first)))
+	*/
+}

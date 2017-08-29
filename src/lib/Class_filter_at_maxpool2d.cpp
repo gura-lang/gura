@@ -40,7 +40,17 @@ Object *Object_filter_at_maxpool2d::Clone() const
 String Object_filter_at_maxpool2d::ToString(bool exprFlag)
 {
 	String str;
-	str += "<filter@maxpool2d:";
+	char buff[80];
+	const Filter_MaxPool2d *pFilter = GetFilter();
+	str += "<filter@maxpool2d";
+	::sprintf(buff, ":size=(%zu,%zu)", pFilter->GetSizeRow(), pFilter->GetSizeCol());
+	str += buff;
+	::sprintf(buff, ":strides=(%zu,%zu)", pFilter->GetStridesRow(), pFilter->GetStridesCol());
+	str += buff;
+	::sprintf(buff, ":padding=%s", Filter::PaddingTypeToSymbol(pFilter->GetPaddingType())->GetName());
+	str += buff;
+	::sprintf(buff, ":channel_at=%s", Filter::ChannelAtToSymbol(pFilter->GetChannelAt())->GetName());
+	str += buff;
 	str += ">";
 	return str;
 }
@@ -87,14 +97,14 @@ Gura_ImplementFunction(filter_at_maxpool2d)
 		stridesRow = valList[0].GetSizeT();
 		stridesCol = valList[1].GetSizeT();
 	}
-	Filter::PaddingType paddingType = Filter::PADDINGTYPE_Valid;
+	Filter::PaddingType paddingType = Filter::PADDINGTYPE_Same;
 	if (arg.IsValid(2)) {
-		Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
+		paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Filter::PADDINGTYPE_None) return Value::Nil;
 	}
 	Filter::ChannelAt channelAt = Filter::CHANNELAT_Last;
 	if (arg.IsValid(3)) {
-		Filter::SymbolToChannelAt(env, arg.GetSymbol(3));
+		channelAt = Filter::SymbolToChannelAt(env, arg.GetSymbol(3));
 		if (channelAt == Filter::CHANNELAT_None) return Value::Nil;
 	}
 	Object_filter_at_maxpool2d *pObj = new Object_filter_at_maxpool2d(
