@@ -1236,16 +1236,36 @@ testcase('filter@maxpool1d') {
 	tester(`(x |*| filter@maxpool1d(4, 1, `same, `first)))
 	tester(`(x |*| filter@maxpool1d(4, 2, `same, `first)))
 	tester(`(x |*| filter@maxpool1d(4, 3, `same, `first)))
-	/*
 	x = array@double {
 		{18,  1, 35, 28, 62, 91, 98, 10, 17,  3},
-        {86, 52, 83, 23,  0, 67, 66,  5, 55, 16},
-        {41, 62,  0, 61, 48, 80, 17, 61, 17, 82}}
+		{86, 52, 83, 23,  0, 67, 66,  5, 55, 16},
+		{41, 62,  0, 61, 48, 80, 17, 61, 17, 82}
+	}
 	tester(`(x |*| filter@maxpool1d(1, 1, `same, `first)))
+	tester(`(x |*| filter@maxpool1d(2, 1, `same, `first)))
 	tester(`(x |*| filter@maxpool1d(2, 1, `same, `first)))
 	tester(`(x |*| filter@maxpool1d(3, 1, `same, `first)))
 	tester(`(x |*| filter@maxpool1d(4, 1, `same, `first)))
 	tester(`(x |*| filter@maxpool1d(4, 2, `same, `first)))
 	tester(`(x |*| filter@maxpool1d(4, 3, `same, `first)))
-	*/
+	x = array@double {
+		{18, 86, 41},
+		{ 1, 52, 62},
+		{35, 83,  0},
+		{28, 23, 61},
+		{62,  0, 48},
+		{91, 67, 80},
+		{98, 66, 17},
+		{10,  5, 61},
+		{17, 55, 17},
+		{ 3, 16, 82}
+	}
+	println(x.T)
+	tester(`(x |*| filter@maxpool1d(1, 1, `same, `last)))
+	tester(`(x |*| filter@maxpool1d(2, 1, `same, `last)))
+	tester(`(x |*| filter@maxpool1d(2, 1, `same, `last)))
+	tester(`(x |*| filter@maxpool1d(3, 1, `same, `last)))
+	tester(`(x |*| filter@maxpool1d(4, 1, `same, `last)))
+	tester(`(x |*| filter@maxpool1d(4, 2, `same, `last)))
+	tester(`(x |*| filter@maxpool1d(4, 3, `same, `last)))
 }
