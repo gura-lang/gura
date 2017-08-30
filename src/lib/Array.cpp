@@ -865,27 +865,37 @@ template<> inline Double _CalcInvErrorThreshold<Complex>(Double epsilon)
 }
 
 template<typename T_Elem>
-bool InvertFuncTmpl_Sub(T_Elem *pElemRtn, const T_Elem *pElemOrg, size_t nRows,
+bool InvertFuncTmpl_Sub(T_Elem *pElemRtn, bool colMajorFlagRtn,
+						const T_Elem *pElemOrg, bool colMajorFlagOrg, size_t nRows,
 						T_Elem &det, T_Elem *pElemWork, T_Elem *pElemRows[], Double epsilon)
 {
 	static const Double invErrThreshold = _CalcInvErrorThreshold<T_Elem>(epsilon);
 	size_t nCols = nRows;
 	size_t nCols2 = nCols * 2;
-	//size_t bytesPerRow = nCols * sizeof(T_Elem);
+	size_t bytesPerRow = nCols * sizeof(T_Elem);
 	det = 1;
 	do {
 		const T_Elem *pElemSrc = pElemOrg;
 		T_Elem *pElemDst = pElemWork;
 		::memset(pElemWork, 0x00, nRows * nCols2 * sizeof(T_Elem));
-		for (size_t iRow = 0; iRow < nRows; iRow++, pElemDst += nCols2, pElemSrc += nCols) {
-			const T_Elem *pElemSrcWk = pElemSrc;
-			T_Elem *pElemDstWk = pElemDst;
-			for (size_t iCol = 0; iCol < nCols; iCol++, pElemDstWk++, pElemSrcWk++) {
-				*pElemDstWk = *pElemSrcWk;
+		if (colMajorFlagOrg) {
+			// column-major order
+			for (size_t iRow = 0; iRow < nRows; iRow++, pElemDst += nCols2, pElemSrc++) {
+				const T_Elem *pElemSrcWk = pElemSrc;
+				T_Elem *pElemDstWk = pElemDst;
+				for (size_t iCol = 0; iCol < nCols; iCol++, pElemDstWk++, pElemSrcWk += nRows) {
+					*pElemDstWk = *pElemSrcWk;
+				}
+				*(pElemDst + nCols + iRow) = 1;
+				pElemRows[iRow] = pElemDst;
 			}
-			//::memcpy(pElemDst, pElemSrc, bytesPerRow);
-			*(pElemDst + nCols + iRow) = 1;
-			pElemRows[iRow] = pElemDst;
+		} else {
+			// row-major order
+			for (size_t iRow = 0; iRow < nRows; iRow++, pElemDst += nCols2, pElemSrc += nCols) {
+				::memcpy(pElemDst, pElemSrc, bytesPerRow);
+				*(pElemDst + nCols + iRow) = 1;
+				pElemRows[iRow] = pElemDst;
+			}
 		}
 	} while (0);
 	for (size_t iRowPivot = 0; iRowPivot < nRows; iRowPivot++) {
@@ -926,13 +936,20 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemRtn, const T_Elem *pElemOrg, size_t nRows,
 	}
 	if (pElemRtn != nullptr) {
 		T_Elem *pElemDst = pElemRtn;
-		for (size_t iRow = 0; iRow < nRows; iRow++, pElemDst += nCols) {
-			const T_Elem *pElemSrcWk = pElemRows[iRow] + nCols;
-			T_Elem *pElemDstWk = pElemDst;
-			for (size_t iCol = 0; iCol < nCols; iCol++, pElemDstWk++, pElemSrcWk++) {
-				*pElemDstWk = *pElemSrcWk;
+		if (colMajorFlagRtn) {
+			// column-major order
+			for (size_t iRow = 0; iRow < nRows; iRow++, pElemDst++) {
+				const T_Elem *pElemSrcWk = pElemRows[iRow] + nCols;
+				T_Elem *pElemDstWk = pElemDst;
+				for (size_t iCol = 0; iCol < nCols; iCol++, pElemDstWk += nRows, pElemSrcWk++) {
+					*pElemDstWk = *pElemSrcWk;
+				}
 			}
-			//::memcpy(pElemDst, pElemRows[iRow] + nCols, bytesPerRow);
+		} else {
+			// row-major order
+			for (size_t iRow = 0; iRow < nRows; iRow++, pElemDst += nCols) {
+				::memcpy(pElemDst, pElemRows[iRow] + nCols, bytesPerRow);
+			}
 		}
 	}
 	return true;
@@ -959,9 +976,11 @@ Array *InvertFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray, Double
 	size_t elemNumMat = nRows * nCols;
 	const T_Elem *pElemOrg = pArrayT->GetPointer();
 	T_Elem *pElemRtn = pArrayTRtn->GetPointer();
+	bool colMajorFlagOrg = false, colMajorFlagRtn = false;
 	for (size_t cnt = pArrayTRtn->GetElemNum() / elemNumMat; cnt > 0; cnt--) {
 		T_Elem det = 0;
-		if (!InvertFuncTmpl_Sub(pElemRtn, pElemOrg, nRows, det, pElemWork.get(), pElemRows.get(), epsilon)) {
+		if (!InvertFuncTmpl_Sub(pElemRtn, colMajorFlagRtn, pElemOrg, colMajorFlagOrg, nRows,
+								det, pElemWork.get(), pElemRows.get(), epsilon)) {
 			sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
 			return nullptr;
 		}
