@@ -304,24 +304,24 @@ void ArrayT<T_Elem>::SetScalar(const T_Elem &num)
 template<typename T_Elem>
 void ArrayT<T_Elem>::Fill(const T_Elem &num)
 {
-	T_Elem *p = GetPointer();
-	for (size_t i = 0; i < GetElemNum(); i++, p++) {
-		*p = num;
+	T_Elem *pElem = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+		*pElem = num;
 	}
 }
 
 template<typename T_Elem>
 void ArrayT<T_Elem>::FillRand(UInt range)
 {
-	T_Elem *p = GetPointer();
+	T_Elem *pElem = GetPointer();
 	if (range == 0) {
-		for (size_t i = 0; i < GetElemNum(); i++, p++) {
-			*p = static_cast<T_Elem>(Random::Uniform_CloseOpen());
+		for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+			*pElem = static_cast<T_Elem>(Random::Uniform_CloseOpen());
 		}
 	} else {
-		for (size_t i = 0; i < GetElemNum(); i++, p++) {
-			*p = static_cast<T_Elem>(static_cast<UInt>(
-										 Random::Uniform_CloseOpen() * range));
+		for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+			*pElem = static_cast<T_Elem>(static_cast<UInt>(
+											 Random::Uniform_CloseOpen() * range));
 		}
 	}
 }
@@ -329,9 +329,9 @@ void ArrayT<T_Elem>::FillRand(UInt range)
 template<typename T_Elem>
 void ArrayT<T_Elem>::FillRandNormal(double mu, double sigma)
 {
-	T_Elem *p = GetPointer();
-	for (size_t i = 0; i < GetElemNum(); i++, p++) {
-		*p = static_cast<T_Elem>(mu + Random::Normal() * sigma);
+	T_Elem *pElem = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+		*pElem = static_cast<T_Elem>(mu + Random::Normal() * sigma);
 	}
 }
 
@@ -351,9 +351,9 @@ template<typename T_Elem>
 void ArrayT<T_Elem>::CopyToList(ValueList &valList) const
 {
 	if (valList.empty()) valList.reserve(GetElemNum());
-	const T_Elem *p = GetPointer();
-	for (size_t nElems = GetElemNum(); nElems > 0; nElems--, p++) {
-		valList.push_back(Value(*p));
+	const T_Elem *pElem = GetPointer();
+	for (size_t nElems = GetElemNum(); nElems > 0; nElems--, pElem++) {
+		valList.push_back(Value(*pElem));
 	}
 }
 
@@ -400,17 +400,17 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Reshape(Signal &sig, const ValueList &valList) c
 }
 
 template<typename T_Elem>
-void TransposeSub(T_Elem *&pDst, const T_Elem *pSrc, const Array::Dimensions &dimsSrc,
+void TransposeSub(T_Elem *&pElemDst, const T_Elem *pElemSrc, const Array::Dimensions &dimsSrc,
 				  SizeTList::const_iterator pAxis, SizeTList::const_iterator pAxisEnd)
 {
 	const Array::Dimension &dimSrc = dimsSrc[*pAxis];
 	if (pAxis + 1 == pAxisEnd) {
-		for (size_t i = 0; i < dimSrc.GetSize(); i++, pSrc += dimSrc.GetStride(), pDst++) {
-			*pDst = *pSrc;
+		for (size_t i = 0; i < dimSrc.GetSize(); i++, pElemSrc += dimSrc.GetStride(), pElemDst++) {
+			*pElemDst = *pElemSrc;
 		}
 	} else {
-		for (size_t i = 0; i < dimSrc.GetSize(); i++, pSrc += dimSrc.GetStride()) {
-			TransposeSub(pDst, pSrc, dimsSrc, pAxis + 1, pAxisEnd);
+		for (size_t i = 0; i < dimSrc.GetSize(); i++, pElemSrc += dimSrc.GetStride()) {
+			TransposeSub(pElemDst, pElemSrc, dimsSrc, pAxis + 1, pAxisEnd);
 		}
 	}
 }
@@ -475,8 +475,8 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes, Array *pArrayRt
 	} else {
 		pArrayTRtn.reset(dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn->Reference()));
 		if (!memorySharableFlag) {
-			T_Elem *pDst = pArrayTRtn->GetPointer();
-			TransposeSub(pDst, GetPointer(), GetDimensions(), axes.begin(), axes.end());
+			T_Elem *pElemDst = pArrayTRtn->GetPointer();
+			TransposeSub(pElemDst, GetPointer(), GetDimensions(), axes.begin(), axes.end());
 		}
 	}
 	return pArrayTRtn.release();
@@ -547,10 +547,10 @@ template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::RoundOff(double threshold) const
 {
 	AutoPtr<ArrayT> pArrayRtn(ArrayT::Create(GetDimensions()));
-	T_Elem *pDst = pArrayRtn->GetPointer();
-	const T_Elem *pSrc = GetPointer();
-	for (size_t i = 0; i < GetElemNum(); i++, pSrc++, pDst++) {
-		*pDst = (*pSrc > threshold)? *pSrc : 0;
+	T_Elem *pElemDst = pArrayRtn->GetPointer();
+	const T_Elem *pElemSrc = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, pElemSrc++, pElemDst++) {
+		*pElemDst = (*pElemSrc > threshold)? *pElemSrc : 0;
 	}
 	return pArrayRtn.release();
 }
@@ -559,11 +559,11 @@ template<>
 ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
 {
 	AutoPtr<ArrayT> pArrayRtn(ArrayT::Create(GetDimensions()));
-	Complex *pDst = pArrayRtn->GetPointer();
-	const Complex *pSrc = GetPointer();
+	Complex *pElemDst = pArrayRtn->GetPointer();
+	const Complex *pElemSrc = GetPointer();
 	double threshold2 = threshold * threshold;
-	for (size_t i = 0; i < GetElemNum(); i++, pSrc++, pDst++) {
-		*pDst = (std::norm(*pSrc) > threshold2)? *pSrc : 0;
+	for (size_t i = 0; i < GetElemNum(); i++, pElemSrc++, pElemDst++) {
+		*pElemDst = (std::norm(*pElemSrc) > threshold2)? *pElemSrc : 0;
 	}
 	return pArrayRtn.release();
 }
