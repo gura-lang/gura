@@ -469,8 +469,8 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes, Array *pArrayRt
 			pArrayTRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
 		} else {
 			pArrayTRtn->AllocMemory();
-			T_Elem *pDst = pArrayTRtn->GetPointer();
-			TransposeSub(pDst, GetPointer(), GetDimensions(), axes.begin(), axes.end());
+			T_Elem *pElemDst = pArrayTRtn->GetPointer();
+			TransposeSub(pElemDst, GetPointer(), GetDimensions(), axes.begin(), axes.end());
 		}
 	} else {
 		pArrayTRtn.reset(dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn->Reference()));
@@ -703,9 +703,9 @@ template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(const ValueList &valList)
 {
 	AutoPtr<ArrayT> pArrayT(ArrayT::Create(valList.size()));
-	T_Elem *p = pArrayT->GetPointer();
+	T_Elem *pElem = pArrayT->GetPointer();
 	foreach_const (ValueList, pValue, valList) {
-		*p++ = static_cast<T_Elem>(pValue->GetNumber());
+		*pElem++ = static_cast<T_Elem>(pValue->GetNumber());
 	}
 	return pArrayT.release();
 }
