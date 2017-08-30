@@ -1357,14 +1357,14 @@ Value FuncTmpl_transpose(Environment &env, Argument &arg, const Function *pFunc,
 {
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
-	AutoPtr<Array> pArrayTRtn;
+	AutoPtr<Array> pArrayRtn;
 	if (arg.IsValid(0)) {
-		pArrayTRtn.reset(pArrayT->Transpose(sig, arg.GetList(0)));
-		if (pArrayTRtn.IsNull()) return Value::Nil;
+		pArrayRtn.reset(pArrayT->Transpose(sig, arg.GetList(0), nullptr));
+		if (pArrayRtn.IsNull()) return Value::Nil;
 	} else {
-		pArrayTRtn.reset(pArrayT->Transpose());
+		pArrayRtn.reset(pArrayT->Transpose(nullptr));
 	}
-	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayTRtn.release())));
+	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
 Gura_ImplementMethod(array, transpose)

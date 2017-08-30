@@ -236,6 +236,19 @@ public:
 	virtual bool EvalBackward(Environment &env);
 };
 
+#if 0
+//-----------------------------------------------------------------------------
+// ArrayChainBinary_Filter
+//-----------------------------------------------------------------------------
+class ArrayChainBinary_Filter : public ArrayChainBinary {
+public:
+	inline ArrayChainBinary_Filter(Connector *pConnectorDst) :
+		ArrayChainBinary(Array::binaryFuncPack_Filter, pConnectorDst) {}
+	virtual bool InitBackward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
+};
+#endif
+
 //-----------------------------------------------------------------------------
 // ArrayChainOwner
 //-----------------------------------------------------------------------------

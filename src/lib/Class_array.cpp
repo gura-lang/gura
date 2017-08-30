@@ -477,7 +477,7 @@ template<typename T_Elem>
 Value PropertyGetter_T(Environment &env, Array *pArraySelf)
 {
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	return Array::ToValue(env, pArrayT->Transpose());
+	return Array::ToValue(env, pArrayT->Transpose(nullptr));
 }
 
 Gura_ImplementPropertyGetter(array, T)

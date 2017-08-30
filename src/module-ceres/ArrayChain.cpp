@@ -37,6 +37,8 @@ bool ArrayChainHead::InitForward(Environment &env)
 		_pArrayFwd.reset(ArrayT<Complex>::CreateScalar(value.GetComplex()));
 	} else if (value.Is_array()) {
 		_pArrayFwd.reset(Object_array::GetObject(value)->GetArray()->Reference());
+	} else if (value.Is_filter()) {
+		
 	} else {
 		env.SetError(ERR_ValueError, "variable must be an array");
 		return false;
@@ -348,13 +350,41 @@ bool ArrayChainBinary_Pow::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 bool ArrayChainBinary_Dot::InitBackward(Environment &env)
 {
-	return false;
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	Array *pArrayBwdLeft = Array::ApplyBinaryFunc(
+		env, Array::binaryFuncPack_Dot, nullptr,
+		_connectorSrcRight.GetArrayFwd(),
+		(*ppConnectorDst)->GetArrayBwd());
+	if (pArrayBwdLeft == nullptr) return false;
+	Array *pArrayBwdRight = Array::ApplyBinaryFunc(
+		env, Array::binaryFuncPack_Dot, nullptr,
+		_connectorSrcLeft.GetArrayFwd(),
+		(*ppConnectorDst)->GetArrayBwd());
+	if (pArrayBwdRight == nullptr) return false;
+	_connectorSrcLeft.SetArrayBwd(pArrayBwdLeft);
+	_connectorSrcRight.SetArrayBwd(pArrayBwdRight);
+	return env.IsNoSignalled();
 }
 
 bool ArrayChainBinary_Dot::EvalBackward(Environment &env)
 {
 	return false;
 }
+
+#if 0
+//-----------------------------------------------------------------------------
+// ArrayChainBinary_Filter
+//-----------------------------------------------------------------------------
+bool ArrayChainBinary_Filter::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayChainBinary_Filter::EvalBackward(Environment &env)
+{
+	return false;
+}
+#endif
 
 //-----------------------------------------------------------------------------
 // ArrayChainList
@@ -453,7 +483,7 @@ bool ArrayChainOwner::CreateFromExprSub(Environment &env, const Expr *pExpr, Arr
 		} else if (pOperator->IsOpType(OPTYPE_Dot)) {
 			pArrayChain.reset(new ArrayChainBinary_Dot(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Filter)) {
-			
+			//pArrayChain.reset(new ArrayChainBinary_Filter(pConnector));
 		} else {
 			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
 			return false;

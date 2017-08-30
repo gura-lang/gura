@@ -52,9 +52,9 @@ public:
 	void CopyToList(ValueList &valList) const;
 	ArrayT *Flatten() const;
 	ArrayT *Reshape(Signal &sig, const ValueList &valList) const;
-	ArrayT *Transpose(Signal &sig, const ValueList &valList) const;
-	ArrayT *Transpose(const SizeTList &axes) const;
-	ArrayT *Transpose() const;
+	ArrayT *Transpose(Signal &sig, const ValueList &valList, Array *pArrayRtn) const;
+	ArrayT *Transpose(const SizeTList &axes, Array *pArrayRtn) const;
+	ArrayT *Transpose(Array *pArrayRtn) const;
 	ArrayT *Head(Signal &sig, size_t n) const;
 	ArrayT *Tail(Signal &sig, size_t n) const;
 	ArrayT *Offset(Signal &sig, size_t n) const;

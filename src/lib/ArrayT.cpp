@@ -416,7 +416,7 @@ void TransposeSub(T_Elem *&pDst, const T_Elem *pSrc, const Array::Dimensions &di
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(Signal &sig, const ValueList &valList) const
+ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(Signal &sig, const ValueList &valList, Array *pArrayRtn) const
 {
 	if (GetDimensions().size() != valList.size()) {
 		sig.SetError(ERR_ValueError, "mismatched number of axes to transpose");
@@ -435,11 +435,11 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(Signal &sig, const ValueList &valList)
 		}
 		axes.push_back(axis);
 	}
-	return Transpose(axes);
+	return Transpose(axes, pArrayRtn);
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes) const
+ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes, Array *pArrayRtn) const
 {
 	if (axes.size() < 2) return new ArrayT<T_Elem>(*this);
 	Dimensions::const_reverse_iterator pDim = GetDimensions().rbegin();
@@ -455,14 +455,17 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes) const
 			}
 		}
 	}
-	AutoPtr<ArrayT> pArrayTRtn(new ArrayT());
-	Dimensions &dimsDst = pArrayTRtn->GetDimensions();
-	dimsDst.reserve(GetDimensions().size());
-	foreach_const (SizeTList, pAxis, axes) {
-		const Dimension &dimSrc = GetDimensions()[*pAxis];
-		dimsDst.push_back(Dimension(dimSrc.GetSize()));
-	}
-	pArrayTRtn->UpdateMetrics();
+	AutoPtr<ArrayT> pArrayTRtn;
+	do {
+		pArrayTRtn.reset(new ArrayT());
+		Dimensions &dimsDst = pArrayTRtn->GetDimensions();
+		dimsDst.reserve(GetDimensions().size());
+		foreach_const (SizeTList, pAxis, axes) {
+			const Dimension &dimSrc = GetDimensions()[*pAxis];
+			dimsDst.push_back(Dimension(dimSrc.GetSize()));
+		}
+		pArrayTRtn->UpdateMetrics();
+	} while (0);
 	if (memorySharableFlag) {
 		pArrayTRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
 	} else {
@@ -474,7 +477,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes) const
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose() const
+ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(Array *pArrayRtn) const
 {
 	size_t nAxes = GetDimensions().size();
 	if (nAxes < 2) return new ArrayT<T_Elem>(*this);
@@ -483,7 +486,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose() const
 	size_t axis = 0;
 	for ( ; axis < nAxes - 2; axis++) axes.push_back(axis);
 	axes.push_back(axis + 1), axes.push_back(axis);
-	return Transpose(axes);
+	return Transpose(axes, pArrayRtn);
 }
 
 template<typename T_Elem>
