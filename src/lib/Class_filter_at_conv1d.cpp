@@ -13,7 +13,7 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 Filter_Conv1d::FilterFuncTable Filter_Conv1d::filterFuncTable = {{{nullptr}}};
 
-Array *Filter_Conv1d::Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const
+Array *Filter_Conv1d::Apply(Signal &sig, Array *pArrayRtn, const Array *pArray) const
 {
 	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()][Array::ETYPE_None];
 	if (filterFunc == nullptr) {
@@ -21,7 +21,7 @@ Array *Filter_Conv1d::Apply(Signal &sig, Array *pArrayResult, const Array *pArra
 					 pArray->GetElemTypeName());
 		return nullptr;
 	}
-	return (*filterFunc)(sig, pArrayResult, pArray, this);
+	return (*filterFunc)(sig, pArrayRtn, pArray, this);
 }
 
 //-----------------------------------------------------------------------------

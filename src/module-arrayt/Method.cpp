@@ -127,26 +127,26 @@ size_t FindMinMaxIndexFlat(const ArrayT<T_Elem> *pArrayT)
 	return index;
 }
 
-template<typename T_ElemResult, typename T_Elem>
-ArrayT<T_ElemResult> *CalcSum(const ArrayT<T_Elem> *pArrayT,
+template<typename T_ElemRtn, typename T_Elem>
+ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 							  Array::Dimensions::const_iterator pDimAxis, bool meanFlag)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(
-		ArrayT<T_ElemResult>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
-	pArrayTResult->FillZero();
+	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
+		ArrayT<T_ElemRtn>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
+	pArrayTRtn->FillZero();
 	Double denom = static_cast<Double>(pDimAxis->GetSize());
 	const T_Elem *pElemTop = pArrayT->GetPointer();
-	T_ElemResult *pElemResult = pArrayTResult->GetPointer();
+	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 	if (pDimAxis + 1 == dims.end()) {
 		size_t axisSize = pDimAxis->GetSize();
 		const T_Elem *pElem = pElemTop;
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += axisSize) {
-			T_ElemResult accum = 0;
+			T_ElemRtn accum = 0;
 			for (size_t i = 0; i < axisSize; i++, pElem++) {
 				accum += *pElem;
 			}
-			*pElemResult++ = meanFlag? accum / denom : accum;
+			*pElemRtn++ = meanFlag? accum / denom : accum;
 		}
 	} else {
 		size_t stride = pDimAxis->GetStride();
@@ -155,23 +155,23 @@ ArrayT<T_ElemResult> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += stepSize) {
 			for (size_t j = 0; j < stride; j++) {
 				const T_Elem *pElem = pElemTop + offset + j;
-				T_ElemResult accum = 0;
+				T_ElemRtn accum = 0;
 				for (size_t i = 0; i < axisSize; i++, pElem += stride) {
 					accum += *pElem;
 				}
-				*pElemResult++ = meanFlag? accum / denom : accum;
+				*pElemRtn++ = meanFlag? accum / denom : accum;
 			}
 		}
 	}
-	return pArrayTResult.release();
+	return pArrayTRtn.release();
 }
 
-template<typename T_ElemResult, typename T_Elem>
-T_ElemResult CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
+template<typename T_ElemRtn, typename T_Elem>
+T_ElemRtn CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
 {
 	Double denom = static_cast<Double>(pArrayT->GetElemNum());
 	if (denom == 0) return 0;
-	T_ElemResult accum = 0;
+	T_ElemRtn accum = 0;
 	const T_Elem *pElem = pArrayT->GetPointer();
 	for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
 		accum += *pElem;
@@ -179,24 +179,24 @@ T_ElemResult CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
 	return meanFlag? accum / denom : accum;
 }
 
-template<typename T_ElemResult, typename T_Elem>
-ArrayT<T_ElemResult> *CalcVar(const ArrayT<T_Elem> *pArrayT,
+template<typename T_ElemRtn, typename T_Elem>
+ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 							  Array::Dimensions::const_iterator pDimAxis,
 							  bool populationFlag, bool stdFlag)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(
-		ArrayT<T_ElemResult>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
-	pArrayTResult->FillZero();
+	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
+		ArrayT<T_ElemRtn>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
+	pArrayTRtn->FillZero();
 	Double denom = static_cast<Double>(pDimAxis->GetSize());
 	Double denomVar = (denom <= 1)? 1 : populationFlag? denom : denom - 1;
 	const T_Elem *pElemTop = pArrayT->GetPointer();
-	T_ElemResult *pElemResult = pArrayTResult->GetPointer();
+	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 	if (pDimAxis + 1 == dims.end()) {
 		size_t axisSize = pDimAxis->GetSize();
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += axisSize) {
 			const T_Elem *pElemHead = pElemTop + offset;
-			T_ElemResult mean = 0;
+			T_ElemRtn mean = 0;
 			do {
 				const T_Elem *pElem = pElemHead;
 				for (size_t i = 0; i < axisSize; i++, pElem++) {
@@ -204,17 +204,17 @@ ArrayT<T_ElemResult> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 				}
 				mean /= denom;
 			} while (0);
-			T_ElemResult accum = 0;
+			T_ElemRtn accum = 0;
 			do {
 				const T_Elem *pElem = pElemHead;
 				for (size_t i = 0; i < axisSize; i++, pElem++) {
-					T_ElemResult tmp = *pElem - mean;
+					T_ElemRtn tmp = *pElem - mean;
 					accum += tmp * tmp;
 				}
 				accum /= denomVar;
 			} while (0);
 			if (stdFlag) Operator_Math_sqrt::Calc(accum, accum);
-			*pElemResult++ = accum;
+			*pElemRtn++ = accum;
 		}
 	} else {
 		size_t stride = pDimAxis->GetStride();
@@ -223,7 +223,7 @@ ArrayT<T_ElemResult> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += stepSize) {
 			for (size_t j = 0; j < stride; j++) {
 				const T_Elem *pElemHead = pElemTop + offset + j;
-				T_ElemResult mean = 0;
+				T_ElemRtn mean = 0;
 				do {
 					const T_Elem *pElem = pElemHead;
 					for (size_t i = 0; i < axisSize; i++, pElem += stride) {
@@ -231,30 +231,30 @@ ArrayT<T_ElemResult> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 					}
 					mean /= denom;
 				} while (0);
-				T_ElemResult accum = 0;
+				T_ElemRtn accum = 0;
 				do {
 					const T_Elem *pElem = pElemHead;
 					for (size_t i = 0; i < axisSize; i++, pElem += stride) {
-						T_ElemResult tmp = *pElem - mean;
+						T_ElemRtn tmp = *pElem - mean;
 						accum += tmp * tmp;
 					}
 					accum /= denomVar;
 				} while (0);
 				if (stdFlag) Operator_Math_sqrt::Calc(accum, accum);
-				*pElemResult++ = accum;
+				*pElemRtn++ = accum;
 			}
 		}
 	}
-	return pArrayTResult.release();
+	return pArrayTRtn.release();
 }
 
-template<typename T_ElemResult, typename T_Elem>
-T_ElemResult CalcVarFlat(const ArrayT<T_Elem> *pArrayT, bool populationFlag, bool stdFlag)
+template<typename T_ElemRtn, typename T_Elem>
+T_ElemRtn CalcVarFlat(const ArrayT<T_Elem> *pArrayT, bool populationFlag, bool stdFlag)
 {
 	Double denom = static_cast<Double>(pArrayT->GetElemNum());
 	if (denom == 0) return 0;
 	Double denomVar = (denom <= 1)? 1 : populationFlag? denom : denom - 1;
-	T_ElemResult mean = 0;
+	T_ElemRtn mean = 0;
 	do {
 		const T_Elem *pElem = pArrayT->GetPointer();
 		for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
@@ -262,11 +262,11 @@ T_ElemResult CalcVarFlat(const ArrayT<T_Elem> *pArrayT, bool populationFlag, boo
 		}
 		mean /= denom;
 	} while (0);
-	T_ElemResult accum = 0;
+	T_ElemRtn accum = 0;
 	do {
 		const T_Elem *pElem = pArrayT->GetPointer();
 		for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
-			T_ElemResult tmp = *pElem - mean;
+			T_ElemRtn tmp = *pElem - mean;
 			accum += tmp * tmp;
 		}
 		accum /= denomVar;
@@ -320,11 +320,11 @@ Value FuncTmpl_argmax(Environment &env, Argument &arg, const Function *pFunc, Ar
 				FindMinMaxIndexFlat<T_Elem, CompareLt>(pArrayT));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<Array> pArrayResult(
+			AutoPtr<Array> pArrayRtn(
 				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareLe>(pArrayT, pDimAxis) :
 				FindMinMaxIndex<T_Elem, CompareLt>(pArrayT, pDimAxis));
-			if (pArrayResult.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayResult.release()));
+			if (pArrayRtn.IsNull()) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayRtn.release()));
 		}
 	} else {
 		valueRtn = Value(
@@ -387,11 +387,11 @@ Value FuncTmpl_argmin(Environment &env, Argument &arg, const Function *pFunc, Ar
 				FindMinMaxIndexFlat<T_Elem, CompareGt>(pArrayT));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<Array> pArrayResult(
+			AutoPtr<Array> pArrayRtn(
 				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareGe>(pArrayT, pDimAxis) :
 				FindMinMaxIndex<T_Elem, CompareGt>(pArrayT, pDimAxis));
-			if (pArrayResult.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayResult.release()));
+			if (pArrayRtn.IsNull()) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayRtn.release()));
 		}
 	} else {
 		valueRtn = Value(
@@ -867,12 +867,12 @@ Value FuncTmpl_max(Environment &env, Argument &arg, const Function *pFunc, Array
 				Value(FindMinMaxFlat<T_Elem, CompareLt>(pArrayT));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<Array> pArrayResult(
+			AutoPtr<Array> pArrayRtn(
 				indexFlag? FindMinMaxIndex<T_Elem, CompareLt>(pArrayT, pDimAxis) :
 				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareLe>(pArrayT, pDimAxis) :
 				FindMinMax<T_Elem, CompareLt>(pArrayT, pDimAxis));
-			if (pArrayResult.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayResult.release()));
+			if (pArrayRtn.IsNull()) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayRtn.release()));
 		}
 	} else {
 		valueRtn =
@@ -918,7 +918,7 @@ Gura_DeclareMethod(array, mean)
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
-template<typename T_ElemResult, typename T_Elem>
+template<typename T_ElemRtn, typename T_Elem>
 Value FuncTmpl_mean(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
@@ -930,15 +930,15 @@ Value FuncTmpl_mean(Environment &env, Argument &arg, const Function *pFunc, Arra
 			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 			return Value::Nil;
 		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT, true));
+			valueRtn = Value(CalcSumFlat<T_ElemRtn, T_Elem>(pArrayT, true));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(CalcSum<T_ElemResult, T_Elem>(pArrayT, pDimAxis, true));
-			if (pArrayTResult.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayTResult.release()));
+			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcSum<T_ElemRtn, T_Elem>(pArrayT, pDimAxis, true));
+			if (pArrayTRtn.IsNull()) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
 		}
 	} else {
-		valueRtn = Value(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT, true));
+		valueRtn = Value(CalcSumFlat<T_ElemRtn, T_Elem>(pArrayT, true));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
@@ -999,12 +999,13 @@ Value FuncTmpl_min(Environment &env, Argument &arg, const Function *pFunc, Array
 				Value(FindMinMaxFlat<T_Elem, CompareGt>(pArrayT));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<Array> pArrayResult(
+			AutoPtr<Array> pArrayRtn(
 				indexFlag? FindMinMaxIndex<T_Elem, CompareGt>(pArrayT, pDimAxis) :
 				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareGe>(pArrayT, pDimAxis) :
 				FindMinMax<T_Elem, CompareGt>(pArrayT, pDimAxis));
-			if (pArrayResult.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayResult.release()));
+			if (pArrayRtn.IsNull()) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayRtn.release()));
+
 		}
 	} else {
 		valueRtn =
@@ -1197,7 +1198,7 @@ Gura_DeclareMethod(array, std)
 		"that summation by `n`.\n");
 }
 
-template<typename T_ElemResult, typename T_Elem>
+template<typename T_ElemRtn, typename T_Elem>
 Value FuncTmpl_std(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	bool populationFlag = arg.IsSet(Gura_Symbol(p));
@@ -1210,15 +1211,15 @@ Value FuncTmpl_std(Environment &env, Argument &arg, const Function *pFunc, Array
 			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 			return Value::Nil;
 		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcVarFlat<T_ElemResult, T_Elem>(pArrayT, populationFlag, true));
+			valueRtn = Value(CalcVarFlat<T_ElemRtn, T_Elem>(pArrayT, populationFlag, true));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(CalcVar<T_ElemResult, T_Elem>(pArrayT, pDimAxis, populationFlag, true));
-			if (pArrayTResult.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayTResult.release()));
+			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcVar<T_ElemRtn, T_Elem>(pArrayT, pDimAxis, populationFlag, true));
+			if (pArrayTRtn.IsNull()) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
 		}
 	} else {
-		valueRtn = Value(CalcVarFlat<T_ElemResult, T_Elem>(pArrayT, populationFlag, true));
+		valueRtn = Value(CalcVarFlat<T_ElemRtn, T_Elem>(pArrayT, populationFlag, true));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
@@ -1256,7 +1257,7 @@ Gura_DeclareMethod(array, sum)
 		"Calculates a summation value of elements in the target `array`.\n");
 }
 
-template<typename T_ElemResult, typename T_Elem>
+template<typename T_ElemRtn, typename T_Elem>
 Value FuncTmpl_sum(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
@@ -1268,15 +1269,15 @@ Value FuncTmpl_sum(Environment &env, Argument &arg, const Function *pFunc, Array
 			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 			return Value::Nil;
 		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT, false));
+			valueRtn = Value(CalcSumFlat<T_ElemRtn, T_Elem>(pArrayT, false));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(CalcSum<T_ElemResult, T_Elem>(pArrayT, pDimAxis, false));
-			if (pArrayTResult.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayTResult.release()));
+			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcSum<T_ElemRtn, T_Elem>(pArrayT, pDimAxis, false));
+			if (pArrayTRtn.IsNull()) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
 		}
 	} else {
-		valueRtn = Value(CalcSumFlat<T_ElemResult, T_Elem>(pArrayT, false));
+		valueRtn = Value(CalcSumFlat<T_ElemRtn, T_Elem>(pArrayT, false));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
@@ -1390,7 +1391,7 @@ Gura_DeclareMethod(array, var)
 		"that summation by `n`.\n");
 }
 
-template<typename T_ElemResult, typename T_Elem>
+template<typename T_ElemRtn, typename T_Elem>
 Value FuncTmpl_var(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	bool populationFlag = arg.IsSet(Gura_Symbol(p));
@@ -1403,15 +1404,15 @@ Value FuncTmpl_var(Environment &env, Argument &arg, const Function *pFunc, Array
 			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 			return Value::Nil;
 		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcVarFlat<T_ElemResult, T_Elem>(pArrayT, populationFlag, false));
+			valueRtn = Value(CalcVarFlat<T_ElemRtn, T_Elem>(pArrayT, populationFlag, false));
 		} else {
 			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(CalcVar<T_ElemResult, T_Elem>(pArrayT, pDimAxis, populationFlag, false));
-			if (pArrayTResult.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayTResult.release()));
+			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcVar<T_ElemRtn, T_Elem>(pArrayT, pDimAxis, populationFlag, false));
+			if (pArrayTRtn.IsNull()) return Value::Nil;
+			valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
 		}
 	} else {
-		valueRtn = Value(CalcVarFlat<T_ElemResult, T_Elem>(pArrayT, populationFlag, false));
+		valueRtn = Value(CalcVarFlat<T_ElemRtn, T_Elem>(pArrayT, populationFlag, false));
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }

@@ -456,7 +456,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes, Array *pArrayRt
 		}
 	}
 	AutoPtr<ArrayT> pArrayTRtn;
-	do {
+	if (pArrayRtn == nullptr) {
 		pArrayTRtn.reset(new ArrayT());
 		Dimensions &dimsDst = pArrayTRtn->GetDimensions();
 		dimsDst.reserve(GetDimensions().size());
@@ -465,13 +465,19 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes, Array *pArrayRt
 			dimsDst.push_back(Dimension(dimSrc.GetSize()));
 		}
 		pArrayTRtn->UpdateMetrics();
-	} while (0);
-	if (memorySharableFlag) {
-		pArrayTRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
+		if (memorySharableFlag) {
+			pArrayTRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
+		} else {
+			pArrayTRtn->AllocMemory();
+			T_Elem *pDst = pArrayTRtn->GetPointer();
+			TransposeSub(pDst, GetPointer(), GetDimensions(), axes.begin(), axes.end());
+		}
 	} else {
-		pArrayTRtn->AllocMemory();
-		T_Elem *pDst = pArrayTRtn->GetPointer();
-		TransposeSub(pDst, GetPointer(), GetDimensions(), axes.begin(), axes.end());
+		pArrayTRtn.reset(dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn->Reference()));
+		if (!memorySharableFlag) {
+			T_Elem *pDst = pArrayTRtn->GetPointer();
+			TransposeSub(pDst, GetPointer(), GetDimensions(), axes.begin(), axes.end());
+		}
 	}
 	return pArrayTRtn.release();
 }
@@ -480,7 +486,10 @@ template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(Array *pArrayRtn) const
 {
 	size_t nAxes = GetDimensions().size();
-	if (nAxes < 2) return new ArrayT<T_Elem>(*this);
+	if (nAxes < 2) {
+		return (pArrayRtn == nullptr)?
+			new ArrayT<T_Elem>(*this) : dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn->Reference());
+	}
 	SizeTList axes;
 	axes.reserve(nAxes);
 	size_t axis = 0;
@@ -537,26 +546,26 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::RoundOff(double threshold) const
 {
-	AutoPtr<ArrayT> pArrayResult(ArrayT::Create(GetDimensions()));
-	T_Elem *pDst = pArrayResult->GetPointer();
+	AutoPtr<ArrayT> pArrayRtn(ArrayT::Create(GetDimensions()));
+	T_Elem *pDst = pArrayRtn->GetPointer();
 	const T_Elem *pSrc = GetPointer();
 	for (size_t i = 0; i < GetElemNum(); i++, pSrc++, pDst++) {
 		*pDst = (*pSrc > threshold)? *pSrc : 0;
 	}
-	return pArrayResult.release();
+	return pArrayRtn.release();
 }
 
 template<>
 ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
 {
-	AutoPtr<ArrayT> pArrayResult(ArrayT::Create(GetDimensions()));
-	Complex *pDst = pArrayResult->GetPointer();
+	AutoPtr<ArrayT> pArrayRtn(ArrayT::Create(GetDimensions()));
+	Complex *pDst = pArrayRtn->GetPointer();
 	const Complex *pSrc = GetPointer();
 	double threshold2 = threshold * threshold;
 	for (size_t i = 0; i < GetElemNum(); i++, pSrc++, pDst++) {
 		*pDst = (std::norm(*pSrc) > threshold2)? *pSrc : 0;
 	}
-	return pArrayResult.release();
+	return pArrayRtn.release();
 }
 
 /// functions to create an ArrayT instance
