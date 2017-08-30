@@ -696,6 +696,7 @@ expr
   expr#unquote()
   expr#write(dst:stream:w, style?:symbol, indent?:string)
 filter
+  filter.calcpadding(size_in:number, size_filter:number, strides:number, padding:symbol):static
 filter@conv1d
 filter@conv2d
 filter@conv3d

@@ -871,14 +871,19 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemRtn, const T_Elem *pElemOrg, size_t nRows,
 	static const Double invErrThreshold = _CalcInvErrorThreshold<T_Elem>(epsilon);
 	size_t nCols = nRows;
 	size_t nCols2 = nCols * 2;
-	size_t bytesPerRow = nCols * sizeof(T_Elem);
+	//size_t bytesPerRow = nCols * sizeof(T_Elem);
 	det = 1;
 	do {
 		const T_Elem *pElemSrc = pElemOrg;
 		T_Elem *pElemDst = pElemWork;
 		::memset(pElemWork, 0x00, nRows * nCols2 * sizeof(T_Elem));
 		for (size_t iRow = 0; iRow < nRows; iRow++, pElemDst += nCols2, pElemSrc += nCols) {
-			::memcpy(pElemDst, pElemSrc, bytesPerRow);
+			const T_Elem *pElemSrcWk = pElemSrc;
+			T_Elem *pElemDstWk = pElemDst;
+			for (size_t iCol = 0; iCol < nCols; iCol++, pElemDstWk++, pElemSrcWk++) {
+				*pElemDstWk = *pElemSrcWk;
+			}
+			//::memcpy(pElemDst, pElemSrc, bytesPerRow);
 			*(pElemDst + nCols + iRow) = 1;
 			pElemRows[iRow] = pElemDst;
 		}
@@ -922,7 +927,12 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemRtn, const T_Elem *pElemOrg, size_t nRows,
 	if (pElemRtn != nullptr) {
 		T_Elem *pElemDst = pElemRtn;
 		for (size_t iRow = 0; iRow < nRows; iRow++, pElemDst += nCols) {
-			::memcpy(pElemDst, pElemRows[iRow] + nCols, bytesPerRow);
+			const T_Elem *pElemSrcWk = pElemRows[iRow] + nCols;
+			T_Elem *pElemDstWk = pElemDst;
+			for (size_t iCol = 0; iCol < nCols; iCol++, pElemDstWk++, pElemSrcWk++) {
+				*pElemDstWk = *pElemSrcWk;
+			}
+			//::memcpy(pElemDst, pElemRows[iRow] + nCols, bytesPerRow);
 		}
 	}
 	return true;
