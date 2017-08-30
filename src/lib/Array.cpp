@@ -905,7 +905,7 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemRtn, const T_Elem *pElemOrg, size_t nRows,
 			T_Elem *pElemPivot = pElemRows[iRowPivot];
 			T_Elem factor = *(pElemPivot + iRowPivot);
 			det *= factor;
-			for (size_t cnt = nCols2; cnt > 0; cnt--, pElemPivot++) {
+			for (size_t i = 0; i < nCols2; i++, pElemPivot++) {
 				*pElemPivot /= factor;
 			}
 		} while (0);
@@ -914,7 +914,7 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemRtn, const T_Elem *pElemOrg, size_t nRows,
 			T_Elem *pElemPivot = pElemRows[iRowPivot];
 			T_Elem *pElemEach = pElemRows[iRow];
 			T_Elem factor = *(pElemEach + iRowPivot);
-			for (size_t cnt = nCols2; cnt > 0; cnt--, pElemPivot++, pElemEach++) {
+			for (size_t i = 0; i < nCols2; i++, pElemPivot++, pElemEach++) {
 				*pElemEach -= *pElemPivot * factor;
 			}
 		}
