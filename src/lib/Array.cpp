@@ -833,10 +833,10 @@ bool Array::Dimensions::IsSameShape(const Dimensions &dimsA, const Dimensions &d
 
 bool Array::Dimensions::IsElemwiseCalculatable(const Dimensions &dimsA, const Dimensions &dimsB)
 {
-	Dimensions::const_reverse_iterator pA = dimsA.rbegin();
-	Dimensions::const_reverse_iterator pB = dimsB.rbegin();
-	for ( ; pA != dimsA.rend() && pB != dimsB.rend(); pA++, pB++) {
-		if (pA->GetSize() != pB->GetSize()) return false;
+	Dimensions::const_reverse_iterator pDimA = dimsA.rbegin();
+	Dimensions::const_reverse_iterator pDimB = dimsB.rbegin();
+	for ( ; pDimA != dimsA.rend() && pDimB != dimsB.rend(); pDimA++, pDimB++) {
+		if (pDimA->GetSize() != pDimB->GetSize()) return false;
 	}
 	return true;
 }
