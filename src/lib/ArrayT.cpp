@@ -102,28 +102,28 @@ Array *ArrayT<T_Elem>::Clone() const
 
 template<typename T_Elem>
 void ToString_Sub(String &rtn, size_t colTop, int wdPad, const Array::Dimensions &dims,
-				  Array::Dimensions::const_iterator pDim, const T_Elem *&p)
+				  Array::Dimensions::const_iterator pDim, const T_Elem *pElem)
 {
 	char buff[128];
 	size_t nestLevel = std::distance(dims.begin(), pDim);
 	if (pDim + 1 == dims.end()) {
 		rtn += "{";
-		for (size_t i = 0; i < pDim->GetSize(); i++, p++) {
+		for (size_t i = 0; i < pDim->GetSize(); i++, pElem += pDim->GetStride()) {
 			if (i > 0) rtn += ", ";
-			FormatElem(buff, wdPad, *p);
+			FormatElem(buff, wdPad, *pElem);
 			rtn += buff;
 		}
 		rtn += "}";
 	} else {
 		rtn += "{";
-		for (size_t i = 0; i < pDim->GetSize(); i++) {
+		for (size_t i = 0; i < pDim->GetSize(); i++, pElem += pDim->GetStride()) {
 			if (i > 0) {
 				rtn += ',';
 				rtn += '\n';
 				for (size_t j = 0; j < dims.size() - nestLevel - 2; j++) rtn += '\n';
 				for (size_t j = 0; j < nestLevel + colTop + 1; j++) rtn += ' ';
 			}
-			ToString_Sub(rtn, colTop, wdPad, dims, pDim + 1, p);
+			ToString_Sub(rtn, colTop, wdPad, dims, pDim + 1, pElem);
 		}
 		rtn += "}";
 	}
@@ -134,24 +134,24 @@ String ArrayT<T_Elem>::ToString(bool exprFlag) const
 {
 	String rtn;
 	char buff[128];
-	const T_Elem *p = GetPointer();
+	const T_Elem *pElem = GetPointer();
 	if (IsScalar()) {
-		FormatElem(buff, 0, *p);
+		FormatElem(buff, 0, *pElem);
 		rtn = buff;
 	} else {
 		int wdPad = 0;
-		for (size_t i = 0; i < GetElemNum(); i++, p++) {
-			FormatElem(buff, wdPad, *p);
+		for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+			FormatElem(buff, wdPad, *pElem);
 			int wdElem = ::strlen(buff);
 			if (wdPad < wdElem) wdPad = wdElem;
 		}
-		p = GetPointer();
+		pElem = GetPointer();
 		if (exprFlag) {
 			rtn += ConstructorName;
 			rtn += " ";
-			ToString_Sub(rtn, rtn.size(), wdPad, _dims, _dims.begin(), p);
+			ToString_Sub(rtn, rtn.size(), wdPad, _dims, _dims.begin(), pElem);
 		} else {
-			ToString_Sub(rtn, 0, wdPad, _dims, _dims.begin(), p);
+			ToString_Sub(rtn, 0, wdPad, _dims, _dims.begin(), pElem);
 		}
 	}
 	return rtn;
@@ -160,9 +160,9 @@ String ArrayT<T_Elem>::ToString(bool exprFlag) const
 template<typename T_Elem>
 bool ArrayT<T_Elem>::DoesContainZero() const
 {
-	const T_Elem *p = GetPointer();
-	for (size_t i = 0; i < GetElemNum(); i++, p++) {
-		if (*p == 0) return true;
+	const T_Elem *pElem = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+		if (*pElem == 0) return true;
 	}
 	return false;
 }
@@ -170,9 +170,9 @@ bool ArrayT<T_Elem>::DoesContainZero() const
 template<typename T_Elem>
 bool ArrayT<T_Elem>::DoesContainMinus() const
 {
-	const T_Elem *p = GetPointer();
-	for (size_t i = 0; i < GetElemNum(); i++, p++) {
-		if (*p < 0) return true;
+	const T_Elem *pElem = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+		if (*pElem < 0) return true;
 	}
 	return false;
 }
@@ -180,9 +180,9 @@ bool ArrayT<T_Elem>::DoesContainMinus() const
 template<typename T_Elem>
 bool ArrayT<T_Elem>::DoesContainZeroOrMinus() const
 {
-	const T_Elem *p = GetPointer();
-	for (size_t i = 0; i < GetElemNum(); i++, p++) {
-		if (*p <= 0) return true;
+	const T_Elem *pElem = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+		if (*pElem <= 0) return true;
 	}
 	return false;
 }
@@ -190,9 +190,9 @@ bool ArrayT<T_Elem>::DoesContainZeroOrMinus() const
 template<>
 bool ArrayT<Complex>::DoesContainZero() const
 {
-	const Complex *p = GetPointer();
-	for (size_t i = 0; i < GetElemNum(); i++, p++) {
-		if (p->real() == 0 && p->imag() == 0) return true;
+	const Complex *pElem = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+		if (pElem->real() == 0 && pElem->imag() == 0) return true;
 	}
 	return false;
 }
