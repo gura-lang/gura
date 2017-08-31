@@ -854,13 +854,14 @@ void DotFuncTmpl_2d_2d(T_ElemRtn *pElemRtn,
 	size_t nColL_nRowR = dimColL.GetSize();;
 	size_t nColR = dimColR.GetSize();
 	const T_ElemL *pElemBaseL = pElemL;
-	for (size_t iRow = 0; iRow < nRowL; iRow++, pElemBaseL += nColL_nRowR) {
+	for (size_t iRow = 0; iRow < nRowL; iRow++, pElemBaseL += dimRowL.GetStride()) {
 		const T_ElemR *pElemBaseR = pElemR;
-		for (size_t iCol = 0; iCol < nColR; iCol++, pElemBaseR++) {
+		for (size_t iCol = 0; iCol < nColR; iCol++, pElemBaseR += dimColR.GetStride()) {
 			const T_ElemL *pElemWorkL = pElemBaseL;
 			const T_ElemR *pElemWorkR = pElemBaseR;
 			T_ElemRtn elemRtn = 0;
-			for (size_t i = 0; i < nColL_nRowR; i++, pElemWorkL++, pElemWorkR += nColR) {
+			for (size_t i = 0; i < nColL_nRowR; i++,
+					 pElemWorkL += dimColL.GetStride(), pElemWorkR += dimRowR.GetStride()) {
 				elemRtn +=
 					static_cast<T_ElemRtn>(*pElemWorkL) *
 					static_cast<T_ElemRtn>(*pElemWorkR);
