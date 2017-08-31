@@ -11,6 +11,7 @@ typedef Value (*FuncT_Method)(Environment &env, Argument &arg, const Function *p
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
+// **** column-major is not supported yet ****
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 Array *FindMinMax(const ArrayT<T_Elem> *pArrayT,
 				  Array::Dimensions::const_iterator pDimAxis)
@@ -25,8 +26,8 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT,
 		size_t cnt = pArrayT->GetElemNum() / pDimAxis->GetSize();
 		while (cnt-- > 0) {
 			*pElemValue = *pElem;
-			pElem++;
-			for (size_t i = 1; i < pDimAxis->GetSize(); i++, pElem++) {
+			pElem += pDimAxis->GetStride();
+			for (size_t i = 1; i < pDimAxis->GetSize(); i++, pElem += pDimAxis->GetStride()) {
 				if ((*op)(*pElemValue, *pElem)) *pElemValue = *pElem;
 			}
 			pElemValue++;
@@ -50,6 +51,7 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT,
 	return pArrayTValue.release();
 }
 
+// **** column-major is not supported yet ****
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT,
 					   Array::Dimensions::const_iterator pDimAxis)
@@ -127,6 +129,7 @@ size_t FindMinMaxIndexFlat(const ArrayT<T_Elem> *pArrayT)
 	return index;
 }
 
+// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_Elem>
 ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 							  Array::Dimensions::const_iterator pDimAxis, bool meanFlag)
@@ -179,6 +182,7 @@ T_ElemRtn CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
 	return meanFlag? accum / denom : accum;
 }
 
+// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_Elem>
 ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 							  Array::Dimensions::const_iterator pDimAxis,
