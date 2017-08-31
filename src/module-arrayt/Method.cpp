@@ -26,26 +26,26 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT,
 		size_t cnt = pArrayT->GetElemNum() / pDimAxis->GetSize();
 		while (cnt-- > 0) {
 			*pElemValue = *pElem;
-			pElem += pDimAxis->GetStride();
-			for (size_t i = 1; i < pDimAxis->GetSize(); i++, pElem += pDimAxis->GetStride()) {
+			pElem += pDimAxis->GetStrides();
+			for (size_t i = 1; i < pDimAxis->GetSize(); i++, pElem += pDimAxis->GetStrides()) {
 				if ((*op)(*pElemValue, *pElem)) *pElemValue = *pElem;
 			}
 			pElemValue++;
 		}
 	} else {
-		size_t stride = pDimAxis->GetStride();
-		size_t cnt = pArrayT->GetElemNum() / (pDimAxis->GetSize() * stride);
+		size_t strides = pDimAxis->GetStrides();
+		size_t cnt = pArrayT->GetElemNum() / (pDimAxis->GetSize() * strides);
 		while (cnt-- > 0) {
-			for (size_t j = 0; j < stride; j++, pElem++) {
+			for (size_t j = 0; j < strides; j++, pElem++) {
 				*(pElemValue + j) = *pElem;
 			}
 			for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
 				T_Elem *pElemValueWk = pElemValue;
-				for (size_t j = 0; j < stride; j++, pElemValueWk++, pElem++) {
+				for (size_t j = 0; j < strides; j++, pElemValueWk++, pElem++) {
 					if ((*op)(*pElemValueWk, *pElem)) *pElemValueWk = *pElem;
 				}
 			}
-			pElemValue += stride;
+			pElemValue += strides;
 		}
 	}
 	return pArrayTValue.release();
@@ -80,24 +80,24 @@ Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT,
 			pElemValue++;
 		}
 	} else {
-		size_t stride = pDimAxis->GetStride();
-		size_t cnt = pArrayT->GetElemNum() / (pDimAxis->GetSize() * stride);
+		size_t strides = pDimAxis->GetStrides();
+		size_t cnt = pArrayT->GetElemNum() / (pDimAxis->GetSize() * strides);
 		while (cnt-- > 0) {
-			for (size_t j = 0; j < stride; j++, pElem++) {
+			for (size_t j = 0; j < strides; j++, pElem++) {
 				*(pElemIndex + j) = 0;
 				*(pElemValue + j) = *pElem;
 			}
 			for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
 				T_Elem *pElemValueWk = pElemValue;
-				for (size_t j = 0; j < stride; j++, pElemValueWk++, pElem++) {
+				for (size_t j = 0; j < strides; j++, pElemValueWk++, pElem++) {
 					if ((*op)(*pElemValueWk, *pElem)) {
 						*(pElemIndex + j) = static_cast<UInt32>(i);
 						*pElemValueWk = *pElem;
 					}
 				}
 			}
-			pElemIndex += stride;
-			pElemValue += stride;
+			pElemIndex += strides;
+			pElemValue += strides;
 		}
 	}
 	return pArrayTIndex.release();
@@ -152,14 +152,14 @@ ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 			*pElemRtn++ = meanFlag? accum / denom : accum;
 		}
 	} else {
-		size_t stride = pDimAxis->GetStride();
+		size_t strides = pDimAxis->GetStrides();
 		size_t axisSize = pDimAxis->GetSize();
-		size_t stepSize = axisSize * stride;
+		size_t stepSize = axisSize * strides;
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += stepSize) {
-			for (size_t j = 0; j < stride; j++) {
+			for (size_t j = 0; j < strides; j++) {
 				const T_Elem *pElem = pElemTop + offset + j;
 				T_ElemRtn accum = 0;
-				for (size_t i = 0; i < axisSize; i++, pElem += stride) {
+				for (size_t i = 0; i < axisSize; i++, pElem += strides) {
 					accum += *pElem;
 				}
 				*pElemRtn++ = meanFlag? accum / denom : accum;
@@ -221,16 +221,16 @@ ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 			*pElemRtn++ = accum;
 		}
 	} else {
-		size_t stride = pDimAxis->GetStride();
+		size_t strides = pDimAxis->GetStrides();
 		size_t axisSize = pDimAxis->GetSize();
-		size_t stepSize = pDimAxis->GetSize() * stride;
+		size_t stepSize = pDimAxis->GetSize() * strides;
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += stepSize) {
-			for (size_t j = 0; j < stride; j++) {
+			for (size_t j = 0; j < strides; j++) {
 				const T_Elem *pElemHead = pElemTop + offset + j;
 				T_ElemRtn mean = 0;
 				do {
 					const T_Elem *pElem = pElemHead;
-					for (size_t i = 0; i < axisSize; i++, pElem += stride) {
+					for (size_t i = 0; i < axisSize; i++, pElem += strides) {
 						mean += *pElem;
 					}
 					mean /= denom;
@@ -238,7 +238,7 @@ ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 				T_ElemRtn accum = 0;
 				do {
 					const T_Elem *pElem = pElemHead;
-					for (size_t i = 0; i < axisSize; i++, pElem += stride) {
+					for (size_t i = 0; i < axisSize; i++, pElem += strides) {
 						T_ElemRtn tmp = *pElem - mean;
 						accum += tmp * tmp;
 					}

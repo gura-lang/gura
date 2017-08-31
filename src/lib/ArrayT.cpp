@@ -108,7 +108,7 @@ void ToString_Sub(String &rtn, size_t colTop, int wdPad, const Array::Dimensions
 	size_t nestLevel = std::distance(dims.begin(), pDim);
 	if (pDim + 1 == dims.end()) {
 		rtn += "{";
-		for (size_t i = 0; i < pDim->GetSize(); i++, pElem += pDim->GetStride()) {
+		for (size_t i = 0; i < pDim->GetSize(); i++, pElem += pDim->GetStrides()) {
 			if (i > 0) rtn += ", ";
 			FormatElem(buff, wdPad, *pElem);
 			rtn += buff;
@@ -116,7 +116,7 @@ void ToString_Sub(String &rtn, size_t colTop, int wdPad, const Array::Dimensions
 		rtn += "}";
 	} else {
 		rtn += "{";
-		for (size_t i = 0; i < pDim->GetSize(); i++, pElem += pDim->GetStride()) {
+		for (size_t i = 0; i < pDim->GetSize(); i++, pElem += pDim->GetStrides()) {
 			if (i > 0) {
 				rtn += ',';
 				rtn += '\n';
@@ -405,11 +405,11 @@ void TransposeSub(T_Elem *&pElemDst, const T_Elem *pElemSrc, const Array::Dimens
 {
 	const Array::Dimension &dimSrc = dimsSrc[*pAxis];
 	if (pAxis + 1 == pAxisEnd) {
-		for (size_t i = 0; i < dimSrc.GetSize(); i++, pElemSrc += dimSrc.GetStride(), pElemDst++) {
+		for (size_t i = 0; i < dimSrc.GetSize(); i++, pElemSrc += dimSrc.GetStrides(), pElemDst++) {
 			*pElemDst = *pElemSrc;
 		}
 	} else {
-		for (size_t i = 0; i < dimSrc.GetSize(); i++, pElemSrc += dimSrc.GetStride()) {
+		for (size_t i = 0; i < dimSrc.GetSize(); i++, pElemSrc += dimSrc.GetStrides()) {
 			TransposeSub(pElemDst, pElemSrc, dimsSrc, pAxis + 1, pAxisEnd);
 		}
 	}
@@ -520,7 +520,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Tail(Signal &sig, size_t n) const
 		sig.SetError(ERR_OutOfRangeError, "specified size is out of range");
 		return nullptr;
 	}
-	size_t offsetBase = GetOffsetBase() + dimFirst.GetStride() * (dimFirst.GetSize() - n);
+	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * (dimFirst.GetSize() - n);
 	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference(), offsetBase));
 	pArrayTRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
 	return pArrayTRtn.release();
@@ -535,7 +535,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
 		return nullptr;
 	}
 	size_t nElems = dimFirst.GetSize() - n;
-	size_t offsetBase = GetOffsetBase() + dimFirst.GetStride() * n;
+	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * n;
 	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference(), offsetBase));
 	pArrayTRtn->SetDimensions(nElems, GetDimensions().begin() + 1, GetDimensions().end());
 	return pArrayTRtn.release();
@@ -799,7 +799,7 @@ bool Iterator_ArrayT_Each<T_Elem>::DoNext(Environment &env, Value &value)
 		if (pDim + 1 == dims.end()) {
 			value = Value(_pArrayT->GetPointer()[_idx]);
 		} else {
-			size_t offsetBase = _pArrayT->GetOffsetBase() + pDim->GetStride() * _idx;
+			size_t offsetBase = _pArrayT->GetOffsetBase() + pDim->GetStrides() * _idx;
 			AutoPtr<ArrayT<T_Elem> > pArrayRtn(
 				new ArrayT<T_Elem>(_pArrayT->GetMemory().Reference(), offsetBase));
 			pArrayRtn->SetDimensions(pDim + 1, dims.end());

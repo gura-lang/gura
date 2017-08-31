@@ -129,19 +129,19 @@ public:
 	private:
 		size_t _size;
 		size_t _elemNumProd;	// calculated by Array::UpdateMetrics()
-		size_t _stride;			// calculated by Array::UpdateMetrics() 
+		size_t _strides;		// calculated by Array::UpdateMetrics() 
 	public:
-		inline Dimension() : _size(0), _elemNumProd(0), _stride(0) {}
+		inline Dimension() : _size(0), _elemNumProd(0), _strides(0) {}
 		inline Dimension(const Dimension &dim) :
-			_size(dim._size), _elemNumProd(dim._elemNumProd), _stride(dim._stride) {}
-		inline Dimension(size_t size) : _size(size), _elemNumProd(0), _stride(0) {}
-		inline Dimension(size_t size, size_t elemNumProd, size_t stride) :
-			_size(size), _elemNumProd(elemNumProd), _stride(stride) {}
+			_size(dim._size), _elemNumProd(dim._elemNumProd), _strides(dim._strides) {}
+		inline Dimension(size_t size) : _size(size), _elemNumProd(0), _strides(0) {}
+		inline Dimension(size_t size, size_t elemNumProd, size_t strides) :
+			_size(size), _elemNumProd(elemNumProd), _strides(strides) {}
 		inline size_t GetSize() const { return _size; }
 		inline size_t GetElemNumProd() const { return _elemNumProd; }
-		inline size_t GetStride() const { return _stride; }
+		inline size_t GetStrides() const { return _strides; }
 		inline void SetElemNumProd(size_t elemNumProd) { _elemNumProd = elemNumProd; }
-		inline void SetStride(size_t stride) { _stride = stride; }
+		inline void SetStrides(size_t strides) { _strides = strides; }
 	};
 	class GURA_DLLDECLARE Dimensions : public std::vector<Dimension> {
 	public:
@@ -162,7 +162,7 @@ public:
 			inline Generator(const Dimension &dim) : _dim(dim) {}
 			inline void AddIndex(size_t idx) { _indices.push_back(idx); }
 			inline bool IsEmpty() const { return _indices.empty(); }
-			inline size_t CalcOffset() const { return _dim.GetStride() * GetIndex(); }
+			inline size_t CalcOffset() const { return _dim.GetStrides() * GetIndex(); }
 			inline void Reset() { _pIndex = _indices.begin(); }
 			inline size_t GetIndex() const { return *_pIndex; }
 			inline size_t GetSize() const { return _indices.size(); }

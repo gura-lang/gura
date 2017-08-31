@@ -92,8 +92,8 @@ void Array::FlipAxisMajor()
 	if (nDims >= 2) {
 		Dimension dimRow = _dims[nDims - 2];
 		Dimension dimCol = _dims[nDims - 1];
-		_dims[nDims - 2] = Dimension(dimCol.GetSize(), dimRow.GetElemNumProd(), dimCol.GetStride());
-		_dims[nDims - 1] = Dimension(dimRow.GetSize(), dimCol.GetElemNumProd(), dimRow.GetStride());
+		_dims[nDims - 2] = Dimension(dimCol.GetSize(), dimRow.GetElemNumProd(), dimCol.GetStrides());
+		_dims[nDims - 1] = Dimension(dimRow.GetSize(), dimCol.GetElemNumProd(), dimRow.GetStrides());
 	}
 }
 
@@ -193,13 +193,13 @@ void Array::SetDimensions(const ValueList &valList)
 
 void Array::UpdateMetrics()
 {
-	size_t stride = 1;
+	size_t strides = 1;
 	foreach_reverse (Dimensions, pDim, _dims) {
-		pDim->SetStride(stride);
-		stride *= pDim->GetSize();
-		pDim->SetElemNumProd(stride);
+		pDim->SetStrides(strides);
+		strides *= pDim->GetSize();
+		pDim->SetElemNumProd(strides);
 	}
-	_elemNum = stride;	// set to one when _dims is empty
+	_elemNum = strides;	// set to one when _dims is empty
 }
 
 void Array::FillZero()
@@ -1051,7 +1051,7 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 				env.SetError(ERR_OutOfRangeError, "index is out of range");
 				return false;
 			}
-			_offsetTarget += idx * _pDim->GetStride();
+			_offsetTarget += idx * _pDim->GetStrides();
 		} else if (valueIdx.IsListOrIterator()) {
 			AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(env));
 			if (env.IsSignalled()) return false;

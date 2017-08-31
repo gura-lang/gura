@@ -827,11 +827,11 @@ void DotFuncTmpl_1d_2d(T_ElemRtn *pElemRtn,
 	size_t nRowR = dimRowR.GetSize();
 	size_t nColR = dimColR.GetSize();
 	const T_ElemR *pElemBaseR = pElemR;
-	for (size_t iColR = 0; iColR < nColR; iColR++, pElemBaseR += dimColR.GetStride()) {
+	for (size_t iColR = 0; iColR < nColR; iColR++, pElemBaseR += dimColR.GetStrides()) {
 		const T_ElemL *pElemWorkL = pElemL;
 		const T_ElemR *pElemWorkR = pElemBaseR;
 		T_ElemRtn elemRtn = 0;
-		for (size_t iRowR = 0; iRowR < nRowR; iRowR++, pElemWorkL++, pElemWorkR += dimRowR.GetStride()) {
+		for (size_t iRowR = 0; iRowR < nRowR; iRowR++, pElemWorkL++, pElemWorkR += dimRowR.GetStrides()) {
 			elemRtn +=
 				static_cast<T_ElemRtn>(*pElemWorkL) *
 				static_cast<T_ElemRtn>(*pElemWorkR);
@@ -848,12 +848,12 @@ void DotFuncTmpl_2d_1d(T_ElemRtn *pElemRtn,
 	size_t nRowL = dimRowL.GetSize();
 	size_t nColL = dimColL.GetSize();
 	const T_ElemL *pElemBaseL = pElemL;
-	for (size_t iRowL = 0; iRowL < nRowL; iRowL++, pElemBaseL += dimRowL.GetStride()) {
+	for (size_t iRowL = 0; iRowL < nRowL; iRowL++, pElemBaseL += dimRowL.GetStrides()) {
 		const T_ElemL *pElemWorkL = pElemBaseL;
 		const T_ElemR *pElemWorkR = pElemR;
 		T_ElemRtn elemRtn = 0;
 		for (size_t iColL = 0; iColL < nColL; iColL++,
-				 pElemWorkL += dimColL.GetStride(), pElemWorkR += dimR.GetStride()) {
+				 pElemWorkL += dimColL.GetStrides(), pElemWorkR += dimR.GetStrides()) {
 			elemRtn +=
 				static_cast<T_ElemRtn>(*pElemWorkL) *
 				static_cast<T_ElemRtn>(*pElemWorkR);
@@ -871,14 +871,14 @@ void DotFuncTmpl_2d_2d(T_ElemRtn *pElemRtn,
 	size_t nColL_nRowR = dimColL.GetSize();;
 	size_t nColR = dimColR.GetSize();
 	const T_ElemL *pElemBaseL = pElemL;
-	for (size_t iRow = 0; iRow < nRowL; iRow++, pElemBaseL += dimRowL.GetStride()) {
+	for (size_t iRow = 0; iRow < nRowL; iRow++, pElemBaseL += dimRowL.GetStrides()) {
 		const T_ElemR *pElemBaseR = pElemR;
-		for (size_t iCol = 0; iCol < nColR; iCol++, pElemBaseR += dimColR.GetStride()) {
+		for (size_t iCol = 0; iCol < nColR; iCol++, pElemBaseR += dimColR.GetStrides()) {
 			const T_ElemL *pElemWorkL = pElemBaseL;
 			const T_ElemR *pElemWorkR = pElemBaseR;
 			T_ElemRtn elemRtn = 0;
 			for (size_t i = 0; i < nColL_nRowR; i++,
-					 pElemWorkL += dimColL.GetStride(), pElemWorkR += dimRowR.GetStride()) {
+					 pElemWorkL += dimColL.GetStrides(), pElemWorkR += dimRowR.GetStrides()) {
 				elemRtn +=
 					static_cast<T_ElemRtn>(*pElemWorkL) *
 					static_cast<T_ElemRtn>(*pElemWorkR);
@@ -1533,19 +1533,19 @@ Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayRtn, const Array *pArray
 			} while (0);
 		}
 	} else {
-		size_t stride = pDimAxis->GetStride();
+		size_t strides = pDimAxis->GetStrides();
 		size_t axisSize = pDimAxis->GetSize();
-		size_t stepSize = pDimAxis->GetSize() * stride;
+		size_t stepSize = pDimAxis->GetSize() * strides;
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += stepSize) {
-			for (size_t j = 0; j < stride; j++) {
+			for (size_t j = 0; j < strides; j++) {
 				const T_Elem *pElemHead = pElemTop + offset + j;
 				T_Elem *pElemRtnHead = pElemRtn + offset + j;
 				T_Elem numMax = 0;
 				do {
 					const T_Elem *pElemWk = pElemHead;
 					numMax = *pElemWk;
-					pElemWk += stride;
-					for (size_t i = 1; i < axisSize; i++, pElemWk += stride) {
+					pElemWk += strides;
+					for (size_t i = 1; i < axisSize; i++, pElemWk += strides) {
 						if (numMax < *pElemWk) numMax = *pElemWk;
 					}
 				} while (0);
@@ -1553,7 +1553,7 @@ Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayRtn, const Array *pArray
 				do {
 					const T_Elem *pElemWk = pElemHead;
 					T_Elem *pElemRtnWk = pElemRtnHead;
-					for (size_t i = 0; i < axisSize; i++, pElemWk += stride, pElemRtnWk += stride) {
+					for (size_t i = 0; i < axisSize; i++, pElemWk += strides, pElemRtnWk += strides) {
 						//T_Elem num = *pElemWk;
 						T_Elem num = static_cast<T_Elem>(::exp(static_cast<Double>(*pElemWk - numMax)));
 						*pElemRtnWk = num;
@@ -1563,7 +1563,7 @@ Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayRtn, const Array *pArray
 				do {
 					const T_Elem *pElemWk = pElemHead;
 					T_Elem *pElemRtnWk = pElemRtnHead;
-					for (size_t i = 0; i < axisSize; i++, pElemWk += stride, pElemRtnWk += stride) {
+					for (size_t i = 0; i < axisSize; i++, pElemWk += strides, pElemRtnWk += strides) {
 						*pElemRtnWk /= numSum;
 					}
 				} while (0);
