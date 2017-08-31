@@ -85,6 +85,18 @@ const char *Array::GetElemTypeName(ElemType elemType)
 	return elemTypeNameTbl[elemType];
 }
 
+void Array::FlipAxisMajor()
+{
+	_colMajorFlag = !_colMajorFlag;
+	size_t nDims = _dims.size();
+	if (nDims >= 2) {
+		Dimension dimRow = _dims[nDims - 2];
+		Dimension dimCol = _dims[nDims - 1];
+		_dims[nDims - 2] = Dimension(dimCol.GetSize(), dimRow.GetElemNumProd(), dimCol.GetStride());
+		_dims[nDims - 1] = Dimension(dimRow.GetSize(), dimCol.GetElemNumProd(), dimRow.GetStride());
+	}
+}
+
 void Array::SetDimension(const Dimension &dim)
 {
 	_dims.reserve(1);
@@ -252,6 +264,7 @@ Value Array::ToValue(Environment &env, Array *pArray)
 bool Array::Serialize(Environment &env, Stream &stream) const
 {
 	if (!stream.SerializeUInt8(env, static_cast<UInt8>(_elemType))) return false;
+	if (!stream.SerializeUInt8(env, static_cast<UInt8>(_colMajorFlag))) return false;
 	if (!_dims.Serialize(env, stream)) return false;
 	size_t bytes = GetElemBytes() * GetElemNum();
 	if (stream.Write(env, GetPointerRaw(), bytes) < bytes) return false;
@@ -260,11 +273,14 @@ bool Array::Serialize(Environment &env, Stream &stream) const
 
 Array *Array::Deserialize(Environment &env, Stream &stream)
 {
-	UInt8 elemType = 0;
-	if (!stream.DeserializeUInt8(env, elemType)) return nullptr;
+	UInt8 elemTypeRaw = 0;
+	if (!stream.DeserializeUInt8(env, elemTypeRaw)) return nullptr;
+	UInt8 colMajorFlagRaw = 0;
+	if (!stream.DeserializeUInt8(env, colMajorFlagRaw)) return nullptr;
 	Array::Dimensions dims;
 	if (!dims.Deserialize(env, stream)) return nullptr;
-	AutoPtr<Array> pArray(Create(static_cast<ElemType>(elemType), dims));
+	AutoPtr<Array> pArray(Create(static_cast<ElemType>(elemTypeRaw), dims));
+	pArray->SetColMajorFlag(static_cast<bool>(colMajorFlagRaw));
 	size_t bytes = pArray->GetElemBytes() * pArray->GetElemNum();
 	if (stream.Read(env, pArray->GetPointerRaw(), bytes) < bytes) return nullptr;
 	return pArray.release();
@@ -960,12 +976,13 @@ Array *InvertFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray, Double
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	if (dims.size() < 2) {
+	size_t nDims = dims.size();
+	if (nDims < 2) {
 		sig.SetError(ERR_ValueError, "inversion can only be calculated with matrix");
 		return nullptr;
 	}
-	size_t nRows = (dims.rbegin() + 1)->GetSize();
-	size_t nCols = dims.rbegin()->GetSize();
+	size_t nRows = dims[nDims - 2].GetSize();
+	size_t nCols = dims[nDims - 1].GetSize();
 	if (nRows != nCols) {
 		sig.SetError(ERR_ValueError, "inversion can only be applied to square matrix");
 		return nullptr;
@@ -976,7 +993,8 @@ Array *InvertFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray, Double
 	size_t elemNumMat = nRows * nCols;
 	const T_Elem *pElemOrg = pArrayT->GetPointer();
 	T_Elem *pElemRtn = pArrayTRtn->GetPointer();
-	bool colMajorFlagOrg = false, colMajorFlagRtn = false;
+	bool colMajorFlagOrg = pArrayT->IsColMajor();
+	bool colMajorFlagRtn = pArrayTRtn->IsColMajor();
 	for (size_t cnt = pArrayTRtn->GetElemNum() / elemNumMat; cnt > 0; cnt--) {
 		T_Elem det = 0;
 		if (!InvertFuncTmpl_Sub(pElemRtn, colMajorFlagRtn, pElemOrg, colMajorFlagOrg, nRows,

@@ -132,7 +132,11 @@ public:
 		size_t _stride;			// calculated by Array::UpdateMetrics() 
 	public:
 		inline Dimension() : _size(0), _elemNumProd(0), _stride(0) {}
+		inline Dimension(const Dimension &dim) :
+			_size(dim._size), _elemNumProd(dim._elemNumProd), _stride(dim._stride) {}
 		inline Dimension(size_t size) : _size(size), _elemNumProd(0), _stride(0) {}
+		inline Dimension(size_t size, size_t elemNumProd, size_t stride) :
+			_size(size), _elemNumProd(elemNumProd), _stride(stride) {}
 		inline size_t GetSize() const { return _size; }
 		inline size_t GetElemNumProd() const { return _elemNumProd; }
 		inline size_t GetStride() const { return _stride; }
@@ -197,6 +201,7 @@ public:
 protected:
 	int _cntRef;
 	ElemType _elemType;
+	bool _colMajorFlag;
 	AutoPtr<Memory> _pMemory;
 	Dimensions _dims;
 	size_t _offsetBase;
@@ -206,12 +211,12 @@ public:
 	Gura_DeclareReferenceAccessor(Array);
 protected:
 	inline Array(ElemType elemType) : _cntRef(1),
-		_elemType(elemType), _offsetBase(0), _elemNum(0) {}
+		_elemType(elemType), _colMajorFlag(false), _offsetBase(0), _elemNum(0) {}
 	inline Array(ElemType elemType, const Array &src) : _cntRef(1),
-		_elemType(elemType), _pMemory(src._pMemory->Reference()), _dims(src._dims),
+		_elemType(elemType), _colMajorFlag(false), _pMemory(src._pMemory->Reference()), _dims(src._dims),
 		_offsetBase(src._offsetBase), _elemNum(src._elemNum) {}
 	inline Array(ElemType elemType, Memory *pMemory, size_t offsetBase) : _cntRef(1),
-		_elemType(elemType), _pMemory(pMemory), _offsetBase(offsetBase), _elemNum(0) {}
+		_elemType(elemType), _colMajorFlag(false), _pMemory(pMemory), _offsetBase(offsetBase), _elemNum(0) {}
 protected:
 	virtual ~Array();
 public:
@@ -219,6 +224,9 @@ public:
 public:
 	inline ElemType GetElemType() const { return _elemType; }
 	inline bool IsElemType(ElemType elemType) const { return _elemType == elemType; }
+	inline void SetColMajorFlag(bool colMajorFlag) { _colMajorFlag = colMajorFlag; }
+	inline bool IsColMajor() const { return _colMajorFlag; }
+	inline bool IsRowMajor() const { return !_colMajorFlag; }
 	inline void SetMemory(Memory *pMemory, size_t offsetBase) {
 		_pMemory.reset(pMemory), _offsetBase = offsetBase;
 	}
@@ -245,6 +253,7 @@ public:
 	inline size_t GetElemBytes() const { return GetElemBytes(_elemType); }
 	static const char *GetElemTypeName(ElemType elemType);
 	inline const char *GetElemTypeName() const { return GetElemTypeName(_elemType); }
+	void FlipAxisMajor();
 	void SetDimension(const Dimension &dim);
 	void SetDimensions(const Dimension &dimRow, const Dimension &dimCol);
 	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
