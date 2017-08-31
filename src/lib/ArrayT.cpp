@@ -663,36 +663,6 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim1, Dimensi
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const T_Elem *pElemInit, size_t size)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT());
-	pArrayT->SetDimension(size);
-	pArrayT->AllocMemory();
-	::memcpy(pArrayT->GetPointer(), pElemInit, pArrayT->GetElemNum() * sizeof(T_Elem));
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const T_Elem *pElemInit, size_t sizeRow, size_t sizeCol)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT());
-	pArrayT->SetDimensions(sizeRow, sizeCol);
-	pArrayT->AllocMemory();
-	::memcpy(pArrayT->GetPointer(), pElemInit, pArrayT->GetElemNum() * sizeof(T_Elem));
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const T_Elem *pElemInit, size_t sizePlane, size_t sizeRow, size_t sizeCol)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT());
-	pArrayT->SetDimensions(sizePlane, sizeRow, sizeCol);
-	pArrayT->AllocMemory();
-	::memcpy(pArrayT->GetPointer(), pElemInit, pArrayT->GetElemNum() * sizeof(T_Elem));
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScalar(const T_Elem &num)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT());
