@@ -1362,7 +1362,7 @@ Array *FilterFuncTmpl_MaxPool1d(Signal &sig, Array *pArrayRtn, const Array *pArr
 		size_t sizeOut = 0, sizePadHead = 0, sizePadTail = 0;
 		Filter::CalcPadding(sizeIn, sizeFilter, strides, paddingType, &sizeOut, &sizePadHead, &sizePadTail);
 		if (nDims < 2) {
-			pArrayTRtn.reset(ArrayT<T_Elem>::Create(Array::Dimension(sizeOut)));
+			pArrayTRtn.reset(ArrayT<T_Elem>::Create(sizeOut));
 		} else {
 			pArrayTRtn.reset(ArrayT<T_Elem>::Create(dims.begin(), dims.begin() + nDims - 1,
 													   Array::Dimension(sizeOut)));

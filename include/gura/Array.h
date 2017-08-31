@@ -254,8 +254,9 @@ public:
 	static const char *GetElemTypeName(ElemType elemType);
 	inline const char *GetElemTypeName() const { return GetElemTypeName(_elemType); }
 	void FlipAxisMajor();
-	void SetDimension(const Dimension &dim);
-	void SetDimensions(const Dimension &dimRow, const Dimension &dimCol);
+	void SetDimension(size_t size);
+	void SetDimensions(size_t sizeRow, size_t sizeCol);
+	void SetDimensions(size_t sizePlane, size_t sizeRow, size_t sizeCol);
 	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
 	void SetDimensions(const Dimension &dim,
 					   Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);

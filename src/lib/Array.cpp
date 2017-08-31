@@ -97,18 +97,27 @@ void Array::FlipAxisMajor()
 	}
 }
 
-void Array::SetDimension(const Dimension &dim)
+void Array::SetDimension(size_t size)
 {
 	_dims.reserve(1);
-	_dims.push_back(dim);
+	_dims.push_back(Dimension(size));
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(const Dimension &dimRow, const Dimension &dimCol)
+void Array::SetDimensions(size_t sizeRow, size_t sizeCol)
 {
 	_dims.reserve(2);
-	_dims.push_back(dimRow);
-	_dims.push_back(dimCol);
+	_dims.push_back(Dimension(sizeRow));
+	_dims.push_back(Dimension(sizeCol));
+	UpdateMetrics();
+}
+
+void Array::SetDimensions(size_t sizePlane, size_t sizeRow, size_t sizeCol)
+{
+	_dims.reserve(3);
+	_dims.push_back(Dimension(sizePlane));
+	_dims.push_back(Dimension(sizeRow));
+	_dims.push_back(Dimension(sizeCol));
 	UpdateMetrics();
 }
 

@@ -191,7 +191,7 @@ Gura_ImplementMethod(memory, array_at_##name) \
 	Memory &memory = Object_memory::GetObjectThis(arg)->GetMemory(); \
 	size_t cnt = memory.GetSize() / sizeof(T); \
 	AutoPtr<ArrayT<T> > pArrayT(new ArrayT<T>(memory.Reference(), 0));	\
-	pArrayT->SetDimension(Array::Dimension(cnt)); \
+	pArrayT->SetDimension(cnt);						\
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayT.release())); \
 }
 
