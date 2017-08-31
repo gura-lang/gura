@@ -808,6 +808,18 @@ Gura_BeginModuleScope(arrayt)
 // DotFuncTmpl
 //------------------------------------------------------------------------------
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
+void DotFuncTmpl_1d_1d(T_ElemRtn *pElemRtn,
+					   const T_ElemL *pElemL, const T_ElemR *pElemR, size_t nColL)
+{
+	*pElemRtn = 0;
+	for (size_t iColL = 0; iColL < nColL; iColL++, pElemL++, pElemR++) {
+		*pElemRtn +=
+			static_cast<T_ElemRtn>(*pElemL) *
+			static_cast<T_ElemRtn>(*pElemR);
+	}
+}
+
+template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 void DotFuncTmpl_1d_2d(T_ElemRtn *pElemRtn,
 					   const T_ElemL *pElemL, const Array::Dimension &dimL,
 					   const T_ElemR *pElemR, const Array::Dimension &dimRowR, const Array::Dimension &dimColR)
@@ -815,11 +827,11 @@ void DotFuncTmpl_1d_2d(T_ElemRtn *pElemRtn,
 	size_t nRowR = dimRowR.GetSize();
 	size_t nColR = dimColR.GetSize();
 	const T_ElemR *pElemBaseR = pElemR;
-	for (size_t iColR = 0; iColR < nColR; iColR++, pElemBaseR++) {
+	for (size_t iColR = 0; iColR < nColR; iColR++, pElemBaseR += dimColR.GetStride()) {
 		const T_ElemL *pElemWorkL = pElemL;
 		const T_ElemR *pElemWorkR = pElemBaseR;
 		T_ElemRtn elemRtn = 0;
-		for (size_t iRowR = 0; iRowR < nRowR; iRowR++, pElemWorkL++, pElemWorkR += nColR) {
+		for (size_t iRowR = 0; iRowR < nRowR; iRowR++, pElemWorkL++, pElemWorkR += dimRowR.GetStride()) {
 			elemRtn +=
 				static_cast<T_ElemRtn>(*pElemWorkL) *
 				static_cast<T_ElemRtn>(*pElemWorkR);
@@ -836,11 +848,12 @@ void DotFuncTmpl_2d_1d(T_ElemRtn *pElemRtn,
 	size_t nRowL = dimRowL.GetSize();
 	size_t nColL = dimColL.GetSize();
 	const T_ElemL *pElemBaseL = pElemL;
-	for (size_t iRowL = 0; iRowL < nRowL; iRowL++, pElemBaseL += nColL) {
+	for (size_t iRowL = 0; iRowL < nRowL; iRowL++, pElemBaseL += dimRowL.GetStride()) {
 		const T_ElemL *pElemWorkL = pElemBaseL;
 		const T_ElemR *pElemWorkR = pElemR;
 		T_ElemRtn elemRtn = 0;
-		for (size_t iColL = 0; iColL < nColL; iColL++, pElemWorkL++, pElemWorkR++) {
+		for (size_t iColL = 0; iColL < nColL; iColL++,
+				 pElemWorkL += dimColL.GetStride(), pElemWorkR += dimR.GetStride()) {
 			elemRtn +=
 				static_cast<T_ElemRtn>(*pElemWorkL) *
 				static_cast<T_ElemRtn>(*pElemWorkR);
@@ -872,18 +885,6 @@ void DotFuncTmpl_2d_2d(T_ElemRtn *pElemRtn,
 			}
 			*pElemRtn++ = elemRtn;
 		}
-	}
-}
-
-template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
-void DotFuncTmpl_1d_1d(T_ElemRtn *pElemRtn,
-					   const T_ElemL *pElemL, const T_ElemR *pElemR, size_t nColL)
-{
-	*pElemRtn = 0;
-	for (size_t iColL = 0; iColL < nColL; iColL++, pElemL++, pElemR++) {
-		*pElemRtn +=
-			static_cast<T_ElemRtn>(*pElemL) *
-			static_cast<T_ElemRtn>(*pElemR);
 	}
 }
 
