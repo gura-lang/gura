@@ -508,7 +508,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Head(Signal &sig, size_t n) const
 	}
 	size_t offsetBase = GetOffsetBase();
 	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference(), offsetBase));
-	pArrayTRtn->SetDimensions(Dimension(n), GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayTRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
 	return pArrayTRtn.release();
 }
 
@@ -522,8 +522,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Tail(Signal &sig, size_t n) const
 	}
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStride() * (dimFirst.GetSize() - n);
 	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference(), offsetBase));
-	pArrayTRtn->SetDimensions(Dimension(n),
-							  GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayTRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
 	return pArrayTRtn.release();
 }
 
@@ -538,8 +537,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
 	size_t nElems = dimFirst.GetSize() - n;
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStride() * n;
 	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference(), offsetBase));
-	pArrayTRtn->SetDimensions(Dimension(nElems),
-							  GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayTRtn->SetDimensions(nElems, GetDimensions().begin() + 1, GetDimensions().end());
 	return pArrayTRtn.release();
 }
 
@@ -597,6 +595,74 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create(size_t sizePlane, size_t sizeRow, size_t 
 }
 
 template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const Array::Dimensions &dims)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(dims);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(pDim, pDimEnd);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(size_t size,
+									   Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(size, pDim, pDimEnd);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+									   size_t size)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(pDim, pDimEnd, size);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+									   size_t sizeRow, size_t sizeCol)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(pDim, pDimEnd, sizeRow, sizeCol);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+									   size_t sizePlane, size_t sizeRow, size_t sizeCol)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(pDim, pDimEnd, sizePlane, sizeRow, sizeCol);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
+									   Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(pDim1, pDim1End, pDim2, pDim2End);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const T_Elem *pElemInit, size_t size)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT());
@@ -623,57 +689,6 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const T_Elem *pElemInit, size_t sizePlane
 	pArrayT->SetDimensions(sizePlane, sizeRow, sizeCol);
 	pArrayT->AllocMemory();
 	::memcpy(pArrayT->GetPointer(), pElemInit, pArrayT->GetElemNum() * sizeof(T_Elem));
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const Array::Dimensions &dims)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT());
-	pArrayT->SetDimensions(dims);
-	pArrayT->AllocMemory();
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim,
-									   Dimensions::const_iterator pDimEnd)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT());
-	pArrayT->SetDimensions(pDim, pDimEnd);
-	pArrayT->AllocMemory();
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim,
-									   Dimensions::const_iterator pDimEnd, const Dimension &dim)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT());
-	pArrayT->SetDimensions(pDim, pDimEnd, dim);
-	pArrayT->AllocMemory();
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(Dimensions::const_iterator pDim,
-									   Dimensions::const_iterator pDimEnd,
-									   const Dimension &dimRow, const Dimension &dimCol)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT());
-	pArrayT->SetDimensions(pDim, pDimEnd, dimRow, dimCol);
-	pArrayT->AllocMemory();
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(
-	Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
-	Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT());
-	pArrayT->SetDimensions(pDim1, pDim1End, pDim2, pDim2End);
-	pArrayT->AllocMemory();
 	return pArrayT.release();
 }
 

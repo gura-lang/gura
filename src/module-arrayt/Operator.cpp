@@ -976,7 +976,7 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 		if (dimsL.size() < dimsR.size()) {
 			pArrayTRtn.reset((pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(
 									dimsR.begin(), dimsR.begin() + dimsR.size() - 2,
-									dimRowL, dimColR) :
+									dimRowL.GetSize(), dimColR.GetSize()) :
 								dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 			T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 			while (offsetR < elemNumR) {
@@ -989,7 +989,7 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 		} else { // dimsL.size() >= dimsR.size()
 			pArrayTRtn.reset((pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(
 									dimsL.begin(), dimsL.begin() + dimsL.size() - 2,
-									dimRowL,dimColR) :
+									dimRowL.GetSize(), dimColR.GetSize()) :
 								dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 			T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 			while (offsetL < elemNumL) {
@@ -1015,8 +1015,7 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 		size_t elemNumRtn = dimColR.GetSize();
 		size_t offsetR = 0;
 		pArrayTRtn.reset((pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(
-								dimsR.begin(), dimsR.begin() + dimsR.size() - 2,
-								Array::Dimension(elemNumRtn)) :
+								dimsR.begin(), dimsR.begin() + dimsR.size() - 2, elemNumRtn) :
 							dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 		while (offsetR < elemNumR) {
@@ -1038,8 +1037,7 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 		size_t elemNumMatL = nRowL * nColL;
 		size_t offsetL = 0;
 		pArrayTRtn.reset((pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(
-								dimsL.begin(), dimsL.begin() + dimsL.size() - 2,
-								Array::Dimension(nRowL)) :
+								dimsL.begin(), dimsL.begin() + dimsL.size() - 2, nRowL) :
 							dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 		while (offsetL < elemNumL) {
@@ -1364,8 +1362,7 @@ Array *FilterFuncTmpl_MaxPool1d(Signal &sig, Array *pArrayRtn, const Array *pArr
 		if (nDims < 2) {
 			pArrayTRtn.reset(ArrayT<T_Elem>::Create(sizeOut));
 		} else {
-			pArrayTRtn.reset(ArrayT<T_Elem>::Create(dims.begin(), dims.begin() + nDims - 1,
-													   Array::Dimension(sizeOut)));
+			pArrayTRtn.reset(ArrayT<T_Elem>::Create(dims.begin(), dims.begin() + nDims - 1, sizeOut));
 		}
 		const T_Elem *pElemSrc = pArrayT->GetPointer();
 		T_Elem *pElemRtn = pArrayTRtn->GetPointer();
@@ -1403,8 +1400,7 @@ Array *FilterFuncTmpl_MaxPool1d(Signal &sig, Array *pArrayRtn, const Array *pArr
 		size_t sizeChannel = dimChannel.GetSize();
 		size_t sizeOut = 0, sizePadHead = 0, sizePadTail = 0;
 		Filter::CalcPadding(sizeIn, sizeFilter, strides, paddingType, &sizeOut, &sizePadHead, &sizePadTail);
-		pArrayTRtn.reset(ArrayT<T_Elem>::Create(dims.begin(), dims.begin() + nDims - 2,
-												   Array::Dimension(sizeOut), Array::Dimension(sizeChannel)));
+		pArrayTRtn.reset(ArrayT<T_Elem>::Create(dims.begin(), dims.begin() + nDims - 2, sizeOut, sizeChannel));
 		const T_Elem *pElemSrc = pArrayT->GetPointer();
 		T_Elem *pElemRtn = pArrayTRtn->GetPointer();
 		size_t cnt = pArray->GetElemNum() / (sizeIn * sizeChannel);

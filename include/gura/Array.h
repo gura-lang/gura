@@ -257,17 +257,19 @@ public:
 	void SetDimension(size_t size);
 	void SetDimensions(size_t sizeRow, size_t sizeCol);
 	void SetDimensions(size_t sizePlane, size_t sizeRow, size_t sizeCol);
+	void SetDimensions(const Dimensions &dims);
 	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
-	void SetDimensions(const Dimension &dim,
+	void SetDimensions(size_t size,
 					   Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
 	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-					   const Dimension &dim);
+					   size_t size);
+	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+					   size_t sizeRow, size_t sizeCol);
+	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+					   size_t sizePlane, size_t sizeRow, size_t sizeCol);
 	void SetDimensions(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
 					   Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
-	void SetDimensions(const Dimensions &dims);
 	void SetDimensions(const ValueList &valList);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-					   const Dimension &dimRow, const Dimension &dimCol);
 	void UpdateMetrics();
 	void FillZero();
 	void Fill(Double num); // overwritten by ArrayT
