@@ -811,30 +811,27 @@ template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 void DotFuncTmpl_1d_1d(T_ElemRtn *pElemRtn,
 					   const T_ElemL *pElemL, const T_ElemR *pElemR, size_t size)
 {
-	*pElemRtn = 0;
+	T_ElemRtn elemRtn = 0;
 	for (size_t i = 0; i < size; i++, pElemL++, pElemR++) {
-		*pElemRtn +=
-			static_cast<T_ElemRtn>(*pElemL) *
-			static_cast<T_ElemRtn>(*pElemR);
+		elemRtn += static_cast<T_ElemRtn>(*pElemL) * static_cast<T_ElemRtn>(*pElemR);
 	}
+	*pElemRtn = elemRtn;
 }
 
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 void DotFuncTmpl_1d_2d(T_ElemRtn *pElemRtn,
-					   const T_ElemL *pElemL, const Array::Dimension &dimL,
+					   const T_ElemL *pElemL, const Array::Dimension &dimColL,
 					   const T_ElemR *pElemR, const Array::Dimension &dimRowR, const Array::Dimension &dimColR)
 {
-	const T_ElemR *pElemBaseR = pElemR;
+	const T_ElemR *pElemColR = pElemR;
 	for (size_t iColR = 0; iColR < dimColR.GetSize(); iColR++,
-			 pElemBaseR += dimColR.GetStrides()) {
-		const T_ElemL *pElemWorkL = pElemL;
-		const T_ElemR *pElemWorkR = pElemBaseR;
+			 pElemColR += dimColR.GetStrides()) {
+		const T_ElemL *pElemColL = pElemL;
+		const T_ElemR *pElemRowR = pElemColR;
 		T_ElemRtn elemRtn = 0;
 		for (size_t iRowR = 0; iRowR < dimRowR.GetSize(); iRowR++,
-				 pElemWorkL++, pElemWorkR += dimRowR.GetStrides()) {
-			elemRtn +=
-				static_cast<T_ElemRtn>(*pElemWorkL) *
-				static_cast<T_ElemRtn>(*pElemWorkR);
+				 pElemColL += dimColL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
+			elemRtn += static_cast<T_ElemRtn>(*pElemColL) * static_cast<T_ElemRtn>(*pElemRowR);
 		}
 		*pElemRtn++ = elemRtn;
 	}
@@ -843,19 +840,17 @@ void DotFuncTmpl_1d_2d(T_ElemRtn *pElemRtn,
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 void DotFuncTmpl_2d_1d(T_ElemRtn *pElemRtn,
 					   const T_ElemL *pElemL, const Array::Dimension &dimRowL, const Array::Dimension &dimColL,
-					   const T_ElemR *pElemR, const Array::Dimension &dimR)
+					   const T_ElemR *pElemR, const Array::Dimension &dimRowR)
 {
-	const T_ElemL *pElemBaseL = pElemL;
+	const T_ElemL *pElemRowL = pElemL;
 	for (size_t iRowL = 0; iRowL < dimRowL.GetSize(); iRowL++,
-			 pElemBaseL += dimRowL.GetStrides()) {
-		const T_ElemL *pElemWorkL = pElemBaseL;
-		const T_ElemR *pElemWorkR = pElemR;
+			 pElemRowL += dimRowL.GetStrides()) {
+		const T_ElemL *pElemColL = pElemRowL;
+		const T_ElemR *pElemRowR = pElemR;
 		T_ElemRtn elemRtn = 0;
 		for (size_t iColL = 0; iColL < dimColL.GetSize(); iColL++,
-				 pElemWorkL += dimColL.GetStrides(), pElemWorkR += dimR.GetStrides()) {
-			elemRtn +=
-				static_cast<T_ElemRtn>(*pElemWorkL) *
-				static_cast<T_ElemRtn>(*pElemWorkR);
+				 pElemColL += dimColL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
+			elemRtn += static_cast<T_ElemRtn>(*pElemColL) * static_cast<T_ElemRtn>(*pElemRowR);
 		}
 		*pElemRtn++ = elemRtn;
 	}
@@ -877,9 +872,7 @@ void DotFuncTmpl_2d_2d(T_ElemRtn *pElemRtn,
 			T_ElemRtn elemRtn = 0;
 			for (size_t iColL = 0; iColL < dimColL.GetSize(); iColL++,
 					 pElemWorkL += dimColL.GetStrides(), pElemWorkR += dimRowR.GetStrides()) {
-				elemRtn +=
-					static_cast<T_ElemRtn>(*pElemWorkL) *
-					static_cast<T_ElemRtn>(*pElemWorkR);
+				elemRtn += static_cast<T_ElemRtn>(*pElemWorkL) * static_cast<T_ElemRtn>(*pElemWorkR);
 			}
 			*pElemRtn++ = elemRtn;
 		}
@@ -916,10 +909,10 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 		DotFuncTmpl_1d_1d(pElemRtn, pElemL, pElemR, dimL.GetSize());
 	} else if (dimsL.size() == 1 && dimsR.size() >= 2) {
-		const Array::Dimension &dimL = dimsL[0];
+		const Array::Dimension &dimColL = dimsL[0];
 		const Array::Dimension &dimRowR = *(dimsR.rbegin() + 1);
 		const Array::Dimension &dimColR = *dimsR.rbegin();
-		if (dimL.GetSize() != dimRowR.GetSize()) {
+		if (dimColL.GetSize() != dimRowR.GetSize()) {
 			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
 			return nullptr;
 		}
@@ -933,15 +926,15 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 						 dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 		while (offsetR < elemNumR) {
-			DotFuncTmpl_1d_2d(pElemRtn, pElemL, dimL, pElemR + offsetR, dimRowR, dimColR);
+			DotFuncTmpl_1d_2d(pElemRtn, pElemL, dimColL, pElemR + offsetR, dimRowR, dimColR);
 			pElemRtn += elemNumRtn;
 			offsetR += elemNumMatR;
 		}
 	} else if (dimsL.size() >= 2 && dimsR.size() == 1) {
 		const Array::Dimension &dimRowL = *(dimsL.rbegin() + 1);
 		const Array::Dimension &dimColL = *dimsL.rbegin();
-		const Array::Dimension &dimR = dimsR[0];
-		if (dimColL.GetSize() != dimR.GetSize()) {
+		const Array::Dimension &dimRowR = dimsR[0];
+		if (dimColL.GetSize() != dimRowR.GetSize()) {
 			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
 			return nullptr;
 		}
@@ -955,7 +948,7 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 						 dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 		while (offsetL < elemNumL) {
-			DotFuncTmpl_2d_1d(pElemRtn, pElemL + offsetL, dimRowL, dimColL, pElemR, dimR);
+			DotFuncTmpl_2d_1d(pElemRtn, pElemL + offsetL, dimRowL, dimColL, pElemR, dimRowR);
 			pElemRtn += elemNumRtn;
 			offsetL += elemNumMatL;
 		}
@@ -1026,9 +1019,9 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 template<typename T_ElemRtn, typename T_Elem, void (*op)(T_ElemRtn &, const T_Elem &)>
 Array *UnaryFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray)
 {
+	const Array::Dimensions &dims = pArray->GetDimensions();
 	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
-		(pArrayRtn == nullptr)?
-		ArrayT<T_ElemRtn>::Create(pArray->GetDimensions()) :
+		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(dims) :
 		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
