@@ -1025,9 +1025,14 @@ Array *UnaryFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray)
 		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
-	size_t nElems = pArray->GetElemNum();
-	for (size_t i = 0; i < nElems; i++, pElemRtn++, pElem++) {
-		op(*pElemRtn, *pElem);
+	if (pArray->IsRowMajor()) {
+		size_t nElems = pArray->GetElemNum();
+		for (size_t i = 0; i < nElems; i++, pElem++) {
+			op(*pElemRtn, *pElem);
+			pElemRtn++;
+		}
+	} else { // pArray->IsColMajor()
+		
 	}
 	return pArrayTRtn.release();
 }
@@ -1061,8 +1066,9 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, Array *pArrayRtn,
 			ArrayT<T_ElemRtn>::Create(pArrayL->GetDimensions()) :
 			dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-		for (size_t offset = 0; offset < nElemsL; offset++, pElemRtn++) {
+		for (size_t offset = 0; offset < nElemsL; offset++) {
 			op(*pElemRtn, *(pElemL + offset), *(pElemR + offset));
+			pElemRtn++;
 		}
 	} else if (nElemsL < nElemsR) {
 		pArrayTRtn.reset(
@@ -1071,10 +1077,11 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, Array *pArrayRtn,
 			dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 		size_t offsetL = 0;
-		for (size_t offsetR = 0; offsetR < nElemsR; offsetR++, pElemRtn++) {
+		for (size_t offsetR = 0; offsetR < nElemsR; offsetR++) {
 			op(*pElemRtn, *(pElemL + offsetL), *(pElemR + offsetR));
 			offsetL++;
 			if (offsetL >= nElemsL) offsetL = 0;
+			pElemRtn++;
 		}
 	} else { // nElemsL > nElemsR
 		pArrayTRtn.reset(
@@ -1083,10 +1090,11 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, Array *pArrayRtn,
 			dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 		size_t offsetR = 0;
-		for (size_t offsetL = 0; offsetL < nElemsL; offsetL++, pElemRtn++) {
+		for (size_t offsetL = 0; offsetL < nElemsL; offsetL++) {
 			op(*pElemRtn, *(pElemL + offsetL), *(pElemR + offsetR));
 			offsetR++;
 			if (offsetR >= nElemsR) offsetR = 0;
+			pElemRtn++;
 		}
 	}
 	return pArrayTRtn.release();
@@ -1116,8 +1124,9 @@ Array *BinaryFuncTmpl_array_number(Signal &sig, Array *pArrayRtn,
 		ArrayT<T_ElemRtn>::Create(pArrayL->GetDimensions()) :
 		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	for (size_t i = 0; i < nElemsL; i++, pElemRtn++, pElemL++) {
+	for (size_t i = 0; i < nElemsL; i++, pElemL++) {
 		op(*pElemRtn, *pElemL, numberR);
+		pElemRtn++;
 	}
 	return pArrayTRtn.release();
 }
@@ -1146,8 +1155,9 @@ Array *BinaryFuncTmpl_number_array(Signal &sig, Array *pArrayRtn,
 		ArrayT<T_ElemRtn>::Create(pArrayR->GetDimensions()) :
 		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	for (size_t i = 0; i < nElemsR; i++, pElemRtn++, pElemR++) {
+	for (size_t i = 0; i < nElemsR; i++, pElemR++) {
 		op(*pElemRtn, numberL, *pElemR);
+		pElemRtn++;
 	}
 	return pArrayTRtn.release();
 }
@@ -1176,8 +1186,9 @@ Array *BinaryFuncTmpl_array_complex(Signal &sig, Array *pArrayRtn,
 		ArrayT<T_ElemRtn>::Create(pArrayL->GetDimensions()) :
 		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	for (size_t i = 0; i < nElemsL; i++, pElemRtn++, pElemL++) {
+	for (size_t i = 0; i < nElemsL; i++, pElemL++) {
 		op(*pElemRtn, *pElemL, complexR);
+		pElemRtn++;
 	}
 	return pArrayTRtn.release();
 }
@@ -1206,8 +1217,9 @@ Array *BinaryFuncTmpl_complex_array(Signal &sig, Array *pArrayRtn,
 		ArrayT<T_ElemRtn>::Create(pArrayR->GetDimensions()) :
 		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	for (size_t i = 0; i < nElemsR; i++, pElemRtn++, pElemR++) {
+	for (size_t i = 0; i < nElemsR; i++, pElemR++) {
 		op(*pElemRtn, complexL, *pElemR);
+		pElemRtn++;
 	}
 	return pArrayTRtn.release();
 }
