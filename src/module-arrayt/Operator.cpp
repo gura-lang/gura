@@ -1032,21 +1032,18 @@ Array *UnaryFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray)
 			pElemRtn++;
 		}
 	} else { // pArray->IsColMajor()
-#if 0
-		const Array::Dimension &dim
-		const T_ElemR *pElemRow = pElem;
-		for (size_t iRow = 0; iRow < dimColR.GetSize(); iColR++,
-				 pElemColR += dimColR.GetStrides()) {
-			const T_ElemL *pElemColL = pElemL;
-			const T_ElemR *pElemRowR = pElemColR;
-			T_ElemRtn elemRtn = 0;
-			for (size_t iRowR = 0; iRowR < dimRowR.GetSize(); iRowR++,
-					 pElemColL += dimColL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
-				elemRtn += static_cast<T_ElemRtn>(*pElemColL) * static_cast<T_ElemRtn>(*pElemRowR);
+		const Array::Dimension &dimRow = dims.GetRow();
+		const Array::Dimension &dimCol = dims.GetCol();
+		const T_Elem *pElemRow = pElem;
+		for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
+				 pElemRow += dimRow.GetStrides()) {
+			const T_Elem *pElemCol = pElemRow;
+			for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
+					 pElemCol += dimCol.GetStrides()) {
+				op(*pElemRtn, *pElemCol);
+				pElemRtn++;
 			}
-			*pElemRtn++ = elemRtn;
 		}
-#endif
 	}
 	return pArrayTRtn.release();
 }
