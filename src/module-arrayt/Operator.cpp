@@ -897,8 +897,8 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
 	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
 	if (dimsL.size() == 1 && dimsR.size() == 1) {
-		const Array::Dimension &dimL = dimsL[0];
-		const Array::Dimension &dimR = dimsR[0];
+		const Array::Dimension &dimL = dimsL.GetCol();
+		const Array::Dimension &dimR = dimsR.GetCol();
 		if (dimL.GetSize() != dimR.GetSize()) {
 			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
 			return nullptr;
@@ -909,9 +909,9 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 		DotFuncTmpl_1d_1d(pElemRtn, pElemL, pElemR, dimL.GetSize());
 	} else if (dimsL.size() == 1 && dimsR.size() >= 2) {
-		const Array::Dimension &dimColL = dimsL[0];
-		const Array::Dimension &dimRowR = *(dimsR.rbegin() + 1);
-		const Array::Dimension &dimColR = *dimsR.rbegin();
+		const Array::Dimension &dimColL = dimsL.GetCol();
+		const Array::Dimension &dimRowR = dimsR.GetRow();
+		const Array::Dimension &dimColR = dimsR.GetCol();
 		if (dimColL.GetSize() != dimRowR.GetSize()) {
 			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
 			return nullptr;
@@ -931,9 +931,9 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 			offsetR += elemNumMatR;
 		}
 	} else if (dimsL.size() >= 2 && dimsR.size() == 1) {
-		const Array::Dimension &dimRowL = *(dimsL.rbegin() + 1);
-		const Array::Dimension &dimColL = *dimsL.rbegin();
-		const Array::Dimension &dimRowR = dimsR[0];
+		const Array::Dimension &dimRowL = dimsL.GetRow();
+		const Array::Dimension &dimColL = dimsL.GetCol();
+		const Array::Dimension &dimRowR = dimsR.GetCol();	// takes a column as a row
 		if (dimColL.GetSize() != dimRowR.GetSize()) {
 			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
 			return nullptr;
@@ -953,10 +953,10 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 			offsetL += elemNumMatL;
 		}
 	} else if (dimsL.size() == 2 && dimsR.size() == 2) {
-		const Array::Dimension &dimRowL = dimsL[0];
-		const Array::Dimension &dimColL = dimsL[1];
-		const Array::Dimension &dimRowR = dimsR[0];
-		const Array::Dimension &dimColR = dimsR[1];
+		const Array::Dimension &dimRowL = dimsL.GetRow();
+		const Array::Dimension &dimColL = dimsL.GetCol();
+		const Array::Dimension &dimRowR = dimsR.GetRow();
+		const Array::Dimension &dimColR = dimsR.GetCol();
 		if (dimColL.GetSize() != dimRowR.GetSize()) {
 			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
 			return nullptr;
@@ -967,10 +967,10 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 		DotFuncTmpl_2d_2d(pElemRtn, pElemL, dimRowL, dimColL, pElemR, dimRowR, dimColR);
 	} else { // dimsL.size() >= 2 && dimsR.size() >= 2
-		const Array::Dimension &dimRowL = *(dimsL.rbegin() + 1);
-		const Array::Dimension &dimColL = *dimsL.rbegin();
-		const Array::Dimension &dimRowR = *(dimsR.rbegin() + 1);
-		const Array::Dimension &dimColR = *dimsR.rbegin();
+		const Array::Dimension &dimRowL = dimsL.GetRow();
+		const Array::Dimension &dimColL = dimsL.GetCol();
+		const Array::Dimension &dimRowR = dimsR.GetRow();
+		const Array::Dimension &dimColR = dimsR.GetCol();
 		if (dimColL.GetSize() != dimRowR.GetSize()) {
 			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
 			return nullptr;

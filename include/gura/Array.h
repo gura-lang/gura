@@ -145,9 +145,14 @@ public:
 	};
 	class GURA_DLLDECLARE Dimensions : public std::vector<Dimension> {
 	public:
+		bool HasRowCol() const { return size() >= 2; }
+		bool HasPlaneRowCol() const { return size() >= 3; }
 		inline const Dimension &GetPlane() const { return *(rbegin() + 2); }
 		inline const Dimension &GetRow() const { return *(rbegin() + 1); }
 		inline const Dimension &GetCol() const { return *rbegin(); }
+		inline void SetPlane(const Dimension &dim) { *(rbegin() + 2) = dim; } 
+		inline void SetRow(const Dimension &dim) { *(rbegin() + 1) = dim; } 
+		inline void SetCol(const Dimension &dim) { *rbegin() = dim; } 
 		String ToString(const char *sep = ", ") const;
 		bool Serialize(Environment &env, Stream &stream) const;
 		bool Deserialize(Environment &env, Stream &stream);

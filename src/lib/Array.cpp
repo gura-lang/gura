@@ -88,12 +88,11 @@ const char *Array::GetElemTypeName(ElemType elemType)
 void Array::FlipAxisMajor()
 {
 	_colMajorFlag = !_colMajorFlag;
-	size_t nDims = _dims.size();
-	if (nDims >= 2) {
-		Dimension dimRow = _dims[nDims - 2];
-		Dimension dimCol = _dims[nDims - 1];
-		_dims[nDims - 2] = Dimension(dimCol.GetSize(), dimRow.GetElemNumProd(), dimCol.GetStrides());
-		_dims[nDims - 1] = Dimension(dimRow.GetSize(), dimCol.GetElemNumProd(), dimRow.GetStrides());
+	if (_dims.HasRowCol()) {
+		Dimension dimRow = _dims.GetRow();
+		Dimension dimCol = _dims.GetCol();
+		_dims.SetRow(Dimension(dimCol.GetSize(), dimRow.GetElemNumProd(), dimCol.GetStrides()));
+		_dims.SetCol(Dimension(dimRow.GetSize(), dimCol.GetElemNumProd(), dimRow.GetStrides()));
 	}
 }
 
@@ -238,9 +237,7 @@ void Array::Fill(Double num)
 
 bool Array::IsSquare() const
 {
-	if (_dims.size() < 2) return false;
-	Dimensions::const_reverse_iterator pDim = _dims.rbegin();
-	return pDim->GetSize() == (pDim + 1)->GetSize();
+	return _dims.HasRowCol() && (_dims.GetRow().GetSize() == _dims.GetCol().GetSize());
 }
 
 bool Array::HasShape(size_t size) const
@@ -996,13 +993,12 @@ Array *InvertFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray, Double
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	size_t nDims = dims.size();
-	if (nDims < 2) {
+	if (!dims.HasRowCol()) {
 		sig.SetError(ERR_ValueError, "inversion can only be calculated with matrix");
 		return nullptr;
 	}
-	size_t nRows = dims[nDims - 2].GetSize();
-	size_t nCols = dims[nDims - 1].GetSize();
+	size_t nRows = dims.GetRow().GetSize();
+	size_t nCols = dims.GetCol().GetSize();
 	if (nRows != nCols) {
 		sig.SetError(ERR_ValueError, "inversion can only be applied to square matrix");
 		return nullptr;
