@@ -1025,14 +1025,28 @@ Array *UnaryFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray)
 		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
-	if (pArray->IsRowMajor()) {
+	if (pArray->IsRowMajor() || dims.size() < 2) {
 		size_t nElems = pArray->GetElemNum();
 		for (size_t i = 0; i < nElems; i++, pElem++) {
 			op(*pElemRtn, *pElem);
 			pElemRtn++;
 		}
 	} else { // pArray->IsColMajor()
-		
+#if 0
+		const Array::Dimension &dim
+		const T_ElemR *pElemRow = pElem;
+		for (size_t iRow = 0; iRow < dimColR.GetSize(); iColR++,
+				 pElemColR += dimColR.GetStrides()) {
+			const T_ElemL *pElemColL = pElemL;
+			const T_ElemR *pElemRowR = pElemColR;
+			T_ElemRtn elemRtn = 0;
+			for (size_t iRowR = 0; iRowR < dimRowR.GetSize(); iRowR++,
+					 pElemColL += dimColL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
+				elemRtn += static_cast<T_ElemRtn>(*pElemColL) * static_cast<T_ElemRtn>(*pElemRowR);
+			}
+			*pElemRtn++ = elemRtn;
+		}
+#endif
 	}
 	return pArrayTRtn.release();
 }

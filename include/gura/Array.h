@@ -145,6 +145,9 @@ public:
 	};
 	class GURA_DLLDECLARE Dimensions : public std::vector<Dimension> {
 	public:
+		inline const Dimension &GetPlane() const { return *(rbegin() + 2); }
+		inline const Dimension &GetRow() const { return *(rbegin() + 1); }
+		inline const Dimension &GetCol() const { return *rbegin(); }
 		String ToString(const char *sep = ", ") const;
 		bool Serialize(Environment &env, Stream &stream) const;
 		bool Deserialize(Environment &env, Stream &stream);
