@@ -861,18 +861,18 @@ void DotFuncTmpl_2d_2d(T_ElemRtn *pElemRtn,
 					   const T_ElemL *pElemL, const Array::Dimension &dimRowL, const Array::Dimension &dimColL,
 					   const T_ElemR *pElemR, const Array::Dimension &dimRowR, const Array::Dimension &dimColR)
 {
-	const T_ElemL *pElemBaseL = pElemL;
+	const T_ElemL *pElemRowL = pElemL;
 	for (size_t iRowL = 0; iRowL < dimRowL.GetSize(); iRowL++,
-			 pElemBaseL += dimRowL.GetStrides()) {
-		const T_ElemR *pElemBaseR = pElemR;
+			 pElemRowL += dimRowL.GetStrides()) {
+		const T_ElemR *pElemColR = pElemR;
 		for (size_t iColR = 0; iColR < dimColR.GetSize(); iColR++,
-				 pElemBaseR += dimColR.GetStrides()) {
-			const T_ElemL *pElemWorkL = pElemBaseL;
-			const T_ElemR *pElemWorkR = pElemBaseR;
+				 pElemColR += dimColR.GetStrides()) {
+			const T_ElemL *pElemColL = pElemRowL;
+			const T_ElemR *pElemRowR = pElemColR;
 			T_ElemRtn elemRtn = 0;
 			for (size_t iColL = 0; iColL < dimColL.GetSize(); iColL++,
-					 pElemWorkL += dimColL.GetStrides(), pElemWorkR += dimRowR.GetStrides()) {
-				elemRtn += static_cast<T_ElemRtn>(*pElemWorkL) * static_cast<T_ElemRtn>(*pElemWorkR);
+					 pElemColL += dimColL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
+				elemRtn += static_cast<T_ElemRtn>(*pElemColL) * static_cast<T_ElemRtn>(*pElemRowR);
 			}
 			*pElemRtn++ = elemRtn;
 		}
