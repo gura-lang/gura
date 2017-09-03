@@ -917,7 +917,8 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 			return nullptr;
 		}
 		size_t elemNumR = pArrayR->GetElemNum();
-		size_t elemNumMatR = dimRowR.GetSize() * dimColR.GetSize();
+		//size_t elemNumMatR = dimRowR.GetSize() * dimColR.GetSize();
+		size_t elemNumMatR = dimRowR.GetSizeProd();
 		size_t elemNumRtn = dimColR.GetSize();
 		size_t offsetR = 0;
 		pArrayTRtn.reset((pArrayRtn == nullptr)?
@@ -1079,15 +1080,11 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, Array *pArrayRtn,
 			ArrayT<T_ElemRtn>::Create(pArrayL->GetDimensions()) :
 			dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-		if ((pArrayL->IsRowMajor() && pArrayR->IsRowMajor()) || (dimsL.size() == 1 && dimsR.size() == 1)) {
+		if (dimsL.size() == 1) { // dimsL.size() == 1 && dimsR.size() == 1
 			for (size_t offset = 0; offset < nElemsL; offset++) {
 				op(*pElemRtn, *(pElemL + offset), *(pElemR + offset));
 				pElemRtn++;
 			}
-		} else if (dimsL.size() == 1 && dimsR.size() >= 2) {
-
-		} else if (dimsL.size() >= 2 && dimsR.size() == 1) {
-
 		} else { // dimsL.size() >= 2 && dimsR.size() >= 2
 			const Array::Dimension &dimRowL = dimsL.GetRow();
 			const Array::Dimension &dimColL = dimsL.GetCol();
@@ -1095,6 +1092,7 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, Array *pArrayRtn,
 			const Array::Dimension &dimColR = dimsR.GetCol();
 			const T_ElemL *pElemRowL = pElemL;
 			const T_ElemR *pElemRowR = pElemR;
+			dimRowL.GetSizeProd();
 			for (size_t iRowL = 0; iRowL < dimRowL.GetSize(); iRowL++,
 					 pElemRowL += dimRowL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
 				const T_ElemL *pElemColL = pElemRowL;
@@ -1112,7 +1110,7 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, Array *pArrayRtn,
 			ArrayT<T_ElemRtn>::Create(pArrayR->GetDimensions()) :
 			dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-		if (pArrayL->IsRowMajor() && pArrayR->IsRowMajor()) {
+		if ((pArrayL->IsRowMajor() && pArrayR->IsRowMajor()) || dimsL.size() == 1) {
 			size_t offsetL = 0;
 			for (size_t offsetR = 0; offsetR < nElemsR; offsetR++) {
 				op(*pElemRtn, *(pElemL + offsetL), *(pElemR + offsetR));
@@ -1120,7 +1118,7 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, Array *pArrayRtn,
 				if (offsetL >= nElemsL) offsetL = 0;
 				pElemRtn++;
 			}
-		} else {
+		} else { // dimsL.size() >= 2
 			
 		}
 	} else { // nElemsL > nElemsR

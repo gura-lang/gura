@@ -91,8 +91,8 @@ void Array::FlipAxisMajor()
 	if (_dims.HasRowCol()) {
 		Dimension dimRow = _dims.GetRow();
 		Dimension dimCol = _dims.GetCol();
-		_dims.SetRow(Dimension(dimCol.GetSize(), dimRow.GetElemNumProd(), dimCol.GetStrides()));
-		_dims.SetCol(Dimension(dimRow.GetSize(), dimCol.GetElemNumProd(), dimRow.GetStrides()));
+		_dims.SetRow(Dimension(dimCol.GetSize(), dimRow.GetSizeProd(), dimCol.GetStrides()));
+		_dims.SetCol(Dimension(dimRow.GetSize(), dimCol.GetSizeProd(), dimRow.GetStrides()));
 	}
 }
 
@@ -196,7 +196,7 @@ void Array::UpdateMetrics()
 	foreach_reverse (Dimensions, pDim, _dims) {
 		pDim->SetStrides(strides);
 		strides *= pDim->GetSize();
-		pDim->SetElemNumProd(strides);
+		pDim->SetSizeProd(strides);
 	}
 	_elemNum = strides;	// set to one when _dims is empty
 }

@@ -128,19 +128,19 @@ public:
 	class GURA_DLLDECLARE Dimension {
 	private:
 		size_t _size;
-		size_t _elemNumProd;	// calculated by Array::UpdateMetrics()
-		size_t _strides;		// calculated by Array::UpdateMetrics() 
+		size_t _sizeProd;	// calculated by Array::UpdateMetrics()
+		size_t _strides;	// calculated by Array::UpdateMetrics() 
 	public:
-		inline Dimension() : _size(0), _elemNumProd(0), _strides(0) {}
+		inline Dimension() : _size(0), _sizeProd(0), _strides(0) {}
 		inline Dimension(const Dimension &dim) :
-			_size(dim._size), _elemNumProd(dim._elemNumProd), _strides(dim._strides) {}
-		inline Dimension(size_t size) : _size(size), _elemNumProd(0), _strides(0) {}
-		inline Dimension(size_t size, size_t elemNumProd, size_t strides) :
-			_size(size), _elemNumProd(elemNumProd), _strides(strides) {}
+			_size(dim._size), _sizeProd(dim._sizeProd), _strides(dim._strides) {}
+		inline Dimension(size_t size) : _size(size), _sizeProd(0), _strides(0) {}
+		inline Dimension(size_t size, size_t sizeProd, size_t strides) :
+			_size(size), _sizeProd(sizeProd), _strides(strides) {}
 		inline size_t GetSize() const { return _size; }
-		inline size_t GetElemNumProd() const { return _elemNumProd; }
+		inline size_t GetSizeProd() const { return _sizeProd; }
 		inline size_t GetStrides() const { return _strides; }
-		inline void SetElemNumProd(size_t elemNumProd) { _elemNumProd = elemNumProd; }
+		inline void SetSizeProd(size_t sizeProd) { _sizeProd = sizeProd; }
 		inline void SetStrides(size_t strides) { _strides = strides; }
 	};
 	class GURA_DLLDECLARE Dimensions : public std::vector<Dimension> {
@@ -202,7 +202,7 @@ public:
 		inline size_t GenerateOffset() const { return _pGeneratorOwner->CalcOffset(); }
 		inline bool NextGenerator() { return _pGeneratorOwner->Next(); }
 		inline size_t GetElemNumUnit() const {
-			return (_pDim == _dims.end())? 1 : _pDim->GetElemNumProd();
+			return (_pDim == _dims.end())? 1 : _pDim->GetSizeProd();
 		}
 		inline bool IsTargetScalar() const { return _pDim == _dims.end(); }
 	};
