@@ -1083,17 +1083,18 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, Array *pArrayRtn,
 			const Array::Dimension &dimColL = dimsL.GetCol();
 			const Array::Dimension &dimRowR = dimsR.GetRow();
 			const Array::Dimension &dimColR = dimsR.GetCol();
-			const T_ElemL *pElemRowL = pElemL;
-			const T_ElemR *pElemRowR = pElemR;
-			dimRowL.GetSizeProd();
-			for (size_t iRowL = 0; iRowL < dimRowL.GetSize(); iRowL++,
-					 pElemRowL += dimRowL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
-				const T_ElemL *pElemColL = pElemRowL;
-				const T_ElemR *pElemColR = pElemRowR;
-				for (size_t iColL = 0; iColL < dimColL.GetSize(); iColL++,
-						 pElemColL += dimColL.GetStrides(), pElemColR += dimColR.GetStrides()) {
-					op(*pElemRtn, *pElemColL, *pElemColR);
-					pElemRtn++;
+			for (size_t offset = 0; offset < pArrayL->GetElemNum(); offset += dimRowL.GetSizeProd()) {
+				const T_ElemL *pElemRowL = pElemL + offset;
+				const T_ElemR *pElemRowR = pElemR + offset;
+				for (size_t iRowL = 0; iRowL < dimRowL.GetSize(); iRowL++,
+						 pElemRowL += dimRowL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
+					const T_ElemL *pElemColL = pElemRowL;
+					const T_ElemR *pElemColR = pElemRowR;
+					for (size_t iColL = 0; iColL < dimColL.GetSize(); iColL++,
+							 pElemColL += dimColL.GetStrides(), pElemColR += dimColR.GetStrides()) {
+						op(*pElemRtn, *pElemColL, *pElemColR);
+						pElemRtn++;
+					}
 				}
 			}
 		}

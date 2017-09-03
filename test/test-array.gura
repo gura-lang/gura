@@ -1275,3 +1275,17 @@ testcase('filter@maxpool1d') {
 	tester(`(x |*| filter@maxpool1d(4, 2, `same, `last)))
 	tester(`(x |*| filter@maxpool1d(4, 3, `same, `last)))
 }
+testcase('broadcast') {
+	a = array.range(24).reshape([2, 4, 3])
+	b = array.range(24).reshape([2, 4, 3])
+	tester(`a)
+	tester(`b)
+	tester(`(a + b))
+	tester(`(b + a))
+	a = array.range(72).reshape([3, 2, 4, 3])
+	b = array.range(12).reshape([4, 3])
+	tester(`a)
+	tester(`b)
+	tester(`(a + b))
+	tester(`(b + a))
+}
