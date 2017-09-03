@@ -916,7 +916,6 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
 			return nullptr;
 		}
-		size_t elemNumR = pArrayR->GetElemNum();
 		size_t elemNumMatR = dimRowR.GetSizeProd();
 		size_t elemNumRtn = dimColR.GetSize();
 		size_t offsetR = 0;
@@ -925,7 +924,7 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 							 dimsR.begin(), dimsR.begin() + dimsR.size() - 2, elemNumRtn) :
 						 dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-		while (offsetR < elemNumR) {
+		while (offsetR < pArrayR->GetElemNum()) {
 			DotFuncTmpl_1d_2d(pElemRtn, pElemL, dimColL, pElemR + offsetR, dimRowR, dimColR);
 			pElemRtn += elemNumRtn;
 			offsetR += elemNumMatR;
@@ -938,7 +937,6 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
 			return nullptr;
 		}
-		size_t elemNumL = pArrayL->GetElemNum();
 		size_t elemNumMatL = dimRowL.GetSizeProd();
 		size_t elemNumRtn = dimRowL.GetSize();
 		size_t offsetL = 0;
@@ -947,7 +945,7 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 							 dimsL.begin(), dimsL.begin() + dimsL.size() - 2, elemNumRtn, 1) :
 						 dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-		while (offsetL < elemNumL) {
+		while (offsetL < pArrayL->GetElemNum()) {
 			DotFuncTmpl_2d_1d(pElemRtn, pElemL + offsetL, dimRowL, dimColL, pElemR, dimRowR);
 			pElemRtn += elemNumRtn;
 			offsetL += elemNumMatL;
@@ -975,11 +973,7 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
 			return nullptr;
 		}
-		size_t elemNumL = pArrayL->GetElemNum();
-		size_t elemNumR = pArrayR->GetElemNum();
 		size_t elemNumMatRtn = dimRowL.GetSize() * dimColR.GetSize();
-		size_t elemNumMatL = dimRowL.GetSizeProd();
-		size_t elemNumMatR = dimRowR.GetSizeProd();
 		size_t offsetL = 0, offsetR = 0;
 		if (dimsL.size() < dimsR.size()) {
 			pArrayTRtn.reset((pArrayRtn == nullptr)?
@@ -988,12 +982,12 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 								 dimRowL.GetSize(), dimColR.GetSize()) :
 							 dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 			T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-			while (offsetR < elemNumR) {
+			while (offsetR < pArrayR->GetElemNum()) {
 				DotFuncTmpl_2d_2d(pElemRtn, pElemL + offsetL, dimRowL, dimColL, pElemR + offsetR, dimRowR, dimColR);
 				pElemRtn += elemNumMatRtn;
-				offsetL += elemNumMatL;
-				offsetR += elemNumMatR;
-				if (offsetL >= elemNumL) offsetL = 0;
+				offsetL += dimRowL.GetSizeProd();
+				offsetR += dimRowR.GetSizeProd();
+				if (offsetL >= pArrayL->GetElemNum()) offsetL = 0;
 			}
 		} else { // dimsL.size() >= dimsR.size()
 			pArrayTRtn.reset((pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(
@@ -1001,12 +995,12 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 									dimRowL.GetSize(), dimColR.GetSize()) :
 								dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 			T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-			while (offsetL < elemNumL) {
+			while (offsetL < pArrayL->GetElemNum()) {
 				DotFuncTmpl_2d_2d(pElemRtn, pElemL + offsetL, dimRowL, dimColL, pElemR + offsetR, dimRowR, dimColR);
 				pElemRtn += elemNumMatRtn;
-				offsetL += elemNumMatL;
-				offsetR += elemNumMatR;
-				if (offsetR >= elemNumR) offsetR = 0;
+				offsetL += dimRowL.GetSizeProd();
+				offsetR += dimRowR.GetSizeProd();
+				if (offsetR >= pArrayR->GetElemNum()) offsetR = 0;
 			}
 		}
 	}
