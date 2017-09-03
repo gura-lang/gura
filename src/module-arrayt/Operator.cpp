@@ -917,7 +917,6 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 			return nullptr;
 		}
 		size_t elemNumR = pArrayR->GetElemNum();
-		//size_t elemNumMatR = dimRowR.GetSize() * dimColR.GetSize();
 		size_t elemNumMatR = dimRowR.GetSizeProd();
 		size_t elemNumRtn = dimColR.GetSize();
 		size_t offsetR = 0;
@@ -940,7 +939,7 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 			return nullptr;
 		}
 		size_t elemNumL = pArrayL->GetElemNum();
-		size_t elemNumMatL = dimRowL.GetSize() * dimColL.GetSize();
+		size_t elemNumMatL = dimRowL.GetSizeProd();
 		size_t elemNumRtn = dimRowL.GetSize();
 		size_t offsetL = 0;
 		pArrayTRtn.reset((pArrayRtn == nullptr)?
@@ -979,8 +978,8 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 		size_t elemNumL = pArrayL->GetElemNum();
 		size_t elemNumR = pArrayR->GetElemNum();
 		size_t elemNumMatRtn = dimRowL.GetSize() * dimColR.GetSize();
-		size_t elemNumMatL = dimRowL.GetSize() * dimColL.GetSize();
-		size_t elemNumMatR = dimRowR.GetSize() * dimColR.GetSize();
+		size_t elemNumMatL = dimRowL.GetSizeProd();
+		size_t elemNumMatR = dimRowR.GetSizeProd();
 		size_t offsetL = 0, offsetR = 0;
 		if (dimsL.size() < dimsR.size()) {
 			pArrayTRtn.reset((pArrayRtn == nullptr)?
