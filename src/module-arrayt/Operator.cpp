@@ -1087,14 +1087,14 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, Array *pArrayRtn,
 			const T_ElemL *pElemMatL = pElemL;
 			const T_ElemR *pElemMatR = pElemR;
 			for (size_t iMat = 0; iMat < nMats; iMat++,
-					 pElemMatL += dimRowL.GetSizeProd(), pElemMatR += dimRowL.GetSizeProd()) {
+					 pElemMatL += dimRowL.GetSizeProd(), pElemMatR += dimRowR.GetSizeProd()) {
 				const T_ElemL *pElemRowL = pElemMatL;
 				const T_ElemR *pElemRowR = pElemMatR;
-				for (size_t iRowL = 0; iRowL < dimRowL.GetSize(); iRowL++,
+				for (size_t iRow = 0; iRow < dimRowL.GetSize(); iRow++,
 						 pElemRowL += dimRowL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
 					const T_ElemL *pElemColL = pElemRowL;
 					const T_ElemR *pElemColR = pElemRowR;
-					for (size_t iColL = 0; iColL < dimColL.GetSize(); iColL++,
+					for (size_t iCol = 0; iCol < dimColL.GetSize(); iCol++,
 							 pElemColL += dimColL.GetStrides(), pElemColR += dimColR.GetStrides()) {
 						op(*pElemRtn, *pElemColL, *pElemColR);
 						pElemRtn++;
@@ -1120,8 +1120,33 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, Array *pArrayRtn,
 					pElemRtn++;
 				}
 			}
-		} else { // (pArrayL->IsColMajor() || pArrayR->IsColMajor()) && (dimsL.size() >= 2)
-			
+		} else { // (pArrayL->IsColMajor() || pArrayR->IsColMajor()) && (dimsL.size() >= 2 && dimsR.size() >= 2)
+			const Array::Dimension &dimRowL = dimsL.GetRow();
+			const Array::Dimension &dimColL = dimsL.GetCol();
+			const Array::Dimension &dimRowR = dimsR.GetRow();
+			const Array::Dimension &dimColR = dimsR.GetCol();
+			size_t nBlks = nElemsR / nElemsL;
+			size_t nMats = pArrayL->GetElemNum() / dimRowL.GetSizeProd();
+			const T_ElemR *pElemBlkR = pElemR;
+			for (size_t iBlk = 0; iBlk < nBlks; iBlk++, pElemBlkR += nElemsL) {
+				const T_ElemL *pElemMatL = pElemL;
+				const T_ElemR *pElemMatR = pElemBlkR;
+				for (size_t iMat = 0; iMat < nMats; iMat++,
+						 pElemMatL += dimRowL.GetSizeProd(), pElemMatR += dimRowR.GetSizeProd()) {
+					const T_ElemL *pElemRowL = pElemMatL;
+					const T_ElemR *pElemRowR = pElemMatR;
+					for (size_t iRow = 0; iRow < dimRowL.GetSize(); iRow++,
+							 pElemRowL += dimRowL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
+						const T_ElemL *pElemColL = pElemRowL;
+						const T_ElemR *pElemColR = pElemRowR;
+						for (size_t iCol = 0; iCol < dimColL.GetSize(); iCol++,
+								 pElemColL += dimColL.GetStrides(), pElemColR += dimColR.GetStrides()) {
+							op(*pElemRtn, *pElemColL, *pElemColR);
+							pElemRtn++;
+						}
+					}
+				}
+			}
 		}
 	} else { // nElemsL > nElemsR
 		pArrayTRtn.reset(
@@ -1141,8 +1166,33 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, Array *pArrayRtn,
 					pElemRtn++;
 				}
 			}
-		} else {
-			
+		} else { // (pArrayL->IsColMajor() || pArrayR->IsColMajor()) && (dimsL.size() >= 2 && dimsR.size() >= 2)
+			const Array::Dimension &dimRowL = dimsL.GetRow();
+			const Array::Dimension &dimColL = dimsL.GetCol();
+			const Array::Dimension &dimRowR = dimsR.GetRow();
+			const Array::Dimension &dimColR = dimsR.GetCol();
+			size_t nBlks = nElemsL / nElemsR;
+			size_t nMats = pArrayR->GetElemNum() / dimRowR.GetSizeProd();
+			const T_ElemL *pElemBlkL = pElemL;
+			for (size_t iBlk = 0; iBlk < nBlks; iBlk++, pElemBlkL += nElemsR) {
+				const T_ElemL *pElemMatL = pElemBlkL;
+				const T_ElemR *pElemMatR = pElemR;
+				for (size_t iMat = 0; iMat < nMats; iMat++,
+						 pElemMatL += dimRowL.GetSizeProd(), pElemMatR += dimRowR.GetSizeProd()) {
+					const T_ElemL *pElemRowL = pElemMatL;
+					const T_ElemR *pElemRowR = pElemMatR;
+					for (size_t iRow = 0; iRow < dimRowL.GetSize(); iRow++,
+							 pElemRowL += dimRowL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
+						const T_ElemL *pElemColL = pElemRowL;
+						const T_ElemR *pElemColR = pElemRowR;
+						for (size_t iCol = 0; iCol < dimColL.GetSize(); iCol++,
+								 pElemColL += dimColL.GetStrides(), pElemColR += dimColR.GetStrides()) {
+							op(*pElemRtn, *pElemColL, *pElemColR);
+							pElemRtn++;
+						}
+					}
+				}
+			}
 		}
 	}
 	return pArrayTRtn.release();
