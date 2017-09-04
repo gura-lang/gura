@@ -483,6 +483,15 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes, Array *pArrayRt
 }
 
 template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose2d() const
+{
+	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(*this));
+	pArrayT->FlipAxisMajor();
+	return pArrayT.release();
+}
+
+#if 0
+template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(Array *pArrayRtn) const
 {
 	size_t nAxes = GetDimensions().size();
@@ -497,6 +506,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(Array *pArrayRtn) const
 	axes.push_back(axis + 1), axes.push_back(axis);
 	return Transpose(axes, pArrayRtn);
 }
+#endif
 
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Head(Signal &sig, size_t n) const

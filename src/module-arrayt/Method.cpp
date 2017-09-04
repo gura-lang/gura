@@ -1367,7 +1367,7 @@ Value FuncTmpl_transpose(Environment &env, Argument &arg, const Function *pFunc,
 		pArrayRtn.reset(pArrayT->Transpose(sig, arg.GetList(0), nullptr));
 		if (pArrayRtn.IsNull()) return Value::Nil;
 	} else {
-		pArrayRtn.reset(pArrayT->Transpose(nullptr));
+		pArrayRtn.reset(pArrayT->Transpose2d());
 	}
 	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
