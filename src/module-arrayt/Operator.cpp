@@ -1272,7 +1272,6 @@ Array *BinaryFuncTmpl_Div_array_number(Signal &sig, Array *pArrayRtn,
 	return BinaryFuncTmpl_array_number<T_ElemRtn, T_ElemL, op>(sig, pArrayRtn, pArrayL, numberR);
 }
 
-// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_ElemR,
 		 void (*op)(T_ElemRtn &, const Double &, const T_ElemR &)>
 Array *BinaryFuncTmpl_number_array(Signal &sig, Array *pArrayRtn,
@@ -1331,7 +1330,6 @@ Array *BinaryFuncTmpl_Div_number_array(Signal &sig, Array *pArrayRtn,
 	return BinaryFuncTmpl_number_array<T_ElemRtn, T_ElemR, op>(sig, pArrayRtn, numberL, pArrayR);
 }
 
-// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_ElemL,
 		 void (*op)(T_ElemRtn &, const T_ElemL &, const Complex &)>
 Array *BinaryFuncTmpl_array_complex(Signal &sig, Array *pArrayRtn,
@@ -1343,12 +1341,38 @@ Array *BinaryFuncTmpl_array_complex(Signal &sig, Array *pArrayRtn,
 		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(dimsL) :
 		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-
+#if 1
+	if (pArrayL->IsRowMajor() || dimsL.size() < 2) {
+		size_t nElemsL = pArrayL->GetElemNum();
+		for (size_t i = 0; i < nElemsL; i++, pElemL++) {
+			op(*pElemRtn, *pElemL, complexR);
+			pElemRtn++;
+		}
+	} else { // pArrayL->IsColMajor() && dimsL.size() >= 2
+		const Array::Dimension &dimRowL = dimsL.GetRow();
+		const Array::Dimension &dimColL = dimsL.GetCol();
+		size_t nMats = pArrayL->GetElemNum() / dimRowL.GetSizeProd();
+		const T_ElemL *pElemMatL = pElemL;
+		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMatL += dimRowL.GetSizeProd()) {
+			const T_ElemL *pElemRowL = pElemMatL;
+			for (size_t iRow = 0; iRow < dimRowL.GetSize(); iRow++,
+					 pElemRowL += dimRowL.GetStrides()) {
+				const T_ElemL *pElemColL = pElemRowL;
+				for (size_t iCol = 0; iCol < dimColL.GetSize(); iCol++,
+						 pElemColL += dimColL.GetStrides()) {
+					op(*pElemRtn, *pElemColL, complexR);
+					pElemRtn++;
+				}
+			}
+		}
+	}
+#else
 	size_t nElemsL = pArrayL->GetElemNum();
 	for (size_t i = 0; i < nElemsL; i++, pElemL++) {
 		op(*pElemRtn, *pElemL, complexR);
 		pElemRtn++;
 	}
+#endif
 	return pArrayTRtn.release();
 }
 
@@ -1365,7 +1389,6 @@ Array *BinaryFuncTmpl_Div_array_complex(Signal &sig, Array *pArrayRtn,
 	return BinaryFuncTmpl_array_complex<T_ElemRtn, T_ElemL, op>(sig, pArrayRtn, pArrayL, complexR);
 }
 
-// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_ElemR,
 		 void (*op)(T_ElemRtn &, const Complex &, const T_ElemR &)>
 Array *BinaryFuncTmpl_complex_array(Signal &sig, Array *pArrayRtn,
@@ -1377,16 +1400,41 @@ Array *BinaryFuncTmpl_complex_array(Signal &sig, Array *pArrayRtn,
 		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(dimsR) :
 		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-
+#if 1
+	if (pArrayR->IsRowMajor() || dimsR.size() < 2) {
+		size_t nElemsR = pArrayR->GetElemNum();
+		for (size_t i = 0; i < nElemsR; i++, pElemR++) {
+			op(*pElemRtn, complexL, *pElemR);
+			pElemRtn++;
+		}
+	} else { // pArrayR->IsColMajor() && dimsR.size() >= 2
+		const Array::Dimension &dimRowR = dimsR.GetRow();
+		const Array::Dimension &dimColR = dimsR.GetCol();
+		size_t nMats = pArrayR->GetElemNum() / dimRowR.GetSizeProd();
+		const T_ElemR *pElemMatR = pElemR;
+		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMatR += dimRowR.GetSizeProd()) {
+			const T_ElemR *pElemRowR = pElemMatR;
+			for (size_t iRow = 0; iRow < dimRowR.GetSize(); iRow++,
+					 pElemRowR += dimRowR.GetStrides()) {
+				const T_ElemR *pElemColR = pElemRowR;
+				for (size_t iCol = 0; iCol < dimColR.GetSize(); iCol++,
+						 pElemColR += dimColR.GetStrides()) {
+					op(*pElemRtn, complexL, *pElemColR);
+					pElemRtn++;
+				}
+			}
+		}
+	}
+#else
 	size_t nElemsR = pArrayR->GetElemNum();
 	for (size_t i = 0; i < nElemsR; i++, pElemR++) {
 		op(*pElemRtn, complexL, *pElemR);
 		pElemRtn++;
 	}
+#endif
 	return pArrayTRtn.release();
 }
 
-// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_ElemR,
 		 void (*op)(T_ElemRtn &, const Complex &, const T_ElemR &)>
 Array *BinaryFuncTmpl_Div_complex_array(Signal &sig, Array *pArrayRtn,
