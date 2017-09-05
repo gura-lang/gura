@@ -452,6 +452,7 @@ testcase('array#reshape()') {
 	tester(`x.reshape([4, 2, nil]))
 	tester(`x.reshape([4, nil, nil]))
 	tester(`x.reshape([4, 2, 4]))
+	tester(`x.T.reshape([4, 2, nil]))
 }
 testcase('array#transpose()') {
 	func(src:array, axesTbl[]) = {
@@ -1336,4 +1337,14 @@ testcase('test with transposed array') {
 	tester(`(3 + x))
 	tester(`(x + 3j))
 	tester(`(3j + x))
+}
+testcase('transpose to an array that has been applied with T') {
+	x = array@int32.range(5 * 3 * 4).reshape([5, 3, 4])
+	tester(`x)
+	tester(`x.transpose([0, 2, 1]))
+	tester(`x.T)
+	tester(`x.T.T)
+	tester(`x.transpose([2, 1, 0]))
+	tester(`x.T.transpose([1, 2, 0]))
+	tester(`x.T.transpose([0, 2, 1]))
 }

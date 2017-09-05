@@ -200,11 +200,8 @@ void Array::UpdateMetrics()
 	}
 	_elemNum = strides;	// set to one when _dims is empty
 	if (IsColMajor() && _dims.size() >= 2) {
-		// swap strides amount for row and column
-		size_t stridesCol = _dims.GetCol().GetStrides();
-		size_t stridesRow = _dims.GetRow().GetStrides();
-		_dims.GetCol().SetStrides(stridesRow);
-		_dims.GetRow().SetStrides(stridesCol);
+		_dims.GetCol().SetStrides(_dims.GetRow().GetSize());
+		_dims.GetRow().SetStrides(1);
 	}
 }
 

@@ -347,7 +347,7 @@ bool ArrayT<T_Elem>::Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc)
 	return true;
 }
 
-// column-major not supported
+// *** column-major not supported ***
 template<typename T_Elem>
 void ArrayT<T_Elem>::CopyToList(ValueList &valList) const
 {
@@ -358,7 +358,7 @@ void ArrayT<T_Elem>::CopyToList(ValueList &valList) const
 	}
 }
 
-// column-major not supported
+// *** column-major not supported ***
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Flatten() const
 {
@@ -367,7 +367,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Flatten() const
 	return pArrayRtn.release();
 }
 
-// column-major not supported
+// column-major OK
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Reshape(Signal &sig, const ValueList &valList) const
 {
@@ -403,7 +403,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Reshape(Signal &sig, const ValueList &valList) c
 	return pArrayTRtn.release();
 }
 
-// column-major not supported
+// column-major OK
 template<typename T_Elem>
 void TransposeSub(T_Elem *&pElemDst, const T_Elem *pElemSrc, const Array::Dimensions &dimsSrc,
 				  SizeTList::const_iterator pAxis, SizeTList::const_iterator pAxisEnd)
@@ -495,7 +495,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose2d() const
 	return pArrayT.release();
 }
 
-// column-major not supported
+// *** column-major not supported ***
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Head(Signal &sig, size_t n) const
 {
@@ -510,7 +510,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Head(Signal &sig, size_t n) const
 	return pArrayTRtn.release();
 }
 
-// column-major not supported
+// *** column-major not supported ***
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Tail(Signal &sig, size_t n) const
 {
@@ -525,7 +525,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Tail(Signal &sig, size_t n) const
 	return pArrayTRtn.release();
 }
 
-// column-major not supported
+// *** column-major not supported ***
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
 {

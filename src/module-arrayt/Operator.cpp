@@ -1225,7 +1225,6 @@ Array *BinaryFuncTmpl_array_number(Signal &sig, Array *pArrayRtn,
 		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(dimsL) :
 		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-#if 1
 	if (pArrayL->IsRowMajor() || dimsL.size() < 2) {
 		size_t nElemsL = pArrayL->GetElemNum();
 		for (size_t i = 0; i < nElemsL; i++, pElemL++) {
@@ -1250,13 +1249,6 @@ Array *BinaryFuncTmpl_array_number(Signal &sig, Array *pArrayRtn,
 			}
 		}
 	}
-#else
-	size_t nElemsL = pArrayL->GetElemNum();
-	for (size_t i = 0; i < nElemsL; i++, pElemL++) {
-		op(*pElemRtn, *pElemL, numberR);
-		pElemRtn++;
-	}
-#endif
 	return pArrayTRtn.release();
 }
 
@@ -1283,7 +1275,6 @@ Array *BinaryFuncTmpl_number_array(Signal &sig, Array *pArrayRtn,
 		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(dimsR) :
 		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-#if 1
 	if (pArrayR->IsRowMajor() || dimsR.size() < 2) {
 		size_t nElemsR = pArrayR->GetElemNum();
 		for (size_t i = 0; i < nElemsR; i++, pElemR++) {
@@ -1308,13 +1299,6 @@ Array *BinaryFuncTmpl_number_array(Signal &sig, Array *pArrayRtn,
 			}
 		}
 	}
-#else
-	size_t nElemsR = pArrayR->GetElemNum();
-	for (size_t i = 0; i < nElemsR; i++, pElemR++) {
-		op(*pElemRtn, numberL, *pElemR);
-		pElemRtn++;
-	}
-#endif
 	return pArrayTRtn.release();
 }
 
@@ -1341,7 +1325,6 @@ Array *BinaryFuncTmpl_array_complex(Signal &sig, Array *pArrayRtn,
 		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(dimsL) :
 		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-#if 1
 	if (pArrayL->IsRowMajor() || dimsL.size() < 2) {
 		size_t nElemsL = pArrayL->GetElemNum();
 		for (size_t i = 0; i < nElemsL; i++, pElemL++) {
@@ -1366,17 +1349,9 @@ Array *BinaryFuncTmpl_array_complex(Signal &sig, Array *pArrayRtn,
 			}
 		}
 	}
-#else
-	size_t nElemsL = pArrayL->GetElemNum();
-	for (size_t i = 0; i < nElemsL; i++, pElemL++) {
-		op(*pElemRtn, *pElemL, complexR);
-		pElemRtn++;
-	}
-#endif
 	return pArrayTRtn.release();
 }
 
-// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_ElemL,
 		 void (*op)(T_ElemRtn &, const T_ElemL &, const Complex &)>
 Array *BinaryFuncTmpl_Div_array_complex(Signal &sig, Array *pArrayRtn,
@@ -1400,7 +1375,6 @@ Array *BinaryFuncTmpl_complex_array(Signal &sig, Array *pArrayRtn,
 		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(dimsR) :
 		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-#if 1
 	if (pArrayR->IsRowMajor() || dimsR.size() < 2) {
 		size_t nElemsR = pArrayR->GetElemNum();
 		for (size_t i = 0; i < nElemsR; i++, pElemR++) {
@@ -1425,13 +1399,6 @@ Array *BinaryFuncTmpl_complex_array(Signal &sig, Array *pArrayRtn,
 			}
 		}
 	}
-#else
-	size_t nElemsR = pArrayR->GetElemNum();
-	for (size_t i = 0; i < nElemsR; i++, pElemR++) {
-		op(*pElemRtn, complexL, *pElemR);
-		pElemRtn++;
-	}
-#endif
 	return pArrayTRtn.release();
 }
 
