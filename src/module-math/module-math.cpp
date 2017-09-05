@@ -848,10 +848,10 @@ Gura_ImplementFunction(gcd)
 {
 	const ValueList &valList = arg.GetList(1);
 	ValueList::const_iterator pValue = valList.begin();
-	int gcd = CalcGCD(arg.GetInt(0), pValue->GetInt());
+	Int64 gcd = CalcGCD(arg.GetInt64(0), pValue->GetInt64());
 	pValue++;
 	for ( ; pValue != valList.end(); pValue++) {
-		gcd = CalcGCD(gcd, pValue->GetInt());
+		gcd = CalcGCD(gcd, pValue->GetInt64());
 	}
 	return Value(gcd);
 }

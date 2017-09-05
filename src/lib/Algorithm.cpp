@@ -8,19 +8,19 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // GCD/LCM
 //-----------------------------------------------------------------------------
-int CalcGCD(int a, int b)
+Int64 CalcGCD(Int64 a, Int64 b)
 {
 	if (a < 0) a = -a;
 	if (b < 0) b = -b;
 	if (a == b) return a;
-	int left = a, right = b;
+	Int64 left = a, right = b;
 	if (a < b) {
 		left = b, right = a;
 	}
-	int gcd = right;
+	Int64 gcd = right;
 	for (;;) {
-		int div = left / right;
-		int rest = left - div * right;
+		Int64 div = left / right;
+		Int64 rest = left - div * right;
 		if (rest == 0) break;
 		gcd = rest;
 		left = right, right = rest;
@@ -28,7 +28,7 @@ int CalcGCD(int a, int b)
 	return gcd;
 }
 
-int CalcLCM(int a, int b)
+Int64 CalcLCM(Int64 a, Int64 b)
 {
 	return a * b / CalcGCD(a, b);
 }
