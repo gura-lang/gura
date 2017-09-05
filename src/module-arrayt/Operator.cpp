@@ -1284,12 +1284,38 @@ Array *BinaryFuncTmpl_number_array(Signal &sig, Array *pArrayRtn,
 		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(dimsR) :
 		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-
+#if 1
+	if (pArrayR->IsRowMajor() || dimsR.size() < 2) {
+		size_t nElemsR = pArrayR->GetElemNum();
+		for (size_t i = 0; i < nElemsR; i++, pElemR++) {
+			op(*pElemRtn, numberL, *pElemR);
+			pElemRtn++;
+		}
+	} else { // pArrayR->IsColMajor() && dimsR.size() >= 2
+		const Array::Dimension &dimRowR = dimsR.GetRow();
+		const Array::Dimension &dimColR = dimsR.GetCol();
+		size_t nMats = pArrayR->GetElemNum() / dimRowR.GetSizeProd();
+		const T_ElemR *pElemMatR = pElemR;
+		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMatR += dimRowR.GetSizeProd()) {
+			const T_ElemR *pElemRowR = pElemMatR;
+			for (size_t iRow = 0; iRow < dimRowR.GetSize(); iRow++,
+					 pElemRowR += dimRowR.GetStrides()) {
+				const T_ElemR *pElemColR = pElemRowR;
+				for (size_t iCol = 0; iCol < dimColR.GetSize(); iCol++,
+						 pElemColR += dimColR.GetStrides()) {
+					op(*pElemRtn, numberL, *pElemColR);
+					pElemRtn++;
+				}
+			}
+		}
+	}
+#else
 	size_t nElemsR = pArrayR->GetElemNum();
 	for (size_t i = 0; i < nElemsR; i++, pElemR++) {
 		op(*pElemRtn, numberL, *pElemR);
 		pElemRtn++;
 	}
+#endif
 	return pArrayTRtn.release();
 }
 
