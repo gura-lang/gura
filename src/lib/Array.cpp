@@ -89,7 +89,7 @@ void Array::FlipAxisMajor()
 {
 	_colMajorFlag = !_colMajorFlag;
 	if (_dims.HasRowCol()) {
-		Dimension dimRow = _dims.GetRow();
+		Dimension dimRow = _dims.GetRow(); // don't use reference here!
 		Dimension dimCol = _dims.GetCol();
 		_dims.SetRow(Dimension(dimCol.GetSize(), dimRow.GetSizeProd(), dimCol.GetStrides()));
 		_dims.SetCol(Dimension(dimRow.GetSize(), dimCol.GetSizeProd(), dimRow.GetStrides()));
@@ -199,6 +199,13 @@ void Array::UpdateMetrics()
 		pDim->SetSizeProd(strides);
 	}
 	_elemNum = strides;	// set to one when _dims is empty
+	if (IsColMajor() && _dims.size() >= 2) {
+		// swap strides amount for row and column
+		size_t stridesCol = _dims.GetCol().GetStrides();
+		size_t stridesRow = _dims.GetRow().GetStrides();
+		_dims.GetCol().SetStrides(stridesRow);
+		_dims.GetRow().SetStrides(stridesCol);
+	}
 }
 
 void Array::FillZero()

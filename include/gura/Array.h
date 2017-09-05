@@ -147,6 +147,9 @@ public:
 	public:
 		bool HasRowCol() const { return size() >= 2; }
 		bool HasPlaneRowCol() const { return size() >= 3; }
+		inline Dimension &GetPlane() { return *(rbegin() + 2); }
+		inline Dimension &GetRow() { return *(rbegin() + 1); }
+		inline Dimension &GetCol() { return *rbegin(); }
 		inline const Dimension &GetPlane() const { return *(rbegin() + 2); }
 		inline const Dimension &GetRow() const { return *(rbegin() + 1); }
 		inline const Dimension &GetCol() const { return *rbegin(); }
@@ -233,6 +236,7 @@ public:
 	inline ElemType GetElemType() const { return _elemType; }
 	inline bool IsElemType(ElemType elemType) const { return _elemType == elemType; }
 	inline void SetColMajorFlag(bool colMajorFlag) { _colMajorFlag = colMajorFlag; }
+	inline bool GetColMajorFlag() const { return _colMajorFlag; }
 	inline bool IsColMajor() const { return _colMajorFlag; }
 	inline bool IsRowMajor() const { return !_colMajorFlag; }
 	inline void SetMemory(Memory *pMemory, size_t offsetBase) {
