@@ -1210,6 +1210,7 @@ Array *BinaryFuncTmpl_Div_array_array(Signal &sig, Array *pArrayRtn,
 	return BinaryFuncTmpl_array_array<T_ElemRtn, T_ElemL, T_ElemR, op>(sig, pArrayRtn, pArrayL, pArrayR);
 }
 
+// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_ElemL,
 		 void (*op)(T_ElemRtn &, const T_ElemL &, const Double &)>
 Array *BinaryFuncTmpl_array_number(Signal &sig, Array *pArrayRtn,
@@ -1229,6 +1230,7 @@ Array *BinaryFuncTmpl_array_number(Signal &sig, Array *pArrayRtn,
 	return pArrayTRtn.release();
 }
 
+// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_ElemL,
 		 void (*op)(T_ElemRtn &, const T_ElemL &, const Double &)>
 Array *BinaryFuncTmpl_Div_array_number(Signal &sig, Array *pArrayRtn,
@@ -1241,6 +1243,7 @@ Array *BinaryFuncTmpl_Div_array_number(Signal &sig, Array *pArrayRtn,
 	return BinaryFuncTmpl_array_number<T_ElemRtn, T_ElemL, op>(sig, pArrayRtn, pArrayL, numberR);
 }
 
+// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_ElemR,
 		 void (*op)(T_ElemRtn &, const Double &, const T_ElemR &)>
 Array *BinaryFuncTmpl_number_array(Signal &sig, Array *pArrayRtn,
@@ -1260,6 +1263,7 @@ Array *BinaryFuncTmpl_number_array(Signal &sig, Array *pArrayRtn,
 	return pArrayTRtn.release();
 }
 
+// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_ElemR,
 		 void (*op)(T_ElemRtn &, const Double &, const T_ElemR &)>
 Array *BinaryFuncTmpl_Div_number_array(Signal &sig, Array *pArrayRtn,
@@ -1272,6 +1276,7 @@ Array *BinaryFuncTmpl_Div_number_array(Signal &sig, Array *pArrayRtn,
 	return BinaryFuncTmpl_number_array<T_ElemRtn, T_ElemR, op>(sig, pArrayRtn, numberL, pArrayR);
 }
 
+// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_ElemL,
 		 void (*op)(T_ElemRtn &, const T_ElemL &, const Complex &)>
 Array *BinaryFuncTmpl_array_complex(Signal &sig, Array *pArrayRtn,
@@ -1291,6 +1296,7 @@ Array *BinaryFuncTmpl_array_complex(Signal &sig, Array *pArrayRtn,
 	return pArrayTRtn.release();
 }
 
+// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_ElemL,
 		 void (*op)(T_ElemRtn &, const T_ElemL &, const Complex &)>
 Array *BinaryFuncTmpl_Div_array_complex(Signal &sig, Array *pArrayRtn,
@@ -1303,6 +1309,7 @@ Array *BinaryFuncTmpl_Div_array_complex(Signal &sig, Array *pArrayRtn,
 	return BinaryFuncTmpl_array_complex<T_ElemRtn, T_ElemL, op>(sig, pArrayRtn, pArrayL, complexR);
 }
 
+// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_ElemR,
 		 void (*op)(T_ElemRtn &, const Complex &, const T_ElemR &)>
 Array *BinaryFuncTmpl_complex_array(Signal &sig, Array *pArrayRtn,
@@ -1322,6 +1329,7 @@ Array *BinaryFuncTmpl_complex_array(Signal &sig, Array *pArrayRtn,
 	return pArrayTRtn.release();
 }
 
+// **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_ElemR,
 		 void (*op)(T_ElemRtn &, const Complex &, const T_ElemR &)>
 Array *BinaryFuncTmpl_Div_complex_array(Signal &sig, Array *pArrayRtn,

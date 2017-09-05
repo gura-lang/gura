@@ -1,5 +1,23 @@
 #!/usr/bin/env gura
+import(argopt)
+
 sys.stdout.addcr(false)
+argopt.Parser {|p|
+	p.addFlag('list', 'l', 'prints a list of test cases')
+	try {
+		[cfg, argv] = p.parse(sys.argv)
+	} catch {
+		sys.stderr.println('invalid option')
+		sys.stderr.println(p.formatHelp())
+		sys.exit(1)
+	}
+	try {
+		idxTestCasesExec = argv::tonumber():raise
+	} catch {
+		sys.stderr.println('invalid index number')
+		sys.exit(1)
+	}
+}
 
 print_func(func:function) = printf('%s = %s\n', func, func.expr)
 
@@ -16,8 +34,13 @@ I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
 
 _idxTestCase = 0
 testcase(title?:string):void {`block} = {
+	if (!idxTestCasesExec.isempty() && !((_idxTestCase + 1) in idxTestCasesExec)) {
+		_idxTestCase += 1
+		return
+	}
 	printtitle(_idxTestCase, title)
 	_idxTestCase += 1
+	cfg['list'] && return
 	println()
 	try {
 		scope {|block|}
@@ -27,10 +50,16 @@ testcase(title?:string):void {`block} = {
 }
 
 printtitle(idx:number, title?:string) = {
-	(idx > 0) && println()
-	printf('======== #%d', idx + 1)
-	title && !title.isempty() && printf(' %s', title)
-	println(' ========')
+	if (cfg['list']) {
+		printf('#%d', idx + 1)
+		title && !title.isempty() && printf(' %s', title)
+		println()
+	} else {
+		(idx > 0) && println()
+		printf('======== #%d', idx + 1)
+		title && !title.isempty() && printf(' %s', title)
+		println(' ========')
+	}
 }
 
 getindex() = _idxTestCase

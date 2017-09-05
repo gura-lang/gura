@@ -283,15 +283,15 @@ math.unitstep(1) .. 1
 math.unitstep(2) .. 1
 math.unitstep(array { -2, -1, 0, 1, 2 }) .. {0, 0, 1, 1, 1}
 
-======== #30 ========
+======== #30 rational#reduce() ========
 
 rational(260, 364).reduce() .. 5/7r
 
-======== #31 ========
+======== #31 math.hypot() ========
 
 math.hypot(3, 4) .. 5
 
-======== #32 ========
+======== #32 G.C.D. & L.C.M. ========
 
 6   3   .. GCD:3   LCM:6  
 3   6   .. GCD:3   LCM:6  
@@ -315,7 +315,7 @@ math.hypot(3, 4) .. 5
 60   84   36   .. GCD:12  LCM:1260
 60   36   84   .. GCD:12  LCM:1260
 
-======== #33 ========
+======== #33 math.cross() and math.dot() ========
 
 math.cross([1, 2], [3, 1]) .. -5
 math.cross([3, 1], [1, 2]) .. 5
@@ -327,7 +327,7 @@ math.dot([-1, -3], [2, 2]) .. -8
 math.dot([-1, -3, 3], [2, 2, -1]) .. -11
 math.dot([-1, -3], [2, 2, 3]) .. ValueError: different length of lists
 
-======== #34 ========
+======== #34 bezier implementation by script ========
 
 f2_x(t:number):map = { a + b * t + c * t * t + d * t * t * t }
 f2_y(t:number):map = { a + b * t + c * t * t + d * t * t * t }
@@ -343,13 +343,13 @@ f2_y(t:number):map = { a + b * t + c * t * t + d * t * t * t }
    18.598080,   18.598080,   18.598080,     8.751715,    8.751715,    8.751715
    20.000000,   20.000000,   20.000000,    10.000000,   10.000000,   10.000000
 
-======== #35 ========
+======== #35 math.least_square() - 1 ========
 
 f(x:number):map = 3.55 + 0.35 * x
 g(temp:number):map = 2.94286 + 0.707143 * temp + (-0.0357143) * temp ** 2
 h(hoge:number):map = (-0.619643) + 4.54464 * hoge + (-0.973214) * hoge ** 2 + 0.0625 * hoge ** 3
 
-======== #36 ========
+======== #36 math.least_square() - 2 ========
 
 f(x:number):map = 1.00714 + 5.10714 * x
 
