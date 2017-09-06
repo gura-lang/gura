@@ -138,32 +138,17 @@ ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
 		ArrayT<T_ElemRtn>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTRtn->FillZero();
-	Double denom = static_cast<Double>(pDimAxis->GetSize());
+	Double numDenom = static_cast<Double>(pDimAxis->GetSize());
 	const T_Elem *pElemTop = pArrayT->GetPointer();
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	if (pDimAxis + 1 == dims.end()) {
-		size_t axisSize = pDimAxis->GetSize();
-		const T_Elem *pElem = pElemTop;
-		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += axisSize) {
-			T_ElemRtn accum = 0;
-			for (size_t i = 0; i < axisSize; i++, pElem++) {
-				accum += *pElem;
+	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += pDimAxis->GetSizeProd()) {
+		for (size_t j = 0; j < pDimAxis->GetStrides(); j++) {
+			const T_Elem *pElem = pElemTop + offset + j;
+			T_ElemRtn numAccum = 0;
+			for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElem += pDimAxis->GetStrides()) {
+				numAccum += *pElem;
 			}
-			*pElemRtn++ = meanFlag? accum / denom : accum;
-		}
-	} else {
-		size_t strides = pDimAxis->GetStrides();
-		size_t axisSize = pDimAxis->GetSize();
-		size_t stepSize = axisSize * strides;
-		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += stepSize) {
-			for (size_t j = 0; j < strides; j++) {
-				const T_Elem *pElem = pElemTop + offset + j;
-				T_ElemRtn accum = 0;
-				for (size_t i = 0; i < axisSize; i++, pElem += strides) {
-					accum += *pElem;
-				}
-				*pElemRtn++ = meanFlag? accum / denom : accum;
-			}
+			*pElemRtn++ = meanFlag? numAccum / numDenom : numAccum;
 		}
 	}
 	return pArrayTRtn.release();
@@ -172,14 +157,14 @@ ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 template<typename T_ElemRtn, typename T_Elem>
 T_ElemRtn CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
 {
-	Double denom = static_cast<Double>(pArrayT->GetElemNum());
-	if (denom == 0) return 0;
-	T_ElemRtn accum = 0;
+	Double numDenom = static_cast<Double>(pArrayT->GetElemNum());
+	if (numDenom == 0) return 0;
+	T_ElemRtn numAccum = 0;
 	const T_Elem *pElem = pArrayT->GetPointer();
 	for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
-		accum += *pElem;
+		numAccum += *pElem;
 	}
-	return meanFlag? accum / denom : accum;
+	return meanFlag? numAccum / numDenom : numAccum;
 }
 
 // **** column-major is not supported yet ****
@@ -192,61 +177,32 @@ ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
 		ArrayT<T_ElemRtn>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTRtn->FillZero();
-	Double denom = static_cast<Double>(pDimAxis->GetSize());
-	Double denomVar = (denom <= 1)? 1 : populationFlag? denom : denom - 1;
+	Double numDenom = static_cast<Double>(pDimAxis->GetSize());
+	Double numDenomVar = (numDenom <= 1)? 1 : populationFlag? numDenom : numDenom - 1;
 	const T_Elem *pElemTop = pArrayT->GetPointer();
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	if (pDimAxis + 1 == dims.end()) {
-		size_t axisSize = pDimAxis->GetSize();
-		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += axisSize) {
-			const T_Elem *pElemHead = pElemTop + offset;
-			T_ElemRtn mean = 0;
+	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += pDimAxis->GetSizeProd()) {
+		for (size_t j = 0; j < pDimAxis->GetStrides(); j++) {
+			const T_Elem *pElemHead = pElemTop + offset + j;
+			T_ElemRtn numMean = 0;
 			do {
 				const T_Elem *pElem = pElemHead;
-				for (size_t i = 0; i < axisSize; i++, pElem++) {
-					mean += *pElem;
+				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElem += pDimAxis->GetStrides()) {
+					numMean += *pElem;
 				}
-				mean /= denom;
+				numMean /= numDenom;
 			} while (0);
-			T_ElemRtn accum = 0;
+			T_ElemRtn numAccum = 0;
 			do {
 				const T_Elem *pElem = pElemHead;
-				for (size_t i = 0; i < axisSize; i++, pElem++) {
-					T_ElemRtn tmp = *pElem - mean;
-					accum += tmp * tmp;
+				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElem += pDimAxis->GetStrides()) {
+					T_ElemRtn tmp = *pElem - numMean;
+					numAccum += tmp * tmp;
 				}
-				accum /= denomVar;
+				numAccum /= numDenomVar;
 			} while (0);
-			if (stdFlag) Operator_Math_sqrt::Calc(accum, accum);
-			*pElemRtn++ = accum;
-		}
-	} else {
-		size_t strides = pDimAxis->GetStrides();
-		size_t axisSize = pDimAxis->GetSize();
-		size_t stepSize = pDimAxis->GetSize() * strides;
-		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += stepSize) {
-			for (size_t j = 0; j < strides; j++) {
-				const T_Elem *pElemHead = pElemTop + offset + j;
-				T_ElemRtn mean = 0;
-				do {
-					const T_Elem *pElem = pElemHead;
-					for (size_t i = 0; i < axisSize; i++, pElem += strides) {
-						mean += *pElem;
-					}
-					mean /= denom;
-				} while (0);
-				T_ElemRtn accum = 0;
-				do {
-					const T_Elem *pElem = pElemHead;
-					for (size_t i = 0; i < axisSize; i++, pElem += strides) {
-						T_ElemRtn tmp = *pElem - mean;
-						accum += tmp * tmp;
-					}
-					accum /= denomVar;
-				} while (0);
-				if (stdFlag) Operator_Math_sqrt::Calc(accum, accum);
-				*pElemRtn++ = accum;
-			}
+			if (stdFlag) Operator_Math_sqrt::Calc(numAccum, numAccum);
+			*pElemRtn++ = numAccum;
 		}
 	}
 	return pArrayTRtn.release();
@@ -255,28 +211,28 @@ ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 template<typename T_ElemRtn, typename T_Elem>
 T_ElemRtn CalcVarFlat(const ArrayT<T_Elem> *pArrayT, bool populationFlag, bool stdFlag)
 {
-	Double denom = static_cast<Double>(pArrayT->GetElemNum());
-	if (denom == 0) return 0;
-	Double denomVar = (denom <= 1)? 1 : populationFlag? denom : denom - 1;
-	T_ElemRtn mean = 0;
+	Double numDenom = static_cast<Double>(pArrayT->GetElemNum());
+	if (numDenom == 0) return 0;
+	Double numDenomVar = (numDenom <= 1)? 1 : populationFlag? numDenom : numDenom - 1;
+	T_ElemRtn numMean = 0;
 	do {
 		const T_Elem *pElem = pArrayT->GetPointer();
 		for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
-			mean += *pElem;
+			numMean += *pElem;
 		}
-		mean /= denom;
+		numMean /= numDenom;
 	} while (0);
-	T_ElemRtn accum = 0;
+	T_ElemRtn numAccum = 0;
 	do {
 		const T_Elem *pElem = pArrayT->GetPointer();
 		for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
-			T_ElemRtn tmp = *pElem - mean;
-			accum += tmp * tmp;
+			T_ElemRtn tmp = *pElem - numMean;
+			numAccum += tmp * tmp;
 		}
-		accum /= denomVar;
+		numAccum /= numDenomVar;
 	} while (0);
-	if (stdFlag) Operator_Math_sqrt::Calc(accum, accum);
-	return accum;
+	if (stdFlag) Operator_Math_sqrt::Calc(numAccum, numAccum);
+	return numAccum;
 }
 
 Value CallMethod(Environment &env, Argument &arg, const FuncT_Method funcTbl[],
