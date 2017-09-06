@@ -16,6 +16,7 @@ class GURA_DLLDECLARE ArrayT : public Array {
 public:
 	Gura_DeclareReferenceAccessor(ArrayT);
 public:
+	static ValueType ValueTypeElem;
 	static ElemType ElemTypeThis;
 	static size_t ElemBytes;
 	static const char *ElemTypeName;
@@ -49,7 +50,7 @@ public:
 	void FillRand(UInt range);
 	void FillRandNormal(double mu, double sigma);
 	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc);
-	void CopyToList(ValueList &valList) const;
+	void CopyToList(Object_list *pObjList) const;
 	ArrayT *Flatten() const;
 	ArrayT *Reshape(Signal &sig, const ValueList &valList) const;
 	ArrayT *Transpose(Signal &sig, const ValueList &valList, Array *pArrayRtn) const;

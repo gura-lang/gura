@@ -647,8 +647,7 @@ bool CastToTmpl(Environment &env, Value &value, const Declaration &decl, const A
 		AutoPtr<ArrayT<T_Elem> > pArrayT(
 			dynamic_cast<const ArrayT<T_Elem> *>(pArraySelf)->Reference());
 		Object_list *pObjList = value.InitAsList(env);
-		pArrayT->CopyToList(pObjList->GetListForModify());
-		pObjList->SetValueType(VTYPE_number);
+		pArrayT->CopyToList(pObjList);
 		return true;
 	} else if (decl.IsType(VTYPE_iterator)) {
 		AutoPtr<ArrayT<T_Elem> > pArrayT(

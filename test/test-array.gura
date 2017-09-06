@@ -1348,3 +1348,11 @@ testcase('transpose to an array that has been applied with T') {
 	tester(`x.T.transpose([1, 2, 0]))
 	tester(`x.T.transpose([0, 2, 1]))
 }
+testcase('array#tolist()') {
+	x = array@int32.range(5 * 3 * 4).reshape([5, 3, 4])
+	tester(`x)
+	tester(`x.tolist())
+	tester(`x.T)
+	tester(`x.T.tolist())
+}
+

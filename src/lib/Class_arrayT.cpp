@@ -127,8 +127,7 @@ bool Class_arrayT<T_Elem>::CastTo(Environment &env, Value &value, const Declarat
 		AutoPtr<ArrayT<T_Elem> > pArrayT(
 			Object_arrayT<T_Elem>::GetObject(value)->GetArrayT()->Reference());
 		Object_list *pObjList = value.InitAsList(env);
-		pArrayT->CopyToList(pObjList->GetListForModify());
-		pObjList->SetValueType(VTYPE_number);
+		pArrayT->CopyToList(pObjList);
 		return true;
 	} else if (decl.IsType(VTYPE_iterator)) {
 		const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();

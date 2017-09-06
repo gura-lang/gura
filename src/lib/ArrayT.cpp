@@ -233,6 +233,21 @@ Complex ArrayT<Complex>::GetScalarComplex() const
 	return *GetPointer();
 }
 
+template<> ValueType ArrayT<Boolean>::ValueTypeElem			= VTYPE_boolean;
+template<> ValueType ArrayT<Int8>::ValueTypeElem			= VTYPE_number;
+template<> ValueType ArrayT<UInt8>::ValueTypeElem			= VTYPE_number;
+template<> ValueType ArrayT<Int16>::ValueTypeElem			= VTYPE_number;
+template<> ValueType ArrayT<UInt16>::ValueTypeElem			= VTYPE_number;
+template<> ValueType ArrayT<Int32>::ValueTypeElem			= VTYPE_number;
+template<> ValueType ArrayT<UInt32>::ValueTypeElem			= VTYPE_number;
+template<> ValueType ArrayT<Int64>::ValueTypeElem			= VTYPE_number;
+template<> ValueType ArrayT<UInt64>::ValueTypeElem			= VTYPE_number;
+template<> ValueType ArrayT<Half>::ValueTypeElem			= VTYPE_number;
+template<> ValueType ArrayT<Float>::ValueTypeElem			= VTYPE_number;
+template<> ValueType ArrayT<Double>::ValueTypeElem			= VTYPE_number;
+template<> ValueType ArrayT<Complex>::ValueTypeElem			= VTYPE_complex;
+//template<> ValueType ArrayT<Value>::ValueTypeElem			= VTYPE_any;
+
 template<> Array::ElemType ArrayT<Boolean>::ElemTypeThis	= ETYPE_Boolean;
 template<> Array::ElemType ArrayT<Int8>::ElemTypeThis		= ETYPE_Int8;
 template<> Array::ElemType ArrayT<UInt8>::ElemTypeThis		= ETYPE_UInt8;
@@ -347,15 +362,34 @@ bool ArrayT<T_Elem>::Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc)
 	return true;
 }
 
-// *** column-major not supported ***
 template<typename T_Elem>
-void ArrayT<T_Elem>::CopyToList(ValueList &valList) const
+void CopyToList_Sub(Object_list *pObjList, const T_Elem *pElem,
+					Array::Dimensions::const_iterator pDim, Array::Dimensions::const_iterator pDimEnd)
 {
-	if (valList.empty()) valList.reserve(GetElemNum());
-	const T_Elem *pElem = GetPointer();
-	for (size_t nElems = GetElemNum(); nElems > 0; nElems--, pElem++) {
-		valList.push_back(Value(*pElem));
+	Environment &env = *pObjList;
+	if (pObjList->Empty()) pObjList->Reserve(pDim->GetSize());
+	if (pDim + 1 == pDimEnd) {
+		for (size_t i = 0; i < pDim->GetSize(); i++, pElem += pDim->GetStrides()) {
+			pObjList->AddFast(Value(*pElem));
+		}
+		pObjList->SetValueType(ArrayT<T_Elem>::ValueTypeElem);
+	} else {
+		for (size_t i = 0; i < pDim->GetSize(); i++, pElem += pDim->GetStrides()) {
+			Value value;
+			Object_list *pObjListSub = value.InitAsList(env, pDim->GetSize());
+			pObjList->AddFast(value);
+			CopyToList_Sub(pObjListSub, pElem, pDim + 1, pDimEnd);
+		}
+		pObjList->SetValueType(VTYPE_list);
 	}
+}
+
+// column-major OK
+template<typename T_Elem>
+void ArrayT<T_Elem>::CopyToList(Object_list *pObjList) const
+{
+	const Dimensions &dims = GetDimensions();
+	CopyToList_Sub(pObjList, GetPointer(), dims.begin(), dims.end());
 }
 
 // *** column-major not supported ***

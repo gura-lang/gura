@@ -1340,6 +1340,34 @@ Gura_ImplementMethod(array, tail)
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
+// array#tolist() {block?}
+Gura_DeclareMethod(array, tolist)
+{
+	SetFuncAttr(VTYPE_list, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Converts the array to list.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("list", "list"));
+}
+
+template<typename T_Elem>
+Value FuncTmpl_tolist(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	Value value;
+	Object_list *pObjList = value.InitAsList(env);
+	pArrayT->CopyToList(pObjList);
+	return value;
+}
+
+Gura_ImplementMethod(array, tolist)
+{
+	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_tolist);
+	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+}
+
 // array#transpose(axes[]?:number) {block?}
 Gura_DeclareMethod(array, transpose)
 {
@@ -1467,6 +1495,7 @@ void AssignMethods(Environment &env)
 	Gura_AssignMethodTo(VTYPE_array, array, std);
 	Gura_AssignMethodTo(VTYPE_array, array, sum);
 	Gura_AssignMethodTo(VTYPE_array, array, tail);
+	Gura_AssignMethodTo(VTYPE_array, array, tolist);
 	Gura_AssignMethodTo(VTYPE_array, array, transpose);
 	Gura_AssignMethodTo(VTYPE_array, array, var);
 }
