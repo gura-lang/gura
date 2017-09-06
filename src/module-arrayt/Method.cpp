@@ -1359,7 +1359,7 @@ Value FuncTmpl_tolist(Environment &env, Argument &arg, const Function *pFunc, Ar
 	Value value;
 	Object_list *pObjList = value.InitAsList(env);
 	pArrayT->CopyToList(pObjList);
-	return value;
+	return pFunc->ReturnValue(env, arg, value);
 }
 
 Gura_ImplementMethod(array, tolist)
