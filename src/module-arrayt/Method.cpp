@@ -208,9 +208,10 @@ ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool mean
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
 	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
-		for (size_t j = 0; j < pDimAxis->GetStrides(); j++) {
-			const T_Elem *pElemEach = pElemTop + offset + j;
+		const T_Elem *pElemBlock = pElemTop + offset;
+		for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElemBlock++) {
 			T_ElemRtn numAccum = 0;
+			const T_Elem *pElemEach = pElemBlock;
 			for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
 				numAccum += *pElemEach;
 			}
