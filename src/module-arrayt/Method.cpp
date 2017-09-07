@@ -27,17 +27,17 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
 			do {
 				// first element
-				T_Elem *pElemValueIter = pElemValue;
+				T_Elem *pElemValueEach = pElemValue;
 				for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
-					*pElemValueIter = *pElem;
-					pElemValueIter++;
+					*pElemValueEach = *pElem;
+					pElemValueEach++;
 				}
 			} while (0);
 			for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
-				T_Elem *pElemValueIter = pElemValue;
+				T_Elem *pElemValueEach = pElemValue;
 				for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
-					if ((*op)(*pElemValueIter, *pElem)) *pElemValueIter = *pElem;
-					pElemValueIter++;
+					if ((*op)(*pElemValueEach, *pElem)) *pElemValueEach = *pElem;
+					pElemValueEach++;
 				}
 			}
 			pElemValue += pDimAxis->GetStrides();
@@ -49,27 +49,27 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
 			do {
 				// first element
-				T_Elem *pElemValueIter = pElemValue;
+				T_Elem *pElemValueEach = pElemValue;
 				for (size_t iMat = 0; iMat < nMats; iMat++, pElem += dimRow.GetSizeProd()) {
 					const T_Elem *pElemRow = pElem;
 					for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++, pElemRow += dimRow.GetStrides()) {
 						const T_Elem *pElemCol = pElemRow;
 						for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++, pElemCol += dimCol.GetStrides()) {
-							*pElemValueIter = *pElemCol;
-							pElemValueIter++;
+							*pElemValueEach = *pElemCol;
+							pElemValueEach++;
 						}
 					}
 				}
 			} while (0);
 			for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
-				T_Elem *pElemValueIter = pElemValue;
+				T_Elem *pElemValueEach = pElemValue;
 				for (size_t iMat = 0; iMat < nMats; iMat++, pElem += dimRow.GetSizeProd()) {
 					const T_Elem *pElemRow = pElem;
 					for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++, pElemRow += dimRow.GetStrides()) {
 						const T_Elem *pElemCol = pElemRow;
 						for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++, pElemCol += dimCol.GetStrides()) {
-							if ((*op)(*pElemValueIter, *pElemCol)) *pElemValueIter = *pElemCol;
-							pElemValueIter++;
+							if ((*op)(*pElemValueEach, *pElemCol)) *pElemValueEach = *pElemCol;
+							pElemValueEach++;
 						}
 					}
 				}
@@ -95,17 +95,26 @@ Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, size_t axis)
 	T_Elem *pElemValue = reinterpret_cast<T_Elem *>(pMemoryValue->GetPointer());
 	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
 	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
-		for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
-			*(pElemIndex + j) = 0;
-			*(pElemValue + j) = *pElem;
-		}
+		do {
+			UInt32 *pElemIndexEach = pElemIndex;
+			T_Elem *pElemValueEach = pElemValue;
+			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
+				*pElemIndexEach = 0;
+				*pElemValueEach = *pElem;
+				pElemIndexEach++;
+				pElemValueEach++;
+			}
+		} while (0);
 		for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
-			T_Elem *pElemValueIter = pElemValue;
-			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElemValueIter++, pElem++) {
-				if ((*op)(*pElemValueIter, *pElem)) {
-					*(pElemIndex + j) = static_cast<UInt32>(i);
-					*pElemValueIter = *pElem;
+			UInt32 *pElemIndexEach = pElemIndex;
+			T_Elem *pElemValueEach = pElemValue;
+			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
+				if ((*op)(*pElemValueEach, *pElem)) {
+					*pElemIndexEach = static_cast<UInt32>(i);
+					*pElemValueEach = *pElem;
 				}
+				pElemIndexEach++;
+				pElemValueEach++;
 			}
 		}
 		pElemIndex += pDimAxis->GetStrides();
