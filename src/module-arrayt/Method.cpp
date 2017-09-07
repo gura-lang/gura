@@ -13,10 +13,10 @@ typedef Value (*FuncT_Method)(Environment &env, Argument &arg, const Function *p
 //-----------------------------------------------------------------------------
 // **** column-major is not supported yet ****
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
-Array *FindMinMax(const ArrayT<T_Elem> *pArrayT,
-				  Array::Dimensions::const_iterator pDimAxis)
+Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	AutoPtr<ArrayT<T_Elem> > pArrayTValue(
 		ArrayT<T_Elem>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTValue->FillZero();
@@ -40,10 +40,10 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT,
 
 // **** column-major is not supported yet ****
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
-Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT,
-					   Array::Dimensions::const_iterator pDimAxis)
+Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, size_t axis)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	AutoPtr<ArrayT<UInt32> > pArrayTIndex(
 		ArrayT<UInt32>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	AutoPtr<Memory> pMemoryValue(new MemoryHeap(pArrayTIndex->GetElemNum() * sizeof(T_Elem)));
@@ -100,10 +100,10 @@ size_t FindMinMaxIndexFlat(const ArrayT<T_Elem> *pArrayT)
 
 // **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_Elem>
-ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT,
-							  Array::Dimensions::const_iterator pDimAxis, bool meanFlag)
+ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool meanFlag)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
 		ArrayT<T_ElemRtn>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTRtn->FillZero();
@@ -139,11 +139,10 @@ T_ElemRtn CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
 
 // **** column-major is not supported yet ****
 template<typename T_ElemRtn, typename T_Elem>
-ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT,
-							  Array::Dimensions::const_iterator pDimAxis,
-							  bool populationFlag, bool stdFlag)
+ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool populationFlag, bool stdFlag)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
 		ArrayT<T_ElemRtn>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTRtn->FillZero();
@@ -250,10 +249,9 @@ Value FuncTmpl_argmax(Environment &env, Argument &arg, const Function *pFunc, Ar
 				lastIndexFlag? FindMinMaxIndexFlat<T_Elem, CompareLe>(pArrayT) :
 				FindMinMaxIndexFlat<T_Elem, CompareLt>(pArrayT));
 		} else {
-			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 			AutoPtr<Array> pArrayRtn(
-				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareLe>(pArrayT, pDimAxis) :
-				FindMinMaxIndex<T_Elem, CompareLt>(pArrayT, pDimAxis));
+				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareLe>(pArrayT, axis) :
+				FindMinMaxIndex<T_Elem, CompareLt>(pArrayT, axis));
 			if (pArrayRtn.IsNull()) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayRtn.release()));
 		}
@@ -317,10 +315,9 @@ Value FuncTmpl_argmin(Environment &env, Argument &arg, const Function *pFunc, Ar
 				lastIndexFlag? FindMinMaxIndexFlat<T_Elem, CompareGe>(pArrayT) :
 				FindMinMaxIndexFlat<T_Elem, CompareGt>(pArrayT));
 		} else {
-			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 			AutoPtr<Array> pArrayRtn(
-				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareGe>(pArrayT, pDimAxis) :
-				FindMinMaxIndex<T_Elem, CompareGt>(pArrayT, pDimAxis));
+				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareGe>(pArrayT, axis) :
+				FindMinMaxIndex<T_Elem, CompareGt>(pArrayT, axis));
 			if (pArrayRtn.IsNull()) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayRtn.release()));
 		}
@@ -797,11 +794,10 @@ Value FuncTmpl_max(Environment &env, Argument &arg, const Function *pFunc, Array
 				lastIndexFlag? Value(FindMinMaxIndexFlat<T_Elem, CompareLe>(pArrayT)) :
 				Value(FindMinMaxFlat<T_Elem, CompareLt>(pArrayT));
 		} else {
-			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 			AutoPtr<Array> pArrayRtn(
-				indexFlag? FindMinMaxIndex<T_Elem, CompareLt>(pArrayT, pDimAxis) :
-				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareLe>(pArrayT, pDimAxis) :
-				FindMinMax<T_Elem, CompareLt>(pArrayT, pDimAxis));
+				indexFlag? FindMinMaxIndex<T_Elem, CompareLt>(pArrayT, axis) :
+				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareLe>(pArrayT, axis) :
+				FindMinMax<T_Elem, CompareLt>(pArrayT, axis));
 			if (pArrayRtn.IsNull()) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayRtn.release()));
 		}
@@ -863,8 +859,7 @@ Value FuncTmpl_mean(Environment &env, Argument &arg, const Function *pFunc, Arra
 		} else if (axis == 0 && dims.size() == 1) {
 			valueRtn = Value(CalcSumFlat<T_ElemRtn, T_Elem>(pArrayT, true));
 		} else {
-			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcSum<T_ElemRtn, T_Elem>(pArrayT, pDimAxis, true));
+			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcSum<T_ElemRtn, T_Elem>(pArrayT, axis, true));
 			if (pArrayTRtn.IsNull()) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
 		}
@@ -929,11 +924,10 @@ Value FuncTmpl_min(Environment &env, Argument &arg, const Function *pFunc, Array
 				lastIndexFlag? Value(FindMinMaxIndexFlat<T_Elem, CompareGe>(pArrayT)) :
 				Value(FindMinMaxFlat<T_Elem, CompareGt>(pArrayT));
 		} else {
-			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 			AutoPtr<Array> pArrayRtn(
-				indexFlag? FindMinMaxIndex<T_Elem, CompareGt>(pArrayT, pDimAxis) :
-				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareGe>(pArrayT, pDimAxis) :
-				FindMinMax<T_Elem, CompareGt>(pArrayT, pDimAxis));
+				indexFlag? FindMinMaxIndex<T_Elem, CompareGt>(pArrayT, axis) :
+				lastIndexFlag? FindMinMaxIndex<T_Elem, CompareGe>(pArrayT, axis) :
+				FindMinMax<T_Elem, CompareGt>(pArrayT, axis));
 			if (pArrayRtn.IsNull()) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayRtn.release()));
 
@@ -1144,8 +1138,7 @@ Value FuncTmpl_std(Environment &env, Argument &arg, const Function *pFunc, Array
 		} else if (axis == 0 && dims.size() == 1) {
 			valueRtn = Value(CalcVarFlat<T_ElemRtn, T_Elem>(pArrayT, populationFlag, true));
 		} else {
-			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcVar<T_ElemRtn, T_Elem>(pArrayT, pDimAxis, populationFlag, true));
+			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcVar<T_ElemRtn, T_Elem>(pArrayT, axis, populationFlag, true));
 			if (pArrayTRtn.IsNull()) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
 		}
@@ -1202,8 +1195,7 @@ Value FuncTmpl_sum(Environment &env, Argument &arg, const Function *pFunc, Array
 		} else if (axis == 0 && dims.size() == 1) {
 			valueRtn = Value(CalcSumFlat<T_ElemRtn, T_Elem>(pArrayT, false));
 		} else {
-			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcSum<T_ElemRtn, T_Elem>(pArrayT, pDimAxis, false));
+			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcSum<T_ElemRtn, T_Elem>(pArrayT, axis, false));
 			if (pArrayTRtn.IsNull()) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
 		}
@@ -1365,8 +1357,7 @@ Value FuncTmpl_var(Environment &env, Argument &arg, const Function *pFunc, Array
 		} else if (axis == 0 && dims.size() == 1) {
 			valueRtn = Value(CalcVarFlat<T_ElemRtn, T_Elem>(pArrayT, populationFlag, false));
 		} else {
-			Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcVar<T_ElemRtn, T_Elem>(pArrayT, pDimAxis, populationFlag, false));
+			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcVar<T_ElemRtn, T_Elem>(pArrayT, axis, populationFlag, false));
 			if (pArrayTRtn.IsNull()) return Value::Nil;
 			valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
 		}
