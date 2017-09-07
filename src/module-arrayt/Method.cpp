@@ -94,31 +94,76 @@ Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, size_t axis)
 	UInt32 *pElemIndex = pArrayTIndex->GetPointer();
 	T_Elem *pElemValue = reinterpret_cast<T_Elem *>(pMemoryValue->GetPointer());
 	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
-	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
-		do {
-			UInt32 *pElemIndexEach = pElemIndex;
-			T_Elem *pElemValueEach = pElemValue;
-			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
-				*pElemIndexEach = 0;
-				*pElemValueEach = *pElem;
-				pElemIndexEach++;
-				pElemValueEach++;
-			}
-		} while (0);
-		for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
-			UInt32 *pElemIndexEach = pElemIndex;
-			T_Elem *pElemValueEach = pElemValue;
-			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
-				if ((*op)(*pElemValueEach, *pElem)) {
-					*pElemIndexEach = static_cast<UInt32>(i);
+	if (pArrayT->IsRowMajor() || axis + 2 >= dims.size()) {
+		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
+			do {
+				UInt32 *pElemIndexEach = pElemIndex;
+				T_Elem *pElemValueEach = pElemValue;
+				for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
+					*pElemIndexEach = 0;
 					*pElemValueEach = *pElem;
+					pElemIndexEach++;
+					pElemValueEach++;
 				}
-				pElemIndexEach++;
-				pElemValueEach++;
+			} while (0);
+			for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
+				UInt32 *pElemIndexEach = pElemIndex;
+				T_Elem *pElemValueEach = pElemValue;
+				for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
+					if ((*op)(*pElemValueEach, *pElem)) {
+						*pElemIndexEach = static_cast<UInt32>(i);
+						*pElemValueEach = *pElem;
+					}
+					pElemIndexEach++;
+					pElemValueEach++;
+				}
 			}
+			pElemIndex += pDimAxis->GetStrides();
+			pElemValue += pDimAxis->GetStrides();
 		}
-		pElemIndex += pDimAxis->GetStrides();
-		pElemValue += pDimAxis->GetStrides();
+	} else { // pArrayT->IsColMajor() && axis + 2 < dim.size()
+		const Array::Dimension &dimRow = dims.GetRow();
+		const Array::Dimension &dimCol = dims.GetCol();
+		size_t nMats = pDimAxis->GetStrides() / dimRow.GetSizeProd();
+		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
+			do {
+				// first element
+				UInt32 *pElemIndexEach = pElemIndex;
+				T_Elem *pElemValueEach = pElemValue;
+				for (size_t iMat = 0; iMat < nMats; iMat++, pElem += dimRow.GetSizeProd()) {
+					const T_Elem *pElemRow = pElem;
+					for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++, pElemRow += dimRow.GetStrides()) {
+						const T_Elem *pElemCol = pElemRow;
+						for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++, pElemCol += dimCol.GetStrides()) {
+							*pElemIndexEach = 0;
+							*pElemValueEach = *pElemCol;
+							pElemIndexEach++;
+							pElemValueEach++;
+						}
+					}
+				}
+			} while (0);
+			for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
+				UInt32 *pElemIndexEach = pElemIndex;
+				T_Elem *pElemValueEach = pElemValue;
+				for (size_t iMat = 0; iMat < nMats; iMat++, pElem += dimRow.GetSizeProd()) {
+					const T_Elem *pElemRow = pElem;
+					for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++, pElemRow += dimRow.GetStrides()) {
+						const T_Elem *pElemCol = pElemRow;
+						for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++, pElemCol += dimCol.GetStrides()) {
+							if ((*op)(*pElemValueEach, *pElemCol)) {
+								*pElemIndexEach = static_cast<UInt32>(i);
+								*pElemValueEach = *pElemCol;
+							}
+							pElemIndexEach++;
+							pElemValueEach++;
+						}
+					}
+				}
+			}
+			pElemIndex += pDimAxis->GetStrides();
+			pElemValue += pDimAxis->GetStrides();
+		}
 	}
 	return pArrayTIndex.release();
 }
