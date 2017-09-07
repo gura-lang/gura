@@ -209,10 +209,10 @@ ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool mean
 	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
 	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
 		for (size_t j = 0; j < pDimAxis->GetStrides(); j++) {
-			const T_Elem *pElem = pElemTop + offset + j;
+			const T_Elem *pElemEach = pElemTop + offset + j;
 			T_ElemRtn numAccum = 0;
-			for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElem += pDimAxis->GetStrides()) {
-				numAccum += *pElem;
+			for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
+				numAccum += *pElemEach;
 			}
 			*pElemRtn++ = meanFlag? numAccum / numDenom : numAccum;
 		}
@@ -252,17 +252,17 @@ ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool popu
 			const T_Elem *pElemHead = pElemTop + offset + j;
 			T_ElemRtn numMean = 0;
 			do {
-				const T_Elem *pElem = pElemHead;
-				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElem += pDimAxis->GetStrides()) {
-					numMean += *pElem;
+				const T_Elem *pElemEach = pElemHead;
+				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
+					numMean += *pElemEach;
 				}
 				numMean /= numDenom;
 			} while (0);
 			T_ElemRtn numAccum = 0;
 			do {
-				const T_Elem *pElem = pElemHead;
-				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElem += pDimAxis->GetStrides()) {
-					T_ElemRtn tmp = *pElem - numMean;
+				const T_Elem *pElemEach = pElemHead;
+				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
+					T_ElemRtn tmp = *pElemEach - numMean;
 					numAccum += tmp * tmp;
 				}
 				numAccum /= numDenomVar;
