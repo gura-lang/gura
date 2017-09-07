@@ -249,25 +249,21 @@ ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool popu
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
 	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
-		for (size_t j = 0; j < pDimAxis->GetStrides(); j++) {
-			const T_Elem *pElemHead = pElemTop + offset + j;
+		const T_Elem *pElemBlock = pElemTop + offset;
+		for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElemBlock++) {
 			T_ElemRtn numMean = 0;
-			do {
-				const T_Elem *pElemEach = pElemHead;
-				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
-					numMean += *pElemEach;
-				}
-				numMean /= numDenom;
-			} while (0);
+			const T_Elem *pElemEach = pElemBlock;
+			for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
+				numMean += *pElemEach;
+			}
+			numMean /= numDenom;
 			T_ElemRtn numAccum = 0;
-			do {
-				const T_Elem *pElemEach = pElemHead;
-				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
-					T_ElemRtn tmp = *pElemEach - numMean;
-					numAccum += tmp * tmp;
-				}
-				numAccum /= numDenomVar;
-			} while (0);
+			pElemEach = pElemBlock;
+			for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
+				T_ElemRtn tmp = *pElemEach - numMean;
+				numAccum += tmp * tmp;
+			}
+			numAccum /= numDenomVar;
 			if (stdFlag) Operator_Math_sqrt::Calc(numAccum, numAccum);
 			*pElemRtn++ = numAccum;
 		}
