@@ -22,7 +22,8 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT,
 	pArrayTValue->FillZero();
 	const T_Elem *pElem = pArrayT->GetPointer();
 	T_Elem *pElemValue = pArrayTValue->GetPointer();
-	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += pDimAxis->GetSizeProd()) {
+	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
+	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
 		for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
 			*(pElemValue + j) = *pElem;
 		}
@@ -50,7 +51,8 @@ Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT,
 	const T_Elem *pElem = pArrayT->GetPointer();
 	UInt32 *pElemIndex = pArrayTIndex->GetPointer();
 	T_Elem *pElemValue = reinterpret_cast<T_Elem *>(pMemoryValue->GetPointer());
-	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += pDimAxis->GetSizeProd()) {
+	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
+	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
 		for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
 			*(pElemIndex + j) = 0;
 			*(pElemValue + j) = *pElem;
@@ -108,7 +110,8 @@ ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT,
 	Double numDenom = static_cast<Double>(pDimAxis->GetSize());
 	const T_Elem *pElemTop = pArrayT->GetPointer();
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += pDimAxis->GetSizeProd()) {
+	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
+	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
 		for (size_t j = 0; j < pDimAxis->GetStrides(); j++) {
 			const T_Elem *pElem = pElemTop + offset + j;
 			T_ElemRtn numAccum = 0;
@@ -148,7 +151,8 @@ ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT,
 	Double numDenomVar = (numDenom <= 1)? 1 : populationFlag? numDenom : numDenom - 1;
 	const T_Elem *pElemTop = pArrayT->GetPointer();
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += pDimAxis->GetSizeProd()) {
+	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
+	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
 		for (size_t j = 0; j < pDimAxis->GetStrides(); j++) {
 			const T_Elem *pElemHead = pElemTop + offset + j;
 			T_ElemRtn numMean = 0;
