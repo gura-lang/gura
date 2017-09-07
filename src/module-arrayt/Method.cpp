@@ -275,12 +275,14 @@ ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool popu
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
 			const T_Elem *pElemBlock = pElemTop + offset;
 			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElemBlock++) {
+				// calculates a mean value numMean
 				T_ElemRtn numMean = 0;
 				const T_Elem *pElemEach = pElemBlock;
 				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
 					numMean += *pElemEach;
 				}
 				numMean /= numDenom;
+				// accumulates values of ((*pElemEach - numMean) ** 2)
 				T_ElemRtn numAccum = 0;
 				pElemEach = pElemBlock;
 				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
@@ -303,12 +305,14 @@ ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool popu
 				for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++, pElemRow += dimRow.GetStrides()) {
 					const T_Elem *pElemCol = pElemRow;
 					for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++, pElemCol += dimCol.GetStrides()) {
+						// calculates a mean value numMean
 						T_ElemRtn numMean = 0;
 						const T_Elem *pElemEach = pElemCol;
 						for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
 							numMean += *pElemEach;
 						}
 						numMean /= numDenom;
+						// accumulates values of ((*pElemEach - numMean) ** 2)
 						T_ElemRtn numAccum = 0;
 						pElemEach = pElemCol;
 						for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
