@@ -22,31 +22,17 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT,
 	pArrayTValue->FillZero();
 	const T_Elem *pElem = pArrayT->GetPointer();
 	T_Elem *pElemValue = pArrayTValue->GetPointer();
-	if (pDimAxis + 1 == dims.end()) {
-		size_t cnt = pArrayT->GetElemNum() / pDimAxis->GetSize();
-		while (cnt-- > 0) {
-			*pElemValue = *pElem;
-			pElem += pDimAxis->GetStrides();
-			for (size_t i = 1; i < pDimAxis->GetSize(); i++, pElem += pDimAxis->GetStrides()) {
-				if ((*op)(*pElemValue, *pElem)) *pElemValue = *pElem;
-			}
-			pElemValue++;
+	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += pDimAxis->GetSizeProd()) {
+		for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
+			*(pElemValue + j) = *pElem;
 		}
-	} else {
-		size_t strides = pDimAxis->GetStrides();
-		size_t cnt = pArrayT->GetElemNum() / (pDimAxis->GetSize() * strides);
-		while (cnt-- > 0) {
-			for (size_t j = 0; j < strides; j++, pElem++) {
-				*(pElemValue + j) = *pElem;
+		for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
+			T_Elem *pElemValueIter = pElemValue;
+			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElemValueIter++, pElem++) {
+				if ((*op)(*pElemValueIter, *pElem)) *pElemValueIter = *pElem;
 			}
-			for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
-				T_Elem *pElemValueWk = pElemValue;
-				for (size_t j = 0; j < strides; j++, pElemValueWk++, pElem++) {
-					if ((*op)(*pElemValueWk, *pElem)) *pElemValueWk = *pElem;
-				}
-			}
-			pElemValue += strides;
 		}
+		pElemValue += pDimAxis->GetStrides();
 	}
 	return pArrayTValue.release();
 }
@@ -64,41 +50,22 @@ Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT,
 	const T_Elem *pElem = pArrayT->GetPointer();
 	UInt32 *pElemIndex = pArrayTIndex->GetPointer();
 	T_Elem *pElemValue = reinterpret_cast<T_Elem *>(pMemoryValue->GetPointer());
-	if (pDimAxis + 1 == dims.end()) {
-		size_t cnt = pArrayT->GetElemNum() / pDimAxis->GetSize();
-		while (cnt-- > 0) {
-			*pElemIndex = 0;
-			*pElemValue = *pElem;
-			pElem++;
-			for (size_t i = 1; i < pDimAxis->GetSize(); i++, pElem++) {
-				if ((*op)(*pElemValue, *pElem)) {
-					*pElemIndex = static_cast<UInt32>(i);
-					*pElemValue = *pElem;
+	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += pDimAxis->GetSizeProd()) {
+		for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
+			*(pElemIndex + j) = 0;
+			*(pElemValue + j) = *pElem;
+		}
+		for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
+			T_Elem *pElemValueIter = pElemValue;
+			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElemValueIter++, pElem++) {
+				if ((*op)(*pElemValueIter, *pElem)) {
+					*(pElemIndex + j) = static_cast<UInt32>(i);
+					*pElemValueIter = *pElem;
 				}
 			}
-			pElemIndex++;
-			pElemValue++;
 		}
-	} else {
-		size_t strides = pDimAxis->GetStrides();
-		size_t cnt = pArrayT->GetElemNum() / (pDimAxis->GetSize() * strides);
-		while (cnt-- > 0) {
-			for (size_t j = 0; j < strides; j++, pElem++) {
-				*(pElemIndex + j) = 0;
-				*(pElemValue + j) = *pElem;
-			}
-			for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
-				T_Elem *pElemValueWk = pElemValue;
-				for (size_t j = 0; j < strides; j++, pElemValueWk++, pElem++) {
-					if ((*op)(*pElemValueWk, *pElem)) {
-						*(pElemIndex + j) = static_cast<UInt32>(i);
-						*pElemValueWk = *pElem;
-					}
-				}
-			}
-			pElemIndex += strides;
-			pElemValue += strides;
-		}
+		pElemIndex += pDimAxis->GetStrides();
+		pElemValue += pDimAxis->GetStrides();
 	}
 	return pArrayTIndex.release();
 }
