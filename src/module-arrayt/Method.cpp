@@ -11,7 +11,7 @@ typedef Value (*FuncT_Method)(Environment &env, Argument &arg, const Function *p
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-// **** column-major is not supported yet ****
+// column-major OK
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 {
@@ -80,7 +80,7 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 	return pArrayTValue.release();
 }
 
-// **** column-major is not supported yet ****
+// column-major OK
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, size_t axis)
 {
