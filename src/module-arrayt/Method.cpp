@@ -194,7 +194,7 @@ size_t FindMinMaxIndexFlat(const ArrayT<T_Elem> *pArrayT)
 	return index;
 }
 
-// **** column-major is not supported yet ****
+// column-major OK
 template<typename T_ElemRtn, typename T_Elem>
 ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool meanFlag)
 {
@@ -207,15 +207,38 @@ ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool mean
 	const T_Elem *pElemTop = pArrayT->GetPointer();
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
-	for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
-		const T_Elem *pElemBlock = pElemTop + offset;
-		for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElemBlock++) {
-			T_ElemRtn numAccum = 0;
-			const T_Elem *pElemEach = pElemBlock;
-			for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
-				numAccum += *pElemEach;
+	if (pArrayT->IsRowMajor() || axis + 2 >= dims.size()) {
+		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
+			const T_Elem *pElemBlock = pElemTop + offset;
+			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElemBlock++) {
+				T_ElemRtn numAccum = 0;
+				const T_Elem *pElemEach = pElemBlock;
+				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
+					numAccum += *pElemEach;
+				}
+				*pElemRtn++ = meanFlag? numAccum / numDenom : numAccum;
 			}
-			*pElemRtn++ = meanFlag? numAccum / numDenom : numAccum;
+		}
+	} else { // pArrayT->IsColMajor() && axis + 2 < dim.size()
+		const Array::Dimension &dimRow = dims.GetRow();
+		const Array::Dimension &dimCol = dims.GetCol();
+		size_t nMats = pDimAxis->GetStrides() / dimRow.GetSizeProd();
+		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
+			const T_Elem *pElemMat = pElemTop + offset;
+			for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
+				const T_Elem *pElemRow = pElemMat;
+				for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++, pElemRow += dimRow.GetStrides()) {
+					const T_Elem *pElemCol = pElemRow;
+					for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++, pElemCol += dimCol.GetStrides()) {
+						T_ElemRtn numAccum = 0;
+						const T_Elem *pElemEach = pElemCol;
+						for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
+							numAccum += *pElemEach;
+						}
+						*pElemRtn++ = meanFlag? numAccum / numDenom : numAccum;
+					}
+				}
+			}
 		}
 	}
 	return pArrayTRtn.release();
