@@ -909,8 +909,8 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 		DotFuncTmpl_1d_1d(pElemRtn, pElemL, pElemR, dimL.GetSize());
 	} else if (dimsL.size() == 1 && dimsR.size() >= 2) {
-		const Array::Dimension &dimColL = dimsL.GetCol();
 		const Array::Dimension &dimRowR = dimsR.GetRow();
+		const Array::Dimension &dimColL = dimsL.GetCol();
 		const Array::Dimension &dimColR = dimsR.GetCol();
 		if (dimColL.GetSize() != dimRowR.GetSize()) {
 			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
