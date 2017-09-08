@@ -575,10 +575,10 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::RoundOff(double threshold) const
 {
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT> pArrayRtn(ArrayT::Create(colMajorFlag, GetDimensions()));
-	T_Elem *pElemDst = pArrayRtn->GetPointer();
-	const T_Elem *pElemSrc = GetPointer();
-	for (size_t i = 0; i < GetElemNum(); i++, pElemSrc++, pElemDst++) {
-		*pElemDst = (*pElemSrc > threshold)? *pElemSrc : 0;
+	const T_Elem *pElem = GetPointer();
+	T_Elem *pElemRtn = pArrayRtn->GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+		*pElemRtn++ = (*pElem > threshold)? *pElem : 0;
 	}
 	return pArrayRtn.release();
 }
@@ -587,13 +587,13 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::RoundOff(double threshold) const
 template<>
 ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
 {
+	double threshold2 = threshold * threshold;
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT> pArrayRtn(ArrayT::Create(colMajorFlag, GetDimensions()));
-	Complex *pElemDst = pArrayRtn->GetPointer();
-	const Complex *pElemSrc = GetPointer();
-	double threshold2 = threshold * threshold;
-	for (size_t i = 0; i < GetElemNum(); i++, pElemSrc++, pElemDst++) {
-		*pElemDst = (std::norm(*pElemSrc) > threshold2)? *pElemSrc : 0;
+	const Complex *pElem = GetPointer();
+	Complex *pElemRtn = pArrayRtn->GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+		*pElemRtn++ = (std::norm(*pElem) > threshold2)? *pElem : 0;
 	}
 	return pArrayRtn.release();
 }
