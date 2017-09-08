@@ -381,7 +381,6 @@ void CopyToList_Sub(Object_list *pObjList, const T_Elem *pElem,
 	}
 }
 
-// column-major OK
 template<typename T_Elem>
 void ArrayT<T_Elem>::CopyToList(Object_list *pObjList) const
 {
@@ -398,7 +397,6 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Flatten() const
 	return pArrayRtn.release();
 }
 
-// column-major OK
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Reshape(Signal &sig, const ValueList &valList) const
 {
@@ -433,7 +431,6 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Reshape(Signal &sig, const ValueList &valList) c
 	return pArrayTRtn.release();
 }
 
-// column-major OK
 template<typename T_Elem>
 void TransposeSub(T_Elem *&pElemDst, const T_Elem *pElemSrc, const Array::Dimensions &dimsSrc,
 				  SizeTList::const_iterator pAxis, SizeTList::const_iterator pAxisEnd)
@@ -569,31 +566,68 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
 	return pArrayTRtn.release();
 }
 
-// *** column-major not supported ***
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::RoundOff(double threshold) const
 {
+	const Array::Dimensions &dims = GetDimensions();
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT> pArrayRtn(ArrayT::Create(colMajorFlag, GetDimensions()));
 	const T_Elem *pElem = GetPointer();
 	T_Elem *pElemRtn = pArrayRtn->GetPointer();
-	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
-		*pElemRtn++ = (*pElem > threshold)? *pElem : 0;
+	if (IsRowMajor() || dims.size() < 2) {
+		for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+			*pElemRtn++ = (*pElem < threshold)? 0 : *pElem;
+		}
+	} else {
+		const Array::Dimension &dimRow = dims.GetRow();
+		const Array::Dimension &dimCol = dims.GetCol();
+		size_t nMats = GetElemNum() / dimRow.GetSizeProd();
+		const T_Elem *pElemMat = pElem;
+		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
+			const T_Elem *pElemRow = pElemMat;
+			for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
+					 pElemRow += dimRow.GetStrides()) {
+				const T_Elem *pElemCol = pElemRow;
+				for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
+						 pElemCol += dimCol.GetStrides()) {
+					*pElemRtn++ = (*pElemCol < threshold)? 0 : *pElemCol;
+				}
+			}
+		}
 	}
 	return pArrayRtn.release();
 }
 
-// *** column-major not supported ***
 template<>
 ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
 {
+	typedef Complex T_Elem;
+	const Array::Dimensions &dims = GetDimensions();
 	double threshold2 = threshold * threshold;
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT> pArrayRtn(ArrayT::Create(colMajorFlag, GetDimensions()));
-	const Complex *pElem = GetPointer();
-	Complex *pElemRtn = pArrayRtn->GetPointer();
-	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
-		*pElemRtn++ = (std::norm(*pElem) > threshold2)? *pElem : 0;
+	const T_Elem *pElem = GetPointer();
+	T_Elem *pElemRtn = pArrayRtn->GetPointer();
+	if (IsRowMajor() || dims.size() < 2) {
+		for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+			*pElemRtn++ = (std::norm(*pElem) < threshold2)? 0 : *pElem;
+		}
+	} else {
+		const Array::Dimension &dimRow = dims.GetRow();
+		const Array::Dimension &dimCol = dims.GetCol();
+		size_t nMats = GetElemNum() / dimRow.GetSizeProd();
+		const T_Elem *pElemMat = pElem;
+		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
+			const T_Elem *pElemRow = pElemMat;
+			for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
+					 pElemRow += dimRow.GetStrides()) {
+				const T_Elem *pElemCol = pElemRow;
+				for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
+						 pElemCol += dimCol.GetStrides()) {
+					*pElemRtn++ = (std::norm(*pElemCol) < threshold2)? 0 : *pElemCol;
+				}
+			}
+		}
 	}
 	return pArrayRtn.release();
 }

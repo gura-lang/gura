@@ -1422,3 +1422,14 @@ testcase('operation on transposed array: head, tail, offset') {
 	tester(`xt.offset(3))
 	tester(`xT.offset(3))
 }
+testcase('array#roundoff()') {
+	randseed(0)
+	x = (array@double.rands([3, 4, 5], 100) + 1) / 5000
+	xt = x.transpose([0, 2, 1])
+	xT = x.T
+	tester(`x)
+	tester(`x.roundoff(.01))
+	tester(`xt)
+	tester(`xt.roundoff(.01))
+	tester(`xT.roundoff(.01))
+}
