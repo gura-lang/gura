@@ -61,9 +61,6 @@ public:
 	ArrayT *Offset(Signal &sig, size_t n) const;
 	ArrayT *RoundOff(double threshold) const;
 	// functions to create an ArrayT instance
-	static ArrayT *Create(bool colMajorFlag, size_t size);
-	static ArrayT *Create(bool colMajorFlag, size_t sizeRow, size_t sizeCol);
-	static ArrayT *Create(bool colMajorFlag, size_t sizePlane, size_t sizeRow, size_t sizeCol);
 	static ArrayT *Create(bool colMajorFlag, const Dimensions &dims);
 	static ArrayT *Create(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
 	static ArrayT *Create(bool colMajorFlag, size_t size,
@@ -76,6 +73,9 @@ public:
 						  size_t sizePlane, size_t sizeRow, size_t sizeCol);
 	static ArrayT *Create(bool colMajorFlag, Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
 						  Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
+	static ArrayT *Create1d(bool colMajorFlag, size_t size);
+	static ArrayT *Create2d(bool colMajorFlag, size_t sizeRow, size_t sizeCol);
+	static ArrayT *Create3d(bool colMajorFlag, size_t sizePlane, size_t sizeRow, size_t sizeCol);
 	static ArrayT *CreateScalar(const T_Elem &num);
 	static ArrayT *CreateFromValue(Environment &env, bool colMajorFlag, const Value &value);
 	static ArrayT *CreateFromList(bool colMajorFlag, const ValueList &valList);

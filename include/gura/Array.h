@@ -236,7 +236,6 @@ public:
 public:
 	inline ElemType GetElemType() const { return _elemType; }
 	inline bool IsElemType(ElemType elemType) const { return _elemType == elemType; }
-	//inline void SetColMajorFlag(bool colMajorFlag) { _colMajorFlag = colMajorFlag; }
 	inline bool GetColMajorFlag() const { return _colMajorFlag; }
 	inline bool IsColMajor() const { return _colMajorFlag; }
 	inline bool IsRowMajor() const { return !_colMajorFlag; }

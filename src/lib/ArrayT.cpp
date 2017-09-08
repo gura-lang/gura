@@ -601,33 +601,6 @@ ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
 
 /// functions to create an ArrayT instance
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag, size_t size)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
-	pArrayT->SetDimension(size);
-	pArrayT->AllocMemory();
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag, size_t sizeRow, size_t sizeCol)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
-	pArrayT->SetDimensions(sizeRow, sizeCol);
-	pArrayT->AllocMemory();
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag, size_t sizePlane, size_t sizeRow, size_t sizeCol)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
-	pArrayT->SetDimensions(sizePlane, sizeRow, sizeCol);
-	pArrayT->AllocMemory();
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag, const Array::Dimensions &dims)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
@@ -700,6 +673,33 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag,
 }
 
 template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create1d(bool colMajorFlag, size_t size)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
+	pArrayT->SetDimension(size);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create2d(bool colMajorFlag, size_t sizeRow, size_t sizeCol)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
+	pArrayT->SetDimensions(sizeRow, sizeCol);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create3d(bool colMajorFlag, size_t sizePlane, size_t sizeRow, size_t sizeCol)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
+	pArrayT->SetDimensions(sizePlane, sizeRow, sizeCol);
+	pArrayT->AllocMemory();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScalar(const T_Elem &num)
 {
 	bool colMajorFlag = false;
@@ -735,7 +735,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromValue(Environment &env, bool colMajorF
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(bool colMajorFlag, const ValueList &valList)
 {
-	AutoPtr<ArrayT> pArrayT(ArrayT::Create(colMajorFlag, valList.size()));
+	AutoPtr<ArrayT> pArrayT(ArrayT::Create1d(colMajorFlag, valList.size()));
 	T_Elem *pElem = pArrayT->GetPointer();
 	foreach_const (ValueList, pValue, valList) {
 		*pElem++ = static_cast<T_Elem>(pValue->GetNumber());
@@ -789,7 +789,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, bool colMaj
 {
 	size_t len = pIterator->GetLengthEx(env);
 	if (env.IsSignalled()) return nullptr;
-	AutoPtr<ArrayT> pArrayT(ArrayT::Create(colMajorFlag, len));
+	AutoPtr<ArrayT> pArrayT(ArrayT::Create1d(colMajorFlag, len));
 	AutoPtr<Iterator> pIteratorWork(pIterator->Clone());
 	T_Elem *pElem = pArrayT->GetPointer();
 	Value value;

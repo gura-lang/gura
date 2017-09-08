@@ -963,7 +963,7 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 			return nullptr;
 		}
 		pArrayTRtn.reset((pArrayRtn == nullptr)?
-						 ArrayT<T_ElemRtn>::Create(colMajorFlag, dimRowL.GetSize(), dimColR.GetSize()) :
+						 ArrayT<T_ElemRtn>::Create2d(colMajorFlag, dimRowL.GetSize(), dimColR.GetSize()) :
 						 dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
 		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 		DotFuncTmpl_2d_2d(pElemRtn, pElemL, dimRowL, dimColL, pElemR, dimRowR, dimColR);
@@ -1529,7 +1529,7 @@ Array *FilterFuncTmpl_MaxPool1d(Signal &sig, Array *pArrayRtn, const Array *pArr
 		size_t sizeOut = 0, sizePadHead = 0, sizePadTail = 0;
 		Filter::CalcPadding(sizeIn, sizeFilter, strides, paddingType, &sizeOut, &sizePadHead, &sizePadTail);
 		if (nDims < 2) {
-			pArrayTRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, sizeOut));
+			pArrayTRtn.reset(ArrayT<T_Elem>::Create1d(colMajorFlag, sizeOut));
 		} else {
 			pArrayTRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims.begin(), dims.begin() + nDims - 1, sizeOut));
 		}

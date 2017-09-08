@@ -774,7 +774,7 @@ bool ValueListToRectangle(Signal &sig, cairo_rectangle_int_t &rectangle, const V
 
 ArrayT<Double> *CairoToArray(const cairo_matrix_t &matrix)
 {
-	AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::Create(3, 3));
+	AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::Create2d(false, 3, 3));
 	Double *pElem = pArrayT->GetPointer();
 	*pElem++ = matrix.xx;	*pElem++ = matrix.xy;	*pElem++ = matrix.x0;
 	*pElem++ = matrix.yx;	*pElem++ = matrix.yy;	*pElem++ = matrix.y0;
