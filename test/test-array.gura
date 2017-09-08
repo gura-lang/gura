@@ -1422,7 +1422,7 @@ testcase('operation on transposed array: head, tail, offset') {
 	tester(`xt.offset(3))
 	tester(`xT.offset(3))
 }
-testcase('array#roundoff()') {
+testcase('operation on transposed array: roundoff') {
 	randseed(0)
 	x = (array@double.rands([3, 4, 5], 100) + 1) / 5000
 	xt = x.transpose([0, 2, 1])
@@ -1432,4 +1432,20 @@ testcase('array#roundoff()') {
 	tester(`xt)
 	tester(`xt.roundoff(.01))
 	tester(`xT.roundoff(.01))
+}
+testcase('operation on transposed array: flatten') {
+	array@int32.range(3 * 4).reshape([3, 4]) {|x|
+		xt = x.transpose([1, 0])
+		xT = x.T
+		tester(`xt)
+		tester(`xt.flatten())
+		tester(`xT.flatten())
+	}
+	array@int32.range(5 * 3 * 4).reshape([5, 3, 4]) {|x|
+		xt = x.transpose([0, 2, 1])
+		xT = x.T
+		tester(`xt)
+		tester(`xt.flatten())
+		tester(`xT.flatten())
+	}
 }

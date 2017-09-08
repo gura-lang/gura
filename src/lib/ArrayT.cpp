@@ -394,8 +394,33 @@ void ArrayT<T_Elem>::CopyToList(Object_list *pObjList) const
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Flatten() const
 {
-	AutoPtr<ArrayT> pArrayRtn(new ArrayT(GetColMajorFlag(), GetMemory().Reference(), GetOffsetBase()));
-	pArrayRtn->SetDimension(GetElemNum());
+	bool colMajorFlag = false;
+	const Array::Dimensions &dims = GetDimensions();
+	AutoPtr<ArrayT> pArrayRtn;
+	if (IsRowMajor() || dims.size() < 2) {
+		pArrayRtn.reset(new ArrayT(colMajorFlag, GetMemory().Reference(), GetOffsetBase()));
+		pArrayRtn->SetDimension(GetElemNum());
+	} else {
+		bool colMajorFlag = false;
+		pArrayRtn.reset(ArrayT::Create1d(colMajorFlag, GetElemNum()));
+		const T_Elem *pElem = GetPointer();
+		T_Elem *pElemRtn = pArrayRtn->GetPointer();
+		const Array::Dimension &dimRow = dims.GetRow();
+		const Array::Dimension &dimCol = dims.GetCol();
+		size_t nMats = GetElemNum() / dimRow.GetSizeProd();
+		const T_Elem *pElemMat = pElem;
+		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
+			const T_Elem *pElemRow = pElemMat;
+			for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
+					 pElemRow += dimRow.GetStrides()) {
+				const T_Elem *pElemCol = pElemRow;
+				for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
+						 pElemCol += dimCol.GetStrides()) {
+					*pElemRtn++ = *pElemCol;
+				}
+			}
+		}
+	}
 	return pArrayRtn.release();
 }
 
