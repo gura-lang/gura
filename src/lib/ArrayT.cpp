@@ -526,7 +526,6 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose2d() const
 	return pArrayT.release();
 }
 
-// *** column-major not supported ***
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Head(Signal &sig, size_t n) const
 {
@@ -541,7 +540,6 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Head(Signal &sig, size_t n) const
 	return pArrayTRtn.release();
 }
 
-// *** column-major not supported ***
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Tail(Signal &sig, size_t n) const
 {
@@ -556,7 +554,6 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Tail(Signal &sig, size_t n) const
 	return pArrayTRtn.release();
 }
 
-// *** column-major not supported ***
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
 {
@@ -572,6 +569,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
 	return pArrayTRtn.release();
 }
 
+// *** column-major not supported ***
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::RoundOff(double threshold) const
 {
@@ -585,6 +583,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::RoundOff(double threshold) const
 	return pArrayRtn.release();
 }
 
+// *** column-major not supported ***
 template<>
 ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
 {
