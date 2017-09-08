@@ -15,10 +15,11 @@ typedef Value (*FuncT_Method)(Environment &env, Argument &arg, const Function *p
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 {
+	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	AutoPtr<ArrayT<T_Elem> > pArrayTValue(
-		ArrayT<T_Elem>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
+		ArrayT<T_Elem>::Create(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTValue->FillZero();
 	const T_Elem *pElem = pArrayT->GetPointer();
 	T_Elem *pElemValue = pArrayTValue->GetPointer();
@@ -84,10 +85,11 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, size_t axis)
 {
+	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	AutoPtr<ArrayT<UInt32> > pArrayTIndex(
-		ArrayT<UInt32>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
+		ArrayT<UInt32>::Create(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	AutoPtr<Memory> pMemoryValue(new MemoryHeap(pArrayTIndex->GetElemNum() * sizeof(T_Elem)));
 	pArrayTIndex->FillZero();
 	const T_Elem *pElem = pArrayT->GetPointer();
@@ -198,10 +200,11 @@ size_t FindMinMaxIndexFlat(const ArrayT<T_Elem> *pArrayT)
 template<typename T_ElemRtn, typename T_Elem>
 ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool meanFlag)
 {
+	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
-		ArrayT<T_ElemRtn>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
+		ArrayT<T_ElemRtn>::Create(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTRtn->FillZero();
 	Double numDenom = static_cast<Double>(pDimAxis->GetSize());
 	const T_Elem *pElemTop = pArrayT->GetPointer();
@@ -261,10 +264,11 @@ T_ElemRtn CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
 template<typename T_ElemRtn, typename T_Elem>
 ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool populationFlag, bool stdFlag)
 {
+	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
-		ArrayT<T_ElemRtn>::Create(dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
+		ArrayT<T_ElemRtn>::Create(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
 	pArrayTRtn->FillZero();
 	Double numDenom = static_cast<Double>(pDimAxis->GetSize());
 	Double numDenomVar = (numDenom <= 1)? 1 : populationFlag? numDenom : numDenom - 1;
@@ -756,7 +760,8 @@ Gura_ImplementMethod(array, elemcast)
 	if (pArraySelf->GetElemType() == elemType) {
 		value = Value(new Object_array(env, pArraySelf->Clone()));
 	} else {
-		AutoPtr<Array> pArrayDst(Array::Create(elemType, pArraySelf->GetDimensions()));
+		bool colMajorFlag = false;
+		AutoPtr<Array> pArrayDst(Array::Create(elemType, colMajorFlag, pArraySelf->GetDimensions()));
 		if (!Array::CopyElements(env, pArrayDst.get(), pArraySelf)) return Value::Nil;
 		value = Value(new Object_array(env, pArrayDst.release()));
 	}

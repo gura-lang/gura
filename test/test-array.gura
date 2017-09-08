@@ -1411,3 +1411,10 @@ testcase('operation on transposed array: argmax, argmin, max, min, std, sum') {
 	tester(`xt.sum(3))
 	tester(`xT.sum(3))
 }
+testcase('operation on transposed array: head, tail') {
+	x = array@int32.range(5 * 3 * 4).reshape([5, 3, 4])
+	xt = x.transpose([0, 1, 3, 2])
+	xT = x.T
+	tester(`xt.head(3))
+	tester(`xT.head(3))
+}

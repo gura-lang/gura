@@ -3582,7 +3582,7 @@ cbridge.AddTypeConvs {
 	'Uint16[]' => TypeConv(
 			'number', 'Once', ['ListVar'],
 			R'''
-			AutoPtr<ArrayT<Uint16> > _${arg.name}(ArrayT<Uint16>::CreateFromList(arg.GetList(${idx})));
+			AutoPtr<ArrayT<Uint16> > _${arg.name}(ArrayT<Uint16>::CreateFromList(false, arg.GetList(${idx})));
 			ArrayT<Uint16> &${arg.name} = *_${arg.name};
 			'''
 			nil,

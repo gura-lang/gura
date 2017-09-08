@@ -22,9 +22,9 @@ public:
 	static const char *ElemTypeName;
 	static const char *ConstructorName;
 public:
-	ArrayT();
-	ArrayT(const ArrayT &src);
-	ArrayT(Memory *pMemory, size_t offsetBase);
+	inline ArrayT(const ArrayT &src) : Array(src) {}
+	ArrayT(bool colMajorFlag);
+	ArrayT(bool colMajorFlag, Memory *pMemory, size_t offsetBase);
 	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetElemNum()));
 	}
@@ -61,27 +61,27 @@ public:
 	ArrayT *Offset(Signal &sig, size_t n) const;
 	ArrayT *RoundOff(double threshold) const;
 	// functions to create an ArrayT instance
-	static ArrayT *Create(size_t size);
-	static ArrayT *Create(size_t sizeRow, size_t sizeCol);
-	static ArrayT *Create(size_t sizePlane, size_t sizeRow, size_t sizeCol);
-	static ArrayT *Create(const Dimensions &dims);
-	static ArrayT *Create(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
-	static ArrayT *Create(size_t size,
+	static ArrayT *Create(bool colMajorFlag, size_t size);
+	static ArrayT *Create(bool colMajorFlag, size_t sizeRow, size_t sizeCol);
+	static ArrayT *Create(bool colMajorFlag, size_t sizePlane, size_t sizeRow, size_t sizeCol);
+	static ArrayT *Create(bool colMajorFlag, const Dimensions &dims);
+	static ArrayT *Create(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
+	static ArrayT *Create(bool colMajorFlag, size_t size,
 						  Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
-	static ArrayT *Create(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+	static ArrayT *Create(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t size);
-	static ArrayT *Create(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+	static ArrayT *Create(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t sizeRow, size_t sizeCol);
-	static ArrayT *Create(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+	static ArrayT *Create(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t sizePlane, size_t sizeRow, size_t sizeCol);
-	static ArrayT *Create(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
+	static ArrayT *Create(bool colMajorFlag, Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
 						  Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
 	static ArrayT *CreateScalar(const T_Elem &num);
-	static ArrayT *CreateFromValue(Environment &env, const Value &value);
-	static ArrayT *CreateFromList(const ValueList &valList);
-	static ArrayT *CreateFromList(Environment &env, const ValueList &valList);
-	static ArrayT *CreateFromIterator(Environment &env, Iterator *pIterator);
-	static ArrayT *CreateFromExpr(Environment &env, const Expr *pExpr);
+	static ArrayT *CreateFromValue(Environment &env, bool colMajorFlag, const Value &value);
+	static ArrayT *CreateFromList(bool colMajorFlag, const ValueList &valList);
+	static ArrayT *CreateFromList(Environment &env, bool colMajorFlag, const ValueList &valList);
+	static ArrayT *CreateFromIterator(Environment &env, bool colMajorFlag, Iterator *pIterator);
+	static ArrayT *CreateFromExpr(Environment &env, bool colMajorFlag, const Expr *pExpr);
 private:
 	inline ~ArrayT() {}
 };

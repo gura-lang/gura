@@ -221,13 +221,14 @@ protected:
 public:
 	Gura_DeclareReferenceAccessor(Array);
 protected:
-	inline Array(ElemType elemType) : _cntRef(1),
-		_elemType(elemType), _colMajorFlag(false), _offsetBase(0), _elemNum(0) {}
-	inline Array(ElemType elemType, const Array &src) : _cntRef(1),
-		_elemType(elemType), _colMajorFlag(false), _pMemory(src._pMemory->Reference()), _dims(src._dims),
+	inline Array(const Array &src) : _cntRef(1),
+		_elemType(src._elemType), _colMajorFlag(src._colMajorFlag),
+		_pMemory(src._pMemory->Reference()), _dims(src._dims),
 		_offsetBase(src._offsetBase), _elemNum(src._elemNum) {}
-	inline Array(ElemType elemType, Memory *pMemory, size_t offsetBase) : _cntRef(1),
-		_elemType(elemType), _colMajorFlag(false), _pMemory(pMemory), _offsetBase(offsetBase), _elemNum(0) {}
+	inline Array(ElemType elemType, bool colMajorFlag) : _cntRef(1),
+		_elemType(elemType), _colMajorFlag(colMajorFlag), _offsetBase(0), _elemNum(0) {}
+	inline Array(ElemType elemType, bool colMajorFlag, Memory *pMemory, size_t offsetBase) : _cntRef(1),
+		_elemType(elemType), _colMajorFlag(colMajorFlag), _pMemory(pMemory), _offsetBase(offsetBase), _elemNum(0) {}
 protected:
 	virtual ~Array();
 public:
@@ -235,7 +236,7 @@ public:
 public:
 	inline ElemType GetElemType() const { return _elemType; }
 	inline bool IsElemType(ElemType elemType) const { return _elemType == elemType; }
-	inline void SetColMajorFlag(bool colMajorFlag) { _colMajorFlag = colMajorFlag; }
+	//inline void SetColMajorFlag(bool colMajorFlag) { _colMajorFlag = colMajorFlag; }
 	inline bool GetColMajorFlag() const { return _colMajorFlag; }
 	inline bool IsColMajor() const { return _colMajorFlag; }
 	inline bool IsRowMajor() const { return !_colMajorFlag; }
@@ -295,7 +296,7 @@ public:
 	bool Serialize(Environment &env, Stream &stream) const;
 	static Array *Deserialize(Environment &env, Stream &stream);
 public:
-	static Array *Create(ElemType elemType, const Dimensions &dims);
+	static Array *Create(ElemType elemType, bool colMajorFlag, const Dimensions &dims);
 public:
 	static ElemType SymbolToElemType(const Symbol *pSymbol);
 	static ElemType SymbolToElemTypeWithError(Environment &env, const Symbol *pSymbol);

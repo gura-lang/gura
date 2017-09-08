@@ -54,7 +54,7 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 	if (indexer.HasGenerator()) {
 		Array::Dimensions dimsRtn;
 		indexer.MakeResultDimensions(dimsRtn);
-		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(dimsRtn));
+		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(pArrayT->GetColMajorFlag(), dimsRtn));
 		size_t nElemsUnit = indexer.GetElemNumUnit();
 		size_t bytesUnit = nElemsUnit * pArrayTRtn->GetElemBytes();
 		const T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
@@ -69,7 +69,7 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 		valueRtn = Value(*pElemTgt);
 	} else {
 		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
-			new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(),
+			new ArrayT<T_Elem>(pArrayT->GetColMajorFlag(), pArrayT->GetMemory().Reference(),
 							   pArrayT->GetOffsetBase() + indexer.GetOffsetTarget()));
 		Array::Dimensions dimsRtn;
 		indexer.MakeResultDimensions(dimsRtn);
@@ -582,7 +582,8 @@ Gura_DeclareFunctionAlias(at_at, "@@")
 
 Gura_ImplementFunction(at_at)
 {
-	AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::CreateFromExpr(env, arg.GetBlockCooked(env)));
+	bool colMajorFlag = false;
+	AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::CreateFromExpr(env, colMajorFlag, arg.GetBlockCooked(env)));
 	if (pArrayT.IsNull()) return Value::Nil;
 	return Array::ToValue(env, pArrayT.release());
 }

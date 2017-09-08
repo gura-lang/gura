@@ -19,7 +19,6 @@ if (sys.platform == `mswin) {
 	builder.libs.append('GL', 'OSMesa')
 } elsif (sys.platform == `darwin) {
 	builder.cflags.append('-Wno-deprecated-declarations')
-	builder.cflags.append('-framework', 'OpenGL')
 	builder.ldflags.append('-framework', 'OpenGL')
 }
 builder.build('opengl', ['module-opengl.cpp', 'Values.cpp', 'Functions.cpp', 'Utils.cpp'])

@@ -23,14 +23,8 @@ Value CallMethod(Environment &env, Argument &arg, const MethodT methods[],
 
 ArrayT<Complex> *MakeArrayResult(const Array::Dimensions &dims)
 {
-#if 0
-	AutoPtr<ArrayT<Complex> > pArrayTRtn(new ArrayT<Complex>());
-	pArrayTRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 1,
-							  dims.back().GetSize() / 2 + 1);
-	pArrayTRtn->AllocMemory();
-	return pArrayTRtn.release();
-#endif
-	return ArrayT<Complex>::Create(dims.begin(), dims.begin() + dims.size() - 1,
+	bool colMajorFlag = false;
+	return ArrayT<Complex>::Create(colMajorFlag, dims.begin(), dims.begin() + dims.size() - 1,
 								   dims.back().GetSize() / 2 + 1);
 }
 

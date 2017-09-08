@@ -300,19 +300,18 @@ Array *Array::Deserialize(Environment &env, Stream &stream)
 	if (!stream.DeserializeUInt8(env, colMajorFlagRaw)) return nullptr;
 	Array::Dimensions dims;
 	if (!dims.Deserialize(env, stream)) return nullptr;
-	AutoPtr<Array> pArray(Create(static_cast<ElemType>(elemTypeRaw), dims));
-	pArray->SetColMajorFlag(static_cast<bool>(colMajorFlagRaw));
+	AutoPtr<Array> pArray(Create(static_cast<ElemType>(elemTypeRaw), static_cast<bool>(colMajorFlagRaw), dims));
 	size_t bytes = pArray->GetElemBytes() * pArray->GetElemNum();
 	if (stream.Read(env, pArray->GetPointerRaw(), bytes) < bytes) return nullptr;
 	return pArray.release();
 }
 
 template<typename T_Elem>
-Array *CreateTmpl(const Array::Dimensions &dims) { return ArrayT<T_Elem>::Create(dims); }
+Array *CreateTmpl(bool colMajorFlag, const Array::Dimensions &dims) { return ArrayT<T_Elem>::Create(colMajorFlag, dims); }
 
-typedef Array *(*CreateFuncT)(const Array::Dimensions &dims);
+typedef Array *(*CreateFuncT)(bool colMajorFlag, const Array::Dimensions &dims);
 
-Array *Array::Create(ElemType elemType, const Array::Dimensions &dims)
+Array *Array::Create(ElemType elemType, bool colMajorFlag, const Array::Dimensions &dims)
 {
 	const CreateFuncT createFuncs[ETYPE_Max] = {
 		nullptr,
@@ -331,7 +330,7 @@ Array *Array::Create(ElemType elemType, const Array::Dimensions &dims)
 		&CreateTmpl<Complex>,
 		//&CreateTmpl<Value>,
 	};
-	return (*createFuncs[elemType])(dims);
+	return (*createFuncs[elemType])(colMajorFlag, dims);
 }
 
 Array::ElemType Array::SymbolToElemType(const Symbol *pSymbol)
@@ -1009,7 +1008,8 @@ Array *InvertFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray, Double
 	}
 	std::unique_ptr<T_Elem []> pElemWork(new T_Elem [nRows * nCols * 2]);
 	std::unique_ptr<T_Elem *[]> pElemRows(new T_Elem *[nRows]);
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(pArrayT->GetDimensions()));
+	bool colMajorFlag = false;
+	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(colMajorFlag, pArrayT->GetDimensions()));
 	size_t elemNumMat = nRows * nCols;
 	const T_Elem *pElemOrg = pArrayT->GetPointer();
 	T_Elem *pElemRtn = pArrayTRtn->GetPointer();

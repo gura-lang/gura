@@ -32,7 +32,8 @@ bool LabelSet::Read(Signal &sig, Stream &stream)
 
 Array *LabelSet::ToArray() const
 {
-	AutoPtr<ArrayT<UInt8> > pArrayT(new ArrayT<UInt8>(_pMemory->Reference(), 0));
+	bool colMajorFlag = false;
+	AutoPtr<ArrayT<UInt8> > pArrayT(new ArrayT<UInt8>(colMajorFlag, _pMemory->Reference(), 0));
 	Array::Dimensions dims;
 	dims.push_back(Array::Dimension(_nLabels));
 	pArrayT->SetDimensions(dims);

@@ -17,11 +17,12 @@ Object *Object_arrayT<T_Elem>::Clone() const
 template<typename T_Elem>
 Value Object_arrayT<T_Elem>::Constructor(Environment &env, Argument &arg)
 {
+	bool colMajorFlag = false;
 	AutoPtr<ArrayT<T_Elem> > pArrayT;
 	if (arg.IsValid(0)) {
-		pArrayT.reset(ArrayT<T_Elem>::CreateFromValue(env, arg.GetValue(0)));
+		pArrayT.reset(ArrayT<T_Elem>::CreateFromValue(env, colMajorFlag, arg.GetValue(0)));
 	} else if (arg.IsBlockSpecified()) {
-		pArrayT.reset(ArrayT<T_Elem>::CreateFromExpr(env, arg.GetBlockCooked(env)));
+		pArrayT.reset(ArrayT<T_Elem>::CreateFromExpr(env, colMajorFlag, arg.GetBlockCooked(env)));
 	} else {
 		env.SetError(ERR_SyntaxError, "argument or block must be specified");
 		return Value::Nil;
@@ -92,8 +93,9 @@ template<typename T_Elem>
 bool Class_arrayT<T_Elem>::CastFrom(Environment &env, Value &value, ULong flags)
 {
 	Signal &sig = GetSignal();
+	bool colMajorFlag = false;
 	if (value.Is_list()) {
-		AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromList(env, value.GetList()));
+		AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromList(env, colMajorFlag, value.GetList()));
 		if (pArrayT.IsNull()) return false;
 		value = Value(new Object_arrayT<T_Elem>(env, GetValueType(), pArrayT.release()));
 		return true;
@@ -104,7 +106,7 @@ bool Class_arrayT<T_Elem>::CastFrom(Environment &env, Value &value, ULong flags)
 			return false;
 		}
 		AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromIterator(
-											 env, pIterator));
+											 env, colMajorFlag, pIterator));
 		if (pArrayT.IsNull()) return false;
 		value = Value(new Object_arrayT<T_Elem>(env, GetValueType(), pArrayT.release()));
 		return true;

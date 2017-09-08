@@ -138,7 +138,7 @@ cbridge.AddTypeConvs {
 	'GLenum@' => TypeConv(
 			'number', 'Once', ['ListVar'],
 			R'''
-			AutoPtr<ArrayT<GLenum> > _${arg.name}(ArrayT<GLenum>::CreateFromList(arg.GetList(${idx})));
+			AutoPtr<ArrayT<GLenum> > _${arg.name}(ArrayT<GLenum>::CreateFromList(false, arg.GetList(${idx})));
 			GLenum *${arg.name} = _${arg.name}->GetPointer();
 			''',
 			nil,
@@ -146,7 +146,7 @@ cbridge.AddTypeConvs {
 	'GLenum@:const' => TypeConv(
 			'number', 'Once', ['ListVar'],
 			R'''
-			AutoPtr<ArrayT<GLenum> > _${arg.name}(ArrayT<GLenum>::CreateFromList(arg.GetList(${idx})));
+			AutoPtr<ArrayT<GLenum> > _${arg.name}(ArrayT<GLenum>::CreateFromList(false, arg.GetList(${idx})));
 			GLenum *${arg.name} = _${arg.name}->GetPointer();
 			''',
 			nil,
@@ -154,7 +154,7 @@ cbridge.AddTypeConvs {
 	'GLboolean@' => TypeConv(
 			'boolean', 'Once', ['ListVar'],
 			R'''
-			AutoPtr<ArrayT<GLboolean> > _${arg.name}(ArrayT<GLboolean>::CreateFromList(arg.GetList(${idx})));
+			AutoPtr<ArrayT<GLboolean> > _${arg.name}(ArrayT<GLboolean>::CreateFromList(false, arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
 			''',
 			nil,
@@ -162,7 +162,7 @@ cbridge.AddTypeConvs {
 	'GLboolean@:const' => TypeConv(
 			'boolean', 'Once', ['ListVar'],
 			R'''
-			AutoPtr<ArrayT<GLboolean> > _${arg.name}(ArrayT<GLboolean>::CreateFromList(arg.GetList(${idx})));
+			AutoPtr<ArrayT<GLboolean> > _${arg.name}(ArrayT<GLboolean>::CreateFromList(false, arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
 			''',
 			nil,
@@ -170,7 +170,7 @@ cbridge.AddTypeConvs {
 	'GLboolean@1:const' => TypeConv(
 			'boolean', 'Once', ['ListVar'],
 			R'''
-			AutoPtr<ArrayT<GLboolean> > _${arg.name}(ArrayT<GLboolean>::CreateFromList(arg.GetList(${idx})));
+			AutoPtr<ArrayT<GLboolean> > _${arg.name}(ArrayT<GLboolean>::CreateFromList(false, arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
 			if (!_${arg.name}->HasShape(1)) {
 				env.SetError(ERR_ValueError, "the list must have one element");
@@ -181,7 +181,7 @@ cbridge.AddTypeConvs {
 	'GLboolean@2:const' => TypeConv(
 			'boolean', 'Once', ['ListVar'],
 			R'''
-			AutoPtr<ArrayT<GLboolean> > _${arg.name}(ArrayT<GLboolean>::CreateFromList(arg.GetList(${idx})));
+			AutoPtr<ArrayT<GLboolean> > _${arg.name}(ArrayT<GLboolean>::CreateFromList(false, arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
 			if (!_${arg.name}->HasShape(2)) {
 				env.SetError(ERR_ValueError, "the list must have two elements");
@@ -192,7 +192,7 @@ cbridge.AddTypeConvs {
 	'GLboolean@3:const' => TypeConv(
 			'boolean', 'Once', ['ListVar'],
 			R'''
-			AutoPtr<ArrayT<GLboolean> > _${arg.name}(ArrayT<GLboolean>::CreateFromList(arg.GetList(${idx})));
+			AutoPtr<ArrayT<GLboolean> > _${arg.name}(ArrayT<GLboolean>::CreateFromList(false, arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
 			if (!_${arg.name}->HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
@@ -493,7 +493,7 @@ cbridge.AddTypeConvs {
 	'GLsizei@' => TypeConv(
 			'number', 'Once', ['ListVar'],
 			R'''
-			AutoPtr<ArrayT<GLsizei> > _${arg.name}(ArrayT<GLsizei>::CreateFromList(arg.GetList(${idx})));
+			AutoPtr<ArrayT<GLsizei> > _${arg.name}(ArrayT<GLsizei>::CreateFromList(false, arg.GetList(${idx})));
 			GLsizei *${arg.name} = _${arg.name}->GetPointer();
 			''',
 			nil,
@@ -501,7 +501,7 @@ cbridge.AddTypeConvs {
 	'GLsizei@:const' => TypeConv(
 			'number', 'Once', ['ListVar'],
 			R'''
-			AutoPtr<ArrayT<GLsizei> > _${arg.name}(ArrayT<GLsizei>::CreateFromList(arg.GetList(${idx})));
+			AutoPtr<ArrayT<GLsizei> > _${arg.name}(ArrayT<GLsizei>::CreateFromList(false, arg.GetList(${idx})));
 			GLsizei *${arg.name} = _${arg.name}->GetPointer();
 			''',
 			nil,
