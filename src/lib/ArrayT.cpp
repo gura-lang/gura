@@ -323,18 +323,20 @@ void ArrayT<T_Elem>::Fill(const T_Elem &num)
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::FillRand(UInt range)
+void ArrayT<T_Elem>::FillRand()
 {
 	T_Elem *pElem = GetPointer();
-	if (range == 0) {
-		for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
-			*pElem = static_cast<T_Elem>(Random::Uniform_CloseOpen());
-		}
-	} else {
-		for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
-			*pElem = static_cast<T_Elem>(static_cast<UInt>(
-											 Random::Uniform_CloseOpen() * range));
-		}
+	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+		*pElem = static_cast<T_Elem>(Random::Uniform_CloseOpen());
+	}
+}
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::FillRandRange(UInt range)
+{
+	T_Elem *pElem = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+		*pElem = static_cast<T_Elem>(static_cast<UInt>(Random::Uniform_CloseOpen() * range));
 	}
 }
 

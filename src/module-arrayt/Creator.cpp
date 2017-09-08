@@ -306,9 +306,9 @@ Gura_DeclareClassMethod_Array(array, rands)
 		Gura_Symbol(en),
 		"Creates an array of `double` type of elements which are initialized with random numbers.\n"
 		"The argument `dims` specifies the dimension of the created array.\n"
-		"When the argument `range` is specified, the generated are all integer numbers\n"
+		"When the argument `range` is specified, the generated elements are all integer numbers\n"
 		"that are ranged within `[0, range)`.\n"
-		"Otherwise, the generated are real numbers ranged within `[0, 1)`.\n"
+		"Otherwise, the generated elements are real numbers ranged within `[0, 1)`.\n"
 		"\n"
 		"Example:\n"
 		"\n"
@@ -334,19 +334,23 @@ Gura_DeclareClassMethod_Array(array, rands)
 		"    array@int32.rands([3, 4], 10)\n");
 }
 
-template<typename T_Elem> Array *FuncTmpl_rands(const ValueList &valList, UInt range)
+template<typename T_Elem> Array *FuncTmpl_rands(const ValueList &valList, bool rangeFlag, UInt range)
 {
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(colMajorFlag));
 	pArrayT->SetDimensions(valList);
 	pArrayT->AllocMemory();
-	pArrayT->FillRand(range);
+	if (rangeFlag) {
+		pArrayT->FillRandRange(range);
+	} else {
+		pArrayT->FillRand();
+	}
 	return pArrayT.release();
 }
 
 Gura_ImplementClassMethod(array, rands)
 {
-	typedef Array *(*FuncT)(const ValueList &valList, UInt range);
+	typedef Array *(*FuncT)(const ValueList &valList, bool rangeFlag, UInt range);
 	DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl_rands);
 	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
 		arg.IsValid(2)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(2)) :
@@ -357,8 +361,12 @@ Gura_ImplementClassMethod(array, rands)
 		SetError_CreationError(env, elemType);
 		return Value::Nil;
 	}
-	UInt range = arg.IsValid(1)? arg.GetUInt(1) : 0;
-	AutoPtr<Array> pArray((*func)(arg.GetList(0), range));
+	AutoPtr<Array> pArray;
+	if (arg.IsValid(1)) {
+		pArray.reset((*func)(arg.GetList(0), true, arg.GetUInt(1)));
+	} else {
+		pArray.reset((*func)(arg.GetList(0), false, 0));
+	}
 	return ReturnValue(env, arg, Value(new Object_array(env, pArray.release())));
 }
 

@@ -47,7 +47,8 @@ public:
 	virtual Complex GetScalarComplex() const;
 	void SetScalar(const T_Elem &num);
 	void Fill(const T_Elem &num);
-	void FillRand(UInt range);
+	void FillRand();
+	void FillRandRange(UInt range);
 	void FillRandNormal(double mu, double sigma);
 	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc);
 	void CopyToList(Object_list *pObjList) const;
