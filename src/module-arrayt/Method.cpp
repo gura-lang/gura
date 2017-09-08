@@ -173,10 +173,10 @@ Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, size_t axis)
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 T_Elem FindMinMaxFlat(const ArrayT<T_Elem> *pArrayT)
 {
-	const T_Elem *p = pArrayT->GetPointer();
-	T_Elem rtn = *p++;
-	for (size_t i = 1; i < pArrayT->GetElemNum(); i++, p++) {
-		if ((*op)(rtn, *p)) rtn = *p;
+	const T_Elem *pElem = pArrayT->GetPointer();
+	T_Elem rtn = *pElem++;
+	for (size_t i = 1; i < pArrayT->GetElemNum(); i++, pElem++) {
+		if ((*op)(rtn, *pElem)) rtn = *pElem;
 	}
 	return rtn;
 }
@@ -184,13 +184,13 @@ T_Elem FindMinMaxFlat(const ArrayT<T_Elem> *pArrayT)
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 size_t FindMinMaxIndexFlat(const ArrayT<T_Elem> *pArrayT)
 {
-	const T_Elem *p = pArrayT->GetPointer();
+	const T_Elem *pElem = pArrayT->GetPointer();
 	size_t index = 0;
-	T_Elem value = *p++;
-	for (size_t i = 1; i < pArrayT->GetElemNum(); i++, p++) {
-		if ((*op)(value, *p)) {
+	T_Elem value = *pElem++;
+	for (size_t i = 1; i < pArrayT->GetElemNum(); i++, pElem++) {
+		if ((*op)(value, *pElem)) {
 			index = i;
-			value = *p;
+			value = *pElem;
 		}
 	}
 	return index;
@@ -341,22 +341,18 @@ T_ElemRtn CalcVarFlat(const ArrayT<T_Elem> *pArrayT, bool populationFlag, bool s
 	if (numDenom == 0) return 0;
 	Double numDenomVar = (numDenom <= 1)? 1 : populationFlag? numDenom : numDenom - 1;
 	T_ElemRtn numMean = 0;
-	do {
-		const T_Elem *pElem = pArrayT->GetPointer();
-		for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
-			numMean += *pElem;
-		}
-		numMean /= numDenom;
-	} while (0);
+	const T_Elem *pElem = pArrayT->GetPointer();
+	for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
+		numMean += *pElem;
+	}
+	numMean /= numDenom;
 	T_ElemRtn numAccum = 0;
-	do {
-		const T_Elem *pElem = pArrayT->GetPointer();
-		for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
-			T_ElemRtn tmp = *pElem - numMean;
-			numAccum += tmp * tmp;
-		}
-		numAccum /= numDenomVar;
-	} while (0);
+	pElem = pArrayT->GetPointer();
+	for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
+		T_ElemRtn tmp = *pElem - numMean;
+		numAccum += tmp * tmp;
+	}
+	numAccum /= numDenomVar;
 	if (stdFlag) Operator_Math_sqrt::Calc(numAccum, numAccum);
 	return numAccum;
 }
