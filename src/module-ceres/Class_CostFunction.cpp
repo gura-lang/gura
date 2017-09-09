@@ -92,7 +92,9 @@ bool CostFunctionCustom::Evaluate(double const *const *parameters,
 	foreach_const (std::vector<ceres::int32>, pSize, parameter_block_sizes()) {
 		ceres::int32 size = *pSize;
 		double const *parameter = parameters[i++];
-		valListArg.push_back(Array::ToValue(env, ArrayT<Double>::Create(parameter, size)));
+		AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::Create1d(false, size));
+		::memcpy(pArrayT->GetPointer(), parameter, size * sizeof(Double));
+		valListArg.push_back(Array::ToValue(env, pArrayT.release()));
 	}
 	Value rtn = _pObjAssoc->EvalMethod(*_pObjAssoc, pFunc, valListArg);
 	if (!rtn.Is_list()) {

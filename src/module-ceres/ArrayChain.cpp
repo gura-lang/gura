@@ -88,7 +88,7 @@ bool ArrayChainTail::EvalForward(Environment &env)
 bool ArrayChainTail::InitBackward(Environment &env)
 {
 	Array *pArrayFwd = _connectorSrc.GetArrayFwd();
-	AutoPtr<Array> pArrayBwd(Array::Create(pArrayFwd->GetElemType(), pArrayFwd->GetDimensions()));
+	AutoPtr<Array> pArrayBwd(Array::Create(pArrayFwd->GetElemType(), false, pArrayFwd->GetDimensions()));
 	pArrayBwd->Fill(1);
 	_connectorSrc.SetArrayBwd(pArrayBwd.release());
 	return true;
@@ -351,14 +351,16 @@ bool ArrayChainBinary_Pow::EvalBackward(Environment &env)
 bool ArrayChainBinary_Dot::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	//_pArrayFwdLeftTrans.reset(Array::Transpose2d(_connectorSrcLeft.GetArrayFwd()));
+	//_pArrayFwdRightTrans.reset(Array::Transpose2d(_connectorSrcRight.GetArrayFwd()));
 	Array *pArrayBwdLeft = Array::ApplyBinaryFunc(
 		env, Array::binaryFuncPack_Dot, nullptr,
-		_connectorSrcRight.GetArrayFwd(),
-		(*ppConnectorDst)->GetArrayBwd());
+		(*ppConnectorDst)->GetArrayBwd(),
+		_pArrayFwdRightTrans.get());
 	if (pArrayBwdLeft == nullptr) return false;
 	Array *pArrayBwdRight = Array::ApplyBinaryFunc(
 		env, Array::binaryFuncPack_Dot, nullptr,
-		_connectorSrcLeft.GetArrayFwd(),
+		_pArrayFwdLeftTrans.get(),
 		(*ppConnectorDst)->GetArrayBwd());
 	if (pArrayBwdRight == nullptr) return false;
 	_connectorSrcLeft.SetArrayBwd(pArrayBwdLeft);

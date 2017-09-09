@@ -229,6 +229,9 @@ public:
 // ArrayChainBinary_Dot
 //-----------------------------------------------------------------------------
 class ArrayChainBinary_Dot : public ArrayChainBinary {
+private:
+	AutoPtr<Array> _pArrayFwdLeftTrans;
+	AutoPtr<Array> _pArrayFwdRightTrans;
 public:
 	inline ArrayChainBinary_Dot(Connector *pConnectorDst) :
 		ArrayChainBinary(Array::binaryFuncPack_Dot, pConnectorDst) {}
