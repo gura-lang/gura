@@ -609,20 +609,20 @@ template<typename T_Elem> Array *FuncTmpl_rotation(double rad, bool transFlag, d
 	T_Elem numCos = static_cast<T_Elem>(::cos(rad));
 	T_Elem numSin = static_cast<T_Elem>(::sin(rad));
 	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create2d(colMajorFlag, sizeMat, sizeMat));
-	T_Elem *p = pArrayT->GetPointer();
+	T_Elem *pElem = pArrayT->GetPointer();
 	// row-1
-	*p++ = numCos;
-	*p++ = -numSin;
-	if (transFlag) *p++ = static_cast<T_Elem>(xTrans);
+	*pElem++ = numCos;
+	*pElem++ = -numSin;
+	if (transFlag) *pElem++ = static_cast<T_Elem>(xTrans);
 	// row-2
-	*p++ = numSin;
-	*p++ = numCos;
+	*pElem++ = numSin;
+	*pElem++ = numCos;
 	if (transFlag) {
-		*p++ = static_cast<T_Elem>(yTrans);
+		*pElem++ = static_cast<T_Elem>(yTrans);
 		// row-3
-		*p++ = 0;
-		*p++ = 0;
-		*p++ = 1;
+		*pElem++ = 0;
+		*pElem++ = 0;
+		*pElem++ = 1;
 	}
 	return pArrayT.release();
 }
@@ -711,32 +711,32 @@ template<typename T_Elem> Array *FuncTmpl_rotation_at_x(Double rad, bool transFl
 	T_Elem numCos = static_cast<T_Elem>(::cos(rad));
 	T_Elem numSin = static_cast<T_Elem>(::sin(rad));
 	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create2d(colMajorFlag, sizeMat, sizeMat));
-	T_Elem *p = pArrayT->GetPointer();
+	T_Elem *pElem = pArrayT->GetPointer();
 	// row-1
-	*p++ = 1;
-	*p++ = 0;
-	*p++ = 0;
+	*pElem++ = 1;
+	*pElem++ = 0;
+	*pElem++ = 0;
 	if (transFlag) {
-		*p++ = static_cast<T_Elem>(xTrans);
+		*pElem++ = static_cast<T_Elem>(xTrans);
 	}
 	// row-2
-	*p++ = 0;
-	*p++ = numCos;
-	*p++ = -numSin;
+	*pElem++ = 0;
+	*pElem++ = numCos;
+	*pElem++ = -numSin;
 	if (transFlag) {
-		*p++ = static_cast<T_Elem>(yTrans);
+		*pElem++ = static_cast<T_Elem>(yTrans);
 	}
 	// row-3
-	*p++ = 0;
-	*p++ = numSin;
-	*p++ = numCos;
+	*pElem++ = 0;
+	*pElem++ = numSin;
+	*pElem++ = numCos;
 	if (transFlag) {
-		*p++ = static_cast<T_Elem>(zTrans);
+		*pElem++ = static_cast<T_Elem>(zTrans);
 		// row-4
-		*p++ = 0;
-		*p++ = 0;
-		*p++ = 0;
-		*p++ = 1;
+		*pElem++ = 0;
+		*pElem++ = 0;
+		*pElem++ = 0;
+		*pElem++ = 1;
 	}
 	return pArrayT.release();
 }
@@ -828,32 +828,32 @@ template<typename T_Elem> Array *FuncTmpl_rotation_at_y(Double rad, bool transFl
 	T_Elem numCos = static_cast<T_Elem>(::cos(rad));
 	T_Elem numSin = static_cast<T_Elem>(::sin(rad));
 	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create2d(colMajorFlag, sizeMat, sizeMat));
-	T_Elem *p = pArrayT->GetPointer();
+	T_Elem *pElem = pArrayT->GetPointer();
 	// row-1
-	*p++ = numCos;
-	*p++ = 0;
-	*p++ = numSin;
+	*pElem++ = numCos;
+	*pElem++ = 0;
+	*pElem++ = numSin;
 	if (transFlag) {
-		*p++ = static_cast<T_Elem>(xTrans);
+		*pElem++ = static_cast<T_Elem>(xTrans);
 	}
 	// row-2
-	*p++ = 0;
-	*p++ = 1;
-	*p++ = 0;
+	*pElem++ = 0;
+	*pElem++ = 1;
+	*pElem++ = 0;
 	if (transFlag) {
-		*p++ = static_cast<T_Elem>(yTrans);
+		*pElem++ = static_cast<T_Elem>(yTrans);
 	}
 	// row-3
-	*p++ = -numSin;
-	*p++ = 0;
-	*p++ = numCos;
+	*pElem++ = -numSin;
+	*pElem++ = 0;
+	*pElem++ = numCos;
 	if (transFlag) {
-		*p++ = static_cast<T_Elem>(zTrans);
+		*pElem++ = static_cast<T_Elem>(zTrans);
 		// row-4
-		*p++ = 0;
-		*p++ = 0;
-		*p++ = 0;
-		*p++ = 1;
+		*pElem++ = 0;
+		*pElem++ = 0;
+		*pElem++ = 0;
+		*pElem++ = 1;
 	}
 	return pArrayT.release();
 }
@@ -943,32 +943,32 @@ template<typename T_Elem> Array *FuncTmpl_rotation_at_z(Double rad, bool transFl
 	T_Elem numCos = static_cast<T_Elem>(::cos(rad));
 	T_Elem numSin = static_cast<T_Elem>(::sin(rad));
 	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create2d(colMajorFlag, sizeMat, sizeMat));
-	T_Elem *p = pArrayT->GetPointer();
+	T_Elem *pElem = pArrayT->GetPointer();
 	// row-1
-	*p++ = numCos;
-	*p++ = -numSin;
-	*p++ = 0;
+	*pElem++ = numCos;
+	*pElem++ = -numSin;
+	*pElem++ = 0;
 	if (transFlag) {
-		*p++ = static_cast<T_Elem>(xTrans);
+		*pElem++ = static_cast<T_Elem>(xTrans);
 	}
 	// row-2
-	*p++ = numSin;
-	*p++ = numCos;
-	*p++ = 0;
+	*pElem++ = numSin;
+	*pElem++ = numCos;
+	*pElem++ = 0;
 	if (transFlag) {
-		*p++ = static_cast<T_Elem>(yTrans);
+		*pElem++ = static_cast<T_Elem>(yTrans);
 	}
 	// row-3
-	*p++ = 0;
-	*p++ = 0;
-	*p++ = 1;
+	*pElem++ = 0;
+	*pElem++ = 0;
+	*pElem++ = 1;
 	if (transFlag) {
-		*p++ = static_cast<T_Elem>(zTrans);
+		*pElem++ = static_cast<T_Elem>(zTrans);
 		// row-4
-		*p++ = 0;
-		*p++ = 0;
-		*p++ = 0;
-		*p++ = 1;
+		*pElem++ = 0;
+		*pElem++ = 0;
+		*pElem++ = 0;
+		*pElem++ = 1;
 	}
 	return pArrayT.release();
 }
@@ -1044,60 +1044,60 @@ Gura_DeclareClassMethod_Array(array, scaling)
 		"    array@float.scaling(3, 4\n");
 }
 
-template<typename T_Elem> Array *FuncTmpl_scaling2D(Double xScale, Double yScale)
+template<typename T_Elem> Array *FuncTmpl_scaling2d(Double xScale, Double yScale)
 {
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create2d(colMajorFlag, 3, 3));
-	T_Elem *p = pArrayT->GetPointer();
+	T_Elem *pElem = pArrayT->GetPointer();
 	// row-1
-	*p++ = static_cast<T_Elem>(xScale);
-	*p++ = 0;
-	*p++ = 0;
+	*pElem++ = static_cast<T_Elem>(xScale);
+	*pElem++ = 0;
+	*pElem++ = 0;
 	// row-2
-	*p++ = 0;
-	*p++ = static_cast<T_Elem>(yScale);
-	*p++ = 0;
+	*pElem++ = 0;
+	*pElem++ = static_cast<T_Elem>(yScale);
+	*pElem++ = 0;
 	// row-3
-	*p++ = 0;
-	*p++ = 0;
-	*p++ = 1;
+	*pElem++ = 0;
+	*pElem++ = 0;
+	*pElem++ = 1;
 	return pArrayT.release();
 }
 
-template<typename T_Elem> Array *FuncTmpl_scaling3D(Double xScale, Double yScale, Double zScale)
+template<typename T_Elem> Array *FuncTmpl_scaling3d(Double xScale, Double yScale, Double zScale)
 {
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create2d(colMajorFlag, 4, 4));
-	T_Elem *p = pArrayT->GetPointer();
+	T_Elem *pElem = pArrayT->GetPointer();
 	// row-1
-	*p++ = static_cast<T_Elem>(xScale);
-	*p++ = 0;
-	*p++ = 0;
-	*p++ = 0;
+	*pElem++ = static_cast<T_Elem>(xScale);
+	*pElem++ = 0;
+	*pElem++ = 0;
+	*pElem++ = 0;
 	// row-2
-	*p++ = 0;
-	*p++ = static_cast<T_Elem>(yScale);
-	*p++ = 0;
-	*p++ = 0;
+	*pElem++ = 0;
+	*pElem++ = static_cast<T_Elem>(yScale);
+	*pElem++ = 0;
+	*pElem++ = 0;
 	// row-3
-	*p++ = 0;
-	*p++ = 0;
-	*p++ = static_cast<T_Elem>(zScale);
-	*p++ = 0;
+	*pElem++ = 0;
+	*pElem++ = 0;
+	*pElem++ = static_cast<T_Elem>(zScale);
+	*pElem++ = 0;
 	// row-4
-	*p++ = 0;
-	*p++ = 0;
-	*p++ = 0;
-	*p++ = 1;
+	*pElem++ = 0;
+	*pElem++ = 0;
+	*pElem++ = 0;
+	*pElem++ = 1;
 	return pArrayT.release();
 }
 
 Gura_ImplementClassMethod(array, scaling)
 {
-	typedef Array *(*FuncT2D)(Double xTrans, Double yTrans);
-	typedef Array *(*FuncT3D)(Double xTrans, Double yTrans, Double zTrans);
-	DeclareFunctionTable1D(FuncT2D, funcTbl2D, FuncTmpl_scaling2D);
-	DeclareFunctionTable1D(FuncT3D, funcTbl3D, FuncTmpl_scaling3D);
+	typedef Array *(*FuncT2d)(Double xTrans, Double yTrans);
+	typedef Array *(*FuncT3d)(Double xTrans, Double yTrans, Double zTrans);
+	DeclareFunctionTable1D(FuncT2d, funcTbl2d, FuncTmpl_scaling2d);
+	DeclareFunctionTable1D(FuncT3d, funcTbl3d, FuncTmpl_scaling3d);
 	Array::ElemType elemType = (_elemType != Array::ETYPE_None)? _elemType :
 		arg.IsValid(3)? Array::SymbolToElemTypeWithError(env, arg.GetSymbol(3)) :
 		Array::ETYPE_Double;
@@ -1106,7 +1106,7 @@ Gura_ImplementClassMethod(array, scaling)
 	Double yScale = static_cast<Double>(arg.GetDouble(1));
 	AutoPtr<Array> pArray;
 	if (arg.IsValid(2)) {
-		FuncT3D func = funcTbl3D[elemType];
+		FuncT3d func = funcTbl3d[elemType];
 		if (func == nullptr) {
 			SetError_CreationError(env, elemType);
 			return Value::Nil;
@@ -1114,7 +1114,7 @@ Gura_ImplementClassMethod(array, scaling)
 		Double zScale = static_cast<Double>(arg.GetDouble(2));
 		pArray.reset((*func)(xScale, yScale, zScale));
 	} else {
-		FuncT2D func = funcTbl2D[elemType];
+		FuncT2d func = funcTbl2d[elemType];
 		if (func == nullptr) {
 			SetError_CreationError(env, elemType);
 			return Value::Nil;
@@ -1168,60 +1168,60 @@ Gura_DeclareClassMethod_Array(array, translation)
 		"    array@float.translation(3, 4\n");
 }
 
-template<typename T_Elem> Array *FuncTmpl_translation2D(Double xTrans, Double yTrans)
+template<typename T_Elem> Array *FuncTmpl_translation2d(Double xTrans, Double yTrans)
 {
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create2d(colMajorFlag, 3, 3));
-	T_Elem *p = pArrayT->GetPointer();
+	T_Elem *pElem = pArrayT->GetPointer();
 	// row-1
-	*p++ = 1;
-	*p++ = 0;
-	*p++ = xTrans;
+	*pElem++ = 1;
+	*pElem++ = 0;
+	*pElem++ = xTrans;
 	// row-2
-	*p++ = 0;
-	*p++ = 1;
-	*p++ = yTrans;
+	*pElem++ = 0;
+	*pElem++ = 1;
+	*pElem++ = yTrans;
 	// row-3
-	*p++ = 0;
-	*p++ = 0;
-	*p++ = 1;
+	*pElem++ = 0;
+	*pElem++ = 0;
+	*pElem++ = 1;
 	return pArrayT.release();
 }
 
-template<typename T_Elem> Array *FuncTmpl_translation3D(Double xTrans, Double yTrans, Double zTrans)
+template<typename T_Elem> Array *FuncTmpl_translation3d(Double xTrans, Double yTrans, Double zTrans)
 {
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create2d(colMajorFlag, 4, 4));
-	T_Elem *p = pArrayT->GetPointer();
+	T_Elem *pElem = pArrayT->GetPointer();
 	// row-1
-	*p++ = 1;
-	*p++ = 0;
-	*p++ = 0;
-	*p++ = xTrans;
+	*pElem++ = 1;
+	*pElem++ = 0;
+	*pElem++ = 0;
+	*pElem++ = xTrans;
 	// row-2
-	*p++ = 0;
-	*p++ = 1;
-	*p++ = 0;
-	*p++ = yTrans;
+	*pElem++ = 0;
+	*pElem++ = 1;
+	*pElem++ = 0;
+	*pElem++ = yTrans;
 	// row-3
-	*p++ = 0;
-	*p++ = 0;
-	*p++ = 1;
-	*p++ = zTrans;
+	*pElem++ = 0;
+	*pElem++ = 0;
+	*pElem++ = 1;
+	*pElem++ = zTrans;
 	// row-4
-	*p++ = 0;
-	*p++ = 0;
-	*p++ = 0;
-	*p++ = 1;
+	*pElem++ = 0;
+	*pElem++ = 0;
+	*pElem++ = 0;
+	*pElem++ = 1;
 	return pArrayT.release();
 }
 
 Gura_ImplementClassMethod(array, translation)
 {
-	typedef Array *(*FuncT2D)(Double xTrans, Double yTrans);
-	typedef Array *(*FuncT3D)(Double xTrans, Double yTrans, Double zTrans);
-	DeclareFunctionTable1D(FuncT2D, funcTbl2D, FuncTmpl_translation2D);
-	DeclareFunctionTable1D(FuncT3D, funcTbl3D, FuncTmpl_translation3D);
+	typedef Array *(*FuncT2d)(Double xTrans, Double yTrans);
+	typedef Array *(*FuncT3d)(Double xTrans, Double yTrans, Double zTrans);
+	DeclareFunctionTable1D(FuncT2d, funcTbl2d, FuncTmpl_translation2d);
+	DeclareFunctionTable1D(FuncT3d, funcTbl3d, FuncTmpl_translation3d);
 	Double xTrans = arg.GetDouble(0);
 	Double yTrans = arg.GetDouble(1);
 	AutoPtr<Array> pArray;
@@ -1230,7 +1230,7 @@ Gura_ImplementClassMethod(array, translation)
 		Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	if (arg.IsValid(2)) {
-		FuncT3D func = funcTbl3D[elemType];
+		FuncT3d func = funcTbl3d[elemType];
 		if (func == nullptr) {
 			SetError_CreationError(env, elemType);
 			return Value::Nil;
@@ -1238,7 +1238,7 @@ Gura_ImplementClassMethod(array, translation)
 		Double zTrans = arg.GetDouble(2);
 		pArray.reset((*func)(xTrans, yTrans, zTrans));
 	} else {
-		FuncT2D func = funcTbl2D[elemType];
+		FuncT2d func = funcTbl2d[elemType];
 		if (func == nullptr) {
 			SetError_CreationError(env, elemType);
 			return Value::Nil;
