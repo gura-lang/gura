@@ -473,33 +473,10 @@ Gura_DeclareProperty_R(array, T)
 		);
 }
 
-template<typename T_Elem>
-Value PropertyGetter_T(Environment &env, Array *pArraySelf)
-{
-	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	return Array::ToValue(env, pArrayT->Transpose2d());
-}
-
 Gura_ImplementPropertyGetter(array, T)
 {
-	static const PropertyGetterT propertyGetters[] = {
-		nullptr,
-		&PropertyGetter_T<Boolean>,
-		&PropertyGetter_T<Int8>,
-		&PropertyGetter_T<UInt8>,
-		&PropertyGetter_T<Int16>,
-		&PropertyGetter_T<UInt16>,
-		&PropertyGetter_T<Int32>,
-		&PropertyGetter_T<UInt32>,
-		&PropertyGetter_T<Int64>,
-		&PropertyGetter_T<UInt64>,
-		&PropertyGetter_T<Half>,
-		&PropertyGetter_T<Float>,
-		&PropertyGetter_T<Double>,
-		&PropertyGetter_T<Complex>,
-		//&PropertyGetter_T<Value>,
-	};
-	return CallPropertyGetter(env, propertyGetters, Object_array::GetObject(valueThis)->GetArray());
+	Array *pArray = Object_array::GetObject(valueThis)->GetArray();
+	return Array::ToValue(env, pArray->Transpose2d());
 }
 
 //-----------------------------------------------------------------------------

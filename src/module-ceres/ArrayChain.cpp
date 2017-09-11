@@ -351,8 +351,8 @@ bool ArrayChainBinary_Pow::EvalBackward(Environment &env)
 bool ArrayChainBinary_Dot::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	//_pArrayFwdLeftTrans.reset(Array::Transpose2d(_connectorSrcLeft.GetArrayFwd()));
-	//_pArrayFwdRightTrans.reset(Array::Transpose2d(_connectorSrcRight.GetArrayFwd()));
+	_pArrayFwdLeftTrans.reset(Array::Transpose2d(_connectorSrcLeft.GetArrayFwd()));
+	_pArrayFwdRightTrans.reset(Array::Transpose2d(_connectorSrcRight.GetArrayFwd()));
 	Array *pArrayBwdLeft = Array::ApplyBinaryFunc(
 		env, Array::binaryFuncPack_Dot, nullptr,
 		(*ppConnectorDst)->GetArrayBwd(),

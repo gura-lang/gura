@@ -283,6 +283,7 @@ public:
 					   Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
 	void SetDimensions(const ValueList &valList);
 	void UpdateMetrics();
+	Array *Transpose2d() const;
 	void FillZero();
 	void Fill(Double num); // overwritten by ArrayT
 	bool IsSquare() const;

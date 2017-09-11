@@ -205,6 +205,13 @@ void Array::UpdateMetrics()
 	}
 }
 
+Array *Array::Transpose2d() const
+{
+	AutoPtr<Array> pArray(Clone());
+	pArray->FlipAxisMajor();
+	return pArray.release();
+}
+
 void Array::FillZero()
 {
 	::memset(GetPointerRaw(), 0x00, GetElemBytes() * GetElemNum());
