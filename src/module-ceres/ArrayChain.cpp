@@ -28,7 +28,7 @@ ArrayChain::~ArrayChain()
 //-----------------------------------------------------------------------------
 bool ArrayChainHead::InitForward(Environment &env)
 {
-	::printf("ArrayChainHead::InitForward()\n");
+	//::printf("ArrayChainHead::InitForward()\n");
 	Value value = _pExpr->Exec(env);
 	if (env.IsSignalled()) return false;
 	if (value.Is_number()) {
@@ -48,7 +48,7 @@ bool ArrayChainHead::InitForward(Environment &env)
 
 bool ArrayChainHead::EvalForward(Environment &env)
 {
-	::printf("ArrayChainHead::EvalForward()\n");
+	//::printf("ArrayChainHead::EvalForward()\n");
 	return true;
 }
 
@@ -60,7 +60,9 @@ bool ArrayChainHead::InitBackward(Environment &env)
 
 bool ArrayChainHead::EvalBackward(Environment &env)
 {
-	// nothing to do
+	//::printf("ArrayChainHead::EvalBackward()\n");
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	::printf("%s\n", (*ppConnectorDst)->GetArrayBwd()->ToString(false).c_str());
 	return true;
 }
 
@@ -74,13 +76,13 @@ void ArrayChainHead::Print(int indentLevel)
 //-----------------------------------------------------------------------------
 bool ArrayChainTail::InitForward(Environment &env)
 {
-	::printf("ArrayChainTail::InitForward()\n");
+	//::printf("ArrayChainTail::InitForward()\n");
 	return true;
 }
 
 bool ArrayChainTail::EvalForward(Environment &env)
 {
-	::printf("ArrayChainTail::EvalForward()\n");
+	//::printf("ArrayChainTail::EvalForward()\n");
 	::printf("%s\n", _connectorSrc.GetArrayFwd()->ToString(false).c_str());
 	return true;
 }
@@ -112,7 +114,7 @@ void ArrayChainTail::Print(int indentLevel)
 //-----------------------------------------------------------------------------
 bool ArrayChainUnary::InitForward(Environment &env)
 {
-	::printf("ArrayChainUnary::InitForward()\n");
+	//::printf("ArrayChainUnary::InitForward()\n");
 	_pArrayFwd.reset(
 		Array::ApplyUnaryFunc(
 			env, _unaryFuncPack, nullptr,
@@ -122,7 +124,7 @@ bool ArrayChainUnary::InitForward(Environment &env)
 
 bool ArrayChainUnary::EvalForward(Environment &env)
 {
-	::printf("ArrayChainUnary::EvalForward()\n");
+	//::printf("ArrayChainUnary::EvalForward()\n");
 	Array::Delete(
 		Array::ApplyUnaryFunc(
 			env, _unaryFuncPack, _pArrayFwd.get(),
@@ -144,7 +146,9 @@ bool ArrayChainUnary_Pos::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd()->Reference();
-	_connectorSrc.SetArrayBwd(pArrayBwd);
+	if (!_connectorSrc.IsSourceConstant()) {
+		_connectorSrc.SetArrayBwd(pArrayBwd);
+	}
 	return true;
 }
 
@@ -160,21 +164,27 @@ bool ArrayChainUnary_Pos::EvalBackward(Environment &env)
 bool ArrayChainUnary_Neg::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	_connectorSrc.SetArrayBwd(
-		Array::ApplyUnaryFunc(
-			env, Array::unaryFuncPack_Neg, nullptr,
-			(*ppConnectorDst)->GetArrayBwd()));
-	return env.IsNoSignalled();
+	if (!_connectorSrc.IsSourceConstant()) {
+		_connectorSrc.SetArrayBwd(
+			Array::ApplyUnaryFunc(
+				env, Array::unaryFuncPack_Neg, nullptr,
+				(*ppConnectorDst)->GetArrayBwd()));
+		if (env.IsSignalled()) return false;
+	}
+	return true;
 }
 
 bool ArrayChainUnary_Neg::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	Array::Delete(
-		Array::ApplyUnaryFunc(
-			env, Array::unaryFuncPack_Neg, _connectorSrc.GetArrayBwd(),
-			(*ppConnectorDst)->GetArrayBwd()));
-	return env.IsNoSignalled();
+	if (!_connectorSrc.IsSourceConstant()) {
+		Array::Delete(
+			Array::ApplyUnaryFunc(
+				env, Array::unaryFuncPack_Neg, _connectorSrc.GetArrayBwd(),
+				(*ppConnectorDst)->GetArrayBwd()));
+		if (env.IsSignalled()) return false;
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -208,7 +218,7 @@ bool ArrayChainUnary_Math_sigmoid::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 bool ArrayChainBinary::InitForward(Environment &env)
 {
-	::printf("ArrayChainBinary::InitForward()\n");
+	//::printf("ArrayChainBinary::InitForward()\n");
 	_pArrayFwd.reset(
 		Array::ApplyBinaryFunc(
 			env, _binaryFuncPack, nullptr,
@@ -219,7 +229,7 @@ bool ArrayChainBinary::InitForward(Environment &env)
 
 bool ArrayChainBinary::EvalForward(Environment &env)
 {
-	::printf("ArrayChainBinary::EvalForward()\n");
+	//::printf("ArrayChainBinary::EvalForward()\n");
 	Array::Delete(
 		Array::ApplyBinaryFunc(
 			env, _binaryFuncPack, _pArrayFwd.get(),
@@ -262,22 +272,30 @@ bool ArrayChainBinary_Sub::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	const Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd();
-	_connectorSrcLeft.SetArrayBwd(pArrayBwd->Reference());
-	_connectorSrcRight.SetArrayBwd(
-		Array::ApplyUnaryFunc(
-			env, Array::unaryFuncPack_Neg, nullptr,
-			(*ppConnectorDst)->GetArrayBwd()));
-	return env.IsNoSignalled();
+	if (!_connectorSrcLeft.IsSourceConstant()) {
+		_connectorSrcLeft.SetArrayBwd(pArrayBwd->Reference());
+	}
+	if (!_connectorSrcRight.IsSourceConstant()) {
+		_connectorSrcRight.SetArrayBwd(
+			Array::ApplyUnaryFunc(
+				env, Array::unaryFuncPack_Neg, nullptr,
+				(*ppConnectorDst)->GetArrayBwd()));
+		if (env.IsSignalled()) return false;
+	}
+	return true;
 }
 
 bool ArrayChainBinary_Sub::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	Array::Delete(
-		Array::ApplyUnaryFunc(
-			env, Array::unaryFuncPack_Neg, _connectorSrcRight.GetArrayBwd(),
-			(*ppConnectorDst)->GetArrayBwd()));
-	return env.IsNoSignalled();
+	if (!_connectorSrcRight.IsSourceConstant()) {
+		Array::Delete(
+			Array::ApplyUnaryFunc(
+				env, Array::unaryFuncPack_Neg, _connectorSrcRight.GetArrayBwd(),
+				(*ppConnectorDst)->GetArrayBwd()));
+		if (env.IsSignalled()) return false;
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -286,33 +304,45 @@ bool ArrayChainBinary_Sub::EvalBackward(Environment &env)
 bool ArrayChainBinary_Mul::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	_connectorSrcLeft.SetArrayBwd(
-		Array::ApplyBinaryFunc(
-			env, Array::binaryFuncPack_Mul, nullptr,
-			_connectorSrcRight.GetArrayFwd(),
-			(*ppConnectorDst)->GetArrayBwd()));
-	_connectorSrcRight.SetArrayBwd(
-		Array::ApplyBinaryFunc(
-			env, Array::binaryFuncPack_Mul, nullptr,
-			_connectorSrcLeft.GetArrayFwd(),
-			(*ppConnectorDst)->GetArrayBwd()));
-	return env.IsNoSignalled();
+	if (!_connectorSrcLeft.IsSourceConstant()) {
+		_connectorSrcLeft.SetArrayBwd(
+			Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, nullptr,
+				_connectorSrcRight.GetArrayFwd(),
+				(*ppConnectorDst)->GetArrayBwd()));
+		if (env.IsSignalled()) return false;
+	}
+	if (!_connectorSrcRight.IsSourceConstant()) {
+		_connectorSrcRight.SetArrayBwd(
+			Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, nullptr,
+				_connectorSrcLeft.GetArrayFwd(),
+				(*ppConnectorDst)->GetArrayBwd()));
+		if (env.IsSignalled()) return false;
+	}
+	return true;
 }
 
 bool ArrayChainBinary_Mul::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	Array::Delete(
-		Array::ApplyBinaryFunc(
-			env, Array::binaryFuncPack_Mul, _connectorSrcLeft.GetArrayBwd(),
-			_connectorSrcRight.GetArrayFwd(),
-			(*ppConnectorDst)->GetArrayBwd()));
-	Array::Delete(
-		Array::ApplyBinaryFunc(
-			env, Array::binaryFuncPack_Mul, _connectorSrcRight.GetArrayBwd(),
-			_connectorSrcLeft.GetArrayFwd(),
-			(*ppConnectorDst)->GetArrayBwd()));
-	return env.IsNoSignalled();
+	if (!_connectorSrcLeft.IsSourceConstant()) {
+		Array::Delete(
+			Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, _connectorSrcLeft.GetArrayBwd(),
+				_connectorSrcRight.GetArrayFwd(),
+				(*ppConnectorDst)->GetArrayBwd()));
+		if (env.IsSignalled()) return false;
+	}
+	if (!_connectorSrcRight.IsSourceConstant()) {
+		Array::Delete(
+			Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, _connectorSrcRight.GetArrayBwd(),
+				_connectorSrcLeft.GetArrayFwd(),
+				(*ppConnectorDst)->GetArrayBwd()));
+		if (env.IsSignalled()) return false;
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -347,35 +377,47 @@ bool ArrayChainBinary_Pow::EvalBackward(Environment &env)
 bool ArrayChainBinary_Dot::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	_pArrayFwdLeftTrans.reset(_connectorSrcLeft.GetArrayFwd()->Transpose2d());
-	_pArrayFwdRightTrans.reset(_connectorSrcRight.GetArrayFwd()->Transpose2d());
-	_connectorSrcLeft.SetArrayBwd(
-		Array::ApplyBinaryFunc(
-			env, Array::binaryFuncPack_Dot, nullptr,
-			(*ppConnectorDst)->GetArrayBwd(),
-			_pArrayFwdRightTrans.get()));
-	_connectorSrcRight.SetArrayBwd(
-		Array::ApplyBinaryFunc(
-			env, Array::binaryFuncPack_Dot, nullptr,
-			_pArrayFwdLeftTrans.get(),
-			(*ppConnectorDst)->GetArrayBwd()));
-	return env.IsNoSignalled();
+	if (!_connectorSrcLeft.IsSourceConstant()) {
+		_pArrayFwdRightTrans.reset(_connectorSrcRight.GetArrayFwd()->Transpose2d());
+		_connectorSrcLeft.SetArrayBwd(
+			Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Dot, nullptr,
+				(*ppConnectorDst)->GetArrayBwd(),
+				_pArrayFwdRightTrans.get()));
+		if (env.IsSignalled()) return false;
+	}
+	if (!_connectorSrcRight.IsSourceConstant()) {
+		_pArrayFwdLeftTrans.reset(_connectorSrcLeft.GetArrayFwd()->Transpose2d());
+		_connectorSrcRight.SetArrayBwd(
+			Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Dot, nullptr,
+				_pArrayFwdLeftTrans.get(),
+				(*ppConnectorDst)->GetArrayBwd()));
+		if (env.IsSignalled()) return false;
+	}
+	return true;
 }
 
 bool ArrayChainBinary_Dot::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	Array::Delete(
-		Array::ApplyBinaryFunc(
-			env, Array::binaryFuncPack_Dot, _connectorSrcLeft.GetArrayBwd(),
-			(*ppConnectorDst)->GetArrayBwd(),
-			_pArrayFwdRightTrans.get()));
-	Array::Delete(
-		Array::ApplyBinaryFunc(
-			env, Array::binaryFuncPack_Dot, _connectorSrcRight.GetArrayBwd(),
-			_pArrayFwdLeftTrans.get(),
-			(*ppConnectorDst)->GetArrayBwd()));
-	return env.IsNoSignalled();
+	if (!_connectorSrcLeft.IsSourceConstant()) {
+		Array::Delete(
+			Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Dot, _connectorSrcLeft.GetArrayBwd(),
+				(*ppConnectorDst)->GetArrayBwd(),
+				_pArrayFwdRightTrans.get()));
+		if (env.IsSignalled()) return false;
+	}
+	if (!_connectorSrcRight.IsSourceConstant()) {
+		Array::Delete(
+			Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Dot, _connectorSrcRight.GetArrayBwd(),
+				_pArrayFwdLeftTrans.get(),
+				(*ppConnectorDst)->GetArrayBwd()));
+		if (env.IsSignalled()) return false;
+	}
+	return true;
 }
 
 #if 0

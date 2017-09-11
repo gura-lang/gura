@@ -28,9 +28,10 @@ public:
 		ArrayChain *_pArrayChainSrc;
 		ArrayChain *_pArrayChainDst;
 		AutoPtr<Array> _pArrayBwd;
+		bool _constSrcFlag;
 	public:
 		inline Connector(ArrayChain *pArrayChainDst) :
-		_pArrayChainSrc(nullptr), _pArrayChainDst(pArrayChainDst) {}
+			_pArrayChainSrc(nullptr), _pArrayChainDst(pArrayChainDst), _constSrcFlag(false) {}
 		inline ArrayChain *GetArrayChainSrc() { return _pArrayChainSrc; }
 		inline ArrayChain *GetArrayChainDst() { return _pArrayChainDst; }
 		inline void SetArrayChainSrc(ArrayChain *pArrayChainSrc) {
@@ -39,6 +40,8 @@ public:
 		inline void SetArrayBwd(Array *pArrayBwd) { _pArrayBwd.reset(pArrayBwd); }
 		inline Array *GetArrayFwd() { return _pArrayChainSrc->GetArrayFwd(); }
 		inline Array *GetArrayBwd() { return _pArrayBwd.get(); }
+		inline void SetConstSrcFlag(bool constSrcFlag) { _constSrcFlag = constSrcFlag; }
+		inline bool IsSourceConstant() const { return _constSrcFlag; }
 	};
 	class ConnectorList : public std::vector<Connector *> {
 	public:

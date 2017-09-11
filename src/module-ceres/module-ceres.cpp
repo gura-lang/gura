@@ -58,6 +58,7 @@ Gura_ImplementFunction(test)
 	if (!arrayChainOwner.InitBackward(env)) return Value::Nil;
 	arrayChainOwner.front()->Print(0);
 	if (!arrayChainOwner.EvalForward(env)) return Value::Nil;
+	if (!arrayChainOwner.EvalBackward(env)) return Value::Nil;
 	return Value::Nil;
 }
 
