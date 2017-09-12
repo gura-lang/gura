@@ -421,3 +421,18 @@ testcase('random') {
 	println('sigma = 7, number of samples = 300')
 	PrintHist(rands@normal(0, 7, 300))
 }
+testcase('choose/min/max') {
+	idx = [2, 1, 0, 1, 2, 0, 0, 1, 1, 0]
+	x = [52, 23, 62, 75, 46, 10, 86, 80, 19, 34]
+	y = [82, 86, 45, 29, 35, 30, 62, 98, 90, 78]
+	z = [10, 24, 28, 21, 28, 43, 72, 63, 43, 93]
+	tester(`idx)
+	tester(`x)
+	tester(`y)
+	tester(`z)
+	tester(`choose(idx, x, y, z))
+	tester(`min(x, 4))
+	tester(`max(x, 4))
+	tester(`min(x, y, z))
+	tester(`max(x, y, z))
+}

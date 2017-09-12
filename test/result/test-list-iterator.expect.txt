@@ -120,7 +120,7 @@ a,1,a,3,a,5,a,7,a,9
 
 return value
 
-======== #12 ========
+======== #12 iterable#reduce() ========
 
 9-8-7-6-5-4-3-2-1-0-
 4-3-2-1-0-
@@ -129,6 +129,8 @@ a
 9-8-7-6-xx
 
 return value
+(1 .. 10).reduce(0) {|i, accum| accum += i } .. 55
+[1 .. 10].reduce(0) {|i, accum| accum += i } .. 55
 
 ======== #13 ========
 
@@ -859,3 +861,15 @@ iter.argmin():indices .. [1, 2]
 iter.argmax() .. 3
 iter.argmax():last_index .. 3
 iter.argmax():indices .. [3]
+
+======== #55 iterable#filter() ========
+
+names .. ['Burke', 'Connor', 'Frank', 'Everett', 'Albert', 'George', 'Harris', 'David']
+BURKE
+DAVID
+FRANK
+x .. [52, 23, 62, 75, 46, 10, 86, 80, 19, 34]
+x.each().filter(& { $i % 2 == 0 }):list .. [52, 62, 46, 10, 86, 80, 34]
+x.each().filter(x % 2 == 0):list .. [52, 62, 46, 10, 86, 80, 34]
+x.filter(& { $i % 2 == 0 }):list .. [52, 62, 46, 10, 86, 80, 34]
+x.filter(x % 2 == 0):list .. [52, 62, 46, 10, 86, 80, 34]

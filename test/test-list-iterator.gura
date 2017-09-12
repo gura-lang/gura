@@ -177,7 +177,7 @@ testcase {
 	}
 	println(func())
 }
-testcase {
+testcase('iterable#reduce()') {
 	println(range(10).reduce('') {|i, accum:string|
 		i.tostring() + '-' + accum
 	})
@@ -211,6 +211,8 @@ testcase {
 		})
 	}
 	println(func())
+	tester(`(1..10).reduce(0) {|i, accum| accum += i})
+	tester(`[1..10].reduce(0) {|i, accum| accum += i})
 }
 testcase {
 	try {
@@ -924,4 +926,18 @@ testcase('iterator#argmin()/iterator#argmax()') {
 	tester(`iter.argmax())
 	tester(`iter.argmax():last_index)
 	tester(`iter.argmax():indices)
+}
+testcase('iterable#filter()') {
+	// http://msdn.microsoft.com/ja-jp/library/bb308959.aspx
+	names = [
+		'Burke', 'Connor', 'Frank', 'Everett', 'Albert', 'George', 'Harris', 'David'
+	]
+	tester(`names)
+	println(names.filter(&{$s.len() == 5}).sort():*upper())
+	x = [52, 23, 62, 75, 46, 10, 86, 80, 19, 34]
+	tester(`x)
+	tester(`x.each().filter(&{$i % 2 == 0}):list)
+	tester(`x.each().filter(x % 2 == 0):list)
+	tester(`x.filter(&{$i % 2 == 0}):list)
+	tester(`x.filter(x % 2 == 0):list)
 }
