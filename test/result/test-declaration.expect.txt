@@ -87,10 +87,10 @@ filter@conv3d:class = <class:filter@conv3d():map {block?}>
 filter@maxpool1d:class = <class:filter@maxpool1d(size:number, strides?:number, padding?:symbol, channel_at?:symbol):map {block?}>
 filter@maxpool2d:class = <class:filter@maxpool2d(size[]:number, strides[]?:number, padding?:symbol, channel_at?:symbol):map {block?}>
 filter@maxpool3d:class = <class:filter@maxpool3d(size[]:number, strides[]?:number, padding?:symbol, format?:symbol):map {block?}>
-filter@relu:class = <class:filter@relu():map {block?}>
-filter@sigmoid:class = <class:filter@sigmoid():map {block?}>
+filter@relu:class = <class:filter@relu() {block?}>
+filter@sigmoid:class = <class:filter@sigmoid() {block?}>
 filter@softmax:class = <class:filter@softmax(axis?:number):map {block?}>
-filter@tanh:class = <class:filter@tanh():map {block?}>
+filter@tanh:class = <class:filter@tanh() {block?}>
 finally():finalizer:trailer {block}
 for (`expr+) {block}
 format(format:string, values*):map
