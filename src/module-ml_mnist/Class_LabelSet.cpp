@@ -39,10 +39,10 @@ Array *LabelSet::ToArray(Signal &sig, bool rawDataFlag) const
 		pArray->SetDimension(_nLabels);
 	} else {
 		size_t nCols = 10;
-		pArray.reset(ArrayT<UInt8>::Create2d(colMajorFlag, _nLabels, nCols));
+		pArray.reset(ArrayT<Float>::Create2d(colMajorFlag, _nLabels, nCols));
 		pArray->FillZero();
 		const UInt8 *pLabel = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
-		UInt8 *pDst = dynamic_cast<ArrayT<UInt8> *>(pArray.get())->GetPointer();
+		Float *pDst = dynamic_cast<ArrayT<Float> *>(pArray.get())->GetPointer();
 		for (size_t i = 0; i < _nLabels; i++, pLabel++) {
 			UInt8 label = *pLabel;
 			if (label >= 10) {
@@ -122,7 +122,7 @@ Gura_ImplementFunction(LabelSet)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.mnist.LabelSet#ToArray(format?:symbol) {block?}
+// ml.mnist.LabelSet#ToArray(rawdata?:boolean) {block?}
 Gura_DeclareMethod(LabelSet, ToArray)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);

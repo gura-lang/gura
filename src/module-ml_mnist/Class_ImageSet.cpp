@@ -32,20 +32,31 @@ bool ImageSet::Read(Signal &sig, Stream &stream)
 	return true;
 }
 
-Array *ImageSet::ToArray(bool flattenFlag) const
+Array *ImageSet::ToArray(bool flattenFlag, bool rawDataFlag) const
 {
 	bool colMajorFlag = false;
-	AutoPtr<ArrayT<UInt8> > pArrayT(new ArrayT<UInt8>(colMajorFlag, _pMemory->Reference(), 0));
-	Array::Dimensions dims;
-	dims.push_back(Array::Dimension(_nImages));
-	if (flattenFlag) {
-		dims.push_back(Array::Dimension(_nRows * _nColumns));
+	AutoPtr<Array > pArray;
+	if (rawDataFlag) {
+		pArray.reset(new ArrayT<UInt8>(colMajorFlag, _pMemory->Reference(), 0));
+		if (flattenFlag) {
+			pArray->SetDimensions(_nImages, _nRows * _nColumns);
+		} else {
+			pArray->SetDimensions(_nImages, _nRows, _nColumns);
+		}
 	} else {
-		dims.push_back(Array::Dimension(_nRows));
-		dims.push_back(Array::Dimension(_nColumns));
+		if (flattenFlag) {
+			pArray.reset(ArrayT<Float>::Create2d(colMajorFlag, _nImages, _nRows * _nColumns));
+		} else {
+			pArray.reset(ArrayT<Float>::Create3d(colMajorFlag, _nImages, _nRows, _nColumns));
+		}
+		const UInt8 *pSrc = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
+		Float *pDst = dynamic_cast<ArrayT<Float> *>(pArray.get())->GetPointer();
+		size_t nElems = _nRows * _nColumns;
+		for (size_t i = 0; i < nElems; i++, pSrc++, pDst++) {
+			*pDst = static_cast<Float>(*pSrc) / 255;
+		}
 	}
-	pArrayT->SetDimensions(dims);
-	return pArrayT.release();
+	return pArray.release();
 }
 
 //-----------------------------------------------------------------------------
@@ -150,11 +161,12 @@ Gura_ImplementFunction(ImageSet)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.mnist.ImageSet#ToArray(format?:symbol) {block?}
+// ml.mnist.ImageSet#ToArray(format?:symbol, rawdata?:boolean) {block?}
 Gura_DeclareMethod(ImageSet, ToArray)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "rawdata", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -176,7 +188,8 @@ Gura_ImplementMethod(ImageSet, ToArray)
 			return Value::Nil;
 		}
 	}
-	AutoPtr<Object_array> pObj(new Object_array(env, imageSet.ToArray(flattenFlag)));
+	bool rawDataFlag = false;
+	AutoPtr<Object_array> pObj(new Object_array(env, imageSet.ToArray(flattenFlag, rawDataFlag)));
 	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
