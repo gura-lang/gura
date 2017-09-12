@@ -17,7 +17,7 @@ testcase('LabelSet') {
 		labelSet = ml.mnist.LabelSet(gzip.reader(path.join('sample', fileName)))
 		printf('nLabels:%d\n', labelSet.nLabels)
 		labelSet.ToArray {|lbl|
-			//println(lbl)
+			println(lbl)
 		}
 	}
 	

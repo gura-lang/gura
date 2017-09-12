@@ -30,14 +30,30 @@ bool LabelSet::Read(Signal &sig, Stream &stream)
 	return true;
 }
 
-Array *LabelSet::ToArray() const
+Array *LabelSet::ToArray(Signal &sig, bool rawDataFlag) const
 {
 	bool colMajorFlag = false;
-	AutoPtr<ArrayT<UInt8> > pArrayT(new ArrayT<UInt8>(colMajorFlag, _pMemory->Reference(), 0));
-	Array::Dimensions dims;
-	dims.push_back(Array::Dimension(_nLabels));
-	pArrayT->SetDimensions(dims);
-	return pArrayT.release();
+	AutoPtr<Array> pArray;
+	if (rawDataFlag) {
+		pArray.reset(new ArrayT<UInt8>(colMajorFlag, _pMemory->Reference(), 0));
+		pArray->SetDimension(_nLabels);
+	} else {
+		size_t nCols = 10;
+		pArray.reset(ArrayT<UInt8>::Create2d(colMajorFlag, _nLabels, nCols));
+		pArray->FillZero();
+		const UInt8 *pLabel = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
+		UInt8 *pDst = dynamic_cast<ArrayT<UInt8> *>(pArray.get())->GetPointer();
+		for (size_t i = 0; i < _nLabels; i++, pLabel++) {
+			UInt8 label = *pLabel;
+			if (label >= 10) {
+				sig.SetError(ERR_FormatError, "invalid data in label file");
+				return nullptr;
+			}
+			*(pDst + label) = 1;
+			pDst += nCols;
+		}
+	}
+	return pArray.release();
 }
 
 //-----------------------------------------------------------------------------
@@ -106,10 +122,11 @@ Gura_ImplementFunction(LabelSet)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.mnist.LabelSet#ToArray() {block?}
+// ml.mnist.LabelSet#ToArray(format?:symbol) {block?}
 Gura_DeclareMethod(LabelSet, ToArray)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "rawdata", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -119,7 +136,10 @@ Gura_DeclareMethod(LabelSet, ToArray)
 Gura_ImplementMethod(LabelSet, ToArray)
 {
 	LabelSet &labelSet = Object_LabelSet::GetObjectThis(arg)->GetLabelSet();
-	AutoPtr<Object_array> pObj(new Object_array(env, labelSet.ToArray()));
+	bool rawDataFlag = arg.IsValid(0) && arg.GetBoolean(0);
+	AutoPtr<Array> pArray(labelSet.ToArray(env, rawDataFlag));
+	if (pArray.IsNull()) return Value::Nil;
+	AutoPtr<Object_array> pObj(new Object_array(env, pArray.release()));
 	return ReturnValue(env, arg, Value(pObj.release()));
 }
 

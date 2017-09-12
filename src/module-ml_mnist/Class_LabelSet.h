@@ -20,7 +20,7 @@ public:
 	inline LabelSet() : _nLabels(0) {}
 	bool Read(Signal &sig, Stream &stream);
 	inline size_t GetNumLabels() const { return _nLabels; }
-	Array *ToArray() const;
+	Array *ToArray(Signal &sig, bool rawDataFlag) const;
 };
 
 //-----------------------------------------------------------------------------
