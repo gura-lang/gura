@@ -68,6 +68,25 @@ Gura_ImplementFunction(filter_at_softmax)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// filter@softmax#axis
+Gura_DeclareProperty_R(filter_at_softmax, axis)
+{
+	SetPropAttr(VTYPE_number, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_softmax, axis)
+{
+	const Filter_Softmax *pFilter = Object_filter_at_softmax::GetObject(valueThis)->GetFilter();
+	size_t axis = pFilter->GetAxis();
+	return (axis == static_cast<size_t>(-1))? Value::Nil : Value(axis);
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
 Class_filter_at_softmax::Class_filter_at_softmax(Environment *pEnvOuter) :
@@ -79,6 +98,8 @@ void Class_filter_at_softmax::DoPrepare(Environment &env)
 {
 	// Assignment of function
 	Gura_AssignFunction(filter_at_softmax);
+	// Assignment of properties
+	Gura_AssignProperty(filter_at_softmax, axis);
 	// Assignment of value
 	Gura_AssignClassValue(inst, Value(new Object_filter_at_softmax(env, new Filter_Softmax())));
 	// help document

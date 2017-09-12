@@ -48,10 +48,10 @@ String Object_filter_at_relu::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter@relu():map {block?}
+// filter@relu() {block?}
 Gura_DeclareFunctionAlias(filter_at_relu, "filter@relu")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_relu));
 	AddHelp(

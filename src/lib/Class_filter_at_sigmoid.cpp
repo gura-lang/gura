@@ -48,10 +48,10 @@ String Object_filter_at_sigmoid::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter@sigmoid():map {block?}
+// filter@sigmoid() {block?}
 Gura_DeclareFunctionAlias(filter_at_sigmoid, "filter@sigmoid")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_sigmoid));
 	AddHelp(

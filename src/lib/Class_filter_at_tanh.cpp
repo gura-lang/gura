@@ -48,10 +48,10 @@ String Object_filter_at_tanh::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter@tanh():map {block?}
+// filter@tanh() {block?}
 Gura_DeclareFunctionAlias(filter_at_tanh, "filter@tanh")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_tanh));
 	AddHelp(
