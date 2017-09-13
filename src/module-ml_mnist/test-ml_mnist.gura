@@ -3,22 +3,12 @@ import(helper.test) {*}
 import(ml.mnist)
 import(gzip)
 
-testcase('ImageSet') {
-	['t10k-images-idx3-ubyte.gz', 'train-images-idx3-ubyte.gz'].each {|fileName|
-		imageSet = ml.mnist.ImageSet(gzip.reader(path.join('sample', fileName)))
-		printf('nImages:%d nRows:%d nColumns:%d\n', imageSet.nImages, imageSet.nRows, imageSet.nColumns)
-		imageSet.ToArray(`flat) {|arr|
-			println(arr[0])
-		}
-	}
-}
-testcase('LabelSet') {
-	['t10k-labels-idx1-ubyte.gz', 'train-labels-idx1-ubyte.gz'].each {|fileName|
-		labelSet = ml.mnist.LabelSet(gzip.reader(path.join('sample', fileName)))
-		printf('nLabels:%d\n', labelSet.nLabels)
-		labelSet.ToArray {|lbl|
-			println(lbl[0])
-		}
-	}
-	
-}
+db = ml.mnist.Database('sample')
+printf('Test .. nImages:%d, nRows:%d, nColumns:%d, nLabels:%d\n',
+	   db.test.imageSet.nImages, db.test.imageSet.nRows, db.test.imageSet.nColumns,
+	   db.test.labelSet.nLabels)
+printf('Train .. nImages:%d, nRows:%d, nColumns:%d, nLabels:%d\n',
+	   db.train.imageSet.nImages, db.train.imageSet.nRows, db.train.imageSet.nColumns,
+	   db.train.labelSet.nLabels)
+db.train.imageSet.ToArray(`flat)
+db.train.labelSet.ToArray()
