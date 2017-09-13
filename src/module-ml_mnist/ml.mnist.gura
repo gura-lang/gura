@@ -1,4 +1,5 @@
 #!/usr/bin/env gura
+import(gzip)
 import(ml.mnist):binary:mixin_type {*}
 
 Pack = struct(imageSet:ImageSet, labelSet:LabelSet)
@@ -12,5 +13,14 @@ Database = class {
 		this.train = Pack(
 				ImageSet(gzip.reader(path.join(dirName, 'train-images-idx3-ubyte.gz')))
 				LabelSet(gzip.reader(path.join(dirName, 'train-labels-idx1-ubyte.gz'))))
-	}
+	} %% {`en, R'''
+	Reads MNIST database files in a directory specified by `dirName` and returns a `ml.mnist.Database` instance.
+	'''}
+}
+
+ToAscii(array:array) = {
+	lst = array.tolist()
+	lst.fold(28):iter {|row|
+		choose(row * 4, ' ', '.', ':', '*', '*').join() + '|'
+	}.join('\n')
 }

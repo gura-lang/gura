@@ -1,14 +1,23 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 import(ml.mnist)
-import(gzip)
+import(arrayt)
 
 db = ml.mnist.Database('sample')
-printf('Test .. nImages:%d, nRows:%d, nColumns:%d, nLabels:%d\n',
-	   db.test.imageSet.nImages, db.test.imageSet.nRows, db.test.imageSet.nColumns,
-	   db.test.labelSet.nLabels)
-printf('Train .. nImages:%d, nRows:%d, nColumns:%d, nLabels:%d\n',
-	   db.train.imageSet.nImages, db.train.imageSet.nRows, db.train.imageSet.nColumns,
-	   db.train.labelSet.nLabels)
-db.train.imageSet.ToArray(`flat)
-db.train.labelSet.ToArray()
+
+testcase('properties in ImageSet and LabelSet') {
+	printf('Test .. nImages:%d, nRows:%d, nCols:%d, nLabels:%d\n',
+		   db.test.imageSet.nImages, db.test.imageSet.nRows, db.test.imageSet.nCols,
+		   db.test.labelSet.nLabels)
+	printf('Train .. nImages:%d, nRows:%d, nCols:%d, nLabels:%d\n',
+		   db.train.imageSet.nImages, db.train.imageSet.nRows, db.train.imageSet.nCols,
+		   db.train.labelSet.nLabels)
+}
+testcase('ToArray()') {
+	arrImage = db.test.imageSet.ToArray(`flat)
+	arrLabel = db.test.labelSet.ToArray()
+	repeat (5) {|i|
+		println(ml.mnist.ToAscii(arrImage[i]))
+		println(arrLabel[i])
+	}
+}

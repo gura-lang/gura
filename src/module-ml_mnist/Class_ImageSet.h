@@ -13,19 +13,19 @@ public:
 		Gura_PackedUInt32_BE(magicNumber);
 		Gura_PackedUInt32_BE(nImages);
 		Gura_PackedUInt32_BE(nRows);
-		Gura_PackedUInt32_BE(nColumns);
+		Gura_PackedUInt32_BE(nCols);
 	};
 private:
 	size_t _nImages;
 	size_t _nRows;
-	size_t _nColumns;
+	size_t _nCols;
 	AutoPtr<Memory> _pMemory;
 public:
-	inline ImageSet() : _nImages(0), _nRows(0), _nColumns(0) {}
+	inline ImageSet() : _nImages(0), _nRows(0), _nCols(0) {}
 	bool Read(Signal &sig, Stream &stream);
 	inline size_t GetNumImages() const { return _nImages; }
 	inline size_t GetNumRows() const { return _nRows; }
-	inline size_t GetNumColumns() const { return _nColumns; }
+	inline size_t GetNumColumns() const { return _nCols; }
 	Array *ToArray(bool flattenFlag, bool rawDataFlag) const;
 };
 

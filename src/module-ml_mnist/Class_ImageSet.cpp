@@ -21,8 +21,8 @@ bool ImageSet::Read(Signal &sig, Stream &stream)
 	}
 	_nImages = Gura_UnpackUInt32(header.nImages);
 	_nRows = Gura_UnpackUInt32(header.nRows);
-	_nColumns = Gura_UnpackUInt32(header.nColumns);
-	size_t bytesImage = _nImages * _nRows * _nColumns;
+	_nCols = Gura_UnpackUInt32(header.nCols);
+	size_t bytesImage = _nImages * _nRows * _nCols;
 	_pMemory.reset(new MemoryHeap(bytesImage));
 	bytesRead = stream.Read(sig, _pMemory->GetPointer(), bytesImage);
 	if (bytesRead < bytesImage) {
@@ -39,19 +39,19 @@ Array *ImageSet::ToArray(bool flattenFlag, bool rawDataFlag) const
 	if (rawDataFlag) {
 		pArray.reset(new ArrayT<UInt8>(colMajorFlag, _pMemory->Reference(), 0));
 		if (flattenFlag) {
-			pArray->SetDimensions(_nImages, _nRows * _nColumns);
+			pArray->SetDimensions(_nImages, _nRows * _nCols);
 		} else {
-			pArray->SetDimensions(_nImages, _nRows, _nColumns);
+			pArray->SetDimensions(_nImages, _nRows, _nCols);
 		}
 	} else {
 		if (flattenFlag) {
-			pArray.reset(ArrayT<Float>::Create2d(colMajorFlag, _nImages, _nRows * _nColumns));
+			pArray.reset(ArrayT<Float>::Create2d(colMajorFlag, _nImages, _nRows * _nCols));
 		} else {
-			pArray.reset(ArrayT<Float>::Create3d(colMajorFlag, _nImages, _nRows, _nColumns));
+			pArray.reset(ArrayT<Float>::Create3d(colMajorFlag, _nImages, _nRows, _nCols));
 		}
 		const UInt8 *pSrc = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
 		Float *pDst = dynamic_cast<ArrayT<Float> *>(pArray.get())->GetPointer();
-		size_t nElems = _nRows * _nColumns;
+		size_t nElems = _nImages * _nRows * _nCols;
 		for (size_t i = 0; i < nElems; i++, pSrc++, pDst++) {
 			*pDst = static_cast<Float>(*pSrc) / 255;
 		}
@@ -116,8 +116,8 @@ Gura_ImplementPropertyGetter(ImageSet, nRows)
 	return Value(imageSet.GetNumRows());
 }
 
-// ml.mnist.ImageSet#nColumns
-Gura_DeclareProperty_R(ImageSet, nColumns)
+// ml.mnist.ImageSet#nCols
+Gura_DeclareProperty_R(ImageSet, nCols)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -126,7 +126,7 @@ Gura_DeclareProperty_R(ImageSet, nColumns)
 		);
 }
 
-Gura_ImplementPropertyGetter(ImageSet, nColumns)
+Gura_ImplementPropertyGetter(ImageSet, nCols)
 {
 	ImageSet &imageSet = Object_ImageSet::GetObject(valueThis)->GetImageSet();
 	return Value(imageSet.GetNumColumns());
@@ -201,7 +201,7 @@ Gura_ImplementUserClass(ImageSet)
 	// Assignment of properties
 	Gura_AssignProperty(ImageSet, nImages);
 	Gura_AssignProperty(ImageSet, nRows);
-	Gura_AssignProperty(ImageSet, nColumns);
+	Gura_AssignProperty(ImageSet, nCols);
 	// Assignment of function
 	Gura_AssignFunction(ImageSet);
 	// Assignment of method
