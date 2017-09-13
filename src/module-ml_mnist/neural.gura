@@ -1,0 +1,19 @@
+#!/usr/bin/env gura
+import(ml.mnist)
+import(arrayt)
+
+CalcError(y:array, t:array) = ((y - t) ** 2).sum() / 2
+
+db = ml.mnist.Database('sample')
+
+arrImage = db.test.imageSet.ToArray(`flat)
+arrLabel = db.test.labelSet.ToArray()
+
+x = arrImage[0]
+t = arrLabel[0]
+
+weight = array@float.rands([784, 10])
+
+y = x |.| weight |*| filter@softmax.inst
+
+println(CalcError(y, t))
