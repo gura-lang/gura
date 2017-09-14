@@ -41,6 +41,8 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_filter_at_relu : public Object_filter {
 public:
+	static Value valueConst;
+public:
 	Gura_DeclareObjectAccessor(filter_at_relu)
 public:
 	Object_filter_at_relu(Environment &env, Filter_Relu *pFilter);

@@ -27,6 +27,8 @@ Array *Filter_Sigmoid::Apply(Signal &sig, Array *pArrayRtn, const Array *pArray)
 //-----------------------------------------------------------------------------
 // Object_filter_at_sigmoid
 //-----------------------------------------------------------------------------
+Value Object_filter_at_sigmoid::valueConst;
+
 Object_filter_at_sigmoid::Object_filter_at_sigmoid(Environment &env, Filter_Sigmoid *pFilter) :
 	Object_filter(env.LookupClass(VTYPE_filter_at_sigmoid), pFilter)
 {
@@ -61,8 +63,7 @@ Gura_DeclareFunctionAlias(filter_at_sigmoid, "filter@sigmoid")
 
 Gura_ImplementFunction(filter_at_sigmoid)
 {
-	Object_filter_at_sigmoid *pObj = new Object_filter_at_sigmoid(env, new Filter_Sigmoid());
-	return ReturnValue(env, arg, Value(pObj));
+	return ReturnValue(env, arg, Object_filter_at_sigmoid::valueConst);
 }
 
 //-----------------------------------------------------------------------------
@@ -78,7 +79,7 @@ void Class_filter_at_sigmoid::DoPrepare(Environment &env)
 	// Assignment of function
 	Gura_AssignFunction(filter_at_sigmoid);
 	// Assignment of value
-	Gura_AssignClassValue(inst, Value(new Object_filter_at_sigmoid(env, new Filter_Sigmoid())));
+	Object_filter_at_sigmoid::valueConst = Value(new Object_filter_at_sigmoid(env, new Filter_Sigmoid()));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

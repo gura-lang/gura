@@ -72,12 +72,12 @@ testcase('filter@maxpool3d') {
 testcase('filter@relu') {
 	x = (array@double.range(21) - 10) * .1
 	tester(`x)
-	tester(`(x |*| filter@relu.inst))
+	tester(`(x |*| filter@relu()))
 }
 testcase('filter@sigmoid') {
 	x = (array@double.range(21) - 10) * .1
 	tester(`x)
-	tester(`(x |*| filter@sigmoid.inst))
+	tester(`(x |*| filter@sigmoid()))
 }
 testcase('filter@softmax') {
 	filter@softmax {|f|
@@ -174,5 +174,5 @@ testcase('filter@softmax with large number') {
 testcase('filter@tanh') {
 	x = (array@double.range(21) - 10) * .1
 	tester(`x)
-	tester(`(x |*| filter@tanh.inst))
+	tester(`(x |*| filter@tanh()))
 }

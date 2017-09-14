@@ -9,7 +9,7 @@ db = ml.mnist.Database('sample')
 weight = array@float.rands@normal([784, 10], 0, .1)
 bias = array@float.rands@normal([10], 0, .1)
 model = `(x |.| weight + bias)
-//model = `((x |.| weight1 + bias1) |*| filter@relu.inst |.| weight2 + bias2)
+//model = `((x |.| weight1 + bias1) |*| filter@relu() |.| weight2 + bias2)
 scope {
 	// training
 	arrImage = db.train.imageSet.ToArray(`flat)
@@ -20,10 +20,10 @@ scope {
 		repeat (nTrains) {|i|
 			x = arrImage[i]
 			t = arrLabel[i]
-			y = model.eval() |*| filter@softmax.inst
+			y = model.eval() |*| filter@softmax()
 			err = y - t
 			biasDiff = err
-			weightDiff = x.T.reshape([nil, 1]) |.| err.reshape([1, nil])
+			weightDiff = x.reshape([nil, 1]) |.| err.reshape([1, nil])
 			bias -= biasDiff * .01
 			weight -= weightDiff * .01
 		}
@@ -39,7 +39,7 @@ scope {
 	repeat (nTests) {|i|
 		x = arrImage[i]
 		t = arrLabel[i]
-		y = model.eval() |*| filter@softmax.inst
+		y = model.eval() |*| filter@softmax()
 		print(ml.mnist.ToAscii(x))
 		if (y.argmax() == t.argmax()) {
 			printf(' "%d" .. correct with accuracy %.1f%%\n', y.argmax(), y[y.argmax()] * 100)

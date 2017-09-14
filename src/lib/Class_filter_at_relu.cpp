@@ -27,6 +27,8 @@ Array *Filter_Relu::Apply(Signal &sig, Array *pArrayRtn, const Array *pArray) co
 //-----------------------------------------------------------------------------
 // Object_filter_at_relu
 //-----------------------------------------------------------------------------
+Value Object_filter_at_relu::valueConst;
+
 Object_filter_at_relu::Object_filter_at_relu(Environment &env, Filter_Relu *pFilter) :
 	Object_filter(env.LookupClass(VTYPE_filter_at_relu), pFilter)
 {
@@ -61,8 +63,7 @@ Gura_DeclareFunctionAlias(filter_at_relu, "filter@relu")
 
 Gura_ImplementFunction(filter_at_relu)
 {
-	Object_filter_at_relu *pObj = new Object_filter_at_relu(env, new Filter_Relu());
-	return ReturnValue(env, arg, Value(pObj));
+	return ReturnValue(env, arg, Object_filter_at_relu::valueConst);
 }
 
 //-----------------------------------------------------------------------------
@@ -78,7 +79,7 @@ void Class_filter_at_relu::DoPrepare(Environment &env)
 	// Assignment of function
 	Gura_AssignFunction(filter_at_relu);
 	// Assignment of value
-	Gura_AssignClassValue(inst, Value(new Object_filter_at_relu(env, new Filter_Relu())));
+	Object_filter_at_relu::valueConst = Value(new Object_filter_at_relu(env, new Filter_Relu()));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

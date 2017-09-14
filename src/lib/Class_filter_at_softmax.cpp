@@ -101,7 +101,6 @@ void Class_filter_at_softmax::DoPrepare(Environment &env)
 	// Assignment of properties
 	Gura_AssignProperty(filter_at_softmax, axis);
 	// Assignment of value
-	Gura_AssignClassValue(inst, Value(new Object_filter_at_softmax(env, new Filter_Softmax())));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
