@@ -1,0 +1,51 @@
+#!/usr/bin/env gura
+import(ml.mnist)
+import(arrayt)
+
+CalcMeanSquaredError(y:array, t:array) = ((y - t) ** 2).sum() / 2
+CalcCrossEntropyError(y:array, t:array) = -(t * math.log(y + 1e-7)).sum()
+db = ml.mnist.Database('sample')
+weight = array@float.rands@normal([784, 10], 0, .1)
+bias = array@float.rands@normal([10], 0, .1)
+model = `(x |.| weight + bias)
+scope {
+	// training
+	arrImage = db.train.imageSet.ToArray(`flat)
+	arrLabel = db.train.labelSet.ToArray()
+	nRepeats = 100
+	nTrains = 1000
+	repeat (nRepeats) {|iRepeat|
+		repeat (nTrains) {|i|
+			x = arrImage[i]
+			t = arrLabel[i]
+			y = model.eval() |*| filter@softmax.inst
+			err = y - t
+			biasDiff = err
+			weightDiff = x.T.reshape([nil, 1]) |.| err.reshape([1, nil])
+			bias -= biasDiff * .01
+			weight -= weightDiff * .01
+		}
+		printf('#%d error=%f\n', iRepeat + 1, CalcCrossEntropyError(y, t))
+	}
+}
+scope {
+	// evaluation
+	arrImage = db.test.imageSet.ToArray(`flat)
+	arrLabel = db.test.labelSet.ToArray()
+	nTests = 200
+	nCorrects = 0
+	repeat (nTests) {|i|
+		x = arrImage[i]
+		t = arrLabel[i]
+		y = model.eval()
+		print(ml.mnist.ToAscii(x))
+		if (y.argmax() == t.argmax()) {
+			printf(' "%d" .. correct\n', y.argmax())
+			nCorrects += 1
+		} else {
+			printf(' "%d" .. wrong. correct is "%d"\n', y.argmax(), t.argmax())
+		}
+		println('-' * 60)
+	}
+	printf('accuracy: %d/%d (%f%%)\n', nCorrects, nTests, nCorrects / nTests * 100)
+}
