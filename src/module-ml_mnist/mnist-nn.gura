@@ -6,26 +6,49 @@ CalcMeanSquaredError(y:array, t:array) = ((y - t) ** 2).sum() / 2
 CalcCrossEntropyError(y:array, t:array) = -(t * math.log(y + 1e-7)).sum()
 
 db = ml.mnist.Database('sample')
+
 weight = array@float.rands@normal([784, 10], 0, .1)
 bias = array@float.rands@normal([1, 10], 0, .1)
-model = `(x |.| weight + bias)
-//model = `((x |.| weight1 + bias1) |*| filter@relu() |.| weight2 + bias2)
+
+weight1 = array@float.rands@normal([784, 100], 0, .1)
+weight2 = array@float.rands@normal([100, 10], 0, .1)
+bias1 = array@float.rands@normal([1, 100], 0, .1)
+bias2 = array@float.rands@normal([1, 10], 0, .1)
 scope {
 	// training
 	arrImage = db.train.imageSet.ToArray(`flat)
 	arrLabel = db.train.labelSet.ToArray()
-	nRepeats = 100
+	nRepeats = 5
 	nTrains = 1000
+	alpha = .01
 	repeat (nRepeats) {|iRepeat|
 		repeat (nTrains) {|i|
 			x = arrImage[i].reshape([1, nil])
 			t = arrLabel[i].reshape([1, nil])
-			y = model.eval() |*| filter@softmax()
-			err = y - t
-			biasDiff = err
-			weightDiff = x.T |.| err
-			bias -= biasDiff * .01
-			weight -= weightDiff * .01
+
+			y = (x |.| weight + bias) |*| filter@softmax()
+			y_diff = y - t
+			bias_diff = y_diff
+			weight_diff = x.T |.| y_diff
+			bias -= bias_diff * alpha
+			weight -= weight_diff * alpha
+
+			/*
+			u1 = x |.| weight1 + bias1
+			u2 = u1 |*| filter@sigmoid()
+			y = (u2 |.| weight2 + bias2) |*| filter@softmax()
+			y_diff = y - t
+			bias2_diff = y_diff
+			weight2_diff = u2.T |.| y_diff
+			u2_diff = y_diff |.| weight2.T
+			u1_diff = u2 * (1 - u2) * u2_diff
+			bias1_diff = u1_diff
+			weight1_diff = x.T |.| u1_diff
+			weight1 -= weight1_diff * alpha
+			weight2 -= weight2_diff * alpha
+			bias1 -= bias1_diff * alpha
+			bias2 -= bias2_diff * alpha
+			*/
 		}
 		printf('#%d error=%f\n', iRepeat + 1, CalcCrossEntropyError(y, t))
 	}
@@ -39,7 +62,14 @@ scope {
 	repeat (nTests) {|i|
 		x = arrImage[i]
 		t = arrLabel[i]
-		y = model.eval() |*| filter@softmax()
+		
+		y = (x |.| weight + bias) |*| filter@softmax()
+
+		/*
+		u1 = x |.| weight1 + bias1
+		u2 = u1 |*| filter@sigmoid()
+		y = (u2 |.| weight2 + bias2) |*| filter@softmax()
+		*/
 		print(ml.mnist.ToAscii(x))
 		if (y.argmax() == t.argmax()) {
 			printf(' "%d" .. correct with accuracy %.1f%%\n', y.argmax(), y[y.argmax()] * 100)
