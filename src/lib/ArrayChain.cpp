@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // ArrayNode
 //-----------------------------------------------------------------------------
-ArrayNode::ArrayNode(Connector *pConnectorDst)
+ArrayNode::ArrayNode(Connector *pConnectorDst) : _cntRef(1)
 {
 	pConnectorDst->SetArrayNodeSrc(this);
 	_connectorsDst.push_back(pConnectorDst);
@@ -75,38 +75,51 @@ void ArrayNodeHead::Print(int indentLevel)
 }
 
 //-----------------------------------------------------------------------------
-// ArrayNodeTail
+// ArrayNodeBottom
 //-----------------------------------------------------------------------------
-bool ArrayNodeTail::InitForward(Environment &env)
+bool ArrayNodeBottom::InitForward(Environment &env)
 {
-	//::printf("ArrayNodeTail::InitForward()\n");
+	//::printf("ArrayNodeBottom::InitForward()\n");
 	_pArrayFwd.reset(_connectorSrc.GetArrayFwd()->Reference());
 	return true;
 }
 
-bool ArrayNodeTail::EvalForward(Environment &env)
+bool ArrayNodeBottom::EvalForward(Environment &env)
 {
-	//::printf("ArrayNodeTail::EvalForward()\n");
+	//::printf("ArrayNodeBottom::EvalForward()\n");
 	//::printf("%s\n", _connectorSrc.GetArrayFwd()->ToString(false).c_str());
 	return true;
 }
 
-bool ArrayNodeTail::InitBackward(Environment &env)
+bool ArrayNodeBottom::InitBackward(Environment &env)
 {
 	Array *pArrayFwd = _connectorSrc.GetArrayFwd();
 	AutoPtr<Array> pArrayBwd(Array::Create(pArrayFwd->GetElemType(), false, pArrayFwd->GetDimensions()));
-	pArrayBwd->Fill(1);
+	pArrayBwd->FillZero();
 	_connectorSrc.SetArrayBwd(pArrayBwd.release());
 	return true;
 }
 
-bool ArrayNodeTail::EvalBackward(Environment &env)
+bool ArrayNodeBottom::EvalBackward(Environment &env)
 {
 	// nothing to do
 	return true;
 }
 
-void ArrayNodeTail::Print(int indentLevel)
+bool ArrayNodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayCorrect)
+{
+	if (!_connectorSrc.IsSourceConstant()) {
+		Array::Delete(
+			Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Sub, _connectorSrc.GetArrayBwd(),
+				_connectorSrc.GetArrayFwd(),
+				pArrayCorrect));
+		if (env.IsSignalled()) return false;
+	}
+	return true;
+}
+
+void ArrayNodeBottom::Print(int indentLevel)
 {
 	::printf("%*sTail [fwd:%p,bwd:%p]\n", indentLevel * 2, "",
 			 _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
@@ -487,26 +500,26 @@ ArrayNodeOwner::~ArrayNodeOwner()
 void ArrayNodeOwner::Clear()
 {
 	foreach (ArrayNodeOwner, ppArrayNode, *this) {
-		delete *ppArrayNode;
+		ArrayNode::Delete(*ppArrayNode);
 	}
 	clear();
 }
 
-bool ArrayNodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr)
+#if 0
+bool ArrayNodeOwner::CreateFromExpr(Environment &env, const ArrayNodeBottom *pArrayNodeBottom, const Expr *pExpr)
 {
-	std::unique_ptr<ArrayNodeTail> pArrayNode(new ArrayNodeTail());
-	ArrayNode::Connector *pConnectorSrc = pArrayNode->GetConnectorSrc();
-	push_back(pArrayNode.release());
+	ArrayNode::Connector *pConnectorSrc = pArrayNodeBottom->GetConnectorSrc();
 	if (!CreateFromExprSub(env, pExpr, pConnectorSrc)) return false;
 	return true;
 }
+#endif
 
-bool ArrayNodeOwner::CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayNode::Connector *pConnector)
+bool ArrayNodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr, ArrayNode::Connector *pConnector)
 {
 	if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
 		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
 		const Operator *pOperator = pExprEx->GetOperator();
-		std::unique_ptr<ArrayNodeUnary> pArrayNode;
+		AutoPtr<ArrayNodeUnary> pArrayNode;
 		if (pOperator->IsOpType(OPTYPE_Pos)) {
 			pArrayNode.reset(new ArrayNodeUnary_Pos(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Neg)) {
@@ -517,14 +530,14 @@ bool ArrayNodeOwner::CreateFromExprSub(Environment &env, const Expr *pExpr, Arra
 		}
 		ArrayNode::Connector *pConnectorSrc = pArrayNode->GetConnectorSrc();
 		push_back(pArrayNode.release());
-		if (!CreateFromExprSub(env, pExprEx->GetChild(), pConnectorSrc)) {
+		if (!CreateFromExpr(env, pExprEx->GetChild(), pConnectorSrc)) {
 			return false;
 		}
 		return true;
 	} else if (pExpr->IsType(EXPRTYPE_BinaryOp)) {
 		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExpr);
 		const Operator *pOperator = pExprEx->GetOperator();
-		std::unique_ptr<ArrayNodeBinary> pArrayNode;
+		AutoPtr<ArrayNodeBinary> pArrayNode;
 		if (pOperator->IsOpType(OPTYPE_Add)) {
 			pArrayNode.reset(new ArrayNodeBinary_Add(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Sub)) {
@@ -546,15 +559,15 @@ bool ArrayNodeOwner::CreateFromExprSub(Environment &env, const Expr *pExpr, Arra
 		ArrayNode::Connector *pConnectorSrcLeft = pArrayNode->GetConnectorSrcLeft();
 		ArrayNode::Connector *pConnectorSrcRight = pArrayNode->GetConnectorSrcRight();
 		push_back(pArrayNode.release());
-		if (!CreateFromExprSub(env, pExprEx->GetLeft(), pConnectorSrcLeft) ||
-			!CreateFromExprSub(env, pExprEx->GetRight(), pConnectorSrcRight)) {
+		if (!CreateFromExpr(env, pExprEx->GetLeft(), pConnectorSrcLeft) ||
+			!CreateFromExpr(env, pExprEx->GetRight(), pConnectorSrcRight)) {
 			return false;
 		}
 		return true;
 	} else if (pExpr->IsType(EXPRTYPE_Caller)) {
 		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr);
 		const ExprOwner &exprsArg = pExprEx->GetExprOwner();
-		std::unique_ptr<ArrayNodeUnary> pArrayNode;
+		AutoPtr<ArrayNodeUnary> pArrayNode;
 		if (pExprEx->GetCar()->IsMember()) {
 			const Expr_Member *pExprCar = dynamic_cast<const Expr_Member *>(pExprEx->GetCar());
 			if (pExprCar->GetTarget()->IsSymbol(Gura_Symbol(math)) && pExprCar->GetSelector()->IsIdentifier()) {
@@ -573,14 +586,13 @@ bool ArrayNodeOwner::CreateFromExprSub(Environment &env, const Expr *pExpr, Arra
 			}
 			ArrayNode::Connector *pConnectorSrc = pArrayNode->GetConnectorSrc();
 			push_back(pArrayNode.release());
-			if (!CreateFromExprSub(env, exprsArg.front(), pConnectorSrc)) {
+			if (!CreateFromExpr(env, exprsArg.front(), pConnectorSrc)) {
 				return false;
 			}
 			return true;
 		}
 	}
-	std::unique_ptr<ArrayNodeHead> pArrayNode(
-		new ArrayNodeHead(pConnector, Expr::Reference(pExpr)));
+	AutoPtr<ArrayNodeHead> pArrayNode(new ArrayNodeHead(pConnector, Expr::Reference(pExpr)));
 	push_back(pArrayNode.release());
 	return true;
 }
@@ -588,38 +600,48 @@ bool ArrayNodeOwner::CreateFromExprSub(Environment &env, const Expr *pExpr, Arra
 //-----------------------------------------------------------------------------
 // ArrayChain
 //-----------------------------------------------------------------------------
+ArrayChain::ArrayChain() : _cntRef(1), _pArrayNodeBottom(new ArrayNodeBottom())
+{
+}
+
 ArrayChain::~ArrayChain()
 {
 }
 
 bool ArrayChain::CreateFromExpr(Environment &env, const Expr *pExpr)
 {
-	if (!_arrayNodeOwner.CreateFromExpr(env, pExpr)) return false;
+	if (!_arrayNodeOwner.CreateFromExpr(env, pExpr, _pArrayNodeBottom->GetConnectorSrc())) return false;
 	if (!_arrayNodeOwner.InitForward(env)) return false;
+	if (!_pArrayNodeBottom->InitForward(env)) return false;
+	if (!_pArrayNodeBottom->InitBackward(env)) return false;
 	if (!_arrayNodeOwner.InitBackward(env)) return false;
 	return true;
 }
 
 bool ArrayChain::Eval(Environment &env)
 {
-	return _arrayNodeOwner.EvalForward(env);
+	if (!_arrayNodeOwner.EvalForward(env)) return false;
+	if (!_pArrayNodeBottom->EvalForward(env)) return false;
+	return true;
 }
 
 bool ArrayChain::Train(Environment &env, const Array *pArrayCorrect)
 {
 	if (!_arrayNodeOwner.EvalForward(env)) return false;
+	if (!_pArrayNodeBottom->EvalForward(env)) return false;
+	if (!_pArrayNodeBottom->EvalBackwardTop(env, pArrayCorrect)) return false;
 	if (!_arrayNodeOwner.EvalBackward(env)) return false;
 	return true;
 }
 
 const Array *ArrayChain::GetResult() const
 {
-	return _arrayNodeOwner.front()->GetArrayFwd();
+	return _pArrayNodeBottom->GetArrayFwd();
 }
 
 void ArrayChain::Print() const
 {
-	_arrayNodeOwner.front()->Print(0);
+	_pArrayNodeBottom->Print(0);
 }
 
 }

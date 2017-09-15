@@ -38,12 +38,17 @@ public:
 		inline ConnectorList() {}
 	};
 protected:
+	int _cntRef;
 	ConnectorList _connectorsDst;
 	AutoPtr<Array> _pArrayFwd;
 public:
-	inline ArrayNode() {}
+	Gura_DeclareReferenceAccessor(ArrayNode);
+public:
+	inline ArrayNode() : _cntRef(1) {}
 	ArrayNode(Connector *pConnectorDst);
+protected:
 	virtual ~ArrayNode();
+public:
 	inline void AddConnectorDst(Connector *pConnectorDst) { _connectorsDst.push_back(pConnectorDst); }
 	inline Array *GetArrayFwd() { return _pArrayFwd.get(); }
 	virtual bool InitForward(Environment &env) = 0;
@@ -69,18 +74,19 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeTail
+// ArrayNodeBottom
 //-----------------------------------------------------------------------------
-class ArrayNodeTail : public ArrayNode {
+class ArrayNodeBottom : public ArrayNode {
 private:
 	Connector _connectorSrc;
 public:
-	inline ArrayNodeTail() : ArrayNode(), _connectorSrc(this) {}
+	inline ArrayNodeBottom() : ArrayNode(), _connectorSrc(this) {}
 	inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 	virtual bool InitForward(Environment &env);
 	virtual bool EvalForward(Environment &env);
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
+	bool EvalBackwardTop(Environment &env, const Array *pArrayCorrect);
 	virtual void Print(int indentLevel);
 };
 
@@ -264,9 +270,7 @@ class ArrayNodeOwner : public ArrayNodeList {
 public:
 	~ArrayNodeOwner();
 	void Clear();
-	bool CreateFromExpr(Environment &env, const Expr *pExpr);
-private:
-	bool CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayNode::Connector *pConnector);
+	bool CreateFromExpr(Environment &env, const Expr *pExpr, ArrayNode::Connector *pConnector);
 };
 
 //-----------------------------------------------------------------------------
@@ -275,11 +279,12 @@ private:
 class ArrayChain {
 private:
 	int _cntRef;
+	AutoPtr<ArrayNodeBottom> _pArrayNodeBottom;
 	ArrayNodeOwner _arrayNodeOwner;
 public:
 	Gura_DeclareReferenceAccessor(ArrayChain);
 public:
-	inline ArrayChain() : _cntRef(1) {}
+	ArrayChain();
 protected:
 	virtual ~ArrayChain();
 public:
