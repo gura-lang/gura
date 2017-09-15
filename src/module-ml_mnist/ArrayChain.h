@@ -29,6 +29,8 @@ public:
 		inline void SetArrayBwd(Array *pArrayBwd) { _pArrayBwd.reset(pArrayBwd); }
 		inline Array *GetArrayFwd() { return _pArrayExSrc->GetArrayFwd(); }
 		inline Array *GetArrayBwd() { return _pArrayBwd.get(); }
+		inline const Array *GetArrayFwd() const { return _pArrayExSrc->GetArrayFwd(); }
+		inline const Array *GetArrayBwd() const { return _pArrayBwd.get(); }
 		inline void SetConstSrcFlag(bool constSrcFlag) { _constSrcFlag = constSrcFlag; }
 		inline bool IsSourceConstant() const { return _constSrcFlag; }
 	};
@@ -284,6 +286,7 @@ protected:
 public:
 	bool CreateFromExpr(Environment &env, const Expr *pExpr);
 	bool Eval(Environment &env);
+	const Array *GetResult() const;
 	inline const ArrayExOwner &GetArrayExOwner() const { return _arrayExOwner; }
 	void Print() const;
 };

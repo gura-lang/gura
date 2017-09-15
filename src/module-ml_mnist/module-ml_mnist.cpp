@@ -24,7 +24,7 @@ Gura_ImplementFunction(test)
 	if (!pArrayChain->CreateFromExpr(env, Object_expr::GetObject(arg, 0)->GetExpr())) return Value::Nil;
 	pArrayChain->Print();
 	if (!pArrayChain->Eval(env)) return Value::Nil;
-	return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayChain->GetResult()->Reference())));
 }
 
 //-----------------------------------------------------------------------------

@@ -77,6 +77,7 @@ void ArrayExHead::Print(int indentLevel)
 bool ArrayExTail::InitForward(Environment &env)
 {
 	//::printf("ArrayExTail::InitForward()\n");
+	_pArrayFwd.reset(_connectorSrc.GetArrayFwd()->Reference());
 	return true;
 }
 
@@ -601,6 +602,11 @@ bool ArrayChain::Eval(Environment &env)
 	if (!_arrayExOwner.EvalForward(env)) return false;
 	if (!_arrayExOwner.EvalBackward(env)) return false;
 	return true;
+}
+
+const Array *ArrayChain::GetResult() const
+{
+	return _arrayExOwner.front()->GetArrayFwd();
 }
 
 void ArrayChain::Print() const

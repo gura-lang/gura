@@ -14,5 +14,6 @@ testcase {
 	weight = array@float.rands@normal([784, 10], 0, .1)
 	bias = array@float.rands@normal([1, 10], 0, .1)
 	model = `(x |.| weight + bias)
-	ml.mnist.test(model)
+	println(ml.mnist.test(model))
+	println(model.eval())
 }
