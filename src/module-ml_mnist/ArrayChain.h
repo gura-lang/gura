@@ -2,34 +2,33 @@
 #define __GURA_ARRAYCHAIN_H__
 #include <gura.h>
 
-
 namespace Gura {
 
-class ArrayEx;
+class ArrayNode;
 
 //-----------------------------------------------------------------------------
-// ArrayEx
+// ArrayNode
 //-----------------------------------------------------------------------------
-class ArrayEx {
+class ArrayNode {
 public:
 	class Connector {
 	private:
-		ArrayEx *_pArrayExSrc;
-		ArrayEx *_pArrayExDst;
+		ArrayNode *_pArrayNodeSrc;
+		ArrayNode *_pArrayNodeDst;
 		AutoPtr<Array> _pArrayBwd;
 		bool _constSrcFlag;
 	public:
-		inline Connector(ArrayEx *pArrayExDst) :
-			_pArrayExSrc(nullptr), _pArrayExDst(pArrayExDst), _constSrcFlag(false) {}
-		inline ArrayEx *GetArrayExSrc() { return _pArrayExSrc; }
-		inline ArrayEx *GetArrayExDst() { return _pArrayExDst; }
-		inline void SetArrayExSrc(ArrayEx *pArrayExSrc) {
-			_pArrayExSrc = pArrayExSrc;
+		inline Connector(ArrayNode *pArrayNodeDst) :
+			_pArrayNodeSrc(nullptr), _pArrayNodeDst(pArrayNodeDst), _constSrcFlag(false) {}
+		inline ArrayNode *GetArrayNodeSrc() { return _pArrayNodeSrc; }
+		inline ArrayNode *GetArrayNodeDst() { return _pArrayNodeDst; }
+		inline void SetArrayNodeSrc(ArrayNode *pArrayNodeSrc) {
+			_pArrayNodeSrc = pArrayNodeSrc;
 		}
 		inline void SetArrayBwd(Array *pArrayBwd) { _pArrayBwd.reset(pArrayBwd); }
-		inline Array *GetArrayFwd() { return _pArrayExSrc->GetArrayFwd(); }
+		inline Array *GetArrayFwd() { return _pArrayNodeSrc->GetArrayFwd(); }
 		inline Array *GetArrayBwd() { return _pArrayBwd.get(); }
-		inline const Array *GetArrayFwd() const { return _pArrayExSrc->GetArrayFwd(); }
+		inline const Array *GetArrayFwd() const { return _pArrayNodeSrc->GetArrayFwd(); }
 		inline const Array *GetArrayBwd() const { return _pArrayBwd.get(); }
 		inline void SetConstSrcFlag(bool constSrcFlag) { _constSrcFlag = constSrcFlag; }
 		inline bool IsSourceConstant() const { return _constSrcFlag; }
@@ -42,9 +41,9 @@ protected:
 	ConnectorList _connectorsDst;
 	AutoPtr<Array> _pArrayFwd;
 public:
-	inline ArrayEx() {}
-	ArrayEx(Connector *pConnectorDst);
-	virtual ~ArrayEx();
+	inline ArrayNode() {}
+	ArrayNode(Connector *pConnectorDst);
+	virtual ~ArrayNode();
 	inline void AddConnectorDst(Connector *pConnectorDst) { _connectorsDst.push_back(pConnectorDst); }
 	inline Array *GetArrayFwd() { return _pArrayFwd.get(); }
 	virtual bool InitForward(Environment &env) = 0;
@@ -55,13 +54,13 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExHead
+// ArrayNodeHead
 //-----------------------------------------------------------------------------
-class ArrayExHead : public ArrayEx {
+class ArrayNodeHead : public ArrayNode {
 protected:
 	AutoPtr<Expr> _pExpr;
 public:
-	inline ArrayExHead(Connector *pConnectorDst, Expr *pExpr) : ArrayEx(pConnectorDst), _pExpr(pExpr) {}
+	inline ArrayNodeHead(Connector *pConnectorDst, Expr *pExpr) : ArrayNode(pConnectorDst), _pExpr(pExpr) {}
 	virtual bool InitForward(Environment &env);
 	virtual bool EvalForward(Environment &env);
 	virtual bool InitBackward(Environment &env);
@@ -70,13 +69,13 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExTail
+// ArrayNodeTail
 //-----------------------------------------------------------------------------
-class ArrayExTail : public ArrayEx {
+class ArrayNodeTail : public ArrayNode {
 private:
 	Connector _connectorSrc;
 public:
-	inline ArrayExTail() : ArrayEx(), _connectorSrc(this) {}
+	inline ArrayNodeTail() : ArrayNode(), _connectorSrc(this) {}
 	inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 	virtual bool InitForward(Environment &env);
 	virtual bool EvalForward(Environment &env);
@@ -86,15 +85,15 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExUnary
+// ArrayNodeUnary
 //-----------------------------------------------------------------------------
-class ArrayExUnary : public ArrayEx {
+class ArrayNodeUnary : public ArrayNode {
 protected:
 	const Array::UnaryFuncPack &_unaryFuncPack;
 	Connector _connectorSrc;
 public:
-	inline ArrayExUnary(const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
-		_unaryFuncPack(unaryFuncPack), ArrayEx(pConnectorDst), _connectorSrc(this) {}
+	inline ArrayNodeUnary(const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
+		_unaryFuncPack(unaryFuncPack), ArrayNode(pConnectorDst), _connectorSrc(this) {}
 	inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 	virtual bool InitForward(Environment &env);
 	virtual bool EvalForward(Environment &env);
@@ -102,60 +101,60 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExUnary_Pos
+// ArrayNodeUnary_Pos
 //-----------------------------------------------------------------------------
-class ArrayExUnary_Pos : public ArrayExUnary {
+class ArrayNodeUnary_Pos : public ArrayNodeUnary {
 public:
-	inline ArrayExUnary_Pos(Connector *pConnectorDst) :
-		ArrayExUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
+	inline ArrayNodeUnary_Pos(Connector *pConnectorDst) :
+		ArrayNodeUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExUnary_Neg
+// ArrayNodeUnary_Neg
 //-----------------------------------------------------------------------------
-class ArrayExUnary_Neg : public ArrayExUnary {
+class ArrayNodeUnary_Neg : public ArrayNodeUnary {
 public:
-	inline ArrayExUnary_Neg(Connector *pConnectorDst) :
-		ArrayExUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
+	inline ArrayNodeUnary_Neg(Connector *pConnectorDst) :
+		ArrayNodeUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExUnary_Math_relu
+// ArrayNodeUnary_Math_relu
 //-----------------------------------------------------------------------------
-class ArrayExUnary_Math_relu : public ArrayExUnary {
+class ArrayNodeUnary_Math_relu : public ArrayNodeUnary {
 public:
-	inline ArrayExUnary_Math_relu(Connector *pConnectorDst) :
-		ArrayExUnary(Array::unaryFuncPack_Math_relu, pConnectorDst) {}
+	inline ArrayNodeUnary_Math_relu(Connector *pConnectorDst) :
+		ArrayNodeUnary(Array::unaryFuncPack_Math_relu, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExUnary_Math_sigmoid
+// ArrayNodeUnary_Math_sigmoid
 //-----------------------------------------------------------------------------
-class ArrayExUnary_Math_sigmoid : public ArrayExUnary {
+class ArrayNodeUnary_Math_sigmoid : public ArrayNodeUnary {
 public:
-	inline ArrayExUnary_Math_sigmoid(Connector *pConnectorDst) :
-		ArrayExUnary(Array::unaryFuncPack_Math_sigmoid, pConnectorDst) {}
+	inline ArrayNodeUnary_Math_sigmoid(Connector *pConnectorDst) :
+		ArrayNodeUnary(Array::unaryFuncPack_Math_sigmoid, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExBinary
+// ArrayNodeBinary
 //-----------------------------------------------------------------------------
-class ArrayExBinary : public ArrayEx {
+class ArrayNodeBinary : public ArrayNode {
 protected:
 	const Array::BinaryFuncPack &_binaryFuncPack;
 	Connector _connectorSrcLeft;
 	Connector _connectorSrcRight;
 public:
-	inline ArrayExBinary(const Array::BinaryFuncPack &binaryFuncPack, Connector *pConnectorDst) :
-		_binaryFuncPack(binaryFuncPack), ArrayEx(pConnectorDst),
+	inline ArrayNodeBinary(const Array::BinaryFuncPack &binaryFuncPack, Connector *pConnectorDst) :
+		_binaryFuncPack(binaryFuncPack), ArrayNode(pConnectorDst),
 		_connectorSrcLeft(this), _connectorSrcRight(this) {}
 	inline Connector *GetConnectorSrcLeft() { return &_connectorSrcLeft; }
 	inline Connector *GetConnectorSrcRight() { return &_connectorSrcRight; }
@@ -165,93 +164,93 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExBinary_Add
+// ArrayNodeBinary_Add
 //-----------------------------------------------------------------------------
-class ArrayExBinary_Add : public ArrayExBinary {
+class ArrayNodeBinary_Add : public ArrayNodeBinary {
 public:
-	inline ArrayExBinary_Add(Connector *pConnectorDst) :
-		ArrayExBinary(Array::binaryFuncPack_Add, pConnectorDst) {}
+	inline ArrayNodeBinary_Add(Connector *pConnectorDst) :
+		ArrayNodeBinary(Array::binaryFuncPack_Add, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExBinary_Sub
+// ArrayNodeBinary_Sub
 //-----------------------------------------------------------------------------
-class ArrayExBinary_Sub : public ArrayExBinary {
+class ArrayNodeBinary_Sub : public ArrayNodeBinary {
 public:
-	inline ArrayExBinary_Sub(Connector *pConnectorDst) :
-		ArrayExBinary(Array::binaryFuncPack_Sub, pConnectorDst) {}
+	inline ArrayNodeBinary_Sub(Connector *pConnectorDst) :
+		ArrayNodeBinary(Array::binaryFuncPack_Sub, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExBinary_Mul
+// ArrayNodeBinary_Mul
 //-----------------------------------------------------------------------------
-class ArrayExBinary_Mul : public ArrayExBinary {
+class ArrayNodeBinary_Mul : public ArrayNodeBinary {
 public:
-	inline ArrayExBinary_Mul(Connector *pConnectorDst) :
-		ArrayExBinary(Array::binaryFuncPack_Mul, pConnectorDst) {}
+	inline ArrayNodeBinary_Mul(Connector *pConnectorDst) :
+		ArrayNodeBinary(Array::binaryFuncPack_Mul, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExBinary_Div
+// ArrayNodeBinary_Div
 //-----------------------------------------------------------------------------
-class ArrayExBinary_Div : public ArrayExBinary {
+class ArrayNodeBinary_Div : public ArrayNodeBinary {
 public:
-	inline ArrayExBinary_Div(Connector *pConnectorDst) :
-		ArrayExBinary(Array::binaryFuncPack_Div, pConnectorDst) {}
+	inline ArrayNodeBinary_Div(Connector *pConnectorDst) :
+		ArrayNodeBinary(Array::binaryFuncPack_Div, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExBinary_Pow
+// ArrayNodeBinary_Pow
 //-----------------------------------------------------------------------------
-class ArrayExBinary_Pow : public ArrayExBinary {
+class ArrayNodeBinary_Pow : public ArrayNodeBinary {
 public:
-	inline ArrayExBinary_Pow(Connector *pConnectorDst) :
-		ArrayExBinary(Array::binaryFuncPack_Pow, pConnectorDst) {}
+	inline ArrayNodeBinary_Pow(Connector *pConnectorDst) :
+		ArrayNodeBinary(Array::binaryFuncPack_Pow, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExBinary_Dot
+// ArrayNodeBinary_Dot
 //-----------------------------------------------------------------------------
-class ArrayExBinary_Dot : public ArrayExBinary {
+class ArrayNodeBinary_Dot : public ArrayNodeBinary {
 private:
 	AutoPtr<Array> _pArrayFwdLeftTrans;
 	AutoPtr<Array> _pArrayFwdRightTrans;
 public:
-	inline ArrayExBinary_Dot(Connector *pConnectorDst) :
-		ArrayExBinary(Array::binaryFuncPack_Dot, pConnectorDst) {}
+	inline ArrayNodeBinary_Dot(Connector *pConnectorDst) :
+		ArrayNodeBinary(Array::binaryFuncPack_Dot, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 #if 0
 //-----------------------------------------------------------------------------
-// ArrayExBinary_Filter
+// ArrayNodeBinary_Filter
 //-----------------------------------------------------------------------------
-class ArrayExBinary_Filter : public ArrayExBinary {
+class ArrayNodeBinary_Filter : public ArrayNodeBinary {
 public:
-	inline ArrayExBinary_Filter(Connector *pConnectorDst) :
-		ArrayExBinary(Array::binaryFuncPack_Filter, pConnectorDst) {}
+	inline ArrayNodeBinary_Filter(Connector *pConnectorDst) :
+		ArrayNodeBinary(Array::binaryFuncPack_Filter, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 #endif
 
 //-----------------------------------------------------------------------------
-// ArrayExList
+// ArrayNodeList
 //-----------------------------------------------------------------------------
-class ArrayExList : public std::vector<ArrayEx *> {
+class ArrayNodeList : public std::vector<ArrayNode *> {
 public:
-	inline ArrayExList() {}
+	inline ArrayNodeList() {}
 	bool InitForward(Environment &env);
 	bool InitBackward(Environment &env);
 	bool EvalForward(Environment &env);
@@ -259,15 +258,15 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayExOwner
+// ArrayNodeOwner
 //-----------------------------------------------------------------------------
-class ArrayExOwner : public ArrayExList {
+class ArrayNodeOwner : public ArrayNodeList {
 public:
-	~ArrayExOwner();
+	~ArrayNodeOwner();
 	void Clear();
 	bool CreateFromExpr(Environment &env, const Expr *pExpr);
 private:
-	bool CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayEx::Connector *pConnector);
+	bool CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayNode::Connector *pConnector);
 };
 
 //-----------------------------------------------------------------------------
@@ -276,7 +275,7 @@ private:
 class ArrayChain {
 private:
 	int _cntRef;
-	ArrayExOwner _arrayExOwner;
+	ArrayNodeOwner _arrayNodeOwner;
 public:
 	Gura_DeclareReferenceAccessor(ArrayChain);
 public:
@@ -287,7 +286,7 @@ public:
 	bool CreateFromExpr(Environment &env, const Expr *pExpr);
 	bool Eval(Environment &env);
 	const Array *GetResult() const;
-	inline const ArrayExOwner &GetArrayExOwner() const { return _arrayExOwner; }
+	inline const ArrayNodeOwner &GetArrayNodeOwner() const { return _arrayNodeOwner; }
 	void Print() const;
 };
 
