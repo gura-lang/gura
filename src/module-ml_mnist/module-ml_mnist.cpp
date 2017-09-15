@@ -22,6 +22,7 @@ Gura_ImplementFunction(test)
 {
 	AutoPtr<ArrayChain> pArrayChain(new ArrayChain());
 	pArrayChain->CreateFromExpr(env, Object_expr::GetObject(arg, 0)->GetExpr());
+	pArrayChain->Print();
 #if 0
 	arrayChainOwner.front()->Print(0);
 	if (!arrayChainOwner.InitForward(env)) return Value::Nil;

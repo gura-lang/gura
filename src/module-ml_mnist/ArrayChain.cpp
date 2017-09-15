@@ -3,32 +3,32 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// ArrayItem
+// ArrayEx
 //-----------------------------------------------------------------------------
-ArrayItem::ArrayItem(Connector *pConnectorDst)
+ArrayEx::ArrayEx(Connector *pConnectorDst)
 {
-	pConnectorDst->SetArrayItemSrc(this);
+	pConnectorDst->SetArrayExSrc(this);
 	_connectorsDst.push_back(pConnectorDst);
 }
 
-ArrayItem::~ArrayItem()
+ArrayEx::~ArrayEx()
 {
 }
 
 //-----------------------------------------------------------------------------
-// ArrayItem::Connector
+// ArrayEx::Connector
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// ArrayItem::ConnectorList
+// ArrayEx::ConnectorList
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// ArrayItemHead
+// ArrayExHead
 //-----------------------------------------------------------------------------
-bool ArrayItemHead::InitForward(Environment &env)
+bool ArrayExHead::InitForward(Environment &env)
 {
-	//::printf("ArrayItemHead::InitForward()\n");
+	//::printf("ArrayExHead::InitForward()\n");
 	Value value = _pExpr->Exec(env);
 	if (env.IsSignalled()) return false;
 	if (value.Is_number()) {
@@ -46,48 +46,48 @@ bool ArrayItemHead::InitForward(Environment &env)
 	return true;
 }
 
-bool ArrayItemHead::EvalForward(Environment &env)
+bool ArrayExHead::EvalForward(Environment &env)
 {
-	//::printf("ArrayItemHead::EvalForward()\n");
+	//::printf("ArrayExHead::EvalForward()\n");
 	return true;
 }
 
-bool ArrayItemHead::InitBackward(Environment &env)
+bool ArrayExHead::InitBackward(Environment &env)
 {
 	// nothing to do
 	return true;
 }
 
-bool ArrayItemHead::EvalBackward(Environment &env)
+bool ArrayExHead::EvalBackward(Environment &env)
 {
-	//::printf("ArrayItemHead::EvalBackward()\n");
+	//::printf("ArrayExHead::EvalBackward()\n");
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	::printf("%s\n", (*ppConnectorDst)->GetArrayBwd()->ToString(false).c_str());
 	return true;
 }
 
-void ArrayItemHead::Print(int indentLevel)
+void ArrayExHead::Print(int indentLevel)
 {
-	::printf("%-*sArrayItemHead\n", indentLevel * 2, "");
+	::printf("%-*sHead\n", indentLevel * 2, "");
 }
 
 //-----------------------------------------------------------------------------
-// ArrayItemTail
+// ArrayExTail
 //-----------------------------------------------------------------------------
-bool ArrayItemTail::InitForward(Environment &env)
+bool ArrayExTail::InitForward(Environment &env)
 {
-	//::printf("ArrayItemTail::InitForward()\n");
+	//::printf("ArrayExTail::InitForward()\n");
 	return true;
 }
 
-bool ArrayItemTail::EvalForward(Environment &env)
+bool ArrayExTail::EvalForward(Environment &env)
 {
-	//::printf("ArrayItemTail::EvalForward()\n");
+	//::printf("ArrayExTail::EvalForward()\n");
 	::printf("%s\n", _connectorSrc.GetArrayFwd()->ToString(false).c_str());
 	return true;
 }
 
-bool ArrayItemTail::InitBackward(Environment &env)
+bool ArrayExTail::InitBackward(Environment &env)
 {
 	Array *pArrayFwd = _connectorSrc.GetArrayFwd();
 	AutoPtr<Array> pArrayBwd(Array::Create(pArrayFwd->GetElemType(), false, pArrayFwd->GetDimensions()));
@@ -96,25 +96,25 @@ bool ArrayItemTail::InitBackward(Environment &env)
 	return true;
 }
 
-bool ArrayItemTail::EvalBackward(Environment &env)
+bool ArrayExTail::EvalBackward(Environment &env)
 {
 	// nothing to do
 	return true;
 }
 
-void ArrayItemTail::Print(int indentLevel)
+void ArrayExTail::Print(int indentLevel)
 {
-	::printf("%*sArrayItemTail[fwd:%p,bwd:%p]\n", indentLevel * 2, "",
+	::printf("%*sTail [fwd:%p,bwd:%p]\n", indentLevel * 2, "",
 			 _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
-	_connectorSrc.GetArrayItemSrc()->Print(indentLevel + 1);
+	_connectorSrc.GetArrayExSrc()->Print(indentLevel + 1);
 }
 
 //-----------------------------------------------------------------------------
-// ArrayItemUnary
+// ArrayExUnary
 //-----------------------------------------------------------------------------
-bool ArrayItemUnary::InitForward(Environment &env)
+bool ArrayExUnary::InitForward(Environment &env)
 {
-	//::printf("ArrayItemUnary::InitForward()\n");
+	//::printf("ArrayExUnary::InitForward()\n");
 	_pArrayFwd.reset(
 		Array::ApplyUnaryFunc(
 			env, _unaryFuncPack, nullptr,
@@ -122,9 +122,9 @@ bool ArrayItemUnary::InitForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-bool ArrayItemUnary::EvalForward(Environment &env)
+bool ArrayExUnary::EvalForward(Environment &env)
 {
-	//::printf("ArrayItemUnary::EvalForward()\n");
+	//::printf("ArrayExUnary::EvalForward()\n");
 	Array::Delete(
 		Array::ApplyUnaryFunc(
 			env, _unaryFuncPack, _pArrayFwd.get(),
@@ -132,17 +132,18 @@ bool ArrayItemUnary::EvalForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-void ArrayItemUnary::Print(int indentLevel)
+void ArrayExUnary::Print(int indentLevel)
 {
-	::printf("%-*sArrayItemUnary[fwd:%p,bwd:%p]\n", indentLevel * 2, "",
+	::printf("%-*sUnary:%s [fwd:%p,bwd:%p]\n", indentLevel * 2, "",
+			 _unaryFuncPack.name,
 			 _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
-	_connectorSrc.GetArrayItemSrc()->Print(indentLevel + 1);
+	_connectorSrc.GetArrayExSrc()->Print(indentLevel + 1);
 }
 
 //-----------------------------------------------------------------------------
-// ArrayItemUnary_Pos
+// ArrayExUnary_Pos
 //-----------------------------------------------------------------------------
-bool ArrayItemUnary_Pos::InitBackward(Environment &env)
+bool ArrayExUnary_Pos::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd()->Reference();
@@ -152,16 +153,16 @@ bool ArrayItemUnary_Pos::InitBackward(Environment &env)
 	return true;
 }
 
-bool ArrayItemUnary_Pos::EvalBackward(Environment &env)
+bool ArrayExUnary_Pos::EvalBackward(Environment &env)
 {
 	// nothing to do
 	return true;
 }
 
 //-----------------------------------------------------------------------------
-// ArrayItemUnary_Neg
+// ArrayExUnary_Neg
 //-----------------------------------------------------------------------------
-bool ArrayItemUnary_Neg::InitBackward(Environment &env)
+bool ArrayExUnary_Neg::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (!_connectorSrc.IsSourceConstant()) {
@@ -174,7 +175,7 @@ bool ArrayItemUnary_Neg::InitBackward(Environment &env)
 	return true;
 }
 
-bool ArrayItemUnary_Neg::EvalBackward(Environment &env)
+bool ArrayExUnary_Neg::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (!_connectorSrc.IsSourceConstant()) {
@@ -188,37 +189,37 @@ bool ArrayItemUnary_Neg::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// ArrayItemUnary_Math_relu
+// ArrayExUnary_Math_relu
 //-----------------------------------------------------------------------------
-bool ArrayItemUnary_Math_relu::InitBackward(Environment &env)
+bool ArrayExUnary_Math_relu::InitBackward(Environment &env)
 {
 	return false;
 }
 
-bool ArrayItemUnary_Math_relu::EvalBackward(Environment &env)
-{
-	return false;
-}
-
-//-----------------------------------------------------------------------------
-// ArrayItemUnary_Math_sigmoid
-//-----------------------------------------------------------------------------
-bool ArrayItemUnary_Math_sigmoid::InitBackward(Environment &env)
-{
-	return false;
-}
-
-bool ArrayItemUnary_Math_sigmoid::EvalBackward(Environment &env)
+bool ArrayExUnary_Math_relu::EvalBackward(Environment &env)
 {
 	return false;
 }
 
 //-----------------------------------------------------------------------------
-// ArrayItemBinary
+// ArrayExUnary_Math_sigmoid
 //-----------------------------------------------------------------------------
-bool ArrayItemBinary::InitForward(Environment &env)
+bool ArrayExUnary_Math_sigmoid::InitBackward(Environment &env)
 {
-	//::printf("ArrayItemBinary::InitForward()\n");
+	return false;
+}
+
+bool ArrayExUnary_Math_sigmoid::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// ArrayExBinary
+//-----------------------------------------------------------------------------
+bool ArrayExBinary::InitForward(Environment &env)
+{
+	//::printf("ArrayExBinary::InitForward()\n");
 	_pArrayFwd.reset(
 		Array::ApplyBinaryFunc(
 			env, _binaryFuncPack, nullptr,
@@ -227,9 +228,9 @@ bool ArrayItemBinary::InitForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-bool ArrayItemBinary::EvalForward(Environment &env)
+bool ArrayExBinary::EvalForward(Environment &env)
 {
-	//::printf("ArrayItemBinary::EvalForward()\n");
+	//::printf("ArrayExBinary::EvalForward()\n");
 	Array::Delete(
 		Array::ApplyBinaryFunc(
 			env, _binaryFuncPack, _pArrayFwd.get(),
@@ -238,19 +239,20 @@ bool ArrayItemBinary::EvalForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-void ArrayItemBinary::Print(int indentLevel)
+void ArrayExBinary::Print(int indentLevel)
 {
-	::printf("%-*sArrayItemBinary[fwd:%p,bwd:%p][fwd:%p,bwd:%p]\n", indentLevel * 2, "",
+	::printf("%-*sBinary:%s [fwd:%p,bwd:%p][fwd:%p,bwd:%p]\n", indentLevel * 2, "",
+			 _binaryFuncPack.name,
 			 _connectorSrcLeft.GetArrayFwd(), _connectorSrcLeft.GetArrayBwd(),
 			 _connectorSrcRight.GetArrayFwd(), _connectorSrcRight.GetArrayBwd());
-	_connectorSrcLeft.GetArrayItemSrc()->Print(indentLevel + 1);
-	_connectorSrcRight.GetArrayItemSrc()->Print(indentLevel + 1);
+	_connectorSrcLeft.GetArrayExSrc()->Print(indentLevel + 1);
+	_connectorSrcRight.GetArrayExSrc()->Print(indentLevel + 1);
 }
 
 //-----------------------------------------------------------------------------
-// ArrayItemBinary_Add
+// ArrayExBinary_Add
 //-----------------------------------------------------------------------------
-bool ArrayItemBinary_Add::InitBackward(Environment &env)
+bool ArrayExBinary_Add::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	const Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd();
@@ -259,16 +261,16 @@ bool ArrayItemBinary_Add::InitBackward(Environment &env)
 	return true;
 }
 
-bool ArrayItemBinary_Add::EvalBackward(Environment &env)
+bool ArrayExBinary_Add::EvalBackward(Environment &env)
 {
 	// nothing to do
 	return true;
 }
 
 //-----------------------------------------------------------------------------
-// ArrayItemBinary_Sub
+// ArrayExBinary_Sub
 //-----------------------------------------------------------------------------
-bool ArrayItemBinary_Sub::InitBackward(Environment &env)
+bool ArrayExBinary_Sub::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	const Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd();
@@ -285,7 +287,7 @@ bool ArrayItemBinary_Sub::InitBackward(Environment &env)
 	return true;
 }
 
-bool ArrayItemBinary_Sub::EvalBackward(Environment &env)
+bool ArrayExBinary_Sub::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (!_connectorSrcRight.IsSourceConstant()) {
@@ -299,9 +301,9 @@ bool ArrayItemBinary_Sub::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// ArrayItemBinary_Mul
+// ArrayExBinary_Mul
 //-----------------------------------------------------------------------------
-bool ArrayItemBinary_Mul::InitBackward(Environment &env)
+bool ArrayExBinary_Mul::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (!_connectorSrcLeft.IsSourceConstant()) {
@@ -323,7 +325,7 @@ bool ArrayItemBinary_Mul::InitBackward(Environment &env)
 	return true;
 }
 
-bool ArrayItemBinary_Mul::EvalBackward(Environment &env)
+bool ArrayExBinary_Mul::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (!_connectorSrcLeft.IsSourceConstant()) {
@@ -346,35 +348,35 @@ bool ArrayItemBinary_Mul::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// ArrayItemBinary_Div
+// ArrayExBinary_Div
 //-----------------------------------------------------------------------------
-bool ArrayItemBinary_Div::InitBackward(Environment &env)
+bool ArrayExBinary_Div::InitBackward(Environment &env)
 {
 	return false;
 }
 
-bool ArrayItemBinary_Div::EvalBackward(Environment &env)
-{
-	return false;
-}
-
-//-----------------------------------------------------------------------------
-// ArrayItemBinary_Pow
-//-----------------------------------------------------------------------------
-bool ArrayItemBinary_Pow::InitBackward(Environment &env)
-{
-	return false;
-}
-
-bool ArrayItemBinary_Pow::EvalBackward(Environment &env)
+bool ArrayExBinary_Div::EvalBackward(Environment &env)
 {
 	return false;
 }
 
 //-----------------------------------------------------------------------------
-// ArrayItemBinary_Dot
+// ArrayExBinary_Pow
 //-----------------------------------------------------------------------------
-bool ArrayItemBinary_Dot::InitBackward(Environment &env)
+bool ArrayExBinary_Pow::InitBackward(Environment &env)
+{
+	return false;
+}
+
+bool ArrayExBinary_Pow::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// ArrayExBinary_Dot
+//-----------------------------------------------------------------------------
+bool ArrayExBinary_Dot::InitBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (!_connectorSrcLeft.IsSourceConstant()) {
@@ -398,7 +400,7 @@ bool ArrayItemBinary_Dot::InitBackward(Environment &env)
 	return true;
 }
 
-bool ArrayItemBinary_Dot::EvalBackward(Environment &env)
+bool ArrayExBinary_Dot::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (!_connectorSrcLeft.IsSourceConstant()) {
@@ -422,66 +424,66 @@ bool ArrayItemBinary_Dot::EvalBackward(Environment &env)
 
 #if 0
 //-----------------------------------------------------------------------------
-// ArrayItemBinary_Filter
+// ArrayExBinary_Filter
 //-----------------------------------------------------------------------------
-bool ArrayItemBinary_Filter::InitBackward(Environment &env)
+bool ArrayExBinary_Filter::InitBackward(Environment &env)
 {
 	return false;
 }
 
-bool ArrayItemBinary_Filter::EvalBackward(Environment &env)
+bool ArrayExBinary_Filter::EvalBackward(Environment &env)
 {
 	return false;
 }
 #endif
 
 //-----------------------------------------------------------------------------
-// ArrayItemList
+// ArrayExList
 //-----------------------------------------------------------------------------
-bool ArrayItemList::InitForward(Environment &env)
+bool ArrayExList::InitForward(Environment &env)
 {
-	foreach_reverse (ArrayItemList, ppArrayItem, *this) {
-		if (!(*ppArrayItem)->InitForward(env)) return false;
+	foreach_reverse (ArrayExList, ppArrayEx, *this) {
+		if (!(*ppArrayEx)->InitForward(env)) return false;
 	}
 	return true;
 }
 
-bool ArrayItemList::InitBackward(Environment &env)
+bool ArrayExList::InitBackward(Environment &env)
 {
-	foreach (ArrayItemList, ppArrayItem, *this) {
-		if (!(*ppArrayItem)->InitBackward(env)) return false;
+	foreach (ArrayExList, ppArrayEx, *this) {
+		if (!(*ppArrayEx)->InitBackward(env)) return false;
 	}
 	return true;
 }
 
-bool ArrayItemList::EvalForward(Environment &env)
+bool ArrayExList::EvalForward(Environment &env)
 {
-	foreach_reverse (ArrayItemList, ppArrayItem, *this) {
-		if (!(*ppArrayItem)->EvalForward(env)) return false;
+	foreach_reverse (ArrayExList, ppArrayEx, *this) {
+		if (!(*ppArrayEx)->EvalForward(env)) return false;
 	}
 	return true;
 }
 
-bool ArrayItemList::EvalBackward(Environment &env)
+bool ArrayExList::EvalBackward(Environment &env)
 {
-	foreach (ArrayItemList, ppArrayItem, *this) {
-		if (!(*ppArrayItem)->EvalBackward(env)) return false;
+	foreach (ArrayExList, ppArrayEx, *this) {
+		if (!(*ppArrayEx)->EvalBackward(env)) return false;
 	}
 	return true;
 }
 
 //-----------------------------------------------------------------------------
-// ArrayItemOwner
+// ArrayExOwner
 //-----------------------------------------------------------------------------
-ArrayItemOwner::~ArrayItemOwner()
+ArrayExOwner::~ArrayExOwner()
 {
 	Clear();
 }
 
-void ArrayItemOwner::Clear()
+void ArrayExOwner::Clear()
 {
-	foreach (ArrayItemOwner, ppArrayItem, *this) {
-		delete *ppArrayItem;
+	foreach (ArrayExOwner, ppArrayEx, *this) {
+		delete *ppArrayEx;
 	}
 	clear();
 }
@@ -495,29 +497,29 @@ ArrayChain::~ArrayChain()
 
 bool ArrayChain::CreateFromExpr(Environment &env, const Expr *pExpr)
 {
-	std::unique_ptr<ArrayItemTail> pArrayItem(new ArrayItemTail());
-	ArrayItem::Connector *pConnectorSrc = pArrayItem->GetConnectorSrc();
-	_arrayItemOwner.push_back(pArrayItem.release());
+	std::unique_ptr<ArrayExTail> pArrayEx(new ArrayExTail());
+	ArrayEx::Connector *pConnectorSrc = pArrayEx->GetConnectorSrc();
+	_arrayItemOwner.push_back(pArrayEx.release());
 	if (!CreateFromExprSub(env, pExpr, pConnectorSrc)) return false;
 	return true;
 }
 
-bool ArrayChain::CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayItem::Connector *pConnector)
+bool ArrayChain::CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayEx::Connector *pConnector)
 {
 	if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
 		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
 		const Operator *pOperator = pExprEx->GetOperator();
-		std::unique_ptr<ArrayItemUnary> pArrayItem;
+		std::unique_ptr<ArrayExUnary> pArrayEx;
 		if (pOperator->IsOpType(OPTYPE_Pos)) {
-			pArrayItem.reset(new ArrayItemUnary_Pos(pConnector));
+			pArrayEx.reset(new ArrayExUnary_Pos(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Neg)) {
-			pArrayItem.reset(new ArrayItemUnary_Neg(pConnector));
+			pArrayEx.reset(new ArrayExUnary_Neg(pConnector));
 		} else {
 			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
 			return false;
 		}
-		ArrayItem::Connector *pConnectorSrc = pArrayItem->GetConnectorSrc();
-		_arrayItemOwner.push_back(pArrayItem.release());
+		ArrayEx::Connector *pConnectorSrc = pArrayEx->GetConnectorSrc();
+		_arrayItemOwner.push_back(pArrayEx.release());
 		if (!CreateFromExprSub(env, pExprEx->GetChild(), pConnectorSrc)) {
 			return false;
 		}
@@ -525,28 +527,28 @@ bool ArrayChain::CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayIte
 	} else if (pExpr->IsType(EXPRTYPE_BinaryOp)) {
 		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExpr);
 		const Operator *pOperator = pExprEx->GetOperator();
-		std::unique_ptr<ArrayItemBinary> pArrayItem;
+		std::unique_ptr<ArrayExBinary> pArrayEx;
 		if (pOperator->IsOpType(OPTYPE_Add)) {
-			pArrayItem.reset(new ArrayItemBinary_Add(pConnector));
+			pArrayEx.reset(new ArrayExBinary_Add(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Sub)) {
-			pArrayItem.reset(new ArrayItemBinary_Sub(pConnector));
+			pArrayEx.reset(new ArrayExBinary_Sub(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Mul)) {
-			pArrayItem.reset(new ArrayItemBinary_Mul(pConnector));
+			pArrayEx.reset(new ArrayExBinary_Mul(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Div)) {
-			pArrayItem.reset(new ArrayItemBinary_Div(pConnector));
+			pArrayEx.reset(new ArrayExBinary_Div(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Pow)) {
-			pArrayItem.reset(new ArrayItemBinary_Pow(pConnector));
+			pArrayEx.reset(new ArrayExBinary_Pow(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Dot)) {
-			pArrayItem.reset(new ArrayItemBinary_Dot(pConnector));
+			pArrayEx.reset(new ArrayExBinary_Dot(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Filter)) {
-			//pArrayItem.reset(new ArrayItemBinary_Filter(pConnector));
+			//pArrayEx.reset(new ArrayExBinary_Filter(pConnector));
 		} else {
 			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
 			return false;
 		}
-		ArrayItem::Connector *pConnectorSrcLeft = pArrayItem->GetConnectorSrcLeft();
-		ArrayItem::Connector *pConnectorSrcRight = pArrayItem->GetConnectorSrcRight();
-		_arrayItemOwner.push_back(pArrayItem.release());
+		ArrayEx::Connector *pConnectorSrcLeft = pArrayEx->GetConnectorSrcLeft();
+		ArrayEx::Connector *pConnectorSrcRight = pArrayEx->GetConnectorSrcRight();
+		_arrayItemOwner.push_back(pArrayEx.release());
 		if (!CreateFromExprSub(env, pExprEx->GetLeft(), pConnectorSrcLeft) ||
 			!CreateFromExprSub(env, pExprEx->GetRight(), pConnectorSrcRight)) {
 			return false;
@@ -555,35 +557,40 @@ bool ArrayChain::CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayIte
 	} else if (pExpr->IsType(EXPRTYPE_Caller)) {
 		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr);
 		const ExprOwner &exprsArg = pExprEx->GetExprOwner();
-		std::unique_ptr<ArrayItemUnary> pArrayItem;
+		std::unique_ptr<ArrayExUnary> pArrayEx;
 		if (pExprEx->GetCar()->IsMember()) {
 			const Expr_Member *pExprCar = dynamic_cast<const Expr_Member *>(pExprEx->GetCar());
 			if (pExprCar->GetTarget()->IsSymbol(Gura_Symbol(math)) && pExprCar->GetSelector()->IsIdentifier()) {
 				const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExprCar->GetSelector())->GetSymbol();
 				if (pSymbol->IsIdentical(Gura_Symbol(relu))) {
-					pArrayItem.reset(new ArrayItemUnary_Math_relu(pConnector));
+					pArrayEx.reset(new ArrayExUnary_Math_relu(pConnector));
 				} else if (pSymbol->IsIdentical(Gura_Symbol(sigmoid))) {
-					pArrayItem.reset(new ArrayItemUnary_Math_sigmoid(pConnector));
+					pArrayEx.reset(new ArrayExUnary_Math_sigmoid(pConnector));
 				}
 			}
 		}
-		if (pArrayItem.get() != nullptr) {
+		if (pArrayEx.get() != nullptr) {
 			if (exprsArg.size() != 1) {
 				env.SetError(ERR_ValueError, "invalid number of arguments");
 				return false;
 			}
-			ArrayItem::Connector *pConnectorSrc = pArrayItem->GetConnectorSrc();
-			_arrayItemOwner.push_back(pArrayItem.release());
+			ArrayEx::Connector *pConnectorSrc = pArrayEx->GetConnectorSrc();
+			_arrayItemOwner.push_back(pArrayEx.release());
 			if (!CreateFromExprSub(env, exprsArg.front(), pConnectorSrc)) {
 				return false;
 			}
 			return true;
 		}
 	}
-	std::unique_ptr<ArrayItemHead> pArrayItem(
-		new ArrayItemHead(pConnector, Expr::Reference(pExpr)));
-	_arrayItemOwner.push_back(pArrayItem.release());
+	std::unique_ptr<ArrayExHead> pArrayEx(
+		new ArrayExHead(pConnector, Expr::Reference(pExpr)));
+	_arrayItemOwner.push_back(pArrayEx.release());
 	return true;
+}
+
+void ArrayChain::Print() const
+{
+	_arrayItemOwner.front()->Print(0);
 }
 
 }
