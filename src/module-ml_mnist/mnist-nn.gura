@@ -18,7 +18,7 @@ scope {
 	// training
 	arrImage = db.train.imageSet.ToArray(`flat)
 	arrLabel = db.train.labelSet.ToArray()
-	nRepeats = 5
+	nRepeats = 100
 	nTrains = 1000
 	alpha = .01
 	repeat (nRepeats) {|iRepeat|
@@ -62,7 +62,7 @@ scope {
 	repeat (nTests) {|i|
 		x = arrImage[i]
 		t = arrLabel[i]
-		
+
 		y = (x |.| weight + bias) |*| filter@softmax()
 
 		/*
