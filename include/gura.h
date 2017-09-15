@@ -85,6 +85,7 @@
 #include "gura/Class_argument.h"
 #include "gura/Class_array.h"
 #include "gura/Class_arrayT.h"
+#include "gura/Class_arraychain.h"
 #include "gura/Class_audio.h"
 #include "gura/Class_binary.h"
 #include "gura/Class_boolean.h"

@@ -42,6 +42,7 @@ ValueType VTYPE_array_at_half			= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_float			= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_double			= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_complex		= static_cast<ValueType>(0);
+ValueType VTYPE_arraychain				= static_cast<ValueType>(0);
 ValueType VTYPE_audio					= static_cast<ValueType>(0);
 ValueType VTYPE_binary					= static_cast<ValueType>(0);
 ValueType VTYPE_codec					= static_cast<ValueType>(0);
@@ -196,6 +197,7 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_RealizeVTYPEAlias(array_at_float,			"array@float");
 	Gura_RealizeVTYPEAlias(array_at_double,			"array@double");
 	Gura_RealizeVTYPEAlias(array_at_complex,		"array@complex");
+	Gura_RealizeVTYPE(arraychain);
 	Gura_RealizeVTYPE(audio);
 	Gura_RealizeVTYPE(binary);
 	Gura_RealizeVTYPE(codec);
@@ -289,6 +291,7 @@ void ValueTypePool::_Bootup(Environment &env)
 		new Class_arrayT<Double>(pClass_array, VTYPE_array_at_double));
 	Gura_VTYPEInfo(array_at_complex)->SetClass(
 		new Class_arrayT<Complex>(pClass_array, VTYPE_array_at_complex));
+	Gura_VTYPEInfo(arraychain	)->SetClass(new Class_arraychain(pClass));
 	Gura_VTYPEInfo(audio		)->SetClass(new Class_audio(pClass));
 	Gura_VTYPEInfo(binary		)->SetClass(new Class_binary(pClass));
 	Gura_VTYPEInfo(codec		)->SetClass(new Class_codec(pClass));
@@ -371,6 +374,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_array_at_float		)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_double		)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_complex		)->Prepare(env);
+	env.LookupClass(VTYPE_arraychain			)->Prepare(env);
 	env.LookupClass(VTYPE_audio					)->Prepare(env);
 	env.LookupClass(VTYPE_binary				)->Prepare(env);
 	env.LookupClass(VTYPE_codec					)->Prepare(env);

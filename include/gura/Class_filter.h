@@ -67,8 +67,6 @@ public:
 public:
 	Object_filter(Environment &env, Filter *pFilter);
 	Object_filter(Class *pClass, Filter *pFilter);
-	virtual Object *Clone() const;
-	virtual String ToString(bool exprFlag);
 	inline Filter *GetFilter() { return _pFilter.get(); }
 	inline const Filter *GetFilter() const { return _pFilter.get(); }
 };

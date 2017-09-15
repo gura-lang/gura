@@ -589,6 +589,7 @@ array@uint8
   array@uint8.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
   array@uint8.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array@uint8.zeros(dims[]:number):static:map {block?}
+arraychain
 audio
   audio#each(channel:number, offset?:number):map {block?}
   audio#get(channel:number, offset:number):map
@@ -705,13 +706,9 @@ filter@maxpool1d
 filter@maxpool2d
 filter@maxpool3d
 filter@relu
-  inst:filter@relu = <filter@relu:>
 filter@sigmoid
-  inst:filter@sigmoid = <filter@sigmoid:>
 filter@softmax
-  inst:filter@softmax = <filter@softmax:>
 filter@tanh
-  inst:filter@tanh = <filter@tanh:>
 formatter
   formatter#getminwidth()
   formatter#getpadding()

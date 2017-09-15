@@ -17,6 +17,7 @@ Class_any.cpp
 Class_argument.cpp
 Class_array.cpp
 Class_arrayT.cpp
+Class_arraychain.cpp
 Class_audio.cpp
 Class_binary.cpp
 Class_boolean.cpp

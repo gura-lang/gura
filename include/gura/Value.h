@@ -227,6 +227,7 @@ public:
 	inline bool Is_array_at_float() const		{ return IsType(VTYPE_array_at_float);			}
 	inline bool Is_array_at_double() const		{ return IsType(VTYPE_array_at_double);			}
 	inline bool Is_array_at_complex() const		{ return IsType(VTYPE_array_at_complex);		}
+	inline bool Is_arraychain() const			{ return IsType(VTYPE_arraychain);				}
 	inline bool Is_audio() const				{ return IsType(VTYPE_audio);					}
 	inline bool Is_binary() const				{ return IsType(VTYPE_binary);					}
 	inline bool Is_codec() const				{ return IsType(VTYPE_codec);					}
@@ -333,6 +334,8 @@ public:
 								{ return MustBe(sig, Is_array_at_double(), "array@double");	}
 	inline bool MustBe_array_at_complex(Signal &sig) const
 								{ return MustBe(sig, Is_array_at_complex(), "array@complex");	}
+	inline bool MustBe_arraychain(Signal &sig) const
+								{ return MustBe(sig, Is_arraychain(),	"arraychain");		}
 	inline bool MustBe_audio(Signal &sig) const
 								{ return MustBe(sig, Is_audio(), 		"audio");			}
 	inline bool MustBe_binary(Signal &sig) const
