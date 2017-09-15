@@ -285,6 +285,7 @@ protected:
 public:
 	bool CreateFromExpr(Environment &env, const Expr *pExpr);
 	bool Eval(Environment &env);
+	bool Train(Environment &env);
 	const Array *GetResult() const;
 	inline const ArrayNodeOwner &GetArrayNodeOwner() const { return _arrayNodeOwner; }
 	void Print() const;

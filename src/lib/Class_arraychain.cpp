@@ -76,10 +76,10 @@ Gura_ImplementMethod(arraychain, eval)
 	return ReturnValue(env, arg, Value(new Object_array(env, pArrayChain->GetResult()->Reference())));
 }
 
-// arraychain#train()
+// arraychain#train():void
 Gura_DeclareMethod(arraychain, train)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -88,8 +88,8 @@ Gura_DeclareMethod(arraychain, train)
 
 Gura_ImplementMethod(arraychain, train)
 {
-	//ArrayChain *pArrayChain = Object_arraychain::GetObjectThis(arg)->GetArrayChain();
-	//return ReturnValue(env, arg, Value(new Object_pointer(env, pPointer)));
+	ArrayChain *pArrayChain = Object_arraychain::GetObjectThis(arg)->GetArrayChain();
+	if (!pArrayChain->Train(env)) return Value::Nil;
 	return Value::Nil;
 }
 

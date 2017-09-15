@@ -602,6 +602,11 @@ bool ArrayChain::CreateFromExpr(Environment &env, const Expr *pExpr)
 
 bool ArrayChain::Eval(Environment &env)
 {
+	return _arrayNodeOwner.EvalForward(env);
+}
+
+bool ArrayChain::Train(Environment &env)
+{
 	if (!_arrayNodeOwner.EvalForward(env)) return false;
 	if (!_arrayNodeOwner.EvalBackward(env)) return false;
 	return true;
