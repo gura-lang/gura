@@ -76,10 +76,11 @@ Gura_ImplementMethod(arraychain, eval)
 	return ReturnValue(env, arg, Value(new Object_array(env, pArrayChain->GetResult()->Reference())));
 }
 
-// arraychain#train():void
+// arraychain#train(correct:array):void
 Gura_DeclareMethod(arraychain, train)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "correct", VTYPE_array);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -89,7 +90,8 @@ Gura_DeclareMethod(arraychain, train)
 Gura_ImplementMethod(arraychain, train)
 {
 	ArrayChain *pArrayChain = Object_arraychain::GetObjectThis(arg)->GetArrayChain();
-	if (!pArrayChain->Train(env)) return Value::Nil;
+	const Array *pArrayCorrect = Object_array::GetObject(0)->GetArray();
+	if (!pArrayChain->Train(env, pArrayCorrect)) return Value::Nil;
 	return Value::Nil;
 }
 

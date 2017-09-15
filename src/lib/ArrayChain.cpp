@@ -605,7 +605,7 @@ bool ArrayChain::Eval(Environment &env)
 	return _arrayNodeOwner.EvalForward(env);
 }
 
-bool ArrayChain::Train(Environment &env)
+bool ArrayChain::Train(Environment &env, const Array *pArrayCorrect)
 {
 	if (!_arrayNodeOwner.EvalForward(env)) return false;
 	if (!_arrayNodeOwner.EvalBackward(env)) return false;
