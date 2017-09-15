@@ -62,7 +62,7 @@ bool ArrayExHead::EvalBackward(Environment &env)
 {
 	//::printf("ArrayExHead::EvalBackward()\n");
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	::printf("%s\n", (*ppConnectorDst)->GetArrayBwd()->ToString(false).c_str());
+	//::printf("%s\n", (*ppConnectorDst)->GetArrayBwd()->ToString(false).c_str());
 	return true;
 }
 
@@ -83,7 +83,7 @@ bool ArrayExTail::InitForward(Environment &env)
 bool ArrayExTail::EvalForward(Environment &env)
 {
 	//::printf("ArrayExTail::EvalForward()\n");
-	::printf("%s\n", _connectorSrc.GetArrayFwd()->ToString(false).c_str());
+	//::printf("%s\n", _connectorSrc.GetArrayFwd()->ToString(false).c_str());
 	return true;
 }
 
@@ -488,23 +488,16 @@ void ArrayExOwner::Clear()
 	clear();
 }
 
-//-----------------------------------------------------------------------------
-// ArrayChain
-//-----------------------------------------------------------------------------
-ArrayChain::~ArrayChain()
-{
-}
-
-bool ArrayChain::CreateFromExpr(Environment &env, const Expr *pExpr)
+bool ArrayExOwner::CreateFromExpr(Environment &env, const Expr *pExpr)
 {
 	std::unique_ptr<ArrayExTail> pArrayEx(new ArrayExTail());
 	ArrayEx::Connector *pConnectorSrc = pArrayEx->GetConnectorSrc();
-	_arrayItemOwner.push_back(pArrayEx.release());
+	push_back(pArrayEx.release());
 	if (!CreateFromExprSub(env, pExpr, pConnectorSrc)) return false;
 	return true;
 }
 
-bool ArrayChain::CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayEx::Connector *pConnector)
+bool ArrayExOwner::CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayEx::Connector *pConnector)
 {
 	if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
 		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
@@ -519,7 +512,7 @@ bool ArrayChain::CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayEx:
 			return false;
 		}
 		ArrayEx::Connector *pConnectorSrc = pArrayEx->GetConnectorSrc();
-		_arrayItemOwner.push_back(pArrayEx.release());
+		push_back(pArrayEx.release());
 		if (!CreateFromExprSub(env, pExprEx->GetChild(), pConnectorSrc)) {
 			return false;
 		}
@@ -548,7 +541,7 @@ bool ArrayChain::CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayEx:
 		}
 		ArrayEx::Connector *pConnectorSrcLeft = pArrayEx->GetConnectorSrcLeft();
 		ArrayEx::Connector *pConnectorSrcRight = pArrayEx->GetConnectorSrcRight();
-		_arrayItemOwner.push_back(pArrayEx.release());
+		push_back(pArrayEx.release());
 		if (!CreateFromExprSub(env, pExprEx->GetLeft(), pConnectorSrcLeft) ||
 			!CreateFromExprSub(env, pExprEx->GetRight(), pConnectorSrcRight)) {
 			return false;
@@ -575,7 +568,7 @@ bool ArrayChain::CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayEx:
 				return false;
 			}
 			ArrayEx::Connector *pConnectorSrc = pArrayEx->GetConnectorSrc();
-			_arrayItemOwner.push_back(pArrayEx.release());
+			push_back(pArrayEx.release());
 			if (!CreateFromExprSub(env, exprsArg.front(), pConnectorSrc)) {
 				return false;
 			}
@@ -584,13 +577,35 @@ bool ArrayChain::CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayEx:
 	}
 	std::unique_ptr<ArrayExHead> pArrayEx(
 		new ArrayExHead(pConnector, Expr::Reference(pExpr)));
-	_arrayItemOwner.push_back(pArrayEx.release());
+	push_back(pArrayEx.release());
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// ArrayChain
+//-----------------------------------------------------------------------------
+ArrayChain::~ArrayChain()
+{
+}
+
+bool ArrayChain::CreateFromExpr(Environment &env, const Expr *pExpr)
+{
+	if (!_arrayExOwner.CreateFromExpr(env, pExpr)) return false;
+	if (!_arrayExOwner.InitForward(env)) return false;
+	if (!_arrayExOwner.InitBackward(env)) return false;
+	return true;
+}
+
+bool ArrayChain::Eval(Environment &env)
+{
+	if (!_arrayExOwner.EvalForward(env)) return false;
+	if (!_arrayExOwner.EvalBackward(env)) return false;
 	return true;
 }
 
 void ArrayChain::Print() const
 {
-	_arrayItemOwner.front()->Print(0);
+	_arrayExOwner.front()->Print(0);
 }
 
 }

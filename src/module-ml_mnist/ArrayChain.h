@@ -263,6 +263,9 @@ class ArrayExOwner : public ArrayExList {
 public:
 	~ArrayExOwner();
 	void Clear();
+	bool CreateFromExpr(Environment &env, const Expr *pExpr);
+private:
+	bool CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayEx::Connector *pConnector);
 };
 
 //-----------------------------------------------------------------------------
@@ -271,7 +274,7 @@ public:
 class ArrayChain {
 private:
 	int _cntRef;
-	ArrayExOwner _arrayItemOwner;
+	ArrayExOwner _arrayExOwner;
 public:
 	Gura_DeclareReferenceAccessor(ArrayChain);
 public:
@@ -279,11 +282,10 @@ public:
 protected:
 	virtual ~ArrayChain();
 public:
-	inline const ArrayExOwner &GetArrayExOwner() const { return _arrayItemOwner; }
 	bool CreateFromExpr(Environment &env, const Expr *pExpr);
+	bool Eval(Environment &env);
+	inline const ArrayExOwner &GetArrayExOwner() const { return _arrayExOwner; }
 	void Print() const;
-private:
-	bool CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayEx::Connector *pConnector);
 };
 
 }
