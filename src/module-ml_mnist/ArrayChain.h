@@ -4,41 +4,29 @@
 
 namespace Gura {
 
-class ArrayChain;
+class ArrayItem;
 
 //-----------------------------------------------------------------------------
-// ArrayChainList
+// ArrayItem
 //-----------------------------------------------------------------------------
-class ArrayChainList : public std::vector<ArrayChain *> {
-public:
-	inline ArrayChainList() {}
-	bool InitForward(Environment &env);
-	bool InitBackward(Environment &env);
-	bool EvalForward(Environment &env);
-	bool EvalBackward(Environment &env);
-};
-
-//-----------------------------------------------------------------------------
-// ArrayChain
-//-----------------------------------------------------------------------------
-class ArrayChain {
+class ArrayItem {
 public:
 	class Connector {
 	private:
-		ArrayChain *_pArrayChainSrc;
-		ArrayChain *_pArrayChainDst;
+		ArrayItem *_pArrayItemSrc;
+		ArrayItem *_pArrayItemDst;
 		AutoPtr<Array> _pArrayBwd;
 		bool _constSrcFlag;
 	public:
-		inline Connector(ArrayChain *pArrayChainDst) :
-			_pArrayChainSrc(nullptr), _pArrayChainDst(pArrayChainDst), _constSrcFlag(false) {}
-		inline ArrayChain *GetArrayChainSrc() { return _pArrayChainSrc; }
-		inline ArrayChain *GetArrayChainDst() { return _pArrayChainDst; }
-		inline void SetArrayChainSrc(ArrayChain *pArrayChainSrc) {
-			_pArrayChainSrc = pArrayChainSrc;
+		inline Connector(ArrayItem *pArrayItemDst) :
+			_pArrayItemSrc(nullptr), _pArrayItemDst(pArrayItemDst), _constSrcFlag(false) {}
+		inline ArrayItem *GetArrayItemSrc() { return _pArrayItemSrc; }
+		inline ArrayItem *GetArrayItemDst() { return _pArrayItemDst; }
+		inline void SetArrayItemSrc(ArrayItem *pArrayItemSrc) {
+			_pArrayItemSrc = pArrayItemSrc;
 		}
 		inline void SetArrayBwd(Array *pArrayBwd) { _pArrayBwd.reset(pArrayBwd); }
-		inline Array *GetArrayFwd() { return _pArrayChainSrc->GetArrayFwd(); }
+		inline Array *GetArrayFwd() { return _pArrayItemSrc->GetArrayFwd(); }
 		inline Array *GetArrayBwd() { return _pArrayBwd.get(); }
 		inline void SetConstSrcFlag(bool constSrcFlag) { _constSrcFlag = constSrcFlag; }
 		inline bool IsSourceConstant() const { return _constSrcFlag; }
@@ -51,9 +39,9 @@ protected:
 	ConnectorList _connectorsDst;
 	AutoPtr<Array> _pArrayFwd;
 public:
-	inline ArrayChain() {}
-	ArrayChain(Connector *pConnectorDst);
-	virtual ~ArrayChain();
+	inline ArrayItem() {}
+	ArrayItem(Connector *pConnectorDst);
+	virtual ~ArrayItem();
 	inline void AddConnectorDst(Connector *pConnectorDst) { _connectorsDst.push_back(pConnectorDst); }
 	inline Array *GetArrayFwd() { return _pArrayFwd.get(); }
 	virtual bool InitForward(Environment &env) = 0;
@@ -64,13 +52,13 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainHead
+// ArrayItemHead
 //-----------------------------------------------------------------------------
-class ArrayChainHead : public ArrayChain {
+class ArrayItemHead : public ArrayItem {
 protected:
 	AutoPtr<Expr> _pExpr;
 public:
-	inline ArrayChainHead(Connector *pConnectorDst, Expr *pExpr) : ArrayChain(pConnectorDst), _pExpr(pExpr) {}
+	inline ArrayItemHead(Connector *pConnectorDst, Expr *pExpr) : ArrayItem(pConnectorDst), _pExpr(pExpr) {}
 	virtual bool InitForward(Environment &env);
 	virtual bool EvalForward(Environment &env);
 	virtual bool InitBackward(Environment &env);
@@ -79,13 +67,13 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainTail
+// ArrayItemTail
 //-----------------------------------------------------------------------------
-class ArrayChainTail : public ArrayChain {
+class ArrayItemTail : public ArrayItem {
 private:
 	Connector _connectorSrc;
 public:
-	inline ArrayChainTail() : ArrayChain(), _connectorSrc(this) {}
+	inline ArrayItemTail() : ArrayItem(), _connectorSrc(this) {}
 	inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 	virtual bool InitForward(Environment &env);
 	virtual bool EvalForward(Environment &env);
@@ -95,15 +83,15 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainUnary
+// ArrayItemUnary
 //-----------------------------------------------------------------------------
-class ArrayChainUnary : public ArrayChain {
+class ArrayItemUnary : public ArrayItem {
 protected:
 	const Array::UnaryFuncPack &_unaryFuncPack;
 	Connector _connectorSrc;
 public:
-	inline ArrayChainUnary(const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
-		_unaryFuncPack(unaryFuncPack), ArrayChain(pConnectorDst), _connectorSrc(this) {}
+	inline ArrayItemUnary(const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
+		_unaryFuncPack(unaryFuncPack), ArrayItem(pConnectorDst), _connectorSrc(this) {}
 	inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 	virtual bool InitForward(Environment &env);
 	virtual bool EvalForward(Environment &env);
@@ -111,60 +99,60 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainUnary_Pos
+// ArrayItemUnary_Pos
 //-----------------------------------------------------------------------------
-class ArrayChainUnary_Pos : public ArrayChainUnary {
+class ArrayItemUnary_Pos : public ArrayItemUnary {
 public:
-	inline ArrayChainUnary_Pos(Connector *pConnectorDst) :
-		ArrayChainUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
+	inline ArrayItemUnary_Pos(Connector *pConnectorDst) :
+		ArrayItemUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainUnary_Neg
+// ArrayItemUnary_Neg
 //-----------------------------------------------------------------------------
-class ArrayChainUnary_Neg : public ArrayChainUnary {
+class ArrayItemUnary_Neg : public ArrayItemUnary {
 public:
-	inline ArrayChainUnary_Neg(Connector *pConnectorDst) :
-		ArrayChainUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
+	inline ArrayItemUnary_Neg(Connector *pConnectorDst) :
+		ArrayItemUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainUnary_Math_relu
+// ArrayItemUnary_Math_relu
 //-----------------------------------------------------------------------------
-class ArrayChainUnary_Math_relu : public ArrayChainUnary {
+class ArrayItemUnary_Math_relu : public ArrayItemUnary {
 public:
-	inline ArrayChainUnary_Math_relu(Connector *pConnectorDst) :
-		ArrayChainUnary(Array::unaryFuncPack_Math_relu, pConnectorDst) {}
+	inline ArrayItemUnary_Math_relu(Connector *pConnectorDst) :
+		ArrayItemUnary(Array::unaryFuncPack_Math_relu, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainUnary_Math_sigmoid
+// ArrayItemUnary_Math_sigmoid
 //-----------------------------------------------------------------------------
-class ArrayChainUnary_Math_sigmoid : public ArrayChainUnary {
+class ArrayItemUnary_Math_sigmoid : public ArrayItemUnary {
 public:
-	inline ArrayChainUnary_Math_sigmoid(Connector *pConnectorDst) :
-		ArrayChainUnary(Array::unaryFuncPack_Math_sigmoid, pConnectorDst) {}
+	inline ArrayItemUnary_Math_sigmoid(Connector *pConnectorDst) :
+		ArrayItemUnary(Array::unaryFuncPack_Math_sigmoid, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainBinary
+// ArrayItemBinary
 //-----------------------------------------------------------------------------
-class ArrayChainBinary : public ArrayChain {
+class ArrayItemBinary : public ArrayItem {
 protected:
 	const Array::BinaryFuncPack &_binaryFuncPack;
 	Connector _connectorSrcLeft;
 	Connector _connectorSrcRight;
 public:
-	inline ArrayChainBinary(const Array::BinaryFuncPack &binaryFuncPack, Connector *pConnectorDst) :
-		_binaryFuncPack(binaryFuncPack), ArrayChain(pConnectorDst),
+	inline ArrayItemBinary(const Array::BinaryFuncPack &binaryFuncPack, Connector *pConnectorDst) :
+		_binaryFuncPack(binaryFuncPack), ArrayItem(pConnectorDst),
 		_connectorSrcLeft(this), _connectorSrcRight(this) {}
 	inline Connector *GetConnectorSrcLeft() { return &_connectorSrcLeft; }
 	inline Connector *GetConnectorSrcRight() { return &_connectorSrcRight; }
@@ -174,97 +162,125 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainBinary_Add
+// ArrayItemBinary_Add
 //-----------------------------------------------------------------------------
-class ArrayChainBinary_Add : public ArrayChainBinary {
+class ArrayItemBinary_Add : public ArrayItemBinary {
 public:
-	inline ArrayChainBinary_Add(Connector *pConnectorDst) :
-		ArrayChainBinary(Array::binaryFuncPack_Add, pConnectorDst) {}
+	inline ArrayItemBinary_Add(Connector *pConnectorDst) :
+		ArrayItemBinary(Array::binaryFuncPack_Add, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainBinary_Sub
+// ArrayItemBinary_Sub
 //-----------------------------------------------------------------------------
-class ArrayChainBinary_Sub : public ArrayChainBinary {
+class ArrayItemBinary_Sub : public ArrayItemBinary {
 public:
-	inline ArrayChainBinary_Sub(Connector *pConnectorDst) :
-		ArrayChainBinary(Array::binaryFuncPack_Sub, pConnectorDst) {}
+	inline ArrayItemBinary_Sub(Connector *pConnectorDst) :
+		ArrayItemBinary(Array::binaryFuncPack_Sub, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainBinary_Mul
+// ArrayItemBinary_Mul
 //-----------------------------------------------------------------------------
-class ArrayChainBinary_Mul : public ArrayChainBinary {
+class ArrayItemBinary_Mul : public ArrayItemBinary {
 public:
-	inline ArrayChainBinary_Mul(Connector *pConnectorDst) :
-		ArrayChainBinary(Array::binaryFuncPack_Mul, pConnectorDst) {}
+	inline ArrayItemBinary_Mul(Connector *pConnectorDst) :
+		ArrayItemBinary(Array::binaryFuncPack_Mul, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainBinary_Div
+// ArrayItemBinary_Div
 //-----------------------------------------------------------------------------
-class ArrayChainBinary_Div : public ArrayChainBinary {
+class ArrayItemBinary_Div : public ArrayItemBinary {
 public:
-	inline ArrayChainBinary_Div(Connector *pConnectorDst) :
-		ArrayChainBinary(Array::binaryFuncPack_Div, pConnectorDst) {}
+	inline ArrayItemBinary_Div(Connector *pConnectorDst) :
+		ArrayItemBinary(Array::binaryFuncPack_Div, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainBinary_Pow
+// ArrayItemBinary_Pow
 //-----------------------------------------------------------------------------
-class ArrayChainBinary_Pow : public ArrayChainBinary {
+class ArrayItemBinary_Pow : public ArrayItemBinary {
 public:
-	inline ArrayChainBinary_Pow(Connector *pConnectorDst) :
-		ArrayChainBinary(Array::binaryFuncPack_Pow, pConnectorDst) {}
+	inline ArrayItemBinary_Pow(Connector *pConnectorDst) :
+		ArrayItemBinary(Array::binaryFuncPack_Pow, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChainBinary_Dot
+// ArrayItemBinary_Dot
 //-----------------------------------------------------------------------------
-class ArrayChainBinary_Dot : public ArrayChainBinary {
+class ArrayItemBinary_Dot : public ArrayItemBinary {
 private:
 	AutoPtr<Array> _pArrayFwdLeftTrans;
 	AutoPtr<Array> _pArrayFwdRightTrans;
 public:
-	inline ArrayChainBinary_Dot(Connector *pConnectorDst) :
-		ArrayChainBinary(Array::binaryFuncPack_Dot, pConnectorDst) {}
+	inline ArrayItemBinary_Dot(Connector *pConnectorDst) :
+		ArrayItemBinary(Array::binaryFuncPack_Dot, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
 #if 0
 //-----------------------------------------------------------------------------
-// ArrayChainBinary_Filter
+// ArrayItemBinary_Filter
 //-----------------------------------------------------------------------------
-class ArrayChainBinary_Filter : public ArrayChainBinary {
+class ArrayItemBinary_Filter : public ArrayItemBinary {
 public:
-	inline ArrayChainBinary_Filter(Connector *pConnectorDst) :
-		ArrayChainBinary(Array::binaryFuncPack_Filter, pConnectorDst) {}
+	inline ArrayItemBinary_Filter(Connector *pConnectorDst) :
+		ArrayItemBinary(Array::binaryFuncPack_Filter, pConnectorDst) {}
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 #endif
 
 //-----------------------------------------------------------------------------
-// ArrayChainOwner
+// ArrayItemList
 //-----------------------------------------------------------------------------
-class ArrayChainOwner : public ArrayChainList {
+class ArrayItemList : public std::vector<ArrayItem *> {
 public:
-	~ArrayChainOwner();
+	inline ArrayItemList() {}
+	bool InitForward(Environment &env);
+	bool InitBackward(Environment &env);
+	bool EvalForward(Environment &env);
+	bool EvalBackward(Environment &env);
+};
+
+//-----------------------------------------------------------------------------
+// ArrayItemOwner
+//-----------------------------------------------------------------------------
+class ArrayItemOwner : public ArrayItemList {
+public:
+	~ArrayItemOwner();
 	void Clear();
+};
+
+//-----------------------------------------------------------------------------
+// ArrayChain
+//-----------------------------------------------------------------------------
+class ArrayChain {
+private:
+	int _cntRef;
+	ArrayItemOwner _arrayItemOwner;
+public:
+	Gura_DeclareReferenceAccessor(ArrayChain);
+public:
+	inline ArrayChain() : _cntRef(1) {}
+protected:
+	virtual ~ArrayChain();
+public:
 	bool CreateFromExpr(Environment &env, const Expr *pExpr);
 private:
-	bool CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayChain::Connector *pConnector);
+	bool CreateFromExprSub(Environment &env, const Expr *pExpr, ArrayItem::Connector *pConnector);
 };
 
 }

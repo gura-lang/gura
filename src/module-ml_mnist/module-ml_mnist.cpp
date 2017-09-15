@@ -20,8 +20,9 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	ArrayChainOwner arrayChainOwner;
-	arrayChainOwner.CreateFromExpr(env, Object_expr::GetObject(arg, 0)->GetExpr());
+	AutoPtr<ArrayChain> pArrayChain(new ArrayChain());
+	pArrayChain->CreateFromExpr(env, Object_expr::GetObject(arg, 0)->GetExpr());
+#if 0
 	arrayChainOwner.front()->Print(0);
 	if (!arrayChainOwner.InitForward(env)) return Value::Nil;
 	arrayChainOwner.front()->Print(0);
@@ -29,6 +30,7 @@ Gura_ImplementFunction(test)
 	arrayChainOwner.front()->Print(0);
 	if (!arrayChainOwner.EvalForward(env)) return Value::Nil;
 	if (!arrayChainOwner.EvalBackward(env)) return Value::Nil;
+#endif
 	return Value::Nil;
 }
 
