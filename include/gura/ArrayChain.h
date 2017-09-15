@@ -16,10 +16,9 @@ public:
 		ArrayNode *_pArrayNodeSrc;
 		ArrayNode *_pArrayNodeDst;
 		AutoPtr<Array> _pArrayBwd;
-		bool _constSrcFlag;
 	public:
 		inline Connector(ArrayNode *pArrayNodeDst) :
-			_pArrayNodeSrc(nullptr), _pArrayNodeDst(pArrayNodeDst), _constSrcFlag(false) {}
+			_pArrayNodeSrc(nullptr), _pArrayNodeDst(pArrayNodeDst) {}
 		inline ArrayNode *GetArrayNodeSrc() { return _pArrayNodeSrc; }
 		inline ArrayNode *GetArrayNodeDst() { return _pArrayNodeDst; }
 		inline void SetArrayNodeSrc(ArrayNode *pArrayNodeSrc) {
@@ -30,8 +29,7 @@ public:
 		inline Array *GetArrayBwd() { return _pArrayBwd.get(); }
 		inline const Array *GetArrayFwd() const { return _pArrayNodeSrc->GetArrayFwd(); }
 		inline const Array *GetArrayBwd() const { return _pArrayBwd.get(); }
-		inline void SetConstSrcFlag(bool constSrcFlag) { _constSrcFlag = constSrcFlag; }
-		inline bool IsSourceConstant() const { return _constSrcFlag; }
+		inline bool IsSourceConstant() const { return _pArrayNodeSrc->IsConstant(); }
 	};
 	class ConnectorList : public std::vector<Connector *> {
 	public:
@@ -41,16 +39,19 @@ protected:
 	int _cntRef;
 	ConnectorList _connectorsDst;
 	AutoPtr<Array> _pArrayFwd;
+	bool _constantFlag;
 public:
 	Gura_DeclareReferenceAccessor(ArrayNode);
 public:
-	inline ArrayNode() : _cntRef(1) {}
+	inline ArrayNode() : _cntRef(1), _constantFlag(false) {}
 	ArrayNode(Connector *pConnectorDst);
 protected:
 	virtual ~ArrayNode();
 public:
 	inline void AddConnectorDst(Connector *pConnectorDst) { _connectorsDst.push_back(pConnectorDst); }
 	inline Array *GetArrayFwd() { return _pArrayFwd.get(); }
+	inline bool IsConstant() const { return _constantFlag; }
+	inline void SetConstantFlag(bool constantFlag) { _constantFlag = constantFlag; }
 	virtual bool InitForward(Environment &env) = 0;
 	virtual bool EvalForward(Environment &env) = 0;
 	virtual bool InitBackward(Environment &env) = 0;

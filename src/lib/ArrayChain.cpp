@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // ArrayNode
 //-----------------------------------------------------------------------------
-ArrayNode::ArrayNode(Connector *pConnectorDst) : _cntRef(1)
+ArrayNode::ArrayNode(Connector *pConnectorDst) : _cntRef(1), _constantFlag(false)
 {
 	pConnectorDst->SetArrayNodeSrc(this);
 	_connectorsDst.push_back(pConnectorDst);
@@ -63,9 +63,16 @@ bool ArrayNodeHead::InitBackward(Environment &env)
 
 bool ArrayNodeHead::EvalBackward(Environment &env)
 {
-	//::printf("ArrayNodeHead::EvalBackward()\n");
-	//ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	//::printf("%s\n", (*ppConnectorDst)->GetArrayBwd()->ToString(false).c_str());
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (!IsConstant()) {
+		Array::Delete(
+			Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Sub, _pArrayFwd.get(),
+				_pArrayFwd.get(),
+				(*ppConnectorDst)->GetArrayBwd()));
+		::printf("%s: updated\n", _pExpr->ToString(Expr::SCRSTYLE_OneLine).c_str());
+		if (env.IsSignalled()) return false;
+	}
 	return true;
 }
 
@@ -505,15 +512,6 @@ void ArrayNodeOwner::Clear()
 	clear();
 }
 
-#if 0
-bool ArrayNodeOwner::CreateFromExpr(Environment &env, const ArrayNodeBottom *pArrayNodeBottom, const Expr *pExpr)
-{
-	ArrayNode::Connector *pConnectorSrc = pArrayNodeBottom->GetConnectorSrc();
-	if (!CreateFromExprSub(env, pExpr, pConnectorSrc)) return false;
-	return true;
-}
-#endif
-
 bool ArrayNodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr, ArrayNode::Connector *pConnector)
 {
 	if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
@@ -593,6 +591,8 @@ bool ArrayNodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr, ArrayNo
 		}
 	}
 	AutoPtr<ArrayNodeHead> pArrayNode(new ArrayNodeHead(pConnector, Expr::Reference(pExpr)));
+	bool constantFlag = pExpr->IsSymbol(Gura_Symbol(x));
+	pArrayNode->SetConstantFlag(constantFlag);
 	push_back(pArrayNode.release());
 	return true;
 }

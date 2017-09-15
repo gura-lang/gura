@@ -57,6 +57,24 @@ Gura_ImplementFunction(arraychain)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// arraychain#result
+Gura_DeclareProperty_R(arraychain, result)
+{
+	SetPropAttr(VTYPE_array);
+	AddHelp(
+		Gura_Symbol(en),
+		"Evaluation result.");
+}
+
+Gura_ImplementPropertyGetter(arraychain, result)
+{
+	ArrayChain *pArrayChain = Object_arraychain::GetObject(valueThis)->GetArrayChain();
+	return Value(new Object_array(env, pArrayChain->GetResult()->Reference()));
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
 // arraychain#eval() {block?}
@@ -90,7 +108,7 @@ Gura_DeclareMethod(arraychain, train)
 Gura_ImplementMethod(arraychain, train)
 {
 	ArrayChain *pArrayChain = Object_arraychain::GetObjectThis(arg)->GetArrayChain();
-	const Array *pArrayCorrect = Object_array::GetObject(0)->GetArray();
+	const Array *pArrayCorrect = Object_array::GetObject(arg, 0)->GetArray();
 	if (!pArrayChain->Train(env, pArrayCorrect)) return Value::Nil;
 	return Value::Nil;
 }
@@ -106,6 +124,8 @@ void Class_arraychain::DoPrepare(Environment &env)
 {
 	// Assignment of function
 	Gura_AssignFunction(arraychain);
+	// Assignment of properties
+	Gura_AssignProperty(arraychain, result);
 	// Assignment of methods
 	Gura_AssignMethod(arraychain, eval);
 	Gura_AssignMethod(arraychain, train);
