@@ -1,4 +1,7 @@
-#include "ArrayChain.h"
+//=============================================================================
+// ArrayChain
+//=============================================================================
+#include "stdafx.h"
 
 namespace Gura {
 
@@ -61,7 +64,7 @@ bool ArrayNodeHead::InitBackward(Environment &env)
 bool ArrayNodeHead::EvalBackward(Environment &env)
 {
 	//::printf("ArrayNodeHead::EvalBackward()\n");
-	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	//ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	//::printf("%s\n", (*ppConnectorDst)->GetArrayBwd()->ToString(false).c_str());
 	return true;
 }

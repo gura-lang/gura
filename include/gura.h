@@ -32,6 +32,7 @@
 #include "gura/Algorithm.h"
 #include "gura/Argument.h"
 #include "gura/ArrayT.h"
+#include "gura/ArrayChain.h"
 #include "gura/Audio.h"
 #include "gura/Binary.h"
 #include "gura/Callable.h"

@@ -4,6 +4,7 @@ add_library(guracore SHARED
 Algorithm.cpp
 Argument.cpp
 Array.cpp
+ArrayChain.cpp
 ArrayT.cpp
 Audio.cpp
 Binary.cpp

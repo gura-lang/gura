@@ -2,7 +2,6 @@
 // Array
 //=============================================================================
 #include "stdafx.h"
-#include "gura/Array.h"
 
 namespace Gura {
 

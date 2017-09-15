@@ -93,7 +93,7 @@ protected:
 	Connector _connectorSrc;
 public:
 	inline ArrayNodeUnary(const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
-		_unaryFuncPack(unaryFuncPack), ArrayNode(pConnectorDst), _connectorSrc(this) {}
+		ArrayNode(pConnectorDst), _unaryFuncPack(unaryFuncPack), _connectorSrc(this) {}
 	inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 	virtual bool InitForward(Environment &env);
 	virtual bool EvalForward(Environment &env);
@@ -154,7 +154,7 @@ protected:
 	Connector _connectorSrcRight;
 public:
 	inline ArrayNodeBinary(const Array::BinaryFuncPack &binaryFuncPack, Connector *pConnectorDst) :
-		_binaryFuncPack(binaryFuncPack), ArrayNode(pConnectorDst),
+		ArrayNode(pConnectorDst), _binaryFuncPack(binaryFuncPack),
 		_connectorSrcLeft(this), _connectorSrcRight(this) {}
 	inline Connector *GetConnectorSrcLeft() { return &_connectorSrcLeft; }
 	inline Connector *GetConnectorSrcRight() { return &_connectorSrcRight; }
