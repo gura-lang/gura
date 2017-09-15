@@ -65,12 +65,15 @@ bool ArrayNodeHead::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (!IsConstant()) {
+
+		// update rate must be introduced here.
+
 		Array::Delete(
 			Array::ApplyBinaryFunc(
 				env, Array::binaryFuncPack_Sub, _pArrayFwd.get(),
 				_pArrayFwd.get(),
 				(*ppConnectorDst)->GetArrayBwd()));
-		::printf("%s: updated\n", _pExpr->ToString(Expr::SCRSTYLE_OneLine).c_str());
+		//::printf("%s: updated\n", _pExpr->ToString(Expr::SCRSTYLE_OneLine).c_str());
 		if (env.IsSignalled()) return false;
 	}
 	return true;
@@ -104,6 +107,7 @@ bool ArrayNodeBottom::InitBackward(Environment &env)
 	AutoPtr<Array> pArrayBwd(Array::Create(pArrayFwd->GetElemType(), false, pArrayFwd->GetDimensions()));
 	pArrayBwd->FillZero();
 	_connectorSrc.SetArrayBwd(pArrayBwd.release());
+	_pArraySoftmax.reset(Filter_Softmax().Apply(env, nullptr, pArrayFwd));
 	return true;
 }
 
@@ -117,9 +121,13 @@ bool ArrayNodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayCorre
 {
 	if (!_connectorSrc.IsSourceConstant()) {
 		Array::Delete(
+			Filter_Softmax().Apply(
+				env, _pArraySoftmax.get(),
+				_connectorSrc.GetArrayFwd()));
+		Array::Delete(
 			Array::ApplyBinaryFunc(
 				env, Array::binaryFuncPack_Sub, _connectorSrc.GetArrayBwd(),
-				_connectorSrc.GetArrayFwd(),
+				_pArraySoftmax.get(),
 				pArrayCorrect));
 		if (env.IsSignalled()) return false;
 	}
@@ -550,6 +558,8 @@ bool ArrayNodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr, ArrayNo
 			pArrayNode.reset(new ArrayNodeBinary_Dot(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Filter)) {
 			//pArrayNode.reset(new ArrayNodeBinary_Filter(pConnector));
+			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
+			return false;
 		} else {
 			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
 			return false;
@@ -637,6 +647,11 @@ bool ArrayChain::Train(Environment &env, const Array *pArrayCorrect)
 const Array *ArrayChain::GetResult() const
 {
 	return _pArrayNodeBottom->GetArrayFwd();
+}
+
+const Array *ArrayChain::GetResultSoftmax() const
+{
+	return _pArrayNodeBottom->GetArraySoftmax();
 }
 
 void ArrayChain::Print() const

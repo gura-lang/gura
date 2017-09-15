@@ -80,9 +80,11 @@ public:
 class ArrayNodeBottom : public ArrayNode {
 private:
 	Connector _connectorSrc;
+	AutoPtr<Array> _pArraySoftmax;
 public:
 	inline ArrayNodeBottom() : ArrayNode(), _connectorSrc(this) {}
 	inline Connector *GetConnectorSrc() { return &_connectorSrc; }
+	inline const Array *GetArraySoftmax() const { return _pArraySoftmax.get(); }
 	virtual bool InitForward(Environment &env);
 	virtual bool EvalForward(Environment &env);
 	virtual bool InitBackward(Environment &env);
@@ -293,6 +295,7 @@ public:
 	bool Eval(Environment &env);
 	bool Train(Environment &env, const Array *pArrayCorrect);
 	const Array *GetResult() const;
+	const Array *GetResultSoftmax() const;
 	inline const ArrayNodeOwner &GetArrayNodeOwner() const { return _arrayNodeOwner; }
 	void Print() const;
 };

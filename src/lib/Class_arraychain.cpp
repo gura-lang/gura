@@ -71,7 +71,8 @@ Gura_DeclareProperty_R(arraychain, result)
 Gura_ImplementPropertyGetter(arraychain, result)
 {
 	ArrayChain *pArrayChain = Object_arraychain::GetObject(valueThis)->GetArrayChain();
-	return Value(new Object_array(env, pArrayChain->GetResult()->Reference()));
+	//return Value(new Object_array(env, pArrayChain->GetResult()->Reference()));
+	return Value(new Object_array(env, pArrayChain->GetResultSoftmax()->Reference()));
 }
 
 //-----------------------------------------------------------------------------
