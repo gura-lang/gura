@@ -8,20 +8,28 @@ Gura_BeginModuleBody(ml_mnist)
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
-// ml.mnist.test(num1:number, num2:number)
+// ml.mnist.test(expr:expr)
 Gura_DeclareFunction(test)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "num1", VTYPE_number);
-	DeclareArg(env, "num2", VTYPE_number);
+	DeclareArg(env, "expr", VTYPE_expr);
 	AddHelp(
 		Gura_Symbol(en),
-		"This function adds two numbers and returns the result.\n");
+		"");
 }
 
 Gura_ImplementFunction(test)
 {
-	return Value(arg.GetNumber(0) + arg.GetNumber(1));
+	ArrayChainOwner arrayChainOwner;
+	arrayChainOwner.CreateFromExpr(env, Object_expr::GetObject(arg, 0)->GetExpr());
+	arrayChainOwner.front()->Print(0);
+	if (!arrayChainOwner.InitForward(env)) return Value::Nil;
+	arrayChainOwner.front()->Print(0);
+	if (!arrayChainOwner.InitBackward(env)) return Value::Nil;
+	arrayChainOwner.front()->Print(0);
+	if (!arrayChainOwner.EvalForward(env)) return Value::Nil;
+	if (!arrayChainOwner.EvalBackward(env)) return Value::Nil;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

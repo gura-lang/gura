@@ -6,6 +6,7 @@
 #include <gura.h>
 #include "Class_ImageSet.h"
 #include "Class_LabelSet.h"
+#include "ArrayChain.h"
 
 Gura_BeginModuleHeader(ml_mnist)
 Gura_EndModuleHeader(ml_mnist)

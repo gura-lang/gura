@@ -4,7 +4,6 @@
 #include "stdafx.h"
 #include "ceres/ceres.h"
 #include "glog/logging.h"
-#include "ArrayChain.h"
 
 namespace helloworld { int main(); }
 namespace helloworld_analytic_diff { int main(); }
@@ -35,30 +34,6 @@ Gura_ImplementFunction(Solve)
 	ceres::Problem &problem = Object_Problem::GetObject(arg, 1)->GetProblem();
 	ceres::Solver::Summary &summary = Object_Solver_Summary::GetObject(arg, 2)->GetSummary();
 	ceres::Solve(options, &problem, &summary);
-	return Value::Nil;
-}
-
-// ceres.test(expr:expr)
-Gura_DeclareFunction(test)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "expr", VTYPE_expr);
-	AddHelp(
-		Gura_Symbol(en),
-		"");
-}
-
-Gura_ImplementFunction(test)
-{
-	ArrayChainOwner arrayChainOwner;
-	arrayChainOwner.CreateFromExpr(env, Object_expr::GetObject(arg, 0)->GetExpr());
-	arrayChainOwner.front()->Print(0);
-	if (!arrayChainOwner.InitForward(env)) return Value::Nil;
-	arrayChainOwner.front()->Print(0);
-	if (!arrayChainOwner.InitBackward(env)) return Value::Nil;
-	arrayChainOwner.front()->Print(0);
-	if (!arrayChainOwner.EvalForward(env)) return Value::Nil;
-	if (!arrayChainOwner.EvalBackward(env)) return Value::Nil;
 	return Value::Nil;
 }
 
@@ -165,7 +140,6 @@ Gura_ModuleEntry()
 	Gura_PrepareUserClass(Solver_Summary);
 	// Assignment of function
 	Gura_AssignFunction(Solve);
-	Gura_AssignFunction(test);
 	Gura_AssignFunction(example_at_helloworld);
 	Gura_AssignFunction(example_at_helloworld_analytic_diff);
 	Gura_AssignFunction(example_at_curve_fitting);
