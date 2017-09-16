@@ -80,6 +80,7 @@ class ArrayNodeBottom : public ArrayNode {
 private:
 	Connector _connectorSrc;
 	AutoPtr<Array> _pArraySoftmax;
+	AutoPtr<Array> _pArrayCorrect;
 public:
 	inline ArrayNodeBottom() : ArrayNode(), _connectorSrc(this) {}
 	inline Connector *GetConnectorSrc() { return &_connectorSrc; }

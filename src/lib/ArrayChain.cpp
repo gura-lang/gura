@@ -105,6 +105,7 @@ bool ArrayNodeBottom::EvalBackward(Environment &env)
 
 bool ArrayNodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayCorrect)
 {
+	_pArrayCorrect.reset(pArrayCorrect->Reference());
 	if (_connectorSrc.IsSourceVulnerable()) {
 		_pArraySoftmax.reset(
 			Filter_Softmax().Apply(
