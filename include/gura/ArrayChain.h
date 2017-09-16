@@ -29,7 +29,7 @@ public:
 		inline Array *GetArrayBwd() { return _pArrayBwd.get(); }
 		inline const Array *GetArrayFwd() const { return _pArrayNodeSrc->GetArrayFwd(); }
 		inline const Array *GetArrayBwd() const { return _pArrayBwd.get(); }
-		inline bool IsSourceConstant() const { return _pArrayNodeSrc->IsConstant(); }
+		inline bool IsSourceVulnerable() const { return _pArrayNodeSrc->IsVulnerable(); }
 	};
 	class ConnectorList : public std::vector<Connector *> {
 	public:
@@ -39,19 +39,17 @@ protected:
 	int _cntRef;
 	ConnectorList _connectorsDst;
 	AutoPtr<Array> _pArrayFwd;
-	bool _constantFlag;
 public:
 	Gura_DeclareReferenceAccessor(ArrayNode);
 public:
-	inline ArrayNode() : _cntRef(1), _constantFlag(false) {}
+	inline ArrayNode() : _cntRef(1) {}
 	ArrayNode(Connector *pConnectorDst);
 protected:
 	virtual ~ArrayNode();
 public:
 	inline void AddConnectorDst(Connector *pConnectorDst) { _connectorsDst.push_back(pConnectorDst); }
 	inline Array *GetArrayFwd() { return _pArrayFwd.get(); }
-	inline bool IsConstant() const { return _constantFlag; }
-	inline void SetConstantFlag(bool constantFlag) { _constantFlag = constantFlag; }
+	virtual bool IsVulnerable() const;
 	virtual bool InitForward(Environment &env) = 0;
 	virtual bool EvalForward(Environment &env) = 0;
 	virtual bool InitBackward(Environment &env) = 0;
@@ -65,13 +63,21 @@ public:
 class ArrayNodeHead : public ArrayNode {
 protected:
 	AutoPtr<Expr> _pExpr;
+	AutoPtr<Array> _pArrayBwdAdj;
+	bool _sourceNodeFlag;
 public:
-	inline ArrayNodeHead(Connector *pConnectorDst, Expr *pExpr) : ArrayNode(pConnectorDst), _pExpr(pExpr) {}
+	inline ArrayNodeHead(Connector *pConnectorDst, Expr *pExpr) :
+			ArrayNode(pConnectorDst), _pExpr(pExpr), _sourceNodeFlag(false) {}
+	inline void SetSourceNodeFlag(bool sourceNodeFlag) { _sourceNodeFlag = sourceNodeFlag; }
+	inline bool IsSourceNode() const { return _sourceNodeFlag; }
+	virtual bool IsVulnerable() const;
 	virtual bool InitForward(Environment &env);
 	virtual bool EvalForward(Environment &env);
 	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 	virtual void Print(int indentLevel);
+private:
+	bool EvalExpr(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
