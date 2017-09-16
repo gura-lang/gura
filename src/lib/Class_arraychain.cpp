@@ -37,11 +37,12 @@ String Object_arraychain::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// arraychain(expr:expr):map {block?}
+// arraychain(expr:expr, sources+:symbol):map {block?}
 Gura_DeclareFunction(arraychain)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "expr", VTYPE_expr, OCCUR_Once);
+	DeclareArg(env, "sources", VTYPE_symbol, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_arraychain));
 	AddHelp(
@@ -53,6 +54,9 @@ Gura_ImplementFunction(arraychain)
 {
 	AutoPtr<ArrayChain> pArrayChain(new ArrayChain());
 	SymbolSet symbolsSource;
+	foreach_const (ValueList, pValue, arg.GetList(1)) {
+		symbolsSource.Insert(pValue->GetSymbol());
+	}
 	if (!pArrayChain->CreateFromExpr(env, Object_expr::GetObject(arg, 0)->GetExpr(), symbolsSource)) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_arraychain(env, pArrayChain.release())));
 }
