@@ -39,19 +39,11 @@ bool ArrayNodeHead::IsVulnerable() const
 	return !_sourceNodeFlag;
 }
 
-bool ArrayNodeHead::InitForward(Environment &env)
-{
-	//::printf("ArrayNodeHead::InitForward()\n");
-	//if (!IsSourceNode()) return EvalExpr(env);
-	//return true;
-	return EvalExpr(env);
-}
-
 bool ArrayNodeHead::EvalForward(Environment &env)
 {
 	//::printf("ArrayNodeHead::EvalForward()\n");
 	//if (IsSourceNode()) return EvalExpr(env);
-	return true;
+	return EvalExpr(env);
 }
 
 bool ArrayNodeHead::EvalExpr(Environment &env)
@@ -70,20 +62,6 @@ bool ArrayNodeHead::EvalExpr(Environment &env)
 		env.SetError(ERR_ValueError, "variable must be an array");
 		return false;
 	}
-	return true;
-}
-
-bool ArrayNodeHead::InitBackward(Environment &env)
-{
-#if 0
-	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	::printf("check-1\n");
-	const Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd();
-	::printf("check-2 %p\n", pArrayBwd);
-	_pArrayBwdAdj.reset(Array::Create(pArrayBwd->GetElemType(), false, pArrayBwd->GetDimensions()));
-	::printf("check-3\n");
-	_pArrayBwdAdj->FillZero();
-#endif
 	return true;
 }
 
@@ -116,27 +94,10 @@ void ArrayNodeHead::Print(int indentLevel)
 //-----------------------------------------------------------------------------
 // ArrayNodeBottom
 //-----------------------------------------------------------------------------
-bool ArrayNodeBottom::InitForward(Environment &env)
-{
-	::printf("ArrayNodeBottom::InitForward()\n");
-	_pArrayFwd.reset(_connectorSrc.GetArrayFwd()->Reference());
-	return true;
-}
-
 bool ArrayNodeBottom::EvalForward(Environment &env)
 {
 	//::printf("ArrayNodeBottom::EvalForward()\n");
-	//::printf("%s\n", _connectorSrc.GetArrayFwd()->ToString(false).c_str());
-	return true;
-}
-
-bool ArrayNodeBottom::InitBackward(Environment &env)
-{
-	Array *pArrayFwd = _connectorSrc.GetArrayFwd();
-	AutoPtr<Array> pArrayBwd(Array::Create(pArrayFwd->GetElemType(), false, pArrayFwd->GetDimensions()));
-	pArrayBwd->FillZero();
-	_connectorSrc.SetArrayBwd(pArrayBwd.release());
-	_pArraySoftmax.reset(Filter_Softmax().Apply(env, nullptr, pArrayFwd));
+	_pArrayFwd.reset(_connectorSrc.GetArrayFwd()->Reference());
 	return true;
 }
 
@@ -149,11 +110,11 @@ bool ArrayNodeBottom::EvalBackward(Environment &env)
 bool ArrayNodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayCorrect)
 {
 	if (_connectorSrc.IsSourceVulnerable()) {
-		Array::Delete(
+		_pArraySoftmax.reset(
 			Filter_Softmax().Apply(
 				env, _pArraySoftmax.get(),
 				_connectorSrc.GetArrayFwd()));
-		Array::Delete(
+		_connectorSrc.SetArrayBwd(
 			Array::ApplyBinaryFunc(
 				env, Array::binaryFuncPack_Sub, _connectorSrc.GetArrayBwd(),
 				_pArraySoftmax.get(),
@@ -173,20 +134,10 @@ void ArrayNodeBottom::Print(int indentLevel)
 //-----------------------------------------------------------------------------
 // ArrayNodeUnary
 //-----------------------------------------------------------------------------
-bool ArrayNodeUnary::InitForward(Environment &env)
-{
-	::printf("ArrayNodeUnary::InitForward()\n");
-	_pArrayFwd.reset(
-		Array::ApplyUnaryFunc(
-			env, _unaryFuncPack, nullptr,
-			GetConnectorSrc()->GetArrayFwd()));
-	return env.IsNoSignalled();
-}
-
 bool ArrayNodeUnary::EvalForward(Environment &env)
 {
 	//::printf("ArrayNodeUnary::EvalForward()\n");
-	Array::Delete(
+	_pArrayFwd.reset(
 		Array::ApplyUnaryFunc(
 			env, _unaryFuncPack, _pArrayFwd.get(),
 			GetConnectorSrc()->GetArrayFwd()));
@@ -204,43 +155,23 @@ void ArrayNodeUnary::Print(int indentLevel)
 //-----------------------------------------------------------------------------
 // ArrayNodeUnary_Pos
 //-----------------------------------------------------------------------------
-bool ArrayNodeUnary_Pos::InitBackward(Environment &env)
-{
-	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd()->Reference();
-	if (_connectorSrc.IsSourceVulnerable()) {
-		_connectorSrc.SetArrayBwd(pArrayBwd);
-	}
-	return true;
-}
-
 bool ArrayNodeUnary_Pos::EvalBackward(Environment &env)
 {
-	// nothing to do
+	if (_connectorSrc.IsSourceVulnerable()) {
+		ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+		_connectorSrc.SetArrayBwd((*ppConnectorDst)->GetArrayBwd()->Reference());
+	}
 	return true;
 }
 
 //-----------------------------------------------------------------------------
 // ArrayNodeUnary_Neg
 //-----------------------------------------------------------------------------
-bool ArrayNodeUnary_Neg::InitBackward(Environment &env)
-{
-	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	if (_connectorSrc.IsSourceVulnerable()) {
-		_connectorSrc.SetArrayBwd(
-			Array::ApplyUnaryFunc(
-				env, Array::unaryFuncPack_Neg, nullptr,
-				(*ppConnectorDst)->GetArrayBwd()));
-		if (env.IsSignalled()) return false;
-	}
-	return true;
-}
-
 bool ArrayNodeUnary_Neg::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrc.IsSourceVulnerable()) {
-		Array::Delete(
+		_connectorSrc.SetArrayBwd(
 			Array::ApplyUnaryFunc(
 				env, Array::unaryFuncPack_Neg, _connectorSrc.GetArrayBwd(),
 				(*ppConnectorDst)->GetArrayBwd()));
@@ -252,11 +183,6 @@ bool ArrayNodeUnary_Neg::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // ArrayNodeUnary_Math_relu
 //-----------------------------------------------------------------------------
-bool ArrayNodeUnary_Math_relu::InitBackward(Environment &env)
-{
-	return false;
-}
-
 bool ArrayNodeUnary_Math_relu::EvalBackward(Environment &env)
 {
 	return false;
@@ -265,11 +191,6 @@ bool ArrayNodeUnary_Math_relu::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // ArrayNodeUnary_Math_sigmoid
 //-----------------------------------------------------------------------------
-bool ArrayNodeUnary_Math_sigmoid::InitBackward(Environment &env)
-{
-	return false;
-}
-
 bool ArrayNodeUnary_Math_sigmoid::EvalBackward(Environment &env)
 {
 	return false;
@@ -278,21 +199,10 @@ bool ArrayNodeUnary_Math_sigmoid::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // ArrayNodeBinary
 //-----------------------------------------------------------------------------
-bool ArrayNodeBinary::InitForward(Environment &env)
-{
-	::printf("ArrayNodeBinary::InitForward()\n");
-	_pArrayFwd.reset(
-		Array::ApplyBinaryFunc(
-			env, _binaryFuncPack, nullptr,
-			GetConnectorSrcLeft()->GetArrayFwd(),
-			GetConnectorSrcRight()->GetArrayFwd()));
-	return env.IsNoSignalled();
-}
-
 bool ArrayNodeBinary::EvalForward(Environment &env)
 {
 	//::printf("ArrayNodeBinary::EvalForward()\n");
-	Array::Delete(
+	_pArrayFwd.reset(
 		Array::ApplyBinaryFunc(
 			env, _binaryFuncPack, _pArrayFwd.get(),
 			GetConnectorSrcLeft()->GetArrayFwd(),
@@ -313,7 +223,7 @@ void ArrayNodeBinary::Print(int indentLevel)
 //-----------------------------------------------------------------------------
 // ArrayNodeBinary_Add
 //-----------------------------------------------------------------------------
-bool ArrayNodeBinary_Add::InitBackward(Environment &env)
+bool ArrayNodeBinary_Add::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	const Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd();
@@ -322,37 +232,17 @@ bool ArrayNodeBinary_Add::InitBackward(Environment &env)
 	return true;
 }
 
-bool ArrayNodeBinary_Add::EvalBackward(Environment &env)
-{
-	// nothing to do
-	return true;
-}
-
 //-----------------------------------------------------------------------------
 // ArrayNodeBinary_Sub
 //-----------------------------------------------------------------------------
-bool ArrayNodeBinary_Sub::InitBackward(Environment &env)
-{
-	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	const Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd();
-	if (_connectorSrcLeft.IsSourceVulnerable()) {
-		_connectorSrcLeft.SetArrayBwd(pArrayBwd->Reference());
-	}
-	if (_connectorSrcRight.IsSourceVulnerable()) {
-		_connectorSrcRight.SetArrayBwd(
-			Array::ApplyUnaryFunc(
-				env, Array::unaryFuncPack_Neg, nullptr,
-				(*ppConnectorDst)->GetArrayBwd()));
-		if (env.IsSignalled()) return false;
-	}
-	return true;
-}
-
 bool ArrayNodeBinary_Sub::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (_connectorSrcLeft.IsSourceVulnerable()) {
+		_connectorSrcLeft.SetArrayBwd((*ppConnectorDst)->GetArrayBwd()->Reference());
+	}
 	if (_connectorSrcRight.IsSourceVulnerable()) {
-		Array::Delete(
+		_connectorSrcRight.SetArrayBwd(
 			Array::ApplyUnaryFunc(
 				env, Array::unaryFuncPack_Neg, _connectorSrcRight.GetArrayBwd(),
 				(*ppConnectorDst)->GetArrayBwd()));
@@ -364,33 +254,11 @@ bool ArrayNodeBinary_Sub::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // ArrayNodeBinary_Mul
 //-----------------------------------------------------------------------------
-bool ArrayNodeBinary_Mul::InitBackward(Environment &env)
-{
-	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	if (_connectorSrcLeft.IsSourceVulnerable()) {
-		_connectorSrcLeft.SetArrayBwd(
-			Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Mul, nullptr,
-				_connectorSrcRight.GetArrayFwd(),
-				(*ppConnectorDst)->GetArrayBwd()));
-		if (env.IsSignalled()) return false;
-	}
-	if (_connectorSrcRight.IsSourceVulnerable()) {
-		_connectorSrcRight.SetArrayBwd(
-			Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Mul, nullptr,
-				_connectorSrcLeft.GetArrayFwd(),
-				(*ppConnectorDst)->GetArrayBwd()));
-		if (env.IsSignalled()) return false;
-	}
-	return true;
-}
-
 bool ArrayNodeBinary_Mul::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrcLeft.IsSourceVulnerable()) {
-		Array::Delete(
+		_connectorSrcLeft.SetArrayBwd(
 			Array::ApplyBinaryFunc(
 				env, Array::binaryFuncPack_Mul, _connectorSrcLeft.GetArrayBwd(),
 				_connectorSrcRight.GetArrayFwd(),
@@ -398,7 +266,7 @@ bool ArrayNodeBinary_Mul::EvalBackward(Environment &env)
 		if (env.IsSignalled()) return false;
 	}
 	if (_connectorSrcRight.IsSourceVulnerable()) {
-		Array::Delete(
+		_connectorSrcRight.SetArrayBwd(
 			Array::ApplyBinaryFunc(
 				env, Array::binaryFuncPack_Mul, _connectorSrcRight.GetArrayBwd(),
 				_connectorSrcLeft.GetArrayFwd(),
@@ -411,11 +279,6 @@ bool ArrayNodeBinary_Mul::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // ArrayNodeBinary_Div
 //-----------------------------------------------------------------------------
-bool ArrayNodeBinary_Div::InitBackward(Environment &env)
-{
-	return false;
-}
-
 bool ArrayNodeBinary_Div::EvalBackward(Environment &env)
 {
 	return false;
@@ -424,11 +287,6 @@ bool ArrayNodeBinary_Div::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // ArrayNodeBinary_Pow
 //-----------------------------------------------------------------------------
-bool ArrayNodeBinary_Pow::InitBackward(Environment &env)
-{
-	return false;
-}
-
 bool ArrayNodeBinary_Pow::EvalBackward(Environment &env)
 {
 	return false;
@@ -437,35 +295,12 @@ bool ArrayNodeBinary_Pow::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // ArrayNodeBinary_Dot
 //-----------------------------------------------------------------------------
-bool ArrayNodeBinary_Dot::InitBackward(Environment &env)
+bool ArrayNodeBinary_Dot::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrcLeft.IsSourceVulnerable()) {
 		_pArrayFwdRightTrans.reset(_connectorSrcRight.GetArrayFwd()->Transpose2d());
 		_connectorSrcLeft.SetArrayBwd(
-			Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Dot, nullptr,
-				(*ppConnectorDst)->GetArrayBwd(),
-				_pArrayFwdRightTrans.get()));
-		if (env.IsSignalled()) return false;
-	}
-	if (_connectorSrcRight.IsSourceVulnerable()) {
-		_pArrayFwdLeftTrans.reset(_connectorSrcLeft.GetArrayFwd()->Transpose2d());
-		_connectorSrcRight.SetArrayBwd(
-			Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Dot, nullptr,
-				_pArrayFwdLeftTrans.get(),
-				(*ppConnectorDst)->GetArrayBwd()));
-		if (env.IsSignalled()) return false;
-	}
-	return true;
-}
-
-bool ArrayNodeBinary_Dot::EvalBackward(Environment &env)
-{
-	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	if (_connectorSrcLeft.IsSourceVulnerable()) {
-		Array::Delete(
 			Array::ApplyBinaryFunc(
 				env, Array::binaryFuncPack_Dot, _connectorSrcLeft.GetArrayBwd(),
 				(*ppConnectorDst)->GetArrayBwd(),
@@ -473,7 +308,8 @@ bool ArrayNodeBinary_Dot::EvalBackward(Environment &env)
 		if (env.IsSignalled()) return false;
 	}
 	if (_connectorSrcRight.IsSourceVulnerable()) {
-		Array::Delete(
+		_pArrayFwdLeftTrans.reset(_connectorSrcLeft.GetArrayFwd()->Transpose2d());
+		_connectorSrcRight.SetArrayBwd(
 			Array::ApplyBinaryFunc(
 				env, Array::binaryFuncPack_Dot, _connectorSrcRight.GetArrayBwd(),
 				_pArrayFwdLeftTrans.get(),
@@ -487,11 +323,6 @@ bool ArrayNodeBinary_Dot::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // ArrayNodeBinary_Filter
 //-----------------------------------------------------------------------------
-bool ArrayNodeBinary_Filter::InitBackward(Environment &env)
-{
-	return false;
-}
-
 bool ArrayNodeBinary_Filter::EvalBackward(Environment &env)
 {
 	return false;
@@ -501,22 +332,6 @@ bool ArrayNodeBinary_Filter::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // ArrayNodeList
 //-----------------------------------------------------------------------------
-bool ArrayNodeList::InitForward(Environment &env)
-{
-	foreach_reverse (ArrayNodeList, ppArrayNode, *this) {
-		if (!(*ppArrayNode)->InitForward(env)) return false;
-	}
-	return true;
-}
-
-bool ArrayNodeList::InitBackward(Environment &env)
-{
-	foreach (ArrayNodeList, ppArrayNode, *this) {
-		if (!(*ppArrayNode)->InitBackward(env)) return false;
-	}
-	return true;
-}
-
 bool ArrayNodeList::EvalForward(Environment &env)
 {
 	foreach_reverse (ArrayNodeList, ppArrayNode, *this) {
@@ -650,10 +465,6 @@ ArrayChain::~ArrayChain()
 bool ArrayChain::CreateFromExpr(Environment &env, const Expr *pExpr)
 {
 	if (!_arrayNodeOwner.CreateFromExpr(env, pExpr, _pArrayNodeBottom->GetConnectorSrc())) return false;
-	if (!_arrayNodeOwner.InitForward(env)) return false;
-	if (!_pArrayNodeBottom->InitForward(env)) return false;
-	if (!_pArrayNodeBottom->InitBackward(env)) return false;
-	if (!_arrayNodeOwner.InitBackward(env)) return false;
 	return true;
 }
 

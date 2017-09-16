@@ -50,9 +50,7 @@ public:
 	inline void AddConnectorDst(Connector *pConnectorDst) { _connectorsDst.push_back(pConnectorDst); }
 	inline Array *GetArrayFwd() { return _pArrayFwd.get(); }
 	virtual bool IsVulnerable() const;
-	virtual bool InitForward(Environment &env) = 0;
 	virtual bool EvalForward(Environment &env) = 0;
-	virtual bool InitBackward(Environment &env) = 0;
 	virtual bool EvalBackward(Environment &env) = 0;
 	virtual void Print(int indentLevel) = 0;
 };
@@ -71,9 +69,7 @@ public:
 	inline void SetSourceNodeFlag(bool sourceNodeFlag) { _sourceNodeFlag = sourceNodeFlag; }
 	inline bool IsSourceNode() const { return _sourceNodeFlag; }
 	virtual bool IsVulnerable() const;
-	virtual bool InitForward(Environment &env);
 	virtual bool EvalForward(Environment &env);
-	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 	virtual void Print(int indentLevel);
 private:
@@ -91,9 +87,7 @@ public:
 	inline ArrayNodeBottom() : ArrayNode(), _connectorSrc(this) {}
 	inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 	inline const Array *GetArraySoftmax() const { return _pArraySoftmax.get(); }
-	virtual bool InitForward(Environment &env);
 	virtual bool EvalForward(Environment &env);
-	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 	bool EvalBackwardTop(Environment &env, const Array *pArrayCorrect);
 	virtual void Print(int indentLevel);
@@ -110,7 +104,6 @@ public:
 	inline ArrayNodeUnary(const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
 		ArrayNode(pConnectorDst), _unaryFuncPack(unaryFuncPack), _connectorSrc(this) {}
 	inline Connector *GetConnectorSrc() { return &_connectorSrc; }
-	virtual bool InitForward(Environment &env);
 	virtual bool EvalForward(Environment &env);
 	virtual void Print(int indentLevel);
 };
@@ -122,7 +115,6 @@ class ArrayNodeUnary_Pos : public ArrayNodeUnary {
 public:
 	inline ArrayNodeUnary_Pos(Connector *pConnectorDst) :
 		ArrayNodeUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
-	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
@@ -133,7 +125,6 @@ class ArrayNodeUnary_Neg : public ArrayNodeUnary {
 public:
 	inline ArrayNodeUnary_Neg(Connector *pConnectorDst) :
 		ArrayNodeUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
-	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
@@ -144,7 +135,6 @@ class ArrayNodeUnary_Math_relu : public ArrayNodeUnary {
 public:
 	inline ArrayNodeUnary_Math_relu(Connector *pConnectorDst) :
 		ArrayNodeUnary(Array::unaryFuncPack_Math_relu, pConnectorDst) {}
-	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
@@ -155,7 +145,6 @@ class ArrayNodeUnary_Math_sigmoid : public ArrayNodeUnary {
 public:
 	inline ArrayNodeUnary_Math_sigmoid(Connector *pConnectorDst) :
 		ArrayNodeUnary(Array::unaryFuncPack_Math_sigmoid, pConnectorDst) {}
-	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
@@ -173,7 +162,6 @@ public:
 		_connectorSrcLeft(this), _connectorSrcRight(this) {}
 	inline Connector *GetConnectorSrcLeft() { return &_connectorSrcLeft; }
 	inline Connector *GetConnectorSrcRight() { return &_connectorSrcRight; }
-	virtual bool InitForward(Environment &env);
 	virtual bool EvalForward(Environment &env);
 	virtual void Print(int indentLevel);
 };
@@ -185,7 +173,6 @@ class ArrayNodeBinary_Add : public ArrayNodeBinary {
 public:
 	inline ArrayNodeBinary_Add(Connector *pConnectorDst) :
 		ArrayNodeBinary(Array::binaryFuncPack_Add, pConnectorDst) {}
-	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
@@ -196,7 +183,6 @@ class ArrayNodeBinary_Sub : public ArrayNodeBinary {
 public:
 	inline ArrayNodeBinary_Sub(Connector *pConnectorDst) :
 		ArrayNodeBinary(Array::binaryFuncPack_Sub, pConnectorDst) {}
-	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
@@ -207,7 +193,6 @@ class ArrayNodeBinary_Mul : public ArrayNodeBinary {
 public:
 	inline ArrayNodeBinary_Mul(Connector *pConnectorDst) :
 		ArrayNodeBinary(Array::binaryFuncPack_Mul, pConnectorDst) {}
-	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
@@ -218,7 +203,6 @@ class ArrayNodeBinary_Div : public ArrayNodeBinary {
 public:
 	inline ArrayNodeBinary_Div(Connector *pConnectorDst) :
 		ArrayNodeBinary(Array::binaryFuncPack_Div, pConnectorDst) {}
-	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
@@ -229,7 +213,6 @@ class ArrayNodeBinary_Pow : public ArrayNodeBinary {
 public:
 	inline ArrayNodeBinary_Pow(Connector *pConnectorDst) :
 		ArrayNodeBinary(Array::binaryFuncPack_Pow, pConnectorDst) {}
-	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
@@ -243,7 +226,6 @@ private:
 public:
 	inline ArrayNodeBinary_Dot(Connector *pConnectorDst) :
 		ArrayNodeBinary(Array::binaryFuncPack_Dot, pConnectorDst) {}
-	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 
@@ -255,7 +237,6 @@ class ArrayNodeBinary_Filter : public ArrayNodeBinary {
 public:
 	inline ArrayNodeBinary_Filter(Connector *pConnectorDst) :
 		ArrayNodeBinary(Array::binaryFuncPack_Filter, pConnectorDst) {}
-	virtual bool InitBackward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 };
 #endif
@@ -266,8 +247,6 @@ public:
 class ArrayNodeList : public std::vector<ArrayNode *> {
 public:
 	inline ArrayNodeList() {}
-	bool InitForward(Environment &env);
-	bool InitBackward(Environment &env);
 	bool EvalForward(Environment &env);
 	bool EvalBackward(Environment &env);
 };
