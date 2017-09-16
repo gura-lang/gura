@@ -43,24 +43,21 @@ bool ArrayNodeHead::EvalForward(Environment &env)
 {
 	//::printf("ArrayNodeHead::EvalForward()\n");
 	//if (IsSourceNode()) return EvalExpr(env);
-	return EvalExpr(env);
-}
-
-bool ArrayNodeHead::EvalExpr(Environment &env)
-{
-	Value value = _pExpr->Exec(env);
-	if (env.IsSignalled()) return false;
-	if (value.Is_number()) {
-		_pArrayFwd.reset(ArrayT<Double>::CreateScalar(value.GetDouble()));
-	} else if (value.Is_complex()) {
-		_pArrayFwd.reset(ArrayT<Complex>::CreateScalar(value.GetComplex()));
-	} else if (value.Is_array()) {
-		_pArrayFwd.reset(Object_array::GetObject(value)->GetArray()->Reference());
-	} else if (value.Is_filter()) {
+	if (_pArrayFwd.IsNull() || IsSourceNode()) {
+		Value value = _pExpr->Exec(env);
+		if (env.IsSignalled()) return false;
+		if (value.Is_number()) {
+			_pArrayFwd.reset(ArrayT<Double>::CreateScalar(value.GetDouble()));
+		} else if (value.Is_complex()) {
+			_pArrayFwd.reset(ArrayT<Complex>::CreateScalar(value.GetComplex()));
+		} else if (value.Is_array()) {
+			_pArrayFwd.reset(Object_array::GetObject(value)->GetArray()->Reference());
+		} else if (value.Is_filter()) {
 		
-	} else {
-		env.SetError(ERR_ValueError, "variable must be an array");
-		return false;
+		} else {
+			env.SetError(ERR_ValueError, "variable must be an array");
+			return false;
+		}
 	}
 	return true;
 }

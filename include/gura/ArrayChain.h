@@ -72,8 +72,6 @@ public:
 	virtual bool EvalForward(Environment &env);
 	virtual bool EvalBackward(Environment &env);
 	virtual void Print(int indentLevel);
-private:
-	bool EvalExpr(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
