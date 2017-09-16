@@ -64,9 +64,8 @@ protected:
 	AutoPtr<Array> _pArrayBwdAdj;
 	bool _sourceNodeFlag;
 public:
-	inline ArrayNodeHead(Connector *pConnectorDst, Expr *pExpr) :
-			ArrayNode(pConnectorDst), _pExpr(pExpr), _sourceNodeFlag(false) {}
-	inline void SetSourceNodeFlag(bool sourceNodeFlag) { _sourceNodeFlag = sourceNodeFlag; }
+	inline ArrayNodeHead(Connector *pConnectorDst, Expr *pExpr, bool sourceNodeFlag) :
+			ArrayNode(pConnectorDst), _pExpr(pExpr), _sourceNodeFlag(sourceNodeFlag) {}
 	inline bool IsSourceNode() const { return _sourceNodeFlag; }
 	virtual bool IsVulnerable() const;
 	virtual bool EvalForward(Environment &env);
@@ -256,7 +255,8 @@ class ArrayNodeOwner : public ArrayNodeList {
 public:
 	~ArrayNodeOwner();
 	void Clear();
-	bool CreateFromExpr(Environment &env, const Expr *pExpr, ArrayNode::Connector *pConnector);
+	bool CreateFromExpr(Environment &env, const Expr *pExpr,
+						ArrayNode::Connector *pConnector, const SymbolSet &symbolsSource);
 };
 
 //-----------------------------------------------------------------------------
@@ -274,7 +274,7 @@ public:
 protected:
 	virtual ~ArrayChain();
 public:
-	bool CreateFromExpr(Environment &env, const Expr *pExpr);
+	bool CreateFromExpr(Environment &env, const Expr *pExpr, const SymbolSet &symbolsSource);
 	bool Eval(Environment &env);
 	bool Train(Environment &env, const Array *pArrayCorrect);
 	const Array *GetResult() const;

@@ -52,7 +52,8 @@ Gura_DeclareFunction(arraychain)
 Gura_ImplementFunction(arraychain)
 {
 	AutoPtr<ArrayChain> pArrayChain(new ArrayChain());
-	if (!pArrayChain->CreateFromExpr(env, Object_expr::GetObject(arg, 0)->GetExpr())) return Value::Nil;
+	SymbolSet symbolsSource;
+	if (!pArrayChain->CreateFromExpr(env, Object_expr::GetObject(arg, 0)->GetExpr(), symbolsSource)) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_arraychain(env, pArrayChain.release())));
 }
 

@@ -42,7 +42,6 @@ bool ArrayNodeHead::IsVulnerable() const
 bool ArrayNodeHead::EvalForward(Environment &env)
 {
 	//::printf("ArrayNodeHead::EvalForward()\n");
-	//if (IsSourceNode()) return EvalExpr(env);
 	if (_pArrayFwd.IsNull() || IsSourceNode()) {
 		Value value = _pExpr->Exec(env);
 		if (env.IsSignalled()) return false;
@@ -361,7 +360,8 @@ void ArrayNodeOwner::Clear()
 	clear();
 }
 
-bool ArrayNodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr, ArrayNode::Connector *pConnector)
+bool ArrayNodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
+									ArrayNode::Connector *pConnector, const SymbolSet &symbolsSource)
 {
 	if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
 		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
@@ -377,7 +377,7 @@ bool ArrayNodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr, ArrayNo
 		}
 		ArrayNode::Connector *pConnectorSrc = pArrayNode->GetConnectorSrc();
 		push_back(pArrayNode.release());
-		if (!CreateFromExpr(env, pExprEx->GetChild(), pConnectorSrc)) {
+		if (!CreateFromExpr(env, pExprEx->GetChild(), pConnectorSrc, symbolsSource)) {
 			return false;
 		}
 		return true;
@@ -408,8 +408,8 @@ bool ArrayNodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr, ArrayNo
 		ArrayNode::Connector *pConnectorSrcLeft = pArrayNode->GetConnectorSrcLeft();
 		ArrayNode::Connector *pConnectorSrcRight = pArrayNode->GetConnectorSrcRight();
 		push_back(pArrayNode.release());
-		if (!CreateFromExpr(env, pExprEx->GetLeft(), pConnectorSrcLeft) ||
-			!CreateFromExpr(env, pExprEx->GetRight(), pConnectorSrcRight)) {
+		if (!CreateFromExpr(env, pExprEx->GetLeft(), pConnectorSrcLeft, symbolsSource) ||
+			!CreateFromExpr(env, pExprEx->GetRight(), pConnectorSrcRight, symbolsSource)) {
 			return false;
 		}
 		return true;
@@ -435,15 +435,15 @@ bool ArrayNodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr, ArrayNo
 			}
 			ArrayNode::Connector *pConnectorSrc = pArrayNode->GetConnectorSrc();
 			push_back(pArrayNode.release());
-			if (!CreateFromExpr(env, exprsArg.front(), pConnectorSrc)) {
+			if (!CreateFromExpr(env, exprsArg.front(), pConnectorSrc, symbolsSource)) {
 				return false;
 			}
 			return true;
 		}
 	}
-	AutoPtr<ArrayNodeHead> pArrayNode(new ArrayNodeHead(pConnector, Expr::Reference(pExpr)));
-	bool sourceNodeFlag = pExpr->IsSymbol(Gura_Symbol(x));
-	pArrayNode->SetSourceNodeFlag(sourceNodeFlag);
+	bool sourceNodeFlag = pExpr->IsIdentifier() &&
+		symbolsSource.IsSet(dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol());
+	AutoPtr<ArrayNodeHead> pArrayNode(new ArrayNodeHead(pConnector, Expr::Reference(pExpr), sourceNodeFlag));
 	push_back(pArrayNode.release());
 	return true;
 }
@@ -459,10 +459,9 @@ ArrayChain::~ArrayChain()
 {
 }
 
-bool ArrayChain::CreateFromExpr(Environment &env, const Expr *pExpr)
+bool ArrayChain::CreateFromExpr(Environment &env, const Expr *pExpr, const SymbolSet &symbolsSource)
 {
-	if (!_arrayNodeOwner.CreateFromExpr(env, pExpr, _pArrayNodeBottom->GetConnectorSrc())) return false;
-	return true;
+	return _arrayNodeOwner.CreateFromExpr(env, pExpr, _pArrayNodeBottom->GetConnectorSrc(), symbolsSource);
 }
 
 bool ArrayChain::Eval(Environment &env)
