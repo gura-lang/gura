@@ -6,42 +6,89 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// TrainerNode
+// Trainer
 //-----------------------------------------------------------------------------
-TrainerNode::TrainerNode(Connector *pConnectorDst) : _cntRef(1)
+Trainer::Trainer() : _cntRef(1), _pNodeBottom(new NodeBottom())
 {
-	pConnectorDst->SetTrainerNodeSrc(this);
+}
+
+Trainer::~Trainer()
+{
+}
+
+bool Trainer::CreateFromExpr(Environment &env, const Expr *pExpr, const SymbolSet &symbolsSource)
+{
+	return _nodeOwner.CreateFromExpr(env, pExpr, _pNodeBottom->GetConnectorSrc(), symbolsSource);
+}
+
+bool Trainer::Eval(Environment &env)
+{
+	if (!_nodeOwner.EvalForward(env)) return false;
+	if (!_pNodeBottom->EvalForward(env)) return false;
+	return true;
+}
+
+bool Trainer::Train(Environment &env, const Array *pArrayCorrect)
+{
+	if (!_nodeOwner.EvalForward(env)) return false;
+	if (!_pNodeBottom->EvalForward(env)) return false;
+	if (!_pNodeBottom->EvalBackwardTop(env, pArrayCorrect)) return false;
+	if (!_nodeOwner.EvalBackward(env)) return false;
+	return true;
+}
+
+const Array *Trainer::GetResult() const
+{
+	return _pNodeBottom->GetArrayFwd();
+}
+
+const Array *Trainer::GetResultSoftmax() const
+{
+	return _pNodeBottom->GetArraySoftmax();
+}
+
+void Trainer::Print() const
+{
+	_pNodeBottom->Print(0);
+}
+
+//-----------------------------------------------------------------------------
+// Trainer::Node
+//-----------------------------------------------------------------------------
+Trainer::Node::Node(Connector *pConnectorDst) : _cntRef(1)
+{
+	pConnectorDst->SetNodeSrc(this);
 	_connectorsDst.push_back(pConnectorDst);
 }
 
-TrainerNode::~TrainerNode()
+Trainer::Node::~Node()
 {
 }
 
-bool TrainerNode::IsVulnerable() const
+bool Trainer::Node::IsVulnerable() const
 {
 	return true;
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNode::Connector
+// Trainer::Node::Connector
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// TrainerNode::ConnectorList
+// Trainer::Node::ConnectorList
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// TrainerNodeHead
+// Trainer::NodeHead
 //-----------------------------------------------------------------------------
-bool TrainerNodeHead::IsVulnerable() const
+bool Trainer::NodeHead::IsVulnerable() const
 {
 	return !_sourceNodeFlag;
 }
 
-bool TrainerNodeHead::EvalForward(Environment &env)
+bool Trainer::NodeHead::EvalForward(Environment &env)
 {
-	//::printf("TrainerNodeHead::EvalForward()\n");
+	//::printf("NodeHead::EvalForward()\n");
 	if (_pArrayFwd.IsNull() || IsSourceNode()) {
 		Value value = _pExpr->Exec(env);
 		if (env.IsSignalled()) return false;
@@ -61,7 +108,7 @@ bool TrainerNodeHead::EvalForward(Environment &env)
 	return true;
 }
 
-bool TrainerNodeHead::EvalBackward(Environment &env)
+bool Trainer::NodeHead::EvalBackward(Environment &env)
 {
 	Double alpha = .01;
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
@@ -82,28 +129,28 @@ bool TrainerNodeHead::EvalBackward(Environment &env)
 	return true;
 }
 
-void TrainerNodeHead::Print(int indentLevel)
+void Trainer::NodeHead::Print(int indentLevel)
 {
 	::printf("%-*sHead\n", indentLevel * 2, "");
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNodeBottom
+// Trainer::NodeBottom
 //-----------------------------------------------------------------------------
-bool TrainerNodeBottom::EvalForward(Environment &env)
+bool Trainer::NodeBottom::EvalForward(Environment &env)
 {
-	//::printf("TrainerNodeBottom::EvalForward()\n");
+	//::printf("NodeBottom::EvalForward()\n");
 	_pArrayFwd.reset(_connectorSrc.GetArrayFwd()->Reference());
 	return true;
 }
 
-bool TrainerNodeBottom::EvalBackward(Environment &env)
+bool Trainer::NodeBottom::EvalBackward(Environment &env)
 {
 	// nothing to do
 	return true;
 }
 
-bool TrainerNodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayCorrect)
+bool Trainer::NodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayCorrect)
 {
 	_pArrayCorrect.reset(pArrayCorrect->Reference());
 	if (_connectorSrc.IsSourceVulnerable()) {
@@ -121,19 +168,19 @@ bool TrainerNodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayCor
 	return true;
 }
 
-void TrainerNodeBottom::Print(int indentLevel)
+void Trainer::NodeBottom::Print(int indentLevel)
 {
 	::printf("%*sTail [fwd:%p,bwd:%p]\n", indentLevel * 2, "",
 			 _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
-	_connectorSrc.GetTrainerNodeSrc()->Print(indentLevel + 1);
+	_connectorSrc.GetNodeSrc()->Print(indentLevel + 1);
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNodeUnary
+// Trainer::NodeUnary
 //-----------------------------------------------------------------------------
-bool TrainerNodeUnary::EvalForward(Environment &env)
+bool Trainer::NodeUnary::EvalForward(Environment &env)
 {
-	//::printf("TrainerNodeUnary::EvalForward()\n");
+	//::printf("NodeUnary::EvalForward()\n");
 	_pArrayFwd.reset(
 		Array::ApplyUnaryFunc(
 			env, _unaryFuncPack, _pArrayFwd.get(),
@@ -141,18 +188,18 @@ bool TrainerNodeUnary::EvalForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-void TrainerNodeUnary::Print(int indentLevel)
+void Trainer::NodeUnary::Print(int indentLevel)
 {
 	::printf("%-*sUnary:%s [fwd:%p,bwd:%p]\n", indentLevel * 2, "",
 			 _unaryFuncPack.name,
 			 _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
-	_connectorSrc.GetTrainerNodeSrc()->Print(indentLevel + 1);
+	_connectorSrc.GetNodeSrc()->Print(indentLevel + 1);
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNodeUnary_Pos
+// Trainer::NodeUnary_Pos
 //-----------------------------------------------------------------------------
-bool TrainerNodeUnary_Pos::EvalBackward(Environment &env)
+bool Trainer::NodeUnary_Pos::EvalBackward(Environment &env)
 {
 	if (_connectorSrc.IsSourceVulnerable()) {
 		ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
@@ -162,9 +209,9 @@ bool TrainerNodeUnary_Pos::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNodeUnary_Neg
+// Trainer::NodeUnary_Neg
 //-----------------------------------------------------------------------------
-bool TrainerNodeUnary_Neg::EvalBackward(Environment &env)
+bool Trainer::NodeUnary_Neg::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrc.IsSourceVulnerable()) {
@@ -178,27 +225,27 @@ bool TrainerNodeUnary_Neg::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNodeUnary_Math_relu
+// Trainer::NodeUnary_Math_relu
 //-----------------------------------------------------------------------------
-bool TrainerNodeUnary_Math_relu::EvalBackward(Environment &env)
+bool Trainer::NodeUnary_Math_relu::EvalBackward(Environment &env)
 {
 	return false;
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNodeUnary_Math_sigmoid
+// Trainer::NodeUnary_Math_sigmoid
 //-----------------------------------------------------------------------------
-bool TrainerNodeUnary_Math_sigmoid::EvalBackward(Environment &env)
+bool Trainer::NodeUnary_Math_sigmoid::EvalBackward(Environment &env)
 {
 	return false;
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNodeBinary
+// Trainer::NodeBinary
 //-----------------------------------------------------------------------------
-bool TrainerNodeBinary::EvalForward(Environment &env)
+bool Trainer::NodeBinary::EvalForward(Environment &env)
 {
-	//::printf("TrainerNodeBinary::EvalForward()\n");
+	//::printf("NodeBinary::EvalForward()\n");
 	_pArrayFwd.reset(
 		Array::ApplyBinaryFunc(
 			env, _binaryFuncPack, _pArrayFwd.get(),
@@ -207,20 +254,20 @@ bool TrainerNodeBinary::EvalForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-void TrainerNodeBinary::Print(int indentLevel)
+void Trainer::NodeBinary::Print(int indentLevel)
 {
 	::printf("%-*sBinary:%s [fwd:%p,bwd:%p][fwd:%p,bwd:%p]\n", indentLevel * 2, "",
 			 _binaryFuncPack.name,
 			 _connectorSrcLeft.GetArrayFwd(), _connectorSrcLeft.GetArrayBwd(),
 			 _connectorSrcRight.GetArrayFwd(), _connectorSrcRight.GetArrayBwd());
-	_connectorSrcLeft.GetTrainerNodeSrc()->Print(indentLevel + 1);
-	_connectorSrcRight.GetTrainerNodeSrc()->Print(indentLevel + 1);
+	_connectorSrcLeft.GetNodeSrc()->Print(indentLevel + 1);
+	_connectorSrcRight.GetNodeSrc()->Print(indentLevel + 1);
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNodeBinary_Add
+// Trainer::NodeBinary_Add
 //-----------------------------------------------------------------------------
-bool TrainerNodeBinary_Add::EvalBackward(Environment &env)
+bool Trainer::NodeBinary_Add::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	const Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd();
@@ -230,9 +277,9 @@ bool TrainerNodeBinary_Add::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNodeBinary_Sub
+// Trainer::NodeBinary_Sub
 //-----------------------------------------------------------------------------
-bool TrainerNodeBinary_Sub::EvalBackward(Environment &env)
+bool Trainer::NodeBinary_Sub::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrcLeft.IsSourceVulnerable()) {
@@ -249,9 +296,9 @@ bool TrainerNodeBinary_Sub::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNodeBinary_Mul
+// Trainer::NodeBinary_Mul
 //-----------------------------------------------------------------------------
-bool TrainerNodeBinary_Mul::EvalBackward(Environment &env)
+bool Trainer::NodeBinary_Mul::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrcLeft.IsSourceVulnerable()) {
@@ -274,25 +321,25 @@ bool TrainerNodeBinary_Mul::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNodeBinary_Div
+// Trainer::NodeBinary_Div
 //-----------------------------------------------------------------------------
-bool TrainerNodeBinary_Div::EvalBackward(Environment &env)
+bool Trainer::NodeBinary_Div::EvalBackward(Environment &env)
 {
 	return false;
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNodeBinary_Pow
+// Trainer::NodeBinary_Pow
 //-----------------------------------------------------------------------------
-bool TrainerNodeBinary_Pow::EvalBackward(Environment &env)
+bool Trainer::NodeBinary_Pow::EvalBackward(Environment &env)
 {
 	return false;
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNodeBinary_Dot
+// Trainer::NodeBinary_Dot
 //-----------------------------------------------------------------------------
-bool TrainerNodeBinary_Dot::EvalBackward(Environment &env)
+bool Trainer::NodeBinary_Dot::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrcLeft.IsSourceVulnerable()) {
@@ -318,66 +365,66 @@ bool TrainerNodeBinary_Dot::EvalBackward(Environment &env)
 
 #if 0
 //-----------------------------------------------------------------------------
-// TrainerNodeBinary_Filter
+// Trainer::NodeBinary_Filter
 //-----------------------------------------------------------------------------
-bool TrainerNodeBinary_Filter::EvalBackward(Environment &env)
+bool Trainer::NodeBinary_Filter::EvalBackward(Environment &env)
 {
 	return false;
 }
 #endif
 
 //-----------------------------------------------------------------------------
-// TrainerNodeList
+// Trainer::NodeList
 //-----------------------------------------------------------------------------
-bool TrainerNodeList::EvalForward(Environment &env)
+bool Trainer::NodeList::EvalForward(Environment &env)
 {
-	foreach_reverse (TrainerNodeList, ppTrainerNode, *this) {
-		if (!(*ppTrainerNode)->EvalForward(env)) return false;
+	foreach_reverse (NodeList, ppNode, *this) {
+		if (!(*ppNode)->EvalForward(env)) return false;
 	}
 	return true;
 }
 
-bool TrainerNodeList::EvalBackward(Environment &env)
+bool Trainer::NodeList::EvalBackward(Environment &env)
 {
-	foreach (TrainerNodeList, ppTrainerNode, *this) {
-		if (!(*ppTrainerNode)->EvalBackward(env)) return false;
+	foreach (NodeList, ppNode, *this) {
+		if (!(*ppNode)->EvalBackward(env)) return false;
 	}
 	return true;
 }
 
 //-----------------------------------------------------------------------------
-// TrainerNodeOwner
+// Trainer::NodeOwner
 //-----------------------------------------------------------------------------
-TrainerNodeOwner::~TrainerNodeOwner()
+Trainer::NodeOwner::~NodeOwner()
 {
 	Clear();
 }
 
-void TrainerNodeOwner::Clear()
+void Trainer::NodeOwner::Clear()
 {
-	foreach (TrainerNodeOwner, ppTrainerNode, *this) {
-		TrainerNode::Delete(*ppTrainerNode);
+	foreach (NodeOwner, ppNode, *this) {
+		Trainer::Node::Delete(*ppNode);
 	}
 	clear();
 }
 
-bool TrainerNodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
-									TrainerNode::Connector *pConnector, const SymbolSet &symbolsSource)
+bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
+									Node::Connector *pConnector, const SymbolSet &symbolsSource)
 {
 	if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
 		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
 		const Operator *pOperator = pExprEx->GetOperator();
-		AutoPtr<TrainerNodeUnary> pTrainerNode;
+		AutoPtr<NodeUnary> pNode;
 		if (pOperator->IsOpType(OPTYPE_Pos)) {
-			pTrainerNode.reset(new TrainerNodeUnary_Pos(pConnector));
+			pNode.reset(new NodeUnary_Pos(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Neg)) {
-			pTrainerNode.reset(new TrainerNodeUnary_Neg(pConnector));
+			pNode.reset(new NodeUnary_Neg(pConnector));
 		} else {
 			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
 			return false;
 		}
-		TrainerNode::Connector *pConnectorSrc = pTrainerNode->GetConnectorSrc();
-		push_back(pTrainerNode.release());
+		Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
+		push_back(pNode.release());
 		if (!CreateFromExpr(env, pExprEx->GetChild(), pConnectorSrc, symbolsSource)) {
 			return false;
 		}
@@ -385,30 +432,30 @@ bool TrainerNodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 	} else if (pExpr->IsType(EXPRTYPE_BinaryOp)) {
 		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExpr);
 		const Operator *pOperator = pExprEx->GetOperator();
-		AutoPtr<TrainerNodeBinary> pTrainerNode;
+		AutoPtr<NodeBinary> pNode;
 		if (pOperator->IsOpType(OPTYPE_Add)) {
-			pTrainerNode.reset(new TrainerNodeBinary_Add(pConnector));
+			pNode.reset(new NodeBinary_Add(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Sub)) {
-			pTrainerNode.reset(new TrainerNodeBinary_Sub(pConnector));
+			pNode.reset(new NodeBinary_Sub(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Mul)) {
-			pTrainerNode.reset(new TrainerNodeBinary_Mul(pConnector));
+			pNode.reset(new NodeBinary_Mul(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Div)) {
-			pTrainerNode.reset(new TrainerNodeBinary_Div(pConnector));
+			pNode.reset(new NodeBinary_Div(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Pow)) {
-			pTrainerNode.reset(new TrainerNodeBinary_Pow(pConnector));
+			pNode.reset(new NodeBinary_Pow(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Dot)) {
-			pTrainerNode.reset(new TrainerNodeBinary_Dot(pConnector));
+			pNode.reset(new NodeBinary_Dot(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Filter)) {
-			//pTrainerNode.reset(new TrainerNodeBinary_Filter(pConnector));
+			//pNode.reset(new NodeBinary_Filter(pConnector));
 			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
 			return false;
 		} else {
 			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
 			return false;
 		}
-		TrainerNode::Connector *pConnectorSrcLeft = pTrainerNode->GetConnectorSrcLeft();
-		TrainerNode::Connector *pConnectorSrcRight = pTrainerNode->GetConnectorSrcRight();
-		push_back(pTrainerNode.release());
+		Node::Connector *pConnectorSrcLeft = pNode->GetConnectorSrcLeft();
+		Node::Connector *pConnectorSrcRight = pNode->GetConnectorSrcRight();
+		push_back(pNode.release());
 		if (!CreateFromExpr(env, pExprEx->GetLeft(), pConnectorSrcLeft, symbolsSource) ||
 			!CreateFromExpr(env, pExprEx->GetRight(), pConnectorSrcRight, symbolsSource)) {
 			return false;
@@ -417,25 +464,25 @@ bool TrainerNodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 	} else if (pExpr->IsType(EXPRTYPE_Caller)) {
 		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr);
 		const ExprOwner &exprsArg = pExprEx->GetExprOwner();
-		AutoPtr<TrainerNodeUnary> pTrainerNode;
+		AutoPtr<NodeUnary> pNode;
 		if (pExprEx->GetCar()->IsMember()) {
 			const Expr_Member *pExprCar = dynamic_cast<const Expr_Member *>(pExprEx->GetCar());
 			if (pExprCar->GetTarget()->IsSymbol(Gura_Symbol(math)) && pExprCar->GetSelector()->IsIdentifier()) {
 				const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExprCar->GetSelector())->GetSymbol();
 				if (pSymbol->IsIdentical(Gura_Symbol(relu))) {
-					pTrainerNode.reset(new TrainerNodeUnary_Math_relu(pConnector));
+					pNode.reset(new NodeUnary_Math_relu(pConnector));
 				} else if (pSymbol->IsIdentical(Gura_Symbol(sigmoid))) {
-					pTrainerNode.reset(new TrainerNodeUnary_Math_sigmoid(pConnector));
+					pNode.reset(new NodeUnary_Math_sigmoid(pConnector));
 				}
 			}
 		}
-		if (pTrainerNode.get() != nullptr) {
+		if (pNode.get() != nullptr) {
 			if (exprsArg.size() != 1) {
 				env.SetError(ERR_ValueError, "invalid number of arguments");
 				return false;
 			}
-			TrainerNode::Connector *pConnectorSrc = pTrainerNode->GetConnectorSrc();
-			push_back(pTrainerNode.release());
+			Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
+			push_back(pNode.release());
 			if (!CreateFromExpr(env, exprsArg.front(), pConnectorSrc, symbolsSource)) {
 				return false;
 			}
@@ -444,56 +491,9 @@ bool TrainerNodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 	}
 	bool sourceNodeFlag = pExpr->IsIdentifier() &&
 		symbolsSource.IsSet(dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol());
-	AutoPtr<TrainerNodeHead> pTrainerNode(new TrainerNodeHead(pConnector, Expr::Reference(pExpr), sourceNodeFlag));
-	push_back(pTrainerNode.release());
+	AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), sourceNodeFlag));
+	push_back(pNode.release());
 	return true;
-}
-
-//-----------------------------------------------------------------------------
-// Trainer
-//-----------------------------------------------------------------------------
-Trainer::Trainer() : _cntRef(1), _pTrainerNodeBottom(new TrainerNodeBottom())
-{
-}
-
-Trainer::~Trainer()
-{
-}
-
-bool Trainer::CreateFromExpr(Environment &env, const Expr *pExpr, const SymbolSet &symbolsSource)
-{
-	return _trainerNodeOwner.CreateFromExpr(env, pExpr, _pTrainerNodeBottom->GetConnectorSrc(), symbolsSource);
-}
-
-bool Trainer::Eval(Environment &env)
-{
-	if (!_trainerNodeOwner.EvalForward(env)) return false;
-	if (!_pTrainerNodeBottom->EvalForward(env)) return false;
-	return true;
-}
-
-bool Trainer::Train(Environment &env, const Array *pArrayCorrect)
-{
-	if (!_trainerNodeOwner.EvalForward(env)) return false;
-	if (!_pTrainerNodeBottom->EvalForward(env)) return false;
-	if (!_pTrainerNodeBottom->EvalBackwardTop(env, pArrayCorrect)) return false;
-	if (!_trainerNodeOwner.EvalBackward(env)) return false;
-	return true;
-}
-
-const Array *Trainer::GetResult() const
-{
-	return _pTrainerNodeBottom->GetArrayFwd();
-}
-
-const Array *Trainer::GetResultSoftmax() const
-{
-	return _pTrainerNodeBottom->GetArraySoftmax();
-}
-
-void Trainer::Print() const
-{
-	_pTrainerNodeBottom->Print(0);
 }
 
 }
