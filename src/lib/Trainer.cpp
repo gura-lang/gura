@@ -65,11 +65,6 @@ Trainer::Node::~Node()
 {
 }
 
-bool Trainer::Node::IsVulnerable() const
-{
-	return true;
-}
-
 //-----------------------------------------------------------------------------
 // Trainer::Node::Connector
 //-----------------------------------------------------------------------------
@@ -137,6 +132,11 @@ void Trainer::NodeHead::Print(int indentLevel)
 //-----------------------------------------------------------------------------
 // Trainer::NodeBottom
 //-----------------------------------------------------------------------------
+bool Trainer::NodeBottom::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
 bool Trainer::NodeBottom::EvalForward(Environment &env)
 {
 	//::printf("NodeBottom::EvalForward()\n");
@@ -153,7 +153,7 @@ bool Trainer::NodeBottom::EvalBackward(Environment &env)
 bool Trainer::NodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayCorrect)
 {
 	_pArrayCorrect.reset(pArrayCorrect->Reference());
-	if (_connectorSrc.IsSourceVulnerable()) {
+	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
 		_pArraySoftmax.reset(
 			Filter_Softmax().Apply(
 				env, _pArraySoftmax.get(),
@@ -178,6 +178,11 @@ void Trainer::NodeBottom::Print(int indentLevel)
 //-----------------------------------------------------------------------------
 // Trainer::NodeUnary
 //-----------------------------------------------------------------------------
+bool Trainer::NodeUnary::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
 bool Trainer::NodeUnary::EvalForward(Environment &env)
 {
 	//::printf("NodeUnary::EvalForward()\n");
@@ -201,7 +206,7 @@ void Trainer::NodeUnary::Print(int indentLevel)
 //-----------------------------------------------------------------------------
 bool Trainer::NodeUnary_Pos::EvalBackward(Environment &env)
 {
-	if (_connectorSrc.IsSourceVulnerable()) {
+	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
 		ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 		_connectorSrc.SetArrayBwd((*ppConnectorDst)->GetArrayBwd()->Reference());
 	}
@@ -214,7 +219,7 @@ bool Trainer::NodeUnary_Pos::EvalBackward(Environment &env)
 bool Trainer::NodeUnary_Neg::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	if (_connectorSrc.IsSourceVulnerable()) {
+	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
 		_connectorSrc.SetArrayBwd(
 			Array::ApplyUnaryFunc(
 				env, Array::unaryFuncPack_Neg, _connectorSrc.GetArrayBwd(),
@@ -243,6 +248,13 @@ bool Trainer::NodeUnary_Math_sigmoid::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeBinary
 //-----------------------------------------------------------------------------
+bool Trainer::NodeBinary::IsVulnerable() const
+{
+	return
+		_connectorSrcLeft.GetNodeSrc()->IsVulnerable() ||
+		_connectorSrcRight.GetNodeSrc()->IsVulnerable();
+}
+
 bool Trainer::NodeBinary::EvalForward(Environment &env)
 {
 	//::printf("NodeBinary::EvalForward()\n");
@@ -282,10 +294,10 @@ bool Trainer::NodeBinary_Add::EvalBackward(Environment &env)
 bool Trainer::NodeBinary_Sub::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	if (_connectorSrcLeft.IsSourceVulnerable()) {
+	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
 		_connectorSrcLeft.SetArrayBwd((*ppConnectorDst)->GetArrayBwd()->Reference());
 	}
-	if (_connectorSrcRight.IsSourceVulnerable()) {
+	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
 		_connectorSrcRight.SetArrayBwd(
 			Array::ApplyUnaryFunc(
 				env, Array::unaryFuncPack_Neg, _connectorSrcRight.GetArrayBwd(),
@@ -301,7 +313,7 @@ bool Trainer::NodeBinary_Sub::EvalBackward(Environment &env)
 bool Trainer::NodeBinary_Mul::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	if (_connectorSrcLeft.IsSourceVulnerable()) {
+	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
 		_connectorSrcLeft.SetArrayBwd(
 			Array::ApplyBinaryFunc(
 				env, Array::binaryFuncPack_Mul, _connectorSrcLeft.GetArrayBwd(),
@@ -309,7 +321,7 @@ bool Trainer::NodeBinary_Mul::EvalBackward(Environment &env)
 				(*ppConnectorDst)->GetArrayBwd()));
 		if (env.IsSignalled()) return false;
 	}
-	if (_connectorSrcRight.IsSourceVulnerable()) {
+	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
 		_connectorSrcRight.SetArrayBwd(
 			Array::ApplyBinaryFunc(
 				env, Array::binaryFuncPack_Mul, _connectorSrcRight.GetArrayBwd(),
@@ -342,7 +354,7 @@ bool Trainer::NodeBinary_Pow::EvalBackward(Environment &env)
 bool Trainer::NodeBinary_Dot::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
-	if (_connectorSrcLeft.IsSourceVulnerable()) {
+	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
 		_pArrayFwdRightTrans.reset(_connectorSrcRight.GetArrayFwd()->Transpose2d());
 		_connectorSrcLeft.SetArrayBwd(
 			Array::ApplyBinaryFunc(
@@ -351,7 +363,7 @@ bool Trainer::NodeBinary_Dot::EvalBackward(Environment &env)
 				_pArrayFwdRightTrans.get()));
 		if (env.IsSignalled()) return false;
 	}
-	if (_connectorSrcRight.IsSourceVulnerable()) {
+	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
 		_pArrayFwdLeftTrans.reset(_connectorSrcLeft.GetArrayFwd()->Transpose2d());
 		_connectorSrcRight.SetArrayBwd(
 			Array::ApplyBinaryFunc(
@@ -393,7 +405,7 @@ bool Trainer::NodeList::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeOwner
+// NodeOwner
 //-----------------------------------------------------------------------------
 Trainer::NodeOwner::~NodeOwner()
 {

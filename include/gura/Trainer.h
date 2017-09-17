@@ -24,6 +24,8 @@ public:
 			_pNodeSrc(nullptr), _pNodeDst(pNodeDst) {}
 			inline Node *GetNodeSrc() { return _pNodeSrc; }
 			inline Node *GetNodeDst() { return _pNodeDst; }
+			inline const Node *GetNodeSrc() const { return _pNodeSrc; }
+			inline const Node *GetNodeDst() const { return _pNodeDst; }
 			inline void SetNodeSrc(Node *pNodeSrc) {
 				_pNodeSrc = pNodeSrc;
 			}
@@ -32,7 +34,6 @@ public:
 			inline Array *GetArrayBwd() { return _pArrayBwd.get(); }
 			inline const Array *GetArrayFwd() const { return _pNodeSrc->GetArrayFwd(); }
 			inline const Array *GetArrayBwd() const { return _pArrayBwd.get(); }
-			inline bool IsSourceVulnerable() const { return _pNodeSrc->IsVulnerable(); }
 		};
 		class ConnectorList : public std::vector<Connector *> {
 		public:
@@ -52,7 +53,7 @@ public:
 	public:
 		inline void AddConnectorDst(Connector *pConnectorDst) { _connectorsDst.push_back(pConnectorDst); }
 		inline Array *GetArrayFwd() { return _pArrayFwd.get(); }
-		virtual bool IsVulnerable() const;
+		virtual bool IsVulnerable() const = 0;
 		virtual bool EvalForward(Environment &env) = 0;
 		virtual bool EvalBackward(Environment &env) = 0;
 		virtual void Print(int indentLevel) = 0;
@@ -86,6 +87,7 @@ public:
 		inline NodeBottom() : Node(), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 		inline const Array *GetArraySoftmax() const { return _pArraySoftmax.get(); }
+		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 		bool EvalBackwardTop(Environment &env, const Array *pArrayCorrect);
@@ -102,6 +104,7 @@ public:
 		inline NodeUnary(const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
 		Node(pConnectorDst), _unaryFuncPack(unaryFuncPack), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
+		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual void Print(int indentLevel);
 	};
@@ -155,6 +158,7 @@ public:
 			_connectorSrcLeft(this), _connectorSrcRight(this) {}
 		inline Connector *GetConnectorSrcLeft() { return &_connectorSrcLeft; }
 		inline Connector *GetConnectorSrcRight() { return &_connectorSrcRight; }
+		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual void Print(int indentLevel);
 	};
