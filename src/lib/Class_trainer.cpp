@@ -83,10 +83,11 @@ Gura_ImplementPropertyGetter(trainer, result)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// trainer#eval() {block?}
+// trainer#eval(env?:environment) {block?}
 Gura_DeclareMethod(trainer, eval)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "env", VTYPE_environment, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -96,7 +97,11 @@ Gura_DeclareMethod(trainer, eval)
 Gura_ImplementMethod(trainer, eval)
 {
 	Trainer *pTrainer = Object_trainer::GetObjectThis(arg)->GetTrainer();
-	if (!pTrainer->Eval(env)) return Value::Nil;
+	AutoPtr<Environment> pEnv(
+		arg.Is_environment(0)?
+		Object_environment::GetObject(arg, 0)->GetEnv().Reference() :
+		env.Derive(ENVTYPE_block));
+	if (!pTrainer->Eval(*pEnv)) return Value::Nil;
 	return ReturnValue(env, arg, Array::ToValue(env, pTrainer->GetResult()->Reference()));
 }
 

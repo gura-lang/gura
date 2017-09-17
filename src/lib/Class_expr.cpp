@@ -616,11 +616,12 @@ Gura_ImplementPropertyGetter(expr, value)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// expr#eval(env?:environment)
+// expr#eval(env?:environment) {block?}
 Gura_DeclareMethod(expr, eval)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "env", VTYPE_environment, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
 		"Evaluates the `expr` instance.\n"
@@ -636,7 +637,7 @@ Gura_ImplementMethod(expr, eval)
 		arg.Is_environment(0)?
 		Object_environment::GetObject(arg, 0)->GetEnv().Reference() :
 		env.Derive(ENVTYPE_block));
-	return pExpr->Exec(*pEnv);
+	return ReturnValue(env, arg, pExpr->Exec(*pEnv));
 }
 
 // expr.parse(script:string) {block?}
