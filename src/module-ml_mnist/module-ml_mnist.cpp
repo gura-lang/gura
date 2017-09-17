@@ -1,5 +1,8 @@
 //=============================================================================
 // Gura module: ml.mnist
+// Provides classes that read images and labels of handwritten digit database
+// called MNIST.
+// MNIST data files are avaiable in: http://yann.lecun.com/exdb/mnist/
 //=============================================================================
 #include "stdafx.h"
 
