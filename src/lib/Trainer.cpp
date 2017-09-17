@@ -16,9 +16,10 @@ Trainer::~Trainer()
 {
 }
 
-bool Trainer::CreateFromExpr(Environment &env, const Expr *pExpr, const SymbolSet &symbolsSource)
+bool Trainer::CreateFromExpr(Environment &env, const Expr *pExprSrc, const SymbolSet &symbolsInput)
 {
-	return _nodeOwner.CreateFromExpr(env, pExpr, _pNodeBottom->GetConnectorSrc(), symbolsSource);
+	_pExprSrc.reset(pExprSrc->Reference());
+	return _nodeOwner.CreateFromExpr(env, pExprSrc, _pNodeBottom->GetConnectorSrc(), symbolsInput);
 }
 
 bool Trainer::Eval(Environment &env)
@@ -84,7 +85,7 @@ bool Trainer::NodeHead::IsVulnerable() const
 bool Trainer::NodeHead::EvalForward(Environment &env)
 {
 	//::printf("NodeHead::EvalForward()\n");
-	if (_pArrayFwd.IsNull() || IsSource()) {
+	if (_pArrayFwd.IsNull() || IsInput()) {
 		Value value = _pExpr->Exec(env);
 		if (env.IsSignalled()) return false;
 		if (value.Is_number()) {
@@ -421,7 +422,7 @@ void Trainer::NodeOwner::Clear()
 }
 
 bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
-									Node::Connector *pConnector, const SymbolSet &symbolsSource)
+									Node::Connector *pConnector, const SymbolSet &symbolsInput)
 {
 	if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
 		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
@@ -437,7 +438,7 @@ bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 		}
 		Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
 		push_back(pNode.release());
-		if (!CreateFromExpr(env, pExprEx->GetChild(), pConnectorSrc, symbolsSource)) {
+		if (!CreateFromExpr(env, pExprEx->GetChild(), pConnectorSrc, symbolsInput)) {
 			return false;
 		}
 		return true;
@@ -468,8 +469,8 @@ bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 		Node::Connector *pConnectorSrcLeft = pNode->GetConnectorSrcLeft();
 		Node::Connector *pConnectorSrcRight = pNode->GetConnectorSrcRight();
 		push_back(pNode.release());
-		if (!CreateFromExpr(env, pExprEx->GetLeft(), pConnectorSrcLeft, symbolsSource) ||
-			!CreateFromExpr(env, pExprEx->GetRight(), pConnectorSrcRight, symbolsSource)) {
+		if (!CreateFromExpr(env, pExprEx->GetLeft(), pConnectorSrcLeft, symbolsInput) ||
+			!CreateFromExpr(env, pExprEx->GetRight(), pConnectorSrcRight, symbolsInput)) {
 			return false;
 		}
 		return true;
@@ -495,7 +496,7 @@ bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 			}
 			Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
 			push_back(pNode.release());
-			if (!CreateFromExpr(env, exprsArg.front(), pConnectorSrc, symbolsSource)) {
+			if (!CreateFromExpr(env, exprsArg.front(), pConnectorSrc, symbolsInput)) {
 				return false;
 			}
 			return true;
@@ -503,8 +504,8 @@ bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 	}
 	Node::Trait trait = Node::TRAIT_Variable;
 	if (pExpr->IsIdentifier() &&
-		symbolsSource.IsSet(dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol())) {
-		trait = Node::TRAIT_Source;
+		symbolsInput.IsSet(dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol())) {
+		trait = Node::TRAIT_Input;
 	} else if (pExpr->IsValue()) {
 		trait = Node::TRAIT_Constant;
 	}

@@ -37,12 +37,12 @@ String Object_trainer::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// trainer(expr:expr, sources+:symbol):map {block?}
+// trainer(expr:expr, inputs*:symbol):map {block?}
 Gura_DeclareFunction(trainer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "expr", VTYPE_expr, OCCUR_Once);
-	DeclareArg(env, "sources", VTYPE_symbol, OCCUR_OnceOrMore);
+	DeclareArg(env, "inputs", VTYPE_symbol, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_trainer));
 	AddHelp(
@@ -53,11 +53,11 @@ Gura_DeclareFunction(trainer)
 Gura_ImplementFunction(trainer)
 {
 	AutoPtr<Trainer> pTrainer(new Trainer());
-	SymbolSet symbolsSource;
+	SymbolSet symbolsInput;
 	foreach_const (ValueList, pValue, arg.GetList(1)) {
-		symbolsSource.Insert(pValue->GetSymbol());
+		symbolsInput.Insert(pValue->GetSymbol());
 	}
-	if (!pTrainer->CreateFromExpr(env, Object_expr::GetObject(arg, 0)->GetExpr(), symbolsSource)) return Value::Nil;
+	if (!pTrainer->CreateFromExpr(env, Object_expr::GetObject(arg, 0)->GetExpr(), symbolsInput)) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_trainer(env, pTrainer.release())));
 }
 
@@ -78,6 +78,22 @@ Gura_ImplementPropertyGetter(trainer, result)
 	Trainer *pTrainer = Object_trainer::GetObject(valueThis)->GetTrainer();
 	//return Array::ToValue(env, pTrainer->GetResult()->Reference());
 	return Array::ToValue(env, pTrainer->GetResultSoftmax()->Reference());
+}
+
+// trainer#source
+Gura_DeclareProperty_R(trainer, source)
+{
+	SetPropAttr(VTYPE_expr);
+	AddHelp(
+		Gura_Symbol(en),
+		"Evaluation result.");
+}
+
+Gura_ImplementPropertyGetter(trainer, source)
+{
+	Trainer *pTrainer = Object_trainer::GetObject(valueThis)->GetTrainer();
+	//return Array::ToValue(env, pTrainer->GetResult()->Reference());
+	return Value(new Object_expr(env, pTrainer->GetExprSrc()->Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -137,6 +153,7 @@ void Class_trainer::DoPrepare(Environment &env)
 	Gura_AssignFunction(trainer);
 	// Assignment of properties
 	Gura_AssignProperty(trainer, result);
+	Gura_AssignProperty(trainer, source);
 	// Assignment of methods
 	Gura_AssignMethod(trainer, eval);
 	Gura_AssignMethod(trainer, train);

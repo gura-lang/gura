@@ -17,7 +17,7 @@ public:
 		enum Trait {
 			TRAIT_Variable,
 			TRAIT_Constant,
-			TRAIT_Source,
+			TRAIT_Input,
 		};
 		class Connector {
 		private:
@@ -76,7 +76,7 @@ public:
 		Node(pConnectorDst), _pExpr(pExpr), _trait(trait) {}
 		inline bool IsVariable() const { return _trait == TRAIT_Variable; }
 		inline bool IsConstant() const { return _trait == TRAIT_Constant; }
-		inline bool IsSource() const { return _trait == TRAIT_Source; }
+		inline bool IsInput() const { return _trait == TRAIT_Input; }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
@@ -254,12 +254,13 @@ public:
 		~NodeOwner();
 		void Clear();
 		bool CreateFromExpr(Environment &env, const Expr *pExpr,
-							Node::Connector *pConnector, const SymbolSet &symbolsSource);
+							Node::Connector *pConnector, const SymbolSet &symbolsInput);
 	};
 private:
 	int _cntRef;
 	AutoPtr<NodeBottom> _pNodeBottom;
 	NodeOwner _nodeOwner;
+	AutoPtr<Expr> _pExprSrc;
 public:
 	Gura_DeclareReferenceAccessor(Trainer);
 public:
@@ -267,12 +268,13 @@ public:
 protected:
 	virtual ~Trainer();
 public:
-	bool CreateFromExpr(Environment &env, const Expr *pExpr, const SymbolSet &symbolsSource);
+	bool CreateFromExpr(Environment &env, const Expr *pExprSrc, const SymbolSet &symbolsInput);
 	bool Eval(Environment &env);
 	bool Train(Environment &env, const Array *pArrayCorrect);
 	const Array *GetResult() const;
 	const Array *GetResultSoftmax() const;
 	inline const NodeOwner &GetNodeOwner() const { return _nodeOwner; }
+	inline const Expr *GetExprSrc() const { return _pExprSrc.get(); }
 	void Print() const;
 };
 
