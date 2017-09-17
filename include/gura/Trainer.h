@@ -1,35 +1,35 @@
-#ifndef __GURA_ARRAYCHAIN_H__
-#define __GURA_ARRAYCHAIN_H__
+#ifndef __GURA_TRAINER_H__
+#define __GURA_TRAINER_H__
 #include <gura.h>
 
 namespace Gura {
 
-class ArrayNode;
+class TrainerNode;
 
 //-----------------------------------------------------------------------------
-// ArrayNode
+// TrainerNode
 //-----------------------------------------------------------------------------
-class ArrayNode {
+class TrainerNode {
 public:
 	class Connector {
 	private:
-		ArrayNode *_pArrayNodeSrc;
-		ArrayNode *_pArrayNodeDst;
+		TrainerNode *_pTrainerNodeSrc;
+		TrainerNode *_pTrainerNodeDst;
 		AutoPtr<Array> _pArrayBwd;
 	public:
-		inline Connector(ArrayNode *pArrayNodeDst) :
-			_pArrayNodeSrc(nullptr), _pArrayNodeDst(pArrayNodeDst) {}
-		inline ArrayNode *GetArrayNodeSrc() { return _pArrayNodeSrc; }
-		inline ArrayNode *GetArrayNodeDst() { return _pArrayNodeDst; }
-		inline void SetArrayNodeSrc(ArrayNode *pArrayNodeSrc) {
-			_pArrayNodeSrc = pArrayNodeSrc;
+		inline Connector(TrainerNode *pTrainerNodeDst) :
+			_pTrainerNodeSrc(nullptr), _pTrainerNodeDst(pTrainerNodeDst) {}
+		inline TrainerNode *GetTrainerNodeSrc() { return _pTrainerNodeSrc; }
+		inline TrainerNode *GetTrainerNodeDst() { return _pTrainerNodeDst; }
+		inline void SetTrainerNodeSrc(TrainerNode *pTrainerNodeSrc) {
+			_pTrainerNodeSrc = pTrainerNodeSrc;
 		}
 		inline void SetArrayBwd(Array *pArrayBwd) { _pArrayBwd.reset(pArrayBwd); }
-		inline Array *GetArrayFwd() { return _pArrayNodeSrc->GetArrayFwd(); }
+		inline Array *GetArrayFwd() { return _pTrainerNodeSrc->GetArrayFwd(); }
 		inline Array *GetArrayBwd() { return _pArrayBwd.get(); }
-		inline const Array *GetArrayFwd() const { return _pArrayNodeSrc->GetArrayFwd(); }
+		inline const Array *GetArrayFwd() const { return _pTrainerNodeSrc->GetArrayFwd(); }
 		inline const Array *GetArrayBwd() const { return _pArrayBwd.get(); }
-		inline bool IsSourceVulnerable() const { return _pArrayNodeSrc->IsVulnerable(); }
+		inline bool IsSourceVulnerable() const { return _pTrainerNodeSrc->IsVulnerable(); }
 	};
 	class ConnectorList : public std::vector<Connector *> {
 	public:
@@ -40,12 +40,12 @@ protected:
 	ConnectorList _connectorsDst;
 	AutoPtr<Array> _pArrayFwd;
 public:
-	Gura_DeclareReferenceAccessor(ArrayNode);
+	Gura_DeclareReferenceAccessor(TrainerNode);
 public:
-	inline ArrayNode() : _cntRef(1) {}
-	ArrayNode(Connector *pConnectorDst);
+	inline TrainerNode() : _cntRef(1) {}
+	TrainerNode(Connector *pConnectorDst);
 protected:
-	virtual ~ArrayNode();
+	virtual ~TrainerNode();
 public:
 	inline void AddConnectorDst(Connector *pConnectorDst) { _connectorsDst.push_back(pConnectorDst); }
 	inline Array *GetArrayFwd() { return _pArrayFwd.get(); }
@@ -56,16 +56,16 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeHead
+// TrainerNodeHead
 //-----------------------------------------------------------------------------
-class ArrayNodeHead : public ArrayNode {
+class TrainerNodeHead : public TrainerNode {
 protected:
 	AutoPtr<Expr> _pExpr;
 	AutoPtr<Array> _pArrayBwdAdj;
 	bool _sourceNodeFlag;
 public:
-	inline ArrayNodeHead(Connector *pConnectorDst, Expr *pExpr, bool sourceNodeFlag) :
-			ArrayNode(pConnectorDst), _pExpr(pExpr), _sourceNodeFlag(sourceNodeFlag) {}
+	inline TrainerNodeHead(Connector *pConnectorDst, Expr *pExpr, bool sourceNodeFlag) :
+			TrainerNode(pConnectorDst), _pExpr(pExpr), _sourceNodeFlag(sourceNodeFlag) {}
 	inline bool IsSourceNode() const { return _sourceNodeFlag; }
 	virtual bool IsVulnerable() const;
 	virtual bool EvalForward(Environment &env);
@@ -74,15 +74,15 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeBottom
+// TrainerNodeBottom
 //-----------------------------------------------------------------------------
-class ArrayNodeBottom : public ArrayNode {
+class TrainerNodeBottom : public TrainerNode {
 private:
 	Connector _connectorSrc;
 	AutoPtr<Array> _pArraySoftmax;
 	AutoPtr<Array> _pArrayCorrect;
 public:
-	inline ArrayNodeBottom() : ArrayNode(), _connectorSrc(this) {}
+	inline TrainerNodeBottom() : TrainerNode(), _connectorSrc(this) {}
 	inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 	inline const Array *GetArraySoftmax() const { return _pArraySoftmax.get(); }
 	virtual bool EvalForward(Environment &env);
@@ -92,71 +92,71 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeUnary
+// TrainerNodeUnary
 //-----------------------------------------------------------------------------
-class ArrayNodeUnary : public ArrayNode {
+class TrainerNodeUnary : public TrainerNode {
 protected:
 	const Array::UnaryFuncPack &_unaryFuncPack;
 	Connector _connectorSrc;
 public:
-	inline ArrayNodeUnary(const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
-		ArrayNode(pConnectorDst), _unaryFuncPack(unaryFuncPack), _connectorSrc(this) {}
+	inline TrainerNodeUnary(const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
+		TrainerNode(pConnectorDst), _unaryFuncPack(unaryFuncPack), _connectorSrc(this) {}
 	inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 	virtual bool EvalForward(Environment &env);
 	virtual void Print(int indentLevel);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeUnary_Pos
+// TrainerNodeUnary_Pos
 //-----------------------------------------------------------------------------
-class ArrayNodeUnary_Pos : public ArrayNodeUnary {
+class TrainerNodeUnary_Pos : public TrainerNodeUnary {
 public:
-	inline ArrayNodeUnary_Pos(Connector *pConnectorDst) :
-		ArrayNodeUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
+	inline TrainerNodeUnary_Pos(Connector *pConnectorDst) :
+		TrainerNodeUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeUnary_Neg
+// TrainerNodeUnary_Neg
 //-----------------------------------------------------------------------------
-class ArrayNodeUnary_Neg : public ArrayNodeUnary {
+class TrainerNodeUnary_Neg : public TrainerNodeUnary {
 public:
-	inline ArrayNodeUnary_Neg(Connector *pConnectorDst) :
-		ArrayNodeUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
+	inline TrainerNodeUnary_Neg(Connector *pConnectorDst) :
+		TrainerNodeUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeUnary_Math_relu
+// TrainerNodeUnary_Math_relu
 //-----------------------------------------------------------------------------
-class ArrayNodeUnary_Math_relu : public ArrayNodeUnary {
+class TrainerNodeUnary_Math_relu : public TrainerNodeUnary {
 public:
-	inline ArrayNodeUnary_Math_relu(Connector *pConnectorDst) :
-		ArrayNodeUnary(Array::unaryFuncPack_Math_relu, pConnectorDst) {}
+	inline TrainerNodeUnary_Math_relu(Connector *pConnectorDst) :
+		TrainerNodeUnary(Array::unaryFuncPack_Math_relu, pConnectorDst) {}
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeUnary_Math_sigmoid
+// TrainerNodeUnary_Math_sigmoid
 //-----------------------------------------------------------------------------
-class ArrayNodeUnary_Math_sigmoid : public ArrayNodeUnary {
+class TrainerNodeUnary_Math_sigmoid : public TrainerNodeUnary {
 public:
-	inline ArrayNodeUnary_Math_sigmoid(Connector *pConnectorDst) :
-		ArrayNodeUnary(Array::unaryFuncPack_Math_sigmoid, pConnectorDst) {}
+	inline TrainerNodeUnary_Math_sigmoid(Connector *pConnectorDst) :
+		TrainerNodeUnary(Array::unaryFuncPack_Math_sigmoid, pConnectorDst) {}
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeBinary
+// TrainerNodeBinary
 //-----------------------------------------------------------------------------
-class ArrayNodeBinary : public ArrayNode {
+class TrainerNodeBinary : public TrainerNode {
 protected:
 	const Array::BinaryFuncPack &_binaryFuncPack;
 	Connector _connectorSrcLeft;
 	Connector _connectorSrcRight;
 public:
-	inline ArrayNodeBinary(const Array::BinaryFuncPack &binaryFuncPack, Connector *pConnectorDst) :
-		ArrayNode(pConnectorDst), _binaryFuncPack(binaryFuncPack),
+	inline TrainerNodeBinary(const Array::BinaryFuncPack &binaryFuncPack, Connector *pConnectorDst) :
+		TrainerNode(pConnectorDst), _binaryFuncPack(binaryFuncPack),
 		_connectorSrcLeft(this), _connectorSrcRight(this) {}
 	inline Connector *GetConnectorSrcLeft() { return &_connectorSrcLeft; }
 	inline Connector *GetConnectorSrcRight() { return &_connectorSrcRight; }
@@ -165,122 +165,122 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeBinary_Add
+// TrainerNodeBinary_Add
 //-----------------------------------------------------------------------------
-class ArrayNodeBinary_Add : public ArrayNodeBinary {
+class TrainerNodeBinary_Add : public TrainerNodeBinary {
 public:
-	inline ArrayNodeBinary_Add(Connector *pConnectorDst) :
-		ArrayNodeBinary(Array::binaryFuncPack_Add, pConnectorDst) {}
+	inline TrainerNodeBinary_Add(Connector *pConnectorDst) :
+		TrainerNodeBinary(Array::binaryFuncPack_Add, pConnectorDst) {}
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeBinary_Sub
+// TrainerNodeBinary_Sub
 //-----------------------------------------------------------------------------
-class ArrayNodeBinary_Sub : public ArrayNodeBinary {
+class TrainerNodeBinary_Sub : public TrainerNodeBinary {
 public:
-	inline ArrayNodeBinary_Sub(Connector *pConnectorDst) :
-		ArrayNodeBinary(Array::binaryFuncPack_Sub, pConnectorDst) {}
+	inline TrainerNodeBinary_Sub(Connector *pConnectorDst) :
+		TrainerNodeBinary(Array::binaryFuncPack_Sub, pConnectorDst) {}
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeBinary_Mul
+// TrainerNodeBinary_Mul
 //-----------------------------------------------------------------------------
-class ArrayNodeBinary_Mul : public ArrayNodeBinary {
+class TrainerNodeBinary_Mul : public TrainerNodeBinary {
 public:
-	inline ArrayNodeBinary_Mul(Connector *pConnectorDst) :
-		ArrayNodeBinary(Array::binaryFuncPack_Mul, pConnectorDst) {}
+	inline TrainerNodeBinary_Mul(Connector *pConnectorDst) :
+		TrainerNodeBinary(Array::binaryFuncPack_Mul, pConnectorDst) {}
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeBinary_Div
+// TrainerNodeBinary_Div
 //-----------------------------------------------------------------------------
-class ArrayNodeBinary_Div : public ArrayNodeBinary {
+class TrainerNodeBinary_Div : public TrainerNodeBinary {
 public:
-	inline ArrayNodeBinary_Div(Connector *pConnectorDst) :
-		ArrayNodeBinary(Array::binaryFuncPack_Div, pConnectorDst) {}
+	inline TrainerNodeBinary_Div(Connector *pConnectorDst) :
+		TrainerNodeBinary(Array::binaryFuncPack_Div, pConnectorDst) {}
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeBinary_Pow
+// TrainerNodeBinary_Pow
 //-----------------------------------------------------------------------------
-class ArrayNodeBinary_Pow : public ArrayNodeBinary {
+class TrainerNodeBinary_Pow : public TrainerNodeBinary {
 public:
-	inline ArrayNodeBinary_Pow(Connector *pConnectorDst) :
-		ArrayNodeBinary(Array::binaryFuncPack_Pow, pConnectorDst) {}
+	inline TrainerNodeBinary_Pow(Connector *pConnectorDst) :
+		TrainerNodeBinary(Array::binaryFuncPack_Pow, pConnectorDst) {}
 	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeBinary_Dot
+// TrainerNodeBinary_Dot
 //-----------------------------------------------------------------------------
-class ArrayNodeBinary_Dot : public ArrayNodeBinary {
+class TrainerNodeBinary_Dot : public TrainerNodeBinary {
 private:
 	AutoPtr<Array> _pArrayFwdLeftTrans;
 	AutoPtr<Array> _pArrayFwdRightTrans;
 public:
-	inline ArrayNodeBinary_Dot(Connector *pConnectorDst) :
-		ArrayNodeBinary(Array::binaryFuncPack_Dot, pConnectorDst) {}
+	inline TrainerNodeBinary_Dot(Connector *pConnectorDst) :
+		TrainerNodeBinary(Array::binaryFuncPack_Dot, pConnectorDst) {}
 	virtual bool EvalBackward(Environment &env);
 };
 
 #if 0
 //-----------------------------------------------------------------------------
-// ArrayNodeBinary_Filter
+// TrainerNodeBinary_Filter
 //-----------------------------------------------------------------------------
-class ArrayNodeBinary_Filter : public ArrayNodeBinary {
+class TrainerNodeBinary_Filter : public TrainerNodeBinary {
 public:
-	inline ArrayNodeBinary_Filter(Connector *pConnectorDst) :
-		ArrayNodeBinary(Array::binaryFuncPack_Filter, pConnectorDst) {}
+	inline TrainerNodeBinary_Filter(Connector *pConnectorDst) :
+		TrainerNodeBinary(Array::binaryFuncPack_Filter, pConnectorDst) {}
 	virtual bool EvalBackward(Environment &env);
 };
 #endif
 
 //-----------------------------------------------------------------------------
-// ArrayNodeList
+// TrainerNodeList
 //-----------------------------------------------------------------------------
-class ArrayNodeList : public std::vector<ArrayNode *> {
+class TrainerNodeList : public std::vector<TrainerNode *> {
 public:
-	inline ArrayNodeList() {}
+	inline TrainerNodeList() {}
 	bool EvalForward(Environment &env);
 	bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayNodeOwner
+// TrainerNodeOwner
 //-----------------------------------------------------------------------------
-class ArrayNodeOwner : public ArrayNodeList {
+class TrainerNodeOwner : public TrainerNodeList {
 public:
-	~ArrayNodeOwner();
+	~TrainerNodeOwner();
 	void Clear();
 	bool CreateFromExpr(Environment &env, const Expr *pExpr,
-						ArrayNode::Connector *pConnector, const SymbolSet &symbolsSource);
+						TrainerNode::Connector *pConnector, const SymbolSet &symbolsSource);
 };
 
 //-----------------------------------------------------------------------------
-// ArrayChain
+// Trainer
 //-----------------------------------------------------------------------------
-class ArrayChain {
+class Trainer {
 private:
 	int _cntRef;
-	AutoPtr<ArrayNodeBottom> _pArrayNodeBottom;
-	ArrayNodeOwner _arrayNodeOwner;
+	AutoPtr<TrainerNodeBottom> _pTrainerNodeBottom;
+	TrainerNodeOwner _trainerNodeOwner;
 public:
-	Gura_DeclareReferenceAccessor(ArrayChain);
+	Gura_DeclareReferenceAccessor(Trainer);
 public:
-	ArrayChain();
+	Trainer();
 protected:
-	virtual ~ArrayChain();
+	virtual ~Trainer();
 public:
 	bool CreateFromExpr(Environment &env, const Expr *pExpr, const SymbolSet &symbolsSource);
 	bool Eval(Environment &env);
 	bool Train(Environment &env, const Array *pArrayCorrect);
 	const Array *GetResult() const;
 	const Array *GetResultSoftmax() const;
-	inline const ArrayNodeOwner &GetArrayNodeOwner() const { return _arrayNodeOwner; }
+	inline const TrainerNodeOwner &GetTrainerNodeOwner() const { return _trainerNodeOwner; }
 	void Print() const;
 };
 

@@ -188,7 +188,6 @@
     <ClCompile Include="Algorithm.cpp" />
     <ClCompile Include="Argument.cpp" />
     <ClCompile Include="Array.cpp" />
-    <ClCompile Include="ArrayChain.cpp" />
     <ClCompile Include="ArrayT.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Binary.cpp" />
@@ -201,7 +200,6 @@
     <ClCompile Include="Class_argument.cpp" />
     <ClCompile Include="Class_array.cpp" />
     <ClCompile Include="Class_arrayT.cpp" />
-    <ClCompile Include="Class_arraychain.cpp" />
     <ClCompile Include="Class_audio.cpp" />
     <ClCompile Include="Class_binary.cpp" />
     <ClCompile Include="Class_boolean.cpp" />
@@ -239,6 +237,7 @@
     <ClCompile Include="Class_template.cpp" />
     <ClCompile Include="Class_timedelta.cpp" />
     <ClCompile Include="Class_token.cpp" />
+    <ClCompile Include="Class_trainer.cpp" />
     <ClCompile Include="Class_undefined.cpp" />
     <ClCompile Include="Class_uri.cpp" />
     <ClCompile Include="Class_vertex.cpp" />
@@ -300,6 +299,7 @@
     <ClCompile Include="Symbol.cpp" />
     <ClCompile Include="Template.cpp" />
     <ClCompile Include="Token.cpp" />
+    <ClCompile Include="Trainer.cpp" />
     <ClCompile Include="Unicode-CP932.cpp" />
     <ClCompile Include="Unicode-CP936.cpp" />
     <ClCompile Include="Unicode-CP949.cpp" />
@@ -337,7 +337,6 @@
     <ClInclude Include="..\..\include\gura\Algorithm.h" />
     <ClInclude Include="..\..\include\gura\Argument.h" />
     <ClInclude Include="..\..\include\gura\Array.h" />
-    <ClInclude Include="..\..\include\gura\ArrayChain.h" />
     <ClInclude Include="..\..\include\gura\ArrayT.h" />
     <ClInclude Include="..\..\include\gura\Audio.h" />
     <ClInclude Include="..\..\include\gura\Binary.h" />
@@ -351,7 +350,6 @@
     <ClInclude Include="..\..\include\gura\Class_argument.h" />
     <ClInclude Include="..\..\include\gura\Class_array.h" />
     <ClInclude Include="..\..\include\gura\Class_arrayT.h" />
-    <ClInclude Include="..\..\include\gura\Class_arraychain.h" />
     <ClInclude Include="..\..\include\gura\Class_audio.h" />
     <ClInclude Include="..\..\include\gura\Class_binary.h" />
     <ClInclude Include="..\..\include\gura\Class_boolean.h" />
@@ -389,6 +387,7 @@
     <ClInclude Include="..\..\include\gura\Class_template.h" />
     <ClInclude Include="..\..\include\gura\Class_timedelta.h" />
     <ClInclude Include="..\..\include\gura\Class_token.h" />
+    <ClInclude Include="..\..\include\gura\Class_trainer.h" />
     <ClInclude Include="..\..\include\gura\Class_undefined.h" />
     <ClInclude Include="..\..\include\gura\Class_uri.h" />
     <ClInclude Include="..\..\include\gura\Class_vertex.h" />
@@ -446,6 +445,7 @@
     <ClInclude Include="..\..\include\gura\Symbol.h" />
     <ClInclude Include="..\..\include\gura\Template.h" />
     <ClInclude Include="..\..\include\gura\Token.h" />
+    <ClInclude Include="..\..\include\gura\Trainer.h" />
     <ClInclude Include="..\..\include\gura\Unicode-CP932.h" />
     <ClInclude Include="..\..\include\gura\Unicode-CP936.h" />
     <ClInclude Include="..\..\include\gura\Unicode-CP949.h" />

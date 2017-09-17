@@ -42,7 +42,6 @@ ValueType VTYPE_array_at_half			= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_float			= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_double			= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_complex		= static_cast<ValueType>(0);
-ValueType VTYPE_arraychain				= static_cast<ValueType>(0);
 ValueType VTYPE_audio					= static_cast<ValueType>(0);
 ValueType VTYPE_binary					= static_cast<ValueType>(0);
 ValueType VTYPE_codec					= static_cast<ValueType>(0);
@@ -72,6 +71,7 @@ ValueType VTYPE_suffixmgr				= static_cast<ValueType>(0);
 ValueType VTYPE_template				= static_cast<ValueType>(0);
 ValueType VTYPE_timedelta				= static_cast<ValueType>(0);
 ValueType VTYPE_token					= static_cast<ValueType>(0);
+ValueType VTYPE_trainer					= static_cast<ValueType>(0);
 ValueType VTYPE_uri						= static_cast<ValueType>(0);
 ValueType VTYPE_vertex					= static_cast<ValueType>(0);
 ValueType VTYPE_filter					= static_cast<ValueType>(0);
@@ -197,7 +197,6 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_RealizeVTYPEAlias(array_at_float,			"array@float");
 	Gura_RealizeVTYPEAlias(array_at_double,			"array@double");
 	Gura_RealizeVTYPEAlias(array_at_complex,		"array@complex");
-	Gura_RealizeVTYPE(arraychain);
 	Gura_RealizeVTYPE(audio);
 	Gura_RealizeVTYPE(binary);
 	Gura_RealizeVTYPE(codec);
@@ -227,6 +226,7 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_RealizeVTYPE(template);
 	Gura_RealizeVTYPE(timedelta);
 	Gura_RealizeVTYPE(token);
+	Gura_RealizeVTYPE(trainer);
 	Gura_RealizeVTYPE(uri);
 	Gura_RealizeVTYPE(vertex);
 	Gura_RealizeVTYPE(filter);
@@ -291,7 +291,6 @@ void ValueTypePool::_Bootup(Environment &env)
 		new Class_arrayT<Double>(pClass_array, VTYPE_array_at_double));
 	Gura_VTYPEInfo(array_at_complex)->SetClass(
 		new Class_arrayT<Complex>(pClass_array, VTYPE_array_at_complex));
-	Gura_VTYPEInfo(arraychain	)->SetClass(new Class_arraychain(pClass));
 	Gura_VTYPEInfo(audio		)->SetClass(new Class_audio(pClass));
 	Gura_VTYPEInfo(binary		)->SetClass(new Class_binary(pClass));
 	Gura_VTYPEInfo(codec		)->SetClass(new Class_codec(pClass));
@@ -321,6 +320,7 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_VTYPEInfo(template		)->SetClass(new Class_template(pClass));
 	Gura_VTYPEInfo(timedelta	)->SetClass(new Class_timedelta(pClass));
 	Gura_VTYPEInfo(token		)->SetClass(new Class_token(pClass));
+	Gura_VTYPEInfo(trainer		)->SetClass(new Class_trainer(pClass));
 	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
 	Gura_VTYPEInfo(vertex		)->SetClass(new Class_vertex(pClass));
 	Class *pClass_filter = nullptr;
@@ -374,7 +374,6 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_array_at_float		)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_double		)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_complex		)->Prepare(env);
-	env.LookupClass(VTYPE_arraychain			)->Prepare(env);
 	env.LookupClass(VTYPE_audio					)->Prepare(env);
 	env.LookupClass(VTYPE_binary				)->Prepare(env);
 	env.LookupClass(VTYPE_codec					)->Prepare(env);
@@ -404,6 +403,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_template				)->Prepare(env);
 	env.LookupClass(VTYPE_timedelta				)->Prepare(env);
 	env.LookupClass(VTYPE_token					)->Prepare(env);
+	env.LookupClass(VTYPE_trainer				)->Prepare(env);
 	env.LookupClass(VTYPE_uri					)->Prepare(env);
 	env.LookupClass(VTYPE_vertex				)->Prepare(env);
 	env.LookupClass(VTYPE_filter				)->Prepare(env);

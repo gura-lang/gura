@@ -354,6 +354,7 @@ tokens(stream:stream):map {block?}
 tonumber(value):map:[nil,raise,strict,zero]
 tostring(value):map
 tosymbol(str:string):map
+trainer:class = <class:trainer(expr:expr, sources+:symbol):map {block?}>
 true:boolean = true
 try():leader {block}
 typename(`value)
@@ -589,7 +590,6 @@ array@uint8
   array@uint8.scaling(xscale:number, yscale:number, zscale?:number):static:map {block?}
   array@uint8.translation(xtrans:number, ytrans:number, ztrans?:number):static:map {block?}
   array@uint8.zeros(dims[]:number):static:map {block?}
-arraychain
 audio
   audio#each(channel:number, offset?:number):map {block?}
   audio#get(channel:number, offset:number):map
@@ -1091,6 +1091,9 @@ template
   template#super(symbol:symbol):void
 timedelta
 token
+trainer
+  trainer#eval() {block?}
+  trainer#train(correct:array):void {block?}
 undefined
 uri
   uri#getfragment()

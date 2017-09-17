@@ -1,38 +1,38 @@
 //=============================================================================
-// Gura class: arraychain
+// Gura class: trainer
 //=============================================================================
-#ifndef __GURA_CLASS_ARRAYCHAIN_H__
-#define __GURA_CLASS_ARRAYCHAIN_H__
+#ifndef __GURA_CLASS_TRAINER_H__
+#define __GURA_CLASS_TRAINER_H__
 
 #include "Class.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Class_arraychain
+// Class_trainer
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_arraychain : public ClassFundamental {
+class GURA_DLLDECLARE Class_trainer : public ClassFundamental {
 public:
-	Class_arraychain(Environment *pEnvOuter);
+	Class_trainer(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
-// Object_arraychain
+// Object_trainer
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Object_arraychain : public Object {
+class GURA_DLLDECLARE Object_trainer : public Object {
 protected:
-	AutoPtr<ArrayChain> _pArrayChain;
+	AutoPtr<Trainer> _pTrainer;
 public:
-	Gura_DeclareObjectAccessor(arraychain)
+	Gura_DeclareObjectAccessor(trainer)
 public:
-	Object_arraychain(Environment &env, ArrayChain *pArrayChain);
-	Object_arraychain(Class *pClass, ArrayChain *pArrayChain);
+	Object_trainer(Environment &env, Trainer *pTrainer);
+	Object_trainer(Class *pClass, Trainer *pTrainer);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline ArrayChain *GetArrayChain() { return _pArrayChain.get(); }
-	inline const ArrayChain *GetArrayChain() const { return _pArrayChain.get(); }
+	inline Trainer *GetTrainer() { return _pTrainer.get(); }
+	inline const Trainer *GetTrainer() const { return _pTrainer.get(); }
 };
 
 }

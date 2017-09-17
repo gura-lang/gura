@@ -227,7 +227,6 @@ public:
 	inline bool Is_array_at_float() const		{ return IsType(VTYPE_array_at_float);			}
 	inline bool Is_array_at_double() const		{ return IsType(VTYPE_array_at_double);			}
 	inline bool Is_array_at_complex() const		{ return IsType(VTYPE_array_at_complex);		}
-	inline bool Is_arraychain() const			{ return IsType(VTYPE_arraychain);				}
 	inline bool Is_audio() const				{ return IsType(VTYPE_audio);					}
 	inline bool Is_binary() const				{ return IsType(VTYPE_binary);					}
 	inline bool Is_codec() const				{ return IsType(VTYPE_codec);					}
@@ -257,6 +256,7 @@ public:
 	inline bool Is_template() const				{ return IsType(VTYPE_template);				}
 	inline bool Is_timedelta() const			{ return IsType(VTYPE_timedelta);				}
 	inline bool Is_token() const				{ return IsType(VTYPE_token);					}
+	inline bool Is_trainer() const				{ return IsType(VTYPE_trainer);					}
 	inline bool Is_uri() const					{ return IsType(VTYPE_uri);						}
 	inline bool Is_vertex() const				{ return IsType(VTYPE_vertex);					}
 	inline bool Is_filter() const				{ return IsType(VTYPE_filter);					}
@@ -334,8 +334,6 @@ public:
 								{ return MustBe(sig, Is_array_at_double(), "array@double");	}
 	inline bool MustBe_array_at_complex(Signal &sig) const
 								{ return MustBe(sig, Is_array_at_complex(), "array@complex");	}
-	inline bool MustBe_arraychain(Signal &sig) const
-								{ return MustBe(sig, Is_arraychain(),	"arraychain");		}
 	inline bool MustBe_audio(Signal &sig) const
 								{ return MustBe(sig, Is_audio(), 		"audio");			}
 	inline bool MustBe_binary(Signal &sig) const
@@ -394,6 +392,8 @@ public:
 								{ return MustBe(sig, Is_timedelta(), 	"timedelta");		}
 	inline bool MustBe_token(Signal &sig) const
 								{ return MustBe(sig, Is_token(),	 	"token");			}
+	inline bool MustBe_trainer(Signal &sig) const
+								{ return MustBe(sig, Is_trainer(),		"trainer");			}
 	inline bool MustBe_uri(Signal &sig) const
 								{ return MustBe(sig, Is_uri(), 			"uri");				}
 	inline bool MustBe_vertex(Signal &sig) const

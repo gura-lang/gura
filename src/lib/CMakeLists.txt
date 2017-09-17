@@ -4,7 +4,6 @@ add_library(guracore SHARED
 Algorithm.cpp
 Argument.cpp
 Array.cpp
-ArrayChain.cpp
 ArrayT.cpp
 Audio.cpp
 Binary.cpp
@@ -17,7 +16,6 @@ Class_any.cpp
 Class_argument.cpp
 Class_array.cpp
 Class_arrayT.cpp
-Class_arraychain.cpp
 Class_audio.cpp
 Class_binary.cpp
 Class_boolean.cpp
@@ -55,6 +53,7 @@ Class_symbol.cpp
 Class_template.cpp
 Class_timedelta.cpp
 Class_token.cpp
+Class_trainer.cpp
 Class_undefined.cpp
 Class_uri.cpp
 Class_vertex.cpp
@@ -115,6 +114,7 @@ SuffixMgr.cpp
 Symbol.cpp
 Template.cpp
 Token.cpp
+Trainer.cpp
 Unicode-CP932.cpp
 Unicode-CP936.cpp
 Unicode-CP949.cpp

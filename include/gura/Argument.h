@@ -231,7 +231,6 @@ public:
 	inline bool Is_array_at_float(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_float();	}
 	inline bool Is_array_at_double(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_double();	}
 	inline bool Is_array_at_complex(size_t idxArg) const{ return GetValue(idxArg).Is_array_at_complex();}
-	inline bool Is_arraychain(size_t idxArg) const		{ return GetValue(idxArg).Is_arraychain();		}
 	inline bool Is_audio(size_t idxArg) const			{ return GetValue(idxArg).Is_audio();			}
 	inline bool Is_binary(size_t idxArg) const			{ return GetValue(idxArg).Is_binary();			}
 	inline bool Is_codec(size_t idxArg) const			{ return GetValue(idxArg).Is_codec();			}
@@ -260,6 +259,7 @@ public:
 	inline bool Is_template(size_t idxArg) const		{ return GetValue(idxArg).Is_template();		}
 	inline bool Is_timedelta(size_t idxArg) const		{ return GetValue(idxArg).Is_timedelta();		}
 	inline bool Is_token(size_t idxArg) const			{ return GetValue(idxArg).Is_token();			}
+	inline bool Is_trainer(size_t idxArg) const			{ return GetValue(idxArg).Is_trainer();			}
 	inline bool Is_uri(size_t idxArg) const				{ return GetValue(idxArg).Is_uri();				}
 	inline bool Is_vertex(size_t idxArg) const			{ return GetValue(idxArg).Is_vertex();			}
 	inline bool IsInstanceOf(size_t idxArg, ValueType valType) { return GetValue(idxArg).IsInstanceOf(valType); }
