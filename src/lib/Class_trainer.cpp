@@ -76,8 +76,8 @@ Gura_DeclareProperty_R(trainer, result)
 Gura_ImplementPropertyGetter(trainer, result)
 {
 	Trainer *pTrainer = Object_trainer::GetObject(valueThis)->GetTrainer();
-	//return Value(new Object_array(env, pTrainer->GetResult()->Reference()));
-	return Value(new Object_array(env, pTrainer->GetResultSoftmax()->Reference()));
+	//return Array::ToValue(env, pTrainer->GetResult()->Reference());
+	return Array::ToValue(env, pTrainer->GetResultSoftmax()->Reference());
 }
 
 //-----------------------------------------------------------------------------
@@ -97,7 +97,7 @@ Gura_ImplementMethod(trainer, eval)
 {
 	Trainer *pTrainer = Object_trainer::GetObjectThis(arg)->GetTrainer();
 	if (!pTrainer->Eval(env)) return Value::Nil;
-	return ReturnValue(env, arg, Value(new Object_array(env, pTrainer->GetResult()->Reference())));
+	return ReturnValue(env, arg, Array::ToValue(env, pTrainer->GetResult()->Reference()));
 }
 
 // trainer#train(correct:array):void
