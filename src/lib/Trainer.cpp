@@ -78,13 +78,13 @@ Trainer::Node::~Node()
 //-----------------------------------------------------------------------------
 bool Trainer::NodeHead::IsVulnerable() const
 {
-	return !_sourceNodeFlag;
+	return IsVariable();
 }
 
 bool Trainer::NodeHead::EvalForward(Environment &env)
 {
 	//::printf("NodeHead::EvalForward()\n");
-	if (_pArrayFwd.IsNull() || IsSourceNode()) {
+	if (_pArrayFwd.IsNull() || IsSource()) {
 		Value value = _pExpr->Exec(env);
 		if (env.IsSignalled()) return false;
 		if (value.Is_number()) {
@@ -501,9 +501,14 @@ bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 			return true;
 		}
 	}
-	bool sourceNodeFlag = pExpr->IsIdentifier() &&
-		symbolsSource.IsSet(dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol());
-	AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), sourceNodeFlag));
+	Node::Trait trait = Node::TRAIT_Variable;
+	if (pExpr->IsIdentifier() &&
+		symbolsSource.IsSet(dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol())) {
+		trait = Node::TRAIT_Source;
+	} else if (pExpr->IsValue()) {
+		trait = Node::TRAIT_Constant;
+	}
+	AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), trait));
 	push_back(pNode.release());
 	return true;
 }

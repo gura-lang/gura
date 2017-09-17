@@ -14,6 +14,11 @@ public:
 	//-------------------------------------------------------------------------
 	class Node {
 	public:
+		enum Trait {
+			TRAIT_Variable,
+			TRAIT_Constant,
+			TRAIT_Source,
+		};
 		class Connector {
 		private:
 			Node *_pNodeSrc;
@@ -65,11 +70,13 @@ public:
 	protected:
 		AutoPtr<Expr> _pExpr;
 		AutoPtr<Array> _pArrayBwdAdj;
-		bool _sourceNodeFlag;
+		Trait _trait;
 	public:
-		inline NodeHead(Connector *pConnectorDst, Expr *pExpr, bool sourceNodeFlag) :
-		Node(pConnectorDst), _pExpr(pExpr), _sourceNodeFlag(sourceNodeFlag) {}
-		inline bool IsSourceNode() const { return _sourceNodeFlag; }
+		inline NodeHead(Connector *pConnectorDst, Expr *pExpr, Trait trait) :
+		Node(pConnectorDst), _pExpr(pExpr), _trait(trait) {}
+		inline bool IsVariable() const { return _trait == TRAIT_Variable; }
+		inline bool IsConstant() const { return _trait == TRAIT_Constant; }
+		inline bool IsSource() const { return _trait == TRAIT_Source; }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
