@@ -243,6 +243,96 @@ public:
 		virtual void Print(int indentLevel);
 	};
 	//-------------------------------------------------------------------------
+	// NodeFilter_conv1d
+	//-------------------------------------------------------------------------
+	class NodeFilter_conv1d : public NodeFilter {
+	public:
+		inline NodeFilter_conv1d(Filter *pFilter, Connector *pConnectorDst) :
+				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool EvalBackward(Environment &env);
+	};
+	//-------------------------------------------------------------------------
+	// NodeFilter_conv2d
+	//-------------------------------------------------------------------------
+	class NodeFilter_conv2d : public NodeFilter {
+	public:
+		inline NodeFilter_conv2d(Filter *pFilter, Connector *pConnectorDst) :
+				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool EvalBackward(Environment &env);
+	};
+	//-------------------------------------------------------------------------
+	// NodeFilter_conv3d
+	//-------------------------------------------------------------------------
+	class NodeFilter_conv3d : public NodeFilter {
+	public:
+		inline NodeFilter_conv3d(Filter *pFilter, Connector *pConnectorDst) :
+				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool EvalBackward(Environment &env);
+	};
+	//-------------------------------------------------------------------------
+	// NodeFilter_maxpool1d
+	//-------------------------------------------------------------------------
+	class NodeFilter_maxpool1d : public NodeFilter {
+	public:
+		inline NodeFilter_maxpool1d(Filter *pFilter, Connector *pConnectorDst) :
+				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool EvalBackward(Environment &env);
+	};
+	//-------------------------------------------------------------------------
+	// NodeFilter_maxpool2d
+	//-------------------------------------------------------------------------
+	class NodeFilter_maxpool2d : public NodeFilter {
+	public:
+		inline NodeFilter_maxpool2d(Filter *pFilter, Connector *pConnectorDst) :
+				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool EvalBackward(Environment &env);
+	};
+	//-------------------------------------------------------------------------
+	// NodeFilter_maxpool3d
+	//-------------------------------------------------------------------------
+	class NodeFilter_maxpool3d : public NodeFilter {
+	public:
+		inline NodeFilter_maxpool3d(Filter *pFilter, Connector *pConnectorDst) :
+				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool EvalBackward(Environment &env);
+	};
+	//-------------------------------------------------------------------------
+	// NodeFilter_relu
+	//-------------------------------------------------------------------------
+	class NodeFilter_relu : public NodeFilter {
+	public:
+		inline NodeFilter_relu(Filter *pFilter, Connector *pConnectorDst) :
+				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool EvalBackward(Environment &env);
+	};
+	//-------------------------------------------------------------------------
+	// NodeFilter_sigmoid
+	//-------------------------------------------------------------------------
+	class NodeFilter_sigmoid : public NodeFilter {
+	public:
+		inline NodeFilter_sigmoid(Filter *pFilter, Connector *pConnectorDst) :
+				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool EvalBackward(Environment &env);
+	};
+	//-------------------------------------------------------------------------
+	// NodeFilter_softmax
+	//-------------------------------------------------------------------------
+	class NodeFilter_softmax : public NodeFilter {
+	public:
+		inline NodeFilter_softmax(Filter *pFilter, Connector *pConnectorDst) :
+				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool EvalBackward(Environment &env);
+	};
+	//-------------------------------------------------------------------------
+	// NodeFilter_tanh
+	//-------------------------------------------------------------------------
+	class NodeFilter_tanh : public NodeFilter {
+	public:
+		inline NodeFilter_tanh(Filter *pFilter, Connector *pConnectorDst) :
+				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool EvalBackward(Environment &env);
+	};
+	//-------------------------------------------------------------------------
 	// NodeList
 	//-------------------------------------------------------------------------
 	class NodeList : public std::vector<Node *> {

@@ -405,6 +405,86 @@ void Trainer::NodeFilter::Print(int indentLevel)
 }
 
 //-----------------------------------------------------------------------------
+// Trainer::NodeFilter_conv1d
+//-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_conv1d::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Trainer::NodeFilter_conv2d
+//-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_conv2d::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Trainer::NodeFilter_conv3d
+//-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_conv3d::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Trainer::NodeFilter_maxpool1d
+//-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_maxpool1d::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Trainer::NodeFilter_maxpool2d
+//-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_maxpool2d::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Trainer::NodeFilter_maxpool3d
+//-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_maxpool3d::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Trainer::NodeFilter_relu
+//-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_relu::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Trainer::NodeFilter_sigmoid
+//-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_sigmoid::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Trainer::NodeFilter_softmax
+//-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_softmax::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Trainer::NodeFilter_tanh
+//-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_tanh::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
 // Trainer::NodeList
 //-----------------------------------------------------------------------------
 bool Trainer::NodeList::EvalForward(Environment &env)
@@ -514,18 +594,44 @@ bool Trainer::NodeOwner::CreateNodeFilter(Environment &env, const Expr_BinaryOp 
 {
 	Value value = pExprEx->GetRight()->Exec(env);
 	if (env.IsSignalled()) return false;
-	if (!value.Is_filter()) {
+	AutoPtr<NodeFilter> pNode;
+	if (value.Is_filter_at_conv1d()) {
+		pNode.reset(
+			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+	} else if (value.Is_filter_at_conv2d()) {
+		pNode.reset(
+			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+	} else if (value.Is_filter_at_conv3d()) {
+		pNode.reset(
+			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+	} else if (value.Is_filter_at_maxpool1d()) {
+		pNode.reset(
+			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+	} else if (value.Is_filter_at_maxpool2d()) {
+		pNode.reset(
+			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+	} else if (value.Is_filter_at_maxpool3d()) {
+		pNode.reset(
+			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+	} else if (value.Is_filter_at_relu()) {
+		pNode.reset(
+			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+	} else if (value.Is_filter_at_sigmoid()) {
+		pNode.reset(
+			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+	} else if (value.Is_filter_at_softmax()) {
+		pNode.reset(
+			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+	} else if (value.Is_filter_at_tanh()) {
+		pNode.reset(
+			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+	} else {
 		env.SetError(ERR_ValueError, "filter instance is expected as a left-side operand of a filter operator");
 		return false;
 	}
-	AutoPtr<NodeFilter> pNode(
-		new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
 	Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
 	push_back(pNode.release());
-	if (!CreateFromExpr(env, pExprEx->GetLeft(), pConnectorSrc, symbolsInput)) {
-		return false;
-	}
-	return true;
+	return CreateFromExpr(env, pExprEx->GetLeft(), pConnectorSrc, symbolsInput);
 }
 
 }
