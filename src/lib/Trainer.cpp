@@ -376,15 +376,31 @@ bool Trainer::NodeBinary_Dot::EvalBackward(Environment &env)
 	return true;
 }
 
-#if 0
 //-----------------------------------------------------------------------------
-// Trainer::NodeBinary_Filter
+// Trainer::NodeFilter
 //-----------------------------------------------------------------------------
-bool Trainer::NodeBinary_Filter::EvalBackward(Environment &env)
+bool Trainer::NodeFilter::IsVulnerable() const
 {
 	return false;
 }
-#endif
+
+bool Trainer::NodeFilter::EvalForward(Environment &env)
+{
+	//::printf("NodeFilter::EvalForward()\n");
+	return false;
+}
+
+bool Trainer::NodeFilter::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+void Trainer::NodeFilter::Print(int indentLevel)
+{
+	::printf("%-*sFilter: [fwd:%p,bwd:%p]\n", indentLevel * 2, "",
+			 _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
+	_connectorSrc.GetNodeSrc()->Print(indentLevel + 1);
+}
 
 //-----------------------------------------------------------------------------
 // Trainer::NodeList
@@ -419,13 +435,6 @@ void Trainer::NodeOwner::Clear()
 		Trainer::Node::Delete(*ppNode);
 	}
 	clear();
-}
-
-bool Trainer::NodeOwner::CreateNodeFilter(Environment &env, const Expr_BinaryOp *pExprEx,
-										  Node::Connector *pConnector, const SymbolSet &symbolsInput)
-{
-	
-	return true;
 }
 
 bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
@@ -517,6 +526,25 @@ bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 	}
 	AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), trait));
 	push_back(pNode.release());
+	return true;
+}
+
+bool Trainer::NodeOwner::CreateNodeFilter(Environment &env, const Expr_BinaryOp *pExprEx,
+										  Node::Connector *pConnector, const SymbolSet &symbolsInput)
+{
+	Value value = pExprEx->GetRight()->Exec(env);
+	if (env.IsSignalled()) return false;
+	if (!value.Is_filter()) {
+		env.SetError(ERR_ValueError, "filter instance is expected as a left-side operand of a filter operator");
+		return false;
+	}
+	AutoPtr<NodeFilter> pNode(
+		new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+	Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
+	push_back(pNode.release());
+	if (!CreateFromExpr(env, pExprEx->GetLeft(), pConnectorSrc, symbolsInput)) {
+		return false;
+	}
 	return true;
 }
 

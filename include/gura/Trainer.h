@@ -1,6 +1,6 @@
 #ifndef __GURA_TRAINER_H__
 #define __GURA_TRAINER_H__
-#include <gura.h>
+#include "Class_filter.h"
 
 namespace Gura {
 
@@ -73,7 +73,7 @@ public:
 		Trait _trait;
 	public:
 		inline NodeHead(Connector *pConnectorDst, Expr *pExpr, Trait trait) :
-		Node(pConnectorDst), _pExpr(pExpr), _trait(trait) {}
+				Node(pConnectorDst), _pExpr(pExpr), _trait(trait) {}
 		inline bool IsVariable() const { return _trait == TRAIT_Variable; }
 		inline bool IsConstant() const { return _trait == TRAIT_Constant; }
 		inline bool IsInput() const { return _trait == TRAIT_Input; }
@@ -109,7 +109,7 @@ public:
 		Connector _connectorSrc;
 	public:
 		inline NodeUnary(const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
-		Node(pConnectorDst), _unaryFuncPack(unaryFuncPack), _connectorSrc(this) {}
+				Node(pConnectorDst), _unaryFuncPack(unaryFuncPack), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
@@ -121,7 +121,7 @@ public:
 	class NodeUnary_Pos : public NodeUnary {
 	public:
 		inline NodeUnary_Pos(Connector *pConnectorDst) :
-		NodeUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
+				NodeUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -130,7 +130,7 @@ public:
 	class NodeUnary_Neg : public NodeUnary {
 	public:
 		inline NodeUnary_Neg(Connector *pConnectorDst) :
-		NodeUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
+				NodeUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -139,7 +139,7 @@ public:
 	class NodeUnary_Math_relu : public NodeUnary {
 	public:
 		inline NodeUnary_Math_relu(Connector *pConnectorDst) :
-		NodeUnary(Array::unaryFuncPack_Math_relu, pConnectorDst) {}
+				NodeUnary(Array::unaryFuncPack_Math_relu, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -148,7 +148,7 @@ public:
 	class NodeUnary_Math_sigmoid : public NodeUnary {
 	public:
 		inline NodeUnary_Math_sigmoid(Connector *pConnectorDst) :
-		NodeUnary(Array::unaryFuncPack_Math_sigmoid, pConnectorDst) {}
+				NodeUnary(Array::unaryFuncPack_Math_sigmoid, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -161,8 +161,8 @@ public:
 		Connector _connectorSrcRight;
 	public:
 		inline NodeBinary(const Array::BinaryFuncPack &binaryFuncPack, Connector *pConnectorDst) :
-		Node(pConnectorDst), _binaryFuncPack(binaryFuncPack),
-			_connectorSrcLeft(this), _connectorSrcRight(this) {}
+				Node(pConnectorDst), _binaryFuncPack(binaryFuncPack),
+				_connectorSrcLeft(this), _connectorSrcRight(this) {}
 		inline Connector *GetConnectorSrcLeft() { return &_connectorSrcLeft; }
 		inline Connector *GetConnectorSrcRight() { return &_connectorSrcRight; }
 		virtual bool IsVulnerable() const;
@@ -175,7 +175,7 @@ public:
 	class NodeBinary_Add : public NodeBinary {
 	public:
 		inline NodeBinary_Add(Connector *pConnectorDst) :
-		NodeBinary(Array::binaryFuncPack_Add, pConnectorDst) {}
+				NodeBinary(Array::binaryFuncPack_Add, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -184,7 +184,7 @@ public:
 	class NodeBinary_Sub : public NodeBinary {
 	public:
 		inline NodeBinary_Sub(Connector *pConnectorDst) :
-		NodeBinary(Array::binaryFuncPack_Sub, pConnectorDst) {}
+				NodeBinary(Array::binaryFuncPack_Sub, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -193,7 +193,7 @@ public:
 	class NodeBinary_Mul : public NodeBinary {
 	public:
 		inline NodeBinary_Mul(Connector *pConnectorDst) :
-		NodeBinary(Array::binaryFuncPack_Mul, pConnectorDst) {}
+				NodeBinary(Array::binaryFuncPack_Mul, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -202,7 +202,7 @@ public:
 	class NodeBinary_Div : public NodeBinary {
 	public:
 		inline NodeBinary_Div(Connector *pConnectorDst) :
-		NodeBinary(Array::binaryFuncPack_Div, pConnectorDst) {}
+				NodeBinary(Array::binaryFuncPack_Div, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -211,7 +211,7 @@ public:
 	class NodeBinary_Pow : public NodeBinary {
 	public:
 		inline NodeBinary_Pow(Connector *pConnectorDst) :
-		NodeBinary(Array::binaryFuncPack_Pow, pConnectorDst) {}
+				NodeBinary(Array::binaryFuncPack_Pow, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -223,20 +223,25 @@ public:
 		AutoPtr<Array> _pArrayFwdRightTrans;
 	public:
 		inline NodeBinary_Dot(Connector *pConnectorDst) :
-		NodeBinary(Array::binaryFuncPack_Dot, pConnectorDst) {}
+				NodeBinary(Array::binaryFuncPack_Dot, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
-#if 0
 	//-------------------------------------------------------------------------
-	// NodeBinary_Filter
+	// NodeFilter
 	//-------------------------------------------------------------------------
-	class NodeBinary_Filter : public NodeBinary {
+	class NodeFilter : public Node {
+	protected:
+		AutoPtr<Filter> _pFilter;
+		Connector _connectorSrc;
 	public:
-		inline NodeBinary_Filter(Connector *pConnectorDst) :
-		NodeBinary(Array::binaryFuncPack_Filter, pConnectorDst) {}
+		inline NodeFilter(Filter *pFilter, Connector *pConnectorDst) :
+				Node(pConnectorDst), _pFilter(pFilter), _connectorSrc(this) {}
+		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
+		virtual bool IsVulnerable() const;
+		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
+		virtual void Print(int indentLevel);
 	};
-#endif
 	//-------------------------------------------------------------------------
 	// NodeList
 	//-------------------------------------------------------------------------
