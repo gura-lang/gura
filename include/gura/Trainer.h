@@ -255,6 +255,9 @@ public:
 		void Clear();
 		bool CreateFromExpr(Environment &env, const Expr *pExpr,
 							Node::Connector *pConnector, const SymbolSet &symbolsInput);
+	private:
+		bool CreateNodeFilter(Environment &env, const Expr_BinaryOp *pExprEx,
+							  Node::Connector *pConnector, const SymbolSet &symbolsInput);
 	};
 private:
 	int _cntRef;

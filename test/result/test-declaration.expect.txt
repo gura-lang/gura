@@ -354,7 +354,7 @@ tokens(stream:stream):map {block?}
 tonumber(value):map:[nil,raise,strict,zero]
 tostring(value):map
 tosymbol(str:string):map
-trainer:class = <class:trainer(expr:expr, sources+:symbol):map {block?}>
+trainer:class = <class:trainer(expr:expr, inputs*:symbol):map {block?}>
 true:boolean = true
 try():leader {block}
 typename(`value)
@@ -673,7 +673,7 @@ dict
   dict#values() {block?}
 directory
 expr
-  expr#eval(env?:environment)
+  expr#eval(env?:environment) {block?}
   expr#isassign()
   expr#isbinary()
   expr#isbinaryop()
@@ -1092,7 +1092,7 @@ template
 timedelta
 token
 trainer
-  trainer#eval() {block?}
+  trainer#eval(env?:environment) {block?}
   trainer#train(correct:array):void {block?}
 undefined
 uri

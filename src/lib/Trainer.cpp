@@ -421,8 +421,15 @@ void Trainer::NodeOwner::Clear()
 	clear();
 }
 
+bool Trainer::NodeOwner::CreateNodeFilter(Environment &env, const Expr_BinaryOp *pExprEx,
+										  Node::Connector *pConnector, const SymbolSet &symbolsInput)
+{
+	
+	return true;
+}
+
 bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
-									Node::Connector *pConnector, const SymbolSet &symbolsInput)
+										Node::Connector *pConnector, const SymbolSet &symbolsInput)
 {
 	if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
 		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
@@ -445,6 +452,9 @@ bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 	} else if (pExpr->IsType(EXPRTYPE_BinaryOp)) {
 		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExpr);
 		const Operator *pOperator = pExprEx->GetOperator();
+		if (pOperator->IsOpType(OPTYPE_Filter)) {
+			return CreateNodeFilter(env, pExprEx, pConnector, symbolsInput);
+		}
 		AutoPtr<NodeBinary> pNode;
 		if (pOperator->IsOpType(OPTYPE_Add)) {
 			pNode.reset(new NodeBinary_Add(pConnector));
@@ -458,10 +468,6 @@ bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 			pNode.reset(new NodeBinary_Pow(pConnector));
 		} else if (pOperator->IsOpType(OPTYPE_Dot)) {
 			pNode.reset(new NodeBinary_Dot(pConnector));
-		} else if (pOperator->IsOpType(OPTYPE_Filter)) {
-			//pNode.reset(new NodeBinary_Filter(pConnector));
-			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
-			return false;
 		} else {
 			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
 			return false;
