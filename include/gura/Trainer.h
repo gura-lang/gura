@@ -239,7 +239,6 @@ public:
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
-		virtual bool EvalBackward(Environment &env);
 		virtual void Print(int indentLevel);
 	};
 	//-------------------------------------------------------------------------

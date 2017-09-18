@@ -391,11 +391,6 @@ bool Trainer::NodeFilter::EvalForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-bool Trainer::NodeFilter::EvalBackward(Environment &env)
-{
-	return false;
-}
-
 void Trainer::NodeFilter::Print(int indentLevel)
 {
 	::printf("%-*sFilter:%s [fwd:%p,bwd:%p]\n", indentLevel * 2, "",
@@ -597,34 +592,34 @@ bool Trainer::NodeOwner::CreateNodeFilter(Environment &env, const Expr_BinaryOp 
 	AutoPtr<NodeFilter> pNode;
 	if (value.Is_filter_at_conv1d()) {
 		pNode.reset(
-			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+			new NodeFilter_conv1d(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
 	} else if (value.Is_filter_at_conv2d()) {
 		pNode.reset(
-			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+			new NodeFilter_conv2d(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
 	} else if (value.Is_filter_at_conv3d()) {
 		pNode.reset(
-			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+			new NodeFilter_conv3d(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
 	} else if (value.Is_filter_at_maxpool1d()) {
 		pNode.reset(
-			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+			new NodeFilter_maxpool1d(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
 	} else if (value.Is_filter_at_maxpool2d()) {
 		pNode.reset(
-			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+			new NodeFilter_maxpool2d(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
 	} else if (value.Is_filter_at_maxpool3d()) {
 		pNode.reset(
-			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+			new NodeFilter_maxpool3d(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
 	} else if (value.Is_filter_at_relu()) {
 		pNode.reset(
-			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+			new NodeFilter_relu(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
 	} else if (value.Is_filter_at_sigmoid()) {
 		pNode.reset(
-			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+			new NodeFilter_sigmoid(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
 	} else if (value.Is_filter_at_softmax()) {
 		pNode.reset(
-			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+			new NodeFilter_softmax(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
 	} else if (value.Is_filter_at_tanh()) {
 		pNode.reset(
-			new NodeFilter(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
+			new NodeFilter_tanh(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
 	} else {
 		env.SetError(ERR_ValueError, "filter instance is expected as a left-side operand of a filter operator");
 		return false;
