@@ -24,6 +24,11 @@ Array *Filter_Relu::Apply(Signal &sig, Array *pArrayRtn, const Array *pArray) co
 	return (*filterFunc)(sig, pArrayRtn, pArray, this);
 }
 
+String Filter_Relu::ToString() const
+{
+	return "relu";
+}
+
 //-----------------------------------------------------------------------------
 // Object_filter_at_relu
 //-----------------------------------------------------------------------------
@@ -39,14 +44,6 @@ Object *Object_filter_at_relu::Clone() const
 	return nullptr;
 }
 	
-String Object_filter_at_relu::ToString(bool exprFlag)
-{
-	String str;
-	str += "<filter@relu:";
-	str += ">";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------

@@ -24,6 +24,11 @@ Array *Filter_Conv2d::Apply(Signal &sig, Array *pArrayRtn, const Array *pArray) 
 	return (*filterFunc)(sig, pArrayRtn, pArray, this);
 }
 
+String Filter_Conv2d::ToString() const
+{
+	return "conv2d";
+}
+
 //-----------------------------------------------------------------------------
 // Object_filter_at_conv2d
 //-----------------------------------------------------------------------------
@@ -37,14 +42,6 @@ Object *Object_filter_at_conv2d::Clone() const
 	return nullptr;
 }
 	
-String Object_filter_at_conv2d::ToString(bool exprFlag)
-{
-	String str;
-	str += "<filter@conv2d:";
-	str += ">";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------

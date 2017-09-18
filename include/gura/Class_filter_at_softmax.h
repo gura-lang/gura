@@ -27,6 +27,7 @@ public:
 	inline size_t GetAxis() const { return _axis; }
 public:
 	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const;
+	virtual String ToString() const;
 };
 
 //-----------------------------------------------------------------------------
@@ -48,7 +49,6 @@ public:
 public:
 	Object_filter_at_softmax(Environment &env, Filter_Softmax *pFilter);
 	virtual Object *Clone() const;
-	virtual String ToString(bool exprFlag);
 	inline Filter_Softmax *GetFilter() { return dynamic_cast<Filter_Softmax *>(_pFilter.get()); }
 	inline const Filter_Softmax *GetFilter() const { return dynamic_cast<const Filter_Softmax *>(_pFilter.get()); }
 };

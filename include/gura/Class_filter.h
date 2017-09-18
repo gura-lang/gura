@@ -33,6 +33,7 @@ protected:
 	virtual ~Filter();
 public:
 	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const = 0;
+	virtual String ToString() const = 0;
 public:
 	static void CalcPadding(size_t sizeIn, size_t sizeFilter, size_t strides, PaddingType paddingType,
 							size_t *pSizeOut, size_t *pSizePad);
@@ -67,6 +68,7 @@ public:
 public:
 	Object_filter(Environment &env, Filter *pFilter);
 	Object_filter(Class *pClass, Filter *pFilter);
+	virtual String ToString(bool exprFlag);
 	inline Filter *GetFilter() { return _pFilter.get(); }
 	inline const Filter *GetFilter() const { return _pFilter.get(); }
 };

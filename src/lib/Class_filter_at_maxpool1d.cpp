@@ -24,6 +24,22 @@ Array *Filter_MaxPool1d::Apply(Signal &sig, Array *pArrayRtn, const Array *pArra
 	return (*filterFunc)(sig, pArrayRtn, pArray, this);
 }
 
+String Filter_MaxPool1d::ToString() const
+{
+	String str;
+	char buff[80];
+	str += "maxpool1d";
+	::sprintf(buff, ":size=%zu", GetSize());
+	str += buff;
+	::sprintf(buff, ":strides=%zu", GetStrides());
+	str += buff;
+	::sprintf(buff, ":padding=%s", PaddingTypeToSymbol(GetPaddingType())->GetName());
+	str += buff;
+	::sprintf(buff, ":channel_at=%s", ChannelAtToSymbol(GetChannelAt())->GetName());
+	str += buff;
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Object_filter_at_maxpool1d
 //-----------------------------------------------------------------------------
@@ -37,24 +53,6 @@ Object *Object_filter_at_maxpool1d::Clone() const
 	return nullptr;
 }
 	
-String Object_filter_at_maxpool1d::ToString(bool exprFlag)
-{
-	String str;
-	char buff[80];
-	const Filter_MaxPool1d *pFilter = GetFilter();
-	str += "<filter@maxpool1d";
-	::sprintf(buff, ":size=%zu", pFilter->GetSize());
-	str += buff;
-	::sprintf(buff, ":strides=%zu", pFilter->GetStrides());
-	str += buff;
-	::sprintf(buff, ":padding=%s", Filter::PaddingTypeToSymbol(pFilter->GetPaddingType())->GetName());
-	str += buff;
-	::sprintf(buff, ":channel_at=%s", Filter::ChannelAtToSymbol(pFilter->GetChannelAt())->GetName());
-	str += buff;
-	str += ">";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------

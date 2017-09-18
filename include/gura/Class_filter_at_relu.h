@@ -24,6 +24,7 @@ public:
 	inline Filter_Relu() {}
 public:
 	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const;
+	virtual String ToString() const;
 };
 
 //-----------------------------------------------------------------------------
@@ -47,7 +48,6 @@ public:
 public:
 	Object_filter_at_relu(Environment &env, Filter_Relu *pFilter);
 	virtual Object *Clone() const;
-	virtual String ToString(bool exprFlag);
 	inline Filter_Relu *GetFilter() { return dynamic_cast<Filter_Relu *>(_pFilter.get()); }
 	inline const Filter_Relu *GetFilter() const { return dynamic_cast<const Filter_Relu *>(_pFilter.get()); }
 };

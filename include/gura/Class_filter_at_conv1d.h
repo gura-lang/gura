@@ -24,6 +24,7 @@ public:
 	inline Filter_Conv1d() {}
 public:
 	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const;
+	virtual String ToString() const;
 };
 
 //-----------------------------------------------------------------------------
@@ -45,7 +46,6 @@ public:
 public:
 	Object_filter_at_conv1d(Environment &env, Filter_Conv1d *pFilter);
 	virtual Object *Clone() const;
-	virtual String ToString(bool exprFlag);
 	inline Filter_Conv1d *GetFilter() { return dynamic_cast<Filter_Conv1d *>(_pFilter.get()); }
 	inline const Filter_Conv1d *GetFilter() const { return dynamic_cast<const Filter_Conv1d *>(_pFilter.get()); }
 };

@@ -386,8 +386,9 @@ bool Trainer::NodeFilter::IsVulnerable() const
 
 bool Trainer::NodeFilter::EvalForward(Environment &env)
 {
-	//::printf("NodeFilter::EvalForward()\n");
-	return false;
+	_pArrayFwd.reset(
+		_pFilter->Apply(env, _pArrayFwd.get(), GetConnectorSrc()->GetArrayFwd()));
+	return env.IsNoSignalled();
 }
 
 bool Trainer::NodeFilter::EvalBackward(Environment &env)
@@ -397,7 +398,8 @@ bool Trainer::NodeFilter::EvalBackward(Environment &env)
 
 void Trainer::NodeFilter::Print(int indentLevel)
 {
-	::printf("%-*sFilter: [fwd:%p,bwd:%p]\n", indentLevel * 2, "",
+	::printf("%-*sFilter:%s [fwd:%p,bwd:%p]\n", indentLevel * 2, "",
+			 _pFilter->ToString().c_str(),
 			 _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
 	_connectorSrc.GetNodeSrc()->Print(indentLevel + 1);
 }

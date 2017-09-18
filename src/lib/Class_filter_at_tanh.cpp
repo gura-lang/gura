@@ -24,6 +24,11 @@ Array *Filter_Tanh::Apply(Signal &sig, Array *pArrayRtn, const Array *pArray) co
 	return (*filterFunc)(sig, pArrayRtn, pArray, this);
 }
 
+String Filter_Tanh::ToString() const
+{
+	return "tanh";
+}
+
 //-----------------------------------------------------------------------------
 // Object_filter_at_tanh
 //-----------------------------------------------------------------------------
@@ -39,14 +44,6 @@ Object *Object_filter_at_tanh::Clone() const
 	return nullptr;
 }
 	
-String Object_filter_at_tanh::ToString(bool exprFlag)
-{
-	String str;
-	str += "<filter@tanh:";
-	str += ">";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------

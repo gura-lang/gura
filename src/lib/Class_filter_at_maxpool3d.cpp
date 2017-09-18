@@ -24,6 +24,11 @@ Array *Filter_MaxPool3d::Apply(Signal &sig, Array *pArrayRtn, const Array *pArra
 	return (*filterFunc)(sig, pArrayRtn, pArray, this);
 }
 
+String Filter_MaxPool3d::ToString() const
+{
+	return "maxpool3d";
+}
+
 //-----------------------------------------------------------------------------
 // Object_filter_at_maxpool3d
 //-----------------------------------------------------------------------------
@@ -37,14 +42,6 @@ Object *Object_filter_at_maxpool3d::Clone() const
 	return nullptr;
 }
 	
-String Object_filter_at_maxpool3d::ToString(bool exprFlag)
-{
-	String str;
-	str += "<filter@maxpool3d:";
-	str += ">";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------

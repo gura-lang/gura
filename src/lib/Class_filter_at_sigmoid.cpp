@@ -24,6 +24,11 @@ Array *Filter_Sigmoid::Apply(Signal &sig, Array *pArrayRtn, const Array *pArray)
 	return (*filterFunc)(sig, pArrayRtn, pArray, this);
 }
 
+String Filter_Sigmoid::ToString() const
+{
+	return "sigmoid";
+}
+
 //-----------------------------------------------------------------------------
 // Object_filter_at_sigmoid
 //-----------------------------------------------------------------------------
@@ -39,14 +44,6 @@ Object *Object_filter_at_sigmoid::Clone() const
 	return nullptr;
 }
 	
-String Object_filter_at_sigmoid::ToString(bool exprFlag)
-{
-	String str;
-	str += "<filter@sigmoid:";
-	str += ">";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------

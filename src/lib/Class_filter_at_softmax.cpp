@@ -24,6 +24,11 @@ Array *Filter_Softmax::Apply(Signal &sig, Array *pArrayRtn, const Array *pArray)
 	return (*filterFunc)(sig, pArrayRtn, pArray, this);
 }
 
+String Filter_Softmax::ToString() const
+{
+	return "softmax";
+}
+
 //-----------------------------------------------------------------------------
 // Object_filter_at_softmax
 //-----------------------------------------------------------------------------
@@ -37,14 +42,6 @@ Object *Object_filter_at_softmax::Clone() const
 	return nullptr;
 }
 	
-String Object_filter_at_softmax::ToString(bool exprFlag)
-{
-	String str;
-	str += "<filter@softmax:";
-	str += ">";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------

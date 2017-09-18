@@ -24,6 +24,7 @@ public:
 	inline Filter_Sigmoid() {}
 public:
 	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const;
+	virtual String ToString() const;
 };
 
 //-----------------------------------------------------------------------------
@@ -47,7 +48,6 @@ public:
 public:
 	Object_filter_at_sigmoid(Environment &env, Filter_Sigmoid *pFilter);
 	virtual Object *Clone() const;
-	virtual String ToString(bool exprFlag);
 	inline Filter_Sigmoid *GetFilter() { return dynamic_cast<Filter_Sigmoid *>(_pFilter.get()); }
 	inline const Filter_Sigmoid *GetFilter() const { return dynamic_cast<const Filter_Sigmoid *>(_pFilter.get()); }
 };

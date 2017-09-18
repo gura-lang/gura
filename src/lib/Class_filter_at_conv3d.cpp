@@ -24,6 +24,11 @@ Array *Filter_Conv3d::Apply(Signal &sig, Array *pArrayRtn, const Array *pArray) 
 	return (*filterFunc)(sig, pArrayRtn, pArray, this);
 }
 
+String Filter_Conv3d::ToString() const
+{
+	return "conv3d";
+}
+
 //-----------------------------------------------------------------------------
 // Object_filter_at_conv3d
 //-----------------------------------------------------------------------------
@@ -37,14 +42,6 @@ Object *Object_filter_at_conv3d::Clone() const
 	return nullptr;
 }
 	
-String Object_filter_at_conv3d::ToString(bool exprFlag)
-{
-	String str;
-	str += "<filter@conv3d:";
-	str += ">";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------

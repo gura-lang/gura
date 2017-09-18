@@ -24,6 +24,7 @@ public:
 	inline Filter_MaxPool3d() {}
 public:
 	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const;
+	virtual String ToString() const;
 };
 
 //-----------------------------------------------------------------------------
@@ -45,7 +46,6 @@ public:
 public:
 	Object_filter_at_maxpool3d(Environment &env, Filter_MaxPool3d *pFilter);
 	virtual Object *Clone() const;
-	virtual String ToString(bool exprFlag);
 	inline Filter_MaxPool3d *GetFilter() { return dynamic_cast<Filter_MaxPool3d *>(_pFilter.get()); }
 	inline const Filter_MaxPool3d *GetFilter() const { return dynamic_cast<const Filter_MaxPool3d *>(_pFilter.get()); }
 };

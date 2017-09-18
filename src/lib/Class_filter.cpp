@@ -130,6 +130,15 @@ Object_filter::Object_filter(Class *pClass, Filter *pFilter) :
 {
 }
 
+String Object_filter::ToString(bool exprFlag)
+{
+	String str;
+	str += "<filter@";
+	str += _pFilter->ToString();
+	str += ">";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------

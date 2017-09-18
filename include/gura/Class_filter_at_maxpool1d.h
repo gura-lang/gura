@@ -35,6 +35,7 @@ public:
 	inline ChannelAt GetChannelAt() const { return _channelAt; }
 public:
 	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const;
+	virtual String ToString() const;
 };
 
 //-----------------------------------------------------------------------------
@@ -56,7 +57,6 @@ public:
 public:
 	Object_filter_at_maxpool1d(Environment &env, Filter_MaxPool1d *pFilter);
 	virtual Object *Clone() const;
-	virtual String ToString(bool exprFlag);
 	inline Filter_MaxPool1d *GetFilter() { return dynamic_cast<Filter_MaxPool1d *>(_pFilter.get()); }
 	inline const Filter_MaxPool1d *GetFilter() const { return dynamic_cast<const Filter_MaxPool1d *>(_pFilter.get()); }
 };

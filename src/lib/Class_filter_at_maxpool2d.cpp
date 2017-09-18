@@ -24,6 +24,22 @@ Array *Filter_MaxPool2d::Apply(Signal &sig, Array *pArrayRtn, const Array *pArra
 	return (*filterFunc)(sig, pArrayRtn, pArray, this);
 }
 
+String Filter_MaxPool2d::ToString() const
+{
+	String str;
+	char buff[80];
+	str += "maxpool2d";
+	::sprintf(buff, ":size=(%zu,%zu)", GetSizeRow(), GetSizeCol());
+	str += buff;
+	::sprintf(buff, ":strides=(%zu,%zu)", GetStridesRow(), GetStridesCol());
+	str += buff;
+	::sprintf(buff, ":padding=%s", PaddingTypeToSymbol(GetPaddingType())->GetName());
+	str += buff;
+	::sprintf(buff, ":channel_at=%s", ChannelAtToSymbol(GetChannelAt())->GetName());
+	str += buff;
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Object_filter_at_maxpool2d
 //-----------------------------------------------------------------------------
@@ -37,24 +53,6 @@ Object *Object_filter_at_maxpool2d::Clone() const
 	return nullptr;
 }
 	
-String Object_filter_at_maxpool2d::ToString(bool exprFlag)
-{
-	String str;
-	char buff[80];
-	const Filter_MaxPool2d *pFilter = GetFilter();
-	str += "<filter@maxpool2d";
-	::sprintf(buff, ":size=(%zu,%zu)", pFilter->GetSizeRow(), pFilter->GetSizeCol());
-	str += buff;
-	::sprintf(buff, ":strides=(%zu,%zu)", pFilter->GetStridesRow(), pFilter->GetStridesCol());
-	str += buff;
-	::sprintf(buff, ":padding=%s", Filter::PaddingTypeToSymbol(pFilter->GetPaddingType())->GetName());
-	str += buff;
-	::sprintf(buff, ":channel_at=%s", Filter::ChannelAtToSymbol(pFilter->GetChannelAt())->GetName());
-	str += buff;
-	str += ">";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
