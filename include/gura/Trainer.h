@@ -261,6 +261,10 @@ public:
 		bool CreateFromExpr(Environment &env, const Expr *pExpr,
 							Node::Connector *pConnector, const SymbolSet &symbolsInput);
 	private:
+		bool CreateNodeUnary(Environment &env, const Expr_UnaryOp *pExprEx,
+							 Node::Connector *pConnector, const SymbolSet &symbolsInput);
+		bool CreateNodeBinary(Environment &env, const Expr_BinaryOp *pExprEx,
+							  Node::Connector *pConnector, const SymbolSet &symbolsInput);
 		bool CreateNodeFilter(Environment &env, const Expr_BinaryOp *pExprEx,
 							  Node::Connector *pConnector, const SymbolSet &symbolsInput);
 	};

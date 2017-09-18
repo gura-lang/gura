@@ -491,33 +491,6 @@ bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 			return false;
 		}
 		return true;
-	} else if (pExpr->IsType(EXPRTYPE_Caller)) {
-		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr);
-		const ExprOwner &exprsArg = pExprEx->GetExprOwner();
-		AutoPtr<NodeUnary> pNode;
-		if (pExprEx->GetCar()->IsMember()) {
-			const Expr_Member *pExprCar = dynamic_cast<const Expr_Member *>(pExprEx->GetCar());
-			if (pExprCar->GetTarget()->IsSymbol(Gura_Symbol(math)) && pExprCar->GetSelector()->IsIdentifier()) {
-				const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExprCar->GetSelector())->GetSymbol();
-				if (pSymbol->IsIdentical(Gura_Symbol(relu))) {
-					pNode.reset(new NodeUnary_Math_relu(pConnector));
-				} else if (pSymbol->IsIdentical(Gura_Symbol(sigmoid))) {
-					pNode.reset(new NodeUnary_Math_sigmoid(pConnector));
-				}
-			}
-		}
-		if (pNode.get() != nullptr) {
-			if (exprsArg.size() != 1) {
-				env.SetError(ERR_ValueError, "invalid number of arguments");
-				return false;
-			}
-			Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
-			push_back(pNode.release());
-			if (!CreateFromExpr(env, exprsArg.front(), pConnectorSrc, symbolsInput)) {
-				return false;
-			}
-			return true;
-		}
 	}
 	Node::Trait trait = Node::TRAIT_Variable;
 	if (pExpr->IsIdentifier() &&
@@ -529,6 +502,18 @@ bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 	AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), trait));
 	push_back(pNode.release());
 	return true;
+}
+
+bool Trainer::NodeOwner::CreateNodeUnary(Environment &env, const Expr_UnaryOp *pExprEx,
+										 Node::Connector *pConnector, const SymbolSet &symbolsInput)
+{
+	return false;
+}
+
+bool Trainer::NodeOwner::CreateNodeBinary(Environment &env, const Expr_BinaryOp *pExprEx,
+										  Node::Connector *pConnector, const SymbolSet &symbolsInput)
+{
+	return false;
 }
 
 bool Trainer::NodeOwner::CreateNodeFilter(Environment &env, const Expr_BinaryOp *pExprEx,
