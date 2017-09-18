@@ -444,53 +444,12 @@ bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 {
 	if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
 		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
-		const Operator *pOperator = pExprEx->GetOperator();
-		AutoPtr<NodeUnary> pNode;
-		if (pOperator->IsOpType(OPTYPE_Pos)) {
-			pNode.reset(new NodeUnary_Pos(pConnector));
-		} else if (pOperator->IsOpType(OPTYPE_Neg)) {
-			pNode.reset(new NodeUnary_Neg(pConnector));
-		} else {
-			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
-			return false;
-		}
-		Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
-		push_back(pNode.release());
-		if (!CreateFromExpr(env, pExprEx->GetChild(), pConnectorSrc, symbolsInput)) {
-			return false;
-		}
-		return true;
+		return CreateNodeUnary(env, pExprEx, pConnector, symbolsInput);
 	} else if (pExpr->IsType(EXPRTYPE_BinaryOp)) {
 		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExpr);
-		const Operator *pOperator = pExprEx->GetOperator();
-		if (pOperator->IsOpType(OPTYPE_Filter)) {
-			return CreateNodeFilter(env, pExprEx, pConnector, symbolsInput);
-		}
-		AutoPtr<NodeBinary> pNode;
-		if (pOperator->IsOpType(OPTYPE_Add)) {
-			pNode.reset(new NodeBinary_Add(pConnector));
-		} else if (pOperator->IsOpType(OPTYPE_Sub)) {
-			pNode.reset(new NodeBinary_Sub(pConnector));
-		} else if (pOperator->IsOpType(OPTYPE_Mul)) {
-			pNode.reset(new NodeBinary_Mul(pConnector));
-		} else if (pOperator->IsOpType(OPTYPE_Div)) {
-			pNode.reset(new NodeBinary_Div(pConnector));
-		} else if (pOperator->IsOpType(OPTYPE_Pow)) {
-			pNode.reset(new NodeBinary_Pow(pConnector));
-		} else if (pOperator->IsOpType(OPTYPE_Dot)) {
-			pNode.reset(new NodeBinary_Dot(pConnector));
-		} else {
-			env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
-			return false;
-		}
-		Node::Connector *pConnectorSrcLeft = pNode->GetConnectorSrcLeft();
-		Node::Connector *pConnectorSrcRight = pNode->GetConnectorSrcRight();
-		push_back(pNode.release());
-		if (!CreateFromExpr(env, pExprEx->GetLeft(), pConnectorSrcLeft, symbolsInput) ||
-			!CreateFromExpr(env, pExprEx->GetRight(), pConnectorSrcRight, symbolsInput)) {
-			return false;
-		}
-		return true;
+		return pExprEx->GetOperator()->IsOpType(OPTYPE_Filter)?
+			CreateNodeFilter(env, pExprEx, pConnector, symbolsInput) :
+			CreateNodeBinary(env, pExprEx, pConnector, symbolsInput);
 	}
 	Node::Trait trait = Node::TRAIT_Variable;
 	if (pExpr->IsIdentifier() &&
@@ -507,13 +466,47 @@ bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 bool Trainer::NodeOwner::CreateNodeUnary(Environment &env, const Expr_UnaryOp *pExprEx,
 										 Node::Connector *pConnector, const SymbolSet &symbolsInput)
 {
-	return false;
+	const Operator *pOperator = pExprEx->GetOperator();
+	AutoPtr<NodeUnary> pNode;
+	if (pOperator->IsOpType(OPTYPE_Pos)) {
+		pNode.reset(new NodeUnary_Pos(pConnector));
+	} else if (pOperator->IsOpType(OPTYPE_Neg)) {
+		pNode.reset(new NodeUnary_Neg(pConnector));
+	} else {
+		env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
+		return false;
+	}
+	Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
+	push_back(pNode.release());
+	return CreateFromExpr(env, pExprEx->GetChild(), pConnectorSrc, symbolsInput);
 }
 
 bool Trainer::NodeOwner::CreateNodeBinary(Environment &env, const Expr_BinaryOp *pExprEx,
 										  Node::Connector *pConnector, const SymbolSet &symbolsInput)
 {
-	return false;
+	const Operator *pOperator = pExprEx->GetOperator();
+	AutoPtr<NodeBinary> pNode;
+	if (pOperator->IsOpType(OPTYPE_Add)) {
+		pNode.reset(new NodeBinary_Add(pConnector));
+	} else if (pOperator->IsOpType(OPTYPE_Sub)) {
+		pNode.reset(new NodeBinary_Sub(pConnector));
+	} else if (pOperator->IsOpType(OPTYPE_Mul)) {
+		pNode.reset(new NodeBinary_Mul(pConnector));
+	} else if (pOperator->IsOpType(OPTYPE_Div)) {
+		pNode.reset(new NodeBinary_Div(pConnector));
+	} else if (pOperator->IsOpType(OPTYPE_Pow)) {
+		pNode.reset(new NodeBinary_Pow(pConnector));
+	} else if (pOperator->IsOpType(OPTYPE_Dot)) {
+		pNode.reset(new NodeBinary_Dot(pConnector));
+	} else {
+		env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
+		return false;
+	}
+	Node::Connector *pConnectorSrcLeft = pNode->GetConnectorSrcLeft();
+	Node::Connector *pConnectorSrcRight = pNode->GetConnectorSrcRight();
+	push_back(pNode.release());
+	return CreateFromExpr(env, pExprEx->GetLeft(), pConnectorSrcLeft, symbolsInput) &&
+		CreateFromExpr(env, pExprEx->GetRight(), pConnectorSrcRight, symbolsInput);
 }
 
 bool Trainer::NodeOwner::CreateNodeFilter(Environment &env, const Expr_BinaryOp *pExprEx,
