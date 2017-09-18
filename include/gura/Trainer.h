@@ -134,24 +134,6 @@ public:
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeUnary_Math_relu
-	//-------------------------------------------------------------------------
-	class NodeUnary_Math_relu : public NodeUnary {
-	public:
-		inline NodeUnary_Math_relu(Connector *pConnectorDst) :
-				NodeUnary(Array::unaryFuncPack_Math_relu, pConnectorDst) {}
-		virtual bool EvalBackward(Environment &env);
-	};
-	//-------------------------------------------------------------------------
-	// NodeUnary_Math_sigmoid
-	//-------------------------------------------------------------------------
-	class NodeUnary_Math_sigmoid : public NodeUnary {
-	public:
-		inline NodeUnary_Math_sigmoid(Connector *pConnectorDst) :
-				NodeUnary(Array::unaryFuncPack_Math_sigmoid, pConnectorDst) {}
-		virtual bool EvalBackward(Environment &env);
-	};
-	//-------------------------------------------------------------------------
 	// NodeBinary
 	//-------------------------------------------------------------------------
 	class NodeBinary : public Node {

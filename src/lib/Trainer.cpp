@@ -231,22 +231,6 @@ bool Trainer::NodeUnary_Neg::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeUnary_Math_relu
-//-----------------------------------------------------------------------------
-bool Trainer::NodeUnary_Math_relu::EvalBackward(Environment &env)
-{
-	return false;
-}
-
-//-----------------------------------------------------------------------------
-// Trainer::NodeUnary_Math_sigmoid
-//-----------------------------------------------------------------------------
-bool Trainer::NodeUnary_Math_sigmoid::EvalBackward(Environment &env)
-{
-	return false;
-}
-
-//-----------------------------------------------------------------------------
 // Trainer::NodeBinary
 //-----------------------------------------------------------------------------
 bool Trainer::NodeBinary::IsVulnerable() const
