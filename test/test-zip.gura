@@ -38,3 +38,27 @@ testcase('zip.reader()') {
 		}
 	}
 }
+testcase('archive test') {
+	entries = [
+		b'a' * 38009
+		b'b' * 43643
+		b'c' * 33517
+		b'd' * 26822
+		b'e' * 512
+		b'f' * 28838
+		b'g' * 2048
+		b'h' * 24991
+		b'i' * 38910
+		b'j' * 56954
+	]
+	for (compress in [`store, `deflate, `bzip2]) {
+		buff = binary()
+		zip.writer(buff, compress).add(entries, 'entry' + (1..) + '.bin').close()
+		printf('zip compression: %s\n', compress)
+		for (entry in entries, stream in zip.reader(buff).entries()) {
+			entryDec = stream.read()
+			printf('%-12s %5d %s\n', stream.identifier, stream.stat.size,
+										cond(entry == entryDec, 'OK', '*NG*'))
+		}
+	}
+}

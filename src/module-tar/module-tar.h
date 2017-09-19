@@ -34,7 +34,7 @@ Stream *DecorateReaderStream(Environment &env, Stream *pStreamSrc,
 						const char *name, CompressionType compressionType);
 Stream *DecorateWriterStream(Environment &env, Stream *pStreamDst,
 						const char *name, CompressionType compressionType);
-ULong OctetToULong(Signal &sig, const char *octet, size_t len);
+UInt32 OctetToUInt32(Signal &sig, const char *octet, size_t len);
 
 CompressionType SymbolToCompressionType(const Symbol *pSymbol);
 
@@ -105,17 +105,17 @@ private:
 	char _linkname[100 + 1];
 	char _uname[32 + 1];
 	char _gname[32 + 1];
-	ULong _mode;
-	ULong _uid;
-	ULong _gid;
+	UInt32 _mode;
+	UInt32 _uid;
+	UInt32 _gid;
 	size_t _size;
 	DateTime _mtime;
 	DateTime _atime;
 	DateTime _ctime;
-	ULong _chksum;
+	UInt32 _chksum;
 	char _typeflag;
-	ULong _devmajor;
-	ULong _devminor;
+	UInt32 _devmajor;
+	UInt32 _devminor;
 public:
 	Header();
 	Header(const Header &hdr);
@@ -140,12 +140,12 @@ public:
 		::memset(_gname, 0x00, sizeof(_gname)), ::strcpy(_gname, gname);
 	}
 	inline const char *GetGName() const { return _gname; }
-	inline void SetMode(ULong mode) { _mode = mode; }
-	inline ULong GetMode() const { return _mode; }
-	inline void SetUid(ULong uid) { _uid = uid; }
-	inline ULong GetUid() const { return _uid; }
-	inline void SetGid(ULong gid) { _gid = gid; }
-	inline ULong GetGid() const { return _gid; }
+	inline void SetMode(UInt32 mode) { _mode = mode; }
+	inline UInt32 GetMode() const { return _mode; }
+	inline void SetUid(UInt32 uid) { _uid = uid; }
+	inline UInt32 GetUid() const { return _uid; }
+	inline void SetGid(UInt32 gid) { _gid = gid; }
+	inline UInt32 GetGid() const { return _gid; }
 	inline void SetSize(size_t size) { _size = size; }
 	inline size_t GetSize() const { return _size; }
 	inline void SetMTime(const DateTime &mtime) { _mtime = mtime; }
@@ -154,15 +154,15 @@ public:
 	inline DateTime GetATime() const { return _atime; }
 	inline void SetCTime(const DateTime &ctime) { _ctime = ctime; }
 	inline DateTime GetCTime() const { return _ctime; }
-	inline void SetChksum(ULong chksum) { _chksum = chksum; }
-	inline ULong GetChksum() const { return _chksum; }
+	inline void SetChksum(UInt32 chksum) { _chksum = chksum; }
+	inline UInt32 GetChksum() const { return _chksum; }
 	inline void SetTypeFlag(char typeflag) { _typeflag = typeflag; }
 	inline char GetTypeFlag() const { return _typeflag; }
-	inline void SetDevMajor(ULong devmajor) { _devmajor = devmajor; }
-	inline ULong GetDevMajor() const { return _devmajor; }
-	inline void SetDevMinor(ULong devminor) { _devminor = devminor; }
-	inline ULong GetDevMinor() const { return _devminor; }
-	inline ULong CalcBlocks() const {
+	inline void SetDevMajor(UInt32 devmajor) { _devmajor = devmajor; }
+	inline UInt32 GetDevMajor() const { return _devmajor; }
+	inline void SetDevMinor(UInt32 devminor) { _devminor = devminor; }
+	inline UInt32 GetDevMinor() const { return _devminor; }
+	inline UInt32 CalcBlocks() const {
 		return (_size + BLOCKSIZE - 1) / BLOCKSIZE;
 	}
 };

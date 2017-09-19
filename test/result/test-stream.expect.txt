@@ -8,72 +8,8 @@
 
 ======== #2 ========
 
-tar compression: none
-entry1.bin   38009 OK
-entry2.bin   43643 OK
-entry3.bin   33517 OK
-entry4.bin   26822 OK
-entry5.bin     512 OK
-entry6.bin   28838 OK
-entry7.bin    2048 OK
-entry8.bin   24991 OK
-entry9.bin   38910 OK
-entry10.bin  56954 OK
-tar compression: gzip
-entry1.bin   38009 OK
-entry2.bin   43643 OK
-entry3.bin   33517 OK
-entry4.bin   26822 OK
-entry5.bin     512 OK
-entry6.bin   28838 OK
-entry7.bin    2048 OK
-entry8.bin   24991 OK
-entry9.bin   38910 OK
-entry10.bin  56954 OK
-tar compression: bzip2
-entry1.bin   38009 OK
-entry2.bin   43643 OK
-entry3.bin   33517 OK
-entry4.bin   26822 OK
-entry5.bin     512 OK
-entry6.bin   28838 OK
-entry7.bin    2048 OK
-entry8.bin   24991 OK
-entry9.bin   38910 OK
-entry10.bin  56954 OK
-zip compression: store
-entry1.bin   38009 OK
-entry2.bin   43643 OK
-entry3.bin   33517 OK
-entry4.bin   26822 OK
-entry5.bin     512 OK
-entry6.bin   28838 OK
-entry7.bin    2048 OK
-entry8.bin   24991 OK
-entry9.bin   38910 OK
-entry10.bin  56954 OK
-zip compression: deflate
-entry1.bin   38009 OK
-entry2.bin   43643 OK
-entry3.bin   33517 OK
-entry4.bin   26822 OK
-entry5.bin     512 OK
-entry6.bin   28838 OK
-entry7.bin    2048 OK
-entry8.bin   24991 OK
-entry9.bin   38910 OK
-entry10.bin  56954 OK
-zip compression: bzip2
-entry1.bin   38009 OK
-entry2.bin   43643 OK
-entry3.bin   33517 OK
-entry4.bin   26822 OK
-entry5.bin     512 OK
-entry6.bin   28838 OK
-entry7.bin    2048 OK
-entry8.bin   24991 OK
-entry9.bin   38910 OK
-entry10.bin  56954 OK
+82 b1 82 f1 82 c9 82 bf 82 cd 81 41 90 a2 8a 45  ...........A...E
+0a                                               .
 
 ======== #3 ========
 
@@ -96,11 +32,6 @@ entry10.bin  56954 OK
 0a                                               .
 
 ======== #7 ========
-
-82 b1 82 f1 82 c9 82 bf 82 cd 81 41 90 a2 8a 45  ...........A...E
-0a                                               .
-
-======== #8 ========
 
 --------------------------------
 QUJDREVGRw==
@@ -236,7 +167,7 @@ OK
 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
 61 61 61                                         aaa
 
-======== #9 stream.copy/stream#copyto ========
+======== #8 stream.copy/stream#copyto ========
 
 hello world #1
 hello world #2
@@ -251,7 +182,7 @@ hello world #4
 hello world #5
 hello world #6
 
-======== #10 readline/skipline ========
+======== #9 readline/skipline ========
 
 readlines(3)
   line.1

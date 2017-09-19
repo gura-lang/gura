@@ -28,3 +28,39 @@ crc32               6c048a1e
 filename            Module_zipfile.h
 mtime               <datetime:2012-01-22T12:54:08>
 size                31840
+
+======== #4 archive test ========
+
+zip compression: store
+entry1.bin   38009 OK
+entry2.bin   43643 OK
+entry3.bin   33517 OK
+entry4.bin   26822 OK
+entry5.bin     512 OK
+entry6.bin   28838 OK
+entry7.bin    2048 OK
+entry8.bin   24991 OK
+entry9.bin   38910 OK
+entry10.bin  56954 OK
+zip compression: deflate
+entry1.bin   38009 OK
+entry2.bin   43643 OK
+entry3.bin   33517 OK
+entry4.bin   26822 OK
+entry5.bin     512 OK
+entry6.bin   28838 OK
+entry7.bin    2048 OK
+entry8.bin   24991 OK
+entry9.bin   38910 OK
+entry10.bin  56954 OK
+zip compression: bzip2
+entry1.bin   38009 OK
+entry2.bin   43643 OK
+entry3.bin   33517 OK
+entry4.bin   26822 OK
+entry5.bin     512 OK
+entry6.bin   28838 OK
+entry7.bin    2048 OK
+entry8.bin   24991 OK
+entry9.bin   38910 OK
+entry10.bin  56954 OK

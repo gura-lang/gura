@@ -30,19 +30,19 @@ const char XHDTYPE			= 'x';		// Extended header referring to the next file in th
 const char XGLTYPE			= 'g';		// Global extended header
 
 // Bits used in the mode field, values in octal. 
-const ULong TSUID	= 04000;	// set UID on execution
-const ULong TSGID	= 02000;	// set GID on execution
-const ULong TSVTX	= 01000;	// reserved
-								// file permissions
-const ULong TUREAD	= 00400;	// read by owner
-const ULong TUWRITE	= 00200;	// write by owner
-const ULong TUEXEC	= 00100;	// execute/search by owner
-const ULong TGREAD	= 00040;	// read by group
-const ULong TGWRITE	= 00020;	// write by group
-const ULong TGEXEC	= 00010;	// execute/search by group
-const ULong TOREAD	= 00004;	// read by other
-const ULong TOWRITE	= 00002;	// write by other
-const ULong TOEXEC	= 00001;	// execute/search by other
+const UInt32 TSUID			= 04000;	// set UID on execution
+const UInt32 TSGID			= 02000;	// set GID on execution
+const UInt32 TSVTX			= 01000;	// reserved
+										// file permissions
+const UInt32 TUREAD			= 00400;	// read by owner
+const UInt32 TUWRITE		= 00200;	// write by owner
+const UInt32 TUEXEC			= 00100;	// execute/search by owner
+const UInt32 TGREAD			= 00040;	// read by group
+const UInt32 TGWRITE		= 00020;	// write by group
+const UInt32 TGEXEC			= 00010;	// execute/search by group
+const UInt32 TOREAD			= 00004;	// read by other
+const UInt32 TOWRITE		= 00002;	// write by other
+const UInt32 TOEXEC			= 00001;	// execute/search by other
 
 //-----------------------------------------------------------------------------
 // Header implementation
@@ -92,35 +92,35 @@ bool Header::SetRawHeader(Signal &sig, const star_header &rawHdr)
 	::memcpy(_linkname, rawHdr.linkname, sizeof(rawHdr.linkname));
 	::memcpy(_uname, rawHdr.uname, sizeof(rawHdr.uname));
 	::memcpy(_gname, rawHdr.gname, sizeof(rawHdr.gname));
-	_mode = OctetToULong(sig, rawHdr.mode, sizeof(rawHdr.mode));
+	_mode = OctetToUInt32(sig, rawHdr.mode, sizeof(rawHdr.mode));
 	if (sig.IsSignalled()) return false;
-	_uid = OctetToULong(sig, rawHdr.uid, sizeof(rawHdr.uid));
+	_uid = OctetToUInt32(sig, rawHdr.uid, sizeof(rawHdr.uid));
 	if (sig.IsSignalled()) return false;
-	_gid = OctetToULong(sig, rawHdr.gid, sizeof(rawHdr.gid));
+	_gid = OctetToUInt32(sig, rawHdr.gid, sizeof(rawHdr.gid));
 	if (sig.IsSignalled()) return false;
-	_size = OctetToULong(sig, rawHdr.size, sizeof(rawHdr.size));
+	_size = OctetToUInt32(sig, rawHdr.size, sizeof(rawHdr.size));
 	if (sig.IsSignalled()) return false;
 	do {
-		ULong num = OctetToULong(sig, rawHdr.mtime, sizeof(rawHdr.mtime));
+		UInt32 num = OctetToUInt32(sig, rawHdr.mtime, sizeof(rawHdr.mtime));
 		if (sig.IsSignalled()) return false;
 		_mtime.SetUnixTime(num);
 	} while (0);
 	do {
-		ULong num = OctetToULong(sig, rawHdr.atime, sizeof(rawHdr.atime));
+		UInt32 num = OctetToUInt32(sig, rawHdr.atime, sizeof(rawHdr.atime));
 		if (sig.IsSignalled()) return false;
 		_atime.SetUnixTime(num);
 	} while (0);
 	do {
-		ULong num = OctetToULong(sig, rawHdr.ctime, sizeof(rawHdr.ctime));
+		UInt32 num = OctetToUInt32(sig, rawHdr.ctime, sizeof(rawHdr.ctime));
 		if (sig.IsSignalled()) return false;
 		_ctime.SetUnixTime(num);
 	} while (0);
-	_chksum = OctetToULong(sig, rawHdr.chksum, sizeof(rawHdr.chksum));
+	_chksum = OctetToUInt32(sig, rawHdr.chksum, sizeof(rawHdr.chksum));
 	if (sig.IsSignalled()) return false;
 	_typeflag = rawHdr.typeflag;
-	_devmajor = OctetToULong(sig, rawHdr.devmajor, sizeof(rawHdr.devmajor));
+	_devmajor = OctetToUInt32(sig, rawHdr.devmajor, sizeof(rawHdr.devmajor));
 	if (sig.IsSignalled()) return false;
-	_devminor = OctetToULong(sig, rawHdr.devminor, sizeof(rawHdr.devminor));
+	_devminor = OctetToUInt32(sig, rawHdr.devminor, sizeof(rawHdr.devminor));
 	if (sig.IsSignalled()) return false;
 	return true;
 }
@@ -129,32 +129,32 @@ void Header::ComposeHeaderBlock(void *memBlock) const
 {
 	star_header &rawHdr = *reinterpret_cast<star_header *>(memBlock);
 	::memset(memBlock, 0x00, BLOCKSIZE);
-	::memcpy(rawHdr.name,		_name, sizeof(rawHdr.name));
-	::sprintf(rawHdr.mode,		"%06lo ", _mode);
-	::sprintf(rawHdr.uid,		"%06lo ", _uid);
-	::sprintf(rawHdr.gid,		"%06lo ", _gid);
-	::sprintf(rawHdr.size,		"%11lo", _size);
+	::memcpy(rawHdr.name,			_name, sizeof(rawHdr.name));
+	::sprintf(rawHdr.mode,			"%06o ", _mode);
+	::sprintf(rawHdr.uid,			"%06o ", _uid);
+	::sprintf(rawHdr.gid,			"%06o ", _gid);
+	::sprintf(rawHdr.size,			"%11o", static_cast<UInt32>(_size));
 	rawHdr.size[11] = ' ';
-	::sprintf(rawHdr.mtime,		"%11o", _mtime.GetUnixTime());
+	::sprintf(rawHdr.mtime,			"%11o", _mtime.GetUnixTime());
 	rawHdr.mtime[11] = ' ';
-	::memset(rawHdr.chksum,		' ', 8);
+	::memset(rawHdr.chksum,			' ', 8);
 	rawHdr.typeflag = _typeflag;
-	::memcpy(rawHdr.linkname,	_linkname, sizeof(rawHdr.linkname));
-	::memcpy(rawHdr.magic,		"ustar ", 6);
-	::memcpy(rawHdr.version,	" \x00", 2);
-	::memcpy(rawHdr.uname,		_uname, sizeof(rawHdr.uname));
-	::memcpy(rawHdr.gname,		_gname, sizeof(rawHdr.gname));
+	::memcpy(rawHdr.linkname,		_linkname, sizeof(rawHdr.linkname));
+	::memcpy(rawHdr.magic,			"ustar ", 6);
+	::memcpy(rawHdr.version,		" \x00", 2);
+	::memcpy(rawHdr.uname,			_uname, sizeof(rawHdr.uname));
+	::memcpy(rawHdr.gname,			_gname, sizeof(rawHdr.gname));
 	//::sprintf(rawHdr.devmajor,	"%06o ", _devmajor);
 	//::sprintf(rawHdr.devminor,	"%06o ", _devminor);
-	//::memset(rawHdr.prefix,	0x00, sizeof(rawHdr.prefix));
+	//::memset(rawHdr.prefix,		0x00, sizeof(rawHdr.prefix));
 	//::sprintf(rawHdr.atime,		"%11o", _atime.GetUnixTime());
 	//rawHdr.atime[11] = ' ';
 	//::sprintf(rawHdr.ctime,		"%11o", _ctime.GetUnixTime());
 	//rawHdr.ctime[11] = ' ';
-	ULong chksum = 0;
+	UInt32 chksum = 0;
 	UChar *p = reinterpret_cast<UChar *>(&rawHdr);
 	for (int i = 0; i < BLOCKSIZE; i++, p++) chksum += *p;
-	::sprintf(rawHdr.chksum,	"%6lo ", chksum);
+	::sprintf(rawHdr.chksum,		"%6o ", chksum);
 }
 
 //-----------------------------------------------------------------------------
@@ -352,9 +352,9 @@ Gura_ImplementMethod(writer, add)
 		hdr.SetCTime(attr.ctime);
 		hdr.SetUid(attr.uid);
 		hdr.SetGid(attr.gid);
-		::sprintf(buff, "%ld", attr.uid);
+		::sprintf(buff, "%d", attr.uid);
 		hdr.SetUName(buff);
-		::sprintf(buff, "%ld", attr.gid);
+		::sprintf(buff, "%d", attr.gid);
 		hdr.SetGName(buff);
 	} else {
 		hdr.SetMode(0100666);
@@ -1195,9 +1195,9 @@ Stream *DecorateWriterStream(Environment &env, Stream *pStreamDst,
 	return pStreamDst;
 }
 
-ULong OctetToULong(Signal &sig, const char *octet, size_t len)
+UInt32 OctetToUInt32(Signal &sig, const char *octet, size_t len)
 {
-	ULong num = 0;
+	UInt32 num = 0;
 	for (const char *p = octet; len > 0; len--, p++) {
 		char ch = *p;
 		if (ch == '\0') break;
