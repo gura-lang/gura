@@ -58,17 +58,17 @@ public:
 		DateTime atime;
 		DateTime mtime;
 		DateTime ctime;
-		Long uid;
-		Long gid;
-		ULong attr;
-		ULong attrMask;
+		Int32 uid;
+		Int32 gid;
+		UInt32 attr;
+		UInt32 attrMask;
 	public:
 		inline Attribute() : uid(0), gid(0), attr(0), attrMask(0) {}
 	};
 protected:
 	int _cntRef;
 	Signal &_sig;
-	ULong _attr;
+	UInt32 _attr;
 	size_t _offsetCur;
 	bool _blockingFlag;
 	AutoPtr<Codec> _pCodec;
@@ -89,7 +89,7 @@ public:
 protected:
 	virtual ~Stream();
 public:
-	Stream(Environment &env, ULong attr);
+	Stream(Environment &env, UInt32 attr);
 	bool Close();
 	void SetCodec(Codec *pCodec);
 	void CopyCodec(Stream *pStream);
@@ -113,7 +113,7 @@ public:
 	virtual void DoPutChar(Signal &sig, char ch);
 	virtual Object *DoGetStatObj(Signal &sig);
 	inline int GetRefCount() const { return _cntRef; }
-	inline ULong GetAttr() const { return _attr; }
+	inline UInt32 GetAttr() const { return _attr; }
 	inline bool IsInfinite() const { return (_attr & ATTR_Infinite) != 0; }
 	inline bool IsReadable() const { return (_attr & ATTR_Readable) != 0; }
 	inline bool IsWritable() const { return (_attr & ATTR_Writable) != 0; }
@@ -172,10 +172,10 @@ public:
 	bool SerializePackedUInt64(Signal &sig, UInt64 num);
 	bool DeserializePackedUInt64(Signal &sig, UInt64 &num);
 public:
-	static Stream *Open(Environment &env, const char *pathName, ULong attr);
+	static Stream *Open(Environment &env, const char *pathName, UInt32 attr);
 	static Stream *Prefetch(Environment &env, Stream *pStreamSrc,
 							bool deleteSrcFlag, size_t bytesUnit = 0x10000);
-	static ULong ParseOpenMode(Signal &sig, const char *mode);
+	static UInt32 ParseOpenMode(Signal &sig, const char *mode);
 };
 
 }

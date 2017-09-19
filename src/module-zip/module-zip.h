@@ -842,7 +842,7 @@ public:
 		Type type, DirBuilder::Structure *pStructure, Record_ZIP *pRecord);
 	virtual ~Directory_ZIP();
 	virtual Directory *DoNext(Environment &env);
-	virtual Stream *DoOpenStream(Environment &env, ULong attr);
+	virtual Stream *DoOpenStream(Environment &env, UInt32 attr);
 	virtual Object *DoGetStatObj(Signal &sig);
 	inline Record_ZIP &GetRecord() { return *_pRecord; }
 };

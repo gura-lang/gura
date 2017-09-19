@@ -209,7 +209,7 @@ public:
 		Type type, DirBuilder::Structure *pStructure, Record_TAR *pRecord);
 	virtual ~Directory_TAR();
 	virtual Directory *DoNext(Environment &env);
-	virtual Stream *DoOpenStream(Environment &env, ULong attr);
+	virtual Stream *DoOpenStream(Environment &env, UInt32 attr);
 	virtual Object *DoGetStatObj(Signal &sig);
 };
 

@@ -107,7 +107,7 @@ public:
 	inline Object *GetStatObj(Signal &sig) { return DoGetStatObj(sig); }
 	String MakePathName(bool addSepFlag, const char *pathNameTrail = nullptr) const;
 	int CountDepth() const;
-	virtual Stream *DoOpenStream(Environment &env, ULong attr) = 0;
+	virtual Stream *DoOpenStream(Environment &env, UInt32 attr) = 0;
 public:
 	static Directory *Open(Environment &env,
 					const char *pathName, PathMgr::NotFoundMode notFoundMode);

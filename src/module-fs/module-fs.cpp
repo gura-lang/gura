@@ -394,7 +394,7 @@ Stream_File::Stream_File(Environment &env) :
 	_map.offset = 0;
 }
 
-bool Stream_File::Open(Signal &sig, const char *fileName, ULong attr)
+bool Stream_File::Open(Signal &sig, const char *fileName, UInt32 attr)
 {
 	Close();
 	_attr |= attr;
@@ -592,7 +592,7 @@ Stream_File::Stream_File(Environment &env) :
 {
 }
 
-bool Stream_File::Open(Signal &sig, const char *fileName, ULong attr)
+bool Stream_File::Open(Signal &sig, const char *fileName, UInt32 attr)
 {
 	Close();
 	_attr |= attr;
@@ -831,7 +831,7 @@ Object *Directory_FileSys::DoGetStatObj(Signal &sig)
 	return new Object_Stat(*_pFileStat);
 }
 
-Stream *Directory_FileSys::DoOpenStream(Environment &env, ULong attr)
+Stream *Directory_FileSys::DoOpenStream(Environment &env, UInt32 attr)
 {
 	Signal &sig = env.GetSignal();
 	Stream_File *pStream = new Stream_File(env);

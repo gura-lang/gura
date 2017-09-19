@@ -849,7 +849,7 @@ Directory *Directory_TAR::DoNext(Environment &env)
 	return _pRecord->Next(this);
 }
 
-Stream *Directory_TAR::DoOpenStream(Environment &env, ULong attr)
+Stream *Directory_TAR::DoOpenStream(Environment &env, UInt32 attr)
 {
 	Signal &sig = env.GetSignal();
 	Directory *pDirectory = this;
@@ -1112,7 +1112,7 @@ Header *ReadHeader(Signal &sig, Stream *pStream, void *buffBlock)
 			return nullptr;
 		}
 		bool zeroBlockFlag = true;
-		ULong *p = reinterpret_cast<ULong *>(buffBlock);
+		UInt32 *p = reinterpret_cast<UInt32 *>(buffBlock);
 		for (int i = 0; i < BLOCKSIZE / 4; i++, p++) {
 			if (*p != 0x00000000) {
 				zeroBlockFlag = false;

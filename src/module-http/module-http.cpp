@@ -1128,7 +1128,7 @@ Object *Stream_Socket::DoGetStatObj(Signal &sig)
 //-----------------------------------------------------------------------------
 // Stream_Chunked implementation
 //-----------------------------------------------------------------------------
-Stream_Chunked::Stream_Chunked(Environment &env, Stream *pStream, ULong attr) :
+Stream_Chunked::Stream_Chunked(Environment &env, Stream *pStream, UInt32 attr) :
 		Stream(env, attr), _pStream(pStream), _bytesChunk(0), _doneFlag(false)
 {
 }
@@ -1239,7 +1239,7 @@ size_t Stream_Chunked::DoGetSize()
 //-----------------------------------------------------------------------------
 // Stream_Http implementation
 //-----------------------------------------------------------------------------
-Stream_Http::Stream_Http(Environment &env, Stream *pStream, ULong attr,
+Stream_Http::Stream_Http(Environment &env, Stream *pStream, UInt32 attr,
 					const char *name, size_t bytes, const Header &header) :
 		Stream(env, attr), _pStream(pStream), _name(name),
 		_bytesRead(bytes), _header(header)
@@ -2238,7 +2238,7 @@ bool Object_server::Prepare(Signal &sig, const char *addr, short port)
 		return false;
 	}
 	::memset(&_saddrServer, 0x00, sizeof(_saddrServer));
-	ULong addrNum = htonl(INADDR_ANY);
+	UInt32 addrNum = htonl(INADDR_ANY);
 	_saddrServer.sin_family = AF_INET;
 	if (addr != nullptr) {
 		addrNum = ::inet_addr(addr);
@@ -2249,7 +2249,7 @@ bool Object_server::Prepare(Signal &sig, const char *addr, short port)
 				return false;
 			}
 			_saddrServer.sin_family = pHostEnt->h_addrtype;
-			addrNum = **reinterpret_cast<ULong **>(pHostEnt->h_addr_list);
+			addrNum = **reinterpret_cast<UInt32 **>(pHostEnt->h_addr_list);
 		}
 	}
 	_saddrServer.sin_addr.s_addr = addrNum;
@@ -2502,7 +2502,7 @@ bool Object_client::Prepare(Signal &sig, const char *addr, short port,
 	}
 	sockaddr_in saddrServer;
 	::memset(&saddrServer, 0x00, sizeof(saddrServer));
-	ULong addrNum = ::inet_addr(addrToConnect);
+	UInt32 addrNum = ::inet_addr(addrToConnect);
 	if (addrNum == 0xffffffff) {
 		hostent *pHostEnt = ::gethostbyname(addrToConnect);
 		if (pHostEnt == nullptr) {
@@ -2510,7 +2510,7 @@ bool Object_client::Prepare(Signal &sig, const char *addr, short port,
 			return false;
 		}
 		saddrServer.sin_family = pHostEnt->h_addrtype;
-		addrNum = **reinterpret_cast<ULong **>(pHostEnt->h_addr_list);
+		addrNum = **reinterpret_cast<UInt32 **>(pHostEnt->h_addr_list);
 	} else {
 		saddrServer.sin_family = AF_INET;
 	}
@@ -2859,7 +2859,7 @@ Directory *Directory_Http::DoNext(Environment &env)
 	return nullptr;
 }
 
-Stream *Directory_Http::DoOpenStream(Environment &env, ULong attr)
+Stream *Directory_Http::DoOpenStream(Environment &env, UInt32 attr)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Object_client> pObjClient(new Object_client());

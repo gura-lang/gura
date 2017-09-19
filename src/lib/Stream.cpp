@@ -99,7 +99,7 @@ void SimpleStream::Dump(Signal &sig, const void *buff, size_t bytes, bool upperF
 //-----------------------------------------------------------------------------
 // Stream
 //-----------------------------------------------------------------------------
-Stream::Stream(Environment &env, ULong attr) :
+Stream::Stream(Environment &env, UInt32 attr) :
 	_cntRef(1), _sig(env.GetSignal()), _attr(attr), _offsetCur(0), _blockingFlag(false),
 	_pCodec(Codec::CreateCodecNone(true, false))
 {
@@ -591,7 +591,7 @@ bool Stream::DeserializeDouble(Signal &sig, Double &num)
 
 bool Stream::SerializeString(Signal &sig, const char *str)
 {
-	ULong len = static_cast<ULong>(::strlen(str));
+	UInt32 len = static_cast<UInt32>(::strlen(str));
 	if (!SerializePackedUInt32(sig, len)) return false;
 	return Write(sig, str, len) == len;
 }
@@ -612,7 +612,7 @@ bool Stream::DeserializeString(Signal &sig, String &str)
 
 bool Stream::SerializeBinary(Signal &sig, const Binary &binary)
 {
-	ULong len = static_cast<ULong>(binary.size());
+	UInt32 len = static_cast<UInt32>(binary.size());
 	if (!SerializePackedUInt32(sig, len)) return false;
 	return Write(sig, binary.data(), len) == len;
 }
@@ -645,7 +645,7 @@ bool Stream::DeserializeSymbol(Signal &sig, const Symbol **ppSymbol)
 
 bool Stream::SerializeSymbolSet(Signal &sig, const SymbolSet &symbolSet)
 {
-	ULong len = static_cast<ULong>(symbolSet.size());
+	UInt32 len = static_cast<UInt32>(symbolSet.size());
 	if (!SerializePackedUInt32(sig, len)) return false;
 	foreach_const (SymbolSet, ppSymbol, symbolSet) {
 		if (!SerializeSymbol(sig, *ppSymbol)) return false;
@@ -669,7 +669,7 @@ bool Stream::DeserializeSymbolSet(Signal &sig, SymbolSet &symbolSet)
 
 bool Stream::SerializeSymbolList(Signal &sig, const SymbolList &symbolList)
 {
-	ULong len = static_cast<ULong>(symbolList.size());
+	UInt32 len = static_cast<UInt32>(symbolList.size());
 	if (!SerializePackedUInt32(sig, len)) return false;
 	foreach_const (SymbolList, ppSymbol, symbolList) {
 		if (!SerializeSymbol(sig, *ppSymbol)) return false;
@@ -760,7 +760,7 @@ bool Stream::DeserializePackedUInt64(Signal &sig, UInt64 &num)
 	return true;
 }
 
-Stream *Stream::Open(Environment &env, const char *pathName, ULong attr)
+Stream *Stream::Open(Environment &env, const char *pathName, UInt32 attr)
 {
 	Signal &sig = env.GetSignal();
 	if (*pathName == '>') {
@@ -793,9 +793,9 @@ Stream *Stream::Prefetch(Environment &env, Stream *pStreamSrc,
 	return pStreamPrefetch;
 }
 
-ULong Stream::ParseOpenMode(Signal &sig, const char *mode)
+UInt32 Stream::ParseOpenMode(Signal &sig, const char *mode)
 {
-	ULong attr = ATTR_None;
+	UInt32 attr = ATTR_None;
 	const char *p = mode;
 	if (*p == 'r') {
 		attr |= ATTR_Readable;

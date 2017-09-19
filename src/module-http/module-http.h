@@ -388,7 +388,7 @@ private:
 	bool _doneFlag;
 	AutoPtr<Memory> _pMemory;
 public:
-	Stream_Chunked(Environment &env, Stream *pStream, ULong attr);
+	Stream_Chunked(Environment &env, Stream *pStream, UInt32 attr);
 	~Stream_Chunked();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
@@ -412,7 +412,7 @@ private:
 	EncodingDetector _encodingDetector;
 	AutoPtr<Memory> _pMemory;
 public:
-	Stream_Http(Environment &env, Stream *pStream, ULong attr,
+	Stream_Http(Environment &env, Stream *pStream, UInt32 attr,
 						const char *name, size_t bytes, const Header &header);
 	~Stream_Http();
 	virtual const char *GetName() const;
@@ -661,7 +661,7 @@ public:
 	Directory_Http(Directory *pParent, const char *name, Type type);
 	virtual ~Directory_Http();
 	virtual Directory *DoNext(Environment &env);
-	virtual Stream *DoOpenStream(Environment &env, ULong attr);
+	virtual Stream *DoOpenStream(Environment &env, UInt32 attr);
 	inline void SetScheme(const char *scheme) { _scheme = scheme; }
 	inline void SetAuthority(const char *authority) { _authority = authority; }
 	inline void SetQuery(const char *query) { _query = query; }

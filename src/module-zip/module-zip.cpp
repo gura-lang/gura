@@ -1050,7 +1050,7 @@ Directory *Directory_ZIP::DoNext(Environment &env)
 	return _pRecord->Next(this);
 }
 
-Stream *Directory_ZIP::DoOpenStream(Environment &env, ULong attr)
+Stream *Directory_ZIP::DoOpenStream(Environment &env, UInt32 attr)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Stream> pStreamSrc;

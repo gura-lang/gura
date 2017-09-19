@@ -210,8 +210,8 @@ Gura_ImplementFunction(test)
 		foreach (FileinfoOwner, ppFileinfo, *pFileinfoOwner) {
 			Fileinfo *pFileinfo = *ppFileinfo;
 			curlfiletype filetype = pFileinfo->GetFiletype();
-			::printf("%-40s %10luB %s\n", pFileinfo->GetFilename(),
-				static_cast<ULong>(pFileinfo->GetSize()),
+			::printf("%-40s %10zuB %s\n", pFileinfo->GetFilename(),
+				pFileinfo->GetSize(),
 				(filetype == CURLFILETYPE_DIRECTORY)? "DIR" :
 				(filetype == CURLFILETYPE_FILE)? "FILE" : "OTHER");
 		}
@@ -731,7 +731,7 @@ Directory *Directory_cURL::DoNext(Environment &env)
 										pFileinfo->GetFilename(), type);
 }
 
-Stream *Directory_cURL::DoOpenStream(Environment &env, ULong attr)
+Stream *Directory_cURL::DoOpenStream(Environment &env, UInt32 attr)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<StreamFIFO> pStream(new StreamFIFO(env, 65536));

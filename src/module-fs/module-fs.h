@@ -54,7 +54,7 @@ private:
 public:
 	Stream_File(Environment &env);
 	~Stream_File();
-	bool Open(Signal &sig, const char *fileName, ULong attr);
+	bool Open(Signal &sig, const char *fileName, UInt32 attr);
 	bool OpenStdin();
 	bool OpenStdout();
 	bool OpenStderr();
@@ -95,7 +95,7 @@ public:
 	static bool IsDir(Signal &sig, const char *pathName);
 protected:
 	virtual Directory *DoNext(Environment &env);
-	virtual Stream *DoOpenStream(Environment &env, ULong attr);
+	virtual Stream *DoOpenStream(Environment &env, UInt32 attr);
 };
 
 //-----------------------------------------------------------------------------
