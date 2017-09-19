@@ -1113,7 +1113,7 @@ Header *ReadHeader(Signal &sig, Stream *pStream, void *buffBlock)
 		}
 		bool zeroBlockFlag = true;
 		UInt32 *p = reinterpret_cast<UInt32 *>(buffBlock);
-		for (int i = 0; i < BLOCKSIZE / 4; i++, p++) {
+		for (int i = 0; i < BLOCKSIZE / sizeof(UInt32); i++, p++) {
 			if (*p != 0x00000000) {
 				zeroBlockFlag = false;
 				break;
