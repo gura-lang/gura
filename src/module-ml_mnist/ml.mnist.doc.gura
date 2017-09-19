@@ -1,0 +1,116 @@
+#!/usr/bin/env gura
+import(markdown)
+import(doxygen)
+
+text@en = R'''
+# ml.mnist Module
+
+The `ml.mnist` module provides measures to read image database of handwritten digit called MNIST.
+MNIST data files are avaiable in: http://yann.lecun.com/exdb/mnist/.
+
+The database consists of the following files:
+
+- `train-images-idx3-ubyte.gz` .. training set images
+- `train-labels-idx1-ubyte.gz` .. training set labels
+- `t10k-images-idx3-ubyte.gz` .. test set images
+- `t10k-labels-idx1-ubyte.gz` .. test set labels
+
+## ml.mnist.Database Class
+
+### Constructor
+
+${markdown.makedoc@function(`en
+ml.mnist.Database
+)}
+
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>test</code></td><td><code>ml.mnist.Pack</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>train</code></td><td><code>ml.mnist.Pack</code></td><td>R</td>
+<td></td></tr>
+
+</table>
+
+
+## ml.mnist.Pack Structure
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>imageSet</code></td><td><code>ml.mnist.ImageSet</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>labelSet</code></td><td><code>ml.mnist.LabelSet</code></td><td>R</td>
+<td></td></tr>
+
+</table>
+
+## ml.mnist.ImageSet Class
+
+### Constructor
+
+${markdown.makedoc@function(`en
+ml.mnist.ImageSet
+)}
+
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>nImages</code></td><td><code>number</code></td><td>R</td>
+<td>Number of labels in the database.</td></tr>
+
+<tr><td><code>nRows</code></td><td><code>number</code></td><td>R</td>
+<td>Row size of each image.</td></tr>
+
+<tr><td><code>nCols</code></td><td><code>number</code></td><td>R</td>
+<td>Column size of each image.</td></tr>
+
+</table>
+
+
+### Method
+
+${markdown.makedoc@function(`en
+ml.mnist.ImageSet.ToArray
+)}
+
+
+## ml.mnist.LabelSet Class
+
+### Constructor
+
+${markdown.makedoc@function(`en
+ml.mnist.LabelSet
+)}
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>nLabels</code></td><td><code>number</code></td><td>R</td>
+<td>Number of labels in the database.</td></tr>
+
+</table>
+
+### Method
+
+${markdown.makedoc@function(`en
+ml.mnist.LabelSet.ToArray
+)}
+
+
+'''.embed()
+
+markdown.makedoc@module(locals(), %{`en => text@en})
