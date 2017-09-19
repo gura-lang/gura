@@ -3,7 +3,11 @@ import(tar)
 import(ml.cifar):binary:mixin_type {*}
 
 if (__name__ == '__main__') {
-	//'sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_bach_1.bin'
 	reader = tar.reader('sample/cifar-10-binary.tar.gz')
 	println(reader.entries():*stat:*filename)
+	open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_1.bin').read()
+	open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_2.bin').read()
+	open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_3.bin').read()
+	open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_4.bin').read()
+	open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_5.bin').read()
 }
