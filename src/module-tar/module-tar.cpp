@@ -135,7 +135,7 @@ void Header::ComposeHeaderBlock(void *memBlock) const
 	::sprintf(rawHdr.gid,		"%06lo ", _gid);
 	::sprintf(rawHdr.size,		"%11lo", _size);
 	rawHdr.size[11] = ' ';
-	::sprintf(rawHdr.mtime,		"%11uo", _mtime.GetUnixTime());
+	::sprintf(rawHdr.mtime,		"%11o", _mtime.GetUnixTime());
 	rawHdr.mtime[11] = ' ';
 	::memset(rawHdr.chksum,		' ', 8);
 	rawHdr.typeflag = _typeflag;
