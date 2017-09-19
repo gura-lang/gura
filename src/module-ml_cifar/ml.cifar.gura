@@ -2,3 +2,6 @@
 import(tar)
 import(ml.cifar):binary:mixin_type {*}
 
+if (__name__ == '__main__') {
+	'sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_bach_1.bin'
+}
