@@ -61,7 +61,8 @@ public:
 		virtual bool IsVulnerable() const = 0;
 		virtual bool EvalForward(Environment &env) = 0;
 		virtual bool EvalBackward(Environment &env) = 0;
-		virtual void Print(int indentLevel) = 0;
+		virtual String ToString() const = 0;
+		virtual void Print(int indentLevel) const;
 	};
 	//-------------------------------------------------------------------------
 	// NodeHead
@@ -80,7 +81,8 @@ public:
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
-		virtual void Print(int indentLevel);
+		virtual String ToString() const;
+		virtual void Print(int indentLevel) const;
 	};
 	//-------------------------------------------------------------------------
 	// NodeBottom
@@ -98,7 +100,8 @@ public:
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 		bool EvalBackwardTop(Environment &env, const Array *pArrayCorrect);
-		virtual void Print(int indentLevel);
+		virtual String ToString() const;
+		virtual void Print(int indentLevel) const;
 	};
 	//-------------------------------------------------------------------------
 	// NodeUnary
@@ -113,7 +116,8 @@ public:
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
-		virtual void Print(int indentLevel);
+		virtual String ToString() const;
+		virtual void Print(int indentLevel) const;
 	};
 	//-------------------------------------------------------------------------
 	// NodeUnary_Pos
@@ -149,7 +153,8 @@ public:
 		inline Connector *GetConnectorSrcRight() { return &_connectorSrcRight; }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
-		virtual void Print(int indentLevel);
+		virtual String ToString() const;
+		virtual void Print(int indentLevel) const;
 	};
 	//-------------------------------------------------------------------------
 	// NodeBinary_Add
@@ -221,7 +226,8 @@ public:
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
-		virtual void Print(int indentLevel);
+		virtual String ToString() const;
+		virtual void Print(int indentLevel) const;
 	};
 	//-------------------------------------------------------------------------
 	// NodeFilter_conv1d
@@ -290,6 +296,8 @@ public:
 	// NodeFilter_sigmoid
 	//-------------------------------------------------------------------------
 	class NodeFilter_sigmoid : public NodeFilter {
+	private:
+		AutoPtr<Array> _pArrayTmp;
 	public:
 		inline NodeFilter_sigmoid(Filter *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}

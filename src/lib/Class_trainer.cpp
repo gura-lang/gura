@@ -64,10 +64,10 @@ Gura_ImplementFunction(trainer)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-// trainer#result
+// trainer#result:nil
 Gura_DeclareProperty_R(trainer, result)
 {
-	SetPropAttr(VTYPE_array);
+	SetPropAttr(VTYPE_array, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
 		"Evaluation result.");
@@ -76,8 +76,9 @@ Gura_DeclareProperty_R(trainer, result)
 Gura_ImplementPropertyGetter(trainer, result)
 {
 	Trainer *pTrainer = Object_trainer::GetObject(valueThis)->GetTrainer();
-	//return Array::ToValue(env, pTrainer->GetResult()->Reference());
-	return Array::ToValue(env, pTrainer->GetResultSoftmax()->Reference());
+	//const Array *pArray = pTrainer->GetResult();
+	const Array *pArray = pTrainer->GetResultSoftmax();
+	return (pArray == nullptr)? Value::Nil : Array::ToValue(env, pArray->Reference());
 }
 
 // trainer#source

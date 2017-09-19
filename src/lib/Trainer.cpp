@@ -66,6 +66,11 @@ Trainer::Node::~Node()
 {
 }
 
+void Trainer::Node::Print(int indentLevel) const
+{
+	::printf("%-*s%s\n", indentLevel * 2, "", ToString().c_str());
+}
+
 //-----------------------------------------------------------------------------
 // Trainer::Node::Connector
 //-----------------------------------------------------------------------------
@@ -119,15 +124,22 @@ bool Trainer::NodeHead::EvalBackward(Environment &env)
 				env, Array::binaryFuncPack_Sub, _pArrayFwd.get(),
 				_pArrayFwd.get(),
 				_pArrayBwdAdj.get()));
-		//::printf("%s: updated\n", _pExpr->ToString(Expr::SCRSTYLE_OneLine).c_str());
 		if (env.IsSignalled()) return false;
 	}
 	return true;
 }
 
-void Trainer::NodeHead::Print(int indentLevel)
+String Trainer::NodeHead::ToString() const
 {
-	::printf("%-*sHead\n", indentLevel * 2, "");
+	String str;
+	str += "Head:";
+	str += _pExpr->ToString(Expr::SCRSTYLE_OneLine);
+	return str;
+}
+
+void Trainer::NodeHead::Print(int indentLevel) const
+{
+	Node::Print(indentLevel);
 }
 
 //-----------------------------------------------------------------------------
@@ -169,10 +181,19 @@ bool Trainer::NodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayC
 	return true;
 }
 
-void Trainer::NodeBottom::Print(int indentLevel)
+String Trainer::NodeBottom::ToString() const
 {
-	::printf("%*sTail [fwd:%p,bwd:%p]\n", indentLevel * 2, "",
-			 _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
+	String str;
+	char buff[128];
+	str += "Tail";
+	::sprintf(buff, " [fwd:%p,bwd:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
+	str += buff;
+	return str;
+}
+
+void Trainer::NodeBottom::Print(int indentLevel) const
+{
+	Node::Print(indentLevel);
 	_connectorSrc.GetNodeSrc()->Print(indentLevel + 1);
 }
 
@@ -194,11 +215,20 @@ bool Trainer::NodeUnary::EvalForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-void Trainer::NodeUnary::Print(int indentLevel)
+String Trainer::NodeUnary::ToString() const
 {
-	::printf("%-*sUnary:%s [fwd:%p,bwd:%p]\n", indentLevel * 2, "",
-			 _unaryFuncPack.name,
-			 _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
+	String str;
+	char buff[128];
+	str += "Unary:";
+	str += _unaryFuncPack.name;
+	::sprintf(buff, " [fwd:%p,bwd:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
+	str += buff;
+	return str;
+}
+
+void Trainer::NodeUnary::Print(int indentLevel) const
+{
+	Node::Print(indentLevel);
 	_connectorSrc.GetNodeSrc()->Print(indentLevel + 1);
 }
 
@@ -251,12 +281,22 @@ bool Trainer::NodeBinary::EvalForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-void Trainer::NodeBinary::Print(int indentLevel)
+String Trainer::NodeBinary::ToString() const
 {
-	::printf("%-*sBinary:%s [fwd:%p,bwd:%p][fwd:%p,bwd:%p]\n", indentLevel * 2, "",
-			 _binaryFuncPack.name,
-			 _connectorSrcLeft.GetArrayFwd(), _connectorSrcLeft.GetArrayBwd(),
-			 _connectorSrcRight.GetArrayFwd(), _connectorSrcRight.GetArrayBwd());
+	String str;
+	char buff[128];
+	str += "Binary:";
+	str += _binaryFuncPack.name;
+	::sprintf(buff, " [fwd:%p,bwd:%p][fwd:%p,bwd:%p]",
+			  _connectorSrcLeft.GetArrayFwd(), _connectorSrcLeft.GetArrayBwd(),
+			  _connectorSrcRight.GetArrayFwd(), _connectorSrcRight.GetArrayBwd());
+	str += buff;
+	return str;
+}
+
+void Trainer::NodeBinary::Print(int indentLevel) const
+{
+	Node::Print(indentLevel);
 	_connectorSrcLeft.GetNodeSrc()->Print(indentLevel + 1);
 	_connectorSrcRight.GetNodeSrc()->Print(indentLevel + 1);
 }
@@ -375,11 +415,20 @@ bool Trainer::NodeFilter::EvalForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-void Trainer::NodeFilter::Print(int indentLevel)
+String Trainer::NodeFilter::ToString() const
 {
-	::printf("%-*sFilter:%s [fwd:%p,bwd:%p]\n", indentLevel * 2, "",
-			 _pFilter->ToString().c_str(),
-			 _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
+	String str;
+	char buff[128];
+	str += "Filter:";
+	str += _pFilter->ToString();
+	::sprintf(buff, " [fwd:%p,bwd:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
+	str += buff;
+	return str;
+}
+
+void Trainer::NodeFilter::Print(int indentLevel) const
+{
+	Node::Print(indentLevel);
 	_connectorSrc.GetNodeSrc()->Print(indentLevel + 1);
 }
 
@@ -444,7 +493,29 @@ bool Trainer::NodeFilter_relu::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 bool Trainer::NodeFilter_sigmoid::EvalBackward(Environment &env)
 {
-	return false;
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
+		// 1 - y
+		_pArrayTmp.reset(
+			Array::ApplyBinaryFunc_number_array(
+				env, Array::binaryFuncPack_Sub, _pArrayTmp.get(),
+				1, _pArrayFwd.get()));
+		if (env.IsSignalled()) return false;
+		// (1 - y) * y
+		_pArrayTmp.reset(
+			Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, _pArrayTmp.get(),
+				_pArrayTmp.get(), _pArrayFwd.get()));
+		if (env.IsSignalled()) return false;
+		// (1 - y) * y * bwd_in
+		_connectorSrc.SetArrayBwd(
+			Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, _connectorSrc.GetArrayBwd(),
+				_pArrayTmp.get(),
+				(*ppConnectorDst)->GetArrayBwd()));
+		if (env.IsSignalled()) return false;
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -452,7 +523,9 @@ bool Trainer::NodeFilter_sigmoid::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 bool Trainer::NodeFilter_softmax::EvalBackward(Environment &env)
 {
-	return false;
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	_connectorSrc.SetArrayBwd((*ppConnectorDst)->GetArrayBwd()->Reference());
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -469,7 +542,8 @@ bool Trainer::NodeFilter_tanh::EvalBackward(Environment &env)
 bool Trainer::NodeList::EvalForward(Environment &env)
 {
 	foreach_reverse (NodeList, ppNode, *this) {
-		if (!(*ppNode)->EvalForward(env)) return false;
+		Node *pNode = *ppNode;
+		if (!pNode->EvalForward(env)) return false;
 	}
 	return true;
 }
@@ -477,7 +551,9 @@ bool Trainer::NodeList::EvalForward(Environment &env)
 bool Trainer::NodeList::EvalBackward(Environment &env)
 {
 	foreach (NodeList, ppNode, *this) {
-		if (!(*ppNode)->EvalBackward(env)) return false;
+		Node *pNode = *ppNode;
+		::printf("%s\n", pNode->ToString().c_str());
+		if (!pNode->EvalBackward(env)) return false;
 	}
 	return true;
 }
@@ -605,7 +681,7 @@ bool Trainer::NodeOwner::CreateNodeFilter(Environment &env, const Expr_BinaryOp 
 		pNode.reset(
 			new NodeFilter_tanh(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
 	} else {
-		env.SetError(ERR_ValueError, "filter instance is expected as a left-side operand of a filter operator");
+		env.SetError(ERR_ValueError, "filter instance is expected as a right-side operand of a filter operator");
 		return false;
 	}
 	Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
