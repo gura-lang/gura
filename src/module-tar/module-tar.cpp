@@ -135,7 +135,7 @@ void Header::ComposeHeaderBlock(void *memBlock) const
 	::sprintf(rawHdr.gid,		"%06lo ", _gid);
 	::sprintf(rawHdr.size,		"%11lo", _size);
 	rawHdr.size[11] = ' ';
-	::sprintf(rawHdr.mtime,		"%11lo", _mtime.GetUnixTime());
+	::sprintf(rawHdr.mtime,		"%11uo", _mtime.GetUnixTime());
 	rawHdr.mtime[11] = ' ';
 	::memset(rawHdr.chksum,		' ', 8);
 	rawHdr.typeflag = _typeflag;
@@ -352,9 +352,9 @@ Gura_ImplementMethod(writer, add)
 		hdr.SetCTime(attr.ctime);
 		hdr.SetUid(attr.uid);
 		hdr.SetGid(attr.gid);
-		::sprintf(buff, "%d", attr.uid);
+		::sprintf(buff, "%ld", attr.uid);
 		hdr.SetUName(buff);
-		::sprintf(buff, "%d", attr.gid);
+		::sprintf(buff, "%ld", attr.gid);
 		hdr.SetGName(buff);
 	} else {
 		hdr.SetMode(0100666);
