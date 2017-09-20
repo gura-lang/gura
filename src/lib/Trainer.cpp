@@ -694,38 +694,33 @@ bool Trainer::NodeOwner::CreateNodeFilter(Environment &env, const Expr_BinaryOp 
 	Value value = pExprEx->GetRight()->Exec(env);
 	if (env.IsSignalled()) return false;
 	AutoPtr<NodeFilter> pNode;
-	if (value.Is_filter_at_conv1d()) {
-		pNode.reset(
-			new NodeFilter_conv1d(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
-	} else if (value.Is_filter_at_conv2d()) {
-		pNode.reset(
-			new NodeFilter_conv2d(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
-	} else if (value.Is_filter_at_conv3d()) {
-		pNode.reset(
-			new NodeFilter_conv3d(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
-	} else if (value.Is_filter_at_maxpool1d()) {
-		pNode.reset(
-			new NodeFilter_maxpool1d(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
-	} else if (value.Is_filter_at_maxpool2d()) {
-		pNode.reset(
-			new NodeFilter_maxpool2d(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
-	} else if (value.Is_filter_at_maxpool3d()) {
-		pNode.reset(
-			new NodeFilter_maxpool3d(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
-	} else if (value.Is_filter_at_relu()) {
-		pNode.reset(
-			new NodeFilter_relu(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
-	} else if (value.Is_filter_at_sigmoid()) {
-		pNode.reset(
-			new NodeFilter_sigmoid(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
-	} else if (value.Is_filter_at_softmax()) {
-		pNode.reset(
-			new NodeFilter_softmax(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
-	} else if (value.Is_filter_at_tanh()) {
-		pNode.reset(
-			new NodeFilter_tanh(Object_filter::GetObject(value)->GetFilter()->Reference(), pConnector));
-	} else {
+	if (!value.IsInstanceOf(VTYPE_filter)) {
 		env.SetError(ERR_ValueError, "filter instance is expected as a right-side operand of a filter operator");
+		return false;
+	}
+	const Filter *pFilter = Object_filter::GetObject(value)->GetFilter();
+	if (value.Is_filter_at_conv1d()) {
+		pNode.reset(new NodeFilter_conv1d(pFilter->Reference(), pConnector));
+	} else if (value.Is_filter_at_conv2d()) {
+		pNode.reset(new NodeFilter_conv2d(pFilter->Reference(), pConnector));
+	} else if (value.Is_filter_at_conv3d()) {
+		pNode.reset(new NodeFilter_conv3d(pFilter->Reference(), pConnector));
+	} else if (value.Is_filter_at_maxpool1d()) {
+		pNode.reset(new NodeFilter_maxpool1d(pFilter->Reference(), pConnector));
+	} else if (value.Is_filter_at_maxpool2d()) {
+		pNode.reset(new NodeFilter_maxpool2d(pFilter->Reference(), pConnector));
+	} else if (value.Is_filter_at_maxpool3d()) {
+		pNode.reset(new NodeFilter_maxpool3d(pFilter->Reference(), pConnector));
+	} else if (value.Is_filter_at_relu()) {
+		pNode.reset(new NodeFilter_relu(pFilter->Reference(), pConnector));
+	} else if (value.Is_filter_at_sigmoid()) {
+		pNode.reset(new NodeFilter_sigmoid(pFilter->Reference(), pConnector));
+	} else if (value.Is_filter_at_softmax()) {
+		pNode.reset(new NodeFilter_softmax(pFilter->Reference(), pConnector));
+	} else if (value.Is_filter_at_tanh()) {
+		pNode.reset(new NodeFilter_tanh(pFilter->Reference(), pConnector));
+	} else {
+		env.SetError(ERR_ValueError, "unsupported filter type: %s", value.MakeValueTypeName().c_str());
 		return false;
 	}
 	Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
