@@ -22,30 +22,19 @@ bool Trainer::CreateFromExpr(Environment &env, const Expr *pExprSrc, const Symbo
 	return _nodeOwner.CreateFromExpr(env, pExprSrc, _pNodeBottom->GetConnectorSrc(), symbolsInput);
 }
 
-bool Trainer::Eval(Environment &env)
+bool Trainer::EvalForward(Environment &env)
 {
-	if (!_nodeOwner.EvalForward(env)) return false;
-	if (!_pNodeBottom->EvalForward(env)) return false;
-	return true;
+	return _nodeOwner.EvalForward(env) && _pNodeBottom->EvalForward(env);
 }
 
-bool Trainer::Train(Environment &env, const Array *pArrayCorrect)
+bool Trainer::EvalBackward(Environment &env, const Array *pArrayCorrect)
 {
-	if (!_nodeOwner.EvalForward(env)) return false;
-	if (!_pNodeBottom->EvalForward(env)) return false;
-	if (!_pNodeBottom->EvalBackwardTop(env, pArrayCorrect)) return false;
-	if (!_nodeOwner.EvalBackward(env)) return false;
-	return true;
+	return _pNodeBottom->EvalBackwardTop(env, pArrayCorrect) && _nodeOwner.EvalBackward(env);
 }
 
 const Array *Trainer::GetResult() const
 {
 	return _pNodeBottom->GetArrayFwd();
-}
-
-const Array *Trainer::GetResultSoftmax() const
-{
-	return _pNodeBottom->GetArraySoftmax();
 }
 
 void Trainer::Print() const
@@ -167,14 +156,10 @@ bool Trainer::NodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayC
 {
 	_pArrayCorrect.reset(pArrayCorrect->Reference());
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
-		_pArraySoftmax.reset(
-			Filter_Softmax().Apply(
-				env, _pArraySoftmax.get(),
-				_connectorSrc.GetArrayFwd()));
 		_connectorSrc.SetArrayBwd(
 			Array::ApplyBinaryFunc(
 				env, Array::binaryFuncPack_Sub, _connectorSrc.GetArrayBwd(),
-				_pArraySoftmax.get(),
+				_connectorSrc.GetArrayFwd(),
 				pArrayCorrect));
 		if (env.IsSignalled()) return false;
 	}

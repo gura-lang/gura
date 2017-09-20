@@ -90,12 +90,10 @@ public:
 	class NodeBottom : public Node {
 	private:
 		Connector _connectorSrc;
-		AutoPtr<Array> _pArraySoftmax;
 		AutoPtr<Array> _pArrayCorrect;
 	public:
 		inline NodeBottom() : Node(), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
-		inline const Array *GetArraySoftmax() const { return _pArraySoftmax.get(); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
@@ -369,8 +367,8 @@ protected:
 	virtual ~Trainer();
 public:
 	bool CreateFromExpr(Environment &env, const Expr *pExprSrc, const SymbolSet &symbolsInput);
-	bool Eval(Environment &env);
-	bool Train(Environment &env, const Array *pArrayCorrect);
+	bool EvalForward(Environment &env);
+	bool EvalBackward(Environment &env, const Array *pArrayCorrect);
 	const Array *GetResult() const;
 	const Array *GetResultSoftmax() const;
 	inline const NodeOwner &GetNodeOwner() const { return _nodeOwner; }

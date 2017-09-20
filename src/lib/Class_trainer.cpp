@@ -76,8 +76,7 @@ Gura_DeclareProperty_R(trainer, result)
 Gura_ImplementPropertyGetter(trainer, result)
 {
 	Trainer *pTrainer = Object_trainer::GetObject(valueThis)->GetTrainer();
-	//const Array *pArray = pTrainer->GetResult();
-	const Array *pArray = pTrainer->GetResultSoftmax();
+	const Array *pArray = pTrainer->GetResult();
 	return (pArray == nullptr)? Value::Nil : Array::ToValue(env, pArray->Reference());
 }
 
@@ -118,7 +117,7 @@ Gura_ImplementMethod(trainer, eval)
 		arg.Is_environment(0)?
 		Object_environment::GetObject(arg, 0)->GetEnv().Reference() :
 		env.Derive(ENVTYPE_block));
-	if (!pTrainer->Eval(*pEnv)) return Value::Nil;
+	if (!pTrainer->EvalForward(*pEnv)) return Value::Nil;
 	return ReturnValue(env, arg, Array::ToValue(env, pTrainer->GetResult()->Reference()));
 }
 
@@ -137,7 +136,8 @@ Gura_ImplementMethod(trainer, train)
 {
 	Trainer *pTrainer = Object_trainer::GetObjectThis(arg)->GetTrainer();
 	const Array *pArrayCorrect = Object_array::GetObject(arg, 0)->GetArray();
-	if (!pTrainer->Train(env, pArrayCorrect)) return Value::Nil;
+	if (!pTrainer->EvalForward(env)) return Value::Nil;
+	if (!pTrainer->EvalBackward(env, pArrayCorrect)) return Value::Nil;
 	return Value::Nil;
 }
 
