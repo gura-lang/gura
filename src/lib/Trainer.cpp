@@ -403,11 +403,6 @@ bool Trainer::NodeBinary_Dot::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeFilter
 //-----------------------------------------------------------------------------
-bool Trainer::NodeFilter::IsVulnerable() const
-{
-	return false;
-}
-
 bool Trainer::NodeFilter::EvalForward(Environment &env)
 {
 	_pArrayFwd.reset(
@@ -435,6 +430,11 @@ void Trainer::NodeFilter::Print(int indentLevel) const
 //-----------------------------------------------------------------------------
 // Trainer::NodeFilter_conv1d
 //-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_conv1d::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
 bool Trainer::NodeFilter_conv1d::EvalBackward(Environment &env)
 {
 	return false;
@@ -443,6 +443,11 @@ bool Trainer::NodeFilter_conv1d::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeFilter_conv2d
 //-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_conv2d::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
 bool Trainer::NodeFilter_conv2d::EvalBackward(Environment &env)
 {
 	return false;
@@ -451,6 +456,11 @@ bool Trainer::NodeFilter_conv2d::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeFilter_conv3d
 //-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_conv3d::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
 bool Trainer::NodeFilter_conv3d::EvalBackward(Environment &env)
 {
 	return false;
@@ -459,6 +469,11 @@ bool Trainer::NodeFilter_conv3d::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeFilter_maxpool1d
 //-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_maxpool1d::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
 bool Trainer::NodeFilter_maxpool1d::EvalBackward(Environment &env)
 {
 	return false;
@@ -467,6 +482,11 @@ bool Trainer::NodeFilter_maxpool1d::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeFilter_maxpool2d
 //-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_maxpool2d::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
 bool Trainer::NodeFilter_maxpool2d::EvalBackward(Environment &env)
 {
 	return false;
@@ -475,6 +495,11 @@ bool Trainer::NodeFilter_maxpool2d::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeFilter_maxpool3d
 //-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_maxpool3d::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
 bool Trainer::NodeFilter_maxpool3d::EvalBackward(Environment &env)
 {
 	return false;
@@ -483,6 +508,11 @@ bool Trainer::NodeFilter_maxpool3d::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeFilter_relu
 //-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_relu::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
 bool Trainer::NodeFilter_relu::EvalBackward(Environment &env)
 {
 	return false;
@@ -491,6 +521,11 @@ bool Trainer::NodeFilter_relu::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeFilter_sigmoid
 //-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_sigmoid::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
 bool Trainer::NodeFilter_sigmoid::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
@@ -521,6 +556,11 @@ bool Trainer::NodeFilter_sigmoid::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeFilter_softmax
 //-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_softmax::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
 bool Trainer::NodeFilter_softmax::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
@@ -531,6 +571,11 @@ bool Trainer::NodeFilter_softmax::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeFilter_tanh
 //-----------------------------------------------------------------------------
+bool Trainer::NodeFilter_tanh::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
 bool Trainer::NodeFilter_tanh::EvalBackward(Environment &env)
 {
 	return false;
@@ -552,7 +597,6 @@ bool Trainer::NodeList::EvalBackward(Environment &env)
 {
 	foreach (NodeList, ppNode, *this) {
 		Node *pNode = *ppNode;
-		::printf("%s\n", pNode->ToString().c_str());
 		if (!pNode->EvalBackward(env)) return false;
 	}
 	return true;

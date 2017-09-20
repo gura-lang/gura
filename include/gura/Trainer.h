@@ -134,7 +134,7 @@ public:
 	class NodeUnary_Neg : public NodeUnary {
 	public:
 		inline NodeUnary_Neg(Connector *pConnectorDst) :
-				NodeUnary(Array::unaryFuncPack_Pos, pConnectorDst) {}
+				NodeUnary(Array::unaryFuncPack_Neg, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -224,7 +224,6 @@ public:
 		inline NodeFilter(Filter *pFilter, Connector *pConnectorDst) :
 				Node(pConnectorDst), _pFilter(pFilter), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
-		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual String ToString() const;
 		virtual void Print(int indentLevel) const;
@@ -236,6 +235,7 @@ public:
 	public:
 		inline NodeFilter_conv1d(Filter *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool IsVulnerable() const;
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -245,6 +245,7 @@ public:
 	public:
 		inline NodeFilter_conv2d(Filter *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool IsVulnerable() const;
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -254,6 +255,7 @@ public:
 	public:
 		inline NodeFilter_conv3d(Filter *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool IsVulnerable() const;
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -263,6 +265,7 @@ public:
 	public:
 		inline NodeFilter_maxpool1d(Filter *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool IsVulnerable() const;
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -272,6 +275,7 @@ public:
 	public:
 		inline NodeFilter_maxpool2d(Filter *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool IsVulnerable() const;
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -281,6 +285,7 @@ public:
 	public:
 		inline NodeFilter_maxpool3d(Filter *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool IsVulnerable() const;
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -290,6 +295,7 @@ public:
 	public:
 		inline NodeFilter_relu(Filter *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool IsVulnerable() const;
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -301,6 +307,7 @@ public:
 	public:
 		inline NodeFilter_sigmoid(Filter *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool IsVulnerable() const;
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -310,6 +317,7 @@ public:
 	public:
 		inline NodeFilter_softmax(Filter *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool IsVulnerable() const;
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -319,6 +327,7 @@ public:
 	public:
 		inline NodeFilter_tanh(Filter *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		virtual bool IsVulnerable() const;
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
