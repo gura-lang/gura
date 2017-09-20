@@ -22,8 +22,8 @@ if (true) {
 
 scope {
 	nTraining = 100
-	arrImage = db.train.imageSet.ToArray(`flat)
-	arrLabel = db.train.labelSet.ToArray()
+	arrImage = db.train.imageSet.toarray(`flat).elemcast(`float)
+	arrLabel = db.train.labelSet.toarray().elemcast(`float)
 	trainer(model, `x) {|tr|
 		repeat (nTraining) {|iRepeat|
 			repeat (1000) {|i|
@@ -38,8 +38,8 @@ scope {
 scope {
 	// evaluation
 	nTests = 1000
-	arrImage = db.test.imageSet.ToArray(`flat)
-	arrLabel = db.test.labelSet.ToArray()
+	arrImage = db.test.imageSet.toarray(`flat).elemcast(`float)
+	arrLabel = db.test.labelSet.toarray().elemcast(`float)
 	nCorrects = 0
 	repeat (nTests) {|i|
 		x = arrImage[i]
@@ -49,7 +49,7 @@ scope {
 			printf(' "%d" .. correct with likelihood %.1f%%\n', y.argmax(), y[y.argmax()] * 100)
 			nCorrects += 1
 		} else {
-			print(ml.mnist.ToAscii(x))
+			print(ml.mnist.toascii(x))
 			printf(' "%d" .. wrong. correct is "%d"\n', y.argmax(), t.argmax())
 		}
 		println('-' * 70)
