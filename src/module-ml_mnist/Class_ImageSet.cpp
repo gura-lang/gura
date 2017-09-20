@@ -84,8 +84,8 @@ String Object_ImageSet::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-// ml.mnist.ImageSet#nImages
-Gura_DeclareProperty_R(ImageSet, nImages)
+// ml.mnist.ImageSet#nimages
+Gura_DeclareProperty_R(ImageSet, nimages)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -94,14 +94,14 @@ Gura_DeclareProperty_R(ImageSet, nImages)
 		);
 }
 
-Gura_ImplementPropertyGetter(ImageSet, nImages)
+Gura_ImplementPropertyGetter(ImageSet, nimages)
 {
 	ImageSet &imageSet = Object_ImageSet::GetObject(valueThis)->GetImageSet();
 	return Value(imageSet.GetNumImages());
 }
 
-// ml.mnist.ImageSet#nRows
-Gura_DeclareProperty_R(ImageSet, nRows)
+// ml.mnist.ImageSet#nrows
+Gura_DeclareProperty_R(ImageSet, nrows)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -110,14 +110,14 @@ Gura_DeclareProperty_R(ImageSet, nRows)
 		);
 }
 
-Gura_ImplementPropertyGetter(ImageSet, nRows)
+Gura_ImplementPropertyGetter(ImageSet, nrows)
 {
 	ImageSet &imageSet = Object_ImageSet::GetObject(valueThis)->GetImageSet();
 	return Value(imageSet.GetNumRows());
 }
 
-// ml.mnist.ImageSet#nCols
-Gura_DeclareProperty_R(ImageSet, nCols)
+// ml.mnist.ImageSet#ncols
+Gura_DeclareProperty_R(ImageSet, ncols)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -126,7 +126,7 @@ Gura_DeclareProperty_R(ImageSet, nCols)
 		);
 }
 
-Gura_ImplementPropertyGetter(ImageSet, nCols)
+Gura_ImplementPropertyGetter(ImageSet, ncols)
 {
 	ImageSet &imageSet = Object_ImageSet::GetObject(valueThis)->GetImageSet();
 	return Value(imageSet.GetNumColumns());
@@ -161,8 +161,8 @@ Gura_ImplementFunction(ImageSet)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.mnist.ImageSet#ToArray(format?:symbol, rawdata?:boolean) {block?}
-Gura_DeclareMethod(ImageSet, ToArray)
+// ml.mnist.ImageSet#toarray(format?:symbol, rawdata?:boolean) {block?}
+Gura_DeclareMethod(ImageSet, toarray)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
@@ -173,7 +173,7 @@ Gura_DeclareMethod(ImageSet, ToArray)
 		"");
 }
 
-Gura_ImplementMethod(ImageSet, ToArray)
+Gura_ImplementMethod(ImageSet, toarray)
 {
 	ImageSet &imageSet = Object_ImageSet::GetObjectThis(arg)->GetImageSet();
 	bool flattenFlag = false;
@@ -199,13 +199,13 @@ Gura_ImplementMethod(ImageSet, ToArray)
 Gura_ImplementUserClass(ImageSet)
 {
 	// Assignment of properties
-	Gura_AssignProperty(ImageSet, nImages);
-	Gura_AssignProperty(ImageSet, nRows);
-	Gura_AssignProperty(ImageSet, nCols);
+	Gura_AssignProperty(ImageSet, nimages);
+	Gura_AssignProperty(ImageSet, nrows);
+	Gura_AssignProperty(ImageSet, ncols);
 	// Assignment of function
 	Gura_AssignFunction(ImageSet);
 	// Assignment of method
-	Gura_AssignMethod(ImageSet, ToArray);
+	Gura_AssignMethod(ImageSet, toarray);
 }
 
 Gura_EndModuleScope(ml_mnist)

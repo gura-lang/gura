@@ -3,21 +3,21 @@ import(helper.test) {*}
 import(ml.mnist)
 import(arrayt)
 
-db = ml.mnist.Database('sample')
+db = ml.mnist.Database('../../sample/resource/mnist')
 
 testcase('properties in ImageSet and LabelSet') {
-	printf('Test .. nImages:%d, nRows:%d, nCols:%d, nLabels:%d\n',
-		   db.test.imageSet.nImages, db.test.imageSet.nRows, db.test.imageSet.nCols,
-		   db.test.labelSet.nLabels)
-	printf('Train .. nImages:%d, nRows:%d, nCols:%d, nLabels:%d\n',
-		   db.train.imageSet.nImages, db.train.imageSet.nRows, db.train.imageSet.nCols,
-		   db.train.labelSet.nLabels)
+	printf('Test .. nimages:%d, nrows:%d, ncols:%d, nlabels:%d\n',
+		   db.test.imageSet.nimages, db.test.imageSet.nrows, db.test.imageSet.ncols,
+		   db.test.labelSet.nlabels)
+	printf('Train .. nimages:%d, nrows:%d, ncols:%d, nlabels:%d\n',
+		   db.train.imageSet.nimages, db.train.imageSet.nrows, db.train.imageSet.ncols,
+		   db.train.labelSet.nlabels)
 }
-testcase('ToArray()') {
-	arrImage = db.test.imageSet.ToArray(`flat)
-	arrLabel = db.test.labelSet.ToArray()
+testcase('toarray()') {
+	arrImage = db.test.imageSet.toarray(`flat)
+	arrLabel = db.test.labelSet.toarray()
 	repeat (5) {|i|
-		println(ml.mnist.ToAscii(arrImage[i]))
+		println(ml.mnist.toascii(arrImage[i]))
 		println(arrLabel[i])
 	}
 }

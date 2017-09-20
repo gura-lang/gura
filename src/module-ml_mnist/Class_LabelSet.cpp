@@ -77,8 +77,8 @@ String Object_LabelSet::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-// ml.mnist.LabelSet#nLabels
-Gura_DeclareProperty_R(LabelSet, nLabels)
+// ml.mnist.LabelSet#nlabels
+Gura_DeclareProperty_R(LabelSet, nlabels)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -87,7 +87,7 @@ Gura_DeclareProperty_R(LabelSet, nLabels)
 		);
 }
 
-Gura_ImplementPropertyGetter(LabelSet, nLabels)
+Gura_ImplementPropertyGetter(LabelSet, nlabels)
 {
 	LabelSet &labelSet = Object_LabelSet::GetObject(valueThis)->GetLabelSet();
 	return Value(labelSet.GetNumLabels());
@@ -122,8 +122,8 @@ Gura_ImplementFunction(LabelSet)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.mnist.LabelSet#ToArray(rawdata?:boolean) {block?}
-Gura_DeclareMethod(LabelSet, ToArray)
+// ml.mnist.LabelSet#toarray(rawdata?:boolean) {block?}
+Gura_DeclareMethod(LabelSet, toarray)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "rawdata", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -133,7 +133,7 @@ Gura_DeclareMethod(LabelSet, ToArray)
 		"");
 }
 
-Gura_ImplementMethod(LabelSet, ToArray)
+Gura_ImplementMethod(LabelSet, toarray)
 {
 	LabelSet &labelSet = Object_LabelSet::GetObjectThis(arg)->GetLabelSet();
 	bool rawDataFlag = arg.IsValid(0) && arg.GetBoolean(0);
@@ -149,11 +149,11 @@ Gura_ImplementMethod(LabelSet, ToArray)
 Gura_ImplementUserClass(LabelSet)
 {
 	// Assignment of properties
-	Gura_AssignProperty(LabelSet, nLabels);
+	Gura_AssignProperty(LabelSet, nlabels);
 	// Assignment of function
 	Gura_AssignFunction(LabelSet);
 	// Assignment of method
-	Gura_AssignMethod(LabelSet, ToArray);
+	Gura_AssignMethod(LabelSet, toarray);
 }
 
 Gura_EndModuleScope(ml_mnist)

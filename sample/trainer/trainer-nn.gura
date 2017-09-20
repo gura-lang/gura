@@ -9,11 +9,11 @@ CalcCrossEntropyError(y:array, t:array) = -(t * math.log(y + 1e-7)).sum()
 db = ml.mnist.Database('../../sample/resource/mnist')
 
 if (true) {
-	model = `(x |.| weight + bias)
+	model = `((x |.| weight + bias) |*| filter@softmax())
 	weight = array@float.rands@normal([784, 10], 0, .1)
 	bias = array@float.rands@normal([1, 10], 0, .1)
 } else {
-	model = `((x |.| weight1 + bias1) |*| filter@sigmoid() |.| weight2 + bias2)
+	model = `(((x |.| weight1 + bias1) |*| filter@sigmoid() |.| weight2 + bias2) |*| filter@softmax())
 	weight1 = array@float.rands@normal([784, 100], 0, .1)
 	weight2 = array@float.rands@normal([100, 10], 0, .1)
 	bias1 = array@float.rands@normal([1, 100], 0, .1)

@@ -18,7 +18,7 @@ Database = class {
 	'''}
 }
 
-ToAscii(array:array) = {
+toascii(array:array) = {
 	lst = array.tolist()
 	lst.fold(28):iter {|row|
 		choose(row * 4, ' ', '.', ':', '*', '*').join() + '|'
