@@ -60,17 +60,17 @@ Array *ImageSet::ToArray(bool flattenFlag, bool rawDataFlag) const
 }
 
 //-----------------------------------------------------------------------------
-// Object_ImageSet implementation
+// Object_imageset implementation
 //-----------------------------------------------------------------------------
-Object_ImageSet::Object_ImageSet(ImageSet *pImageSet) :
-					Object(Gura_UserClass(ImageSet)), _pImageSet(pImageSet)
+Object_imageset::Object_imageset(ImageSet *pImageSet) :
+					Object(Gura_UserClass(imageset)), _pImageSet(pImageSet)
 {
 }
 
-String Object_ImageSet::ToString(bool exprFlag)
+String Object_imageset::ToString(bool exprFlag)
 {
 	char buff[80];
-	String str = "<mnist.ImageSet";
+	String str = "<mnist.imageset";
 	::sprintf(buff, ":images=%zu", _pImageSet->GetNumImages());
 	str += buff;
 	::sprintf(buff, ":rows=%zu", _pImageSet->GetNumRows());
@@ -84,8 +84,8 @@ String Object_ImageSet::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-// ml.mnist.ImageSet#nimages
-Gura_DeclareProperty_R(ImageSet, nimages)
+// ml.mnist.imageset#nimages
+Gura_DeclareProperty_R(imageset, nimages)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -94,14 +94,14 @@ Gura_DeclareProperty_R(ImageSet, nimages)
 		);
 }
 
-Gura_ImplementPropertyGetter(ImageSet, nimages)
+Gura_ImplementPropertyGetter(imageset, nimages)
 {
-	ImageSet &imageSet = Object_ImageSet::GetObject(valueThis)->GetImageSet();
+	ImageSet &imageSet = Object_imageset::GetObject(valueThis)->GetImageSet();
 	return Value(imageSet.GetNumImages());
 }
 
-// ml.mnist.ImageSet#nrows
-Gura_DeclareProperty_R(ImageSet, nrows)
+// ml.mnist.imageset#nrows
+Gura_DeclareProperty_R(imageset, nrows)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -110,14 +110,14 @@ Gura_DeclareProperty_R(ImageSet, nrows)
 		);
 }
 
-Gura_ImplementPropertyGetter(ImageSet, nrows)
+Gura_ImplementPropertyGetter(imageset, nrows)
 {
-	ImageSet &imageSet = Object_ImageSet::GetObject(valueThis)->GetImageSet();
+	ImageSet &imageSet = Object_imageset::GetObject(valueThis)->GetImageSet();
 	return Value(imageSet.GetNumRows());
 }
 
-// ml.mnist.ImageSet#ncols
-Gura_DeclareProperty_R(ImageSet, ncols)
+// ml.mnist.imageset#ncols
+Gura_DeclareProperty_R(imageset, ncols)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -126,43 +126,43 @@ Gura_DeclareProperty_R(ImageSet, ncols)
 		);
 }
 
-Gura_ImplementPropertyGetter(ImageSet, ncols)
+Gura_ImplementPropertyGetter(imageset, ncols)
 {
-	ImageSet &imageSet = Object_ImageSet::GetObject(valueThis)->GetImageSet();
+	ImageSet &imageSet = Object_imageset::GetObject(valueThis)->GetImageSet();
 	return Value(imageSet.GetNumColumns());
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
-// ml.mnist.ImageSet(stream:stream):map {block?}
-Gura_DeclareFunction(ImageSet)
+// ml.mnist.imageset(stream:stream):map {block?}
+Gura_DeclareFunction(imageset)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(Gura_UserClass(ImageSet));
+	SetClassToConstruct(Gura_UserClass(imageset));
 	AddHelp(
 		Gura_Symbol(en),
 		"Reads MNIST image set file from the specified `stream`\n"
-		"and returns a `ml.mnist.ImageSet` instance.\n"
+		"and returns a `ml.mnist.imageset` instance.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("stream", "stream"));
 }
 
-Gura_ImplementFunction(ImageSet)
+Gura_ImplementFunction(imageset)
 {
 	std::unique_ptr<ImageSet> pImageSet(new ImageSet());
 	if (!pImageSet->Read(env, arg.GetStream(0))) return Value::Nil;
-	Object_ImageSet *pObj = new Object_ImageSet(pImageSet.release());
+	Object_imageset *pObj = new Object_imageset(pImageSet.release());
 	return ReturnValue(env, arg, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.mnist.ImageSet#toarray(format?:symbol, rawdata?:boolean) {block?}
-Gura_DeclareMethod(ImageSet, toarray)
+// ml.mnist.imageset#toarray(format?:symbol, rawdata?:boolean) {block?}
+Gura_DeclareMethod(imageset, toarray)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
@@ -173,9 +173,9 @@ Gura_DeclareMethod(ImageSet, toarray)
 		"");
 }
 
-Gura_ImplementMethod(ImageSet, toarray)
+Gura_ImplementMethod(imageset, toarray)
 {
-	ImageSet &imageSet = Object_ImageSet::GetObjectThis(arg)->GetImageSet();
+	ImageSet &imageSet = Object_imageset::GetObjectThis(arg)->GetImageSet();
 	bool flattenFlag = false;
 	if (arg.IsValid(0)) {
 		const Symbol *pSymbol = arg.GetSymbol(0);
@@ -194,18 +194,18 @@ Gura_ImplementMethod(ImageSet, toarray)
 }
 
 //-----------------------------------------------------------------------------
-// Implementation of class ml.mnist.ImageSet
+// Implementation of class ml.mnist.imageset
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(ImageSet)
+Gura_ImplementUserClass(imageset)
 {
 	// Assignment of properties
-	Gura_AssignProperty(ImageSet, nimages);
-	Gura_AssignProperty(ImageSet, nrows);
-	Gura_AssignProperty(ImageSet, ncols);
+	Gura_AssignProperty(imageset, nimages);
+	Gura_AssignProperty(imageset, nrows);
+	Gura_AssignProperty(imageset, ncols);
 	// Assignment of function
-	Gura_AssignFunction(ImageSet);
+	Gura_AssignFunction(imageset);
 	// Assignment of method
-	Gura_AssignMethod(ImageSet, toarray);
+	Gura_AssignMethod(imageset, toarray);
 }
 
 Gura_EndModuleScope(ml_mnist)

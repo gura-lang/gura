@@ -24,17 +24,17 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Object_LabelSet declaration
+// Object_labelset declaration
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(LabelSet);
+Gura_DeclareUserClass(labelset);
 
-class Object_LabelSet : public Object {
+class Object_labelset : public Object {
 private:
 	std::unique_ptr<LabelSet> _pLabelSet;
 public:
-	Gura_DeclareObjectAccessor(LabelSet)
+	Gura_DeclareObjectAccessor(labelset)
 public:
-	Object_LabelSet(LabelSet *pLabelSet);
+	Object_labelset(LabelSet *pLabelSet);
 	virtual String ToString(bool exprFlag);
 	inline LabelSet &GetLabelSet() { return *_pLabelSet; }
 };

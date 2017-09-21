@@ -57,17 +57,17 @@ Array *LabelSet::ToArray(Signal &sig, bool rawDataFlag) const
 }
 
 //-----------------------------------------------------------------------------
-// Object_LabelSet implementation
+// Object_labelset implementation
 //-----------------------------------------------------------------------------
-Object_LabelSet::Object_LabelSet(LabelSet *pLabelSet) :
-					Object(Gura_UserClass(LabelSet)), _pLabelSet(pLabelSet)
+Object_labelset::Object_labelset(LabelSet *pLabelSet) :
+					Object(Gura_UserClass(labelset)), _pLabelSet(pLabelSet)
 {
 }
 
-String Object_LabelSet::ToString(bool exprFlag)
+String Object_labelset::ToString(bool exprFlag)
 {
 	char buff[80];
-	String str = "<mnist.LabelSet";
+	String str = "<mnist.labelset";
 	::sprintf(buff, "labels=%zu", _pLabelSet->GetNumLabels());
 	str += buff;
 	str += ">";
@@ -77,8 +77,8 @@ String Object_LabelSet::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-// ml.mnist.LabelSet#nlabels
-Gura_DeclareProperty_R(LabelSet, nlabels)
+// ml.mnist.labelset#nlabels
+Gura_DeclareProperty_R(labelset, nlabels)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -87,43 +87,43 @@ Gura_DeclareProperty_R(LabelSet, nlabels)
 		);
 }
 
-Gura_ImplementPropertyGetter(LabelSet, nlabels)
+Gura_ImplementPropertyGetter(labelset, nlabels)
 {
-	LabelSet &labelSet = Object_LabelSet::GetObject(valueThis)->GetLabelSet();
+	LabelSet &labelSet = Object_labelset::GetObject(valueThis)->GetLabelSet();
 	return Value(labelSet.GetNumLabels());
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
-// ml.mnist.LabelSet(stream:stream):map {block?}
-Gura_DeclareFunction(LabelSet)
+// ml.mnist.labelset(stream:stream):map {block?}
+Gura_DeclareFunction(labelset)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(Gura_UserClass(LabelSet));
+	SetClassToConstruct(Gura_UserClass(labelset));
 	AddHelp(
 		Gura_Symbol(en),
 		"Reads MNIST label set file from the specified `stream`\n"
-		"and returns a `ml.mnist.LabelSet` instance.\n"
+		"and returns a `ml.mnist.labelset` instance.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("stream", "stream"));
 }
 
-Gura_ImplementFunction(LabelSet)
+Gura_ImplementFunction(labelset)
 {
 	std::unique_ptr<LabelSet> pLabelSet(new LabelSet());
 	if (!pLabelSet->Read(env, arg.GetStream(0))) return Value::Nil;
-	Object_LabelSet *pObj = new Object_LabelSet(pLabelSet.release());
+	Object_labelset *pObj = new Object_labelset(pLabelSet.release());
 	return ReturnValue(env, arg, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.mnist.LabelSet#toarray(rawdata?:boolean) {block?}
-Gura_DeclareMethod(LabelSet, toarray)
+// ml.mnist.labelset#toarray(rawdata?:boolean) {block?}
+Gura_DeclareMethod(labelset, toarray)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "rawdata", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -133,9 +133,9 @@ Gura_DeclareMethod(LabelSet, toarray)
 		"");
 }
 
-Gura_ImplementMethod(LabelSet, toarray)
+Gura_ImplementMethod(labelset, toarray)
 {
-	LabelSet &labelSet = Object_LabelSet::GetObjectThis(arg)->GetLabelSet();
+	LabelSet &labelSet = Object_labelset::GetObjectThis(arg)->GetLabelSet();
 	bool rawDataFlag = arg.IsValid(0) && arg.GetBoolean(0);
 	AutoPtr<Array> pArray(labelSet.ToArray(env, rawDataFlag));
 	if (pArray.IsNull()) return Value::Nil;
@@ -144,16 +144,16 @@ Gura_ImplementMethod(LabelSet, toarray)
 }
 
 //-----------------------------------------------------------------------------
-// Implementation of class ml.mnist.LabelSet
+// Implementation of class ml.mnist.labelset
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(LabelSet)
+Gura_ImplementUserClass(labelset)
 {
 	// Assignment of properties
-	Gura_AssignProperty(LabelSet, nlabels);
+	Gura_AssignProperty(labelset, nlabels);
 	// Assignment of function
-	Gura_AssignFunction(LabelSet);
+	Gura_AssignFunction(labelset);
 	// Assignment of method
-	Gura_AssignMethod(LabelSet, toarray);
+	Gura_AssignMethod(labelset, toarray);
 }
 
 Gura_EndModuleScope(ml_mnist)

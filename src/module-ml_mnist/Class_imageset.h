@@ -30,17 +30,17 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Object_ImageSet declaration
+// Object_imageset declaration
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(ImageSet);
+Gura_DeclareUserClass(imageset);
 
-class Object_ImageSet : public Object {
+class Object_imageset : public Object {
 private:
 	std::unique_ptr<ImageSet> _pImageSet;
 public:
-	Gura_DeclareObjectAccessor(ImageSet)
+	Gura_DeclareObjectAccessor(imageset)
 public:
-	Object_ImageSet(ImageSet *pImageSet);
+	Object_imageset(ImageSet *pImageSet);
 	virtual String ToString(bool exprFlag);
 	inline ImageSet &GetImageSet() { return *_pImageSet; }
 };

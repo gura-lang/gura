@@ -44,11 +44,11 @@ Gura_ModuleValidate()
 Gura_ModuleEntry()
 {
 	// Realization of class
-	Gura_RealizeUserClass(ImageSet, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(LabelSet, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(imageset, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(labelset, env.LookupClass(VTYPE_object));
 	// Preparation of class
-	Gura_PrepareUserClass(ImageSet);
-	Gura_PrepareUserClass(LabelSet);
+	Gura_PrepareUserClass(imageset);
+	Gura_PrepareUserClass(labelset);
 	// Assignment of function
 	Gura_AssignFunction(test);
 	return true;

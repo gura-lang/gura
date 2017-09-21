@@ -2,19 +2,19 @@
 import(gzip)
 import(ml.mnist):binary:mixin_type {*}
 
-Pack = struct(imageSet:ImageSet, labelSet:LabelSet)
+dbpair = struct(imageset:imageset, labelset:labelset)
 
-Database = class {
+database = class {
 	public { test, train }
-	__init__(dirName:string) = {
-		this.test = Pack(
-				ImageSet(gzip.reader(path.join(dirName, 't10k-images-idx3-ubyte.gz')))
-				LabelSet(gzip.reader(path.join(dirName, 't10k-labels-idx1-ubyte.gz'))))
-		this.train = Pack(
-				ImageSet(gzip.reader(path.join(dirName, 'train-images-idx3-ubyte.gz')))
-				LabelSet(gzip.reader(path.join(dirName, 'train-labels-idx1-ubyte.gz'))))
+	__init__(dirname:string) = {
+		this.test = dbpair(
+				imageset(gzip.reader(path.join(dirname, 't10k-images-idx3-ubyte.gz')))
+				labelset(gzip.reader(path.join(dirname, 't10k-labels-idx1-ubyte.gz'))))
+		this.train = dbpair(
+				imageset(gzip.reader(path.join(dirname, 'train-images-idx3-ubyte.gz')))
+				labelset(gzip.reader(path.join(dirname, 'train-labels-idx1-ubyte.gz'))))
 	} %% {`en, R'''
-	Reads MNIST database files in a directory specified by `dirName` and returns a `ml.mnist.Database` instance.
+	Reads MNIST database files in a directory specified by `dirname` and returns a `ml.mnist.database` instance.
 	'''}
 }
 
