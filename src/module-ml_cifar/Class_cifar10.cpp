@@ -3,27 +3,21 @@
 Gura_BeginModuleScope(ml_cifar)
 
 //-----------------------------------------------------------------------------
-// ImageSet
+// Cifar10
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// Object_ImageSet implementation
+// Object_cifar10 implementation
 //-----------------------------------------------------------------------------
-Object_ImageSet::Object_ImageSet(ImageSet *pImageSet) :
-					Object(Gura_UserClass(ImageSet)), _pImageSet(pImageSet)
+Object_cifar10::Object_cifar10(Cifar10 *pCifar10) :
+					Object(Gura_UserClass(cifar10)), _pCifar10(pCifar10)
 {
 }
 
-String Object_ImageSet::ToString(bool exprFlag)
+String Object_cifar10::ToString(bool exprFlag)
 {
 	char buff[80];
-	String str = "<mnist.ImageSet";
-	::sprintf(buff, ":images=%zu", _pImageSet->GetNumImages());
-	str += buff;
-	::sprintf(buff, ":rows=%zu", _pImageSet->GetNumRows());
-	str += buff;
-	::sprintf(buff, ":columns=%zu", _pImageSet->GetNumColumns());
-	str += buff;
+	String str = "<cifar.cifar10";
 	str += ">";
 	return str;
 }
@@ -31,128 +25,47 @@ String Object_ImageSet::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-// ml.mnist.ImageSet#nimages
-Gura_DeclareProperty_R(ImageSet, nimages)
-{
-	SetPropAttr(VTYPE_number);
-	AddHelp(
-		Gura_Symbol(en),
-		""
-		);
-}
-
-Gura_ImplementPropertyGetter(ImageSet, nimages)
-{
-	ImageSet &imageSet = Object_ImageSet::GetObject(valueThis)->GetImageSet();
-	return Value(imageSet.GetNumImages());
-}
-
-// ml.mnist.ImageSet#nrows
-Gura_DeclareProperty_R(ImageSet, nrows)
-{
-	SetPropAttr(VTYPE_number);
-	AddHelp(
-		Gura_Symbol(en),
-		""
-		);
-}
-
-Gura_ImplementPropertyGetter(ImageSet, nrows)
-{
-	ImageSet &imageSet = Object_ImageSet::GetObject(valueThis)->GetImageSet();
-	return Value(imageSet.GetNumRows());
-}
-
-// ml.mnist.ImageSet#ncols
-Gura_DeclareProperty_R(ImageSet, ncols)
-{
-	SetPropAttr(VTYPE_number);
-	AddHelp(
-		Gura_Symbol(en),
-		""
-		);
-}
-
-Gura_ImplementPropertyGetter(ImageSet, ncols)
-{
-	ImageSet &imageSet = Object_ImageSet::GetObject(valueThis)->GetImageSet();
-	return Value(imageSet.GetNumColumns());
-}
 
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
-// ml.mnist.ImageSet(stream:stream):map {block?}
-Gura_DeclareFunction(ImageSet)
+// ml.cifar.cifar10(stream:stream):map {block?}
+Gura_DeclareFunction(cifar10)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(Gura_UserClass(ImageSet));
+	SetClassToConstruct(Gura_UserClass(cifar10));
 	AddHelp(
 		Gura_Symbol(en),
-		"Reads MNIST image set file from the specified `stream`\n"
-		"and returns a `ml.mnist.ImageSet` instance.\n"
+		"Reads CIFAR image set file from the specified `stream`\n"
+		"and returns a `ml.cifar.cifar10` instance.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("stream", "stream"));
 }
 
-Gura_ImplementFunction(ImageSet)
+Gura_ImplementFunction(cifar10)
 {
-	std::unique_ptr<ImageSet> pImageSet(new ImageSet());
-	if (!pImageSet->Read(env, arg.GetStream(0))) return Value::Nil;
-	Object_ImageSet *pObj = new Object_ImageSet(pImageSet.release());
+#if 0
+	Object_cifar10 *pObj = new Object_cifar10(pImageSet.release());
 	return ReturnValue(env, arg, Value(pObj));
+#endif
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.mnist.ImageSet#toarray(format?:symbol, rawdata?:boolean) {block?}
-Gura_DeclareMethod(ImageSet, toarray)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "rawdata", VTYPE_boolean, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"");
-}
-
-Gura_ImplementMethod(ImageSet, toarray)
-{
-	ImageSet &imageSet = Object_ImageSet::GetObjectThis(arg)->GetImageSet();
-	bool flattenFlag = false;
-	if (arg.IsValid(0)) {
-		const Symbol *pSymbol = arg.GetSymbol(0);
-		if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
-			flattenFlag = true;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(matrix))) {
-			flattenFlag = false;
-		} else {
-			env.SetError(ERR_ValueError, "argument format takes `` `flat` or `` `matrix``");
-			return Value::Nil;
-		}
-	}
-	bool rawDataFlag = false;
-	AutoPtr<Object_array> pObj(new Object_array(env, imageSet.ToArray(flattenFlag, rawDataFlag)));
-	return ReturnValue(env, arg, Value(pObj.release()));
-}
 
 //-----------------------------------------------------------------------------
-// Implementation of class ml.mnist.ImageSet
+// Implementation of class ml.cifar.cifar10
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(ImageSet)
+Gura_ImplementUserClass(cifar10)
 {
 	// Assignment of properties
-	Gura_AssignProperty(ImageSet, nimages);
-	Gura_AssignProperty(ImageSet, nrows);
-	Gura_AssignProperty(ImageSet, ncols);
 	// Assignment of function
-	Gura_AssignFunction(ImageSet);
+	Gura_AssignFunction(cifar10);
 	// Assignment of method
-	Gura_AssignMethod(ImageSet, toarray);
 }
 
 Gura_EndModuleScope(ml_cifar)

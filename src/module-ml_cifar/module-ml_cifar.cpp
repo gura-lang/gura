@@ -35,6 +35,10 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	// Realization of class
+	Gura_RealizeUserClass(cifar10, env.LookupClass(VTYPE_object));
+	// Preparation of class
+	Gura_PrepareUserClass(cifar10);
 	// Assignment of function
 	Gura_AssignFunction(test);
 	return true;

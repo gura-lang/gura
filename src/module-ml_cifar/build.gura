@@ -2,4 +2,4 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.build('ml.cifar', ['module-ml_cifar.cpp'])
+builder.build('ml.cifar', ['module-ml_cifar.cpp', 'Class_cifar10.cpp'])
