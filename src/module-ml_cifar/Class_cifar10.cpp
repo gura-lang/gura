@@ -206,6 +206,7 @@ Gura_ImplementUserClass(cifar10)
 	// Assignment of function
 	Gura_AssignFunction(cifar10);
 	// Assignment of method
+	Gura_AssignMethod(cifar10, toarray);
 }
 
 Gura_EndModuleScope(ml_cifar)
