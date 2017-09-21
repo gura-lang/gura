@@ -3,11 +3,17 @@ import(tar)
 import(ml.cifar):binary:mixin_type {*}
 
 if (__name__ == '__main__') {
-	reader = tar.reader('sample/cifar-10-binary.tar.gz')
-	println(reader.entries():*stat:*filename)
-	open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_1.bin').read()
-	open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_2.bin').read()
-	open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_3.bin').read()
-	open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_4.bin').read()
-	open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_5.bin').read()
+	// 10000 * (32 * 32 * 3 + 1) = 30730000
+	pathNameArc = 'sample/cifar-10-binary.tar.gz'
+	reader = tar.reader(pathNameArc)
+	entries = reader.entries():list
+	lenFilename = entries:*stat:*filename:*len().max()
+	lenSize = entries:*stat:*size:*tostring():*len().max()
+	printf('%-*s   %*d\n', lenFilename, entries:*stat:*filename, lenSize, entries:*stat:*size)
+	println(readlines(path.join(pathNameArc, 'cifar-10-batches-bin/batches.meta.txt')):chop)
+	//open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_1.bin').read()
+	//open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_2.bin').read()
+	//open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_3.bin').read()
+	//open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_4.bin').read()
+	//open('sample/cifar-10-binary.tar.gz/cifar-10-batches-bin/data_batch_5.bin').read()
 }
