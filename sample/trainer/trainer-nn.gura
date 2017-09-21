@@ -6,7 +6,7 @@ import(ml.mnist)
 CalcMeanSquaredError(y:array, t:array) = ((y - t) ** 2).sum() / 2
 CalcCrossEntropyError(y:array, t:array) = -(t * math.log(y + 1e-7)).sum()
 
-db = ml.mnist.Database('../../sample/resource/mnist')
+db = ml.mnist.database('../../sample/resource/mnist')
 
 if (true) {
 	model = `((x |.| weight + bias) |*| filter@softmax())
@@ -22,8 +22,8 @@ if (true) {
 
 scope {
 	nTraining = 100
-	arrImage = db.train.imageSet.toarray(`flat).elemcast(`float)
-	arrLabel = db.train.labelSet.toarray().elemcast(`float)
+	arrImage = db.train.imageset.toarray(`flat).elemcast(`float)
+	arrLabel = db.train.labelset.toarray().elemcast(`float)
 	trainer(model, `x) {|tr|
 		repeat (nTraining) {|iRepeat|
 			repeat (1000) {|i|
@@ -38,8 +38,8 @@ scope {
 scope {
 	// evaluation
 	nTests = 1000
-	arrImage = db.test.imageSet.toarray(`flat).elemcast(`float)
-	arrLabel = db.test.labelSet.toarray().elemcast(`float)
+	arrImage = db.test.imageset.toarray(`flat).elemcast(`float)
+	arrLabel = db.test.labelset.toarray().elemcast(`float)
 	nCorrects = 0
 	repeat (nTests) {|i|
 		x = arrImage[i]
