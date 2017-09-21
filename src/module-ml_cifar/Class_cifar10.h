@@ -8,13 +8,26 @@ Gura_BeginModuleScope(ml_cifar)
 // Cifar10
 //-----------------------------------------------------------------------------
 class Cifar10 {
-private:
-	size_t _nImages;
-	size_t _nRows;
-	size_t _nCols;
-	AutoPtr<Memory> _pMemory;
 public:
-	inline Cifar10() : _nImages(0), _nRows(0), _nCols(0) {}
+	struct ImageData {
+		UChar planeR[1024];
+		UChar planeG[1024];
+		UChar planeB[1024];
+	};
+private:
+	AutoPtr<Memory> _pMemoryLabel;
+	AutoPtr<Memory> _pMemoryImageData;
+	size_t _nEntries;
+public:
+	enum { EntryBytes = 1 + 1024 * 3 };
+	enum { nRows = 32, nCols = 32 };
+public:
+	Cifar10();
+	//inline const Entry *GetEntry(size_t idx) {
+	//	return reinterpret_cast<const Entry *>(_pMemory->GetPointer() + idx * EntryBytes);
+	//}
+	inline size_t GetNumEntries() const { return _nEntries; }
+	bool Read(Signal &sig, Stream &stream);
 };
 
 //-----------------------------------------------------------------------------
@@ -30,7 +43,7 @@ public:
 public:
 	Object_cifar10(Cifar10 *pCifar10);
 	virtual String ToString(bool exprFlag);
-	inline Cifar10 &GetCifar10() { return *_pCifar10; }
+	inline const Cifar10 *GetCifar10() const { return _pCifar10.get(); }
 };
 
 Gura_EndModuleScope(ml_cifar)

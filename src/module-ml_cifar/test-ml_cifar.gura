@@ -2,6 +2,9 @@
 import(helper.test) {*}
 import(ml.cifar)
 
+pathNameArc = 'sample/cifar-10-binary.tar.gz'
 testcase {
-	println(ml.cifar.test(3, 4))
+	ml.cifar.cifar10(path.join(pathNameArc, 'cifar-10-batches-bin/data_batch_1.bin')) {|db|
+		printf('nentries:%d nrows:%d ncols:%d\n', db.nentries, db.nrows, db.ncols)
+	}
 }
