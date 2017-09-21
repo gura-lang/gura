@@ -10,24 +10,22 @@ Gura_BeginModuleScope(ml_cifar)
 class Cifar10 {
 public:
 	struct ImageData {
-		UChar planeR[1024];
-		UChar planeG[1024];
-		UChar planeB[1024];
+		UInt8 planeR[1024];
+		UInt8 planeG[1024];
+		UInt8 planeB[1024];
 	};
 private:
 	AutoPtr<Memory> _pMemoryLabel;
 	AutoPtr<Memory> _pMemoryImageData;
-	size_t _nEntries;
+	size_t _nImages;
 public:
 	enum { EntryBytes = 1 + 1024 * 3 };
-	enum { nRows = 32, nCols = 32 };
+	enum { nPlanes = 3, nRows = 32, nCols = 32 };
 public:
 	Cifar10();
-	//inline const Entry *GetEntry(size_t idx) {
-	//	return reinterpret_cast<const Entry *>(_pMemory->GetPointer() + idx * EntryBytes);
-	//}
-	inline size_t GetNumEntries() const { return _nEntries; }
+	inline size_t GetNumImages() const { return _nImages; }
 	bool Read(Signal &sig, Stream &stream);
+	Array *ToArray(bool flattenFlag, bool rawDataFlag) const;
 };
 
 //-----------------------------------------------------------------------------

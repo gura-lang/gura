@@ -5,6 +5,6 @@ import(ml.cifar)
 pathNameArc = 'sample/cifar-10-binary.tar.gz'
 testcase {
 	ml.cifar.cifar10(path.join(pathNameArc, 'cifar-10-batches-bin/data_batch_1.bin')) {|db|
-		printf('nentries:%d nrows:%d ncols:%d\n', db.nentries, db.nrows, db.ncols)
+		printf('nimages:%d nrows:%d ncols:%d\n', db.nimages, db.nrows, db.ncols)
 	}
 }

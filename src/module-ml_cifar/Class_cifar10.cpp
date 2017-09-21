@@ -5,7 +5,7 @@ Gura_BeginModuleScope(ml_cifar)
 //-----------------------------------------------------------------------------
 // Cifar10
 //-----------------------------------------------------------------------------
-Cifar10::Cifar10() : _nEntries(0)
+Cifar10::Cifar10() : _nImages(0)
 {
 }
 
@@ -16,13 +16,13 @@ bool Cifar10::Read(Signal &sig, Stream &stream)
 		sig.SetError(ERR_IOError, "size of the stream is unavailable");
 		return false;
 	}
-	size_t nEntries = bytesFile / Cifar10::EntryBytes;
-	_pMemoryLabel.reset(new MemoryHeap(nEntries * sizeof(UChar)));
-	_pMemoryImageData.reset(new MemoryHeap(nEntries * sizeof(ImageData)));
-	UChar *pLabel = reinterpret_cast<UChar *>(_pMemoryLabel->GetPointer());
+	size_t nImages = bytesFile / Cifar10::EntryBytes;
+	_pMemoryLabel.reset(new MemoryHeap(nImages * sizeof(UInt8)));
+	_pMemoryImageData.reset(new MemoryHeap(nImages * sizeof(ImageData)));
+	UInt8 *pLabel = reinterpret_cast<UInt8 *>(_pMemoryLabel->GetPointer());
 	ImageData *pImageData = reinterpret_cast<ImageData *>(_pMemoryImageData->GetPointer());
-	for (size_t iEntry = 0; iEntry < nEntries; iEntry++) {
-		if (stream.Read(sig, pLabel, sizeof(UChar)) < sizeof(UChar)) {
+	for (size_t iEntry = 0; iEntry < nImages; iEntry++) {
+		if (stream.Read(sig, pLabel, sizeof(UInt8)) < sizeof(UInt8)) {
 			sig.SetError(ERR_IOError, "failed to read data");
 			return false;
 		}
@@ -33,7 +33,36 @@ bool Cifar10::Read(Signal &sig, Stream &stream)
 		pLabel++;
 		pImageData++;
 	}
+	_nImages = nImages;
 	return true;
+}
+
+Array *Cifar10::ToArray(bool flattenFlag, bool rawDataFlag) const
+{
+	bool colMajorFlag = false;
+	AutoPtr<Array > pArray;
+	Array::Dimensions dims;
+	dims.push_back(Array::Dimension(_nImages));
+	dims.push_back(Array::Dimension(nPlanes));
+	if (flattenFlag) {
+		dims.push_back(Array::Dimension(nRows * nCols));
+	} else {
+		dims.push_back(Array::Dimension(nRows));
+		dims.push_back(Array::Dimension(nCols));
+	}
+	if (rawDataFlag) {
+		pArray.reset(new ArrayT<UInt8>(colMajorFlag, _pMemoryImageData->Reference(), 0));
+		pArray->SetDimensions(dims);
+	} else {
+		pArray.reset(ArrayT<Float>::Create(colMajorFlag, dims));
+		const UInt8 *pSrc = reinterpret_cast<const UInt8 *>(_pMemoryImageData->GetPointer());
+		Float *pDst = dynamic_cast<ArrayT<Float> *>(pArray.get())->GetPointer();
+		size_t nElems = _nImages * nPlanes * nRows * nCols;
+		for (size_t i = 0; i < nElems; i++, pSrc++, pDst++) {
+			*pDst = static_cast<Float>(*pSrc) / 255;
+		}
+	}
+	return pArray.release();
 }
 
 //-----------------------------------------------------------------------------
@@ -48,7 +77,7 @@ String Object_cifar10::ToString(bool exprFlag)
 {
 	char buff[80];
 	String str = "<cifar.cifar10";
-	::sprintf(buff, ":%zuentries", _pCifar10->GetNumEntries());
+	::sprintf(buff, ":%zuimages", _pCifar10->GetNumImages());
 	str += buff;
 	str += ">";
 	return str;
@@ -57,8 +86,8 @@ String Object_cifar10::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-// ml.cifar.cifar10#nentries
-Gura_DeclareProperty_R(cifar10, nentries)
+// ml.cifar.cifar10#nimages
+Gura_DeclareProperty_R(cifar10, nimages)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -67,10 +96,10 @@ Gura_DeclareProperty_R(cifar10, nentries)
 		);
 }
 
-Gura_ImplementPropertyGetter(cifar10, nentries)
+Gura_ImplementPropertyGetter(cifar10, nimages)
 {
 	const Cifar10 *pCifar10 = Object_cifar10::GetObject(valueThis)->GetCifar10();
-	return Value(pCifar10->GetNumEntries());
+	return Value(pCifar10->GetNumImages());
 }
 
 // ml.cifar.cifar10#nrows
@@ -133,6 +162,37 @@ Gura_ImplementFunction(cifar10)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
+// ml.cifar.cifar10#toarray(format?:symbol, rawdata?:boolean) {block?}
+Gura_DeclareMethod(cifar10, toarray)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "rawdata", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(cifar10, toarray)
+{
+	const Cifar10 *pCifar10 = Object_cifar10::GetObjectThis(arg)->GetCifar10();
+	bool flattenFlag = false;
+	if (arg.IsValid(0)) {
+		const Symbol *pSymbol = arg.GetSymbol(0);
+		if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
+			flattenFlag = true;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(matrix))) {
+			flattenFlag = false;
+		} else {
+			env.SetError(ERR_ValueError, "argument format takes `` `flat` or `` `matrix``");
+			return Value::Nil;
+		}
+	}
+	bool rawDataFlag = false;
+	AutoPtr<Object_array> pObj(new Object_array(env, pCifar10->ToArray(flattenFlag, rawDataFlag)));
+	return ReturnValue(env, arg, Value(pObj.release()));
+}
 
 //-----------------------------------------------------------------------------
 // Implementation of class ml.cifar.cifar10
@@ -140,7 +200,7 @@ Gura_ImplementFunction(cifar10)
 Gura_ImplementUserClass(cifar10)
 {
 	// Assignment of properties
-	Gura_AssignProperty(cifar10, nentries);
+	Gura_AssignProperty(cifar10, nimages);
 	Gura_AssignProperty(cifar10, nrows);
 	Gura_AssignProperty(cifar10, ncols);
 	// Assignment of function
