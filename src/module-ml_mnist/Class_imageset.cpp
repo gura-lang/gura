@@ -33,9 +33,12 @@ bool ImageSet::Read(Signal &sig, Stream &stream)
 }
 
 template<typename T_Elem>
-void StoreElemValues(Array *pArray, const UInt8 *pElemSrc, size_t nElems, bool normalizeFlag)
+Array *CreateArrayOfImages(const Array::Dimensions &dims, const UInt8 *pElemSrc, bool normalizeFlag)
 {
-	T_Elem *pElemDst = dynamic_cast<ArrayT<T_Elem> *>(pArray)->GetPointer();
+	bool colMajorFlag = false;
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(colMajorFlag, dims));
+	size_t nElems = pArrayT->GetElemNum();
+	T_Elem *pElemDst = pArrayT->GetPointer();
 	if (normalizeFlag) {
 		for (size_t i = 0; i < nElems; i++, pElemSrc++, pElemDst++) {
 			*pElemDst = static_cast<T_Elem>(*pElemSrc) / 255;
@@ -45,11 +48,11 @@ void StoreElemValues(Array *pArray, const UInt8 *pElemSrc, size_t nElems, bool n
 			*pElemDst = static_cast<T_Elem>(*pElemSrc);
 		}
 	}
+	return pArrayT.release();
 }
 
 Array *ImageSet::ToArray(Signal &sig, bool flattenFlag, Array::ElemType elemType, bool normalizeFlag) const
 {
-	bool colMajorFlag = false;
 	AutoPtr<Array > pArray;
 	Array::Dimensions dims;
 	dims.push_back(Array::Dimension(_nImages));
@@ -59,20 +62,17 @@ Array *ImageSet::ToArray(Signal &sig, bool flattenFlag, Array::ElemType elemType
 		dims.push_back(Array::Dimension(_nRows));
 		dims.push_back(Array::Dimension(_nCols));
 	}
+	const UInt8 *pElemSrc = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
 	if (elemType == Array::ETYPE_UInt8) {
+		bool colMajorFlag = false;
 		pArray.reset(new ArrayT<UInt8>(colMajorFlag, _pMemory->Reference(), 0));
 		pArray->SetDimensions(dims);
-	} else if (elemType == Array::ETYPE_Half || elemType == Array::ETYPE_Float || elemType == Array::ETYPE_Double) {
-		pArray.reset(Array::Create(elemType, colMajorFlag, dims));
-		const UInt8 *pElemSrc = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
-		size_t nElems = _nImages * _nRows * _nCols;
-		if (elemType == Array::ETYPE_Half) {
-			StoreElemValues<Half>(pArray.get(), pElemSrc, nElems, normalizeFlag);
-		} else if (elemType == Array::ETYPE_Float) {
-			StoreElemValues<Float>(pArray.get(), pElemSrc, nElems, normalizeFlag);
-		} else { // elemType == Array::ETYPE_Double
-			StoreElemValues<Double>(pArray.get(), pElemSrc, nElems, normalizeFlag);
-		}
+	} else if (elemType == Array::ETYPE_Half) {
+		pArray.reset(CreateArrayOfImages<Half>(dims, pElemSrc, normalizeFlag));
+	} else if (elemType == Array::ETYPE_Float) {
+		pArray.reset(CreateArrayOfImages<Float>(dims, pElemSrc, normalizeFlag));
+	} else if (elemType == Array::ETYPE_Double) {
+		pArray.reset(CreateArrayOfImages<Double>(dims, pElemSrc, normalizeFlag));
 	} else {
 		sig.SetError(ERR_ValueError, "can't create an array of %s", Array::GetElemTypeName(elemType));
 		return nullptr;

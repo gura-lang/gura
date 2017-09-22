@@ -21,6 +21,14 @@ testcase('ml.mnist.imageset#toarray()') {
 		}
 	}
 }
+testcase('ml.mnist.labelset#toarray()') {
+	tester(`db.test.labelset.toarray(true, `complex))
+	cross (onehot in [false, true], elemtype in [`uint8, `half, `float, `double]) {
+		db.test.labelset.toarray(onehot, elemtype) {|arrLabel|
+			printf('%s %s %s\n', arrLabel.elemtype, arrLabel.shape.nomap(), arrLabel[0])
+		}
+	}
+}
 testcase('toarray()') {
 	arrImage = db.test.imageset.toarray(`flat, `float)
 	arrLabel = db.test.labelset.toarray()
