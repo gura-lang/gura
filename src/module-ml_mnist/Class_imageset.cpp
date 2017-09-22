@@ -33,15 +33,21 @@ bool ImageSet::Read(Signal &sig, Stream &stream)
 }
 
 template<typename T_Elem>
-void StoreElemValues(Array *pArray, const UInt8 *pElemSrc, size_t nElems)
+void StoreElemValues(Array *pArray, const UInt8 *pElemSrc, size_t nElems, bool normalizeFlag)
 {
 	T_Elem *pElemDst = dynamic_cast<ArrayT<T_Elem> *>(pArray)->GetPointer();
-	for (size_t i = 0; i < nElems; i++, pElemSrc++, pElemDst++) {
-		*pElemDst = static_cast<T_Elem>(*pElemSrc) / 255;
+	if (normalizeFlag) {
+		for (size_t i = 0; i < nElems; i++, pElemSrc++, pElemDst++) {
+			*pElemDst = static_cast<T_Elem>(*pElemSrc) / 255;
+		}
+	} else {
+		for (size_t i = 0; i < nElems; i++, pElemSrc++, pElemDst++) {
+			*pElemDst = static_cast<T_Elem>(*pElemSrc);
+		}
 	}
 }
 
-Array *ImageSet::ToArray(Signal &sig, bool flattenFlag, Array::ElemType elemType) const
+Array *ImageSet::ToArray(Signal &sig, bool flattenFlag, Array::ElemType elemType, bool normalizeFlag) const
 {
 	bool colMajorFlag = false;
 	AutoPtr<Array > pArray;
@@ -61,11 +67,11 @@ Array *ImageSet::ToArray(Signal &sig, bool flattenFlag, Array::ElemType elemType
 		const UInt8 *pElemSrc = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
 		size_t nElems = _nImages * _nRows * _nCols;
 		if (elemType == Array::ETYPE_Half) {
-			StoreElemValues<Half>(pArray.get(), pElemSrc, nElems);
+			StoreElemValues<Half>(pArray.get(), pElemSrc, nElems, normalizeFlag);
 		} else if (elemType == Array::ETYPE_Float) {
-			StoreElemValues<Float>(pArray.get(), pElemSrc, nElems);
+			StoreElemValues<Float>(pArray.get(), pElemSrc, nElems, normalizeFlag);
 		} else { // elemType == Array::ETYPE_Double
-			StoreElemValues<Double>(pArray.get(), pElemSrc, nElems);
+			StoreElemValues<Double>(pArray.get(), pElemSrc, nElems, normalizeFlag);
 		}
 	} else {
 		sig.SetError(ERR_ValueError, "can't create an array of %s", Array::GetElemTypeName(elemType));
@@ -176,16 +182,27 @@ Gura_ImplementFunction(imageset)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.mnist.imageset#toarray(format?:symbol, elemtype?:symbol) {block?}
+// ml.mnist.imageset#toarray(shape?:symbol, elemtype?:symbol, normlize?:boolean):map {block?}
 Gura_DeclareMethod(imageset, toarray)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "shape", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "normalize", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Creates an `array` instance from the MNIST image set.\n"
+		"\n"
+		"Arguments:\n"
+		"\n"
+		"- `shape` .. element shape that takes `` `flat`` or `` `matrix``. Default is `` `flat``.\n"
+		"- `elemtype` .. element type of created `array` that takes `` `uint8``, `` `half``, `` `float`` or `` `double``. Default is `` `float``.\n"
+		"- `normalize` .. specifies whether it normlizes element values into a range of `[0, 1)`.\n"
+		"                 Default is `true` when `elemtype` is `` `half``, `` `float`` or `` `double``.\n"
+		"                 Ignored and always treated as `false` when `elemtype` is `` `uint8``.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
 Gura_ImplementMethod(imageset, toarray)
@@ -203,12 +220,16 @@ Gura_ImplementMethod(imageset, toarray)
 			return Value::Nil;
 		}
 	}
-	Array::ElemType elemType = Array::ETYPE_UInt8;
+	Array::ElemType elemType = Array::ETYPE_Float;
 	if (arg.IsValid(1)) {
 		elemType = Array::SymbolToElemType(env, arg.GetSymbol(1));
 		if (env.IsSignalled()) return Value::Nil;
 	}
-	AutoPtr<Array> pArray(imageSet.ToArray(env, flattenFlag, elemType));
+	bool normalizeFlag = (elemType != Array::ETYPE_UInt8);
+	if (arg.IsValid(2)) {
+		normalizeFlag = arg.GetBoolean(2);
+	}
+	AutoPtr<Array> pArray(imageSet.ToArray(env, flattenFlag, elemType, normalizeFlag));
 	if (pArray.IsNull()) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_array(env, pArray.release())));
 }

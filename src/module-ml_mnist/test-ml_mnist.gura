@@ -13,9 +13,18 @@ testcase('properties in ImageSet and LabelSet') {
 		   db.train.imageset.nimages, db.train.imageset.nrows, db.train.imageset.ncols,
 		   db.train.labelset.nlabels)
 }
+testcase('ml.mnist.imageset#toarray()') {
+	tester(`db.test.imageset.toarray(`flat, `complex))
+	cross (shape in [`flat, `matrix], elemtype in [`uint8, `half, `float, `double]) {
+		db.test.imageset.toarray(shape, elemtype) {|arrImage|
+			printf('%s %s\n', arrImage.elemtype, arrImage.shape.nomap())
+		}
+	}
+}
 testcase('toarray()') {
-	arrImage = db.test.imageset.toarray(`flat)
+	arrImage = db.test.imageset.toarray(`flat, `float)
 	arrLabel = db.test.labelset.toarray()
+	println(arrImage.shape):nomap
 	repeat (5) {|i|
 		println(ml.mnist.toascii(arrImage[i]))
 		println(arrLabel[i])

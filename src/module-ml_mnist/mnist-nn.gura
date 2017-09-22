@@ -5,7 +5,7 @@ import(arrayt)
 CalcMeanSquaredError(y:array, t:array) = ((y - t) ** 2).sum() / 2
 CalcCrossEntropyError(y:array, t:array) = -(t * math.log(y + 1e-7)).sum()
 
-db = ml.mnist.Database('sample')
+db = ml.mnist.database('../../sample/resource/mnist')
 
 weight = array@float.rands@normal([784, 10], 0, .1)
 bias = array@float.rands@normal([1, 10], 0, .1)
@@ -16,8 +16,8 @@ bias1 = array@float.rands@normal([1, 100], 0, .1)
 bias2 = array@float.rands@normal([1, 10], 0, .1)
 scope {
 	// training
-	arrImage = db.train.imageSet.ToArray(`flat)
-	arrLabel = db.train.labelSet.ToArray()
+	arrImage = db.train.imageset.toarray(`flat)
+	arrLabel = db.train.labelset.toarray()
 	nRepeats = 100
 	nTrains = 1000
 	alpha = .01
@@ -55,8 +55,8 @@ scope {
 }
 scope {
 	// evaluation
-	arrImage = db.test.imageSet.ToArray(`flat)
-	arrLabel = db.test.labelSet.ToArray()
+	arrImage = db.test.imageset.toarray(`flat)
+	arrLabel = db.test.labelset.toarray()
 	nTests = 200
 	nCorrects = 0
 	repeat (nTests) {|i|
@@ -70,7 +70,7 @@ scope {
 		u2 = u1 |*| filter@sigmoid()
 		y = (u2 |.| weight2 + bias2) |*| filter@softmax()
 		*/
-		print(ml.mnist.ToAscii(x))
+		print(ml.mnist.toascii(x))
 		if (y.argmax() == t.argmax()) {
 			printf(' "%d" .. correct with accuracy %.1f%%\n', y.argmax(), y[y.argmax()] * 100)
 			nCorrects += 1
