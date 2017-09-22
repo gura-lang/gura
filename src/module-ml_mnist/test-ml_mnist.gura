@@ -29,12 +29,21 @@ testcase('ml.mnist.labelset#toarray()') {
 		}
 	}
 }
-testcase('toarray()') {
+testcase('ml.mnist.toascii()') {
 	arrImage = db.test.imageset.toarray(`flat, `float)
-	arrLabel = db.test.labelset.toarray()
-	println(arrImage.shape):nomap
+	arrLabel = db.test.labelset.toarray(false)
 	repeat (5) {|i|
-		println(ml.mnist.toascii(arrImage[i]))
+		print(ml.mnist.toascii(arrImage[i]))
 		println(arrLabel[i])
+	}
+}
+testcase('label occurance') {
+	[db.test.labelset, db.train.labelset].each {|labelset|
+		labelset.toarray(false, `uint8) {|arrLabel|
+			hist = dim(10) {0}
+			arrLabel.each() {|lbl| hist[lbl] += 1}
+			printf('%d .. %d\n', 0.., hist)
+		}
+		println()
 	}
 }
