@@ -182,7 +182,7 @@ Gura_ImplementFunction(imageset)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.mnist.imageset#toarray(shape?:symbol, elemtype?:symbol, normlize?:boolean):map {block?}
+// ml.mnist.imageset#toarray(shape?:symbol, elemtype?:symbol, normalize?:boolean):map {block?}
 Gura_DeclareMethod(imageset, toarray)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -198,7 +198,7 @@ Gura_DeclareMethod(imageset, toarray)
 		"\n"
 		"- `shape` .. element shape that takes `` `flat`` or `` `matrix``. Default is `` `flat``.\n"
 		"- `elemtype` .. element type of created `array` that takes `` `uint8``, `` `half``, `` `float`` or `` `double``. Default is `` `float``.\n"
-		"- `normalize` .. specifies whether it normlizes element values into a range of `[0, 1)`.\n"
+		"- `normalize` .. specifies whether it maps element values of `[0, 255]` into a range of `[0, 1]`.\n"
 		"                 Default is `true` when `elemtype` is `` `half``, `` `float`` or `` `double``.\n"
 		"                 Ignored and always treated as `false` when `elemtype` is `` `uint8``.\n"
 		"\n"

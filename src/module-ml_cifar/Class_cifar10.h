@@ -25,7 +25,7 @@ public:
 	Cifar10();
 	inline size_t GetNumImages() const { return _nImages; }
 	bool Read(Signal &sig, Stream &stream);
-	Array *ToArray(bool flattenFlag, bool rawDataFlag) const;
+	Array *ImageDataToArray(Signal &sig, bool flattenFlag, Array::ElemType elemType, bool normalizeFlag) const;
 };
 
 //-----------------------------------------------------------------------------
