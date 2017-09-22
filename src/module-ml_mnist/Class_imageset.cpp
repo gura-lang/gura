@@ -32,29 +32,44 @@ bool ImageSet::Read(Signal &sig, Stream &stream)
 	return true;
 }
 
-Array *ImageSet::ToArray(bool flattenFlag, bool rawDataFlag) const
+template<typename T_Elem>
+void StoreElemValues(Array *pArray, const UInt8 *pElemSrc, size_t nElems)
+{
+	T_Elem *pElemDst = dynamic_cast<ArrayT<T_Elem> *>(pArray)->GetPointer();
+	for (size_t i = 0; i < nElems; i++, pElemSrc++, pElemDst++) {
+		*pElemDst = static_cast<T_Elem>(*pElemSrc) / 255;
+	}
+}
+
+Array *ImageSet::ToArray(Signal &sig, bool flattenFlag, Array::ElemType elemType) const
 {
 	bool colMajorFlag = false;
 	AutoPtr<Array > pArray;
-	if (rawDataFlag) {
+	Array::Dimensions dims;
+	dims.push_back(Array::Dimension(_nImages));
+	if (flattenFlag) {
+		dims.push_back(Array::Dimension(_nRows * _nCols));
+	} else {
+		dims.push_back(Array::Dimension(_nRows));
+		dims.push_back(Array::Dimension(_nCols));
+	}
+	if (elemType == Array::ETYPE_UInt8) {
 		pArray.reset(new ArrayT<UInt8>(colMajorFlag, _pMemory->Reference(), 0));
-		if (flattenFlag) {
-			pArray->SetDimensions(_nImages, _nRows * _nCols);
-		} else {
-			pArray->SetDimensions(_nImages, _nRows, _nCols);
+		pArray->SetDimensions(dims);
+	} else if (elemType == Array::ETYPE_Half || elemType == Array::ETYPE_Float || elemType == Array::ETYPE_Double) {
+		pArray.reset(Array::Create(elemType, colMajorFlag, dims));
+		const UInt8 *pElemSrc = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
+		size_t nElems = _nImages * _nRows * _nCols;
+		if (elemType == Array::ETYPE_Half) {
+			StoreElemValues<Half>(pArray.get(), pElemSrc, nElems);
+		} else if (elemType == Array::ETYPE_Float) {
+			StoreElemValues<Float>(pArray.get(), pElemSrc, nElems);
+		} else { // elemType == Array::ETYPE_Double
+			StoreElemValues<Double>(pArray.get(), pElemSrc, nElems);
 		}
 	} else {
-		if (flattenFlag) {
-			pArray.reset(ArrayT<Float>::Create2d(colMajorFlag, _nImages, _nRows * _nCols));
-		} else {
-			pArray.reset(ArrayT<Float>::Create3d(colMajorFlag, _nImages, _nRows, _nCols));
-		}
-		const UInt8 *pSrc = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
-		Float *pDst = dynamic_cast<ArrayT<Float> *>(pArray.get())->GetPointer();
-		size_t nElems = _nImages * _nRows * _nCols;
-		for (size_t i = 0; i < nElems; i++, pSrc++, pDst++) {
-			*pDst = static_cast<Float>(*pSrc) / 255;
-		}
+		sig.SetError(ERR_ValueError, "can't create an array of %s", Array::GetElemTypeName(elemType));
+		return nullptr;
 	}
 	return pArray.release();
 }
@@ -161,12 +176,12 @@ Gura_ImplementFunction(imageset)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.mnist.imageset#toarray(format?:symbol, rawdata?:boolean) {block?}
+// ml.mnist.imageset#toarray(format?:symbol, elemtype?:symbol) {block?}
 Gura_DeclareMethod(imageset, toarray)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "rawdata", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -188,9 +203,14 @@ Gura_ImplementMethod(imageset, toarray)
 			return Value::Nil;
 		}
 	}
-	bool rawDataFlag = false;
-	AutoPtr<Object_array> pObj(new Object_array(env, imageSet.ToArray(flattenFlag, rawDataFlag)));
-	return ReturnValue(env, arg, Value(pObj.release()));
+	Array::ElemType elemType = Array::ETYPE_UInt8;
+	if (arg.IsValid(1)) {
+		elemType = Array::SymbolToElemType(env, arg.GetSymbol(1));
+		if (env.IsSignalled()) return Value::Nil;
+	}
+	AutoPtr<Array> pArray(imageSet.ToArray(env, flattenFlag, elemType));
+	if (pArray.IsNull()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_array(env, pArray.release())));
 }
 
 //-----------------------------------------------------------------------------
