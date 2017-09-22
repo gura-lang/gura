@@ -299,7 +299,7 @@ public:
 	static Array *Create(ElemType elemType, bool colMajorFlag, const Dimensions &dims);
 public:
 	static ElemType SymbolToElemType(const Symbol *pSymbol);
-	static ElemType SymbolToElemTypeWithError(Environment &env, const Symbol *pSymbol);
+	static ElemType SymbolToElemType(Signal &sig, const Symbol *pSymbol);
 	static bool CheckShape(Signal &sig, const Array *pArrayA, const Array *pArrayB);
 	static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 										  const Array *pArrayL, const Array *pArrayR);

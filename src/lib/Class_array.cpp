@@ -539,7 +539,7 @@ Gura_ImplementFunction(array)
 		//&Object_arrayT<Value>::Constructor,
 	};
 	Array::ElemType elemType = arg.IsValid(1)?
-		Array::SymbolToElemTypeWithError(env, arg.GetSymbol(1)) : Array::ETYPE_Double;
+		Array::SymbolToElemType(env, arg.GetSymbol(1)) : Array::ETYPE_Double;
 	if (env.IsSignalled()) return Value::Nil;
 	return (*constructorTbl[elemType])(env, arg);
 }

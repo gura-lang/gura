@@ -750,7 +750,7 @@ Gura_DeclareMethod(array, elemcast)
 Gura_ImplementMethod(array, elemcast)
 {
 	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
-	Array::ElemType elemType = Array::SymbolToElemTypeWithError(env, arg.GetSymbol(0));
+	Array::ElemType elemType = Array::SymbolToElemType(env, arg.GetSymbol(0));
 	if (env.IsSignalled()) return Value::Nil;
 	Value value;
 	if (pArraySelf->GetElemType() == elemType) {

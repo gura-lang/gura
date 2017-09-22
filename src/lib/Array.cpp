@@ -345,11 +345,11 @@ Array::ElemType Array::SymbolToElemType(const Symbol *pSymbol)
 	return (iter == _mapToElemType.end())? ETYPE_None : iter->second;
 }
 
-Array::ElemType Array::SymbolToElemTypeWithError(Environment &env, const Symbol *pSymbol)
+Array::ElemType Array::SymbolToElemType(Signal &sig, const Symbol *pSymbol)
 {
 	ElemType elemType = SymbolToElemType(pSymbol);
 	if (elemType == ETYPE_None) {
-		env.SetError(ERR_ValueError, "invalid symbol for element type of array: %s",
+		sig.SetError(ERR_ValueError, "invalid symbol for element type of array: %s",
 					 pSymbol->GetName());
 	}
 	return elemType;
