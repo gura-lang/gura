@@ -36,58 +36,6 @@ bool Cifar10::Read(Signal &sig, Stream &stream)
 	return true;
 }
 
-#if 0
-template<typename T_Elem>
-Array *CreateArrayOfImages(const Array::Dimensions &dims, const UInt8 *pElemSrc, bool normalizeFlag)
-{
-	bool colMajorFlag = false;
-	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(colMajorFlag, dims));
-	size_t nElems = pArrayT->GetElemNum();
-	T_Elem *pElemDst = pArrayT->GetPointer();
-	if (normalizeFlag) {
-		for (size_t i = 0; i < nElems; i++, pElemSrc++, pElemDst++) {
-			*pElemDst = static_cast<T_Elem>(*pElemSrc) / 255;
-		}
-	} else {
-		for (size_t i = 0; i < nElems; i++, pElemSrc++, pElemDst++) {
-			*pElemDst = static_cast<T_Elem>(*pElemSrc);
-		}
-	}
-	return pArrayT.release();
-}
-
-Array *ImageSet::ToArray(Signal &sig, bool flattenFlag, Array::ElemType elemType, bool normalizeFlag) const
-{
-	bool colMajorFlag = false;
-	AutoPtr<Array > pArray;
-	Array::Dimensions dims;
-	dims.push_back(Array::Dimension(_nImages));
-	dims.push_back(Array::Dimension(nPlanes));
-	if (flattenFlag) {
-		dims.push_back(Array::Dimension(nRows * nCols));
-	} else {
-		dims.push_back(Array::Dimension(nRows));
-		dims.push_back(Array::Dimension(nCols));
-	}
-	const UInt8 *pElemSrc = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
-	if (elemType == Array::ETYPE_UInt8) {
-		bool colMajorFlag = false;
-		pArray.reset(new ArrayT<UInt8>(colMajorFlag, _pMemory->Reference(), 0));
-		pArray->SetDimensions(dims);
-	} else if (elemType == Array::ETYPE_Half) {
-		pArray.reset(CreateArrayOfImages<Half>(dims, pElemSrc, normalizeFlag));
-	} else if (elemType == Array::ETYPE_Float) {
-		pArray.reset(CreateArrayOfImages<Float>(dims, pElemSrc, normalizeFlag));
-	} else if (elemType == Array::ETYPE_Double) {
-		pArray.reset(CreateArrayOfImages<Double>(dims, pElemSrc, normalizeFlag));
-	} else {
-		sig.SetError(ERR_ValueError, "can't create an array of %s", Array::GetElemTypeName(elemType));
-		return nullptr;
-	}
-	return pArray.release();
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Object_cifar10 implementation
 //-----------------------------------------------------------------------------
