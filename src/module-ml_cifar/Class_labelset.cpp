@@ -60,6 +60,12 @@ Array *LabelSet::ToArray(Signal &sig, bool onehotFlag, Array::ElemType elemType)
 	return sig.IsSignalled()? nullptr : pArray.release();
 }
 
+void LabelSet::AllocMemory(size_t nLabels)
+{
+	_pMemory.reset(new MemoryHeap(nLabels * sizeof(UInt8)));
+	_nLabels = nLabels;
+}
+
 //-----------------------------------------------------------------------------
 // Object_labelset implementation
 //-----------------------------------------------------------------------------
@@ -93,8 +99,8 @@ Gura_DeclareProperty_R(labelset, nlabels)
 
 Gura_ImplementPropertyGetter(labelset, nlabels)
 {
-	LabelSet &labelSet = Object_labelset::GetObject(valueThis)->GetLabelSet();
-	return Value(labelSet.GetNumLabels());
+	LabelSet *pLabelSet = Object_labelset::GetObject(valueThis)->GetLabelSet();
+	return Value(pLabelSet->GetNumLabels());
 }
 
 //-----------------------------------------------------------------------------
@@ -125,7 +131,7 @@ Gura_DeclareMethod(labelset, toarray)
 
 Gura_ImplementMethod(labelset, toarray)
 {
-	LabelSet &labelSet = Object_labelset::GetObjectThis(arg)->GetLabelSet();
+	LabelSet *pLabelSet = Object_labelset::GetObjectThis(arg)->GetLabelSet();
 	bool onehotFlag = true;
 	if (arg.IsValid(0)) {
 		onehotFlag = arg.GetBoolean(0);
@@ -135,7 +141,7 @@ Gura_ImplementMethod(labelset, toarray)
 		elemType = Array::SymbolToElemType(env, arg.GetSymbol(1));
 		if (env.IsSignalled()) return Value::Nil;
 	}
-	AutoPtr<Array> pArray(labelSet.ToArray(env, onehotFlag, elemType));
+	AutoPtr<Array> pArray(pLabelSet->ToArray(env, onehotFlag, elemType));
 	if (pArray.IsNull()) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_array(env, pArray.release())));
 }

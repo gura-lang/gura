@@ -9,13 +9,21 @@ Gura_BeginModuleScope(ml_cifar)
 //-----------------------------------------------------------------------------
 class LabelSet {
 private:
+	int _cntRef;
 	size_t _nLabels;
 	AutoPtr<Memory> _pMemory;
 public:
-	inline LabelSet() : _nLabels(0) {}
+	Gura_DeclareReferenceAccessor(LabelSet);
+public:
+	inline LabelSet() : _cntRef(1), _nLabels(0) {}
+protected:
+	inline ~LabelSet() {}
+public:
 	bool Read(Signal &sig, Stream &stream);
 	inline size_t GetNumLabels() const { return _nLabels; }
 	Array *ToArray(Signal &sig, bool onehotFlag, Array::ElemType elemType) const;
+	void AllocMemory(size_t nLabels);
+	inline UInt8 *GetPointer() { return reinterpret_cast<UInt8 *>(_pMemory->GetPointer()); }
 };
 
 //-----------------------------------------------------------------------------
@@ -25,13 +33,13 @@ Gura_DeclareUserClass(labelset);
 
 class Object_labelset : public Object {
 private:
-	std::unique_ptr<LabelSet> _pLabelSet;
+	AutoPtr<LabelSet> _pLabelSet;
 public:
 	Gura_DeclareObjectAccessor(labelset)
 public:
 	Object_labelset(LabelSet *pLabelSet);
 	virtual String ToString(bool exprFlag);
-	inline LabelSet &GetLabelSet() { return *_pLabelSet; }
+	inline LabelSet *GetLabelSet() { return _pLabelSet.get(); }
 };
 
 Gura_EndModuleScope(ml_cifar)

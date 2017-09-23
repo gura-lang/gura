@@ -5,7 +5,7 @@ Gura_BeginModuleScope(ml_cifar)
 //-----------------------------------------------------------------------------
 // Cifar10
 //-----------------------------------------------------------------------------
-Cifar10::Cifar10() : _nImages(0)
+Cifar10::Cifar10() : _pLabelSet(new LabelSet()), _pImageSet(new ImageSet())
 {
 }
 
@@ -17,26 +17,26 @@ bool Cifar10::Read(Signal &sig, Stream &stream)
 		return false;
 	}
 	size_t nImages = bytesFile / Cifar10::EntryBytes;
-	_pMemoryLabel.reset(new MemoryHeap(nImages * sizeof(UInt8)));
-	_pMemoryImageData.reset(new MemoryHeap(nImages * sizeof(ImageData)));
-	UInt8 *pLabel = reinterpret_cast<UInt8 *>(_pMemoryLabel->GetPointer());
-	ImageData *pImageData = reinterpret_cast<ImageData *>(_pMemoryImageData->GetPointer());
+	_pLabelSet->AllocMemory(nImages);
+	_pImageSet->AllocMemory(nImages);
+	UInt8 *pLabel = _pLabelSet->GetPointer();
+	ImageSet::Packed *pPacked = _pImageSet->GetPointer();
 	for (size_t iEntry = 0; iEntry < nImages; iEntry++) {
 		if (stream.Read(sig, pLabel, sizeof(UInt8)) < sizeof(UInt8)) {
 			sig.SetError(ERR_IOError, "failed to read data");
 			return false;
 		}
-		if (stream.Read(sig, pImageData, sizeof(ImageData)) < sizeof(ImageData)) {
+		if (stream.Read(sig, pPacked, sizeof(ImageSet::Packed)) < sizeof(ImageSet::Packed)) {
 			sig.SetError(ERR_IOError, "failed to read data");
 			return false;
 		}
 		pLabel++;
-		pImageData++;
+		pPacked++;
 	}
-	_nImages = nImages;
 	return true;
 }
 
+#if 0
 template<typename T_Elem>
 Array *CreateArrayOfImages(const Array::Dimensions &dims, const UInt8 *pElemSrc, bool normalizeFlag)
 {
@@ -56,7 +56,7 @@ Array *CreateArrayOfImages(const Array::Dimensions &dims, const UInt8 *pElemSrc,
 	return pArrayT.release();
 }
 
-Array *Cifar10::ImageDataToArray(Signal &sig, bool flattenFlag, Array::ElemType elemType, bool normalizeFlag) const
+Array *ImageSet::ToArray(Signal &sig, bool flattenFlag, Array::ElemType elemType, bool normalizeFlag) const
 {
 	bool colMajorFlag = false;
 	AutoPtr<Array > pArray;
@@ -69,10 +69,10 @@ Array *Cifar10::ImageDataToArray(Signal &sig, bool flattenFlag, Array::ElemType 
 		dims.push_back(Array::Dimension(nRows));
 		dims.push_back(Array::Dimension(nCols));
 	}
-	const UInt8 *pElemSrc = reinterpret_cast<const UInt8 *>(_pMemoryImageData->GetPointer());
+	const UInt8 *pElemSrc = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
 	if (elemType == Array::ETYPE_UInt8) {
 		bool colMajorFlag = false;
-		pArray.reset(new ArrayT<UInt8>(colMajorFlag, _pMemoryImageData->Reference(), 0));
+		pArray.reset(new ArrayT<UInt8>(colMajorFlag, _pMemory->Reference(), 0));
 		pArray->SetDimensions(dims);
 	} else if (elemType == Array::ETYPE_Half) {
 		pArray.reset(CreateArrayOfImages<Half>(dims, pElemSrc, normalizeFlag));
@@ -86,6 +86,7 @@ Array *Cifar10::ImageDataToArray(Signal &sig, bool flattenFlag, Array::ElemType 
 	}
 	return pArray.release();
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Object_cifar10 implementation
@@ -99,8 +100,8 @@ String Object_cifar10::ToString(bool exprFlag)
 {
 	char buff[80];
 	String str = "<cifar.cifar10";
-	::sprintf(buff, ":%zuimages", _pCifar10->GetNumImages());
-	str += buff;
+	//::sprintf(buff, ":%zuimages", _pCifar10->GetNumImages());
+	//str += buff;
 	str += ">";
 	return str;
 }
@@ -108,50 +109,36 @@ String Object_cifar10::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-// ml.cifar.cifar10#nimages
-Gura_DeclareProperty_R(cifar10, nimages)
+// ml.cifar.cifar10#labelset
+Gura_DeclareProperty_R(cifar10, labelset)
 {
-	SetPropAttr(VTYPE_number);
+	SetPropAttr(VTYPE_labelset);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(cifar10, nimages)
+Gura_ImplementPropertyGetter(cifar10, labelset)
 {
 	const Cifar10 *pCifar10 = Object_cifar10::GetObject(valueThis)->GetCifar10();
-	return Value(pCifar10->GetNumImages());
+	return Value(new Object_labelset(pCifar10->GetLabelSet()->Reference()));
 }
 
-// ml.cifar.cifar10#nrows
-Gura_DeclareProperty_R(cifar10, nrows)
+// ml.cifar.cifar10#imageset
+Gura_DeclareProperty_R(cifar10, imageset)
 {
-	SetPropAttr(VTYPE_number);
+	SetPropAttr(VTYPE_imageset);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(cifar10, nrows)
+Gura_ImplementPropertyGetter(cifar10, imageset)
 {
-	return Value(Cifar10::nRows);
-}
-
-// ml.cifar.cifar10#ncols
-Gura_DeclareProperty_R(cifar10, ncols)
-{
-	SetPropAttr(VTYPE_number);
-	AddHelp(
-		Gura_Symbol(en),
-		""
-		);
-}
-
-Gura_ImplementPropertyGetter(cifar10, ncols)
-{
-	return Value(Cifar10::nCols);
+	const Cifar10 *pCifar10 = Object_cifar10::GetObject(valueThis)->GetCifar10();
+	return Value(new Object_imageset(pCifar10->GetImageSet()->Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -184,56 +171,6 @@ Gura_ImplementFunction(cifar10)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.cifar.cifar10#imgtoarray(shape?:symbol, elemtype?:symbol, normalize?:boolean) {block?}
-Gura_DeclareMethod(cifar10, imgtoarray)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "shape", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "normalize", VTYPE_boolean, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"Creates an `array` instance from the image data in CIFAR-10 database.\n"
-		"\n"
-		"Arguments:\n"
-		"\n"
-		"- `shape` .. element shape that takes `` `flat`` or `` `matrix``. Default is `` `flat``.\n"
-		"- `elemtype` .. element type of created `array` that takes `` `uint8``, `` `half``, `` `float`` or `` `double``. Default is `` `float``.\n"
-		"- `normalize` .. specifies whether it maps element values of `[0, 255]` into a range of `[0, 1]`.\n"
-		"                 Default is `true` when `elemtype` is `` `half``, `` `float`` or `` `double``.\n"
-		"                 Ignored and always treated as `false` when `elemtype` is `` `uint8``.\n"
-		"\n"
-		GURA_HELPTEXT_BLOCK_en("array", "array"));
-}
-
-Gura_ImplementMethod(cifar10, imgtoarray)
-{
-	const Cifar10 *pCifar10 = Object_cifar10::GetObjectThis(arg)->GetCifar10();
-	bool flattenFlag = false;
-	if (arg.IsValid(0)) {
-		const Symbol *pSymbol = arg.GetSymbol(0);
-		if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
-			flattenFlag = true;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(matrix))) {
-			flattenFlag = false;
-		} else {
-			env.SetError(ERR_ValueError, "argument format takes `` `flat` or `` `matrix``");
-			return Value::Nil;
-		}
-	}
-	Array::ElemType elemType = Array::ETYPE_Float;
-	if (arg.IsValid(1)) {
-		elemType = Array::SymbolToElemType(env, arg.GetSymbol(1));
-		if (env.IsSignalled()) return Value::Nil;
-	}
-	bool normalizeFlag = (elemType != Array::ETYPE_UInt8);
-	if (arg.IsValid(2)) {
-		normalizeFlag = arg.GetBoolean(2);
-	}
-	AutoPtr<Object_array> pObj(new Object_array(env, pCifar10->ImageDataToArray(env, flattenFlag, elemType, normalizeFlag)));
-	return ReturnValue(env, arg, Value(pObj.release()));
-}
 
 //-----------------------------------------------------------------------------
 // Implementation of class ml.cifar.cifar10
@@ -241,13 +178,11 @@ Gura_ImplementMethod(cifar10, imgtoarray)
 Gura_ImplementUserClass(cifar10)
 {
 	// Assignment of properties
-	Gura_AssignProperty(cifar10, nimages);
-	Gura_AssignProperty(cifar10, nrows);
-	Gura_AssignProperty(cifar10, ncols);
+	Gura_AssignProperty(cifar10, labelset);
+	Gura_AssignProperty(cifar10, imageset);
 	// Assignment of function
 	Gura_AssignFunction(cifar10);
 	// Assignment of method
-	Gura_AssignMethod(cifar10, imgtoarray);
 }
 
 Gura_EndModuleScope(ml_cifar)

@@ -13,8 +13,9 @@ toascii(array:array) = {
 pathNameArc = 'sample/cifar-10-binary.tar.gz'
 testcase {
 	ml.cifar.cifar10(path.join(pathNameArc, 'cifar-10-batches-bin/data_batch_1.bin')) {|db|
-		printf('nimages:%d nrows:%d ncols:%d\n', db.nimages, db.nrows, db.ncols)
-		arrImage = db.imgtoarray(`flat)
+		printf('nimages:%d nrows:%d ncols:%d\n', db.imageset.nimages, db.imageset.nrows, db.imageset.ncols)
+		arrImage = db.imageset.toarray(`flat)
+		//println(arrImage)
 		println(toascii(arrImage[1][0]))
 	}
 }

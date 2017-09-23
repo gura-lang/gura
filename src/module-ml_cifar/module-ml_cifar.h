@@ -9,6 +9,7 @@
 #include "Class_imageset.h"
 
 Gura_BeginModuleHeader(ml_cifar)
+
 Gura_EndModuleHeader(ml_cifar)
 
 #endif

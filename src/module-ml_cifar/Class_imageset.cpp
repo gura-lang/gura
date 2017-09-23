@@ -10,7 +10,6 @@ Array *CreateArrayOfImages(const Array::Dimensions &dims, const UInt8 *pElemSrc,
 {
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(colMajorFlag, dims));
-#if 0
 	size_t nElems = pArrayT->GetElemNum();
 	T_Elem *pElemDst = pArrayT->GetPointer();
 	if (normalizeFlag) {
@@ -22,7 +21,6 @@ Array *CreateArrayOfImages(const Array::Dimensions &dims, const UInt8 *pElemSrc,
 			*pElemDst = static_cast<T_Elem>(*pElemSrc);
 		}
 	}
-#endif
 	return pArrayT.release();
 }
 
@@ -31,11 +29,12 @@ Array *ImageSet::ToArray(Signal &sig, bool flattenFlag, Array::ElemType elemType
 	AutoPtr<Array > pArray;
 	Array::Dimensions dims;
 	dims.push_back(Array::Dimension(_nImages));
+	dims.push_back(Array::Dimension(nPlanes));
 	if (flattenFlag) {
-		dims.push_back(Array::Dimension(_nRows * _nCols));
+		dims.push_back(Array::Dimension(nRows * nCols));
 	} else {
-		dims.push_back(Array::Dimension(_nRows));
-		dims.push_back(Array::Dimension(_nCols));
+		dims.push_back(Array::Dimension(nRows));
+		dims.push_back(Array::Dimension(nCols));
 	}
 	const UInt8 *pElemSrc = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
 	if (elemType == Array::ETYPE_UInt8) {
@@ -53,6 +52,12 @@ Array *ImageSet::ToArray(Signal &sig, bool flattenFlag, Array::ElemType elemType
 		return nullptr;
 	}
 	return pArray.release();
+}
+
+void ImageSet::AllocMemory(size_t nImages)
+{
+	_pMemory.reset(new MemoryHeap(nImages * sizeof(Packed)));
+	_nImages = nImages;
 }
 
 //-----------------------------------------------------------------------------
@@ -92,8 +97,8 @@ Gura_DeclareProperty_R(imageset, nimages)
 
 Gura_ImplementPropertyGetter(imageset, nimages)
 {
-	ImageSet &imageSet = Object_imageset::GetObject(valueThis)->GetImageSet();
-	return Value(imageSet.GetNumImages());
+	ImageSet *pImageSet = Object_imageset::GetObject(valueThis)->GetImageSet();
+	return Value(pImageSet->GetNumImages());
 }
 
 // ml.cifar.imageset#nrows
@@ -108,8 +113,8 @@ Gura_DeclareProperty_R(imageset, nrows)
 
 Gura_ImplementPropertyGetter(imageset, nrows)
 {
-	ImageSet &imageSet = Object_imageset::GetObject(valueThis)->GetImageSet();
-	return Value(imageSet.GetNumRows());
+	ImageSet *pImageSet = Object_imageset::GetObject(valueThis)->GetImageSet();
+	return Value(pImageSet->GetNumRows());
 }
 
 // ml.cifar.imageset#ncols
@@ -124,8 +129,8 @@ Gura_DeclareProperty_R(imageset, ncols)
 
 Gura_ImplementPropertyGetter(imageset, ncols)
 {
-	ImageSet &imageSet = Object_imageset::GetObject(valueThis)->GetImageSet();
-	return Value(imageSet.GetNumColumns());
+	ImageSet *pImageSet = Object_imageset::GetObject(valueThis)->GetImageSet();
+	return Value(pImageSet->GetNumColumns());
 }
 
 //-----------------------------------------------------------------------------
@@ -135,17 +140,17 @@ Gura_ImplementPropertyGetter(imageset, ncols)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// ml.cifar.imageset#toarray(shape?:symbol, elemtype?:symbol, normalize?:boolean):map {block?}
+// ml.cifar.imageset#toarray(shape?:symbol, elemtype?:symbol, normalize?:boolean) {block?}
 Gura_DeclareMethod(imageset, toarray)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "shape", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "elemtype", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "normalize", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "normalize", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates an `array` instance from the CIFAR image set.\n"
+		"Creates an `array` instance from the image data in CIFAR-10 database.\n"
 		"\n"
 		"Arguments:\n"
 		"\n"
@@ -160,7 +165,7 @@ Gura_DeclareMethod(imageset, toarray)
 
 Gura_ImplementMethod(imageset, toarray)
 {
-	ImageSet &imageSet = Object_imageset::GetObjectThis(arg)->GetImageSet();
+	const ImageSet *pImageSet = Object_imageset::GetObjectThis(arg)->GetImageSet();
 	bool flattenFlag = false;
 	if (arg.IsValid(0)) {
 		const Symbol *pSymbol = arg.GetSymbol(0);
@@ -182,9 +187,8 @@ Gura_ImplementMethod(imageset, toarray)
 	if (arg.IsValid(2)) {
 		normalizeFlag = arg.GetBoolean(2);
 	}
-	AutoPtr<Array> pArray(imageSet.ToArray(env, flattenFlag, elemType, normalizeFlag));
-	if (pArray.IsNull()) return Value::Nil;
-	return ReturnValue(env, arg, Value(new Object_array(env, pArray.release())));
+	AutoPtr<Object_array> pObj(new Object_array(env, pImageSet->ToArray(env, flattenFlag, elemType, normalizeFlag)));
+	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
 //-----------------------------------------------------------------------------
