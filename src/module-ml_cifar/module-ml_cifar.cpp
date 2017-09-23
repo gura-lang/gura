@@ -37,8 +37,12 @@ Gura_ModuleEntry()
 {
 	// Realization of class
 	Gura_RealizeUserClass(cifar10, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(labelset, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(imageset, env.LookupClass(VTYPE_object));
 	// Preparation of class
 	Gura_PrepareUserClass(cifar10);
+	Gura_PrepareUserClass(labelset);
+	Gura_PrepareUserClass(imageset);
 	// Assignment of function
 	Gura_AssignFunction(test);
 	return true;
