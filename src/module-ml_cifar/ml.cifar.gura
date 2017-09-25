@@ -2,6 +2,10 @@
 import(tar)
 import(ml.cifar):binary:mixin_type {*}
 
+labels(pathNameArc:string) = {
+	readlines(path.join(pathNameArc, 'cifar-10-batches-bin/batches.meta.txt')):chop:list
+}
+
 if (__name__ == '__main__') {
 	// 10000 * (32 * 32 * 3 + 1) = 30730000
 	pathNameArc = 'sample/cifar-10-binary.tar.gz'

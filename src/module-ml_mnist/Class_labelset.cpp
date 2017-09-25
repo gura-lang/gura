@@ -37,16 +37,16 @@ Array *CreateArrayOfLabels(Signal &sig, const UInt8 *pElemSrc, size_t nLabels, b
 	AutoPtr<ArrayT<T_Elem> > pArrayT;
 	if (onehotFlag) {
 		size_t labelMax = 0;
-		for (size_t i = 0; i < nLabels; i++, pElemSrc++) {
-			UInt8 label = *pElemSrc;
+		for (size_t i = 0; i < nLabels; i++) {
+			UInt8 label = *(pElemSrc + i);
 			if (labelMax < label) labelMax = label;
 		}
 		size_t nCols = labelMax + 1;
 		pArrayT.reset(ArrayT<T_Elem>::Create2d(colMajorFlag, nLabels, nCols));
 		pArrayT->FillZero();
 		T_Elem *pElemDst = pArrayT->GetPointer();
-		for (size_t i = 0; i < nLabels; i++, pElemSrc++, pElemDst += nCols) {
-			UInt8 label = *pElemSrc;
+		for (size_t i = 0; i < nLabels; i++, pElemDst += nCols) {
+			UInt8 label = *(pElemSrc + i);
 			*(pElemDst + label) = 1;
 		}
 	} else {
