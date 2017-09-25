@@ -10,18 +10,18 @@ Array *CreateArrayOfLabels(Signal &sig, const UInt8 *pElemSrc, size_t nLabels, b
 {
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT<T_Elem> > pArrayT;
-#if 0
 	if (onehotFlag) {
-		size_t nCols = 10;
+		size_t labelMax = 0;
+		for (size_t i = 0; i < nLabels; i++, pElemSrc++) {
+			UInt8 label = *pElemSrc;
+			if (labelMax < label) labelMax = label;
+		}
+		size_t nCols = labelMax + 1;
 		pArrayT.reset(ArrayT<T_Elem>::Create2d(colMajorFlag, nLabels, nCols));
 		pArrayT->FillZero();
 		T_Elem *pElemDst = pArrayT->GetPointer();
 		for (size_t i = 0; i < nLabels; i++, pElemSrc++, pElemDst += nCols) {
 			UInt8 label = *pElemSrc;
-			if (label >= 10) {
-				sig.SetError(ERR_FormatError, "invalid data in label file");
-				return nullptr;
-			}
 			*(pElemDst + label) = 1;
 		}
 	} else {
@@ -31,7 +31,6 @@ Array *CreateArrayOfLabels(Signal &sig, const UInt8 *pElemSrc, size_t nLabels, b
 			*pElemDst = static_cast<T_Elem>(*pElemSrc);
 		}
 	}
-#endif
 	return pArrayT.release();
 }
 
