@@ -500,6 +500,28 @@ bool Trainer::NodeFilter_relu::IsVulnerable() const
 
 bool Trainer::NodeFilter_relu::EvalBackward(Environment &env)
 {
+#if 0
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
+		if (_connectorSrc.GetArrayBwd() == nullptr) {
+			const Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd();
+			bool colMajorFlag = false;
+			_connectorSrc.SetArrayBwd(Array::Create(pArrayBwd->GetElemType(),
+													colMajorFlag, pArrayBwd->GetDimensions()));
+		}
+		const Array *pArrayFwd = _connectorSrc.GetArrayFwd();
+		for (size_t iElem = 0; iElem < pArrayFwd->GetElemNum(); iElem++) {
+			
+		}
+#if 0
+		_connectorSrcRight.SetArrayBwd(
+			Array::ApplyUnaryFunc(
+				env, Array::unaryFuncPack_Neg, _connectorSrcRight.GetArrayBwd(),
+				(*ppConnectorDst)->GetArrayBwd()));
+		if (env.IsSignalled()) return false;
+#endif
+	}
+#endif
 	return false;
 }
 
