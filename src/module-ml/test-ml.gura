@@ -1,0 +1,7 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+import(ml)
+
+testcase {
+	println(ml.test(3, 4))
+}
