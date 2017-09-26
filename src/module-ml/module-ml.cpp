@@ -8,20 +8,44 @@ Gura_BeginModuleBody(ml)
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
-// ml.test(num1:number, num2:number)
-Gura_DeclareFunction(test)
+// ml.he(n:number)
+Gura_DeclareFunction(he)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "num1", VTYPE_number);
-	DeclareArg(env, "num2", VTYPE_number);
+	DeclareArg(env, "n", VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"This function adds two numbers and returns the result.\n");
+		"Calculates a sigma value to initialize neural network based on He.\n");
 }
 
-Gura_ImplementFunction(test)
+Gura_ImplementFunction(he)
 {
-	return Value(arg.GetNumber(0) + arg.GetNumber(1));
+	Double num = arg.GetDouble(0);
+	if (num == 0) {
+		env.SetError(ERR_ValueError, "zero can not be specified");
+		return Value::Nil;
+	}
+	return Value(::sqrt(2 / num));
+}
+
+// ml.xavier(n:number)
+Gura_DeclareFunction(xavier)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "n", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"Calculates a sigma value to initialize neural network based on Xavier.\n");
+}
+
+Gura_ImplementFunction(xavier)
+{
+	Double num = arg.GetDouble(0);
+	if (num == 0) {
+		env.SetError(ERR_ValueError, "zero can not be specified");
+		return Value::Nil;
+	}
+	return Value(::sqrt(1 / num));
 }
 
 //-----------------------------------------------------------------------------
@@ -35,7 +59,8 @@ Gura_ModuleValidate()
 Gura_ModuleEntry()
 {
 	// Assignment of function
-	Gura_AssignFunction(test);
+	Gura_AssignFunction(he);
+	Gura_AssignFunction(xavier);
 	return true;
 }
 
