@@ -45,7 +45,7 @@ testcase(title?:string):void {`block} = {
 	try {
 		scope {|block|}
 	} catch {|e|
-		println('Error in the test case: ', e.text)
+		println('Error in the test case: ', e.text:lineno)
 	}
 }
 
