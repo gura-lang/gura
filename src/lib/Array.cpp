@@ -1045,6 +1045,16 @@ Array::Indexer::Indexer(const Dimensions &dims) :
 bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 {
 	_offsetTarget = 0;
+#if 0
+	if (valListIdx.size() == 1 && valListIdx.front().IsInstanceOf(VTYPE_array)) {
+		const Array *pArrayIdx = Object_array::GetObject(valListIdx.front())->GetArray();
+		if (pArrayIdx->IsElemType(Array::ETYPE_Boolean)) {
+			env.SetError(ERR_IndexError, "array for indices must be boolean type");
+			return false;
+		}
+		
+	}
+#endif
 	foreach_const (ValueList, pValueIdx, valListIdx) {
 		if (_pDim == _dims.end()) {
 			env.SetError(ERR_IndexError, "number of indices exceeds dimensions");
