@@ -1319,7 +1319,7 @@ testcase('operation on transposed array: flatten') {
 		tester(`xT.flatten())
 	}
 }
-testcase('boolean indexing') {
+testcase('boolean indexing - 1') {
 	x = array.zeros([3, 4])
 	tester(`x)
 	f = array@boolean.zeros([3, 4])
@@ -1351,4 +1351,49 @@ testcase('boolean indexing') {
 		{true, false, false, false}
 	}
 	tester(`x[f])
+}
+testcase('boolean indexing - 2') {
+	//--------------------------------------------
+	x = array.zeros([3, 4, 5])
+	f = array@boolean {
+		{
+			{ true,  true,  true,  true, false}
+			{false,  true, false,  true,  true}
+			{ true,  true,  true,  true,  true}
+			{ true,  true,  true,  true, false}
+		},{
+			{ true, false,  true,  true, false}
+			{ true, false,  true,  true, false}
+			{ true,  true, false, false, false}
+			{false, false,  true,  true,  true}
+		}, {
+			{false, false, false, false,  true}
+			{false, false,  true, false, false}
+			{ true,  true,  true,  true, false}
+			{ true,  true, false,  true,  true}
+		}
+	}
+	tester(`f)
+	x[f] = 1..
+	tester(`x)
+	//--------------------------------------------
+	f = array@boolean {
+		{false, false, false, false,  true}
+		{false, false,  true, false, false}
+		{ true,  true,  true,  true, false}
+		{ true,  true, false,  true,  true}
+	}
+	tester(`f)
+	x = array.zeros([3, 4, 5])
+	x[0, f] = 1..
+	tester(`x)
+	x = array.zeros([3, 4, 5])
+	x[1, f] = 1..
+	tester(`x)
+	x = array.zeros([3, 4, 5])
+	x[2, f] = 1..
+	tester(`x)
+	x = array.zeros([3, 4, 5])
+	x[0..2, f] = 1..
+	tester(`x)
 }

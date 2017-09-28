@@ -1085,7 +1085,9 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 				return false;
 			}
 			const Dimensions &dimsIdx = pArrayIdx->GetDimensions();
-			if (!Dimensions::CheckSameShape(env, _pDim, _dims.end(), dimsIdx.begin(), dimsIdx.end())) return false;
+			size_t sizeRest = std::distance(_pDim, _dims.end());
+			Dimensions::const_iterator pDimEnd = _pDim + ChooseMin(sizeRest, dimsIdx.size());
+			if (!Dimensions::CheckSameShape(env, _pDim, pDimEnd, dimsIdx.begin(), dimsIdx.end())) return false;
 			if (!IsSameMajor(_pArray, pArrayIdx)) {
 				env.SetError(ERR_NotImplementedError,
 							 "indexing with an array with different major is not supported yet");
@@ -1094,14 +1096,14 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 			std::unique_ptr<Generator> pGenerator(new Generator(1));
 			const Boolean *pElemIdx = dynamic_cast<const ArrayT<Boolean> *>(pArrayIdx)->GetPointer();
 			size_t nElems = pArrayIdx->GetElemNum();
-			for (size_t iElem = 0; iElem < nElems; iElem++, pElemIdx++) {
-				if (*pElemIdx) pGenerator->Add(_offsetTarget + iElem);
+			for (size_t offset = 0; offset < nElems; offset++, pElemIdx++) {
+				if (*pElemIdx) pGenerator->Add(offset);
 			}
 			if (_pGeneratorOwner.get() == nullptr) {
 				_pGeneratorOwner.reset(new GeneratorOwner());
 			}
 			_pGeneratorOwner->push_back(pGenerator.release());
-			_pDim = _dims.end();
+			_pDim = pDimEnd;
 		} else {
 			env.SetError(ERR_ValueError, "index must be a number");
 			return false;
