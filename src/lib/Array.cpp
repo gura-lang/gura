@@ -799,7 +799,7 @@ String Array::Dimensions::ToString(const_iterator pDim, const_iterator pDimEnd, 
 	String rtn;
 	char buff[80];
 	for ( ; pDim != pDimEnd; pDim++) {
-		::sprintf(buff, "%ld", pDim->GetSize());
+		::sprintf(buff, "%zu", pDim->GetSize());
 		if (!rtn.empty()) rtn += sep;
 		rtn += buff;
 	}
@@ -838,18 +838,19 @@ bool Array::Dimensions::IsSameShape(const_iterator pDimA, const_iterator pDimEnd
 	return pDimA == pDimEndA && pDimB == pDimEndB;
 }
 
-bool Array::Dimensions::CheckSameShape(Signal &sig, const Dimensions &dimsA, const Dimensions &dimsB)
+bool Array::Dimensions::CheckSameShape(Signal &sig, const_iterator pDimA, const_iterator pDimEndA,
+									   const_iterator pDimB, const_iterator pDimEndB)
 {
-	if (Dimensions::IsSameShape(dimsA, dimsB)) return true;
+	if (IsSameShape(pDimA, pDimEndA, pDimB, pDimEndB)) return true;
 	sig.SetError(ERR_ValueError, "mismatched dimension of arrays between (%s) and (%s)",
-				 dimsA.ToString().c_str(), dimsB.ToString().c_str());
+				 ToString(pDimA, pDimEndA).c_str(), ToString(pDimB, pDimEndB).c_str());
 	return false;
 }
 
 bool Array::Dimensions::IsElemwiseCalculatable(const Dimensions &dimsA, const Dimensions &dimsB)
 {
-	Dimensions::const_reverse_iterator pDimA = dimsA.rbegin();
-	Dimensions::const_reverse_iterator pDimB = dimsB.rbegin();
+	const_reverse_iterator pDimA = dimsA.rbegin();
+	const_reverse_iterator pDimB = dimsB.rbegin();
 	for ( ; pDimA != dimsA.rend() && pDimB != dimsB.rend(); pDimA++, pDimB++) {
 		if (pDimA->GetSize() != pDimB->GetSize()) return false;
 	}
@@ -859,7 +860,7 @@ bool Array::Dimensions::IsElemwiseCalculatable(const Dimensions &dimsA, const Di
 bool Array::Dimensions::CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 												  const Dimensions &dimsL, const Dimensions &dimsR)
 {
-	if (Dimensions::IsElemwiseCalculatable(dimsL, dimsR)) return true;
+	if (IsElemwiseCalculatable(dimsL, dimsR)) return true;
 	if (*pack.symbol == '\0') {
 		sig.SetError(ERR_ValueError,
 					 "failed in array calculation: %s((%s), (%s))",
@@ -1035,70 +1036,75 @@ Array::Indexer::Indexer(const Array *pArray) :
 bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 {
 	_offsetTarget = 0;
-	if (valListIdx.size() == 1 && valListIdx.front().IsInstanceOf(VTYPE_array)) {
-		// when the index is an array
-		const Array *pArrayIdx = Object_array::GetObject(valListIdx.front())->GetArray();
-		if (!pArrayIdx->IsElemType(Array::ETYPE_Boolean)) {
-			env.SetError(ERR_IndexError, "array for indices must be boolean type");
+	foreach_const (ValueList, pValueIdx, valListIdx) {
+		const Value &valueIdx = *pValueIdx;
+		if (_pDim == _dims.end()) {
+			env.SetError(ERR_IndexError, "number of indices exceeds dimensions");
 			return false;
 		}
-		if (!CheckSameShape(env, _pArray, pArrayIdx)) return false;
-		if (!IsSameMajor(_pArray, pArrayIdx)) {
-			env.SetError(ERR_NotImplementedError,
-						 "indexing with an array with different major is not supported yet");
-			return false;
-		}
-		std::unique_ptr<Generator> pGenerator(new Generator(1));
-		const Boolean *pElemIdx = dynamic_cast<const ArrayT<Boolean> *>(pArrayIdx)->GetPointer();
-		size_t nElems = pArrayIdx->GetElemNum();
-		for (size_t offset = 0; offset < nElems; offset++, pElemIdx++) {
-			if (*pElemIdx) pGenerator->Add(offset);
-		}
-		_pGeneratorOwner.reset(new GeneratorOwner());
-		_pGeneratorOwner->push_back(pGenerator.release());
-		_pDim = _dims.end();
-	} else {
-		foreach_const (ValueList, pValueIdx, valListIdx) {
-			if (_pDim == _dims.end()) {
-				env.SetError(ERR_IndexError, "number of indices exceeds dimensions");
+		if (valueIdx.Is_number()) {
+			size_t idx = valueIdx.GetSizeT();
+			if (idx >= _pDim->GetSize()) {
+				env.SetError(ERR_OutOfRangeError, "index is out of range");
 				return false;
 			}
-			const Value &valueIdx = *pValueIdx;
-			if (valueIdx.Is_number()) {
-				size_t idx = valueIdx.GetSizeT();
-				if (idx >= _pDim->GetSize()) {
-					env.SetError(ERR_OutOfRangeError, "index is out of range");
-					return false;
-				}
-				_offsetTarget += idx * _pDim->GetStrides();
-			} else if (valueIdx.IsListOrIterator()) {
-				AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(env));
-				if (env.IsSignalled()) return false;
-				std::unique_ptr<Generator> pGenerator(new Generator(_pDim->GetStrides()));
-				Value valueIdxEach;
-				while (pIterator->Next(env, valueIdxEach)) {
-					if (valueIdxEach.Is_number()) {
-						size_t idx = valueIdxEach.GetSizeT();
-						if (idx >= _pDim->GetSize()) break;
-						pGenerator->Add(idx);
-					} else {
-						env.SetError(ERR_ValueError, "index must be a number");
-						return false;
-					}
-				}
-				if (pGenerator->IsEmpty()) {
-					env.SetError(ERR_ValueError, "no indices specified");
-					return false;
-				}
-				if (_pGeneratorOwner.get() == nullptr) {
-					_pGeneratorOwner.reset(new GeneratorOwner());
-				}
-				_pGeneratorOwner->push_back(pGenerator.release());
-			} else {
-				env.SetError(ERR_ValueError, "index must be a number");
-				return false;
-			}
+			_offsetTarget += idx * _pDim->GetStrides();
 			_pDim++;
+		} else if (valueIdx.IsListOrIterator()) {
+			AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(env));
+			if (env.IsSignalled()) return false;
+			std::unique_ptr<Generator> pGenerator(new Generator(_pDim->GetStrides()));
+			Value valueIdxEach;
+			while (pIterator->Next(env, valueIdxEach)) {
+				if (valueIdxEach.Is_number()) {
+					size_t idx = valueIdxEach.GetSizeT();
+					if (idx >= _pDim->GetSize()) break;
+					pGenerator->Add(idx);
+				} else {
+					env.SetError(ERR_ValueError, "index must be a number");
+					return false;
+				}
+			}
+			if (pGenerator->IsEmpty()) {
+				env.SetError(ERR_ValueError, "no indices specified");
+				return false;
+			}
+			if (_pGeneratorOwner.get() == nullptr) {
+				_pGeneratorOwner.reset(new GeneratorOwner());
+			}
+			_pGeneratorOwner->push_back(pGenerator.release());
+			_pDim++;
+		} else if (valueIdx.IsInstanceOf(VTYPE_array)) {
+			if (pValueIdx + 1 != valListIdx.end()) {
+				env.SetError(ERR_IndexError, "boolean index can only be specified at the end");
+				return false;
+			}
+			const Array *pArrayIdx = Object_array::GetObject(valueIdx)->GetArray();
+			if (!pArrayIdx->IsElemType(Array::ETYPE_Boolean)) {
+				env.SetError(ERR_IndexError, "array for indices must be boolean type");
+				return false;
+			}
+			const Dimensions &dimsIdx = pArrayIdx->GetDimensions();
+			if (!Dimensions::CheckSameShape(env, _pDim, _dims.end(), dimsIdx.begin(), dimsIdx.end())) return false;
+			if (!IsSameMajor(_pArray, pArrayIdx)) {
+				env.SetError(ERR_NotImplementedError,
+							 "indexing with an array with different major is not supported yet");
+				return false;
+			}
+			std::unique_ptr<Generator> pGenerator(new Generator(1));
+			const Boolean *pElemIdx = dynamic_cast<const ArrayT<Boolean> *>(pArrayIdx)->GetPointer();
+			size_t nElems = pArrayIdx->GetElemNum();
+			for (size_t iElem = 0; iElem < nElems; iElem++, pElemIdx++) {
+				if (*pElemIdx) pGenerator->Add(_offsetTarget + iElem);
+			}
+			if (_pGeneratorOwner.get() == nullptr) {
+				_pGeneratorOwner.reset(new GeneratorOwner());
+			}
+			_pGeneratorOwner->push_back(pGenerator.release());
+			_pDim = _dims.end();
+		} else {
+			env.SetError(ERR_ValueError, "index must be a number");
+			return false;
 		}
 	}
 	if (_pGeneratorOwner.get() != nullptr) _pGeneratorOwner->Reset();

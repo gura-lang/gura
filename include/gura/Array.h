@@ -166,7 +166,11 @@ public:
 			return IsSameShape(dimsA.begin(), dimsA.end(), dimsB.begin(), dimsB.end());
 		}
 		static bool IsElemwiseCalculatable(const Dimensions &dimsA, const Dimensions &dimsB);
-		static bool CheckSameShape(Signal &sig, const Dimensions &dimsA, const Dimensions &dimsB);
+		static bool CheckSameShape(Signal &sig, const_iterator pDimA, const_iterator pDimEndA,
+								   const_iterator pDimB, const_iterator pDimEndB);
+		inline static bool CheckSameShape(Signal &sig, const Dimensions &dimsA, const Dimensions &dimsB) {
+			return CheckSameShape(sig, dimsA.begin(), dimsA.end(), dimsB.begin(), dimsB.end());
+		}
 		static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 											  const Dimensions &dimsL, const Dimensions &dimsR);
 	};
