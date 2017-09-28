@@ -48,21 +48,23 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 {
 	if (valListIdx.empty()) return Value::Nil;
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
-	Array::Indexer indexer(pArrayT->GetDimensions());
+	Array::Indexer indexer(pArrayT);
 	if (!indexer.InitIndices(env, valListIdx)) return Value::Nil;
 	Value valueRtn;
 	if (indexer.HasGenerator()) {
 		Array::Dimensions dimsRtn;
 		indexer.MakeResultDimensions(dimsRtn);
 		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(pArrayT->GetColMajorFlag(), dimsRtn));
-		size_t nElemsUnit = indexer.GetElemNumUnit();
-		size_t bytesUnit = nElemsUnit * pArrayTRtn->GetElemBytes();
-		const T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
-		T_Elem *pElemDst = pArrayTRtn->GetPointer();
-		do {
-			::memcpy(pElemDst, pElemTgt + indexer.GenerateOffset(), bytesUnit);
-			pElemDst += nElemsUnit;
-		} while (indexer.NextGenerator());
+		if (!indexer.IsEmptyGenerator()) {
+			size_t nElemsUnit = indexer.GetElemNumUnit();
+			size_t bytesUnit = nElemsUnit * pArrayTRtn->GetElemBytes();
+			const T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
+			T_Elem *pElemDst = pArrayTRtn->GetPointer();
+			do {
+				::memcpy(pElemDst, pElemTgt + indexer.GenerateOffset(), bytesUnit);
+				pElemDst += nElemsUnit;
+			} while (indexer.NextGenerator());
+		}
 		valueRtn = Array::ToValue(env, pArrayTRtn.release());
 	} else if (indexer.IsTargetScalar()) {
 		const T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
@@ -129,25 +131,29 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 		}
 		return;
 	}
-	Array::Indexer indexer(pArrayT->GetDimensions());
+	Array::Indexer indexer(pArrayT);
 	if (!indexer.InitIndices(env, valListIdx)) return;
 	T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
 	size_t nElemsUnit = indexer.GetElemNumUnit();
 	if (value.Is_number() || value.Is_boolean()) {
 		Double num = value.GetDouble();
 		if (indexer.HasGenerator()) {
-			do {
-				FillDouble(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num);
-			} while (indexer.NextGenerator());
+			if (!indexer.IsEmptyGenerator()) {
+				do {
+					FillDouble(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num);
+				} while (indexer.NextGenerator());
+			}
 		} else {
 			FillDouble(pElemTgt, nElemsUnit, num);
 		}
 	} else if (complexFlag && value.Is_complex()) {
 		const Complex &num = value.GetComplex();
 		if (indexer.HasGenerator()) {
-			do {
-				FillComplex(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num);
-			} while (indexer.NextGenerator());
+			if (!indexer.IsEmptyGenerator()) {
+				do {
+					FillComplex(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num);
+				} while (indexer.NextGenerator());
+			}
 		} else {
 			FillComplex(pElemTgt, nElemsUnit, num);
 		}
@@ -159,13 +165,15 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			new Iterator_Flatten(pIteratorSrc.release(), Iterator_Flatten::MODE_DepthFirstSearch));
 		Value valueEach;
 		if (indexer.HasGenerator()) {
-			do {
-				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
-				for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
-					if (!pIterator->Next(env, valueEach) ||
-						!StoreValueAt(env, pElemDst, valueEach)) return;
-				}
-			} while (indexer.NextGenerator());
+			if (!indexer.IsEmptyGenerator()) {
+				do {
+					T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
+					for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
+						if (!pIterator->Next(env, valueEach) ||
+							!StoreValueAt(env, pElemDst, valueEach)) return;
+					}
+				} while (indexer.NextGenerator());
+			}
 		} else {
 			T_Elem *pElemDst = pElemTgt;
 			for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
@@ -176,22 +184,24 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	} else if (value.IsInstanceOf(VTYPE_array)) {
 		Array *pArraySrc = Object_array::GetObject(value)->GetArray();
 		if (indexer.HasGenerator()) {
-			char *pElemSrc = pArraySrc->GetPointerRaw();
-			size_t nElemsSrc = pArraySrc->GetElemNum();
-			size_t elemBytesSrc = pArraySrc->GetElemBytes();
-			do {
-				T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
-				size_t nElemsToCopy = ChooseMin(nElemsUnit, nElemsSrc);
-				if (!Array::CopyElements(env, pElemDst, pArrayT->GetElemType(),
-										 pElemSrc, pArraySrc->GetElemType(), nElemsToCopy)) return;
-				nElemsSrc -= nElemsToCopy;
-				if (nElemsSrc == 0) {
-					pElemSrc = pArraySrc->GetPointerRaw();
-					nElemsSrc = pArraySrc->GetElemNum();
-				} else {
-					pElemSrc += nElemsToCopy * elemBytesSrc;
-				}
-			} while (indexer.NextGenerator());
+			if (!indexer.IsEmptyGenerator()) {
+				char *pElemSrc = pArraySrc->GetPointerRaw();
+				size_t nElemsSrc = pArraySrc->GetElemNum();
+				size_t elemBytesSrc = pArraySrc->GetElemBytes();
+				do {
+					T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
+					size_t nElemsToCopy = ChooseMin(nElemsUnit, nElemsSrc);
+					if (!Array::CopyElements(env, pElemDst, pArrayT->GetElemType(),
+											 pElemSrc, pArraySrc->GetElemType(), nElemsToCopy)) return;
+					nElemsSrc -= nElemsToCopy;
+					if (nElemsSrc == 0) {
+						pElemSrc = pArraySrc->GetPointerRaw();
+						nElemsSrc = pArraySrc->GetElemNum();
+					} else {
+						pElemSrc += nElemsToCopy * elemBytesSrc;
+					}
+				} while (indexer.NextGenerator());
+			}
 		} else {
 			T_Elem *pElemDst = pElemTgt;
 			char *pElemSrc = pArraySrc->GetPointerRaw();

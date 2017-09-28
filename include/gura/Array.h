@@ -175,16 +175,15 @@ public:
 			inline bool IsEmpty() const { return _offsets.empty(); }
 			inline size_t CalcOffset() const { return _strides * *_pOffset; }
 			inline void Reset() { _pOffset = _offsets.begin(); }
-			//inline size_t GetIndex() const { return *_pIndex; }
 			inline size_t GetSize() const { return _offsets.size(); }
 			bool Next();
 		};
 		class GURA_DLLDECLARE GeneratorList : public std::vector<Generator *> {
 		public:
+			bool IsEmptyGenerator() const;
 			void Reset();
 			size_t CalcOffset() const;
 			bool Next();
-			//void Print() const;
 		};
 		class GURA_DLLDECLARE GeneratorOwner : public GeneratorList {
 		public:
@@ -192,16 +191,18 @@ public:
 			void Clear();
 		};
 	private:
+		const Array *_pArray;
 		const Dimensions &_dims;
 		Dimensions::const_iterator _pDim;
 		size_t _offsetTarget;
 		std::unique_ptr<GeneratorOwner> _pGeneratorOwner;
 	public:
-		Indexer(const Dimensions &dims);
+		Indexer(const Array *pArray);
 		bool InitIndices(Environment &env, const ValueList &valListIdx);
 		void MakeResultDimensions(Dimensions &dimsRtn);
 		inline size_t GetOffsetTarget() const { return _offsetTarget; }
 		inline bool HasGenerator() const { return _pGeneratorOwner.get() != nullptr; }
+		inline bool IsEmptyGenerator() const { return HasGenerator() && _pGeneratorOwner->IsEmptyGenerator(); }
 		inline size_t GenerateOffset() const { return _pGeneratorOwner->CalcOffset(); }
 		inline bool NextGenerator() { return _pGeneratorOwner->Next(); }
 		inline size_t GetElemNumUnit() const {
@@ -300,9 +301,19 @@ public:
 public:
 	static ElemType SymbolToElemType(const Symbol *pSymbol);
 	static ElemType SymbolToElemType(Signal &sig, const Symbol *pSymbol);
-	static bool CheckShape(Signal &sig, const Array *pArrayA, const Array *pArrayB);
+	static bool CheckSameShape(Signal &sig, const Dimensions &dimsA, const Dimensions &dimsB);
+	inline static bool IsSameMajor(const Array *pArrayA, const Array *pArrayB) {
+		return pArrayA->GetColMajorFlag() == pArrayB->GetColMajorFlag();
+	}
+	inline static bool CheckSameShape(Signal &sig, const Array *pArrayA, const Array *pArrayB) {
+		return CheckSameShape(sig, pArrayA->GetDimensions(), pArrayB->GetDimensions());
+	}
 	static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
-										  const Array *pArrayL, const Array *pArrayR);
+										  const Dimensions &dimsL, const Dimensions &dimsR);
+	inline static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
+												 const Array *pArrayL, const Array *pArrayR) {
+		return CheckElemwiseCalculatable(sig, pack, pArrayL->GetDimensions(), pArrayR->GetDimensions());
+	}
 	static bool CopyElements(Environment &env, Array *pArrayDst, const Array *pArraySrc);
 	static bool CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeDst,
 							 const void *pElemRawSrc, ElemType elemTypeSrc, size_t nElems);
