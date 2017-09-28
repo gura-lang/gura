@@ -1058,6 +1058,7 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 		}
 		_pGeneratorOwner.reset(new GeneratorOwner());
 		_pGeneratorOwner->push_back(pGenerator.release());
+		_pDim = _dims.end();
 	} else {
 		foreach_const (ValueList, pValueIdx, valListIdx) {
 			if (_pDim == _dims.end()) {
