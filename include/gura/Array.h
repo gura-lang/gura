@@ -156,11 +156,19 @@ public:
 		inline void SetPlane(const Dimension &dim) { *(rbegin() + 2) = dim; } 
 		inline void SetRow(const Dimension &dim) { *(rbegin() + 1) = dim; } 
 		inline void SetCol(const Dimension &dim) { *rbegin() = dim; } 
-		String ToString(const char *sep = ", ") const;
+		static String ToString(const_iterator pDim, const_iterator pDimEnd, const char *sep = ", ");
+		inline String ToString(const char *sep = ", ") const { return ToString(begin(), end(), sep); }
 		bool Serialize(Environment &env, Stream &stream) const;
 		bool Deserialize(Environment &env, Stream &stream);
-		static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB);
+		static bool IsSameShape(const_iterator pDimA, const_iterator pDimEndA,
+								const_iterator pDimB, const_iterator pDimEndB);
+		inline static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB) {
+			return IsSameShape(dimsA.begin(), dimsA.end(), dimsB.begin(), dimsB.end());
+		}
 		static bool IsElemwiseCalculatable(const Dimensions &dimsA, const Dimensions &dimsB);
+		static bool CheckSameShape(Signal &sig, const Dimensions &dimsA, const Dimensions &dimsB);
+		static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
+											  const Dimensions &dimsL, const Dimensions &dimsR);
 	};
 	class GURA_DLLDECLARE Indexer {
 	public:
@@ -301,18 +309,15 @@ public:
 public:
 	static ElemType SymbolToElemType(const Symbol *pSymbol);
 	static ElemType SymbolToElemType(Signal &sig, const Symbol *pSymbol);
-	static bool CheckSameShape(Signal &sig, const Dimensions &dimsA, const Dimensions &dimsB);
 	inline static bool IsSameMajor(const Array *pArrayA, const Array *pArrayB) {
 		return pArrayA->GetColMajorFlag() == pArrayB->GetColMajorFlag();
 	}
 	inline static bool CheckSameShape(Signal &sig, const Array *pArrayA, const Array *pArrayB) {
-		return CheckSameShape(sig, pArrayA->GetDimensions(), pArrayB->GetDimensions());
+		return Dimensions::CheckSameShape(sig, pArrayA->GetDimensions(), pArrayB->GetDimensions());
 	}
-	static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
-										  const Dimensions &dimsL, const Dimensions &dimsR);
 	inline static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 												 const Array *pArrayL, const Array *pArrayR) {
-		return CheckElemwiseCalculatable(sig, pack, pArrayL->GetDimensions(), pArrayR->GetDimensions());
+		return Dimensions::CheckElemwiseCalculatable(sig, pack, pArrayL->GetDimensions(), pArrayR->GetDimensions());
 	}
 	static bool CopyElements(Environment &env, Array *pArrayDst, const Array *pArraySrc);
 	static bool CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeDst,

@@ -355,30 +355,6 @@ Array::ElemType Array::SymbolToElemType(Signal &sig, const Symbol *pSymbol)
 	return elemType;
 }
 
-bool Array::CheckSameShape(Signal &sig, const Dimensions &dimsA, const Dimensions &dimsB)
-{
-	if (Dimensions::IsSameShape(dimsA, dimsB)) return true;
-	sig.SetError(ERR_ValueError, "mismatched dimension of arrays between (%s) and (%s)",
-				 dimsA.ToString().c_str(), dimsB.ToString().c_str());
-	return false;
-}
-
-bool Array::CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
-									  const Dimensions &dimsL, const Dimensions &dimsR)
-{
-	if (Dimensions::IsElemwiseCalculatable(dimsL, dimsR)) return true;
-	if (*pack.symbol == '\0') {
-		sig.SetError(ERR_ValueError,
-					 "failed in array calculation: %s((%s), (%s))",
-					 pack.name, dimsL.ToString().c_str(), dimsR.ToString().c_str());
-	} else {
-		sig.SetError(ERR_ValueError,
-					 "failed in array calculation: (%s) %s (%s)",
-					 dimsL.ToString().c_str(), pack.symbol, dimsR.ToString().c_str());
-	}
-	return false;
-}
-
 template<typename T_ElemDst, typename T_ElemSrc>
 void CopyElementsTmpl(void *pElemRawDst, const void *pElemRawSrc, size_t nElems)
 {
@@ -818,11 +794,11 @@ void Array::SetError_UnacceptableValueAsElement(Environment &env, const Value &v
 //-----------------------------------------------------------------------------
 // Array::Dimensions
 //-----------------------------------------------------------------------------
-String Array::Dimensions::ToString(const char *sep) const
+String Array::Dimensions::ToString(const_iterator pDim, const_iterator pDimEnd, const char *sep)
 {
 	String rtn;
 	char buff[80];
-	foreach_const (Dimensions, pDim, *this) {
+	for ( ; pDim != pDimEnd; pDim++) {
 		::sprintf(buff, "%ld", pDim->GetSize());
 		if (!rtn.empty()) rtn += sep;
 		rtn += buff;
@@ -853,15 +829,21 @@ bool Array::Dimensions::Deserialize(Environment &env, Stream &stream)
 	return true;
 }
 
-bool Array::Dimensions::IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB)
+bool Array::Dimensions::IsSameShape(const_iterator pDimA, const_iterator pDimEndA,
+									const_iterator pDimB, const_iterator pDimEndB)
 {
-	if (dimsA.size() != dimsB.size()) return false;
-	Dimensions::const_iterator pDimA = dimsA.begin();
-	Dimensions::const_iterator pDimB = dimsB.begin();
-	for ( ; pDimA != dimsA.end(); pDimA++, pDimB++) {
+	for ( ; pDimA != pDimEndA && pDimB != pDimEndB; pDimA++, pDimB++) {
 		if (pDimA->GetSize() != pDimB->GetSize()) return false;
 	}
-	return true;
+	return pDimA == pDimEndA && pDimB == pDimEndB;
+}
+
+bool Array::Dimensions::CheckSameShape(Signal &sig, const Dimensions &dimsA, const Dimensions &dimsB)
+{
+	if (Dimensions::IsSameShape(dimsA, dimsB)) return true;
+	sig.SetError(ERR_ValueError, "mismatched dimension of arrays between (%s) and (%s)",
+				 dimsA.ToString().c_str(), dimsB.ToString().c_str());
+	return false;
 }
 
 bool Array::Dimensions::IsElemwiseCalculatable(const Dimensions &dimsA, const Dimensions &dimsB)
@@ -872,6 +854,22 @@ bool Array::Dimensions::IsElemwiseCalculatable(const Dimensions &dimsA, const Di
 		if (pDimA->GetSize() != pDimB->GetSize()) return false;
 	}
 	return true;
+}
+
+bool Array::Dimensions::CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
+												  const Dimensions &dimsL, const Dimensions &dimsR)
+{
+	if (Dimensions::IsElemwiseCalculatable(dimsL, dimsR)) return true;
+	if (*pack.symbol == '\0') {
+		sig.SetError(ERR_ValueError,
+					 "failed in array calculation: %s((%s), (%s))",
+					 pack.name, dimsL.ToString().c_str(), dimsR.ToString().c_str());
+	} else {
+		sig.SetError(ERR_ValueError,
+					 "failed in array calculation: (%s) %s (%s)",
+					 dimsL.ToString().c_str(), pack.symbol, dimsR.ToString().c_str());
+	}
+	return false;
 }
 
 //------------------------------------------------------------------------------
