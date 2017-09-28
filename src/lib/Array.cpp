@@ -1085,8 +1085,9 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 				return false;
 			}
 			const Dimensions &dimsIdx = pArrayIdx->GetDimensions();
-			size_t sizeRest = std::distance(_pDim, _dims.end());
-			Dimensions::const_iterator pDimEnd = _pDim + ChooseMin(sizeRest, dimsIdx.size());
+			//size_t sizeRest = std::distance(_pDim, _dims.end());
+			//Dimensions::const_iterator pDimEnd = _pDim + ChooseMin(sizeRest, dimsIdx.size());
+			Dimensions::const_iterator pDimEnd = _dims.end();
 			if (!Dimensions::CheckSameShape(env, _pDim, pDimEnd, dimsIdx.begin(), dimsIdx.end())) return false;
 			if (!IsSameMajor(_pArray, pArrayIdx)) {
 				env.SetError(ERR_NotImplementedError,
