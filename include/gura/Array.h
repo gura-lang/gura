@@ -166,17 +166,17 @@ public:
 	public:
 		class GURA_DLLDECLARE Generator {
 		private:
-			const Dimension &_dim;
-			SizeTList _indices;
-			SizeTList::const_iterator _pIndex;
+			size_t _strides;
+			SizeTList _offsets;
+			SizeTList::const_iterator _pOffset;
 		public:
-			inline Generator(const Dimension &dim) : _dim(dim) {}
-			inline void AddIndex(size_t idx) { _indices.push_back(idx); }
-			inline bool IsEmpty() const { return _indices.empty(); }
-			inline size_t CalcOffset() const { return _dim.GetStrides() * GetIndex(); }
-			inline void Reset() { _pIndex = _indices.begin(); }
-			inline size_t GetIndex() const { return *_pIndex; }
-			inline size_t GetSize() const { return _indices.size(); }
+			inline Generator(size_t strides) : _strides(strides) {}
+			inline void Add(size_t offset) { _offsets.push_back(offset); }
+			inline bool IsEmpty() const { return _offsets.empty(); }
+			inline size_t CalcOffset() const { return _strides * *_pOffset; }
+			inline void Reset() { _pOffset = _offsets.begin(); }
+			//inline size_t GetIndex() const { return *_pIndex; }
+			inline size_t GetSize() const { return _offsets.size(); }
 			bool Next();
 		};
 		class GURA_DLLDECLARE GeneratorList : public std::vector<Generator *> {
@@ -184,7 +184,7 @@ public:
 			void Reset();
 			size_t CalcOffset() const;
 			bool Next();
-			void Print() const;
+			//void Print() const;
 		};
 		class GURA_DLLDECLARE GeneratorOwner : public GeneratorList {
 		public:

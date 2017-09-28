@@ -67,7 +67,7 @@ testcase('array.identity()') {
 		println((x.each():flat).fold(5):*join(' '))
 	}
 	funcTbl.each {|func|
-		method = func.interval
+		method = func.identity
 		method(5) {|x|
 			println(function.getfullname(method), ' .. ', x.elemtype)
 			println(x)

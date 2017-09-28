@@ -1071,13 +1071,13 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 		} else if (valueIdx.IsListOrIterator()) {
 			AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(env));
 			if (env.IsSignalled()) return false;
-			std::unique_ptr<Generator> pGenerator(new Generator(*_pDim));
+			std::unique_ptr<Generator> pGenerator(new Generator(_pDim->GetStrides()));
 			Value valueIdxEach;
 			while (pIterator->Next(env, valueIdxEach)) {
 				if (valueIdxEach.Is_number()) {
 					size_t idx = valueIdxEach.GetSizeT();
 					if (idx >= _pDim->GetSize()) break;
-					pGenerator->AddIndex(idx);
+					pGenerator->Add(idx);
 				} else {
 					env.SetError(ERR_ValueError, "index must be a number");
 					return false;
@@ -1120,9 +1120,9 @@ void Array::Indexer::MakeResultDimensions(Dimensions &dimsRtn)
 //-----------------------------------------------------------------------------
 bool Array::Indexer::Generator::Next()
 {
-	_pIndex++;
-	if (_pIndex != _indices.end()) return true;
-	_pIndex = _indices.begin();
+	_pOffset++;
+	if (_pOffset != _offsets.end()) return true;
+	_pOffset = _offsets.begin();
 	return false;
 }
 
@@ -1156,6 +1156,7 @@ bool Array::Indexer::GeneratorList::Next()
 	return false;
 }
 
+#if 0
 void Array::Indexer::GeneratorList::Print() const
 {
 	foreach_const (GeneratorList, ppGenerator, *this) {
@@ -1165,6 +1166,7 @@ void Array::Indexer::GeneratorList::Print() const
 	}
 	::printf("\n");
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Array::Indexer::GeneratorOwner

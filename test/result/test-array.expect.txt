@@ -276,7 +276,84 @@ complex
 0 0 1 0 0
 0 0 0 1 0
 0 0 0 0 1
-Error in the test case: TypeError: not enough arguments
+array@boolean.identity .. boolean
+{{ true, false, false, false, false},
+ {false,  true, false, false, false},
+ {false, false,  true, false, false},
+ {false, false, false,  true, false},
+ {false, false, false, false,  true}}
+array@int8.identity .. int8
+{{1, 0, 0, 0, 0},
+ {0, 1, 0, 0, 0},
+ {0, 0, 1, 0, 0},
+ {0, 0, 0, 1, 0},
+ {0, 0, 0, 0, 1}}
+array@uint8.identity .. uint8
+{{1, 0, 0, 0, 0},
+ {0, 1, 0, 0, 0},
+ {0, 0, 1, 0, 0},
+ {0, 0, 0, 1, 0},
+ {0, 0, 0, 0, 1}}
+array@int16.identity .. int16
+{{1, 0, 0, 0, 0},
+ {0, 1, 0, 0, 0},
+ {0, 0, 1, 0, 0},
+ {0, 0, 0, 1, 0},
+ {0, 0, 0, 0, 1}}
+array@uint16.identity .. uint16
+{{1, 0, 0, 0, 0},
+ {0, 1, 0, 0, 0},
+ {0, 0, 1, 0, 0},
+ {0, 0, 0, 1, 0},
+ {0, 0, 0, 0, 1}}
+array@int32.identity .. int32
+{{1, 0, 0, 0, 0},
+ {0, 1, 0, 0, 0},
+ {0, 0, 1, 0, 0},
+ {0, 0, 0, 1, 0},
+ {0, 0, 0, 0, 1}}
+array@uint32.identity .. uint32
+{{1, 0, 0, 0, 0},
+ {0, 1, 0, 0, 0},
+ {0, 0, 1, 0, 0},
+ {0, 0, 0, 1, 0},
+ {0, 0, 0, 0, 1}}
+array@int64.identity .. int64
+{{1, 0, 0, 0, 0},
+ {0, 1, 0, 0, 0},
+ {0, 0, 1, 0, 0},
+ {0, 0, 0, 1, 0},
+ {0, 0, 0, 0, 1}}
+array@uint64.identity .. uint64
+{{1, 0, 0, 0, 0},
+ {0, 1, 0, 0, 0},
+ {0, 0, 1, 0, 0},
+ {0, 0, 0, 1, 0},
+ {0, 0, 0, 0, 1}}
+array@half.identity .. half
+{{1, 0, 0, 0, 0},
+ {0, 1, 0, 0, 0},
+ {0, 0, 1, 0, 0},
+ {0, 0, 0, 1, 0},
+ {0, 0, 0, 0, 1}}
+array@float.identity .. float
+{{1, 0, 0, 0, 0},
+ {0, 1, 0, 0, 0},
+ {0, 0, 1, 0, 0},
+ {0, 0, 0, 1, 0},
+ {0, 0, 0, 0, 1}}
+array@double.identity .. double
+{{1, 0, 0, 0, 0},
+ {0, 1, 0, 0, 0},
+ {0, 0, 1, 0, 0},
+ {0, 0, 0, 1, 0},
+ {0, 0, 0, 0, 1}}
+array@complex.identity .. complex
+{{1, 0, 0, 0, 0},
+ {0, 1, 0, 0, 0},
+ {0, 0, 1, 0, 0},
+ {0, 0, 0, 1, 0},
+ {0, 0, 0, 0, 1}}
 
 ======== #4 array.interval() ========
 
