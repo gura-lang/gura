@@ -915,9 +915,9 @@ void Iterator_ArrayT_Each<T_Elem>::GatherFollower(
 }
 
 template<>
-void FillComplex(Complex *pElem, size_t nElems, const Complex &num)
+void FillComplex(Complex *pElem, size_t nElems, const Complex &num, size_t strides)
 {
-	for (size_t i = 0; i < nElems; i++, pElem++) *pElem = num;
+	for (size_t i = 0; i < nElems; i++, pElem += strides) *pElem = num;
 }
 
 //------------------------------------------------------------------------------

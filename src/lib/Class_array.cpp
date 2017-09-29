@@ -111,9 +111,9 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	if (!pArrayT->PrepareModification(env.GetSignal())) return;
 	if (valListIdx.empty()) {
 		if (value.Is_number() || value.Is_boolean()) {
-			FillDouble(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetDouble());
+			FillDouble(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetDouble(), 1);
 		} else if (complexFlag && value.Is_complex()) {
-			FillComplex(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetComplex());
+			FillComplex(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetComplex(), 1);
 		} else if (value.IsListOrIterator()) {
 			AutoPtr<Iterator> pIteratorSrc(value.CreateIterator(env.GetSignal()));
 			if (env.IsSignalled()) return;
@@ -135,27 +135,28 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	if (!indexer.InitIndices(env, valListIdx)) return;
 	T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
 	size_t nElemsUnit = indexer.GetElemNumUnit();
+	size_t stridesUnit = 1;
 	if (value.Is_number() || value.Is_boolean()) {
 		Double num = value.GetDouble();
 		if (indexer.HasGenerator()) {
 			if (!indexer.IsEmptyGenerator()) {
 				do {
-					FillDouble(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num);
+					FillDouble(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num, stridesUnit);
 				} while (indexer.NextGenerator());
 			}
 		} else {
-			FillDouble(pElemTgt, nElemsUnit, num);
+			FillDouble(pElemTgt, nElemsUnit, num, 1);
 		}
 	} else if (complexFlag && value.Is_complex()) {
 		const Complex &num = value.GetComplex();
 		if (indexer.HasGenerator()) {
 			if (!indexer.IsEmptyGenerator()) {
 				do {
-					FillComplex(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num);
+					FillComplex(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num, stridesUnit);
 				} while (indexer.NextGenerator());
 			}
 		} else {
-			FillComplex(pElemTgt, nElemsUnit, num);
+			FillComplex(pElemTgt, nElemsUnit, num, 1);
 		}
 		
 	} else if (value.IsListOrIterator()) {
