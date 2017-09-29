@@ -145,7 +145,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 				} while (indexer.NextGenerator());
 			}
 		} else {
-			FillDouble(pElemTgt, nElemsUnit, num, 1);
+			FillDouble(pElemTgt, nElemsUnit, num, stridesUnit);
 		}
 	} else if (complexFlag && value.Is_complex()) {
 		const Complex &num = value.GetComplex();
@@ -156,7 +156,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 				} while (indexer.NextGenerator());
 			}
 		} else {
-			FillComplex(pElemTgt, nElemsUnit, num, 1);
+			FillComplex(pElemTgt, nElemsUnit, num, stridesUnit);
 		}
 		
 	} else if (value.IsListOrIterator()) {

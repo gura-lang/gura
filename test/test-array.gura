@@ -822,6 +822,47 @@ testcase('index-set') {
 	f { x[1..4, 3] = true }
 	f { x[4, 2..6] = true }
 }
+testcase('index-set with column-majored array') {
+	f() {`block} = array.zeros([8, 6], elemtype => `complex) {|x|
+		x = x.T
+		println(block)
+		try {
+			block.eval()
+			println(x)
+		} catch {|e|
+			println(e.text)
+		}
+	}
+	f { x[] = 3 }
+	f {
+		x[0] = 1
+		x[1] = 2
+		x[2] = 3
+		x[3] = 4
+		x[4] = 5
+		x[5] = 6
+	}
+	f { x[2..4] = 3 }
+	f {
+		x[0, 0] = 1
+		x[5, 7] = 2
+		x[5, 0] = 3
+		x[0, 7] = 4
+		x[1..4, 2..6] = 5
+	}
+	f { x[*, *] = 3 }
+	f { x[*, 2..6] = 3 }
+	f { x[1..4, *] = 3 }
+	f { x[1..4, 3] = 3 }
+	f { x[4, 2..6] = 3 }
+	f { x[4, 3] = '' }
+	f { x[] = '' }
+	f { x[*, *] = true }
+	f { x[*, 2..6] = true }
+	f { x[1..4, *] = true }
+	f { x[1..4, 3] = true }
+	f { x[4, 2..6] = true }
+}
 testcase('index-set with iterator assigned') {
 	f() {`block} = array.zeros([6, 8], elemtype => `complex) {|x|
 		println(block)

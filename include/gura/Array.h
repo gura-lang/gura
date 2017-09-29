@@ -217,9 +217,7 @@ public:
 		inline bool IsEmptyGenerator() const { return HasGenerator() && _pGeneratorOwner->IsEmptyGenerator(); }
 		inline size_t GenerateOffset() const { return _pGeneratorOwner->CalcOffset(); }
 		inline bool NextGenerator() { return _pGeneratorOwner->Next(); }
-		inline size_t GetElemNumUnit() const {
-			return (_pDim == _dims.end())? 1 : _pDim->GetSizeProd();
-		}
+		size_t GetElemNumUnit() const;
 		size_t GetStridesUnit() const;
 		inline bool IsTargetScalar() const { return _pDim == _dims.end(); }
 	};

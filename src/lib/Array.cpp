@@ -90,8 +90,8 @@ void Array::FlipAxisMajor()
 	if (_dims.HasRowCol()) {
 		Dimension dimRow = _dims.GetRow(); // don't use reference here!
 		Dimension dimCol = _dims.GetCol();
-		_dims.SetRow(Dimension(dimCol.GetSize(), dimRow.GetSizeProd(), dimCol.GetStrides()));
-		_dims.SetCol(Dimension(dimRow.GetSize(), dimCol.GetSizeProd(), dimRow.GetStrides()));
+		_dims.SetRow(Dimension(dimCol.GetSize(), dimCol.GetSize() * dimRow.GetSize(), dimCol.GetStrides()));
+		_dims.SetCol(Dimension(dimRow.GetSize(), dimRow.GetSize(), dimRow.GetStrides()));
 	}
 }
 
@@ -1154,10 +1154,14 @@ void Array::Indexer::MakeResultDimensions(Dimensions &dimsRtn)
 	dimsRtn.insert(dimsRtn.end(), _pDim, _dims.end());
 }
 
+size_t Array::Indexer::GetElemNumUnit() const
+{
+	return (_pDim == _dims.end())? 1 : _pDim->GetSizeProd();
+}
+
 size_t Array::Indexer::GetStridesUnit() const
 {
-	return 1;
-	//return (_pDim != _dims.end() && _pDim + 1 != _dims.end() && _pDim + 2 == _dims.end())? 1 : 0;
+	return (_pDim == _dims.end())? 1 : (_pDim + 1 == _dims.end())? _pDim->GetStrides() : 1;
 }
 
 //-----------------------------------------------------------------------------
