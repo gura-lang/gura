@@ -1397,3 +1397,103 @@ testcase('boolean indexing - 2') {
 	x[0..2, f] = 1..
 	tester(`x)
 }
+testcase('boolean indexing with column-majored array') {
+	//--------------------------------------------
+	println('target..row-major, index..row-major')
+	x = array.zeros([3, 4, 5])
+	f = array@boolean {
+		{
+			{ true,  true,  true,  true, false}
+			{false,  true, false,  true,  true}
+			{ true,  true,  true,  true,  true}
+			{ true,  true,  true,  true, false}
+		},{
+			{ true, false,  true,  true, false}
+			{ true, false,  true,  true, false}
+			{ true,  true, false, false, false}
+			{false, false,  true,  true,  true}
+		}, {
+			{false, false, false, false,  true}
+			{false, false,  true, false, false}
+			{ true,  true,  true,  true, false}
+			{ true,  true, false,  true,  true}
+		}
+	}
+	x[f] = 1..
+	tester(`x)
+	//--------------------------------------------
+	println('target..row-major, index..column-major')
+	x = array.zeros([3, 4, 5])
+	f = array@boolean {
+		{
+			{ true, false,  true,  true},
+			{ true,  true,  true,  true},
+			{ true, false,  true,  true},
+			{ true,  true,  true,  true},
+			{false,  true,  true, false}
+		}, {
+			{ true,  true,  true, false},
+			{false, false,  true, false},
+			{ true,  true, false,  true},
+			{ true,  true, false,  true},
+			{false, false, false,  true}
+		}, {
+			{false, false,  true,  true},
+			{false, false,  true,  true},
+			{false,  true,  true, false},
+			{false, false,  true,  true},
+			{ true, false, false,  true}
+		}
+	}.T
+	x[f] = 1..
+	tester(`x)
+	//--------------------------------------------
+	println('target..column-major, index..row-major')
+	x = array.zeros([3, 5, 4]).T
+	f = array@boolean {
+		{
+			{ true,  true,  true,  true, false}
+			{false,  true, false,  true,  true}
+			{ true,  true,  true,  true,  true}
+			{ true,  true,  true,  true, false}
+		},{
+			{ true, false,  true,  true, false}
+			{ true, false,  true,  true, false}
+			{ true,  true, false, false, false}
+			{false, false,  true,  true,  true}
+		}, {
+			{false, false, false, false,  true}
+			{false, false,  true, false, false}
+			{ true,  true,  true,  true, false}
+			{ true,  true, false,  true,  true}
+		}
+	}
+	x[f] = 1..
+	tester(`x)
+	//--------------------------------------------
+	println('target..column-major, index..column-major')
+	x = array.zeros([3, 5, 4]).T
+	f = array@boolean {
+		{
+			{ true, false,  true,  true},
+			{ true,  true,  true,  true},
+			{ true, false,  true,  true},
+			{ true,  true,  true,  true},
+			{false,  true,  true, false}
+		}, {
+			{ true,  true,  true, false},
+			{false, false,  true, false},
+			{ true,  true, false,  true},
+			{ true,  true, false,  true},
+			{false, false, false,  true}
+		}, {
+			{false, false,  true,  true},
+			{false, false,  true,  true},
+			{false,  true,  true, false},
+			{false, false,  true,  true},
+			{ true, false, false,  true}
+		}
+	}.T
+	x[f] = 1..
+	tester(`x)
+}

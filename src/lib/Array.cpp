@@ -1085,26 +1085,52 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 				return false;
 			}
 			const Dimensions &dimsIdx = pArrayIdx->GetDimensions();
-			//size_t sizeRest = std::distance(_pDim, _dims.end());
-			//Dimensions::const_iterator pDimEnd = _pDim + ChooseMin(sizeRest, dimsIdx.size());
-			Dimensions::const_iterator pDimEnd = _dims.end();
-			if (!Dimensions::CheckSameShape(env, _pDim, pDimEnd, dimsIdx.begin(), dimsIdx.end())) return false;
-			if (!IsSameMajor(_pArray, pArrayIdx)) {
-				env.SetError(ERR_NotImplementedError,
-							 "indexing with an array with different major is not supported yet");
-				return false;
-			}
+			if (!Dimensions::CheckSameShape(env, _pDim, _dims.end(), dimsIdx.begin(), dimsIdx.end())) return false;
 			std::unique_ptr<Generator> pGenerator(new Generator(1));
 			const Boolean *pElemIdx = dynamic_cast<const ArrayT<Boolean> *>(pArrayIdx)->GetPointer();
 			size_t nElems = pArrayIdx->GetElemNum();
-			for (size_t offset = 0; offset < nElems; offset++, pElemIdx++) {
-				if (*pElemIdx) pGenerator->Add(offset);
+			if ((_pArray->IsRowMajor() && pArrayIdx->IsRowMajor()) || dimsIdx.size() < 2) {
+				for (size_t offset = 0; offset < nElems; offset++, pElemIdx++) {
+					if (*pElemIdx) pGenerator->Add(offset);
+				}
+			} else {
+				size_t nRows = dimsIdx.GetRow().GetSize();
+				size_t nCols = dimsIdx.GetCol().GetSize();
+				size_t sizeMat = nRows * nCols;
+				if (_pArray->IsRowMajor() && pArrayIdx->IsColMajor()) {
+					size_t offset = 0;
+					for (size_t offset1 = 0; offset1 < nElems; offset1 += sizeMat) {
+						for (size_t iRow = 0; iRow < nRows; iRow++) {
+							for (size_t offset2 = 0; offset2 < sizeMat; offset2 += nRows, offset++) {
+								size_t offsetIdx = offset1 + offset2 + iRow;
+								if (*(pElemIdx + offsetIdx)) pGenerator->Add(offset);
+							}
+						}
+					}
+				} else if (_pArray->IsColMajor() && pArrayIdx->IsRowMajor()) {
+					for (size_t offset1 = 0; offset1 < nElems; offset1 += sizeMat) {
+						for (size_t iRow = 0; iRow < nRows; iRow++) {
+							for (size_t offset2 = 0; offset2 < sizeMat; offset2 += nRows, pElemIdx++) {
+								if (*pElemIdx) pGenerator->Add(offset1 + offset2 + iRow);
+							}
+						}
+					}
+				} else { // _pArray->IsColMajor() && pArrayIdx->IsColMajor()
+					for (size_t offset1 = 0; offset1 < nElems; offset1 += sizeMat) {
+						for (size_t iRow = 0; iRow < nRows; iRow++) {
+							for (size_t offset2 = 0; offset2 < sizeMat; offset2 += nRows) {
+								size_t offsetIdx = offset1 + offset2 + iRow;
+								if (*(pElemIdx + offsetIdx)) pGenerator->Add(offsetIdx);
+							}
+						}
+					}
+				}
 			}
 			if (_pGeneratorOwner.get() == nullptr) {
 				_pGeneratorOwner.reset(new GeneratorOwner());
 			}
 			_pGeneratorOwner->push_back(pGenerator.release());
-			_pDim = pDimEnd;
+			_pDim = _dims.end();
 		} else {
 			env.SetError(ERR_ValueError, "index must be a number");
 			return false;
