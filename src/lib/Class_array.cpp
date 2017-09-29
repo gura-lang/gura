@@ -135,7 +135,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	if (!indexer.InitIndices(env, valListIdx)) return;
 	T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
 	size_t nElemsUnit = indexer.GetElemNumUnit();
-	size_t stridesUnit = 1;
+	size_t stridesUnit = indexer.GetStridesUnit();
 	if (value.Is_number() || value.Is_boolean()) {
 		Double num = value.GetDouble();
 		if (indexer.HasGenerator()) {

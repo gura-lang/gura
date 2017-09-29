@@ -220,6 +220,7 @@ public:
 		inline size_t GetElemNumUnit() const {
 			return (_pDim == _dims.end())? 1 : _pDim->GetSizeProd();
 		}
+		size_t GetStridesUnit() const;
 		inline bool IsTargetScalar() const { return _pDim == _dims.end(); }
 	};
 protected:

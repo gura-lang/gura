@@ -1154,6 +1154,12 @@ void Array::Indexer::MakeResultDimensions(Dimensions &dimsRtn)
 	dimsRtn.insert(dimsRtn.end(), _pDim, _dims.end());
 }
 
+size_t Array::Indexer::GetStridesUnit() const
+{
+	return 1;
+	//return (_pDim != _dims.end() && _pDim + 1 != _dims.end() && _pDim + 2 == _dims.end())? 1 : 0;
+}
+
 //-----------------------------------------------------------------------------
 // Array::Indexer::Generator
 //-----------------------------------------------------------------------------
