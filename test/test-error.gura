@@ -5,7 +5,7 @@ println('======== error test ========')
 
 stderrOrg = sys.stderr
 sys.stderr = sys.stdout
-testcase {
+testcase('properties of error class') {
 	f(err) = {
 		try {
 			repeat(3) {|i|
@@ -43,7 +43,7 @@ testcase {
 	f(error.IOError)
 	f(nil)
 }
-testcase {
+testcase('continue in try statement') {
 	f() = {
 		repeat(10) {|i|
 			try {
@@ -57,7 +57,7 @@ testcase {
 	}
 	f()
 }
-testcase {
+testcase('break in try statement') {
 	f() = {
 		repeat(10) {|i|
 			try {
@@ -71,7 +71,7 @@ testcase {
 	}
 	f()
 }
-testcase {
+testcase('return in try statement') {
 	f() = {
 		try {
 			println('try')
@@ -83,7 +83,7 @@ testcase {
 	}
 	f()
 }
-testcase {
+testcase('cannot take list value') {
 	Person = class()
 	f(p:Person) = 3
 	people = repeat(3):list { Person() }
@@ -93,7 +93,7 @@ testcase {
 		println('expected error occurs: ', e.text)
 	}
 }
-testcase {
+testcase('index error') {
 	b = [1]
 	try {
 		a
@@ -123,7 +123,7 @@ testcase {
 		println('no error')
 	}
 }
-testcase {
+testcase('multiple catches') {
 	error_tester(err) = try {
 		if (err != nil) { raise(err, 'intentional error for handling test') }
 	} catch (error.IndexError) {|e|
@@ -147,7 +147,7 @@ testcase {
 	error_tester(error.AttributeError)
 	error_tester(nil)
 }
-testcase {
+testcase('error message test') {
 	import(xml)
 	test_errmsg(test:expr):map = {
 		try {
