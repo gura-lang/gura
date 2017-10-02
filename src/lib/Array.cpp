@@ -86,8 +86,8 @@ const char *Array::GetElemTypeName(ElemType elemType)
 
 void Array::FlipAxisMajor()
 {
-	_colMajorFlag = !_colMajorFlag;
 	if (_dims.HasRowCol()) {
+		_colMajorFlag = !_colMajorFlag;
 		Dimension dimRow = _dims.GetRow(); // don't use reference here!
 		Dimension dimCol = _dims.GetCol();
 		_dims.SetRow(Dimension(dimCol.GetSize(), dimCol.GetSize() * dimRow.GetSize(), dimCol.GetStrides()));

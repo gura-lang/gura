@@ -11,7 +11,6 @@ typedef Value (*FuncT_Method)(Environment &env, Argument &arg, const Function *p
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-// column-major OK
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 {
@@ -81,7 +80,6 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 	return pArrayTValue.release();
 }
 
-// column-major OK
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, size_t axis)
 {
@@ -196,7 +194,6 @@ size_t FindMinMaxIndexFlat(const ArrayT<T_Elem> *pArrayT)
 	return index;
 }
 
-// column-major OK
 template<typename T_ElemRtn, typename T_Elem>
 ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool meanFlag)
 {
@@ -260,7 +257,6 @@ T_ElemRtn CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
 	return meanFlag? numAccum / numDenom : numAccum;
 }
 
-// column-major OK
 template<typename T_ElemRtn, typename T_Elem>
 ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool populationFlag, bool stdFlag)
 {
@@ -501,6 +497,30 @@ Gura_ImplementMethod(array, argmin)
 		//&FuncTmpl_argmin<Value, Value>,
 	};
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+}
+
+// array#colmajor() {block?}
+Gura_DeclareMethod(array, colmajor)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns an array with column-major flag turned on.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("array", "array"));
+}
+
+Gura_ImplementMethod(array, colmajor)
+{
+	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	if (pArraySelf->GetDimensions().size() != 1) {
+		env.SetError(ERR_ValueError, "unable to turn on column-major flag of a multi-dimensional array");
+		return Value::Nil;
+	}
+	AutoPtr<Array> pArrayRtn(pArraySelf->Clone());
+	pArrayRtn->SetColMajorFlag(true);
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
 // array.dot(a:array, b:array):static:map {block?}
@@ -1546,6 +1566,7 @@ void AssignMethods(Environment &env)
 {
 	Gura_AssignMethodTo(VTYPE_array, array, argmax);
 	Gura_AssignMethodTo(VTYPE_array, array, argmin);
+	Gura_AssignMethodTo(VTYPE_array, array, colmajor);
 	Gura_AssignMethodTo(VTYPE_array, array, dot);
 	Gura_AssignMethodTo(VTYPE_array, array, dump);
 	Gura_AssignMethodTo(VTYPE_array, array, each);

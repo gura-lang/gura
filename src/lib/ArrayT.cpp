@@ -390,7 +390,6 @@ void ArrayT<T_Elem>::CopyToList(Object_list *pObjList) const
 	CopyToList_Sub(pObjList, GetPointer(), dims.begin(), dims.end());
 }
 
-// *** column-major not supported ***
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Flatten() const
 {

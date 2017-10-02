@@ -372,6 +372,7 @@ argument
 array
   array#argmax(axis?:number):map:[last_index] {block?}
   array#argmin(axis?:number):map:[last_index] {block?}
+  array#colmajor() {block?}
   array.dot(a:array, b:array):static:map {block?}
   array#dump(stream?:stream):void:[upper]
   array#each():[flat] {block?}

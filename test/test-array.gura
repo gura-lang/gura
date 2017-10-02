@@ -1538,3 +1538,31 @@ testcase('boolean indexing with column-majored array') {
 	x[f] = 1..
 	tester(`x)
 }
+testcase('array#flatten with column-majored array') {
+	x = array {
+		{
+			{ 0,  3,  6,  9, 12},
+			{ 1,  4,  7, 10, 13},
+			{ 2,  5,  8, 11, 14}
+		}, {
+			{15, 18, 21, 24, 27},
+			{16, 19, 22, 25, 28},
+			{17, 20, 23, 26, 29}
+		}, {
+			{30, 33, 36, 39, 42},
+			{31, 34, 37, 40, 43},
+			{32, 35, 38, 41, 44}
+		}, {
+			{45, 48, 51, 54, 57},
+			{46, 49, 52, 55, 58},
+			{47, 50, 53, 56, 59}
+		}
+	}.T
+	println(x.major)
+	println(x)
+	tester(`x.flatten())
+}
+testcase('array#colmajor') {
+	tester(`array.range(4 * 3 * 5).colmajor().major)
+	tester(`array.range(4 * 3 * 5).colmajor().reshape([4, 3, 5]))
+}

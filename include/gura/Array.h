@@ -251,6 +251,7 @@ public:
 	inline bool GetColMajorFlag() const { return _colMajorFlag; }
 	inline bool IsColMajor() const { return _colMajorFlag; }
 	inline bool IsRowMajor() const { return !_colMajorFlag; }
+	inline void SetColMajorFlag(bool colMajorFlag) { _colMajorFlag = colMajorFlag; }
 	inline void SetMemory(Memory *pMemory, size_t offsetBase) {
 		_pMemory.reset(pMemory), _offsetBase = offsetBase;
 	}
