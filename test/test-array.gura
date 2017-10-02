@@ -1440,7 +1440,6 @@ testcase('boolean indexing - 2') {
 }
 testcase('boolean indexing with column-majored array') {
 	//--------------------------------------------
-	println('target..row-major, index..row-major')
 	x = array.zeros([3, 4, 5])
 	f = array@boolean {
 		{
@@ -1460,10 +1459,10 @@ testcase('boolean indexing with column-majored array') {
 			{ true,  true, false,  true,  true}
 		}
 	}
+	printf('target..%s-major, index..%s-major\n', x.major, f.major)
 	x[f] = 1..
 	tester(`x)
 	//--------------------------------------------
-	println('target..row-major, index..column-major')
 	x = array.zeros([3, 4, 5])
 	f = array@boolean {
 		{
@@ -1486,10 +1485,10 @@ testcase('boolean indexing with column-majored array') {
 			{ true, false, false,  true}
 		}
 	}.T
+	printf('target..%s-major, index..%s-major\n', x.major, f.major)
 	x[f] = 1..
 	tester(`x)
 	//--------------------------------------------
-	println('target..column-major, index..row-major')
 	x = array.zeros([3, 5, 4]).T
 	f = array@boolean {
 		{
@@ -1509,10 +1508,10 @@ testcase('boolean indexing with column-majored array') {
 			{ true,  true, false,  true,  true}
 		}
 	}
+	printf('target..%s-major, index..%s-major\n', x.major, f.major)
 	x[f] = 1..
 	tester(`x)
 	//--------------------------------------------
-	println('target..column-major, index..column-major')
 	x = array.zeros([3, 5, 4]).T
 	f = array@boolean {
 		{
@@ -1535,6 +1534,7 @@ testcase('boolean indexing with column-majored array') {
 			{ true, false, false,  true}
 		}
 	}.T
+	printf('target..%s-major, index..%s-major\n', x.major, f.major)
 	x[f] = 1..
 	tester(`x)
 }

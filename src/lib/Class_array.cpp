@@ -367,7 +367,7 @@ Gura_DeclareProperty_R(array, elemtype)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns the typename of the elements as a `symbol` such as\n"
+		"Returns the type name of the elements as a `symbol` including:\n"
 		"`` `boolean``,\n"
 		"`` `int8``,\n"
 		"`` `uint8``,\n"
@@ -387,6 +387,21 @@ Gura_ImplementPropertyGetter(array, elemtype)
 {
 	Array *pArray = Object_array::GetObject(valueThis)->GetArray();
 	return Value(Symbol::Add(pArray->GetElemTypeName()));
+}
+
+// array#major
+Gura_DeclareProperty_R(array, major)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns the major-mode in symbols `` `row`` or `` `column``.");
+}
+
+Gura_ImplementPropertyGetter(array, major)
+{
+	Array *pArray = Object_array::GetObject(valueThis)->GetArray();
+	return Value(pArray->IsColMajor()? Gura_Symbol(column) : Gura_Symbol(row));
 }
 
 // array#memoryid
@@ -588,6 +603,7 @@ void Class_array::DoPrepare(Environment &env)
 	// Assignment of properties
 	Gura_AssignProperty(array, elembytes);
 	Gura_AssignProperty(array, elemtype);
+	Gura_AssignProperty(array, major);
 	Gura_AssignProperty(array, memoryid);
 	Gura_AssignProperty(array, ndim);
 	Gura_AssignProperty(array, p);

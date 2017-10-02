@@ -499,6 +499,7 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(codec);
 	Gura_RealizeSymbol(codecs);
 	Gura_RealizeSymbol(color);
+	Gura_RealizeSymbol(column);
 	Gura_RealizeSymbol(complex);
 	Gura_RealizeSymbolAlias(const_,			"const");
 	Gura_RealizeSymbolAlias(continue_,		"continue");
@@ -755,6 +756,7 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(right_top_horz);
 	Gura_RealizeSymbol(right_top_vert);
 	Gura_RealizeSymbol(root);
+	Gura_RealizeSymbol(row);
 	Gura_RealizeSymbol(s);
 	Gura_RealizeSymbol(S);
 	Gura_RealizeSymbol(s16be);

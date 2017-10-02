@@ -299,6 +299,7 @@ public:
 	Gura_DeclareSymbol(codec);
 	Gura_DeclareSymbol(codecs);
 	Gura_DeclareSymbol(color);
+	Gura_DeclareSymbol(column);
 	Gura_DeclareSymbol(complex);
 	Gura_DeclareSymbol(const_);
 	Gura_DeclareSymbol(continue_);
@@ -555,6 +556,7 @@ public:
 	Gura_DeclareSymbol(right_top_horz);
 	Gura_DeclareSymbol(right_top_vert);
 	Gura_DeclareSymbol(root);
+	Gura_DeclareSymbol(row);
 	Gura_DeclareSymbol(s);
 	Gura_DeclareSymbol(S);
 	Gura_DeclareSymbol(s16be);
