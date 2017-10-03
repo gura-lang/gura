@@ -528,6 +528,45 @@ bool Trainer::NodeFilter_MaxPool3d::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeFilter_Relu
 //-----------------------------------------------------------------------------
+#if 0
+template<typename T_ElemRtn, typename T_Elem, void (*op)(T_ElemRtn &, const T_Elem &)>
+Array *UnaryFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray)
+{
+	bool colMajorFlag = false;
+	const Array::Dimensions &dims = pArray->GetDimensions();
+	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
+		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(colMajorFlag, dims) :
+		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
+	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
+	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
+	if (pArray->IsRowMajor() || dims.size() < 2) {
+		size_t nElems = pArray->GetElemNum();
+		for (size_t i = 0; i < nElems; i++, pElem++) {
+			op(*pElemRtn, *pElem);
+			pElemRtn++;
+		}
+	} else { // pArray->IsColMajor() && dims.size() >= 2
+		const Array::Dimension &dimRow = dims.GetRow();
+		const Array::Dimension &dimCol = dims.GetCol();
+		size_t nMats = pArray->GetElemNum() / dimRow.GetSizeProd();
+		const T_Elem *pElemMat = pElem;
+		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
+			const T_Elem *pElemRow = pElemMat;
+			for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
+					 pElemRow += dimRow.GetStrides()) {
+				const T_Elem *pElemCol = pElemRow;
+				for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
+						 pElemCol += dimCol.GetStrides()) {
+					op(*pElemRtn, *pElemCol);
+					pElemRtn++;
+				}
+			}
+		}
+	}
+	return pArrayTRtn.release();
+}
+#endif
+
 bool Trainer::NodeFilter_Relu::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
