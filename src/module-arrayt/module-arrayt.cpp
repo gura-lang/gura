@@ -15,12 +15,10 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
-	// Assignment of operator
-	AssignOperators(env);
-	// Assignment of array creators
 	AssignCreators(env);
-	// Assignment of methods
 	AssignMethods(env);
+	AssignOperators(env);
+	AssignFilters(env);
 	return true;
 }
 

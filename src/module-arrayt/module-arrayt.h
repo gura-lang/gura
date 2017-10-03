@@ -4,9 +4,10 @@
 #ifndef __GURA_MODULE_ARRAYUTIL_H__
 #define __GURA_MODULE_ARRAYUTIL_H__
 #include <gura.h>
-#include "Operator.h"
 #include "Creator.h"
 #include "Method.h"
+#include "Operator.h"
+#include "Filter.h"
 
 #define DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl) \
 const static FuncT funcTbl[Array::ETYPE_Max] = { \
