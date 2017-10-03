@@ -542,7 +542,6 @@ bool Trainer::NodeFilter_Relu::EvalForward(Environment &env)
 
 bool Trainer::NodeFilter_Relu::EvalBackward(Environment &env)
 {
-#if 0
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
 		if (_connectorSrc.GetArrayBwd() == nullptr) {
@@ -555,15 +554,7 @@ bool Trainer::NodeFilter_Relu::EvalBackward(Environment &env)
 		for (size_t iElem = 0; iElem < pArrayFwd->GetElemNum(); iElem++) {
 			
 		}
-#if 0
-		_connectorSrcRight.SetArrayBwd(
-			Array::ApplyUnaryFunc(
-				env, Array::unaryFuncPack_Neg, _connectorSrcRight.GetArrayBwd(),
-				(*ppConnectorDst)->GetArrayBwd()));
-		if (env.IsSignalled()) return false;
-#endif
 	}
-#endif
 	return false;
 }
 
