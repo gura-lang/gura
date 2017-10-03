@@ -1,6 +1,15 @@
 #ifndef __GURA_TRAINER_H__
 #define __GURA_TRAINER_H__
-#include "Class_filter.h"
+#include "Class_filter_at_conv1d.h"
+#include "Class_filter_at_conv2d.h"
+#include "Class_filter_at_conv3d.h"
+#include "Class_filter_at_maxpool1d.h"
+#include "Class_filter_at_maxpool2d.h"
+#include "Class_filter_at_maxpool3d.h"
+#include "Class_filter_at_relu.h"
+#include "Class_filter_at_sigmoid.h"
+#include "Class_filter_at_softmax.h"
+#include "Class_filter_at_tanh.h"
 
 namespace Gura {
 
@@ -222,110 +231,129 @@ public:
 		inline NodeFilter(Filter *pFilter, Connector *pConnectorDst) :
 				Node(pConnectorDst), _pFilter(pFilter), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
-		virtual bool EvalForward(Environment &env);
 		virtual String ToString() const;
 		virtual void Print(int indentLevel) const;
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_conv1d
+	// NodeFilter_Conv1d
 	//-------------------------------------------------------------------------
-	class NodeFilter_conv1d : public NodeFilter {
+	class NodeFilter_Conv1d : public NodeFilter {
 	public:
-		inline NodeFilter_conv1d(Filter *pFilter, Connector *pConnectorDst) :
+		inline NodeFilter_Conv1d(Filter_Conv1d *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		inline Filter_Conv1d *GetFilter() { return dynamic_cast<Filter_Conv1d *>(_pFilter.get()); }
 		virtual bool IsVulnerable() const;
+		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_conv2d
+	// NodeFilter_Conv2d
 	//-------------------------------------------------------------------------
-	class NodeFilter_conv2d : public NodeFilter {
+	class NodeFilter_Conv2d : public NodeFilter {
 	public:
-		inline NodeFilter_conv2d(Filter *pFilter, Connector *pConnectorDst) :
+		inline NodeFilter_Conv2d(Filter_Conv2d *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		inline Filter_Conv2d *GetFilter() { return dynamic_cast<Filter_Conv2d *>(_pFilter.get()); }
 		virtual bool IsVulnerable() const;
+		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_conv3d
+	// NodeFilter_Conv3d
 	//-------------------------------------------------------------------------
-	class NodeFilter_conv3d : public NodeFilter {
+	class NodeFilter_Conv3d : public NodeFilter {
 	public:
-		inline NodeFilter_conv3d(Filter *pFilter, Connector *pConnectorDst) :
+		inline NodeFilter_Conv3d(Filter_Conv3d *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		inline Filter_Conv3d *GetFilter() { return dynamic_cast<Filter_Conv3d *>(_pFilter.get()); }
 		virtual bool IsVulnerable() const;
+		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_maxpool1d
+	// NodeFilter_MaxPool1d
 	//-------------------------------------------------------------------------
-	class NodeFilter_maxpool1d : public NodeFilter {
+	class NodeFilter_MaxPool1d : public NodeFilter {
 	public:
-		inline NodeFilter_maxpool1d(Filter *pFilter, Connector *pConnectorDst) :
+		inline NodeFilter_MaxPool1d(Filter_MaxPool1d *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		inline Filter_MaxPool1d *GetFilter() { return dynamic_cast<Filter_MaxPool1d *>(_pFilter.get()); }
 		virtual bool IsVulnerable() const;
+		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_maxpool2d
+	// NodeFilter_MaxPool2d
 	//-------------------------------------------------------------------------
-	class NodeFilter_maxpool2d : public NodeFilter {
+	class NodeFilter_MaxPool2d : public NodeFilter {
 	public:
-		inline NodeFilter_maxpool2d(Filter *pFilter, Connector *pConnectorDst) :
+		inline NodeFilter_MaxPool2d(Filter_MaxPool2d *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		inline Filter_MaxPool2d *GetFilter() { return dynamic_cast<Filter_MaxPool2d *>(_pFilter.get()); }
 		virtual bool IsVulnerable() const;
+		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_maxpool3d
+	// NodeFilter_MaxPool3d
 	//-------------------------------------------------------------------------
-	class NodeFilter_maxpool3d : public NodeFilter {
+	class NodeFilter_MaxPool3d : public NodeFilter {
 	public:
-		inline NodeFilter_maxpool3d(Filter *pFilter, Connector *pConnectorDst) :
+		inline NodeFilter_MaxPool3d(Filter_MaxPool3d *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		inline Filter_MaxPool3d *GetFilter() { return dynamic_cast<Filter_MaxPool3d *>(_pFilter.get()); }
 		virtual bool IsVulnerable() const;
+		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_relu
+	// NodeFilter_Relu
 	//-------------------------------------------------------------------------
-	class NodeFilter_relu : public NodeFilter {
+	class NodeFilter_Relu : public NodeFilter {
 	public:
-		inline NodeFilter_relu(Filter *pFilter, Connector *pConnectorDst) :
+		inline NodeFilter_Relu(Filter_Relu *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		inline Filter_Relu *GetFilter() { return dynamic_cast<Filter_Relu *>(_pFilter.get()); }
 		virtual bool IsVulnerable() const;
+		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_sigmoid
+	// NodeFilter_Sigmoid
 	//-------------------------------------------------------------------------
-	class NodeFilter_sigmoid : public NodeFilter {
+	class NodeFilter_Sigmoid : public NodeFilter {
 	private:
 		AutoPtr<Array> _pArrayTmp;
 	public:
-		inline NodeFilter_sigmoid(Filter *pFilter, Connector *pConnectorDst) :
+		inline NodeFilter_Sigmoid(Filter_Sigmoid *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		inline Filter_Sigmoid *GetFilter() { return dynamic_cast<Filter_Sigmoid *>(_pFilter.get()); }
 		virtual bool IsVulnerable() const;
+		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
 	// NodeFilter_softmax
 	//-------------------------------------------------------------------------
-	class NodeFilter_softmax : public NodeFilter {
+	class NodeFilter_Softmax : public NodeFilter {
 	public:
-		inline NodeFilter_softmax(Filter *pFilter, Connector *pConnectorDst) :
+		inline NodeFilter_Softmax(Filter_Softmax *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		inline Filter_Softmax *GetFilter() { return dynamic_cast<Filter_Softmax *>(_pFilter.get()); }
 		virtual bool IsVulnerable() const;
+		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
 	// NodeFilter_tanh
 	//-------------------------------------------------------------------------
-	class NodeFilter_tanh : public NodeFilter {
+	class NodeFilter_Tanh : public NodeFilter {
 	public:
-		inline NodeFilter_tanh(Filter *pFilter, Connector *pConnectorDst) :
+		inline NodeFilter_Tanh(Filter_Tanh *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}
+		inline Filter_Tanh *GetFilter() { return dynamic_cast<Filter_Tanh *>(_pFilter.get()); }
 		virtual bool IsVulnerable() const;
+		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
