@@ -334,7 +334,7 @@ if (sys.build == `msc) {
 	Builder = class(BuilderBase) {
 		__init__() = {|'gnuc'|
 			this.cflags = [
-				'-DGURA_MODULE_SEPARATED', '-fPIC'
+				'-O2', '-DGURA_MODULE_SEPARATED', '-fPIC'
 			]
 			// It seems that Mac's clang supports -shared option.
 			this.ldflags = ['-shared']
