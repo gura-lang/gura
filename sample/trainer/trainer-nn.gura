@@ -44,7 +44,7 @@ scope {
 	repeat (nTests) {|i|
 		x = arrImage[i]
 		t = arrLabel[i]
-		y = model.eval() |*| filter@softmax()
+		y = model.eval()
 		if (y.argmax() == t.argmax()) {
 			printf(' "%d" .. correct with likelihood %.1f%%\n', y.argmax(), y[y.argmax()] * 100)
 			nCorrects += 1
