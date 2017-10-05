@@ -309,7 +309,7 @@ Array::BinaryFuncTable g_binaryFuncTable_##op = { \
 		nullptr, \
 	}, \
 	&funcPrefix##_scalar_scalar<Double,			Double,		Double,		Operator_##op::Calc>, \
-	&funcPrefix##_complex_complex<Operator_##op::Calc>, \
+	&funcPrefix##_scalar_scalar<Complex,		Complex,	Complex,	Operator_##op::Calc>, \
 }
 
 #define ImplementBinaryFuncTable_Cmp(op, funcPrefix)	\
@@ -596,7 +596,7 @@ Array::BinaryFuncTable g_binaryFuncTable_##op = { \
 		nullptr, \
 	}, \
 	&funcPrefix##_scalar_scalar<Double,			Double,		Double,		Operator_##op::Calc>, \
-	&funcPrefix##_complex_complex<Operator_##op::Calc>, \
+	&funcPrefix##_scalar_scalar<Complex,		Complex,	Complex,	Operator_##op::Calc>, \
 }
 
 #define ImplementBinaryFuncTable_BitOp(op)	 \
@@ -1326,59 +1326,6 @@ Array *BinaryFuncTmpl_Div_scalar_array(Signal &sig, Array *pArrayRtn,
 	return BinaryFuncTmpl_scalar_array<T_ElemRtn, T_ElemL, T_ElemR, op>(sig, pArrayRtn, elemL, pArrayR);
 }
 
-#if 0
-template<typename T_ElemRtn, typename T_ElemR,
-		 void (*op)(T_ElemRtn &, const Complex &, const T_ElemR &)>
-Array *BinaryFuncTmpl_complex_array(Signal &sig, Array *pArrayRtn,
-									const Complex &complexL, const Array *pArrayR)
-{
-	bool colMajorFlag = false;
-	const Array::Dimensions &dimsR = pArrayR->GetDimensions();
-	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
-	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
-		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(colMajorFlag, dimsR) :
-		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
-	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	if (pArrayR->IsRowMajor() || dimsR.size() < 2) {
-		size_t nElemsR = pArrayR->GetElemNum();
-		for (size_t i = 0; i < nElemsR; i++, pElemR++) {
-			op(*pElemRtn, complexL, *pElemR);
-			pElemRtn++;
-		}
-	} else { // pArrayR->IsColMajor() && dimsR.size() >= 2
-		const Array::Dimension &dimRowR = dimsR.GetRow();
-		const Array::Dimension &dimColR = dimsR.GetCol();
-		size_t nMats = pArrayR->GetElemNum() / dimRowR.GetSizeProd();
-		const T_ElemR *pElemMatR = pElemR;
-		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMatR += dimRowR.GetSizeProd()) {
-			const T_ElemR *pElemRowR = pElemMatR;
-			for (size_t iRow = 0; iRow < dimRowR.GetSize(); iRow++,
-					 pElemRowR += dimRowR.GetStrides()) {
-				const T_ElemR *pElemColR = pElemRowR;
-				for (size_t iCol = 0; iCol < dimColR.GetSize(); iCol++,
-						 pElemColR += dimColR.GetStrides()) {
-					op(*pElemRtn, complexL, *pElemColR);
-					pElemRtn++;
-				}
-			}
-		}
-	}
-	return pArrayTRtn.release();
-}
-
-template<typename T_ElemRtn, typename T_ElemR,
-		 void (*op)(T_ElemRtn &, const Complex &, const T_ElemR &)>
-Array *BinaryFuncTmpl_Div_complex_array(Signal &sig, Array *pArrayRtn,
-										const Complex &complexL, const Array *pArrayR)
-{
-	if (pArrayR->DoesContainZero()) {
-		Operator::SetError_DivideByZero(sig);
-		return nullptr;
-	}
-	return BinaryFuncTmpl_complex_array<T_ElemRtn, T_ElemR, op>(sig, pArrayRtn, complexL, pArrayR);
-}
-#endif
-
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
 		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
 Array *BinaryFuncTmpl_scalar_scalar(Signal &sig, Array *pArrayRtn, const T_ElemL &elemL, const T_ElemR &elemR)
@@ -1401,28 +1348,6 @@ Array *BinaryFuncTmpl_Div_scalar_scalar(Signal &sig, Array *pArrayRtn, const T_E
 		return nullptr;
 	}
 	return BinaryFuncTmpl_scalar_scalar<T_ElemRtn, T_ElemL, T_ElemR, op>(sig, pArrayRtn, elemL, elemR);
-}
-
-template<void (*op)(Complex &, const Complex &, const Complex &)>
-Array *BinaryFuncTmpl_complex_complex(Signal &sig, Array *pArrayRtn, const Complex &complexL, const Complex &complexR)
-{
-	AutoPtr<ArrayT<Complex> > pArrayTRtn;
-	pArrayTRtn.reset(
-		(pArrayRtn == nullptr)?
-		ArrayT<Complex>::CreateScalar(0) :
-		dynamic_cast<ArrayT<Complex> *>(pArrayRtn->Reference()));
-	op(*pArrayTRtn->GetPointer(), complexL, complexR);
-	return pArrayTRtn.release();
-}
-
-template<void (*op)(Complex &, const Complex &, const Complex &)>
-Array *BinaryFuncTmpl_Div_complex_complex(Signal &sig, Array *pArrayRtn, const Complex &complexL, const Complex &complexR)
-{
-	if (IsZero(complexR)) {
-		Operator::SetError_DivideByZero(sig);
-		return nullptr;
-	}
-	return BinaryFuncTmpl_complex_complex<op>(sig, pArrayRtn, complexL, complexR);
 }
 
 //------------------------------------------------------------------------------
@@ -1765,7 +1690,7 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 		nullptr,
 	},
 	BinaryFuncTmpl_scalar_scalar<Double,		Double,		Double,		Operator_Mul::Calc>,
-	BinaryFuncTmpl_complex_complex<Operator_Mul::Calc>,
+	BinaryFuncTmpl_scalar_scalar<Complex,		Complex,	Complex,	Operator_Mul::Calc>,
 };
 
 void AssignOperators(Environment &env)
