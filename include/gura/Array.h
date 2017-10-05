@@ -38,7 +38,7 @@ public:
 	typedef Array *(*BinaryFuncT_array_array)(Signal &sig, Array *pArrayRtn,
 											 const Array *pArrayL, const Array *pArrayR);
 	typedef Array *(*BinaryFuncT_array_number)(Signal &sig, Array *pArrayRtn,
-											  const Array *pArrayL, Double numberR);
+											  const Array *pArrayL, const Double &numberR);
 	typedef Array *(*BinaryFuncT_number_array)(Signal &sig, Array *pArrayRtn,
 											  Double numberL, const Array *pArrayR);
 	typedef Array *(*BinaryFuncT_array_complex)(Signal &sig, Array *pArrayRtn,
@@ -337,7 +337,7 @@ public:
 	static Value ApplyBinaryFuncOnValue_array_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_array_number(
-		Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Array *pArrayL, Double numberR);
+		Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Array *pArrayL, const Double &elemR);
 	static Value ApplyBinaryFuncOnValue_array_number(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_number_array(
