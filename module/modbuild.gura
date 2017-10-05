@@ -338,7 +338,7 @@ if (sys.build == `msc) {
 			this.cflags = [
 				'-DGURA_MODULE_SEPARATED', '-fPIC'
 			]
-			!this.nooptFlag && this.cflag.append('-O2')
+			!this.nooptFlag && this.cflags.append('-O2')
 			// It seems that Mac's clang supports -shared option.
 			this.ldflags = ['-shared']
 			this.libs = []
