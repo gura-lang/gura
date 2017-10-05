@@ -706,7 +706,7 @@ Value Array::ApplyBinaryFuncOnValue_array_number(
 }
 
 Array *Array::ApplyBinaryFunc_number_array(
-	Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, Double numberL, const Array *pArrayR)
+	Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Double &elemL, const Array *pArrayR)
 {
 	BinaryFuncT_number_array binaryFunc_number_array =
 		pack.table.funcs_number_array[pArrayR->GetElemType()];
@@ -714,7 +714,7 @@ Array *Array::ApplyBinaryFunc_number_array(
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
-	return (*binaryFunc_number_array)(sig, pArrayRtn, numberL, pArrayR);
+	return (*binaryFunc_number_array)(sig, pArrayRtn, elemL, pArrayR);
 }
 
 Value Array::ApplyBinaryFuncOnValue_number_array(

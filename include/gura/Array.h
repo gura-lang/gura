@@ -38,15 +38,15 @@ public:
 	typedef Array *(*BinaryFuncT_array_array)(Signal &sig, Array *pArrayRtn,
 											 const Array *pArrayL, const Array *pArrayR);
 	typedef Array *(*BinaryFuncT_array_number)(Signal &sig, Array *pArrayRtn,
-											  const Array *pArrayL, const Double &numberR);
+											  const Array *pArrayL, const Double &elemR);
 	typedef Array *(*BinaryFuncT_number_array)(Signal &sig, Array *pArrayRtn,
-											  Double numberL, const Array *pArrayR);
+											   const Double &elemL, const Array *pArrayR);
 	typedef Array *(*BinaryFuncT_array_complex)(Signal &sig, Array *pArrayRtn,
 											   const Array *pArrayL, const Complex &complexR);
 	typedef Array *(*BinaryFuncT_complex_array)(Signal &sig, Array *pArrayRtn,
 											   const Complex &complexL, const Array *pArrayR);
 	typedef Array *(*BinaryFuncT_number_number)(Signal &sig, Array *pArrayRtn,
-											   Double numberL, Double numberR);
+												const Double &elemL, const Double &elemR);
 	typedef Array *(*BinaryFuncT_complex_complex)(Signal &sig, Array *pArrayRtn,
 												 const Complex &complexL, const Complex &complexR);
 	typedef Array *(*InvertFuncT)(Signal &sig, Array *pArrayRtn, const Array *pArray, Double epsilon);
@@ -341,7 +341,7 @@ public:
 	static Value ApplyBinaryFuncOnValue_array_number(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_number_array(
-		Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, Double numberL, const Array *pArrayR);
+		Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Double &elemL, const Array *pArrayR);
 	static Value ApplyBinaryFuncOnValue_number_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_array_complex(

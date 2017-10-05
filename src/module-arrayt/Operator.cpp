@@ -293,19 +293,19 @@ Array::BinaryFuncTable g_binaryFuncTable_##op = { \
 		nullptr, \
 	}, { \
 		nullptr, \
-		&funcPrefix##_complex_array<Complex,	Boolean,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Complex,	Int8,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Complex,	UInt8,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Complex,	Int16,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Complex,	UInt16,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Complex,	Int32,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Complex,	UInt32,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Complex,	Int64,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Complex,	UInt64,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Complex,	Half,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Complex,	Float,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Complex,	Double,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Complex,	Complex,	Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Complex,		Complex,	Boolean,	Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Complex,		Complex,	Int8,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Complex,		Complex,	UInt8,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Complex,		Complex,	Int16,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Complex,		Complex,	UInt16,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Complex,		Complex,	Int32,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Complex,		Complex,	UInt32,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Complex,		Complex,	Int64,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Complex,		Complex,	UInt64,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Complex,		Complex,	Half,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Complex,		Complex,	Float,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Complex,		Complex,	Double,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Complex,		Complex,	Complex,	Operator_##op::Calc>, \
 		nullptr, \
 	}, \
 	&funcPrefix##_number_number<Operator_##op::Calc>, \
@@ -580,19 +580,19 @@ Array::BinaryFuncTable g_binaryFuncTable_##op = { \
 		nullptr, \
 	}, { \
 		nullptr, \
-		&funcPrefix##_complex_array<Boolean,	Boolean,	Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Boolean,	Int8,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Boolean,	UInt8,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Boolean,	Int16,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Boolean,	UInt16,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Boolean,	Int32,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Boolean,	UInt32,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Boolean,	Int64,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Boolean,	UInt64,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Boolean,	Half,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Boolean,	Float,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Boolean,	Double,		Operator_##op::Calc>, \
-		&funcPrefix##_complex_array<Boolean,	Complex,	Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Boolean,		Complex,	Boolean,	Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Boolean,		Complex,	Int8,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Boolean,		Complex,	UInt8,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Boolean,		Complex,	Int16,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Boolean,		Complex,	UInt16,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Boolean,		Complex,	Int32,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Boolean,		Complex,	UInt32,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Boolean,		Complex,	Int64,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Boolean,		Complex,	UInt64,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Boolean,		Complex,	Half,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Boolean,		Complex,	Float,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Boolean,		Complex,	Double,		Operator_##op::Calc>, \
+		&funcPrefix##_scalar_array<Boolean,		Complex,	Complex,	Operator_##op::Calc>, \
 		nullptr, \
 	}, \
 	&funcPrefix##_number_number<Operator_##op::Calc>, \
@@ -803,6 +803,9 @@ Array::BinaryFuncTable g_binaryFuncTable_##op = { \
 }
 
 Gura_BeginModuleScope(arrayt)
+
+template<typename T_Elem> inline bool IsZero(const T_Elem &elem) { return elem == 0; }
+template<> inline bool IsZero<Complex>(const Complex &elem) { return elem.IsZero(); }
 
 //------------------------------------------------------------------------------
 // DotFuncTmpl
@@ -1260,9 +1263,6 @@ Array *BinaryFuncTmpl_array_scalar(Signal &sig, Array *pArrayRtn,
 	return pArrayTRtn.release();
 }
 
-template<typename T_Elem> inline bool IsZero(const T_Elem &elem) { return elem == 0; }
-template<> inline bool IsZero<Complex>(const Complex &elem) { return elem.IsZero(); }
-
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
 		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
 Array *BinaryFuncTmpl_Div_array_scalar(Signal &sig, Array *pArrayRtn,
@@ -1278,7 +1278,7 @@ Array *BinaryFuncTmpl_Div_array_scalar(Signal &sig, Array *pArrayRtn,
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
 		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
 Array *BinaryFuncTmpl_scalar_array(Signal &sig, Array *pArrayRtn,
-								   T_ElemL numberL, const Array *pArrayR)
+								   const T_ElemL &elemL, const Array *pArrayR)
 {
 	bool colMajorFlag = false;
 	const Array::Dimensions &dimsR = pArrayR->GetDimensions();
@@ -1290,7 +1290,7 @@ Array *BinaryFuncTmpl_scalar_array(Signal &sig, Array *pArrayRtn,
 	if (pArrayR->IsRowMajor() || dimsR.size() < 2) {
 		size_t nElemsR = pArrayR->GetElemNum();
 		for (size_t i = 0; i < nElemsR; i++, pElemR++) {
-			op(*pElemRtn, numberL, *pElemR);
+			op(*pElemRtn, elemL, *pElemR);
 			pElemRtn++;
 		}
 	} else { // pArrayR->IsColMajor() && dimsR.size() >= 2
@@ -1305,7 +1305,7 @@ Array *BinaryFuncTmpl_scalar_array(Signal &sig, Array *pArrayRtn,
 				const T_ElemR *pElemColR = pElemRowR;
 				for (size_t iCol = 0; iCol < dimColR.GetSize(); iCol++,
 						 pElemColR += dimColR.GetStrides()) {
-					op(*pElemRtn, numberL, *pElemColR);
+					op(*pElemRtn, elemL, *pElemColR);
 					pElemRtn++;
 				}
 			}
@@ -1317,15 +1317,16 @@ Array *BinaryFuncTmpl_scalar_array(Signal &sig, Array *pArrayRtn,
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
 		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
 Array *BinaryFuncTmpl_Div_scalar_array(Signal &sig, Array *pArrayRtn,
-									   T_ElemL numberL, const Array *pArrayR)
+									   const T_ElemL &elemL, const Array *pArrayR)
 {
 	if (pArrayR->DoesContainZero()) {
 		Operator::SetError_DivideByZero(sig);
 		return nullptr;
 	}
-	return BinaryFuncTmpl_scalar_array<T_ElemRtn, T_ElemL, T_ElemR, op>(sig, pArrayRtn, numberL, pArrayR);
+	return BinaryFuncTmpl_scalar_array<T_ElemRtn, T_ElemL, T_ElemR, op>(sig, pArrayRtn, elemL, pArrayR);
 }
 
+#if 0
 template<typename T_ElemRtn, typename T_ElemR,
 		 void (*op)(T_ElemRtn &, const Complex &, const T_ElemR &)>
 Array *BinaryFuncTmpl_complex_array(Signal &sig, Array *pArrayRtn,
@@ -1376,27 +1377,28 @@ Array *BinaryFuncTmpl_Div_complex_array(Signal &sig, Array *pArrayRtn,
 	}
 	return BinaryFuncTmpl_complex_array<T_ElemRtn, T_ElemR, op>(sig, pArrayRtn, complexL, pArrayR);
 }
+#endif
 
 template<void (*op)(Double &, const Double &, const Double &)>
-Array *BinaryFuncTmpl_number_number(Signal &sig, Array *pArrayRtn, Double numberL, Double numberR)
+Array *BinaryFuncTmpl_number_number(Signal &sig, Array *pArrayRtn, const Double &elemL, const Double &elemR)
 {
 	AutoPtr<ArrayT<Double> > pArrayTRtn;
 	pArrayTRtn.reset(
 		(pArrayRtn == nullptr)?
 		ArrayT<Double>::CreateScalar(0) :
 		dynamic_cast<ArrayT<Double> *>(pArrayRtn->Reference()));
-	op(*pArrayTRtn->GetPointer(), numberL, numberR);
+	op(*pArrayTRtn->GetPointer(), elemL, elemR);
 	return pArrayTRtn.release();
 }
 
 template<void (*op)(Double &, const Double &, const Double &)>
-Array *BinaryFuncTmpl_Div_number_number(Signal &sig, Array *pArrayRtn, Double numberL, Double numberR)
+Array *BinaryFuncTmpl_Div_number_number(Signal &sig, Array *pArrayRtn, const Double &elemL, const Double &elemR)
 {
-	if (numberR == 0) {
+	if (IsZero(elemR)) {
 		Operator::SetError_DivideByZero(sig);
 		return nullptr;
 	}
-	return BinaryFuncTmpl_number_number<op>(sig, pArrayRtn, numberL, numberR);
+	return BinaryFuncTmpl_number_number<op>(sig, pArrayRtn, elemL, elemR);
 }
 
 template<void (*op)(Complex &, const Complex &, const Complex &)>
@@ -1745,19 +1747,19 @@ Array::BinaryFuncTable g_binaryFuncTable_Dot = {
 		nullptr,
 	}, {
 		nullptr,
-		BinaryFuncTmpl_complex_array<Complex,	Boolean,	Operator_Mul::Calc>,
-		BinaryFuncTmpl_complex_array<Complex,	Int8,		Operator_Mul::Calc>,
-		BinaryFuncTmpl_complex_array<Complex,	UInt8,		Operator_Mul::Calc>,
-		BinaryFuncTmpl_complex_array<Complex,	Int16,		Operator_Mul::Calc>,
-		BinaryFuncTmpl_complex_array<Complex,	UInt16,		Operator_Mul::Calc>,
-		BinaryFuncTmpl_complex_array<Complex,	Int32,		Operator_Mul::Calc>,
-		BinaryFuncTmpl_complex_array<Complex,	UInt32,		Operator_Mul::Calc>,
-		BinaryFuncTmpl_complex_array<Complex,	Int64,		Operator_Mul::Calc>,
-		BinaryFuncTmpl_complex_array<Complex,	UInt64,		Operator_Mul::Calc>,
-		BinaryFuncTmpl_complex_array<Complex,	Half,		Operator_Mul::Calc>,
-		BinaryFuncTmpl_complex_array<Complex,	Float,		Operator_Mul::Calc>,
-		BinaryFuncTmpl_complex_array<Complex,	Double,		Operator_Mul::Calc>,
-		BinaryFuncTmpl_complex_array<Complex,	Complex,	Operator_Mul::Calc>,
+		BinaryFuncTmpl_scalar_array<Complex,	Complex,	Boolean,	Operator_Mul::Calc>,
+		BinaryFuncTmpl_scalar_array<Complex,	Complex,	Int8,		Operator_Mul::Calc>,
+		BinaryFuncTmpl_scalar_array<Complex,	Complex,	UInt8,		Operator_Mul::Calc>,
+		BinaryFuncTmpl_scalar_array<Complex,	Complex,	Int16,		Operator_Mul::Calc>,
+		BinaryFuncTmpl_scalar_array<Complex,	Complex,	UInt16,		Operator_Mul::Calc>,
+		BinaryFuncTmpl_scalar_array<Complex,	Complex,	Int32,		Operator_Mul::Calc>,
+		BinaryFuncTmpl_scalar_array<Complex,	Complex,	UInt32,		Operator_Mul::Calc>,
+		BinaryFuncTmpl_scalar_array<Complex,	Complex,	Int64,		Operator_Mul::Calc>,
+		BinaryFuncTmpl_scalar_array<Complex,	Complex,	UInt64,		Operator_Mul::Calc>,
+		BinaryFuncTmpl_scalar_array<Complex,	Complex,	Half,		Operator_Mul::Calc>,
+		BinaryFuncTmpl_scalar_array<Complex,	Complex,	Float,		Operator_Mul::Calc>,
+		BinaryFuncTmpl_scalar_array<Complex,	Complex,	Double,		Operator_Mul::Calc>,
+		BinaryFuncTmpl_scalar_array<Complex,	Complex,	Complex,	Operator_Mul::Calc>,
 		nullptr,
 	},
 	BinaryFuncTmpl_number_number<Operator_Mul::Calc>,
