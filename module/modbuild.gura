@@ -37,6 +37,7 @@ BuilderBase = class {
 	__init__(outDir:string) = {
 		argopt.Parser {|p|
 			p.addFlag('verbose',	'v', 'verbose mode')
+			p.addFlag('noopt',		'n', 'inhibit optimization')
 			p.addFlag('quiet',		'q', 'suppress warning messages')
 			p.addFlag('debug',		'd', 'build module with debug information')
 			p.addFlag('progress',	'p', 'print building progress')
@@ -87,6 +88,7 @@ BuilderBase = class {
 		this.verboseFlag = this.cfg['verbose']
 		this.quietFlag = this.cfg['quiet']
 		this.debugFlag = this.cfg['debug']
+		this.nooptFlag = this.cfg['noopt']
 		this.progressFlag = this.cfg['progress']
 		baseDir = this.cfg['basedir']
 		this.outDir = (this.cfg['here'] && baseDir) || path.join(baseDir, outDir)
@@ -334,8 +336,9 @@ if (sys.build == `msc) {
 	Builder = class(BuilderBase) {
 		__init__() = {|'gnuc'|
 			this.cflags = [
-				'-O2', '-DGURA_MODULE_SEPARATED', '-fPIC'
+				'-DGURA_MODULE_SEPARATED', '-fPIC'
 			]
+			!this.nooptFlag && this.cflag.append('-O2')
 			// It seems that Mac's clang supports -shared option.
 			this.ldflags = ['-shared']
 			this.libs = []

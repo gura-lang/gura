@@ -1260,6 +1260,9 @@ Array *BinaryFuncTmpl_array_scalar(Signal &sig, Array *pArrayRtn,
 	return pArrayTRtn.release();
 }
 
+template<typename T_Elem> inline bool IsZero(const T_Elem &elem) { return elem == 0; }
+template<> inline bool IsZero<Complex>(const Complex &elem) { return elem.IsZero(); }
+
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
 		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
 Array *BinaryFuncTmpl_Div_array_scalar(Signal &sig, Array *pArrayRtn,
