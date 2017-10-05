@@ -1268,7 +1268,7 @@ template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
 Array *BinaryFuncTmpl_Div_array_scalar(Signal &sig, Array *pArrayRtn,
 									   const Array *pArrayL, const T_ElemR &elemR)
 {
-	if (elemR == 0) {
+	if (IsZero(elemR)) {
 		Operator::SetError_DivideByZero(sig);
 		return nullptr;
 	}
@@ -1465,7 +1465,7 @@ Array *BinaryFuncTmpl_complex_complex(Signal &sig, Array *pArrayRtn, const Compl
 template<void (*op)(Complex &, const Complex &, const Complex &)>
 Array *BinaryFuncTmpl_Div_complex_complex(Signal &sig, Array *pArrayRtn, const Complex &complexL, const Complex &complexR)
 {
-	if (complexR.IsZero()) {
+	if (IsZero(complexR)) {
 		Operator::SetError_DivideByZero(sig);
 		return nullptr;
 	}
