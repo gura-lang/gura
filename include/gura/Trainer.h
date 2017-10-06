@@ -310,6 +310,8 @@ public:
 	// NodeFilter_Relu
 	//-------------------------------------------------------------------------
 	class NodeFilter_Relu : public NodeFilter {
+	private:
+		AutoPtr<Array> _pArrayBool;
 	public:
 		inline NodeFilter_Relu(Filter_Relu *pFilter, Connector *pConnectorDst) :
 				NodeFilter(pFilter, pConnectorDst) {}

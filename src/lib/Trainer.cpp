@@ -5,6 +5,46 @@
 
 namespace Gura {
 
+//------------------------------------------------------------------------------
+// PairFuncTmpl
+//------------------------------------------------------------------------------
+template<typename T_ElemRtnA, typename T_ElemRtnB, typename T_Elem,
+		 void (*op)(T_ElemRtnA &, T_ElemRtnB &, const T_Elem &)>
+void PairFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtnA, AutoPtr<Array> &pArrayRtnB, const Array *pArray)
+{
+	bool colMajorFlag = false;
+	const Array::Dimensions &dims = pArray->GetDimensions();
+	if (pArrayRtnA.IsNull()) pArrayRtnA.reset(ArrayT<T_ElemRtnA>::Create(colMajorFlag, dims));
+	if (pArrayRtnB.IsNull()) pArrayRtnB.reset(ArrayT<T_ElemRtnB>::Create(colMajorFlag, dims));
+	T_ElemRtnA *pElemRtnA = dynamic_cast<ArrayT<T_ElemRtnA> *>(pArrayRtnA.get())->GetPointer();
+	T_ElemRtnB *pElemRtnB = dynamic_cast<ArrayT<T_ElemRtnB> *>(pArrayRtnB.get())->GetPointer();
+	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
+	if (pArray->IsRowMajor() || dims.size() < 2) {
+		size_t nElems = pArray->GetElemNum();
+		for (size_t i = 0; i < nElems; i++, pElem++) {
+			op(*pElemRtnA, *pElemRtnB, *pElem);
+			pElemRtnA++, pElemRtnB++;
+		}
+	} else { // pArray->IsColMajor() && dims.size() >= 2
+		const Array::Dimension &dimRow = dims.GetRow();
+		const Array::Dimension &dimCol = dims.GetCol();
+		size_t nMats = pArray->GetElemNum() / dimRow.GetSizeProd();
+		const T_Elem *pElemMat = pElem;
+		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
+			const T_Elem *pElemRow = pElemMat;
+			for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
+					 pElemRow += dimRow.GetStrides()) {
+				const T_Elem *pElemCol = pElemRow;
+				for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
+						 pElemCol += dimCol.GetStrides()) {
+					op(*pElemRtnA, *pElemRtnB, *pElemCol);
+					pElemRtnA++, pElemRtnB++;
+				}
+			}
+		}
+	}
+}
+
 //-----------------------------------------------------------------------------
 // Trainer
 //-----------------------------------------------------------------------------
@@ -528,44 +568,14 @@ bool Trainer::NodeFilter_MaxPool3d::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeFilter_Relu
 //-----------------------------------------------------------------------------
-#if 0
-template<typename T_ElemRtn, typename T_Elem, void (*op)(T_ElemRtn &, const T_Elem &)>
-Array *UnaryFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray)
+typedef void (*PairFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtnA, AutoPtr<Array> &pArrayRtnB, const Array *pArray);
+
+template<typename T_ElemRtn, typename T_Elem>
+void FuncRelu(T_ElemRtn &elemRtn, Boolean &elemBool, const T_Elem &elem)
 {
-	bool colMajorFlag = false;
-	const Array::Dimensions &dims = pArray->GetDimensions();
-	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
-		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(colMajorFlag, dims) :
-		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
-	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
-	if (pArray->IsRowMajor() || dims.size() < 2) {
-		size_t nElems = pArray->GetElemNum();
-		for (size_t i = 0; i < nElems; i++, pElem++) {
-			op(*pElemRtn, *pElem);
-			pElemRtn++;
-		}
-	} else { // pArray->IsColMajor() && dims.size() >= 2
-		const Array::Dimension &dimRow = dims.GetRow();
-		const Array::Dimension &dimCol = dims.GetCol();
-		size_t nMats = pArray->GetElemNum() / dimRow.GetSizeProd();
-		const T_Elem *pElemMat = pElem;
-		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
-			const T_Elem *pElemRow = pElemMat;
-			for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
-					 pElemRow += dimRow.GetStrides()) {
-				const T_Elem *pElemCol = pElemRow;
-				for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
-						 pElemCol += dimCol.GetStrides()) {
-					op(*pElemRtn, *pElemCol);
-					pElemRtn++;
-				}
-			}
-		}
-	}
-	return pArrayTRtn.release();
+	elemBool = (elem > 0);
+	elemRtn = elemBool? elem : 0;
 }
-#endif
 
 bool Trainer::NodeFilter_Relu::IsVulnerable() const
 {
@@ -574,8 +584,30 @@ bool Trainer::NodeFilter_Relu::IsVulnerable() const
 
 bool Trainer::NodeFilter_Relu::EvalForward(Environment &env)
 {
-	_pArrayFwd.reset(
-		_pFilter->Apply(env, _pArrayFwd.get(), GetConnectorSrc()->GetArrayFwd()));
+	static const PairFuncT funcs[Array::ETYPE_Max] = {
+		nullptr,
+		&PairFuncTmpl<Boolean,	Boolean,	Boolean,	FuncRelu>,
+		&PairFuncTmpl<Int8,		Boolean,	Int8,		FuncRelu>,
+		&PairFuncTmpl<UInt8,	Boolean,	UInt8,		FuncRelu>,
+		&PairFuncTmpl<Int16,	Boolean,	Int16,		FuncRelu>,
+		&PairFuncTmpl<UInt16,	Boolean,	UInt16,		FuncRelu>,
+		&PairFuncTmpl<Int32,	Boolean,	Int32,		FuncRelu>,
+		&PairFuncTmpl<UInt32,	Boolean,	UInt32,		FuncRelu>,
+		&PairFuncTmpl<Int64,	Boolean,	Int64,		FuncRelu>,
+		&PairFuncTmpl<UInt64,	Boolean,	UInt64,		FuncRelu>,
+		&PairFuncTmpl<Half,		Boolean,	Half,		FuncRelu>,
+		&PairFuncTmpl<Float,	Boolean,	Float,		FuncRelu>,
+		&PairFuncTmpl<Double,	Boolean,	Double,		FuncRelu>,
+		nullptr,
+		nullptr,
+	};
+	const Array *pArray = GetConnectorSrc()->GetArrayFwd();
+	PairFuncT pairFunc = funcs[pArray->GetElemType()];
+	if (pairFunc == nullptr) {
+		env.SetError(ERR_TypeError, "can't evaluate forward function");
+		return nullptr;
+	}
+	(*pairFunc)(env, _pArrayFwd, _pArrayBool, pArray);
 	return env.IsNoSignalled();
 }
 
@@ -583,16 +615,11 @@ bool Trainer::NodeFilter_Relu::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
-		if (_connectorSrc.GetArrayBwd() == nullptr) {
-			const Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd();
-			bool colMajorFlag = false;
-			_connectorSrc.SetArrayBwd(Array::Create(pArrayBwd->GetElemType(),
-													colMajorFlag, pArrayBwd->GetDimensions()));
-		}
-		const Array *pArrayFwd = _connectorSrc.GetArrayFwd();
-		for (size_t iElem = 0; iElem < pArrayFwd->GetElemNum(); iElem++) {
-			
-		}
+		_connectorSrc.SetArrayBwd(
+			Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, _connectorSrc.GetArrayBwd(),
+				_pArrayBool.get(),
+				(*ppConnectorDst)->GetArrayBwd()));
 	}
 	return false;
 }
