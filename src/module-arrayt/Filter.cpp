@@ -7,6 +7,52 @@
 Gura_BeginModuleScope(arrayt)
 
 //------------------------------------------------------------------------------
+// PairFuncTmpl
+//------------------------------------------------------------------------------
+template<typename T_ElemRtnA, typename T_ElemRtnB,
+		 typename T_Elem, void (*op)(T_ElemRtnA &, T_ElemRtnB &, const T_Elem &)>
+void PairFuncTmpl(Signal &sig, Array **ppArrayRtnA, Array **ppArrayRtnB, const Array *pArray)
+{
+	bool colMajorFlag = false;
+	const Array::Dimensions &dims = pArray->GetDimensions();
+	AutoPtr<ArrayT<T_ElemRtnA> > pArrayTRtnA(
+		(*ppArrayRtnA == nullptr)? ArrayT<T_ElemRtnA>::Create(colMajorFlag, dims) :
+		dynamic_cast<ArrayT<T_ElemRtnA> *>((*ppArrayRtnA)->Reference()));
+	AutoPtr<ArrayT<T_ElemRtnB> > pArrayTRtnB(
+		(*ppArrayRtnB == nullptr)? ArrayT<T_ElemRtnB>::Create(colMajorFlag, dims) :
+		dynamic_cast<ArrayT<T_ElemRtnB> *>((*ppArrayRtnB)->Reference()));
+	T_ElemRtnA *pElemRtnA = pArrayTRtnA->GetPointer();
+	T_ElemRtnB *pElemRtnB = pArrayTRtnB->GetPointer();
+	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
+	if (pArray->IsRowMajor() || dims.size() < 2) {
+		size_t nElems = pArray->GetElemNum();
+		for (size_t i = 0; i < nElems; i++, pElem++) {
+			op(*pElemRtnA, *pElemRtnB, *pElem);
+			pElemRtnA++, pElemRtnB++;
+		}
+	} else { // pArray->IsColMajor() && dims.size() >= 2
+		const Array::Dimension &dimRow = dims.GetRow();
+		const Array::Dimension &dimCol = dims.GetCol();
+		size_t nMats = pArray->GetElemNum() / dimRow.GetSizeProd();
+		const T_Elem *pElemMat = pElem;
+		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
+			const T_Elem *pElemRow = pElemMat;
+			for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
+					 pElemRow += dimRow.GetStrides()) {
+				const T_Elem *pElemCol = pElemRow;
+				for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
+						 pElemCol += dimCol.GetStrides()) {
+					op(*pElemRtnA, *pElemRtnB, *pElemCol);
+					pElemRtnA++, pElemRtnB++;
+				}
+			}
+		}
+	}
+	*ppArrayRtnA = pArrayTRtnA.release();
+	*ppArrayRtnB = pArrayTRtnB.release();
+}
+
+//------------------------------------------------------------------------------
 // FilterFuncTmpl_Conv1d
 //------------------------------------------------------------------------------
 template<typename T_ElemRtn, typename T_Elem, typename T_ElemFilter>

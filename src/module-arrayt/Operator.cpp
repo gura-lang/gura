@@ -808,6 +808,335 @@ template<typename T_Elem> inline bool IsZero(const T_Elem &elem) { return elem =
 template<> inline bool IsZero<Complex>(const Complex &elem) { return elem.IsZero(); }
 
 //------------------------------------------------------------------------------
+// UnaryFuncTmpl
+//------------------------------------------------------------------------------
+template<typename T_ElemRtn, typename T_Elem, void (*op)(T_ElemRtn &, const T_Elem &)>
+Array *UnaryFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray)
+{
+	bool colMajorFlag = false;
+	const Array::Dimensions &dims = pArray->GetDimensions();
+	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
+		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(colMajorFlag, dims) :
+		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
+	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
+	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
+	if (pArray->IsRowMajor() || dims.size() < 2) {
+		size_t nElems = pArray->GetElemNum();
+		for (size_t i = 0; i < nElems; i++, pElem++) {
+			op(*pElemRtn, *pElem);
+			pElemRtn++;
+		}
+	} else { // pArray->IsColMajor() && dims.size() >= 2
+		const Array::Dimension &dimRow = dims.GetRow();
+		const Array::Dimension &dimCol = dims.GetCol();
+		size_t nMats = pArray->GetElemNum() / dimRow.GetSizeProd();
+		const T_Elem *pElemMat = pElem;
+		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
+			const T_Elem *pElemRow = pElemMat;
+			for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
+					 pElemRow += dimRow.GetStrides()) {
+				const T_Elem *pElemCol = pElemRow;
+				for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
+						 pElemCol += dimCol.GetStrides()) {
+					op(*pElemRtn, *pElemCol);
+					pElemRtn++;
+				}
+			}
+		}
+	}
+	return pArrayTRtn.release();
+}
+
+template<typename T_ElemRtn, typename T_Elem, void (*op)(T_ElemRtn &, const T_Elem &)>
+Array *UnaryFuncTmpl_ExcludeZero(Signal &sig, Array *pArrayRtn, const Array *pArray)
+{
+	if (pArray->DoesContainZero()) {
+		sig.SetError(ERR_MathError, "the array contains zero as its element");
+		return nullptr;
+	}
+	return UnaryFuncTmpl<T_ElemRtn, T_Elem, op>(sig, pArrayRtn, pArray);
+}
+
+//------------------------------------------------------------------------------
+// BinaryFuncTmpl
+//------------------------------------------------------------------------------
+template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
+		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
+Array *BinaryFuncTmpl_array_array(Signal &sig, Array *pArrayRtn, const Array *pArrayL, const Array *pArrayR)
+{
+	bool colMajorFlag = false;
+	const Array::Dimensions &dimsL = pArrayL->GetDimensions();
+	const Array::Dimensions &dimsR = pArrayR->GetDimensions();
+	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
+	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
+	size_t nElemsL = pArrayL->GetElemNum();
+	size_t nElemsR = pArrayR->GetElemNum();
+	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn;
+	if (nElemsL == nElemsR) {
+		pArrayTRtn.reset(
+			(pArrayRtn == nullptr)?
+			ArrayT<T_ElemRtn>::Create(colMajorFlag, pArrayL->GetDimensions()) :
+			dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
+		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
+		if (dimsL.size() == 1) { // dimsL.size() == 1 && dimsR.size() == 1
+			for (size_t offset = 0; offset < nElemsL; offset++) {
+				op(*pElemRtn, *(pElemL + offset), *(pElemR + offset));
+				pElemRtn++;
+			}
+		} else { // dimsL.size() >= 2 && dimsR.size() >= 2
+			const Array::Dimension &dimRowL = dimsL.GetRow();
+			const Array::Dimension &dimColL = dimsL.GetCol();
+			const Array::Dimension &dimRowR = dimsR.GetRow();
+			const Array::Dimension &dimColR = dimsR.GetCol();
+			size_t nMats = pArrayL->GetElemNum() / dimRowL.GetSizeProd();
+			const T_ElemL *pElemMatL = pElemL;
+			const T_ElemR *pElemMatR = pElemR;
+			for (size_t iMat = 0; iMat < nMats; iMat++,
+					 pElemMatL += dimRowL.GetSizeProd(), pElemMatR += dimRowR.GetSizeProd()) {
+				const T_ElemL *pElemRowL = pElemMatL;
+				const T_ElemR *pElemRowR = pElemMatR;
+				for (size_t iRow = 0; iRow < dimRowL.GetSize(); iRow++,
+						 pElemRowL += dimRowL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
+					const T_ElemL *pElemColL = pElemRowL;
+					const T_ElemR *pElemColR = pElemRowR;
+					for (size_t iCol = 0; iCol < dimColL.GetSize(); iCol++,
+							 pElemColL += dimColL.GetStrides(), pElemColR += dimColR.GetStrides()) {
+						op(*pElemRtn, *pElemColL, *pElemColR);
+						pElemRtn++;
+					}
+				}
+			}
+		}
+	} else if (nElemsL < nElemsR) {
+		pArrayTRtn.reset(
+			(pArrayRtn == nullptr)?
+			ArrayT<T_ElemRtn>::Create(colMajorFlag, pArrayR->GetDimensions()) :
+			dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
+		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
+		if ((pArrayL->IsRowMajor() && pArrayR->IsRowMajor()) || (dimsL.size() == 1)) {
+			size_t nBlks = nElemsR / nElemsL;
+			const T_ElemR *pElemBlkR = pElemR;
+			for (size_t iBlk = 0; iBlk < nBlks; iBlk++, pElemBlkR += nElemsL) {
+				const T_ElemL *pElemIterL = pElemL;
+				const T_ElemR *pElemIterR = pElemBlkR;
+				for (size_t iElem = 0; iElem < nElemsL; iElem++,
+						 pElemIterL++, pElemIterR++) {
+					op(*pElemRtn, *pElemIterL, *pElemIterR);
+					pElemRtn++;
+				}
+			}
+		} else { // (pArrayL->IsColMajor() || pArrayR->IsColMajor()) && (dimsL.size() >= 2 && dimsR.size() >= 2)
+			const Array::Dimension &dimRowL = dimsL.GetRow();
+			const Array::Dimension &dimColL = dimsL.GetCol();
+			const Array::Dimension &dimRowR = dimsR.GetRow();
+			const Array::Dimension &dimColR = dimsR.GetCol();
+			size_t nBlks = nElemsR / nElemsL;
+			size_t nMats = pArrayL->GetElemNum() / dimRowL.GetSizeProd();
+			const T_ElemR *pElemBlkR = pElemR;
+			for (size_t iBlk = 0; iBlk < nBlks; iBlk++, pElemBlkR += nElemsL) {
+				const T_ElemL *pElemMatL = pElemL;
+				const T_ElemR *pElemMatR = pElemBlkR;
+				for (size_t iMat = 0; iMat < nMats; iMat++,
+						 pElemMatL += dimRowL.GetSizeProd(), pElemMatR += dimRowR.GetSizeProd()) {
+					const T_ElemL *pElemRowL = pElemMatL;
+					const T_ElemR *pElemRowR = pElemMatR;
+					for (size_t iRow = 0; iRow < dimRowL.GetSize(); iRow++,
+							 pElemRowL += dimRowL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
+						const T_ElemL *pElemColL = pElemRowL;
+						const T_ElemR *pElemColR = pElemRowR;
+						for (size_t iCol = 0; iCol < dimColL.GetSize(); iCol++,
+								 pElemColL += dimColL.GetStrides(), pElemColR += dimColR.GetStrides()) {
+							op(*pElemRtn, *pElemColL, *pElemColR);
+							pElemRtn++;
+						}
+					}
+				}
+			}
+		}
+	} else { // nElemsL > nElemsR
+		pArrayTRtn.reset(
+			(pArrayRtn == nullptr)?
+			ArrayT<T_ElemRtn>::Create(colMajorFlag, pArrayL->GetDimensions()) :
+			dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
+		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
+		if ((pArrayL->IsRowMajor() && pArrayR->IsRowMajor()) || (dimsR.size() == 1)) {
+			size_t nBlks = nElemsL / nElemsR;
+			const T_ElemL *pElemBlkL = pElemL;
+			for (size_t iBlk = 0; iBlk < nBlks; iBlk++, pElemBlkL += nElemsR) {
+				const T_ElemL *pElemIterL = pElemBlkL;
+				const T_ElemR *pElemIterR = pElemR;
+				for (size_t iElem = 0; iElem < nElemsR; iElem++,
+						 pElemIterL++, pElemIterR++) {
+					op(*pElemRtn, *pElemIterL, *pElemIterR);
+					pElemRtn++;
+				}
+			}
+		} else { // (pArrayL->IsColMajor() || pArrayR->IsColMajor()) && (dimsL.size() >= 2 && dimsR.size() >= 2)
+			const Array::Dimension &dimRowL = dimsL.GetRow();
+			const Array::Dimension &dimColL = dimsL.GetCol();
+			const Array::Dimension &dimRowR = dimsR.GetRow();
+			const Array::Dimension &dimColR = dimsR.GetCol();
+			size_t nBlks = nElemsL / nElemsR;
+			size_t nMats = pArrayR->GetElemNum() / dimRowR.GetSizeProd();
+			const T_ElemL *pElemBlkL = pElemL;
+			for (size_t iBlk = 0; iBlk < nBlks; iBlk++, pElemBlkL += nElemsR) {
+				const T_ElemL *pElemMatL = pElemBlkL;
+				const T_ElemR *pElemMatR = pElemR;
+				for (size_t iMat = 0; iMat < nMats; iMat++,
+						 pElemMatL += dimRowL.GetSizeProd(), pElemMatR += dimRowR.GetSizeProd()) {
+					const T_ElemL *pElemRowL = pElemMatL;
+					const T_ElemR *pElemRowR = pElemMatR;
+					for (size_t iRow = 0; iRow < dimRowL.GetSize(); iRow++,
+							 pElemRowL += dimRowL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
+						const T_ElemL *pElemColL = pElemRowL;
+						const T_ElemR *pElemColR = pElemRowR;
+						for (size_t iCol = 0; iCol < dimColL.GetSize(); iCol++,
+								 pElemColL += dimColL.GetStrides(), pElemColR += dimColR.GetStrides()) {
+							op(*pElemRtn, *pElemColL, *pElemColR);
+							pElemRtn++;
+						}
+					}
+				}
+			}
+		}
+	}
+	return pArrayTRtn.release();
+}
+
+template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
+		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
+Array *BinaryFuncTmpl_array_scalar(Signal &sig, Array *pArrayRtn, const Array *pArrayL, const T_ElemR &elemR)
+{
+	bool colMajorFlag = false;
+	const Array::Dimensions &dimsL = pArrayL->GetDimensions();
+	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
+	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
+		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(colMajorFlag, dimsL) :
+		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
+	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
+	if (pArrayL->IsRowMajor() || dimsL.size() < 2) {
+		size_t nElemsL = pArrayL->GetElemNum();
+		for (size_t i = 0; i < nElemsL; i++, pElemL++) {
+			op(*pElemRtn, *pElemL, elemR);
+			pElemRtn++;
+		}
+	} else { // pArrayL->IsColMajor() && dimsL.size() >= 2
+		const Array::Dimension &dimRowL = dimsL.GetRow();
+		const Array::Dimension &dimColL = dimsL.GetCol();
+		size_t nMats = pArrayL->GetElemNum() / dimRowL.GetSizeProd();
+		const T_ElemL *pElemMatL = pElemL;
+		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMatL += dimRowL.GetSizeProd()) {
+			const T_ElemL *pElemRowL = pElemMatL;
+			for (size_t iRow = 0; iRow < dimRowL.GetSize(); iRow++,
+					 pElemRowL += dimRowL.GetStrides()) {
+				const T_ElemL *pElemColL = pElemRowL;
+				for (size_t iCol = 0; iCol < dimColL.GetSize(); iCol++,
+						 pElemColL += dimColL.GetStrides()) {
+					op(*pElemRtn, *pElemColL, elemR);
+					pElemRtn++;
+				}
+			}
+		}
+	}
+	return pArrayTRtn.release();
+}
+
+template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
+		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
+Array *BinaryFuncTmpl_scalar_array(Signal &sig, Array *pArrayRtn, const T_ElemL &elemL, const Array *pArrayR)
+{
+	bool colMajorFlag = false;
+	const Array::Dimensions &dimsR = pArrayR->GetDimensions();
+	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
+	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
+		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(colMajorFlag, dimsR) :
+		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
+	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
+	if (pArrayR->IsRowMajor() || dimsR.size() < 2) {
+		size_t nElemsR = pArrayR->GetElemNum();
+		for (size_t i = 0; i < nElemsR; i++, pElemR++) {
+			op(*pElemRtn, elemL, *pElemR);
+			pElemRtn++;
+		}
+	} else { // pArrayR->IsColMajor() && dimsR.size() >= 2
+		const Array::Dimension &dimRowR = dimsR.GetRow();
+		const Array::Dimension &dimColR = dimsR.GetCol();
+		size_t nMats = pArrayR->GetElemNum() / dimRowR.GetSizeProd();
+		const T_ElemR *pElemMatR = pElemR;
+		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMatR += dimRowR.GetSizeProd()) {
+			const T_ElemR *pElemRowR = pElemMatR;
+			for (size_t iRow = 0; iRow < dimRowR.GetSize(); iRow++,
+					 pElemRowR += dimRowR.GetStrides()) {
+				const T_ElemR *pElemColR = pElemRowR;
+				for (size_t iCol = 0; iCol < dimColR.GetSize(); iCol++,
+						 pElemColR += dimColR.GetStrides()) {
+					op(*pElemRtn, elemL, *pElemColR);
+					pElemRtn++;
+				}
+			}
+		}
+	}
+	return pArrayTRtn.release();
+}
+
+template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
+		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
+Array *BinaryFuncTmpl_scalar_scalar(Signal &sig, Array *pArrayRtn, const T_ElemL &elemL, const T_ElemR &elemR)
+{
+	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn;
+	pArrayTRtn.reset(
+		(pArrayRtn == nullptr)?
+		ArrayT<T_ElemRtn>::CreateScalar(0) :
+		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
+	op(*pArrayTRtn->GetPointer(), elemL, elemR);
+	return pArrayTRtn.release();
+}
+
+template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
+		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
+Array *BinaryFuncTmpl_Div_array_array(Signal &sig, Array *pArrayRtn, const Array *pArrayL, const Array *pArrayR)
+{
+	if (pArrayR->DoesContainZero()) {
+		Operator::SetError_DivideByZero(sig);
+		return nullptr;
+	}
+	return BinaryFuncTmpl_array_array<T_ElemRtn, T_ElemL, T_ElemR, op>(sig, pArrayRtn, pArrayL, pArrayR);
+}
+
+template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
+		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
+Array *BinaryFuncTmpl_Div_array_scalar(Signal &sig, Array *pArrayRtn, const Array *pArrayL, const T_ElemR &elemR)
+{
+	if (IsZero(elemR)) {
+		Operator::SetError_DivideByZero(sig);
+		return nullptr;
+	}
+	return BinaryFuncTmpl_array_scalar<T_ElemRtn, T_ElemL, T_ElemR, op>(sig, pArrayRtn, pArrayL, elemR);
+}
+
+template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
+		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
+Array *BinaryFuncTmpl_Div_scalar_array(Signal &sig, Array *pArrayRtn, const T_ElemL &elemL, const Array *pArrayR)
+{
+	if (pArrayR->DoesContainZero()) {
+		Operator::SetError_DivideByZero(sig);
+		return nullptr;
+	}
+	return BinaryFuncTmpl_scalar_array<T_ElemRtn, T_ElemL, T_ElemR, op>(sig, pArrayRtn, elemL, pArrayR);
+}
+
+template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
+		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
+Array *BinaryFuncTmpl_Div_scalar_scalar(Signal &sig, Array *pArrayRtn, const T_ElemL &elemL, const T_ElemR &elemR)
+{
+	if (IsZero(elemR)) {
+		Operator::SetError_DivideByZero(sig);
+		return nullptr;
+	}
+	return BinaryFuncTmpl_scalar_scalar<T_ElemRtn, T_ElemL, T_ElemR, op>(sig, pArrayRtn, elemL, elemR);
+}
+
+//------------------------------------------------------------------------------
 // DotFuncTmpl
 //------------------------------------------------------------------------------
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
@@ -1013,341 +1342,6 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, Array *pArrayRtn,
 		}
 	}
 	return pArrayTRtn.release();
-}
-
-//------------------------------------------------------------------------------
-// UnaryFuncTmpl
-//------------------------------------------------------------------------------
-template<typename T_ElemRtn, typename T_Elem, void (*op)(T_ElemRtn &, const T_Elem &)>
-Array *UnaryFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray)
-{
-	bool colMajorFlag = false;
-	const Array::Dimensions &dims = pArray->GetDimensions();
-	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
-		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(colMajorFlag, dims) :
-		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
-	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
-	if (pArray->IsRowMajor() || dims.size() < 2) {
-		size_t nElems = pArray->GetElemNum();
-		for (size_t i = 0; i < nElems; i++, pElem++) {
-			op(*pElemRtn, *pElem);
-			pElemRtn++;
-		}
-	} else { // pArray->IsColMajor() && dims.size() >= 2
-		const Array::Dimension &dimRow = dims.GetRow();
-		const Array::Dimension &dimCol = dims.GetCol();
-		size_t nMats = pArray->GetElemNum() / dimRow.GetSizeProd();
-		const T_Elem *pElemMat = pElem;
-		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
-			const T_Elem *pElemRow = pElemMat;
-			for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
-					 pElemRow += dimRow.GetStrides()) {
-				const T_Elem *pElemCol = pElemRow;
-				for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
-						 pElemCol += dimCol.GetStrides()) {
-					op(*pElemRtn, *pElemCol);
-					pElemRtn++;
-				}
-			}
-		}
-	}
-	return pArrayTRtn.release();
-}
-
-template<typename T_ElemRtn, typename T_Elem, void (*op)(T_ElemRtn &, const T_Elem &)>
-Array *UnaryFuncTmpl_ExcludeZero(Signal &sig, Array *pArrayRtn, const Array *pArray)
-{
-	if (pArray->DoesContainZero()) {
-		sig.SetError(ERR_MathError, "the array contains zero as its element");
-		return nullptr;
-	}
-	return UnaryFuncTmpl<T_ElemRtn, T_Elem, op>(sig, pArrayRtn, pArray);
-}
-
-//------------------------------------------------------------------------------
-// BinaryFuncTmpl
-//------------------------------------------------------------------------------
-template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
-		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
-Array *BinaryFuncTmpl_array_array(Signal &sig, Array *pArrayRtn,
-								  const Array *pArrayL, const Array *pArrayR)
-{
-	bool colMajorFlag = false;
-	const Array::Dimensions &dimsL = pArrayL->GetDimensions();
-	const Array::Dimensions &dimsR = pArrayR->GetDimensions();
-	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
-	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
-	size_t nElemsL = pArrayL->GetElemNum();
-	size_t nElemsR = pArrayR->GetElemNum();
-	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn;
-	if (nElemsL == nElemsR) {
-		pArrayTRtn.reset(
-			(pArrayRtn == nullptr)?
-			ArrayT<T_ElemRtn>::Create(colMajorFlag, pArrayL->GetDimensions()) :
-			dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
-		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-		if (dimsL.size() == 1) { // dimsL.size() == 1 && dimsR.size() == 1
-			for (size_t offset = 0; offset < nElemsL; offset++) {
-				op(*pElemRtn, *(pElemL + offset), *(pElemR + offset));
-				pElemRtn++;
-			}
-		} else { // dimsL.size() >= 2 && dimsR.size() >= 2
-			const Array::Dimension &dimRowL = dimsL.GetRow();
-			const Array::Dimension &dimColL = dimsL.GetCol();
-			const Array::Dimension &dimRowR = dimsR.GetRow();
-			const Array::Dimension &dimColR = dimsR.GetCol();
-			size_t nMats = pArrayL->GetElemNum() / dimRowL.GetSizeProd();
-			const T_ElemL *pElemMatL = pElemL;
-			const T_ElemR *pElemMatR = pElemR;
-			for (size_t iMat = 0; iMat < nMats; iMat++,
-					 pElemMatL += dimRowL.GetSizeProd(), pElemMatR += dimRowR.GetSizeProd()) {
-				const T_ElemL *pElemRowL = pElemMatL;
-				const T_ElemR *pElemRowR = pElemMatR;
-				for (size_t iRow = 0; iRow < dimRowL.GetSize(); iRow++,
-						 pElemRowL += dimRowL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
-					const T_ElemL *pElemColL = pElemRowL;
-					const T_ElemR *pElemColR = pElemRowR;
-					for (size_t iCol = 0; iCol < dimColL.GetSize(); iCol++,
-							 pElemColL += dimColL.GetStrides(), pElemColR += dimColR.GetStrides()) {
-						op(*pElemRtn, *pElemColL, *pElemColR);
-						pElemRtn++;
-					}
-				}
-			}
-		}
-	} else if (nElemsL < nElemsR) {
-		pArrayTRtn.reset(
-			(pArrayRtn == nullptr)?
-			ArrayT<T_ElemRtn>::Create(colMajorFlag, pArrayR->GetDimensions()) :
-			dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
-		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-		if ((pArrayL->IsRowMajor() && pArrayR->IsRowMajor()) || (dimsL.size() == 1)) {
-			size_t nBlks = nElemsR / nElemsL;
-			const T_ElemR *pElemBlkR = pElemR;
-			for (size_t iBlk = 0; iBlk < nBlks; iBlk++, pElemBlkR += nElemsL) {
-				const T_ElemL *pElemIterL = pElemL;
-				const T_ElemR *pElemIterR = pElemBlkR;
-				for (size_t iElem = 0; iElem < nElemsL; iElem++,
-						 pElemIterL++, pElemIterR++) {
-					op(*pElemRtn, *pElemIterL, *pElemIterR);
-					pElemRtn++;
-				}
-			}
-		} else { // (pArrayL->IsColMajor() || pArrayR->IsColMajor()) && (dimsL.size() >= 2 && dimsR.size() >= 2)
-			const Array::Dimension &dimRowL = dimsL.GetRow();
-			const Array::Dimension &dimColL = dimsL.GetCol();
-			const Array::Dimension &dimRowR = dimsR.GetRow();
-			const Array::Dimension &dimColR = dimsR.GetCol();
-			size_t nBlks = nElemsR / nElemsL;
-			size_t nMats = pArrayL->GetElemNum() / dimRowL.GetSizeProd();
-			const T_ElemR *pElemBlkR = pElemR;
-			for (size_t iBlk = 0; iBlk < nBlks; iBlk++, pElemBlkR += nElemsL) {
-				const T_ElemL *pElemMatL = pElemL;
-				const T_ElemR *pElemMatR = pElemBlkR;
-				for (size_t iMat = 0; iMat < nMats; iMat++,
-						 pElemMatL += dimRowL.GetSizeProd(), pElemMatR += dimRowR.GetSizeProd()) {
-					const T_ElemL *pElemRowL = pElemMatL;
-					const T_ElemR *pElemRowR = pElemMatR;
-					for (size_t iRow = 0; iRow < dimRowL.GetSize(); iRow++,
-							 pElemRowL += dimRowL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
-						const T_ElemL *pElemColL = pElemRowL;
-						const T_ElemR *pElemColR = pElemRowR;
-						for (size_t iCol = 0; iCol < dimColL.GetSize(); iCol++,
-								 pElemColL += dimColL.GetStrides(), pElemColR += dimColR.GetStrides()) {
-							op(*pElemRtn, *pElemColL, *pElemColR);
-							pElemRtn++;
-						}
-					}
-				}
-			}
-		}
-	} else { // nElemsL > nElemsR
-		pArrayTRtn.reset(
-			(pArrayRtn == nullptr)?
-			ArrayT<T_ElemRtn>::Create(colMajorFlag, pArrayL->GetDimensions()) :
-			dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
-		T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-		if ((pArrayL->IsRowMajor() && pArrayR->IsRowMajor()) || (dimsR.size() == 1)) {
-			size_t nBlks = nElemsL / nElemsR;
-			const T_ElemL *pElemBlkL = pElemL;
-			for (size_t iBlk = 0; iBlk < nBlks; iBlk++, pElemBlkL += nElemsR) {
-				const T_ElemL *pElemIterL = pElemBlkL;
-				const T_ElemR *pElemIterR = pElemR;
-				for (size_t iElem = 0; iElem < nElemsR; iElem++,
-						 pElemIterL++, pElemIterR++) {
-					op(*pElemRtn, *pElemIterL, *pElemIterR);
-					pElemRtn++;
-				}
-			}
-		} else { // (pArrayL->IsColMajor() || pArrayR->IsColMajor()) && (dimsL.size() >= 2 && dimsR.size() >= 2)
-			const Array::Dimension &dimRowL = dimsL.GetRow();
-			const Array::Dimension &dimColL = dimsL.GetCol();
-			const Array::Dimension &dimRowR = dimsR.GetRow();
-			const Array::Dimension &dimColR = dimsR.GetCol();
-			size_t nBlks = nElemsL / nElemsR;
-			size_t nMats = pArrayR->GetElemNum() / dimRowR.GetSizeProd();
-			const T_ElemL *pElemBlkL = pElemL;
-			for (size_t iBlk = 0; iBlk < nBlks; iBlk++, pElemBlkL += nElemsR) {
-				const T_ElemL *pElemMatL = pElemBlkL;
-				const T_ElemR *pElemMatR = pElemR;
-				for (size_t iMat = 0; iMat < nMats; iMat++,
-						 pElemMatL += dimRowL.GetSizeProd(), pElemMatR += dimRowR.GetSizeProd()) {
-					const T_ElemL *pElemRowL = pElemMatL;
-					const T_ElemR *pElemRowR = pElemMatR;
-					for (size_t iRow = 0; iRow < dimRowL.GetSize(); iRow++,
-							 pElemRowL += dimRowL.GetStrides(), pElemRowR += dimRowR.GetStrides()) {
-						const T_ElemL *pElemColL = pElemRowL;
-						const T_ElemR *pElemColR = pElemRowR;
-						for (size_t iCol = 0; iCol < dimColL.GetSize(); iCol++,
-								 pElemColL += dimColL.GetStrides(), pElemColR += dimColR.GetStrides()) {
-							op(*pElemRtn, *pElemColL, *pElemColR);
-							pElemRtn++;
-						}
-					}
-				}
-			}
-		}
-	}
-	return pArrayTRtn.release();
-}
-
-template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
-		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
-Array *BinaryFuncTmpl_Div_array_array(Signal &sig, Array *pArrayRtn,
-									  const Array *pArrayL, const Array *pArrayR)
-{
-	if (pArrayR->DoesContainZero()) {
-		Operator::SetError_DivideByZero(sig);
-		return nullptr;
-	}
-	return BinaryFuncTmpl_array_array<T_ElemRtn, T_ElemL, T_ElemR, op>(sig, pArrayRtn, pArrayL, pArrayR);
-}
-
-template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
-		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
-Array *BinaryFuncTmpl_array_scalar(Signal &sig, Array *pArrayRtn,
-								   const Array *pArrayL, const T_ElemR &elemR)
-{
-	bool colMajorFlag = false;
-	const Array::Dimensions &dimsL = pArrayL->GetDimensions();
-	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
-	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
-		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(colMajorFlag, dimsL) :
-		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
-	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	if (pArrayL->IsRowMajor() || dimsL.size() < 2) {
-		size_t nElemsL = pArrayL->GetElemNum();
-		for (size_t i = 0; i < nElemsL; i++, pElemL++) {
-			op(*pElemRtn, *pElemL, elemR);
-			pElemRtn++;
-		}
-	} else { // pArrayL->IsColMajor() && dimsL.size() >= 2
-		const Array::Dimension &dimRowL = dimsL.GetRow();
-		const Array::Dimension &dimColL = dimsL.GetCol();
-		size_t nMats = pArrayL->GetElemNum() / dimRowL.GetSizeProd();
-		const T_ElemL *pElemMatL = pElemL;
-		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMatL += dimRowL.GetSizeProd()) {
-			const T_ElemL *pElemRowL = pElemMatL;
-			for (size_t iRow = 0; iRow < dimRowL.GetSize(); iRow++,
-					 pElemRowL += dimRowL.GetStrides()) {
-				const T_ElemL *pElemColL = pElemRowL;
-				for (size_t iCol = 0; iCol < dimColL.GetSize(); iCol++,
-						 pElemColL += dimColL.GetStrides()) {
-					op(*pElemRtn, *pElemColL, elemR);
-					pElemRtn++;
-				}
-			}
-		}
-	}
-	return pArrayTRtn.release();
-}
-
-template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
-		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
-Array *BinaryFuncTmpl_Div_array_scalar(Signal &sig, Array *pArrayRtn,
-									   const Array *pArrayL, const T_ElemR &elemR)
-{
-	if (IsZero(elemR)) {
-		Operator::SetError_DivideByZero(sig);
-		return nullptr;
-	}
-	return BinaryFuncTmpl_array_scalar<T_ElemRtn, T_ElemL, T_ElemR, op>(sig, pArrayRtn, pArrayL, elemR);
-}
-
-template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
-		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
-Array *BinaryFuncTmpl_scalar_array(Signal &sig, Array *pArrayRtn,
-								   const T_ElemL &elemL, const Array *pArrayR)
-{
-	bool colMajorFlag = false;
-	const Array::Dimensions &dimsR = pArrayR->GetDimensions();
-	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
-	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
-		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(colMajorFlag, dimsR) :
-		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
-	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	if (pArrayR->IsRowMajor() || dimsR.size() < 2) {
-		size_t nElemsR = pArrayR->GetElemNum();
-		for (size_t i = 0; i < nElemsR; i++, pElemR++) {
-			op(*pElemRtn, elemL, *pElemR);
-			pElemRtn++;
-		}
-	} else { // pArrayR->IsColMajor() && dimsR.size() >= 2
-		const Array::Dimension &dimRowR = dimsR.GetRow();
-		const Array::Dimension &dimColR = dimsR.GetCol();
-		size_t nMats = pArrayR->GetElemNum() / dimRowR.GetSizeProd();
-		const T_ElemR *pElemMatR = pElemR;
-		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMatR += dimRowR.GetSizeProd()) {
-			const T_ElemR *pElemRowR = pElemMatR;
-			for (size_t iRow = 0; iRow < dimRowR.GetSize(); iRow++,
-					 pElemRowR += dimRowR.GetStrides()) {
-				const T_ElemR *pElemColR = pElemRowR;
-				for (size_t iCol = 0; iCol < dimColR.GetSize(); iCol++,
-						 pElemColR += dimColR.GetStrides()) {
-					op(*pElemRtn, elemL, *pElemColR);
-					pElemRtn++;
-				}
-			}
-		}
-	}
-	return pArrayTRtn.release();
-}
-
-template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
-		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
-Array *BinaryFuncTmpl_Div_scalar_array(Signal &sig, Array *pArrayRtn,
-									   const T_ElemL &elemL, const Array *pArrayR)
-{
-	if (pArrayR->DoesContainZero()) {
-		Operator::SetError_DivideByZero(sig);
-		return nullptr;
-	}
-	return BinaryFuncTmpl_scalar_array<T_ElemRtn, T_ElemL, T_ElemR, op>(sig, pArrayRtn, elemL, pArrayR);
-}
-
-template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
-		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
-Array *BinaryFuncTmpl_scalar_scalar(Signal &sig, Array *pArrayRtn, const T_ElemL &elemL, const T_ElemR &elemR)
-{
-	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn;
-	pArrayTRtn.reset(
-		(pArrayRtn == nullptr)?
-		ArrayT<T_ElemRtn>::CreateScalar(0) :
-		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
-	op(*pArrayTRtn->GetPointer(), elemL, elemR);
-	return pArrayTRtn.release();
-}
-
-template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR,
-		 void (*op)(T_ElemRtn &, const T_ElemL &, const T_ElemR &)>
-Array *BinaryFuncTmpl_Div_scalar_scalar(Signal &sig, Array *pArrayRtn, const T_ElemL &elemL, const T_ElemR &elemR)
-{
-	if (IsZero(elemR)) {
-		Operator::SetError_DivideByZero(sig);
-		return nullptr;
-	}
-	return BinaryFuncTmpl_scalar_scalar<T_ElemRtn, T_ElemL, T_ElemR, op>(sig, pArrayRtn, elemL, elemR);
 }
 
 //------------------------------------------------------------------------------

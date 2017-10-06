@@ -16,7 +16,7 @@ project(gura)
 
 set(GURA_VERSION_MAJOR		0)
 set(GURA_VERSION_MINOR		7)
-set(GURA_VERSION_PATCH		0)
+set(GURA_VERSION_PATCH		1)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   set(CMAKE_INSTALL_PREFIX	/Applications/Gura.app/Contents/Resources)
@@ -24,7 +24,9 @@ else (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   set(CMAKE_INSTALL_PREFIX	/usr)
 endif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
-set(CMAKE_CXX_FLAGS			"-O2 -std=c++11 -Wall -Wno-sign-compare")
+set(CMAKE_CXX_FLAGS			"-std=c++11 -Wall -Wno-sign-compare")
+# -O2 option is very effective but affects compiling speed
+#set(CMAKE_CXX_FLAGS		"-O2 -std=c++11 -Wall -Wno-sign-compare")
 
 set(GURA_VERSION			${GURA_VERSION_MAJOR}.${GURA_VERSION_MINOR}.${GURA_VERSION_PATCH})
 set(GURA_VERSION_SO			${GURA_VERSION_MAJOR})
