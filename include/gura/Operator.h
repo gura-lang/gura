@@ -755,6 +755,13 @@ public:
 	}
 };
 
+#if 0
+template<> inline void Operator_Mul::Calc<Double, Double, Boolean>(
+					Double &result, const Double &varL, const Boolean &varR) {
+	result = static_cast<Double>(varR? varL : 0);
+}
+#endif
+
 //-----------------------------------------------------------------------------
 // Operator_Div
 //-----------------------------------------------------------------------------

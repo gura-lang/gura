@@ -621,7 +621,7 @@ bool Trainer::NodeFilter_Relu::EvalBackward(Environment &env)
 				_pArrayBool.get(),
 				(*ppConnectorDst)->GetArrayBwd()));
 	}
-	return false;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
