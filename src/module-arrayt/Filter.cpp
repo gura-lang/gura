@@ -56,46 +56,46 @@ void PairFuncTmpl(Signal &sig, Array **ppArrayRtnA, Array **ppArrayRtnB, const A
 // FilterFuncTmpl_Conv1d
 //------------------------------------------------------------------------------
 template<typename T_ElemRtn, typename T_Elem, typename T_ElemFilter>
-Array *FilterFuncTmpl_Conv1d(Signal &sig, Array *pArrayRtn, const Array *pArray, const Filter_Conv1d *pFilter)
+bool FilterFuncTmpl_Conv1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Conv1d *pFilter)
 {
 	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(colMajorFlag, dims));
-	return pArrayTRtn.release();
+	pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims));
+	return true;
 }
 
 //------------------------------------------------------------------------------
 // FilterFuncTmpl_Conv2d
 //------------------------------------------------------------------------------
 template<typename T_ElemRtn, typename T_Elem, typename T_ElemFilter>
-Array *FilterFuncTmpl_Conv2d(Signal &sig, Array *pArrayRtn, const Array *pArray, const Filter_Conv2d *pFilter)
+bool FilterFuncTmpl_Conv2d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Conv2d *pFilter)
 {
 	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(colMajorFlag, dims));
-	return pArrayTRtn.release();
+	pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims));
+	return true;
 }
 
 //------------------------------------------------------------------------------
 // FilterFuncTmpl_Conv3d
 //------------------------------------------------------------------------------
 template<typename T_ElemRtn, typename T_Elem, typename T_ElemFilter>
-Array *FilterFuncTmpl_Conv3d(Signal &sig, Array *pArrayRtn, const Array *pArray, const Filter_Conv3d *pFilter)
+bool FilterFuncTmpl_Conv3d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Conv3d *pFilter)
 {
 	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(colMajorFlag, dims));
-	return pArrayTRtn.release();
+	pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims));
+	return true;
 }
 
 //------------------------------------------------------------------------------
 // FilterFuncTmpl_MaxPool1d
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-Array *FilterFuncTmpl_MaxPool1d(Signal &sig, Array *pArrayRtn, const Array *pArray, const Filter_MaxPool1d *pFilter)
+bool FilterFuncTmpl_MaxPool1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_MaxPool1d *pFilter)
 {
 	bool colMajorFlag = false;
 	size_t sizeFilter = pFilter->GetSize();
@@ -105,19 +105,18 @@ Array *FilterFuncTmpl_MaxPool1d(Signal &sig, Array *pArrayRtn, const Array *pArr
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	size_t nDims = dims.size();
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn;
 	if (channelAt == Filter::CHANNELAT_First || nDims < 2) {
 		const Array::Dimension &dimCol = dims[nDims - 1];
 		size_t sizeIn = dimCol.GetSize();
 		size_t sizeOut = 0, sizePadHead = 0, sizePadTail = 0;
 		Filter::CalcPadding(sizeIn, sizeFilter, strides, paddingType, &sizeOut, &sizePadHead, &sizePadTail);
 		if (nDims < 2) {
-			pArrayTRtn.reset(ArrayT<T_Elem>::Create1d(colMajorFlag, sizeOut));
+			pArrayRtn.reset(ArrayT<T_Elem>::Create1d(colMajorFlag, sizeOut));
 		} else {
-			pArrayTRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims.begin(), dims.begin() + nDims - 1, sizeOut));
+			pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims.begin(), dims.begin() + nDims - 1, sizeOut));
 		}
 		const T_Elem *pElemSrc = pArrayT->GetPointer();
-		T_Elem *pElemRtn = pArrayTRtn->GetPointer();
+		T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
 		size_t cnt = pArray->GetElemNum() / sizeIn;
 		for (size_t j = 0; j < cnt; j++) {
 			for (size_t i = 0; i < sizeOut; i++) {
@@ -152,9 +151,9 @@ Array *FilterFuncTmpl_MaxPool1d(Signal &sig, Array *pArrayRtn, const Array *pArr
 		size_t sizeChannel = dimChannel.GetSize();
 		size_t sizeOut = 0, sizePadHead = 0, sizePadTail = 0;
 		Filter::CalcPadding(sizeIn, sizeFilter, strides, paddingType, &sizeOut, &sizePadHead, &sizePadTail);
-		pArrayTRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims.begin(), dims.begin() + nDims - 2, sizeOut, sizeChannel));
+		pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims.begin(), dims.begin() + nDims - 2, sizeOut, sizeChannel));
 		const T_Elem *pElemSrc = pArrayT->GetPointer();
-		T_Elem *pElemRtn = pArrayTRtn->GetPointer();
+		T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
 		size_t cnt = pArray->GetElemNum() / (sizeIn * sizeChannel);
 		for (size_t j = 0; j < cnt; j++) {
 			for (size_t i = 0; i < sizeOut; i++) {
@@ -185,40 +184,40 @@ Array *FilterFuncTmpl_MaxPool1d(Signal &sig, Array *pArrayRtn, const Array *pArr
 			pElemRtn += sizeOut * sizeChannel;
 		}
 	}		
-	return pArrayTRtn.release();
+	return true;
 }
 
 //------------------------------------------------------------------------------
 // FilterFuncTmpl_MaxPool2d
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-Array *FilterFuncTmpl_MaxPool2d(Signal &sig, Array *pArrayRtn, const Array *pArray, const Filter_MaxPool2d *pFilter)
+bool FilterFuncTmpl_MaxPool2d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_MaxPool2d *pFilter)
 {
 	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(colMajorFlag, dims));
-	return pArrayTRtn.release();
+	pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims));
+	return true;
 }
 
 //------------------------------------------------------------------------------
 // FilterFuncTmpl_MaxPool3d
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-Array *FilterFuncTmpl_MaxPool3d(Signal &sig, Array *pArrayRtn, const Array *pArray, const Filter_MaxPool3d *pFilter)
+bool FilterFuncTmpl_MaxPool3d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_MaxPool3d *pFilter)
 {
 	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(colMajorFlag, dims));
-	return pArrayTRtn.release();
+	pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims));
+	return true;
 }
 
 //------------------------------------------------------------------------------
 // FilterFuncTmpl_Relu
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-Array *FilterFuncTmpl_Relu(Signal &sig, Array *pArrayRtn, const Array *pArray, const Filter_Relu *pFilter)
+bool FilterFuncTmpl_Relu(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Relu *pFilter)
 {
 	return Array::ApplyUnaryFunc(sig, Array::unaryFuncPack_Math_relu, pArrayRtn, pArray);
 }
@@ -227,7 +226,7 @@ Array *FilterFuncTmpl_Relu(Signal &sig, Array *pArrayRtn, const Array *pArray, c
 // FilterFuncTmpl_Sigmoid
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-Array *FilterFuncTmpl_Sigmoid(Signal &sig, Array *pArrayRtn, const Array *pArray, const Filter_Sigmoid *pFilter)
+bool FilterFuncTmpl_Sigmoid(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Sigmoid *pFilter)
 {
 	return Array::ApplyUnaryFunc(sig, Array::unaryFuncPack_Math_sigmoid, pArrayRtn, pArray);
 }
@@ -236,7 +235,7 @@ Array *FilterFuncTmpl_Sigmoid(Signal &sig, Array *pArrayRtn, const Array *pArray
 // FilterFuncTmpl_Softmax
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayRtn, const Array *pArray, const Filter_Softmax *pFilter)
+bool FilterFuncTmpl_Softmax(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Softmax *pFilter)
 {
 	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
@@ -244,12 +243,10 @@ Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayRtn, const Array *pArray
 	size_t axis = pFilter->GetAxis();
 	if (axis > dims.size() - 1) axis = dims.size() - 1;
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
-		(pArrayRtn == nullptr)? ArrayT<T_Elem>::Create(colMajorFlag, dims) :
-		dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn->Reference()));
-	pArrayTRtn->FillZero();
+	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims));
+	pArrayRtn->FillZero();
 	const T_Elem *pElemTop = pArrayT->GetPointer();
-	T_Elem *pElemRtn = pArrayTRtn->GetPointer();
+	T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
 	if (pDimAxis + 1 == dims.end()) {
 		size_t axisSize = pDimAxis->GetSize();
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += axisSize) {
@@ -321,14 +318,14 @@ Array *FilterFuncTmpl_Softmax(Signal &sig, Array *pArrayRtn, const Array *pArray
 			}
 		}
 	}
-	return pArrayTRtn.release();
+	return true;
 }
 
 //------------------------------------------------------------------------------
 // FilterFuncTmpl_Tanh
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-Array *FilterFuncTmpl_Tanh(Signal &sig, Array *pArrayRtn, const Array *pArray, const Filter_Tanh *pFilter)
+bool FilterFuncTmpl_Tanh(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Tanh *pFilter)
 {
 	return Array::ApplyUnaryFunc(sig, Array::unaryFuncPack_Math_tanh, pArrayRtn, pArray);
 }

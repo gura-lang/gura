@@ -13,7 +13,7 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 Filter_Conv1d::FilterFuncTable Filter_Conv1d::filterFuncTable = {{{nullptr}}};
 
-Array *Filter_Conv1d::Apply(Signal &sig, Array *pArrayRtn, const Array *pArray) const
+bool Filter_Conv1d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
 	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()][Array::ETYPE_None];
 	if (filterFunc == nullptr) {

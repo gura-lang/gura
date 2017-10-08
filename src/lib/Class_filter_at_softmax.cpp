@@ -13,7 +13,7 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 Filter_Softmax::FilterFuncTable Filter_Softmax::filterFuncTable = {{nullptr}};
 
-Array *Filter_Softmax::Apply(Signal &sig, Array *pArrayRtn, const Array *pArray) const
+bool Filter_Softmax::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
 	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
 	if (filterFunc == nullptr) {

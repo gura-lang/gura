@@ -13,8 +13,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Filter_Relu : public Filter {
 public:
-	typedef Array *(*FilterFuncT)(Signal &sig, Array *pArrayResult,
-								  const Array *pArray, const Filter_Relu *pFilter);
+	typedef bool (*FilterFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn,
+								const Array *pArray, const Filter_Relu *pFilter);
 	struct FilterFuncTable {
 		FilterFuncT funcs[Array::ETYPE_Max];
 	};
@@ -23,7 +23,7 @@ public:
 public:
 	inline Filter_Relu() {}
 public:
-	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const;
+	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;
 };
 

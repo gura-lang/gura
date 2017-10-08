@@ -13,7 +13,7 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 Filter_Tanh::FilterFuncTable Filter_Tanh::filterFuncTable = {{nullptr}};
 
-Array *Filter_Tanh::Apply(Signal &sig, Array *pArrayRtn, const Array *pArray) const
+bool Filter_Tanh::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
 	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
 	if (filterFunc == nullptr) {

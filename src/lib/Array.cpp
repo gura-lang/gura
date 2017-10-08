@@ -604,7 +604,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 	return true;
 }
 
-Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, Array *pArrayRtn, const Array *pArray)
+bool Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Array *pArray)
 {
 	UnaryFuncT unaryFunc = pack.table.funcs[pArray->GetElemType()];
 	if (unaryFunc == nullptr) {
@@ -616,10 +616,10 @@ Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, Array *pArr
 
 Value Array::ApplyUnaryFuncOnValue(Environment &env, const UnaryFuncPack &pack, const Value &value)
 {
-	Array *pArray = ApplyUnaryFunc(
-		env, pack, nullptr, Object_array::GetObject(value)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return ToValue(env, pArray);
+	AutoPtr<Array> pArrayRtn;
+	if (!ApplyUnaryFunc(
+			env, pack, pArrayRtn, Object_array::GetObject(value)->GetArray())) return Value::Nil;
+	return ToValue(env, pArrayRtn.release());
 }
 
 Array *Array::ApplyBinaryFunc(

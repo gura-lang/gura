@@ -13,7 +13,7 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 Filter_MaxPool2d::FilterFuncTable Filter_MaxPool2d::filterFuncTable = {{nullptr}};
 
-Array *Filter_MaxPool2d::Apply(Signal &sig, Array *pArrayRtn, const Array *pArray) const
+bool Filter_MaxPool2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
 	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
 	if (filterFunc == nullptr) {

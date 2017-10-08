@@ -811,14 +811,12 @@ template<> inline bool IsZero<Complex>(const Complex &elem) { return elem.IsZero
 // UnaryFuncTmpl
 //------------------------------------------------------------------------------
 template<typename T_ElemRtn, typename T_Elem, void (*op)(T_ElemRtn &, const T_Elem &)>
-Array *UnaryFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray)
+bool UnaryFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray)
 {
 	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArray->GetDimensions();
-	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
-		(pArrayRtn == nullptr)? ArrayT<T_ElemRtn>::Create(colMajorFlag, dims) :
-		dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn->Reference()));
-	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
+	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(colMajorFlag, dims));
+	T_ElemRtn *pElemRtn = dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn.get())->GetPointer();
 	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
 	if (pArray->IsRowMajor() || dims.size() < 2) {
 		size_t nElems = pArray->GetElemNum();
@@ -844,15 +842,15 @@ Array *UnaryFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray)
 			}
 		}
 	}
-	return pArrayTRtn.release();
+	return true;
 }
 
 template<typename T_ElemRtn, typename T_Elem, void (*op)(T_ElemRtn &, const T_Elem &)>
-Array *UnaryFuncTmpl_ExcludeZero(Signal &sig, Array *pArrayRtn, const Array *pArray)
+bool UnaryFuncTmpl_ExcludeZero(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray)
 {
 	if (pArray->DoesContainZero()) {
 		sig.SetError(ERR_MathError, "the array contains zero as its element");
-		return nullptr;
+		return false;
 	}
 	return UnaryFuncTmpl<T_ElemRtn, T_Elem, op>(sig, pArrayRtn, pArray);
 }

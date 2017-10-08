@@ -34,7 +34,7 @@ public:
 		ETYPE_Max,
 	};
 public:
-	typedef Array *(*UnaryFuncT)(Signal &sig, Array *pArrayRtn, const Array *pArray);
+	typedef bool (*UnaryFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray);
 	typedef Array *(*BinaryFuncT_array_array)(Signal &sig, Array *pArrayRtn,
 											 const Array *pArrayL, const Array *pArrayR);
 	typedef Array *(*BinaryFuncT_array_number)(Signal &sig, Array *pArrayRtn,
@@ -326,8 +326,8 @@ public:
 	static bool CopyElements(Environment &env, Array *pArrayDst, const Array *pArraySrc);
 	static bool CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeDst,
 							 const void *pElemRawSrc, ElemType elemTypeSrc, size_t nElems);
-	static Array *ApplyUnaryFunc(
-		Signal &sig, const UnaryFuncPack &pack, Array *pArrayRtn, const Array *pArray);
+	static bool ApplyUnaryFunc(
+		Signal &sig, const UnaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Array *pArray);
 	static Value ApplyUnaryFuncOnValue(
 		Environment &env, const UnaryFuncPack &pack, const Value &value);
 	static Array *ApplyBinaryFunc(

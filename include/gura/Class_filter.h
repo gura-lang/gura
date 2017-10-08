@@ -32,7 +32,7 @@ public:
 protected:
 	virtual ~Filter();
 public:
-	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const = 0;
+	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const = 0;
 	virtual String ToString() const = 0;
 public:
 	static void CalcPadding(size_t sizeIn, size_t sizeFilter, size_t strides, PaddingType paddingType,

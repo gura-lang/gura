@@ -46,6 +46,7 @@ public:
 			inline void SetArrayBwd(Array *pArrayBwd) { _pArrayBwd.reset(pArrayBwd); }
 			inline Array *GetArrayFwd() { return _pNodeSrc->GetArrayFwd(); }
 			inline Array *GetArrayBwd() { return _pArrayBwd.get(); }
+			inline AutoPtr<Array> &GetArrayBwdAutoPtr() { return _pArrayBwd; }
 			inline const Array *GetArrayFwd() const { return _pNodeSrc->GetArrayFwd(); }
 			inline const Array *GetArrayBwd() const { return _pArrayBwd.get(); }
 		};
@@ -67,6 +68,7 @@ public:
 	public:
 		inline void AddConnectorDst(Connector *pConnectorDst) { _connectorsDst.push_back(pConnectorDst); }
 		inline Array *GetArrayFwd() { return _pArrayFwd.get(); }
+		inline AutoPtr<Array> &GetArrayFwdAutoPtr() { return _pArrayFwd; }
 		virtual bool IsVulnerable() const = 0;
 		virtual bool EvalForward(Environment &env) = 0;
 		virtual bool EvalBackward(Environment &env) = 0;

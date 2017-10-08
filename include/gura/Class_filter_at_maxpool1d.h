@@ -13,8 +13,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Filter_MaxPool1d : public Filter {
 public:
-	typedef Array *(*FilterFuncT)(Signal &sig, Array *pArrayResult,
-								  const Array *pArray, const Filter_MaxPool1d *pFilter);
+	typedef bool (*FilterFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn,
+								const Array *pArray, const Filter_MaxPool1d *pFilter);
 	struct FilterFuncTable {
 		FilterFuncT funcs[Array::ETYPE_Max];
 	};
@@ -34,7 +34,7 @@ public:
 	inline PaddingType GetPaddingType() const { return _paddingType; }
 	inline ChannelAt GetChannelAt() const { return _channelAt; }
 public:
-	virtual Array *Apply(Signal &sig, Array *pArrayResult, const Array *pArray) const;
+	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;
 };
 

@@ -233,11 +233,8 @@ bool Trainer::NodeUnary::IsVulnerable() const
 bool Trainer::NodeUnary::EvalForward(Environment &env)
 {
 	//::printf("NodeUnary::EvalForward()\n");
-	_pArrayFwd.reset(
-		Array::ApplyUnaryFunc(
-			env, _unaryFuncPack, _pArrayFwd.get(),
-			GetConnectorSrc()->GetArrayFwd()));
-	return env.IsNoSignalled();
+	return Array::ApplyUnaryFunc(
+		env, _unaryFuncPack, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
 String Trainer::NodeUnary::ToString() const
@@ -276,11 +273,9 @@ bool Trainer::NodeUnary_Neg::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
-		_connectorSrc.SetArrayBwd(
-			Array::ApplyUnaryFunc(
-				env, Array::unaryFuncPack_Neg, _connectorSrc.GetArrayBwd(),
-				(*ppConnectorDst)->GetArrayBwd()));
-		if (env.IsSignalled()) return false;
+		if (!Array::ApplyUnaryFunc(
+				env, Array::unaryFuncPack_Neg, _connectorSrc.GetArrayBwdAutoPtr(),
+				(*ppConnectorDst)->GetArrayBwd())) return false;
 	}
 	return true;
 }
@@ -348,11 +343,9 @@ bool Trainer::NodeBinary_Sub::EvalBackward(Environment &env)
 		_connectorSrcLeft.SetArrayBwd((*ppConnectorDst)->GetArrayBwd()->Reference());
 	}
 	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
-		_connectorSrcRight.SetArrayBwd(
-			Array::ApplyUnaryFunc(
-				env, Array::unaryFuncPack_Neg, _connectorSrcRight.GetArrayBwd(),
-				(*ppConnectorDst)->GetArrayBwd()));
-		if (env.IsSignalled()) return false;
+		if (!Array::ApplyUnaryFunc(
+				env, Array::unaryFuncPack_Neg, _connectorSrcRight.GetArrayBwdAutoPtr(),
+				(*ppConnectorDst)->GetArrayBwd())) return false;
 	}
 	return true;
 }
@@ -455,9 +448,7 @@ bool Trainer::NodeFilter_Conv1d::IsVulnerable() const
 
 bool Trainer::NodeFilter_Conv1d::EvalForward(Environment &env)
 {
-	_pArrayFwd.reset(
-		_pFilter->Apply(env, _pArrayFwd.get(), GetConnectorSrc()->GetArrayFwd()));
-	return env.IsNoSignalled();
+	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
 bool Trainer::NodeFilter_Conv1d::EvalBackward(Environment &env)
@@ -475,9 +466,7 @@ bool Trainer::NodeFilter_Conv2d::IsVulnerable() const
 
 bool Trainer::NodeFilter_Conv2d::EvalForward(Environment &env)
 {
-	_pArrayFwd.reset(
-		_pFilter->Apply(env, _pArrayFwd.get(), GetConnectorSrc()->GetArrayFwd()));
-	return env.IsNoSignalled();
+	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
 bool Trainer::NodeFilter_Conv2d::EvalBackward(Environment &env)
@@ -495,9 +484,7 @@ bool Trainer::NodeFilter_Conv3d::IsVulnerable() const
 
 bool Trainer::NodeFilter_Conv3d::EvalForward(Environment &env)
 {
-	_pArrayFwd.reset(
-		_pFilter->Apply(env, _pArrayFwd.get(), GetConnectorSrc()->GetArrayFwd()));
-	return env.IsNoSignalled();
+	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
 bool Trainer::NodeFilter_Conv3d::EvalBackward(Environment &env)
@@ -515,9 +502,7 @@ bool Trainer::NodeFilter_MaxPool1d::IsVulnerable() const
 
 bool Trainer::NodeFilter_MaxPool1d::EvalForward(Environment &env)
 {
-	_pArrayFwd.reset(
-		_pFilter->Apply(env, _pArrayFwd.get(), GetConnectorSrc()->GetArrayFwd()));
-	return env.IsNoSignalled();
+	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
 bool Trainer::NodeFilter_MaxPool1d::EvalBackward(Environment &env)
@@ -535,9 +520,7 @@ bool Trainer::NodeFilter_MaxPool2d::IsVulnerable() const
 
 bool Trainer::NodeFilter_MaxPool2d::EvalForward(Environment &env)
 {
-	_pArrayFwd.reset(
-		_pFilter->Apply(env, _pArrayFwd.get(), GetConnectorSrc()->GetArrayFwd()));
-	return env.IsNoSignalled();
+	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
 bool Trainer::NodeFilter_MaxPool2d::EvalBackward(Environment &env)
@@ -555,9 +538,7 @@ bool Trainer::NodeFilter_MaxPool3d::IsVulnerable() const
 
 bool Trainer::NodeFilter_MaxPool3d::EvalForward(Environment &env)
 {
-	_pArrayFwd.reset(
-		_pFilter->Apply(env, _pArrayFwd.get(), GetConnectorSrc()->GetArrayFwd()));
-	return env.IsNoSignalled();
+	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
 bool Trainer::NodeFilter_MaxPool3d::EvalBackward(Environment &env)
@@ -634,9 +615,7 @@ bool Trainer::NodeFilter_Sigmoid::IsVulnerable() const
 
 bool Trainer::NodeFilter_Sigmoid::EvalForward(Environment &env)
 {
-	_pArrayFwd.reset(
-		_pFilter->Apply(env, _pArrayFwd.get(), GetConnectorSrc()->GetArrayFwd()));
-	return env.IsNoSignalled();
+	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
 bool Trainer::NodeFilter_Sigmoid::EvalBackward(Environment &env)
@@ -676,9 +655,7 @@ bool Trainer::NodeFilter_Softmax::IsVulnerable() const
 
 bool Trainer::NodeFilter_Softmax::EvalForward(Environment &env)
 {
-	_pArrayFwd.reset(
-		_pFilter->Apply(env, _pArrayFwd.get(), GetConnectorSrc()->GetArrayFwd()));
-	return env.IsNoSignalled();
+	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
 bool Trainer::NodeFilter_Softmax::EvalBackward(Environment &env)
@@ -698,9 +675,7 @@ bool Trainer::NodeFilter_Tanh::IsVulnerable() const
 
 bool Trainer::NodeFilter_Tanh::EvalForward(Environment &env)
 {
-	_pArrayFwd.reset(
-		_pFilter->Apply(env, _pArrayFwd.get(), GetConnectorSrc()->GetArrayFwd()));
-	return env.IsNoSignalled();
+	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
 bool Trainer::NodeFilter_Tanh::EvalBackward(Environment &env)

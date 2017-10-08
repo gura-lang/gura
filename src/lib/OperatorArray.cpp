@@ -249,11 +249,11 @@ Gura_ImplementBinaryOperator(Dot, complex, array)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Filter, array, filter)
 {
-	Array *pArray = Object_filter::GetObject(valueRight)->GetFilter()->Apply(
-		env, nullptr,
-		Object_array::GetObject(valueLeft)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return Array::ToValue(env, pArray);
+	AutoPtr<Array> pArrayRtn;
+	if (!Object_filter::GetObject(valueRight)->GetFilter()->Apply(
+			env, pArrayRtn,
+			Object_array::GetObject(valueLeft)->GetArray())) return Value::Nil;
+	return Array::ToValue(env, pArrayRtn.release());
 }
 
 //-----------------------------------------------------------------------------
