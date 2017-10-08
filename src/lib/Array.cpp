@@ -622,8 +622,8 @@ Value Array::ApplyUnaryFuncOnValue(Environment &env, const UnaryFuncPack &pack, 
 	return ToValue(env, pArrayRtn.release());
 }
 
-Array *Array::ApplyBinaryFunc(
-	Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Array *pArrayL, const Array *pArrayR)
+bool Array::ApplyBinaryFunc(
+	Signal &sig, const BinaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR)
 {
 	if (!pArrayL->IsScalar() && !pArrayR->IsScalar()) {
 		return ApplyBinaryFunc_array_array(sig, pack, pArrayRtn, pArrayL, pArrayR);
@@ -659,8 +659,8 @@ Array *Array::ApplyBinaryFunc(
 	return nullptr;
 }
 
-Array *Array::ApplyBinaryFunc_array_array(
-	Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Array *pArrayL, const Array *pArrayR)
+bool Array::ApplyBinaryFunc_array_array(
+	Signal &sig, const BinaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR)
 {
 	if (pack.elemwiseFlag && !CheckElemwiseCalculatable(sig, pack, pArrayL, pArrayR)) return nullptr;
 	BinaryFuncT_array_array binaryFunc_array_array =
@@ -675,16 +675,16 @@ Array *Array::ApplyBinaryFunc_array_array(
 Value Array::ApplyBinaryFuncOnValue_array_array(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
-	Array *pArray = ApplyBinaryFunc_array_array(
-		env, pack, nullptr,
-		Object_array::GetObject(valueL)->GetArray(),
-		Object_array::GetObject(valueR)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return ToValue(env, pArray);
+	AutoPtr<Array> pArrayRtn;
+	if (!ApplyBinaryFunc_array_array(
+			env, pack, pArrayRtn,
+			Object_array::GetObject(valueL)->GetArray(),
+			Object_array::GetObject(valueR)->GetArray())) return Value::Nil;
+	return ToValue(env, pArrayRtn.release());
 }
 
-Array *Array::ApplyBinaryFunc_array_number(
-	Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Array *pArrayL, const Double &elemR)
+bool Array::ApplyBinaryFunc_array_number(
+	Signal &sig, const BinaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Double &elemR)
 {
 	BinaryFuncT_array_number binaryFunc_array_number =
 		pack.table.funcs_array_number[pArrayL->GetElemType()];
@@ -698,15 +698,15 @@ Array *Array::ApplyBinaryFunc_array_number(
 Value Array::ApplyBinaryFuncOnValue_array_number(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
-	Array *pArray = ApplyBinaryFunc_array_number(
-		env, pack, nullptr,
-		Object_array::GetObject(valueL)->GetArray(), valueR.GetDouble());
-	if (pArray == nullptr) return Value::Nil;
-	return ToValue(env, pArray);
+	AutoPtr<Array> pArrayRtn;
+	if (!ApplyBinaryFunc_array_number(
+			env, pack, pArrayRtn,
+			Object_array::GetObject(valueL)->GetArray(), valueR.GetDouble())) return Value::Nil;
+	return ToValue(env, pArrayRtn.release());
 }
 
-Array *Array::ApplyBinaryFunc_number_array(
-	Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Double &elemL, const Array *pArrayR)
+bool Array::ApplyBinaryFunc_number_array(
+	Signal &sig, const BinaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Double &elemL, const Array *pArrayR)
 {
 	BinaryFuncT_number_array binaryFunc_number_array =
 		pack.table.funcs_number_array[pArrayR->GetElemType()];
@@ -720,15 +720,15 @@ Array *Array::ApplyBinaryFunc_number_array(
 Value Array::ApplyBinaryFuncOnValue_number_array(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
-	Array *pArray = ApplyBinaryFunc_number_array(
-		env, pack, nullptr,
-		valueL.GetDouble(), Object_array::GetObject(valueR)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return ToValue(env, pArray);
+	AutoPtr<Array> pArrayRtn;
+	if (!ApplyBinaryFunc_number_array(
+			env, pack, pArrayRtn,
+			valueL.GetDouble(), Object_array::GetObject(valueR)->GetArray())) return false;
+	return ToValue(env, pArrayRtn.release());
 }
 
-Array *Array::ApplyBinaryFunc_array_complex(
-	Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Array *pArrayL, const Complex &complexR)
+bool Array::ApplyBinaryFunc_array_complex(
+	Signal &sig, const BinaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Complex &complexR)
 {
 	BinaryFuncT_array_complex binaryFunc_array_complex =
 		pack.table.funcs_array_complex[pArrayL->GetElemType()];
@@ -742,15 +742,15 @@ Array *Array::ApplyBinaryFunc_array_complex(
 Value Array::ApplyBinaryFuncOnValue_array_complex(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
-	Array *pArray = ApplyBinaryFunc_array_complex(
-		env, pack, nullptr,
-		Object_array::GetObject(valueL)->GetArray(), valueR.GetComplex());
-	if (pArray == nullptr) return Value::Nil;
-	return ToValue(env, pArray);
+	AutoPtr<Array> pArrayRtn;
+	if (!ApplyBinaryFunc_array_complex(
+			env, pack, pArrayRtn,
+			Object_array::GetObject(valueL)->GetArray(), valueR.GetComplex())) return Value::Nil;
+	return ToValue(env, pArrayRtn.release());
 }
 
-Array *Array::ApplyBinaryFunc_complex_array(
-	Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Complex &complexL, const Array *pArrayR)
+bool Array::ApplyBinaryFunc_complex_array(
+	Signal &sig, const BinaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Complex &complexL, const Array *pArrayR)
 {
 	BinaryFuncT_complex_array binaryFunc_complex_array =
 		pack.table.funcs_complex_array[pArrayR->GetElemType()];
@@ -764,14 +764,14 @@ Array *Array::ApplyBinaryFunc_complex_array(
 Value Array::ApplyBinaryFuncOnValue_complex_array(
 	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
-	Array *pArray = ApplyBinaryFunc_complex_array(
-		env, pack, nullptr,
-		valueL.GetComplex(), Object_array::GetObject(valueR)->GetArray());
-	if (pArray == nullptr) return Value::Nil;
-	return ToValue(env, pArray);
+	AutoPtr<Array> pArrayRtn;
+	if (!ApplyBinaryFunc_complex_array(
+			env, pack, pArrayRtn,
+			valueL.GetComplex(), Object_array::GetObject(valueR)->GetArray())) return false;
+	return ToValue(env, pArrayRtn.release());
 }
 
-Array *Array::ApplyInvertFunc(Signal &sig, Array *pArrayRtn, const Array *pArray, Double epsilon)
+bool Array::ApplyInvertFunc(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, Double epsilon)
 {
 	InvertFuncT invertFunc = invertFuncTable.funcs[pArray->GetElemType()];
 	if (invertFunc == nullptr) {
@@ -988,40 +988,40 @@ bool InvertFuncTmpl_Sub(T_Elem *pElemRtn, bool colMajorFlagRtn,
 }
 
 template<typename T_Elem>
-Array *InvertFuncTmpl(Signal &sig, Array *pArrayRtn, const Array *pArray, Double epsilon)
+bool InvertFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, Double epsilon)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	if (!dims.HasRowCol()) {
 		sig.SetError(ERR_ValueError, "inversion can only be calculated with matrix");
-		return nullptr;
+		return false;
 	}
 	size_t nRows = dims.GetRow().GetSize();
 	size_t nCols = dims.GetCol().GetSize();
 	if (nRows != nCols) {
 		sig.SetError(ERR_ValueError, "inversion can only be applied to square matrix");
-		return nullptr;
+		return false;
 	}
 	std::unique_ptr<T_Elem []> pElemWork(new T_Elem [nRows * nCols * 2]);
 	std::unique_ptr<T_Elem *[]> pElemRows(new T_Elem *[nRows]);
 	bool colMajorFlag = false;
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(colMajorFlag, pArrayT->GetDimensions()));
+	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, pArrayT->GetDimensions()));
 	size_t elemNumMat = nRows * nCols;
 	const T_Elem *pElemOrg = pArrayT->GetPointer();
-	T_Elem *pElemRtn = pArrayTRtn->GetPointer();
+	T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
 	bool colMajorFlagOrg = pArrayT->IsColMajor();
-	bool colMajorFlagRtn = pArrayTRtn->IsColMajor();
-	for (size_t cnt = pArrayTRtn->GetElemNum() / elemNumMat; cnt > 0; cnt--) {
+	bool colMajorFlagRtn = pArrayRtn->IsColMajor();
+	for (size_t cnt = pArrayRtn->GetElemNum() / elemNumMat; cnt > 0; cnt--) {
 		T_Elem det = 0;
 		if (!InvertFuncTmpl_Sub(pElemRtn, colMajorFlagRtn, pElemOrg, colMajorFlagOrg, nRows,
 								det, pElemWork.get(), pElemRows.get(), epsilon)) {
 			sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
-			return nullptr;
+			return false;
 		}
 		pElemRtn += elemNumMat;
 		pElemOrg += elemNumMat;
 	}
-	return pArrayTRtn.release();
+	return true;
 }
 
 //-----------------------------------------------------------------------------

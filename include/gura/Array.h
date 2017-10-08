@@ -35,21 +35,21 @@ public:
 	};
 public:
 	typedef bool (*UnaryFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray);
-	typedef Array *(*BinaryFuncT_array_array)(Signal &sig, Array *pArrayRtn,
-											 const Array *pArrayL, const Array *pArrayR);
-	typedef Array *(*BinaryFuncT_array_number)(Signal &sig, Array *pArrayRtn,
-											  const Array *pArrayL, const Double &elemR);
-	typedef Array *(*BinaryFuncT_number_array)(Signal &sig, Array *pArrayRtn,
-											   const Double &elemL, const Array *pArrayR);
-	typedef Array *(*BinaryFuncT_array_complex)(Signal &sig, Array *pArrayRtn,
-											   const Array *pArrayL, const Complex &complexR);
-	typedef Array *(*BinaryFuncT_complex_array)(Signal &sig, Array *pArrayRtn,
-											   const Complex &complexL, const Array *pArrayR);
-	typedef Array *(*BinaryFuncT_number_number)(Signal &sig, Array *pArrayRtn,
-												const Double &elemL, const Double &elemR);
-	typedef Array *(*BinaryFuncT_complex_complex)(Signal &sig, Array *pArrayRtn,
-												 const Complex &complexL, const Complex &complexR);
-	typedef Array *(*InvertFuncT)(Signal &sig, Array *pArrayRtn, const Array *pArray, Double epsilon);
+	typedef bool (*BinaryFuncT_array_array)(Signal &sig, AutoPtr<Array> &pArrayRtn,
+											const Array *pArrayL, const Array *pArrayR);
+	typedef bool (*BinaryFuncT_array_number)(Signal &sig, AutoPtr<Array> &pArrayRtn,
+											 const Array *pArrayL, const Double &elemR);
+	typedef bool (*BinaryFuncT_number_array)(Signal &sig, AutoPtr<Array> &pArrayRtn,
+											 const Double &elemL, const Array *pArrayR);
+	typedef bool (*BinaryFuncT_array_complex)(Signal &sig, AutoPtr<Array> &pArrayRtn,
+											  const Array *pArrayL, const Complex &complexR);
+	typedef bool (*BinaryFuncT_complex_array)(Signal &sig, AutoPtr<Array> &pArrayRtn,
+											  const Complex &complexL, const Array *pArrayR);
+	typedef bool (*BinaryFuncT_number_number)(Signal &sig, AutoPtr<Array> &pArrayRtn,
+											  const Double &elemL, const Double &elemR);
+	typedef bool (*BinaryFuncT_complex_complex)(Signal &sig, AutoPtr<Array> &pArrayRtn,
+												const Complex &complexL, const Complex &complexR);
+	typedef bool (*InvertFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, Double epsilon);
 	struct UnaryFuncTable {
 		UnaryFuncT funcs[ETYPE_Max];
 	};
@@ -330,30 +330,30 @@ public:
 		Signal &sig, const UnaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Array *pArray);
 	static Value ApplyUnaryFuncOnValue(
 		Environment &env, const UnaryFuncPack &pack, const Value &value);
-	static Array *ApplyBinaryFunc(
-		Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Array *pArrayL, const Array *pArrayR);
-	static Array *ApplyBinaryFunc_array_array(
-		Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Array *pArrayL, const Array *pArrayR);
+	static bool ApplyBinaryFunc(
+		Signal &sig, const BinaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR);
+	static bool ApplyBinaryFunc_array_array(
+		Signal &sig, const BinaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR);
 	static Value ApplyBinaryFuncOnValue_array_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
-	static Array *ApplyBinaryFunc_array_number(
-		Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Array *pArrayL, const Double &elemR);
+	static bool ApplyBinaryFunc_array_number(
+		Signal &sig, const BinaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Double &elemR);
 	static Value ApplyBinaryFuncOnValue_array_number(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
-	static Array *ApplyBinaryFunc_number_array(
-		Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Double &elemL, const Array *pArrayR);
+	static bool ApplyBinaryFunc_number_array(
+		Signal &sig, const BinaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Double &elemL, const Array *pArrayR);
 	static Value ApplyBinaryFuncOnValue_number_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
-	static Array *ApplyBinaryFunc_array_complex(
-		Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Array *pArrayL, const Complex &complexR);
+	static bool ApplyBinaryFunc_array_complex(
+		Signal &sig, const BinaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Complex &complexR);
 	static Value ApplyBinaryFuncOnValue_array_complex(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
-	static Array *ApplyBinaryFunc_complex_array(
-		Signal &sig, const BinaryFuncPack &pack, Array *pArrayRtn, const Complex &complexL, const Array *pArrayR);
+	static bool ApplyBinaryFunc_complex_array(
+		Signal &sig, const BinaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Complex &complexL, const Array *pArrayR);
 	static Value ApplyBinaryFuncOnValue_complex_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
-	static Array *ApplyInvertFunc(
-		Signal &sig, Array *pArrayRtn, const Array *pArray, Double epsilon);
+	static bool ApplyInvertFunc(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, Double epsilon);
 	static void SetError_UnacceptableValueAsElement(Environment &env, const Value &value);
 };
 	

@@ -143,17 +143,13 @@ bool Trainer::NodeHead::EvalBackward(Environment &env)
 	Double alpha = .01;
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (IsVulnerable()) {
-		_pArrayBwdAdj.reset(
-			Array::ApplyBinaryFunc_array_number(
-				env, Array::binaryFuncPack_Mul, _pArrayBwdAdj.get(),
-				(*ppConnectorDst)->GetArrayBwd(), alpha));
-		if (env.IsSignalled()) return false;
-		Array::Delete(
-			Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Sub, _pArrayFwd.get(),
+		if (!Array::ApplyBinaryFunc_array_number(
+				env, Array::binaryFuncPack_Mul, _pArrayBwdAdj,
+				(*ppConnectorDst)->GetArrayBwd(), alpha)) return false;
+		if (!Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Sub, _pArrayFwd,
 				_pArrayFwd.get(),
-				_pArrayBwdAdj.get()));
-		if (env.IsSignalled()) return false;
+				_pArrayBwdAdj.get())) return false;
 	}
 	return true;
 }
@@ -196,12 +192,10 @@ bool Trainer::NodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayC
 {
 	_pArrayCorrect.reset(pArrayCorrect->Reference());
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
-		_connectorSrc.SetArrayBwd(
-			Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Sub, _connectorSrc.GetArrayBwd(),
+		if (!Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Sub, _connectorSrc.GetArrayBwdAutoPtr(),
 				_connectorSrc.GetArrayFwd(),
-				pArrayCorrect));
-		if (env.IsSignalled()) return false;
+				pArrayCorrect)) return false;
 	}
 	return true;
 }
@@ -293,12 +287,10 @@ bool Trainer::NodeBinary::IsVulnerable() const
 bool Trainer::NodeBinary::EvalForward(Environment &env)
 {
 	//::printf("NodeBinary::EvalForward()\n");
-	_pArrayFwd.reset(
-		Array::ApplyBinaryFunc(
-			env, _binaryFuncPack, _pArrayFwd.get(),
+	return Array::ApplyBinaryFunc(
+			env, _binaryFuncPack, _pArrayFwd,
 			GetConnectorSrcLeft()->GetArrayFwd(),
-			GetConnectorSrcRight()->GetArrayFwd()));
-	return env.IsNoSignalled();
+			GetConnectorSrcRight()->GetArrayFwd());
 }
 
 String Trainer::NodeBinary::ToString() const
@@ -357,20 +349,16 @@ bool Trainer::NodeBinary_Mul::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
-		_connectorSrcLeft.SetArrayBwd(
-			Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Mul, _connectorSrcLeft.GetArrayBwd(),
+		if (!Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, _connectorSrcLeft.GetArrayBwdAutoPtr(),
 				_connectorSrcRight.GetArrayFwd(),
-				(*ppConnectorDst)->GetArrayBwd()));
-		if (env.IsSignalled()) return false;
+				(*ppConnectorDst)->GetArrayBwd())) return false;
 	}
 	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
-		_connectorSrcRight.SetArrayBwd(
-			Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Mul, _connectorSrcRight.GetArrayBwd(),
+		if (!Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, _connectorSrcRight.GetArrayBwdAutoPtr(),
 				_connectorSrcLeft.GetArrayFwd(),
-				(*ppConnectorDst)->GetArrayBwd()));
-		if (env.IsSignalled()) return false;
+				(*ppConnectorDst)->GetArrayBwd())) return false;
 	}
 	return true;
 }
@@ -399,21 +387,17 @@ bool Trainer::NodeBinary_Dot::EvalBackward(Environment &env)
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
 		_pArrayFwdRightTrans.reset(_connectorSrcRight.GetArrayFwd()->Transpose2d());
-		_connectorSrcLeft.SetArrayBwd(
-			Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Dot, _connectorSrcLeft.GetArrayBwd(),
+		if (!Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Dot, _connectorSrcLeft.GetArrayBwdAutoPtr(),
 				(*ppConnectorDst)->GetArrayBwd(),
-				_pArrayFwdRightTrans.get()));
-		if (env.IsSignalled()) return false;
+				_pArrayFwdRightTrans.get())) return false;
 	}
 	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
 		_pArrayFwdLeftTrans.reset(_connectorSrcLeft.GetArrayFwd()->Transpose2d());
-		_connectorSrcRight.SetArrayBwd(
-			Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Dot, _connectorSrcRight.GetArrayBwd(),
+		if (!Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Dot, _connectorSrcRight.GetArrayBwdAutoPtr(),
 				_pArrayFwdLeftTrans.get(),
-				(*ppConnectorDst)->GetArrayBwd()));
-		if (env.IsSignalled()) return false;
+				(*ppConnectorDst)->GetArrayBwd())) return false;
 	}
 	return true;
 }
@@ -596,11 +580,10 @@ bool Trainer::NodeFilter_Relu::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
-		_connectorSrc.SetArrayBwd(
-			Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Mul, _connectorSrc.GetArrayBwd(),
+		if (!Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, _connectorSrc.GetArrayBwdAutoPtr(),
 				_pArrayBool.get(),
-				(*ppConnectorDst)->GetArrayBwd()));
+				(*ppConnectorDst)->GetArrayBwd())) return false;
 	}
 	return true;
 }
@@ -623,24 +606,19 @@ bool Trainer::NodeFilter_Sigmoid::EvalBackward(Environment &env)
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
 		// 1 - y
-		_pArrayTmp.reset(
-			Array::ApplyBinaryFunc_number_array(
-				env, Array::binaryFuncPack_Sub, _pArrayTmp.get(),
-				1, _pArrayFwd.get()));
-		if (env.IsSignalled()) return false;
+		if (!Array::ApplyBinaryFunc_number_array(
+				env, Array::binaryFuncPack_Sub, _pArrayTmp,
+				1, _pArrayFwd.get())) return false;
 		// (1 - y) * y
-		_pArrayTmp.reset(
-			Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Mul, _pArrayTmp.get(),
-				_pArrayTmp.get(), _pArrayFwd.get()));
+		if (!Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, _pArrayTmp,
+				_pArrayTmp.get(), _pArrayFwd.get())) return false;
 		if (env.IsSignalled()) return false;
 		// (1 - y) * y * bwd_in
-		_connectorSrc.SetArrayBwd(
-			Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Mul, _connectorSrc.GetArrayBwd(),
+		if (!Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, _connectorSrc.GetArrayBwdAutoPtr(),
 				_pArrayTmp.get(),
-				(*ppConnectorDst)->GetArrayBwd()));
-		if (env.IsSignalled()) return false;
+				(*ppConnectorDst)->GetArrayBwd())) return false;
 	}
 	return true;
 }

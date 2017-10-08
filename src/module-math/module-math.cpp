@@ -976,8 +976,8 @@ Gura_ImplementFunction(least_square)
 		} while (0);
 		do {
 			Double det = 0.0;
-			AutoPtr<Array> pMatInv(Array::ApplyInvertFunc(sig, nullptr, pMat.get(), det));
-			if (pMatInv.IsNull()) return Value::Nil;
+			AutoPtr<Array> pMatInv;
+			if (!Array::ApplyInvertFunc(sig, pMatInv, pMat.get(), det)) return Value::Nil;
 			const Double *pElem = reinterpret_cast<const Double *>(pMatInv->GetPointerRaw());
 			for (size_t iRow = 0; iRow < nRows; iRow++) {
 				Double coef = 0;
