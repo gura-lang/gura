@@ -3,5 +3,5 @@ import(modbuild)
 
 builder = modbuild.Builder()
 builder.build('ml.mnist', [
-	'module-ml_mnist.cpp', 'Class_ImageSet.cpp', 'Class_LabelSet.cpp'
+	'module-ml_mnist.cpp', 'Class_imageset.cpp', 'Class_labelset.cpp'
 	], ['ml.mnist.gura'])

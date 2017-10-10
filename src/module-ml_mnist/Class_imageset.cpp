@@ -65,7 +65,8 @@ Array *ImageSet::ToArray(Signal &sig, bool flattenFlag, Array::ElemType elemType
 	const UInt8 *pElemSrc = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
 	if (elemType == Array::ETYPE_UInt8) {
 		bool colMajorFlag = false;
-		pArray.reset(new ArrayT<UInt8>(colMajorFlag, _pMemory->Reference(), 0));
+		pArray.reset(new ArrayT<UInt8>(colMajorFlag));
+		pArray->SetMemory(_pMemory->Reference(), 0);
 		pArray->SetDimensions(dims);
 	} else if (elemType == Array::ETYPE_Half) {
 		pArray.reset(CreateArrayOfImages<Half>(dims, pElemSrc, normalizeFlag));

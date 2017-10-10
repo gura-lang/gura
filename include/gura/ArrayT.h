@@ -24,7 +24,7 @@ public:
 public:
 	inline ArrayT(const ArrayT &src) : Array(src) {}
 	ArrayT(bool colMajorFlag);
-	ArrayT(bool colMajorFlag, Memory *pMemory, size_t offsetBase);
+	//ArrayT(bool colMajorFlag, Memory *pMemory, size_t offsetBase);
 	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetElemNum()));
 	}

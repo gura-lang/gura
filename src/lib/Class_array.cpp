@@ -70,9 +70,9 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 		const T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
 		valueRtn = Value(*pElemTgt);
 	} else {
-		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
-			new ArrayT<T_Elem>(pArrayT->GetColMajorFlag(), pArrayT->GetMemory().Reference(),
-							   pArrayT->GetOffsetBase() + indexer.GetOffsetTarget()));
+		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(new ArrayT<T_Elem>(pArrayT->GetColMajorFlag()));
+		pArrayTRtn->SetMemory(pArrayT->GetMemory().Reference(),
+							  pArrayT->GetOffsetBase() + indexer.GetOffsetTarget());
 		Array::Dimensions dimsRtn;
 		indexer.MakeResultDimensions(dimsRtn);
 		pArrayTRtn->SetDimensions(dimsRtn);
