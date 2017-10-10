@@ -859,9 +859,9 @@ Value FuncTmpl_head(Environment &env, Argument &arg, const Function *pFunc, Arra
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
 	size_t n = arg.GetSizeT(0);
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(pArrayT->Head(sig, n));
-	if (pArrayTRtn.IsNull()) return Value::Nil;
-	Value value(new Object_array(env, pArrayTRtn.release()));
+	AutoPtr<Array> pArrayRtn(pArrayT->Head(sig, n));
+	if (pArrayRtn.IsNull()) return Value::Nil;
+	Value value(new Object_array(env, pArrayRtn.release()));
 	return pFunc->ReturnValue(env, arg, value);
 }
 
@@ -1158,9 +1158,9 @@ Value FuncTmpl_offset(Environment &env, Argument &arg, const Function *pFunc, Ar
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
 	size_t n = arg.GetSizeT(0);
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(pArrayT->Offset(sig, n));
-	if (pArrayTRtn.IsNull()) return Value::Nil;
-	Value value(new Object_array(env, pArrayTRtn.release()));
+	AutoPtr<Array> pArrayRtn(pArrayT->Offset(sig, n));
+	if (pArrayRtn.IsNull()) return Value::Nil;
+	Value value(new Object_array(env, pArrayRtn.release()));
 	return pFunc->ReturnValue(env, arg, value);
 }
 
@@ -1422,9 +1422,9 @@ Value FuncTmpl_tail(Environment &env, Argument &arg, const Function *pFunc, Arra
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
 	size_t n = arg.GetSizeT(0);
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(pArrayT->Tail(sig, n));
-	if (pArrayTRtn.IsNull()) return Value::Nil;
-	Value value(new Object_array(env, pArrayTRtn.release()));
+	AutoPtr<Array> pArrayRtn(pArrayT->Tail(sig, n));
+	if (pArrayRtn.IsNull()) return Value::Nil;
+	Value value(new Object_array(env, pArrayRtn.release()));
 	return pFunc->ReturnValue(env, arg, value);
 }
 

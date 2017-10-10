@@ -540,7 +540,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes, Array *pArrayRt
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Head(Signal &sig, size_t n) const
+Array *ArrayT<T_Elem>::Head(Signal &sig, size_t n) const
 {
 	const Dimension &dimFirst = GetDimensions().front();
 	if (n > dimFirst.GetSize()) {
@@ -548,14 +548,14 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Head(Signal &sig, size_t n) const
 		return nullptr;
 	}
 	size_t offsetBase = GetOffsetBase();
-	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetColMajorFlag()));
-	pArrayTRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
-	pArrayTRtn->SetMemory(GetMemory().Reference(), offsetBase);
-	return pArrayTRtn.release();
+	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
+	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
+	return pArrayRtn.release();
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Tail(Signal &sig, size_t n) const
+Array *ArrayT<T_Elem>::Tail(Signal &sig, size_t n) const
 {
 	const Dimension &dimFirst = GetDimensions().front();
 	if (n > dimFirst.GetSize()) {
@@ -563,14 +563,14 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Tail(Signal &sig, size_t n) const
 		return nullptr;
 	}
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * (dimFirst.GetSize() - n);
-	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetColMajorFlag()));
-	pArrayTRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
-	pArrayTRtn->SetMemory(GetMemory().Reference(), offsetBase);
-	return pArrayTRtn.release();
+	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
+	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
+	return pArrayRtn.release();
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
+Array *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
 {
 	const Dimension &dimFirst = GetDimensions().front();
 	if (n > dimFirst.GetSize()) {
@@ -579,10 +579,10 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
 	}
 	size_t nElems = dimFirst.GetSize() - n;
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * n;
-	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetColMajorFlag()));
-	pArrayTRtn->SetDimensions(nElems, GetDimensions().begin() + 1, GetDimensions().end());
-	pArrayTRtn->SetMemory(GetMemory().Reference(), offsetBase);
-	return pArrayTRtn.release();
+	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
+	pArrayRtn->SetDimensions(nElems, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
+	return pArrayRtn.release();
 }
 
 template<typename T_Elem>

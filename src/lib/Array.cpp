@@ -245,6 +245,49 @@ void Array::Fill(Double num)
 	(*fillFuncs[GetElemType()])(this, num);
 }
 
+Array *Array::Head(Signal &sig, size_t n) const
+{
+	const Dimension &dimFirst = GetDimensions().front();
+	if (n > dimFirst.GetSize()) {
+		sig.SetError(ERR_OutOfRangeError, "specified size is out of range");
+		return nullptr;
+	}
+	size_t offsetBase = GetOffsetBase();
+	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
+	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
+	return pArrayRtn.release();
+}
+
+Array *Array::Tail(Signal &sig, size_t n) const
+{
+	const Dimension &dimFirst = GetDimensions().front();
+	if (n > dimFirst.GetSize()) {
+		sig.SetError(ERR_OutOfRangeError, "specified size is out of range");
+		return nullptr;
+	}
+	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * (dimFirst.GetSize() - n);
+	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
+	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
+	return pArrayRtn.release();
+}
+
+Array *Array::Offset(Signal &sig, size_t n) const
+{
+	const Dimension &dimFirst = GetDimensions().front();
+	if (n > dimFirst.GetSize()) {
+		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
+		return nullptr;
+	}
+	size_t nElems = dimFirst.GetSize() - n;
+	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * n;
+	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
+	pArrayRtn->SetDimensions(nElems, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
+	return pArrayRtn.release();
+}
+
 bool Array::IsSquare() const
 {
 	return _dims.HasRowCol() && (_dims.GetRow().GetSize() == _dims.GetCol().GetSize());

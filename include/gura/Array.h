@@ -300,6 +300,9 @@ public:
 	Array *Transpose2d() const;
 	void FillZero();
 	void Fill(Double num); // overwritten by ArrayT
+	Array *Head(Signal &sig, size_t n) const;
+	Array *Tail(Signal &sig, size_t n) const;
+	Array *Offset(Signal &sig, size_t n) const;
 	bool IsSquare() const;
 	bool HasShape(size_t size) const;
 	bool HasShape(size_t sizeRow, size_t sizeCol) const;
