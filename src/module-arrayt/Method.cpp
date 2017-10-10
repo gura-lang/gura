@@ -853,22 +853,13 @@ Gura_DeclareMethod(array, head)
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
-template<typename T_Elem>
-Value FuncTmpl_head(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Signal &sig = env.GetSignal();
-	size_t n = arg.GetSizeT(0);
-	AutoPtr<Array> pArrayRtn(pArrayT->Head(sig, n));
-	if (pArrayRtn.IsNull()) return Value::Nil;
-	Value value(new Object_array(env, pArrayRtn.release()));
-	return pFunc->ReturnValue(env, arg, value);
-}
-
 Gura_ImplementMethod(array, head)
 {
-	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_head);
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	size_t n = arg.GetSizeT(0);
+	AutoPtr<Array> pArrayRtn(pArraySelf->Head(env, n));
+	if (pArrayRtn.IsNull()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
 // array#invert(eps?:number) {block?}
@@ -1152,22 +1143,13 @@ Gura_DeclareMethod(array, offset)
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
-template<typename T_Elem>
-Value FuncTmpl_offset(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Signal &sig = env.GetSignal();
-	size_t n = arg.GetSizeT(0);
-	AutoPtr<Array> pArrayRtn(pArrayT->Offset(sig, n));
-	if (pArrayRtn.IsNull()) return Value::Nil;
-	Value value(new Object_array(env, pArrayRtn.release()));
-	return pFunc->ReturnValue(env, arg, value);
-}
-
 Gura_ImplementMethod(array, offset)
 {
-	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_offset);
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	size_t n = arg.GetSizeT(0);
+	AutoPtr<Array> pArrayRtn(pArraySelf->Offset(env, n));
+	if (pArrayRtn.IsNull()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
 // array#paste(offset:number, src:array):map:void
@@ -1416,22 +1398,13 @@ Gura_DeclareMethod(array, tail)
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
-template<typename T_Elem>
-Value FuncTmpl_tail(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Signal &sig = env.GetSignal();
-	size_t n = arg.GetSizeT(0);
-	AutoPtr<Array> pArrayRtn(pArrayT->Tail(sig, n));
-	if (pArrayRtn.IsNull()) return Value::Nil;
-	Value value(new Object_array(env, pArrayRtn.release()));
-	return pFunc->ReturnValue(env, arg, value);
-}
-
 Gura_ImplementMethod(array, tail)
 {
-	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_tail);
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	size_t n = arg.GetSizeT(0);
+	AutoPtr<Array> pArrayRtn(pArraySelf->Tail(env, n));
+	if (pArrayRtn.IsNull()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
 // array#tolist() {block?}

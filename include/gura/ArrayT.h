@@ -52,9 +52,6 @@ public:
 	ArrayT *Reshape(Signal &sig, const ValueList &valList) const;
 	ArrayT *Transpose(Signal &sig, const ValueList &valList, Array *pArrayRtn) const;
 	ArrayT *Transpose(const SizeTList &axes, Array *pArrayRtn) const;
-	Array *Head(Signal &sig, size_t n) const;
-	Array *Tail(Signal &sig, size_t n) const;
-	Array *Offset(Signal &sig, size_t n) const;
 	ArrayT *RoundOff(double threshold) const;
 	ArrayT *Im2col(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;
 	ArrayT *Col2im(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;

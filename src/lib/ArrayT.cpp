@@ -540,52 +540,6 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes, Array *pArrayRt
 }
 
 template<typename T_Elem>
-Array *ArrayT<T_Elem>::Head(Signal &sig, size_t n) const
-{
-	const Dimension &dimFirst = GetDimensions().front();
-	if (n > dimFirst.GetSize()) {
-		sig.SetError(ERR_OutOfRangeError, "specified size is out of range");
-		return nullptr;
-	}
-	size_t offsetBase = GetOffsetBase();
-	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
-	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
-	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
-	return pArrayRtn.release();
-}
-
-template<typename T_Elem>
-Array *ArrayT<T_Elem>::Tail(Signal &sig, size_t n) const
-{
-	const Dimension &dimFirst = GetDimensions().front();
-	if (n > dimFirst.GetSize()) {
-		sig.SetError(ERR_OutOfRangeError, "specified size is out of range");
-		return nullptr;
-	}
-	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * (dimFirst.GetSize() - n);
-	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
-	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
-	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
-	return pArrayRtn.release();
-}
-
-template<typename T_Elem>
-Array *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
-{
-	const Dimension &dimFirst = GetDimensions().front();
-	if (n > dimFirst.GetSize()) {
-		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
-		return nullptr;
-	}
-	size_t nElems = dimFirst.GetSize() - n;
-	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * n;
-	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
-	pArrayRtn->SetDimensions(nElems, GetDimensions().begin() + 1, GetDimensions().end());
-	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
-	return pArrayRtn.release();
-}
-
-template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::RoundOff(double threshold) const
 {
 	const Array::Dimensions &dims = GetDimensions();
