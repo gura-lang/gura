@@ -306,21 +306,23 @@ Array *Array::Deserialize(Environment &env, Stream &stream)
 	if (!stream.DeserializeUInt8(env, colMajorFlagRaw)) return nullptr;
 	Array::Dimensions dims;
 	if (!dims.Deserialize(env, stream)) return nullptr;
-	AutoPtr<Array> pArray(Create(static_cast<ElemType>(elemTypeRaw), static_cast<bool>(colMajorFlagRaw), dims));
+	AutoPtr<Array> pArray(Create(static_cast<ElemType>(elemTypeRaw), static_cast<bool>(colMajorFlagRaw)));
+	pArray->SetDimensions(dims);
+	pArray->AllocMemory();
 	size_t bytes = pArray->GetElemBytes() * pArray->GetElemNum();
 	if (stream.Read(env, pArray->GetPointerRaw(), bytes) < bytes) return nullptr;
 	return pArray.release();
 }
 
 template<typename T_Elem>
-Array *CreateTmpl(bool colMajorFlag, const Array::Dimensions &dims)
+Array *CreateTmpl(bool colMajorFlag)
 {
-	return ArrayT<T_Elem>::Create(colMajorFlag, dims);
+	return ArrayT<T_Elem>::Create(colMajorFlag);
 }
 
-typedef Array *(*CreateFuncT)(bool colMajorFlag, const Array::Dimensions &dims);
+typedef Array *(*CreateFuncT)(bool colMajorFlag);
 
-Array *Array::Create(ElemType elemType, bool colMajorFlag, const Array::Dimensions &dims)
+Array *Array::Create(ElemType elemType, bool colMajorFlag)
 {
 	const CreateFuncT createFuncs[ETYPE_Max] = {
 		nullptr,
@@ -339,7 +341,7 @@ Array *Array::Create(ElemType elemType, bool colMajorFlag, const Array::Dimensio
 		&CreateTmpl<Complex>,
 		//&CreateTmpl<Value>,
 	};
-	return (*createFuncs[elemType])(colMajorFlag, dims);
+	return (*createFuncs[elemType])(colMajorFlag);
 }
 
 Array::ElemType Array::SymbolToElemType(const Symbol *pSymbol)

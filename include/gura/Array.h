@@ -310,7 +310,7 @@ public:
 	bool Serialize(Environment &env, Stream &stream) const;
 	static Array *Deserialize(Environment &env, Stream &stream);
 public:
-	static Array *Create(ElemType elemType, bool colMajorFlag, const Dimensions &dims);
+	static Array *Create(ElemType elemType, bool colMajorFlag);
 public:
 	static ElemType SymbolToElemType(const Symbol *pSymbol);
 	static ElemType SymbolToElemType(Signal &sig, const Symbol *pSymbol);

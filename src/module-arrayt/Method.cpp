@@ -777,7 +777,9 @@ Gura_ImplementMethod(array, elemcast)
 		value = Value(new Object_array(env, pArraySelf->Clone()));
 	} else {
 		bool colMajorFlag = false;
-		AutoPtr<Array> pArrayDst(Array::Create(elemType, colMajorFlag, pArraySelf->GetDimensions()));
+		AutoPtr<Array> pArrayDst(Array::Create(elemType, colMajorFlag));
+		pArrayDst->SetDimensions(pArraySelf->GetDimensions());
+		pArrayDst->AllocMemory();
 		if (!Array::CopyElements(env, pArrayDst.get(), pArraySelf)) return Value::Nil;
 		value = Value(new Object_array(env, pArrayDst.release()));
 	}
