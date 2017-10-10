@@ -650,6 +650,18 @@ ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
 	return pArrayRtn.release();
 }
 
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Im2col(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
+{
+	return nullptr;
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Col2im(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
+{
+	return nullptr;
+}
+
 /// functions to create an ArrayT instance
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag, const Array::Dimensions &dims)

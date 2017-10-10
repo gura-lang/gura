@@ -60,6 +60,8 @@ public:
 	ArrayT *Tail(Signal &sig, size_t n) const;
 	ArrayT *Offset(Signal &sig, size_t n) const;
 	ArrayT *RoundOff(double threshold) const;
+	ArrayT *Im2col(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;
+	ArrayT *Col2im(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;
 	// functions to create an ArrayT instance
 	static ArrayT *Create(bool colMajorFlag, const Dimensions &dims);
 	static ArrayT *Create(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);

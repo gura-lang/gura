@@ -313,7 +313,10 @@ Array *Array::Deserialize(Environment &env, Stream &stream)
 }
 
 template<typename T_Elem>
-Array *CreateTmpl(bool colMajorFlag, const Array::Dimensions &dims) { return ArrayT<T_Elem>::Create(colMajorFlag, dims); }
+Array *CreateTmpl(bool colMajorFlag, const Array::Dimensions &dims)
+{
+	return ArrayT<T_Elem>::Create(colMajorFlag, dims);
+}
 
 typedef Array *(*CreateFuncT)(bool colMajorFlag, const Array::Dimensions &dims);
 

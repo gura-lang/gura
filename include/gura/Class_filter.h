@@ -35,9 +35,9 @@ public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const = 0;
 	virtual String ToString() const = 0;
 public:
-	static void CalcPadding(size_t sizeIn, size_t sizeFilter, size_t strides, PaddingType paddingType,
+	static void CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
 							size_t *pSizeOut, size_t *pSizePad);
-	static void CalcPadding(size_t sizeIn, size_t sizeFilter, size_t strides, PaddingType paddingType,
+	static void CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
 							size_t *pSizeOut, size_t *pSizePadHead, size_t *pSizePadTail);
 	static PaddingType SymbolToPaddingType(Signal &sig, const Symbol *pSymbol);
 	static PaddingType SymbolToPaddingType(const Symbol *pSymbol);
