@@ -288,6 +288,40 @@ Array *Array::Offset(Signal &sig, size_t n) const
 	return pArrayRtn.release();
 }
 
+Array *Array::Reshape(Signal &sig, const ValueList &valList) const
+{
+	bool unfixedFlag = false;
+	size_t nElems = 1;
+	foreach_const (ValueList, pValue, valList) {
+		if (pValue->Is_number() && pValue->GetNumber() >= 0) {
+			nElems *= pValue->GetSizeT();
+		} else if (unfixedFlag) {
+			sig.SetError(ERR_ValueError, "only one dimension can be specified as an unfixed");
+			return nullptr;
+		} else {
+			unfixedFlag = true;
+		}
+	}
+	if ((unfixedFlag && (GetElemNum() % nElems != 0)) ||
+		(!unfixedFlag && (nElems != GetElemNum()))) {
+		sig.SetError(ERR_ValueError, "incorrect shape specified");
+		return nullptr;
+	}
+	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
+	Dimensions &dims = pArrayRtn->GetDimensions();
+	dims.reserve(valList.size());
+	foreach_const (ValueList, pValue, valList) {
+		if (pValue->Is_number() && pValue->GetNumber() >= 0) {
+			dims.push_back(Dimension(pValue->GetSizeT()));
+		} else {
+			dims.push_back(Dimension(GetElemNum() / nElems));
+		}
+	}	
+	pArrayRtn->UpdateMetrics();
+	pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
+	return pArrayRtn.release();
+}
+
 bool Array::IsSquare() const
 {
 	return _dims.HasRowCol() && (_dims.GetRow().GetSize() == _dims.GetCol().GetSize());

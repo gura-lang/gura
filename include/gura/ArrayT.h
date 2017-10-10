@@ -49,7 +49,6 @@ public:
 	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc);
 	void CopyToList(Object_list *pObjList) const;
 	ArrayT *Flatten() const;
-	ArrayT *Reshape(Signal &sig, const ValueList &valList) const;
 	ArrayT *Transpose(Signal &sig, const ValueList &valList, Array *pArrayRtn) const;
 	ArrayT *Transpose(const SizeTList &axes, Array *pArrayRtn) const;
 	ArrayT *RoundOff(double threshold) const;

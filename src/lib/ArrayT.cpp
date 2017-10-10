@@ -421,41 +421,6 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Flatten() const
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Reshape(Signal &sig, const ValueList &valList) const
-{
-	bool unfixedFlag = false;
-	size_t nElems = 1;
-	foreach_const (ValueList, pValue, valList) {
-		if (pValue->Is_number() && pValue->GetNumber() >= 0) {
-			nElems *= pValue->GetSizeT();
-		} else if (unfixedFlag) {
-			sig.SetError(ERR_ValueError, "only one dimension can be specified as an unfixed");
-			return nullptr;
-		} else {
-			unfixedFlag = true;
-		}
-	}
-	if ((unfixedFlag && (GetElemNum() % nElems != 0)) ||
-		(!unfixedFlag && (nElems != GetElemNum()))) {
-		sig.SetError(ERR_ValueError, "incorrect shape specified");
-		return nullptr;
-	}
-	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetColMajorFlag()));
-	Dimensions &dims = pArrayTRtn->GetDimensions();
-	dims.reserve(valList.size());
-	foreach_const (ValueList, pValue, valList) {
-		if (pValue->Is_number() && pValue->GetNumber() >= 0) {
-			dims.push_back(Dimension(pValue->GetSizeT()));
-		} else {
-			dims.push_back(Dimension(GetElemNum() / nElems));
-		}
-	}	
-	pArrayTRtn->UpdateMetrics();
-	pArrayTRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
-	return pArrayTRtn.release();
-}
-
-template<typename T_Elem>
 void TransposeSub(T_Elem *&pElemDst, const T_Elem *pElemSrc, const Array::Dimensions &dimsSrc,
 				  SizeTList::const_iterator pAxis, SizeTList::const_iterator pAxisEnd)
 {

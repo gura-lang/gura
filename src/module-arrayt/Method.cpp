@@ -1217,20 +1217,12 @@ Gura_DeclareMethod(array, reshape)
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
-template<typename T_Elem>
-Value FuncTmpl_reshape(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	Signal &sig = env.GetSignal();
-	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	AutoPtr<Array> pArrayTRtn(pArrayT->Reshape(sig, arg.GetList(0)));
-	if (pArrayTRtn.IsNull()) return Value::Nil;
-	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayTRtn.release())));
-}
-
 Gura_ImplementMethod(array, reshape)
 {
-	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_reshape);
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	AutoPtr<Array> pArrayRtn(pArraySelf->Reshape(env, arg.GetList(0)));
+	if (pArrayRtn.IsNull()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
 // array#roundoff(threshold?:number) {block?}
