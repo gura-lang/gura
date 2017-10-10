@@ -8,16 +8,8 @@
 //------------------------------------------------------------------------------
 #define ImplementArrayT(T_Elem) \
 template<> \
-ArrayT<T_Elem>::ArrayT(bool colMajorFlag) : \
-	Array(ETYPE_##T_Elem, colMajorFlag) {} \
+ArrayT<T_Elem>::ArrayT(bool colMajorFlag) : Array(ETYPE_##T_Elem, colMajorFlag) {} \
 template class ArrayT<T_Elem>;
-
-#if 0
-template<> \
-ArrayT<T_Elem>::ArrayT(bool colMajorFlag, Memory *pMemory, size_t offsetBase) : \
-	Array(ETYPE_##T_Elem, colMajorFlag, pMemory, offsetBase) {} \
-
-#endif
 
 namespace Gura {
 
@@ -402,8 +394,8 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Flatten() const
 	AutoPtr<ArrayT> pArrayRtn;
 	if (IsRowMajor() || dims.size() < 2) {
 		pArrayRtn.reset(new ArrayT(colMajorFlag));
-		pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
 		pArrayRtn->SetDimension(GetElemNum());
+		pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
 	} else {
 		bool colMajorFlag = false;
 		pArrayRtn.reset(ArrayT::Create1d(colMajorFlag, GetElemNum()));
@@ -449,7 +441,6 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Reshape(Signal &sig, const ValueList &valList) c
 		return nullptr;
 	}
 	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetColMajorFlag()));
-	pArrayTRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
 	Dimensions &dims = pArrayTRtn->GetDimensions();
 	dims.reserve(valList.size());
 	foreach_const (ValueList, pValue, valList) {
@@ -460,6 +451,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Reshape(Signal &sig, const ValueList &valList) c
 		}
 	}	
 	pArrayTRtn->UpdateMetrics();
+	pArrayTRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
 	return pArrayTRtn.release();
 }
 
@@ -557,8 +549,8 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Head(Signal &sig, size_t n) const
 	}
 	size_t offsetBase = GetOffsetBase();
 	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetColMajorFlag()));
-	pArrayTRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	pArrayTRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayTRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return pArrayTRtn.release();
 }
 
@@ -572,8 +564,8 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Tail(Signal &sig, size_t n) const
 	}
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * (dimFirst.GetSize() - n);
 	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetColMajorFlag()));
-	pArrayTRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	pArrayTRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayTRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return pArrayTRtn.release();
 }
 
@@ -588,8 +580,8 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
 	size_t nElems = dimFirst.GetSize() - n;
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * n;
 	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetColMajorFlag()));
-	pArrayTRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	pArrayTRtn->SetDimensions(nElems, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayTRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return pArrayTRtn.release();
 }
 
@@ -672,6 +664,13 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Col2im(size_t htKernel, size_t wdKernel, size_t 
 }
 
 /// functions to create an ArrayT instance
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
+	return pArrayT.release();
+}
+
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag, const Array::Dimensions &dims)
 {
@@ -911,8 +910,8 @@ bool Iterator_ArrayT_Each<T_Elem>::DoNext(Environment &env, Value &value)
 		} else {
 			size_t offsetBase = _pArrayT->GetOffsetBase() + pDim->GetStrides() * _idx;
 			AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(_pArrayT->GetColMajorFlag()));
-			pArrayRtn->SetMemory(_pArrayT->GetMemory().Reference(), offsetBase);
 			pArrayRtn->SetDimensions(pDim + 1, dims.end());
+			pArrayRtn->SetMemory(_pArrayT->GetMemory().Reference(), offsetBase);
 			value = Array::ToValue(env, pArrayRtn.release());
 		}
 	}

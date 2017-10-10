@@ -239,8 +239,6 @@ protected:
 		_offsetBase(src._offsetBase), _elemNum(src._elemNum) {}
 	inline Array(ElemType elemType, bool colMajorFlag) : _cntRef(1),
 		_elemType(elemType), _colMajorFlag(colMajorFlag), _offsetBase(0), _elemNum(0) {}
-	//inline Array(ElemType elemType, bool colMajorFlag, Memory *pMemory, size_t offsetBase) : _cntRef(1),
-	//	_elemType(elemType), _colMajorFlag(colMajorFlag), _pMemory(pMemory), _offsetBase(offsetBase), _elemNum(0) {}
 protected:
 	virtual ~Array();
 public:
@@ -252,6 +250,9 @@ public:
 	inline bool IsColMajor() const { return _colMajorFlag; }
 	inline bool IsRowMajor() const { return !_colMajorFlag; }
 	inline void SetColMajorFlag(bool colMajorFlag) { _colMajorFlag = colMajorFlag; }
+	inline void AllocMemory() {
+		_pMemory.reset(new MemoryHeap(GetElemBytes() * GetElemNum()));
+	}
 	inline void SetMemory(Memory *pMemory, size_t offsetBase) {
 		_pMemory.reset(pMemory), _offsetBase = offsetBase;
 	}

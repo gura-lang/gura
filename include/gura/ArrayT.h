@@ -24,10 +24,6 @@ public:
 public:
 	inline ArrayT(const ArrayT &src) : Array(src) {}
 	ArrayT(bool colMajorFlag);
-	//ArrayT(bool colMajorFlag, Memory *pMemory, size_t offsetBase);
-	inline void AllocMemory() {
-		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetElemNum()));
-	}
 	inline T_Elem *GetPointerOrigin() {
 		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer());
 	}
@@ -63,6 +59,7 @@ public:
 	ArrayT *Im2col(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;
 	ArrayT *Col2im(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;
 	// functions to create an ArrayT instance
+	static ArrayT *Create(bool colMajorFlag);
 	static ArrayT *Create(bool colMajorFlag, const Dimensions &dims);
 	static ArrayT *Create(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
 	static ArrayT *Create(bool colMajorFlag, size_t size,
