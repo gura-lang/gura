@@ -48,7 +48,7 @@ public:
 	void FillRandNormal(double mu, double sigma);
 	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc);
 	void CopyToList(Object_list *pObjList) const;
-	ArrayT *Flatten() const;
+	Array *Flatten() const;
 	Array *Transpose(Signal &sig, const ValueList &valList, Array *pArrayRtn) const;
 	Array *Transpose(const SizeTList &axes, Array *pArrayRtn) const;
 	ArrayT *RoundOff(double threshold) const;

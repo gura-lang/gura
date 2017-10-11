@@ -387,7 +387,7 @@ void ArrayT<T_Elem>::CopyToList(Object_list *pObjList) const
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Flatten() const
+Array *ArrayT<T_Elem>::Flatten() const
 {
 	bool colMajorFlag = false;
 	const Array::Dimensions &dims = GetDimensions();

@@ -829,8 +829,8 @@ template<typename T_Elem>
 Value FuncTmpl_flatten(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	AutoPtr<Array> pArrayTRtn(pArrayT->Flatten());
-	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayTRtn.release())));
+	AutoPtr<Array> pArrayRtn(pArrayT->Flatten());
+	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
 Gura_ImplementMethod(array, flatten)
