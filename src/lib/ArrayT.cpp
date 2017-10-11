@@ -437,7 +437,7 @@ void TransposeSub(T_Elem *&pElemDst, const T_Elem *pElemSrc, const Array::Dimens
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(Signal &sig, const ValueList &valList, Array *pArrayRtn) const
+Array *ArrayT<T_Elem>::Transpose(Signal &sig, const ValueList &valList, Array *pArrayRtn) const
 {
 	if (GetDimensions().size() != valList.size()) {
 		sig.SetError(ERR_ValueError, "mismatched number of axes to transpose");
@@ -460,9 +460,9 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(Signal &sig, const ValueList &valList,
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes, Array *pArrayRtn) const
+Array *ArrayT<T_Elem>::Transpose(const SizeTList &axes, Array *pArrayRtn) const
 {
-	if (axes.size() < 2) return new ArrayT<T_Elem>(*this);
+	if (axes.size() < 2) return Clone();
 	Dimensions::const_reverse_iterator pDim = GetDimensions().rbegin();
 	bool memorySharableFlag = false;
 	if (pDim->GetSize() == 1 || (pDim + 1)->GetSize() == 1) {
@@ -571,13 +571,13 @@ ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Im2col(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
+Array *ArrayT<T_Elem>::Im2col(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
 {
 	return nullptr;
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Col2im(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
+Array *ArrayT<T_Elem>::Col2im(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
 {
 	return nullptr;
 }

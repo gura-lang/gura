@@ -49,11 +49,11 @@ public:
 	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc);
 	void CopyToList(Object_list *pObjList) const;
 	ArrayT *Flatten() const;
-	ArrayT *Transpose(Signal &sig, const ValueList &valList, Array *pArrayRtn) const;
-	ArrayT *Transpose(const SizeTList &axes, Array *pArrayRtn) const;
+	Array *Transpose(Signal &sig, const ValueList &valList, Array *pArrayRtn) const;
+	Array *Transpose(const SizeTList &axes, Array *pArrayRtn) const;
 	ArrayT *RoundOff(double threshold) const;
-	ArrayT *Im2col(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;
-	ArrayT *Col2im(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;
+	Array *Im2col(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;
+	Array *Col2im(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;
 	// functions to create an ArrayT instance
 	static ArrayT *Create(bool colMajorFlag);
 	static ArrayT *Create(bool colMajorFlag, const Dimensions &dims);
