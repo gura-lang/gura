@@ -204,13 +204,6 @@ void Array::UpdateMetrics()
 	}
 }
 
-Array *Array::Transpose2d() const
-{
-	AutoPtr<Array> pArray(Clone());
-	pArray->FlipAxisMajor();
-	return pArray.release();
-}
-
 void Array::FillZero()
 {
 	::memset(GetPointerRaw(), 0x00, GetElemBytes() * GetElemNum());
@@ -326,7 +319,7 @@ template<typename T_Elem>
 void TransposeSubTmpl(void **ppElemDstRaw, const void *pElemSrcRaw, const Array::Dimensions &dimsSrc,
 					  SizeTList::const_iterator pAxis, SizeTList::const_iterator pAxisEnd)
 {
-	T_Elem *pElemDst = *reinterpret_cast<T_Elem **>(ppElemDstRaw);
+	T_Elem *&pElemDst = *reinterpret_cast<T_Elem **>(ppElemDstRaw);
 	const T_Elem *pElemSrc = reinterpret_cast<const T_Elem *>(pElemSrcRaw);
 	const Array::Dimension &dimSrc = dimsSrc[*pAxis];
 	if (pAxis + 1 == pAxisEnd) {
@@ -426,6 +419,13 @@ bool Array::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const
 		}
 	}
 	return true;
+}
+
+Array *Array::Transpose2d() const
+{
+	AutoPtr<Array> pArray(Clone());
+	pArray->FlipAxisMajor();
+	return pArray.release();
 }
 
 bool Array::IsSquare() const

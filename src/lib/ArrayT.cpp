@@ -420,6 +420,7 @@ Array *ArrayT<T_Elem>::Flatten() const
 	return pArrayRtn.release();
 }
 
+#if 0
 template<typename T_Elem>
 void TransposeSub(T_Elem *&pElemDst, const T_Elem *pElemSrc, const Array::Dimensions &dimsSrc,
 				  SizeTList::const_iterator pAxis, SizeTList::const_iterator pAxisEnd)
@@ -503,6 +504,7 @@ Array *ArrayT<T_Elem>::Transpose(const SizeTList &axes, Array *pArrayRtn) const
 	}
 	return pArrayTRtn.release();
 }
+#endif
 
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::RoundOff(double threshold) const

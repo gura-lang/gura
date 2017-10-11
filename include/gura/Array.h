@@ -297,7 +297,6 @@ public:
 					   Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
 	void SetDimensions(const ValueList &valList);
 	void UpdateMetrics();
-	Array *Transpose2d() const;
 	void FillZero();
 	void Fill(Double num); // overwritten by ArrayT
 	Array *Head(Signal &sig, size_t n) const;
@@ -306,6 +305,7 @@ public:
 	Array *Reshape(Signal &sig, const ValueList &valList) const;
 	bool Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const;
 	bool Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const;
+	Array *Transpose2d() const;
 	bool IsSquare() const;
 	bool HasShape(size_t size) const;
 	bool HasShape(size_t sizeRow, size_t sizeCol) const;

@@ -1444,25 +1444,16 @@ Gura_DeclareMethod(array, transpose)
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
-template<typename T_Elem>
-Value FuncTmpl_transpose(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Signal &sig = env.GetSignal();
-	AutoPtr<Array> pArrayRtn;
-	if (arg.IsValid(0)) {
-		pArrayRtn.reset(pArrayT->Transpose(sig, arg.GetList(0), nullptr));
-		if (pArrayRtn.IsNull()) return Value::Nil;
-	} else {
-		pArrayRtn.reset(pArrayT->Transpose2d());
-	}
-	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
-}
-
 Gura_ImplementMethod(array, transpose)
 {
-	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_transpose);
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	AutoPtr<Array> pArrayRtn;
+	if (arg.IsValid(0)) {
+		if (!pArraySelf->Transpose(env, pArrayRtn, arg.GetList(0))) return Value::Nil;
+	} else {
+		pArrayRtn.reset(pArraySelf->Transpose2d());
+	}
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
 // array#var(axis?:number):[p] {block?}
