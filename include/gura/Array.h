@@ -304,6 +304,8 @@ public:
 	Array *Tail(Signal &sig, size_t n) const;
 	Array *Offset(Signal &sig, size_t n) const;
 	Array *Reshape(Signal &sig, const ValueList &valList) const;
+	bool Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const;
+	bool Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const;
 	bool IsSquare() const;
 	bool HasShape(size_t size) const;
 	bool HasShape(size_t sizeRow, size_t sizeCol) const;

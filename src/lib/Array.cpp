@@ -221,11 +221,10 @@ void FillTmpl(Array *pArray, Double num) {
 	dynamic_cast<ArrayT<T_Elem> *>(pArray)->Fill(static_cast<T_Elem>(num));
 }
 
-typedef void (*FillFuncT)(Array *pArray, Double num);
-
 void Array::Fill(Double num)
 {
-	const FillFuncT fillFuncs[ETYPE_Max] = {
+	typedef void (*FuncT)(Array *pArray, Double num);
+	const FuncT funcs[ETYPE_Max] = {
 		nullptr,
 		&FillTmpl<Boolean>,
 		&FillTmpl<Int8>,
@@ -242,7 +241,8 @@ void Array::Fill(Double num)
 		&FillTmpl<Complex>,
 		//&FillTmpl<Value>,
 	};
-	(*fillFuncs[GetElemType()])(this, num);
+	FuncT func = funcs[GetElemType()];
+	(*func)(this, num);
 }
 
 Array *Array::Head(Signal &sig, size_t n) const
@@ -322,6 +322,112 @@ Array *Array::Reshape(Signal &sig, const ValueList &valList) const
 	return pArrayRtn.release();
 }
 
+template<typename T_Elem>
+void TransposeSubTmpl(void **ppElemDstRaw, const void *pElemSrcRaw, const Array::Dimensions &dimsSrc,
+					  SizeTList::const_iterator pAxis, SizeTList::const_iterator pAxisEnd)
+{
+	T_Elem *pElemDst = *reinterpret_cast<T_Elem **>(ppElemDstRaw);
+	const T_Elem *pElemSrc = reinterpret_cast<const T_Elem *>(pElemSrcRaw);
+	const Array::Dimension &dimSrc = dimsSrc[*pAxis];
+	if (pAxis + 1 == pAxisEnd) {
+		for (size_t i = 0; i < dimSrc.GetSize(); i++, pElemSrc += dimSrc.GetStrides(), pElemDst++) {
+			*pElemDst = *pElemSrc;
+		}
+	} else {
+		for (size_t i = 0; i < dimSrc.GetSize(); i++, pElemSrc += dimSrc.GetStrides()) {
+			TransposeSubTmpl<T_Elem>(reinterpret_cast<void **>(&pElemDst),
+									 reinterpret_cast<const void *>(pElemSrc), dimsSrc, pAxis + 1, pAxisEnd);
+		}
+	}
+}
+
+bool Array::Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const
+{
+	if (GetDimensions().size() != valList.size()) {
+		sig.SetError(ERR_ValueError, "mismatched number of axes to transpose");
+		return false;
+	}
+	SizeTList axes;
+	foreach_const (ValueList, pValue, valList) {
+		size_t axis = pValue->GetSizeT();
+		if (std::find(axes.begin(), axes.end(), axis) != axes.end()) {
+			sig.SetError(ERR_ValueError, "duplicated axis is specified");
+			return false;
+		}
+		if (axis >= GetDimensions().size()) {
+			sig.SetError(ERR_ValueError, "specified axis is out of range");
+			return false;
+		}
+		axes.push_back(axis);
+	}
+	return Transpose(pArrayRtn, axes);
+}
+
+bool Array::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const
+{
+	typedef void (*FuncT)(void **ppElemDstRaw, const void *pElemSrcRaw, const Array::Dimensions &dimsSrc,
+						  SizeTList::const_iterator pAxis, SizeTList::const_iterator pAxisEnd);
+	const FuncT funcs[ETYPE_Max] = {
+		nullptr,
+		&TransposeSubTmpl<Boolean>,
+		&TransposeSubTmpl<Int8>,
+		&TransposeSubTmpl<UInt8>,
+		&TransposeSubTmpl<Int16>,
+		&TransposeSubTmpl<UInt16>,
+		&TransposeSubTmpl<Int32>,
+		&TransposeSubTmpl<UInt32>,
+		&TransposeSubTmpl<Int64>,
+		&TransposeSubTmpl<UInt64>,
+		&TransposeSubTmpl<Half>,
+		&TransposeSubTmpl<Float>,
+		&TransposeSubTmpl<Double>,
+		&TransposeSubTmpl<Complex>,
+		//&TransposeSubTmpl<Value>,
+	};
+	FuncT func = funcs[GetElemType()];
+	if (axes.size() < 2) {
+		pArrayRtn.reset(Clone());
+		return true;
+	}
+	Dimensions::const_reverse_iterator pDim = GetDimensions().rbegin();
+	bool memorySharableFlag = false;
+	if (pDim->GetSize() == 1 || (pDim + 1)->GetSize() == 1) {
+		memorySharableFlag = true;
+		SizeTList::const_iterator pAxis = axes.begin();
+		SizeTList::const_iterator pAxisEnd = axes.begin() + axes.size() - 2;
+		for (size_t axisInc = 0; pAxis != pAxisEnd; pAxis++, axisInc++) {
+			if (*pAxis != axisInc) {
+				memorySharableFlag = false;
+				break;
+			}
+		}
+	}
+	if (pArrayRtn.IsNull()) {
+		bool colMajorFlag = false;
+		pArrayRtn.reset(Array::Create(GetElemType(), colMajorFlag));
+		Dimensions &dimsDst = pArrayRtn->GetDimensions();
+		dimsDst.reserve(GetDimensions().size());
+		foreach_const (SizeTList, pAxis, axes) {
+			const Dimension &dimSrc = GetDimensions()[*pAxis];
+			dimsDst.push_back(Dimension(dimSrc.GetSize()));
+		}
+		pArrayRtn->UpdateMetrics();
+		if (memorySharableFlag) {
+			pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
+		} else {
+			pArrayRtn->AllocMemory();
+			void *pElemDstRaw = pArrayRtn->GetPointerRaw();
+			(*func)(&pElemDstRaw, GetPointerRaw(), GetDimensions(), axes.begin(), axes.end());
+		}
+	} else {
+		if (!memorySharableFlag) {
+			void *pElemDstRaw = pArrayRtn->GetPointerRaw();
+			(*func)(&pElemDstRaw, GetPointerRaw(), GetDimensions(), axes.begin(), axes.end());
+		}
+	}
+	return true;
+}
+
 bool Array::IsSquare() const
 {
 	return _dims.HasRowCol() && (_dims.GetRow().GetSize() == _dims.GetCol().GetSize());
@@ -397,11 +503,10 @@ Array *CreateTmpl(bool colMajorFlag)
 	return ArrayT<T_Elem>::Create(colMajorFlag);
 }
 
-typedef Array *(*CreateFuncT)(bool colMajorFlag);
-
 Array *Array::Create(ElemType elemType, bool colMajorFlag)
 {
-	const CreateFuncT createFuncs[ETYPE_Max] = {
+	typedef Array *(*FuncT)(bool colMajorFlag);
+	const FuncT funcs[ETYPE_Max] = {
 		nullptr,
 		&CreateTmpl<Boolean>,
 		&CreateTmpl<Int8>,
@@ -418,7 +523,8 @@ Array *Array::Create(ElemType elemType, bool colMajorFlag)
 		&CreateTmpl<Complex>,
 		//&CreateTmpl<Value>,
 	};
-	return (*createFuncs[elemType])(colMajorFlag);
+	FuncT func = funcs[elemType];
+	return (*func)(colMajorFlag);
 }
 
 Array::ElemType Array::SymbolToElemType(const Symbol *pSymbol)
@@ -447,8 +553,6 @@ void CopyElementsTmpl(void *pElemRawDst, const void *pElemRawSrc, size_t nElems)
 	}
 }
 
-typedef void (*CopyElementsFuncT)(void *pElemRawDst, const void *pElemRawSrc, size_t nElems);
-
 bool Array::CopyElements(Environment &env, Array *pArrayDst, const Array *pArraySrc)
 {
 	size_t nElems = ChooseMin(pArrayDst->GetElemNum(), pArraySrc->GetElemNum());
@@ -459,7 +563,8 @@ bool Array::CopyElements(Environment &env, Array *pArrayDst, const Array *pArray
 bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeDst,
 						 const void *pElemRawSrc, ElemType elemTypeSrc, size_t nElems)
 {
-	static const CopyElementsFuncT copyElementsFuncs[][ETYPE_Max] = {
+	typedef void (*FuncT)(void *pElemRawDst, const void *pElemRawSrc, size_t nElems);
+	static const FuncT funcs[][ETYPE_Max] = {
 		{
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
@@ -676,13 +781,13 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 		},
 	};
-	CopyElementsFuncT copyElementsFunc = copyElementsFuncs[elemTypeDst][elemTypeSrc];
-	if (copyElementsFunc == nullptr) {
+	FuncT func = funcs[elemTypeDst][elemTypeSrc];
+	if (func == nullptr) {
 		env.SetError(ERR_TypeError, "can't copy elements from array@%s to array@%s",
 					 GetElemTypeName(elemTypeSrc), GetElemTypeName(elemTypeDst));
 		return false;
 	}
-	(*copyElementsFunc)(pElemRawDst, pElemRawSrc, nElems);
+	(*func)(pElemRawDst, pElemRawSrc, nElems);
 	return true;
 }
 
