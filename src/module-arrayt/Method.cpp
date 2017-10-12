@@ -870,22 +870,13 @@ Gura_DeclareMethod(array, invert)
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
-template<typename T_Elem>
-Value FuncTmpl_invert(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Signal &sig = env.GetSignal();
-	Double epsilon = arg.IsValid(0)? arg.GetDouble(0) : 1.0e-6;
-	AutoPtr<Array> pArrayRtn;
-	if (!Array::ApplyInvertFunc(sig, pArrayRtn, pArrayT, epsilon)) return Value::Nil;
-	Value value(new Object_array(env, pArrayRtn.release()));
-	return pFunc->ReturnValue(env, arg, value);
-}
-
 Gura_ImplementMethod(array, invert)
 {
-	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_invert);
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	Double epsilon = arg.IsValid(0)? arg.GetDouble(0) : 1.0e-6;
+	AutoPtr<Array> pArrayRtn;
+	if (!Array::ApplyInvertFunc(env, pArrayRtn, pArraySelf, epsilon)) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
 // array#iselemsame(array:array)
