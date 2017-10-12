@@ -217,7 +217,7 @@ void FillTmpl(Array *pArray, Double num) {
 void Array::Fill(Double num)
 {
 	typedef void (*FuncT)(Array *pArray, Double num);
-	const FuncT funcs[ETYPE_Max] = {
+	static const FuncT funcs[ETYPE_Max] = {
 		nullptr,
 		&FillTmpl<Boolean>,
 		&FillTmpl<Int8>,
@@ -278,6 +278,64 @@ Array *Array::Offset(Signal &sig, size_t n) const
 	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
 	pArrayRtn->SetDimensions(nElems, GetDimensions().begin() + 1, GetDimensions().end());
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
+	return pArrayRtn.release();
+}
+
+template<typename T_Elem>
+void FlattenTmpl(Array *pArrayRtn, const Array *pArraySrc)
+{
+	const Array::Dimensions &dims = pArraySrc->GetDimensions();
+	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArraySrc)->GetPointer();
+	T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn)->GetPointer();
+	const Array::Dimension &dimRow = dims.GetRow();
+	const Array::Dimension &dimCol = dims.GetCol();
+	size_t nMats = pArraySrc->GetElemNum() / dimRow.GetSizeProd();
+	const T_Elem *pElemMat = pElem;
+	for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
+		const T_Elem *pElemRow = pElemMat;
+		for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
+				 pElemRow += dimRow.GetStrides()) {
+			const T_Elem *pElemCol = pElemRow;
+			for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
+					 pElemCol += dimCol.GetStrides()) {
+				*pElemRtn++ = *pElemCol;
+			}
+		}
+	}
+}
+
+Array *Array::Flatten() const
+{
+	typedef void (*FuncT)(Array *pArrayRtn, const Array *pArraySrc);
+	static const FuncT funcs[ETYPE_Max] = {
+		nullptr,
+		&FlattenTmpl<Boolean>,
+		&FlattenTmpl<Int8>,
+		&FlattenTmpl<UInt8>,
+		&FlattenTmpl<Int16>,
+		&FlattenTmpl<UInt16>,
+		&FlattenTmpl<Int32>,
+		&FlattenTmpl<UInt32>,
+		&FlattenTmpl<Int64>,
+		&FlattenTmpl<UInt64>,
+		&FlattenTmpl<Half>,
+		&FlattenTmpl<Float>,
+		&FlattenTmpl<Double>,
+		&FlattenTmpl<Complex>,
+		//&FlattenTmpl<Value>,
+	};
+	bool colMajorFlag = false;
+	AutoPtr<Array> pArrayRtn;
+	const Array::Dimensions &dims = GetDimensions();
+	pArrayRtn.reset(Array::Create(GetElemType(), colMajorFlag));
+	pArrayRtn->SetDimension(GetElemNum());
+	if (IsRowMajor() || dims.size() < 2) {
+		pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
+	} else {
+		FuncT func = funcs[GetElemType()];
+		pArrayRtn->AllocMemory();
+		(*func)(pArrayRtn.get(), this);
+	}
 	return pArrayRtn.release();
 }
 
@@ -360,7 +418,7 @@ bool Array::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const
 {
 	typedef void (*FuncT)(void **ppElemDstRaw, const void *pElemSrcRaw, const Array::Dimensions &dimsSrc,
 						  SizeTList::const_iterator pAxis, SizeTList::const_iterator pAxisEnd);
-	const FuncT funcs[ETYPE_Max] = {
+	static const FuncT funcs[ETYPE_Max] = {
 		nullptr,
 		&TransposeSubTmpl<Boolean>,
 		&TransposeSubTmpl<Int8>,
@@ -426,6 +484,16 @@ Array *Array::Transpose2d() const
 	AutoPtr<Array> pArray(Clone());
 	pArray->FlipAxisMajor();
 	return pArray.release();
+}
+
+Array *Array::ExpandKernelToColVector(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
+{
+	return nullptr;
+}
+
+Array *Array::StoreColVectorToKernel(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
+{
+	return nullptr;
 }
 
 bool Array::IsSquare() const
@@ -506,7 +574,7 @@ Array *CreateTmpl(bool colMajorFlag)
 Array *Array::Create(ElemType elemType, bool colMajorFlag)
 {
 	typedef Array *(*FuncT)(bool colMajorFlag);
-	const FuncT funcs[ETYPE_Max] = {
+	static const FuncT funcs[ETYPE_Max] = {
 		nullptr,
 		&CreateTmpl<Boolean>,
 		&CreateTmpl<Int8>,

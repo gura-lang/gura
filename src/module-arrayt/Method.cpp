@@ -825,18 +825,11 @@ Gura_DeclareMethod(array, flatten)
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
-template<typename T_Elem>
-Value FuncTmpl_flatten(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	AutoPtr<Array> pArrayRtn(pArrayT->Flatten());
-	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
-}
-
 Gura_ImplementMethod(array, flatten)
 {
-	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_flatten);
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	AutoPtr<Array> pArrayRtn(pArraySelf->Flatten());
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
 // array#head(n:number):map {block?}
