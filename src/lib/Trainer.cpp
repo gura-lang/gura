@@ -386,14 +386,14 @@ bool Trainer::NodeBinary_Dot::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
-		_pArrayFwdRightTrans.reset(_connectorSrcRight.GetArrayFwd()->Transpose2d());
+		_connectorSrcRight.GetArrayFwd()->Transpose2d(_pArrayFwdRightTrans);
 		if (!Array::ApplyBinaryFunc(
 				env, Array::binaryFuncPack_Dot, _connectorSrcLeft.GetArrayBwdAutoPtr(),
 				(*ppConnectorDst)->GetArrayBwd(),
 				_pArrayFwdRightTrans.get())) return false;
 	}
 	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
-		_pArrayFwdLeftTrans.reset(_connectorSrcLeft.GetArrayFwd()->Transpose2d());
+		_connectorSrcLeft.GetArrayFwd()->Transpose2d(_pArrayFwdLeftTrans);
 		if (!Array::ApplyBinaryFunc(
 				env, Array::binaryFuncPack_Dot, _connectorSrcRight.GetArrayBwdAutoPtr(),
 				_pArrayFwdLeftTrans.get(),

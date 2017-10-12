@@ -502,7 +502,9 @@ Gura_DeclareProperty_R(array, T)
 Gura_ImplementPropertyGetter(array, T)
 {
 	Array *pArray = Object_array::GetObject(valueThis)->GetArray();
-	return Array::ToValue(env, pArray->Transpose2d());
+	AutoPtr<Array> pArrayRtn;
+	pArray->Transpose2d(pArrayRtn);
+	return Array::ToValue(env, pArrayRtn.release());
 }
 
 //-----------------------------------------------------------------------------

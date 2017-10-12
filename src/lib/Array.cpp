@@ -238,47 +238,47 @@ void Array::Fill(Double num)
 	(*func)(this, num);
 }
 
-Array *Array::Head(Signal &sig, size_t n) const
+bool Array::Head(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 {
 	const Dimension &dimFirst = GetDimensions().front();
 	if (n > dimFirst.GetSize()) {
 		sig.SetError(ERR_OutOfRangeError, "specified size is out of range");
-		return nullptr;
+		return false;
 	}
 	size_t offsetBase = GetOffsetBase();
-	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
+	pArrayRtn.reset(Create(GetElemType(), GetColMajorFlag()));
 	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
-	return pArrayRtn.release();
+	return true;
 }
 
-Array *Array::Tail(Signal &sig, size_t n) const
+bool Array::Tail(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 {
 	const Dimension &dimFirst = GetDimensions().front();
 	if (n > dimFirst.GetSize()) {
 		sig.SetError(ERR_OutOfRangeError, "specified size is out of range");
-		return nullptr;
+		return false;
 	}
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * (dimFirst.GetSize() - n);
-	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
+	pArrayRtn.reset(Create(GetElemType(), GetColMajorFlag()));
 	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
-	return pArrayRtn.release();
+	return true;
 }
 
-Array *Array::Offset(Signal &sig, size_t n) const
+bool Array::Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 {
 	const Dimension &dimFirst = GetDimensions().front();
 	if (n > dimFirst.GetSize()) {
 		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
-		return nullptr;
+		return false;
 	}
 	size_t nElems = dimFirst.GetSize() - n;
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * n;
-	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
+	pArrayRtn.reset(Create(GetElemType(), GetColMajorFlag()));
 	pArrayRtn->SetDimensions(nElems, GetDimensions().begin() + 1, GetDimensions().end());
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
-	return pArrayRtn.release();
+	return true;
 }
 
 template<typename T_Elem>
@@ -304,7 +304,7 @@ void FlattenTmpl(Array *pArrayRtn, const Array *pArraySrc)
 	}
 }
 
-Array *Array::Flatten() const
+void Array::Flatten(AutoPtr<Array> &pArrayRtn) const
 {
 	typedef void (*FuncT)(Array *pArrayRtn, const Array *pArraySrc);
 	static const FuncT funcs[ETYPE_Max] = {
@@ -325,9 +325,8 @@ Array *Array::Flatten() const
 		//&FlattenTmpl<Value>,
 	};
 	bool colMajorFlag = false;
-	AutoPtr<Array> pArrayRtn;
 	const Array::Dimensions &dims = GetDimensions();
-	pArrayRtn.reset(Array::Create(GetElemType(), colMajorFlag));
+	pArrayRtn.reset(Create(GetElemType(), colMajorFlag));
 	pArrayRtn->SetDimension(GetElemNum());
 	if (IsRowMajor() || dims.size() < 2) {
 		pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
@@ -336,10 +335,9 @@ Array *Array::Flatten() const
 		pArrayRtn->AllocMemory();
 		(*func)(pArrayRtn.get(), this);
 	}
-	return pArrayRtn.release();
 }
 
-Array *Array::Reshape(Signal &sig, const ValueList &valList) const
+bool Array::Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const
 {
 	bool unfixedFlag = false;
 	size_t nElems = 1;
@@ -348,7 +346,7 @@ Array *Array::Reshape(Signal &sig, const ValueList &valList) const
 			nElems *= pValue->GetSizeT();
 		} else if (unfixedFlag) {
 			sig.SetError(ERR_ValueError, "only one dimension can be specified as an unfixed");
-			return nullptr;
+			return false;
 		} else {
 			unfixedFlag = true;
 		}
@@ -356,9 +354,9 @@ Array *Array::Reshape(Signal &sig, const ValueList &valList) const
 	if ((unfixedFlag && (GetElemNum() % nElems != 0)) ||
 		(!unfixedFlag && (nElems != GetElemNum()))) {
 		sig.SetError(ERR_ValueError, "incorrect shape specified");
-		return nullptr;
+		return false;
 	}
-	AutoPtr<Array> pArrayRtn(Array::Create(GetElemType(), GetColMajorFlag()));
+	pArrayRtn.reset(Create(GetElemType(), GetColMajorFlag()));
 	Dimensions &dims = pArrayRtn->GetDimensions();
 	dims.reserve(valList.size());
 	foreach_const (ValueList, pValue, valList) {
@@ -370,7 +368,7 @@ Array *Array::Reshape(Signal &sig, const ValueList &valList) const
 	}	
 	pArrayRtn->UpdateMetrics();
 	pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
-	return pArrayRtn.release();
+	return true;
 }
 
 template<typename T_Elem>
@@ -455,7 +453,7 @@ bool Array::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const
 	}
 	if (pArrayRtn.IsNull()) {
 		bool colMajorFlag = false;
-		pArrayRtn.reset(Array::Create(GetElemType(), colMajorFlag));
+		pArrayRtn.reset(Create(GetElemType(), colMajorFlag));
 		Dimensions &dimsDst = pArrayRtn->GetDimensions();
 		dimsDst.reserve(GetDimensions().size());
 		foreach_const (SizeTList, pAxis, axes) {
@@ -479,21 +477,18 @@ bool Array::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const
 	return true;
 }
 
-Array *Array::Transpose2d() const
+void Array::Transpose2d(AutoPtr<Array> &pArrayRtn) const
 {
-	AutoPtr<Array> pArray(Clone());
-	pArray->FlipAxisMajor();
-	return pArray.release();
+	pArrayRtn.reset(Clone());
+	pArrayRtn->FlipAxisMajor();
 }
 
-Array *Array::ExpandKernelToColVector(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
+void Array::ExpandKernelToColVector(AutoPtr<Array> &pArrayRtn, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
 {
-	return nullptr;
 }
 
-Array *Array::StoreColVectorToKernel(size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
+void Array::StoreColVectorToKernel(AutoPtr<Array> &pArrayRtn, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
 {
-	return nullptr;
 }
 
 bool Array::IsSquare() const

@@ -828,7 +828,8 @@ Gura_DeclareMethod(array, flatten)
 Gura_ImplementMethod(array, flatten)
 {
 	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
-	AutoPtr<Array> pArrayRtn(pArraySelf->Flatten());
+	AutoPtr<Array> pArrayRtn;
+	pArraySelf->Flatten(pArrayRtn);
 	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
@@ -850,8 +851,8 @@ Gura_ImplementMethod(array, head)
 {
 	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	size_t n = arg.GetSizeT(0);
-	AutoPtr<Array> pArrayRtn(pArraySelf->Head(env, n));
-	if (pArrayRtn.IsNull()) return Value::Nil;
+	AutoPtr<Array> pArrayRtn;
+	if (!pArraySelf->Head(env, pArrayRtn, n)) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
@@ -1140,8 +1141,8 @@ Gura_ImplementMethod(array, offset)
 {
 	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	size_t n = arg.GetSizeT(0);
-	AutoPtr<Array> pArrayRtn(pArraySelf->Offset(env, n));
-	if (pArrayRtn.IsNull()) return Value::Nil;
+	AutoPtr<Array> pArrayRtn;
+	if (!pArraySelf->Offset(env, pArrayRtn, n)) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
@@ -1213,8 +1214,8 @@ Gura_DeclareMethod(array, reshape)
 Gura_ImplementMethod(array, reshape)
 {
 	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
-	AutoPtr<Array> pArrayRtn(pArraySelf->Reshape(env, arg.GetList(0)));
-	if (pArrayRtn.IsNull()) return Value::Nil;
+	AutoPtr<Array> pArrayRtn;
+	if (!pArraySelf->Reshape(env, pArrayRtn, arg.GetList(0))) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
@@ -1387,8 +1388,8 @@ Gura_ImplementMethod(array, tail)
 {
 	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	size_t n = arg.GetSizeT(0);
-	AutoPtr<Array> pArrayRtn(pArraySelf->Tail(env, n));
-	if (pArrayRtn.IsNull()) return Value::Nil;
+	AutoPtr<Array> pArrayRtn;
+	if (!pArraySelf->Tail(env, pArrayRtn, n)) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
@@ -1444,7 +1445,7 @@ Gura_ImplementMethod(array, transpose)
 	if (arg.IsValid(0)) {
 		if (!pArraySelf->Transpose(env, pArrayRtn, arg.GetList(0))) return Value::Nil;
 	} else {
-		pArrayRtn.reset(pArraySelf->Transpose2d());
+		pArraySelf->Transpose2d(pArrayRtn);
 	}
 	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
