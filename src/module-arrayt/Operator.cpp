@@ -1229,9 +1229,9 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		size_t elemNumRtn = dimColR.GetSize();
 		size_t offsetR = 0;
 		if (pArrayRtn.IsNull()) {
-			pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(
-								colMajorFlag,
-								dimsR.begin(), dimsR.begin() + dimsR.size() - 2, elemNumRtn));
+			pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(colMajorFlag));
+			pArrayRtn->SetDimensions(dimsR.begin(), dimsR.begin() + dimsR.size() - 2, elemNumRtn);
+			pArrayRtn->AllocMemory();
 		}
 		T_ElemRtn *pElemRtn = dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn.get())->GetPointer();
 		while (offsetR < pArrayR->GetElemNum()) {
@@ -1251,9 +1251,9 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		size_t elemNumRtn = dimRowL.GetSize();
 		size_t offsetL = 0;
 		if (pArrayRtn.IsNull()) {
-			pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(
-								colMajorFlag,
-								dimsL.begin(), dimsL.begin() + dimsL.size() - 2, elemNumRtn, 1));
+			pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(colMajorFlag));
+			pArrayRtn->SetDimensions(dimsL.begin(), dimsL.begin() + dimsL.size() - 2, elemNumRtn, 1);
+			pArrayRtn->AllocMemory();
 		}
 		T_ElemRtn *pElemRtn = dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn.get())->GetPointer();
 		while (offsetL < pArrayL->GetElemNum()) {
@@ -1288,10 +1288,10 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		size_t offsetL = 0, offsetR = 0;
 		if (dimsL.size() < dimsR.size()) {
 			if (pArrayRtn.IsNull()) {
-				pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(
-									colMajorFlag,
-									dimsR.begin(), dimsR.begin() + dimsR.size() - 2,
-									dimRowL.GetSize(), dimColR.GetSize()));
+				pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(colMajorFlag));
+				pArrayRtn->SetDimensions(dimsR.begin(), dimsR.begin() + dimsR.size() - 2,
+										 dimRowL.GetSize(), dimColR.GetSize());
+				pArrayRtn->AllocMemory();
 			}
 			T_ElemRtn *pElemRtn = dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn.get())->GetPointer();
 			while (offsetR < pArrayR->GetElemNum()) {
@@ -1303,10 +1303,10 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 			}
 		} else { // dimsL.size() >= dimsR.size()
 			if (pArrayRtn.IsNull()) {
-				pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(
-									colMajorFlag,
-									dimsL.begin(), dimsL.begin() + dimsL.size() - 2,
-									dimRowL.GetSize(), dimColR.GetSize()));
+				pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(colMajorFlag));
+				pArrayRtn->SetDimensions(dimsL.begin(), dimsL.begin() + dimsL.size() - 2,
+										 dimRowL.GetSize(), dimColR.GetSize());
+				pArrayRtn->AllocMemory();
 			}
 			T_ElemRtn *pElemRtn = dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn.get())->GetPointer();
 			while (offsetL < pArrayL->GetElemNum()) {

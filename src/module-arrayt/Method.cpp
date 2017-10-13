@@ -17,8 +17,9 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-	AutoPtr<ArrayT<T_Elem> > pArrayTValue(
-		ArrayT<T_Elem>::Create(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
+	AutoPtr<ArrayT<T_Elem> > pArrayTValue(ArrayT<T_Elem>::Create(colMajorFlag));
+	pArrayTValue->SetDimensions(dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
+	pArrayTValue->AllocMemory();
 	pArrayTValue->FillZero();
 	const T_Elem *pElem = pArrayT->GetPointer();
 	T_Elem *pElemValue = pArrayTValue->GetPointer();
@@ -86,8 +87,9 @@ Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, size_t axis)
 	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-	AutoPtr<ArrayT<UInt32> > pArrayTIndex(
-		ArrayT<UInt32>::Create(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
+	AutoPtr<ArrayT<UInt32> > pArrayTIndex(ArrayT<UInt32>::Create(colMajorFlag));
+	pArrayTIndex->SetDimensions(dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
+	pArrayTIndex->AllocMemory();
 	AutoPtr<Memory> pMemoryValue(new MemoryHeap(pArrayTIndex->GetElemNum() * sizeof(T_Elem)));
 	pArrayTIndex->FillZero();
 	const T_Elem *pElem = pArrayT->GetPointer();
@@ -200,8 +202,9 @@ ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool mean
 	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
-		ArrayT<T_ElemRtn>::Create(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
+	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(ArrayT<T_ElemRtn>::Create(colMajorFlag));
+	pArrayTRtn->SetDimensions(dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
+	pArrayTRtn->AllocMemory();
 	pArrayTRtn->FillZero();
 	Double numDenom = static_cast<Double>(pDimAxis->GetSize());
 	const T_Elem *pElemTop = pArrayT->GetPointer();
@@ -263,8 +266,9 @@ ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool popu
 	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(
-		ArrayT<T_ElemRtn>::Create(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end()));
+	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(ArrayT<T_ElemRtn>::Create(colMajorFlag));
+	pArrayTRtn->SetDimensions(dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
+	pArrayTRtn->AllocMemory();
 	pArrayTRtn->FillZero();
 	Double numDenom = static_cast<Double>(pDimAxis->GetSize());
 	Double numDenomVar = (numDenom <= 1)? 1 : populationFlag? numDenom : numDenom - 1;

@@ -470,69 +470,6 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag, const Array::Dimension
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
-	pArrayT->SetDimensions(pDim, pDimEnd);
-	pArrayT->AllocMemory();
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag, size_t size,
-									   Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
-	pArrayT->SetDimensions(size, pDim, pDimEnd);
-	pArrayT->AllocMemory();
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag,
-									   Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-									   size_t size)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
-	pArrayT->SetDimensions(pDim, pDimEnd, size);
-	pArrayT->AllocMemory();
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag,
-									   Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-									   size_t sizeRow, size_t sizeCol)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
-	pArrayT->SetDimensions(pDim, pDimEnd, sizeRow, sizeCol);
-	pArrayT->AllocMemory();
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag,
-									   Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-									   size_t sizePlane, size_t sizeRow, size_t sizeCol)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
-	pArrayT->SetDimensions(pDim, pDimEnd, sizePlane, sizeRow, sizeCol);
-	pArrayT->AllocMemory();
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag,
-									   Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
-									   Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
-	pArrayT->SetDimensions(pDim1, pDim1End, pDim2, pDim2End);
-	pArrayT->AllocMemory();
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create1d(bool colMajorFlag, size_t size)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));

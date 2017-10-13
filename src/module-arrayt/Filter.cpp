@@ -113,7 +113,9 @@ bool FilterFuncTmpl_MaxPool1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Arra
 		if (nDims < 2) {
 			pArrayRtn.reset(ArrayT<T_Elem>::Create1d(colMajorFlag, sizeOut));
 		} else {
-			pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims.begin(), dims.begin() + nDims - 1, sizeOut));
+			pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag));
+			pArrayRtn->SetDimensions(dims.begin(), dims.begin() + nDims - 1, sizeOut);
+			pArrayRtn->AllocMemory();
 		}
 		const T_Elem *pElemSrc = pArrayT->GetPointer();
 		T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
@@ -151,7 +153,9 @@ bool FilterFuncTmpl_MaxPool1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Arra
 		size_t sizeChannel = dimChannel.GetSize();
 		size_t sizeOut = 0, sizePadHead = 0, sizePadTail = 0;
 		Filter::CalcPadding(sizeIn, sizeFilter, strides, paddingType, &sizeOut, &sizePadHead, &sizePadTail);
-		pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims.begin(), dims.begin() + nDims - 2, sizeOut, sizeChannel));
+		pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag));
+		pArrayRtn->SetDimensions(dims.begin(), dims.begin() + nDims - 2, sizeOut, sizeChannel);
+		pArrayRtn->AllocMemory();
 		const T_Elem *pElemSrc = pArrayT->GetPointer();
 		T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
 		size_t cnt = pArray->GetElemNum() / (sizeIn * sizeChannel);
