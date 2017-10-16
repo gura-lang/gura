@@ -567,11 +567,10 @@ T_Elem FindMinMaxFlat(const ArrayT<T_Elem> *pArrayT)
 template<typename T_Elem>
 bool FindMaxTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArraySelf, ssize_t axis)
 {
-	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArraySelf);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	if (pArrayT->GetElemNum() == 0) {
-		pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag));
+		// nothing to do
 	} else if (axis < 0 || (axis == 0 && dims.size() == 1)) {
 		pArrayRtn.reset(ArrayT<T_Elem>::CreateScalar(FindMinMaxFlat<T_Elem, CompareLt>(pArrayT)));
 	} else if (axis >= dims.size()) {
@@ -586,11 +585,10 @@ bool FindMaxTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArraySelf
 template<typename T_Elem>
 bool FindMinTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArraySelf, ssize_t axis)
 {
-	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArraySelf);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	if (pArrayT->GetElemNum() == 0) {
-		pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag));
+		// nothing to do
 	} else if (axis < 0 || (axis == 0 && dims.size() == 1)) {
 		pArrayRtn.reset(ArrayT<T_Elem>::CreateScalar(FindMinMaxFlat<T_Elem, CompareGt>(pArrayT)));
 	} else if (axis >= dims.size()) {
@@ -757,11 +755,10 @@ UInt32 FindMinMaxIndexFlat(const ArrayT<T_Elem> *pArrayT)
 template<typename T_Elem>
 bool FindMaxIndexTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArraySelf, ssize_t axis, bool lastFlag)
 {
-	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArraySelf);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	if (pArrayT->GetElemNum() == 0) {
-		pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag));
+		// nothing to do
 	} else if (axis < 0 || (axis == 0 && dims.size() == 1)) {
 		pArrayRtn.reset(ArrayT<UInt32>::CreateScalar(
 							lastFlag? 
@@ -781,11 +778,10 @@ bool FindMaxIndexTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArra
 template<typename T_Elem>
 bool FindMinIndexTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArraySelf, ssize_t axis, bool lastFlag)
 {
-	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArraySelf);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	if (pArrayT->GetElemNum() == 0) {
-		pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag));
+		// nothing to do
 	} else if (axis < 0 || (axis == 0 && dims.size() == 1)) {
 		pArrayRtn.reset(ArrayT<UInt32>::CreateScalar(
 							lastFlag? 
