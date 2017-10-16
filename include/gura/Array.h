@@ -307,6 +307,10 @@ public:
 	bool Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const;
 	bool Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const;
 	void Transpose2d(AutoPtr<Array> &pArrayRtn) const;
+	bool FindMax(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const;
+	bool FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const;
+	bool FindMaxIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool lastFlag) const;
+	bool FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool lastFlag) const;
 	void ExpandKernelToColVector(AutoPtr<Array> &pArrayRtn, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;
 	void StoreColVectorToKernel(AutoPtr<Array> &pArrayRtn, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;
 	bool IsSquare() const;
