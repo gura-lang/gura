@@ -383,6 +383,7 @@ Gura_DeclareMethod(array, argmax)
 		"Returns index of a maximum number of elements in the target `array`.\n");
 }
 
+#if 0
 template<typename T_Elem>
 Value FuncTmpl_argmax(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
@@ -414,9 +415,11 @@ Value FuncTmpl_argmax(Environment &env, Argument &arg, const Function *pFunc, Ar
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
+#endif
 
 Gura_ImplementMethod(array, argmax)
 {
+#if 0
 	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
 		&FuncTmpl_argmax<Boolean>,
@@ -435,6 +438,13 @@ Gura_ImplementMethod(array, argmax)
 		//&FuncTmpl_argmax<Value, Value>,
 	};
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+#endif
+	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	AutoPtr<Array> pArrayRtn;
+	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	bool lastFlag = arg.IsSet(Gura_Symbol(last_index));
+	if (!pArraySelf->FindMaxIndex(env, pArrayRtn, axis, lastFlag)) return Value::Nil;
+	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
 // array#argmin(axis?:number):[last_index] {block?}
@@ -449,6 +459,7 @@ Gura_DeclareMethod(array, argmin)
 		"Returns index of a minimum number of elements in the target `array`.\n");
 }
 
+#if 0
 template<typename T_Elem>
 Value FuncTmpl_argmin(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
@@ -480,9 +491,11 @@ Value FuncTmpl_argmin(Environment &env, Argument &arg, const Function *pFunc, Ar
 	}
 	return pFunc->ReturnValue(env, arg, valueRtn);
 }
+#endif
 
 Gura_ImplementMethod(array, argmin)
 {
+#if 0
 	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
 		&FuncTmpl_argmin<Boolean>,
@@ -501,6 +514,13 @@ Gura_ImplementMethod(array, argmin)
 		//&FuncTmpl_argmin<Value, Value>,
 	};
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+#endif
+	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	AutoPtr<Array> pArrayRtn;
+	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	bool lastFlag = arg.IsSet(Gura_Symbol(last_index));
+	if (!pArraySelf->FindMinIndex(env, pArrayRtn, axis, lastFlag)) return Value::Nil;
+	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
 // array#colmajor() {block?}

@@ -572,11 +572,11 @@ bool FindMaxTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArraySelf
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	if (pArrayT->GetElemNum() == 0) {
 		pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag));
+	} else if (axis < 0 || (axis == 0 && dims.size() == 1)) {
+		pArrayRtn.reset(ArrayT<T_Elem>::CreateScalar(FindMinMaxFlat<T_Elem, CompareLt>(pArrayT)));
 	} else if (axis >= dims.size()) {
 		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 		return false;
-	} else if (axis < 0 || (axis == 0 && dims.size() == 1)) {
-		pArrayRtn.reset(ArrayT<T_Elem>::CreateScalar(FindMinMaxFlat<T_Elem, CompareLt>(pArrayT)));
 	} else {
 		pArrayRtn.reset(FindMinMax<T_Elem, CompareLt>(pArrayT, axis));
 	}
@@ -591,11 +591,11 @@ bool FindMinTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArraySelf
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	if (pArrayT->GetElemNum() == 0) {
 		pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag));
+	} else if (axis < 0 || (axis == 0 && dims.size() == 1)) {
+		pArrayRtn.reset(ArrayT<T_Elem>::CreateScalar(FindMinMaxFlat<T_Elem, CompareGt>(pArrayT)));
 	} else if (axis >= dims.size()) {
 		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 		return false;
-	} else if (axis < 0 || (axis == 0 && dims.size() == 1)) {
-		pArrayRtn.reset(ArrayT<T_Elem>::CreateScalar(FindMinMaxFlat<T_Elem, CompareGt>(pArrayT)));
 	} else {
 		pArrayRtn.reset(FindMinMax<T_Elem, CompareGt>(pArrayT, axis));
 	}
@@ -762,14 +762,14 @@ bool FindMaxIndexTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArra
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	if (pArrayT->GetElemNum() == 0) {
 		pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag));
-	} else if (axis >= dims.size()) {
-		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
-		return false;
 	} else if (axis < 0 || (axis == 0 && dims.size() == 1)) {
 		pArrayRtn.reset(ArrayT<UInt32>::CreateScalar(
 							lastFlag? 
 							FindMinMaxIndexFlat<T_Elem, CompareLe>(pArrayT) :
 							FindMinMaxIndexFlat<T_Elem, CompareLt>(pArrayT)));
+	} else if (axis >= dims.size()) {
+		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+		return false;
 	} else {
 		pArrayRtn.reset(lastFlag?
 						FindMinMaxIndex<T_Elem, CompareLe>(pArrayT, axis) :
@@ -786,14 +786,14 @@ bool FindMinIndexTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArra
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	if (pArrayT->GetElemNum() == 0) {
 		pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag));
-	} else if (axis >= dims.size()) {
-		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
-		return false;
 	} else if (axis < 0 || (axis == 0 && dims.size() == 1)) {
 		pArrayRtn.reset(ArrayT<UInt32>::CreateScalar(
 							lastFlag? 
 							FindMinMaxIndexFlat<T_Elem, CompareGe>(pArrayT) :
 							FindMinMaxIndexFlat<T_Elem, CompareGt>(pArrayT)));
+	} else if (axis >= dims.size()) {
+		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+		return false;
 	} else {
 		pArrayRtn.reset(lastFlag?
 						FindMinMaxIndex<T_Elem, CompareGe>(pArrayT, axis) :
@@ -896,7 +896,8 @@ bool Array::PrepareModification(Signal &sig)
 
 Value Array::ToValue(Environment &env, Array *pArray)
 {
-	return !pArray->IsScalar()? Value(new Object_array(env, pArray)) :
+	return (pArray == nullptr)? Value::Nil :
+		!pArray->IsScalar()? Value(new Object_array(env, pArray)) :
 		pArray->IsElemType(ETYPE_Complex)? Value(pArray->GetScalarComplex()) :
 		Value(pArray->GetScalarNumber());
 }
