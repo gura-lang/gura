@@ -987,6 +987,7 @@ Value FuncTmpl_max(Environment &env, Argument &arg, const Function *pFunc, Array
 
 Gura_ImplementMethod(array, max)
 {
+#if 0
 	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
 		&FuncTmpl_max<Boolean>,
@@ -1005,6 +1006,18 @@ Gura_ImplementMethod(array, max)
 		//&FuncTmpl_max<Value, Value>,
 	};
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+#endif
+	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	AutoPtr<Array> pArrayRtn;
+	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	bool lastFlag = arg.IsSet(Gura_Symbol(last_index));
+	bool indexFlag = lastFlag || arg.IsSet(Gura_Symbol(index));
+	if (indexFlag) {
+		if (!pArraySelf->FindMaxIndex(env, pArrayRtn, axis, lastFlag)) return Value::Nil;
+	} else {
+		if (!pArraySelf->FindMax(env, pArrayRtn, axis)) return Value::Nil;
+	}
+	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
 // array#mean(axis?:number) {block?}
@@ -1118,6 +1131,7 @@ Value FuncTmpl_min(Environment &env, Argument &arg, const Function *pFunc, Array
 
 Gura_ImplementMethod(array, min)
 {
+#if 0
 	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
 		nullptr,
 		&FuncTmpl_min<Boolean>,
@@ -1136,6 +1150,18 @@ Gura_ImplementMethod(array, min)
 		//&FuncTmpl_min<Value, Value>,
 	};
 	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+#endif
+	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	AutoPtr<Array> pArrayRtn;
+	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	bool lastFlag = arg.IsSet(Gura_Symbol(last_index));
+	bool indexFlag = lastFlag || arg.IsSet(Gura_Symbol(index));
+	if (indexFlag) {
+		if (!pArraySelf->FindMinIndex(env, pArrayRtn, axis, lastFlag)) return Value::Nil;
+	} else {
+		if (!pArraySelf->FindMin(env, pArrayRtn, axis)) return Value::Nil;
+	}
+	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
 // array#offset(n:number):map {block?}
