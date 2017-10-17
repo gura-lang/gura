@@ -1566,3 +1566,24 @@ testcase('array#colmajor') {
 	tester(`array.range(4 * 3 * 5).colmajor().major)
 	tester(`array.range(4 * 3 * 5).colmajor().reshape([4, 3, 5]))
 }
+testcase('array#fill') {
+	f(elemtype:symbol, num:number) = {
+		println(elemtype)
+		x = array.zeros([3, 4], elemtype)
+		x.fill(num)
+		println(x)
+	}
+	f(`boolean, true)
+	f(`int8, 0x7f)
+	f(`uint8, 0xff)
+	f(`int16, 0x7fff)
+	f(`uint16, 0xffff)
+	f(`int32, 0x7fffffff)
+	f(`uint32, 0xffffffff)
+	f(`int64, 0x0000ffffffffffff)
+	f(`uint64, 0x0000ffffffffffff)
+	f(`half, 3.141)
+	f(`float, 3.141)
+	f(`double, 3.141)
+	f(`complex, 3.141)
+}

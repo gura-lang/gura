@@ -262,11 +262,10 @@ template<typename T_Elem>
 Value FuncTmpl_dump(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Signal &sig = env.GetSignal();
 	bool upperFlag = arg.IsSet(Gura_Symbol(upper));
 	Stream *pStream = arg.IsValid(0)?
 		&Object_stream::GetObject(arg, 0)->GetStream() : env.GetConsole();
-	Dump<T_Elem>(sig, *pStream, pArrayT, upperFlag);
+	Dump<T_Elem>(env, *pStream, pArrayT, upperFlag);
 	return Value::Nil;
 }
 
@@ -367,19 +366,12 @@ Gura_DeclareMethod(array, fill)
 		);
 }
 
-template<typename T_Elem>
-Value FuncTmpl_fill(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	if (!pArrayT->PrepareModification(env.GetSignal())) return Value::Nil;
-	pArrayT->Fill(static_cast<T_Elem>(arg.GetNumber(0)));
-	return Value::Nil;
-}
-
 Gura_ImplementMethod(array, fill)
 {
-	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_fill);
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	if (!pArraySelf->PrepareModification(env)) return Value::Nil;
+	pArraySelf->Fill(arg.GetDouble(0));
+	return Value::Nil;
 }
 
 // array#flatten() {block?}
@@ -601,17 +593,16 @@ template<typename T_Elem>
 Value FuncTmpl_paste(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Signal &sig = env.GetSignal();
 	size_t offset = arg.GetSizeT(0);
 	const Array *pArraySrc = Object_array::GetObject(arg, 1)->GetArray();
 	if (pArraySrc->GetElemType() != ArrayT<T_Elem>::ElemTypeThis) {
-		sig.SetError(ERR_TypeError,
+		env.SetError(ERR_TypeError,
 					 "source and destination array must cosist of elements of the same type");
 		return Value::Nil;
 	}
 	const ArrayT<T_Elem> *pArrayTSrc = dynamic_cast<const ArrayT<T_Elem> *>(pArraySrc);
-	if (!pArrayT->PrepareModification(sig)) return Value::Nil;
-	pArrayT->Paste(sig, offset, pArrayTSrc);
+	if (!pArrayT->PrepareModification(env)) return Value::Nil;
+	pArrayT->Paste(env, offset, pArrayTSrc);
 	return Value::Nil;
 }
 
