@@ -481,6 +481,7 @@ bool Array::FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const
 }
 #endif
 
+#if 0
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, size_t axis)
 {
@@ -678,6 +679,7 @@ bool Array::FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, b
 	FuncT func = funcs[GetElemType()];
 	return (*func)(sig, pArrayRtn, this, axis, lastFlag);
 }
+#endif
 
 template<typename T_ElemRtn, typename T_Elem>
 ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool meanFlag)
