@@ -535,6 +535,121 @@ bool ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes)
 	return true;
 }
 
+template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
+Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
+{
+	bool colMajorFlag = false;
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
+	AutoPtr<ArrayT<T_Elem> > pArrayTValue(ArrayT<T_Elem>::Create(colMajorFlag));
+	pArrayTValue->SetDimensions(dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
+	pArrayTValue->AllocMemory();
+	pArrayTValue->FillZero();
+	const T_Elem *pElem = pArrayT->GetPointer();
+	T_Elem *pElemValue = pArrayTValue->GetPointer();
+	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
+	if (pArrayT->IsRowMajor() || axis + 2 >= dims.size()) {
+		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
+			do {
+				// first element
+				T_Elem *pElemValueEach = pElemValue;
+				for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
+					*pElemValueEach = *pElem;
+					pElemValueEach++;
+				}
+			} while (0);
+			for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
+				T_Elem *pElemValueEach = pElemValue;
+				for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElem++) {
+					if ((*op)(*pElemValueEach, *pElem)) *pElemValueEach = *pElem;
+					pElemValueEach++;
+				}
+			}
+			pElemValue += pDimAxis->GetStrides();
+		}
+	} else { // pArrayT->IsColMajor() && axis + 2 < dim.size()
+		const Array::Dimension &dimRow = dims.GetRow();
+		const Array::Dimension &dimCol = dims.GetCol();
+		size_t nMats = pDimAxis->GetStrides() / dimRow.GetSizeProd();
+		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
+			do {
+				// first element
+				T_Elem *pElemValueEach = pElemValue;
+				for (size_t iMat = 0; iMat < nMats; iMat++, pElem += dimRow.GetSizeProd()) {
+					const T_Elem *pElemRow = pElem;
+					for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++, pElemRow += dimRow.GetStrides()) {
+						const T_Elem *pElemCol = pElemRow;
+						for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++, pElemCol += dimCol.GetStrides()) {
+							*pElemValueEach = *pElemCol;
+							pElemValueEach++;
+						}
+					}
+				}
+			} while (0);
+			for (size_t i = 1; i < pDimAxis->GetSize(); i++) {
+				T_Elem *pElemValueEach = pElemValue;
+				for (size_t iMat = 0; iMat < nMats; iMat++, pElem += dimRow.GetSizeProd()) {
+					const T_Elem *pElemRow = pElem;
+					for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++, pElemRow += dimRow.GetStrides()) {
+						const T_Elem *pElemCol = pElemRow;
+						for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++, pElemCol += dimCol.GetStrides()) {
+							if ((*op)(*pElemValueEach, *pElemCol)) *pElemValueEach = *pElemCol;
+							pElemValueEach++;
+						}
+					}
+				}
+			}
+			pElemValue += pDimAxis->GetStrides();
+		}
+	}
+	return pArrayTValue.release();
+}
+
+template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
+T_Elem FindMinMaxFlat(const ArrayT<T_Elem> *pArrayT)
+{
+	const T_Elem *pElem = pArrayT->GetPointer();
+	T_Elem rtn = *pElem++;
+	for (size_t i = 1; i < pArrayT->GetElemNum(); i++, pElem++) {
+		if ((*op)(rtn, *pElem)) rtn = *pElem;
+	}
+	return rtn;
+}
+
+template<typename T_Elem>
+bool ArrayT<T_Elem>::FindMax(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const
+{
+	const Array::Dimensions &dims = GetDimensions();
+	if (GetElemNum() == 0) {
+		// nothing to do
+	} else if (axis < 0 || (axis == 0 && dims.size() == 1)) {
+		pArrayRtn.reset(ArrayT<T_Elem>::CreateScalar(FindMinMaxFlat<T_Elem, CompareLt>(this)));
+	} else if (axis >= dims.size()) {
+		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+		return false;
+	} else {
+		pArrayRtn.reset(FindMinMax<T_Elem, CompareLt>(this, axis));
+	}
+	return true;
+}
+
+template<typename T_Elem>
+bool ArrayT<T_Elem>::FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const
+{
+	const Array::Dimensions &dims = GetDimensions();
+	if (GetElemNum() == 0) {
+		// nothing to do
+	} else if (axis < 0 || (axis == 0 && dims.size() == 1)) {
+		pArrayRtn.reset(ArrayT<T_Elem>::CreateScalar(FindMinMaxFlat<T_Elem, CompareGt>(this)));
+	} else if (axis >= dims.size()) {
+		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+		return false;
+	} else {
+		pArrayRtn.reset(FindMinMax<T_Elem, CompareGt>(this, axis));
+	}
+	return true;
+}
+
 /// functions to create an ArrayT instance
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag)

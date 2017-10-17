@@ -50,6 +50,8 @@ public:
 	virtual void RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) const;
 	virtual void Flatten(AutoPtr<Array> &pArrayRtn) const;
 	virtual bool Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const;
+	virtual bool FindMax(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const;
+	virtual bool FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const;
 	// functions to create an ArrayT instance
 	static ArrayT *Create(bool colMajorFlag);
 	static ArrayT *Create(bool colMajorFlag, const Dimensions &dims);

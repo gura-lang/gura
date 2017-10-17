@@ -314,6 +314,7 @@ void Array::Transpose2d(AutoPtr<Array> &pArrayRtn) const
 	pArrayRtn->FlipAxisMajor();
 }
 
+#if 0
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 {
@@ -478,6 +479,7 @@ bool Array::FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const
 	FuncT func = funcs[GetElemType()];
 	return (*func)(sig, pArrayRtn, this, axis);
 }
+#endif
 
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, size_t axis)
