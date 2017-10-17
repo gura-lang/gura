@@ -48,6 +48,7 @@ public:
 	void SetScalar(const T_Elem &num);
 	virtual void Fill(Double num);
 	virtual void RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) const;
+	virtual void Flatten(AutoPtr<Array> &pArrayRtn) const;
 	// functions to create an ArrayT instance
 	static ArrayT *Create(bool colMajorFlag);
 	static ArrayT *Create(bool colMajorFlag, const Dimensions &dims);

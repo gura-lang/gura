@@ -439,6 +439,37 @@ void ArrayT<Complex>::RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) cons
 	}
 }
 
+template<typename T_Elem>
+void ArrayT<T_Elem>::Flatten(AutoPtr<Array> &pArrayRtn) const
+{
+	bool colMajorFlag = false;
+	const Array::Dimensions &dims = GetDimensions();
+	pArrayRtn.reset(Create(colMajorFlag));
+	pArrayRtn->SetDimension(GetElemNum());
+	if (IsRowMajor() || dims.size() < 2) {
+		pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
+	} else {
+		pArrayRtn->AllocMemory();
+		const T_Elem *pElem = GetPointer();
+		T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
+		const Array::Dimension &dimRow = dims.GetRow();
+		const Array::Dimension &dimCol = dims.GetCol();
+		size_t nMats = GetElemNum() / dimRow.GetSizeProd();
+		const T_Elem *pElemMat = pElem;
+		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
+			const T_Elem *pElemRow = pElemMat;
+			for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
+					 pElemRow += dimRow.GetStrides()) {
+				const T_Elem *pElemCol = pElemRow;
+				for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
+						 pElemCol += dimCol.GetStrides()) {
+					*pElemRtn++ = *pElemCol;
+				}
+			}
+		}
+	}
+}
+
 /// functions to create an ArrayT instance
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag)

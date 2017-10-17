@@ -252,62 +252,6 @@ bool Array::Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 	return true;
 }
 
-template<typename T_Elem>
-void FlattenTmpl(Array *pArrayRtn, const Array *pArraySrc)
-{
-	const Array::Dimensions &dims = pArraySrc->GetDimensions();
-	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArraySrc)->GetPointer();
-	T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn)->GetPointer();
-	const Array::Dimension &dimRow = dims.GetRow();
-	const Array::Dimension &dimCol = dims.GetCol();
-	size_t nMats = pArraySrc->GetElemNum() / dimRow.GetSizeProd();
-	const T_Elem *pElemMat = pElem;
-	for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
-		const T_Elem *pElemRow = pElemMat;
-		for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
-				 pElemRow += dimRow.GetStrides()) {
-			const T_Elem *pElemCol = pElemRow;
-			for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
-					 pElemCol += dimCol.GetStrides()) {
-				*pElemRtn++ = *pElemCol;
-			}
-		}
-	}
-}
-
-void Array::Flatten(AutoPtr<Array> &pArrayRtn) const
-{
-	typedef void (*FuncT)(Array *pArrayRtn, const Array *pArraySrc);
-	static const FuncT funcs[ETYPE_Max] = {
-		nullptr,
-		&FlattenTmpl<Boolean>,
-		&FlattenTmpl<Int8>,
-		&FlattenTmpl<UInt8>,
-		&FlattenTmpl<Int16>,
-		&FlattenTmpl<UInt16>,
-		&FlattenTmpl<Int32>,
-		&FlattenTmpl<UInt32>,
-		&FlattenTmpl<Int64>,
-		&FlattenTmpl<UInt64>,
-		&FlattenTmpl<Half>,
-		&FlattenTmpl<Float>,
-		&FlattenTmpl<Double>,
-		&FlattenTmpl<Complex>,
-		//&FlattenTmpl<Value>,
-	};
-	bool colMajorFlag = false;
-	const Array::Dimensions &dims = GetDimensions();
-	pArrayRtn.reset(Create(GetElemType(), colMajorFlag));
-	pArrayRtn->SetDimension(GetElemNum());
-	if (IsRowMajor() || dims.size() < 2) {
-		pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
-	} else {
-		FuncT func = funcs[GetElemType()];
-		pArrayRtn->AllocMemory();
-		(*func)(pArrayRtn.get(), this);
-	}
-}
-
 bool Array::Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const
 {
 	bool unfixedFlag = false;

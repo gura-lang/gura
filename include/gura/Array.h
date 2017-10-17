@@ -307,7 +307,7 @@ public:
 	bool Head(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const;
 	bool Tail(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const;
 	bool Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const;
-	virtual void Flatten(AutoPtr<Array> &pArrayRtn) const;
+	virtual void Flatten(AutoPtr<Array> &pArrayRtn) const = 0;
 	bool Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const;
 	virtual bool Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const;
 	virtual bool Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const;
