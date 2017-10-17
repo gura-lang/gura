@@ -316,8 +316,8 @@ public:
 	virtual bool FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const = 0;
 	virtual bool FindMaxIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool lastFlag) const = 0;
 	virtual bool FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool lastFlag) const = 0;
-	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const;
-	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const;
+	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const = 0;
+	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const = 0;
 	virtual bool Paste(Signal &sig, size_t offset, const Array *pArraySrc);
 	virtual void ExpandKernelToColVector(AutoPtr<Array> &pArrayRtn, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;
 	virtual void StoreColVectorToKernel(AutoPtr<Array> &pArrayRtn, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;

@@ -314,6 +314,7 @@ void Array::Transpose2d(AutoPtr<Array> &pArrayRtn) const
 	pArrayRtn->FlipAxisMajor();
 }
 
+#if 0
 template<typename T_ElemRtn, typename T_Elem>
 ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool meanFlag)
 {
@@ -558,6 +559,7 @@ bool Array::CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool p
 	FuncT func = funcs[GetElemType()];
 	return (*func)(sig, pArrayRtn, this, axis, populationFlag, stdFlag);
 }
+#endif
 
 bool Array::Paste(Signal &sig, size_t offset, const Array *pArraySrc)
 {

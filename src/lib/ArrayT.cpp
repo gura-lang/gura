@@ -798,6 +798,225 @@ bool ArrayT<T_Elem>::FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_
 	return true;
 }
 
+template<typename T_ElemRtn, typename T_Elem>
+ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool meanFlag)
+{
+	bool colMajorFlag = false;
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
+	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(ArrayT<T_ElemRtn>::Create(colMajorFlag));
+	pArrayTRtn->SetDimensions(dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
+	pArrayTRtn->AllocMemory();
+	pArrayTRtn->FillZero();
+	Double numDenom = static_cast<Double>(pDimAxis->GetSize());
+	const T_Elem *pElemTop = pArrayT->GetPointer();
+	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
+	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
+	if (pArrayT->IsRowMajor() || axis + 2 >= dims.size()) {
+		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
+			const T_Elem *pElemBlock = pElemTop + offset;
+			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElemBlock++) {
+				T_ElemRtn numAccum = 0;
+				const T_Elem *pElemEach = pElemBlock;
+				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
+					numAccum += *pElemEach;
+				}
+				*pElemRtn++ = meanFlag? numAccum / numDenom : numAccum;
+			}
+		}
+	} else { // pArrayT->IsColMajor() && axis + 2 < dim.size()
+		const Array::Dimension &dimRow = dims.GetRow();
+		const Array::Dimension &dimCol = dims.GetCol();
+		size_t nMats = pDimAxis->GetStrides() / dimRow.GetSizeProd();
+		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
+			const T_Elem *pElemMat = pElemTop + offset;
+			for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
+				const T_Elem *pElemRow = pElemMat;
+				for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++, pElemRow += dimRow.GetStrides()) {
+					const T_Elem *pElemCol = pElemRow;
+					for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++, pElemCol += dimCol.GetStrides()) {
+						T_ElemRtn numAccum = 0;
+						const T_Elem *pElemEach = pElemCol;
+						for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
+							numAccum += *pElemEach;
+						}
+						*pElemRtn++ = meanFlag? numAccum / numDenom : numAccum;
+					}
+				}
+			}
+		}
+	}
+	return pArrayTRtn.release();
+}
+
+template<typename T_ElemRtn, typename T_Elem>
+T_ElemRtn CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
+{
+	Double numDenom = static_cast<Double>(pArrayT->GetElemNum());
+	if (numDenom == 0) return 0;
+	T_ElemRtn numAccum = 0;
+	const T_Elem *pElem = pArrayT->GetPointer();
+	for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
+		numAccum += *pElem;
+	}
+	return meanFlag? numAccum / numDenom : numAccum;
+}
+
+template<typename T_ElemRtn, typename T_Elem>
+bool CalcSumSub(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArraySelf, ssize_t axis, bool meanFlag)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArraySelf);
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	if (axis < 0 || (axis == 0 && dims.size() == 1)) {
+		pArrayRtn.reset(ArrayT<T_ElemRtn>::CreateScalar(CalcSumFlat<T_ElemRtn, T_Elem>(pArrayT, meanFlag)));
+	} else if (axis >= dims.size()) {
+		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+		return false;
+	} else {
+		pArrayRtn.reset(CalcSum<T_ElemRtn, T_Elem>(pArrayT, axis, meanFlag));
+	}
+	return true;
+}
+
+template<typename T_Elem>
+bool ArrayT<T_Elem>::CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const
+{
+	return CalcSumSub<T_Elem, T_Elem>(sig, pArrayRtn, this, axis, meanFlag);
+}
+
+template<>
+bool ArrayT<Boolean>::CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const
+{
+	return CalcSumSub<UInt32, Boolean>(sig, pArrayRtn, this, axis, meanFlag);
+}
+
+template<typename T_ElemRtn, typename T_Elem>
+ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool populationFlag, bool stdFlag)
+{
+	bool colMajorFlag = false;
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
+	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(ArrayT<T_ElemRtn>::Create(colMajorFlag));
+	pArrayTRtn->SetDimensions(dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
+	pArrayTRtn->AllocMemory();
+	pArrayTRtn->FillZero();
+	Double numDenom = static_cast<Double>(pDimAxis->GetSize());
+	Double numDenomVar = (numDenom <= 1)? 1 : populationFlag? numDenom : numDenom - 1;
+	const T_Elem *pElemTop = pArrayT->GetPointer();
+	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
+	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
+	if (pArrayT->IsRowMajor() || axis + 2 >= dims.size()) {
+		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
+			const T_Elem *pElemBlock = pElemTop + offset;
+			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElemBlock++) {
+				// calculates a mean value numMean
+				T_ElemRtn numMean = 0;
+				const T_Elem *pElemEach = pElemBlock;
+				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
+					numMean += *pElemEach;
+				}
+				numMean /= numDenom;
+				// accumulates values of ((*pElemEach - numMean) ** 2)
+				T_ElemRtn numAccum = 0;
+				pElemEach = pElemBlock;
+				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
+					T_ElemRtn tmp = *pElemEach - numMean;
+					numAccum += tmp * tmp;
+				}
+				numAccum /= numDenomVar;
+				if (stdFlag) Operator_Math_sqrt::Calc(numAccum, numAccum);
+				*pElemRtn++ = numAccum;
+			}
+		}
+	} else { // pArrayT->IsColMajor() && axis + 2 < dim.size()
+		const Array::Dimension &dimRow = dims.GetRow();
+		const Array::Dimension &dimCol = dims.GetCol();
+		size_t nMats = pDimAxis->GetStrides() / dimRow.GetSizeProd();
+		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
+			const T_Elem *pElemMat = pElemTop + offset;
+			for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
+				const T_Elem *pElemRow = pElemMat;
+				for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++, pElemRow += dimRow.GetStrides()) {
+					const T_Elem *pElemCol = pElemRow;
+					for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++, pElemCol += dimCol.GetStrides()) {
+						// calculates a mean value numMean
+						T_ElemRtn numMean = 0;
+						const T_Elem *pElemEach = pElemCol;
+						for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
+							numMean += *pElemEach;
+						}
+						numMean /= numDenom;
+						// accumulates values of ((*pElemEach - numMean) ** 2)
+						T_ElemRtn numAccum = 0;
+						pElemEach = pElemCol;
+						for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
+							T_ElemRtn tmp = *pElemEach - numMean;
+							numAccum += tmp * tmp;
+						}
+						numAccum /= numDenomVar;
+						if (stdFlag) Operator_Math_sqrt::Calc(numAccum, numAccum);
+						*pElemRtn++ = numAccum;
+					}
+				}
+			}
+		}
+	}
+	return pArrayTRtn.release();
+}
+
+template<typename T_ElemRtn, typename T_Elem>
+T_ElemRtn CalcVarFlat(const ArrayT<T_Elem> *pArrayT, bool populationFlag, bool stdFlag)
+{
+	Double numDenom = static_cast<Double>(pArrayT->GetElemNum());
+	if (numDenom == 0) return 0;
+	Double numDenomVar = (numDenom <= 1)? 1 : populationFlag? numDenom : numDenom - 1;
+	T_ElemRtn numMean = 0;
+	const T_Elem *pElem = pArrayT->GetPointer();
+	for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
+		numMean += *pElem;
+	}
+	numMean /= numDenom;
+	T_ElemRtn numAccum = 0;
+	pElem = pArrayT->GetPointer();
+	for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
+		T_ElemRtn tmp = *pElem - numMean;
+		numAccum += tmp * tmp;
+	}
+	numAccum /= numDenomVar;
+	if (stdFlag) Operator_Math_sqrt::Calc(numAccum, numAccum);
+	return numAccum;
+}
+
+template<typename T_ElemRtn, typename T_Elem>
+bool CalcVarSub(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArraySelf,
+				 ssize_t axis, bool populationFlag, bool stdFlag)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArraySelf);
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	if (axis < 0 || (axis == 0 && dims.size() == 1)) {
+		pArrayRtn.reset(ArrayT<T_ElemRtn>::CreateScalar(CalcVarFlat<T_ElemRtn, T_Elem>(
+															pArrayT, populationFlag, stdFlag)));
+	} else if (axis >= dims.size()) {
+		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
+		return false;
+	} else {
+		pArrayRtn.reset(CalcVar<T_ElemRtn, T_Elem>(pArrayT, axis, populationFlag, stdFlag));
+	}
+	return true;
+}
+
+template<typename T_Elem>
+bool ArrayT<T_Elem>::CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const
+{
+	return CalcVarSub<T_Elem, T_Elem>(sig, pArrayRtn, this, axis, populationFlag, stdFlag);
+}
+
+template<>
+bool ArrayT<Boolean>::CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const
+{
+	return CalcVarSub<UInt32, Boolean>(sig, pArrayRtn, this, axis, populationFlag, stdFlag);
+}
+
 /// functions to create an ArrayT instance
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag)
