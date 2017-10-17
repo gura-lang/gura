@@ -11,167 +11,6 @@ typedef Value (*FuncT_Method)(Environment &env, Argument &arg, const Function *p
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-template<typename T_ElemRtn, typename T_Elem>
-ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool meanFlag)
-{
-	bool colMajorFlag = false;
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(ArrayT<T_ElemRtn>::Create(colMajorFlag));
-	pArrayTRtn->SetDimensions(dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
-	pArrayTRtn->AllocMemory();
-	pArrayTRtn->FillZero();
-	Double numDenom = static_cast<Double>(pDimAxis->GetSize());
-	const T_Elem *pElemTop = pArrayT->GetPointer();
-	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
-	if (pArrayT->IsRowMajor() || axis + 2 >= dims.size()) {
-		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
-			const T_Elem *pElemBlock = pElemTop + offset;
-			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElemBlock++) {
-				T_ElemRtn numAccum = 0;
-				const T_Elem *pElemEach = pElemBlock;
-				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
-					numAccum += *pElemEach;
-				}
-				*pElemRtn++ = meanFlag? numAccum / numDenom : numAccum;
-			}
-		}
-	} else { // pArrayT->IsColMajor() && axis + 2 < dim.size()
-		const Array::Dimension &dimRow = dims.GetRow();
-		const Array::Dimension &dimCol = dims.GetCol();
-		size_t nMats = pDimAxis->GetStrides() / dimRow.GetSizeProd();
-		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
-			const T_Elem *pElemMat = pElemTop + offset;
-			for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
-				const T_Elem *pElemRow = pElemMat;
-				for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++, pElemRow += dimRow.GetStrides()) {
-					const T_Elem *pElemCol = pElemRow;
-					for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++, pElemCol += dimCol.GetStrides()) {
-						T_ElemRtn numAccum = 0;
-						const T_Elem *pElemEach = pElemCol;
-						for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
-							numAccum += *pElemEach;
-						}
-						*pElemRtn++ = meanFlag? numAccum / numDenom : numAccum;
-					}
-				}
-			}
-		}
-	}
-	return pArrayTRtn.release();
-}
-
-template<typename T_ElemRtn, typename T_Elem>
-T_ElemRtn CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
-{
-	Double numDenom = static_cast<Double>(pArrayT->GetElemNum());
-	if (numDenom == 0) return 0;
-	T_ElemRtn numAccum = 0;
-	const T_Elem *pElem = pArrayT->GetPointer();
-	for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
-		numAccum += *pElem;
-	}
-	return meanFlag? numAccum / numDenom : numAccum;
-}
-
-template<typename T_ElemRtn, typename T_Elem>
-ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool populationFlag, bool stdFlag)
-{
-	bool colMajorFlag = false;
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(ArrayT<T_ElemRtn>::Create(colMajorFlag));
-	pArrayTRtn->SetDimensions(dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
-	pArrayTRtn->AllocMemory();
-	pArrayTRtn->FillZero();
-	Double numDenom = static_cast<Double>(pDimAxis->GetSize());
-	Double numDenomVar = (numDenom <= 1)? 1 : populationFlag? numDenom : numDenom - 1;
-	const T_Elem *pElemTop = pArrayT->GetPointer();
-	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
-	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
-	if (pArrayT->IsRowMajor() || axis + 2 >= dims.size()) {
-		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
-			const T_Elem *pElemBlock = pElemTop + offset;
-			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElemBlock++) {
-				// calculates a mean value numMean
-				T_ElemRtn numMean = 0;
-				const T_Elem *pElemEach = pElemBlock;
-				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
-					numMean += *pElemEach;
-				}
-				numMean /= numDenom;
-				// accumulates values of ((*pElemEach - numMean) ** 2)
-				T_ElemRtn numAccum = 0;
-				pElemEach = pElemBlock;
-				for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
-					T_ElemRtn tmp = *pElemEach - numMean;
-					numAccum += tmp * tmp;
-				}
-				numAccum /= numDenomVar;
-				if (stdFlag) Operator_Math_sqrt::Calc(numAccum, numAccum);
-				*pElemRtn++ = numAccum;
-			}
-		}
-	} else { // pArrayT->IsColMajor() && axis + 2 < dim.size()
-		const Array::Dimension &dimRow = dims.GetRow();
-		const Array::Dimension &dimCol = dims.GetCol();
-		size_t nMats = pDimAxis->GetStrides() / dimRow.GetSizeProd();
-		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
-			const T_Elem *pElemMat = pElemTop + offset;
-			for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
-				const T_Elem *pElemRow = pElemMat;
-				for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++, pElemRow += dimRow.GetStrides()) {
-					const T_Elem *pElemCol = pElemRow;
-					for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++, pElemCol += dimCol.GetStrides()) {
-						// calculates a mean value numMean
-						T_ElemRtn numMean = 0;
-						const T_Elem *pElemEach = pElemCol;
-						for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
-							numMean += *pElemEach;
-						}
-						numMean /= numDenom;
-						// accumulates values of ((*pElemEach - numMean) ** 2)
-						T_ElemRtn numAccum = 0;
-						pElemEach = pElemCol;
-						for (size_t i = 0; i < pDimAxis->GetSize(); i++, pElemEach += pDimAxis->GetStrides()) {
-							T_ElemRtn tmp = *pElemEach - numMean;
-							numAccum += tmp * tmp;
-						}
-						numAccum /= numDenomVar;
-						if (stdFlag) Operator_Math_sqrt::Calc(numAccum, numAccum);
-						*pElemRtn++ = numAccum;
-					}
-				}
-			}
-		}
-	}
-	return pArrayTRtn.release();
-}
-
-template<typename T_ElemRtn, typename T_Elem>
-T_ElemRtn CalcVarFlat(const ArrayT<T_Elem> *pArrayT, bool populationFlag, bool stdFlag)
-{
-	Double numDenom = static_cast<Double>(pArrayT->GetElemNum());
-	if (numDenom == 0) return 0;
-	Double numDenomVar = (numDenom <= 1)? 1 : populationFlag? numDenom : numDenom - 1;
-	T_ElemRtn numMean = 0;
-	const T_Elem *pElem = pArrayT->GetPointer();
-	for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
-		numMean += *pElem;
-	}
-	numMean /= numDenom;
-	T_ElemRtn numAccum = 0;
-	pElem = pArrayT->GetPointer();
-	for (size_t i = 0; i < pArrayT->GetElemNum(); i++, pElem++) {
-		T_ElemRtn tmp = *pElem - numMean;
-		numAccum += tmp * tmp;
-	}
-	numAccum /= numDenomVar;
-	if (stdFlag) Operator_Math_sqrt::Calc(numAccum, numAccum);
-	return numAccum;
-}
-
 Value CallMethod(Environment &env, Argument &arg, const FuncT_Method funcTbl[],
 				 const Function *pFunc, Array *pArraySelf)
 {
@@ -684,50 +523,13 @@ Gura_DeclareMethod(array, mean)
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
-template<typename T_ElemRtn, typename T_Elem>
-Value FuncTmpl_mean(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Value valueRtn;
-	if (arg.IsValid(0)) {
-		size_t axis = arg.GetSizeT(0);
-		const Array::Dimensions &dims = pArrayT->GetDimensions();
-		if (axis >= dims.size()) {
-			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
-			return Value::Nil;
-		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcSumFlat<T_ElemRtn, T_Elem>(pArrayT, true));
-		} else {
-			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcSum<T_ElemRtn, T_Elem>(pArrayT, axis, true));
-			if (pArrayTRtn.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
-		}
-	} else {
-		valueRtn = Value(CalcSumFlat<T_ElemRtn, T_Elem>(pArrayT, true));
-	}
-	return pFunc->ReturnValue(env, arg, valueRtn);
-}
-
 Gura_ImplementMethod(array, mean)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_mean<UInt32, Boolean>,
-		&FuncTmpl_mean<Int8, Int8>,
-		&FuncTmpl_mean<UInt8, UInt8>,
-		&FuncTmpl_mean<Int16, Int16>,
-		&FuncTmpl_mean<UInt16, UInt16>,
-		&FuncTmpl_mean<Int32, Int32>,
-		&FuncTmpl_mean<UInt32, UInt32>,
-		&FuncTmpl_mean<Int64, Int64>,
-		&FuncTmpl_mean<UInt64, UInt64>,
-		&FuncTmpl_mean<Half, Half>,
-		&FuncTmpl_mean<Float, Float>,
-		&FuncTmpl_mean<Double, Double>,
-		&FuncTmpl_mean<Complex, Complex>,
-		//&FuncTmpl_mean<Value, Value>,
-	};
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	AutoPtr<Array> pArrayRtn;
+	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	if (!pArraySelf->CalcSum(env, pArrayRtn, axis, true)) return Value::Nil;
+	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
 // array#min(axis?:number):[index,last_index] {block?}
@@ -901,51 +703,14 @@ Gura_DeclareMethod(array, std)
 		"that summation by `n`.\n");
 }
 
-template<typename T_ElemRtn, typename T_Elem>
-Value FuncTmpl_std(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	bool populationFlag = arg.IsSet(Gura_Symbol(p));
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Value valueRtn;
-	if (arg.IsValid(0)) {
-		size_t axis = arg.GetSizeT(0);
-		const Array::Dimensions &dims = pArrayT->GetDimensions();
-		if (axis >= dims.size()) {
-			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
-			return Value::Nil;
-		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcVarFlat<T_ElemRtn, T_Elem>(pArrayT, populationFlag, true));
-		} else {
-			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcVar<T_ElemRtn, T_Elem>(pArrayT, axis, populationFlag, true));
-			if (pArrayTRtn.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
-		}
-	} else {
-		valueRtn = Value(CalcVarFlat<T_ElemRtn, T_Elem>(pArrayT, populationFlag, true));
-	}
-	return pFunc->ReturnValue(env, arg, valueRtn);
-}
-
 Gura_ImplementMethod(array, std)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_std<UInt32, Boolean>,
-		&FuncTmpl_std<Int8, Int8>,
-		&FuncTmpl_std<UInt8, UInt8>,
-		&FuncTmpl_std<Int16, Int16>,
-		&FuncTmpl_std<UInt16, UInt16>,
-		&FuncTmpl_std<Int32, Int32>,
-		&FuncTmpl_std<UInt32, UInt32>,
-		&FuncTmpl_std<Int64, Int64>,
-		&FuncTmpl_std<UInt64, UInt64>,
-		&FuncTmpl_std<Half, Half>,
-		&FuncTmpl_std<Float, Float>,
-		&FuncTmpl_std<Double, Double>,
-		&FuncTmpl_std<Complex, Complex>,
-		//&FuncTmpl_std<Value, Value>,
-	};
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	bool populationFlag = arg.IsSet(Gura_Symbol(p));
+	AutoPtr<Array> pArrayRtn;
+	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	if (!pArraySelf->CalcVar(env, pArrayRtn, axis, populationFlag, true)) return Value::Nil;
+	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
 // array#sum(axis?:number) {block?}
@@ -959,50 +724,13 @@ Gura_DeclareMethod(array, sum)
 		"Calculates a summation value of elements in the target `array`.\n");
 }
 
-template<typename T_ElemRtn, typename T_Elem>
-Value FuncTmpl_sum(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Value valueRtn;
-	if (arg.IsValid(0)) {
-		size_t axis = arg.GetSizeT(0);
-		const Array::Dimensions &dims = pArrayT->GetDimensions();
-		if (axis >= dims.size()) {
-			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
-			return Value::Nil;
-		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcSumFlat<T_ElemRtn, T_Elem>(pArrayT, false));
-		} else {
-			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcSum<T_ElemRtn, T_Elem>(pArrayT, axis, false));
-			if (pArrayTRtn.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
-		}
-	} else {
-		valueRtn = Value(CalcSumFlat<T_ElemRtn, T_Elem>(pArrayT, false));
-	}
-	return pFunc->ReturnValue(env, arg, valueRtn);
-}
-
 Gura_ImplementMethod(array, sum)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_sum<UInt32, Boolean>,
-		&FuncTmpl_sum<Int8, Int8>,
-		&FuncTmpl_sum<UInt8, UInt8>,
-		&FuncTmpl_sum<Int16, Int16>,
-		&FuncTmpl_sum<UInt16, UInt16>,
-		&FuncTmpl_sum<Int32, Int32>,
-		&FuncTmpl_sum<UInt32, UInt32>,
-		&FuncTmpl_sum<Int64, Int64>,
-		&FuncTmpl_sum<UInt64, UInt64>,
-		&FuncTmpl_sum<Half, Half>,
-		&FuncTmpl_sum<Float, Float>,
-		&FuncTmpl_sum<Double, Double>,
-		&FuncTmpl_sum<Complex, Complex>,
-		//&FuncTmpl_sum<Value, Value>,
-	};
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	AutoPtr<Array> pArrayRtn;
+	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	if (!pArraySelf->CalcSum(env, pArrayRtn, axis, false)) return Value::Nil;
+	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
 // array#tail(n:number):map {block?}
@@ -1102,51 +830,14 @@ Gura_DeclareMethod(array, var)
 		"that summation by `n`.\n");
 }
 
-template<typename T_ElemRtn, typename T_Elem>
-Value FuncTmpl_var(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	bool populationFlag = arg.IsSet(Gura_Symbol(p));
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Value valueRtn;
-	if (arg.IsValid(0)) {
-		size_t axis = arg.GetSizeT(0);
-		const Array::Dimensions &dims = pArrayT->GetDimensions();
-		if (axis >= dims.size()) {
-			env.SetError(ERR_OutOfRangeError, "specified axis is out of range");
-			return Value::Nil;
-		} else if (axis == 0 && dims.size() == 1) {
-			valueRtn = Value(CalcVarFlat<T_ElemRtn, T_Elem>(pArrayT, populationFlag, false));
-		} else {
-			AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(CalcVar<T_ElemRtn, T_Elem>(pArrayT, axis, populationFlag, false));
-			if (pArrayTRtn.IsNull()) return Value::Nil;
-			valueRtn = Value(new Object_array(env, pArrayTRtn.release()));
-		}
-	} else {
-		valueRtn = Value(CalcVarFlat<T_ElemRtn, T_Elem>(pArrayT, populationFlag, false));
-	}
-	return pFunc->ReturnValue(env, arg, valueRtn);
-}
-
 Gura_ImplementMethod(array, var)
 {
-	static const FuncT_Method funcTbl[Array::ETYPE_Max] = {
-		nullptr,
-		&FuncTmpl_var<UInt32, Boolean>,
-		&FuncTmpl_var<Int8, Int8>,
-		&FuncTmpl_var<UInt8, UInt8>,
-		&FuncTmpl_var<Int16, Int16>,
-		&FuncTmpl_var<UInt16, UInt16>,
-		&FuncTmpl_var<Int32, Int32>,
-		&FuncTmpl_var<UInt32, UInt32>,
-		&FuncTmpl_var<Int64, Int64>,
-		&FuncTmpl_var<UInt64, UInt64>,
-		&FuncTmpl_var<Half, Half>,
-		&FuncTmpl_var<Float, Float>,
-		&FuncTmpl_var<Double, Double>,
-		&FuncTmpl_var<Complex, Complex>,
-		//&FuncTmpl_var<Value, Value>,
-	};
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	bool populationFlag = arg.IsSet(Gura_Symbol(p));
+	AutoPtr<Array> pArrayRtn;
+	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	if (!pArraySelf->CalcVar(env, pArrayRtn, axis, populationFlag, false)) return Value::Nil;
+	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
 void AssignMethods(Environment &env)
