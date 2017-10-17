@@ -302,7 +302,8 @@ public:
 	void SetDimensions(const ValueList &valList);
 	void UpdateMetrics();
 	void FillZero();
-	void Fill(Double num); // overwritten by ArrayT
+	virtual void Fill(Double num) = 0;
+	virtual void RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) const = 0;
 	bool Head(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const;
 	bool Tail(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const;
 	bool Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const;

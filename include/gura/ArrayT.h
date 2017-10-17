@@ -46,8 +46,8 @@ public:
 	virtual void FillRandRange(UInt range);
 	virtual void FillRandNormal(double mu, double sigma);
 	void SetScalar(const T_Elem &num);
-	void Fill(const T_Elem &num);
-	ArrayT *RoundOff(double threshold) const;
+	virtual void Fill(Double num);
+	virtual void RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) const;
 	// functions to create an ArrayT instance
 	static ArrayT *Create(bool colMajorFlag);
 	static ArrayT *Create(bool colMajorFlag, const Dimensions &dims);

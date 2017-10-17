@@ -649,19 +649,13 @@ Gura_DeclareMethod(array, roundoff)
 		GURA_HELPTEXT_BLOCK_en("array", "array"));
 }
 
-template<typename T_Elem>
-Value FuncTmpl_roundoff(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	double threshold = arg.IsValid(0)? arg.GetDouble(0) : 1.e-6;
-	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	AutoPtr<Array> pArrayTRtn(pArrayT->RoundOff(threshold));
-	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayTRtn.release())));
-}
-
 Gura_ImplementMethod(array, roundoff)
 {
-	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_roundoff);
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	double threshold = arg.IsValid(0)? arg.GetDouble(0) : 1.e-6;
+	AutoPtr<Array> pArrayRtn;
+	pArraySelf->RoundOff(pArrayRtn, threshold);
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
 // array#std(axis?:number):[p] {block?}

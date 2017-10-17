@@ -366,22 +366,23 @@ void ArrayT<T_Elem>::SetScalar(const T_Elem &num)
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::Fill(const T_Elem &num)
+void ArrayT<T_Elem>::Fill(Double num)
 {
 	T_Elem *pElem = GetPointer();
+	T_Elem numCasted = static_cast<T_Elem>(num);
 	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
-		*pElem = num;
+		*pElem = numCasted;
 	}
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::RoundOff(double threshold) const
+void ArrayT<T_Elem>::RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) const
 {
 	const Array::Dimensions &dims = GetDimensions();
 	bool colMajorFlag = false;
-	AutoPtr<ArrayT> pArrayRtn(ArrayT::Create(colMajorFlag, GetDimensions()));
+	pArrayRtn.reset(ArrayT::Create(colMajorFlag, GetDimensions()));
 	const T_Elem *pElem = GetPointer();
-	T_Elem *pElemRtn = pArrayRtn->GetPointer();
+	T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
 	if (IsRowMajor() || dims.size() < 2) {
 		for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
 			*pElemRtn++ = (*pElem < threshold)? 0 : *pElem;
@@ -403,19 +404,18 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::RoundOff(double threshold) const
 			}
 		}
 	}
-	return pArrayRtn.release();
 }
 
 template<>
-ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
+void ArrayT<Complex>::RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) const
 {
 	typedef Complex T_Elem;
 	const Array::Dimensions &dims = GetDimensions();
 	double threshold2 = threshold * threshold;
 	bool colMajorFlag = false;
-	AutoPtr<ArrayT> pArrayRtn(ArrayT::Create(colMajorFlag, GetDimensions()));
+	pArrayRtn.reset(ArrayT::Create(colMajorFlag, GetDimensions()));
 	const T_Elem *pElem = GetPointer();
-	T_Elem *pElemRtn = pArrayRtn->GetPointer();
+	T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
 	if (IsRowMajor() || dims.size() < 2) {
 		for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
 			*pElemRtn++ = (std::norm(*pElem) < threshold2)? 0 : *pElem;
@@ -437,7 +437,6 @@ ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
 			}
 		}
 	}
-	return pArrayRtn.release();
 }
 
 /// functions to create an ArrayT instance

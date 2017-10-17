@@ -209,35 +209,6 @@ void Array::FillZero()
 	::memset(GetPointerRaw(), 0x00, GetElemBytes() * GetElemNum());
 }
 
-template<typename T_Elem>
-void FillTmpl(Array *pArray, Double num) {
-	dynamic_cast<ArrayT<T_Elem> *>(pArray)->Fill(static_cast<T_Elem>(num));
-}
-
-void Array::Fill(Double num)
-{
-	typedef void (*FuncT)(Array *pArray, Double num);
-	static const FuncT funcs[ETYPE_Max] = {
-		nullptr,
-		&FillTmpl<Boolean>,
-		&FillTmpl<Int8>,
-		&FillTmpl<UInt8>,
-		&FillTmpl<Int16>,
-		&FillTmpl<UInt16>,
-		&FillTmpl<Int32>,
-		&FillTmpl<UInt32>,
-		&FillTmpl<Int64>,
-		&FillTmpl<UInt64>,
-		&FillTmpl<Half>,
-		&FillTmpl<Float>,
-		&FillTmpl<Double>,
-		&FillTmpl<Complex>,
-		//&FillTmpl<Value>,
-	};
-	FuncT func = funcs[GetElemType()];
-	(*func)(this, num);
-}
-
 bool Array::Head(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 {
 	const Dimension &dimFirst = GetDimensions().front();
