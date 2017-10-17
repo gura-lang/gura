@@ -589,27 +589,14 @@ Gura_DeclareMethod(array, paste)
 		);
 }
 
-template<typename T_Elem>
-Value FuncTmpl_paste(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	size_t offset = arg.GetSizeT(0);
-	const Array *pArraySrc = Object_array::GetObject(arg, 1)->GetArray();
-	if (pArraySrc->GetElemType() != ArrayT<T_Elem>::ElemTypeThis) {
-		env.SetError(ERR_TypeError,
-					 "source and destination array must cosist of elements of the same type");
-		return Value::Nil;
-	}
-	const ArrayT<T_Elem> *pArrayTSrc = dynamic_cast<const ArrayT<T_Elem> *>(pArraySrc);
-	if (!pArrayT->PrepareModification(env)) return Value::Nil;
-	pArrayT->Paste(env, offset, pArrayTSrc);
-	return Value::Nil;
-}
-
 Gura_ImplementMethod(array, paste)
 {
-	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_paste);
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	size_t offset = arg.GetSizeT(0);
+	const Array *pArraySrc = Object_array::GetObject(arg, 1)->GetArray();
+	if (!pArraySelf->PrepareModification(env)) return Value::Nil;
+	pArraySelf->Paste(env, offset, pArraySrc);
+	return Value::Nil;
 }
 
 // array#reshape(dims[]:number:nil) {block?}

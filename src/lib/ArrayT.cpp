@@ -302,20 +302,32 @@ template<> const char *ArrayT<Complex>::ConstructorName 	= "array@complex";
 //template<> const char *ArrayT<Value>::ConstructorName 	= "array@value";
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::SetScalar(const T_Elem &num)
+void CopyToList_Sub(Object_list *pObjList, const T_Elem *pElem,
+					Array::Dimensions::const_iterator pDim, Array::Dimensions::const_iterator pDimEnd)
 {
-	_elemNum = 1;
-	AllocMemory();
-	*GetPointer() = num;
+	Environment &env = *pObjList;
+	if (pObjList->Empty()) pObjList->Reserve(pDim->GetSize());
+	if (pDim + 1 == pDimEnd) {
+		for (size_t i = 0; i < pDim->GetSize(); i++, pElem += pDim->GetStrides()) {
+			pObjList->AddFast(Value(*pElem));
+		}
+		pObjList->SetValueType(ArrayT<T_Elem>::ValueTypeElem);
+	} else {
+		for (size_t i = 0; i < pDim->GetSize(); i++, pElem += pDim->GetStrides()) {
+			Value value;
+			Object_list *pObjListSub = value.InitAsList(env, pDim->GetSize());
+			pObjList->AddFast(value);
+			CopyToList_Sub(pObjListSub, pElem, pDim + 1, pDimEnd);
+		}
+		pObjList->SetValueType(VTYPE_list);
+	}
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::Fill(const T_Elem &num)
+void ArrayT<T_Elem>::CopyToList(Object_list *pObjList) const
 {
-	T_Elem *pElem = GetPointer();
-	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
-		*pElem = num;
-	}
+	const Dimensions &dims = GetDimensions();
+	CopyToList_Sub(pObjList, GetPointer(), dims.begin(), dims.end());
 }
 
 template<typename T_Elem>
@@ -346,44 +358,20 @@ void ArrayT<T_Elem>::FillRandNormal(double mu, double sigma)
 }
 
 template<typename T_Elem>
-bool ArrayT<T_Elem>::Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc)
+void ArrayT<T_Elem>::SetScalar(const T_Elem &num)
 {
-	if (GetElemNum() < offset + pArrayTSrc->GetElemNum()) {
-		sig.SetError(ERR_OutOfRangeError, "out of range");
-		return false;
-	}
-	::memcpy(GetPointer() + offset, pArrayTSrc->GetPointer(),
-			 sizeof(T_Elem) * pArrayTSrc->GetElemNum());
-	return true;
+	_elemNum = 1;
+	AllocMemory();
+	*GetPointer() = num;
 }
 
 template<typename T_Elem>
-void CopyToList_Sub(Object_list *pObjList, const T_Elem *pElem,
-					Array::Dimensions::const_iterator pDim, Array::Dimensions::const_iterator pDimEnd)
+void ArrayT<T_Elem>::Fill(const T_Elem &num)
 {
-	Environment &env = *pObjList;
-	if (pObjList->Empty()) pObjList->Reserve(pDim->GetSize());
-	if (pDim + 1 == pDimEnd) {
-		for (size_t i = 0; i < pDim->GetSize(); i++, pElem += pDim->GetStrides()) {
-			pObjList->AddFast(Value(*pElem));
-		}
-		pObjList->SetValueType(ArrayT<T_Elem>::ValueTypeElem);
-	} else {
-		for (size_t i = 0; i < pDim->GetSize(); i++, pElem += pDim->GetStrides()) {
-			Value value;
-			Object_list *pObjListSub = value.InitAsList(env, pDim->GetSize());
-			pObjList->AddFast(value);
-			CopyToList_Sub(pObjListSub, pElem, pDim + 1, pDimEnd);
-		}
-		pObjList->SetValueType(VTYPE_list);
+	T_Elem *pElem = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, pElem++) {
+		*pElem = num;
 	}
-}
-
-template<typename T_Elem>
-void ArrayT<T_Elem>::CopyToList(Object_list *pObjList) const
-{
-	const Dimensions &dims = GetDimensions();
-	CopyToList_Sub(pObjList, GetPointer(), dims.begin(), dims.end());
 }
 
 template<typename T_Elem>

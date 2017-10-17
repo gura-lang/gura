@@ -1091,6 +1091,22 @@ bool Array::CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool p
 	return (*func)(sig, pArrayRtn, this, axis, populationFlag, stdFlag);
 }
 
+bool Array::Paste(Signal &sig, size_t offset, const Array *pArraySrc)
+{
+	if (GetElemType() != pArraySrc->GetElemType()) {
+		sig.SetError(ERR_TypeError,
+					 "source and destination array must cosist of elements of the same type");
+		return false;
+	}
+	if (GetElemNum() < offset + pArraySrc->GetElemNum()) {
+		sig.SetError(ERR_OutOfRangeError, "out of range");
+		return false;
+	}
+	::memcpy(GetPointerRaw() + GetElemBytes() * offset, pArraySrc->GetPointerRaw(),
+			 GetElemBytes() * pArraySrc->GetElemNum());
+	return true;
+}
+
 void Array::ExpandKernelToColVector(AutoPtr<Array> &pArrayRtn, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
 {
 }

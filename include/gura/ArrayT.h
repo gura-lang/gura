@@ -41,13 +41,12 @@ public:
 	virtual bool DoesContainZeroOrMinus() const;
 	virtual Double GetScalarNumber() const;
 	virtual Complex GetScalarComplex() const;
+	virtual void CopyToList(Object_list *pObjList) const;
+	virtual void FillRand();
+	virtual void FillRandRange(UInt range);
+	virtual void FillRandNormal(double mu, double sigma);
 	void SetScalar(const T_Elem &num);
 	void Fill(const T_Elem &num);
-	void FillRand();
-	void FillRandRange(UInt range);
-	void FillRandNormal(double mu, double sigma);
-	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc);
-	void CopyToList(Object_list *pObjList) const;
 	ArrayT *RoundOff(double threshold) const;
 	// functions to create an ArrayT instance
 	static ArrayT *Create(bool colMajorFlag);
