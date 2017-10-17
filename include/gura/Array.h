@@ -309,8 +309,8 @@ public:
 	bool Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const;
 	virtual void Flatten(AutoPtr<Array> &pArrayRtn) const = 0;
 	bool Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const;
-	virtual bool Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const;
-	virtual bool Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const;
+	bool Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const;
+	virtual bool Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const = 0;
 	void Transpose2d(AutoPtr<Array> &pArrayRtn) const;
 	virtual bool FindMax(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const;
 	virtual bool FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const;

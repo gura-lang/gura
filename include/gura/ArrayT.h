@@ -49,6 +49,7 @@ public:
 	virtual void Fill(Double num);
 	virtual void RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) const;
 	virtual void Flatten(AutoPtr<Array> &pArrayRtn) const;
+	virtual bool Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const;
 	// functions to create an ArrayT instance
 	static ArrayT *Create(bool colMajorFlag);
 	static ArrayT *Create(bool colMajorFlag, const Dimensions &dims);

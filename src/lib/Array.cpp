@@ -286,25 +286,6 @@ bool Array::Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &val
 	return true;
 }
 
-template<typename T_Elem>
-void TransposeSubTmpl(void **ppElemDstRaw, const void *pElemSrcRaw, const Array::Dimensions &dimsSrc,
-					  SizeTList::const_iterator pAxis, SizeTList::const_iterator pAxisEnd)
-{
-	T_Elem *&pElemDst = *reinterpret_cast<T_Elem **>(ppElemDstRaw);
-	const T_Elem *pElemSrc = reinterpret_cast<const T_Elem *>(pElemSrcRaw);
-	const Array::Dimension &dimSrc = dimsSrc[*pAxis];
-	if (pAxis + 1 == pAxisEnd) {
-		for (size_t i = 0; i < dimSrc.GetSize(); i++, pElemSrc += dimSrc.GetStrides(), pElemDst++) {
-			*pElemDst = *pElemSrc;
-		}
-	} else {
-		for (size_t i = 0; i < dimSrc.GetSize(); i++, pElemSrc += dimSrc.GetStrides()) {
-			TransposeSubTmpl<T_Elem>(reinterpret_cast<void **>(&pElemDst),
-									 reinterpret_cast<const void *>(pElemSrc), dimsSrc, pAxis + 1, pAxisEnd);
-		}
-	}
-}
-
 bool Array::Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const
 {
 	if (GetDimensions().size() != valList.size()) {
@@ -325,71 +306,6 @@ bool Array::Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &v
 		axes.push_back(axis);
 	}
 	return Transpose(pArrayRtn, axes);
-}
-
-bool Array::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const
-{
-	typedef void (*FuncT)(void **ppElemDstRaw, const void *pElemSrcRaw, const Array::Dimensions &dimsSrc,
-						  SizeTList::const_iterator pAxis, SizeTList::const_iterator pAxisEnd);
-	static const FuncT funcs[ETYPE_Max] = {
-		nullptr,
-		&TransposeSubTmpl<Boolean>,
-		&TransposeSubTmpl<Int8>,
-		&TransposeSubTmpl<UInt8>,
-		&TransposeSubTmpl<Int16>,
-		&TransposeSubTmpl<UInt16>,
-		&TransposeSubTmpl<Int32>,
-		&TransposeSubTmpl<UInt32>,
-		&TransposeSubTmpl<Int64>,
-		&TransposeSubTmpl<UInt64>,
-		&TransposeSubTmpl<Half>,
-		&TransposeSubTmpl<Float>,
-		&TransposeSubTmpl<Double>,
-		&TransposeSubTmpl<Complex>,
-		//&TransposeSubTmpl<Value>,
-	};
-	FuncT func = funcs[GetElemType()];
-	if (axes.size() < 2) {
-		pArrayRtn.reset(Clone());
-		return true;
-	}
-	Dimensions::const_reverse_iterator pDim = GetDimensions().rbegin();
-	bool memorySharableFlag = false;
-	if (pDim->GetSize() == 1 || (pDim + 1)->GetSize() == 1) {
-		memorySharableFlag = true;
-		SizeTList::const_iterator pAxis = axes.begin();
-		SizeTList::const_iterator pAxisEnd = axes.begin() + axes.size() - 2;
-		for (size_t axisInc = 0; pAxis != pAxisEnd; pAxis++, axisInc++) {
-			if (*pAxis != axisInc) {
-				memorySharableFlag = false;
-				break;
-			}
-		}
-	}
-	if (pArrayRtn.IsNull()) {
-		bool colMajorFlag = false;
-		pArrayRtn.reset(Create(GetElemType(), colMajorFlag));
-		Dimensions &dimsDst = pArrayRtn->GetDimensions();
-		dimsDst.reserve(GetDimensions().size());
-		foreach_const (SizeTList, pAxis, axes) {
-			const Dimension &dimSrc = GetDimensions()[*pAxis];
-			dimsDst.push_back(Dimension(dimSrc.GetSize()));
-		}
-		pArrayRtn->UpdateMetrics();
-		if (memorySharableFlag) {
-			pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
-		} else {
-			pArrayRtn->AllocMemory();
-			void *pElemDstRaw = pArrayRtn->GetPointerRaw();
-			(*func)(&pElemDstRaw, GetPointerRaw(), GetDimensions(), axes.begin(), axes.end());
-		}
-	} else {
-		if (!memorySharableFlag) {
-			void *pElemDstRaw = pArrayRtn->GetPointerRaw();
-			(*func)(&pElemDstRaw, GetPointerRaw(), GetDimensions(), axes.begin(), axes.end());
-		}
-	}
-	return true;
 }
 
 void Array::Transpose2d(AutoPtr<Array> &pArrayRtn) const
