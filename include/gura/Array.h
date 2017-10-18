@@ -270,6 +270,7 @@ public:
 	inline const char *GetPointerRaw() const { return GetPointerRawOrigin() + GetOffsetBase() * GetElemBytes(); }
 	virtual Array *Clone() const = 0;
 	virtual String ToString(bool exprFlag) const = 0;
+	virtual void Dump(Signal &sig, Stream &stream, bool upperFlag) const = 0;
 	virtual bool DoesContainZero() const = 0;
 	virtual bool DoesContainMinus() const = 0;
 	virtual bool DoesContainZeroOrMinus() const = 0;

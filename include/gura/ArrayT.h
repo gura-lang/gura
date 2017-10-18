@@ -36,6 +36,7 @@ public:
 	inline operator const T_Elem *() const { return GetPointer(); }
 	virtual Array *Clone() const;
 	virtual String ToString(bool exprFlag) const;
+	virtual void Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 	virtual bool DoesContainZero() const;
 	virtual bool DoesContainMinus() const;
 	virtual bool DoesContainZeroOrMinus() const;
@@ -71,6 +72,9 @@ public:
 private:
 	inline ~ArrayT() {}
 };
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::Dump(Signal &sig, Stream &stream, bool upperFlag) const {}
 
 template<typename T_Elem>
 void FillDouble(T_Elem *pElem, size_t nElems, Double num, size_t strides)
