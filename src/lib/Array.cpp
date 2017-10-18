@@ -330,14 +330,6 @@ bool Array::Paste(Signal &sig, size_t offset, const Array *pArraySrc)
 	return true;
 }
 
-void Array::ExpandKernelToColVector(AutoPtr<Array> &pArrayRtn, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
-{
-}
-
-void Array::StoreColVectorToKernel(AutoPtr<Array> &pArrayRtn, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
-{
-}
-
 bool Array::IsSquare() const
 {
 	return _dims.HasRowCol() && (_dims.GetRow().GetSize() == _dims.GetCol().GetSize());

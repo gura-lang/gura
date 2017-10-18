@@ -153,19 +153,11 @@ Gura_DeclareMethod(array, each)
 		);
 }
 
-template<typename T_Elem>
-Value FuncTmpl_each(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(
-									pArrayT->Reference(), arg.IsSet(Gura_Symbol(flat))));
-	return pFunc->ReturnIterator(env, arg, pIterator.release());
-}
-
 Gura_ImplementMethod(array, each)
 {
-	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_each);
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	AutoPtr<Iterator> pIterator(pArraySelf->CreateIteratorEach(arg.IsSet(Gura_Symbol(flat))));
+	return ReturnIterator(env, arg, pIterator.release());
 }
 
 // array#elemcast(elemtype:symbol) {block?}

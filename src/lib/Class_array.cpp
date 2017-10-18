@@ -238,34 +238,10 @@ void Object_array::EvalIndexSet(Environment &env, const ValueList &valListIdx, c
 	(*evalIndexSetTbl[GetArray()->GetElemType()])(env, valListIdx, value, this);
 }
 
-template<typename T_Elem>
-Iterator *CreateIteratorTmpl(Array *pArray)
-{
-	bool flatFlag = true;
-	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArray);
-	return new Iterator_ArrayT_Each<T_Elem>(pArrayT->Reference(), flatFlag);
-}
-
 Iterator *Object_array::CreateIterator(Signal &sig)
 {
-	static const CreateIteratorT createIteratorTbl[] = {
-		nullptr,
-		&CreateIteratorTmpl<Boolean>,
-		&CreateIteratorTmpl<Int8>,
-		&CreateIteratorTmpl<UInt8>,
-		&CreateIteratorTmpl<Int16>,
-		&CreateIteratorTmpl<UInt16>,
-		&CreateIteratorTmpl<Int32>,
-		&CreateIteratorTmpl<UInt32>,
-		&CreateIteratorTmpl<Int64>,
-		&CreateIteratorTmpl<UInt64>,
-		&CreateIteratorTmpl<Half>,
-		&CreateIteratorTmpl<Float>,
-		&CreateIteratorTmpl<Double>,
-		&CreateIteratorTmpl<Complex>,
-		//&CreateIteratorTmpl<Value>,
-	};
-	return (*createIteratorTbl[GetArray()->GetElemType()])(GetArray());
+	const bool flatFlag = false;
+	return GetArray()->CreateIteratorEach(flatFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -657,9 +633,8 @@ bool CastToTmpl(Environment &env, Value &value, const Declaration &decl, const A
 		pArrayT->CopyToList(pObjList);
 		return true;
 	} else if (decl.IsType(VTYPE_iterator)) {
-		AutoPtr<ArrayT<T_Elem> > pArrayT(
-			dynamic_cast<const ArrayT<T_Elem> *>(pArraySelf)->Reference());
-		AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(pArrayT.release(), false));
+		const bool flatFlag = false;
+		AutoPtr<Iterator> pIterator(pArraySelf->CreateIteratorEach(flatFlag));
 		value = Value(new Object_iterator(env, pIterator.release()));
 		return true;
 	} else if (decl.IsType(VTYPE_memory)) {

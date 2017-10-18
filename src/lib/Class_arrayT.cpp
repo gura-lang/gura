@@ -132,8 +132,9 @@ bool Class_arrayT<T_Elem>::CastTo(Environment &env, Value &value, const Declarat
 		pArrayT->CopyToList(pObjList);
 		return true;
 	} else if (decl.IsType(VTYPE_iterator)) {
+		const bool flatFlag = false;
 		const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
-		AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(pArrayT->Reference(), false));
+		AutoPtr<Iterator> pIterator(pArrayT->CreateIteratorEach(flatFlag));
 		value = Value(new Object_iterator(env, pIterator.release()));
 		return true;
 	} else if (decl.IsType(VTYPE_array)) {

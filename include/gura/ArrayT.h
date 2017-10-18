@@ -14,6 +14,21 @@ namespace Gura {
 template<typename T_Elem>
 class GURA_DLLDECLARE ArrayT : public Array {
 public:
+	class GURA_DLLDECLARE Iterator_Each : public Iterator {
+	private:
+		AutoPtr<ArrayT> _pArrayT;
+		bool _flatFlag;
+		size_t _idx;
+	public:
+		inline Iterator_Each(ArrayT *pArrayT, bool flatFlag) :
+		Iterator(FinitePredictable), _pArrayT(pArrayT), _flatFlag(flatFlag), _idx(0) {}
+		virtual size_t GetLength() const;
+		virtual Iterator *GetSource();
+		virtual bool DoNext(Environment &env, Value &value);
+		virtual String ToString() const;
+		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+	};
+public:
 	Gura_DeclareReferenceAccessor(ArrayT);
 public:
 	static ValueType ValueTypeElem;
@@ -57,6 +72,9 @@ public:
 	virtual bool FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool lastFlag) const;
 	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const;
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const;
+	virtual void ExpandToColVector(AutoPtr<Array> &pArrayVec, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;
+	virtual void StoreFromColVector(const Array *pArrayVec, size_t htKernel, size_t wdKernel, size_t strides, size_t padding);
+	virtual Iterator *CreateIteratorEach(bool flatFlag) const;
 	// functions to create an ArrayT instance
 	static ArrayT *Create(bool colMajorFlag);
 	static ArrayT *Create(bool colMajorFlag, const Dimensions &dims);
@@ -114,25 +132,6 @@ inline bool StoreValueAt(Environment &env, Complex *pElem, const Value &value)
 	}
 	return true;
 }
-
-//-----------------------------------------------------------------------------
-// Iterator_ArrayT_Each
-//-----------------------------------------------------------------------------
-template<typename T_Elem>
-class GURA_DLLDECLARE Iterator_ArrayT_Each : public Iterator {
-private:
-	AutoPtr<ArrayT<T_Elem> > _pArrayT;
-	bool _flatFlag;
-	size_t _idx;
-public:
-	inline Iterator_ArrayT_Each(ArrayT<T_Elem> *pArrayT, bool flatFlag) :
-		Iterator(FinitePredictable), _pArrayT(pArrayT), _flatFlag(flatFlag), _idx(0) {}
-	virtual size_t GetLength() const;
-	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Value &value);
-	virtual String ToString() const;
-	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-};
 
 }
 

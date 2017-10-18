@@ -1132,6 +1132,22 @@ bool ArrayT<Boolean>::CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t ax
 	return CalcVarSub<UInt32, Boolean>(sig, pArrayRtn, this, axis, populationFlag, stdFlag);
 }
 
+template<typename T_Elem>
+void ArrayT<T_Elem>::ExpandToColVector(AutoPtr<Array> &pArrayVec, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
+{
+}
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::StoreFromColVector(const Array *pArrayVec, size_t htKernel, size_t wdKernel, size_t strides, size_t padding)
+{
+}
+
+template<typename T_Elem>
+Iterator *ArrayT<T_Elem>::CreateIteratorEach(bool flatFlag) const
+{
+	return new Iterator_Each(Reference(), flatFlag);
+}
+
 /// functions to create an ArrayT instance
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag)
@@ -1287,22 +1303,22 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromExpr(Environment &env, bool colMajorFl
 }
 
 //-----------------------------------------------------------------------------
-// Iterator_ArrayT_Each
+// ArrayT::Iterator_Each
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-size_t Iterator_ArrayT_Each<T_Elem>::GetLength() const
+size_t ArrayT<T_Elem>::Iterator_Each::GetLength() const
 {
 	return _flatFlag? _pArrayT->GetElemNum() : _pArrayT->GetDimensions().front().GetSize();
 }
 
 template<typename T_Elem>
-Iterator *Iterator_ArrayT_Each<T_Elem>::GetSource()
+Iterator *ArrayT<T_Elem>::Iterator_Each::GetSource()
 {
 	return nullptr;
 }
 
 template<typename T_Elem>
-bool Iterator_ArrayT_Each<T_Elem>::DoNext(Environment &env, Value &value)
+bool ArrayT<T_Elem>::Iterator_Each::DoNext(Environment &env, Value &value)
 {
 	if (_flatFlag) {
 		if (_idx >= _pArrayT->GetElemNum()) return false;
@@ -1326,7 +1342,7 @@ bool Iterator_ArrayT_Each<T_Elem>::DoNext(Environment &env, Value &value)
 }
 
 template<typename T_Elem>
-String Iterator_ArrayT_Each<T_Elem>::ToString() const
+String ArrayT<T_Elem>::Iterator_Each::ToString() const
 {
 	String rtn;
 	rtn = "array";
@@ -1334,7 +1350,7 @@ String Iterator_ArrayT_Each<T_Elem>::ToString() const
 }
 
 template<typename T_Elem>
-void Iterator_ArrayT_Each<T_Elem>::GatherFollower(
+void ArrayT<T_Elem>::Iterator_Each::GatherFollower(
 	Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
@@ -1366,6 +1382,7 @@ ImplementArrayT(Complex)
 //------------------------------------------------------------------------------
 // Realization of Iterator_ArrayT_Each
 //------------------------------------------------------------------------------
+#if 0
 template class Iterator_ArrayT_Each<Boolean>;
 template class Iterator_ArrayT_Each<Int8>;
 template class Iterator_ArrayT_Each<UInt8>;
@@ -1380,5 +1397,6 @@ template class Iterator_ArrayT_Each<Float>;
 template class Iterator_ArrayT_Each<Double>;
 template class Iterator_ArrayT_Each<Complex>;
 //template class Iterator_ArrayT_Each<Value>;
+#endif
 
 }
