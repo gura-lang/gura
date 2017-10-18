@@ -27,6 +27,13 @@ FormatArray(fmt:string, array:array):map = {
 
 PrintArray(fmt:string, array:array) = println(FormatArray(fmt, array))
 
+/*
+testcase('array#dump()') {
+	array@int32.range(256).dump()
+	array@int64.range(256).dump()
+}
+sys.exit()
+*/
 testcase('properties') {
 	x = array.zeros([2, 3, 4])
 	tester(`x)

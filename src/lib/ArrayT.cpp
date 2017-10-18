@@ -153,12 +153,14 @@ String ArrayT<T_Elem>::ToString(bool exprFlag) const
 template<typename T_Elem, typename T_ElemCast>
 void DumpInteger(Signal &sig, Stream &stream, const char *fmt, size_t cols, const T_Elem *p, size_t n)
 {
+	char buff[128];
 	size_t col = 0;
 	for (size_t i = 0; i < n; i++, p++) {
 		if (col != 0) {
 			stream.Printf(sig, " ");
 		}
-		stream.Printf(sig, fmt, static_cast<T_ElemCast>(*p));
+		::sprintf(buff, fmt, static_cast<T_ElemCast>(*p));
+		stream.Print(sig, buff);
 		col++;
 		if (col == cols) {
 			stream.Printf(sig, "\n");
@@ -171,13 +173,15 @@ void DumpInteger(Signal &sig, Stream &stream, const char *fmt, size_t cols, cons
 template<typename T_Elem, typename T_ElemCast>
 void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const T_Elem *p, size_t n)
 {
+	char buff[128];
 	size_t col = 0;
 	for (size_t i = 0; i < n; i++, p++) {
 		if (col != 0) {
 			stream.Printf(sig, " ");
 		}
 		T_ElemCast num = *reinterpret_cast<const T_ElemCast *>(p);
-		stream.Printf(sig, fmt, num);
+		::sprintf(buff, fmt, num);
+		stream.Print(sig, buff);
 		col++;
 		if (col == cols) {
 			stream.Printf(sig, "\n");
@@ -250,7 +254,7 @@ void ArrayT<Half>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 template<>
 void ArrayT<Float>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
-	DumpFloat<Float, UInt32>(sig, stream, upperFlag? "%08lX" : "%08lx", 8, GetPointer(), GetElemNum());
+	DumpFloat<Float, UInt32>(sig, stream, upperFlag? "%08X" : "%08x", 8, GetPointer(), GetElemNum());
 }
 
 template<>
