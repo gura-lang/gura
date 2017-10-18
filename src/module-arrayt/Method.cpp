@@ -6,22 +6,6 @@
 
 Gura_BeginModuleScope(arrayt)
 
-typedef Value (*FuncT_Method)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);
-
-//-----------------------------------------------------------------------------
-// utilities
-//-----------------------------------------------------------------------------
-Value CallMethod(Environment &env, Argument &arg, const FuncT_Method funcTbl[],
-				 const Function *pFunc, Array *pArraySelf)
-{
-	FuncT_Method func = funcTbl[pArraySelf->GetElemType()];
-	if (func == nullptr) {
-		env.SetError(ERR_TypeError, "no method implemented");
-		return Value::Nil;
-	}
-	return (*func)(env, arg, pFunc, pArraySelf);
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
