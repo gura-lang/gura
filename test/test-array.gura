@@ -27,13 +27,6 @@ FormatArray(fmt:string, array:array):map = {
 
 PrintArray(fmt:string, array:array) = println(FormatArray(fmt, array))
 
-/*
-testcase('array#dump()') {
-	array@int32.range(256).dump()
-	array@int64.range(256).dump()
-}
-sys.exit()
-*/
 testcase('properties') {
 	x = array.zeros([2, 3, 4])
 	tester(`x)
@@ -1593,4 +1586,22 @@ testcase('array#fill') {
 	f(`float, 3.141)
 	f(`double, 3.141)
 	f(`complex, 3.141)
+}
+testcase('array#dump()') {
+	seq@uint8 = array@uint8.range(256)
+	seq@uint16 = (seq@uint8.elemcast(`uint16) << 8) + seq@uint8
+	seq@uint32 = (seq@uint16.elemcast(`uint32) << 16) + seq@uint16
+	seq@uint64 = (seq@uint32.elemcast(`uint64) << 32) + seq@uint32
+	seq@half = array@half.range(256)
+	seq@float = array@float.range(256)
+	seq@double = array@double.range(256)
+	seq@complex = array@complex.range(256)
+	println('uint8'), seq@uint8.dump()
+	println('uint16'), seq@uint16.dump()
+	println('uint32'), seq@uint32.dump()
+	println('uint64'), seq@uint64.dump()
+	println('half'), seq@half.dump()
+	println('float'), seq@float.dump()
+	println('double'), seq@double.dump()
+	println('complex'), seq@complex.dump()
 }

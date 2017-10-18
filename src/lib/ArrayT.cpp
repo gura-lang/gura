@@ -266,7 +266,8 @@ void ArrayT<Double>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 template<>
 void ArrayT<Complex>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
-	DumpFloat<Complex, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx", 4, GetPointer(), GetElemNum() * 2);
+	DumpFloat<Double, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx", 4,
+							  reinterpret_cast<const Double *>(GetPointer()), GetElemNum() * 2);
 }
 
 template<typename T_Elem>
