@@ -740,20 +740,13 @@ Gura_DeclareMethod(array, tolist)
 		GURA_HELPTEXT_BLOCK_en("list", "list"));
 }
 
-template<typename T_Elem>
-Value FuncTmpl_tolist(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Value value;
-	Object_list *pObjList = value.InitAsList(env);
-	pArrayT->CopyToList(pObjList);
-	return pFunc->ReturnValue(env, arg, value);
-}
-
 Gura_ImplementMethod(array, tolist)
 {
-	DeclareFunctionTable1D(FuncT_Method, funcTbl, FuncTmpl_tolist);
-	return CallMethod(env, arg, funcTbl, this, Object_array::GetObjectThis(arg)->GetArray());
+	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	Value value;
+	Object_list *pObjList = value.InitAsList(env);
+	pArraySelf->CopyToList(pObjList);
+	return ReturnValue(env, arg, value);
 }
 
 // array#transpose(axes[]?:number) {block?}
