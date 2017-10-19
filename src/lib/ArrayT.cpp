@@ -1141,6 +1141,13 @@ template<typename T_Elem>
 void ArrayT<T_Elem>::ExpandToColVector1d(AutoPtr<Array> &pArrayVec,
 										 size_t sizeKernel, size_t strides, size_t sizePadding) const
 {
+	const bool colMajorFlag = false;
+	const Dimensions &dims = GetDimensions();
+	if (dims.size() < 1) return;
+	pArrayVec.reset(Create(colMajorFlag));
+	size_t nKernels = (dims.GetCol().GetSize() + sizePadding - sizeKernel + strides) / strides;
+	pArrayVec->SetDimensions(dims.begin(), dims.begin() + dims.size() - 1, nKernels, sizeKernel);
+	
 }
 
 template<typename T_Elem>
@@ -1155,6 +1162,14 @@ void ArrayT<T_Elem>::ExpandToColVector2d(AutoPtr<Array> &pArrayVec,
 										 size_t stridesRow, size_t stridesCol,
 										 size_t sizeRowPadding, size_t sizeColPadding) const
 {
+	const bool colMajorFlag = false;
+	const Dimensions &dims = GetDimensions();
+	if (dims.size() < 2) return;
+	pArrayVec.reset(Create(colMajorFlag));
+	pArrayVec->SetDimensions(dims.begin(), dims.begin() + dims.size() - 2, sizeRowKernel * sizeColKernel);
+	//const T_Elem *pElemSrc = GetPointer();
+	//T_Elem *pElemDst = dynamic_cast<ArrayT<T_Elem> *>(pArrayVec.get())->GetPointer();
+	
 }
 
 template<typename T_Elem>
@@ -1171,6 +1186,12 @@ void ArrayT<T_Elem>::ExpandToColVector3d(AutoPtr<Array> &pArrayVec,
 										 size_t stridesPlane, size_t stridesRow, size_t stridesCol,
 										 size_t sizePlanePadding, size_t sizeRowPadding, size_t sizeColPadding) const
 {
+	const bool colMajorFlag = false;
+	const Dimensions &dims = GetDimensions();
+	if (dims.size() < 3) return;
+	pArrayVec.reset(Create(colMajorFlag));
+	pArrayVec->SetDimensions(dims.begin(), dims.begin() + dims.size() - 3,
+							 sizePlaneKernel * sizeRowKernel * sizeColKernel);
 }
 
 template<typename T_Elem>
