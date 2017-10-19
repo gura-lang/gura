@@ -1138,14 +1138,46 @@ bool ArrayT<Boolean>::CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t ax
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::ExpandToColVector(AutoPtr<Array> &pArrayVec, size_t htKernel, size_t wdKernel,
-									   size_t strides, size_t wdPadding, size_t htPadding) const
+void ArrayT<T_Elem>::ExpandToColVector1d(AutoPtr<Array> &pArrayVec,
+										 size_t sizeKernel, size_t strides, size_t sizePadding) const
 {
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::StoreFromColVector(const Array *pArrayVec, size_t htKernel, size_t wdKernel,
-										size_t strides, size_t wdPadding, size_t htPadding)
+void ArrayT<T_Elem>::StoreFromColVector1d(const Array *pArrayVec,
+										  size_t sizeKernel, size_t strides, size_t sizePadding)
+{
+}
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::ExpandToColVector2d(AutoPtr<Array> &pArrayVec,
+										 size_t sizeRowKernel, size_t sizeColKernel,
+										 size_t stridesRow, size_t stridesCol,
+										 size_t sizeRowPadding, size_t sizeColPadding) const
+{
+}
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::StoreFromColVector2d(const Array *pArrayVec,
+										  size_t sizeRowKernel, size_t sizeColKernel,
+										  size_t stridesRow, size_t stridesCol,
+										  size_t sizeRowPadding, size_t sizeColPadding)
+{
+}
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::ExpandToColVector3d(AutoPtr<Array> &pArrayVec,
+										 size_t sizePlaneKernel, size_t sizeRowKernel, size_t sizeColKernel,
+										 size_t stridesPlane, size_t stridesRow, size_t stridesCol,
+										 size_t sizePlanePadding, size_t sizeRowPadding, size_t sizeColPadding) const
+{
+}
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::StoreFromColVector3d(const Array *pArrayVec,
+										  size_t sizePlaneKernel, size_t sizeRowKernel, size_t sizeColKernel,
+										  size_t stridesPlane, size_t stridesRow, size_t stridesCol,
+										  size_t sizePlanePadding, size_t sizeRowPadding, size_t sizeColPadding)
 {
 }
 

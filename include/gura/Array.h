@@ -320,10 +320,26 @@ public:
 	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const = 0;
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const = 0;
 	bool Paste(Signal &sig, size_t offset, const Array *pArraySrc);
-	virtual void ExpandToColVector(AutoPtr<Array> &pArrayVec, size_t htKernel, size_t wdKernel,
-								   size_t strides, size_t wdPadding, size_t htPadding) const = 0;
-	virtual void StoreFromColVector(const Array *pArrayVec, size_t htKernel, size_t wdKernel,
-									size_t strides, size_t wdPadding, size_t htPadding) = 0;
+	virtual void ExpandToColVector1d(AutoPtr<Array> &pArrayVec,
+									 size_t sizeKernel, size_t strides, size_t sizePadding) const = 0;
+	virtual void StoreFromColVector1d(const Array *pArrayVec,
+									  size_t sizeKernel, size_t strides, size_t sizePadding) = 0;
+	virtual void ExpandToColVector2d(AutoPtr<Array> &pArrayVec,
+									 size_t sizeRowKernel, size_t sizeColKernel,
+									 size_t stridesRow, size_t stridesCol,
+									 size_t sizeRowPadding, size_t sizeColPadding) const = 0;
+	virtual void StoreFromColVector2d(const Array *pArrayVec,
+									  size_t sizeRowKernel, size_t sizeColKernel,
+									  size_t stridesRow, size_t stridesCol,
+									  size_t sizeRowPadding, size_t sizeColPadding) = 0;
+	virtual void ExpandToColVector3d(AutoPtr<Array> &pArrayVec,
+									 size_t sizePlaneKernel, size_t sizeRowKernel, size_t sizeColKernel,
+									 size_t stridesPlane, size_t stridesRow, size_t stridesCol,
+									 size_t sizePlanePadding, size_t sizeRowPadding, size_t sizeColPadding) const = 0;
+	virtual void StoreFromColVector3d(const Array *pArrayVec,
+									  size_t sizePlaneKernel, size_t sizeRowKernel, size_t sizeColKernel,
+									  size_t stridesPlane, size_t stridesRow, size_t stridesCol,
+									  size_t sizePlanePadding, size_t sizeRowPadding, size_t sizeColPadding) = 0;
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const = 0;
 	bool IsSquare() const;
 	bool HasShape(size_t size) const;
