@@ -320,8 +320,10 @@ public:
 	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const = 0;
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const = 0;
 	bool Paste(Signal &sig, size_t offset, const Array *pArraySrc);
-	virtual void ExpandToColVector(AutoPtr<Array> &pArrayVec, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const = 0;
-	virtual void StoreFromColVector(const Array *pArrayVec, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) = 0;
+	virtual void ExpandToColVector(AutoPtr<Array> &pArrayVec, size_t htKernel, size_t wdKernel,
+								   size_t strides, size_t wdPadding, size_t htPadding) const = 0;
+	virtual void StoreFromColVector(const Array *pArrayVec, size_t htKernel, size_t wdKernel,
+									size_t strides, size_t wdPadding, size_t htPadding) = 0;
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const = 0;
 	bool IsSquare() const;
 	bool HasShape(size_t size) const;

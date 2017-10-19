@@ -1138,12 +1138,14 @@ bool ArrayT<Boolean>::CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t ax
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::ExpandToColVector(AutoPtr<Array> &pArrayVec, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const
+void ArrayT<T_Elem>::ExpandToColVector(AutoPtr<Array> &pArrayVec, size_t htKernel, size_t wdKernel,
+									   size_t strides, size_t wdPadding, size_t htPadding) const
 {
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::StoreFromColVector(const Array *pArrayVec, size_t htKernel, size_t wdKernel, size_t strides, size_t padding)
+void ArrayT<T_Elem>::StoreFromColVector(const Array *pArrayVec, size_t htKernel, size_t wdKernel,
+										size_t strides, size_t wdPadding, size_t htPadding)
 {
 }
 
@@ -1252,7 +1254,7 @@ bool CreateFromList_Sub(Environment &env, Array::Dimensions &dims,
 	}
 	if (pDim + 1 == dims.end()) {
 		foreach_const (ValueList, pValue, valList) {
-			if (!StoreValueAt(env, pElem, *pValue)) return false;
+			if (!ArrayT<T_Elem>::StoreValueAt(env, pElem, *pValue)) return false;
 			pElem++;
 		}
 	} else {
@@ -1307,6 +1309,46 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromExpr(Environment &env, bool colMajorFl
 	return ArrayT<T_Elem>::CreateFromList(env, colMajorFlag, result.GetList());
 }
 
+// utilities
+template<typename T_Elem>
+void ArrayT<T_Elem>::FillDouble(T_Elem *pElem, size_t nElems, Double num, size_t strides)
+{
+	T_Elem numCasted = static_cast<T_Elem>(num);
+	for (size_t i = 0; i < nElems; i++, pElem += strides) *pElem = numCasted;
+}
+
+template<>
+void ArrayT<Complex>::FillComplex(Complex *pElem, size_t nElems, const Complex &num, size_t strides)
+{
+	for (size_t i = 0; i < nElems; i++, pElem += strides) *pElem = num;
+}
+
+template<typename T_Elem>
+bool ArrayT<T_Elem>::StoreValueAt(Environment &env, T_Elem *pElem, const Value &value)
+{
+	if (value.Is_number() || value.Is_boolean()) {
+		*pElem = static_cast<T_Elem>(value.GetDouble());
+	} else {
+		Array::SetError_UnacceptableValueAsElement(env, value);
+		return false;
+	}
+	return true;
+}
+
+template<>
+bool ArrayT<Complex>::StoreValueAt(Environment &env, Complex *pElem, const Value &value)
+{
+	if (value.Is_number() || value.Is_boolean()) {
+		*pElem = static_cast<Complex>(value.GetDouble());
+	} else if (value.Is_complex()) {
+		*pElem = value.GetComplex();
+	} else {
+		Array::SetError_UnacceptableValueAsElement(env, value);
+		return false;
+	}
+	return true;
+}
+
 //-----------------------------------------------------------------------------
 // ArrayT::Iterator_Each
 //-----------------------------------------------------------------------------
@@ -1358,12 +1400,6 @@ template<typename T_Elem>
 void ArrayT<T_Elem>::Iterator_Each::GatherFollower(
 	Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
-}
-
-template<>
-void FillComplex(Complex *pElem, size_t nElems, const Complex &num, size_t strides)
-{
-	for (size_t i = 0; i < nElems; i++, pElem += strides) *pElem = num;
 }
 
 //------------------------------------------------------------------------------

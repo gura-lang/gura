@@ -94,9 +94,9 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 	if (!pArrayT->PrepareModification(env.GetSignal())) return;
 	if (valListIdx.empty()) {
 		if (value.Is_number() || value.Is_boolean()) {
-			FillDouble(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetDouble(), 1);
+			ArrayT<T_Elem>::FillDouble(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetDouble(), 1);
 		} else if (complexFlag && value.Is_complex()) {
-			FillComplex(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetComplex(), 1);
+			ArrayT<T_Elem>::FillComplex(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetComplex(), 1);
 		} else if (value.IsListOrIterator()) {
 			AutoPtr<Iterator> pIteratorSrc(value.CreateIterator(env.GetSignal()));
 			if (env.IsSignalled()) return;
@@ -107,7 +107,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			size_t nElems = pArrayT->GetElemNum();
 			for (size_t i = 0; i < nElems; i++, pElemDst++) {
 				if (!pIterator->Next(env, valueEach) ||
-					!StoreValueAt(env, pElemDst, valueEach)) return;
+					!ArrayT<T_Elem>::StoreValueAt(env, pElemDst, valueEach)) return;
 			}
 		} else {
 			Array::SetError_UnacceptableValueAsElement(env, value);
@@ -124,22 +124,22 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 		if (indexer.HasGenerator()) {
 			if (!indexer.IsEmptyGenerator()) {
 				do {
-					FillDouble(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num, stridesUnit);
+					ArrayT<T_Elem>::FillDouble(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num, stridesUnit);
 				} while (indexer.NextGenerator());
 			}
 		} else {
-			FillDouble(pElemTgt, nElemsUnit, num, stridesUnit);
+			ArrayT<T_Elem>::FillDouble(pElemTgt, nElemsUnit, num, stridesUnit);
 		}
 	} else if (complexFlag && value.Is_complex()) {
 		const Complex &num = value.GetComplex();
 		if (indexer.HasGenerator()) {
 			if (!indexer.IsEmptyGenerator()) {
 				do {
-					FillComplex(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num, stridesUnit);
+					ArrayT<T_Elem>::FillComplex(pElemTgt + indexer.GenerateOffset(), nElemsUnit, num, stridesUnit);
 				} while (indexer.NextGenerator());
 			}
 		} else {
-			FillComplex(pElemTgt, nElemsUnit, num, stridesUnit);
+			ArrayT<T_Elem>::FillComplex(pElemTgt, nElemsUnit, num, stridesUnit);
 		}
 		
 	} else if (value.IsListOrIterator()) {
@@ -154,7 +154,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 					T_Elem *pElemDst = pElemTgt + indexer.GenerateOffset();
 					for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
 						if (!pIterator->Next(env, valueEach) ||
-							!StoreValueAt(env, pElemDst, valueEach)) return;
+							!ArrayT<T_Elem>::StoreValueAt(env, pElemDst, valueEach)) return;
 					}
 				} while (indexer.NextGenerator());
 			}
@@ -162,7 +162,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 			T_Elem *pElemDst = pElemTgt;
 			for (size_t i = 0; i < nElemsUnit; i++, pElemDst++) {
 				if (!pIterator->Next(env, valueEach) ||
-					!StoreValueAt(env, pElemDst, valueEach)) return;
+					!ArrayT<T_Elem>::StoreValueAt(env, pElemDst, valueEach)) return;
 			}
 		}
 	} else if (value.IsInstanceOf(VTYPE_array)) {

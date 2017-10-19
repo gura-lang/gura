@@ -51,7 +51,7 @@ public:
 	inline operator const T_Elem *() const { return GetPointer(); }
 	virtual Array *Clone() const;
 	virtual String ToString(bool exprFlag) const;
-	virtual void Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+	virtual void Dump(Signal &sig, Stream &stream, bool upperFlag) const {};
 	virtual bool DoesContainZero() const;
 	virtual bool DoesContainMinus() const;
 	virtual bool DoesContainZeroOrMinus() const;
@@ -72,8 +72,10 @@ public:
 	virtual bool FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool lastFlag) const;
 	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const;
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const;
-	virtual void ExpandToColVector(AutoPtr<Array> &pArrayVec, size_t htKernel, size_t wdKernel, size_t strides, size_t padding) const;
-	virtual void StoreFromColVector(const Array *pArrayVec, size_t htKernel, size_t wdKernel, size_t strides, size_t padding);
+	virtual void ExpandToColVector(AutoPtr<Array> &pArrayVec, size_t htKernel, size_t wdKernel,
+								   size_t strides, size_t wdPadding, size_t htPadding) const;
+	virtual void StoreFromColVector(const Array *pArrayVec, size_t htKernel, size_t wdKernel,
+									size_t strides, size_t wdPadding, size_t htPadding);
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const;
 	// functions to create an ArrayT instance
 	static ArrayT *Create(bool colMajorFlag);
@@ -87,51 +89,13 @@ public:
 	static ArrayT *CreateFromList(Environment &env, bool colMajorFlag, const ValueList &valList);
 	static ArrayT *CreateFromIterator(Environment &env, bool colMajorFlag, Iterator *pIterator);
 	static ArrayT *CreateFromExpr(Environment &env, bool colMajorFlag, const Expr *pExpr);
+	// utilities
+	static void FillDouble(T_Elem *pElem, size_t nElems, Double num, size_t strides);
+	static void FillComplex(T_Elem *pElem, size_t nElems, const Complex &num, size_t strides) {}
+	static bool StoreValueAt(Environment &env, T_Elem *pElem, const Value &value);
 private:
 	inline ~ArrayT() {}
 };
-
-template<typename T_Elem>
-void ArrayT<T_Elem>::Dump(Signal &sig, Stream &stream, bool upperFlag) const {}
-
-template<typename T_Elem>
-void FillDouble(T_Elem *pElem, size_t nElems, Double num, size_t strides)
-{
-	T_Elem numCasted = static_cast<T_Elem>(num);
-	for (size_t i = 0; i < nElems; i++, pElem += strides) *pElem = numCasted;
-}
-
-template<typename T_Elem>
-void FillComplex(T_Elem *pElem, size_t nElems, const Complex &num, size_t strides) {}
-
-template<>
-void FillComplex(Complex *pElem, size_t nElems, const Complex &num, size_t strides);
-
-template<typename T_Elem>
-inline bool StoreValueAt(Environment &env, T_Elem *pElem, const Value &value)
-{
-	if (value.Is_number() || value.Is_boolean()) {
-		*pElem = static_cast<T_Elem>(value.GetDouble());
-	} else {
-		Array::SetError_UnacceptableValueAsElement(env, value);
-		return false;
-	}
-	return true;
-}
-
-template<>
-inline bool StoreValueAt(Environment &env, Complex *pElem, const Value &value)
-{
-	if (value.Is_number() || value.Is_boolean()) {
-		*pElem = static_cast<Complex>(value.GetDouble());
-	} else if (value.Is_complex()) {
-		*pElem = value.GetComplex();
-	} else {
-		Array::SetError_UnacceptableValueAsElement(env, value);
-		return false;
-	}
-	return true;
-}
 
 }
 
