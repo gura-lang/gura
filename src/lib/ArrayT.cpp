@@ -1181,40 +1181,49 @@ void ArrayT<T_Elem>::ExpandToColVector2d(AutoPtr<Array> &pArrayVec,
 	size_t iRowMax = nRowsWhole - sizePadRowTail;
 	size_t iColMin = sizePadColHead;
 	size_t iColMax = nColsWhole - sizePadColTail;
-	size_t nKernelsRow = (nRowsWhole - sizeKernelRow) / stridesKernelRow;
-	size_t nKernelsCol = (nColsWhole - sizeKernelCol) / stridesKernelCol;
+	size_t nKernelsRow = (nRowsWhole - sizeKernelRow + stridesKernelRow) / stridesKernelRow;
+	size_t nKernelsCol = (nColsWhole - sizeKernelCol + stridesKernelCol) / stridesKernelCol;
+	size_t sizeBlock = dims.GetRow().GetSizeProd();
+	size_t nBlocks = GetElemNum() / sizeBlock;
 	const T_Elem *pElemBlock = pElemSrc;
-	do {
-		const T_Elem *pElemKernelRow = pElemBlock;
-		for (size_t iKernelRow = 0; iKernelRow < nKernelsRow; iKernelRow++, pElemKernelRow += stridesRow) {
-			size_t iRowHead = iKernelRow * stridesRow;
+	for (size_t iBlock = 0; iBlock < nBlocks; iBlock++, pElemBlock += sizeBlock) {
+		for (size_t iKernelRow = 0; iKernelRow < nKernelsRow; iKernelRow++) {
+			size_t iRowHead = iKernelRow * stridesKernelRow;
+			size_t iRowTail = iRowHead + sizeKernelRow;
+			size_t iRowLim = ChooseMin(iRowTail, iRowMax);
+			const T_Elem *pElemKernelRow = pElemBlock + iRowHead * stridesRow;
 			for (size_t iKernelCol = 0; iKernelCol < nKernelsCol; iKernelCol++) {
 				size_t iColHead = iKernelCol * stridesCol;
-				size_t iColLim2 = iColHead + sizeKernelCol;
-				size_t iColLim1 = ChooseMin(iColLim2, iColMax);
-				const T_Elem *pElemRow = pElemKernelRow;
-				for (size_t iRow = iRowHead; iRow < iRowHead + sizeKernelRow; iRow++, pElemRow += stridesRow) {
-					if (iRowMin <= iRow && iRow < iRowMax) {
-						const T_Elem *pElemCol = pElemRow;
-						size_t iCol = iColHead;
-						for ( ; iCol < iColMin; iCol++) {
-							*pElemDst++ = 0;
-						}
-						for ( ; iCol < iColLim1; iCol++, pElemCol += stridesCol) {
-							*pElemDst++ = *pElemCol;
-						}
-						for ( ; iCol < iColLim2; iCol++) {
-							*pElemDst++ = 0;
-						}
-					} else {
-						for (size_t iCol = iColHead; iCol < sizeKernelCol; iCol++) {
-							*pElemDst++ = 0;
-						}
+				size_t iColTail = iColHead + sizeKernelCol;
+				size_t iColLim = ChooseMin(iColTail, iColMax);
+				const T_Elem *pElemRow = pElemKernelRow + iColHead * stridesCol;
+				size_t iRow = iRowHead;
+				for ( ; iRow < iRowMin; iRow++) {
+					for (size_t iCol = iColHead; iCol < iColTail; iCol++) {
+						*pElemDst++ = 0;
+					}
+				}
+				for ( ; iRow < iRowLim; iRow++, pElemRow += stridesRow) {
+					const T_Elem *pElemCol = pElemRow;
+					size_t iCol = iColHead;
+					for ( ; iCol < iColMin; iCol++) {
+						*pElemDst++ = 0;
+					}
+					for ( ; iCol < iColLim; iCol++, pElemCol += stridesCol) {
+						*pElemDst++ = *pElemCol;
+					}
+					for ( ; iCol < iColTail; iCol++) {
+						*pElemDst++ = 0;
+					}
+				}
+				for ( ; iRow < iRowTail; iRow++) {
+					for (size_t iCol = iColHead; iCol < iColTail; iCol++) {
+						*pElemDst++ = 0;
 					}
 				}
 			}
 		}
-	} while (0);
+	}
 }
 
 template<typename T_Elem>
