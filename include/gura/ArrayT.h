@@ -73,25 +73,27 @@ public:
 	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const;
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const;
 	virtual void ExpandToColVector1d(AutoPtr<Array> &pArrayVec,
-									 size_t sizeKernel, size_t strides, size_t sizePadding) const;
+									 size_t sizeKernel, size_t stridesKernel, size_t sizePad) const;
 	virtual void StoreFromColVector1d(const Array *pArrayVec,
-									  size_t sizeKernel, size_t strides, size_t sizePadding);
+									  size_t sizeKernel, size_t stridesKernel, size_t sizePad);
 	virtual void ExpandToColVector2d(AutoPtr<Array> &pArrayVec,
-									 size_t sizeRowKernel, size_t sizeColKernel,
-									 size_t stridesRow, size_t stridesCol,
-									 size_t sizeRowPadding, size_t sizeColPadding) const;
+									 size_t sizeKernelRow, size_t sizeKernelCol,
+									 size_t stridesKernelRow, size_t stridesKernelCol,
+									 size_t sizePadRow, size_t sizePadCol) const;
 	virtual void StoreFromColVector2d(const Array *pArrayVec,
-									  size_t sizeRowKernel, size_t sizeColKernel,
-									  size_t stridesRow, size_t stridesCol,
-									  size_t sizeRowPadding, size_t sizeColPadding);
-	virtual void ExpandToColVector3d(AutoPtr<Array> &pArrayVec,
-									 size_t sizePlaneKernel, size_t sizeRowKernel, size_t sizeColKernel,
-									 size_t stridesPlane, size_t stridesRow, size_t stridesCol,
-									 size_t sizePlanePadding, size_t sizeRowPadding, size_t sizeColPadding) const;
-	virtual void StoreFromColVector3d(const Array *pArrayVec,
-									  size_t sizePlaneKernel, size_t sizeRowKernel, size_t sizeColKernel,
-									  size_t stridesPlane, size_t stridesRow, size_t stridesCol,
-									  size_t sizePlanePadding, size_t sizeRowPadding, size_t sizeColPadding);
+									  size_t sizeKernelRow, size_t sizeKernelCol,
+									  size_t stridesKernelRow, size_t stridesKernelCol,
+									  size_t sizePadRow, size_t sizePadCol);
+	virtual void ExpandToColVector3d(
+		AutoPtr<Array> &pArrayVec,
+		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol) const;
+	virtual void StoreFromColVector3d(
+		const Array *pArrayVec,
+		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol);
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const;
 	// functions to create an ArrayT instance
 	static ArrayT *Create(bool colMajorFlag);
