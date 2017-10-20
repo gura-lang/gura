@@ -311,6 +311,9 @@ public:
 	inline MapMode GetMapMode() const { return _mapMode; }
 	inline size_t CountSlot() const { return _slots.size(); }
 	inline Slot *FindSlotBySymbol(const Symbol *pSymbol) { return _slots.FindBySymbol(pSymbol); }
+	bool GetListValues(size_t idxArg, Value *pValue1, Value *pValue2);
+	bool GetListValues(size_t idxArg, Value *pValue1, Value *pValue2, Value *pValue3);
+	bool GetListValues(size_t idxArg, Value *pValue1, Value *pValue2, Value *pValue3, Value *pValue4);
 	bool IsInfiniteMap() const;
 	void AssignSlotValuesToEnvironment(Environment &env);
 	void AssignSlotValuesToEnvironmentFast(Environment &env);

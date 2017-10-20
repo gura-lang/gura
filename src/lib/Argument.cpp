@@ -352,6 +352,30 @@ Environment *Argument::PrepareEnvironment(Environment &env)
 	return _pEnvPrepared->Reference();
 }
 
+bool Argument::GetListValues(size_t idxArg, Value *pValue1, Value *pValue2)
+{
+	const ValueList &valList = GetList(idxArg);
+	if (valList.size() != 2) return false;
+	*pValue1 = valList[0], *pValue2 = valList[1];
+	return true;
+}
+
+bool Argument::GetListValues(size_t idxArg, Value *pValue1, Value *pValue2, Value *pValue3)
+{
+	const ValueList &valList = GetList(idxArg);
+	if (valList.size() != 3) return false;
+	*pValue1 = valList[0], *pValue2 = valList[1], *pValue3 = valList[2];
+	return true;
+}
+
+bool Argument::GetListValues(size_t idxArg, Value *pValue1, Value *pValue2, Value *pValue3, Value *pValue4)
+{
+	const ValueList &valList = GetList(idxArg);
+	if (valList.size() != 4) return false;
+	*pValue1 = valList[0], *pValue2 = valList[1], *pValue3 = valList[2], *pValue4 = valList[3];
+	return true;
+}
+
 bool Argument::IsInfiniteMap() const
 {
 	bool infiniteFoundFlag = false;

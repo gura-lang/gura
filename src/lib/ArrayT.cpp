@@ -1138,8 +1138,8 @@ bool ArrayT<Boolean>::CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t ax
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::ExpandToColVector1d(AutoPtr<Array> &pArrayVec,
-										 size_t sizeKernel, size_t stridesKernel, size_t sizePad) const
+void ArrayT<T_Elem>::ExpandKernelVec1d(
+	AutoPtr<Array> &pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad) const
 {
 	const bool colMajorFlag = false;
 	const Dimensions &dims = GetDimensions();
@@ -1151,40 +1151,40 @@ void ArrayT<T_Elem>::ExpandToColVector1d(AutoPtr<Array> &pArrayVec,
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::StoreFromColVector1d(const Array *pArrayVec,
-										  size_t sizeKernel, size_t stridesKernel, size_t sizePad)
+void ArrayT<T_Elem>::StoreKernelVec1d(
+	const Array *pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad)
 {
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::ExpandToColVector2d(AutoPtr<Array> &pArrayVec,
-										 size_t sizeKernelRow, size_t sizeKernelCol,
-										 size_t stridesKernelRow, size_t stridesKernelCol,
-										 size_t sizePadRow, size_t sizePadCol) const
+void ArrayT<T_Elem>::ExpandKernelVec2d(
+	AutoPtr<Array> &pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
+	size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol) const
 {
 	const bool colMajorFlag = false;
 	const Dimensions &dims = GetDimensions();
 	if (dims.size() < 2) return;
-	pArrayVec.reset(Create(colMajorFlag));
-	pArrayVec->SetDimensions(dims.begin(), dims.begin() + dims.size() - 2, sizeKernelRow * sizeKernelCol);
-	const T_Elem *pElemSrc = GetPointer();
-	T_Elem *pElemDst = dynamic_cast<ArrayT<T_Elem> *>(pArrayVec.get())->GetPointer();
 	size_t stridesRow = dims.GetRow().GetStrides();
 	size_t stridesCol = dims.GetCol().GetStrides();
-	size_t nRowsWhole = dims.GetRow().GetSize() + sizePadRow;
-	size_t nColsWhole = dims.GetCol().GetSize() + sizePadCol;
+	size_t nRowsPadded = dims.GetRow().GetSize() + sizePadRow;
+	size_t nColsPadded = dims.GetCol().GetSize() + sizePadCol;
 	size_t sizePadRowHead = sizePadRow / 2;
 	size_t sizePadRowTail = sizePadRow - sizePadRowHead;
 	size_t sizePadColHead = sizePadCol / 2;
 	size_t sizePadColTail = sizePadCol - sizePadColHead;
 	size_t iRowMin = sizePadRowHead;
-	size_t iRowMax = nRowsWhole - sizePadRowTail;
+	size_t iRowMax = nRowsPadded - sizePadRowTail;
 	size_t iColMin = sizePadColHead;
-	size_t iColMax = nColsWhole - sizePadColTail;
-	size_t nKernelsRow = (nRowsWhole - sizeKernelRow + stridesKernelRow) / stridesKernelRow;
-	size_t nKernelsCol = (nColsWhole - sizeKernelCol + stridesKernelCol) / stridesKernelCol;
+	size_t iColMax = nColsPadded - sizePadColTail;
+	size_t nKernelsRow = (nRowsPadded - sizeKernelRow + stridesKernelRow) / stridesKernelRow;
+	size_t nKernelsCol = (nColsPadded - sizeKernelCol + stridesKernelCol) / stridesKernelCol;
 	size_t sizeBlock = dims.GetRow().GetSizeProd();
 	size_t nBlocks = GetElemNum() / sizeBlock;
+	pArrayVec.reset(Create(colMajorFlag));
+	pArrayVec->SetDimensions(dims.begin(), dims.begin() + dims.size() - 2,
+							 nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol);
+	const T_Elem *pElemSrc = GetPointer();
+	T_Elem *pElemDst = dynamic_cast<ArrayT<T_Elem> *>(pArrayVec.get())->GetPointer();
 	const T_Elem *pElemBlock = pElemSrc;
 	for (size_t iBlock = 0; iBlock < nBlocks; iBlock++, pElemBlock += sizeBlock) {
 		for (size_t iKernelRow = 0; iKernelRow < nKernelsRow; iKernelRow++) {
@@ -1227,17 +1227,15 @@ void ArrayT<T_Elem>::ExpandToColVector2d(AutoPtr<Array> &pArrayVec,
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::StoreFromColVector2d(const Array *pArrayVec,
-										  size_t sizeKernelRow, size_t sizeKernelCol,
-										  size_t stridesKernelRow, size_t stridesKernelCol,
-										  size_t sizePadRow, size_t sizePadCol)
+void ArrayT<T_Elem>::StoreKernelVec2d(
+	const Array *pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
+	size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol)
 {
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::ExpandToColVector3d(
-	AutoPtr<Array> &pArrayVec,
-	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+void ArrayT<T_Elem>::ExpandKernelVec3d(
+	AutoPtr<Array> &pArrayVec, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol) const
 {
@@ -1250,9 +1248,8 @@ void ArrayT<T_Elem>::ExpandToColVector3d(
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::StoreFromColVector3d(
-	const Array *pArrayVec,
-	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+void ArrayT<T_Elem>::StoreKernelVec3d(
+	const Array *pArrayVec, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol)
 {
