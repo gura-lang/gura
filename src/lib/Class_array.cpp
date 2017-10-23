@@ -741,7 +741,7 @@ Gura_ImplementMethod(array, elemcast)
 // array#expand_kernelvec1d(size:number, strides:number, sizepad:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec1d)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "sizepad", VTYPE_number, OCCUR_Once);
@@ -760,13 +760,13 @@ Gura_ImplementMethod(array, expand_kernelvec1d)
 	size_t stridesKernel = arg.GetSizeT(1);
 	size_t sizePad = arg.GetSizeT(2);
 	pArraySelf->ExpandKernelVec1d(pArrayRtn, sizeKernel, stridesKernel, sizePad);
-	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.get()));
+	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
 // array#expand_kernelvec2d(size[]:number, strides[]:number, sizepad[]:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec2d)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "sizepad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
@@ -802,13 +802,13 @@ Gura_ImplementMethod(array, expand_kernelvec2d)
 	size_t sizePadCol = value2.GetSizeT();
 	pArraySelf->ExpandKernelVec2d(pArrayRtn, sizeKernelRow, sizeKernelCol,
 								  stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol);
-	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.get()));
+	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
 // array#expand_kernelvec3d(size[]:number, strides[]:number, sizepad[]:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec3d)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "sizepad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
@@ -848,7 +848,7 @@ Gura_ImplementMethod(array, expand_kernelvec3d)
 	pArraySelf->ExpandKernelVec3d(pArrayRtn, sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 								  stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 								  sizePadPlane, sizePadRow, sizePadCol);
-	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.get()));
+	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
 // array#fill(value:number):void
