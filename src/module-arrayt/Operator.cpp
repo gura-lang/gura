@@ -8,19 +8,19 @@
 Array::UnaryFuncTable g_unaryFuncTable_##op = { \
 	{ \
 		nullptr, \
-		&func<Boolean,	Boolean,	Operator_##op::Calc>,	\
-		&func<Int8,		Int8,		Operator_##op::Calc>,	\
-		&func<UInt8,	UInt8,		Operator_##op::Calc>,	\
-		&func<Int16,	Int16,		Operator_##op::Calc>,	\
-		&func<UInt16,	UInt16,		Operator_##op::Calc>,	\
-		&func<Int32,	Int32,		Operator_##op::Calc>,	\
-		&func<UInt32,	UInt32,		Operator_##op::Calc>,	\
-		&func<Int64,	Int64,		Operator_##op::Calc>,	\
-		&func<UInt64,	UInt64,		Operator_##op::Calc>,	\
-		&func<Half,		Half,		Operator_##op::Calc>,	\
-		&func<Float,	Float,		Operator_##op::Calc>,	\
-		&func<Double,	Double,		Operator_##op::Calc>,	\
-		&func<Complex,	Complex,	Operator_##op::Calc>,	\
+		&func<Boolean,	Boolean,	Operator_##op>,	\
+		&func<Int8,		Int8,		Operator_##op>,	\
+		&func<UInt8,	UInt8,		Operator_##op>,	\
+		&func<Int16,	Int16,		Operator_##op>,	\
+		&func<UInt16,	UInt16,		Operator_##op>,	\
+		&func<Int32,	Int32,		Operator_##op>,	\
+		&func<UInt32,	UInt32,		Operator_##op>,	\
+		&func<Int64,	Int64,		Operator_##op>,	\
+		&func<UInt64,	UInt64,		Operator_##op>,	\
+		&func<Half,		Half,		Operator_##op>,	\
+		&func<Float,	Float,		Operator_##op>,	\
+		&func<Double,	Double,		Operator_##op>,	\
+		&func<Complex,	Complex,	Operator_##op>,	\
 		nullptr, \
 	} \
 }
@@ -810,7 +810,7 @@ template<> inline bool IsZero<Complex>(const Complex &elem) { return elem.IsZero
 //------------------------------------------------------------------------------
 // UnaryFuncTmpl
 //------------------------------------------------------------------------------
-template<typename T_ElemRtn, typename T_Elem, void (*op)(T_ElemRtn &, const T_Elem &)>
+template<typename T_ElemRtn, typename T_Elem, typename T_Operator>
 bool UnaryFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray)
 {
 	bool colMajorFlag = false;
@@ -821,7 +821,7 @@ bool UnaryFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray)
 	if (pArray->IsRowMajor() || dims.size() < 2) {
 		size_t nElems = pArray->GetElemNum();
 		for (size_t i = 0; i < nElems; i++, pElem++) {
-			op(*pElemRtn, *pElem);
+			T_Operator::Calc(*pElemRtn, *pElem);
 			pElemRtn++;
 		}
 	} else { // pArray->IsColMajor() && dims.size() >= 2
@@ -836,7 +836,7 @@ bool UnaryFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray)
 				const T_Elem *pElemCol = pElemRow;
 				for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
 						 pElemCol += dimCol.GetStrides()) {
-					op(*pElemRtn, *pElemCol);
+					T_Operator::Calc(*pElemRtn, *pElemCol);
 					pElemRtn++;
 				}
 			}
@@ -845,14 +845,14 @@ bool UnaryFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray)
 	return true;
 }
 
-template<typename T_ElemRtn, typename T_Elem, void (*op)(T_ElemRtn &, const T_Elem &)>
+template<typename T_ElemRtn, typename T_Elem, typename T_Operator>
 bool UnaryFuncTmpl_ExcludeZero(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray)
 {
 	if (pArray->DoesContainZero()) {
 		sig.SetError(ERR_MathError, "the array contains zero as its element");
 		return false;
 	}
-	return UnaryFuncTmpl<T_ElemRtn, T_Elem, op>(sig, pArrayRtn, pArray);
+	return UnaryFuncTmpl<T_ElemRtn, T_Elem, T_Operator>(sig, pArrayRtn, pArray);
 }
 
 //------------------------------------------------------------------------------
