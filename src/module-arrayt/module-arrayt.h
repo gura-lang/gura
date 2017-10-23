@@ -5,7 +5,6 @@
 #define __GURA_MODULE_ARRAYUTIL_H__
 #include <gura.h>
 #include "Creator.h"
-#include "Method.h"
 #include "Operator.h"
 #include "Filter.h"
 

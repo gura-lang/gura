@@ -2,4 +2,4 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.build('arrayt', ['module-arrayt.cpp', 'Creator.cpp', 'Method.cpp', 'Operator.cpp', 'Filter.cpp'])
+builder.build('arrayt', ['module-arrayt.cpp', 'Creator.cpp', 'Operator.cpp', 'Filter.cpp'])

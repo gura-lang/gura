@@ -16,7 +16,6 @@ Gura_ModuleValidate()
 Gura_ModuleEntry()
 {
 	AssignCreators(env);
-	AssignMethods(env);
 	AssignOperators(env);
 	AssignFilters(env);
 	return true;
