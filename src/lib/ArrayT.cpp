@@ -1189,36 +1189,38 @@ void ArrayT<T_Elem>::ExpandKernelVec2d(
 	const T_Elem *pElemBlock = pElemSrc;
 	for (size_t iBlock = 0; iBlock < nBlocks; iBlock++, pElemBlock += sizeBlock) {
 		for (size_t iKernelRow = 0; iKernelRow < nKernelsRow; iKernelRow++) {
-			size_t iRowHead = iKernelRow * stridesKernelRow;
-			size_t iRowTail = iRowHead + sizeKernelRow;
-			size_t iRowLim = ChooseMin(iRowTail, iRowMax);
-			const T_Elem *pElemKernelRow = pElemBlock + iRowHead * stridesRow;
+			size_t iRowBegin = iKernelRow * stridesKernelRow;
+			size_t iRowEnd = iRowBegin + sizeKernelRow;
+			size_t iRowMark = ChooseMin(iRowEnd, iRowMax);
+			const T_Elem *pElemRowTop = pElemBlock;
+			if (iRowBegin > iRowMin) pElemRowTop += (iRowBegin - iRowMin) * stridesRow;
 			for (size_t iKernelCol = 0; iKernelCol < nKernelsCol; iKernelCol++) {
-				size_t iColHead = iKernelCol * stridesKernelCol;
-				size_t iColTail = iColHead + sizeKernelCol;
-				size_t iColLim = ChooseMin(iColTail, iColMax);
-				const T_Elem *pElemRow = pElemKernelRow + iColHead * stridesCol;
-				size_t iRow = iRowHead;
+				size_t iColBegin = iKernelCol * stridesKernelCol;
+				size_t iColEnd = iColBegin + sizeKernelCol;
+				size_t iColMark = ChooseMin(iColEnd, iColMax);
+				size_t iRow = iRowBegin;
 				for ( ; iRow < iRowMin; iRow++) {
-					for (size_t iCol = iColHead; iCol < iColTail; iCol++) {
+					for (size_t iCol = iColBegin; iCol < iColEnd; iCol++) {
 						*pElemDst++ = 0;
 					}
 				}
-				for ( ; iRow < iRowLim; iRow++, pElemRow += stridesRow) {
+				const T_Elem *pElemRow = pElemRowTop;
+				if (iColBegin > iColMin) pElemRow += (iColBegin - iColMin) * stridesCol;
+				for ( ; iRow < iRowMark; iRow++, pElemRow += stridesRow) {
 					const T_Elem *pElemCol = pElemRow;
-					size_t iCol = iColHead;
+					size_t iCol = iColBegin;
 					for ( ; iCol < iColMin; iCol++) {
 						*pElemDst++ = 0;
 					}
-					for ( ; iCol < iColLim; iCol++, pElemCol += stridesCol) {
+					for ( ; iCol < iColMark; iCol++, pElemCol += stridesCol) {
 						*pElemDst++ = *pElemCol;
 					}
-					for ( ; iCol < iColTail; iCol++) {
+					for ( ; iCol < iColEnd; iCol++) {
 						*pElemDst++ = 0;
 					}
 				}
-				for ( ; iRow < iRowTail; iRow++) {
-					for (size_t iCol = iColHead; iCol < iColTail; iCol++) {
+				for ( ; iRow < iRowEnd; iRow++) {
+					for (size_t iCol = iColBegin; iCol < iColEnd; iCol++) {
 						*pElemDst++ = 0;
 					}
 				}

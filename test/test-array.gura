@@ -1605,3 +1605,73 @@ testcase('array#dump()') {
 	println('double'), seq@double.dump()
 	println('complex'), seq@complex.dump()
 }
+testcase('array#expand_kernelvec2d() padding test') {
+	array@int32.range(3 * 3).reshape([3, nil]) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [0, 0]))
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [2, 0]))
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [0, 2]))
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [2, 2]))
+	}
+	array@int32.range(5 * 3).reshape([5, nil]) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [0, 0]))
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [2, 0]))
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [0, 2]))
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [2, 2]))
+	}
+	array@int32.range(3 * 5).reshape([3, nil]) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [0, 0]))
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [0, 2]))
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [2, 0]))
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [2, 2]))
+	}
+	array@int32.range(5 * 5).reshape([5, nil]) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [0, 0]))
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [2, 0]))
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [0, 2]))
+		tester(`x.expand_kernelvec2d([3, 3], [1, 1], [2, 2]))
+	}
+}
+testcase('array#expand_kernelvec2d() strides test') {
+	array@int32.range(3 * 3).reshape([3, nil]) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec2d([3, 3], [2, 1], [0, 0]))
+		tester(`x.expand_kernelvec2d([3, 3], [1, 2], [0, 0]))
+		tester(`x.expand_kernelvec2d([3, 3], [2, 2], [0, 0]))
+	}
+	array@int32.range(4 * 3).reshape([nil, 3]) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec2d([3, 3], [2, 1], [0, 0]))
+	}
+	array@int32.range(5 * 3).reshape([nil, 3]) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec2d([3, 3], [2, 1], [0, 0]))
+	}
+	array@int32.range(6 * 3).reshape([nil, 3]) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec2d([3, 3], [2, 1], [0, 0]))
+	}
+	array@int32.range(7 * 3).reshape([nil, 3]) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec2d([3, 3], [2, 1], [0, 0]))
+	}
+	array@int32.range(3 * 4).reshape([3, nil]) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec2d([3, 3], [1, 2], [0, 0]))
+	}
+	array@int32.range(3 * 5).reshape([3, nil]) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec2d([3, 3], [1, 2], [0, 0]))
+	}
+	array@int32.range(3 * 6).reshape([3, nil]) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec2d([3, 3], [1, 2], [0, 0]))
+	}
+	array@int32.range(3 * 7).reshape([3, nil]) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec2d([3, 3], [1, 2], [0, 0]))
+	}
+}
