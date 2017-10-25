@@ -1521,7 +1521,7 @@ bool ArrayT<T_Elem>::Iterator_Each::DoNext(Environment &env, Value &value)
 			value = Value(_pArrayT->GetPointer()[_idx]);
 		} else {
 			size_t offsetBase = _pArrayT->GetOffsetBase() + pDim->GetStrides() * _idx;
-			AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(_pArrayT->GetColMajorFlag()));
+			AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(_pArrayT->IsColMajor()));
 			pArrayRtn->SetDimensions(pDim + 1, dims.end());
 			pArrayRtn->SetMemory(_pArrayT->GetMemory().Reference(), offsetBase);
 			value = Array::ToValue(env, pArrayRtn.release());

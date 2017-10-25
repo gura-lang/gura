@@ -1562,10 +1562,6 @@ testcase('array#flatten with column-majored array') {
 	println(x)
 	tester(`x.flatten())
 }
-testcase('array#colmajor') {
-	tester(`array.range(4 * 3 * 5).colmajor().major)
-	tester(`array.range(4 * 3 * 5).colmajor().reshape([4, 3, 5]))
-}
 testcase('array#fill') {
 	f(elemtype:symbol, num:number) = {
 		println(elemtype)

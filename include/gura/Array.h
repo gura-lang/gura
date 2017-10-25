@@ -246,10 +246,10 @@ public:
 public:
 	inline ElemType GetElemType() const { return _elemType; }
 	inline bool IsElemType(ElemType elemType) const { return _elemType == elemType; }
-	inline bool GetColMajorFlag() const { return _colMajorFlag; }
+	//inline bool GetColMajorFlag() const { return _colMajorFlag; }
 	inline bool IsColMajor() const { return _colMajorFlag; }
 	inline bool IsRowMajor() const { return !_colMajorFlag; }
-	inline void SetColMajorFlag(bool colMajorFlag) { _colMajorFlag = colMajorFlag; }
+	//inline void SetColMajorFlag(bool colMajorFlag) { _colMajorFlag = colMajorFlag; }
 	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(GetElemBytes() * GetElemNum()));
 	}
@@ -354,7 +354,7 @@ public:
 	static ElemType SymbolToElemType(const Symbol *pSymbol);
 	static ElemType SymbolToElemType(Signal &sig, const Symbol *pSymbol);
 	inline static bool IsSameMajor(const Array *pArrayA, const Array *pArrayB) {
-		return pArrayA->GetColMajorFlag() == pArrayB->GetColMajorFlag();
+		return pArrayA->IsColMajor() == pArrayB->IsColMajor();
 	}
 	inline static bool CheckSameShape(Signal &sig, const Array *pArrayA, const Array *pArrayB) {
 		return Dimensions::CheckSameShape(sig, pArrayA->GetDimensions(), pArrayB->GetDimensions());

@@ -217,7 +217,7 @@ bool Array::Head(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 		return false;
 	}
 	size_t offsetBase = GetOffsetBase();
-	pArrayRtn.reset(Create(GetElemType(), GetColMajorFlag()));
+	pArrayRtn.reset(Create(GetElemType(), IsColMajor()));
 	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
@@ -231,7 +231,7 @@ bool Array::Tail(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 		return false;
 	}
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * (dimFirst.GetSize() - n);
-	pArrayRtn.reset(Create(GetElemType(), GetColMajorFlag()));
+	pArrayRtn.reset(Create(GetElemType(), IsColMajor()));
 	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
@@ -246,7 +246,7 @@ bool Array::Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 	}
 	size_t nElems = dimFirst.GetSize() - n;
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * n;
-	pArrayRtn.reset(Create(GetElemType(), GetColMajorFlag()));
+	pArrayRtn.reset(Create(GetElemType(), IsColMajor()));
 	pArrayRtn->SetDimensions(nElems, GetDimensions().begin() + 1, GetDimensions().end());
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
@@ -271,7 +271,7 @@ bool Array::Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &val
 		sig.SetError(ERR_ValueError, "incorrect shape specified");
 		return false;
 	}
-	pArrayRtn.reset(Create(GetElemType(), GetColMajorFlag()));
+	pArrayRtn.reset(Create(GetElemType(), IsColMajor()));
 	Dimensions &dims = pArrayRtn->GetDimensions();
 	dims.reserve(valList.size());
 	foreach_const (ValueList, pValue, valList) {

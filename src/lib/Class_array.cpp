@@ -37,7 +37,7 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 	if (indexer.HasGenerator()) {
 		Array::Dimensions dimsRtn;
 		indexer.MakeResultDimensions(dimsRtn);
-		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(pArrayT->GetColMajorFlag(), dimsRtn));
+		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(pArrayT->IsColMajor(), dimsRtn));
 		if (!indexer.IsEmptyGenerator()) {
 			size_t nElemsUnit = indexer.GetElemNumUnit();
 			size_t bytesUnit = nElemsUnit * pArrayTRtn->GetElemBytes();
@@ -53,7 +53,7 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 		const T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
 		valueRtn = Value(*pElemTgt);
 	} else {
-		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(new ArrayT<T_Elem>(pArrayT->GetColMajorFlag()));
+		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(new ArrayT<T_Elem>(pArrayT->IsColMajor()));
 		pArrayTRtn->SetMemory(pArrayT->GetMemory().Reference(),
 							  pArrayT->GetOffsetBase() + indexer.GetOffsetTarget());
 		Array::Dimensions dimsRtn;
@@ -599,6 +599,7 @@ Gura_ImplementMethod(array, argmin)
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
+#if 0
 // array#colmajor() {block?}
 Gura_DeclareMethod(array, colmajor)
 {
@@ -622,6 +623,7 @@ Gura_ImplementMethod(array, colmajor)
 	pArrayRtn->SetColMajorFlag(true);
 	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
+#endif
 
 // array.dot(a:array, b:array):static:map {block?}
 Gura_DeclareClassMethod(array, dot)
@@ -1332,7 +1334,7 @@ void Class_array::DoPrepare(Environment &env)
 	// Assignment of method
 	Gura_AssignMethod(array, argmax);
 	Gura_AssignMethod(array, argmin);
-	Gura_AssignMethod(array, colmajor);
+	//Gura_AssignMethod(array, colmajor);
 	Gura_AssignMethod(array, dot);
 	Gura_AssignMethod(array, dump);
 	Gura_AssignMethod(array, each);
