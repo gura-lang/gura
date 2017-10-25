@@ -193,7 +193,7 @@ Gura_ImplementMethod(memory, array_at_##name) \
 	bool colMajorFlag = false; \
 	AutoPtr<ArrayT<T> > pArrayT(new ArrayT<T>(colMajorFlag));	\
 	pArrayT->SetMemory(memory.Reference(), 0);	\
-	pArrayT->SetDimension(cnt);						\
+	pArrayT->SetDimension(colMajorFlag, cnt);							\
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayT.release())); \
 }
 

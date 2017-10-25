@@ -269,7 +269,7 @@ template<typename T_Elem> Array *FuncTmpl_ones(const ValueList &valList)
 {
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(colMajorFlag));
-	pArrayT->SetDimensions(valList);
+	pArrayT->SetDimensions(colMajorFlag, valList);
 	pArrayT->AllocMemory();
 	pArrayT->Fill(1);
 	return pArrayT.release();
@@ -338,7 +338,7 @@ template<typename T_Elem> Array *FuncTmpl_rands(const ValueList &valList, bool r
 {
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(colMajorFlag));
-	pArrayT->SetDimensions(valList);
+	pArrayT->SetDimensions(colMajorFlag, valList);
 	pArrayT->AllocMemory();
 	if (rangeFlag) {
 		pArrayT->FillRandRange(range);
@@ -416,7 +416,7 @@ template<typename T_Elem> Array *FuncTmpl_rands_at_normal(const ValueList &valLi
 {
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(colMajorFlag));
-	pArrayT->SetDimensions(valList);
+	pArrayT->SetDimensions(colMajorFlag, valList);
 	pArrayT->AllocMemory();
 	pArrayT->FillRandNormal(mu, sigma);
 	return pArrayT.release();
@@ -1290,7 +1290,7 @@ template<typename T_Elem> Array *FuncTmpl_zeros(const ValueList &valList)
 {
 	bool colMajorFlag = false;
 	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(colMajorFlag));
-	pArrayT->SetDimensions(valList);
+	pArrayT->SetDimensions(colMajorFlag, valList);
 	pArrayT->AllocMemory();
 	pArrayT->FillZero();
 	return pArrayT.release();

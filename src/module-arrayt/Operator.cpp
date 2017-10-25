@@ -1222,7 +1222,7 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		size_t offsetR = 0;
 		if (pArrayRtn.IsNull()) {
 			pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(colMajorFlag));
-			pArrayRtn->SetDimensions(dimsR.begin(), dimsR.begin() + dimsR.size() - 2, elemNumRtn);
+			pArrayRtn->SetDimensions(colMajorFlag, dimsR.begin(), dimsR.begin() + dimsR.size() - 2, elemNumRtn);
 			pArrayRtn->AllocMemory();
 		}
 		T_ElemRtn *pElemRtn = dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn.get())->GetPointer();
@@ -1244,7 +1244,7 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		size_t offsetL = 0;
 		if (pArrayRtn.IsNull()) {
 			pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(colMajorFlag));
-			pArrayRtn->SetDimensions(dimsL.begin(), dimsL.begin() + dimsL.size() - 2, elemNumRtn, 1);
+			pArrayRtn->SetDimensions(colMajorFlag, dimsL.begin(), dimsL.begin() + dimsL.size() - 2, elemNumRtn, 1);
 			pArrayRtn->AllocMemory();
 		}
 		T_ElemRtn *pElemRtn = dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn.get())->GetPointer();
@@ -1281,7 +1281,7 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		if (dimsL.size() < dimsR.size()) {
 			if (pArrayRtn.IsNull()) {
 				pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(colMajorFlag));
-				pArrayRtn->SetDimensions(dimsR.begin(), dimsR.begin() + dimsR.size() - 2,
+				pArrayRtn->SetDimensions(colMajorFlag, dimsR.begin(), dimsR.begin() + dimsR.size() - 2,
 										 dimRowL.GetSize(), dimColR.GetSize());
 				pArrayRtn->AllocMemory();
 			}
@@ -1296,7 +1296,7 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		} else { // dimsL.size() >= dimsR.size()
 			if (pArrayRtn.IsNull()) {
 				pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(colMajorFlag));
-				pArrayRtn->SetDimensions(dimsL.begin(), dimsL.begin() + dimsL.size() - 2,
+				pArrayRtn->SetDimensions(colMajorFlag, dimsL.begin(), dimsL.begin() + dimsL.size() - 2,
 										 dimRowL.GetSize(), dimColR.GetSize());
 				pArrayRtn->AllocMemory();
 			}

@@ -287,23 +287,24 @@ public:
 	static const char *GetElemTypeName(ElemType elemType);
 	inline const char *GetElemTypeName() const { return GetElemTypeName(_elemType); }
 	void FlipAxisMajor();
-	void SetDimension(size_t size);
-	void SetDimensions(size_t sizeRow, size_t sizeCol);
-	void SetDimensions(size_t sizePlane, size_t sizeRow, size_t sizeCol);
-	void SetDimensions(const Dimensions &dims);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
-	void SetDimensions(size_t size,
+	void StoreDimensions(const Dimensions &dims);
+	void SetDimension(bool colMajorFlag, size_t size);
+	void SetDimensions(bool colMajorFlag, size_t sizeRow, size_t sizeCol);
+	void SetDimensions(bool colMajorFlag, size_t sizePlane, size_t sizeRow, size_t sizeCol);
+	void SetDimensions(bool colMajorFlag, const Dimensions &dims);
+	void SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
+	void SetDimensions(bool colMajorFlag, size_t size,
 					   Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+	void SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 					   size_t size);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+	void SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 					   size_t sizeRow, size_t sizeCol);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+	void SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 					   size_t sizePlane, size_t sizeRow, size_t sizeCol);
-	void SetDimensions(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
+	void SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
 					   Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
-	void SetDimensions(const ValueList &valList);
-	void UpdateMetrics();
+	void SetDimensions(bool colMajorFlag, const ValueList &valList);
+	void UpdateMetrics(bool colMajorFlag);
 	void FillZero();
 	virtual void Fill(Double num) = 0;
 	virtual void RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) const = 0;

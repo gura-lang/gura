@@ -58,7 +58,7 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 							  pArrayT->GetOffsetBase() + indexer.GetOffsetTarget());
 		Array::Dimensions dimsRtn;
 		indexer.MakeResultDimensions(dimsRtn);
-		pArrayTRtn->SetDimensions(dimsRtn);
+		pArrayTRtn->SetDimensions(pArrayT->IsColMajor(), dimsRtn);
 		valueRtn = Array::ToValue(env, pArrayTRtn.release());
 	}
 	return valueRtn;
@@ -732,7 +732,7 @@ Gura_ImplementMethod(array, elemcast)
 	} else {
 		bool colMajorFlag = false;
 		AutoPtr<Array> pArrayDst(Array::Create(elemType, colMajorFlag));
-		pArrayDst->SetDimensions(pArraySelf->GetDimensions());
+		pArrayDst->SetDimensions(colMajorFlag, pArraySelf->GetDimensions());
 		pArrayDst->AllocMemory();
 		if (!Array::CopyElements(env, pArrayDst.get(), pArraySelf)) return Value::Nil;
 		value = Value(new Object_array(env, pArrayDst.release()));
