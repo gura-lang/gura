@@ -193,21 +193,6 @@ void Array::SetDimensions(bool colMajorFlag, const ValueList &valList)
 	UpdateMetrics(colMajorFlag);
 }
 
-void Array::UpdateMetrics(bool colMajorFlag)
-{
-	size_t strides = 1;
-	foreach_reverse (Dimensions, pDim, _dims) {
-		pDim->SetStrides(strides);
-		strides *= pDim->GetSize();
-		pDim->SetSizeProd(strides);
-	}
-	//_elemNum = strides;	// set to one when _dims is empty
-	if (colMajorFlag && _dims.size() >= 2) {
-		_dims.GetCol().SetStrides(_dims.GetRow().GetSize());
-		_dims.GetRow().SetStrides(1);
-	}
-}
-
 void Array::FillZero()
 {
 	::memset(GetPointerRaw(), 0x00, GetElemBytes() * GetElemNum());
@@ -397,7 +382,6 @@ Array *Array::Deserialize(Environment &env, Stream &stream)
 	Array::Dimensions dims;
 	if (!dims.Deserialize(env, stream)) return nullptr;
 	AutoPtr<Array> pArray(Create(static_cast<ElemType>(elemTypeRaw)));
-	//pArray->StoreDimensions(dims);
 	pArray->SetDimensions(static_cast<bool>(colMajorFlagRaw), dims);
 	pArray->AllocMemory();
 	size_t bytes = pArray->GetElemBytes() * pArray->GetElemNum();
@@ -899,6 +883,20 @@ String Array::Dimensions::ToString(const_iterator pDim, const_iterator pDimEnd, 
 		rtn += buff;
 	}
 	return rtn;
+}
+
+void Array::Dimensions::UpdateMetrics(bool colMajorFlag)
+{
+	size_t strides = 1;
+	foreach_reverse (Dimensions, pDim, *this) {
+		pDim->SetStrides(strides);
+		strides *= pDim->GetSize();
+		pDim->SetSizeProd(strides);
+	}
+	if (colMajorFlag && size() >= 2) {
+		GetCol().SetStrides(GetRow().GetSize());
+		GetRow().SetStrides(1);
+	}
 }
 
 bool Array::Dimensions::Serialize(Environment &env, Stream &stream) const

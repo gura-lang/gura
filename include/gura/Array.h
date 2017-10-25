@@ -145,8 +145,8 @@ public:
 	};
 	class GURA_DLLDECLARE Dimensions : public std::vector<Dimension> {
 	public:
-		bool HasRowCol() const { return size() >= 2; }
-		bool HasPlaneRowCol() const { return size() >= 3; }
+		inline bool HasRowCol() const { return size() >= 2; }
+		inline bool HasPlaneRowCol() const { return size() >= 3; }
 		inline Dimension &GetPlane() { return *(rbegin() + 2); }
 		inline Dimension &GetRow() { return *(rbegin() + 1); }
 		inline Dimension &GetCol() { return *rbegin(); }
@@ -156,10 +156,14 @@ public:
 		inline void SetPlane(const Dimension &dim) { *(rbegin() + 2) = dim; } 
 		inline void SetRow(const Dimension &dim) { *(rbegin() + 1) = dim; } 
 		inline void SetCol(const Dimension &dim) { *rbegin() = dim; } 
+		inline bool IsColMajor() const { return !empty() && GetCol().GetStrides() != 1; }
+		inline bool IsRowMajor() const { return !IsColMajor(); }
+		inline size_t GetElemNum() const { return empty()? 1 : front().GetSizeProd(); }
 		static String ToString(const_iterator pDim, const_iterator pDimEnd, const char *sep = ", ");
 		inline String ToString(const char *sep = ", ") const { return ToString(begin(), end(), sep); }
 		bool Serialize(Environment &env, Stream &stream) const;
 		bool Deserialize(Environment &env, Stream &stream);
+		void UpdateMetrics(bool colMajorFlag);
 		static bool IsSameShape(const_iterator pDimA, const_iterator pDimEndA,
 								const_iterator pDimB, const_iterator pDimEndB);
 		inline static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB) {
@@ -173,9 +177,6 @@ public:
 		}
 		static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 											  const Dimensions &dimsL, const Dimensions &dimsR);
-		inline bool IsColMajor() const { return !empty() && GetCol().GetStrides() != 1; }
-		inline bool IsRowMajor() const { return !IsColMajor(); }
-		inline size_t GetElemNum() const { return empty()? 1 : front().GetSizeProd(); }
 	};
 	class GURA_DLLDECLARE Indexer {
 	public:
@@ -230,7 +231,6 @@ protected:
 	AutoPtr<Memory> _pMemory;
 	Dimensions _dims;
 	size_t _offsetBase;
-	//size_t _elemNum;
 	static MapToElemType _mapToElemType;
 public:
 	Gura_DeclareReferenceAccessor(Array);
@@ -300,7 +300,7 @@ public:
 	void SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
 					   Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
 	void SetDimensions(bool colMajorFlag, const ValueList &valList);
-	void UpdateMetrics(bool colMajorFlag);
+	inline void UpdateMetrics(bool colMajorFlag) { _dims.UpdateMetrics(colMajorFlag); }
 	void FillZero();
 	virtual void Fill(Double num) = 0;
 	virtual void RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) const = 0;
