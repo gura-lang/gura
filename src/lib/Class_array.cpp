@@ -738,13 +738,14 @@ Gura_ImplementMethod(array, elemcast)
 	return ReturnValue(env, arg, value);
 }
 
-// array#expand_kernelvec1d(size:number, strides:number, sizepad:number) {block?}
+// array#expand_kernelvec1d(size:number, strides:number, sizepad:number, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec1d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "sizepad", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -759,17 +760,19 @@ Gura_ImplementMethod(array, expand_kernelvec1d)
 	size_t sizeKernel = arg.GetSizeT(0);
 	size_t stridesKernel = arg.GetSizeT(1);
 	size_t sizePad = arg.GetSizeT(2);
-	pArraySelf->ExpandKernelVec1d(pArrayRtn, sizeKernel, stridesKernel, sizePad);
+	Double padNum = arg.IsValid(3)? arg.GetDouble(3) : 0;
+	pArraySelf->ExpandKernelVec1d(pArrayRtn, sizeKernel, stridesKernel, sizePad, padNum);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
-// array#expand_kernelvec2d(size[]:number, strides[]:number, sizepad[]:number) {block?}
+// array#expand_kernelvec2d(size[]:number, strides[]:number, sizepad[]:number, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec2d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "sizepad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -800,18 +803,20 @@ Gura_ImplementMethod(array, expand_kernelvec2d)
 	}
 	size_t sizePadRow = value1.GetSizeT();
 	size_t sizePadCol = value2.GetSizeT();
+	Double padNum = arg.IsValid(3)? arg.GetDouble(3) : 0;
 	pArraySelf->ExpandKernelVec2d(pArrayRtn, sizeKernelRow, sizeKernelCol,
-								  stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol);
+								  stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol, padNum);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
-// array#expand_kernelvec3d(size[]:number, strides[]:number, sizepad[]:number) {block?}
+// array#expand_kernelvec3d(size[]:number, strides[]:number, sizepad[]:number, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec3d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "sizepad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -831,23 +836,24 @@ Gura_ImplementMethod(array, expand_kernelvec3d)
 	size_t sizeKernelPlane = value1.GetSizeT();
 	size_t sizeKernelRow = value2.GetSizeT();
 	size_t sizeKernelCol = value3.GetSizeT();
-	if (!arg.GetListValues(0, &value1, &value2, &value3)) {
+	if (!arg.GetListValues(1, &value1, &value2, &value3)) {
 		env.SetError(ERR_ValueError, "argument 'strides' must have three elements");
 		return Value::Nil;
 	}
 	size_t stridesKernelPlane = value1.GetSizeT();
 	size_t stridesKernelRow = value2.GetSizeT();
 	size_t stridesKernelCol = value3.GetSizeT();
-	if (!arg.GetListValues(0, &value1, &value2, &value3)) {
+	if (!arg.GetListValues(2, &value1, &value2, &value3)) {
 		env.SetError(ERR_ValueError, "argument 'sizepad' must have three elements");
 		return Value::Nil;
 	}
 	size_t sizePadPlane = value1.GetSizeT();
 	size_t sizePadRow = value2.GetSizeT();
 	size_t sizePadCol = value3.GetSizeT();
+	Double padNum = arg.IsValid(3)? arg.GetDouble(3) : 0;
 	pArraySelf->ExpandKernelVec3d(pArrayRtn, sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 								  stridesKernelPlane, stridesKernelRow, stridesKernelCol,
-								  sizePadPlane, sizePadRow, sizePadCol);
+								  sizePadPlane, sizePadRow, sizePadCol, padNum);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
