@@ -226,7 +226,7 @@ public:
 protected:
 	int _cntRef;
 	ElemType _elemType;
-	bool _colMajorFlag;
+	//bool _colMajorFlag;
 	AutoPtr<Memory> _pMemory;
 	Dimensions _dims;
 	size_t _offsetBase;
@@ -236,11 +236,11 @@ public:
 	Gura_DeclareReferenceAccessor(Array);
 protected:
 	inline Array(const Array &src) : _cntRef(1),
-		_elemType(src._elemType), _colMajorFlag(src._colMajorFlag),
+		_elemType(src._elemType),
 		_pMemory(src._pMemory->Reference()), _dims(src._dims),
 		_offsetBase(src._offsetBase), _elemNum(src._elemNum) {}
 	inline Array(ElemType elemType, bool colMajorFlag) : _cntRef(1),
-		_elemType(elemType), _colMajorFlag(colMajorFlag), _offsetBase(0), _elemNum(0) {}
+		_elemType(elemType), _offsetBase(0), _elemNum(0) {}
 protected:
 	virtual ~Array();
 public:
@@ -248,10 +248,10 @@ public:
 public:
 	inline ElemType GetElemType() const { return _elemType; }
 	inline bool IsElemType(ElemType elemType) const { return _elemType == elemType; }
-	//inline bool IsColMajor() const { return _dims.IsColMajor(); }
-	//inline bool IsRowMajor() const { return _dims.IsRowMajor(); }
-	inline bool IsColMajor() const { return _colMajorFlag; }
-	inline bool IsRowMajor() const { return !_colMajorFlag; }
+	inline bool IsColMajor() const { return _dims.IsColMajor(); }
+	inline bool IsRowMajor() const { return _dims.IsRowMajor(); }
+	//inline bool IsColMajor() const { return _colMajorFlag; }
+	//inline bool IsRowMajor() const { return !_colMajorFlag; }
 	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(GetElemBytes() * GetElemNum()));
 	}

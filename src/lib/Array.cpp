@@ -87,7 +87,7 @@ const char *Array::GetElemTypeName(ElemType elemType)
 void Array::FlipAxisMajor()
 {
 	if (_dims.HasRowCol()) {
-		_colMajorFlag = !_colMajorFlag;
+		//_colMajorFlag = !_colMajorFlag;
 		Dimension dimRow = _dims.GetRow(); // don't use reference here!
 		Dimension dimCol = _dims.GetCol();
 		_dims.SetRow(Dimension(dimCol.GetSize(), dimCol.GetSize() * dimRow.GetSize(), dimCol.GetStrides()));
@@ -382,7 +382,7 @@ Value Array::ToValue(Environment &env, Array *pArray)
 bool Array::Serialize(Environment &env, Stream &stream) const
 {
 	if (!stream.SerializeUInt8(env, static_cast<UInt8>(_elemType))) return false;
-	if (!stream.SerializeUInt8(env, static_cast<UInt8>(_colMajorFlag))) return false;
+	if (!stream.SerializeUInt8(env, static_cast<UInt8>(IsColMajor()))) return false;
 	if (!_dims.Serialize(env, stream)) return false;
 	size_t bytes = GetElemBytes() * GetElemNum();
 	if (stream.Write(env, GetPointerRaw(), bytes) < bytes) return false;
