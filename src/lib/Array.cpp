@@ -87,7 +87,6 @@ const char *Array::GetElemTypeName(ElemType elemType)
 void Array::FlipAxisMajor()
 {
 	if (_dims.HasRowCol()) {
-		//_colMajorFlag = !_colMajorFlag;
 		Dimension dimRow = _dims.GetRow(); // don't use reference here!
 		Dimension dimCol = _dims.GetCol();
 		_dims.SetRow(Dimension(dimCol.GetSize(), dimCol.GetSize() * dimRow.GetSize(), dimCol.GetStrides()));
@@ -222,7 +221,7 @@ bool Array::Head(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 		return false;
 	}
 	size_t offsetBase = GetOffsetBase();
-	pArrayRtn.reset(Create(GetElemType(), IsColMajor()));
+	pArrayRtn.reset(Create(GetElemType()));
 	pArrayRtn->SetDimensions(IsColMajor(), n, GetDimensions().begin() + 1, GetDimensions().end());
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
@@ -236,7 +235,7 @@ bool Array::Tail(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 		return false;
 	}
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * (dimFirst.GetSize() - n);
-	pArrayRtn.reset(Create(GetElemType(), IsColMajor()));
+	pArrayRtn.reset(Create(GetElemType()));
 	pArrayRtn->SetDimensions(IsColMajor(), n, GetDimensions().begin() + 1, GetDimensions().end());
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
@@ -251,7 +250,7 @@ bool Array::Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 	}
 	size_t nElems = dimFirst.GetSize() - n;
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * n;
-	pArrayRtn.reset(Create(GetElemType(), IsColMajor()));
+	pArrayRtn.reset(Create(GetElemType()));
 	pArrayRtn->SetDimensions(IsColMajor(), nElems, GetDimensions().begin() + 1, GetDimensions().end());
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
@@ -276,7 +275,7 @@ bool Array::Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &val
 		sig.SetError(ERR_ValueError, "incorrect shape specified");
 		return false;
 	}
-	pArrayRtn.reset(Create(GetElemType(), IsColMajor()));
+	pArrayRtn.reset(Create(GetElemType()));
 	Dimensions &dims = pArrayRtn->GetDimensions();
 	dims.reserve(valList.size());
 	foreach_const (ValueList, pValue, valList) {
@@ -397,7 +396,7 @@ Array *Array::Deserialize(Environment &env, Stream &stream)
 	if (!stream.DeserializeUInt8(env, colMajorFlagRaw)) return nullptr;
 	Array::Dimensions dims;
 	if (!dims.Deserialize(env, stream)) return nullptr;
-	AutoPtr<Array> pArray(Create(static_cast<ElemType>(elemTypeRaw), static_cast<bool>(colMajorFlagRaw)));
+	AutoPtr<Array> pArray(Create(static_cast<ElemType>(elemTypeRaw)));
 	//pArray->StoreDimensions(dims);
 	pArray->SetDimensions(static_cast<bool>(colMajorFlagRaw), dims);
 	pArray->AllocMemory();
@@ -407,14 +406,14 @@ Array *Array::Deserialize(Environment &env, Stream &stream)
 }
 
 template<typename T_Elem>
-Array *CreateTmpl(bool colMajorFlag)
+Array *CreateTmpl()
 {
-	return ArrayT<T_Elem>::Create(colMajorFlag);
+	return ArrayT<T_Elem>::Create();
 }
 
-Array *Array::Create(ElemType elemType, bool colMajorFlag)
+Array *Array::Create(ElemType elemType)
 {
-	typedef Array *(*FuncT)(bool colMajorFlag);
+	typedef Array *(*FuncT)();
 	static const FuncT funcs[ETYPE_Max] = {
 		nullptr,
 		&CreateTmpl<Boolean>,
@@ -433,7 +432,7 @@ Array *Array::Create(ElemType elemType, bool colMajorFlag)
 		//&CreateTmpl<Value>,
 	};
 	FuncT func = funcs[elemType];
-	return (*func)(colMajorFlag);
+	return (*func)();
 }
 
 Array::ElemType Array::SymbolToElemType(const Symbol *pSymbol)

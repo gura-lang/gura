@@ -226,7 +226,6 @@ public:
 protected:
 	int _cntRef;
 	ElemType _elemType;
-	//bool _colMajorFlag;
 	AutoPtr<Memory> _pMemory;
 	Dimensions _dims;
 	size_t _offsetBase;
@@ -236,11 +235,9 @@ public:
 	Gura_DeclareReferenceAccessor(Array);
 protected:
 	inline Array(const Array &src) : _cntRef(1),
-		_elemType(src._elemType),
-		_pMemory(src._pMemory->Reference()), _dims(src._dims),
+		_elemType(src._elemType), _pMemory(src._pMemory->Reference()), _dims(src._dims),
 		_offsetBase(src._offsetBase), _elemNum(src._elemNum) {}
-	inline Array(ElemType elemType, bool colMajorFlag) : _cntRef(1),
-		_elemType(elemType), _offsetBase(0), _elemNum(0) {}
+	inline Array(ElemType elemType) : _cntRef(1), _elemType(elemType), _offsetBase(0), _elemNum(0) {}
 protected:
 	virtual ~Array();
 public:
@@ -250,8 +247,6 @@ public:
 	inline bool IsElemType(ElemType elemType) const { return _elemType == elemType; }
 	inline bool IsColMajor() const { return _dims.IsColMajor(); }
 	inline bool IsRowMajor() const { return _dims.IsRowMajor(); }
-	//inline bool IsColMajor() const { return _colMajorFlag; }
-	//inline bool IsRowMajor() const { return !_colMajorFlag; }
 	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(GetElemBytes() * GetElemNum()));
 	}
@@ -352,7 +347,7 @@ public:
 	bool Serialize(Environment &env, Stream &stream) const;
 	static Array *Deserialize(Environment &env, Stream &stream);
 public:
-	static Array *Create(ElemType elemType, bool colMajorFlag);
+	static Array *Create(ElemType elemType);
 public:
 	static ElemType SymbolToElemType(const Symbol *pSymbol);
 	static ElemType SymbolToElemType(Signal &sig, const Symbol *pSymbol);

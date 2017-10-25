@@ -53,7 +53,7 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 		const T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
 		valueRtn = Value(*pElemTgt);
 	} else {
-		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(new ArrayT<T_Elem>(pArrayT->IsColMajor()));
+		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(new ArrayT<T_Elem>());
 		pArrayTRtn->SetMemory(pArrayT->GetMemory().Reference(),
 							  pArrayT->GetOffsetBase() + indexer.GetOffsetTarget());
 		Array::Dimensions dimsRtn;
@@ -731,7 +731,7 @@ Gura_ImplementMethod(array, elemcast)
 		value = Value(new Object_array(env, pArraySelf->Clone()));
 	} else {
 		bool colMajorFlag = false;
-		AutoPtr<Array> pArrayDst(Array::Create(elemType, colMajorFlag));
+		AutoPtr<Array> pArrayDst(Array::Create(elemType));
 		pArrayDst->SetDimensions(colMajorFlag, pArraySelf->GetDimensions());
 		pArrayDst->AllocMemory();
 		if (!Array::CopyElements(env, pArrayDst.get(), pArraySelf)) return Value::Nil;

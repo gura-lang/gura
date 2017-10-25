@@ -38,7 +38,7 @@ public:
 	static const char *ConstructorName;
 public:
 	inline ArrayT(const ArrayT &src) : Array(src) {}
-	ArrayT(bool colMajorFlag);
+	ArrayT();
 	inline T_Elem *GetPointerOrigin() {
 		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer());
 	}
@@ -93,7 +93,7 @@ public:
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol);
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const;
 	// functions to create an ArrayT instance
-	static ArrayT *Create(bool colMajorFlag);
+	static ArrayT *Create();
 	static ArrayT *Create(bool colMajorFlag, const Dimensions &dims);
 	static ArrayT *Create1d(bool colMajorFlag, size_t size);
 	static ArrayT *Create2d(bool colMajorFlag, size_t sizeRow, size_t sizeCol);

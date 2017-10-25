@@ -1221,7 +1221,7 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		size_t elemNumRtn = dimColR.GetSize();
 		size_t offsetR = 0;
 		if (pArrayRtn.IsNull()) {
-			pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(colMajorFlag));
+			pArrayRtn.reset(ArrayT<T_ElemRtn>::Create());
 			pArrayRtn->SetDimensions(colMajorFlag, dimsR.begin(), dimsR.begin() + dimsR.size() - 2, elemNumRtn);
 			pArrayRtn->AllocMemory();
 		}
@@ -1243,7 +1243,7 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		size_t elemNumRtn = dimRowL.GetSize();
 		size_t offsetL = 0;
 		if (pArrayRtn.IsNull()) {
-			pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(colMajorFlag));
+			pArrayRtn.reset(ArrayT<T_ElemRtn>::Create());
 			pArrayRtn->SetDimensions(colMajorFlag, dimsL.begin(), dimsL.begin() + dimsL.size() - 2, elemNumRtn, 1);
 			pArrayRtn->AllocMemory();
 		}
@@ -1280,7 +1280,7 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		size_t offsetL = 0, offsetR = 0;
 		if (dimsL.size() < dimsR.size()) {
 			if (pArrayRtn.IsNull()) {
-				pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(colMajorFlag));
+				pArrayRtn.reset(ArrayT<T_ElemRtn>::Create());
 				pArrayRtn->SetDimensions(colMajorFlag, dimsR.begin(), dimsR.begin() + dimsR.size() - 2,
 										 dimRowL.GetSize(), dimColR.GetSize());
 				pArrayRtn->AllocMemory();
@@ -1295,7 +1295,7 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 			}
 		} else { // dimsL.size() >= dimsR.size()
 			if (pArrayRtn.IsNull()) {
-				pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(colMajorFlag));
+				pArrayRtn.reset(ArrayT<T_ElemRtn>::Create());
 				pArrayRtn->SetDimensions(colMajorFlag, dimsL.begin(), dimsL.begin() + dimsL.size() - 2,
 										 dimRowL.GetSize(), dimColR.GetSize());
 				pArrayRtn->AllocMemory();

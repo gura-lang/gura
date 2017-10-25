@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 #define ImplementArrayT(T_Elem) \
 template<> \
-ArrayT<T_Elem>::ArrayT(bool colMajorFlag) : Array(ETYPE_##T_Elem, colMajorFlag) {} \
+ArrayT<T_Elem>::ArrayT() : Array(ETYPE_##T_Elem) {} \
 template class ArrayT<T_Elem>;
 
 namespace Gura {
@@ -564,7 +564,7 @@ void ArrayT<T_Elem>::Flatten(AutoPtr<Array> &pArrayRtn) const
 {
 	bool colMajorFlag = false;
 	const Array::Dimensions &dims = GetDimensions();
-	pArrayRtn.reset(Create(colMajorFlag));
+	pArrayRtn.reset(Create());
 	pArrayRtn->SetDimension(colMajorFlag, GetElemNum());
 	if (IsRowMajor() || dims.size() < 2) {
 		pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
@@ -631,7 +631,7 @@ bool ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes)
 	}
 	if (pArrayRtn.IsNull()) {
 		bool colMajorFlag = false;
-		pArrayRtn.reset(Create(colMajorFlag));
+		pArrayRtn.reset(Create());
 		Dimensions &dimsDst = pArrayRtn->GetDimensions();
 		dimsDst.reserve(GetDimensions().size());
 		foreach_const (SizeTList, pAxis, axes) {
@@ -661,7 +661,7 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-	AutoPtr<ArrayT<T_Elem> > pArrayTValue(ArrayT<T_Elem>::Create(colMajorFlag));
+	AutoPtr<ArrayT<T_Elem> > pArrayTValue(ArrayT<T_Elem>::Create());
 	pArrayTValue->SetDimensions(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
 	pArrayTValue->AllocMemory();
 	pArrayTValue->FillZero();
@@ -776,7 +776,7 @@ Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, size_t axis)
 	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-	AutoPtr<ArrayT<UInt32> > pArrayTIndex(ArrayT<UInt32>::Create(colMajorFlag));
+	AutoPtr<ArrayT<UInt32> > pArrayTIndex(ArrayT<UInt32>::Create());
 	pArrayTIndex->SetDimensions(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
 	pArrayTIndex->AllocMemory();
 	AutoPtr<Memory> pMemoryValue(new MemoryHeap(pArrayTIndex->GetElemNum() * sizeof(T_Elem)));
@@ -924,7 +924,7 @@ ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool mean
 	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(ArrayT<T_ElemRtn>::Create(colMajorFlag));
+	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(ArrayT<T_ElemRtn>::Create());
 	pArrayTRtn->SetDimensions(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
 	pArrayTRtn->AllocMemory();
 	pArrayTRtn->FillZero();
@@ -1016,7 +1016,7 @@ ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool popu
 	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(ArrayT<T_ElemRtn>::Create(colMajorFlag));
+	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(ArrayT<T_ElemRtn>::Create());
 	pArrayTRtn->SetDimensions(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
 	pArrayTRtn->AllocMemory();
 	pArrayTRtn->FillZero();
@@ -1154,7 +1154,7 @@ void ArrayT<T_Elem>::ExpandKernelVec1d(
 	size_t nKernelsCol = (nColsPadded - sizeKernel + stridesKernel) / stridesKernel;
 	size_t sizeBlock = dims.GetCol().GetSizeProd();
 	size_t nBlocks = GetElemNum() / sizeBlock;
-	pArrayVec.reset(Create(colMajorFlag));
+	pArrayVec.reset(Create());
 	pArrayVec->SetDimensions(colMajorFlag, dims.begin(), dims.begin() + dims.size() - 2, nKernelsCol, sizeKernel);
 	pArrayVec->AllocMemory();
 	const T_Elem *pElemSrc = GetPointer();
@@ -1213,7 +1213,7 @@ void ArrayT<T_Elem>::ExpandKernelVec2d(
 	size_t nKernelsCol = (nColsPadded - sizeKernelCol + stridesKernelCol) / stridesKernelCol;
 	size_t sizeBlock = dims.GetRow().GetSizeProd();
 	size_t nBlocks = GetElemNum() / sizeBlock;
-	pArrayVec.reset(Create(colMajorFlag));
+	pArrayVec.reset(Create());
 	pArrayVec->SetDimensions(colMajorFlag, dims.begin(), dims.begin() + dims.size() - 2,
 							 nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol);
 	pArrayVec->AllocMemory();
@@ -1278,7 +1278,7 @@ void ArrayT<T_Elem>::ExpandKernelVec3d(
 	const bool colMajorFlag = false;
 	const Dimensions &dims = GetDimensions();
 	if (dims.size() < 3) return;
-	pArrayVec.reset(Create(colMajorFlag));
+	pArrayVec.reset(Create());
 	pArrayVec->SetDimensions(colMajorFlag, dims.begin(), dims.begin() + dims.size() - 3,
 							 sizeKernelPlane * sizeKernelRow * sizeKernelCol);
 	pArrayVec->AllocMemory();
@@ -1300,16 +1300,16 @@ Iterator *ArrayT<T_Elem>::CreateIteratorEach(bool flatFlag) const
 
 /// functions to create an ArrayT instance
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag)
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create()
 {
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
 	return pArrayT.release();
 }
 
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag, const Array::Dimensions &dims)
 {
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
 	pArrayT->SetDimensions(colMajorFlag, dims);
 	pArrayT->AllocMemory();
 	return pArrayT.release();
@@ -1318,7 +1318,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag, const Array::Dimension
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create1d(bool colMajorFlag, size_t size)
 {
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
 	pArrayT->SetDimension(colMajorFlag, size);
 	pArrayT->AllocMemory();
 	return pArrayT.release();
@@ -1327,7 +1327,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create1d(bool colMajorFlag, size_t size)
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create2d(bool colMajorFlag, size_t sizeRow, size_t sizeCol)
 {
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
 	pArrayT->SetDimensions(colMajorFlag, sizeRow, sizeCol);
 	pArrayT->AllocMemory();
 	return pArrayT.release();
@@ -1336,7 +1336,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create2d(bool colMajorFlag, size_t sizeRow, size
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Create3d(bool colMajorFlag, size_t sizePlane, size_t sizeRow, size_t sizeCol)
 {
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
 	pArrayT->SetDimensions(colMajorFlag, sizePlane, sizeRow, sizeCol);
 	pArrayT->AllocMemory();
 	return pArrayT.release();
@@ -1346,7 +1346,7 @@ template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScalar(const T_Elem &num)
 {
 	bool colMajorFlag = false;
-	AutoPtr<ArrayT> pArrayT(new ArrayT(colMajorFlag));
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
 	pArrayT->SetScalar(num);
 	return pArrayT.release();
 }
@@ -1521,7 +1521,7 @@ bool ArrayT<T_Elem>::Iterator_Each::DoNext(Environment &env, Value &value)
 			value = Value(_pArrayT->GetPointer()[_idx]);
 		} else {
 			size_t offsetBase = _pArrayT->GetOffsetBase() + pDim->GetStrides() * _idx;
-			AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(_pArrayT->IsColMajor()));
+			AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>());
 			pArrayRtn->SetDimensions(_pArrayT->IsColMajor(), pDim + 1, dims.end());
 			pArrayRtn->SetMemory(_pArrayT->GetMemory().Reference(), offsetBase);
 			value = Array::ToValue(env, pArrayRtn.release());
