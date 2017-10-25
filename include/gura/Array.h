@@ -173,6 +173,8 @@ public:
 		}
 		static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 											  const Dimensions &dimsL, const Dimensions &dimsR);
+		inline bool IsColMajor() const { return !empty() && GetCol().GetStrides() != 1; }
+		inline bool IsRowMajor() const { return !IsColMajor(); }
 	};
 	class GURA_DLLDECLARE Indexer {
 	public:
@@ -246,10 +248,10 @@ public:
 public:
 	inline ElemType GetElemType() const { return _elemType; }
 	inline bool IsElemType(ElemType elemType) const { return _elemType == elemType; }
-	//inline bool GetColMajorFlag() const { return _colMajorFlag; }
+	//inline bool IsColMajor() const { return _dims.IsColMajor(); }
+	//inline bool IsRowMajor() const { return _dims.IsRowMajor(); }
 	inline bool IsColMajor() const { return _colMajorFlag; }
 	inline bool IsRowMajor() const { return !_colMajorFlag; }
-	//inline void SetColMajorFlag(bool colMajorFlag) { _colMajorFlag = colMajorFlag; }
 	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(GetElemBytes() * GetElemNum()));
 	}
