@@ -1605,6 +1605,26 @@ testcase('array#dump()') {
 	println('double'), seq@double.dump()
 	println('complex'), seq@complex.dump()
 }
+testcase('array#expand_kernelvec1d() padding test') {
+	array@int32.range(3) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec1d(3, 1, 0))
+		tester(`x.expand_kernelvec1d(3, 1, 2))
+	}
+	array@int32.range(10) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec1d(3, 1, 0))
+		tester(`x.expand_kernelvec1d(3, 1, 2))
+	}
+}
+testcase('array#expand_kernelvec1d() strides test') {
+	array@int32.range(10) {|x|
+		tester(`x)
+		tester(`x.expand_kernelvec1d(3, 2, 0))
+		tester(`x.expand_kernelvec1d(3, 2, 2))
+		tester(`x.expand_kernelvec1d(3, 2, 4))
+	}
+}
 testcase('array#expand_kernelvec2d() padding test') {
 	array@int32.range(3 * 3).reshape([3, nil]) {|x|
 		tester(`x)
