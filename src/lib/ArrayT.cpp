@@ -480,7 +480,7 @@ void ArrayT<T_Elem>::FillRandNormal(double mu, double sigma)
 template<typename T_Elem>
 void ArrayT<T_Elem>::SetScalar(const T_Elem &num)
 {
-	_elemNum = 1;
+	//_elemNum = 1;
 	AllocMemory();
 	*GetPointer() = num;
 }
@@ -1345,7 +1345,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create3d(bool colMajorFlag, size_t sizePlane, si
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScalar(const T_Elem &num)
 {
-	bool colMajorFlag = false;
+	//bool colMajorFlag = false;
 	AutoPtr<ArrayT> pArrayT(new ArrayT());
 	pArrayT->SetScalar(num);
 	return pArrayT.release();

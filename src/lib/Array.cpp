@@ -201,7 +201,7 @@ void Array::UpdateMetrics(bool colMajorFlag)
 		strides *= pDim->GetSize();
 		pDim->SetSizeProd(strides);
 	}
-	_elemNum = strides;	// set to one when _dims is empty
+	//_elemNum = strides;	// set to one when _dims is empty
 	if (colMajorFlag && _dims.size() >= 2) {
 		_dims.GetCol().SetStrides(_dims.GetRow().GetSize());
 		_dims.GetRow().SetStrides(1);

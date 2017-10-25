@@ -175,6 +175,7 @@ public:
 											  const Dimensions &dimsL, const Dimensions &dimsR);
 		inline bool IsColMajor() const { return !empty() && GetCol().GetStrides() != 1; }
 		inline bool IsRowMajor() const { return !IsColMajor(); }
+		inline size_t GetElemNum() const { return empty()? 1 : front().GetSizeProd(); }
 	};
 	class GURA_DLLDECLARE Indexer {
 	public:
@@ -229,15 +230,15 @@ protected:
 	AutoPtr<Memory> _pMemory;
 	Dimensions _dims;
 	size_t _offsetBase;
-	size_t _elemNum;
+	//size_t _elemNum;
 	static MapToElemType _mapToElemType;
 public:
 	Gura_DeclareReferenceAccessor(Array);
 protected:
 	inline Array(const Array &src) : _cntRef(1),
 		_elemType(src._elemType), _pMemory(src._pMemory->Reference()), _dims(src._dims),
-		_offsetBase(src._offsetBase), _elemNum(src._elemNum) {}
-	inline Array(ElemType elemType) : _cntRef(1), _elemType(elemType), _offsetBase(0), _elemNum(0) {}
+		_offsetBase(src._offsetBase) {}
+	inline Array(ElemType elemType) : _cntRef(1), _elemType(elemType), _offsetBase(0) {}
 protected:
 	virtual ~Array();
 public:
@@ -258,7 +259,7 @@ public:
 	inline Dimensions &GetDimensions() { return _dims; }
 	inline const Dimensions &GetDimensions() const { return _dims; }
 	inline bool IsScalar() const { return _dims.empty(); }
-	inline size_t GetElemNum() const { return _elemNum; }
+	inline size_t GetElemNum() const { return _dims.GetElemNum(); }
 	inline void SetOffsetBase(size_t offsetBase) { _offsetBase = offsetBase; }
 	inline size_t GetOffsetBase() const { return _offsetBase; }
 	inline char *GetPointerRawOrigin() { return _pMemory->GetPointer(); }
