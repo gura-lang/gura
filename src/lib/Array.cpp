@@ -99,72 +99,72 @@ void Array::StoreDimensions(const Dimensions &dims)
 	_dims = dims;
 }
 
-void Array::SetDimension(bool colMajorFlag, size_t size)
+void Array::SetDimension(size_t size)
 {
 	_dims.reserve(1);
 	_dims.push_back(Dimension(size));
-	UpdateMetrics(colMajorFlag);
+	UpdateMetrics();
 }
 
-void Array::SetDimensions(bool colMajorFlag, size_t sizeRow, size_t sizeCol)
+void Array::SetDimensions(size_t sizeRow, size_t sizeCol)
 {
 	_dims.reserve(2);
 	_dims.push_back(Dimension(sizeRow));
 	_dims.push_back(Dimension(sizeCol));
-	UpdateMetrics(colMajorFlag);
+	UpdateMetrics();
 }
 
-void Array::SetDimensions(bool colMajorFlag, size_t sizePlane, size_t sizeRow, size_t sizeCol)
+void Array::SetDimensions(size_t sizePlane, size_t sizeRow, size_t sizeCol)
 {
 	_dims.reserve(3);
 	_dims.push_back(Dimension(sizePlane));
 	_dims.push_back(Dimension(sizeRow));
 	_dims.push_back(Dimension(sizeCol));
-	UpdateMetrics(colMajorFlag);
+	UpdateMetrics();
 }
 
-void Array::SetDimensions(bool colMajorFlag, const Dimensions &dims)
+void Array::SetDimensions(const Dimensions &dims)
 {
 	_dims = dims;
-	UpdateMetrics(colMajorFlag);
+	UpdateMetrics();
 }
 
-void Array::SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
+void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
 {
 	_dims.reserve(std::distance(pDim, pDimEnd));
 	std::copy(pDim, pDimEnd, std::back_inserter(_dims));
-	UpdateMetrics(colMajorFlag);
+	UpdateMetrics();
 }
 
-void Array::SetDimensions(bool colMajorFlag, size_t size,
+void Array::SetDimensions(size_t size,
 						  Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
 {
 	_dims.reserve(std::distance(pDim, pDimEnd) + 1);
 	_dims.push_back(Dimension(size));
 	_dims.insert(_dims.end(), pDim, pDimEnd);
-	UpdateMetrics(colMajorFlag);
+	UpdateMetrics();
 }
 
-void Array::SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t size)
 {
 	_dims.reserve(std::distance(pDim, pDimEnd) + 1);
 	_dims.insert(_dims.end(), pDim, pDimEnd);
 	_dims.push_back(Dimension(size));
-	UpdateMetrics(colMajorFlag);
+	UpdateMetrics();
 }
 
-void Array::SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t sizeRow, size_t sizeCol)
 {
 	_dims.reserve(std::distance(pDim, pDimEnd) + 2);
 	_dims.insert(_dims.end(), pDim, pDimEnd);
 	_dims.push_back(Dimension(sizeRow));
 	_dims.push_back(Dimension(sizeCol));
-	UpdateMetrics(colMajorFlag);
+	UpdateMetrics();
 }
 
-void Array::SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t sizePlane, size_t sizeRow, size_t sizeCol)
 {
 	_dims.reserve(std::distance(pDim, pDimEnd) + 3);
@@ -172,25 +172,25 @@ void Array::SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim, Di
 	_dims.push_back(Dimension(sizePlane));
 	_dims.push_back(Dimension(sizeRow));
 	_dims.push_back(Dimension(sizeCol));
-	UpdateMetrics(colMajorFlag);
+	UpdateMetrics();
 }
 
-void Array::SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
+void Array::SetDimensions(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
 						  Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End)
 {
 	_dims.reserve(std::distance(pDim1, pDim1End) + std::distance(pDim2, pDim2End));
 	_dims.insert(_dims.end(), pDim1, pDim1End);
 	_dims.insert(_dims.end(), pDim2, pDim2End);
-	UpdateMetrics(colMajorFlag);
+	UpdateMetrics();
 }
 
-void Array::SetDimensions(bool colMajorFlag, const ValueList &valList)
+void Array::SetDimensions(const ValueList &valList)
 {
 	_dims.reserve(valList.size());
 	foreach_const (ValueList, pValue, valList) {
 		_dims.push_back(pValue->GetSizeT());
 	}
-	UpdateMetrics(colMajorFlag);
+	UpdateMetrics();
 }
 
 void Array::FillZero()
@@ -207,7 +207,8 @@ bool Array::Head(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 	}
 	size_t offsetBase = GetOffsetBase();
 	pArrayRtn.reset(Create(GetElemType()));
-	pArrayRtn->SetDimensions(IsColMajor(), n, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
+	if (IsColMajor()) pArrayRtn->SetColMajor();
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
 }
@@ -221,7 +222,8 @@ bool Array::Tail(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 	}
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * (dimFirst.GetSize() - n);
 	pArrayRtn.reset(Create(GetElemType()));
-	pArrayRtn->SetDimensions(IsColMajor(), n, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
+	if (IsColMajor()) pArrayRtn->SetColMajor();
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
 }
@@ -236,7 +238,8 @@ bool Array::Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 	size_t nElems = dimFirst.GetSize() - n;
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * n;
 	pArrayRtn.reset(Create(GetElemType()));
-	pArrayRtn->SetDimensions(IsColMajor(), nElems, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetDimensions(nElems, GetDimensions().begin() + 1, GetDimensions().end());
+	if (IsColMajor()) pArrayRtn->SetColMajor();
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
 }
@@ -270,7 +273,8 @@ bool Array::Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &val
 			dims.push_back(Dimension(GetElemNum() / nElems));
 		}
 	}	
-	pArrayRtn->UpdateMetrics(IsColMajor());
+	pArrayRtn->UpdateMetrics();
+	if (IsColMajor()) pArrayRtn->SetColMajor();
 	pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
 	return true;
 }
@@ -882,7 +886,7 @@ String Array::Dimensions::ToString(const_iterator pDim, const_iterator pDimEnd, 
 	return rtn;
 }
 
-void Array::Dimensions::UpdateMetrics(bool colMajorFlag)
+void Array::Dimensions::UpdateMetrics()
 {
 	size_t sizeProd = 1;
 	foreach_reverse (Dimensions, pDim, *this) {
@@ -890,7 +894,11 @@ void Array::Dimensions::UpdateMetrics(bool colMajorFlag)
 		sizeProd *= pDim->GetSize();
 		pDim->SetSizeProd(sizeProd);
 	}
-	if (colMajorFlag && size() >= 2) {
+}
+
+void Array::Dimensions::SetColMajor()
+{
+	if (HasRowCol() && GetCol().GetStrides() == 1) {
 		GetCol().SetStrides(GetRow().GetSize());
 		GetRow().SetStrides(1);
 	}
@@ -1098,8 +1106,7 @@ bool InvertFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray,
 	}
 	std::unique_ptr<T_Elem []> pElemWork(new T_Elem [nRows * nCols * 2]);
 	std::unique_ptr<T_Elem *[]> pElemRows(new T_Elem *[nRows]);
-	bool colMajorFlag = false;
-	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, pArrayT->GetDimensions()));
+	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_Elem>::Create(pArrayT->GetDimensions()));
 	size_t elemNumMat = nRows * nCols;
 	const T_Elem *pElemOrg = pArrayT->GetPointer();
 	T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();

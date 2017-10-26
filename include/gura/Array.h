@@ -163,7 +163,8 @@ public:
 		inline String ToString(const char *sep = ", ") const { return ToString(begin(), end(), sep); }
 		bool Serialize(Environment &env, Stream &stream) const;
 		bool Deserialize(Environment &env, Stream &stream);
-		void UpdateMetrics(bool colMajorFlag);
+		void UpdateMetrics();
+		void SetColMajor();
 		static bool IsSameShape(const_iterator pDimA, const_iterator pDimEndA,
 								const_iterator pDimB, const_iterator pDimEndB);
 		inline static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB) {
@@ -284,23 +285,24 @@ public:
 	inline const char *GetElemTypeName() const { return GetElemTypeName(_elemType); }
 	void FlipAxisMajor();
 	void StoreDimensions(const Dimensions &dims);
-	void SetDimension(bool colMajorFlag, size_t size);
-	void SetDimensions(bool colMajorFlag, size_t sizeRow, size_t sizeCol);
-	void SetDimensions(bool colMajorFlag, size_t sizePlane, size_t sizeRow, size_t sizeCol);
-	void SetDimensions(bool colMajorFlag, const Dimensions &dims);
-	void SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
-	void SetDimensions(bool colMajorFlag, size_t size,
+	void SetDimension(size_t size);
+	void SetDimensions(size_t sizeRow, size_t sizeCol);
+	void SetDimensions(size_t sizePlane, size_t sizeRow, size_t sizeCol);
+	void SetDimensions(const Dimensions &dims);
+	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
+	void SetDimensions(size_t size,
 					   Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
-	void SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 					   size_t size);
-	void SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 					   size_t sizeRow, size_t sizeCol);
-	void SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 					   size_t sizePlane, size_t sizeRow, size_t sizeCol);
-	void SetDimensions(bool colMajorFlag, Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
+	void SetDimensions(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
 					   Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
-	void SetDimensions(bool colMajorFlag, const ValueList &valList);
-	inline void UpdateMetrics(bool colMajorFlag) { _dims.UpdateMetrics(colMajorFlag); }
+	void SetDimensions(const ValueList &valList);
+	inline void UpdateMetrics() { _dims.UpdateMetrics(); }
+	inline void SetColMajor() { _dims.SetColMajor(); }
 	void FillZero();
 	virtual void Fill(Double num) = 0;
 	virtual void RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) const = 0;

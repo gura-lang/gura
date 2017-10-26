@@ -37,7 +37,8 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 	if (indexer.HasGenerator()) {
 		Array::Dimensions dimsRtn;
 		indexer.MakeResultDimensions(dimsRtn);
-		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(pArrayT->IsColMajor(), dimsRtn));
+		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(dimsRtn));
+		if (pArrayT->IsColMajor()) pArrayTRtn->SetColMajor();
 		if (!indexer.IsEmptyGenerator()) {
 			size_t nElemsUnit = indexer.GetElemNumUnit();
 			size_t bytesUnit = nElemsUnit * pArrayTRtn->GetElemBytes();
@@ -58,7 +59,8 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 							  pArrayT->GetOffsetBase() + indexer.GetOffsetTarget());
 		Array::Dimensions dimsRtn;
 		indexer.MakeResultDimensions(dimsRtn);
-		pArrayTRtn->SetDimensions(pArrayT->IsColMajor(), dimsRtn);
+		pArrayTRtn->SetDimensions(dimsRtn);
+		if (pArrayT->IsColMajor()) pArrayTRtn->SetColMajor();
 		valueRtn = Array::ToValue(env, pArrayTRtn.release());
 	}
 	return valueRtn;
@@ -546,8 +548,7 @@ Gura_DeclareFunctionAlias(at_at, "@@")
 
 Gura_ImplementFunction(at_at)
 {
-	bool colMajorFlag = false;
-	AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::CreateFromExpr(env, colMajorFlag, arg.GetBlockCooked(env)));
+	AutoPtr<ArrayT<Double> > pArrayT(ArrayT<Double>::CreateFromExpr(env, arg.GetBlockCooked(env)));
 	if (pArrayT.IsNull()) return Value::Nil;
 	return Array::ToValue(env, pArrayT.release());
 }
@@ -730,9 +731,8 @@ Gura_ImplementMethod(array, elemcast)
 	if (pArraySelf->GetElemType() == elemType) {
 		value = Value(new Object_array(env, pArraySelf->Clone()));
 	} else {
-		bool colMajorFlag = false;
 		AutoPtr<Array> pArrayDst(Array::Create(elemType));
-		pArrayDst->SetDimensions(colMajorFlag, pArraySelf->GetDimensions());
+		pArrayDst->SetDimensions(pArraySelf->GetDimensions());
 		pArrayDst->AllocMemory();
 		if (!Array::CopyElements(env, pArrayDst.get(), pArraySelf)) return Value::Nil;
 		value = Value(new Object_array(env, pArrayDst.release()));

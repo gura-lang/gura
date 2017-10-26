@@ -35,8 +35,7 @@ bool ImageSet::Read(Signal &sig, Stream &stream)
 template<typename T_Elem>
 Array *CreateArrayOfImages(const Array::Dimensions &dims, const UInt8 *pElemSrc, bool normalizeFlag)
 {
-	bool colMajorFlag = false;
-	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(colMajorFlag, dims));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create(dims));
 	size_t nElems = pArrayT->GetElemNum();
 	T_Elem *pElemDst = pArrayT->GetPointer();
 	if (normalizeFlag) {
@@ -64,8 +63,7 @@ Array *ImageSet::ToArray(Signal &sig, bool flattenFlag, Array::ElemType elemType
 	}
 	const UInt8 *pElemSrc = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
 	if (elemType == Array::ETYPE_UInt8) {
-		bool colMajorFlag = false;
-		pArray.reset(new ArrayT<UInt8>(colMajorFlag));
+		pArray.reset(ArrayT<UInt8>::Create());
 		pArray->SetMemory(_pMemory->Reference(), 0);
 		pArray->SetDimensions(dims);
 	} else if (elemType == Array::ETYPE_Half) {

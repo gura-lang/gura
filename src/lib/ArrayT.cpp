@@ -499,8 +499,7 @@ template<typename T_Elem>
 void ArrayT<T_Elem>::RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) const
 {
 	const Array::Dimensions &dims = GetDimensions();
-	bool colMajorFlag = false;
-	pArrayRtn.reset(ArrayT::Create(colMajorFlag, GetDimensions()));
+	pArrayRtn.reset(ArrayT::Create(GetDimensions()));
 	const T_Elem *pElem = GetPointer();
 	T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
 	if (IsRowMajor() || dims.size() < 2) {
@@ -532,8 +531,7 @@ void ArrayT<Complex>::RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) cons
 	typedef Complex T_Elem;
 	const Array::Dimensions &dims = GetDimensions();
 	double threshold2 = threshold * threshold;
-	bool colMajorFlag = false;
-	pArrayRtn.reset(ArrayT::Create(colMajorFlag, GetDimensions()));
+	pArrayRtn.reset(ArrayT::Create(GetDimensions()));
 	const T_Elem *pElem = GetPointer();
 	T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
 	if (IsRowMajor() || dims.size() < 2) {
@@ -562,10 +560,9 @@ void ArrayT<Complex>::RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) cons
 template<typename T_Elem>
 void ArrayT<T_Elem>::Flatten(AutoPtr<Array> &pArrayRtn) const
 {
-	bool colMajorFlag = false;
 	const Array::Dimensions &dims = GetDimensions();
 	pArrayRtn.reset(Create());
-	pArrayRtn->SetDimension(colMajorFlag, GetElemNum());
+	pArrayRtn->SetDimension(GetElemNum());
 	if (IsRowMajor() || dims.size() < 2) {
 		pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
 	} else {
@@ -631,7 +628,6 @@ bool ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes)
 		}
 	}
 	if (pArrayRtn.IsNull()) {
-		bool colMajorFlag = false;
 		pArrayRtn.reset(Create());
 		Dimensions &dimsDst = pArrayRtn->GetDimensions();
 		dimsDst.reserve(GetDimensions().size());
@@ -639,7 +635,7 @@ bool ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes)
 			const Dimension &dimSrc = GetDimensions()[*pAxis];
 			dimsDst.push_back(Dimension(dimSrc.GetSize()));
 		}
-		pArrayRtn->UpdateMetrics(colMajorFlag);
+		pArrayRtn->UpdateMetrics();
 		if (memorySharableFlag) {
 			pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
 		} else {
@@ -675,11 +671,10 @@ bool ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes)
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 {
-	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	AutoPtr<ArrayT<T_Elem> > pArrayTValue(ArrayT<T_Elem>::Create());
-	pArrayTValue->SetDimensions(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
+	pArrayTValue->SetDimensions(dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
 	pArrayTValue->AllocMemory();
 	pArrayTValue->FillZero();
 	const T_Elem *pElem = pArrayT->GetPointer();
@@ -790,11 +785,10 @@ bool ArrayT<T_Elem>::FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axi
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
 Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, size_t axis)
 {
-	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	AutoPtr<ArrayT<UInt32> > pArrayTIndex(ArrayT<UInt32>::Create());
-	pArrayTIndex->SetDimensions(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
+	pArrayTIndex->SetDimensions(dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
 	pArrayTIndex->AllocMemory();
 	AutoPtr<Memory> pMemoryValue(new MemoryHeap(pArrayTIndex->GetElemNum() * sizeof(T_Elem)));
 	pArrayTIndex->FillZero();
@@ -938,11 +932,10 @@ bool ArrayT<T_Elem>::FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_
 template<typename T_ElemRtn, typename T_Elem>
 ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool meanFlag)
 {
-	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(ArrayT<T_ElemRtn>::Create());
-	pArrayTRtn->SetDimensions(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
+	pArrayTRtn->SetDimensions(dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
 	pArrayTRtn->AllocMemory();
 	pArrayTRtn->FillZero();
 	Double numDenom = static_cast<Double>(pDimAxis->GetSize());
@@ -1030,11 +1023,10 @@ bool ArrayT<Boolean>::CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t ax
 template<typename T_ElemRtn, typename T_Elem>
 ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool populationFlag, bool stdFlag)
 {
-	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	AutoPtr<ArrayT<T_ElemRtn> > pArrayTRtn(ArrayT<T_ElemRtn>::Create());
-	pArrayTRtn->SetDimensions(colMajorFlag, dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
+	pArrayTRtn->SetDimensions(dims.begin(), pDimAxis, pDimAxis + 1, dims.end());
 	pArrayTRtn->AllocMemory();
 	pArrayTRtn->FillZero();
 	Double numDenom = static_cast<Double>(pDimAxis->GetSize());
@@ -1158,7 +1150,6 @@ template<typename T_Elem>
 void ArrayT<T_Elem>::ExpandKernelVec1d(
 	AutoPtr<Array> &pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad, Double padNum) const
 {
-	const bool colMajorFlag = false;
 	const Dimensions &dims = GetDimensions();
 	T_Elem padNumCasted = static_cast<T_Elem>(padNum);
 	if (dims.size() < 1) return;
@@ -1172,7 +1163,7 @@ void ArrayT<T_Elem>::ExpandKernelVec1d(
 	size_t sizeBlock = dims.GetCol().GetSizeProd();
 	size_t nBlocks = GetElemNum() / sizeBlock;
 	pArrayVec.reset(Create());
-	pArrayVec->SetDimensions(colMajorFlag, dims.begin(), dims.begin() + dims.size() - 2, nKernelsCol, sizeKernel);
+	pArrayVec->SetDimensions(dims.begin(), dims.begin() + dims.size() - 2, nKernelsCol, sizeKernel);
 	pArrayVec->AllocMemory();
 	const T_Elem *pElemSrc = GetPointer();
 	T_Elem *pElemDst = dynamic_cast<ArrayT<T_Elem> *>(pArrayVec.get())->GetPointer();
@@ -1210,7 +1201,6 @@ void ArrayT<T_Elem>::ExpandKernelVec2d(
 	size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
 	Double padNum) const
 {
-	const bool colMajorFlag = false;
 	const Dimensions &dims = GetDimensions();
 	T_Elem padNumCasted = static_cast<T_Elem>(padNum);
 	if (dims.size() < 2) return;
@@ -1231,7 +1221,7 @@ void ArrayT<T_Elem>::ExpandKernelVec2d(
 	size_t sizeBlock = dims.GetRow().GetSizeProd();
 	size_t nBlocks = GetElemNum() / sizeBlock;
 	pArrayVec.reset(Create());
-	pArrayVec->SetDimensions(colMajorFlag, dims.begin(), dims.begin() + dims.size() - 2,
+	pArrayVec->SetDimensions(dims.begin(), dims.begin() + dims.size() - 2,
 							 nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol);
 	pArrayVec->AllocMemory();
 	const T_Elem *pElemSrc = GetPointer();
@@ -1292,11 +1282,10 @@ void ArrayT<T_Elem>::ExpandKernelVec3d(
 	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, Double padNum) const
 {
-	const bool colMajorFlag = false;
 	const Dimensions &dims = GetDimensions();
 	if (dims.size() < 3) return;
 	pArrayVec.reset(Create());
-	pArrayVec->SetDimensions(colMajorFlag, dims.begin(), dims.begin() + dims.size() - 3,
+	pArrayVec->SetDimensions(dims.begin(), dims.begin() + dims.size() - 3,
 							 sizeKernelPlane * sizeKernelRow * sizeKernelCol);
 	pArrayVec->AllocMemory();
 }
@@ -1324,37 +1313,37 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create()
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create(bool colMajorFlag, const Array::Dimensions &dims)
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create(const Array::Dimensions &dims)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT());
-	pArrayT->SetDimensions(colMajorFlag, dims);
+	pArrayT->SetDimensions(dims);
 	pArrayT->AllocMemory();
 	return pArrayT.release();
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create1d(bool colMajorFlag, size_t size)
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create1d(size_t size)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT());
-	pArrayT->SetDimension(colMajorFlag, size);
+	pArrayT->SetDimension(size);
 	pArrayT->AllocMemory();
 	return pArrayT.release();
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create2d(bool colMajorFlag, size_t sizeRow, size_t sizeCol)
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create2d(size_t sizeRow, size_t sizeCol)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT());
-	pArrayT->SetDimensions(colMajorFlag, sizeRow, sizeCol);
+	pArrayT->SetDimensions(sizeRow, sizeCol);
 	pArrayT->AllocMemory();
 	return pArrayT.release();
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Create3d(bool colMajorFlag, size_t sizePlane, size_t sizeRow, size_t sizeCol)
+ArrayT<T_Elem> *ArrayT<T_Elem>::Create3d(size_t sizePlane, size_t sizeRow, size_t sizeCol)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT());
-	pArrayT->SetDimensions(colMajorFlag, sizePlane, sizeRow, sizeCol);
+	pArrayT->SetDimensions(sizePlane, sizeRow, sizeCol);
 	pArrayT->AllocMemory();
 	return pArrayT.release();
 }
@@ -1362,20 +1351,19 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Create3d(bool colMajorFlag, size_t sizePlane, si
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateScalar(const T_Elem &num)
 {
-	//bool colMajorFlag = false;
 	AutoPtr<ArrayT> pArrayT(new ArrayT());
 	pArrayT->SetScalar(num);
 	return pArrayT.release();
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromValue(Environment &env, bool colMajorFlag, const Value &value)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromValue(Environment &env, const Value &value)
 {
 	AutoPtr<ArrayT<T_Elem> > pArrayT;
 	Signal &sig = env.GetSignal();
 	if (value.Is_list()) {
 		const ValueList &valList = value.GetList();
-		pArrayT.reset(ArrayT<T_Elem>::CreateFromList(env, colMajorFlag, valList));
+		pArrayT.reset(ArrayT<T_Elem>::CreateFromList(env, valList));
 		if (pArrayT.IsNull()) return nullptr;
 	} else if (value.Is_iterator()) {
 		Iterator *pIterator = value.GetIterator();
@@ -1383,7 +1371,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromValue(Environment &env, bool colMajorF
 			Iterator::SetError_InfiniteNotAllowed(sig);
 			return nullptr;
 		}
-		pArrayT.reset(ArrayT<T_Elem>::CreateFromIterator(env, colMajorFlag, pIterator));
+		pArrayT.reset(ArrayT<T_Elem>::CreateFromIterator(env, pIterator));
 		if (pArrayT.IsNull()) return nullptr;
 	} else {
 		Declaration::SetError_InvalidArgument(env);
@@ -1393,9 +1381,9 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromValue(Environment &env, bool colMajorF
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(bool colMajorFlag, const ValueList &valList)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(const ValueList &valList)
 {
-	AutoPtr<ArrayT> pArrayT(ArrayT::Create1d(colMajorFlag, valList.size()));
+	AutoPtr<ArrayT> pArrayT(ArrayT::Create1d(valList.size()));
 	T_Elem *pElem = pArrayT->GetPointer();
 	foreach_const (ValueList, pValue, valList) {
 		*pElem++ = static_cast<T_Elem>(pValue->GetNumber());
@@ -1430,7 +1418,7 @@ bool CreateFromList_Sub(Environment &env, Array::Dimensions &dims,
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Environment &env, bool colMajorFlag, const ValueList &valList)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Environment &env, const ValueList &valList)
 {
 	Array::Dimensions dims;
 	for (const ValueList *pValList = &valList; ; ) {
@@ -1438,18 +1426,18 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Environment &env, bool colMajorFl
 		if (pValList->empty() || !pValList->front().Is_list()) break;
 		pValList = &pValList->front().GetList();
 	}
-	AutoPtr<ArrayT> pArrayT(ArrayT::Create(colMajorFlag, dims));
+	AutoPtr<ArrayT> pArrayT(ArrayT::Create(dims));
 	T_Elem *pElem = pArrayT->GetPointer();
 	if (!CreateFromList_Sub(env, dims, dims.begin(), pElem, valList)) return nullptr;
 	return pArrayT.release();
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, bool colMajorFlag, Iterator *pIterator)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, Iterator *pIterator)
 {
 	size_t len = pIterator->GetLengthEx(env);
 	if (env.IsSignalled()) return nullptr;
-	AutoPtr<ArrayT> pArrayT(ArrayT::Create1d(colMajorFlag, len));
+	AutoPtr<ArrayT> pArrayT(ArrayT::Create1d(len));
 	AutoPtr<Iterator> pIteratorWork(pIterator->Clone());
 	T_Elem *pElem = pArrayT->GetPointer();
 	Value value;
@@ -1461,12 +1449,12 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, bool colMaj
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromExpr(Environment &env, bool colMajorFlag, const Expr *pExpr)
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromExpr(Environment &env, const Expr *pExpr)
 {
 	AutoPtr<Environment> pEnvLister(env.Derive(ENVTYPE_lister));
 	Value result = pExpr->Exec(*pEnvLister);
 	if (!result.Is_list()) return nullptr;
-	return ArrayT<T_Elem>::CreateFromList(env, colMajorFlag, result.GetList());
+	return ArrayT<T_Elem>::CreateFromList(env, result.GetList());
 }
 
 // utilities
@@ -1539,7 +1527,8 @@ bool ArrayT<T_Elem>::Iterator_Each::DoNext(Environment &env, Value &value)
 		} else {
 			size_t offsetBase = _pArrayT->GetOffsetBase() + pDim->GetStrides() * _idx;
 			AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>());
-			pArrayRtn->SetDimensions(_pArrayT->IsColMajor(), pDim + 1, dims.end());
+			pArrayRtn->SetDimensions(pDim + 1, dims.end());
+			if (_pArrayT->IsColMajor()) pArrayRtn->SetColMajor();
 			pArrayRtn->SetMemory(_pArrayT->GetMemory().Reference(), offsetBase);
 			value = Array::ToValue(env, pArrayRtn.release());
 		}

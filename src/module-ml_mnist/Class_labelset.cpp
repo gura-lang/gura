@@ -33,7 +33,6 @@ bool LabelSet::Read(Signal &sig, Stream &stream)
 template<typename T_Elem>
 Array *CreateArrayOfLabels(Signal &sig, const UInt8 *pElemSrc, size_t nLabels, bool onehotFlag)
 {
-	bool colMajorFlag = false;
 	AutoPtr<ArrayT<T_Elem> > pArrayT;
 	if (onehotFlag) {
 		size_t labelMax = 0;
@@ -42,7 +41,7 @@ Array *CreateArrayOfLabels(Signal &sig, const UInt8 *pElemSrc, size_t nLabels, b
 			if (labelMax < label) labelMax = label;
 		}
 		size_t nCols = labelMax + 1;
-		pArrayT.reset(ArrayT<T_Elem>::Create2d(colMajorFlag, nLabels, nCols));
+		pArrayT.reset(ArrayT<T_Elem>::Create2d(nLabels, nCols));
 		pArrayT->FillZero();
 		T_Elem *pElemDst = pArrayT->GetPointer();
 		for (size_t i = 0; i < nLabels; i++, pElemDst += nCols) {
@@ -50,7 +49,7 @@ Array *CreateArrayOfLabels(Signal &sig, const UInt8 *pElemSrc, size_t nLabels, b
 			*(pElemDst + label) = 1;
 		}
 	} else {
-		pArrayT.reset(ArrayT<T_Elem>::Create1d(colMajorFlag, nLabels));
+		pArrayT.reset(ArrayT<T_Elem>::Create1d(nLabels));
 		T_Elem *pElemDst = pArrayT->GetPointer();
 		for (size_t i = 0; i < nLabels; i++, pElemSrc++, pElemDst++) {
 			*pElemDst = static_cast<T_Elem>(*pElemSrc);
@@ -61,14 +60,13 @@ Array *CreateArrayOfLabels(Signal &sig, const UInt8 *pElemSrc, size_t nLabels, b
 
 Array *LabelSet::ToArray(Signal &sig, bool onehotFlag, Array::ElemType elemType) const
 {
-	bool colMajorFlag = false;
 	AutoPtr<Array> pArray;
 	const UInt8 *pElemSrc = reinterpret_cast<const UInt8 *>(_pMemory->GetPointer());
 	if (elemType == Array::ETYPE_UInt8) {
 		if (onehotFlag) {
 			pArray.reset(CreateArrayOfLabels<UInt8>(sig, pElemSrc, _nLabels, onehotFlag));
 		} else {
-			pArray.reset(new ArrayT<UInt8>(colMajorFlag));
+			pArray.reset(ArrayT<UInt8>::Create());
 			pArray->SetMemory(_pMemory->Reference(), 0);
 			pArray->SetDimension(_nLabels);
 		}

@@ -303,8 +303,7 @@ Gura_ImplementMethod(array, read_csv)
 		valList.push_back(value);
 	}
 	size_t sizeRow = valList.size();
-	bool colMajorFlag = false;
-	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create2d(colMajorFlag, sizeRow, sizeCol));
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create2d(sizeRow, sizeCol));
 	pArrayT->FillZero();
 	T_Elem *pRow = pArrayT->GetPointer();
 	foreach_const (ValueList, pValueRow, valList) {

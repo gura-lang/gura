@@ -190,10 +190,9 @@ Gura_ImplementMethod(memory, array_at_##name) \
 { \
 	Memory &memory = Object_memory::GetObjectThis(arg)->GetMemory(); \
 	size_t cnt = memory.GetSize() / sizeof(T); \
-	bool colMajorFlag = false; \
 	AutoPtr<ArrayT<T> > pArrayT(new ArrayT<T>());	\
 	pArrayT->SetMemory(memory.Reference(), 0);	\
-	pArrayT->SetDimension(colMajorFlag, cnt);							\
+	pArrayT->SetDimension(cnt);							\
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayT.release())); \
 }
 

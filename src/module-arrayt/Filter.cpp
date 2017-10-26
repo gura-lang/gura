@@ -13,13 +13,12 @@ template<typename T_ElemRtnA, typename T_ElemRtnB,
 		 typename T_Elem, void (*op)(T_ElemRtnA &, T_ElemRtnB &, const T_Elem &)>
 void PairFuncTmpl(Signal &sig, Array **ppArrayRtnA, Array **ppArrayRtnB, const Array *pArray)
 {
-	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArray->GetDimensions();
 	AutoPtr<ArrayT<T_ElemRtnA> > pArrayTRtnA(
-		(*ppArrayRtnA == nullptr)? ArrayT<T_ElemRtnA>::Create(colMajorFlag, dims) :
+		(*ppArrayRtnA == nullptr)? ArrayT<T_ElemRtnA>::Create(dims) :
 		dynamic_cast<ArrayT<T_ElemRtnA> *>((*ppArrayRtnA)->Reference()));
 	AutoPtr<ArrayT<T_ElemRtnB> > pArrayTRtnB(
-		(*ppArrayRtnB == nullptr)? ArrayT<T_ElemRtnB>::Create(colMajorFlag, dims) :
+		(*ppArrayRtnB == nullptr)? ArrayT<T_ElemRtnB>::Create(dims) :
 		dynamic_cast<ArrayT<T_ElemRtnB> *>((*ppArrayRtnB)->Reference()));
 	T_ElemRtnA *pElemRtnA = pArrayTRtnA->GetPointer();
 	T_ElemRtnB *pElemRtnB = pArrayTRtnB->GetPointer();
@@ -58,10 +57,9 @@ void PairFuncTmpl(Signal &sig, Array **ppArrayRtnA, Array **ppArrayRtnB, const A
 template<typename T_ElemRtn, typename T_Elem, typename T_ElemFilter>
 bool FilterFuncTmpl_Conv1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Conv1d *pFilter)
 {
-	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims));
+	pArrayRtn.reset(ArrayT<T_Elem>::Create(dims));
 	return true;
 }
 
@@ -71,10 +69,9 @@ bool FilterFuncTmpl_Conv1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *
 template<typename T_ElemRtn, typename T_Elem, typename T_ElemFilter>
 bool FilterFuncTmpl_Conv2d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Conv2d *pFilter)
 {
-	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims));
+	pArrayRtn.reset(ArrayT<T_Elem>::Create(dims));
 	return true;
 }
 
@@ -84,10 +81,9 @@ bool FilterFuncTmpl_Conv2d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *
 template<typename T_ElemRtn, typename T_Elem, typename T_ElemFilter>
 bool FilterFuncTmpl_Conv3d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Conv3d *pFilter)
 {
-	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims));
+	pArrayRtn.reset(ArrayT<T_Elem>::Create(dims));
 	return true;
 }
 
@@ -97,7 +93,6 @@ bool FilterFuncTmpl_Conv3d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *
 template<typename T_Elem>
 bool FilterFuncTmpl_MaxPool1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_MaxPool1d *pFilter)
 {
-	bool colMajorFlag = false;
 	size_t sizeFilter = pFilter->GetSize();
 	size_t strides = pFilter->GetStrides();
 	Filter::PaddingType paddingType = pFilter->GetPaddingType();
@@ -111,10 +106,10 @@ bool FilterFuncTmpl_MaxPool1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Arra
 		size_t sizeOut = 0, sizePadHead = 0, sizePadTail = 0;
 		Filter::CalcPadding(sizeIn, sizeFilter, strides, paddingType, &sizeOut, &sizePadHead, &sizePadTail);
 		if (nDims < 2) {
-			pArrayRtn.reset(ArrayT<T_Elem>::Create1d(colMajorFlag, sizeOut));
+			pArrayRtn.reset(ArrayT<T_Elem>::Create1d(sizeOut));
 		} else {
 			pArrayRtn.reset(ArrayT<T_Elem>::Create());
-			pArrayRtn->SetDimensions(colMajorFlag, dims.begin(), dims.begin() + nDims - 1, sizeOut);
+			pArrayRtn->SetDimensions(dims.begin(), dims.begin() + nDims - 1, sizeOut);
 			pArrayRtn->AllocMemory();
 		}
 		const T_Elem *pElemSrc = pArrayT->GetPointer();
@@ -154,7 +149,7 @@ bool FilterFuncTmpl_MaxPool1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Arra
 		size_t sizeOut = 0, sizePadHead = 0, sizePadTail = 0;
 		Filter::CalcPadding(sizeIn, sizeFilter, strides, paddingType, &sizeOut, &sizePadHead, &sizePadTail);
 		pArrayRtn.reset(ArrayT<T_Elem>::Create());
-		pArrayRtn->SetDimensions(colMajorFlag, dims.begin(), dims.begin() + nDims - 2, sizeOut, sizeChannel);
+		pArrayRtn->SetDimensions(dims.begin(), dims.begin() + nDims - 2, sizeOut, sizeChannel);
 		pArrayRtn->AllocMemory();
 		const T_Elem *pElemSrc = pArrayT->GetPointer();
 		T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
@@ -197,10 +192,9 @@ bool FilterFuncTmpl_MaxPool1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Arra
 template<typename T_Elem>
 bool FilterFuncTmpl_MaxPool2d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_MaxPool2d *pFilter)
 {
-	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims));
+	pArrayRtn.reset(ArrayT<T_Elem>::Create(dims));
 	return true;
 }
 
@@ -210,10 +204,9 @@ bool FilterFuncTmpl_MaxPool2d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Arra
 template<typename T_Elem>
 bool FilterFuncTmpl_MaxPool3d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_MaxPool3d *pFilter)
 {
-	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims));
+	pArrayRtn.reset(ArrayT<T_Elem>::Create(dims));
 	return true;
 }
 
@@ -241,13 +234,12 @@ bool FilterFuncTmpl_Sigmoid(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array 
 template<typename T_Elem>
 bool FilterFuncTmpl_Softmax(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Softmax *pFilter)
 {
-	bool colMajorFlag = false;
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	size_t axis = pFilter->GetAxis();
 	if (axis > dims.size() - 1) axis = dims.size() - 1;
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
-	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_Elem>::Create(colMajorFlag, dims));
+	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_Elem>::Create(dims));
 	pArrayRtn->FillZero();
 	const T_Elem *pElemTop = pArrayT->GetPointer();
 	T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();

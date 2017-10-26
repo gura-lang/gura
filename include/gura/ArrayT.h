@@ -94,16 +94,16 @@ public:
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const;
 	// functions to create an ArrayT instance
 	static ArrayT *Create();
-	static ArrayT *Create(bool colMajorFlag, const Dimensions &dims);
-	static ArrayT *Create1d(bool colMajorFlag, size_t size);
-	static ArrayT *Create2d(bool colMajorFlag, size_t sizeRow, size_t sizeCol);
-	static ArrayT *Create3d(bool colMajorFlag, size_t sizePlane, size_t sizeRow, size_t sizeCol);
+	static ArrayT *Create(const Dimensions &dims);
+	static ArrayT *Create1d(size_t size);
+	static ArrayT *Create2d(size_t sizeRow, size_t sizeCol);
+	static ArrayT *Create3d(size_t sizePlane, size_t sizeRow, size_t sizeCol);
 	static ArrayT *CreateScalar(const T_Elem &num);
-	static ArrayT *CreateFromValue(Environment &env, bool colMajorFlag, const Value &value);
-	static ArrayT *CreateFromList(bool colMajorFlag, const ValueList &valList);
-	static ArrayT *CreateFromList(Environment &env, bool colMajorFlag, const ValueList &valList);
-	static ArrayT *CreateFromIterator(Environment &env, bool colMajorFlag, Iterator *pIterator);
-	static ArrayT *CreateFromExpr(Environment &env, bool colMajorFlag, const Expr *pExpr);
+	static ArrayT *CreateFromValue(Environment &env, const Value &value);
+	static ArrayT *CreateFromList(const ValueList &valList);
+	static ArrayT *CreateFromList(Environment &env, const ValueList &valList);
+	static ArrayT *CreateFromIterator(Environment &env, Iterator *pIterator);
+	static ArrayT *CreateFromExpr(Environment &env, const Expr *pExpr);
 	// utilities
 	static void FillDouble(T_Elem *pElem, size_t nElems, Double num, size_t strides);
 	static void FillComplex(T_Elem *pElem, size_t nElems, const Complex &num, size_t strides) {}

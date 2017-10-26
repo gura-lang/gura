@@ -12,10 +12,9 @@ template<typename T_ElemRtnA, typename T_ElemRtnB, typename T_Elem,
 		 void (*op)(T_ElemRtnA &, T_ElemRtnB &, const T_Elem &)>
 void PairFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtnA, AutoPtr<Array> &pArrayRtnB, const Array *pArray)
 {
-	bool colMajorFlag = false;
 	const Array::Dimensions &dims = pArray->GetDimensions();
-	if (pArrayRtnA.IsNull()) pArrayRtnA.reset(ArrayT<T_ElemRtnA>::Create(colMajorFlag, dims));
-	if (pArrayRtnB.IsNull()) pArrayRtnB.reset(ArrayT<T_ElemRtnB>::Create(colMajorFlag, dims));
+	if (pArrayRtnA.IsNull()) pArrayRtnA.reset(ArrayT<T_ElemRtnA>::Create(dims));
+	if (pArrayRtnB.IsNull()) pArrayRtnB.reset(ArrayT<T_ElemRtnB>::Create(dims));
 	T_ElemRtnA *pElemRtnA = dynamic_cast<ArrayT<T_ElemRtnA> *>(pArrayRtnA.get())->GetPointer();
 	T_ElemRtnB *pElemRtnB = dynamic_cast<ArrayT<T_ElemRtnB> *>(pArrayRtnB.get())->GetPointer();
 	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
