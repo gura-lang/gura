@@ -54,7 +54,7 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 		const T_Elem *pElemTgt = pArrayT->GetPointer() + indexer.GetOffsetTarget();
 		valueRtn = Value(*pElemTgt);
 	} else {
-		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(new ArrayT<T_Elem>());
+		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create());
 		pArrayTRtn->SetMemory(pArrayT->GetMemory().Reference(),
 							  pArrayT->GetOffsetBase() + indexer.GetOffsetTarget());
 		Array::Dimensions dimsRtn;

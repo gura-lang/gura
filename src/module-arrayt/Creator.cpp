@@ -265,7 +265,7 @@ Gura_DeclareClassMethod_Array(array, ones)
 
 template<typename T_Elem> Array *FuncTmpl_ones(const ValueList &valList)
 {
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create());
 	pArrayT->SetDimensions(valList);
 	pArrayT->AllocMemory();
 	pArrayT->Fill(1);
@@ -333,7 +333,7 @@ Gura_DeclareClassMethod_Array(array, rands)
 
 template<typename T_Elem> Array *FuncTmpl_rands(const ValueList &valList, bool rangeFlag, UInt range)
 {
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create());
 	pArrayT->SetDimensions(valList);
 	pArrayT->AllocMemory();
 	if (rangeFlag) {
@@ -410,7 +410,7 @@ Gura_DeclareClassMethodAlias_Array(array, rands_at_normal, "rands@normal")
 
 template<typename T_Elem> Array *FuncTmpl_rands_at_normal(const ValueList &valList, double mu, double sigma)
 {
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create());
 	pArrayT->SetDimensions(valList);
 	pArrayT->AllocMemory();
 	pArrayT->FillRandNormal(mu, sigma);
@@ -1274,7 +1274,7 @@ Gura_DeclareClassMethod_Array(array, zeros)
 
 template<typename T_Elem> Array *FuncTmpl_zeros(const ValueList &valList)
 {
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::Create());
 	pArrayT->SetDimensions(valList);
 	pArrayT->AllocMemory();
 	pArrayT->FillZero();

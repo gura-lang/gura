@@ -36,9 +36,10 @@ public:
 	static size_t ElemBytes;
 	static const char *ElemTypeName;
 	static const char *ConstructorName;
-public:
+protected:
 	inline ArrayT(const ArrayT &src) : Array(src) {}
 	ArrayT();
+public:
 	inline T_Elem *GetPointerOrigin() {
 		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer());
 	}
