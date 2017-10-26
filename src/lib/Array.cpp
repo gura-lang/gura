@@ -887,11 +887,11 @@ String Array::Dimensions::ToString(const_iterator pDim, const_iterator pDimEnd, 
 
 void Array::Dimensions::UpdateMetrics(bool colMajorFlag)
 {
-	size_t strides = 1;
+	size_t sizeProd = 1;
 	foreach_reverse (Dimensions, pDim, *this) {
-		pDim->SetStrides(strides);
-		strides *= pDim->GetSize();
-		pDim->SetSizeProd(strides);
+		pDim->SetStrides(sizeProd);
+		sizeProd *= pDim->GetSize();
+		pDim->SetSizeProd(sizeProd);
 	}
 	if (colMajorFlag && size() >= 2) {
 		GetCol().SetStrides(GetRow().GetSize());
