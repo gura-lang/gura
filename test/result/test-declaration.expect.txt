@@ -372,11 +372,13 @@ argument
 array
   array#argmax(axis?:number):map:[last_index] {block?}
   array#argmin(axis?:number):map:[last_index] {block?}
-  array#colmajor() {block?}
   array.dot(a:array, b:array):static:map {block?}
   array#dump(stream?:stream):void:[upper]
   array#each():[flat] {block?}
   array#elemcast(elemtype:symbol) {block?}
+  array#expand_kernelvec1d(size:number, strides:number, sizepad:number, padnum?:number):map {block?}
+  array#expand_kernelvec2d(size[]:number, strides[]:number, sizepad[]:number, padnum?:number):map {block?}
+  array#expand_kernelvec3d(size[]:number, strides[]:number, sizepad[]:number, padnum?:number):map {block?}
   array#fill(value:number):map:void
   array#flatten() {block?}
   array#head(n:number):map {block?}

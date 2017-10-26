@@ -366,7 +366,6 @@ Value Array::ToValue(Environment &env, Array *pArray)
 bool Array::Serialize(Environment &env, Stream &stream) const
 {
 	if (!stream.SerializeUInt8(env, static_cast<UInt8>(_elemType))) return false;
-	if (!stream.SerializeUInt8(env, static_cast<UInt8>(IsColMajor()))) return false;
 	if (!_dims.Serialize(env, stream)) return false;
 	size_t bytes = GetElemBytes() * GetElemNum();
 	if (stream.Write(env, GetPointerRaw(), bytes) < bytes) return false;
@@ -377,12 +376,10 @@ Array *Array::Deserialize(Environment &env, Stream &stream)
 {
 	UInt8 elemTypeRaw = 0;
 	if (!stream.DeserializeUInt8(env, elemTypeRaw)) return nullptr;
-	UInt8 colMajorFlagRaw = 0;
-	if (!stream.DeserializeUInt8(env, colMajorFlagRaw)) return nullptr;
 	Array::Dimensions dims;
 	if (!dims.Deserialize(env, stream)) return nullptr;
 	AutoPtr<Array> pArray(Create(static_cast<ElemType>(elemTypeRaw)));
-	pArray->SetDimensions(static_cast<bool>(colMajorFlagRaw), dims);
+	pArray->StoreDimensions(dims);
 	pArray->AllocMemory();
 	size_t bytes = pArray->GetElemBytes() * pArray->GetElemNum();
 	if (stream.Read(env, pArray->GetPointerRaw(), bytes) < bytes) return nullptr;
@@ -901,9 +898,11 @@ void Array::Dimensions::UpdateMetrics(bool colMajorFlag)
 
 bool Array::Dimensions::Serialize(Environment &env, Stream &stream) const
 {
-	if (!stream.SerializePackedUInt64(env, static_cast<UInt64>(size()))) return false;
+	if (!stream.SerializePackedUInt32(env, static_cast<UInt32>(size()))) return false;
 	foreach_const (Dimensions, pDim, *this) {
-		if (!stream.SerializePackedUInt64(env, static_cast<UInt64>(pDim->GetSize()))) return false;
+		if (!stream.SerializePackedUInt32(env, static_cast<UInt32>(pDim->GetSize()))) return false;
+		if (!stream.SerializePackedUInt32(env, static_cast<UInt32>(pDim->GetSizeProd()))) return false;
+		if (!stream.SerializePackedUInt32(env, static_cast<UInt32>(pDim->GetStrides()))) return false;
 	}	
 	return true;
 }
@@ -911,13 +910,15 @@ bool Array::Dimensions::Serialize(Environment &env, Stream &stream) const
 bool Array::Dimensions::Deserialize(Environment &env, Stream &stream)
 {
 	clear();
-	UInt64 nDims = 0;
-	if (!stream.DeserializePackedUInt64(env, nDims)) return false;
+	UInt32 nDims = 0;
+	if (!stream.DeserializePackedUInt32(env, nDims)) return false;
 	reserve(nDims);
-	for (UInt64 i = 0; i < nDims; i++) {
-		UInt64 size = 0;
-		if (!stream.DeserializePackedUInt64(env, size)) return false;
-		push_back(size);
+	for (UInt32 i = 0; i < nDims; i++) {
+		UInt32 size = 0, sizeProd = 0, strides = 0;
+		if (!stream.DeserializePackedUInt32(env, size)) return false;
+		if (!stream.DeserializePackedUInt32(env, sizeProd)) return false;
+		if (!stream.DeserializePackedUInt32(env, strides)) return false;
+		push_back(Dimension(size, sizeProd, strides));
 	}
 	return true;
 }

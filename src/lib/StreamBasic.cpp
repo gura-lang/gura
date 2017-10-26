@@ -714,10 +714,10 @@ size_t Stream_Base64Writer::DoWrite(Signal &sig, const void *buff, size_t len)
 	for ( ; lenWritten < len; lenWritten++) {
 		_buffWork[_iBuffWork++] = buffp[lenWritten];
 		if (_iBuffWork < 3) continue;
-		ULong accum =
-			(static_cast<ULong>(_buffWork[0]) << 16) |
-			(static_cast<ULong>(_buffWork[1]) << 8) |
-			(static_cast<ULong>(_buffWork[2]) << 0);
+		UInt32 accum =
+			(static_cast<UInt32>(_buffWork[0]) << 16) |
+			(static_cast<UInt32>(_buffWork[1]) << 8) |
+			(static_cast<UInt32>(_buffWork[2]) << 0);
 		char buffDst[8];
 		buffDst[0] = _chars[(accum >> 18) & 0x3f];
 		buffDst[1] = _chars[(accum >> 12) & 0x3f];
@@ -759,25 +759,24 @@ bool Stream_Base64Writer::DoFlush(Signal &sig)
 		_iBuffWork = 0;
 		return !sig.IsSignalled();
 	} else if (_iBuffWork == 1) {
-		ULong accum =
-			static_cast<ULong>(_buffWork[0]) << 16;
+		UInt32 accum = static_cast<UInt32>(_buffWork[0]) << 16;
 		buffDst[0] = _chars[(accum >> 18) & 0x3f];
 		buffDst[1] = _chars[(accum >> 12) & 0x3f];
 		buffDst[2] = '=';
 		buffDst[3] = '=';
 	} else if (_iBuffWork == 2) {
-		ULong accum =
-			(static_cast<ULong>(_buffWork[0]) << 16) |
-			(static_cast<ULong>(_buffWork[1]) << 8);
+		UInt32 accum =
+			(static_cast<UInt32>(_buffWork[0]) << 16) |
+			(static_cast<UInt32>(_buffWork[1]) << 8);
 		buffDst[0] = _chars[(accum >> 18) & 0x3f];
 		buffDst[1] = _chars[(accum >> 12) & 0x3f];
 		buffDst[2] = _chars[(accum >> 6) & 0x3f];
 		buffDst[3] = '=';
 	} else { // _iBuffWork == 3
-		ULong accum =
-			(static_cast<ULong>(_buffWork[0]) << 16) |
-			(static_cast<ULong>(_buffWork[1]) << 8) |
-			(static_cast<ULong>(_buffWork[2]) << 0);
+		UInt32 accum =
+			(static_cast<UInt32>(_buffWork[0]) << 16) |
+			(static_cast<UInt32>(_buffWork[1]) << 8) |
+			(static_cast<UInt32>(_buffWork[2]) << 0);
 		buffDst[0] = _chars[(accum >> 18) & 0x3f];
 		buffDst[1] = _chars[(accum >> 12) & 0x3f];
 		buffDst[2] = _chars[(accum >> 6) & 0x3f];

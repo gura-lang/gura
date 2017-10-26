@@ -966,7 +966,7 @@ Gura_DeclareMethod(stream, tell)
 Gura_ImplementMethod(stream, tell)
 {
 	Stream &stream = Object_stream::GetObjectThis(arg)->GetStream();
-	return Value(static_cast<ULong>(stream.Tell()));
+	return Value(stream.Tell());
 }
 
 // stream#write(ptr:pointer, bytes?:number):reduce

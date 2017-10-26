@@ -705,7 +705,7 @@ Value Value::CreateList(Environment &env, const char *buff[], size_t n)
 bool Value::Serialize(Environment &env, Stream &stream, const Value &value)
 {
 	const ValueTypeInfo *pValueTypeInfo = value.GetValueTypeInfo();
-	UInt32 valType = static_cast<ULong>(value.GetValueType());
+	UInt32 valType = static_cast<UInt32>(value.GetValueType());
 	if (!stream.SerializePackedUInt32(env, valType)) return false;
 	Class *pClass = pValueTypeInfo->GetClass();
 	Class::SerializeFmtVer serializeFmtVer = pClass->GetSerializeFmtVer();
@@ -715,7 +715,7 @@ bool Value::Serialize(Environment &env, Stream &stream, const Value &value)
 
 bool Value::Deserialize(Environment &env, Stream &stream, Value &value, bool mustBeValidFlag)
 {
-	UInt32 valType = static_cast<ULong>(VTYPE_nil);
+	UInt32 valType = static_cast<UInt32>(VTYPE_nil);
 	if (!stream.DeserializePackedUInt32(env, valType)) return false;
 	if (mustBeValidFlag && valType == VTYPE_nil) {
 		env.SetError(ERR_IOError, "invalid value in the stream");
@@ -976,7 +976,7 @@ ValueType ValueList::GetValueTypeOfElements() const
 
 bool ValueList::Serialize(Environment &env, Stream &stream) const
 {
-	UInt32 num = static_cast<ULong>(size());
+	UInt32 num = static_cast<UInt32>(size());
 	if (!stream.SerializePackedUInt32(env, num)) return false;
 	foreach_const (ValueList, pValue, *this) {
 		if (!Value::Serialize(env, stream, *pValue)) return false;
@@ -1120,7 +1120,7 @@ bool ValueDict::Store(Signal &sig, const Value &valueIdx, const Value &value, St
 
 bool ValueDict::Serialize(Environment &env, Stream &stream) const
 {
-	UInt32 num = static_cast<ULong>(size());
+	UInt32 num = static_cast<UInt32>(size());
 	if (!stream.SerializePackedUInt32(env, num)) return false;
 	foreach_const (ValueDict, iter, *this) {
 		if (!Value::Serialize(env, stream, iter->first)) return false;
