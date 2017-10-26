@@ -621,7 +621,7 @@ Gura_ImplementMethod(array, colmajor)
 		return Value::Nil;
 	}
 	AutoPtr<Array> pArrayRtn(pArraySelf->Clone());
-	pArrayRtn->SetColMajorFlag(true);
+	pArrayRtn->SetColMajor();
 	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 #endif
