@@ -1255,41 +1255,13 @@ void ArrayT<T_Elem>::ScanKernel2d(
 	}
 }
 
-template<typename T_Elem>
-class KernelScanner_ExpandVec {
-private:
-	const Array *_pArraySrc;
-	size_t _nDimsKernel;
-	AutoPtr<Array> &_pArrayVec;
-	T_Elem *_pElemDst;
-	T_Elem _padNum;
-public:
-	KernelScanner_ExpandVec(const Array *pArraySrc, size_t nDimsKernel, AutoPtr<Array> &pArrayVec, T_Elem padNum) :
-		_pArraySrc(pArraySrc), _nDimsKernel(nDimsKernel),
-		_pArrayVec(pArrayVec), _pElemDst(nullptr), _padNum(padNum) {}
-	void Initialize(size_t nKernels, size_t sizeKernel);
-	inline void BeginKernel() {}
-	inline void EndKernel() {}
-	inline void DoPadding(size_t n) { while (n-- > 0) *_pElemDst++ = _padNum; }
-	inline void DoScanning(const T_Elem *pElem) { *_pElemDst++ = *pElem; }
-};
-
-template<typename T_Elem>
-void KernelScanner_ExpandVec<T_Elem>::Initialize(size_t nKernels, size_t sizeKernel)
-{
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
-	_pArrayVec.reset(ArrayT<T_Elem>::Create());
-	_pArrayVec->SetDimensions(dims.begin(), dims.begin() + dims.size() - _nDimsKernel, nKernels, sizeKernel);
-	_pArrayVec->AllocMemory();
-	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayVec.get())->GetPointer();
-}
 
 template<typename T_Elem>
 void ArrayT<T_Elem>::ExpandKernelVec1d(
 	AutoPtr<Array> &pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad, Double padNum) const
 {
 	if (GetDimensions().size() < 1) return;
-	KernelScanner_ExpandVec<T_Elem> kernelScanner(this, 1, pArrayVec, static_cast<T_Elem>(padNum));
+	KernelScanner_ExpandVec kernelScanner(this, 1, pArrayVec, static_cast<T_Elem>(padNum));
 	ScanKernel1d(sizeKernel, stridesKernel, sizePad, kernelScanner);
 }
 
@@ -1300,7 +1272,7 @@ void ArrayT<T_Elem>::ExpandKernelVec2d(
 	Double padNum) const
 {
 	if (GetDimensions().size() < 2) return;
-	KernelScanner_ExpandVec<T_Elem> kernelScanner(this, 2, pArrayVec, static_cast<T_Elem>(padNum));
+	KernelScanner_ExpandVec kernelScanner(this, 2, pArrayVec, static_cast<T_Elem>(padNum));
 	ScanKernel2d(
 		sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 		sizePadRow, sizePadCol, kernelScanner);
@@ -1541,6 +1513,19 @@ bool ArrayT<Complex>::StoreValueAt(Environment &env, Complex *pElem, const Value
 }
 
 //-----------------------------------------------------------------------------
+// ArrayT::KernelScanner_ExpandVec
+//-----------------------------------------------------------------------------
+template<typename T_Elem>
+void ArrayT<T_Elem>::KernelScanner_ExpandVec::Initialize(size_t nKernels, size_t sizeKernel)
+{
+	const Dimensions &dims = _pArraySrc->GetDimensions();
+	_pArrayVec.reset(Create());
+	_pArrayVec->SetDimensions(dims.begin(), dims.begin() + dims.size() - _nDimsKernel, nKernels, sizeKernel);
+	_pArrayVec->AllocMemory();
+	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayVec.get())->GetPointer();
+}
+
+//-----------------------------------------------------------------------------
 // ArrayT::Iterator_Each
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
@@ -1611,25 +1596,5 @@ ImplementArrayT(Float)
 ImplementArrayT(Double)
 ImplementArrayT(Complex)
 //ImplementArrayT(Value)
-
-//------------------------------------------------------------------------------
-// Realization of Iterator_ArrayT_Each
-//------------------------------------------------------------------------------
-#if 0
-template class Iterator_ArrayT_Each<Boolean>;
-template class Iterator_ArrayT_Each<Int8>;
-template class Iterator_ArrayT_Each<UInt8>;
-template class Iterator_ArrayT_Each<Int16>;
-template class Iterator_ArrayT_Each<UInt16>;
-template class Iterator_ArrayT_Each<Int32>;
-template class Iterator_ArrayT_Each<UInt32>;
-template class Iterator_ArrayT_Each<Int64>;
-template class Iterator_ArrayT_Each<UInt64>;
-template class Iterator_ArrayT_Each<Half>;
-template class Iterator_ArrayT_Each<Float>;
-template class Iterator_ArrayT_Each<Double>;
-template class Iterator_ArrayT_Each<Complex>;
-//template class Iterator_ArrayT_Each<Value>;
-#endif
 
 }

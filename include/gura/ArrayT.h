@@ -14,6 +14,23 @@ namespace Gura {
 template<typename T_Elem>
 class GURA_DLLDECLARE ArrayT : public Array {
 public:
+	class GURA_DLLDECLARE KernelScanner_ExpandVec {
+	private:
+		const Array *_pArraySrc;
+		size_t _nDimsKernel;
+		AutoPtr<Array> &_pArrayVec;
+		T_Elem *_pElemDst;
+		T_Elem _padNum;
+	public:
+	KernelScanner_ExpandVec(const Array *pArraySrc, size_t nDimsKernel, AutoPtr<Array> &pArrayVec, T_Elem padNum) :
+		_pArraySrc(pArraySrc), _nDimsKernel(nDimsKernel),
+			_pArrayVec(pArrayVec), _pElemDst(nullptr), _padNum(padNum) {}
+		void Initialize(size_t nKernels, size_t sizeKernel);
+		inline void BeginKernel() {}
+		inline void EndKernel() {}
+		inline void DoPadding(size_t n) { while (n-- > 0) *_pElemDst++ = _padNum; }
+		inline void DoScanning(const T_Elem *pElem) { *_pElemDst++ = *pElem; }
+	};
 	class GURA_DLLDECLARE Iterator_Each : public Iterator {
 	private:
 		AutoPtr<ArrayT> _pArrayT;
