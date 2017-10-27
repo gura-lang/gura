@@ -22,8 +22,8 @@ public:
 		T_Elem *_pElemDst;
 		T_Elem _padNum;
 	public:
-	KernelScanner_ExpandVec(const Array *pArraySrc, size_t nDimsKernel, AutoPtr<Array> &pArrayVec, T_Elem padNum) :
-		_pArraySrc(pArraySrc), _nDimsKernel(nDimsKernel),
+		KernelScanner_ExpandVec(const Array *pArraySrc, size_t nDimsKernel, AutoPtr<Array> &pArrayVec, T_Elem padNum) :
+			_pArraySrc(pArraySrc), _nDimsKernel(nDimsKernel),
 			_pArrayVec(pArrayVec), _pElemDst(nullptr), _padNum(padNum) {}
 		void Initialize(size_t nKernels, size_t sizeKernel);
 		inline void BeginKernel() {}
@@ -38,7 +38,7 @@ public:
 		size_t _idx;
 	public:
 		inline Iterator_Each(ArrayT *pArrayT, bool flatFlag) :
-		Iterator(FinitePredictable), _pArrayT(pArrayT), _flatFlag(flatFlag), _idx(0) {}
+			Iterator(FinitePredictable), _pArrayT(pArrayT), _flatFlag(flatFlag), _idx(0) {}
 		virtual size_t GetLength() const;
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);
@@ -97,6 +97,12 @@ public:
 	void ScanKernel2d(
 		size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
+		T_KernelScanner &scanner) const;
+	template<typename T_KernelScanner>
+	void ScanKernel3d(
+		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
 		T_KernelScanner &scanner) const;
 	virtual void ExpandKernelVec1d(
 		AutoPtr<Array> &pArrayVec,

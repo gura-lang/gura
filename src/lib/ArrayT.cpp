@@ -1255,6 +1255,14 @@ void ArrayT<T_Elem>::ScanKernel2d(
 	}
 }
 
+template<typename T_Elem> template<typename T_KernelScanner>
+void ArrayT<T_Elem>::ScanKernel3d(
+	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
+	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
+	T_KernelScanner &scanner) const
+{
+}
 
 template<typename T_Elem>
 void ArrayT<T_Elem>::ExpandKernelVec1d(
@@ -1284,12 +1292,12 @@ void ArrayT<T_Elem>::ExpandKernelVec3d(
 	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, Double padNum) const
 {
-	const Dimensions &dims = GetDimensions();
-	if (dims.size() < 3) return;
-	pArrayVec.reset(Create());
-	pArrayVec->SetDimensions(dims.begin(), dims.begin() + dims.size() - 3,
-							 sizeKernelPlane * sizeKernelRow * sizeKernelCol);
-	pArrayVec->AllocMemory();
+	if (GetDimensions().size() < 3) return;
+	KernelScanner_ExpandVec kernelScanner(this, 3, pArrayVec, static_cast<T_Elem>(padNum));
+	ScanKernel3d(
+		sizeKernelPlane, sizeKernelRow, sizeKernelCol,
+		stridesKernelPlane, stridesKernelRow, stridesKernelCol,
+		sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
 }
 
 template<typename T_Elem>
