@@ -1172,9 +1172,16 @@ void ArrayT<T_Elem>::ScanKernel1d(
 			const T_Elem *pElemCol = pElemBlock;
 			if (iColBegin > iColMin) pElemCol += (iColBegin - iColMin) * stridesCol;
 			size_t iCol = iColBegin;
-			for ( ; iCol < iColMin; iCol++) scanner.DoPadding(1);
-			for ( ; iCol < iColMark; iCol++, pElemCol += stridesCol) scanner.DoScanning(pElemCol);
-			for ( ; iCol < iColEnd; iCol++) scanner.DoPadding(1);
+			if (iCol < iColMin) {
+				scanner.DoPadding(iColMin - iCol);
+				iCol = iColMin;
+			}
+			for ( ; iCol < iColMark; iCol++, pElemCol += stridesCol) {
+				scanner.DoScanning(pElemCol);
+			}
+			if (iCol < iColEnd) {
+				scanner.DoPadding(iColEnd - iCol);
+			}
 			scanner.EndKernel();
 		}
 	}
