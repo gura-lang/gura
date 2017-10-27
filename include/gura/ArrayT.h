@@ -73,21 +73,26 @@ public:
 	virtual bool FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool lastFlag) const;
 	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const;
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const;
+	template<typename T_KernelScanner>
+	void ScanKernel2d(
+		size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
+		T_KernelScanner &scanner) const;
 	virtual void ExpandKernelVec1d(
 		AutoPtr<Array> &pArrayVec,
 		size_t sizeKernel, size_t stridesKernel, size_t sizePad, Double padNum) const;
-	virtual void StoreKernelVec1d(
-		const Array *pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad);
 	virtual void ExpandKernelVec2d(
 		AutoPtr<Array> &pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol, Double padNum) const;
-	virtual void StoreKernelVec2d(
-		const Array *pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
-		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol);
 	virtual void ExpandKernelVec3d(
 		AutoPtr<Array> &pArrayVec, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, Double padNum) const;
+	virtual void StoreKernelVec1d(
+		const Array *pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad);
+	virtual void StoreKernelVec2d(
+		const Array *pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol);
 	virtual void StoreKernelVec3d(
 		const Array *pArrayVec, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
@@ -109,11 +114,6 @@ public:
 	static void FillDouble(T_Elem *pElem, size_t nElems, Double num, size_t strides);
 	static void FillComplex(T_Elem *pElem, size_t nElems, const Complex &num, size_t strides) {}
 	static bool StoreValueAt(Environment &env, T_Elem *pElem, const Value &value);
-	template<typename T_KernelScanner>
-	void ScanKernel2d(
-		size_t sizeKernelRow, size_t sizeKernelCol,
-		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
-		T_KernelScanner &scanner) const;
 private:
 	inline ~ArrayT() {}
 };
