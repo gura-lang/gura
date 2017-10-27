@@ -74,6 +74,9 @@ public:
 	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const;
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const;
 	template<typename T_KernelScanner>
+	void ScanKernel1d(
+		size_t sizeKernel, size_t stridesKernel, size_t sizePad, T_KernelScanner &scanner) const;
+	template<typename T_KernelScanner>
 	void ScanKernel2d(
 		size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
