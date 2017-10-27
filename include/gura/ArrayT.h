@@ -109,6 +109,11 @@ public:
 	static void FillDouble(T_Elem *pElem, size_t nElems, Double num, size_t strides);
 	static void FillComplex(T_Elem *pElem, size_t nElems, const Complex &num, size_t strides) {}
 	static bool StoreValueAt(Environment &env, T_Elem *pElem, const Value &value);
+	template<typename T_KernelScanner>
+	void ScanKernel2d(
+		size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
+		T_KernelScanner &scanner) const;
 private:
 	inline ~ArrayT() {}
 };
