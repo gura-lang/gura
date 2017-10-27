@@ -1219,20 +1219,28 @@ void ArrayT<T_Elem>::ScanKernel2d(
 				size_t iColEnd = iColBegin + sizeKernelCol;
 				size_t iColMark = ChooseMin(iColEnd, iColMax);
 				size_t iRow = iRowBegin;
-				for ( ; iRow < iRowMin; iRow++) {
-					for (size_t iCol = iColBegin; iCol < iColEnd; iCol++) scanner.DoPadding(1);
+				if (iRow < iRowMin) {
+					scanner.DoPadding((iRowMin - iRow) * sizeKernelCol);
+					iRow = iRowMin;
 				}
 				const T_Elem *pElemColTop = pElemRowTop;
 				if (iColBegin > iColMin) pElemColTop += (iColBegin - iColMin) * stridesCol;
 				for ( ; iRow < iRowMark; iRow++, pElemColTop += stridesRow) {
 					const T_Elem *pElemCol = pElemColTop;
 					size_t iCol = iColBegin;
-					for ( ; iCol < iColMin; iCol++) scanner.DoPadding(1);
-					for ( ; iCol < iColMark; iCol++, pElemCol += stridesCol) scanner.DoScanning(pElemCol);
-					for ( ; iCol < iColEnd; iCol++) scanner.DoPadding(1);
+					if (iCol < iColMin) {
+						scanner.DoPadding(iColMin - iCol);
+						iCol = iColMin;
+					}
+					for ( ; iCol < iColMark; iCol++, pElemCol += stridesCol) {
+						scanner.DoScanning(pElemCol);
+					}
+					if (iCol < iColEnd) {
+						scanner.DoPadding(iColEnd - iCol);
+					}
 				}
-				for ( ; iRow < iRowEnd; iRow++) {
-					for (size_t iCol = iColBegin; iCol < iColEnd; iCol++) scanner.DoPadding(1);
+				if (iRow < iRowEnd) {
+					scanner.DoPadding((iRowEnd - iRow) * sizeKernelCol);
 				}
 				scanner.EndKernel();
 			}
