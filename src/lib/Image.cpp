@@ -216,14 +216,14 @@ bool Image::AdjustCoord(int &x, int &y, int &width, int &height) const
 void Image::PutPixel(UChar *buff, const Color &color)
 {
 	if (_format == FORMAT_RGB) {
-		*(buff + OffsetR)		= color.GetR();
-		*(buff + OffsetG)	= color.GetG();
-		*(buff + OffsetB)	= color.GetB();
+		*(buff + OffsetR) = color.GetR();
+		*(buff + OffsetG) = color.GetG();
+		*(buff + OffsetB) = color.GetB();
 	} else if (_format == FORMAT_RGBA) {
-		*(buff + OffsetR)		= color.GetR();
-		*(buff + OffsetG)	= color.GetG();
-		*(buff + OffsetB)	= color.GetB();
-		*(buff + OffsetA)	= color.GetA();
+		*(buff + OffsetR) = color.GetR();
+		*(buff + OffsetG) = color.GetG();
+		*(buff + OffsetB) = color.GetB();
+		*(buff + OffsetA) = color.GetA();
 	}
 }
 
