@@ -14,22 +14,41 @@ namespace Gura {
 template<typename T_Elem>
 class GURA_DLLDECLARE ArrayT : public Array {
 public:
-	class GURA_DLLDECLARE KernelScanner_ExpandVec {
+	class GURA_DLLDECLARE KernelReader_ExpandVec {
 	private:
 		const Array *_pArraySrc;
-		size_t _nDimsKernel;
-		AutoPtr<Array> &_pArrayVec;
+		AutoPtr<Array> &_pArrayRtn;
 		T_Elem *_pElemDst;
 		T_Elem _padNum;
 	public:
-		KernelScanner_ExpandVec(const Array *pArraySrc, size_t nDimsKernel, AutoPtr<Array> &pArrayVec, T_Elem padNum) :
-			_pArraySrc(pArraySrc), _nDimsKernel(nDimsKernel),
-			_pArrayVec(pArrayVec), _pElemDst(nullptr), _padNum(padNum) {}
-		void Initialize(size_t nKernels, size_t sizeKernel);
-		inline void BeginKernel() {}
-		inline void EndKernel() {}
+		KernelReader_ExpandVec(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn, T_Elem padNum) :
+			_pArraySrc(pArraySrc), _pArrayRtn(pArrayRtn), _pElemDst(nullptr), _padNum(padNum) {}
+		void Initialize1d(size_t nKernels, size_t sizeKernel);
+		void Initialize2d(size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol);
+		void Initialize3d(size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
+						  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol);
+		inline void BeginKernel(const T_Elem *pElem) {} // nothing to do
+		inline void EndKernel() {} // nothing to do
 		inline void DoPadding(size_t n) { while (n-- > 0) *_pElemDst++ = _padNum; }
-		inline void DoScanning(const T_Elem *pElem) { *_pElemDst++ = *pElem; }
+		inline void DoElement(const T_Elem *pElem) { *_pElemDst++ = *pElem; }
+	};
+	class GURA_DLLDECLARE KernelReader_PoolMax {
+	private:
+		const Array *_pArraySrc;
+		AutoPtr<Array> &_pArrayRtn;
+		T_Elem *_pElemDst;
+		T_Elem _elemMax;
+	public:
+		KernelReader_PoolMax(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn) :
+			_pArraySrc(pArraySrc), _pArrayRtn(pArrayRtn), _pElemDst(nullptr), _elemMax(0) {}
+		void Initialize1d(size_t nKernels, size_t sizeKernel);
+		void Initialize2d(size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol);
+		void Initialize3d(size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
+						  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol);
+		inline void BeginKernel(const T_Elem *pElem) { _elemMax = *pElem; }
+		inline void EndKernel() { *_pElemDst++ = _elemMax; }
+		inline void DoPadding(size_t n) {} // nothing to do
+		inline void DoElement(const T_Elem *pElem) { if (_elemMax < *pElem) { _elemMax = *pElem; } }
 	};
 	class GURA_DLLDECLARE Iterator_Each : public Iterator {
 	private:
@@ -90,39 +109,49 @@ public:
 	virtual bool FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool lastFlag) const;
 	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const;
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const;
-	template<typename T_KernelScanner>
-	void ScanKernel1d(
-		size_t sizeKernel, size_t stridesKernel, size_t sizePad, T_KernelScanner &scanner) const;
-	template<typename T_KernelScanner>
-	void ScanKernel2d(
+	template<typename T_KernelReader>
+	void ReadKernel1d(
+		size_t sizeKernel, size_t stridesKernel, size_t sizePad, T_KernelReader &kernelReader) const;
+	template<typename T_KernelReader>
+	void ReadKernel2d(
 		size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
-		T_KernelScanner &scanner) const;
-	template<typename T_KernelScanner>
-	void ScanKernel3d(
+		T_KernelReader &kernelReader) const;
+	template<typename T_KernelReader>
+	void ReadKernel3d(
 		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
-		T_KernelScanner &scanner) const;
+		T_KernelReader &kernelReader) const;
 	virtual void ExpandKernelVec1d(
-		AutoPtr<Array> &pArrayVec,
+		AutoPtr<Array> &pArrayRtn,
 		size_t sizeKernel, size_t stridesKernel, size_t sizePad, Double padNum) const;
 	virtual void ExpandKernelVec2d(
-		AutoPtr<Array> &pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
+		AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol, Double padNum) const;
 	virtual void ExpandKernelVec3d(
-		AutoPtr<Array> &pArrayVec, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, Double padNum) const;
 	virtual void StoreKernelVec1d(
-		const Array *pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad);
+		const Array *pArrayRtn, size_t sizeKernel, size_t stridesKernel, size_t sizePad);
 	virtual void StoreKernelVec2d(
-		const Array *pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
+		const Array *pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol);
 	virtual void StoreKernelVec3d(
-		const Array *pArrayVec, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+		const Array *pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol);
+	virtual void PoolMax1d(
+		AutoPtr<Array> &pArrayRtn,
+		size_t sizeKernel, size_t stridesKernel, size_t sizePad) const;
+	virtual void PoolMax2d(
+		AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol) const;
+	virtual void PoolMax3d(
+		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol) const;
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const;
 	// functions to create an ArrayT instance
 	static ArrayT *Create();
