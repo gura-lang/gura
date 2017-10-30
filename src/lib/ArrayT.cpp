@@ -1415,7 +1415,11 @@ void ArrayT<T_Elem>::ExpandKernelVec2d(
 	bool chLastFlag, Double padNum) const
 {
 	if (chLastFlag) {
-		
+		if (GetDimensions().size() < 3) return;
+		KernelReader_ExpandVec_ChLast kernelReader(this, pArrayRtn, static_cast<T_Elem>(padNum));
+		ReadKernel2d_ChLast(
+			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
+			sizePadRow, sizePadCol, kernelReader);
 	} else {
 		if (GetDimensions().size() < 2) return;
 		KernelReader_ExpandVec kernelReader(this, pArrayRtn, static_cast<T_Elem>(padNum));
@@ -1740,6 +1744,7 @@ void ArrayT<T_Elem>::KernelReader_ExpandVec_ChLast::Initialize1d(size_t nKernels
 	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 1, nKernels, sizeKernel * nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+	_nChannels = nChannels;
 }
 
 template<typename T_Elem>
@@ -1752,6 +1757,7 @@ void ArrayT<T_Elem>::KernelReader_ExpandVec_ChLast::Initialize2d(
 							  nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol * nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+	_nChannels = nChannels;
 }
 
 template<typename T_Elem>
@@ -1766,6 +1772,7 @@ void ArrayT<T_Elem>::KernelReader_ExpandVec_ChLast::Initialize3d(
 							  sizeKernelPlane * sizeKernelRow * sizeKernelCol * nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+	_nChannels = nChannels;
 }
 
 //-----------------------------------------------------------------------------
