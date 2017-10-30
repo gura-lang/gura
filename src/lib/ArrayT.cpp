@@ -1741,7 +1741,7 @@ void ArrayT<T_Elem>::KernelReader_ExpandVec_ChLast::Initialize1d(size_t nKernels
 {
 	const Dimensions &dims = _pArraySrc->GetDimensions();
 	_pArrayRtn.reset(Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 1, nKernels, sizeKernel * nChannels);
+	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (1 + 1), nKernels, sizeKernel * nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
 	_nChannels = nChannels;
@@ -1753,7 +1753,7 @@ void ArrayT<T_Elem>::KernelReader_ExpandVec_ChLast::Initialize2d(
 {
 	const Dimensions &dims = _pArraySrc->GetDimensions();
 	_pArrayRtn.reset(Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 2,
+	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (2 + 1),
 							  nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol * nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
@@ -1767,7 +1767,7 @@ void ArrayT<T_Elem>::KernelReader_ExpandVec_ChLast::Initialize3d(
 {
 	const Dimensions &dims = _pArraySrc->GetDimensions();
 	_pArrayRtn.reset(Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 3,
+	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (3 + 1),
 							  nKernelsPlane * nKernelsRow * nKernelsCol,
 							  sizeKernelPlane * sizeKernelRow * sizeKernelCol * nChannels);
 	_pArrayRtn->AllocMemory();
@@ -1809,6 +1809,51 @@ void ArrayT<T_Elem>::KernelReader_PoolMax::Initialize3d(
 	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 3, nKernelsPlane, nKernelsRow, nKernelsCol);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+}
+
+//-----------------------------------------------------------------------------
+// ArrayT::KernelReader_PoolMax_ChLast
+//-----------------------------------------------------------------------------
+template<typename T_Elem>
+void ArrayT<T_Elem>::KernelReader_PoolMax_ChLast::Initialize1d(size_t nKernels, size_t sizeKernel, size_t nChannels)
+{
+	const Dimensions &dims = _pArraySrc->GetDimensions();
+	_pArrayRtn.reset(Create());
+	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (1 + 1),
+							  nKernels, nChannels);
+	_pArrayRtn->AllocMemory();
+	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+	_elemMaxTbl.reset(new T_Elem [nChannels]);
+	_nChannels = nChannels;
+}
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::KernelReader_PoolMax_ChLast::Initialize2d(
+	size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol, size_t nChannels)
+{
+	const Dimensions &dims = _pArraySrc->GetDimensions();
+	_pArrayRtn.reset(Create());
+	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (2 + 1),
+							  nKernelsRow, nKernelsCol, nChannels);
+	_pArrayRtn->AllocMemory();
+	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+	_elemMaxTbl.reset(new T_Elem [nChannels]);
+	_nChannels = nChannels;
+}
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::KernelReader_PoolMax_ChLast::Initialize3d(
+	size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
+	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol, size_t nChannels)
+{
+	const Dimensions &dims = _pArraySrc->GetDimensions();
+	_pArrayRtn.reset(Create());
+	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (3 + 1),
+							  nKernelsPlane, nKernelsRow, nKernelsCol, nChannels);
+	_pArrayRtn->AllocMemory();
+	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+	_elemMaxTbl.reset(new T_Elem [nChannels]);
+	_nChannels = nChannels;
 }
 
 //-----------------------------------------------------------------------------

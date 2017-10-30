@@ -289,8 +289,9 @@ public:
 	void FlipAxisMajor();
 	void StoreDimensions(const Dimensions &dims);
 	void SetDimension(size_t size);
-	void SetDimensions(size_t sizeRow, size_t sizeCol);
-	void SetDimensions(size_t sizePlane, size_t sizeRow, size_t sizeCol);
+	void SetDimensions(size_t size1, size_t size2);
+	void SetDimensions(size_t size1, size_t size2, size_t size3);
+	void SetDimensions(size_t size1, size_t size2, size_t size3, size_t size4);
 	void SetDimensions(const Dimensions &dims);
 	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
 	void SetDimensions(size_t size,
@@ -298,9 +299,11 @@ public:
 	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 					   size_t size);
 	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-					   size_t sizeRow, size_t sizeCol);
+					   size_t size1, size_t size2);
 	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-					   size_t sizePlane, size_t sizeRow, size_t sizeCol);
+					   size_t size1, size_t size2, size_t size3);
+	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+					   size_t size1, size_t size2, size_t size3, size_t size4);
 	void SetDimensions(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
 					   Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
 	void SetDimensions(const ValueList &valList);

@@ -106,20 +106,30 @@ void Array::SetDimension(size_t size)
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(size_t sizeRow, size_t sizeCol)
+void Array::SetDimensions(size_t size1, size_t size2)
 {
 	_dims.reserve(2);
-	_dims.push_back(Dimension(sizeRow));
-	_dims.push_back(Dimension(sizeCol));
+	_dims.push_back(Dimension(size1));
+	_dims.push_back(Dimension(size2));
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(size_t sizePlane, size_t sizeRow, size_t sizeCol)
+void Array::SetDimensions(size_t size1, size_t size2, size_t size3)
 {
 	_dims.reserve(3);
-	_dims.push_back(Dimension(sizePlane));
-	_dims.push_back(Dimension(sizeRow));
-	_dims.push_back(Dimension(sizeCol));
+	_dims.push_back(Dimension(size1));
+	_dims.push_back(Dimension(size2));
+	_dims.push_back(Dimension(size3));
+	UpdateMetrics();
+}
+
+void Array::SetDimensions(size_t size1, size_t size2, size_t size3, size_t size4)
+{
+	_dims.reserve(4);
+	_dims.push_back(Dimension(size1));
+	_dims.push_back(Dimension(size2));
+	_dims.push_back(Dimension(size3));
+	_dims.push_back(Dimension(size4));
 	UpdateMetrics();
 }
 
@@ -155,23 +165,35 @@ void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_ite
 }
 
 void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-						  size_t sizeRow, size_t sizeCol)
+						  size_t size1, size_t size2)
 {
 	_dims.reserve(std::distance(pDim, pDimEnd) + 2);
 	_dims.insert(_dims.end(), pDim, pDimEnd);
-	_dims.push_back(Dimension(sizeRow));
-	_dims.push_back(Dimension(sizeCol));
+	_dims.push_back(Dimension(size1));
+	_dims.push_back(Dimension(size2));
 	UpdateMetrics();
 }
 
 void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-						  size_t sizePlane, size_t sizeRow, size_t sizeCol)
+						  size_t size1, size_t size2, size_t size3)
 {
 	_dims.reserve(std::distance(pDim, pDimEnd) + 3);
 	_dims.insert(_dims.end(), pDim, pDimEnd);
-	_dims.push_back(Dimension(sizePlane));
-	_dims.push_back(Dimension(sizeRow));
-	_dims.push_back(Dimension(sizeCol));
+	_dims.push_back(Dimension(size1));
+	_dims.push_back(Dimension(size2));
+	_dims.push_back(Dimension(size3));
+	UpdateMetrics();
+}
+
+void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+						  size_t size1, size_t size2, size_t size3, size_t size4)
+{
+	_dims.reserve(std::distance(pDim, pDimEnd) + 4);
+	_dims.insert(_dims.end(), pDim, pDimEnd);
+	_dims.push_back(Dimension(size1));
+	_dims.push_back(Dimension(size2));
+	_dims.push_back(Dimension(size3));
+	_dims.push_back(Dimension(size4));
 	UpdateMetrics();
 }
 
