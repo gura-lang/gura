@@ -740,13 +740,14 @@ Gura_ImplementMethod(array, elemcast)
 	return ReturnValue(env, arg, value);
 }
 
-// array#expand_kernelvec1d(size:number, strides:number, sizepad:number, padnum?:number) {block?}
+// array#expand_kernelvec1d(size:number, strides:number, sizepad:number, ch_last?:boolean, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec1d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "sizepad", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "ch_last", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -762,18 +763,20 @@ Gura_ImplementMethod(array, expand_kernelvec1d)
 	size_t sizeKernel = arg.GetSizeT(0);
 	size_t stridesKernel = arg.GetSizeT(1);
 	size_t sizePad = arg.GetSizeT(2);
-	Double padNum = arg.IsValid(3)? arg.GetDouble(3) : 0;
-	pArraySelf->ExpandKernelVec1d(pArrayRtn, sizeKernel, stridesKernel, sizePad, padNum);
+	bool chLastFlag = arg.IsValid(3)? arg.GetBoolean(3) : false;
+	Double padNum = arg.IsValid(4)? arg.GetDouble(4) : 0;
+	pArraySelf->ExpandKernelVec1d(pArrayRtn, sizeKernel, stridesKernel, sizePad, chLastFlag, padNum);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
-// array#expand_kernelvec2d(size[]:number, strides[]:number, sizepad[]:number, padnum?:number) {block?}
+// array#expand_kernelvec2d(size[]:number, strides[]:number, sizepad[]:number, ch_last?:boolean, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec2d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "sizepad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "ch_last", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -805,19 +808,22 @@ Gura_ImplementMethod(array, expand_kernelvec2d)
 	}
 	size_t sizePadRow = value1.GetSizeT();
 	size_t sizePadCol = value2.GetSizeT();
-	Double padNum = arg.IsValid(3)? arg.GetDouble(3) : 0;
+	bool chLastFlag = arg.IsValid(3)? arg.GetBoolean(3) : false;
+	Double padNum = arg.IsValid(4)? arg.GetDouble(4) : 0;
 	pArraySelf->ExpandKernelVec2d(pArrayRtn, sizeKernelRow, sizeKernelCol,
-								  stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol, padNum);
+								  stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol,
+								  chLastFlag, padNum);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
-// array#expand_kernelvec3d(size[]:number, strides[]:number, sizepad[]:number, padnum?:number) {block?}
+// array#expand_kernelvec3d(size[]:number, strides[]:number, sizepad[]:number, ch_last?:boolean, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec3d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "sizepad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "ch_last", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -852,10 +858,12 @@ Gura_ImplementMethod(array, expand_kernelvec3d)
 	size_t sizePadPlane = value1.GetSizeT();
 	size_t sizePadRow = value2.GetSizeT();
 	size_t sizePadCol = value3.GetSizeT();
-	Double padNum = arg.IsValid(3)? arg.GetDouble(3) : 0;
+	bool chLastFlag = arg.IsValid(3)? arg.GetBoolean(3) : false;
+	Double padNum = arg.IsValid(4)? arg.GetDouble(4) : 0;
 	pArraySelf->ExpandKernelVec3d(pArrayRtn, sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 								  stridesKernelPlane, stridesKernelRow, stridesKernelCol,
-								  sizePadPlane, sizePadRow, sizePadCol, padNum);
+								  sizePadPlane, sizePadRow, sizePadCol,
+								  chLastFlag, padNum);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 

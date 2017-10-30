@@ -1151,14 +1151,15 @@ void ArrayT<T_Elem>::ReadKernel1d(
 	size_t sizeKernel, size_t stridesKernel, size_t sizePad, T_KernelReader &kernelReader) const
 {
 	const Dimensions &dims = GetDimensions();
-	size_t stridesCol = dims.GetCol().GetStrides();
-	size_t nColsPadded = dims.GetCol().GetSize() + sizePad;
+	const Dimension &dimCol = dims.GetCol();
+	size_t stridesCol = dimCol.GetStrides();
+	size_t nColsPadded = dimCol.GetSize() + sizePad;
 	size_t sizePadColHead = sizePad / 2;
 	size_t sizePadColTail = sizePad - sizePadColHead;
 	size_t iColMin = sizePadColHead;
 	size_t iColMax = nColsPadded - sizePadColTail;
 	size_t nKernelsCol = (nColsPadded - sizeKernel + stridesKernel) / stridesKernel;
-	size_t sizeBlock = dims.GetCol().GetSizeProd();
+	size_t sizeBlock = dimCol.GetSizeProd();
 	size_t nBlocks = GetElemNum() / sizeBlock;
 	kernelReader.Initialize1d(nKernelsCol, sizeKernel);
 	const T_Elem *pElemSrc = GetPointer();
@@ -1194,10 +1195,12 @@ void ArrayT<T_Elem>::ReadKernel2d(
 	T_KernelReader &kernelReader) const
 {
 	const Dimensions &dims = GetDimensions();
-	size_t stridesRow = dims.GetRow().GetStrides();
-	size_t stridesCol = dims.GetCol().GetStrides();
-	size_t nRowsPadded = dims.GetRow().GetSize() + sizePadRow;
-	size_t nColsPadded = dims.GetCol().GetSize() + sizePadCol;
+	const Dimension &dimRow = dims.GetRow();
+	const Dimension &dimCol = dims.GetCol();
+	size_t stridesRow = dimRow.GetStrides();
+	size_t stridesCol = dimCol.GetStrides();
+	size_t nRowsPadded = dimRow.GetSize() + sizePadRow;
+	size_t nColsPadded = dimCol.GetSize() + sizePadCol;
 	size_t sizePadRowHead = sizePadRow / 2;
 	size_t sizePadRowTail = sizePadRow - sizePadRowHead;
 	size_t sizePadColHead = sizePadCol / 2;
@@ -1208,7 +1211,7 @@ void ArrayT<T_Elem>::ReadKernel2d(
 	size_t iColMax = nColsPadded - sizePadColTail;
 	size_t nKernelsRow = (nRowsPadded - sizeKernelRow + stridesKernelRow) / stridesKernelRow;
 	size_t nKernelsCol = (nColsPadded - sizeKernelCol + stridesKernelCol) / stridesKernelCol;
-	size_t sizeBlock = dims.GetRow().GetSizeProd();
+	size_t sizeBlock = dimRow.GetSizeProd();
 	size_t nBlocks = GetElemNum() / sizeBlock;
 	kernelReader.Initialize2d(nKernelsRow, nKernelsCol, sizeKernelRow, sizeKernelCol);
 	const T_Elem *pElemSrc = GetPointer();
@@ -1264,33 +1267,170 @@ void ArrayT<T_Elem>::ReadKernel3d(
 {
 }
 
+template<typename T_Elem> template<typename T_KernelReader>
+void ArrayT<T_Elem>::ReadKernel1d_ChLast(
+	size_t sizeKernel, size_t stridesKernel, size_t sizePad, T_KernelReader &kernelReader) const
+{
+	const Dimensions &dims = GetDimensions();
+	const Dimension &dimCol = dims.GetBack(1);
+	const Dimension &dimChannels = dims.GetBack(0);
+	size_t stridesCol = dimCol.GetStrides();
+	size_t nColsPadded = dimCol.GetSize() + sizePad;
+	size_t nChannels = dimChannels.GetSize();
+	size_t sizePadColHead = sizePad / 2;
+	size_t sizePadColTail = sizePad - sizePadColHead;
+	size_t iColMin = sizePadColHead;
+	size_t iColMax = nColsPadded - sizePadColTail;
+	size_t nKernelsCol = (nColsPadded - sizeKernel + stridesKernel) / stridesKernel;
+	size_t sizeBlock = dimCol.GetSizeProd();
+	size_t nBlocks = GetElemNum() / sizeBlock;
+	kernelReader.Initialize1d(nKernelsCol, sizeKernel, nChannels);
+	const T_Elem *pElemSrc = GetPointer();
+	const T_Elem *pElemBlock = pElemSrc;
+	for (size_t iBlock = 0; iBlock < nBlocks; iBlock++, pElemBlock += sizeBlock) {
+		for (size_t iKernelCol = 0; iKernelCol < nKernelsCol; iKernelCol++) {
+			size_t iColBegin = iKernelCol * stridesKernel;
+			size_t iColEnd = iColBegin + sizeKernel;
+			size_t iColMark = ChooseMin(iColEnd, iColMax);
+			const T_Elem *pElemCol = pElemBlock;
+			if (iColBegin > iColMin) pElemCol += (iColBegin - iColMin) * stridesCol;
+			size_t iCol = iColBegin;
+			kernelReader.BeginKernel(pElemCol);
+			if (iCol < iColMin) {
+				kernelReader.DoPadding(iColMin - iCol);
+				iCol = iColMin;
+			}
+			for ( ; iCol < iColMark; iCol++, pElemCol += stridesCol) {
+				kernelReader.DoElement(pElemCol);
+			}
+			if (iCol < iColEnd) {
+				kernelReader.DoPadding(iColEnd - iCol);
+			}
+			kernelReader.EndKernel();
+		}
+	}
+}
+
+template<typename T_Elem> template<typename T_KernelReader>
+void ArrayT<T_Elem>::ReadKernel2d_ChLast(
+	size_t sizeKernelRow, size_t sizeKernelCol,
+	size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
+	T_KernelReader &kernelReader) const
+{
+	const Dimensions &dims = GetDimensions();
+	const Dimension &dimRow = dims.GetBack(2);
+	const Dimension &dimCol = dims.GetBack(1);
+	const Dimension &dimChannels = dims.GetBack(0);
+	size_t stridesRow = dimRow.GetStrides();
+	size_t stridesCol = dimCol.GetStrides();
+	size_t nRowsPadded = dimRow.GetSize() + sizePadRow;
+	size_t nColsPadded = dimCol.GetSize() + sizePadCol;
+	size_t nChannels = dimChannels.GetSize();
+	size_t sizePadRowHead = sizePadRow / 2;
+	size_t sizePadRowTail = sizePadRow - sizePadRowHead;
+	size_t sizePadColHead = sizePadCol / 2;
+	size_t sizePadColTail = sizePadCol - sizePadColHead;
+	size_t iRowMin = sizePadRowHead;
+	size_t iRowMax = nRowsPadded - sizePadRowTail;
+	size_t iColMin = sizePadColHead;
+	size_t iColMax = nColsPadded - sizePadColTail;
+	size_t nKernelsRow = (nRowsPadded - sizeKernelRow + stridesKernelRow) / stridesKernelRow;
+	size_t nKernelsCol = (nColsPadded - sizeKernelCol + stridesKernelCol) / stridesKernelCol;
+	size_t sizeBlock = dimRow.GetSizeProd();
+	size_t nBlocks = GetElemNum() / sizeBlock;
+	kernelReader.Initialize2d(nKernelsRow, nKernelsCol, sizeKernelRow, sizeKernelCol, nChannels);
+	const T_Elem *pElemSrc = GetPointer();
+	const T_Elem *pElemBlock = pElemSrc;
+	for (size_t iBlock = 0; iBlock < nBlocks; iBlock++, pElemBlock += sizeBlock) {
+		for (size_t iKernelRow = 0; iKernelRow < nKernelsRow; iKernelRow++) {
+			size_t iRowBegin = iKernelRow * stridesKernelRow;
+			size_t iRowEnd = iRowBegin + sizeKernelRow;
+			size_t iRowMark = ChooseMin(iRowEnd, iRowMax);
+			const T_Elem *pElemRowTop = pElemBlock;
+			if (iRowBegin > iRowMin) pElemRowTop += (iRowBegin - iRowMin) * stridesRow;
+			for (size_t iKernelCol = 0; iKernelCol < nKernelsCol; iKernelCol++) {
+				size_t iColBegin = iKernelCol * stridesKernelCol;
+				size_t iColEnd = iColBegin + sizeKernelCol;
+				size_t iColMark = ChooseMin(iColEnd, iColMax);
+				size_t iRow = iRowBegin;
+				const T_Elem *pElemColTop = pElemRowTop;
+				if (iColBegin > iColMin) pElemColTop += (iColBegin - iColMin) * stridesCol;
+				kernelReader.BeginKernel(pElemColTop);
+				if (iRow < iRowMin) {
+					kernelReader.DoPadding((iRowMin - iRow) * sizeKernelCol);
+					iRow = iRowMin;
+				}
+				for ( ; iRow < iRowMark; iRow++, pElemColTop += stridesRow) {
+					const T_Elem *pElemCol = pElemColTop;
+					size_t iCol = iColBegin;
+					if (iCol < iColMin) {
+						kernelReader.DoPadding(iColMin - iCol);
+						iCol = iColMin;
+					}
+					for ( ; iCol < iColMark; iCol++, pElemCol += stridesCol) {
+						kernelReader.DoElement(pElemCol);
+					}
+					if (iCol < iColEnd) {
+						kernelReader.DoPadding(iColEnd - iCol);
+					}
+				}
+				if (iRow < iRowEnd) {
+					kernelReader.DoPadding((iRowEnd - iRow) * sizeKernelCol);
+				}
+				kernelReader.EndKernel();
+			}
+		}
+	}
+}
+
+template<typename T_Elem> template<typename T_KernelReader>
+void ArrayT<T_Elem>::ReadKernel3d_ChLast(
+	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
+	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
+	T_KernelReader &kernelReader) const
+{
+}
+
 template<typename T_Elem>
 void ArrayT<T_Elem>::ExpandKernelVec1d(
-	AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel, size_t sizePad, Double padNum) const
+	AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
+	bool chLastFlag, Double padNum) const
 {
-	if (GetDimensions().size() < 1) return;
-	KernelReader_ExpandVec kernelReader(this, pArrayRtn, static_cast<T_Elem>(padNum));
-	ReadKernel1d(sizeKernel, stridesKernel, sizePad, kernelReader);
+	if (chLastFlag) {
+		if (GetDimensions().size() < 2) return;
+		KernelReader_ExpandVec_ChLast kernelReader(this, pArrayRtn, static_cast<T_Elem>(padNum));
+		ReadKernel1d_ChLast(sizeKernel, stridesKernel, sizePad, kernelReader);
+	} else {
+		if (GetDimensions().size() < 1) return;
+		KernelReader_ExpandVec kernelReader(this, pArrayRtn, static_cast<T_Elem>(padNum));
+		ReadKernel1d(sizeKernel, stridesKernel, sizePad, kernelReader);
+	}
 }
 
 template<typename T_Elem>
 void ArrayT<T_Elem>::ExpandKernelVec2d(
 	AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
 	size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
-	Double padNum) const
+	bool chLastFlag, Double padNum) const
 {
-	if (GetDimensions().size() < 2) return;
-	KernelReader_ExpandVec kernelReader(this, pArrayRtn, static_cast<T_Elem>(padNum));
-	ReadKernel2d(
-		sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
-		sizePadRow, sizePadCol, kernelReader);
+	if (chLastFlag) {
+		
+	} else {
+		if (GetDimensions().size() < 2) return;
+		KernelReader_ExpandVec kernelReader(this, pArrayRtn, static_cast<T_Elem>(padNum));
+		ReadKernel2d(
+			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
+			sizePadRow, sizePadCol, kernelReader);
+	}
 }
 
 template<typename T_Elem>
 void ArrayT<T_Elem>::ExpandKernelVec3d(
 	AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, Double padNum) const
+	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
+	bool chLastFlag, Double padNum) const
 {
 	if (GetDimensions().size() < 3) return;
 	KernelReader_ExpandVec kernelReader(this, pArrayRtn, static_cast<T_Elem>(padNum));
@@ -1585,6 +1725,45 @@ void ArrayT<T_Elem>::KernelReader_ExpandVec::Initialize3d(
 	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 3,
 							  nKernelsPlane * nKernelsRow * nKernelsCol,
 							  sizeKernelPlane * sizeKernelRow * sizeKernelCol);
+	_pArrayRtn->AllocMemory();
+	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+}
+
+//-----------------------------------------------------------------------------
+// ArrayT::KernelReader_ExpandVec_ChLast
+//-----------------------------------------------------------------------------
+template<typename T_Elem>
+void ArrayT<T_Elem>::KernelReader_ExpandVec_ChLast::Initialize1d(size_t nKernels, size_t sizeKernel, size_t nChannels)
+{
+	const Dimensions &dims = _pArraySrc->GetDimensions();
+	_pArrayRtn.reset(Create());
+	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 1, nKernels, sizeKernel * nChannels);
+	_pArrayRtn->AllocMemory();
+	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+}
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::KernelReader_ExpandVec_ChLast::Initialize2d(
+	size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol, size_t nChannels)
+{
+	const Dimensions &dims = _pArraySrc->GetDimensions();
+	_pArrayRtn.reset(Create());
+	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 2,
+							  nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol * nChannels);
+	_pArrayRtn->AllocMemory();
+	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+}
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::KernelReader_ExpandVec_ChLast::Initialize3d(
+	size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
+	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol, size_t nChannels)
+{
+	const Dimensions &dims = _pArraySrc->GetDimensions();
+	_pArrayRtn.reset(Create());
+	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 3,
+							  nKernelsPlane * nKernelsRow * nKernelsCol,
+							  sizeKernelPlane * sizeKernelRow * sizeKernelCol * nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
 }

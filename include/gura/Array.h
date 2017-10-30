@@ -147,15 +147,18 @@ public:
 	public:
 		inline bool HasRowCol() const { return size() >= 2; }
 		inline bool HasPlaneRowCol() const { return size() >= 3; }
-		inline Dimension &GetPlane() { return *(rbegin() + 2); }
-		inline Dimension &GetRow() { return *(rbegin() + 1); }
-		inline Dimension &GetCol() { return *rbegin(); }
-		inline const Dimension &GetPlane() const { return *(rbegin() + 2); }
-		inline const Dimension &GetRow() const { return *(rbegin() + 1); }
-		inline const Dimension &GetCol() const { return *rbegin(); }
-		inline void SetPlane(const Dimension &dim) { *(rbegin() + 2) = dim; } 
-		inline void SetRow(const Dimension &dim) { *(rbegin() + 1) = dim; } 
-		inline void SetCol(const Dimension &dim) { *rbegin() = dim; } 
+		inline Dimension &GetBack(size_t idx) { return *(rbegin() + idx); }
+		inline Dimension &GetPlane() { return GetBack(2); }
+		inline Dimension &GetRow() { return GetBack(1); }
+		inline Dimension &GetCol() { return GetBack(0); }
+		inline const Dimension &GetBack(size_t idx) const { return *(rbegin() + idx); }
+		inline const Dimension &GetPlane() const { return GetBack(2); }
+		inline const Dimension &GetRow() const { return GetBack(1); }
+		inline const Dimension &GetCol() const { return GetBack(0); }
+		inline void SetBack(size_t idx, const Dimension &dim) { *(rbegin() + idx) = dim; }
+		inline void SetPlane(const Dimension &dim) { SetBack(2, dim); } 
+		inline void SetRow(const Dimension &dim) { SetBack(1, dim); } 
+		inline void SetCol(const Dimension &dim) { SetBack(0, dim); } 
 		inline bool IsColMajor() const { return !empty() && GetCol().GetStrides() != 1; }
 		inline bool IsRowMajor() const { return !IsColMajor(); }
 		inline size_t GetElemNum() const { return empty()? 1 : front().GetSizeProd(); }
@@ -322,19 +325,22 @@ public:
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const = 0;
 	bool Paste(Signal &sig, size_t offset, const Array *pArraySrc);
 	virtual void ExpandKernelVec1d(
-		AutoPtr<Array> &pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad, Double padNum) const = 0;
-	virtual void StoreKernelVec1d(
-		const Array *pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad) = 0;
+		AutoPtr<Array> &pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
+		bool chLastFlag, Double padNum) const = 0;
 	virtual void ExpandKernelVec2d(
 		AutoPtr<Array> &pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
-		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol, Double padNum) const = 0;
-	virtual void StoreKernelVec2d(
-		const Array *pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
-		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol) = 0;
+		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
+		bool chLastFlag, Double padNum) const = 0;
 	virtual void ExpandKernelVec3d(
 		AutoPtr<Array> &pArrayVec, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, Double padNum) const = 0;
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
+		bool chLastFlag, Double padNum) const = 0;
+	virtual void StoreKernelVec1d(
+		const Array *pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad) = 0;
+	virtual void StoreKernelVec2d(
+		const Array *pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol) = 0;
 	virtual void StoreKernelVec3d(
 		const Array *pArrayVec, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
