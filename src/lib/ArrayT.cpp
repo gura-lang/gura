@@ -1467,31 +1467,46 @@ void ArrayT<T_Elem>::StoreKernelVec3d(
 
 template<typename T_Elem>
 void ArrayT<T_Elem>::PoolMax1d(
-		AutoPtr<Array> &pArrayRtn,
-		size_t sizeKernel, size_t stridesKernel, size_t sizePad) const
+		AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
+		size_t sizePad, bool chLastFlag) const
 {
-	if (GetDimensions().size() < 1) return;
-	KernelReader_PoolMax kernelReader(this, pArrayRtn);
-	ReadKernel1d(sizeKernel, stridesKernel, sizePad, kernelReader);
+	if (chLastFlag) {
+		if (GetDimensions().size() < 2) return;
+		KernelReader_PoolMax_ChLast kernelReader(this, pArrayRtn);
+		ReadKernel1d_ChLast(sizeKernel, stridesKernel, sizePad, kernelReader);
+	} else {
+		if (GetDimensions().size() < 1) return;
+		KernelReader_PoolMax kernelReader(this, pArrayRtn);
+		ReadKernel1d(sizeKernel, stridesKernel, sizePad, kernelReader);
+	}
 }
 
 template<typename T_Elem>
 void ArrayT<T_Elem>::PoolMax2d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
-		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol) const
+		size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const
 {
-	if (GetDimensions().size() < 2) return;
-	KernelReader_PoolMax kernelReader(this, pArrayRtn);
-	ReadKernel2d(
-		sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
-		sizePadRow, sizePadCol, kernelReader);
+	if (chLastFlag) {
+		if (GetDimensions().size() < 3) return;
+		KernelReader_PoolMax_ChLast kernelReader(this, pArrayRtn);
+		ReadKernel2d_ChLast(
+			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
+			sizePadRow, sizePadCol, kernelReader);
+	} else {
+		if (GetDimensions().size() < 2) return;
+		KernelReader_PoolMax kernelReader(this, pArrayRtn);
+		ReadKernel2d(
+			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
+			sizePadRow, sizePadCol, kernelReader);
+	}
 }
 
 template<typename T_Elem>
 void ArrayT<T_Elem>::PoolMax3d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol) const
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const
 {
 }
 
