@@ -74,7 +74,7 @@ public:
 		inline void BeginKernel(const T_Elem *pElem) { _elemMax = *pElem; }
 		inline void EndKernel() { *_pElemDst++ = _elemMax; }
 		inline void DoPadding(size_t n) {} // nothing to do
-		inline void DoElement(const T_Elem *pElem) { if (_elemMax < *pElem) { _elemMax = *pElem; } }
+		inline void DoElement(const T_Elem *pElem) { if (_elemMax < *pElem) _elemMax = *pElem; }
 	};
 	class GURA_DLLDECLARE KernelReader_CalcMaxPool_ChLast {
 	private:
@@ -105,7 +105,7 @@ public:
 		inline void DoElement(const T_Elem *pElem) {
 			for (size_t iChannel = 0; iChannel < _nChannels; iChannel++, pElem++) {
 				T_Elem &elemMax = _elemMaxTbl[iChannel];
-				if (elemMax < *pElem) { elemMax = *pElem; }
+				if (elemMax < *pElem) elemMax = *pElem;
 			}
 		}
 	};
