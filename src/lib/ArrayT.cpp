@@ -1436,12 +1436,21 @@ void ArrayT<T_Elem>::ExpandKernelVec3d(
 	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
 	bool chLastFlag, Double padNum) const
 {
-	if (GetDimensions().size() < 3) return;
-	KernelReader_ExpandVec kernelReader(this, pArrayRtn, static_cast<T_Elem>(padNum));
-	ReadKernel3d(
-		sizeKernelPlane, sizeKernelRow, sizeKernelCol,
-		stridesKernelPlane, stridesKernelRow, stridesKernelCol,
-		sizePadPlane, sizePadRow, sizePadCol, kernelReader);
+	if (chLastFlag) {
+		if (GetDimensions().size() < 4) return;
+		KernelReader_ExpandVec_ChLast kernelReader(this, pArrayRtn, static_cast<T_Elem>(padNum));
+		ReadKernel3d_ChLast(
+			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
+			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
+			sizePadPlane, sizePadRow, sizePadCol, kernelReader);
+	} else {
+		if (GetDimensions().size() < 3) return;
+		KernelReader_ExpandVec kernelReader(this, pArrayRtn, static_cast<T_Elem>(padNum));
+		ReadKernel3d(
+			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
+			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
+			sizePadPlane, sizePadRow, sizePadCol, kernelReader);
+	}
 }
 
 template<typename T_Elem>
@@ -1508,6 +1517,21 @@ void ArrayT<T_Elem>::CalcMaxPool3d(
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const
 {
+	if (chLastFlag) {
+		if (GetDimensions().size() < 4) return;
+		KernelReader_CalcMaxPool_ChLast kernelReader(this, pArrayRtn);
+		ReadKernel3d_ChLast(
+			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
+			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
+			sizePadPlane, sizePadRow, sizePadCol, kernelReader);
+	} else {
+		if (GetDimensions().size() < 3) return;
+		KernelReader_CalcMaxPool kernelReader(this, pArrayRtn);
+		ReadKernel3d_ChLast(
+			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
+			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
+			sizePadPlane, sizePadRow, sizePadCol, kernelReader);
+	}
 }
 
 template<typename T_Elem>
