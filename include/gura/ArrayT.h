@@ -14,14 +14,14 @@ namespace Gura {
 template<typename T_Elem>
 class GURA_DLLDECLARE ArrayT : public Array {
 public:
-	class GURA_DLLDECLARE KernelReader_ExpandVec {
+	class GURA_DLLDECLARE KernelScanner_ExpandVec {
 	private:
 		const Array *_pArraySrc;
 		AutoPtr<Array> &_pArrayRtn;
 		T_Elem *_pElemDst;
 		T_Elem _padNum;
 	public:
-		KernelReader_ExpandVec(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn, T_Elem padNum) :
+		KernelScanner_ExpandVec(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn, T_Elem padNum) :
 			_pArraySrc(pArraySrc), _pArrayRtn(pArrayRtn), _pElemDst(nullptr), _padNum(padNum) {}
 		void Initialize1d(size_t nKernels, size_t sizeKernel);
 		void Initialize2d(size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol);
@@ -32,7 +32,7 @@ public:
 		inline void DoPadding(size_t n) { while (n-- > 0) *_pElemDst++ = _padNum; }
 		inline void DoElement(const T_Elem *pElem) { *_pElemDst++ = *pElem; }
 	};
-	class GURA_DLLDECLARE KernelReader_ExpandVec_ChLast {
+	class GURA_DLLDECLARE KernelScanner_ExpandVec_ChLast {
 	private:
 		const Array *_pArraySrc;
 		AutoPtr<Array> &_pArrayRtn;
@@ -40,13 +40,13 @@ public:
 		T_Elem _padNum;
 		size_t _nChannels;
 	public:
-		KernelReader_ExpandVec_ChLast(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn, T_Elem padNum) :
+		KernelScanner_ExpandVec_ChLast(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn, T_Elem padNum) :
 			_pArraySrc(pArraySrc), _pArrayRtn(pArrayRtn), _pElemDst(nullptr), _padNum(padNum), _nChannels(0) {}
-		void Initialize1d(size_t nKernels, size_t sizeKernel, size_t nChannels);
+		void Initialize1d(size_t nKernels, size_t sizeKernel);
 		void Initialize2d(size_t nKernelsRow, size_t nKernelsCol,
-						  size_t sizeKernelRow, size_t sizeKernelCol, size_t nChannels);
+						  size_t sizeKernelRow, size_t sizeKernelCol);
 		void Initialize3d(size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
-						  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol, size_t nChannels);
+						  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol);
 		inline void BeginKernel(const T_Elem *pElem) {} // nothing to do
 		inline void EndKernel() {} // nothing to do
 		inline void DoPadding(size_t n) {
@@ -58,14 +58,14 @@ public:
 			while (n-- > 0) *_pElemDst++ = *pElem++;
 		}
 	};
-	class GURA_DLLDECLARE KernelReader_CalcMaxPool {
+	class GURA_DLLDECLARE KernelScanner_CalcMaxPool {
 	private:
 		const Array *_pArraySrc;
 		AutoPtr<Array> &_pArrayRtn;
 		T_Elem *_pElemDst;
 		T_Elem _elemMax;
 	public:
-		KernelReader_CalcMaxPool(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn) :
+		KernelScanner_CalcMaxPool(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn) :
 			_pArraySrc(pArraySrc), _pArrayRtn(pArrayRtn), _pElemDst(nullptr), _elemMax(0) {}
 		void Initialize1d(size_t nKernels, size_t sizeKernel);
 		void Initialize2d(size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol);
@@ -76,7 +76,7 @@ public:
 		inline void DoPadding(size_t n) {} // nothing to do
 		inline void DoElement(const T_Elem *pElem) { if (_elemMax < *pElem) _elemMax = *pElem; }
 	};
-	class GURA_DLLDECLARE KernelReader_CalcMaxPool_ChLast {
+	class GURA_DLLDECLARE KernelScanner_CalcMaxPool_ChLast {
 	private:
 		const Array *_pArraySrc;
 		AutoPtr<Array> &_pArrayRtn;
@@ -84,13 +84,13 @@ public:
 		std::unique_ptr<T_Elem []> _elemMaxTbl;
 		size_t _nChannels;
 	public:
-		KernelReader_CalcMaxPool_ChLast(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn) :
+		KernelScanner_CalcMaxPool_ChLast(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn) :
 			_pArraySrc(pArraySrc), _pArrayRtn(pArrayRtn), _pElemDst(nullptr), _nChannels(0) {}
-		void Initialize1d(size_t nKernels, size_t sizeKernel, size_t nChannels);
+		void Initialize1d(size_t nKernels, size_t sizeKernel);
 		void Initialize2d(size_t nKernelsRow, size_t nKernelsCol,
-						  size_t sizeKernelRow, size_t sizeKernelCol, size_t nChannels);
+						  size_t sizeKernelRow, size_t sizeKernelCol);
 		void Initialize3d(size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
-						  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol, size_t nChannels);
+						  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol);
 		inline void BeginKernel(const T_Elem *pElem) {
 			for (size_t iChannel = 0; iChannel < _nChannels; iChannel++, pElem++) {
 				_elemMaxTbl[iChannel] = *pElem;
@@ -168,34 +168,23 @@ public:
 	virtual bool FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool lastFlag) const;
 	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const;
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const;
-	template<typename T_KernelReader>
-	void ReadKernel1d(
-		size_t sizeKernel, size_t stridesKernel, size_t sizePad, T_KernelReader &kernelReader) const;
-	template<typename T_KernelReader>
-	void ReadKernel2d(
+	template<typename T_KernelScanner>
+	void ScanKernel1d(
+		const Dimension &dimCol, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
+		T_KernelScanner &kernelScanner) const;
+	template<typename T_KernelScanner>
+	void ScanKernel2d(
+		const Dimension &dimRow, const Dimension &dimCol,
 		size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
-		T_KernelReader &kernelReader) const;
-	template<typename T_KernelReader>
-	void ReadKernel3d(
+		T_KernelScanner &kernelScanner) const;
+	template<typename T_KernelScanner>
+	void ScanKernel3d(
+		const Dimension &dimPlane, const Dimension &dimRow, const Dimension &dimCol,
 		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
-		T_KernelReader &kernelReader) const;
-	template<typename T_KernelReader>
-	void ReadKernel1d_ChLast(
-		size_t sizeKernel, size_t stridesKernel, size_t sizePad, T_KernelReader &kernelReader) const;
-	template<typename T_KernelReader>
-	void ReadKernel2d_ChLast(
-		size_t sizeKernelRow, size_t sizeKernelCol,
-		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
-		T_KernelReader &kernelReader) const;
-	template<typename T_KernelReader>
-	void ReadKernel3d_ChLast(
-		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
-		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
-		T_KernelReader &kernelReader) const;
+		T_KernelScanner &kernelScanner) const;
 	virtual void ExpandKernelVec1d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
 		bool chLastFlag, Double padNum) const;
