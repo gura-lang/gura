@@ -15,6 +15,7 @@ Filter_MaxPool1d::FilterFuncTable Filter_MaxPool1d::filterFuncTable = {{nullptr}
 
 bool Filter_MaxPool1d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
+#if 1
 	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
 	if (filterFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply 1-dimension max pool filter on array@%s",
@@ -22,6 +23,15 @@ bool Filter_MaxPool1d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array
 		return nullptr;
 	}
 	return (*filterFunc)(sig, pArrayRtn, pArray, this);
+#else
+	size_t sizeOut = 0, sizePad = 0;
+	bool chLastFlag = (GetChannelAt() == Filter::CHANNELAT_Last);
+	const Array::Dimensions &dims = pArray->GetDimensions();
+	Filter::CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(), GetSize(), GetStrides(), GetPaddingType(),
+						&sizeOut, &sizePad);
+	pArray->CalcMaxPool1d(pArrayRtn, GetSize(), GetStrides(), sizePad, chLastFlag);
+	return true;
+#endif
 }
 
 String Filter_MaxPool1d::ToString() const

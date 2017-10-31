@@ -348,14 +348,14 @@ public:
 		const Array *pArrayVec, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol) = 0;
-	virtual void PoolMax1d(
+	virtual void CalcMaxPool1d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
 		size_t sizePad, bool chLastFlag) const = 0;
-	virtual void PoolMax2d(
+	virtual void CalcMaxPool2d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const = 0;
-	virtual void PoolMax3d(
+	virtual void CalcMaxPool3d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const = 0;

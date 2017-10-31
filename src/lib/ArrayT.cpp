@@ -1466,36 +1466,36 @@ void ArrayT<T_Elem>::StoreKernelVec3d(
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::PoolMax1d(
+void ArrayT<T_Elem>::CalcMaxPool1d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
 		size_t sizePad, bool chLastFlag) const
 {
 	if (chLastFlag) {
 		if (GetDimensions().size() < 2) return;
-		KernelReader_PoolMax_ChLast kernelReader(this, pArrayRtn);
+		KernelReader_CalcMaxPool_ChLast kernelReader(this, pArrayRtn);
 		ReadKernel1d_ChLast(sizeKernel, stridesKernel, sizePad, kernelReader);
 	} else {
 		if (GetDimensions().size() < 1) return;
-		KernelReader_PoolMax kernelReader(this, pArrayRtn);
+		KernelReader_CalcMaxPool kernelReader(this, pArrayRtn);
 		ReadKernel1d(sizeKernel, stridesKernel, sizePad, kernelReader);
 	}
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::PoolMax2d(
+void ArrayT<T_Elem>::CalcMaxPool2d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const
 {
 	if (chLastFlag) {
 		if (GetDimensions().size() < 3) return;
-		KernelReader_PoolMax_ChLast kernelReader(this, pArrayRtn);
+		KernelReader_CalcMaxPool_ChLast kernelReader(this, pArrayRtn);
 		ReadKernel2d_ChLast(
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelReader);
 	} else {
 		if (GetDimensions().size() < 2) return;
-		KernelReader_PoolMax kernelReader(this, pArrayRtn);
+		KernelReader_CalcMaxPool kernelReader(this, pArrayRtn);
 		ReadKernel2d(
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelReader);
@@ -1503,7 +1503,7 @@ void ArrayT<T_Elem>::PoolMax2d(
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::PoolMax3d(
+void ArrayT<T_Elem>::CalcMaxPool3d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const
@@ -1791,10 +1791,10 @@ void ArrayT<T_Elem>::KernelReader_ExpandVec_ChLast::Initialize3d(
 }
 
 //-----------------------------------------------------------------------------
-// ArrayT::KernelReader_PoolMax
+// ArrayT::KernelReader_CalcMaxPool
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-void ArrayT<T_Elem>::KernelReader_PoolMax::Initialize1d(size_t nKernels, size_t sizeKernel)
+void ArrayT<T_Elem>::KernelReader_CalcMaxPool::Initialize1d(size_t nKernels, size_t sizeKernel)
 {
 	const Dimensions &dims = _pArraySrc->GetDimensions();
 	_pArrayRtn.reset(Create());
@@ -1804,7 +1804,7 @@ void ArrayT<T_Elem>::KernelReader_PoolMax::Initialize1d(size_t nKernels, size_t 
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::KernelReader_PoolMax::Initialize2d(
+void ArrayT<T_Elem>::KernelReader_CalcMaxPool::Initialize2d(
 	size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
 {
 	const Dimensions &dims = _pArraySrc->GetDimensions();
@@ -1815,7 +1815,7 @@ void ArrayT<T_Elem>::KernelReader_PoolMax::Initialize2d(
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::KernelReader_PoolMax::Initialize3d(
+void ArrayT<T_Elem>::KernelReader_CalcMaxPool::Initialize3d(
 	size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
 {
@@ -1827,10 +1827,10 @@ void ArrayT<T_Elem>::KernelReader_PoolMax::Initialize3d(
 }
 
 //-----------------------------------------------------------------------------
-// ArrayT::KernelReader_PoolMax_ChLast
+// ArrayT::KernelReader_CalcMaxPool_ChLast
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-void ArrayT<T_Elem>::KernelReader_PoolMax_ChLast::Initialize1d(size_t nKernels, size_t sizeKernel, size_t nChannels)
+void ArrayT<T_Elem>::KernelReader_CalcMaxPool_ChLast::Initialize1d(size_t nKernels, size_t sizeKernel, size_t nChannels)
 {
 	const Dimensions &dims = _pArraySrc->GetDimensions();
 	_pArrayRtn.reset(Create());
@@ -1843,7 +1843,7 @@ void ArrayT<T_Elem>::KernelReader_PoolMax_ChLast::Initialize1d(size_t nKernels, 
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::KernelReader_PoolMax_ChLast::Initialize2d(
+void ArrayT<T_Elem>::KernelReader_CalcMaxPool_ChLast::Initialize2d(
 	size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol, size_t nChannels)
 {
 	const Dimensions &dims = _pArraySrc->GetDimensions();
@@ -1857,7 +1857,7 @@ void ArrayT<T_Elem>::KernelReader_PoolMax_ChLast::Initialize2d(
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::KernelReader_PoolMax_ChLast::Initialize3d(
+void ArrayT<T_Elem>::KernelReader_CalcMaxPool_ChLast::Initialize3d(
 	size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol, size_t nChannels)
 {

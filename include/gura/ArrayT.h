@@ -58,14 +58,14 @@ public:
 			while (n-- > 0) *_pElemDst++ = *pElem++;
 		}
 	};
-	class GURA_DLLDECLARE KernelReader_PoolMax {
+	class GURA_DLLDECLARE KernelReader_CalcMaxPool {
 	private:
 		const Array *_pArraySrc;
 		AutoPtr<Array> &_pArrayRtn;
 		T_Elem *_pElemDst;
 		T_Elem _elemMax;
 	public:
-		KernelReader_PoolMax(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn) :
+		KernelReader_CalcMaxPool(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn) :
 			_pArraySrc(pArraySrc), _pArrayRtn(pArrayRtn), _pElemDst(nullptr), _elemMax(0) {}
 		void Initialize1d(size_t nKernels, size_t sizeKernel);
 		void Initialize2d(size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol);
@@ -76,7 +76,7 @@ public:
 		inline void DoPadding(size_t n) {} // nothing to do
 		inline void DoElement(const T_Elem *pElem) { if (_elemMax < *pElem) { _elemMax = *pElem; } }
 	};
-	class GURA_DLLDECLARE KernelReader_PoolMax_ChLast {
+	class GURA_DLLDECLARE KernelReader_CalcMaxPool_ChLast {
 	private:
 		const Array *_pArraySrc;
 		AutoPtr<Array> &_pArrayRtn;
@@ -84,7 +84,7 @@ public:
 		std::unique_ptr<T_Elem> _elemMaxTbl;
 		size_t _nChannels;
 	public:
-		KernelReader_PoolMax_ChLast(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn) :
+		KernelReader_CalcMaxPool_ChLast(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn) :
 			_pArraySrc(pArraySrc), _pArrayRtn(pArrayRtn), _pElemDst(nullptr), _nChannels(0) {}
 		void Initialize1d(size_t nKernels, size_t sizeKernel, size_t nChannels);
 		void Initialize2d(size_t nKernelsRow, size_t nKernelsCol,
@@ -219,14 +219,14 @@ public:
 		const Array *pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol);
-	virtual void PoolMax1d(
+	virtual void CalcMaxPool1d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
 		size_t sizePad, bool chLastFlag) const;
-	virtual void PoolMax2d(
+	virtual void CalcMaxPool2d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const;
-	virtual void PoolMax3d(
+	virtual void CalcMaxPool3d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const;
