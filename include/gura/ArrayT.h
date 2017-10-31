@@ -95,22 +95,24 @@ public:
 		bool chLastFlag, Double padNum) const;
 	virtual void ExpandKernelVec2d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
-		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
-		bool chLastFlag, Double padNum) const;
+		size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadRow, size_t sizePadCol, bool chLastFlag, Double padNum) const;
 	virtual void ExpandKernelVec3d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
 		bool chLastFlag, Double padNum) const;
 	virtual void StoreKernelVec1d(
-		const Array *pArrayRtn, size_t sizeKernel, size_t stridesKernel, size_t sizePad);
+		AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
+		size_t sizePad, bool chLastFlag) const;
 	virtual void StoreKernelVec2d(
-		const Array *pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
-		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol);
+		AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const;
 	virtual void StoreKernelVec3d(
-		const Array *pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol);
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const;
 	virtual void CalcMaxPool1d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
 		size_t sizePad, bool chLastFlag) const;
