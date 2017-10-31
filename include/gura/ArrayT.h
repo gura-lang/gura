@@ -81,7 +81,7 @@ public:
 		const Array *_pArraySrc;
 		AutoPtr<Array> &_pArrayRtn;
 		T_Elem *_pElemDst;
-		std::unique_ptr<T_Elem> _elemMaxTbl;
+		std::unique_ptr<T_Elem []> _elemMaxTbl;
 		size_t _nChannels;
 	public:
 		KernelReader_CalcMaxPool_ChLast(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn) :
@@ -92,21 +92,19 @@ public:
 		void Initialize3d(size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 						  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol, size_t nChannels);
 		inline void BeginKernel(const T_Elem *pElem) {
-			for (size_t iChannel = 0; iChannel < _nChannels; iChannel++) {
-				T_Elem &elemMax = _elemMaxTbl.get()[iChannel];
-				elemMax = *pElem;
+			for (size_t iChannel = 0; iChannel < _nChannels; iChannel++, pElem++) {
+				_elemMaxTbl[iChannel] = *pElem;
 			}
 		}
 		inline void EndKernel() {
 			for (size_t iChannel = 0; iChannel < _nChannels; iChannel++) {
-				T_Elem &elemMax = _elemMaxTbl.get()[iChannel];
-				*_pElemDst++ = elemMax;
+				*_pElemDst++ = _elemMaxTbl[iChannel];
 			}
 		}
 		inline void DoPadding(size_t n) {} // nothing to do
 		inline void DoElement(const T_Elem *pElem) {
 			for (size_t iChannel = 0; iChannel < _nChannels; iChannel++, pElem++) {
-				T_Elem &elemMax = _elemMaxTbl.get()[iChannel];
+				T_Elem &elemMax = _elemMaxTbl[iChannel];
 				if (elemMax < *pElem) { elemMax = *pElem; }
 			}
 		}
