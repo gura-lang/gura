@@ -27,10 +27,10 @@ public:
 		void Initialize2d(size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol);
 		void Initialize3d(size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 						  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol);
-		inline void BeginKernel(const T_Elem *pElem) {} // nothing to do
+		inline void BeginKernel(T_Elem *pElem) {} // nothing to do
 		inline void EndKernel() {} // nothing to do
 		inline void DoPadding(size_t n) { while (n-- > 0) *_pElemDst++ = _padNum; }
-		inline void DoElement(const T_Elem *pElem) { *_pElemDst++ = *pElem; }
+		inline void DoElement(T_Elem *pElem) { *_pElemDst++ = *pElem; }
 	};
 	class GURA_DLLDECLARE KernelScanner_ExpandVec_ChLast {
 	private:
@@ -47,13 +47,13 @@ public:
 						  size_t sizeKernelRow, size_t sizeKernelCol);
 		void Initialize3d(size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 						  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol);
-		inline void BeginKernel(const T_Elem *pElem) {} // nothing to do
+		inline void BeginKernel(T_Elem *pElem) {} // nothing to do
 		inline void EndKernel() {} // nothing to do
 		inline void DoPadding(size_t n) {
 			n *= _nChannels;
 			while (n-- > 0) *_pElemDst++ = _padNum;
 		}
-		inline void DoElement(const T_Elem *pElem) {
+		inline void DoElement(T_Elem *pElem) {
 			size_t n = _nChannels;
 			while (n-- > 0) *_pElemDst++ = *pElem++;
 		}
@@ -71,10 +71,10 @@ public:
 		void Initialize2d(size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol);
 		void Initialize3d(size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 						  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol);
-		inline void BeginKernel(const T_Elem *pElem) { _elemMax = *pElem; }
+		inline void BeginKernel(T_Elem *pElem) { _elemMax = *pElem; }
 		inline void EndKernel() { *_pElemDst++ = _elemMax; }
 		inline void DoPadding(size_t n) {} // nothing to do
-		inline void DoElement(const T_Elem *pElem) { if (_elemMax < *pElem) _elemMax = *pElem; }
+		inline void DoElement(T_Elem *pElem) { if (_elemMax < *pElem) _elemMax = *pElem; }
 	};
 	class GURA_DLLDECLARE KernelScanner_CalcMaxPool_ChLast {
 	private:
@@ -91,7 +91,7 @@ public:
 						  size_t sizeKernelRow, size_t sizeKernelCol);
 		void Initialize3d(size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 						  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol);
-		inline void BeginKernel(const T_Elem *pElem) {
+		inline void BeginKernel(T_Elem *pElem) {
 			for (size_t iChannel = 0; iChannel < _nChannels; iChannel++, pElem++) {
 				_elemMaxTbl[iChannel] = *pElem;
 			}
@@ -102,7 +102,7 @@ public:
 			}
 		}
 		inline void DoPadding(size_t n) {} // nothing to do
-		inline void DoElement(const T_Elem *pElem) {
+		inline void DoElement(T_Elem *pElem) {
 			for (size_t iChannel = 0; iChannel < _nChannels; iChannel++, pElem++) {
 				T_Elem &elemMax = _elemMaxTbl[iChannel];
 				if (elemMax < *pElem) elemMax = *pElem;
@@ -169,22 +169,22 @@ public:
 	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const;
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const;
 	template<typename T_KernelScanner>
-	void ScanKernel1d(
-		const Dimension &dimCol, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
-		T_KernelScanner &kernelScanner) const;
+	static void ScanKernel1d(
+		ArrayT *pArrayT, const Dimension &dimCol, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
+		T_KernelScanner &kernelScanner);
 	template<typename T_KernelScanner>
-	void ScanKernel2d(
-		const Dimension &dimRow, const Dimension &dimCol,
+	static void ScanKernel2d(
+		ArrayT *pArrayT, const Dimension &dimRow, const Dimension &dimCol,
 		size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
-		T_KernelScanner &kernelScanner) const;
+		T_KernelScanner &kernelScanner);
 	template<typename T_KernelScanner>
-	void ScanKernel3d(
-		const Dimension &dimPlane, const Dimension &dimRow, const Dimension &dimCol,
+	static void ScanKernel3d(
+		ArrayT *pArrayT, const Dimension &dimPlane, const Dimension &dimRow, const Dimension &dimCol,
 		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
-		T_KernelScanner &kernelScanner) const;
+		T_KernelScanner &kernelScanner);
 	virtual void ExpandKernelVec1d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
 		bool chLastFlag, Double padNum) const;

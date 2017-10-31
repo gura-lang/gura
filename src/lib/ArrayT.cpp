@@ -1148,8 +1148,8 @@ bool ArrayT<Boolean>::CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t ax
 
 template<typename T_Elem> template<typename T_KernelScanner>
 void ArrayT<T_Elem>::ScanKernel1d(
-	const Dimension &dimCol,
-	size_t sizeKernel, size_t stridesKernel, size_t sizePad, T_KernelScanner &kernelScanner) const
+	ArrayT *pArrayT, const Dimension &dimCol,
+	size_t sizeKernel, size_t stridesKernel, size_t sizePad, T_KernelScanner &kernelScanner)
 {
 	size_t stridesCol = dimCol.GetStrides();
 	size_t nColsPadded = dimCol.GetSize() + sizePad;
@@ -1159,16 +1159,15 @@ void ArrayT<T_Elem>::ScanKernel1d(
 	size_t iColMax = nColsPadded - sizePadColTail;
 	size_t nKernelsCol = (nColsPadded - sizeKernel + stridesKernel) / stridesKernel;
 	size_t sizeBlock = dimCol.GetSizeProd();
-	size_t nBlocks = GetElemNum() / sizeBlock;
+	size_t nBlocks = pArrayT->GetElemNum() / sizeBlock;
 	kernelScanner.Initialize1d(nKernelsCol, sizeKernel);
-	const T_Elem *pElemSrc = GetPointer();
-	const T_Elem *pElemBlock = pElemSrc;
+	T_Elem *pElemBlock = pArrayT->GetPointer();
 	for (size_t iBlock = 0; iBlock < nBlocks; iBlock++, pElemBlock += sizeBlock) {
 		for (size_t iKernelCol = 0; iKernelCol < nKernelsCol; iKernelCol++) {
 			size_t iColBegin = iKernelCol * stridesKernel;
 			size_t iColEnd = iColBegin + sizeKernel;
 			size_t iColMark = ChooseMin(iColEnd, iColMax);
-			const T_Elem *pElemCol = pElemBlock;
+			T_Elem *pElemCol = pElemBlock;
 			if (iColBegin > iColMin) pElemCol += (iColBegin - iColMin) * stridesCol;
 			size_t iCol = iColBegin;
 			kernelScanner.BeginKernel(pElemCol);
@@ -1189,10 +1188,10 @@ void ArrayT<T_Elem>::ScanKernel1d(
 
 template<typename T_Elem> template<typename T_KernelScanner>
 void ArrayT<T_Elem>::ScanKernel2d(
-	const Dimension &dimRow, const Dimension &dimCol,
+	ArrayT *pArrayT, const Dimension &dimRow, const Dimension &dimCol,
 	size_t sizeKernelRow, size_t sizeKernelCol,
 	size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
-	T_KernelScanner &kernelScanner) const
+	T_KernelScanner &kernelScanner)
 {
 	size_t stridesRow = dimRow.GetStrides();
 	size_t stridesCol = dimCol.GetStrides();
@@ -1209,23 +1208,22 @@ void ArrayT<T_Elem>::ScanKernel2d(
 	size_t nKernelsRow = (nRowsPadded - sizeKernelRow + stridesKernelRow) / stridesKernelRow;
 	size_t nKernelsCol = (nColsPadded - sizeKernelCol + stridesKernelCol) / stridesKernelCol;
 	size_t sizeBlock = dimRow.GetSizeProd();
-	size_t nBlocks = GetElemNum() / sizeBlock;
+	size_t nBlocks = pArrayT->GetElemNum() / sizeBlock;
 	kernelScanner.Initialize2d(nKernelsRow, nKernelsCol, sizeKernelRow, sizeKernelCol);
-	const T_Elem *pElemSrc = GetPointer();
-	const T_Elem *pElemBlock = pElemSrc;
+	T_Elem *pElemBlock = pArrayT->GetPointer();
 	for (size_t iBlock = 0; iBlock < nBlocks; iBlock++, pElemBlock += sizeBlock) {
 		for (size_t iKernelRow = 0; iKernelRow < nKernelsRow; iKernelRow++) {
 			size_t iRowBegin = iKernelRow * stridesKernelRow;
 			size_t iRowEnd = iRowBegin + sizeKernelRow;
 			size_t iRowMark = ChooseMin(iRowEnd, iRowMax);
-			const T_Elem *pElemRowTop = pElemBlock;
+			T_Elem *pElemRowTop = pElemBlock;
 			if (iRowBegin > iRowMin) pElemRowTop += (iRowBegin - iRowMin) * stridesRow;
 			for (size_t iKernelCol = 0; iKernelCol < nKernelsCol; iKernelCol++) {
 				size_t iColBegin = iKernelCol * stridesKernelCol;
 				size_t iColEnd = iColBegin + sizeKernelCol;
 				size_t iColMark = ChooseMin(iColEnd, iColMax);
 				size_t iRow = iRowBegin;
-				const T_Elem *pElemColTop = pElemRowTop;
+				T_Elem *pElemColTop = pElemRowTop;
 				if (iColBegin > iColMin) pElemColTop += (iColBegin - iColMin) * stridesCol;
 				kernelScanner.BeginKernel(pElemColTop);
 				if (iRow < iRowMin) {
@@ -1233,7 +1231,7 @@ void ArrayT<T_Elem>::ScanKernel2d(
 					iRow = iRowMin;
 				}
 				for ( ; iRow < iRowMark; iRow++, pElemColTop += stridesRow) {
-					const T_Elem *pElemCol = pElemColTop;
+					T_Elem *pElemCol = pElemColTop;
 					size_t iCol = iColBegin;
 					if (iCol < iColMin) {
 						kernelScanner.DoPadding(iColMin - iCol);
@@ -1257,11 +1255,11 @@ void ArrayT<T_Elem>::ScanKernel2d(
 
 template<typename T_Elem> template<typename T_KernelScanner>
 void ArrayT<T_Elem>::ScanKernel3d(
-	const Dimension &dimPlane, const Dimension &dimRow, const Dimension &dimCol,
+	ArrayT *pArrayT, const Dimension &dimPlane, const Dimension &dimRow, const Dimension &dimCol,
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
-	T_KernelScanner &kernelScanner) const
+	T_KernelScanner &kernelScanner)
 {
 }
 
@@ -1274,11 +1272,15 @@ void ArrayT<T_Elem>::ExpandKernelVec1d(
 	if (chLastFlag) {
 		if (dims.size() < 2) return;
 		KernelScanner_ExpandVec_ChLast kernelScanner(this, pArrayRtn, static_cast<T_Elem>(padNum));
-		ScanKernel1d(dims.GetBack(1), sizeKernel, stridesKernel, sizePad, kernelScanner);
+		ScanKernel1d(
+			const_cast<ArrayT *>(this), dims.GetBack(1),
+			sizeKernel, stridesKernel, sizePad, kernelScanner);
 	} else {
 		if (dims.size() < 1) return;
 		KernelScanner_ExpandVec kernelScanner(this, pArrayRtn, static_cast<T_Elem>(padNum));
-		ScanKernel1d(dims.GetBack(0), sizeKernel, stridesKernel, sizePad, kernelScanner);
+		ScanKernel1d(
+			const_cast<ArrayT *>(this), dims.GetBack(0),
+			sizeKernel, stridesKernel, sizePad, kernelScanner);
 	}
 }
 
@@ -1293,14 +1295,14 @@ void ArrayT<T_Elem>::ExpandKernelVec2d(
 		if (dims.size() < 3) return;
 		KernelScanner_ExpandVec_ChLast kernelScanner(this, pArrayRtn, static_cast<T_Elem>(padNum));
 		ScanKernel2d(
-			dims.GetBack(2), dims.GetBack(1),
+			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1),
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
 	} else {
 		if (dims.size() < 2) return;
 		KernelScanner_ExpandVec kernelScanner(this, pArrayRtn, static_cast<T_Elem>(padNum));
 		ScanKernel2d(
-			dims.GetBack(1), dims.GetBack(0),
+			const_cast<ArrayT *>(this), dims.GetBack(1), dims.GetBack(0),
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
 	}
@@ -1318,7 +1320,7 @@ void ArrayT<T_Elem>::ExpandKernelVec3d(
 		if (dims.size() < 4) return;
 		KernelScanner_ExpandVec_ChLast kernelScanner(this, pArrayRtn, static_cast<T_Elem>(padNum));
 		ScanKernel3d(
-			dims.GetBack(3), dims.GetBack(2), dims.GetBack(1),
+			const_cast<ArrayT *>(this), dims.GetBack(3), dims.GetBack(2), dims.GetBack(1),
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
@@ -1326,7 +1328,7 @@ void ArrayT<T_Elem>::ExpandKernelVec3d(
 		if (dims.size() < 3) return;
 		KernelScanner_ExpandVec kernelScanner(this, pArrayRtn, static_cast<T_Elem>(padNum));
 		ScanKernel3d(
-			dims.GetBack(2), dims.GetBack(1), dims.GetBack(0),
+			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0),
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
@@ -1363,11 +1365,15 @@ void ArrayT<T_Elem>::CalcMaxPool1d(
 	if (chLastFlag) {
 		if (dims.size() < 2) return;
 		KernelScanner_CalcMaxPool_ChLast kernelScanner(this, pArrayRtn);
-		ScanKernel1d(dims.GetBack(1), sizeKernel, stridesKernel, sizePad, kernelScanner);
+		ScanKernel1d(
+			const_cast<ArrayT *>(this), dims.GetBack(1),
+			sizeKernel, stridesKernel, sizePad, kernelScanner);
 	} else {
 		if (dims.size() < 1) return;
 		KernelScanner_CalcMaxPool kernelScanner(this, pArrayRtn);
-		ScanKernel1d(dims.GetBack(0), sizeKernel, stridesKernel, sizePad, kernelScanner);
+		ScanKernel1d(
+			const_cast<ArrayT *>(this), dims.GetBack(0),
+			sizeKernel, stridesKernel, sizePad, kernelScanner);
 	}
 }
 
@@ -1382,14 +1388,14 @@ void ArrayT<T_Elem>::CalcMaxPool2d(
 		if (dims.size() < 3) return;
 		KernelScanner_CalcMaxPool_ChLast kernelScanner(this, pArrayRtn);
 		ScanKernel2d(
-			dims.GetBack(2), dims.GetBack(1),
+			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1),
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
 	} else {
 		if (dims.size() < 2) return;
 		KernelScanner_CalcMaxPool kernelScanner(this, pArrayRtn);
 		ScanKernel2d(
-			dims.GetBack(1), dims.GetBack(0),
+			const_cast<ArrayT *>(this), dims.GetBack(1), dims.GetBack(0),
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
 	}
@@ -1406,7 +1412,7 @@ void ArrayT<T_Elem>::CalcMaxPool3d(
 		if (dims.size() < 4) return;
 		KernelScanner_CalcMaxPool_ChLast kernelScanner(this, pArrayRtn);
 		ScanKernel3d(
-			dims.GetBack(3), dims.GetBack(2), dims.GetBack(1),
+			const_cast<ArrayT *>(this), dims.GetBack(3), dims.GetBack(2), dims.GetBack(1),
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
@@ -1414,7 +1420,7 @@ void ArrayT<T_Elem>::CalcMaxPool3d(
 		if (dims.size() < 3) return;
 		KernelScanner_CalcMaxPool kernelScanner(this, pArrayRtn);
 		ScanKernel3d(
-			dims.GetBack(2), dims.GetBack(1), dims.GetBack(0),
+			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0),
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
