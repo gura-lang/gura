@@ -340,14 +340,16 @@ public:
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
 		bool chLastFlag, Double padNum) const = 0;
 	virtual void StoreKernelVec1d(
-		AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
+		AutoPtr<Array> &pArrayRtn, size_t size, size_t sizeKernel, size_t stridesKernel,
 		size_t sizePad, bool chLastFlag) const = 0;
 	virtual void StoreKernelVec2d(
-		AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
+		AutoPtr<Array> &pArrayRtn, size_t sizeRow, size_t sizeCol,
+		size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const = 0;
 	virtual void StoreKernelVec3d(
-		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+		AutoPtr<Array> &pArrayRtn, size_t sizePlane, size_t sizeRow, size_t sizeCol,
+		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const = 0;
 	virtual void CalcMaxPool1d(
