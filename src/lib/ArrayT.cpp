@@ -218,16 +218,16 @@ void KernelScanner_ExpandVec_ChLast<T_Elem>::Initialize3d(
 }
 
 //-----------------------------------------------------------------------------
-// KernelScanner_StoreVec
+// KernelScanner_RestoreVec
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class KernelScanner_StoreVec {
+class KernelScanner_RestoreVec {
 private:
 	const Array *_pArraySrc;
 	AutoPtr<Array> &_pArrayRtn;
 	const T_Elem *_pElemSrc;
 public:
-	KernelScanner_StoreVec(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn) :
+	KernelScanner_RestoreVec(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn) :
 		_pArraySrc(pArraySrc), _pArrayRtn(pArrayRtn),
 		_pElemSrc(dynamic_cast<const ArrayT<T_Elem> *>(pArraySrc)->GetPointer()) {}
 	inline void Initialize1d(size_t nKernels, size_t sizeKernel) {}
@@ -243,17 +243,17 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// KernelScanner_StoreVec_ChLast
+// KernelScanner_RestoreVec_ChLast
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class KernelScanner_StoreVec_ChLast {
+class KernelScanner_RestoreVec_ChLast {
 private:
 	const Array *_pArraySrc;
 	AutoPtr<Array> &_pArrayRtn;
 	const T_Elem *_pElemSrc;
 	size_t _nChannels;
 public:
-	KernelScanner_StoreVec_ChLast(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn) :
+	KernelScanner_RestoreVec_ChLast(const Array *pArraySrc, AutoPtr<Array> &pArrayRtn) :
 		_pArraySrc(pArraySrc), _pArrayRtn(pArrayRtn),
 		_pElemSrc(dynamic_cast<const ArrayT<T_Elem> *>(pArraySrc)->GetPointer()),
 		_nChannels(_pArraySrc->GetDimensions().GetBack(0).GetSize()) {}
@@ -1669,20 +1669,20 @@ void ArrayT<T_Elem>::ExpandKernelVec3d(
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::StoreKernelVec1d(
+void ArrayT<T_Elem>::RestoreKernelVec1d(
 	AutoPtr<Array> &pArrayRtn, size_t size, size_t sizeKernel, size_t stridesKernel,
 	size_t sizePad, bool chLastFlag) const
 {
 	const Dimensions &dims = GetDimensions();
 	if (chLastFlag) {
 		if (dims.size() < 2) return;
-		KernelScanner_StoreVec_ChLast<T_Elem> kernelScanner(this, pArrayRtn);
+		KernelScanner_RestoreVec_ChLast<T_Elem> kernelScanner(this, pArrayRtn);
 		ScanKernel1d(
 			dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get()), dims.GetBack(1),
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
 	} else {
 		if (dims.size() < 1) return;
-		KernelScanner_StoreVec<T_Elem> kernelScanner(this, pArrayRtn);
+		KernelScanner_RestoreVec<T_Elem> kernelScanner(this, pArrayRtn);
 		ScanKernel1d(
 			dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get()), dims.GetBack(0),
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
@@ -1690,7 +1690,7 @@ void ArrayT<T_Elem>::StoreKernelVec1d(
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::StoreKernelVec2d(
+void ArrayT<T_Elem>::RestoreKernelVec2d(
 	AutoPtr<Array> &pArrayRtn, size_t sizeRow, size_t sizeCol,
 	size_t sizeKernelRow, size_t sizeKernelCol,
 	size_t stridesKernelRow, size_t stridesKernelCol,
@@ -1703,14 +1703,14 @@ void ArrayT<T_Elem>::StoreKernelVec2d(
 	pArrayRtn->FillZero();
 	if (chLastFlag) {
 		if (dims.size() < 3) return;
-		KernelScanner_StoreVec_ChLast<T_Elem> kernelScanner(this, pArrayRtn);
+		KernelScanner_RestoreVec_ChLast<T_Elem> kernelScanner(this, pArrayRtn);
 		ScanKernel2d(
 			dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get()), dims.GetBack(2), dims.GetBack(1),
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
 	} else {
 		if (dims.size() < 2) return;
-		KernelScanner_StoreVec<T_Elem> kernelScanner(this, pArrayRtn);
+		KernelScanner_RestoreVec<T_Elem> kernelScanner(this, pArrayRtn);
 		ScanKernel2d(
 			dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get()), dims.GetBack(1), dims.GetBack(0),
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
@@ -1719,7 +1719,7 @@ void ArrayT<T_Elem>::StoreKernelVec2d(
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::StoreKernelVec3d(
+void ArrayT<T_Elem>::RestoreKernelVec3d(
 	AutoPtr<Array> &pArrayRtn, size_t sizePlane, size_t sizeRow, size_t sizeCol,
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
@@ -1728,7 +1728,7 @@ void ArrayT<T_Elem>::StoreKernelVec3d(
 	const Dimensions &dims = GetDimensions();
 	if (chLastFlag) {
 		if (dims.size() < 4) return;
-		KernelScanner_StoreVec_ChLast<T_Elem> kernelScanner(this, pArrayRtn);
+		KernelScanner_RestoreVec_ChLast<T_Elem> kernelScanner(this, pArrayRtn);
 		ScanKernel3d(
 			dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get()), dims.GetBack(3), dims.GetBack(2), dims.GetBack(1),
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
@@ -1736,7 +1736,7 @@ void ArrayT<T_Elem>::StoreKernelVec3d(
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
 	} else {
 		if (dims.size() < 3) return;
-		KernelScanner_StoreVec<T_Elem> kernelScanner(this, pArrayRtn);
+		KernelScanner_RestoreVec<T_Elem> kernelScanner(this, pArrayRtn);
 		ScanKernel3d(
 			dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get()), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0),
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,

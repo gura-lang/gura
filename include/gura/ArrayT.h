@@ -102,15 +102,15 @@ public:
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
 		bool chLastFlag, Double padNum) const;
-	virtual void StoreKernelVec1d(
+	virtual void RestoreKernelVec1d(
 		AutoPtr<Array> &pArrayRtn, size_t size, size_t sizeKernel, size_t stridesKernel,
 		size_t sizePad, bool chLastFlag) const;
-	virtual void StoreKernelVec2d(
+	virtual void RestoreKernelVec2d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeRow, size_t sizeCol,
 		size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const;
-	virtual void StoreKernelVec3d(
+	virtual void RestoreKernelVec3d(
 		AutoPtr<Array> &pArrayRtn, size_t sizePlane, size_t sizeRow, size_t sizeCol,
 		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,

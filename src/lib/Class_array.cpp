@@ -867,6 +867,37 @@ Gura_ImplementMethod(array, expand_kernelvec3d)
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
+#if 0
+// array#restore_kernelvec1d(size:number, strides:number, sizepad:number, ch_last?:boolean, padnum?:number) {block?}
+Gura_DeclareMethod(array, expand_kernelvec1d)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "sizepad", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "ch_last", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementMethod(array, expand_kernelvec1d)
+{
+	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	AutoPtr<Array> pArrayRtn;
+	size_t sizeKernel = arg.GetSizeT(0);
+	size_t stridesKernel = arg.GetSizeT(1);
+	size_t sizePad = arg.GetSizeT(2);
+	bool chLastFlag = arg.IsValid(3)? arg.GetBoolean(3) : false;
+	Double padNum = arg.IsValid(4)? arg.GetDouble(4) : 0;
+	pArraySelf->ExpandKernelVec1d(pArrayRtn, sizeKernel, stridesKernel, sizePad, chLastFlag, padNum);
+	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
+}
+#endif
+
 // array#fill(value:number):void
 Gura_DeclareMethod(array, fill)
 {
