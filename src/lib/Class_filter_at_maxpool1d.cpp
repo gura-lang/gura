@@ -25,7 +25,7 @@ bool Filter_MaxPool1d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array
 	return (*filterFunc)(sig, pArrayRtn, pArray, this);
 #else
 	size_t sizeOut = 0, sizePad = 0;
-	bool chLastFlag = (GetChannelAt() == Filter::CHANNELAT_Last);
+	bool chLastFlag = (GetChannelAt() == Array::CHANNELAT_Last);
 	const Array::Dimensions &dims = pArray->GetDimensions();
 	Filter::CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(), GetSize(), GetStrides(), GetPaddingType(),
 						&sizeOut, &sizePad);
@@ -45,7 +45,7 @@ String Filter_MaxPool1d::ToString() const
 	str += buff;
 	::sprintf(buff, ":padding=%s", PaddingTypeToSymbol(GetPaddingType())->GetName());
 	str += buff;
-	::sprintf(buff, ":channel_at=%s", ChannelAtToSymbol(GetChannelAt())->GetName());
+	::sprintf(buff, ":channel_at=%s", Array::ChannelAtToSymbol(GetChannelAt())->GetName());
 	str += buff;
 	return str;
 }
@@ -95,10 +95,10 @@ Gura_ImplementFunction(filter_at_maxpool1d)
 		paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Filter::PADDINGTYPE_None) return Value::Nil;
 	}
-	Filter::ChannelAt channelAt = Filter::CHANNELAT_Last;
+	Array::ChannelAt channelAt = Array::CHANNELAT_Last;
 	if (arg.IsValid(3)) {
-		channelAt = Filter::SymbolToChannelAt(env, arg.GetSymbol(3));
-		if (channelAt == Filter::CHANNELAT_None) return Value::Nil;
+		channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(3));
+		if (channelAt == Array::CHANNELAT_None) return Value::Nil;
 	}
 	Object_filter_at_maxpool1d *pObj = new Object_filter_at_maxpool1d(
 		env, new Filter_MaxPool1d(size, strides, paddingType, channelAt));
@@ -165,7 +165,7 @@ Gura_DeclareProperty_R(filter_at_maxpool1d, channel_at)
 Gura_ImplementPropertyGetter(filter_at_maxpool1d, channel_at)
 {
 	const Filter_MaxPool1d *pFilter = Object_filter_at_maxpool1d::GetObject(valueThis)->GetFilter();
-	return Value(Filter::ChannelAtToSymbol(pFilter->GetChannelAt()));
+	return Value(Array::ChannelAtToSymbol(pFilter->GetChannelAt()));
 }
 
 //-----------------------------------------------------------------------------

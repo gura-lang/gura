@@ -33,6 +33,11 @@ public:
 		ETYPE_reserved1,
 		ETYPE_Max,
 	};
+	enum ChannelAt {
+		CHANNELAT_None,
+		CHANNELAT_Last,
+		CHANNELAT_First,
+	};
 public:
 	typedef bool (*UnaryFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray);
 	typedef bool (*BinaryFuncT_array_array)(Signal &sig, AutoPtr<Array> &pArrayRtn,
@@ -378,6 +383,9 @@ public:
 public:
 	static ElemType SymbolToElemType(const Symbol *pSymbol);
 	static ElemType SymbolToElemType(Signal &sig, const Symbol *pSymbol);
+	static ChannelAt SymbolToChannelAt(Signal &sig, const Symbol *pSymbol);
+	static ChannelAt SymbolToChannelAt(const Symbol *pSymbol);
+	static const Symbol *ChannelAtToSymbol(ChannelAt channelAt);
 	inline static bool IsSameMajor(const Array *pArrayA, const Array *pArrayB) {
 		return pArrayA->IsColMajor() == pArrayB->IsColMajor();
 	}

@@ -26,10 +26,10 @@ private:
 	size_t _stridesRow;
 	size_t _stridesCol;
 	PaddingType _paddingType;
-	ChannelAt _channelAt;
+	Array::ChannelAt _channelAt;
 public:
 	inline Filter_MaxPool2d(size_t sizeRow, size_t sizeCol, size_t stridesRow, size_t stridesCol,
-							PaddingType paddingType, ChannelAt channelAt) :
+							PaddingType paddingType, Array::ChannelAt channelAt) :
 		_sizeRow(sizeRow), _sizeCol(sizeCol),
 		_stridesRow(stridesRow), _stridesCol(stridesCol),
 		_paddingType(paddingType), _channelAt(channelAt) {}
@@ -38,7 +38,7 @@ public:
 	inline size_t GetStridesRow() const { return _stridesRow; }
 	inline size_t GetStridesCol() const { return _stridesCol; }
 	inline PaddingType GetPaddingType() const { return _paddingType; }
-	inline ChannelAt GetChannelAt() const { return _channelAt; }
+	inline Array::ChannelAt GetChannelAt() const { return _channelAt; }
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;

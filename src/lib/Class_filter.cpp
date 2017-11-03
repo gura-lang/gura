@@ -91,32 +91,6 @@ const Symbol *Filter::PaddingTypeToSymbol(PaddingType paddingType)
 		Gura_Symbol(none);
 }
 
-Filter::ChannelAt Filter::SymbolToChannelAt(Signal &sig, const Symbol *pSymbol)
-{
-	ChannelAt channelAt = SymbolToChannelAt(pSymbol);
-	if (channelAt == CHANNELAT_None) {
-		sig.SetError(ERR_ValueError, "invalid symbol to specify channel positioning: %s",
-					 pSymbol->GetName());
-	}
-	return channelAt;
-}
-
-Filter::ChannelAt Filter::SymbolToChannelAt(const Symbol *pSymbol)
-{
-	return
-		pSymbol->IsIdentical(Gura_Symbol(first))? CHANNELAT_First :
-		pSymbol->IsIdentical(Gura_Symbol(last))? CHANNELAT_Last :
-		CHANNELAT_None;
-}
-
-const Symbol *Filter::ChannelAtToSymbol(ChannelAt channelAt)
-{
-	return
-		(channelAt == CHANNELAT_First)? Gura_Symbol(first) :
-		(channelAt == CHANNELAT_Last)? Gura_Symbol(last) :
-		Gura_Symbol(none);
-}
-
 //-----------------------------------------------------------------------------
 // Object_filter
 //-----------------------------------------------------------------------------

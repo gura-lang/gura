@@ -88,129 +88,6 @@ bool FilterFuncTmpl_Conv3d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *
 }
 
 //------------------------------------------------------------------------------
-// FilterFuncTmpl_MaxPool1d
-//------------------------------------------------------------------------------
-template<typename T_Elem>
-bool FilterFuncTmpl_MaxPool1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_MaxPool1d *pFilter)
-{
-	size_t sizeFilter = pFilter->GetSize();
-	size_t strides = pFilter->GetStrides();
-	Filter::PaddingType paddingType = pFilter->GetPaddingType();
-	Filter::ChannelAt channelAt = pFilter->GetChannelAt();
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	size_t nDims = dims.size();
-	if (channelAt == Filter::CHANNELAT_First || nDims < 2) {
-		const Array::Dimension &dimCol = dims[nDims - 1];
-		size_t sizeIn = dimCol.GetSize();
-		size_t sizeOut = 0, sizePadHead = 0, sizePadTail = 0;
-		Filter::CalcPadding(sizeIn, sizeFilter, strides, paddingType, &sizeOut, &sizePadHead, &sizePadTail);
-		if (nDims < 2) {
-			pArrayRtn.reset(ArrayT<T_Elem>::Create1d(sizeOut));
-		} else {
-			pArrayRtn.reset(ArrayT<T_Elem>::Create());
-			pArrayRtn->SetDimensions(dims.begin(), dims.begin() + nDims - 1, sizeOut);
-			pArrayRtn->AllocMemory();
-		}
-		const T_Elem *pElemSrc = pArrayT->GetPointer();
-		T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
-		size_t cnt = pArray->GetElemNum() / sizeIn;
-		for (size_t j = 0; j < cnt; j++) {
-			for (size_t i = 0; i < sizeOut; i++) {
-				size_t colBegin = i * strides;
-				size_t colEnd = colBegin + sizeFilter;
-				if (colBegin < sizePadHead) {
-					colBegin = 0;
-					colEnd -= sizePadHead - colBegin;
-				} else {
-					colBegin -= sizePadHead;
-					colEnd -= sizePadHead;
-				}
-				if (colEnd > sizeIn) colEnd = sizeIn;
-				const T_Elem *pElemSrcWk = pElemSrc + colBegin;
-				bool firstFlag = true;
-				T_Elem numMax = 0;
-				for (size_t col = colBegin; col < colEnd; col++, pElemSrcWk++) {
-					if (firstFlag || numMax < *pElemSrcWk) {
-						firstFlag = false;
-						numMax = *pElemSrcWk;
-					}
-				}
-				*(pElemRtn + i) = numMax;
-			}
-			pElemSrc += sizeIn;
-			pElemRtn += sizeOut;
-		}
-	} else {
-		const Array::Dimension &dimChannel = dims[nDims - 1];
-		const Array::Dimension &dimCol = dims[nDims - 2];
-		size_t sizeIn = dimCol.GetSize();
-		size_t sizeChannel = dimChannel.GetSize();
-		size_t sizeOut = 0, sizePadHead = 0, sizePadTail = 0;
-		Filter::CalcPadding(sizeIn, sizeFilter, strides, paddingType, &sizeOut, &sizePadHead, &sizePadTail);
-		pArrayRtn.reset(ArrayT<T_Elem>::Create());
-		pArrayRtn->SetDimensions(dims.begin(), dims.begin() + nDims - 2, sizeOut, sizeChannel);
-		pArrayRtn->AllocMemory();
-		const T_Elem *pElemSrc = pArrayT->GetPointer();
-		T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
-		size_t cnt = pArray->GetElemNum() / (sizeIn * sizeChannel);
-		for (size_t j = 0; j < cnt; j++) {
-			for (size_t i = 0; i < sizeOut; i++) {
-				size_t colBegin = i * strides;
-				size_t colEnd = colBegin + sizeFilter;
-				if (colBegin < sizePadHead) {
-					colBegin = 0;
-					colEnd -= sizePadHead - colBegin;
-				} else {
-					colBegin -= sizePadHead;
-					colEnd -= sizePadHead;
-				}
-				if (colEnd > sizeIn) colEnd = sizeIn;
-				for (size_t iChannel = 0; iChannel < sizeChannel; iChannel++) {
-					const T_Elem *pElemSrcWk = pElemSrc + colBegin * sizeChannel + iChannel;
-					bool firstFlag = true;
-					T_Elem numMax = 0;
-					for (size_t col = colBegin; col < colEnd; col++, pElemSrcWk += sizeChannel) {
-						if (firstFlag || numMax < *pElemSrcWk) {
-							firstFlag = false;
-							numMax = *pElemSrcWk;
-						}
-					}
-					*(pElemRtn + i * sizeChannel + iChannel) = numMax;
-				}
-			}
-			pElemSrc += sizeIn * sizeChannel;
-			pElemRtn += sizeOut * sizeChannel;
-		}
-	}		
-	return true;
-}
-
-//------------------------------------------------------------------------------
-// FilterFuncTmpl_MaxPool2d
-//------------------------------------------------------------------------------
-template<typename T_Elem>
-bool FilterFuncTmpl_MaxPool2d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_MaxPool2d *pFilter)
-{
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	pArrayRtn.reset(ArrayT<T_Elem>::Create(dims));
-	return true;
-}
-
-//------------------------------------------------------------------------------
-// FilterFuncTmpl_MaxPool3d
-//------------------------------------------------------------------------------
-template<typename T_Elem>
-bool FilterFuncTmpl_MaxPool3d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_MaxPool3d *pFilter)
-{
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	pArrayRtn.reset(ArrayT<T_Elem>::Create(dims));
-	return true;
-}
-
-//------------------------------------------------------------------------------
 // FilterFuncTmpl_Relu
 //------------------------------------------------------------------------------
 template<typename T_Elem>
@@ -590,66 +467,6 @@ Filter_Conv3d::FilterFuncTable g_FilterFuncTable_Conv3d = {
 	}
 };
 
-Filter_MaxPool1d::FilterFuncTable g_FilterFuncTable_MaxPool1d = {
-	{
-		nullptr,
-		&FilterFuncTmpl_MaxPool1d<Boolean>,
-		&FilterFuncTmpl_MaxPool1d<Int8>,
-		&FilterFuncTmpl_MaxPool1d<UInt8>,
-		&FilterFuncTmpl_MaxPool1d<Int16>,
-		&FilterFuncTmpl_MaxPool1d<UInt16>,
-		&FilterFuncTmpl_MaxPool1d<Int32>,
-		&FilterFuncTmpl_MaxPool1d<UInt32>,
-		&FilterFuncTmpl_MaxPool1d<Int64>,
-		&FilterFuncTmpl_MaxPool1d<UInt64>,
-		&FilterFuncTmpl_MaxPool1d<Half>,
-		&FilterFuncTmpl_MaxPool1d<Float>,
-		&FilterFuncTmpl_MaxPool1d<Double>,
-		nullptr,
-		nullptr,
-	}
-};
-
-Filter_MaxPool2d::FilterFuncTable g_FilterFuncTable_MaxPool2d = {
-	{
-		nullptr,
-		&FilterFuncTmpl_MaxPool2d<Boolean>,
-		&FilterFuncTmpl_MaxPool2d<Int8>,
-		&FilterFuncTmpl_MaxPool2d<UInt8>,
-		&FilterFuncTmpl_MaxPool2d<Int16>,
-		&FilterFuncTmpl_MaxPool2d<UInt16>,
-		&FilterFuncTmpl_MaxPool2d<Int32>,
-		&FilterFuncTmpl_MaxPool2d<UInt32>,
-		&FilterFuncTmpl_MaxPool2d<Int64>,
-		&FilterFuncTmpl_MaxPool2d<UInt64>,
-		&FilterFuncTmpl_MaxPool2d<Half>,
-		&FilterFuncTmpl_MaxPool2d<Float>,
-		&FilterFuncTmpl_MaxPool2d<Double>,
-		nullptr,
-		nullptr,
-	}
-};
-
-Filter_MaxPool3d::FilterFuncTable g_FilterFuncTable_MaxPool3d = {
-	{
-		nullptr,
-		&FilterFuncTmpl_MaxPool3d<Boolean>,
-		&FilterFuncTmpl_MaxPool3d<Int8>,
-		&FilterFuncTmpl_MaxPool3d<UInt8>,
-		&FilterFuncTmpl_MaxPool3d<Int16>,
-		&FilterFuncTmpl_MaxPool3d<UInt16>,
-		&FilterFuncTmpl_MaxPool3d<Int32>,
-		&FilterFuncTmpl_MaxPool3d<UInt32>,
-		&FilterFuncTmpl_MaxPool3d<Int64>,
-		&FilterFuncTmpl_MaxPool3d<UInt64>,
-		&FilterFuncTmpl_MaxPool3d<Half>,
-		&FilterFuncTmpl_MaxPool3d<Float>,
-		&FilterFuncTmpl_MaxPool3d<Double>,
-		nullptr,
-		nullptr,
-	}
-};
-
 Filter_Relu::FilterFuncTable g_FilterFuncTable_Relu = {
 	{
 		nullptr,
@@ -735,9 +552,6 @@ void AssignFilters(Environment &env)
 	Filter_Conv1d::filterFuncTable =			g_FilterFuncTable_Conv1d;
 	Filter_Conv2d::filterFuncTable =			g_FilterFuncTable_Conv2d;
 	Filter_Conv3d::filterFuncTable =			g_FilterFuncTable_Conv3d;
-	Filter_MaxPool1d::filterFuncTable =			g_FilterFuncTable_MaxPool1d;
-	Filter_MaxPool2d::filterFuncTable =			g_FilterFuncTable_MaxPool2d;
-	Filter_MaxPool3d::filterFuncTable =			g_FilterFuncTable_MaxPool3d;
 	Filter_Relu::filterFuncTable =				g_FilterFuncTable_Relu;
 	Filter_Sigmoid::filterFuncTable =			g_FilterFuncTable_Sigmoid;
 	Filter_Softmax::filterFuncTable =			g_FilterFuncTable_Softmax;
