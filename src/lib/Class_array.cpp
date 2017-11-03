@@ -740,14 +740,14 @@ Gura_ImplementMethod(array, elemcast)
 	return ReturnValue(env, arg, value);
 }
 
-// array#expand_kernelvec1d(size:number, strides:number, size_pad:number, ch_last?:boolean, padnum?:number) {block?}
+// array#expand_kernelvec1d(size:number, strides:number, size_pad:number, channel_at?:symbol, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec1d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "ch_last", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -763,20 +763,22 @@ Gura_ImplementMethod(array, expand_kernelvec1d)
 	size_t sizeKernel = arg.GetSizeT(0);
 	size_t stridesKernel = arg.GetSizeT(1);
 	size_t sizePad = arg.GetSizeT(2);
-	bool chLastFlag = arg.IsValid(3)? arg.GetBoolean(3) : false;
+	Array::ChannelAt channelAt = Array::CHANNELAT_First;
+	if (arg.IsValid(3) &&
+		(channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(3))) == Array::CHANNELAT_None) return Value::Nil;
 	Double padNum = arg.IsValid(4)? arg.GetDouble(4) : 0;
-	pArraySelf->ExpandKernelVec1d(pArrayRtn, sizeKernel, stridesKernel, sizePad, chLastFlag, padNum);
+	pArraySelf->ExpandKernelVec1d(pArrayRtn, sizeKernel, stridesKernel, sizePad, channelAt, padNum);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
-// array#expand_kernelvec2d(size[]:number, strides[]:number, size_pad[]:number, ch_last?:boolean, padnum?:number) {block?}
+// array#expand_kernelvec2d(size[]:number, strides[]:number, size_pad[]:number, channel_at?:symbol, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec2d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "ch_last", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -808,22 +810,24 @@ Gura_ImplementMethod(array, expand_kernelvec2d)
 	}
 	size_t sizePadRow = value1.GetSizeT();
 	size_t sizePadCol = value2.GetSizeT();
-	bool chLastFlag = arg.IsValid(3)? arg.GetBoolean(3) : false;
+	Array::ChannelAt channelAt = Array::CHANNELAT_First;
+	if (arg.IsValid(3) &&
+		(channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(3))) == Array::CHANNELAT_None) return Value::Nil;
 	Double padNum = arg.IsValid(4)? arg.GetDouble(4) : 0;
 	pArraySelf->ExpandKernelVec2d(pArrayRtn, sizeKernelRow, sizeKernelCol,
 								  stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol,
-								  chLastFlag, padNum);
+								  channelAt, padNum);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
-// array#expand_kernelvec3d(size[]:number, strides[]:number, size_pad[]:number, ch_last?:boolean, padnum?:number) {block?}
+// array#expand_kernelvec3d(size[]:number, strides[]:number, size_pad[]:number, channel_at?:symbol, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec3d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "ch_last", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -858,12 +862,14 @@ Gura_ImplementMethod(array, expand_kernelvec3d)
 	size_t sizePadPlane = value1.GetSizeT();
 	size_t sizePadRow = value2.GetSizeT();
 	size_t sizePadCol = value3.GetSizeT();
-	bool chLastFlag = arg.IsValid(3)? arg.GetBoolean(3) : false;
+	Array::ChannelAt channelAt = Array::CHANNELAT_First;
+	if (arg.IsValid(3) &&
+		(channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(3))) == Array::CHANNELAT_None) return Value::Nil;
 	Double padNum = arg.IsValid(4)? arg.GetDouble(4) : 0;
 	pArraySelf->ExpandKernelVec3d(pArrayRtn, sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 								  stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 								  sizePadPlane, sizePadRow, sizePadCol,
-								  chLastFlag, padNum);
+								  channelAt, padNum);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
@@ -1147,7 +1153,7 @@ Gura_ImplementMethod(array, reshape)
 }
 
 // array#restore_kernelvec1d(size_out:number, size:number, strides:number,
-//                           size_pad:number, ch_last?:boolean) {block?}
+//                           size_pad:number, channel_at?:symbol) {block?}
 Gura_DeclareMethod(array, restore_kernelvec1d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -1155,7 +1161,7 @@ Gura_DeclareMethod(array, restore_kernelvec1d)
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "ch_last", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -1171,13 +1177,15 @@ Gura_ImplementMethod(array, restore_kernelvec1d)
 	size_t sizeKernel = arg.GetSizeT(1);
 	size_t stridesKernel = arg.GetSizeT(2);
 	size_t sizePad = arg.GetSizeT(3);
-	bool chLastFlag = arg.IsValid(4)? arg.GetBoolean(4) : false;
-	pArraySelf->RestoreKernelVec1d(pArrayRtn, sizeOut, sizeKernel, stridesKernel, sizePad, chLastFlag);
+	Array::ChannelAt channelAt = Array::CHANNELAT_First;
+	if (arg.IsValid(4) &&
+		(channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(4))) == Array::CHANNELAT_None) return Value::Nil;
+	pArraySelf->RestoreKernelVec1d(pArrayRtn, sizeOut, sizeKernel, stridesKernel, sizePad, channelAt);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
 // array#restore_kernelvec2d(size_out[]:number, size[]:number, strides[]:number,
-//                           size_pad[]:number, ch_last?:boolean) {block?}
+//                           size_pad[]:number, channel_at?:symbol) {block?}
 Gura_DeclareMethod(array, restore_kernelvec2d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -1185,7 +1193,7 @@ Gura_DeclareMethod(array, restore_kernelvec2d)
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "ch_last", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -1222,15 +1230,17 @@ Gura_ImplementMethod(array, restore_kernelvec2d)
 	}
 	size_t sizePadRow = value1.GetSizeT();
 	size_t sizePadCol = value2.GetSizeT();
-	bool chLastFlag = arg.IsValid(4)? arg.GetBoolean(4) : false;
+	Array::ChannelAt channelAt = Array::CHANNELAT_First;
+	if (arg.IsValid(4) &&
+		(channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(4))) == Array::CHANNELAT_None) return Value::Nil;
 	pArraySelf->RestoreKernelVec2d(pArrayRtn, sizeOutRow, sizeOutCol, sizeKernelRow, sizeKernelCol,
 								  stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol,
-								  chLastFlag);
+								  channelAt);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
 // array#restore_kernelvec3d(size_out[]:number, size[]:number, strides[]:number,
-//                           size_pad[]:number, ch_last?:boolean) {block?}
+//                           size_pad[]:number, channel_at?:symbol) {block?}
 Gura_DeclareMethod(array, restore_kernelvec3d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -1238,7 +1248,7 @@ Gura_DeclareMethod(array, restore_kernelvec3d)
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "ch_last", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -1279,11 +1289,13 @@ Gura_ImplementMethod(array, restore_kernelvec3d)
 	size_t sizePadPlane = value1.GetSizeT();
 	size_t sizePadRow = value2.GetSizeT();
 	size_t sizePadCol = value3.GetSizeT();
-	bool chLastFlag = arg.IsValid(4)? arg.GetBoolean(4) : false;
+	Array::ChannelAt channelAt = Array::CHANNELAT_First;
+	if (arg.IsValid(4) &&
+		(channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(4))) == Array::CHANNELAT_None) return Value::Nil;
 	pArraySelf->RestoreKernelVec3d(pArrayRtn, sizeOutPlane, sizeOutRow, sizeOutCol,
 								   sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 								   stridesKernelPlane, stridesKernelRow, stridesKernelCol,
-								   sizePadPlane, sizePadRow, sizePadCol, chLastFlag);
+								   sizePadPlane, sizePadRow, sizePadCol, channelAt);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 

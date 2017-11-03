@@ -15,15 +15,6 @@ Filter_MaxPool2d::FilterFuncTable Filter_MaxPool2d::filterFuncTable = {{nullptr}
 
 bool Filter_MaxPool2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
-#if 0
-	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
-	if (filterFunc == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply 2-dimension max pool filter on array@%s",
-					 pArray->GetElemTypeName());
-		return nullptr;
-	}
-	return (*filterFunc)(sig, pArrayRtn, pArray, this);
-#else
 	size_t sizeOutRow = 0, sizePadRow = 0;
 	size_t sizeOutCol = 0, sizePadCol = 0;
 	bool chLastFlag = (GetChannelAt() == Array::CHANNELAT_Last);
@@ -35,9 +26,8 @@ bool Filter_MaxPool2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array
 						GetSizeCol(), GetStridesCol(), GetPaddingType(),
 						&sizeOutCol, &sizePadCol);
 	pArray->CalcMaxPool2d(pArrayRtn, GetSizeRow(), GetSizeCol(), GetStridesRow(), GetStridesCol(),
-						  sizePadRow, sizePadCol, chLastFlag);
+						  sizePadRow, sizePadCol, GetChannelAt());
 	return true;
-#endif
 }
 
 String Filter_MaxPool2d::ToString() const

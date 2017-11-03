@@ -1599,10 +1599,10 @@ void ArrayT<T_Elem>::ScanKernel3d(
 template<typename T_Elem>
 void ArrayT<T_Elem>::ExpandKernelVec1d(
 	AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
-	bool chLastFlag, Double padNum) const
+	ChannelAt channelAt, Double padNum) const
 {
 	const Dimensions &dims = GetDimensions();
-	if (chLastFlag) {
+	if (channelAt == CHANNELAT_Last) {
 		if (dims.size() < 2) return;
 		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(this, pArrayRtn, static_cast<T_Elem>(padNum));
 		ScanKernel1d(
@@ -1621,10 +1621,10 @@ template<typename T_Elem>
 void ArrayT<T_Elem>::ExpandKernelVec2d(
 	AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
 	size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
-	bool chLastFlag, Double padNum) const
+	ChannelAt channelAt, Double padNum) const
 {
 	const Dimensions &dims = GetDimensions();
-	if (chLastFlag) {
+	if (channelAt == CHANNELAT_Last) {
 		if (dims.size() < 3) return;
 		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(this, pArrayRtn, static_cast<T_Elem>(padNum));
 		ScanKernel2d(
@@ -1646,10 +1646,10 @@ void ArrayT<T_Elem>::ExpandKernelVec3d(
 	AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
-	bool chLastFlag, Double padNum) const
+	ChannelAt channelAt, Double padNum) const
 {
 	const Dimensions &dims = GetDimensions();
-	if (chLastFlag) {
+	if (channelAt == CHANNELAT_Last) {
 		if (dims.size() < 2) return;
 		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(this, pArrayRtn, static_cast<T_Elem>(padNum));
 		ScanKernel3d(
@@ -1671,11 +1671,11 @@ void ArrayT<T_Elem>::ExpandKernelVec3d(
 template<typename T_Elem>
 void ArrayT<T_Elem>::RestoreKernelVec1d(
 	AutoPtr<Array> &pArrayRtn, size_t size, size_t sizeKernel, size_t stridesKernel,
-	size_t sizePad, bool chLastFlag) const
+	size_t sizePad, ChannelAt channelAt) const
 {
 	const Dimensions &dimsSrc = GetDimensions();
 	pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	if (chLastFlag) {
+	if (channelAt == CHANNELAT_Last) {
 		if (dimsSrc.size() < 2) return;
 		size_t nChannels = dimsSrc.GetBack(0).GetSize() / sizeKernel;
 		pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 2,
@@ -1705,11 +1705,11 @@ void ArrayT<T_Elem>::RestoreKernelVec2d(
 	AutoPtr<Array> &pArrayRtn, size_t sizeRow, size_t sizeCol,
 	size_t sizeKernelRow, size_t sizeKernelCol,
 	size_t stridesKernelRow, size_t stridesKernelCol,
-	size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const
+	size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const
 {
 	const Dimensions &dimsSrc = GetDimensions();
 	pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	if (chLastFlag) {
+	if (channelAt == CHANNELAT_Last) {
 		if (dimsSrc.size() < 2) return;
 		size_t nChannels = dimsSrc.GetBack(0).GetSize() / (sizeKernelRow * sizeKernelCol);
 		pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 2,
@@ -1741,11 +1741,11 @@ void ArrayT<T_Elem>::RestoreKernelVec3d(
 	AutoPtr<Array> &pArrayRtn, size_t sizePlane, size_t sizeRow, size_t sizeCol,
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const
+	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const
 {
 	const Dimensions &dimsSrc = GetDimensions();
 	pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	if (chLastFlag) {
+	if (channelAt == CHANNELAT_Last) {
 		if (dimsSrc.size() < 2) return;
 		size_t nChannels = dimsSrc.GetBack(0).GetSize() / (sizeKernelPlane * sizeKernelRow * sizeKernelCol);
 		pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 2,
@@ -1780,10 +1780,10 @@ void ArrayT<T_Elem>::RestoreKernelVec3d(
 template<typename T_Elem>
 void ArrayT<T_Elem>::CalcMaxPool1d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
-		size_t sizePad, bool chLastFlag) const
+		size_t sizePad, ChannelAt channelAt) const
 {
 	const Dimensions &dims = GetDimensions();
-	if (chLastFlag) {
+	if (channelAt == CHANNELAT_Last) {
 		if (dims.size() < 2) return;
 		KernelScanner_CalcMaxPool_ChLast<T_Elem> kernelScanner(this, pArrayRtn);
 		ScanKernel1d(
@@ -1802,10 +1802,10 @@ template<typename T_Elem>
 void ArrayT<T_Elem>::CalcMaxPool2d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const
+		size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const
 {
 	const Dimensions &dims = GetDimensions();
-	if (chLastFlag) {
+	if (channelAt == CHANNELAT_Last) {
 		if (dims.size() < 3) return;
 		KernelScanner_CalcMaxPool_ChLast<T_Elem> kernelScanner(this, pArrayRtn);
 		ScanKernel2d(
@@ -1826,10 +1826,10 @@ template<typename T_Elem>
 void ArrayT<T_Elem>::CalcMaxPool3d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, bool chLastFlag) const
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const
 {
 	const Dimensions &dims = GetDimensions();
-	if (chLastFlag) {
+	if (channelAt == CHANNELAT_Last) {
 		if (dims.size() < 4) return;
 		KernelScanner_CalcMaxPool_ChLast<T_Elem> kernelScanner(this, pArrayRtn);
 		ScanKernel3d(
