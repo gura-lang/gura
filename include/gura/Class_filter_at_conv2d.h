@@ -12,6 +12,8 @@ namespace Gura {
 // Filter_Conv2d
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Filter_Conv2d : public Filter {
+private:
+	AutoPtr<Array> _pArrayFilter;
 public:
 	typedef bool (*FilterFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn,
 								const Array *pArray, const Filter_Conv2d *pFilter);
@@ -21,10 +23,12 @@ public:
 public:
 	static FilterFuncTable filterFuncTable;
 public:
-	inline Filter_Conv2d() {}
+	inline Filter_Conv2d(Array *pArrayFilter) : _pArrayFilter(pArrayFilter) {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;
+	inline Array *GetArray() { return _pArrayFilter.get(); }
+	inline const Array *GetArray() const { return _pArrayFilter.get(); }
 };
 
 //-----------------------------------------------------------------------------
