@@ -1849,6 +1849,29 @@ void ArrayT<T_Elem>::CalcMaxPool3d(
 }
 
 template<typename T_Elem>
+void ArrayT<T_Elem>::CalcConv1d(
+	AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter, size_t stridesKernel,
+	size_t sizePad, ChannelAt channelAt) const
+{
+}
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::CalcConv2d(
+	AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
+	size_t stridesKernelRow, size_t stridesKernelCol,
+	size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const
+{
+}
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::CalcConv3d(
+	AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
+	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
+	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const
+{
+}
+
+template<typename T_Elem>
 Iterator *ArrayT<T_Elem>::CreateIteratorEach(bool flatFlag) const
 {
 	return new Iterator_Each(Reference(), flatFlag);

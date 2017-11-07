@@ -368,6 +368,17 @@ public:
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const = 0;
+	virtual void CalcConv1d(
+		AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter, size_t stridesKernel,
+		size_t sizePad, ChannelAt channelAt) const = 0;
+	virtual void CalcConv2d(
+		AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
+		size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const = 0;
+	virtual void CalcConv3d(
+		AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
+		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const = 0;
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const = 0;
 	bool IsSquare() const;
 	bool HasShape(size_t size) const;

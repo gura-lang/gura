@@ -11,22 +11,42 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 // Filter_MaxPool3d
 //-----------------------------------------------------------------------------
-Filter_MaxPool3d::FilterFuncTable Filter_MaxPool3d::filterFuncTable = {{nullptr}};
-
 bool Filter_MaxPool3d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
-	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
-	if (filterFunc == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply 3-dimension max pool filter on array@%s",
-					 pArray->GetElemTypeName());
-		return nullptr;
-	}
-	return (*filterFunc)(sig, pArrayRtn, pArray, this);
+	size_t sizeOutPlane = 0, sizePadPlane = 0;
+	size_t sizeOutRow = 0, sizePadRow = 0;
+	size_t sizeOutCol = 0, sizePadCol = 0;
+	bool chLastFlag = (GetChannelAt() == Array::CHANNELAT_Last);
+	const Array::Dimensions &dims = pArray->GetDimensions();
+	Filter::CalcPadding(dims.GetBack(chLastFlag? 3 : 2).GetSize(),
+						GetSizePlane(), GetStridesPlane(), GetPaddingType(),
+						&sizeOutPlane, &sizePadPlane);
+	Filter::CalcPadding(dims.GetBack(chLastFlag? 2 : 1).GetSize(),
+						GetSizeRow(), GetStridesRow(), GetPaddingType(),
+						&sizeOutRow, &sizePadRow);
+	Filter::CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
+						GetSizeCol(), GetStridesCol(), GetPaddingType(),
+						&sizeOutCol, &sizePadCol);
+	pArray->CalcMaxPool3d(pArrayRtn, GetSizePlane(), GetSizeRow(), GetSizeCol(),
+						  GetStridesPlane(), GetStridesRow(), GetStridesCol(),
+						  sizePadPlane, sizePadRow, sizePadCol, GetChannelAt());
+	return true;
 }
 
 String Filter_MaxPool3d::ToString() const
 {
-	return "maxpool3d";
+	String str;
+	char buff[80];
+	str += "maxpool2d";
+	::sprintf(buff, ":size=(%zu,%zu,%zu)", GetSizePlane(), GetSizeRow(), GetSizeCol());
+	str += buff;
+	::sprintf(buff, ":strides=(%zu,%zu,%zu)", GetStridesPlane(), GetStridesRow(), GetStridesCol());
+	str += buff;
+	::sprintf(buff, ":padding=%s", PaddingTypeToSymbol(GetPaddingType())->GetName());
+	str += buff;
+	::sprintf(buff, ":channel_at=%s", Array::ChannelAtToSymbol(GetChannelAt())->GetName());
+	str += buff;
+	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -62,7 +82,45 @@ Gura_DeclareFunctionAlias(filter_at_maxpool3d, "filter@maxpool3d")
 
 Gura_ImplementFunction(filter_at_maxpool3d)
 {
-	Object_filter_at_maxpool3d *pObj = new Object_filter_at_maxpool3d(env, new Filter_MaxPool3d());
+	size_t sizePlane = 0;
+	size_t sizeRow = 0;
+	size_t sizeCol = 0;
+	do {
+		const ValueList &valList = arg.GetList(0);
+		if (valList.size() != 3) {
+			env.SetError(ERR_ValueError, "size must have three elements");
+			return Value::Nil;
+		}
+		sizePlane = valList[0].GetSizeT();
+		sizeRow = valList[1].GetSizeT();
+		sizeCol = valList[2].GetSizeT();
+	} while (0);
+	size_t stridesPlane = 1;
+	size_t stridesRow = 1;
+	size_t stridesCol = 1;
+	if (arg.IsValid(1)) {
+		const ValueList &valList = arg.GetList(1);
+		if (valList.size() != 3) {
+			env.SetError(ERR_ValueError, "strides must have three elements");
+			return Value::Nil;
+		}
+		stridesPlane = valList[0].GetSizeT();
+		stridesRow = valList[1].GetSizeT();
+		stridesCol = valList[2].GetSizeT();
+	}
+	Filter::PaddingType paddingType = Filter::PADDINGTYPE_Same;
+	if (arg.IsValid(2)) {
+		paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
+		if (paddingType == Filter::PADDINGTYPE_None) return Value::Nil;
+	}
+	Array::ChannelAt channelAt = Array::CHANNELAT_Last;
+	if (arg.IsValid(3)) {
+		channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(3));
+		if (channelAt == Array::CHANNELAT_None) return Value::Nil;
+	}
+	Object_filter_at_maxpool3d *pObj = new Object_filter_at_maxpool3d(
+		env, new Filter_MaxPool3d(sizePlane, sizeRow, sizeCol,
+								  stridesPlane, stridesRow, stridesCol, paddingType, channelAt));
 	return ReturnValue(env, arg, Value(pObj));
 }
 

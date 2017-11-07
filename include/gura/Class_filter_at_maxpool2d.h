@@ -12,14 +12,6 @@ namespace Gura {
 // Filter_MaxPool2d
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Filter_MaxPool2d : public Filter {
-public:
-	typedef bool (*FilterFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn,
-								const Array *pArray, const Filter_MaxPool2d *pFilter);
-	struct FilterFuncTable {
-		FilterFuncT funcs[Array::ETYPE_Max];
-	};
-public:
-	static FilterFuncTable filterFuncTable;
 private:
 	size_t _sizeRow;
 	size_t _sizeCol;

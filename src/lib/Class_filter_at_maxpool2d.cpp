@@ -11,8 +11,6 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 // Filter_MaxPool2d
 //-----------------------------------------------------------------------------
-Filter_MaxPool2d::FilterFuncTable Filter_MaxPool2d::filterFuncTable = {{nullptr}};
-
 bool Filter_MaxPool2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
 	size_t sizeOutRow = 0, sizePadRow = 0;
