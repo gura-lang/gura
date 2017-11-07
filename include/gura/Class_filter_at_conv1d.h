@@ -32,8 +32,8 @@ public:
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;
-	inline Array *GetArray() { return _pArrayFilter.get(); }
-	inline const Array *GetArray() const { return _pArrayFilter.get(); }
+	inline Array *GetArrayFilter() { return _pArrayFilter.get(); }
+	inline const Array *GetArrayFilter() const { return _pArrayFilter.get(); }
 	inline bool HasC() const { return _pArrayFilter->GetDimensions().size() >= 2; }
 	inline bool HasFN() const { return _pArrayFilter->GetDimensions().size() == 3; }
 	inline size_t GetSize() const { return _pArrayFilter->GetDimensions().GetBack(0).GetSize(); }

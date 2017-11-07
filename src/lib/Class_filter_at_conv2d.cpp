@@ -15,13 +15,19 @@ Filter_Conv2d::FilterFuncTable Filter_Conv2d::filterFuncTable = {{{nullptr}}};
 
 bool Filter_Conv2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
-	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()][_pArrayFilter->GetElemType()];
-	if (filterFunc == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply 2-dimension convolution filter on array@%s",
-					 pArray->GetElemTypeName());
-		return nullptr;
-	}
-	return (*filterFunc)(sig, pArrayRtn, pArray, this);
+	size_t sizeOutRow = 0, sizePadRow = 0;
+	size_t sizeOutCol = 0, sizePadCol = 0;
+	bool chLastFlag = (GetChannelAt() == Array::CHANNELAT_Last);
+	const Array::Dimensions &dims = pArray->GetDimensions();
+	Filter::CalcPadding(dims.GetBack(chLastFlag? 2 : 1).GetSize(),
+						GetSizeRow(), GetStridesRow(), GetPaddingType(),
+						&sizeOutRow, &sizePadRow);
+	Filter::CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
+						GetSizeCol(), GetStridesCol(), GetPaddingType(),
+						&sizeOutCol, &sizePadCol);
+	pArray->CalcConv2d(pArrayRtn, GetArrayFilter(), GetStridesRow(), GetStridesCol(),
+					   sizePadRow, sizePadCol, GetChannelAt());
+	return true;
 }
 
 String Filter_Conv2d::ToString() const
@@ -140,7 +146,7 @@ Gura_DeclareProperty_R(filter_at_conv2d, array)
 Gura_ImplementPropertyGetter(filter_at_conv2d, array)
 {
 	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
-	Object_array *pObj = new Object_array(env, pFilter->GetArray()->Reference());
+	Object_array *pObj = new Object_array(env, pFilter->GetArrayFilter()->Reference());
 	return Value(pObj);
 }
 

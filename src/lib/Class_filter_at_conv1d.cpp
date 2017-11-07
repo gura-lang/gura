@@ -15,13 +15,14 @@ Filter_Conv1d::FilterFuncTable Filter_Conv1d::filterFuncTable = {{{nullptr}}};
 
 bool Filter_Conv1d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
-	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()][Array::ETYPE_None];
-	if (filterFunc == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply 1-dimension convolution filter on array@%s",
-					 pArray->GetElemTypeName());
-		return nullptr;
-	}
-	return (*filterFunc)(sig, pArrayRtn, pArray, this);
+	size_t sizeOut = 0, sizePad = 0;
+	bool chLastFlag = (GetChannelAt() == Array::CHANNELAT_Last);
+	const Array::Dimensions &dims = pArray->GetDimensions();
+	Filter::CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
+						GetSize(), GetStrides(), GetPaddingType(),
+						&sizeOut, &sizePad);
+	pArray->CalcConv1d(pArrayRtn, GetArrayFilter(), GetStrides(), sizePad, GetChannelAt());
+	return true;
 }
 
 String Filter_Conv1d::ToString() const
@@ -130,7 +131,7 @@ Gura_DeclareProperty_R(filter_at_conv1d, array)
 Gura_ImplementPropertyGetter(filter_at_conv1d, array)
 {
 	const Filter_Conv1d *pFilter = Object_filter_at_conv1d::GetObject(valueThis)->GetFilter();
-	Object_array *pObj = new Object_array(env, pFilter->GetArray()->Reference());
+	Object_array *pObj = new Object_array(env, pFilter->GetArrayFilter()->Reference());
 	return Value(pObj);
 }
 
