@@ -115,6 +115,26 @@ Gura_ImplementFunction(filter_at_conv1d)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// filter@conv1d#array
+Gura_DeclareProperty_R(filter_at_conv1d, array)
+{
+	SetPropAttr(VTYPE_array);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(filter_at_conv1d, array)
+{
+	const Filter_Conv1d *pFilter = Object_filter_at_conv1d::GetObject(valueThis)->GetFilter();
+	Object_array *pObj = new Object_array(env, pFilter->GetArray()->Reference());
+	return Value(pObj);
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
 Class_filter_at_conv1d::Class_filter_at_conv1d(Environment *pEnvOuter) :
@@ -126,6 +146,8 @@ void Class_filter_at_conv1d::DoPrepare(Environment &env)
 {
 	// Assignment of function
 	Gura_AssignFunction(filter_at_conv1d);
+	// Assignment of properties
+	Gura_AssignProperty(filter_at_conv1d, array);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
