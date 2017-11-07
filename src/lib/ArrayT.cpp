@@ -1861,6 +1861,24 @@ void ArrayT<T_Elem>::CalcConv2d(
 	size_t stridesKernelRow, size_t stridesKernelCol,
 	size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const
 {
+#if 0
+	const Dimensions &dims = GetDimensions();
+	if (channelAt == CHANNELAT_Last) {
+		if (dims.size() < 3) return;
+		KernelScanner_CalcMaxPool_ChLast<T_Elem> kernelScanner(this, pArrayRtn);
+		ScanKernel2d(
+			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1),
+			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
+			sizePadRow, sizePadCol, kernelScanner);
+	} else {
+		if (dims.size() < 2) return;
+		KernelScanner_CalcMaxPool<T_Elem> kernelScanner(this, pArrayRtn);
+		ScanKernel2d(
+			const_cast<ArrayT *>(this), dims.GetBack(1), dims.GetBack(0),
+			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
+			sizePadRow, sizePadCol, kernelScanner);
+	}
+#endif
 }
 
 template<typename T_Elem>
