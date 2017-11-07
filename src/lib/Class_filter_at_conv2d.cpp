@@ -83,7 +83,7 @@ Gura_DeclareFunctionAlias(filter_at_conv2d, "filter@conv2d")
 		"- `[C, FH, FW]`\n"
 		"- `[FN, C, FH, FW]`\n"
 		"\n"
-		"where `FH` and `FW` is the size of the filter's kernel,\n"
+		"where `FH` and `FW` are the size of the filter's kernel,\n"
 		"`C` is the number of channels and `FN` is the number of filters.\n"
 		);
 }

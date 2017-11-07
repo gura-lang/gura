@@ -20,11 +20,28 @@ public:
 	};
 public:
 	static FilterFuncTable filterFuncTable;
+private:
+	AutoPtr<Array> _pArrayFilter;
+	size_t _strides;
+	PaddingType _paddingType;
+	Array::ChannelAt _channelAt;
 public:
-	inline Filter_Conv1d() {}
+	inline Filter_Conv1d(Array *pArrayFilter, size_t strides, PaddingType paddingType, Array::ChannelAt channelAt) :
+		_pArrayFilter(pArrayFilter), _strides(strides),
+		_paddingType(paddingType), _channelAt(channelAt) {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;
+	inline Array *GetArray() { return _pArrayFilter.get(); }
+	inline const Array *GetArray() const { return _pArrayFilter.get(); }
+	inline bool HasC() const { return _pArrayFilter->GetDimensions().size() >= 2; }
+	inline bool HasFN() const { return _pArrayFilter->GetDimensions().size() == 3; }
+	inline size_t GetSize() const { return _pArrayFilter->GetDimensions().GetBack(0).GetSize(); }
+	inline size_t GetC() const { return _pArrayFilter->GetDimensions().GetBack(1).GetSize(); }
+	inline size_t GetFN() const { return _pArrayFilter->GetDimensions().GetBack(2).GetSize(); }
+	inline size_t GetStrides() const { return _strides; }
+	inline PaddingType GetPaddingType() const { return _paddingType; }
+	inline Array::ChannelAt GetChannelAt() const { return _channelAt; }
 };
 
 //-----------------------------------------------------------------------------
