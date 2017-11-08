@@ -34,12 +34,12 @@ String Filter_Conv2d::ToString() const
 {
 	char buff[80];
 	String str = "conv2d";
-	if (HasFN()) {
-		::sprintf(buff, ":FN=%zu", GetFN());
+	if (HasFilterDim()) {
+		::sprintf(buff, ":FN=%zu", GetFilterNum());
 		str += buff;
 	}
-	if (HasC()) {
-		::sprintf(buff, ":C=%zu", GetC());
+	if (HasChannelDim()) {
+		::sprintf(buff, ":C=%zu", GetChannelNum());
 		str += buff;
 	}
 	::sprintf(buff, ":size=(%zu,%zu)", GetSizeRow(), GetSizeCol());

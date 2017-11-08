@@ -35,14 +35,23 @@ public:
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;
+	inline bool IsChLast() const { return _channelAt == Array::CHANNELAT_Last; }
 	inline Array *GetArrayFilter() { return _pArrayFilter.get(); }
 	inline const Array *GetArrayFilter() const { return _pArrayFilter.get(); }
-	inline bool HasC() const { return _pArrayFilter->GetDimensions().size() >= 3; }
-	inline bool HasFN() const { return _pArrayFilter->GetDimensions().size() == 4; }
-	inline size_t GetSizeCol() const { return _pArrayFilter->GetDimensions().GetBack(0).GetSize(); }
-	inline size_t GetSizeRow() const { return _pArrayFilter->GetDimensions().GetBack(1).GetSize(); }
-	inline size_t GetC() const { return _pArrayFilter->GetDimensions().GetBack(2).GetSize(); }
-	inline size_t GetFN() const { return _pArrayFilter->GetDimensions().GetBack(3).GetSize(); }
+	inline bool HasChannelDim() const { return _pArrayFilter->GetDimensions().size() >= 3; }
+	inline bool HasFilterDim() const { return _pArrayFilter->GetDimensions().size() == 4; }
+	inline size_t GetSizeCol() const {
+		return _pArrayFilter->GetDimensions().GetBack(IsChLast()? 1 : 0).GetSize();
+	}
+	inline size_t GetSizeRow() const {
+		return _pArrayFilter->GetDimensions().GetBack(IsChLast()? 2 : 1).GetSize();
+	}
+	inline size_t GetChannelNum() const {
+		return HasChannelDim()? _pArrayFilter->GetDimensions().GetBack(IsChLast()? 0 : 2).GetSize() : 1;
+	}
+	inline size_t GetFilterNum() const {
+		return HasFilterDim()? _pArrayFilter->GetDimensions().GetBack(3).GetSize() : 1;
+	}
 	inline size_t GetStridesRow() const { return _stridesRow; }
 	inline size_t GetStridesCol() const { return _stridesCol; }
 	inline PaddingType GetPaddingType() const { return _paddingType; }
