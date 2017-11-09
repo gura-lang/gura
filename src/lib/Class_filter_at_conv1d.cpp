@@ -21,8 +21,7 @@ bool Filter_Conv1d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *p
 	Filter::CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
 						GetSize(), GetStrides(), GetPaddingType(),
 						&sizeOut, &sizePad);
-	pArray->CalcConv1d(pArrayRtn, GetArrayFilter(), GetStrides(), sizePad, GetChannelAt());
-	return true;
+	return pArray->CalcConv1d(sig, pArrayRtn, GetArrayFilter(), GetStrides(), sizePad, GetChannelAt());
 }
 
 String Filter_Conv1d::ToString() const

@@ -345,6 +345,50 @@ bool Array::Paste(Signal &sig, size_t offset, const Array *pArraySrc)
 	return true;
 }
 
+bool Array::CalcConv1d(
+	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter, size_t stridesKernel,
+	size_t sizePad, ChannelAt channelAt) const
+{
+#if 0
+	const Dimensions &dims = GetDimensions();
+	const Dimensions &dimsFilter = pArrayFilter->GetDimensions();
+	size_t nDimsToCompare = ChooseMin(dimsFilter.size(), 2);
+	if (dims.size() < nDimsToCompare) {
+		sig.SetError(ERR_ValueError, "");
+		return false;
+	}
+	for (size_t i = 0; i < nDimsToCompare; i++) {
+		if (dims.GetBack(i).GetSize() != dimsFilter.GetBack(i).GetSize()) {
+			sig.SetError(ERR_ValueError, "");
+			return false;
+		}
+	}
+#endif
+	CalcConv1d(pArrayRtn, pArrayFilter, stridesKernel, sizePad, channelAt);
+	return true;
+}
+
+bool Array::CalcConv2d(
+	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
+	size_t stridesKernelRow, size_t stridesKernelCol,
+	size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const
+{
+
+	CalcConv2d(pArrayRtn, pArrayFilter, stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol, channelAt);
+	return true;
+}
+
+bool Array::CalcConv3d(
+	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
+	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
+	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const
+{
+
+	CalcConv3d(sig, pArrayRtn, pArrayFilter, stridesKernelPlane, stridesKernelRow, stridesKernelCol,
+			   sizePadPlane, sizePadRow, sizePadCol, channelAt);
+	return true;
+}
+
 bool Array::IsSquare() const
 {
 	return _dims.HasRowCol() && (_dims.GetRow().GetSize() == _dims.GetCol().GetSize());
