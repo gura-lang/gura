@@ -75,18 +75,19 @@ public:
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const;
 	template<typename T_KernelScanner>
 	static void ScanKernel1d(
-		ArrayT *pArrayT, const Dimension &dimCol, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
+		ArrayT *pArrayT, const Dimension &dimCol,
+		size_t sizeBlock, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
 		T_KernelScanner &kernelScanner);
 	template<typename T_KernelScanner>
 	static void ScanKernel2d(
 		ArrayT *pArrayT, const Dimension &dimRow, const Dimension &dimCol,
-		size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t sizeBlock, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
 		T_KernelScanner &kernelScanner);
 	template<typename T_KernelScanner>
 	static void ScanKernel3d(
 		ArrayT *pArrayT, const Dimension &dimPlane, const Dimension &dimRow, const Dimension &dimCol,
-		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t sizeBlock, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
 		T_KernelScanner &kernelScanner);
