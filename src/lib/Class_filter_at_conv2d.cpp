@@ -120,10 +120,14 @@ Gura_ImplementFunction(filter_at_conv2d)
 		paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Filter::PADDINGTYPE_None) return Value::Nil;
 	}
-	Array::ChannelAt channelAt = Array::CHANNELAT_Last;
+	Array::ChannelAt channelAt = Array::CHANNELAT_First;
 	if (arg.IsValid(3)) {
 		channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(3));
 		if (channelAt == Array::CHANNELAT_None) return Value::Nil;
+	}
+	if (channelAt == Array::CHANNELAT_Last && nDims < 3) {
+		env.SetError(ERR_ValueError, "channel dimension is expected to exist at last");
+		return Value::Nil;
 	}
 	Object_filter_at_conv2d *pObj = new Object_filter_at_conv2d(
 		env, new Filter_Conv2d(pArrayFilter->Reference(), stridesRow, stridesCol, paddingType, channelAt));
