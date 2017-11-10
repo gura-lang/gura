@@ -345,25 +345,41 @@ bool Array::Paste(Signal &sig, size_t offset, const Array *pArraySrc)
 	return true;
 }
 
+bool Array::CheckDimsFilterForCalcConv(Signal &sig, const Dimensions &dimsFilter,
+									   size_t nDimsKernel, ChannelAt channelAt) const
+{
+	const Dimensions &dims = GetDimensions();
+	size_t iDimBack = 0;
+	if (channelAt == CHANNELAT_Last) {
+		if (iDimBack >= dims.size()) goto error_done;
+		if (dims.GetBack(iDimBack).GetSize() != dimsFilter.GetBack(iDimBack).GetSize()) goto error_done;
+		iDimBack++;
+	}
+	for (size_t i = 0; i < nDimsKernel; i++) {
+		if (iDimBack >= dims.size()) goto error_done;
+		if (dims.GetBack(iDimBack).GetSize() < dimsFilter.GetBack(iDimBack).GetSize()) {
+			sig.SetError(ERR_ValueError, "target array (%s) is smaller than applied filter (%s)",
+						 dims.ToString().c_str(), dimsFilter.ToString().c_str());
+			return false;
+		}
+		iDimBack++;
+	}
+	if (iDimBack < dimsFilter.size()) {
+		if (iDimBack >= dims.size()) goto error_done;
+		if (dims.GetBack(iDimBack).GetSize() != dimsFilter.GetBack(iDimBack).GetSize()) goto error_done;
+	}
+	return true;
+error_done:
+	sig.SetError(ERR_ValueError, "unmatched dimension between array (%s) and filter (%s)",
+				 dims.ToString().c_str(), dimsFilter.ToString().c_str());
+	return false;
+}
+
 bool Array::CalcConv1d(
 	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter, size_t stridesKernel,
 	size_t sizePad, ChannelAt channelAt) const
 {
-#if 0
-	const Dimensions &dims = GetDimensions();
-	const Dimensions &dimsFilter = pArrayFilter->GetDimensions();
-	size_t nDimsToCompare = ChooseMin(dimsFilter.size(), 2);
-	if (dims.size() < nDimsToCompare) {
-		sig.SetError(ERR_ValueError, "");
-		return false;
-	}
-	for (size_t i = 0; i < nDimsToCompare; i++) {
-		if (dims.GetBack(i).GetSize() != dimsFilter.GetBack(i).GetSize()) {
-			sig.SetError(ERR_ValueError, "");
-			return false;
-		}
-	}
-#endif
+	if (!CheckDimsFilterForCalcConv(sig, pArrayFilter->GetDimensions(), 2, channelAt)) return false;
 	CalcConv1d(pArrayRtn, pArrayFilter, stridesKernel, sizePad, channelAt);
 	return true;
 }
@@ -373,7 +389,7 @@ bool Array::CalcConv2d(
 	size_t stridesKernelRow, size_t stridesKernelCol,
 	size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const
 {
-
+	if (!CheckDimsFilterForCalcConv(sig, pArrayFilter->GetDimensions(), 3, channelAt)) return false;
 	CalcConv2d(pArrayRtn, pArrayFilter, stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol, channelAt);
 	return true;
 }
@@ -383,7 +399,7 @@ bool Array::CalcConv3d(
 	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const
 {
-
+	if (!CheckDimsFilterForCalcConv(sig, pArrayFilter->GetDimensions(), 4, channelAt)) return false;
 	CalcConv3d(sig, pArrayRtn, pArrayFilter, stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			   sizePadPlane, sizePadRow, sizePadCol, channelAt);
 	return true;

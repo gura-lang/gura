@@ -368,6 +368,8 @@ public:
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const = 0;
+	bool CheckDimsFilterForCalcConv(Signal &sig, const Dimensions &dimsFilter,
+									size_t nDimsKernel, ChannelAt channelAt) const;
 	virtual void CalcConv1d(
 		AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter, size_t stridesKernel,
 		size_t sizePad, ChannelAt channelAt) const = 0;
