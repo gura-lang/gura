@@ -449,7 +449,32 @@ bool Trainer::NodeFilter_Conv2d::IsVulnerable() const
 
 bool Trainer::NodeFilter_Conv2d::EvalForward(Environment &env)
 {
-	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+	Filter_Conv2d *pFilter = GetFilter();
+	size_t _sizePadRow = 0;
+	size_t _sizePadCol = 0;
+	AutoPtr<Array> _pArraySrcVec;
+	AutoPtr<Array> _pArrayFilterTrans;
+	const Double padNum = 0;
+	const Array *pArraySrc = GetConnectorSrc()->GetArrayFwd();
+	const Array *pArrayFilter = pFilter->GetArrayFilter();
+	if (_pArraySrcVec.IsNull()) {
+		Filter::CalcPadding2d(pFilter, pArraySrc->GetDimensions(), &_sizePadRow, &_sizePadCol);
+	}
+	// pArraySrc            .. [N, C, H, W] or [N, H, W, C]
+	// pArrayFilter         .. [FN, C, FH, FW] or [FN, FH, FW, C]
+	// _pArrayFilterReshape .. [FN, C * FH * FW]
+	// _pArraySrcVec        .. [N, H_out, W_out, C * FH * FW]
+	// _pArrayFilterTrans   .. [C * FH * FW, FN]
+	// _pArrayFwd           .. [N, H_out, W_out, FN]
+	pArraySrc->ExpandKernelVec2d(
+		_pArraySrcVec, pFilter->GetSizeRow(), pFilter->GetSizeCol(),
+		pFilter->GetStridesRow(), pFilter->GetStridesCol(), _sizePadRow, _sizePadCol,
+		pFilter->GetChannelAt(), padNum);
+	pArrayFilter->Transpose2d(_pArrayFilterTrans);
+	if (!Array::ApplyBinaryFunc(
+			env, Array::binaryFuncPack_Dot, _pArrayFwd,
+			_pArraySrcVec.get(), _pArrayFilterTrans.get())) return false;
+	return true;
 }
 
 bool Trainer::NodeFilter_Conv2d::EvalBackward(Environment &env)

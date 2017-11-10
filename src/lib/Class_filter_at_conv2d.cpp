@@ -15,16 +15,8 @@ Filter_Conv2d::FilterFuncTable Filter_Conv2d::filterFuncTable = {{{nullptr}}};
 
 bool Filter_Conv2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
-	size_t sizeOutRow = 0, sizePadRow = 0;
-	size_t sizeOutCol = 0, sizePadCol = 0;
-	bool chLastFlag = (GetChannelAt() == Array::CHANNELAT_Last);
-	const Array::Dimensions &dims = pArray->GetDimensions();
-	Filter::CalcPadding(dims.GetBack(chLastFlag? 2 : 1).GetSize(),
-						GetSizeRow(), GetStridesRow(), GetPaddingType(),
-						&sizeOutRow, &sizePadRow);
-	Filter::CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
-						GetSizeCol(), GetStridesCol(), GetPaddingType(),
-						&sizeOutCol, &sizePadCol);
+	size_t sizePadRow = 0, sizePadCol = 0;
+	CalcPadding2d(this, pArray->GetDimensions(), &sizePadRow, &sizePadCol);
 	return pArray->CalcConv2d(sig, pArrayRtn, GetArrayFilter(), GetStridesRow(), GetStridesCol(),
 							  sizePadRow, sizePadCol, GetChannelAt());
 }
