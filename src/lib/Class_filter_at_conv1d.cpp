@@ -117,6 +117,66 @@ Gura_ImplementFunction(filter_at_conv1d)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
+// filter@conv1d#size
+Gura_DeclareProperty_R(filter_at_conv1d, size)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_conv1d, size)
+{
+	const Filter_Conv1d *pFilter = Object_filter_at_conv1d::GetObject(valueThis)->GetFilter();
+	return Value(pFilter->GetSize());
+}
+
+// filter@conv1d#strides
+Gura_DeclareProperty_R(filter_at_conv1d, strides)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_conv1d, strides)
+{
+	const Filter_Conv1d *pFilter = Object_filter_at_conv1d::GetObject(valueThis)->GetFilter();
+	return Value(pFilter->GetStrides());
+}
+
+// filter@conv1d#padding
+Gura_DeclareProperty_R(filter_at_conv1d, padding)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_conv1d, padding)
+{
+	const Filter_Conv1d *pFilter = Object_filter_at_conv1d::GetObject(valueThis)->GetFilter();
+	return Value(Filter::PaddingTypeToSymbol(pFilter->GetPaddingType()));
+}
+
+// filter@conv1d#channel_pos
+Gura_DeclareProperty_R(filter_at_conv1d, channel_pos)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_conv1d, channel_pos)
+{
+	const Filter_Conv1d *pFilter = Object_filter_at_conv1d::GetObject(valueThis)->GetFilter();
+	return Value(Array::ChannelPosToSymbol(pFilter->GetChannelPos()));
+}
+
 // filter@conv1d#array
 Gura_DeclareProperty_R(filter_at_conv1d, array)
 {
@@ -146,6 +206,10 @@ void Class_filter_at_conv1d::DoPrepare(Environment &env)
 	// Assignment of function
 	Gura_AssignFunction(filter_at_conv1d);
 	// Assignment of properties
+	Gura_AssignProperty(filter_at_conv1d, size);
+	Gura_AssignProperty(filter_at_conv1d, strides);
+	Gura_AssignProperty(filter_at_conv1d, padding);
+	Gura_AssignProperty(filter_at_conv1d, channel_pos);
 	Gura_AssignProperty(filter_at_conv1d, array);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);

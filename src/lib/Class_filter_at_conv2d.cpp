@@ -128,6 +128,66 @@ Gura_ImplementFunction(filter_at_conv2d)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
+// filter@conv2d#size
+Gura_DeclareProperty_R(filter_at_conv2d, size)
+{
+	SetPropAttr(VTYPE_number, FLAG_ListVar);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_conv2d, size)
+{
+	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
+	return Value::CreateList(env, Value(pFilter->GetSizeCol()), Value(pFilter->GetSizeRow()));
+}
+
+// filter@conv2d#strides
+Gura_DeclareProperty_R(filter_at_conv2d, strides)
+{
+	SetPropAttr(VTYPE_number, FLAG_ListVar);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_conv2d, strides)
+{
+	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
+	return Value::CreateList(env, Value(pFilter->GetStridesCol()), Value(pFilter->GetStridesRow()));
+}
+
+// filter@conv2d#padding
+Gura_DeclareProperty_R(filter_at_conv2d, padding)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_conv2d, padding)
+{
+	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
+	return Value(Filter::PaddingTypeToSymbol(pFilter->GetPaddingType()));
+}
+
+// filter@conv2d#channel_pos
+Gura_DeclareProperty_R(filter_at_conv2d, channel_pos)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(filter_at_conv2d, channel_pos)
+{
+	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
+	return Value(Array::ChannelPosToSymbol(pFilter->GetChannelPos()));
+}
+
 // filter@conv2d#array
 Gura_DeclareProperty_R(filter_at_conv2d, array)
 {
