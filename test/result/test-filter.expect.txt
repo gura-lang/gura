@@ -15,9 +15,9 @@ filter.calcpadding(13, 6, 5, `valid) .. [2, 0]
 ======== #5 error check for filter@conv1d ========
 
 filter@conv1d(array.zeros([3]), 1, `same, `last) .. ValueError: channel dimension is expected to exist at last
-x_5 |*| f_3 .. nil
-x_5 |*| f_4 .. nil
-x_5 |*| f_5 .. nil
+x_5 |*| f_3 .. {0, 0, 0, 0, 0}
+x_5 |*| f_4 .. {0, 0, 0, 0, 0}
+x_5 |*| f_5 .. {0, 0, 0, 0, 0}
 x_5 |*| f_6 .. ValueError: target array (5) is smaller than applied filter (6) with channel at first
 
 ======== #6 error check for filter@conv2d ========
