@@ -39,7 +39,7 @@ String Filter_MaxPool2d::ToString() const
 	str += buff;
 	::sprintf(buff, ":padding=%s", PaddingTypeToSymbol(GetPaddingType())->GetName());
 	str += buff;
-	::sprintf(buff, ":channel_at=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
+	::sprintf(buff, ":channel_pos=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
 	str += buff;
 	return str;
 }
@@ -60,14 +60,14 @@ Object *Object_filter_at_maxpool2d::Clone() const
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter@maxpool2d(size[]:number, strides[]?:number, padding?:symbol, channel_at?:symbol):map {block?}
+// filter@maxpool2d(size[]:number, strides[]?:number, padding?:symbol, channel_pos?:symbol):map {block?}
 Gura_DeclareFunctionAlias(filter_at_maxpool2d, "filter@maxpool2d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
 	DeclareArg(env, "padding", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_maxpool2d));
 	AddHelp(
@@ -162,8 +162,8 @@ Gura_ImplementPropertyGetter(filter_at_maxpool2d, padding)
 	return Value(Filter::PaddingTypeToSymbol(pFilter->GetPaddingType()));
 }
 
-// filter@maxpool2d#channel_at
-Gura_DeclareProperty_R(filter_at_maxpool2d, channel_at)
+// filter@maxpool2d#channel_pos
+Gura_DeclareProperty_R(filter_at_maxpool2d, channel_pos)
 {
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
@@ -171,7 +171,7 @@ Gura_DeclareProperty_R(filter_at_maxpool2d, channel_at)
 		"");
 }
 
-Gura_ImplementPropertyGetter(filter_at_maxpool2d, channel_at)
+Gura_ImplementPropertyGetter(filter_at_maxpool2d, channel_pos)
 {
 	const Filter_MaxPool2d *pFilter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
 	return Value(Array::ChannelPosToSymbol(pFilter->GetChannelPos()));

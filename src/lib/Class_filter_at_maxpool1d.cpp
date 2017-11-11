@@ -33,7 +33,7 @@ String Filter_MaxPool1d::ToString() const
 	str += buff;
 	::sprintf(buff, ":padding=%s", PaddingTypeToSymbol(GetPaddingType())->GetName());
 	str += buff;
-	::sprintf(buff, ":channel_at=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
+	::sprintf(buff, ":channel_pos=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
 	str += buff;
 	return str;
 }
@@ -54,14 +54,14 @@ Object *Object_filter_at_maxpool1d::Clone() const
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter@maxpool1d(size:number, strides?:number, padding?:symbol, channel_at?:symbol):map {block?}
+// filter@maxpool1d(size:number, strides?:number, padding?:symbol, channel_pos?:symbol):map {block?}
 Gura_DeclareFunctionAlias(filter_at_maxpool1d, "filter@maxpool1d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "padding", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_maxpool1d));
 	AddHelp(
@@ -71,7 +71,7 @@ Gura_DeclareFunctionAlias(filter_at_maxpool1d, "filter@maxpool1d")
 		"- `size` .. Filter size.\n"
 		"- `strides` .. Strides of sliding window. Default is one.\n"
 		"- `padding` .. Padding style `` `valid`` or `` `same``. Default is `` `same``.\n"
-		"- `channel_at` .. Channel position `` `first`` or `` `last``. Default is `` `last``. \n");
+		"- `channel_pos` .. Channel position `` `first`` or `` `last``. Default is `` `last``. \n");
 }
 
 Gura_ImplementFunction(filter_at_maxpool1d)
@@ -141,8 +141,8 @@ Gura_ImplementPropertyGetter(filter_at_maxpool1d, padding)
 	return Value(Filter::PaddingTypeToSymbol(pFilter->GetPaddingType()));
 }
 
-// filter@maxpool1d#channel_at
-Gura_DeclareProperty_R(filter_at_maxpool1d, channel_at)
+// filter@maxpool1d#channel_pos
+Gura_DeclareProperty_R(filter_at_maxpool1d, channel_pos)
 {
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
@@ -150,7 +150,7 @@ Gura_DeclareProperty_R(filter_at_maxpool1d, channel_at)
 		"");
 }
 
-Gura_ImplementPropertyGetter(filter_at_maxpool1d, channel_at)
+Gura_ImplementPropertyGetter(filter_at_maxpool1d, channel_pos)
 {
 	const Filter_MaxPool1d *pFilter = Object_filter_at_maxpool1d::GetObject(valueThis)->GetFilter();
 	return Value(Array::ChannelPosToSymbol(pFilter->GetChannelPos()));
@@ -172,7 +172,7 @@ void Class_filter_at_maxpool1d::DoPrepare(Environment &env)
 	Gura_AssignProperty(filter_at_maxpool1d, size);
 	Gura_AssignProperty(filter_at_maxpool1d, strides);
 	Gura_AssignProperty(filter_at_maxpool1d, padding);
-	Gura_AssignProperty(filter_at_maxpool1d, channel_at);
+	Gura_AssignProperty(filter_at_maxpool1d, channel_pos);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

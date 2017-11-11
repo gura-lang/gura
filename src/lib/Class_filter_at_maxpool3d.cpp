@@ -44,7 +44,7 @@ String Filter_MaxPool3d::ToString() const
 	str += buff;
 	::sprintf(buff, ":padding=%s", PaddingTypeToSymbol(GetPaddingType())->GetName());
 	str += buff;
-	::sprintf(buff, ":channel_at=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
+	::sprintf(buff, ":channel_pos=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
 	str += buff;
 	return str;
 }

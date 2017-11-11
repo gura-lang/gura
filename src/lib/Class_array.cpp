@@ -740,14 +740,14 @@ Gura_ImplementMethod(array, elemcast)
 	return ReturnValue(env, arg, value);
 }
 
-// array#expand_kernelvec1d(size:number, strides:number, size_pad:number, channel_at?:symbol, padnum?:number) {block?}
+// array#expand_kernelvec1d(size:number, strides:number, size_pad:number, channel_pos?:symbol, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec1d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -771,14 +771,14 @@ Gura_ImplementMethod(array, expand_kernelvec1d)
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
-// array#expand_kernelvec2d(size[]:number, strides[]:number, size_pad[]:number, channel_at?:symbol, padnum?:number) {block?}
+// array#expand_kernelvec2d(size[]:number, strides[]:number, size_pad[]:number, channel_pos?:symbol, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec2d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -820,14 +820,14 @@ Gura_ImplementMethod(array, expand_kernelvec2d)
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
-// array#expand_kernelvec3d(size[]:number, strides[]:number, size_pad[]:number, channel_at?:symbol, padnum?:number) {block?}
+// array#expand_kernelvec3d(size[]:number, strides[]:number, size_pad[]:number, channel_pos?:symbol, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec3d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -1153,7 +1153,7 @@ Gura_ImplementMethod(array, reshape)
 }
 
 // array#restore_kernelvec1d(size_out:number, size:number, strides:number,
-//                           size_pad:number, channel_at?:symbol) {block?}
+//                           size_pad:number, channel_pos?:symbol) {block?}
 Gura_DeclareMethod(array, restore_kernelvec1d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -1161,7 +1161,7 @@ Gura_DeclareMethod(array, restore_kernelvec1d)
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -1185,7 +1185,7 @@ Gura_ImplementMethod(array, restore_kernelvec1d)
 }
 
 // array#restore_kernelvec2d(size_out[]:number, size[]:number, strides[]:number,
-//                           size_pad[]:number, channel_at?:symbol) {block?}
+//                           size_pad[]:number, channel_pos?:symbol) {block?}
 Gura_DeclareMethod(array, restore_kernelvec2d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -1193,7 +1193,7 @@ Gura_DeclareMethod(array, restore_kernelvec2d)
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -1240,7 +1240,7 @@ Gura_ImplementMethod(array, restore_kernelvec2d)
 }
 
 // array#restore_kernelvec3d(size_out[]:number, size[]:number, strides[]:number,
-//                           size_pad[]:number, channel_at?:symbol) {block?}
+//                           size_pad[]:number, channel_pos?:symbol) {block?}
 Gura_DeclareMethod(array, restore_kernelvec3d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -1248,7 +1248,7 @@ Gura_DeclareMethod(array, restore_kernelvec3d)
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),

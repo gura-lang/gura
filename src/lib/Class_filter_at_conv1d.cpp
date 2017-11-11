@@ -38,7 +38,7 @@ String Filter_Conv1d::ToString() const
 	str += buff;
 	::sprintf(buff, ":padding=%s", PaddingTypeToSymbol(GetPaddingType())->GetName());
 	str += buff;
-	::sprintf(buff, ":channel_at=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
+	::sprintf(buff, ":channel_pos=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
 	str += buff;
 	return str;
 }
@@ -59,14 +59,14 @@ Object *Object_filter_at_conv1d::Clone() const
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter@conv1d(array:array, strides?:number, padding?:symbol, channel_at?:symbol):map {block?}
+// filter@conv1d(array:array, strides?:number, padding?:symbol, channel_pos?:symbol):map {block?}
 Gura_DeclareFunctionAlias(filter_at_conv1d, "filter@conv1d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "array", VTYPE_array);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "padding", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "channel_at", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_conv1d));
 	AddHelp(
