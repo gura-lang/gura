@@ -346,11 +346,11 @@ bool Array::Paste(Signal &sig, size_t offset, const Array *pArraySrc)
 }
 
 bool Array::CheckDimsFilterForCalcConv(Signal &sig, const Dimensions &dimsFilter,
-									   size_t nDimsKernel, ChannelAt channelAt) const
+									   size_t nDimsKernel, ChannelPos channelPos) const
 {
 	const Dimensions &dims = GetDimensions();
 	size_t iDimBack = 0;
-	if (channelAt == CHANNELAT_Last) {
+	if (channelPos == CHANNELPOS_Last) {
 		if (iDimBack >= dims.size()) goto error_done;
 		if (dims.GetBack(iDimBack).GetSize() != dimsFilter.GetBack(iDimBack).GetSize()) goto error_done;
 		iDimBack++;
@@ -360,7 +360,7 @@ bool Array::CheckDimsFilterForCalcConv(Signal &sig, const Dimensions &dimsFilter
 		if (dims.GetBack(iDimBack).GetSize() < dimsFilter.GetBack(iDimBack).GetSize()) {
 			sig.SetError(ERR_ValueError, "target array (%s) is smaller than applied filter (%s) with channel at %s",
 						 dims.ToString().c_str(), dimsFilter.ToString().c_str(),
-						 (channelAt == CHANNELAT_Last)? "last" : "first");
+						 (channelPos == CHANNELPOS_Last)? "last" : "first");
 			return false;
 		}
 		iDimBack++;
@@ -373,37 +373,37 @@ bool Array::CheckDimsFilterForCalcConv(Signal &sig, const Dimensions &dimsFilter
 error_done:
 	sig.SetError(ERR_ValueError, "unmatched dimension between array (%s) and filter (%s) with channel at %s",
 				 dims.ToString().c_str(), dimsFilter.ToString().c_str(),
-				 (channelAt == CHANNELAT_Last)? "last" : "first");
+				 (channelPos == CHANNELPOS_Last)? "last" : "first");
 	return false;
 }
 
 bool Array::CalcConv1d(
 	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter, size_t stridesKernel,
-	size_t sizePad, ChannelAt channelAt) const
+	size_t sizePad, ChannelPos channelPos) const
 {
-	if (!CheckDimsFilterForCalcConv(sig, pArrayFilter->GetDimensions(), 1, channelAt)) return false;
-	CalcConv1d(pArrayRtn, pArrayFilter, stridesKernel, sizePad, channelAt);
+	if (!CheckDimsFilterForCalcConv(sig, pArrayFilter->GetDimensions(), 1, channelPos)) return false;
+	CalcConv1d(pArrayRtn, pArrayFilter, stridesKernel, sizePad, channelPos);
 	return true;
 }
 
 bool Array::CalcConv2d(
 	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
 	size_t stridesKernelRow, size_t stridesKernelCol,
-	size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const
+	size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
 {
-	if (!CheckDimsFilterForCalcConv(sig, pArrayFilter->GetDimensions(), 2, channelAt)) return false;
-	CalcConv2d(pArrayRtn, pArrayFilter, stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol, channelAt);
+	if (!CheckDimsFilterForCalcConv(sig, pArrayFilter->GetDimensions(), 2, channelPos)) return false;
+	CalcConv2d(pArrayRtn, pArrayFilter, stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol, channelPos);
 	return true;
 }
 
 bool Array::CalcConv3d(
 	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
 	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const
+	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
 {
-	if (!CheckDimsFilterForCalcConv(sig, pArrayFilter->GetDimensions(), 3, channelAt)) return false;
+	if (!CheckDimsFilterForCalcConv(sig, pArrayFilter->GetDimensions(), 3, channelPos)) return false;
 	CalcConv3d(sig, pArrayRtn, pArrayFilter, stridesKernelPlane, stridesKernelRow, stridesKernelCol,
-			   sizePadPlane, sizePadRow, sizePadCol, channelAt);
+			   sizePadPlane, sizePadRow, sizePadCol, channelPos);
 	return true;
 }
 
@@ -520,29 +520,29 @@ Array::ElemType Array::SymbolToElemType(Signal &sig, const Symbol *pSymbol)
 	return elemType;
 }
 
-Array::ChannelAt Array::SymbolToChannelAt(Signal &sig, const Symbol *pSymbol)
+Array::ChannelPos Array::SymbolToChannelPos(Signal &sig, const Symbol *pSymbol)
 {
-	ChannelAt channelAt = SymbolToChannelAt(pSymbol);
-	if (channelAt == CHANNELAT_None) {
+	ChannelPos channelPos = SymbolToChannelPos(pSymbol);
+	if (channelPos == CHANNELPOS_None) {
 		sig.SetError(ERR_ValueError, "invalid symbol to specify channel positioning: %s",
 					 pSymbol->GetName());
 	}
-	return channelAt;
+	return channelPos;
 }
 
-Array::ChannelAt Array::SymbolToChannelAt(const Symbol *pSymbol)
+Array::ChannelPos Array::SymbolToChannelPos(const Symbol *pSymbol)
 {
 	return
-		pSymbol->IsIdentical(Gura_Symbol(first))? CHANNELAT_First :
-		pSymbol->IsIdentical(Gura_Symbol(last))? CHANNELAT_Last :
-		CHANNELAT_None;
+		pSymbol->IsIdentical(Gura_Symbol(first))? CHANNELPOS_First :
+		pSymbol->IsIdentical(Gura_Symbol(last))? CHANNELPOS_Last :
+		CHANNELPOS_None;
 }
 
-const Symbol *Array::ChannelAtToSymbol(ChannelAt channelAt)
+const Symbol *Array::ChannelPosToSymbol(ChannelPos channelPos)
 {
 	return
-		(channelAt == CHANNELAT_First)? Gura_Symbol(first) :
-		(channelAt == CHANNELAT_Last)? Gura_Symbol(last) :
+		(channelPos == CHANNELPOS_First)? Gura_Symbol(first) :
+		(channelPos == CHANNELPOS_Last)? Gura_Symbol(last) :
 		Gura_Symbol(none);
 }
 

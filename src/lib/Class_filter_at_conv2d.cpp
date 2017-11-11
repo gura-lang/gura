@@ -18,7 +18,7 @@ bool Filter_Conv2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *p
 	size_t sizePadRow = 0, sizePadCol = 0;
 	CalcPadding2d(this, pArray->GetDimensions(), &sizePadRow, &sizePadCol);
 	return pArray->CalcConv2d(sig, pArrayRtn, GetArrayFilter(), GetStridesRow(), GetStridesCol(),
-							  sizePadRow, sizePadCol, GetChannelAt());
+							  sizePadRow, sizePadCol, GetChannelPos());
 }
 
 String Filter_Conv2d::ToString() const
@@ -39,7 +39,7 @@ String Filter_Conv2d::ToString() const
 	str += buff;
 	::sprintf(buff, ":padding=%s", PaddingTypeToSymbol(GetPaddingType())->GetName());
 	str += buff;
-	::sprintf(buff, ":channel_at=%s", Array::ChannelAtToSymbol(GetChannelAt())->GetName());
+	::sprintf(buff, ":channel_at=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
 	str += buff;
 	return str;
 }
@@ -111,17 +111,17 @@ Gura_ImplementFunction(filter_at_conv2d)
 		paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Filter::PADDINGTYPE_None) return Value::Nil;
 	}
-	Array::ChannelAt channelAt = Array::CHANNELAT_First;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_First;
 	if (arg.IsValid(3)) {
-		channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(3));
-		if (channelAt == Array::CHANNELAT_None) return Value::Nil;
+		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
+		if (channelPos == Array::CHANNELPOS_None) return Value::Nil;
 	}
-	if (channelAt == Array::CHANNELAT_Last && nDims < 3) {
+	if (channelPos == Array::CHANNELPOS_Last && nDims < 3) {
 		env.SetError(ERR_ValueError, "channel dimension is expected to exist at last");
 		return Value::Nil;
 	}
 	Object_filter_at_conv2d *pObj = new Object_filter_at_conv2d(
-		env, new Filter_Conv2d(pArrayFilter->Reference(), stridesRow, stridesCol, paddingType, channelAt));
+		env, new Filter_Conv2d(pArrayFilter->Reference(), stridesRow, stridesCol, paddingType, channelPos));
 	return ReturnValue(env, arg, Value(pObj));
 }
 

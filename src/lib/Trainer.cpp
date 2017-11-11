@@ -469,7 +469,7 @@ bool Trainer::NodeFilter_Conv2d::EvalForward(Environment &env)
 	pArraySrc->ExpandKernelVec2d(
 		_pArraySrcVec, pFilter->GetSizeRow(), pFilter->GetSizeCol(),
 		pFilter->GetStridesRow(), pFilter->GetStridesCol(), _sizePadRow, _sizePadCol,
-		pFilter->GetChannelAt(), padNum);
+		pFilter->GetChannelPos(), padNum);
 	pArrayFilter->Transpose2d(_pArrayFilterTrans);
 	if (!Array::ApplyBinaryFunc(
 			env, Array::binaryFuncPack_Dot, _pArrayFwd,

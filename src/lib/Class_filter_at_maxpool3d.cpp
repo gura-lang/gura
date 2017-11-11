@@ -16,7 +16,7 @@ bool Filter_MaxPool3d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array
 	size_t sizeOutPlane = 0, sizePadPlane = 0;
 	size_t sizeOutRow = 0, sizePadRow = 0;
 	size_t sizeOutCol = 0, sizePadCol = 0;
-	bool chLastFlag = (GetChannelAt() == Array::CHANNELAT_Last);
+	bool chLastFlag = (GetChannelPos() == Array::CHANNELPOS_Last);
 	const Array::Dimensions &dims = pArray->GetDimensions();
 	Filter::CalcPadding(dims.GetBack(chLastFlag? 3 : 2).GetSize(),
 						GetSizePlane(), GetStridesPlane(), GetPaddingType(),
@@ -29,7 +29,7 @@ bool Filter_MaxPool3d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array
 						&sizeOutCol, &sizePadCol);
 	pArray->CalcMaxPool3d(pArrayRtn, GetSizePlane(), GetSizeRow(), GetSizeCol(),
 						  GetStridesPlane(), GetStridesRow(), GetStridesCol(),
-						  sizePadPlane, sizePadRow, sizePadCol, GetChannelAt());
+						  sizePadPlane, sizePadRow, sizePadCol, GetChannelPos());
 	return true;
 }
 
@@ -44,7 +44,7 @@ String Filter_MaxPool3d::ToString() const
 	str += buff;
 	::sprintf(buff, ":padding=%s", PaddingTypeToSymbol(GetPaddingType())->GetName());
 	str += buff;
-	::sprintf(buff, ":channel_at=%s", Array::ChannelAtToSymbol(GetChannelAt())->GetName());
+	::sprintf(buff, ":channel_at=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
 	str += buff;
 	return str;
 }
@@ -113,14 +113,14 @@ Gura_ImplementFunction(filter_at_maxpool3d)
 		paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Filter::PADDINGTYPE_None) return Value::Nil;
 	}
-	Array::ChannelAt channelAt = Array::CHANNELAT_Last;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
 	if (arg.IsValid(3)) {
-		channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(3));
-		if (channelAt == Array::CHANNELAT_None) return Value::Nil;
+		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
+		if (channelPos == Array::CHANNELPOS_None) return Value::Nil;
 	}
 	Object_filter_at_maxpool3d *pObj = new Object_filter_at_maxpool3d(
 		env, new Filter_MaxPool3d(sizePlane, sizeRow, sizeCol,
-								  stridesPlane, stridesRow, stridesCol, paddingType, channelAt));
+								  stridesPlane, stridesRow, stridesCol, paddingType, channelPos));
 	return ReturnValue(env, arg, Value(pObj));
 }
 

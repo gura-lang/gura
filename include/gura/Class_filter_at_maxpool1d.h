@@ -16,15 +16,15 @@ private:
 	size_t _size;
 	size_t _strides;
 	PaddingType _paddingType;
-	Array::ChannelAt _channelAt;
+	Array::ChannelPos _channelPos;
 public:
-	inline Filter_MaxPool1d(size_t size, size_t strides, PaddingType paddingType, Array::ChannelAt channelAt) :
+	inline Filter_MaxPool1d(size_t size, size_t strides, PaddingType paddingType, Array::ChannelPos channelPos) :
 		_size(size), _strides(strides),
-		_paddingType(paddingType), _channelAt(channelAt) {}
+		_paddingType(paddingType), _channelPos(channelPos) {}
 	inline size_t GetSize() const { return _size; }
 	inline size_t GetStrides() const { return _strides; }
 	inline PaddingType GetPaddingType() const { return _paddingType; }
-	inline Array::ChannelAt GetChannelAt() const { return _channelAt; }
+	inline Array::ChannelPos GetChannelPos() const { return _channelPos; }
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;

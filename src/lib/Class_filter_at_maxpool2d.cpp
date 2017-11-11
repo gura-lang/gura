@@ -15,7 +15,7 @@ bool Filter_MaxPool2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array
 {
 	size_t sizeOutRow = 0, sizePadRow = 0;
 	size_t sizeOutCol = 0, sizePadCol = 0;
-	bool chLastFlag = (GetChannelAt() == Array::CHANNELAT_Last);
+	bool chLastFlag = (GetChannelPos() == Array::CHANNELPOS_Last);
 	const Array::Dimensions &dims = pArray->GetDimensions();
 	Filter::CalcPadding(dims.GetBack(chLastFlag? 2 : 1).GetSize(),
 						GetSizeRow(), GetStridesRow(), GetPaddingType(),
@@ -24,7 +24,7 @@ bool Filter_MaxPool2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array
 						GetSizeCol(), GetStridesCol(), GetPaddingType(),
 						&sizeOutCol, &sizePadCol);
 	pArray->CalcMaxPool2d(pArrayRtn, GetSizeRow(), GetSizeCol(), GetStridesRow(), GetStridesCol(),
-						  sizePadRow, sizePadCol, GetChannelAt());
+						  sizePadRow, sizePadCol, GetChannelPos());
 	return true;
 }
 
@@ -39,7 +39,7 @@ String Filter_MaxPool2d::ToString() const
 	str += buff;
 	::sprintf(buff, ":padding=%s", PaddingTypeToSymbol(GetPaddingType())->GetName());
 	str += buff;
-	::sprintf(buff, ":channel_at=%s", Array::ChannelAtToSymbol(GetChannelAt())->GetName());
+	::sprintf(buff, ":channel_at=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
 	str += buff;
 	return str;
 }
@@ -104,13 +104,13 @@ Gura_ImplementFunction(filter_at_maxpool2d)
 		paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Filter::PADDINGTYPE_None) return Value::Nil;
 	}
-	Array::ChannelAt channelAt = Array::CHANNELAT_Last;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
 	if (arg.IsValid(3)) {
-		channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(3));
-		if (channelAt == Array::CHANNELAT_None) return Value::Nil;
+		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
+		if (channelPos == Array::CHANNELPOS_None) return Value::Nil;
 	}
 	Object_filter_at_maxpool2d *pObj = new Object_filter_at_maxpool2d(
-		env, new Filter_MaxPool2d(sizeRow, sizeCol, stridesRow, stridesCol, paddingType, channelAt));
+		env, new Filter_MaxPool2d(sizeRow, sizeCol, stridesRow, stridesCol, paddingType, channelPos));
 	return ReturnValue(env, arg, Value(pObj));
 }
 
@@ -174,7 +174,7 @@ Gura_DeclareProperty_R(filter_at_maxpool2d, channel_at)
 Gura_ImplementPropertyGetter(filter_at_maxpool2d, channel_at)
 {
 	const Filter_MaxPool2d *pFilter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
-	return Value(Array::ChannelAtToSymbol(pFilter->GetChannelAt()));
+	return Value(Array::ChannelPosToSymbol(pFilter->GetChannelPos()));
 }
 
 //-----------------------------------------------------------------------------

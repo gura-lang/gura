@@ -53,7 +53,7 @@ void Filter::CalcPadding1d(const T_Filter *pFilter, const Array::Dimensions &dim
 						  size_t *pSizePad)
 {
 	size_t sizeOut = 0;
-	bool chLastFlag = (pFilter->GetChannelAt() == Array::CHANNELAT_Last);
+	bool chLastFlag = (pFilter->GetChannelPos() == Array::CHANNELPOS_Last);
 	CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
 				pFilter->GetSize(), pFilter->GetStrides(), pFilter->GetPaddingType(),
 				&sizeOut, pSizePad);
@@ -65,7 +65,7 @@ void Filter::CalcPadding2d(const T_Filter *pFilter, const Array::Dimensions &dim
 {
 	size_t sizeOutRow = 0;
 	size_t sizeOutCol = 0;
-	bool chLastFlag = (pFilter->GetChannelAt() == Array::CHANNELAT_Last);
+	bool chLastFlag = (pFilter->GetChannelPos() == Array::CHANNELPOS_Last);
 	CalcPadding(dims.GetBack(chLastFlag? 2 : 1).GetSize(),
 				pFilter->GetSizeRow(), pFilter->GetStridesRow(), pFilter->GetPaddingType(),
 				&sizeOutRow, pSizePadRow);
@@ -81,7 +81,7 @@ void Filter::CalcPadding3d(const T_Filter *pFilter, const Array::Dimensions &dim
 	size_t sizeOutPlane = 0;
 	size_t sizeOutRow = 0;
 	size_t sizeOutCol = 0;
-	bool chLastFlag = (pFilter->GetChannelAt() == Array::CHANNELAT_Last);
+	bool chLastFlag = (pFilter->GetChannelPos() == Array::CHANNELPOS_Last);
 	CalcPadding(dims.GetBack(chLastFlag? 3 : 2).GetSize(),
 				pFilter->GetSizePlane(), pFilter->GetStridesPlane(), pFilter->GetPaddingType(),
 				&sizeOutPlane, pSizePadPlane);

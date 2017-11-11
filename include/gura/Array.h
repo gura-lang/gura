@@ -33,10 +33,10 @@ public:
 		ETYPE_reserved1,
 		ETYPE_Max,
 	};
-	enum ChannelAt {
-		CHANNELAT_None,
-		CHANNELAT_Last,
-		CHANNELAT_First,
+	enum ChannelPos {
+		CHANNELPOS_None,
+		CHANNELPOS_Last,
+		CHANNELPOS_First,
 	};
 public:
 	typedef bool (*UnaryFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray);
@@ -334,64 +334,64 @@ public:
 	bool Paste(Signal &sig, size_t offset, const Array *pArraySrc);
 	virtual void ExpandKernelVec1d(
 		AutoPtr<Array> &pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
-		ChannelAt channelAt, Double padNum) const = 0;
+		ChannelPos channelPos, Double padNum) const = 0;
 	virtual void ExpandKernelVec2d(
 		AutoPtr<Array> &pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
-		ChannelAt channelAt, Double padNum) const = 0;
+		ChannelPos channelPos, Double padNum) const = 0;
 	virtual void ExpandKernelVec3d(
 		AutoPtr<Array> &pArrayVec, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
-		ChannelAt channelAt, Double padNum) const = 0;
+		ChannelPos channelPos, Double padNum) const = 0;
 	virtual void RestoreKernelVec1d(
 		AutoPtr<Array> &pArrayRtn, size_t size, size_t sizeKernel, size_t stridesKernel,
-		size_t sizePad, ChannelAt channelAt) const = 0;
+		size_t sizePad, ChannelPos channelPos) const = 0;
 	virtual void RestoreKernelVec2d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeRow, size_t sizeCol,
 		size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const = 0;
+		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
 	virtual void RestoreKernelVec3d(
 		AutoPtr<Array> &pArrayRtn, size_t sizePlane, size_t sizeRow, size_t sizeCol,
 		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const = 0;
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
 	virtual void CalcMaxPool1d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
-		size_t sizePad, ChannelAt channelAt) const = 0;
+		size_t sizePad, ChannelPos channelPos) const = 0;
 	virtual void CalcMaxPool2d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const = 0;
+		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
 	virtual void CalcMaxPool3d(
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const = 0;
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
 	bool CheckDimsFilterForCalcConv(Signal &sig, const Dimensions &dimsFilter,
-									size_t nDimsKernel, ChannelAt channelAt) const;
+									size_t nDimsKernel, ChannelPos channelPos) const;
 	virtual void CalcConv1d(
 		AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter, size_t stridesKernel,
-		size_t sizePad, ChannelAt channelAt) const = 0;
+		size_t sizePad, ChannelPos channelPos) const = 0;
 	virtual void CalcConv2d(
 		AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
 		size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const = 0;
+		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
 	virtual void CalcConv3d(
 		AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const = 0;
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
 	bool CalcConv1d(
 		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter, size_t stridesKernel,
-		size_t sizePad, ChannelAt channelAt) const;
+		size_t sizePad, ChannelPos channelPos) const;
 	bool CalcConv2d(
 		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
 		size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const;
+		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
 	bool CalcConv3d(
 		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelAt channelAt) const;
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const = 0;
 	bool IsSquare() const;
 	bool HasShape(size_t size) const;
@@ -407,9 +407,9 @@ public:
 public:
 	static ElemType SymbolToElemType(const Symbol *pSymbol);
 	static ElemType SymbolToElemType(Signal &sig, const Symbol *pSymbol);
-	static ChannelAt SymbolToChannelAt(Signal &sig, const Symbol *pSymbol);
-	static ChannelAt SymbolToChannelAt(const Symbol *pSymbol);
-	static const Symbol *ChannelAtToSymbol(ChannelAt channelAt);
+	static ChannelPos SymbolToChannelPos(Signal &sig, const Symbol *pSymbol);
+	static ChannelPos SymbolToChannelPos(const Symbol *pSymbol);
+	static const Symbol *ChannelPosToSymbol(ChannelPos channelPos);
 	inline static bool IsSameMajor(const Array *pArrayA, const Array *pArrayB) {
 		return pArrayA->IsColMajor() == pArrayB->IsColMajor();
 	}

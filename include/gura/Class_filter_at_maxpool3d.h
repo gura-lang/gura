@@ -20,14 +20,14 @@ private:
 	size_t _stridesRow;
 	size_t _stridesCol;
 	PaddingType _paddingType;
-	Array::ChannelAt _channelAt;
+	Array::ChannelPos _channelPos;
 public:
 	inline Filter_MaxPool3d(size_t sizePlane, size_t sizeRow, size_t sizeCol,
 							size_t stridesPlane, size_t stridesRow, size_t stridesCol,
-							PaddingType paddingType, Array::ChannelAt channelAt) :
+							PaddingType paddingType, Array::ChannelPos channelPos) :
 		_sizePlane(sizePlane), _sizeRow(sizeRow), _sizeCol(sizeCol),
 		_stridesPlane(stridesPlane), _stridesRow(stridesRow), _stridesCol(stridesCol),
-		_paddingType(paddingType), _channelAt(channelAt) {}
+		_paddingType(paddingType), _channelPos(channelPos) {}
 	inline size_t GetSizePlane() const { return _sizePlane; }
 	inline size_t GetSizeRow() const { return _sizeRow; }
 	inline size_t GetSizeCol() const { return _sizeCol; }
@@ -35,7 +35,7 @@ public:
 	inline size_t GetStridesRow() const { return _stridesRow; }
 	inline size_t GetStridesCol() const { return _stridesCol; }
 	inline PaddingType GetPaddingType() const { return _paddingType; }
-	inline Array::ChannelAt GetChannelAt() const { return _channelAt; }
+	inline Array::ChannelPos GetChannelPos() const { return _channelPos; }
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;

@@ -17,7 +17,7 @@ bool Filter_Conv1d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *p
 {
 	size_t sizePad = 0;
 	CalcPadding1d(this, pArray->GetDimensions(), &sizePad);
-	return pArray->CalcConv1d(sig, pArrayRtn, GetArrayFilter(), GetStrides(), sizePad, GetChannelAt());
+	return pArray->CalcConv1d(sig, pArrayRtn, GetArrayFilter(), GetStrides(), sizePad, GetChannelPos());
 }
 
 String Filter_Conv1d::ToString() const
@@ -38,7 +38,7 @@ String Filter_Conv1d::ToString() const
 	str += buff;
 	::sprintf(buff, ":padding=%s", PaddingTypeToSymbol(GetPaddingType())->GetName());
 	str += buff;
-	::sprintf(buff, ":channel_at=%s", Array::ChannelAtToSymbol(GetChannelAt())->GetName());
+	::sprintf(buff, ":channel_at=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
 	str += buff;
 	return str;
 }
@@ -100,17 +100,17 @@ Gura_ImplementFunction(filter_at_conv1d)
 		paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Filter::PADDINGTYPE_None) return Value::Nil;
 	}
-	Array::ChannelAt channelAt = Array::CHANNELAT_First;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_First;
 	if (arg.IsValid(3)) {
-		channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(3));
-		if (channelAt == Array::CHANNELAT_None) return Value::Nil;
+		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
+		if (channelPos == Array::CHANNELPOS_None) return Value::Nil;
 	}
-	if (channelAt == Array::CHANNELAT_Last && nDims < 2) {
+	if (channelPos == Array::CHANNELPOS_Last && nDims < 2) {
 		env.SetError(ERR_ValueError, "channel dimension is expected to exist at last");
 		return Value::Nil;
 	}
 	Object_filter_at_conv1d *pObj = new Object_filter_at_conv1d(
-		env, new Filter_Conv1d(pArrayFilter->Reference(), strides, paddingType, channelAt));
+		env, new Filter_Conv1d(pArrayFilter->Reference(), strides, paddingType, channelPos));
 	return ReturnValue(env, arg, Value(pObj));
 }
 

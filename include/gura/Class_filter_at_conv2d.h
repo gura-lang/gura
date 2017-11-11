@@ -25,17 +25,17 @@ private:
 	size_t _stridesRow;
 	size_t _stridesCol;
 	PaddingType _paddingType;
-	Array::ChannelAt _channelAt;
+	Array::ChannelPos _channelPos;
 public:
 	inline Filter_Conv2d(Array *pArrayFilter, size_t stridesRow, size_t stridesCol,
-						 PaddingType paddingType, Array::ChannelAt channelAt) :
+						 PaddingType paddingType, Array::ChannelPos channelPos) :
 		_pArrayFilter(pArrayFilter),
 		_stridesRow(stridesRow), _stridesCol(stridesCol),
-		_paddingType(paddingType), _channelAt(channelAt) {}
+		_paddingType(paddingType), _channelPos(channelPos) {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;
-	inline bool IsChLast() const { return _channelAt == Array::CHANNELAT_Last; }
+	inline bool IsChLast() const { return _channelPos == Array::CHANNELPOS_Last; }
 	inline Array *GetArrayFilter() { return _pArrayFilter.get(); }
 	inline const Array *GetArrayFilter() const { return _pArrayFilter.get(); }
 	inline bool HasChannelDim() const { return _pArrayFilter->GetDimensions().size() >= 3; }
@@ -55,7 +55,7 @@ public:
 	inline size_t GetStridesRow() const { return _stridesRow; }
 	inline size_t GetStridesCol() const { return _stridesCol; }
 	inline PaddingType GetPaddingType() const { return _paddingType; }
-	inline Array::ChannelAt GetChannelAt() const { return _channelAt; }
+	inline Array::ChannelPos GetChannelPos() const { return _channelPos; }
 };
 
 //-----------------------------------------------------------------------------

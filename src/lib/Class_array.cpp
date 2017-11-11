@@ -763,11 +763,11 @@ Gura_ImplementMethod(array, expand_kernelvec1d)
 	size_t sizeKernel = arg.GetSizeT(0);
 	size_t stridesKernel = arg.GetSizeT(1);
 	size_t sizePad = arg.GetSizeT(2);
-	Array::ChannelAt channelAt = Array::CHANNELAT_First;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_First;
 	if (arg.IsValid(3) &&
-		(channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(3))) == Array::CHANNELAT_None) return Value::Nil;
+		(channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3))) == Array::CHANNELPOS_None) return Value::Nil;
 	Double padNum = arg.IsValid(4)? arg.GetDouble(4) : 0;
-	pArraySelf->ExpandKernelVec1d(pArrayRtn, sizeKernel, stridesKernel, sizePad, channelAt, padNum);
+	pArraySelf->ExpandKernelVec1d(pArrayRtn, sizeKernel, stridesKernel, sizePad, channelPos, padNum);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
@@ -810,13 +810,13 @@ Gura_ImplementMethod(array, expand_kernelvec2d)
 	}
 	size_t sizePadRow = value1.GetSizeT();
 	size_t sizePadCol = value2.GetSizeT();
-	Array::ChannelAt channelAt = Array::CHANNELAT_First;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_First;
 	if (arg.IsValid(3) &&
-		(channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(3))) == Array::CHANNELAT_None) return Value::Nil;
+		(channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3))) == Array::CHANNELPOS_None) return Value::Nil;
 	Double padNum = arg.IsValid(4)? arg.GetDouble(4) : 0;
 	pArraySelf->ExpandKernelVec2d(pArrayRtn, sizeKernelRow, sizeKernelCol,
 								  stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol,
-								  channelAt, padNum);
+								  channelPos, padNum);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
@@ -862,14 +862,14 @@ Gura_ImplementMethod(array, expand_kernelvec3d)
 	size_t sizePadPlane = value1.GetSizeT();
 	size_t sizePadRow = value2.GetSizeT();
 	size_t sizePadCol = value3.GetSizeT();
-	Array::ChannelAt channelAt = Array::CHANNELAT_First;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_First;
 	if (arg.IsValid(3) &&
-		(channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(3))) == Array::CHANNELAT_None) return Value::Nil;
+		(channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3))) == Array::CHANNELPOS_None) return Value::Nil;
 	Double padNum = arg.IsValid(4)? arg.GetDouble(4) : 0;
 	pArraySelf->ExpandKernelVec3d(pArrayRtn, sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 								  stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 								  sizePadPlane, sizePadRow, sizePadCol,
-								  channelAt, padNum);
+								  channelPos, padNum);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
@@ -1177,10 +1177,10 @@ Gura_ImplementMethod(array, restore_kernelvec1d)
 	size_t sizeKernel = arg.GetSizeT(1);
 	size_t stridesKernel = arg.GetSizeT(2);
 	size_t sizePad = arg.GetSizeT(3);
-	Array::ChannelAt channelAt = Array::CHANNELAT_First;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_First;
 	if (arg.IsValid(4) &&
-		(channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(4))) == Array::CHANNELAT_None) return Value::Nil;
-	pArraySelf->RestoreKernelVec1d(pArrayRtn, sizeOut, sizeKernel, stridesKernel, sizePad, channelAt);
+		(channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(4))) == Array::CHANNELPOS_None) return Value::Nil;
+	pArraySelf->RestoreKernelVec1d(pArrayRtn, sizeOut, sizeKernel, stridesKernel, sizePad, channelPos);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
@@ -1230,12 +1230,12 @@ Gura_ImplementMethod(array, restore_kernelvec2d)
 	}
 	size_t sizePadRow = value1.GetSizeT();
 	size_t sizePadCol = value2.GetSizeT();
-	Array::ChannelAt channelAt = Array::CHANNELAT_First;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_First;
 	if (arg.IsValid(4) &&
-		(channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(4))) == Array::CHANNELAT_None) return Value::Nil;
+		(channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(4))) == Array::CHANNELPOS_None) return Value::Nil;
 	pArraySelf->RestoreKernelVec2d(pArrayRtn, sizeOutRow, sizeOutCol, sizeKernelRow, sizeKernelCol,
 								  stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol,
-								  channelAt);
+								  channelPos);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
@@ -1289,13 +1289,13 @@ Gura_ImplementMethod(array, restore_kernelvec3d)
 	size_t sizePadPlane = value1.GetSizeT();
 	size_t sizePadRow = value2.GetSizeT();
 	size_t sizePadCol = value3.GetSizeT();
-	Array::ChannelAt channelAt = Array::CHANNELAT_First;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_First;
 	if (arg.IsValid(4) &&
-		(channelAt = Array::SymbolToChannelAt(env, arg.GetSymbol(4))) == Array::CHANNELAT_None) return Value::Nil;
+		(channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(4))) == Array::CHANNELPOS_None) return Value::Nil;
 	pArraySelf->RestoreKernelVec3d(pArrayRtn, sizeOutPlane, sizeOutRow, sizeOutCol,
 								   sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 								   stridesKernelPlane, stridesKernelRow, stridesKernelCol,
-								   sizePadPlane, sizePadRow, sizePadCol, channelAt);
+								   sizePadPlane, sizePadRow, sizePadCol, channelPos);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
