@@ -141,8 +141,7 @@ Gura_DeclareProperty_R(filter_at_conv2d, array)
 Gura_ImplementPropertyGetter(filter_at_conv2d, array)
 {
 	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
-	Object_array *pObj = new Object_array(env, pFilter->GetArrayFilter()->Reference());
-	return Value(pObj);
+	return Value(new Object_array(env, pFilter->GetArrayFilter()->Reference()));
 }
 
 //-----------------------------------------------------------------------------

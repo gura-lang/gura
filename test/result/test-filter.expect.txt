@@ -12,7 +12,47 @@ filter.calcpadding(13, 6, 5, `valid) .. [2, 0]
 ======== #4 filter@conv3d ========
 
 
-======== #5 filter@maxpool1d ========
+======== #5 error check for filter@conv1d ========
+
+filter@conv1d(array.zeros([3]), 1, `same, `last) .. ValueError: channel dimension is expected to exist at last
+x_5 |*| f_3 .. nil
+x_5 |*| f_4 .. nil
+x_5 |*| f_5 .. nil
+x_5 |*| f_6 .. ValueError: target array (5) is smaller than applied filter (6) with channel at first
+
+======== #6 error check for filter@conv2d ========
+
+filter@conv2d(array.zeros([3, 3]), [1, 1], `same, `last) .. ValueError: channel dimension is expected to exist at last
+x_5_5 |*| f_3_3 .. {{0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0}}
+x_5_5 |*| f_4_3 .. {{0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0}}
+x_5_5 |*| f_6_5 .. ValueError: target array (5, 5) is smaller than applied filter (6, 5) with channel at first
+x_5_5 |*| f_5_6 .. ValueError: target array (5, 5) is smaller than applied filter (5, 6) with channel at first
+x_5_5 |*| f_3_3_3 .. ValueError: unmatched dimension between array (5, 5) and filter (3, 3, 3) with channel at first
+x_3_5_5 |*| f_3_3_3 .. {{0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0}}
+x_4_5_5 |*| f_3_3_3 .. ValueError: unmatched dimension between array (4, 5, 5) and filter (3, 3, 3) with channel at first
+x_5_5_3 |*| f_3_3_3_last .. {{0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0},
+ {0, 0, 0, 0, 0}}
+x_5_5_4 |*| f_3_3_3_last .. ValueError: unmatched dimension between array (5, 5, 4) and filter (3, 3, 3) with channel at last
+
+======== #7 error check for filter@conv3d ========
+
+
+======== #8 filter@maxpool1d ========
 
 f.size .. 4
 f.strides .. 3
@@ -112,23 +152,23 @@ x |*| filter@maxpool1d(4, 3, `same, `last) .. {{35, 86, 62},
  {98, 67, 80},
  {17, 55, 82}}
 
-======== #6 filter@maxpool2d ========
+======== #9 filter@maxpool2d ========
 
 
-======== #7 filter@maxpool3d ========
+======== #10 filter@maxpool3d ========
 
 
-======== #8 filter@relu ========
+======== #11 filter@relu ========
 
 x .. {  -1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1,    0,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,    1}
 x |*| filter@relu() .. {  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,   1}
 
-======== #9 filter@sigmoid ========
+======== #12 filter@sigmoid ========
 
 x .. {  -1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1,    0,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,    1}
 x |*| filter@sigmoid() .. {0.268941,  0.28905, 0.310026, 0.331812, 0.354344, 0.377541, 0.401312, 0.425557, 0.450166, 0.475021,      0.5, 0.524979, 0.549834, 0.574443, 0.598688, 0.622459, 0.645656, 0.668188, 0.689974,  0.71095, 0.731059}
 
-======== #10 filter@softmax ========
+======== #13 filter@softmax ========
 
 f.axis .. nil
 f.axis .. 3
@@ -245,7 +285,7 @@ x |*| filter@softmax() .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776}
   {  0.0417726,     0.11355,   0.0056533,    0.839025},
   {  0.0419224,  0.00208719,    0.113957,    0.842034}}}
 
-======== #11 filter@softmax with large number ========
+======== #14 filter@softmax with large number ========
 
 {{{ 1e+06,  1e+06,  1e+06,  1e+06},
   {999998, 999998,  1e+06, 999995},
@@ -343,7 +383,7 @@ x |*| filter@softmax() .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776}
   {  0.0417726,     0.11355,   0.0056533,    0.839025},
   {  0.0419224,  0.00208719,    0.113957,    0.842034}}}
 
-======== #12 filter@tanh ========
+======== #15 filter@tanh ========
 
 x .. {  -1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1,    0,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,    1}
 x |*| filter@tanh() .. {-0.761594, -0.716298, -0.664037, -0.604368,  -0.53705, -0.462117, -0.379949, -0.291313, -0.197375, -0.099668,         0,  0.099668,  0.197375,  0.291313,  0.379949,  0.462117,   0.53705,  0.604368,  0.664037,  0.716298,  0.761594}

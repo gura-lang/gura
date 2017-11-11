@@ -12,6 +12,49 @@ testcase('filter@conv2d') {
 }
 testcase('filter@conv3d') {
 }
+testcase("error check for filter@conv1d") {
+	tester(`filter@conv1d(array.zeros([3]), 1, `same, `last))
+	x_5 = array.zeros([5])
+	x_3_5 = array.zeros([3, 5])
+	x_4_5 = array.zeros([4, 5])
+	x_5_3 = array.zeros([5, 3])
+	x_5_4 = array.zeros([5, 4])
+	f_3 = filter@conv1d(array.zeros([3]), 1, `same, `first)
+	f_4 = filter@conv1d(array.zeros([4]), 1, `same, `first)
+	f_5 = filter@conv1d(array.zeros([5]), 1, `same, `first)
+	f_6 = filter@conv1d(array.zeros([6]), 1, `same, `first)
+	f_3_3 = filter@conv1d(array.zeros([3, 3]), 1, `same, `first)
+	f_3_3_last = filter@conv1d(array.zeros([3, 3]), 1, `same, `last)
+	tester(`(x_5 |*| f_3))
+	tester(`(x_5 |*| f_4))
+	tester(`(x_5 |*| f_5))
+	tester(`(x_5 |*| f_6))
+}
+testcase("error check for filter@conv2d") {
+	tester(`filter@conv2d(array.zeros([3, 3]), [1, 1], `same, `last))
+	x_5_5 = array.zeros([5, 5])
+	x_3_5_5 = array.zeros([3, 5, 5])
+	x_4_5_5 = array.zeros([4, 5, 5])
+	x_5_5_3 = array.zeros([5, 5, 3])
+	x_5_5_4 = array.zeros([5, 5, 4])
+	f_3_3 = filter@conv2d(array.zeros([3, 3]), [1, 1], `same, `first)
+	f_4_3 = filter@conv2d(array.zeros([4, 3]), [1, 1], `same, `first)
+	f_6_5 = filter@conv2d(array.zeros([6, 5]), [1, 1], `same, `first)
+	f_5_6 = filter@conv2d(array.zeros([5, 6]), [1, 1], `same, `first)
+	f_3_3_3 = filter@conv2d(array.zeros([3, 3, 3]), [1, 1], `same, `first)
+	f_3_3_3_last = filter@conv2d(array.zeros([3, 3, 3]), [1, 1], `same, `last)
+	tester(`(x_5_5 |*| f_3_3))
+	tester(`(x_5_5 |*| f_4_3))
+	tester(`(x_5_5 |*| f_6_5))
+	tester(`(x_5_5 |*| f_5_6))
+	tester(`(x_5_5 |*| f_3_3_3))
+	tester(`(x_3_5_5 |*| f_3_3_3))
+	tester(`(x_4_5_5 |*| f_3_3_3))
+	tester(`(x_5_5_3 |*| f_3_3_3_last))
+	tester(`(x_5_5_4 |*| f_3_3_3_last))
+}
+testcase("error check for filter@conv3d") {
+}
 testcase('filter@maxpool1d') {
 	filter@maxpool1d(4, 3, `same, `first) {|f|
 		tester(`f.size)
