@@ -358,9 +358,11 @@ bool Array::CheckDimsFilterForCalcConv(Signal &sig, const Dimensions &dimsFilter
 	for (size_t i = 0; i < nDimsKernel; i++) {
 		if (iDimBack >= dims.size()) goto error_done;
 		if (dims.GetBack(iDimBack).GetSize() < dimsFilter.GetBack(iDimBack).GetSize()) {
-			sig.SetError(ERR_ValueError, "target array (%s) is smaller than applied filter (%s) with channel at %s",
+			sig.SetError(ERR_ValueError, "target array (%s) is smaller than applied filter (%s) %s",
 						 dims.ToString().c_str(), dimsFilter.ToString().c_str(),
-						 (channelPos == CHANNELPOS_Last)? "last" : "first");
+						 (channelPos == CHANNELPOS_None)? "without channel" :
+						 (channelPos == CHANNELPOS_First)? "with channel at first" :
+						 (channelPos == CHANNELPOS_Last)? "with channel at last" : "");
 			return false;
 		}
 		iDimBack++;
@@ -371,9 +373,11 @@ bool Array::CheckDimsFilterForCalcConv(Signal &sig, const Dimensions &dimsFilter
 	}
 	return true;
 error_done:
-	sig.SetError(ERR_ValueError, "unmatched dimension between array (%s) and filter (%s) with channel at %s",
+	sig.SetError(ERR_ValueError, "unmatched dimension between array (%s) and filter (%s) %s",
 				 dims.ToString().c_str(), dimsFilter.ToString().c_str(),
-				 (channelPos == CHANNELPOS_Last)? "last" : "first");
+				 (channelPos == CHANNELPOS_None)? "without channel" :
+				 (channelPos == CHANNELPOS_First)? "with channel at first" :
+				 (channelPos == CHANNELPOS_Last)? "with channel at last" : "");
 	return false;
 }
 
@@ -523,8 +527,8 @@ Array::ElemType Array::SymbolToElemType(Signal &sig, const Symbol *pSymbol)
 Array::ChannelPos Array::SymbolToChannelPos(Signal &sig, const Symbol *pSymbol)
 {
 	ChannelPos channelPos = SymbolToChannelPos(pSymbol);
-	if (channelPos == CHANNELPOS_None) {
-		sig.SetError(ERR_ValueError, "invalid symbol to specify channel positioning: %s",
+	if (channelPos == CHANNELPOS_Invalid) {
+		sig.SetError(ERR_ValueError, "specify `first or `last for channel positioning",
 					 pSymbol->GetName());
 	}
 	return channelPos;
@@ -533,14 +537,16 @@ Array::ChannelPos Array::SymbolToChannelPos(Signal &sig, const Symbol *pSymbol)
 Array::ChannelPos Array::SymbolToChannelPos(const Symbol *pSymbol)
 {
 	return
+		pSymbol->IsIdentical(Gura_Symbol(none))? CHANNELPOS_None :
 		pSymbol->IsIdentical(Gura_Symbol(first))? CHANNELPOS_First :
 		pSymbol->IsIdentical(Gura_Symbol(last))? CHANNELPOS_Last :
-		CHANNELPOS_None;
+		CHANNELPOS_Invalid;
 }
 
 const Symbol *Array::ChannelPosToSymbol(ChannelPos channelPos)
 {
 	return
+		(channelPos == CHANNELPOS_None)? Gura_Symbol(none) :
 		(channelPos == CHANNELPOS_First)? Gura_Symbol(first) :
 		(channelPos == CHANNELPOS_Last)? Gura_Symbol(last) :
 		Gura_Symbol(none);

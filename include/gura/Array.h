@@ -34,6 +34,7 @@ public:
 		ETYPE_Max,
 	};
 	enum ChannelPos {
+		CHANNELPOS_Invalid,
 		CHANNELPOS_None,
 		CHANNELPOS_Last,
 		CHANNELPOS_First,

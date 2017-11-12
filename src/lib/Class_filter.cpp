@@ -68,8 +68,8 @@ void Filter::CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, Paddi
 Filter::PaddingType Filter::SymbolToPaddingType(Signal &sig, const Symbol *pSymbol)
 {
 	PaddingType paddingType = SymbolToPaddingType(pSymbol);
-	if (paddingType == PADDINGTYPE_None) {
-		sig.SetError(ERR_ValueError, "invalid symbol to specify padding type: %s",
+	if (paddingType == PADDINGTYPE_Invalid) {
+		sig.SetError(ERR_ValueError, "specify `valid or `same for padding type",
 					 pSymbol->GetName());
 	}
 	return paddingType;
@@ -80,7 +80,7 @@ Filter::PaddingType Filter::SymbolToPaddingType(const Symbol *pSymbol)
 	return
 		pSymbol->IsIdentical(Gura_Symbol(valid))? PADDINGTYPE_Valid :
 		pSymbol->IsIdentical(Gura_Symbol(same))? PADDINGTYPE_Same :
-		PADDINGTYPE_None;
+		PADDINGTYPE_Invalid;
 }
 
 const Symbol *Filter::PaddingTypeToSymbol(PaddingType paddingType)
@@ -137,7 +137,7 @@ Gura_ImplementClassMethod(filter, calcpadding)
 	size_t sizeKernel = arg.GetSizeT(1);
 	size_t strides = arg.GetSizeT(2);
 	Filter::PaddingType paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(3));
-	if (paddingType == Filter::PADDINGTYPE_None) return Value::Nil;
+	if (paddingType == Filter::PADDINGTYPE_Invalid) return Value::Nil;
 	size_t sizeOut = 0, sizePad = 0;
 	Filter::CalcPadding(sizeIn, sizeKernel, strides, paddingType, &sizeOut, &sizePad);
 	return Value::CreateList(env, Value(sizeOut), Value(sizePad));

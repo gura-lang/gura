@@ -5,6 +5,49 @@ filter.calcpadding(13, 6, 5, `valid) .. [2, 0]
 
 ======== #2 filter@conv1d ========
 
+filter@conv1d(array.zeros([5])) .. <filter@conv1d:size=5:strides=1:padding=same:channel_pos=first>
+f.size .. 5
+f.strides .. 1
+f.padding .. same
+f.channel_pos .. first
+filter@conv1d(array.zeros([3, 5])) .. <filter@conv1d:channel_num=3:size=5:strides=1:padding=same:channel_pos=first>
+f.size .. 5
+f.strides .. 1
+f.padding .. same
+f.channel_pos .. first
+filter@conv1d(array.zeros([16, 3, 5])) .. <filter@conv1d:filter_num=16:channel_num=3:size=5:strides=1:padding=same:channel_pos=first>
+f.size .. 5
+f.strides .. 1
+f.padding .. same
+f.channel_pos .. first
+filter@conv1d(array.zeros([4, 16, 3, 5])) .. ValueError: the `array` instance given to `filter@conv1d` constructor must have 1, 2 or 3 dimensions.
+filter@conv1d(array.zeros([16, 3, 5]), 4) .. <filter@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=same:channel_pos=first>
+f.size .. 5
+f.strides .. 4
+f.padding .. same
+f.channel_pos .. first
+filter@conv1d(array.zeros([16, 3, 5]), 4, `same) .. <filter@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=same:channel_pos=first>
+f.size .. 5
+f.strides .. 4
+f.padding .. same
+f.channel_pos .. first
+filter@conv1d(array.zeros([16, 3, 5]), 4, `valid) .. <filter@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=valid:channel_pos=first>
+f.size .. 5
+f.strides .. 4
+f.padding .. valid
+f.channel_pos .. first
+filter@conv1d(array.zeros([16, 3, 5]), 4, `xxxx) .. ValueError: specify `valid or `same for padding type
+filter@conv1d(array.zeros([16, 3, 5]), 4, `valid, `first) .. <filter@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=valid:channel_pos=first>
+f.size .. 5
+f.strides .. 4
+f.padding .. valid
+f.channel_pos .. first
+filter@conv1d(array.zeros([16, 3, 5]), 4, `valid, `last) .. <filter@conv1d:filter_num=16:channel_num=5:size=3:strides=4:padding=valid:channel_pos=last>
+f.size .. 3
+f.strides .. 4
+f.padding .. valid
+f.channel_pos .. last
+filter@conv1d(array.zeros([16, 3, 5]), 4, `valid, `xxxx) .. ValueError: specify `first or `last for channel positioning
 
 ======== #3 filter@conv2d ========
 

@@ -21,13 +21,15 @@ argopt.Parser {|p|
 
 print_func(func:function) = printf('%s = %s\n', func, func.expr)
 
-tester(test:expr):map:dynamic_scope:void {block?} = {
-	printf('%s .. ', test)
-	try {
-		printf('%s\n', (rtn = test.eval())):nomap
-		block && block(rtn)
-	} catch {|e|
-		println(e.text)
+tester(tests+:expr):map:dynamic_scope:void {block?} = {
+	tests.each {|test|
+		printf('%s .. ', test)
+		try {
+			printf('%s\n', (rtn = test.eval())):nomap
+			block && block(rtn)
+		} catch {|e|
+			println(e.text)
+		}
 	}
 }
 

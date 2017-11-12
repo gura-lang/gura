@@ -66,12 +66,16 @@ Gura_DeclareFunctionAlias(filter_at_maxpool1d, "filter@maxpool1d")
 	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_maxpool1d));
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates a `filter@maxpool1d` instance from the following arguments:\n"
+		"Creates a `filter@maxpool1d` instance.\n"
 		"\n"
-		"- `size` .. Filter size.\n"
-		"- `strides` .. Strides of sliding window. Default is one.\n"
-		"- `padding` .. Padding style `` `valid`` or `` `same``. Default is `` `same``.\n"
-		"- `channel_pos` .. Channel position `` `first`` or `` `last``. Default is `` `last``. \n");
+		"The `size` is a filter size.\n"
+		"\n"
+		"The `strides` is a strides of sliding window. Default is one.\n"
+		"\n"
+		"The `padding` is a padding style `` `valid`` or `` `same``. Default is `` `same``.\n"
+		"\n"
+		"The `channel_pos` specifies where channel dimension is positioned and takes `` `first`` or `` `last``.\n"
+		"Default is `` `last``. \n");
 }
 
 Gura_ImplementFunction(filter_at_maxpool1d)
@@ -81,12 +85,12 @@ Gura_ImplementFunction(filter_at_maxpool1d)
 	Filter::PaddingType paddingType = Filter::PADDINGTYPE_Same;
 	if (arg.IsValid(2)) {
 		paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
-		if (paddingType == Filter::PADDINGTYPE_None) return Value::Nil;
+		if (paddingType == Filter::PADDINGTYPE_Invalid) return Value::Nil;
 	}
 	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
-		if (channelPos == Array::CHANNELPOS_None) return Value::Nil;
+		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
 	}
 	Object_filter_at_maxpool1d *pObj = new Object_filter_at_maxpool1d(
 		env, new Filter_MaxPool1d(size, strides, paddingType, channelPos));

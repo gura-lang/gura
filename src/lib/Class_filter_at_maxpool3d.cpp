@@ -111,12 +111,12 @@ Gura_ImplementFunction(filter_at_maxpool3d)
 	Filter::PaddingType paddingType = Filter::PADDINGTYPE_Same;
 	if (arg.IsValid(2)) {
 		paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
-		if (paddingType == Filter::PADDINGTYPE_None) return Value::Nil;
+		if (paddingType == Filter::PADDINGTYPE_Invalid) return Value::Nil;
 	}
 	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
-		if (channelPos == Array::CHANNELPOS_None) return Value::Nil;
+		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
 	}
 	Object_filter_at_maxpool3d *pObj = new Object_filter_at_maxpool3d(
 		env, new Filter_MaxPool3d(sizePlane, sizeRow, sizeCol,

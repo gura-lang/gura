@@ -14,7 +14,7 @@ namespace Gura {
 class GURA_DLLDECLARE Filter {
 public:
 	enum PaddingType {
-		PADDINGTYPE_None,
+		PADDINGTYPE_Invalid,
 		PADDINGTYPE_Valid,
 		PADDINGTYPE_Same,
 	};
