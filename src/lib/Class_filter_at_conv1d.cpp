@@ -88,7 +88,9 @@ Gura_DeclareFunctionAlias(filter_at_conv1d, "filter@conv1d")
 		"When `valid` is specified, there is no padding. When `same` is specified, zero values are padded so that\n"
 		"the result array has the size of the division of the original size by `strides`.\n"
 		"\n"
-		"The `channel_pos` is a channel position and takes `` `first`` or `` `last``. Default is `` `last``. \n");
+		"The `channel_pos` is a channel position and takes `` `none``, `` `first`` or `` `last``.\n"
+		"If not specified, `` `none` for an array without channel dimension\n"
+		"and `` `last`` for others are to be set.\n");
 }
 
 Gura_ImplementFunction(filter_at_conv1d)
@@ -98,7 +100,7 @@ Gura_ImplementFunction(filter_at_conv1d)
 	size_t nDims = dims.size();
 	if (nDims != 1 && nDims != 2 && nDims != 3) {
 		env.SetError(ERR_ValueError,
-					 "the `array` instance given to `filter@conv1d` constructor must have 1, 2 or 3 dimensions.");
+					 "the `array` instance given to `filter@conv1d` constructor must have dimensions of 1, 2 or 3.");
 		return Value::Nil;
 	}
 	size_t strides = arg.IsValid(1)? arg.GetSizeT(1) : 1;
@@ -107,14 +109,21 @@ Gura_ImplementFunction(filter_at_conv1d)
 		paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Filter::PADDINGTYPE_Invalid) return Value::Nil;
 	}
-	Array::ChannelPos channelPos = Array::CHANNELPOS_First;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_Invalid;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
-		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
-	}
-	if (channelPos == Array::CHANNELPOS_Last && nDims < 2) {
-		env.SetError(ERR_ValueError, "channel dimension is expected to exist at last");
-		return Value::Nil;
+		if (channelPos == Array::CHANNELPOS_Invalid) {
+			return Value::Nil;
+		} else if (channelPos == Array::CHANNELPOS_None) {
+			if (nDims != 1) channelPos = Array::CHANNELPOS_First;
+		} else if (channelPos == Array::CHANNELPOS_Last) {
+			if (nDims == 1) {
+				env.SetError(ERR_ValueError, "channel dimension is expected to exist at last");
+				return Value::Nil;
+			}
+		}
+	} else {
+		channelPos = (nDims == 1)? Array::CHANNELPOS_None : Array::CHANNELPOS_Last;
 	}
 	Object_filter_at_conv1d *pObj = new Object_filter_at_conv1d(
 		env, new Filter_Conv1d(pArrayFilter->Reference(), strides, paddingType, channelPos));

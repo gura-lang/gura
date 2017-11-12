@@ -6,39 +6,42 @@ testcase('calculation of padding amount') {
 	tester(`filter.calcpadding(13, 6, 5, `same))
 	tester(`filter.calcpadding(13, 6, 5, `valid))
 }
+tester_filter@conv_properties(f) = {
+	tester(`f.size, `f.strides, `f.padding, `f.channel_pos, `f.channel_num, `f.filter_num)
+}
 testcase('filter@conv1d') {
 	tester(`filter@conv1d(array.zeros([5]))) {|f|
-		tester(`f.size, `f.strides, `f.padding, `f.channel_pos)
+		tester_filter@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([3, 5]))) {|f|
-		tester(`f.size, `f.strides, `f.padding, `f.channel_pos)
+	tester(`filter@conv1d(array.zeros([5, 3]))) {|f|
+		tester_filter@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 3, 5]))) {|f|
-		tester(`f.size, `f.strides, `f.padding, `f.channel_pos)
+	tester(`filter@conv1d(array.zeros([16, 5, 3]))) {|f|
+		tester_filter@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([4, 16, 3, 5]))) {|f|
-		tester(`f.size, `f.strides, `f.padding, `f.channel_pos)
+	tester(`filter@conv1d(array.zeros([4, 16, 5, 3]))) {|f| // error
+		tester_filter@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 3, 5]), 4)) {|f|
-		tester(`f.size, `f.strides, `f.padding, `f.channel_pos)
+	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4)) {|f|
+		tester_filter@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 3, 5]), 4, `same)) {|f|
-		tester(`f.size, `f.strides, `f.padding, `f.channel_pos)
+	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4, `same)) {|f|
+		tester_filter@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 3, 5]), 4, `valid)) {|f|
-		tester(`f.size, `f.strides, `f.padding, `f.channel_pos)
+	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4, `valid)) {|f|
+		tester_filter@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 3, 5]), 4, `xxxx)) {|f|
-		tester(`f.size, `f.strides, `f.padding, `f.channel_pos)
+	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4, `xxxx)) {|f|
+		tester_filter@conv_properties(f)
 	}
 	tester(`filter@conv1d(array.zeros([16, 3, 5]), 4, `valid, `first)) {|f|
-		tester(`f.size, `f.strides, `f.padding, `f.channel_pos)
+		tester_filter@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 3, 5]), 4, `valid, `last)) {|f|
-		tester(`f.size, `f.strides, `f.padding, `f.channel_pos)
+	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4, `valid, `last)) {|f|
+		tester_filter@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 3, 5]), 4, `valid, `xxxx)) {|f|
-		tester(`f.size, `f.strides, `f.padding, `f.channel_pos)
+	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4, `valid, `xxxx)) {|f|
+		tester_filter@conv_properties(f)
 	}
 }
 testcase('filter@conv2d') {
