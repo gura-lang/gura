@@ -1,55 +1,55 @@
 //=============================================================================
-// Gura class: filter@tanh
+// Gura class: filter@relu
 //=============================================================================
-#ifndef __GURA_CLASS_FILTER_AT_TANH_H__
-#define __GURA_CLASS_FILTER_AT_TANH_H__
+#ifndef __GURA_CLASS_FILTER_AT_RELU_H__
+#define __GURA_CLASS_FILTER_AT_RELU_H__
 
-#include "Class_filter.h"
+#include "Class_gear.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Filter_Tanh
+// Filter_Relu
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Filter_Tanh : public Filter {
+class GURA_DLLDECLARE Filter_Relu : public Filter {
 public:
 	typedef bool (*FilterFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn,
-								const Array *pArray, const Filter_Tanh *pFilter);
+								const Array *pArray, const Filter_Relu *pFilter);
 	struct FilterFuncTable {
 		FilterFuncT funcs[Array::ETYPE_Max];
 	};
 public:
 	static FilterFuncTable filterFuncTable;
 public:
-	inline Filter_Tanh() {}
+	inline Filter_Relu() {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;
 };
 
 //-----------------------------------------------------------------------------
-// Class_filter_at_tanh
+// Class_filter_at_relu
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_filter_at_tanh : public ClassFundamental {
+class GURA_DLLDECLARE Class_filter_at_relu : public ClassFundamental {
 public:
-	Class_filter_at_tanh(Environment *pEnvOuter);
+	Class_filter_at_relu(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
-// Object_filter_at_tanh
+// Object_filter_at_relu
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Object_filter_at_tanh : public Object_filter {
+class GURA_DLLDECLARE Object_filter_at_relu : public Object_filter {
 public:
 	static Value valueConst;
 public:
-	Gura_DeclareObjectAccessor(filter_at_tanh)
+	Gura_DeclareObjectAccessor(filter_at_relu)
 public:
-	Object_filter_at_tanh(Environment &env, Filter_Tanh *pFilter);
+	Object_filter_at_relu(Environment &env, Filter_Relu *pFilter);
 	virtual Object *Clone() const;
-	inline Filter_Tanh *GetFilter() { return dynamic_cast<Filter_Tanh *>(_pFilter.get()); }
-	inline const Filter_Tanh *GetFilter() const { return dynamic_cast<const Filter_Tanh *>(_pFilter.get()); }
+	inline Filter_Relu *GetFilter() { return dynamic_cast<Filter_Relu *>(_pFilter.get()); }
+	inline const Filter_Relu *GetFilter() const { return dynamic_cast<const Filter_Relu *>(_pFilter.get()); }
 };
 
 }

@@ -4,7 +4,7 @@
 #ifndef __GURA_CLASS_FILTER_AT_CONV2D_H__
 #define __GURA_CLASS_FILTER_AT_CONV2D_H__
 
-#include "Class_filter.h"
+#include "Class_gear.h"
 
 namespace Gura {
 

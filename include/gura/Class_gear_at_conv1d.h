@@ -1,10 +1,10 @@
 //=============================================================================
 // Gura class: filter@conv1d
 //=============================================================================
-#ifndef __GURA_CLASS_FILTER_AT_CONV1D_H__
-#define __GURA_CLASS_FILTER_AT_CONV1D_H__
+#ifndef __GURA_CLASS_GEAR_AT_CONV1D_H__
+#define __GURA_CLASS_GEAR_AT_CONV1D_H__
 
-#include "Class_filter.h"
+#include "Class_gear.h"
 
 namespace Gura {
 

@@ -1,15 +1,15 @@
 #ifndef __GURA_TRAINER_H__
 #define __GURA_TRAINER_H__
-#include "Class_filter_at_conv1d.h"
-#include "Class_filter_at_conv2d.h"
-#include "Class_filter_at_conv3d.h"
-#include "Class_filter_at_maxpool1d.h"
-#include "Class_filter_at_maxpool2d.h"
-#include "Class_filter_at_maxpool3d.h"
-#include "Class_filter_at_relu.h"
-#include "Class_filter_at_sigmoid.h"
-#include "Class_filter_at_softmax.h"
-#include "Class_filter_at_tanh.h"
+#include "Class_gear_at_conv1d.h"
+#include "Class_gear_at_conv2d.h"
+#include "Class_gear_at_conv3d.h"
+#include "Class_gear_at_maxpool1d.h"
+#include "Class_gear_at_maxpool2d.h"
+#include "Class_gear_at_maxpool3d.h"
+#include "Class_gear_at_relu.h"
+#include "Class_gear_at_sigmoid.h"
+#include "Class_gear_at_softmax.h"
+#include "Class_gear_at_tanh.h"
 
 namespace Gura {
 
