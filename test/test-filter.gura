@@ -2,12 +2,17 @@
 import(helper.test) {*}
 import(arrayt)
 
+tester_filter@conv_properties(f) = {
+	tester(`f.size, `f.strides, `f.padding, `f.channel_pos, `f.channel_num, `f.filter_num)
+}
+
+tester_filter@maxpool_properties(f) = {
+	tester(`f.size, `f.strides, `f.padding, `f.channel_pos)
+}
+
 testcase('calculation of padding amount') {
 	tester(`filter.calcpadding(13, 6, 5, `same))
 	tester(`filter.calcpadding(13, 6, 5, `valid))
-}
-tester_filter@conv_properties(f) = {
-	tester(`f.size, `f.strides, `f.padding, `f.channel_pos, `f.channel_num, `f.filter_num)
 }
 testcase('filter@conv1d') {
 	tester(`filter@conv1d(array.zeros([5]))) {|f|
@@ -40,11 +45,50 @@ testcase('filter@conv1d') {
 	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4, `valid, `last)) {|f|
 		tester_filter@conv_properties(f)
 	}
+	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4, `xxxx, `last)) {|f|
+		tester_filter@conv_properties(f)
+	}
 	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4, `valid, `xxxx)) {|f|
 		tester_filter@conv_properties(f)
 	}
 }
 testcase('filter@conv2d') {
+	tester(`filter@conv2d(array.zeros([5, 6]))) {|f|
+		tester_filter@conv_properties(f)
+	}
+	tester(`filter@conv2d(array.zeros([5, 6, 3]))) {|f|
+		tester_filter@conv_properties(f)
+	}
+	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]))) {|f|
+		tester_filter@conv_properties(f)
+	}
+	tester(`filter@conv2d(array.zeros([4, 16, 5, 6, 3]))) {|f| // error
+		tester_filter@conv_properties(f)
+	}
+	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3])) {|f|
+		tester_filter@conv_properties(f)
+	}
+	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `same)) {|f|
+		tester_filter@conv_properties(f)
+	}
+	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid)) {|f|
+		tester_filter@conv_properties(f)
+	}
+	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `xxxx)) {|f|
+		tester_filter@conv_properties(f)
+	}
+	tester(`filter@conv2d(array.zeros([16, 3, 5, 6]), [4, 3], `valid, `first)) {|f|
+		tester_filter@conv_properties(f)
+	}
+	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid, `last)) {|f|
+		tester_filter@conv_properties(f)
+	}
+	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `xxxx, `last)) {|f|
+		tester_filter@conv_properties(f)
+	}
+	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid, `xxxx)) {|f|
+		tester_filter@conv_properties(f)
+	}
 }
 testcase('filter@conv3d') {
 }
@@ -92,17 +136,26 @@ testcase("error check for filter@conv2d") {
 testcase("error check for filter@conv3d") {
 }
 testcase('filter@maxpool1d') {
-	filter@maxpool1d(4, 3, `same, `first) {|f|
-		tester(`f.size)
-		tester(`f.strides)
-		tester(`f.padding)
-		tester(`f.channel_pos)
+	tester(`filter@maxpool1d(4)) {|f|
+		tester_filter@maxpool_properties(f)
 	}
-	filter@maxpool1d(4, 3, `valid, `last) {|f|
-		tester(`f.size)
-		tester(`f.strides)
-		tester(`f.padding)
-		tester(`f.channel_pos)
+	tester(`filter@maxpool1d(4, 3)) {|f|
+		tester_filter@maxpool_properties(f)
+	}
+	tester(`filter@maxpool1d(4, 3, `same)) {|f|
+		tester_filter@maxpool_properties(f)
+	}
+	tester(`filter@maxpool1d(4, 3, `valid)) {|f|
+		tester_filter@maxpool_properties(f)
+	}
+	tester(`filter@maxpool1d(4, 3, `same, `none)) {|f|
+		tester_filter@maxpool_properties(f)
+	}
+	tester(`filter@maxpool1d(4, 3, `same, `first)) {|f|
+		tester_filter@maxpool_properties(f)
+	}
+	tester(`filter@maxpool1d(4, 3, `same, `last)) {|f|
+		tester_filter@maxpool_properties(f)
 	}
 	x = array@double {68, 79, 68, 92, 33, 30, 63,  2, 72, 90, 54, 52, 76, 54, 68, 52, 84, 79, 80, 24}
 	tester(`(x |*| filter@maxpool1d(1, 1, `same, `first)))
@@ -145,6 +198,27 @@ testcase('filter@maxpool1d') {
 	tester(`(x |*| filter@maxpool1d(4, 3, `same, `last)))
 }
 testcase('filter@maxpool2d') {
+	tester(`filter@maxpool2d([5, 6])) {|f|
+		tester_filter@maxpool_properties(f)
+	}
+	tester(`filter@maxpool2d([5, 6], [4, 3])) {|f|
+		tester_filter@maxpool_properties(f)
+	}
+	tester(`filter@maxpool2d([5, 6], [4, 3], `same)) {|f|
+		tester_filter@maxpool_properties(f)
+	}
+	tester(`filter@maxpool2d([5, 6], [4, 3], `valid)) {|f|
+		tester_filter@maxpool_properties(f)
+	}
+	tester(`filter@maxpool2d([5, 6], [4, 3], `same, `none)) {|f|
+		tester_filter@maxpool_properties(f)
+	}
+	tester(`filter@maxpool2d([5, 6], [4, 3], `same, `first)) {|f|
+		tester_filter@maxpool_properties(f)
+	}
+	tester(`filter@maxpool2d([5, 6], [4, 3], `same, `last)) {|f|
+		tester_filter@maxpool_properties(f)
+	}
 }
 testcase('filter@maxpool3d') {
 }

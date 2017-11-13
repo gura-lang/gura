@@ -76,9 +76,12 @@ Gura_DeclareFunctionAlias(filter_at_conv2d, "filter@conv2d")
 		"\n"
 		"The given `array` instance shoud have one of the following shapes:\n"
 		"\n"
-		"- `[row_size, col_size]`\n"
-		"- `[channel_num, row_size, col_size]`\n"
-		"- `[filter_num, channel_num, row_size, col_size]`\n"
+		"- `[row_size, col_size]` .. 2-dimensions\n"
+		"- `[row_size, col_size, channel_num]` .. 3-dimensions and `channel_pos` is `` `last``\n"
+		"- `[channel_num, row_size, col_size]` .. 3-dimensions and `channel_pos` is `` `first``\n"
+		"- `[filter_num, row_size, col_size]` .. 3-dimensions and `channel_pos` is `` `none``\n"
+		"- `[filter_num, row_size, col_size, channel_num]` .. 4-dimensions and `channel_pos` is `` `last``\n"
+		"- `[filter_num, channel_num, row_size, col_size]` .. 4-dimensions and `channel_pos` is `` `first``\n"
 		"\n"
 		"where `row_size` and `col_size` are the size of the filter's kernel,\n"
 		"`channel_num` is the number of channels and `filter_num` is the number of filters.\n"
@@ -126,7 +129,10 @@ Gura_ImplementFunction(filter_at_conv2d)
 		if (channelPos == Array::CHANNELPOS_Invalid) {
 			return Value::Nil;
 		} else if (channelPos == Array::CHANNELPOS_None) {
-			if (nDims != 2) channelPos = Array::CHANNELPOS_First;
+			if (nDims == 4) {
+				env.SetError(ERR_ValueError, "channel dimension does exist in the array");
+				return Value::Nil;
+			}
 		} else if (channelPos == Array::CHANNELPOS_Last) {
 			if (nDims == 2) {
 				env.SetError(ERR_ValueError, "channel dimension is expected to exist at last");
@@ -232,7 +238,7 @@ Gura_DeclareProperty_R(filter_at_conv2d, size)
 Gura_ImplementPropertyGetter(filter_at_conv2d, size)
 {
 	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
-	return Value::CreateList(env, Value(pFilter->GetSizeCol()), Value(pFilter->GetSizeRow()));
+	return Value::CreateList(env, Value(pFilter->GetSizeRow()), Value(pFilter->GetSizeCol()));
 }
 
 // filter@conv2d#strides
@@ -247,7 +253,7 @@ Gura_DeclareProperty_R(filter_at_conv2d, strides)
 Gura_ImplementPropertyGetter(filter_at_conv2d, strides)
 {
 	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
-	return Value::CreateList(env, Value(pFilter->GetStridesCol()), Value(pFilter->GetStridesRow()));
+	return Value::CreateList(env, Value(pFilter->GetStridesRow()), Value(pFilter->GetStridesCol()));
 }
 
 //-----------------------------------------------------------------------------

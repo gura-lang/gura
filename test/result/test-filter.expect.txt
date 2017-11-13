@@ -63,10 +63,71 @@ f.padding .. valid
 f.channel_pos .. last
 f.channel_num .. 3
 f.filter_num .. 16
-filter@conv1d(array.zeros([16, 5, 3]), 4, `valid, `xxxx) .. ValueError: specify `first or `last for channel positioning
+filter@conv1d(array.zeros([16, 5, 3]), 4, `xxxx, `last) .. ValueError: specify `valid or `same for padding type
+filter@conv1d(array.zeros([16, 5, 3]), 4, `valid, `xxxx) .. ValueError: specify `none, `first or `last for channel positioning
 
 ======== #3 filter@conv2d ========
 
+filter@conv2d(array.zeros([5, 6])) .. <filter@conv2d:size=(5,6):strides=(1,1):padding=same:channel_pos=none>
+f.size .. [5, 6]
+f.strides .. [1, 1]
+f.padding .. same
+f.channel_pos .. none
+f.channel_num .. nil
+f.filter_num .. nil
+filter@conv2d(array.zeros([5, 6, 3])) .. <filter@conv2d:channel_num=3:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
+f.size .. [5, 6]
+f.strides .. [1, 1]
+f.padding .. same
+f.channel_pos .. last
+f.channel_num .. 3
+f.filter_num .. nil
+filter@conv2d(array.zeros([16, 5, 6, 3])) .. <filter@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
+f.size .. [5, 6]
+f.strides .. [1, 1]
+f.padding .. same
+f.channel_pos .. last
+f.channel_num .. 3
+f.filter_num .. 16
+filter@conv2d(array.zeros([4, 16, 5, 6, 3])) .. ValueError: the `array` instance given to `filter@conv2d` constructor must have dimensions of 2, 3 or 4.
+filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3]) .. <filter@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
+f.size .. [5, 6]
+f.strides .. [4, 3]
+f.padding .. same
+f.channel_pos .. last
+f.channel_num .. 3
+f.filter_num .. 16
+filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `same) .. <filter@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
+f.size .. [5, 6]
+f.strides .. [4, 3]
+f.padding .. same
+f.channel_pos .. last
+f.channel_num .. 3
+f.filter_num .. 16
+filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid) .. <filter@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=valid:channel_pos=last>
+f.size .. [5, 6]
+f.strides .. [4, 3]
+f.padding .. valid
+f.channel_pos .. last
+f.channel_num .. 3
+f.filter_num .. 16
+filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `xxxx) .. ValueError: specify `valid or `same for padding type
+filter@conv2d(array.zeros([16, 3, 5, 6]), [4, 3], `valid, `first) .. <filter@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=valid:channel_pos=first>
+f.size .. [5, 6]
+f.strides .. [4, 3]
+f.padding .. valid
+f.channel_pos .. first
+f.channel_num .. 3
+f.filter_num .. 16
+filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid, `last) .. <filter@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=valid:channel_pos=last>
+f.size .. [5, 6]
+f.strides .. [4, 3]
+f.padding .. valid
+f.channel_pos .. last
+f.channel_num .. 3
+f.filter_num .. 16
+filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `xxxx, `last) .. ValueError: specify `valid or `same for padding type
+filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid, `xxxx) .. ValueError: specify `none, `first or `last for channel positioning
 
 ======== #4 filter@conv3d ========
 
@@ -113,13 +174,40 @@ x_5_5_4 |*| f_3_3_3_last .. ValueError: unmatched dimension between array (5, 5,
 
 ======== #8 filter@maxpool1d ========
 
+filter@maxpool1d(4) .. <filter@maxpool1d:size=4:strides=1:padding=same:channel_pos=last>
+f.size .. 4
+f.strides .. 1
+f.padding .. same
+f.channel_pos .. last
+filter@maxpool1d(4, 3) .. <filter@maxpool1d:size=4:strides=3:padding=same:channel_pos=last>
+f.size .. 4
+f.strides .. 3
+f.padding .. same
+f.channel_pos .. last
+filter@maxpool1d(4, 3, `same) .. <filter@maxpool1d:size=4:strides=3:padding=same:channel_pos=last>
+f.size .. 4
+f.strides .. 3
+f.padding .. same
+f.channel_pos .. last
+filter@maxpool1d(4, 3, `valid) .. <filter@maxpool1d:size=4:strides=3:padding=valid:channel_pos=last>
+f.size .. 4
+f.strides .. 3
+f.padding .. valid
+f.channel_pos .. last
+filter@maxpool1d(4, 3, `same, `none) .. <filter@maxpool1d:size=4:strides=3:padding=same:channel_pos=none>
+f.size .. 4
+f.strides .. 3
+f.padding .. same
+f.channel_pos .. none
+filter@maxpool1d(4, 3, `same, `first) .. <filter@maxpool1d:size=4:strides=3:padding=same:channel_pos=first>
 f.size .. 4
 f.strides .. 3
 f.padding .. same
 f.channel_pos .. first
+filter@maxpool1d(4, 3, `same, `last) .. <filter@maxpool1d:size=4:strides=3:padding=same:channel_pos=last>
 f.size .. 4
 f.strides .. 3
-f.padding .. valid
+f.padding .. same
 f.channel_pos .. last
 x |*| filter@maxpool1d(1, 1, `same, `first) .. {68, 79, 68, 92, 33, 30, 63,  2, 72, 90, 54, 52, 76, 54, 68, 52, 84, 79, 80, 24}
 x |*| filter@maxpool1d(2, 1, `same, `first) .. {79, 79, 92, 92, 33, 63, 63, 72, 90, 90, 54, 76, 76, 68, 68, 84, 84, 80, 80, 24}
@@ -213,6 +301,41 @@ x |*| filter@maxpool1d(4, 3, `same, `last) .. {{35, 86, 62},
 
 ======== #9 filter@maxpool2d ========
 
+filter@maxpool2d([5, 6]) .. <filter@maxpool2d:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
+f.size .. [5, 6]
+f.strides .. [1, 1]
+f.padding .. same
+f.channel_pos .. last
+filter@maxpool2d([5, 6], [4, 3]) .. <filter@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
+f.size .. [5, 6]
+f.strides .. [4, 3]
+f.padding .. same
+f.channel_pos .. last
+filter@maxpool2d([5, 6], [4, 3], `same) .. <filter@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
+f.size .. [5, 6]
+f.strides .. [4, 3]
+f.padding .. same
+f.channel_pos .. last
+filter@maxpool2d([5, 6], [4, 3], `valid) .. <filter@maxpool2d:size=(5,6):strides=(4,3):padding=valid:channel_pos=last>
+f.size .. [5, 6]
+f.strides .. [4, 3]
+f.padding .. valid
+f.channel_pos .. last
+filter@maxpool2d([5, 6], [4, 3], `same, `none) .. <filter@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=none>
+f.size .. [5, 6]
+f.strides .. [4, 3]
+f.padding .. same
+f.channel_pos .. none
+filter@maxpool2d([5, 6], [4, 3], `same, `first) .. <filter@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=first>
+f.size .. [5, 6]
+f.strides .. [4, 3]
+f.padding .. same
+f.channel_pos .. first
+filter@maxpool2d([5, 6], [4, 3], `same, `last) .. <filter@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
+f.size .. [5, 6]
+f.strides .. [4, 3]
+f.padding .. same
+f.channel_pos .. last
 
 ======== #10 filter@maxpool3d ========
 

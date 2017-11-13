@@ -528,7 +528,7 @@ Array::ChannelPos Array::SymbolToChannelPos(Signal &sig, const Symbol *pSymbol)
 {
 	ChannelPos channelPos = SymbolToChannelPos(pSymbol);
 	if (channelPos == CHANNELPOS_Invalid) {
-		sig.SetError(ERR_ValueError, "specify `first or `last for channel positioning",
+		sig.SetError(ERR_ValueError, "specify `none, `first or `last for channel positioning",
 					 pSymbol->GetName());
 	}
 	return channelPos;

@@ -75,9 +75,12 @@ Gura_DeclareFunctionAlias(filter_at_conv1d, "filter@conv1d")
 		"\n"
 		"The `array` is an `array` instance that has one of the following shapes:\n"
 		"\n"
-		"- `[size]`\n"
-		"- `[channel_num, size]`\n"
-		"- `[filter_num, channel_num, size]`\n"
+		"- `[size]` .. 1-dimension\n"
+		"- `[size, channel_num]` .. 2-dimensions and `channel_pos` is `` `last``\n"
+		"- `[channel_num, size]` .. 2-dimensions and `channel_pos` is `` `first``\n"
+		"- `[filter_num, size]` .. 2-dimensions and `channel_pos` is `` `none``\n"
+		"- `[filter_num, size, channel_num]` .. 3-dimensions and `channel_pos` is `` `last``\n"
+		"- `[filter_num, channel_num, size]` .. 3-dimensions and `channel_pos` is `` `first``\n"
 		"\n"
 		"where `size` is the size of the filter's kernel,\n"
 		"`channel_num` is the number of channels and `filter_num` is the number of filters.\n"
@@ -115,7 +118,10 @@ Gura_ImplementFunction(filter_at_conv1d)
 		if (channelPos == Array::CHANNELPOS_Invalid) {
 			return Value::Nil;
 		} else if (channelPos == Array::CHANNELPOS_None) {
-			if (nDims != 1) channelPos = Array::CHANNELPOS_First;
+			if (nDims == 3) {
+				env.SetError(ERR_ValueError, "channel dimension does exist in the array");
+				return Value::Nil;
+			}
 		} else if (channelPos == Array::CHANNELPOS_Last) {
 			if (nDims == 1) {
 				env.SetError(ERR_ValueError, "channel dimension is expected to exist at last");
