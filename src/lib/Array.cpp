@@ -367,7 +367,7 @@ bool Array::CheckDimsFilterForCalcConv(Signal &sig, const Dimensions &dimsFilter
 		}
 		iDimBack++;
 	}
-	if (iDimBack < dimsFilter.size()) {
+	if (channelPos == CHANNELPOS_First && iDimBack < dimsFilter.size()) {
 		if (iDimBack >= dims.size()) goto error_done;
 		if (dims.GetBack(iDimBack).GetSize() != dimsFilter.GetBack(iDimBack).GetSize()) goto error_done;
 	}

@@ -1716,7 +1716,7 @@ void ArrayT<T_Elem>::ExpandKernelVec1d(
 		ScanKernel1d(
 			const_cast<ArrayT *>(this), dims.GetBack(1), 0,
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
-	} else {
+	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
 		if (dims.size() < 1) return;
 		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		ScanKernel1d(
@@ -1739,7 +1739,7 @@ void ArrayT<T_Elem>::ExpandKernelVec2d(
 			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), 0,
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
-	} else {
+	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
 		if (dims.size() < 2) return;
 		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		ScanKernel2d(
@@ -1765,7 +1765,7 @@ void ArrayT<T_Elem>::ExpandKernelVec3d(
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
-	} else {
+	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
 		if (dims.size() < 2) return;
 		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		ScanKernel3d(
@@ -1795,7 +1795,7 @@ void ArrayT<T_Elem>::RestoreKernelVec1d(
 		ScanKernel1d(
 			dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get()), dims.GetBack(1), 0,
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
-	} else {
+	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
 		if (dimsSrc.size() < 2) return;
 		pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 2, size);
 		pArrayRtn->AllocMemory();
@@ -1830,7 +1830,7 @@ void ArrayT<T_Elem>::RestoreKernelVec2d(
 			dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get()), dims.GetBack(2), dims.GetBack(1), 0,
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
-	} else {
+	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
 		if (dimsSrc.size() < 2) return;
 		pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 2, sizeRow, sizeCol);
 		pArrayRtn->AllocMemory();
@@ -1868,7 +1868,7 @@ void ArrayT<T_Elem>::RestoreKernelVec3d(
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
-	} else {
+	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
 		if (dimsSrc.size() < 2) return;
 		pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 2,
 								 sizePlane, sizeRow, sizeCol);
@@ -1897,7 +1897,7 @@ void ArrayT<T_Elem>::CalcMaxPool1d(
 		ScanKernel1d(
 			const_cast<ArrayT *>(this), dims.GetBack(1), 0,
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
-	} else {
+	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
 		if (dims.size() < 1) return;
 		KernelScanner_CalcMaxPool<T_Elem> kernelScanner(pArrayRtn, this);
 		ScanKernel1d(
@@ -1920,7 +1920,7 @@ void ArrayT<T_Elem>::CalcMaxPool2d(
 			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), 0,
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
-	} else {
+	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
 		if (dims.size() < 2) return;
 		KernelScanner_CalcMaxPool<T_Elem> kernelScanner(pArrayRtn, this);
 		ScanKernel2d(
@@ -1945,7 +1945,7 @@ void ArrayT<T_Elem>::CalcMaxPool3d(
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
-	} else {
+	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
 		if (dims.size() < 3) return;
 		KernelScanner_CalcMaxPool<T_Elem> kernelScanner(pArrayRtn, this);
 		ScanKernel3d(
@@ -1982,7 +1982,7 @@ void ArrayT<T_Elem>::CalcConv1d(
 				sizeKernel, stridesKernel, sizePad, kernelScanner);
 			offsetFilter += stridesFilter;
 		}
-	} else {
+	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
 		if (dims.size() < 1) return;
 		size_t offsetFilter = 0;
 		size_t sizeKernel = dimsFilter.GetBack(0).GetSize();
@@ -2029,7 +2029,7 @@ void ArrayT<T_Elem>::CalcConv2d(
 				sizePadRow, sizePadCol, kernelScanner);
 			offsetFilter += stridesFilter;
 		}
-	} else {
+	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
 		if (dims.size() < 2) return;
 		size_t offsetFilter = 0;
 		size_t sizeKernelRow = dimsFilter.GetBack(1).GetSize();
