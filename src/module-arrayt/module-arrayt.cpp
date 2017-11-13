@@ -17,7 +17,7 @@ Gura_ModuleEntry()
 {
 	AssignCreators(env);
 	AssignOperators(env);
-	AssignFilters(env);
+	AssignGears(env);
 	return true;
 }
 

@@ -127,7 +127,7 @@ bool Trainer::NodeHead::EvalForward(Environment &env)
 			_pArrayFwd.reset(ArrayT<Complex>::CreateScalar(value.GetComplex()));
 		} else if (value.Is_array()) {
 			_pArrayFwd.reset(Object_array::GetObject(value)->GetArray()->Reference());
-		} else if (value.Is_filter()) {
+		} else if (value.Is_gear()) {
 		
 		} else {
 			env.SetError(ERR_ValueError, "variable must be an array");
@@ -402,160 +402,160 @@ bool Trainer::NodeBinary_Dot::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeFilter
+// Trainer::NodeGear
 //-----------------------------------------------------------------------------
-String Trainer::NodeFilter::ToString() const
+String Trainer::NodeGear::ToString() const
 {
 	String str;
 	char buff[128];
-	str += "Filter:";
-	str += _pFilter->ToString();
+	str += "Gear:";
+	str += _pGear->ToString();
 	::sprintf(buff, " [fwd:%p,bwd:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
 	str += buff;
 	return str;
 }
 
-void Trainer::NodeFilter::Print(int indentLevel) const
+void Trainer::NodeGear::Print(int indentLevel) const
 {
 	Node::Print(indentLevel);
 	_connectorSrc.GetNodeSrc()->Print(indentLevel + 1);
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeFilter_Conv1d
+// Trainer::NodeGear_Conv1d
 //-----------------------------------------------------------------------------
-bool Trainer::NodeFilter_Conv1d::IsVulnerable() const
+bool Trainer::NodeGear_Conv1d::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
 }
 
-bool Trainer::NodeFilter_Conv1d::EvalForward(Environment &env)
+bool Trainer::NodeGear_Conv1d::EvalForward(Environment &env)
 {
-	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
-bool Trainer::NodeFilter_Conv1d::EvalBackward(Environment &env)
+bool Trainer::NodeGear_Conv1d::EvalBackward(Environment &env)
 {
 	return false;
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeFilter_Conv2d
+// Trainer::NodeGear_Conv2d
 //-----------------------------------------------------------------------------
-bool Trainer::NodeFilter_Conv2d::IsVulnerable() const
+bool Trainer::NodeGear_Conv2d::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
 }
 
-bool Trainer::NodeFilter_Conv2d::EvalForward(Environment &env)
+bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 {
-	Filter_Conv2d *pFilter = GetFilter();
+	Gear_Conv2d *pGear = GetGear();
 	size_t _sizePadRow = 0;
 	size_t _sizePadCol = 0;
 	AutoPtr<Array> _pArraySrcVec;
-	AutoPtr<Array> _pArrayFilterTrans;
+	AutoPtr<Array> _pArrayGearTrans;
 	const Double padNum = 0;
 	const Array *pArraySrc = GetConnectorSrc()->GetArrayFwd();
-	const Array *pArrayFilter = pFilter->GetArrayFilter();
+	const Array *pArrayGear = pGear->GetArrayGear();
 	if (_pArraySrcVec.IsNull()) {
-		Filter::CalcPadding2d(pFilter, pArraySrc->GetDimensions(), &_sizePadRow, &_sizePadCol);
+		Gear::CalcPadding2d(pGear, pArraySrc->GetDimensions(), &_sizePadRow, &_sizePadCol);
 	}
 	// pArraySrc            .. [N, C, H, W] or [N, H, W, C]
-	// pArrayFilter         .. [FN, C, FH, FW] or [FN, FH, FW, C]
-	// _pArrayFilterReshape .. [FN, C * FH * FW]
+	// pArrayGear         .. [FN, C, FH, FW] or [FN, FH, FW, C]
+	// _pArrayGearReshape .. [FN, C * FH * FW]
 	// _pArraySrcVec        .. [N, H_out, W_out, C * FH * FW]
-	// _pArrayFilterTrans   .. [C * FH * FW, FN]
+	// _pArrayGearTrans   .. [C * FH * FW, FN]
 	// _pArrayFwd           .. [N, H_out, W_out, FN]
 	pArraySrc->ExpandKernelVec2d(
-		_pArraySrcVec, pFilter->GetSizeRow(), pFilter->GetSizeCol(),
-		pFilter->GetStridesRow(), pFilter->GetStridesCol(), _sizePadRow, _sizePadCol,
-		pFilter->GetChannelPos(), padNum);
-	pArrayFilter->Transpose2d(_pArrayFilterTrans);
+		_pArraySrcVec, pGear->GetSizeRow(), pGear->GetSizeCol(),
+		pGear->GetStridesRow(), pGear->GetStridesCol(), _sizePadRow, _sizePadCol,
+		pGear->GetChannelPos(), padNum);
+	pArrayGear->Transpose2d(_pArrayGearTrans);
 	if (!Array::ApplyBinaryFunc(
 			env, Array::binaryFuncPack_Dot, _pArrayFwd,
-			_pArraySrcVec.get(), _pArrayFilterTrans.get())) return false;
+			_pArraySrcVec.get(), _pArrayGearTrans.get())) return false;
 	return true;
 }
 
-bool Trainer::NodeFilter_Conv2d::EvalBackward(Environment &env)
+bool Trainer::NodeGear_Conv2d::EvalBackward(Environment &env)
 {
 	return false;
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeFilter_Conv3d
+// Trainer::NodeGear_Conv3d
 //-----------------------------------------------------------------------------
-bool Trainer::NodeFilter_Conv3d::IsVulnerable() const
+bool Trainer::NodeGear_Conv3d::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
 }
 
-bool Trainer::NodeFilter_Conv3d::EvalForward(Environment &env)
+bool Trainer::NodeGear_Conv3d::EvalForward(Environment &env)
 {
-	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
-bool Trainer::NodeFilter_Conv3d::EvalBackward(Environment &env)
+bool Trainer::NodeGear_Conv3d::EvalBackward(Environment &env)
 {
 	return false;
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeFilter_MaxPool1d
+// Trainer::NodeGear_MaxPool1d
 //-----------------------------------------------------------------------------
-bool Trainer::NodeFilter_MaxPool1d::IsVulnerable() const
+bool Trainer::NodeGear_MaxPool1d::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
 }
 
-bool Trainer::NodeFilter_MaxPool1d::EvalForward(Environment &env)
+bool Trainer::NodeGear_MaxPool1d::EvalForward(Environment &env)
 {
-	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
-bool Trainer::NodeFilter_MaxPool1d::EvalBackward(Environment &env)
+bool Trainer::NodeGear_MaxPool1d::EvalBackward(Environment &env)
 {
 	return false;
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeFilter_MaxPool2d
+// Trainer::NodeGear_MaxPool2d
 //-----------------------------------------------------------------------------
-bool Trainer::NodeFilter_MaxPool2d::IsVulnerable() const
+bool Trainer::NodeGear_MaxPool2d::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
 }
 
-bool Trainer::NodeFilter_MaxPool2d::EvalForward(Environment &env)
+bool Trainer::NodeGear_MaxPool2d::EvalForward(Environment &env)
 {
-	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
-bool Trainer::NodeFilter_MaxPool2d::EvalBackward(Environment &env)
+bool Trainer::NodeGear_MaxPool2d::EvalBackward(Environment &env)
 {
 	return false;
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeFilter_MaxPool3d
+// Trainer::NodeGear_MaxPool3d
 //-----------------------------------------------------------------------------
-bool Trainer::NodeFilter_MaxPool3d::IsVulnerable() const
+bool Trainer::NodeGear_MaxPool3d::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
 }
 
-bool Trainer::NodeFilter_MaxPool3d::EvalForward(Environment &env)
+bool Trainer::NodeGear_MaxPool3d::EvalForward(Environment &env)
 {
-	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
-bool Trainer::NodeFilter_MaxPool3d::EvalBackward(Environment &env)
+bool Trainer::NodeGear_MaxPool3d::EvalBackward(Environment &env)
 {
 	return false;
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeFilter_Relu
+// Trainer::NodeGear_Relu
 //-----------------------------------------------------------------------------
 typedef void (*PairFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtnA, AutoPtr<Array> &pArrayRtnB, const Array *pArray);
 
@@ -566,12 +566,12 @@ void FuncRelu(T_ElemRtn &elemRtn, Boolean &elemBool, const T_Elem &elem)
 	elemRtn = elemBool? elem : 0;
 }
 
-bool Trainer::NodeFilter_Relu::IsVulnerable() const
+bool Trainer::NodeGear_Relu::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
 }
 
-bool Trainer::NodeFilter_Relu::EvalForward(Environment &env)
+bool Trainer::NodeGear_Relu::EvalForward(Environment &env)
 {
 	static const PairFuncT funcs[Array::ETYPE_Max] = {
 		nullptr,
@@ -600,7 +600,7 @@ bool Trainer::NodeFilter_Relu::EvalForward(Environment &env)
 	return env.IsNoSignalled();
 }
 
-bool Trainer::NodeFilter_Relu::EvalBackward(Environment &env)
+bool Trainer::NodeGear_Relu::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
@@ -613,19 +613,19 @@ bool Trainer::NodeFilter_Relu::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeFilter_Sigmoid
+// Trainer::NodeGear_Sigmoid
 //-----------------------------------------------------------------------------
-bool Trainer::NodeFilter_Sigmoid::IsVulnerable() const
+bool Trainer::NodeGear_Sigmoid::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
 }
 
-bool Trainer::NodeFilter_Sigmoid::EvalForward(Environment &env)
+bool Trainer::NodeGear_Sigmoid::EvalForward(Environment &env)
 {
-	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
-bool Trainer::NodeFilter_Sigmoid::EvalBackward(Environment &env)
+bool Trainer::NodeGear_Sigmoid::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
@@ -648,19 +648,19 @@ bool Trainer::NodeFilter_Sigmoid::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeFilter_Softmax
+// Trainer::NodeGear_Softmax
 //-----------------------------------------------------------------------------
-bool Trainer::NodeFilter_Softmax::IsVulnerable() const
+bool Trainer::NodeGear_Softmax::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
 }
 
-bool Trainer::NodeFilter_Softmax::EvalForward(Environment &env)
+bool Trainer::NodeGear_Softmax::EvalForward(Environment &env)
 {
-	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
-bool Trainer::NodeFilter_Softmax::EvalBackward(Environment &env)
+bool Trainer::NodeGear_Softmax::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	_connectorSrc.SetArrayBwd((*ppConnectorDst)->GetArrayBwd()->Reference());
@@ -668,19 +668,19 @@ bool Trainer::NodeFilter_Softmax::EvalBackward(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeFilter_Tanh
+// Trainer::NodeGear_Tanh
 //-----------------------------------------------------------------------------
-bool Trainer::NodeFilter_Tanh::IsVulnerable() const
+bool Trainer::NodeGear_Tanh::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
 }
 
-bool Trainer::NodeFilter_Tanh::EvalForward(Environment &env)
+bool Trainer::NodeGear_Tanh::EvalForward(Environment &env)
 {
-	return _pFilter->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
-bool Trainer::NodeFilter_Tanh::EvalBackward(Environment &env)
+bool Trainer::NodeGear_Tanh::EvalBackward(Environment &env)
 {
 	return false;
 }
@@ -730,8 +730,8 @@ bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 		return CreateNodeUnary(env, pExprEx, pConnector, symbolsInput);
 	} else if (pExpr->IsType(EXPRTYPE_BinaryOp)) {
 		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExpr);
-		return pExprEx->GetOperator()->IsOpType(OPTYPE_Filter)?
-			CreateNodeFilter(env, pExprEx, pConnector, symbolsInput) :
+		return pExprEx->GetOperator()->IsOpType(OPTYPE_Gear)?
+			CreateNodeGear(env, pExprEx, pConnector, symbolsInput) :
 			CreateNodeBinary(env, pExprEx, pConnector, symbolsInput);
 	}
 	Node::Trait trait = Node::TRAIT_Variable;
@@ -792,39 +792,39 @@ bool Trainer::NodeOwner::CreateNodeBinary(Environment &env, const Expr_BinaryOp 
 		CreateFromExpr(env, pExprEx->GetRight(), pConnectorSrcRight, symbolsInput);
 }
 
-bool Trainer::NodeOwner::CreateNodeFilter(Environment &env, const Expr_BinaryOp *pExprEx,
+bool Trainer::NodeOwner::CreateNodeGear(Environment &env, const Expr_BinaryOp *pExprEx,
 										  Node::Connector *pConnector, const SymbolSet &symbolsInput)
 {
 	Value value = pExprEx->GetRight()->Exec(env);
 	if (env.IsSignalled()) return false;
-	AutoPtr<NodeFilter> pNode;
-	if (!value.IsInstanceOf(VTYPE_filter)) {
-		env.SetError(ERR_ValueError, "filter instance is expected as a right-side operand of a filter operator");
+	AutoPtr<NodeGear> pNode;
+	if (!value.IsInstanceOf(VTYPE_gear)) {
+		env.SetError(ERR_ValueError, "gear instance is expected as a right-side operand of a gear operator");
 		return false;
 	}
-	const Filter *pFilter = Object_filter::GetObject(value)->GetFilter();
-	if (value.Is_filter_at_conv1d()) {
-		pNode.reset(new NodeFilter_Conv1d(dynamic_cast<Filter_Conv1d *>(pFilter->Reference()), pConnector));
-	} else if (value.Is_filter_at_conv2d()) {
-		pNode.reset(new NodeFilter_Conv2d(dynamic_cast<Filter_Conv2d *>(pFilter->Reference()), pConnector));
-	} else if (value.Is_filter_at_conv3d()) {
-		pNode.reset(new NodeFilter_Conv3d(dynamic_cast<Filter_Conv3d *>(pFilter->Reference()), pConnector));
-	} else if (value.Is_filter_at_maxpool1d()) {
-		pNode.reset(new NodeFilter_MaxPool1d(dynamic_cast<Filter_MaxPool1d *>(pFilter->Reference()), pConnector));
-	} else if (value.Is_filter_at_maxpool2d()) {
-		pNode.reset(new NodeFilter_MaxPool2d(dynamic_cast<Filter_MaxPool2d *>(pFilter->Reference()), pConnector));
-	} else if (value.Is_filter_at_maxpool3d()) {
-		pNode.reset(new NodeFilter_MaxPool3d(dynamic_cast<Filter_MaxPool3d *>(pFilter->Reference()), pConnector));
-	} else if (value.Is_filter_at_relu()) {
-		pNode.reset(new NodeFilter_Relu(dynamic_cast<Filter_Relu *>(pFilter->Reference()), pConnector));
-	} else if (value.Is_filter_at_sigmoid()) {
-		pNode.reset(new NodeFilter_Sigmoid(dynamic_cast<Filter_Sigmoid *>(pFilter->Reference()), pConnector));
-	} else if (value.Is_filter_at_softmax()) {
-		pNode.reset(new NodeFilter_Softmax(dynamic_cast<Filter_Softmax *>(pFilter->Reference()), pConnector));
-	} else if (value.Is_filter_at_tanh()) {
-		pNode.reset(new NodeFilter_Tanh(dynamic_cast<Filter_Tanh *>(pFilter->Reference()), pConnector));
+	const Gear *pGear = Object_gear::GetObject(value)->GetGear();
+	if (value.Is_gear_at_conv1d()) {
+		pNode.reset(new NodeGear_Conv1d(dynamic_cast<Gear_Conv1d *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_conv2d()) {
+		pNode.reset(new NodeGear_Conv2d(dynamic_cast<Gear_Conv2d *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_conv3d()) {
+		pNode.reset(new NodeGear_Conv3d(dynamic_cast<Gear_Conv3d *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_maxpool1d()) {
+		pNode.reset(new NodeGear_MaxPool1d(dynamic_cast<Gear_MaxPool1d *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_maxpool2d()) {
+		pNode.reset(new NodeGear_MaxPool2d(dynamic_cast<Gear_MaxPool2d *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_maxpool3d()) {
+		pNode.reset(new NodeGear_MaxPool3d(dynamic_cast<Gear_MaxPool3d *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_relu()) {
+		pNode.reset(new NodeGear_Relu(dynamic_cast<Gear_Relu *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_sigmoid()) {
+		pNode.reset(new NodeGear_Sigmoid(dynamic_cast<Gear_Sigmoid *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_softmax()) {
+		pNode.reset(new NodeGear_Softmax(dynamic_cast<Gear_Softmax *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_tanh()) {
+		pNode.reset(new NodeGear_Tanh(dynamic_cast<Gear_Tanh *>(pGear->Reference()), pConnector));
 	} else {
-		env.SetError(ERR_ValueError, "unsupported filter type: %s", value.MakeValueTypeName().c_str());
+		env.SetError(ERR_ValueError, "unsupported gear type: %s", value.MakeValueTypeName().c_str());
 		return false;
 	}
 	Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();

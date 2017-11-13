@@ -1,5 +1,5 @@
 //=============================================================================
-// Gura class: filter
+// Gura class: gear
 //=============================================================================
 #include "stdafx.h"
 
@@ -9,13 +9,13 @@ static const char *helpDoc_en = R"**(
 )**";
 
 //-----------------------------------------------------------------------------
-// Filter
+// Gear
 //-----------------------------------------------------------------------------
-Filter::~Filter()
+Gear::~Gear()
 {
 }
 
-void Filter::CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
+void Gear::CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
 						 size_t *pSizeOut, size_t *pSizePad)
 {
 	size_t sizeOut = 0, sizePad = 0;
@@ -56,7 +56,7 @@ void Filter::CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, Paddi
 	*pSizePad = sizePad;
 }
 
-void Filter::CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
+void Gear::CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
 						 size_t *pSizeOut, size_t *pSizePadHead, size_t *pSizePadTail)
 {
 	size_t sizePad = 0;
@@ -65,7 +65,7 @@ void Filter::CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, Paddi
 	*pSizePadTail = sizePad - *pSizePadHead;
 }
 
-Filter::PaddingType Filter::SymbolToPaddingType(Signal &sig, const Symbol *pSymbol)
+Gear::PaddingType Gear::SymbolToPaddingType(Signal &sig, const Symbol *pSymbol)
 {
 	PaddingType paddingType = SymbolToPaddingType(pSymbol);
 	if (paddingType == PADDINGTYPE_Invalid) {
@@ -75,7 +75,7 @@ Filter::PaddingType Filter::SymbolToPaddingType(Signal &sig, const Symbol *pSymb
 	return paddingType;
 }
 
-Filter::PaddingType Filter::SymbolToPaddingType(const Symbol *pSymbol)
+Gear::PaddingType Gear::SymbolToPaddingType(const Symbol *pSymbol)
 {
 	return
 		pSymbol->IsIdentical(Gura_Symbol(valid))? PADDINGTYPE_Valid :
@@ -83,7 +83,7 @@ Filter::PaddingType Filter::SymbolToPaddingType(const Symbol *pSymbol)
 		PADDINGTYPE_Invalid;
 }
 
-const Symbol *Filter::PaddingTypeToSymbol(PaddingType paddingType)
+const Symbol *Gear::PaddingTypeToSymbol(PaddingType paddingType)
 {
 	return
 		(paddingType == PADDINGTYPE_Valid)? Gura_Symbol(valid) :
@@ -92,23 +92,23 @@ const Symbol *Filter::PaddingTypeToSymbol(PaddingType paddingType)
 }
 
 //-----------------------------------------------------------------------------
-// Object_filter
+// Object_gear
 //-----------------------------------------------------------------------------
-Object_filter::Object_filter(Environment &env, Filter *pFilter) :
-	Object(env.LookupClass(VTYPE_filter)), _pFilter(pFilter)
+Object_gear::Object_gear(Environment &env, Gear *pGear) :
+	Object(env.LookupClass(VTYPE_gear)), _pGear(pGear)
 {
 }
 
-Object_filter::Object_filter(Class *pClass, Filter *pFilter) :
-	Object(pClass), _pFilter(pFilter)
+Object_gear::Object_gear(Class *pClass, Gear *pGear) :
+	Object(pClass), _pGear(pGear)
 {
 }
 
-String Object_filter::ToString(bool exprFlag)
+String Object_gear::ToString(bool exprFlag)
 {
 	String str;
-	str += "<filter@";
-	str += _pFilter->ToString();
+	str += "<gear@";
+	str += _pGear->ToString();
 	str += ">";
 	return str;
 }
@@ -116,8 +116,8 @@ String Object_filter::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter.calcpadding(size_in:number, size_kernel:number, strides:number, padding:symbol)
-Gura_DeclareClassMethod(filter, calcpadding)
+// gear.calcpadding(size_in:number, size_kernel:number, strides:number, padding:symbol)
+Gura_DeclareClassMethod(gear, calcpadding)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "size_in", VTYPE_number);
@@ -126,41 +126,41 @@ Gura_DeclareClassMethod(filter, calcpadding)
 	DeclareArg(env, "padding", VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		"Calculates padding amounts from given input size, filter size and strides.\n"
+		"Calculates padding amounts from given input size, gear size and strides.\n"
 		"The argument `padding` specifies padding manner and can take `` `same`` or `` `valid``.\n"
 		"The returned value is a list of `[size_out, padding]`.");
 }
 
-Gura_ImplementClassMethod(filter, calcpadding)
+Gura_ImplementClassMethod(gear, calcpadding)
 {
 	size_t sizeIn = arg.GetSizeT(0);
 	size_t sizeKernel = arg.GetSizeT(1);
 	size_t strides = arg.GetSizeT(2);
-	Filter::PaddingType paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(3));
-	if (paddingType == Filter::PADDINGTYPE_Invalid) return Value::Nil;
+	Gear::PaddingType paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(3));
+	if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
 	size_t sizeOut = 0, sizePad = 0;
-	Filter::CalcPadding(sizeIn, sizeKernel, strides, paddingType, &sizeOut, &sizePad);
+	Gear::CalcPadding(sizeIn, sizeKernel, strides, paddingType, &sizeOut, &sizePad);
 	return Value::CreateList(env, Value(sizeOut), Value(sizePad));
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_filter::Class_filter(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_filter)
+Class_gear::Class_gear(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_gear)
 {
 }
 
-void Class_filter::DoPrepare(Environment &env)
+void Class_gear::DoPrepare(Environment &env)
 {
 	// Assignment of methods
-	Gura_AssignMethod(filter, calcpadding);
+	Gura_AssignMethod(gear, calcpadding);
 	// Assignment of value
-	Gura_AssignValue(filter, Value(this));
+	Gura_AssignValue(gear, Value(this));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-Object *Class_filter::CreateDescendant(Environment &env, Class *pClass)
+Object *Class_gear::CreateDescendant(Environment &env, Class *pClass)
 {
 	return nullptr;
 }

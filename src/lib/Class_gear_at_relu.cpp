@@ -1,5 +1,5 @@
 //=============================================================================
-// Gura class: filter@relu
+// Gura class: gear@relu
 //=============================================================================
 #include "stdafx.h"
 
@@ -9,37 +9,37 @@ static const char *helpDoc_en = R"**(
 )**";
 
 //-----------------------------------------------------------------------------
-// Filter_Relu
+// Gear_Relu
 //-----------------------------------------------------------------------------
-Filter_Relu::FilterFuncTable Filter_Relu::filterFuncTable = {{nullptr}};
+Gear_Relu::GearFuncTable Gear_Relu::gearFuncTable = {{nullptr}};
 
-bool Filter_Relu::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
+bool Gear_Relu::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
-	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
-	if (filterFunc == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply ReLU filter on array@%s",
+	GearFuncT gearFunc = gearFuncTable.funcs[pArray->GetElemType()];
+	if (gearFunc == nullptr) {
+		sig.SetError(ERR_TypeError, "can't apply ReLU gear on array@%s",
 					 pArray->GetElemTypeName());
 		return nullptr;
 	}
-	return (*filterFunc)(sig, pArrayRtn, pArray, this);
+	return (*gearFunc)(sig, pArrayRtn, pArray, this);
 }
 
-String Filter_Relu::ToString() const
+String Gear_Relu::ToString() const
 {
 	return "relu";
 }
 
 //-----------------------------------------------------------------------------
-// Object_filter_at_relu
+// Object_gear_at_relu
 //-----------------------------------------------------------------------------
-Value Object_filter_at_relu::valueConst;
+Value Object_gear_at_relu::valueConst;
 
-Object_filter_at_relu::Object_filter_at_relu(Environment &env, Filter_Relu *pFilter) :
-	Object_filter(env.LookupClass(VTYPE_filter_at_relu), pFilter)
+Object_gear_at_relu::Object_gear_at_relu(Environment &env, Gear_Relu *pGear) :
+	Object_gear(env.LookupClass(VTYPE_gear_at_relu), pGear)
 {
 }
 
-Object *Object_filter_at_relu::Clone() const
+Object *Object_gear_at_relu::Clone() const
 {
 	return nullptr;
 }
@@ -47,41 +47,41 @@ Object *Object_filter_at_relu::Clone() const
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter@relu() {block?}
-Gura_DeclareFunctionAlias(filter_at_relu, "filter@relu")
+// gear@relu() {block?}
+Gura_DeclareFunctionAlias(gear_at_relu, "gear@relu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_relu));
+	SetClassToConstruct(env.LookupClass(VTYPE_gear_at_relu));
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates a `filter@relu` instance.\n");
+		"Creates a `gear@relu` instance.\n");
 }
 
-Gura_ImplementFunction(filter_at_relu)
+Gura_ImplementFunction(gear_at_relu)
 {
-	return ReturnValue(env, arg, Object_filter_at_relu::valueConst);
+	return ReturnValue(env, arg, Object_gear_at_relu::valueConst);
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_filter_at_relu::Class_filter_at_relu(Environment *pEnvOuter) :
-	ClassFundamental(pEnvOuter, VTYPE_filter_at_relu)
+Class_gear_at_relu::Class_gear_at_relu(Environment *pEnvOuter) :
+	ClassFundamental(pEnvOuter, VTYPE_gear_at_relu)
 {
 }
 
-void Class_filter_at_relu::DoPrepare(Environment &env)
+void Class_gear_at_relu::DoPrepare(Environment &env)
 {
 	// Assignment of function
-	Gura_AssignFunction(filter_at_relu);
+	Gura_AssignFunction(gear_at_relu);
 	// Assignment of value
-	Object_filter_at_relu::valueConst = Value(new Object_filter_at_relu(env, new Filter_Relu()));
+	Object_gear_at_relu::valueConst = Value(new Object_gear_at_relu(env, new Gear_Relu()));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-Object *Class_filter_at_relu::CreateDescendant(Environment &env, Class *pClass)
+Object *Class_gear_at_relu::CreateDescendant(Environment &env, Class *pClass)
 {
 	return nullptr;
 }

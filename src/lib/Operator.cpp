@@ -31,7 +31,7 @@ const Operator::SymbolInfo Operator::_symbolInfoTbl[] = {
 	{ "%%",			"ModMod"			},
 	{ "|.|",		"Dot"				},
 	{ "|^|",		"Cross"				},
-	{ "|*|",		"Filter"			},
+	{ "|*|",		"Gear"				},
 	{ "|+|",		"Concat"			},
 	{ "|-|",		"Difference"		},
 	{ "|&|",		"Intersection"		},
@@ -107,7 +107,7 @@ Operator *Operator::Mod				= nullptr;
 Operator *Operator::ModMod			= nullptr;
 Operator *Operator::Dot				= nullptr;
 Operator *Operator::Cross			= nullptr;
-Operator *Operator::Filter			= nullptr;
+Operator *Operator::Gear			= nullptr;
 Operator *Operator::Concat			= nullptr;
 Operator *Operator::Difference		= nullptr;
 Operator *Operator::Intersection	= nullptr;
@@ -1195,7 +1195,7 @@ Value Operator_ModMod::ExecBinary(Environment &env, const Expr *pExprLeft, const
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// Operator_Filter
+// Operator_Gear
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -1572,7 +1572,7 @@ void Operator::Bootup(Environment &env)
 	env.SetOperator(OPTYPE_ModMod,			Operator::ModMod			= new Operator_ModMod());
 	env.SetOperator(OPTYPE_Dot,				Operator::Dot				= new Operator_Dot());
 	env.SetOperator(OPTYPE_Cross,			Operator::Cross				= new Operator_Cross());
-	env.SetOperator(OPTYPE_Filter,			Operator::Filter			= new Operator_Filter());
+	env.SetOperator(OPTYPE_Gear,			Operator::Gear				= new Operator_Gear());
 	env.SetOperator(OPTYPE_Concat,			Operator::Concat			= new Operator_Concat());
 	env.SetOperator(OPTYPE_Difference,		Operator::Difference		= new Operator_Difference());	
 	env.SetOperator(OPTYPE_Intersection,	Operator::Intersection		= new Operator_Intersection());

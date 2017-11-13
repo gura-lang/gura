@@ -102,17 +102,17 @@ GURA_DLLDECLARE extern ValueType VTYPE_token;
 GURA_DLLDECLARE extern ValueType VTYPE_trainer;
 GURA_DLLDECLARE extern ValueType VTYPE_uri;
 GURA_DLLDECLARE extern ValueType VTYPE_vertex;
-GURA_DLLDECLARE extern ValueType VTYPE_filter;
-GURA_DLLDECLARE extern ValueType VTYPE_filter_at_conv1d;
-GURA_DLLDECLARE extern ValueType VTYPE_filter_at_conv2d;
-GURA_DLLDECLARE extern ValueType VTYPE_filter_at_conv3d;
-GURA_DLLDECLARE extern ValueType VTYPE_filter_at_maxpool1d;
-GURA_DLLDECLARE extern ValueType VTYPE_filter_at_maxpool2d;
-GURA_DLLDECLARE extern ValueType VTYPE_filter_at_maxpool3d;
-GURA_DLLDECLARE extern ValueType VTYPE_filter_at_relu;
-GURA_DLLDECLARE extern ValueType VTYPE_filter_at_sigmoid;
-GURA_DLLDECLARE extern ValueType VTYPE_filter_at_softmax;
-GURA_DLLDECLARE extern ValueType VTYPE_filter_at_tanh;
+GURA_DLLDECLARE extern ValueType VTYPE_gear;
+GURA_DLLDECLARE extern ValueType VTYPE_gear_at_conv1d;
+GURA_DLLDECLARE extern ValueType VTYPE_gear_at_conv2d;
+GURA_DLLDECLARE extern ValueType VTYPE_gear_at_conv3d;
+GURA_DLLDECLARE extern ValueType VTYPE_gear_at_maxpool1d;
+GURA_DLLDECLARE extern ValueType VTYPE_gear_at_maxpool2d;
+GURA_DLLDECLARE extern ValueType VTYPE_gear_at_maxpool3d;
+GURA_DLLDECLARE extern ValueType VTYPE_gear_at_relu;
+GURA_DLLDECLARE extern ValueType VTYPE_gear_at_sigmoid;
+GURA_DLLDECLARE extern ValueType VTYPE_gear_at_softmax;
+GURA_DLLDECLARE extern ValueType VTYPE_gear_at_tanh;
 
 //-----------------------------------------------------------------------------
 // ValueTypeInfo
@@ -226,17 +226,17 @@ public:
 	Gura_DeclareVTYPE(trainer);
 	Gura_DeclareVTYPE(uri);
 	Gura_DeclareVTYPE(vertex);
-	Gura_DeclareVTYPE(filter);
-	Gura_DeclareVTYPE(filter_at_conv1d);
-	Gura_DeclareVTYPE(filter_at_conv2d);
-	Gura_DeclareVTYPE(filter_at_conv3d);
-	Gura_DeclareVTYPE(filter_at_maxpool1d);
-	Gura_DeclareVTYPE(filter_at_maxpool2d);
-	Gura_DeclareVTYPE(filter_at_maxpool3d);
-	Gura_DeclareVTYPE(filter_at_relu);
-	Gura_DeclareVTYPE(filter_at_sigmoid);
-	Gura_DeclareVTYPE(filter_at_softmax);
-	Gura_DeclareVTYPE(filter_at_tanh);
+	Gura_DeclareVTYPE(gear);
+	Gura_DeclareVTYPE(gear_at_conv1d);
+	Gura_DeclareVTYPE(gear_at_conv2d);
+	Gura_DeclareVTYPE(gear_at_conv3d);
+	Gura_DeclareVTYPE(gear_at_maxpool1d);
+	Gura_DeclareVTYPE(gear_at_maxpool2d);
+	Gura_DeclareVTYPE(gear_at_maxpool3d);
+	Gura_DeclareVTYPE(gear_at_relu);
+	Gura_DeclareVTYPE(gear_at_sigmoid);
+	Gura_DeclareVTYPE(gear_at_softmax);
+	Gura_DeclareVTYPE(gear_at_tanh);
 private:
 	static ValueTypePool *_pInst;
 	ValueTypeList _valueTypeList;

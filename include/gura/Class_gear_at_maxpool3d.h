@@ -1,17 +1,17 @@
 //=============================================================================
-// Gura class: filter@maxpool3d
+// Gura class: gear@maxpool3d
 //=============================================================================
-#ifndef __GURA_CLASS_FILTER_AT_MAXPOOL3D_H__
-#define __GURA_CLASS_FILTER_AT_MAXPOOL3D_H__
+#ifndef __GURA_CLASS_GEAR_AT_MAXPOOL3D_H__
+#define __GURA_CLASS_GEAR_AT_MAXPOOL3D_H__
 
 #include "Class_gear.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Filter_MaxPool3d
+// Gear_MaxPool3d
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Filter_MaxPool3d : public Filter {
+class GURA_DLLDECLARE Gear_MaxPool3d : public Gear {
 private:
 	size_t _sizePlane;
 	size_t _sizeRow;
@@ -22,7 +22,7 @@ private:
 	PaddingType _paddingType;
 	Array::ChannelPos _channelPos;
 public:
-	inline Filter_MaxPool3d(size_t sizePlane, size_t sizeRow, size_t sizeCol,
+	inline Gear_MaxPool3d(size_t sizePlane, size_t sizeRow, size_t sizeCol,
 							size_t stridesPlane, size_t stridesRow, size_t stridesCol,
 							PaddingType paddingType, Array::ChannelPos channelPos) :
 		_sizePlane(sizePlane), _sizeRow(sizeRow), _sizeCol(sizeCol),
@@ -42,26 +42,26 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class_filter_at_maxpool3d
+// Class_gear_at_maxpool3d
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_filter_at_maxpool3d : public ClassFundamental {
+class GURA_DLLDECLARE Class_gear_at_maxpool3d : public ClassFundamental {
 public:
-	Class_filter_at_maxpool3d(Environment *pEnvOuter);
+	Class_gear_at_maxpool3d(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
-// Object_filter_at_maxpool3d
+// Object_gear_at_maxpool3d
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Object_filter_at_maxpool3d : public Object_filter {
+class GURA_DLLDECLARE Object_gear_at_maxpool3d : public Object_gear {
 public:
-	Gura_DeclareObjectAccessor(filter_at_maxpool3d)
+	Gura_DeclareObjectAccessor(gear_at_maxpool3d)
 public:
-	Object_filter_at_maxpool3d(Environment &env, Filter_MaxPool3d *pFilter);
+	Object_gear_at_maxpool3d(Environment &env, Gear_MaxPool3d *pGear);
 	virtual Object *Clone() const;
-	inline Filter_MaxPool3d *GetFilter() { return dynamic_cast<Filter_MaxPool3d *>(_pFilter.get()); }
-	inline const Filter_MaxPool3d *GetFilter() const { return dynamic_cast<const Filter_MaxPool3d *>(_pFilter.get()); }
+	inline Gear_MaxPool3d *GetGear() { return dynamic_cast<Gear_MaxPool3d *>(_pGear.get()); }
+	inline const Gear_MaxPool3d *GetGear() const { return dynamic_cast<const Gear_MaxPool3d *>(_pGear.get()); }
 };
 
 }

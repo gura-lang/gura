@@ -1,55 +1,55 @@
 //=============================================================================
-// Gura class: filter@sigmoid
+// Gura class: gear@sigmoid
 //=============================================================================
-#ifndef __GURA_CLASS_FILTER_AT_SIGMOID_H__
-#define __GURA_CLASS_FILTER_AT_SIGMOID_H__
+#ifndef __GURA_CLASS_GEAR_AT_SIGMOID_H__
+#define __GURA_CLASS_GEAR_AT_SIGMOID_H__
 
 #include "Class_gear.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Filter_Sigmoid
+// Gear_Sigmoid
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Filter_Sigmoid : public Filter {
+class GURA_DLLDECLARE Gear_Sigmoid : public Gear {
 public:
-	typedef bool (*FilterFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn,
-								const Array *pArray, const Filter_Sigmoid *pFilter);
-	struct FilterFuncTable {
-		FilterFuncT funcs[Array::ETYPE_Max];
+	typedef bool (*GearFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn,
+								const Array *pArray, const Gear_Sigmoid *pGear);
+	struct GearFuncTable {
+		GearFuncT funcs[Array::ETYPE_Max];
 	};
 public:
-	static FilterFuncTable filterFuncTable;
+	static GearFuncTable gearFuncTable;
 public:
-	inline Filter_Sigmoid() {}
+	inline Gear_Sigmoid() {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;
 };
 
 //-----------------------------------------------------------------------------
-// Class_filter_at_sigmoid
+// Class_gear_at_sigmoid
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_filter_at_sigmoid : public ClassFundamental {
+class GURA_DLLDECLARE Class_gear_at_sigmoid : public ClassFundamental {
 public:
-	Class_filter_at_sigmoid(Environment *pEnvOuter);
+	Class_gear_at_sigmoid(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
-// Object_filter_at_sigmoid
+// Object_gear_at_sigmoid
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Object_filter_at_sigmoid : public Object_filter {
+class GURA_DLLDECLARE Object_gear_at_sigmoid : public Object_gear {
 public:
 	static Value valueConst;
 public:
-	Gura_DeclareObjectAccessor(filter_at_sigmoid)
+	Gura_DeclareObjectAccessor(gear_at_sigmoid)
 public:
-	Object_filter_at_sigmoid(Environment &env, Filter_Sigmoid *pFilter);
+	Object_gear_at_sigmoid(Environment &env, Gear_Sigmoid *pGear);
 	virtual Object *Clone() const;
-	inline Filter_Sigmoid *GetFilter() { return dynamic_cast<Filter_Sigmoid *>(_pFilter.get()); }
-	inline const Filter_Sigmoid *GetFilter() const { return dynamic_cast<const Filter_Sigmoid *>(_pFilter.get()); }
+	inline Gear_Sigmoid *GetGear() { return dynamic_cast<Gear_Sigmoid *>(_pGear.get()); }
+	inline const Gear_Sigmoid *GetGear() const { return dynamic_cast<const Gear_Sigmoid *>(_pGear.get()); }
 };
 
 }

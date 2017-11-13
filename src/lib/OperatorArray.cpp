@@ -245,12 +245,12 @@ Gura_ImplementBinaryOperator(Dot, complex, array)
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// [A |*| B] ... BinaryOperator(Filter, A, B)
+// [A |*| B] ... BinaryOperator(Gear, A, B)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Filter, array, filter)
+Gura_ImplementBinaryOperator(Gear, array, gear)
 {
 	AutoPtr<Array> pArrayRtn;
-	if (!Object_filter::GetObject(valueRight)->GetFilter()->Apply(
+	if (!Object_gear::GetObject(valueRight)->GetGear()->Apply(
 			env, pArrayRtn,
 			Object_array::GetObject(valueLeft)->GetArray())) return Value::Nil;
 	return Array::ToValue(env, pArrayRtn.release());
@@ -889,7 +889,7 @@ void Operator::AssignOperatorArray(Environment &env)
 	Gura_AssignBinaryOperator(Dot, number, array);
 	Gura_AssignBinaryOperator(Dot, array, complex);
 	Gura_AssignBinaryOperator(Dot, complex, array);
-	Gura_AssignBinaryOperator(Filter, array, filter);
+	Gura_AssignBinaryOperator(Gear, array, gear);
 	Gura_AssignBinaryOperator(Pow, array, array);
 	Gura_AssignBinaryOperator(Pow, array, number);
 	Gura_AssignBinaryOperator(Pow, number, array);

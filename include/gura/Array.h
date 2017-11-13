@@ -369,28 +369,28 @@ public:
 		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
-	bool CheckDimsFilterForCalcConv(Signal &sig, const Dimensions &dimsFilter,
+	bool CheckDimsGearForCalcConv(Signal &sig, const Dimensions &dimsGear,
 									size_t nDimsKernel, ChannelPos channelPos) const;
 	virtual void CalcConv1d(
-		AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter, size_t stridesKernel,
+		AutoPtr<Array> &pArrayRtn, const Array *pArrayGear, size_t stridesKernel,
 		size_t sizePad, ChannelPos channelPos) const = 0;
 	virtual void CalcConv2d(
-		AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
+		AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
 		size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
 	virtual void CalcConv3d(
-		AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
+		AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
 	bool CalcConv1d(
-		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter, size_t stridesKernel,
+		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear, size_t stridesKernel,
 		size_t sizePad, ChannelPos channelPos) const;
 	bool CalcConv2d(
-		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
+		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
 		size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
 	bool CalcConv3d(
-		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
+		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const = 0;

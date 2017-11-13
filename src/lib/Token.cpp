@@ -56,7 +56,7 @@ const TokenInfo TOKEN_Mod =				{ 15, "Mod",			"%",	OPTYPE_Mod	};
 const TokenInfo TOKEN_ModMod =			{ 15, "ModMod",			"%%",	OPTYPE_ModMod };
 const TokenInfo TOKEN_Dot =				{ 15, "Dot",			"|.|",	OPTYPE_Dot	};
 const TokenInfo TOKEN_Cross =			{ 15, "Cross",			"|^|",	OPTYPE_Cross };
-const TokenInfo TOKEN_Filter =			{ 15, "Filter",			"|*|",	OPTYPE_Filter };
+const TokenInfo TOKEN_Gear =			{ 15, "Gear",			"|*|",	OPTYPE_Gear };
 const TokenInfo TOKEN_Concat =			{  3, "Concat",			"|+|",	OPTYPE_Concat };
 const TokenInfo TOKEN_Difference =		{  3, "Difference",		"|-|",	OPTYPE_Difference };
 const TokenInfo TOKEN_Intersection =	{  3, "Intersection",	"|&|",	OPTYPE_Intersection };
@@ -180,7 +180,7 @@ void Token::Bootup()
 		&TOKEN_ModMod,
 		&TOKEN_Dot,
 		&TOKEN_Cross,
-		&TOKEN_Filter,
+		&TOKEN_Gear,
 		&TOKEN_Concat,
 		&TOKEN_Difference,
 		&TOKEN_Intersection,

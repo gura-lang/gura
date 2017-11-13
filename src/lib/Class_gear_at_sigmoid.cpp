@@ -1,5 +1,5 @@
 //=============================================================================
-// Gura class: filter@sigmoid
+// Gura class: gear@sigmoid
 //=============================================================================
 #include "stdafx.h"
 
@@ -9,37 +9,37 @@ static const char *helpDoc_en = R"**(
 )**";
 
 //-----------------------------------------------------------------------------
-// Filter_Sigmoid
+// Gear_Sigmoid
 //-----------------------------------------------------------------------------
-Filter_Sigmoid::FilterFuncTable Filter_Sigmoid::filterFuncTable = {{nullptr}};
+Gear_Sigmoid::GearFuncTable Gear_Sigmoid::gearFuncTable = {{nullptr}};
 
-bool Filter_Sigmoid::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
+bool Gear_Sigmoid::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
-	FilterFuncT filterFunc = filterFuncTable.funcs[pArray->GetElemType()];
-	if (filterFunc == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply sigmoid filter on array@%s",
+	GearFuncT gearFunc = gearFuncTable.funcs[pArray->GetElemType()];
+	if (gearFunc == nullptr) {
+		sig.SetError(ERR_TypeError, "can't apply sigmoid gear on array@%s",
 					 pArray->GetElemTypeName());
 		return nullptr;
 	}
-	return (*filterFunc)(sig, pArrayRtn, pArray, this);
+	return (*gearFunc)(sig, pArrayRtn, pArray, this);
 }
 
-String Filter_Sigmoid::ToString() const
+String Gear_Sigmoid::ToString() const
 {
 	return "sigmoid";
 }
 
 //-----------------------------------------------------------------------------
-// Object_filter_at_sigmoid
+// Object_gear_at_sigmoid
 //-----------------------------------------------------------------------------
-Value Object_filter_at_sigmoid::valueConst;
+Value Object_gear_at_sigmoid::valueConst;
 
-Object_filter_at_sigmoid::Object_filter_at_sigmoid(Environment &env, Filter_Sigmoid *pFilter) :
-	Object_filter(env.LookupClass(VTYPE_filter_at_sigmoid), pFilter)
+Object_gear_at_sigmoid::Object_gear_at_sigmoid(Environment &env, Gear_Sigmoid *pGear) :
+	Object_gear(env.LookupClass(VTYPE_gear_at_sigmoid), pGear)
 {
 }
 
-Object *Object_filter_at_sigmoid::Clone() const
+Object *Object_gear_at_sigmoid::Clone() const
 {
 	return nullptr;
 }
@@ -47,41 +47,41 @@ Object *Object_filter_at_sigmoid::Clone() const
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter@sigmoid() {block?}
-Gura_DeclareFunctionAlias(filter_at_sigmoid, "filter@sigmoid")
+// gear@sigmoid() {block?}
+Gura_DeclareFunctionAlias(gear_at_sigmoid, "gear@sigmoid")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_sigmoid));
+	SetClassToConstruct(env.LookupClass(VTYPE_gear_at_sigmoid));
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates a `filter@sigmoid` instance.\n");
+		"Creates a `gear@sigmoid` instance.\n");
 }
 
-Gura_ImplementFunction(filter_at_sigmoid)
+Gura_ImplementFunction(gear_at_sigmoid)
 {
-	return ReturnValue(env, arg, Object_filter_at_sigmoid::valueConst);
+	return ReturnValue(env, arg, Object_gear_at_sigmoid::valueConst);
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_filter_at_sigmoid::Class_filter_at_sigmoid(Environment *pEnvOuter) :
-	ClassFundamental(pEnvOuter, VTYPE_filter_at_sigmoid)
+Class_gear_at_sigmoid::Class_gear_at_sigmoid(Environment *pEnvOuter) :
+	ClassFundamental(pEnvOuter, VTYPE_gear_at_sigmoid)
 {
 }
 
-void Class_filter_at_sigmoid::DoPrepare(Environment &env)
+void Class_gear_at_sigmoid::DoPrepare(Environment &env)
 {
 	// Assignment of function
-	Gura_AssignFunction(filter_at_sigmoid);
+	Gura_AssignFunction(gear_at_sigmoid);
 	// Assignment of value
-	Object_filter_at_sigmoid::valueConst = Value(new Object_filter_at_sigmoid(env, new Filter_Sigmoid()));
+	Object_gear_at_sigmoid::valueConst = Value(new Object_gear_at_sigmoid(env, new Gear_Sigmoid()));
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-Object *Class_filter_at_sigmoid::CreateDescendant(Environment &env, Class *pClass)
+Object *Class_gear_at_sigmoid::CreateDescendant(Environment &env, Class *pClass)
 {
 	return nullptr;
 }

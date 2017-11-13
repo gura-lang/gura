@@ -60,7 +60,7 @@ enum OpType {
 	OPTYPE_ModMod,
 	OPTYPE_Dot,
 	OPTYPE_Cross,
-	OPTYPE_Filter,
+	OPTYPE_Gear,
 	OPTYPE_Concat,
 	OPTYPE_Difference,
 	OPTYPE_Intersection,
@@ -476,7 +476,7 @@ public:
 	static Operator *ModMod;
 	static Operator *Dot;
 	static Operator *Cross;
-	static Operator *Filter;
+	static Operator *Gear;
 	static Operator *Concat;
 	static Operator *Difference;
 	static Operator *Intersection;
@@ -933,11 +933,11 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Operator_Filter
+// Operator_Gear
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Operator_Filter : public Operator {
+class GURA_DLLDECLARE Operator_Gear : public Operator {
 public:
-	inline Operator_Filter() : Operator(OPTYPE_Filter) {}
+	inline Operator_Gear() : Operator(OPTYPE_Gear) {}
 };
 
 //-----------------------------------------------------------------------------

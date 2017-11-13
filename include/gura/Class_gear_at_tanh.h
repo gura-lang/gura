@@ -1,55 +1,55 @@
 //=============================================================================
-// Gura class: filter@tanh
+// Gura class: gear@tanh
 //=============================================================================
-#ifndef __GURA_CLASS_FILTER_AT_TANH_H__
-#define __GURA_CLASS_FILTER_AT_TANH_H__
+#ifndef __GURA_CLASS_GEAR_AT_TANH_H__
+#define __GURA_CLASS_GEAR_AT_TANH_H__
 
 #include "Class_gear.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Filter_Tanh
+// Gear_Tanh
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Filter_Tanh : public Filter {
+class GURA_DLLDECLARE Gear_Tanh : public Gear {
 public:
-	typedef bool (*FilterFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn,
-								const Array *pArray, const Filter_Tanh *pFilter);
-	struct FilterFuncTable {
-		FilterFuncT funcs[Array::ETYPE_Max];
+	typedef bool (*GearFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn,
+								const Array *pArray, const Gear_Tanh *pGear);
+	struct GearFuncTable {
+		GearFuncT funcs[Array::ETYPE_Max];
 	};
 public:
-	static FilterFuncTable filterFuncTable;
+	static GearFuncTable gearFuncTable;
 public:
-	inline Filter_Tanh() {}
+	inline Gear_Tanh() {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;
 };
 
 //-----------------------------------------------------------------------------
-// Class_filter_at_tanh
+// Class_gear_at_tanh
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_filter_at_tanh : public ClassFundamental {
+class GURA_DLLDECLARE Class_gear_at_tanh : public ClassFundamental {
 public:
-	Class_filter_at_tanh(Environment *pEnvOuter);
+	Class_gear_at_tanh(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
-// Object_filter_at_tanh
+// Object_gear_at_tanh
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Object_filter_at_tanh : public Object_filter {
+class GURA_DLLDECLARE Object_gear_at_tanh : public Object_gear {
 public:
 	static Value valueConst;
 public:
-	Gura_DeclareObjectAccessor(filter_at_tanh)
+	Gura_DeclareObjectAccessor(gear_at_tanh)
 public:
-	Object_filter_at_tanh(Environment &env, Filter_Tanh *pFilter);
+	Object_gear_at_tanh(Environment &env, Gear_Tanh *pGear);
 	virtual Object *Clone() const;
-	inline Filter_Tanh *GetFilter() { return dynamic_cast<Filter_Tanh *>(_pFilter.get()); }
-	inline const Filter_Tanh *GetFilter() const { return dynamic_cast<const Filter_Tanh *>(_pFilter.get()); }
+	inline Gear_Tanh *GetGear() { return dynamic_cast<Gear_Tanh *>(_pGear.get()); }
+	inline const Gear_Tanh *GetGear() const { return dynamic_cast<const Gear_Tanh *>(_pGear.get()); }
 };
 
 }

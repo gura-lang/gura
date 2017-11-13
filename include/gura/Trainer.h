@@ -223,139 +223,139 @@ public:
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter
+	// NodeGear
 	//-------------------------------------------------------------------------
-	class NodeFilter : public Node {
+	class NodeGear : public Node {
 	protected:
-		AutoPtr<Filter> _pFilter;
+		AutoPtr<Gear> _pGear;
 		Connector _connectorSrc;
 	public:
-		inline NodeFilter(Filter *pFilter, Connector *pConnectorDst) :
-				Node(pConnectorDst), _pFilter(pFilter), _connectorSrc(this) {}
+		inline NodeGear(Gear *pGear, Connector *pConnectorDst) :
+				Node(pConnectorDst), _pGear(pGear), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 		virtual String ToString() const;
 		virtual void Print(int indentLevel) const;
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_Conv1d
+	// NodeGear_Conv1d
 	//-------------------------------------------------------------------------
-	class NodeFilter_Conv1d : public NodeFilter {
+	class NodeGear_Conv1d : public NodeGear {
 	public:
-		inline NodeFilter_Conv1d(Filter_Conv1d *pFilter, Connector *pConnectorDst) :
-				NodeFilter(pFilter, pConnectorDst) {}
-		inline Filter_Conv1d *GetFilter() { return dynamic_cast<Filter_Conv1d *>(_pFilter.get()); }
+		inline NodeGear_Conv1d(Gear_Conv1d *pGear, Connector *pConnectorDst) :
+				NodeGear(pGear, pConnectorDst) {}
+		inline Gear_Conv1d *GetGear() { return dynamic_cast<Gear_Conv1d *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_Conv2d
+	// NodeGear_Conv2d
 	//-------------------------------------------------------------------------
-	class NodeFilter_Conv2d : public NodeFilter {
+	class NodeGear_Conv2d : public NodeGear {
 	public:
-		inline NodeFilter_Conv2d(Filter_Conv2d *pFilter, Connector *pConnectorDst) :
-				NodeFilter(pFilter, pConnectorDst) {}
-		inline Filter_Conv2d *GetFilter() { return dynamic_cast<Filter_Conv2d *>(_pFilter.get()); }
+		inline NodeGear_Conv2d(Gear_Conv2d *pGear, Connector *pConnectorDst) :
+				NodeGear(pGear, pConnectorDst) {}
+		inline Gear_Conv2d *GetGear() { return dynamic_cast<Gear_Conv2d *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_Conv3d
+	// NodeGear_Conv3d
 	//-------------------------------------------------------------------------
-	class NodeFilter_Conv3d : public NodeFilter {
+	class NodeGear_Conv3d : public NodeGear {
 	public:
-		inline NodeFilter_Conv3d(Filter_Conv3d *pFilter, Connector *pConnectorDst) :
-				NodeFilter(pFilter, pConnectorDst) {}
-		inline Filter_Conv3d *GetFilter() { return dynamic_cast<Filter_Conv3d *>(_pFilter.get()); }
+		inline NodeGear_Conv3d(Gear_Conv3d *pGear, Connector *pConnectorDst) :
+				NodeGear(pGear, pConnectorDst) {}
+		inline Gear_Conv3d *GetGear() { return dynamic_cast<Gear_Conv3d *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_MaxPool1d
+	// NodeGear_MaxPool1d
 	//-------------------------------------------------------------------------
-	class NodeFilter_MaxPool1d : public NodeFilter {
+	class NodeGear_MaxPool1d : public NodeGear {
 	public:
-		inline NodeFilter_MaxPool1d(Filter_MaxPool1d *pFilter, Connector *pConnectorDst) :
-				NodeFilter(pFilter, pConnectorDst) {}
-		inline Filter_MaxPool1d *GetFilter() { return dynamic_cast<Filter_MaxPool1d *>(_pFilter.get()); }
+		inline NodeGear_MaxPool1d(Gear_MaxPool1d *pGear, Connector *pConnectorDst) :
+				NodeGear(pGear, pConnectorDst) {}
+		inline Gear_MaxPool1d *GetGear() { return dynamic_cast<Gear_MaxPool1d *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_MaxPool2d
+	// NodeGear_MaxPool2d
 	//-------------------------------------------------------------------------
-	class NodeFilter_MaxPool2d : public NodeFilter {
+	class NodeGear_MaxPool2d : public NodeGear {
 	public:
-		inline NodeFilter_MaxPool2d(Filter_MaxPool2d *pFilter, Connector *pConnectorDst) :
-				NodeFilter(pFilter, pConnectorDst) {}
-		inline Filter_MaxPool2d *GetFilter() { return dynamic_cast<Filter_MaxPool2d *>(_pFilter.get()); }
+		inline NodeGear_MaxPool2d(Gear_MaxPool2d *pGear, Connector *pConnectorDst) :
+				NodeGear(pGear, pConnectorDst) {}
+		inline Gear_MaxPool2d *GetGear() { return dynamic_cast<Gear_MaxPool2d *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_MaxPool3d
+	// NodeGear_MaxPool3d
 	//-------------------------------------------------------------------------
-	class NodeFilter_MaxPool3d : public NodeFilter {
+	class NodeGear_MaxPool3d : public NodeGear {
 	public:
-		inline NodeFilter_MaxPool3d(Filter_MaxPool3d *pFilter, Connector *pConnectorDst) :
-				NodeFilter(pFilter, pConnectorDst) {}
-		inline Filter_MaxPool3d *GetFilter() { return dynamic_cast<Filter_MaxPool3d *>(_pFilter.get()); }
+		inline NodeGear_MaxPool3d(Gear_MaxPool3d *pGear, Connector *pConnectorDst) :
+				NodeGear(pGear, pConnectorDst) {}
+		inline Gear_MaxPool3d *GetGear() { return dynamic_cast<Gear_MaxPool3d *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_Relu
+	// NodeGear_Relu
 	//-------------------------------------------------------------------------
-	class NodeFilter_Relu : public NodeFilter {
+	class NodeGear_Relu : public NodeGear {
 	private:
 		AutoPtr<Array> _pArrayBool;
 	public:
-		inline NodeFilter_Relu(Filter_Relu *pFilter, Connector *pConnectorDst) :
-				NodeFilter(pFilter, pConnectorDst) {}
-		inline Filter_Relu *GetFilter() { return dynamic_cast<Filter_Relu *>(_pFilter.get()); }
+		inline NodeGear_Relu(Gear_Relu *pGear, Connector *pConnectorDst) :
+				NodeGear(pGear, pConnectorDst) {}
+		inline Gear_Relu *GetGear() { return dynamic_cast<Gear_Relu *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_Sigmoid
+	// NodeGear_Sigmoid
 	//-------------------------------------------------------------------------
-	class NodeFilter_Sigmoid : public NodeFilter {
+	class NodeGear_Sigmoid : public NodeGear {
 	private:
 		AutoPtr<Array> _pArrayTmp;
 	public:
-		inline NodeFilter_Sigmoid(Filter_Sigmoid *pFilter, Connector *pConnectorDst) :
-				NodeFilter(pFilter, pConnectorDst) {}
-		inline Filter_Sigmoid *GetFilter() { return dynamic_cast<Filter_Sigmoid *>(_pFilter.get()); }
+		inline NodeGear_Sigmoid(Gear_Sigmoid *pGear, Connector *pConnectorDst) :
+				NodeGear(pGear, pConnectorDst) {}
+		inline Gear_Sigmoid *GetGear() { return dynamic_cast<Gear_Sigmoid *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_softmax
+	// NodeGear_softmax
 	//-------------------------------------------------------------------------
-	class NodeFilter_Softmax : public NodeFilter {
+	class NodeGear_Softmax : public NodeGear {
 	public:
-		inline NodeFilter_Softmax(Filter_Softmax *pFilter, Connector *pConnectorDst) :
-				NodeFilter(pFilter, pConnectorDst) {}
-		inline Filter_Softmax *GetFilter() { return dynamic_cast<Filter_Softmax *>(_pFilter.get()); }
+		inline NodeGear_Softmax(Gear_Softmax *pGear, Connector *pConnectorDst) :
+				NodeGear(pGear, pConnectorDst) {}
+		inline Gear_Softmax *GetGear() { return dynamic_cast<Gear_Softmax *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
-	// NodeFilter_tanh
+	// NodeGear_tanh
 	//-------------------------------------------------------------------------
-	class NodeFilter_Tanh : public NodeFilter {
+	class NodeGear_Tanh : public NodeGear {
 	public:
-		inline NodeFilter_Tanh(Filter_Tanh *pFilter, Connector *pConnectorDst) :
-				NodeFilter(pFilter, pConnectorDst) {}
-		inline Filter_Tanh *GetFilter() { return dynamic_cast<Filter_Tanh *>(_pFilter.get()); }
+		inline NodeGear_Tanh(Gear_Tanh *pGear, Connector *pConnectorDst) :
+				NodeGear(pGear, pConnectorDst) {}
+		inline Gear_Tanh *GetGear() { return dynamic_cast<Gear_Tanh *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
@@ -383,8 +383,8 @@ public:
 							 Node::Connector *pConnector, const SymbolSet &symbolsInput);
 		bool CreateNodeBinary(Environment &env, const Expr_BinaryOp *pExprEx,
 							  Node::Connector *pConnector, const SymbolSet &symbolsInput);
-		bool CreateNodeFilter(Environment &env, const Expr_BinaryOp *pExprEx,
-							  Node::Connector *pConnector, const SymbolSet &symbolsInput);
+		bool CreateNodeGear(Environment &env, const Expr_BinaryOp *pExprEx,
+							Node::Connector *pConnector, const SymbolSet &symbolsInput);
 	};
 private:
 	int _cntRef;

@@ -6,7 +6,7 @@
 #include <gura.h>
 #include "Creator.h"
 #include "Operator.h"
-#include "Filter.h"
+#include "Gear.h"
 
 #define DeclareFunctionTable1D(FuncT, funcTbl, FuncTmpl) \
 const static FuncT funcTbl[Array::ETYPE_Max] = { \

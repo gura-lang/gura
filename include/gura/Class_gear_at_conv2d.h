@@ -1,56 +1,56 @@
 //=============================================================================
-// Gura class: filter@conv2d
+// Gura class: gear@conv2d
 //=============================================================================
-#ifndef __GURA_CLASS_FILTER_AT_CONV2D_H__
-#define __GURA_CLASS_FILTER_AT_CONV2D_H__
+#ifndef __GURA_CLASS_GEAR_AT_CONV2D_H__
+#define __GURA_CLASS_GEAR_AT_CONV2D_H__
 
 #include "Class_gear.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Filter_Conv2d
+// Gear_Conv2d
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Filter_Conv2d : public Filter {
+class GURA_DLLDECLARE Gear_Conv2d : public Gear {
 public:
-	typedef bool (*FilterFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn,
-								const Array *pArray, const Filter_Conv2d *pFilter);
-	struct FilterFuncTable {
-		FilterFuncT funcs[Array::ETYPE_Max][Array::ETYPE_Max];
+	typedef bool (*GearFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn,
+								const Array *pArray, const Gear_Conv2d *pGear);
+	struct GearFuncTable {
+		GearFuncT funcs[Array::ETYPE_Max][Array::ETYPE_Max];
 	};
 public:
-	static FilterFuncTable filterFuncTable;
+	static GearFuncTable gearFuncTable;
 private:
-	AutoPtr<Array> _pArrayFilter;
+	AutoPtr<Array> _pArrayGear;
 	size_t _stridesRow;
 	size_t _stridesCol;
 	PaddingType _paddingType;
 	Array::ChannelPos _channelPos;
 public:
-	inline Filter_Conv2d(Array *pArrayFilter, size_t stridesRow, size_t stridesCol,
+	inline Gear_Conv2d(Array *pArrayGear, size_t stridesRow, size_t stridesCol,
 						 PaddingType paddingType, Array::ChannelPos channelPos) :
-		_pArrayFilter(pArrayFilter),
+		_pArrayGear(pArrayGear),
 		_stridesRow(stridesRow), _stridesCol(stridesCol),
 		_paddingType(paddingType), _channelPos(channelPos) {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;
 	inline bool IsChLast() const { return _channelPos == Array::CHANNELPOS_Last; }
-	inline Array *GetArrayFilter() { return _pArrayFilter.get(); }
-	inline const Array *GetArrayFilter() const { return _pArrayFilter.get(); }
-	inline bool HasChannelDim() const { return _pArrayFilter->GetDimensions().size() >= 3; }
-	inline bool HasFilterDim() const { return _pArrayFilter->GetDimensions().size() == 4; }
+	inline Array *GetArrayGear() { return _pArrayGear.get(); }
+	inline const Array *GetArrayGear() const { return _pArrayGear.get(); }
+	inline bool HasChannelDim() const { return _pArrayGear->GetDimensions().size() >= 3; }
+	inline bool HasGearDim() const { return _pArrayGear->GetDimensions().size() == 4; }
 	inline size_t GetSizeCol() const {
-		return _pArrayFilter->GetDimensions().GetBack(IsChLast()? 1 : 0).GetSize();
+		return _pArrayGear->GetDimensions().GetBack(IsChLast()? 1 : 0).GetSize();
 	}
 	inline size_t GetSizeRow() const {
-		return _pArrayFilter->GetDimensions().GetBack(IsChLast()? 2 : 1).GetSize();
+		return _pArrayGear->GetDimensions().GetBack(IsChLast()? 2 : 1).GetSize();
 	}
 	inline size_t GetChannelNum() const {
-		return HasChannelDim()? _pArrayFilter->GetDimensions().GetBack(IsChLast()? 0 : 2).GetSize() : 1;
+		return HasChannelDim()? _pArrayGear->GetDimensions().GetBack(IsChLast()? 0 : 2).GetSize() : 1;
 	}
-	inline size_t GetFilterNum() const {
-		return HasFilterDim()? _pArrayFilter->GetDimensions().GetBack(3).GetSize() : 1;
+	inline size_t GetGearNum() const {
+		return HasGearDim()? _pArrayGear->GetDimensions().GetBack(3).GetSize() : 1;
 	}
 	inline size_t GetStridesRow() const { return _stridesRow; }
 	inline size_t GetStridesCol() const { return _stridesCol; }
@@ -59,26 +59,26 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class_filter_at_conv2d
+// Class_gear_at_conv2d
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_filter_at_conv2d : public ClassFundamental {
+class GURA_DLLDECLARE Class_gear_at_conv2d : public ClassFundamental {
 public:
-	Class_filter_at_conv2d(Environment *pEnvOuter);
+	Class_gear_at_conv2d(Environment *pEnvOuter);
 	virtual void DoPrepare(Environment &env);
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
-// Object_filter_at_conv2d
+// Object_gear_at_conv2d
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Object_filter_at_conv2d : public Object_filter {
+class GURA_DLLDECLARE Object_gear_at_conv2d : public Object_gear {
 public:
-	Gura_DeclareObjectAccessor(filter_at_conv2d)
+	Gura_DeclareObjectAccessor(gear_at_conv2d)
 public:
-	Object_filter_at_conv2d(Environment &env, Filter_Conv2d *pFilter);
+	Object_gear_at_conv2d(Environment &env, Gear_Conv2d *pGear);
 	virtual Object *Clone() const;
-	inline Filter_Conv2d *GetFilter() { return dynamic_cast<Filter_Conv2d *>(_pFilter.get()); }
-	inline const Filter_Conv2d *GetFilter() const { return dynamic_cast<const Filter_Conv2d *>(_pFilter.get()); }
+	inline Gear_Conv2d *GetGear() { return dynamic_cast<Gear_Conv2d *>(_pGear.get()); }
+	inline const Gear_Conv2d *GetGear() const { return dynamic_cast<const Gear_Conv2d *>(_pGear.get()); }
 };
 
 }

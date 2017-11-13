@@ -345,21 +345,21 @@ bool Array::Paste(Signal &sig, size_t offset, const Array *pArraySrc)
 	return true;
 }
 
-bool Array::CheckDimsFilterForCalcConv(Signal &sig, const Dimensions &dimsFilter,
+bool Array::CheckDimsGearForCalcConv(Signal &sig, const Dimensions &dimsGear,
 									   size_t nDimsKernel, ChannelPos channelPos) const
 {
 	const Dimensions &dims = GetDimensions();
 	size_t iDimBack = 0;
 	if (channelPos == CHANNELPOS_Last) {
 		if (iDimBack >= dims.size()) goto error_done;
-		if (dims.GetBack(iDimBack).GetSize() != dimsFilter.GetBack(iDimBack).GetSize()) goto error_done;
+		if (dims.GetBack(iDimBack).GetSize() != dimsGear.GetBack(iDimBack).GetSize()) goto error_done;
 		iDimBack++;
 	}
 	for (size_t i = 0; i < nDimsKernel; i++) {
 		if (iDimBack >= dims.size()) goto error_done;
-		if (dims.GetBack(iDimBack).GetSize() < dimsFilter.GetBack(iDimBack).GetSize()) {
-			sig.SetError(ERR_ValueError, "target array (%s) is smaller than applied filter (%s) %s",
-						 dims.ToString().c_str(), dimsFilter.ToString().c_str(),
+		if (dims.GetBack(iDimBack).GetSize() < dimsGear.GetBack(iDimBack).GetSize()) {
+			sig.SetError(ERR_ValueError, "target array (%s) is smaller than applied gear (%s) %s",
+						 dims.ToString().c_str(), dimsGear.ToString().c_str(),
 						 (channelPos == CHANNELPOS_None)? "without channel" :
 						 (channelPos == CHANNELPOS_First)? "with channel at first" :
 						 (channelPos == CHANNELPOS_Last)? "with channel at last" : "");
@@ -367,14 +367,14 @@ bool Array::CheckDimsFilterForCalcConv(Signal &sig, const Dimensions &dimsFilter
 		}
 		iDimBack++;
 	}
-	if (channelPos == CHANNELPOS_First && iDimBack < dimsFilter.size()) {
+	if (channelPos == CHANNELPOS_First && iDimBack < dimsGear.size()) {
 		if (iDimBack >= dims.size()) goto error_done;
-		if (dims.GetBack(iDimBack).GetSize() != dimsFilter.GetBack(iDimBack).GetSize()) goto error_done;
+		if (dims.GetBack(iDimBack).GetSize() != dimsGear.GetBack(iDimBack).GetSize()) goto error_done;
 	}
 	return true;
 error_done:
-	sig.SetError(ERR_ValueError, "unmatched dimension between array (%s) and filter (%s) %s",
-				 dims.ToString().c_str(), dimsFilter.ToString().c_str(),
+	sig.SetError(ERR_ValueError, "unmatched dimension between array (%s) and gear (%s) %s",
+				 dims.ToString().c_str(), dimsGear.ToString().c_str(),
 				 (channelPos == CHANNELPOS_None)? "without channel" :
 				 (channelPos == CHANNELPOS_First)? "with channel at first" :
 				 (channelPos == CHANNELPOS_Last)? "with channel at last" : "");
@@ -382,31 +382,31 @@ error_done:
 }
 
 bool Array::CalcConv1d(
-	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter, size_t stridesKernel,
+	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear, size_t stridesKernel,
 	size_t sizePad, ChannelPos channelPos) const
 {
-	if (!CheckDimsFilterForCalcConv(sig, pArrayFilter->GetDimensions(), 1, channelPos)) return false;
-	CalcConv1d(pArrayRtn, pArrayFilter, stridesKernel, sizePad, channelPos);
+	if (!CheckDimsGearForCalcConv(sig, pArrayGear->GetDimensions(), 1, channelPos)) return false;
+	CalcConv1d(pArrayRtn, pArrayGear, stridesKernel, sizePad, channelPos);
 	return true;
 }
 
 bool Array::CalcConv2d(
-	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
+	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
 	size_t stridesKernelRow, size_t stridesKernelCol,
 	size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
 {
-	if (!CheckDimsFilterForCalcConv(sig, pArrayFilter->GetDimensions(), 2, channelPos)) return false;
-	CalcConv2d(pArrayRtn, pArrayFilter, stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol, channelPos);
+	if (!CheckDimsGearForCalcConv(sig, pArrayGear->GetDimensions(), 2, channelPos)) return false;
+	CalcConv2d(pArrayRtn, pArrayGear, stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol, channelPos);
 	return true;
 }
 
 bool Array::CalcConv3d(
-	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
+	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
 	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
 {
-	if (!CheckDimsFilterForCalcConv(sig, pArrayFilter->GetDimensions(), 3, channelPos)) return false;
-	CalcConv3d(sig, pArrayRtn, pArrayFilter, stridesKernelPlane, stridesKernelRow, stridesKernelCol,
+	if (!CheckDimsGearForCalcConv(sig, pArrayGear->GetDimensions(), 3, channelPos)) return false;
+	CalcConv3d(sig, pArrayRtn, pArrayGear, stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			   sizePadPlane, sizePadRow, sizePadCol, channelPos);
 	return true;
 }

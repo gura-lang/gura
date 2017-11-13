@@ -259,17 +259,17 @@ public:
 	inline bool Is_trainer() const				{ return IsType(VTYPE_trainer);					}
 	inline bool Is_uri() const					{ return IsType(VTYPE_uri);						}
 	inline bool Is_vertex() const				{ return IsType(VTYPE_vertex);					}
-	inline bool Is_filter() const				{ return IsType(VTYPE_filter);					}
-	inline bool Is_filter_at_conv1d() const		{ return IsType(VTYPE_filter_at_conv1d);		}
-	inline bool Is_filter_at_conv2d() const		{ return IsType(VTYPE_filter_at_conv2d);		}
-	inline bool Is_filter_at_conv3d() const		{ return IsType(VTYPE_filter_at_conv3d);		}
-	inline bool Is_filter_at_maxpool1d() const	{ return IsType(VTYPE_filter_at_maxpool1d);		}
-	inline bool Is_filter_at_maxpool2d() const	{ return IsType(VTYPE_filter_at_maxpool2d);		}
-	inline bool Is_filter_at_maxpool3d() const	{ return IsType(VTYPE_filter_at_maxpool3d);		}
-	inline bool Is_filter_at_relu() const		{ return IsType(VTYPE_filter_at_relu);			}
-	inline bool Is_filter_at_sigmoid() const	{ return IsType(VTYPE_filter_at_sigmoid);		}
-	inline bool Is_filter_at_softmax() const	{ return IsType(VTYPE_filter_at_softmax);		}
-	inline bool Is_filter_at_tanh() const		{ return IsType(VTYPE_filter_at_tanh);			}
+	inline bool Is_gear() const					{ return IsType(VTYPE_gear);					}
+	inline bool Is_gear_at_conv1d() const		{ return IsType(VTYPE_gear_at_conv1d);			}
+	inline bool Is_gear_at_conv2d() const		{ return IsType(VTYPE_gear_at_conv2d);			}
+	inline bool Is_gear_at_conv3d() const		{ return IsType(VTYPE_gear_at_conv3d);			}
+	inline bool Is_gear_at_maxpool1d() const	{ return IsType(VTYPE_gear_at_maxpool1d);		}
+	inline bool Is_gear_at_maxpool2d() const	{ return IsType(VTYPE_gear_at_maxpool2d);		}
+	inline bool Is_gear_at_maxpool3d() const	{ return IsType(VTYPE_gear_at_maxpool3d);		}
+	inline bool Is_gear_at_relu() const			{ return IsType(VTYPE_gear_at_relu);			}
+	inline bool Is_gear_at_sigmoid() const		{ return IsType(VTYPE_gear_at_sigmoid);			}
+	inline bool Is_gear_at_softmax() const		{ return IsType(VTYPE_gear_at_softmax);			}
+	inline bool Is_gear_at_tanh() const			{ return IsType(VTYPE_gear_at_tanh);			}
 	inline bool IsListOrIterator() const		{ return Is_list() || Is_iterator();			}
 	inline bool IsValidKey() const				{ return Is_number() || Is_string() || Is_symbol(); }
 	bool MustBe(Signal &sig, bool flag, const char *expected) const;
@@ -398,28 +398,28 @@ public:
 								{ return MustBe(sig, Is_uri(), 			"uri");				}
 	inline bool MustBe_vertex(Signal &sig) const
 								{ return MustBe(sig, Is_vertex(), 		"vertex");			}
-	inline bool MustBe_filter(Signal &sig) const
-								{ return MustBe(sig, Is_filter(), "filter");				}
-	inline bool MustBe_filter_at_conv1d(Signal &sig) const
-								{ return MustBe(sig, Is_filter_at_conv1d(), "filter@conv1d");	}
-	inline bool MustBe_filter_at_conv2d(Signal &sig) const
-								{ return MustBe(sig, Is_filter_at_conv2d(), "filter@conv2d");	}
-	inline bool MustBe_filter_at_conv3d(Signal &sig) const
-								{ return MustBe(sig, Is_filter_at_conv3d(), "filter@conv3d");	}
-	inline bool MustBe_filter_at_maxpool1d(Signal &sig) const
-								{ return MustBe(sig, Is_filter_at_maxpool1d(), "filter@maxpool1d");	}
-	inline bool MustBe_filter_at_maxpool2d(Signal &sig) const
-								{ return MustBe(sig, Is_filter_at_maxpool2d(), "filter@maxpool2d");	}
-	inline bool MustBe_filter_at_maxpool3d(Signal &sig) const
-								{ return MustBe(sig, Is_filter_at_maxpool3d(), "filter@maxpool3d");	}
-	inline bool MustBe_filter_at_relu(Signal &sig) const
-								{ return MustBe(sig, Is_filter_at_relu(), "filter@relu");		}
-	inline bool MustBe_filter_at_sigmoid(Signal &sig) const
-								{ return MustBe(sig, Is_filter_at_sigmoid(), "filter@sigmoid");	}
-	inline bool MustBe_filter_at_softmax(Signal &sig) const
-								{ return MustBe(sig, Is_filter_at_softmax(), "filter@softmax");	}
-	inline bool MustBe_filter_at_tanh(Signal &sig) const
-								{ return MustBe(sig, Is_filter_at_tanh(), "filter@tanh");		}
+	inline bool MustBe_gear(Signal &sig) const
+								{ return MustBe(sig, Is_gear(), 		"gear");			}
+	inline bool MustBe_gear_at_conv1d(Signal &sig) const
+								{ return MustBe(sig, Is_gear_at_conv1d(), "gear@conv1d");	}
+	inline bool MustBe_gear_at_conv2d(Signal &sig) const
+								{ return MustBe(sig, Is_gear_at_conv2d(), "gear@conv2d");	}
+	inline bool MustBe_gear_at_conv3d(Signal &sig) const
+								{ return MustBe(sig, Is_gear_at_conv3d(), "gear@conv3d");	}
+	inline bool MustBe_gear_at_maxpool1d(Signal &sig) const
+								{ return MustBe(sig, Is_gear_at_maxpool1d(), "gear@maxpool1d");	}
+	inline bool MustBe_gear_at_maxpool2d(Signal &sig) const
+								{ return MustBe(sig, Is_gear_at_maxpool2d(), "gear@maxpool2d");	}
+	inline bool MustBe_gear_at_maxpool3d(Signal &sig) const
+								{ return MustBe(sig, Is_gear_at_maxpool3d(), "gear@maxpool3d");	}
+	inline bool MustBe_gear_at_relu(Signal &sig) const
+								{ return MustBe(sig, Is_gear_at_relu(), "gear@relu");		}
+	inline bool MustBe_gear_at_sigmoid(Signal &sig) const
+								{ return MustBe(sig, Is_gear_at_sigmoid(), "gear@sigmoid");	}
+	inline bool MustBe_gear_at_softmax(Signal &sig) const
+								{ return MustBe(sig, Is_gear_at_softmax(), "gear@softmax");	}
+	inline bool MustBe_gear_at_tanh(Signal &sig) const
+								{ return MustBe(sig, Is_gear_at_tanh(), "gear@tanh");		}
 	// setter methods
 	inline void SetBoolean(bool flag) {
 		Gura_ReleaseValue(*this); _valType = VTYPE_boolean, _u.flag = flag;

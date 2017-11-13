@@ -1,5 +1,5 @@
 //=============================================================================
-// Gura class: filter@maxpool2d
+// Gura class: gear@maxpool2d
 //=============================================================================
 #include "stdafx.h"
 
@@ -9,18 +9,18 @@ static const char *helpDoc_en = R"**(
 )**";
 
 //-----------------------------------------------------------------------------
-// Filter_MaxPool2d
+// Gear_MaxPool2d
 //-----------------------------------------------------------------------------
-bool Filter_MaxPool2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
+bool Gear_MaxPool2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
 	size_t sizeOutRow = 0, sizePadRow = 0;
 	size_t sizeOutCol = 0, sizePadCol = 0;
 	bool chLastFlag = (GetChannelPos() == Array::CHANNELPOS_Last);
 	const Array::Dimensions &dims = pArray->GetDimensions();
-	Filter::CalcPadding(dims.GetBack(chLastFlag? 2 : 1).GetSize(),
+	Gear::CalcPadding(dims.GetBack(chLastFlag? 2 : 1).GetSize(),
 						GetSizeRow(), GetStridesRow(), GetPaddingType(),
 						&sizeOutRow, &sizePadRow);
-	Filter::CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
+	Gear::CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
 						GetSizeCol(), GetStridesCol(), GetPaddingType(),
 						&sizeOutCol, &sizePadCol);
 	pArray->CalcMaxPool2d(pArrayRtn, GetSizeRow(), GetSizeCol(), GetStridesRow(), GetStridesCol(),
@@ -28,7 +28,7 @@ bool Filter_MaxPool2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array
 	return true;
 }
 
-String Filter_MaxPool2d::ToString() const
+String Gear_MaxPool2d::ToString() const
 {
 	String str;
 	char buff[80];
@@ -45,14 +45,14 @@ String Filter_MaxPool2d::ToString() const
 }
 
 //-----------------------------------------------------------------------------
-// Object_filter_at_maxpool2d
+// Object_gear_at_maxpool2d
 //-----------------------------------------------------------------------------
-Object_filter_at_maxpool2d::Object_filter_at_maxpool2d(Environment &env, Filter_MaxPool2d *pFilter) :
-	Object_filter(env.LookupClass(VTYPE_filter_at_maxpool2d), pFilter)
+Object_gear_at_maxpool2d::Object_gear_at_maxpool2d(Environment &env, Gear_MaxPool2d *pGear) :
+	Object_gear(env.LookupClass(VTYPE_gear_at_maxpool2d), pGear)
 {
 }
 
-Object *Object_filter_at_maxpool2d::Clone() const
+Object *Object_gear_at_maxpool2d::Clone() const
 {
 	return nullptr;
 }
@@ -60,8 +60,8 @@ Object *Object_filter_at_maxpool2d::Clone() const
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter@maxpool2d(size[]:number, strides[]?:number, padding?:symbol, channel_pos?:symbol):map {block?}
-Gura_DeclareFunctionAlias(filter_at_maxpool2d, "filter@maxpool2d")
+// gear@maxpool2d(size[]:number, strides[]?:number, padding?:symbol, channel_pos?:symbol):map {block?}
+Gura_DeclareFunctionAlias(gear_at_maxpool2d, "gear@maxpool2d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
@@ -69,13 +69,13 @@ Gura_DeclareFunctionAlias(filter_at_maxpool2d, "filter@maxpool2d")
 	DeclareArg(env, "padding", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_maxpool2d));
+	SetClassToConstruct(env.LookupClass(VTYPE_gear_at_maxpool2d));
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates a `filter@maxpool2d` instance.\n");
+		"Creates a `gear@maxpool2d` instance.\n");
 }
 
-Gura_ImplementFunction(filter_at_maxpool2d)
+Gura_ImplementFunction(gear_at_maxpool2d)
 {
 	size_t sizeRow = 0;
 	size_t sizeCol = 0;
@@ -99,26 +99,26 @@ Gura_ImplementFunction(filter_at_maxpool2d)
 		stridesRow = valList[0].GetSizeT();
 		stridesCol = valList[1].GetSizeT();
 	}
-	Filter::PaddingType paddingType = Filter::PADDINGTYPE_Same;
+	Gear::PaddingType paddingType = Gear::PADDINGTYPE_Same;
 	if (arg.IsValid(2)) {
-		paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
-		if (paddingType == Filter::PADDINGTYPE_Invalid) return Value::Nil;
+		paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(2));
+		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
 	}
 	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
 		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
 	}
-	Object_filter_at_maxpool2d *pObj = new Object_filter_at_maxpool2d(
-		env, new Filter_MaxPool2d(sizeRow, sizeCol, stridesRow, stridesCol, paddingType, channelPos));
+	Object_gear_at_maxpool2d *pObj = new Object_gear_at_maxpool2d(
+		env, new Gear_MaxPool2d(sizeRow, sizeCol, stridesRow, stridesCol, paddingType, channelPos));
 	return ReturnValue(env, arg, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-// filter@maxpool2d#channel_pos
-Gura_DeclareProperty_R(filter_at_maxpool2d, channel_pos)
+// gear@maxpool2d#channel_pos
+Gura_DeclareProperty_R(gear_at_maxpool2d, channel_pos)
 {
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
@@ -126,14 +126,14 @@ Gura_DeclareProperty_R(filter_at_maxpool2d, channel_pos)
 		"");
 }
 
-Gura_ImplementPropertyGetter(filter_at_maxpool2d, channel_pos)
+Gura_ImplementPropertyGetter(gear_at_maxpool2d, channel_pos)
 {
-	const Filter_MaxPool2d *pFilter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
-	return Value(Array::ChannelPosToSymbol(pFilter->GetChannelPos()));
+	const Gear_MaxPool2d *pGear = Object_gear_at_maxpool2d::GetObject(valueThis)->GetGear();
+	return Value(Array::ChannelPosToSymbol(pGear->GetChannelPos()));
 }
 
-// filter@maxpool2d#padding
-Gura_DeclareProperty_R(filter_at_maxpool2d, padding)
+// gear@maxpool2d#padding
+Gura_DeclareProperty_R(gear_at_maxpool2d, padding)
 {
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
@@ -141,14 +141,14 @@ Gura_DeclareProperty_R(filter_at_maxpool2d, padding)
 		"");
 }
 
-Gura_ImplementPropertyGetter(filter_at_maxpool2d, padding)
+Gura_ImplementPropertyGetter(gear_at_maxpool2d, padding)
 {
-	const Filter_MaxPool2d *pFilter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
-	return Value(Filter::PaddingTypeToSymbol(pFilter->GetPaddingType()));
+	const Gear_MaxPool2d *pGear = Object_gear_at_maxpool2d::GetObject(valueThis)->GetGear();
+	return Value(Gear::PaddingTypeToSymbol(pGear->GetPaddingType()));
 }
 
-// filter@maxpool2d#size
-Gura_DeclareProperty_R(filter_at_maxpool2d, size)
+// gear@maxpool2d#size
+Gura_DeclareProperty_R(gear_at_maxpool2d, size)
 {
 	SetPropAttr(VTYPE_number, FLAG_ListVar);
 	AddHelp(
@@ -156,14 +156,14 @@ Gura_DeclareProperty_R(filter_at_maxpool2d, size)
 		"");
 }
 
-Gura_ImplementPropertyGetter(filter_at_maxpool2d, size)
+Gura_ImplementPropertyGetter(gear_at_maxpool2d, size)
 {
-	const Filter_MaxPool2d *pFilter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
-	return Value::CreateList(env, Value(pFilter->GetSizeRow()), Value(pFilter->GetSizeCol()));
+	const Gear_MaxPool2d *pGear = Object_gear_at_maxpool2d::GetObject(valueThis)->GetGear();
+	return Value::CreateList(env, Value(pGear->GetSizeRow()), Value(pGear->GetSizeCol()));
 }
 
-// filter@maxpool2d#strides
-Gura_DeclareProperty_R(filter_at_maxpool2d, strides)
+// gear@maxpool2d#strides
+Gura_DeclareProperty_R(gear_at_maxpool2d, strides)
 {
 	SetPropAttr(VTYPE_number, FLAG_ListVar);
 	AddHelp(
@@ -171,34 +171,34 @@ Gura_DeclareProperty_R(filter_at_maxpool2d, strides)
 		"");
 }
 
-Gura_ImplementPropertyGetter(filter_at_maxpool2d, strides)
+Gura_ImplementPropertyGetter(gear_at_maxpool2d, strides)
 {
-	const Filter_MaxPool2d *pFilter = Object_filter_at_maxpool2d::GetObject(valueThis)->GetFilter();
-	return Value::CreateList(env, Value(pFilter->GetStridesRow()), Value(pFilter->GetStridesCol()));
+	const Gear_MaxPool2d *pGear = Object_gear_at_maxpool2d::GetObject(valueThis)->GetGear();
+	return Value::CreateList(env, Value(pGear->GetStridesRow()), Value(pGear->GetStridesCol()));
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_filter_at_maxpool2d::Class_filter_at_maxpool2d(Environment *pEnvOuter) :
-	ClassFundamental(pEnvOuter, VTYPE_filter_at_maxpool2d)
+Class_gear_at_maxpool2d::Class_gear_at_maxpool2d(Environment *pEnvOuter) :
+	ClassFundamental(pEnvOuter, VTYPE_gear_at_maxpool2d)
 {
 }
 
-void Class_filter_at_maxpool2d::DoPrepare(Environment &env)
+void Class_gear_at_maxpool2d::DoPrepare(Environment &env)
 {
 	// Assignment of function
-	Gura_AssignFunction(filter_at_maxpool2d);
+	Gura_AssignFunction(gear_at_maxpool2d);
 	// Assignment of properties
-	Gura_AssignProperty(filter_at_maxpool2d, channel_pos);
-	Gura_AssignProperty(filter_at_maxpool2d, padding);
-	Gura_AssignProperty(filter_at_maxpool2d, size);
-	Gura_AssignProperty(filter_at_maxpool2d, strides);
+	Gura_AssignProperty(gear_at_maxpool2d, channel_pos);
+	Gura_AssignProperty(gear_at_maxpool2d, padding);
+	Gura_AssignProperty(gear_at_maxpool2d, size);
+	Gura_AssignProperty(gear_at_maxpool2d, strides);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-Object *Class_filter_at_maxpool2d::CreateDescendant(Environment &env, Class *pClass)
+Object *Class_gear_at_maxpool2d::CreateDescendant(Environment &env, Class *pClass)
 {
 	return nullptr;
 }

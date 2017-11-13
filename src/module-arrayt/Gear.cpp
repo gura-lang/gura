@@ -1,6 +1,6 @@
 //=============================================================================
-// Filter.cpp
-// Implementation of filter functions.
+// Gear.cpp
+// Implementation of gear functions.
 //=============================================================================
 #include "stdafx.h"
 
@@ -52,10 +52,10 @@ void PairFuncTmpl(Signal &sig, Array **ppArrayRtnA, Array **ppArrayRtnB, const A
 }
 
 //------------------------------------------------------------------------------
-// FilterFuncTmpl_Conv1d
+// GearFuncTmpl_Conv1d
 //------------------------------------------------------------------------------
-template<typename T_ElemRtn, typename T_Elem, typename T_ElemFilter>
-bool FilterFuncTmpl_Conv1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Conv1d *pFilter)
+template<typename T_ElemRtn, typename T_Elem, typename T_ElemGear>
+bool GearFuncTmpl_Conv1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Gear_Conv1d *pGear)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
@@ -64,10 +64,10 @@ bool FilterFuncTmpl_Conv1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *
 }
 
 //------------------------------------------------------------------------------
-// FilterFuncTmpl_Conv2d
+// GearFuncTmpl_Conv2d
 //------------------------------------------------------------------------------
-template<typename T_ElemRtn, typename T_Elem, typename T_ElemFilter>
-bool FilterFuncTmpl_Conv2d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Conv2d *pFilter)
+template<typename T_ElemRtn, typename T_Elem, typename T_ElemGear>
+bool GearFuncTmpl_Conv2d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Gear_Conv2d *pGear)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
@@ -76,10 +76,10 @@ bool FilterFuncTmpl_Conv2d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *
 }
 
 //------------------------------------------------------------------------------
-// FilterFuncTmpl_Conv3d
+// GearFuncTmpl_Conv3d
 //------------------------------------------------------------------------------
-template<typename T_ElemRtn, typename T_Elem, typename T_ElemFilter>
-bool FilterFuncTmpl_Conv3d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Conv3d *pFilter)
+template<typename T_ElemRtn, typename T_Elem, typename T_ElemGear>
+bool GearFuncTmpl_Conv3d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Gear_Conv3d *pGear)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
@@ -88,32 +88,32 @@ bool FilterFuncTmpl_Conv3d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *
 }
 
 //------------------------------------------------------------------------------
-// FilterFuncTmpl_Relu
+// GearFuncTmpl_Relu
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-bool FilterFuncTmpl_Relu(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Relu *pFilter)
+bool GearFuncTmpl_Relu(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Gear_Relu *pGear)
 {
 	return Array::ApplyUnaryFunc(sig, Array::unaryFuncPack_Math_relu, pArrayRtn, pArray);
 }
 
 //------------------------------------------------------------------------------
-// FilterFuncTmpl_Sigmoid
+// GearFuncTmpl_Sigmoid
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-bool FilterFuncTmpl_Sigmoid(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Sigmoid *pFilter)
+bool GearFuncTmpl_Sigmoid(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Gear_Sigmoid *pGear)
 {
 	return Array::ApplyUnaryFunc(sig, Array::unaryFuncPack_Math_sigmoid, pArrayRtn, pArray);
 }
 
 //------------------------------------------------------------------------------
-// FilterFuncTmpl_Softmax
+// GearFuncTmpl_Softmax
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-bool FilterFuncTmpl_Softmax(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Softmax *pFilter)
+bool GearFuncTmpl_Softmax(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Gear_Softmax *pGear)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
-	size_t axis = pFilter->GetAxis();
+	size_t axis = pGear->GetAxis();
 	if (axis > dims.size() - 1) axis = dims.size() - 1;
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
 	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_Elem>::Create(dims));
@@ -195,10 +195,10 @@ bool FilterFuncTmpl_Softmax(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array 
 }
 
 //------------------------------------------------------------------------------
-// FilterFuncTmpl_Tanh
+// GearFuncTmpl_Tanh
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-bool FilterFuncTmpl_Tanh(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Filter_Tanh *pFilter)
+bool GearFuncTmpl_Tanh(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Gear_Tanh *pGear)
 {
 	return Array::ApplyUnaryFunc(sig, Array::unaryFuncPack_Math_tanh, pArrayRtn, pArray);
 }
@@ -206,7 +206,7 @@ bool FilterFuncTmpl_Tanh(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pA
 //------------------------------------------------------------------------------
 // Function tables
 //------------------------------------------------------------------------------
-Filter_Conv1d::FilterFuncTable g_FilterFuncTable_Conv1d = {
+Gear_Conv1d::GearFuncTable g_GearFuncTable_Conv1d = {
 	{
 		{ // None |*| any
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
@@ -246,9 +246,9 @@ Filter_Conv1d::FilterFuncTable g_FilterFuncTable_Conv1d = {
 			nullptr,
 			nullptr,
 			nullptr,
-			&FilterFuncTmpl_Conv1d<Half,		Half,		Half	>,
-			&FilterFuncTmpl_Conv1d<Half,		Half,		Float	>,
-			&FilterFuncTmpl_Conv1d<Half,		Half,		Double	>,
+			&GearFuncTmpl_Conv1d<Half,		Half,		Half	>,
+			&GearFuncTmpl_Conv1d<Half,		Half,		Float	>,
+			&GearFuncTmpl_Conv1d<Half,		Half,		Double	>,
 			nullptr,
 			nullptr,
 		}, { // Float |*| any
@@ -262,9 +262,9 @@ Filter_Conv1d::FilterFuncTable g_FilterFuncTable_Conv1d = {
 			nullptr,
 			nullptr,
 			nullptr,
-			&FilterFuncTmpl_Conv1d<Float,		Float,		Half	>,
-			&FilterFuncTmpl_Conv1d<Float,		Float,		Float	>,
-			&FilterFuncTmpl_Conv1d<Float,		Float,		Double	>,
+			&GearFuncTmpl_Conv1d<Float,		Float,		Half	>,
+			&GearFuncTmpl_Conv1d<Float,		Float,		Float	>,
+			&GearFuncTmpl_Conv1d<Float,		Float,		Double	>,
 			nullptr,
 			nullptr,
 		}, { // Double |*| any
@@ -278,9 +278,9 @@ Filter_Conv1d::FilterFuncTable g_FilterFuncTable_Conv1d = {
 			nullptr,
 			nullptr,
 			nullptr,
-			&FilterFuncTmpl_Conv1d<Double,		Double,		Half	>,
-			&FilterFuncTmpl_Conv1d<Double,		Double,		Float	>,
-			&FilterFuncTmpl_Conv1d<Double,		Double,		Double	>,
+			&GearFuncTmpl_Conv1d<Double,		Double,		Half	>,
+			&GearFuncTmpl_Conv1d<Double,		Double,		Float	>,
+			&GearFuncTmpl_Conv1d<Double,		Double,		Double	>,
 			nullptr,
 			nullptr,
 		}, { // Complex |*| any
@@ -293,7 +293,7 @@ Filter_Conv1d::FilterFuncTable g_FilterFuncTable_Conv1d = {
 	}
 };
 
-Filter_Conv2d::FilterFuncTable g_FilterFuncTable_Conv2d = {
+Gear_Conv2d::GearFuncTable g_GearFuncTable_Conv2d = {
 	{
 		{ // None |*| any
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
@@ -333,9 +333,9 @@ Filter_Conv2d::FilterFuncTable g_FilterFuncTable_Conv2d = {
 			nullptr,
 			nullptr,
 			nullptr,
-			&FilterFuncTmpl_Conv2d<Half,		Half,		Half	>,
-			&FilterFuncTmpl_Conv2d<Half,		Half,		Float	>,
-			&FilterFuncTmpl_Conv2d<Half,		Half,		Double	>,
+			&GearFuncTmpl_Conv2d<Half,		Half,		Half	>,
+			&GearFuncTmpl_Conv2d<Half,		Half,		Float	>,
+			&GearFuncTmpl_Conv2d<Half,		Half,		Double	>,
 			nullptr,
 			nullptr,
 		}, { // Float |*| any
@@ -349,9 +349,9 @@ Filter_Conv2d::FilterFuncTable g_FilterFuncTable_Conv2d = {
 			nullptr,
 			nullptr,
 			nullptr,
-			&FilterFuncTmpl_Conv2d<Float,		Float,		Half	>,
-			&FilterFuncTmpl_Conv2d<Float,		Float,		Float	>,
-			&FilterFuncTmpl_Conv2d<Float,		Float,		Double	>,
+			&GearFuncTmpl_Conv2d<Float,		Float,		Half	>,
+			&GearFuncTmpl_Conv2d<Float,		Float,		Float	>,
+			&GearFuncTmpl_Conv2d<Float,		Float,		Double	>,
 			nullptr,
 			nullptr,
 		}, { // Double |*| any
@@ -365,9 +365,9 @@ Filter_Conv2d::FilterFuncTable g_FilterFuncTable_Conv2d = {
 			nullptr,
 			nullptr,
 			nullptr,
-			&FilterFuncTmpl_Conv2d<Double,		Double,		Half	>,
-			&FilterFuncTmpl_Conv2d<Double,		Double,		Float	>,
-			&FilterFuncTmpl_Conv2d<Double,		Double,		Double	>,
+			&GearFuncTmpl_Conv2d<Double,		Double,		Half	>,
+			&GearFuncTmpl_Conv2d<Double,		Double,		Float	>,
+			&GearFuncTmpl_Conv2d<Double,		Double,		Double	>,
 			nullptr,
 			nullptr,
 		}, { // Complex |*| any
@@ -380,7 +380,7 @@ Filter_Conv2d::FilterFuncTable g_FilterFuncTable_Conv2d = {
 	}
 };
 
-Filter_Conv3d::FilterFuncTable g_FilterFuncTable_Conv3d = {
+Gear_Conv3d::GearFuncTable g_GearFuncTable_Conv3d = {
 	{
 		{ // None |*| any
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
@@ -420,9 +420,9 @@ Filter_Conv3d::FilterFuncTable g_FilterFuncTable_Conv3d = {
 			nullptr,
 			nullptr,
 			nullptr,
-			&FilterFuncTmpl_Conv3d<Half,		Half,		Half	>,
-			&FilterFuncTmpl_Conv3d<Half,		Half,		Float	>,
-			&FilterFuncTmpl_Conv3d<Half,		Half,		Double	>,
+			&GearFuncTmpl_Conv3d<Half,		Half,		Half	>,
+			&GearFuncTmpl_Conv3d<Half,		Half,		Float	>,
+			&GearFuncTmpl_Conv3d<Half,		Half,		Double	>,
 			nullptr,
 			nullptr,
 		}, { // Float |*| any
@@ -436,9 +436,9 @@ Filter_Conv3d::FilterFuncTable g_FilterFuncTable_Conv3d = {
 			nullptr,
 			nullptr,
 			nullptr,
-			&FilterFuncTmpl_Conv3d<Float,		Float,		Half	>,
-			&FilterFuncTmpl_Conv3d<Float,		Float,		Float	>,
-			&FilterFuncTmpl_Conv3d<Float,		Float,		Double	>,
+			&GearFuncTmpl_Conv3d<Float,		Float,		Half	>,
+			&GearFuncTmpl_Conv3d<Float,		Float,		Float	>,
+			&GearFuncTmpl_Conv3d<Float,		Float,		Double	>,
 			nullptr,
 			nullptr,
 		}, { // Double |*| any
@@ -452,9 +452,9 @@ Filter_Conv3d::FilterFuncTable g_FilterFuncTable_Conv3d = {
 			nullptr,
 			nullptr,
 			nullptr,
-			&FilterFuncTmpl_Conv3d<Double,		Double,		Half	>,
-			&FilterFuncTmpl_Conv3d<Double,		Double,		Float	>,
-			&FilterFuncTmpl_Conv3d<Double,		Double,		Double	>,
+			&GearFuncTmpl_Conv3d<Double,		Double,		Half	>,
+			&GearFuncTmpl_Conv3d<Double,		Double,		Float	>,
+			&GearFuncTmpl_Conv3d<Double,		Double,		Double	>,
 			nullptr,
 			nullptr,
 		}, { // Complex |*| any
@@ -467,95 +467,95 @@ Filter_Conv3d::FilterFuncTable g_FilterFuncTable_Conv3d = {
 	}
 };
 
-Filter_Relu::FilterFuncTable g_FilterFuncTable_Relu = {
+Gear_Relu::GearFuncTable g_GearFuncTable_Relu = {
 	{
 		nullptr,
-		&FilterFuncTmpl_Relu<Boolean>,
-		&FilterFuncTmpl_Relu<Int8>,
-		&FilterFuncTmpl_Relu<UInt8>,
-		&FilterFuncTmpl_Relu<Int16>,
-		&FilterFuncTmpl_Relu<UInt16>,
-		&FilterFuncTmpl_Relu<Int32>,
-		&FilterFuncTmpl_Relu<UInt32>,
-		&FilterFuncTmpl_Relu<Int64>,
-		&FilterFuncTmpl_Relu<UInt64>,
-		&FilterFuncTmpl_Relu<Half>,
-		&FilterFuncTmpl_Relu<Float>,
-		&FilterFuncTmpl_Relu<Double>,
+		&GearFuncTmpl_Relu<Boolean>,
+		&GearFuncTmpl_Relu<Int8>,
+		&GearFuncTmpl_Relu<UInt8>,
+		&GearFuncTmpl_Relu<Int16>,
+		&GearFuncTmpl_Relu<UInt16>,
+		&GearFuncTmpl_Relu<Int32>,
+		&GearFuncTmpl_Relu<UInt32>,
+		&GearFuncTmpl_Relu<Int64>,
+		&GearFuncTmpl_Relu<UInt64>,
+		&GearFuncTmpl_Relu<Half>,
+		&GearFuncTmpl_Relu<Float>,
+		&GearFuncTmpl_Relu<Double>,
 		nullptr,
 		nullptr,
 	}
 };
 
-Filter_Sigmoid::FilterFuncTable g_FilterFuncTable_Sigmoid = {
+Gear_Sigmoid::GearFuncTable g_GearFuncTable_Sigmoid = {
 	{
 		nullptr,
-		&FilterFuncTmpl_Sigmoid<Boolean>,
-		&FilterFuncTmpl_Sigmoid<Int8>,
-		&FilterFuncTmpl_Sigmoid<UInt8>,
-		&FilterFuncTmpl_Sigmoid<Int16>,
-		&FilterFuncTmpl_Sigmoid<UInt16>,
-		&FilterFuncTmpl_Sigmoid<Int32>,
-		&FilterFuncTmpl_Sigmoid<UInt32>,
-		&FilterFuncTmpl_Sigmoid<Int64>,
-		&FilterFuncTmpl_Sigmoid<UInt64>,
-		&FilterFuncTmpl_Sigmoid<Half>,
-		&FilterFuncTmpl_Sigmoid<Float>,
-		&FilterFuncTmpl_Sigmoid<Double>,
+		&GearFuncTmpl_Sigmoid<Boolean>,
+		&GearFuncTmpl_Sigmoid<Int8>,
+		&GearFuncTmpl_Sigmoid<UInt8>,
+		&GearFuncTmpl_Sigmoid<Int16>,
+		&GearFuncTmpl_Sigmoid<UInt16>,
+		&GearFuncTmpl_Sigmoid<Int32>,
+		&GearFuncTmpl_Sigmoid<UInt32>,
+		&GearFuncTmpl_Sigmoid<Int64>,
+		&GearFuncTmpl_Sigmoid<UInt64>,
+		&GearFuncTmpl_Sigmoid<Half>,
+		&GearFuncTmpl_Sigmoid<Float>,
+		&GearFuncTmpl_Sigmoid<Double>,
 		nullptr,
 		nullptr,
 	}
 };
 
-Filter_Softmax::FilterFuncTable g_FilterFuncTable_Softmax = {
+Gear_Softmax::GearFuncTable g_GearFuncTable_Softmax = {
 	{
 		nullptr,
-		&FilterFuncTmpl_Softmax<Boolean>,
-		&FilterFuncTmpl_Softmax<Int8>,
-		&FilterFuncTmpl_Softmax<UInt8>,
-		&FilterFuncTmpl_Softmax<Int16>,
-		&FilterFuncTmpl_Softmax<UInt16>,
-		&FilterFuncTmpl_Softmax<Int32>,
-		&FilterFuncTmpl_Softmax<UInt32>,
-		&FilterFuncTmpl_Softmax<Int64>,
-		&FilterFuncTmpl_Softmax<UInt64>,
-		&FilterFuncTmpl_Softmax<Half>,
-		&FilterFuncTmpl_Softmax<Float>,
-		&FilterFuncTmpl_Softmax<Double>,
+		&GearFuncTmpl_Softmax<Boolean>,
+		&GearFuncTmpl_Softmax<Int8>,
+		&GearFuncTmpl_Softmax<UInt8>,
+		&GearFuncTmpl_Softmax<Int16>,
+		&GearFuncTmpl_Softmax<UInt16>,
+		&GearFuncTmpl_Softmax<Int32>,
+		&GearFuncTmpl_Softmax<UInt32>,
+		&GearFuncTmpl_Softmax<Int64>,
+		&GearFuncTmpl_Softmax<UInt64>,
+		&GearFuncTmpl_Softmax<Half>,
+		&GearFuncTmpl_Softmax<Float>,
+		&GearFuncTmpl_Softmax<Double>,
 		nullptr,
 		nullptr,
 	}
 };
 
-Filter_Tanh::FilterFuncTable g_FilterFuncTable_Tanh = {
+Gear_Tanh::GearFuncTable g_GearFuncTable_Tanh = {
 	{
 		nullptr,
-		&FilterFuncTmpl_Tanh<Boolean>,
-		&FilterFuncTmpl_Tanh<Int8>,
-		&FilterFuncTmpl_Tanh<UInt8>,
-		&FilterFuncTmpl_Tanh<Int16>,
-		&FilterFuncTmpl_Tanh<UInt16>,
-		&FilterFuncTmpl_Tanh<Int32>,
-		&FilterFuncTmpl_Tanh<UInt32>,
-		&FilterFuncTmpl_Tanh<Int64>,
-		&FilterFuncTmpl_Tanh<UInt64>,
-		&FilterFuncTmpl_Tanh<Half>,
-		&FilterFuncTmpl_Tanh<Float>,
-		&FilterFuncTmpl_Tanh<Double>,
+		&GearFuncTmpl_Tanh<Boolean>,
+		&GearFuncTmpl_Tanh<Int8>,
+		&GearFuncTmpl_Tanh<UInt8>,
+		&GearFuncTmpl_Tanh<Int16>,
+		&GearFuncTmpl_Tanh<UInt16>,
+		&GearFuncTmpl_Tanh<Int32>,
+		&GearFuncTmpl_Tanh<UInt32>,
+		&GearFuncTmpl_Tanh<Int64>,
+		&GearFuncTmpl_Tanh<UInt64>,
+		&GearFuncTmpl_Tanh<Half>,
+		&GearFuncTmpl_Tanh<Float>,
+		&GearFuncTmpl_Tanh<Double>,
 		nullptr,
 		nullptr,
 	}
 };
 
-void AssignFilters(Environment &env)
+void AssignGears(Environment &env)
 {
-	Filter_Conv1d::filterFuncTable =			g_FilterFuncTable_Conv1d;
-	Filter_Conv2d::filterFuncTable =			g_FilterFuncTable_Conv2d;
-	Filter_Conv3d::filterFuncTable =			g_FilterFuncTable_Conv3d;
-	Filter_Relu::filterFuncTable =				g_FilterFuncTable_Relu;
-	Filter_Sigmoid::filterFuncTable =			g_FilterFuncTable_Sigmoid;
-	Filter_Softmax::filterFuncTable =			g_FilterFuncTable_Softmax;
-	Filter_Tanh::filterFuncTable =				g_FilterFuncTable_Tanh;
+	Gear_Conv1d::gearFuncTable =			g_GearFuncTable_Conv1d;
+	Gear_Conv2d::gearFuncTable =			g_GearFuncTable_Conv2d;
+	Gear_Conv3d::gearFuncTable =			g_GearFuncTable_Conv3d;
+	Gear_Relu::gearFuncTable =				g_GearFuncTable_Relu;
+	Gear_Sigmoid::gearFuncTable =			g_GearFuncTable_Sigmoid;
+	Gear_Softmax::gearFuncTable =			g_GearFuncTable_Softmax;
+	Gear_Tanh::gearFuncTable =				g_GearFuncTable_Tanh;
 }
 
 Gura_EndModuleScope(arrayt)

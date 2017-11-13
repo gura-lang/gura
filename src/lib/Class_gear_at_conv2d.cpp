@@ -1,5 +1,5 @@
 //=============================================================================
-// Gura class: filter@conv2d
+// Gura class: gear@conv2d
 //=============================================================================
 #include "stdafx.h"
 
@@ -9,24 +9,24 @@ static const char *helpDoc_en = R"**(
 )**";
 
 //-----------------------------------------------------------------------------
-// Filter_Conv2d
+// Gear_Conv2d
 //-----------------------------------------------------------------------------
-Filter_Conv2d::FilterFuncTable Filter_Conv2d::filterFuncTable = {{{nullptr}}};
+Gear_Conv2d::GearFuncTable Gear_Conv2d::gearFuncTable = {{{nullptr}}};
 
-bool Filter_Conv2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
+bool Gear_Conv2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
 	size_t sizePadRow = 0, sizePadCol = 0;
 	CalcPadding2d(this, pArray->GetDimensions(), &sizePadRow, &sizePadCol);
-	return pArray->CalcConv2d(sig, pArrayRtn, GetArrayFilter(), GetStridesRow(), GetStridesCol(),
+	return pArray->CalcConv2d(sig, pArrayRtn, GetArrayGear(), GetStridesRow(), GetStridesCol(),
 							  sizePadRow, sizePadCol, GetChannelPos());
 }
 
-String Filter_Conv2d::ToString() const
+String Gear_Conv2d::ToString() const
 {
 	char buff[80];
 	String str = "conv2d";
-	if (HasFilterDim()) {
-		::sprintf(buff, ":filter_num=%zu", GetFilterNum());
+	if (HasGearDim()) {
+		::sprintf(buff, ":gear_num=%zu", GetGearNum());
 		str += buff;
 	}
 	if (HasChannelDim()) {
@@ -45,14 +45,14 @@ String Filter_Conv2d::ToString() const
 }
 
 //-----------------------------------------------------------------------------
-// Object_filter_at_conv2d
+// Object_gear_at_conv2d
 //-----------------------------------------------------------------------------
-Object_filter_at_conv2d::Object_filter_at_conv2d(Environment &env, Filter_Conv2d *pFilter) :
-	Object_filter(env.LookupClass(VTYPE_filter_at_conv2d), pFilter)
+Object_gear_at_conv2d::Object_gear_at_conv2d(Environment &env, Gear_Conv2d *pGear) :
+	Object_gear(env.LookupClass(VTYPE_gear_at_conv2d), pGear)
 {
 }
 
-Object *Object_filter_at_conv2d::Clone() const
+Object *Object_gear_at_conv2d::Clone() const
 {
 	return nullptr;
 }
@@ -60,8 +60,8 @@ Object *Object_filter_at_conv2d::Clone() const
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// filter@conv2d(array:array, strides[]?:number, padding?:symbol, channel_pos?:symbol):map {block?}
-Gura_DeclareFunctionAlias(filter_at_conv2d, "filter@conv2d")
+// gear@conv2d(array:array, strides[]?:number, padding?:symbol, channel_pos?:symbol):map {block?}
+Gura_DeclareFunctionAlias(gear_at_conv2d, "gear@conv2d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "array", VTYPE_array);
@@ -69,22 +69,22 @@ Gura_DeclareFunctionAlias(filter_at_conv2d, "filter@conv2d")
 	DeclareArg(env, "padding", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(env.LookupClass(VTYPE_filter_at_conv2d));
+	SetClassToConstruct(env.LookupClass(VTYPE_gear_at_conv2d));
 	AddHelp(
 		Gura_Symbol(en),
-		"Creates a `filter@conv2d` instance.\n"
+		"Creates a `gear@conv2d` instance.\n"
 		"\n"
 		"The given `array` instance shoud have one of the following shapes:\n"
 		"\n"
 		"- `[row_size, col_size]` .. 2-dimensions\n"
 		"- `[row_size, col_size, channel_num]` .. 3-dimensions and `channel_pos` is `` `last``\n"
 		"- `[channel_num, row_size, col_size]` .. 3-dimensions and `channel_pos` is `` `first``\n"
-		"- `[filter_num, row_size, col_size]` .. 3-dimensions and `channel_pos` is `` `none``\n"
-		"- `[filter_num, row_size, col_size, channel_num]` .. 4-dimensions and `channel_pos` is `` `last``\n"
-		"- `[filter_num, channel_num, row_size, col_size]` .. 4-dimensions and `channel_pos` is `` `first``\n"
+		"- `[gear_num, row_size, col_size]` .. 3-dimensions and `channel_pos` is `` `none``\n"
+		"- `[gear_num, row_size, col_size, channel_num]` .. 4-dimensions and `channel_pos` is `` `last``\n"
+		"- `[gear_num, channel_num, row_size, col_size]` .. 4-dimensions and `channel_pos` is `` `first``\n"
 		"\n"
-		"where `row_size` and `col_size` are the size of the filter's kernel,\n"
-		"`channel_num` is the number of channels and `filter_num` is the number of filters.\n"
+		"where `row_size` and `col_size` are the size of the gear's kernel,\n"
+		"`channel_num` is the number of channels and `gear_num` is the number of gears.\n"
 		"\n"
 		"The `strides` is a list of strides for a sliding window in row and column. Default is `[1, 1]`.\n"
 		"\n"
@@ -97,14 +97,14 @@ Gura_DeclareFunctionAlias(filter_at_conv2d, "filter@conv2d")
 		"and `` `last`` for others are to be set.\n");
 }
 
-Gura_ImplementFunction(filter_at_conv2d)
+Gura_ImplementFunction(gear_at_conv2d)
 {
-	const Array *pArrayFilter = Object_array::GetObject(arg, 0)->GetArray();
-	const Array::Dimensions &dims = pArrayFilter->GetDimensions();
+	const Array *pArrayGear = Object_array::GetObject(arg, 0)->GetArray();
+	const Array::Dimensions &dims = pArrayGear->GetDimensions();
 	size_t nDims = dims.size();
 	if (nDims != 2 && nDims != 3 && nDims != 4) {
 		env.SetError(ERR_ValueError,
-					 "the `array` instance given to `filter@conv2d` constructor must have dimensions of 2, 3 or 4.");
+					 "the `array` instance given to `gear@conv2d` constructor must have dimensions of 2, 3 or 4.");
 		return Value::Nil;
 	}
 	size_t stridesRow = 1;
@@ -118,10 +118,10 @@ Gura_ImplementFunction(filter_at_conv2d)
 		stridesRow = valList[0].GetSizeT();
 		stridesCol = valList[1].GetSizeT();
 	}
-	Filter::PaddingType paddingType = Filter::PADDINGTYPE_Same;
+	Gear::PaddingType paddingType = Gear::PADDINGTYPE_Same;
 	if (arg.IsValid(2)) {
-		paddingType = Filter::SymbolToPaddingType(env, arg.GetSymbol(2));
-		if (paddingType == Filter::PADDINGTYPE_Invalid) return Value::Nil;
+		paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(2));
+		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
 	}
 	Array::ChannelPos channelPos = Array::CHANNELPOS_Invalid;
 	if (arg.IsValid(3)) {
@@ -142,16 +142,16 @@ Gura_ImplementFunction(filter_at_conv2d)
 	} else {
 		channelPos = (nDims == 2)? Array::CHANNELPOS_None : Array::CHANNELPOS_Last;
 	}
-	Object_filter_at_conv2d *pObj = new Object_filter_at_conv2d(
-		env, new Filter_Conv2d(pArrayFilter->Reference(), stridesRow, stridesCol, paddingType, channelPos));
+	Object_gear_at_conv2d *pObj = new Object_gear_at_conv2d(
+		env, new Gear_Conv2d(pArrayGear->Reference(), stridesRow, stridesCol, paddingType, channelPos));
 	return ReturnValue(env, arg, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
-// filter@conv2d#array
-Gura_DeclareProperty_R(filter_at_conv2d, array)
+// gear@conv2d#array
+Gura_DeclareProperty_R(gear_at_conv2d, array)
 {
 	SetPropAttr(VTYPE_array);
 	AddHelp(
@@ -160,14 +160,14 @@ Gura_DeclareProperty_R(filter_at_conv2d, array)
 		);
 }
 
-Gura_ImplementPropertyGetter(filter_at_conv2d, array)
+Gura_ImplementPropertyGetter(gear_at_conv2d, array)
 {
-	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
-	return Value(new Object_array(env, pFilter->GetArrayFilter()->Reference()));
+	const Gear_Conv2d *pGear = Object_gear_at_conv2d::GetObject(valueThis)->GetGear();
+	return Value(new Object_array(env, pGear->GetArrayGear()->Reference()));
 }
 
-// filter@conv2d#channel_num
-Gura_DeclareProperty_R(filter_at_conv2d, channel_num)
+// gear@conv2d#channel_num
+Gura_DeclareProperty_R(gear_at_conv2d, channel_num)
 {
 	SetPropAttr(VTYPE_number, FLAG_Nil);
 	AddHelp(
@@ -175,14 +175,14 @@ Gura_DeclareProperty_R(filter_at_conv2d, channel_num)
 		"");
 }
 
-Gura_ImplementPropertyGetter(filter_at_conv2d, channel_num)
+Gura_ImplementPropertyGetter(gear_at_conv2d, channel_num)
 {
-	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
-	return pFilter->HasChannelDim()? Value(pFilter->GetChannelNum()) : Value::Nil;
+	const Gear_Conv2d *pGear = Object_gear_at_conv2d::GetObject(valueThis)->GetGear();
+	return pGear->HasChannelDim()? Value(pGear->GetChannelNum()) : Value::Nil;
 }
 
-// filter@conv2d#channel_pos
-Gura_DeclareProperty_R(filter_at_conv2d, channel_pos)
+// gear@conv2d#channel_pos
+Gura_DeclareProperty_R(gear_at_conv2d, channel_pos)
 {
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
@@ -190,14 +190,14 @@ Gura_DeclareProperty_R(filter_at_conv2d, channel_pos)
 		"");
 }
 
-Gura_ImplementPropertyGetter(filter_at_conv2d, channel_pos)
+Gura_ImplementPropertyGetter(gear_at_conv2d, channel_pos)
 {
-	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
-	return Value(Array::ChannelPosToSymbol(pFilter->GetChannelPos()));
+	const Gear_Conv2d *pGear = Object_gear_at_conv2d::GetObject(valueThis)->GetGear();
+	return Value(Array::ChannelPosToSymbol(pGear->GetChannelPos()));
 }
 
-// filter@conv1d#filter_num
-Gura_DeclareProperty_R(filter_at_conv2d, filter_num)
+// gear@conv1d#gear_num
+Gura_DeclareProperty_R(gear_at_conv2d, gear_num)
 {
 	SetPropAttr(VTYPE_number, FLAG_Nil);
 	AddHelp(
@@ -205,14 +205,14 @@ Gura_DeclareProperty_R(filter_at_conv2d, filter_num)
 		"");
 }
 
-Gura_ImplementPropertyGetter(filter_at_conv2d, filter_num)
+Gura_ImplementPropertyGetter(gear_at_conv2d, gear_num)
 {
-	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
-	return pFilter->HasFilterDim()? Value(pFilter->GetFilterNum()) : Value::Nil;
+	const Gear_Conv2d *pGear = Object_gear_at_conv2d::GetObject(valueThis)->GetGear();
+	return pGear->HasGearDim()? Value(pGear->GetGearNum()) : Value::Nil;
 }
 
-// filter@conv2d#padding
-Gura_DeclareProperty_R(filter_at_conv2d, padding)
+// gear@conv2d#padding
+Gura_DeclareProperty_R(gear_at_conv2d, padding)
 {
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
@@ -220,14 +220,14 @@ Gura_DeclareProperty_R(filter_at_conv2d, padding)
 		"");
 }
 
-Gura_ImplementPropertyGetter(filter_at_conv2d, padding)
+Gura_ImplementPropertyGetter(gear_at_conv2d, padding)
 {
-	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
-	return Value(Filter::PaddingTypeToSymbol(pFilter->GetPaddingType()));
+	const Gear_Conv2d *pGear = Object_gear_at_conv2d::GetObject(valueThis)->GetGear();
+	return Value(Gear::PaddingTypeToSymbol(pGear->GetPaddingType()));
 }
 
-// filter@conv2d#size
-Gura_DeclareProperty_R(filter_at_conv2d, size)
+// gear@conv2d#size
+Gura_DeclareProperty_R(gear_at_conv2d, size)
 {
 	SetPropAttr(VTYPE_number, FLAG_ListVar);
 	AddHelp(
@@ -235,14 +235,14 @@ Gura_DeclareProperty_R(filter_at_conv2d, size)
 		"");
 }
 
-Gura_ImplementPropertyGetter(filter_at_conv2d, size)
+Gura_ImplementPropertyGetter(gear_at_conv2d, size)
 {
-	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
-	return Value::CreateList(env, Value(pFilter->GetSizeRow()), Value(pFilter->GetSizeCol()));
+	const Gear_Conv2d *pGear = Object_gear_at_conv2d::GetObject(valueThis)->GetGear();
+	return Value::CreateList(env, Value(pGear->GetSizeRow()), Value(pGear->GetSizeCol()));
 }
 
-// filter@conv2d#strides
-Gura_DeclareProperty_R(filter_at_conv2d, strides)
+// gear@conv2d#strides
+Gura_DeclareProperty_R(gear_at_conv2d, strides)
 {
 	SetPropAttr(VTYPE_number, FLAG_ListVar);
 	AddHelp(
@@ -250,37 +250,37 @@ Gura_DeclareProperty_R(filter_at_conv2d, strides)
 		"");
 }
 
-Gura_ImplementPropertyGetter(filter_at_conv2d, strides)
+Gura_ImplementPropertyGetter(gear_at_conv2d, strides)
 {
-	const Filter_Conv2d *pFilter = Object_filter_at_conv2d::GetObject(valueThis)->GetFilter();
-	return Value::CreateList(env, Value(pFilter->GetStridesRow()), Value(pFilter->GetStridesCol()));
+	const Gear_Conv2d *pGear = Object_gear_at_conv2d::GetObject(valueThis)->GetGear();
+	return Value::CreateList(env, Value(pGear->GetStridesRow()), Value(pGear->GetStridesCol()));
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-Class_filter_at_conv2d::Class_filter_at_conv2d(Environment *pEnvOuter) :
-	ClassFundamental(pEnvOuter, VTYPE_filter_at_conv2d)
+Class_gear_at_conv2d::Class_gear_at_conv2d(Environment *pEnvOuter) :
+	ClassFundamental(pEnvOuter, VTYPE_gear_at_conv2d)
 {
 }
 
-void Class_filter_at_conv2d::DoPrepare(Environment &env)
+void Class_gear_at_conv2d::DoPrepare(Environment &env)
 {
 	// Assignment of function
-	Gura_AssignFunction(filter_at_conv2d);
+	Gura_AssignFunction(gear_at_conv2d);
 	// Assignment of properties
-	Gura_AssignProperty(filter_at_conv2d, array);
-	Gura_AssignProperty(filter_at_conv2d, channel_num);
-	Gura_AssignProperty(filter_at_conv2d, channel_pos);
-	Gura_AssignProperty(filter_at_conv2d, filter_num);
-	Gura_AssignProperty(filter_at_conv2d, padding);
-	Gura_AssignProperty(filter_at_conv2d, size);
-	Gura_AssignProperty(filter_at_conv2d, strides);
+	Gura_AssignProperty(gear_at_conv2d, array);
+	Gura_AssignProperty(gear_at_conv2d, channel_num);
+	Gura_AssignProperty(gear_at_conv2d, channel_pos);
+	Gura_AssignProperty(gear_at_conv2d, gear_num);
+	Gura_AssignProperty(gear_at_conv2d, padding);
+	Gura_AssignProperty(gear_at_conv2d, size);
+	Gura_AssignProperty(gear_at_conv2d, strides);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
-Object *Class_filter_at_conv2d::CreateDescendant(Environment &env, Class *pClass)
+Object *Class_gear_at_conv2d::CreateDescendant(Environment &env, Class *pClass)
 {
 	return nullptr;
 }

@@ -128,14 +128,14 @@ public:
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
 	virtual void CalcConv1d(
-		AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter, size_t stridesKernel,
+		AutoPtr<Array> &pArrayRtn, const Array *pArrayGear, size_t stridesKernel,
 		size_t sizePad, ChannelPos channelPos) const;
 	virtual void CalcConv2d(
-		AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
+		AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
 		size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
 	virtual void CalcConv3d(
-		AutoPtr<Array> &pArrayRtn, const Array *pArrayFilter,
+		AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const;
