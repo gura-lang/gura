@@ -80,17 +80,6 @@ environment:class = <class:environment>
 error:class = <class:error>
 expr:class = <class:expr(src:stream:r):map {block?}>
 false:boolean = false
-filter:class = <class:filter>
-filter@conv1d:class = <class:filter@conv1d(array:array, strides?:number, padding?:symbol, channel_pos?:symbol):map {block?}>
-filter@conv2d:class = <class:filter@conv2d(array:array, strides[]?:number, padding?:symbol, channel_pos?:symbol):map {block?}>
-filter@conv3d:class = <class:filter@conv3d():map {block?}>
-filter@maxpool1d:class = <class:filter@maxpool1d(size:number, strides?:number, padding?:symbol, channel_pos?:symbol):map {block?}>
-filter@maxpool2d:class = <class:filter@maxpool2d(size[]:number, strides[]?:number, padding?:symbol, channel_pos?:symbol):map {block?}>
-filter@maxpool3d:class = <class:filter@maxpool3d(size[]:number, strides[]?:number, padding?:symbol, format?:symbol):map {block?}>
-filter@relu:class = <class:filter@relu() {block?}>
-filter@sigmoid:class = <class:filter@sigmoid() {block?}>
-filter@softmax:class = <class:filter@softmax(axis?:number):map {block?}>
-filter@tanh:class = <class:filter@tanh() {block?}>
 finally():finalizer:trailer {block}
 for (`expr+) {block}
 format(format:string, values*):map
@@ -109,6 +98,17 @@ fs:module
   fs.rmdir(pathname:string):map:void:[tree]
   stat:class = <class:fs.stat(pathname:string) {block?}>
 function:class = <class:function(`args*) {block}>
+gear:class = <class:gear>
+gear@conv1d:class = <class:gear@conv1d(array:array, strides?:number, padding?:symbol, channel_pos?:symbol):map {block?}>
+gear@conv2d:class = <class:gear@conv2d(array:array, strides[]?:number, padding?:symbol, channel_pos?:symbol):map {block?}>
+gear@conv3d:class = <class:gear@conv3d():map {block?}>
+gear@maxpool1d:class = <class:gear@maxpool1d(size:number, strides?:number, padding?:symbol, channel_pos?:symbol):map {block?}>
+gear@maxpool2d:class = <class:gear@maxpool2d(size[]:number, strides[]?:number, padding?:symbol, channel_pos?:symbol):map {block?}>
+gear@maxpool3d:class = <class:gear@maxpool3d(size[]:number, strides[]?:number, padding?:symbol, format?:symbol):map {block?}>
+gear@relu:class = <class:gear@relu() {block?}>
+gear@sigmoid:class = <class:gear@sigmoid() {block?}>
+gear@softmax:class = <class:gear@softmax(axis?:number):map {block?}>
+gear@tanh:class = <class:gear@tanh() {block?}>
 help:class = <class:help>
 help@class(cls:class, lang?:symbol):map {block?}
 help@function(func:function, lang?:symbol):map {block?}
@@ -703,18 +703,6 @@ expr
   expr#tofunction(`args*)
   expr#unquote()
   expr#write(dst:stream:w, style?:symbol, indent?:string)
-filter
-  filter.calcpadding(size_in:number, size_kernel:number, strides:number, padding:symbol):static
-filter@conv1d
-filter@conv2d
-filter@conv3d
-filter@maxpool1d
-filter@maxpool2d
-filter@maxpool3d
-filter@relu
-filter@sigmoid
-filter@softmax
-filter@tanh
 formatter
   formatter#getminwidth()
   formatter#getpadding()
@@ -731,6 +719,18 @@ function
   function.getname(func:function):static:map
   function.getsymbol(func:function):static:map
   function#mathdiff(var?:symbol):reduce
+gear
+  gear.calcpadding(size_in:number, size_kernel:number, strides:number, padding:symbol):static
+gear@conv1d
+gear@conv2d
+gear@conv3d
+gear@maxpool1d
+gear@maxpool2d
+gear@maxpool3d
+gear@relu
+gear@sigmoid
+gear@softmax
+gear@tanh
 help
   help#present():void {block?}
   help.presenter(format:string):static:void {block}

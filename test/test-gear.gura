@@ -2,127 +2,127 @@
 import(helper.test) {*}
 import(arrayt)
 
-tester_filter@conv_properties(f) = {
+tester_gear@conv_properties(f) = {
 	tester(`f.size, `f.strides, `f.padding, `f.channel_pos, `f.channel_num, `f.filter_num)
 }
 
-tester_filter@maxpool_properties(f) = {
+tester_gear@maxpool_properties(f) = {
 	tester(`f.size, `f.strides, `f.padding, `f.channel_pos)
 }
 
 testcase('calculation of padding amount') {
-	tester(`filter.calcpadding(13, 6, 5, `same))
-	tester(`filter.calcpadding(13, 6, 5, `valid))
+	tester(`gear.calcpadding(13, 6, 5, `same))
+	tester(`gear.calcpadding(13, 6, 5, `valid))
 }
-testcase('filter@conv1d') {
-	tester(`filter@conv1d(array.zeros([5]))) {|f|
-		tester_filter@conv_properties(f)
+testcase('gear@conv1d') {
+	tester(`gear@conv1d(array.zeros([5]))) {|f|
+		tester_gear@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([5, 3]))) {|f|
-		tester_filter@conv_properties(f)
+	tester(`gear@conv1d(array.zeros([5, 3]))) {|f|
+		tester_gear@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 5, 3]))) {|f|
-		tester_filter@conv_properties(f)
+	tester(`gear@conv1d(array.zeros([16, 5, 3]))) {|f|
+		tester_gear@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([4, 16, 5, 3]))) {|f| // error
-		tester_filter@conv_properties(f)
+	tester(`gear@conv1d(array.zeros([4, 16, 5, 3]))) {|f| // error
+		tester_gear@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4)) {|f|
-		tester_filter@conv_properties(f)
+	tester(`gear@conv1d(array.zeros([16, 5, 3]), 4)) {|f|
+		tester_gear@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4, `same)) {|f|
-		tester_filter@conv_properties(f)
+	tester(`gear@conv1d(array.zeros([16, 5, 3]), 4, `same)) {|f|
+		tester_gear@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4, `valid)) {|f|
-		tester_filter@conv_properties(f)
+	tester(`gear@conv1d(array.zeros([16, 5, 3]), 4, `valid)) {|f|
+		tester_gear@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4, `xxxx)) {|f|
-		tester_filter@conv_properties(f)
+	tester(`gear@conv1d(array.zeros([16, 5, 3]), 4, `xxxx)) {|f|
+		tester_gear@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 3, 5]), 4, `valid, `first)) {|f|
-		tester_filter@conv_properties(f)
+	tester(`gear@conv1d(array.zeros([16, 3, 5]), 4, `valid, `first)) {|f|
+		tester_gear@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4, `valid, `last)) {|f|
-		tester_filter@conv_properties(f)
+	tester(`gear@conv1d(array.zeros([16, 5, 3]), 4, `valid, `last)) {|f|
+		tester_gear@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4, `xxxx, `last)) {|f|
-		tester_filter@conv_properties(f)
+	tester(`gear@conv1d(array.zeros([16, 5, 3]), 4, `xxxx, `last)) {|f|
+		tester_gear@conv_properties(f)
 	}
-	tester(`filter@conv1d(array.zeros([16, 5, 3]), 4, `valid, `xxxx)) {|f|
-		tester_filter@conv_properties(f)
-	}
-}
-testcase('filter@conv2d') {
-	tester(`filter@conv2d(array.zeros([5, 6]))) {|f|
-		tester_filter@conv_properties(f)
-	}
-	tester(`filter@conv2d(array.zeros([5, 6, 3]))) {|f|
-		tester_filter@conv_properties(f)
-	}
-	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]))) {|f|
-		tester_filter@conv_properties(f)
-	}
-	tester(`filter@conv2d(array.zeros([4, 16, 5, 6, 3]))) {|f| // error
-		tester_filter@conv_properties(f)
-	}
-	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3])) {|f|
-		tester_filter@conv_properties(f)
-	}
-	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `same)) {|f|
-		tester_filter@conv_properties(f)
-	}
-	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid)) {|f|
-		tester_filter@conv_properties(f)
-	}
-	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `xxxx)) {|f|
-		tester_filter@conv_properties(f)
-	}
-	tester(`filter@conv2d(array.zeros([16, 3, 5, 6]), [4, 3], `valid, `first)) {|f|
-		tester_filter@conv_properties(f)
-	}
-	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid, `last)) {|f|
-		tester_filter@conv_properties(f)
-	}
-	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `xxxx, `last)) {|f|
-		tester_filter@conv_properties(f)
-	}
-	tester(`filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid, `xxxx)) {|f|
-		tester_filter@conv_properties(f)
+	tester(`gear@conv1d(array.zeros([16, 5, 3]), 4, `valid, `xxxx)) {|f|
+		tester_gear@conv_properties(f)
 	}
 }
-testcase('filter@conv3d') {
+testcase('gear@conv2d') {
+	tester(`gear@conv2d(array.zeros([5, 6]))) {|f|
+		tester_gear@conv_properties(f)
+	}
+	tester(`gear@conv2d(array.zeros([5, 6, 3]))) {|f|
+		tester_gear@conv_properties(f)
+	}
+	tester(`gear@conv2d(array.zeros([16, 5, 6, 3]))) {|f|
+		tester_gear@conv_properties(f)
+	}
+	tester(`gear@conv2d(array.zeros([4, 16, 5, 6, 3]))) {|f| // error
+		tester_gear@conv_properties(f)
+	}
+	tester(`gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3])) {|f|
+		tester_gear@conv_properties(f)
+	}
+	tester(`gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `same)) {|f|
+		tester_gear@conv_properties(f)
+	}
+	tester(`gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid)) {|f|
+		tester_gear@conv_properties(f)
+	}
+	tester(`gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `xxxx)) {|f|
+		tester_gear@conv_properties(f)
+	}
+	tester(`gear@conv2d(array.zeros([16, 3, 5, 6]), [4, 3], `valid, `first)) {|f|
+		tester_gear@conv_properties(f)
+	}
+	tester(`gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid, `last)) {|f|
+		tester_gear@conv_properties(f)
+	}
+	tester(`gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `xxxx, `last)) {|f|
+		tester_gear@conv_properties(f)
+	}
+	tester(`gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid, `xxxx)) {|f|
+		tester_gear@conv_properties(f)
+	}
 }
-testcase("error check for filter@conv1d") {
-	tester(`filter@conv1d(array.zeros([3]), 1, `same, `last))
+testcase('gear@conv3d') {
+}
+testcase("error check for gear@conv1d") {
+	tester(`gear@conv1d(array.zeros([3]), 1, `same, `last))
 	x_5 = array.zeros([5])
 	x_3_5 = array.zeros([3, 5])
 	x_4_5 = array.zeros([4, 5])
 	x_5_3 = array.zeros([5, 3])
 	x_5_4 = array.zeros([5, 4])
-	f_3 = filter@conv1d(array.zeros([3]), 1, `same, `first)
-	f_4 = filter@conv1d(array.zeros([4]), 1, `same, `first)
-	f_5 = filter@conv1d(array.zeros([5]), 1, `same, `first)
-	f_6 = filter@conv1d(array.zeros([6]), 1, `same, `first)
-	f_3_3 = filter@conv1d(array.zeros([3, 3]), 1, `same, `first)
-	f_3_3_last = filter@conv1d(array.zeros([3, 3]), 1, `same, `last)
+	f_3 = gear@conv1d(array.zeros([3]), 1, `same, `first)
+	f_4 = gear@conv1d(array.zeros([4]), 1, `same, `first)
+	f_5 = gear@conv1d(array.zeros([5]), 1, `same, `first)
+	f_6 = gear@conv1d(array.zeros([6]), 1, `same, `first)
+	f_3_3 = gear@conv1d(array.zeros([3, 3]), 1, `same, `first)
+	f_3_3_last = gear@conv1d(array.zeros([3, 3]), 1, `same, `last)
 	tester(`(x_5 |*| f_3))
 	tester(`(x_5 |*| f_4))
 	tester(`(x_5 |*| f_5))
 	tester(`(x_5 |*| f_6))
 }
-testcase("error check for filter@conv2d") {
-	tester(`filter@conv2d(array.zeros([3, 3]), [1, 1], `same, `last))
+testcase("error check for gear@conv2d") {
+	tester(`gear@conv2d(array.zeros([3, 3]), [1, 1], `same, `last))
 	x_5_5 = array.zeros([5, 5])
 	x_3_5_5 = array.zeros([3, 5, 5])
 	x_4_5_5 = array.zeros([4, 5, 5])
 	x_5_5_3 = array.zeros([5, 5, 3])
 	x_5_5_4 = array.zeros([5, 5, 4])
-	f_3_3 = filter@conv2d(array.zeros([3, 3]), [1, 1], `same, `first)
-	f_4_3 = filter@conv2d(array.zeros([4, 3]), [1, 1], `same, `first)
-	f_6_5 = filter@conv2d(array.zeros([6, 5]), [1, 1], `same, `first)
-	f_5_6 = filter@conv2d(array.zeros([5, 6]), [1, 1], `same, `first)
-	f_3_3_3 = filter@conv2d(array.zeros([3, 3, 3]), [1, 1], `same, `first)
-	f_3_3_3_last = filter@conv2d(array.zeros([3, 3, 3]), [1, 1], `same, `last)
+	f_3_3 = gear@conv2d(array.zeros([3, 3]), [1, 1], `same, `first)
+	f_4_3 = gear@conv2d(array.zeros([4, 3]), [1, 1], `same, `first)
+	f_6_5 = gear@conv2d(array.zeros([6, 5]), [1, 1], `same, `first)
+	f_5_6 = gear@conv2d(array.zeros([5, 6]), [1, 1], `same, `first)
+	f_3_3_3 = gear@conv2d(array.zeros([3, 3, 3]), [1, 1], `same, `first)
+	f_3_3_3_last = gear@conv2d(array.zeros([3, 3, 3]), [1, 1], `same, `last)
 	tester(`(x_5_5 |*| f_3_3))
 	tester(`(x_5_5 |*| f_4_3))
 	tester(`(x_5_5 |*| f_6_5))
@@ -133,49 +133,49 @@ testcase("error check for filter@conv2d") {
 	tester(`(x_5_5_3 |*| f_3_3_3_last))
 	tester(`(x_5_5_4 |*| f_3_3_3_last))
 }
-testcase("error check for filter@conv3d") {
+testcase("error check for gear@conv3d") {
 }
-testcase('filter@maxpool1d') {
-	tester(`filter@maxpool1d(4)) {|f|
-		tester_filter@maxpool_properties(f)
+testcase('gear@maxpool1d') {
+	tester(`gear@maxpool1d(4)) {|f|
+		tester_gear@maxpool_properties(f)
 	}
-	tester(`filter@maxpool1d(4, 3)) {|f|
-		tester_filter@maxpool_properties(f)
+	tester(`gear@maxpool1d(4, 3)) {|f|
+		tester_gear@maxpool_properties(f)
 	}
-	tester(`filter@maxpool1d(4, 3, `same)) {|f|
-		tester_filter@maxpool_properties(f)
+	tester(`gear@maxpool1d(4, 3, `same)) {|f|
+		tester_gear@maxpool_properties(f)
 	}
-	tester(`filter@maxpool1d(4, 3, `valid)) {|f|
-		tester_filter@maxpool_properties(f)
+	tester(`gear@maxpool1d(4, 3, `valid)) {|f|
+		tester_gear@maxpool_properties(f)
 	}
-	tester(`filter@maxpool1d(4, 3, `same, `none)) {|f|
-		tester_filter@maxpool_properties(f)
+	tester(`gear@maxpool1d(4, 3, `same, `none)) {|f|
+		tester_gear@maxpool_properties(f)
 	}
-	tester(`filter@maxpool1d(4, 3, `same, `first)) {|f|
-		tester_filter@maxpool_properties(f)
+	tester(`gear@maxpool1d(4, 3, `same, `first)) {|f|
+		tester_gear@maxpool_properties(f)
 	}
-	tester(`filter@maxpool1d(4, 3, `same, `last)) {|f|
-		tester_filter@maxpool_properties(f)
+	tester(`gear@maxpool1d(4, 3, `same, `last)) {|f|
+		tester_gear@maxpool_properties(f)
 	}
 	x = array@double {68, 79, 68, 92, 33, 30, 63,  2, 72, 90, 54, 52, 76, 54, 68, 52, 84, 79, 80, 24}
-	tester(`(x |*| filter@maxpool1d(1, 1, `same, `first)))
-	tester(`(x |*| filter@maxpool1d(2, 1, `same, `first)))
-	tester(`(x |*| filter@maxpool1d(3, 1, `same, `first)))
-	tester(`(x |*| filter@maxpool1d(4, 1, `same, `first)))
-	tester(`(x |*| filter@maxpool1d(4, 2, `same, `first)))
-	tester(`(x |*| filter@maxpool1d(4, 3, `same, `first)))
+	tester(`(x |*| gear@maxpool1d(1, 1, `same, `first)))
+	tester(`(x |*| gear@maxpool1d(2, 1, `same, `first)))
+	tester(`(x |*| gear@maxpool1d(3, 1, `same, `first)))
+	tester(`(x |*| gear@maxpool1d(4, 1, `same, `first)))
+	tester(`(x |*| gear@maxpool1d(4, 2, `same, `first)))
+	tester(`(x |*| gear@maxpool1d(4, 3, `same, `first)))
 	x = array@double {
 		{18,  1, 35, 28, 62, 91, 98, 10, 17,  3},
 		{86, 52, 83, 23,  0, 67, 66,  5, 55, 16},
 		{41, 62,  0, 61, 48, 80, 17, 61, 17, 82}
 	}
-	tester(`(x |*| filter@maxpool1d(1, 1, `same, `first)))
-	tester(`(x |*| filter@maxpool1d(2, 1, `same, `first)))
-	tester(`(x |*| filter@maxpool1d(2, 1, `same, `first)))
-	tester(`(x |*| filter@maxpool1d(3, 1, `same, `first)))
-	tester(`(x |*| filter@maxpool1d(4, 1, `same, `first)))
-	tester(`(x |*| filter@maxpool1d(4, 2, `same, `first)))
-	tester(`(x |*| filter@maxpool1d(4, 3, `same, `first)))
+	tester(`(x |*| gear@maxpool1d(1, 1, `same, `first)))
+	tester(`(x |*| gear@maxpool1d(2, 1, `same, `first)))
+	tester(`(x |*| gear@maxpool1d(2, 1, `same, `first)))
+	tester(`(x |*| gear@maxpool1d(3, 1, `same, `first)))
+	tester(`(x |*| gear@maxpool1d(4, 1, `same, `first)))
+	tester(`(x |*| gear@maxpool1d(4, 2, `same, `first)))
+	tester(`(x |*| gear@maxpool1d(4, 3, `same, `first)))
 	x = array@double {
 		{18, 86, 41},
 		{ 1, 52, 62},
@@ -189,57 +189,57 @@ testcase('filter@maxpool1d') {
 		{ 3, 16, 82}
 	}
 	println(x.T)
-	tester(`(x |*| filter@maxpool1d(1, 1, `same, `last)))
-	tester(`(x |*| filter@maxpool1d(2, 1, `same, `last)))
-	tester(`(x |*| filter@maxpool1d(2, 1, `same, `last)))
-	tester(`(x |*| filter@maxpool1d(3, 1, `same, `last)))
-	tester(`(x |*| filter@maxpool1d(4, 1, `same, `last)))
-	tester(`(x |*| filter@maxpool1d(4, 2, `same, `last)))
-	tester(`(x |*| filter@maxpool1d(4, 3, `same, `last)))
+	tester(`(x |*| gear@maxpool1d(1, 1, `same, `last)))
+	tester(`(x |*| gear@maxpool1d(2, 1, `same, `last)))
+	tester(`(x |*| gear@maxpool1d(2, 1, `same, `last)))
+	tester(`(x |*| gear@maxpool1d(3, 1, `same, `last)))
+	tester(`(x |*| gear@maxpool1d(4, 1, `same, `last)))
+	tester(`(x |*| gear@maxpool1d(4, 2, `same, `last)))
+	tester(`(x |*| gear@maxpool1d(4, 3, `same, `last)))
 }
-testcase('filter@maxpool2d') {
-	tester(`filter@maxpool2d([5, 6])) {|f|
-		tester_filter@maxpool_properties(f)
+testcase('gear@maxpool2d') {
+	tester(`gear@maxpool2d([5, 6])) {|f|
+		tester_gear@maxpool_properties(f)
 	}
-	tester(`filter@maxpool2d([5, 6], [4, 3])) {|f|
-		tester_filter@maxpool_properties(f)
+	tester(`gear@maxpool2d([5, 6], [4, 3])) {|f|
+		tester_gear@maxpool_properties(f)
 	}
-	tester(`filter@maxpool2d([5, 6], [4, 3], `same)) {|f|
-		tester_filter@maxpool_properties(f)
+	tester(`gear@maxpool2d([5, 6], [4, 3], `same)) {|f|
+		tester_gear@maxpool_properties(f)
 	}
-	tester(`filter@maxpool2d([5, 6], [4, 3], `valid)) {|f|
-		tester_filter@maxpool_properties(f)
+	tester(`gear@maxpool2d([5, 6], [4, 3], `valid)) {|f|
+		tester_gear@maxpool_properties(f)
 	}
-	tester(`filter@maxpool2d([5, 6], [4, 3], `same, `none)) {|f|
-		tester_filter@maxpool_properties(f)
+	tester(`gear@maxpool2d([5, 6], [4, 3], `same, `none)) {|f|
+		tester_gear@maxpool_properties(f)
 	}
-	tester(`filter@maxpool2d([5, 6], [4, 3], `same, `first)) {|f|
-		tester_filter@maxpool_properties(f)
+	tester(`gear@maxpool2d([5, 6], [4, 3], `same, `first)) {|f|
+		tester_gear@maxpool_properties(f)
 	}
-	tester(`filter@maxpool2d([5, 6], [4, 3], `same, `last)) {|f|
-		tester_filter@maxpool_properties(f)
+	tester(`gear@maxpool2d([5, 6], [4, 3], `same, `last)) {|f|
+		tester_gear@maxpool_properties(f)
 	}
 }
-testcase('filter@maxpool3d') {
+testcase('gear@maxpool3d') {
 }
-testcase('filter@relu') {
+testcase('gear@relu') {
 	x = (array@double.range(21) - 10) * .1
 	tester(`x)
-	tester(`(x |*| filter@relu()))
+	tester(`(x |*| gear@relu()))
 }
-testcase('filter@sigmoid') {
+testcase('gear@sigmoid') {
 	x = (array@double.range(21) - 10) * .1
 	tester(`x)
-	tester(`(x |*| filter@sigmoid()))
+	tester(`(x |*| gear@sigmoid()))
 }
-testcase('filter@softmax') {
-	filter@softmax {|f|
+testcase('gear@softmax') {
+	gear@softmax {|f|
 		tester(`f.axis)
 	}
-	filter@softmax(3) {|f|
+	gear@softmax(3) {|f|
 		tester(`f.axis)
 	}
-	tester(`(array {0.3, 2.9, 4.0} |*| filter@softmax()))
+	tester(`(array {0.3, 2.9, 4.0} |*| gear@softmax()))
 	[
 		// axis=0, [*, 0, 0] and [*, 2, 3]
 		array@double {1, 2, -4, -3, -4}
@@ -261,7 +261,7 @@ testcase('filter@softmax') {
 		array@double {-1, -2, -3, -1},
 		array@double { 2, -1, -3,  4}
 	].each {|x|
-		ans1 = x |*| filter@softmax()
+		ans1 = x |*| gear@softmax()
 		ans2 = math.exp(x) / math.exp(x).sum()
 		println(x, ' .. ', ans1, ' ', ans2)
 	}
@@ -289,12 +289,12 @@ testcase('filter@softmax') {
 		}
 	}
 	println(x)
-	tester(`(x |*| filter@softmax(0)))
-	tester(`(x |*| filter@softmax(1)))
-	tester(`(x |*| filter@softmax(2)))
-	tester(`(x |*| filter@softmax()))
+	tester(`(x |*| gear@softmax(0)))
+	tester(`(x |*| gear@softmax(1)))
+	tester(`(x |*| gear@softmax(2)))
+	tester(`(x |*| gear@softmax()))
 }
-testcase('filter@softmax with large number') {
+testcase('gear@softmax with large number') {
 	x = array@double {
 		{
 			{ 1,  2,  1,  4},
@@ -319,13 +319,13 @@ testcase('filter@softmax with large number') {
 		}
 	} + 1000000
 	println(x)
-	tester(`(x |*| filter@softmax(0)))
-	tester(`(x |*| filter@softmax(1)))
-	tester(`(x |*| filter@softmax(2)))
-	tester(`(x |*| filter@softmax()))
+	tester(`(x |*| gear@softmax(0)))
+	tester(`(x |*| gear@softmax(1)))
+	tester(`(x |*| gear@softmax(2)))
+	tester(`(x |*| gear@softmax()))
 }
-testcase('filter@tanh') {
+testcase('gear@tanh') {
 	x = (array@double.range(21) - 10) * .1
 	tester(`x)
-	tester(`(x |*| filter@tanh()))
+	tester(`(x |*| gear@tanh()))
 }

@@ -24,8 +24,8 @@ String Gear_Conv1d::ToString() const
 {
 	char buff[80];
 	String str = "conv1d";
-	if (HasGearDim()) {
-		::sprintf(buff, ":gear_num=%zu", GetGearNum());
+	if (HasFilterDim()) {
+		::sprintf(buff, ":filter_num=%zu", GetFilterNum());
 		str += buff;
 	}
 	if (HasChannelDim()) {
@@ -78,12 +78,12 @@ Gura_DeclareFunctionAlias(gear_at_conv1d, "gear@conv1d")
 		"- `[size]` .. 1-dimension\n"
 		"- `[size, channel_num]` .. 2-dimensions and `channel_pos` is `` `last``\n"
 		"- `[channel_num, size]` .. 2-dimensions and `channel_pos` is `` `first``\n"
-		"- `[gear_num, size]` .. 2-dimensions and `channel_pos` is `` `none``\n"
-		"- `[gear_num, size, channel_num]` .. 3-dimensions and `channel_pos` is `` `last``\n"
-		"- `[gear_num, channel_num, size]` .. 3-dimensions and `channel_pos` is `` `first``\n"
+		"- `[filter_num, size]` .. 2-dimensions and `channel_pos` is `` `none``\n"
+		"- `[filter_num, size, channel_num]` .. 3-dimensions and `channel_pos` is `` `last``\n"
+		"- `[filter_num, channel_num, size]` .. 3-dimensions and `channel_pos` is `` `first``\n"
 		"\n"
-		"where `size` is the size of the gear's kernel,\n"
-		"`channel_num` is the number of channels and `gear_num` is the number of gears.\n"
+		"where `size` is the size of the filter's kernel,\n"
+		"`channel_num` is the number of channels and `filter_num` is the number of filters.\n"
 		"\n"
 		"The `strides` is a strides for a sliding window. Default is one.\n"
 		"\n"
@@ -185,8 +185,8 @@ Gura_ImplementPropertyGetter(gear_at_conv1d, channel_pos)
 	return Value(Array::ChannelPosToSymbol(pGear->GetChannelPos()));
 }
 
-// gear@conv1d#gear_num
-Gura_DeclareProperty_R(gear_at_conv1d, gear_num)
+// gear@conv1d#filter_num
+Gura_DeclareProperty_R(gear_at_conv1d, filter_num)
 {
 	SetPropAttr(VTYPE_number, FLAG_Nil);
 	AddHelp(
@@ -194,10 +194,10 @@ Gura_DeclareProperty_R(gear_at_conv1d, gear_num)
 		"");
 }
 
-Gura_ImplementPropertyGetter(gear_at_conv1d, gear_num)
+Gura_ImplementPropertyGetter(gear_at_conv1d, filter_num)
 {
 	const Gear_Conv1d *pGear = Object_gear_at_conv1d::GetObject(valueThis)->GetGear();
-	return pGear->HasGearDim()? Value(pGear->GetGearNum()) : Value::Nil;
+	return pGear->HasFilterDim()? Value(pGear->GetFilterNum()) : Value::Nil;
 }
 
 // gear@conv1d#padding
@@ -261,7 +261,7 @@ void Class_gear_at_conv1d::DoPrepare(Environment &env)
 	Gura_AssignProperty(gear_at_conv1d, array);
 	Gura_AssignProperty(gear_at_conv1d, channel_num);
 	Gura_AssignProperty(gear_at_conv1d, channel_pos);
-	Gura_AssignProperty(gear_at_conv1d, gear_num);
+	Gura_AssignProperty(gear_at_conv1d, filter_num);
 	Gura_AssignProperty(gear_at_conv1d, padding);
 	Gura_AssignProperty(gear_at_conv1d, size);
 	Gura_AssignProperty(gear_at_conv1d, strides);

@@ -1,148 +1,148 @@
 ======== #1 calculation of padding amount ========
 
-filter.calcpadding(13, 6, 5, `same) .. [3, 3]
-filter.calcpadding(13, 6, 5, `valid) .. [2, 0]
+gear.calcpadding(13, 6, 5, `same) .. [3, 3]
+gear.calcpadding(13, 6, 5, `valid) .. [2, 0]
 
-======== #2 filter@conv1d ========
+======== #2 gear@conv1d ========
 
-filter@conv1d(array.zeros([5])) .. <filter@conv1d:size=5:strides=1:padding=same:channel_pos=none>
+gear@conv1d(array.zeros([5])) .. <gear@conv1d:size=5:strides=1:padding=same:channel_pos=none>
 f.size .. 5
 f.strides .. 1
 f.padding .. same
 f.channel_pos .. none
 f.channel_num .. nil
 f.filter_num .. nil
-filter@conv1d(array.zeros([5, 3])) .. <filter@conv1d:channel_num=3:size=5:strides=1:padding=same:channel_pos=last>
+gear@conv1d(array.zeros([5, 3])) .. <gear@conv1d:channel_num=3:size=5:strides=1:padding=same:channel_pos=last>
 f.size .. 5
 f.strides .. 1
 f.padding .. same
 f.channel_pos .. last
 f.channel_num .. 3
 f.filter_num .. nil
-filter@conv1d(array.zeros([16, 5, 3])) .. <filter@conv1d:filter_num=16:channel_num=3:size=5:strides=1:padding=same:channel_pos=last>
+gear@conv1d(array.zeros([16, 5, 3])) .. <gear@conv1d:filter_num=16:channel_num=3:size=5:strides=1:padding=same:channel_pos=last>
 f.size .. 5
 f.strides .. 1
 f.padding .. same
 f.channel_pos .. last
 f.channel_num .. 3
 f.filter_num .. 16
-filter@conv1d(array.zeros([4, 16, 5, 3])) .. ValueError: the `array` instance given to `filter@conv1d` constructor must have dimensions of 1, 2 or 3.
-filter@conv1d(array.zeros([16, 5, 3]), 4) .. <filter@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=same:channel_pos=last>
+gear@conv1d(array.zeros([4, 16, 5, 3])) .. ValueError: the `array` instance given to `gear@conv1d` constructor must have dimensions of 1, 2 or 3.
+gear@conv1d(array.zeros([16, 5, 3]), 4) .. <gear@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=same:channel_pos=last>
 f.size .. 5
 f.strides .. 4
 f.padding .. same
 f.channel_pos .. last
 f.channel_num .. 3
 f.filter_num .. 16
-filter@conv1d(array.zeros([16, 5, 3]), 4, `same) .. <filter@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=same:channel_pos=last>
+gear@conv1d(array.zeros([16, 5, 3]), 4, `same) .. <gear@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=same:channel_pos=last>
 f.size .. 5
 f.strides .. 4
 f.padding .. same
 f.channel_pos .. last
 f.channel_num .. 3
 f.filter_num .. 16
-filter@conv1d(array.zeros([16, 5, 3]), 4, `valid) .. <filter@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=valid:channel_pos=last>
+gear@conv1d(array.zeros([16, 5, 3]), 4, `valid) .. <gear@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=valid:channel_pos=last>
 f.size .. 5
 f.strides .. 4
 f.padding .. valid
 f.channel_pos .. last
 f.channel_num .. 3
 f.filter_num .. 16
-filter@conv1d(array.zeros([16, 5, 3]), 4, `xxxx) .. ValueError: specify `valid or `same for padding type
-filter@conv1d(array.zeros([16, 3, 5]), 4, `valid, `first) .. <filter@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=valid:channel_pos=first>
+gear@conv1d(array.zeros([16, 5, 3]), 4, `xxxx) .. ValueError: specify `valid or `same for padding type
+gear@conv1d(array.zeros([16, 3, 5]), 4, `valid, `first) .. <gear@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=valid:channel_pos=first>
 f.size .. 5
 f.strides .. 4
 f.padding .. valid
 f.channel_pos .. first
 f.channel_num .. 3
 f.filter_num .. 16
-filter@conv1d(array.zeros([16, 5, 3]), 4, `valid, `last) .. <filter@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=valid:channel_pos=last>
+gear@conv1d(array.zeros([16, 5, 3]), 4, `valid, `last) .. <gear@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=valid:channel_pos=last>
 f.size .. 5
 f.strides .. 4
 f.padding .. valid
 f.channel_pos .. last
 f.channel_num .. 3
 f.filter_num .. 16
-filter@conv1d(array.zeros([16, 5, 3]), 4, `xxxx, `last) .. ValueError: specify `valid or `same for padding type
-filter@conv1d(array.zeros([16, 5, 3]), 4, `valid, `xxxx) .. ValueError: specify `none, `first or `last for channel positioning
+gear@conv1d(array.zeros([16, 5, 3]), 4, `xxxx, `last) .. ValueError: specify `valid or `same for padding type
+gear@conv1d(array.zeros([16, 5, 3]), 4, `valid, `xxxx) .. ValueError: specify `none, `first or `last for channel positioning
 
-======== #3 filter@conv2d ========
+======== #3 gear@conv2d ========
 
-filter@conv2d(array.zeros([5, 6])) .. <filter@conv2d:size=(5,6):strides=(1,1):padding=same:channel_pos=none>
+gear@conv2d(array.zeros([5, 6])) .. <gear@conv2d:size=(5,6):strides=(1,1):padding=same:channel_pos=none>
 f.size .. [5, 6]
 f.strides .. [1, 1]
 f.padding .. same
 f.channel_pos .. none
 f.channel_num .. nil
 f.filter_num .. nil
-filter@conv2d(array.zeros([5, 6, 3])) .. <filter@conv2d:channel_num=3:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
+gear@conv2d(array.zeros([5, 6, 3])) .. <gear@conv2d:channel_num=3:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
 f.size .. [5, 6]
 f.strides .. [1, 1]
 f.padding .. same
 f.channel_pos .. last
 f.channel_num .. 3
 f.filter_num .. nil
-filter@conv2d(array.zeros([16, 5, 6, 3])) .. <filter@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
+gear@conv2d(array.zeros([16, 5, 6, 3])) .. <gear@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
 f.size .. [5, 6]
 f.strides .. [1, 1]
 f.padding .. same
 f.channel_pos .. last
 f.channel_num .. 3
 f.filter_num .. 16
-filter@conv2d(array.zeros([4, 16, 5, 6, 3])) .. ValueError: the `array` instance given to `filter@conv2d` constructor must have dimensions of 2, 3 or 4.
-filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3]) .. <filter@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
+gear@conv2d(array.zeros([4, 16, 5, 6, 3])) .. ValueError: the `array` instance given to `gear@conv2d` constructor must have dimensions of 2, 3 or 4.
+gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3]) .. <gear@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
 f.size .. [5, 6]
 f.strides .. [4, 3]
 f.padding .. same
 f.channel_pos .. last
 f.channel_num .. 3
 f.filter_num .. 16
-filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `same) .. <filter@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
+gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `same) .. <gear@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
 f.size .. [5, 6]
 f.strides .. [4, 3]
 f.padding .. same
 f.channel_pos .. last
 f.channel_num .. 3
 f.filter_num .. 16
-filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid) .. <filter@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=valid:channel_pos=last>
+gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid) .. <gear@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=valid:channel_pos=last>
 f.size .. [5, 6]
 f.strides .. [4, 3]
 f.padding .. valid
 f.channel_pos .. last
 f.channel_num .. 3
 f.filter_num .. 16
-filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `xxxx) .. ValueError: specify `valid or `same for padding type
-filter@conv2d(array.zeros([16, 3, 5, 6]), [4, 3], `valid, `first) .. <filter@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=valid:channel_pos=first>
+gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `xxxx) .. ValueError: specify `valid or `same for padding type
+gear@conv2d(array.zeros([16, 3, 5, 6]), [4, 3], `valid, `first) .. <gear@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=valid:channel_pos=first>
 f.size .. [5, 6]
 f.strides .. [4, 3]
 f.padding .. valid
 f.channel_pos .. first
 f.channel_num .. 3
 f.filter_num .. 16
-filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid, `last) .. <filter@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=valid:channel_pos=last>
+gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid, `last) .. <gear@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=valid:channel_pos=last>
 f.size .. [5, 6]
 f.strides .. [4, 3]
 f.padding .. valid
 f.channel_pos .. last
 f.channel_num .. 3
 f.filter_num .. 16
-filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `xxxx, `last) .. ValueError: specify `valid or `same for padding type
-filter@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid, `xxxx) .. ValueError: specify `none, `first or `last for channel positioning
+gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `xxxx, `last) .. ValueError: specify `valid or `same for padding type
+gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid, `xxxx) .. ValueError: specify `none, `first or `last for channel positioning
 
-======== #4 filter@conv3d ========
+======== #4 gear@conv3d ========
 
 
-======== #5 error check for filter@conv1d ========
+======== #5 error check for gear@conv1d ========
 
-filter@conv1d(array.zeros([3]), 1, `same, `last) .. ValueError: channel dimension is expected to exist at last
+gear@conv1d(array.zeros([3]), 1, `same, `last) .. ValueError: channel dimension is expected to exist at last
 x_5 |*| f_3 .. {0, 0, 0, 0, 0}
 x_5 |*| f_4 .. {0, 0, 0, 0, 0}
 x_5 |*| f_5 .. {0, 0, 0, 0, 0}
-x_5 |*| f_6 .. ValueError: target array (5) is smaller than applied filter (6) with channel at first
+x_5 |*| f_6 .. ValueError: target array (5) is smaller than applied gear (6) with channel at first
 
-======== #6 error check for filter@conv2d ========
+======== #6 error check for gear@conv2d ========
 
-filter@conv2d(array.zeros([3, 3]), [1, 1], `same, `last) .. ValueError: channel dimension is expected to exist at last
+gear@conv2d(array.zeros([3, 3]), [1, 1], `same, `last) .. ValueError: channel dimension is expected to exist at last
 x_5_5 |*| f_3_3 .. {{0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0},
@@ -153,93 +153,93 @@ x_5_5 |*| f_4_3 .. {{0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0}}
-x_5_5 |*| f_6_5 .. ValueError: target array (5, 5) is smaller than applied filter (6, 5) with channel at first
-x_5_5 |*| f_5_6 .. ValueError: target array (5, 5) is smaller than applied filter (5, 6) with channel at first
-x_5_5 |*| f_3_3_3 .. ValueError: unmatched dimension between array (5, 5) and filter (3, 3, 3) with channel at first
+x_5_5 |*| f_6_5 .. ValueError: target array (5, 5) is smaller than applied gear (6, 5) with channel at first
+x_5_5 |*| f_5_6 .. ValueError: target array (5, 5) is smaller than applied gear (5, 6) with channel at first
+x_5_5 |*| f_3_3_3 .. ValueError: unmatched dimension between array (5, 5) and gear (3, 3, 3) with channel at first
 x_3_5_5 |*| f_3_3_3 .. {{0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0}}
-x_4_5_5 |*| f_3_3_3 .. ValueError: unmatched dimension between array (4, 5, 5) and filter (3, 3, 3) with channel at first
+x_4_5_5 |*| f_3_3_3 .. ValueError: unmatched dimension between array (4, 5, 5) and gear (3, 3, 3) with channel at first
 x_5_5_3 |*| f_3_3_3_last .. {{0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0}}
-x_5_5_4 |*| f_3_3_3_last .. ValueError: unmatched dimension between array (5, 5, 4) and filter (3, 3, 3) with channel at last
+x_5_5_4 |*| f_3_3_3_last .. ValueError: unmatched dimension between array (5, 5, 4) and gear (3, 3, 3) with channel at last
 
-======== #7 error check for filter@conv3d ========
+======== #7 error check for gear@conv3d ========
 
 
-======== #8 filter@maxpool1d ========
+======== #8 gear@maxpool1d ========
 
-filter@maxpool1d(4) .. <filter@maxpool1d:size=4:strides=1:padding=same:channel_pos=last>
+gear@maxpool1d(4) .. <gear@maxpool1d:size=4:strides=1:padding=same:channel_pos=last>
 f.size .. 4
 f.strides .. 1
 f.padding .. same
 f.channel_pos .. last
-filter@maxpool1d(4, 3) .. <filter@maxpool1d:size=4:strides=3:padding=same:channel_pos=last>
+gear@maxpool1d(4, 3) .. <gear@maxpool1d:size=4:strides=3:padding=same:channel_pos=last>
 f.size .. 4
 f.strides .. 3
 f.padding .. same
 f.channel_pos .. last
-filter@maxpool1d(4, 3, `same) .. <filter@maxpool1d:size=4:strides=3:padding=same:channel_pos=last>
+gear@maxpool1d(4, 3, `same) .. <gear@maxpool1d:size=4:strides=3:padding=same:channel_pos=last>
 f.size .. 4
 f.strides .. 3
 f.padding .. same
 f.channel_pos .. last
-filter@maxpool1d(4, 3, `valid) .. <filter@maxpool1d:size=4:strides=3:padding=valid:channel_pos=last>
+gear@maxpool1d(4, 3, `valid) .. <gear@maxpool1d:size=4:strides=3:padding=valid:channel_pos=last>
 f.size .. 4
 f.strides .. 3
 f.padding .. valid
 f.channel_pos .. last
-filter@maxpool1d(4, 3, `same, `none) .. <filter@maxpool1d:size=4:strides=3:padding=same:channel_pos=none>
+gear@maxpool1d(4, 3, `same, `none) .. <gear@maxpool1d:size=4:strides=3:padding=same:channel_pos=none>
 f.size .. 4
 f.strides .. 3
 f.padding .. same
 f.channel_pos .. none
-filter@maxpool1d(4, 3, `same, `first) .. <filter@maxpool1d:size=4:strides=3:padding=same:channel_pos=first>
+gear@maxpool1d(4, 3, `same, `first) .. <gear@maxpool1d:size=4:strides=3:padding=same:channel_pos=first>
 f.size .. 4
 f.strides .. 3
 f.padding .. same
 f.channel_pos .. first
-filter@maxpool1d(4, 3, `same, `last) .. <filter@maxpool1d:size=4:strides=3:padding=same:channel_pos=last>
+gear@maxpool1d(4, 3, `same, `last) .. <gear@maxpool1d:size=4:strides=3:padding=same:channel_pos=last>
 f.size .. 4
 f.strides .. 3
 f.padding .. same
 f.channel_pos .. last
-x |*| filter@maxpool1d(1, 1, `same, `first) .. {68, 79, 68, 92, 33, 30, 63,  2, 72, 90, 54, 52, 76, 54, 68, 52, 84, 79, 80, 24}
-x |*| filter@maxpool1d(2, 1, `same, `first) .. {79, 79, 92, 92, 33, 63, 63, 72, 90, 90, 54, 76, 76, 68, 68, 84, 84, 80, 80, 24}
-x |*| filter@maxpool1d(3, 1, `same, `first) .. {79, 79, 92, 92, 92, 63, 63, 72, 90, 90, 90, 76, 76, 76, 68, 84, 84, 84, 80, 80}
-x |*| filter@maxpool1d(4, 1, `same, `first) .. {79, 92, 92, 92, 92, 63, 72, 90, 90, 90, 90, 76, 76, 76, 84, 84, 84, 84, 80, 80}
-x |*| filter@maxpool1d(4, 2, `same, `first) .. {79, 92, 92, 72, 90, 90, 76, 84, 84, 80}
-x |*| filter@maxpool1d(4, 3, `same, `first) .. {79, 92, 72, 90, 76, 84, 80}
-x |*| filter@maxpool1d(1, 1, `same, `first) .. {{18,  1, 35, 28, 62, 91, 98, 10, 17,  3},
+x |*| gear@maxpool1d(1, 1, `same, `first) .. {68, 79, 68, 92, 33, 30, 63,  2, 72, 90, 54, 52, 76, 54, 68, 52, 84, 79, 80, 24}
+x |*| gear@maxpool1d(2, 1, `same, `first) .. {79, 79, 92, 92, 33, 63, 63, 72, 90, 90, 54, 76, 76, 68, 68, 84, 84, 80, 80, 24}
+x |*| gear@maxpool1d(3, 1, `same, `first) .. {79, 79, 92, 92, 92, 63, 63, 72, 90, 90, 90, 76, 76, 76, 68, 84, 84, 84, 80, 80}
+x |*| gear@maxpool1d(4, 1, `same, `first) .. {79, 92, 92, 92, 92, 63, 72, 90, 90, 90, 90, 76, 76, 76, 84, 84, 84, 84, 80, 80}
+x |*| gear@maxpool1d(4, 2, `same, `first) .. {79, 92, 92, 72, 90, 90, 76, 84, 84, 80}
+x |*| gear@maxpool1d(4, 3, `same, `first) .. {79, 92, 72, 90, 76, 84, 80}
+x |*| gear@maxpool1d(1, 1, `same, `first) .. {{18,  1, 35, 28, 62, 91, 98, 10, 17,  3},
  {86, 52, 83, 23,  0, 67, 66,  5, 55, 16},
  {41, 62,  0, 61, 48, 80, 17, 61, 17, 82}}
-x |*| filter@maxpool1d(2, 1, `same, `first) .. {{18, 35, 35, 62, 91, 98, 98, 17, 17,  3},
+x |*| gear@maxpool1d(2, 1, `same, `first) .. {{18, 35, 35, 62, 91, 98, 98, 17, 17,  3},
  {86, 83, 83, 23, 67, 67, 66, 55, 55, 16},
  {62, 62, 61, 61, 80, 80, 61, 61, 82, 82}}
-x |*| filter@maxpool1d(2, 1, `same, `first) .. {{18, 35, 35, 62, 91, 98, 98, 17, 17,  3},
+x |*| gear@maxpool1d(2, 1, `same, `first) .. {{18, 35, 35, 62, 91, 98, 98, 17, 17,  3},
  {86, 83, 83, 23, 67, 67, 66, 55, 55, 16},
  {62, 62, 61, 61, 80, 80, 61, 61, 82, 82}}
-x |*| filter@maxpool1d(3, 1, `same, `first) .. {{18, 35, 35, 62, 91, 98, 98, 98, 17, 17},
+x |*| gear@maxpool1d(3, 1, `same, `first) .. {{18, 35, 35, 62, 91, 98, 98, 98, 17, 17},
  {86, 86, 83, 83, 67, 67, 67, 66, 55, 55},
  {62, 62, 62, 61, 80, 80, 80, 61, 82, 82}}
-x |*| filter@maxpool1d(4, 1, `same, `first) .. {{35, 35, 62, 91, 98, 98, 98, 98, 17, 17},
+x |*| gear@maxpool1d(4, 1, `same, `first) .. {{35, 35, 62, 91, 98, 98, 98, 98, 17, 17},
  {86, 86, 83, 83, 67, 67, 67, 66, 55, 55},
  {62, 62, 62, 80, 80, 80, 80, 82, 82, 82}}
-x |*| filter@maxpool1d(4, 2, `same, `first) .. {{35, 62, 98, 98, 17},
+x |*| gear@maxpool1d(4, 2, `same, `first) .. {{35, 62, 98, 98, 17},
  {86, 83, 67, 67, 55},
  {62, 62, 80, 80, 82}}
-x |*| filter@maxpool1d(4, 3, `same, `first) .. {{35, 91, 98, 17},
+x |*| gear@maxpool1d(4, 3, `same, `first) .. {{35, 91, 98, 17},
  {86, 83, 67, 55},
  {62, 80, 80, 82}}
 {{18,  1, 35, 28, 62, 91, 98, 10, 17,  3},
  {86, 52, 83, 23,  0, 67, 66,  5, 55, 16},
  {41, 62,  0, 61, 48, 80, 17, 61, 17, 82}}
-x |*| filter@maxpool1d(1, 1, `same, `last) .. {{18, 86, 41},
+x |*| gear@maxpool1d(1, 1, `same, `last) .. {{18, 86, 41},
  { 1, 52, 62},
  {35, 83,  0},
  {28, 23, 61},
@@ -249,7 +249,7 @@ x |*| filter@maxpool1d(1, 1, `same, `last) .. {{18, 86, 41},
  {10,  5, 61},
  {17, 55, 17},
  { 3, 16, 82}}
-x |*| filter@maxpool1d(2, 1, `same, `last) .. {{18, 86, 62},
+x |*| gear@maxpool1d(2, 1, `same, `last) .. {{18, 86, 62},
  {35, 83, 62},
  {35, 83, 61},
  {62, 23, 61},
@@ -259,7 +259,7 @@ x |*| filter@maxpool1d(2, 1, `same, `last) .. {{18, 86, 62},
  {17, 55, 61},
  {17, 55, 82},
  { 3, 16, 82}}
-x |*| filter@maxpool1d(2, 1, `same, `last) .. {{18, 86, 62},
+x |*| gear@maxpool1d(2, 1, `same, `last) .. {{18, 86, 62},
  {35, 83, 62},
  {35, 83, 61},
  {62, 23, 61},
@@ -269,7 +269,7 @@ x |*| filter@maxpool1d(2, 1, `same, `last) .. {{18, 86, 62},
  {17, 55, 61},
  {17, 55, 82},
  { 3, 16, 82}}
-x |*| filter@maxpool1d(3, 1, `same, `last) .. {{18, 86, 62},
+x |*| gear@maxpool1d(3, 1, `same, `last) .. {{18, 86, 62},
  {35, 86, 62},
  {35, 83, 62},
  {62, 83, 61},
@@ -279,7 +279,7 @@ x |*| filter@maxpool1d(3, 1, `same, `last) .. {{18, 86, 62},
  {98, 66, 61},
  {17, 55, 82},
  {17, 55, 82}}
-x |*| filter@maxpool1d(4, 1, `same, `last) .. {{35, 86, 62},
+x |*| gear@maxpool1d(4, 1, `same, `last) .. {{35, 86, 62},
  {35, 86, 62},
  {62, 83, 62},
  {91, 83, 80},
@@ -289,72 +289,72 @@ x |*| filter@maxpool1d(4, 1, `same, `last) .. {{35, 86, 62},
  {98, 66, 82},
  {17, 55, 82},
  {17, 55, 82}}
-x |*| filter@maxpool1d(4, 2, `same, `last) .. {{35, 86, 62},
+x |*| gear@maxpool1d(4, 2, `same, `last) .. {{35, 86, 62},
  {62, 83, 62},
  {98, 67, 80},
  {98, 67, 80},
  {17, 55, 82}}
-x |*| filter@maxpool1d(4, 3, `same, `last) .. {{35, 86, 62},
+x |*| gear@maxpool1d(4, 3, `same, `last) .. {{35, 86, 62},
  {91, 83, 80},
  {98, 67, 80},
  {17, 55, 82}}
 
-======== #9 filter@maxpool2d ========
+======== #9 gear@maxpool2d ========
 
-filter@maxpool2d([5, 6]) .. <filter@maxpool2d:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
+gear@maxpool2d([5, 6]) .. <gear@maxpool2d:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
 f.size .. [5, 6]
 f.strides .. [1, 1]
 f.padding .. same
 f.channel_pos .. last
-filter@maxpool2d([5, 6], [4, 3]) .. <filter@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
+gear@maxpool2d([5, 6], [4, 3]) .. <gear@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
 f.size .. [5, 6]
 f.strides .. [4, 3]
 f.padding .. same
 f.channel_pos .. last
-filter@maxpool2d([5, 6], [4, 3], `same) .. <filter@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
+gear@maxpool2d([5, 6], [4, 3], `same) .. <gear@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
 f.size .. [5, 6]
 f.strides .. [4, 3]
 f.padding .. same
 f.channel_pos .. last
-filter@maxpool2d([5, 6], [4, 3], `valid) .. <filter@maxpool2d:size=(5,6):strides=(4,3):padding=valid:channel_pos=last>
+gear@maxpool2d([5, 6], [4, 3], `valid) .. <gear@maxpool2d:size=(5,6):strides=(4,3):padding=valid:channel_pos=last>
 f.size .. [5, 6]
 f.strides .. [4, 3]
 f.padding .. valid
 f.channel_pos .. last
-filter@maxpool2d([5, 6], [4, 3], `same, `none) .. <filter@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=none>
+gear@maxpool2d([5, 6], [4, 3], `same, `none) .. <gear@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=none>
 f.size .. [5, 6]
 f.strides .. [4, 3]
 f.padding .. same
 f.channel_pos .. none
-filter@maxpool2d([5, 6], [4, 3], `same, `first) .. <filter@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=first>
+gear@maxpool2d([5, 6], [4, 3], `same, `first) .. <gear@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=first>
 f.size .. [5, 6]
 f.strides .. [4, 3]
 f.padding .. same
 f.channel_pos .. first
-filter@maxpool2d([5, 6], [4, 3], `same, `last) .. <filter@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
+gear@maxpool2d([5, 6], [4, 3], `same, `last) .. <gear@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
 f.size .. [5, 6]
 f.strides .. [4, 3]
 f.padding .. same
 f.channel_pos .. last
 
-======== #10 filter@maxpool3d ========
+======== #10 gear@maxpool3d ========
 
 
-======== #11 filter@relu ========
-
-x .. {  -1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1,    0,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,    1}
-x |*| filter@relu() .. {  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,   1}
-
-======== #12 filter@sigmoid ========
+======== #11 gear@relu ========
 
 x .. {  -1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1,    0,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,    1}
-x |*| filter@sigmoid() .. {0.268941,  0.28905, 0.310026, 0.331812, 0.354344, 0.377541, 0.401312, 0.425557, 0.450166, 0.475021,      0.5, 0.524979, 0.549834, 0.574443, 0.598688, 0.622459, 0.645656, 0.668188, 0.689974,  0.71095, 0.731059}
+x |*| gear@relu() .. {  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,   1}
 
-======== #13 filter@softmax ========
+======== #12 gear@sigmoid ========
+
+x .. {  -1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1,    0,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,    1}
+x |*| gear@sigmoid() .. {0.268941,  0.28905, 0.310026, 0.331812, 0.354344, 0.377541, 0.401312, 0.425557, 0.450166, 0.475021,      0.5, 0.524979, 0.549834, 0.574443, 0.598688, 0.622459, 0.645656, 0.668188, 0.689974,  0.71095, 0.731059}
+
+======== #13 gear@softmax ========
 
 f.axis .. nil
 f.axis .. 3
-array { 0.3, 2.9, 4.0 } |*| filter@softmax() .. {0.0182113,  0.245192,  0.736597}
+array { 0.3, 2.9, 4.0 } |*| gear@softmax() .. {0.0182113,  0.245192,  0.736597}
 { 1,  2, -4, -3, -4} .. {  0.266661,   0.724861, 0.00179675, 0.00488407, 0.00179675} {  0.266661,   0.724861, 0.00179675, 0.00488407, 0.00179675}
 { 0,  0, -3,  4,  3} .. {  0.0130321,   0.0130321, 0.000648831,     0.71153,    0.261757} {  0.0130321,   0.0130321, 0.000648831,     0.71153,    0.261757}
 { 1, -2,  2} .. { 0.265388, 0.0132129,  0.721399} { 0.265388, 0.0132129,  0.721399}
@@ -390,7 +390,7 @@ array { 0.3, 2.9, 4.0 } |*| filter@softmax() .. {0.0182113,  0.245192,  0.736597
  {{-4, -3,  3,  1},
   { 1,  2, -1,  4},
   { 0, -3,  1,  3}}}
-x |*| filter@softmax(0) .. {{{   0.266661,     0.25027,   0.0595365,    0.554366},
+x |*| gear@softmax(0) .. {{{   0.266661,     0.25027,   0.0595365,    0.554366},
   { 0.00556774,  0.00877851,   0.0627677, 0.000116693},
   {   0.104792,    0.989852,   0.0416859,   0.0130321}},
 
@@ -409,7 +409,7 @@ x |*| filter@softmax(0) .. {{{   0.266661,     0.25027,   0.0595365,    0.554366
  {{ 0.00179675,   0.0016863,    0.439918,   0.0276003},
   {   0.111831,     0.47929,  0.00849468,    0.945573},
   {  0.0141821, 0.000902628,    0.113314,    0.261757}}}
-x |*| filter@softmax(1) .. {{{   0.265388,    0.118943,    0.422319,    0.981895},
+x |*| gear@softmax(1) .. {{{   0.265388,    0.118943,    0.422319,    0.981895},
   {  0.0132129,  0.00217852,    0.422319, 0.000121175},
   {   0.721399,    0.878878,    0.155362,    0.017984}},
 
@@ -428,7 +428,7 @@ x |*| filter@softmax(1) .. {{{   0.265388,    0.118943,    0.422319,    0.981895
  {{ 0.00490169,  0.00664835,    0.866813,    0.035119},
   {   0.727475,    0.986703,   0.0158762,    0.705385},
   {   0.267623,  0.00664835,     0.11731,    0.259496}}}
-x |*| filter@softmax(2) .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776},
+x |*| gear@softmax(2) .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776},
   {  0.0451767,   0.0451767,    0.907397,  0.00224921},
   {   0.115477,    0.853267,   0.0156281,   0.0156281}},
 
@@ -447,7 +447,7 @@ x |*| filter@softmax(2) .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776
  {{0.000800791,  0.00217678,    0.878174,    0.118848},
   {  0.0417726,     0.11355,   0.0056533,    0.839025},
   {  0.0419224,  0.00208719,    0.113957,    0.842034}}}
-x |*| filter@softmax() .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776},
+x |*| gear@softmax() .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776},
   {  0.0451767,   0.0451767,    0.907397,  0.00224921},
   {   0.115477,    0.853267,   0.0156281,   0.0156281}},
 
@@ -467,7 +467,7 @@ x |*| filter@softmax() .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776}
   {  0.0417726,     0.11355,   0.0056533,    0.839025},
   {  0.0419224,  0.00208719,    0.113957,    0.842034}}}
 
-======== #14 filter@softmax with large number ========
+======== #14 gear@softmax with large number ========
 
 {{{ 1e+06,  1e+06,  1e+06,  1e+06},
   {999998, 999998,  1e+06, 999995},
@@ -488,7 +488,7 @@ x |*| filter@softmax() .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776}
  {{999996, 999997,  1e+06,  1e+06},
   { 1e+06,  1e+06, 999999,  1e+06},
   { 1e+06, 999997,  1e+06,  1e+06}}}
-x |*| filter@softmax(0) .. {{{   0.266661,     0.25027,   0.0595365,    0.554366},
+x |*| gear@softmax(0) .. {{{   0.266661,     0.25027,   0.0595365,    0.554366},
   { 0.00556774,  0.00877851,   0.0627677, 0.000116693},
   {   0.104792,    0.989852,   0.0416859,   0.0130321}},
 
@@ -507,7 +507,7 @@ x |*| filter@softmax(0) .. {{{   0.266661,     0.25027,   0.0595365,    0.554366
  {{ 0.00179675,   0.0016863,    0.439918,   0.0276003},
   {   0.111831,     0.47929,  0.00849468,    0.945573},
   {  0.0141821, 0.000902628,    0.113314,    0.261757}}}
-x |*| filter@softmax(1) .. {{{   0.265388,    0.118943,    0.422319,    0.981895},
+x |*| gear@softmax(1) .. {{{   0.265388,    0.118943,    0.422319,    0.981895},
   {  0.0132129,  0.00217852,    0.422319, 0.000121175},
   {   0.721399,    0.878878,    0.155362,    0.017984}},
 
@@ -526,7 +526,7 @@ x |*| filter@softmax(1) .. {{{   0.265388,    0.118943,    0.422319,    0.981895
  {{ 0.00490169,  0.00664835,    0.866813,    0.035119},
   {   0.727475,    0.986703,   0.0158762,    0.705385},
   {   0.267623,  0.00664835,     0.11731,    0.259496}}}
-x |*| filter@softmax(2) .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776},
+x |*| gear@softmax(2) .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776},
   {  0.0451767,   0.0451767,    0.907397,  0.00224921},
   {   0.115477,    0.853267,   0.0156281,   0.0156281}},
 
@@ -545,7 +545,7 @@ x |*| filter@softmax(2) .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776
  {{0.000800791,  0.00217678,    0.878174,    0.118848},
   {  0.0417726,     0.11355,   0.0056533,    0.839025},
   {  0.0419224,  0.00208719,    0.113957,    0.842034}}}
-x |*| filter@softmax() .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776},
+x |*| gear@softmax() .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776},
   {  0.0451767,   0.0451767,    0.907397,  0.00224921},
   {   0.115477,    0.853267,   0.0156281,   0.0156281}},
 
@@ -565,7 +565,7 @@ x |*| filter@softmax() .. {{{  0.0403164,    0.109591,   0.0403164,    0.809776}
   {  0.0417726,     0.11355,   0.0056533,    0.839025},
   {  0.0419224,  0.00208719,    0.113957,    0.842034}}}
 
-======== #15 filter@tanh ========
+======== #15 gear@tanh ========
 
 x .. {  -1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1,    0,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,    1}
-x |*| filter@tanh() .. {-0.761594, -0.716298, -0.664037, -0.604368,  -0.53705, -0.462117, -0.379949, -0.291313, -0.197375, -0.099668,         0,  0.099668,  0.197375,  0.291313,  0.379949,  0.462117,   0.53705,  0.604368,  0.664037,  0.716298,  0.761594}
+x |*| gear@tanh() .. {-0.761594, -0.716298, -0.664037, -0.604368,  -0.53705, -0.462117, -0.379949, -0.291313, -0.197375, -0.099668,         0,  0.099668,  0.197375,  0.291313,  0.379949,  0.462117,   0.53705,  0.604368,  0.664037,  0.716298,  0.761594}

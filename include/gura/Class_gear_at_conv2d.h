@@ -39,7 +39,7 @@ public:
 	inline Array *GetArrayGear() { return _pArrayGear.get(); }
 	inline const Array *GetArrayGear() const { return _pArrayGear.get(); }
 	inline bool HasChannelDim() const { return _pArrayGear->GetDimensions().size() >= 3; }
-	inline bool HasGearDim() const { return _pArrayGear->GetDimensions().size() == 4; }
+	inline bool HasFilterDim() const { return _pArrayGear->GetDimensions().size() == 4; }
 	inline size_t GetSizeCol() const {
 		return _pArrayGear->GetDimensions().GetBack(IsChLast()? 1 : 0).GetSize();
 	}
@@ -49,8 +49,8 @@ public:
 	inline size_t GetChannelNum() const {
 		return HasChannelDim()? _pArrayGear->GetDimensions().GetBack(IsChLast()? 0 : 2).GetSize() : 1;
 	}
-	inline size_t GetGearNum() const {
-		return HasGearDim()? _pArrayGear->GetDimensions().GetBack(3).GetSize() : 1;
+	inline size_t GetFilterNum() const {
+		return HasFilterDim()? _pArrayGear->GetDimensions().GetBack(3).GetSize() : 1;
 	}
 	inline size_t GetStridesRow() const { return _stridesRow; }
 	inline size_t GetStridesCol() const { return _stridesCol; }

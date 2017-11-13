@@ -36,15 +36,15 @@ public:
 	inline Array *GetArrayGear() { return _pArrayGear.get(); }
 	inline const Array *GetArrayGear() const { return _pArrayGear.get(); }
 	inline bool HasChannelDim() const { return _pArrayGear->GetDimensions().size() >= 2; }
-	inline bool HasGearDim() const { return _pArrayGear->GetDimensions().size() == 3; }
+	inline bool HasFilterDim() const { return _pArrayGear->GetDimensions().size() == 3; }
 	inline size_t GetSize() const {
 		return _pArrayGear->GetDimensions().GetBack(IsChLast()? 1 : 0).GetSize();
 	}
 	inline size_t GetChannelNum() const {
 		return HasChannelDim()? _pArrayGear->GetDimensions().GetBack(IsChLast()? 0 : 1).GetSize() : 1;
 	}
-	inline size_t GetGearNum() const {
-		return HasGearDim()? _pArrayGear->GetDimensions().GetBack(2).GetSize() : 1;
+	inline size_t GetFilterNum() const {
+		return HasFilterDim()? _pArrayGear->GetDimensions().GetBack(2).GetSize() : 1;
 	}
 	inline size_t GetStrides() const { return _strides; }
 	inline PaddingType GetPaddingType() const { return _paddingType; }
