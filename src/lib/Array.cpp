@@ -307,9 +307,9 @@ bool Array::Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &v
 		sig.SetError(ERR_ValueError, "mismatched number of axes to transpose");
 		return false;
 	}
-	SizeTList axes;
+	IntList axes;
 	foreach_const (ValueList, pValue, valList) {
-		size_t axis = pValue->GetSizeT();
+		int axis = pValue->GetInt();
 		if (std::find(axes.begin(), axes.end(), axis) != axes.end()) {
 			sig.SetError(ERR_ValueError, "duplicated axis is specified");
 			return false;

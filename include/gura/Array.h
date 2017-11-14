@@ -324,14 +324,14 @@ public:
 	virtual void Flatten(AutoPtr<Array> &pArrayRtn) const = 0;
 	bool Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const;
 	bool Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const;
-	virtual bool Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const = 0;
+	virtual bool Transpose(AutoPtr<Array> &pArrayRtn, const IntList &axes) const = 0;
 	void Transpose2d(AutoPtr<Array> &pArrayRtn) const;
-	virtual bool FindMax(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const = 0;
-	virtual bool FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const = 0;
-	virtual bool FindMaxIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool lastFlag) const = 0;
-	virtual bool FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool lastFlag) const = 0;
-	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const = 0;
-	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const = 0;
+	virtual bool FindMax(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis) const = 0;
+	virtual bool FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis) const = 0;
+	virtual bool FindMaxIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool lastFlag) const = 0;
+	virtual bool FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool lastFlag) const = 0;
+	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool meanFlag) const = 0;
+	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool populationFlag, bool stdFlag) const = 0;
 	bool Paste(Signal &sig, size_t offset, const Array *pArraySrc);
 	virtual void ExpandKernelVec1d(
 		AutoPtr<Array> &pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad,

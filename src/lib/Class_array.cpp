@@ -572,7 +572,7 @@ Gura_ImplementMethod(array, argmax)
 {
 	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	AutoPtr<Array> pArrayRtn;
-	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	int axis = arg.IsValid(0)? arg.GetInt(0) : -1;
 	bool lastFlag = arg.IsSet(Gura_Symbol(last_index));
 	if (!pArraySelf->FindMaxIndex(env, pArrayRtn, axis, lastFlag)) return Value::Nil;
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
@@ -594,7 +594,7 @@ Gura_ImplementMethod(array, argmin)
 {
 	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	AutoPtr<Array> pArrayRtn;
-	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	int axis = arg.IsValid(0)? arg.GetInt(0) : -1;
 	bool lastFlag = arg.IsSet(Gura_Symbol(last_index));
 	if (!pArraySelf->FindMinIndex(env, pArrayRtn, axis, lastFlag)) return Value::Nil;
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
@@ -1009,7 +1009,7 @@ Gura_ImplementMethod(array, max)
 {
 	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	AutoPtr<Array> pArrayRtn;
-	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	int axis = arg.IsValid(0)? arg.GetInt(0) : -1;
 	bool lastFlag = arg.IsSet(Gura_Symbol(last_index));
 	bool indexFlag = lastFlag || arg.IsSet(Gura_Symbol(index));
 	if (indexFlag) {
@@ -1037,7 +1037,7 @@ Gura_ImplementMethod(array, mean)
 {
 	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	AutoPtr<Array> pArrayRtn;
-	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	int axis = arg.IsValid(0)? arg.GetInt(0) : -1;
 	if (!pArraySelf->CalcSum(env, pArrayRtn, axis, true)) return Value::Nil;
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
@@ -1059,7 +1059,7 @@ Gura_ImplementMethod(array, min)
 {
 	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	AutoPtr<Array> pArrayRtn;
-	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	int axis = arg.IsValid(0)? arg.GetInt(0) : -1;
 	bool lastFlag = arg.IsSet(Gura_Symbol(last_index));
 	bool indexFlag = lastFlag || arg.IsSet(Gura_Symbol(index));
 	if (indexFlag) {
@@ -1345,7 +1345,7 @@ Gura_ImplementMethod(array, std)
 	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	bool populationFlag = arg.IsSet(Gura_Symbol(p));
 	AutoPtr<Array> pArrayRtn;
-	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	int axis = arg.IsValid(0)? arg.GetInt(0) : -1;
 	if (!pArraySelf->CalcVar(env, pArrayRtn, axis, populationFlag, true)) return Value::Nil;
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
@@ -1365,7 +1365,7 @@ Gura_ImplementMethod(array, sum)
 {
 	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	AutoPtr<Array> pArrayRtn;
-	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	int axis = arg.IsValid(0)? arg.GetInt(0) : -1;
 	if (!pArraySelf->CalcSum(env, pArrayRtn, axis, false)) return Value::Nil;
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
@@ -1465,7 +1465,7 @@ Gura_ImplementMethod(array, var)
 	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	bool populationFlag = arg.IsSet(Gura_Symbol(p));
 	AutoPtr<Array> pArrayRtn;
-	ssize_t axis = arg.IsValid(0)? arg.GetSizeT(0) : -1;
+	int axis = arg.IsValid(0)? arg.GetInt(0) : -1;
 	if (!pArraySelf->CalcVar(env, pArrayRtn, axis, populationFlag, false)) return Value::Nil;
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }

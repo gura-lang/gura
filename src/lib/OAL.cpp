@@ -1481,7 +1481,7 @@ bool Copy(const char *src, const char *dst, bool failIfExistsFlag, bool followLi
 			const size_t bytesBuff = 65536;
 			void *buff = ::malloc(bytesBuff);
 			for (;;) {
-				ssize_t bytesRead = ::read(fdSrc, buff, bytesBuff);
+				int bytesRead = ::read(fdSrc, buff, bytesBuff);
 				if (bytesRead == 0) break;
 				if (::write(fdDst, buff, bytesRead) < bytesRead) {
 					::close(fdSrc);
@@ -1681,7 +1681,7 @@ String _ReadLink(const char *pathName)
 	size_t bufsize = 128;
 	for (int i = 0; i < 8; i++) {
 		char *buf = new char [bufsize + 1];
-		ssize_t size = ::readlink(pathName, buf, bufsize);
+		int size = ::readlink(pathName, buf, bufsize);
 		if (size >= 0) {
 			buf[size] = '\0';
 			String rtn = FromNativeString(buf);

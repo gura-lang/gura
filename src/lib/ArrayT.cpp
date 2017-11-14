@@ -1025,7 +1025,7 @@ void ArrayT<T_Elem>::Flatten(AutoPtr<Array> &pArrayRtn) const
 
 template<typename T_Elem>
 void TransposeSub(void **ppElemDstRaw, const void *pElemSrcRaw, const Array::Dimensions &dimsSrc,
-				  SizeTList::const_iterator pAxis, SizeTList::const_iterator pAxisEnd)
+				  IntList::const_iterator pAxis, IntList::const_iterator pAxisEnd)
 {
 	T_Elem *&pElemDst = *reinterpret_cast<T_Elem **>(ppElemDstRaw);
 	const T_Elem *pElemSrc = reinterpret_cast<const T_Elem *>(pElemSrcRaw);
@@ -1043,7 +1043,7 @@ void TransposeSub(void **ppElemDstRaw, const void *pElemSrcRaw, const Array::Dim
 }
 
 template<typename T_Elem>
-bool ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes) const
+bool ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const IntList &axes) const
 {
 #if 1
 	if (axes.size() < 2) {
@@ -1054,9 +1054,9 @@ bool ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes)
 	bool memorySharableFlag = false;
 	if (pDim->GetSize() == 1 || (pDim + 1)->GetSize() == 1) {
 		memorySharableFlag = true;
-		SizeTList::const_iterator pAxis = axes.begin();
-		SizeTList::const_iterator pAxisEnd = axes.begin() + axes.size() - 2;
-		for (size_t axisInc = 0; pAxis != pAxisEnd; pAxis++, axisInc++) {
+		IntList::const_iterator pAxis = axes.begin();
+		IntList::const_iterator pAxisEnd = axes.begin() + axes.size() - 2;
+		for (int axisInc = 0; pAxis != pAxisEnd; pAxis++, axisInc++) {
 			if (*pAxis != axisInc) {
 				memorySharableFlag = false;
 				break;
@@ -1067,7 +1067,7 @@ bool ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes)
 		pArrayRtn.reset(Create());
 		Dimensions &dimsDst = pArrayRtn->GetDimensions();
 		dimsDst.reserve(GetDimensions().size());
-		foreach_const (SizeTList, pAxis, axes) {
+		foreach_const (IntList, pAxis, axes) {
 			const Dimension &dimSrc = GetDimensions()[*pAxis];
 			dimsDst.push_back(Dimension(dimSrc.GetSize()));
 		}
@@ -1091,7 +1091,7 @@ bool ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes)
 	const Dimensions &dimsSrc = GetDimensions();
 	Dimensions &dimsDst = pArrayRtn->GetDimensions();
 	dimsDst.reserve(GetDimensions().size());
-	foreach_const (SizeTList, pAxis, axes) {
+	foreach_const (IntList, pAxis, axes) {
 		dimsDst.push_back(dimsSrc[*pAxis]);
 	}
 	size_t sizeProd = 1;
@@ -1105,7 +1105,7 @@ bool ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const SizeTList &axes)
 }
 
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
-Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
+Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, int axis)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
@@ -1116,7 +1116,7 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 	const T_Elem *pElem = pArrayT->GetPointer();
 	T_Elem *pElemValue = pArrayTValue->GetPointer();
 	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
-	if (pArrayT->IsRowMajor() || axis + 2 >= dims.size()) {
+	if (pArrayT->IsRowMajor() || axis + 2 >= static_cast<int>(dims.size())) {
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
 			do {
 				// first element
@@ -1135,7 +1135,7 @@ Array *FindMinMax(const ArrayT<T_Elem> *pArrayT, size_t axis)
 			}
 			pElemValue += pDimAxis->GetStrides();
 		}
-	} else { // pArrayT->IsColMajor() && axis + 2 < dim.size()
+	} else { // pArrayT->IsColMajor() && axis + 2 < static_cast<int>(dim.size())
 		const Array::Dimension &dimRow = dims.GetRow();
 		const Array::Dimension &dimCol = dims.GetCol();
 		size_t nMats = pDimAxis->GetStrides() / dimRow.GetSizeProd();
@@ -1185,14 +1185,14 @@ T_Elem FindMinMaxFlat(const ArrayT<T_Elem> *pArrayT)
 }
 
 template<typename T_Elem>
-bool ArrayT<T_Elem>::FindMax(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const
+bool ArrayT<T_Elem>::FindMax(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis) const
 {
 	const Array::Dimensions &dims = GetDimensions();
 	if (GetElemNum() == 0) {
 		// nothing to do
 	} else if (axis < 0 || (axis == 0 && dims.size() == 1)) {
 		pArrayRtn.reset(ArrayT<T_Elem>::CreateScalar(FindMinMaxFlat<T_Elem, CompareLt>(this)));
-	} else if (axis >= dims.size()) {
+	} else if (axis >= static_cast<int>(dims.size())) {
 		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 		return false;
 	} else {
@@ -1202,14 +1202,14 @@ bool ArrayT<T_Elem>::FindMax(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axi
 }
 
 template<typename T_Elem>
-bool ArrayT<T_Elem>::FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis) const
+bool ArrayT<T_Elem>::FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis) const
 {
 	const Array::Dimensions &dims = GetDimensions();
 	if (GetElemNum() == 0) {
 		// nothing to do
 	} else if (axis < 0 || (axis == 0 && dims.size() == 1)) {
 		pArrayRtn.reset(ArrayT<T_Elem>::CreateScalar(FindMinMaxFlat<T_Elem, CompareGt>(this)));
-	} else if (axis >= dims.size()) {
+	} else if (axis >= static_cast<int>(dims.size())) {
 		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 		return false;
 	} else {
@@ -1219,7 +1219,7 @@ bool ArrayT<T_Elem>::FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axi
 }
 
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>
-Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, size_t axis)
+Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, int axis)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
@@ -1259,7 +1259,7 @@ Array *FindMinMaxIndex(const ArrayT<T_Elem> *pArrayT, size_t axis)
 			pElemIndex += pDimAxis->GetStrides();
 			pElemValue += pDimAxis->GetStrides();
 		}
-	} else { // pArrayT->IsColMajor() && axis + 2 < dim.size()
+	} else { // pArrayT->IsColMajor() && axis + 2 < static_cast<int>(dim.size())
 		const Array::Dimension &dimRow = dims.GetRow();
 		const Array::Dimension &dimCol = dims.GetCol();
 		size_t nMats = pDimAxis->GetStrides() / dimRow.GetSizeProd();
@@ -1322,7 +1322,7 @@ UInt32 FindMinMaxIndexFlat(const ArrayT<T_Elem> *pArrayT)
 }
 
 template<typename T_Elem>
-bool ArrayT<T_Elem>::FindMaxIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool lastFlag) const
+bool ArrayT<T_Elem>::FindMaxIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool lastFlag) const
 {
 	const Array::Dimensions &dims = GetDimensions();
 	if (GetElemNum() == 0) {
@@ -1332,7 +1332,7 @@ bool ArrayT<T_Elem>::FindMaxIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_
 							lastFlag? 
 							FindMinMaxIndexFlat<T_Elem, CompareLe>(this) :
 							FindMinMaxIndexFlat<T_Elem, CompareLt>(this)));
-	} else if (axis >= dims.size()) {
+	} else if (axis >= static_cast<int>(dims.size())) {
 		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 		return false;
 	} else {
@@ -1344,7 +1344,7 @@ bool ArrayT<T_Elem>::FindMaxIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_
 }
 
 template<typename T_Elem>
-bool ArrayT<T_Elem>::FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool lastFlag) const
+bool ArrayT<T_Elem>::FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool lastFlag) const
 {
 	const Array::Dimensions &dims = GetDimensions();
 	if (GetElemNum() == 0) {
@@ -1366,7 +1366,7 @@ bool ArrayT<T_Elem>::FindMinIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_
 }
 
 template<typename T_ElemRtn, typename T_Elem>
-ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool meanFlag)
+ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, int axis, bool meanFlag)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
@@ -1378,7 +1378,7 @@ ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool mean
 	const T_Elem *pElemTop = pArrayT->GetPointer();
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
-	if (pArrayT->IsRowMajor() || axis + 2 >= dims.size()) {
+	if (pArrayT->IsRowMajor() || axis + 2 >= static_cast<int>(dims.size())) {
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
 			const T_Elem *pElemBlock = pElemTop + offset;
 			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElemBlock++) {
@@ -1390,7 +1390,7 @@ ArrayT<T_ElemRtn> *CalcSum(const ArrayT<T_Elem> *pArrayT, size_t axis, bool mean
 				*pElemRtn++ = meanFlag? numAccum / numDenom : numAccum;
 			}
 		}
-	} else { // pArrayT->IsColMajor() && axis + 2 < dim.size()
+	} else { // pArrayT->IsColMajor() && axis + 2 < static_cast<int>(dim.size())
 		const Array::Dimension &dimRow = dims.GetRow();
 		const Array::Dimension &dimCol = dims.GetCol();
 		size_t nMats = pDimAxis->GetStrides() / dimRow.GetSizeProd();
@@ -1429,13 +1429,13 @@ T_ElemRtn CalcSumFlat(const ArrayT<T_Elem> *pArrayT, bool meanFlag)
 }
 
 template<typename T_ElemRtn, typename T_Elem>
-bool CalcSumSub(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArraySelf, ssize_t axis, bool meanFlag)
+bool CalcSumSub(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArraySelf, int axis, bool meanFlag)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArraySelf);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	if (axis < 0 || (axis == 0 && dims.size() == 1)) {
 		pArrayRtn.reset(ArrayT<T_ElemRtn>::CreateScalar(CalcSumFlat<T_ElemRtn, T_Elem>(pArrayT, meanFlag)));
-	} else if (axis >= dims.size()) {
+	} else if (axis >= static_cast<int>(dims.size())) {
 		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 		return false;
 	} else {
@@ -1445,19 +1445,19 @@ bool CalcSumSub(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArraySelf,
 }
 
 template<typename T_Elem>
-bool ArrayT<T_Elem>::CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const
+bool ArrayT<T_Elem>::CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool meanFlag) const
 {
 	return CalcSumSub<T_Elem, T_Elem>(sig, pArrayRtn, this, axis, meanFlag);
 }
 
 template<>
-bool ArrayT<Boolean>::CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool meanFlag) const
+bool ArrayT<Boolean>::CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool meanFlag) const
 {
 	return CalcSumSub<UInt32, Boolean>(sig, pArrayRtn, this, axis, meanFlag);
 }
 
 template<typename T_ElemRtn, typename T_Elem>
-ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool populationFlag, bool stdFlag)
+ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, int axis, bool populationFlag, bool stdFlag)
 {
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;
@@ -1470,7 +1470,7 @@ ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool popu
 	const T_Elem *pElemTop = pArrayT->GetPointer();
 	T_ElemRtn *pElemRtn = pArrayTRtn->GetPointer();
 	size_t sizeSub = pDimAxis->GetStrides() * pDimAxis->GetSize();
-	if (pArrayT->IsRowMajor() || axis + 2 >= dims.size()) {
+	if (pArrayT->IsRowMajor() || axis + 2 >= static_cast<int>(dims.size())) {
 		for (size_t offset = 0; offset < pArrayT->GetElemNum(); offset += sizeSub) {
 			const T_Elem *pElemBlock = pElemTop + offset;
 			for (size_t j = 0; j < pDimAxis->GetStrides(); j++, pElemBlock++) {
@@ -1493,7 +1493,7 @@ ArrayT<T_ElemRtn> *CalcVar(const ArrayT<T_Elem> *pArrayT, size_t axis, bool popu
 				*pElemRtn++ = numAccum;
 			}
 		}
-	} else { // pArrayT->IsColMajor() && axis + 2 < dim.size()
+	} else { // pArrayT->IsColMajor() && axis + 2 < static_cast<int>(dim.size())
 		const Array::Dimension &dimRow = dims.GetRow();
 		const Array::Dimension &dimCol = dims.GetCol();
 		size_t nMats = pDimAxis->GetStrides() / dimRow.GetSizeProd();
@@ -1554,14 +1554,14 @@ T_ElemRtn CalcVarFlat(const ArrayT<T_Elem> *pArrayT, bool populationFlag, bool s
 
 template<typename T_ElemRtn, typename T_Elem>
 bool CalcVarSub(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArraySelf,
-				 ssize_t axis, bool populationFlag, bool stdFlag)
+				int axis, bool populationFlag, bool stdFlag)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArraySelf);
 	const Array::Dimensions &dims = pArrayT->GetDimensions();
 	if (axis < 0 || (axis == 0 && dims.size() == 1)) {
 		pArrayRtn.reset(ArrayT<T_ElemRtn>::CreateScalar(CalcVarFlat<T_ElemRtn, T_Elem>(
 															pArrayT, populationFlag, stdFlag)));
-	} else if (axis >= dims.size()) {
+	} else if (axis >= static_cast<int>(dims.size())) {
 		sig.SetError(ERR_OutOfRangeError, "specified axis is out of range");
 		return false;
 	} else {
@@ -1571,13 +1571,13 @@ bool CalcVarSub(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArraySelf,
 }
 
 template<typename T_Elem>
-bool ArrayT<T_Elem>::CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const
+bool ArrayT<T_Elem>::CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool populationFlag, bool stdFlag) const
 {
 	return CalcVarSub<T_Elem, T_Elem>(sig, pArrayRtn, this, axis, populationFlag, stdFlag);
 }
 
 template<>
-bool ArrayT<Boolean>::CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, ssize_t axis, bool populationFlag, bool stdFlag) const
+bool ArrayT<Boolean>::CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool populationFlag, bool stdFlag) const
 {
 	return CalcVarSub<UInt32, Boolean>(sig, pArrayRtn, this, axis, populationFlag, stdFlag);
 }
