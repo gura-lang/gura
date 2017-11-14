@@ -1179,14 +1179,6 @@ void DotFuncTmpl_2d_2d(T_ElemRtn *pElemRtn,
 	}
 }
 
-void SetError_CantCalcuateDotProduct(Signal &sig, const Array *pArrayL, const Array *pArrayR)
-{
-	sig.SetError(ERR_ValueError,
-				 "failed in array calculation: (%s) |.| (%s)",
-				 pArrayL->GetDimensions().ToString().c_str(),
-				 pArrayR->GetDimensions().ToString().c_str());
-}
-
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR)
 {
@@ -1197,10 +1189,7 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 	if (dimsL.size() == 1 && dimsR.size() == 1) {
 		const Array::Dimension &dimL = dimsL.GetCol();
 		const Array::Dimension &dimR = dimsR.GetCol();
-		if (dimL.GetSize() != dimR.GetSize()) {
-			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
-			return false;
-		}
+		if (dimL.GetSize() != dimR.GetSize()) goto error_done;
 		if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_ElemRtn>::CreateScalar(0));
 		T_ElemRtn *pElemRtn = dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn.get())->GetPointer();
 		DotFuncTmpl_1d_1d(pElemRtn, pElemL, pElemR, dimL.GetSize());
@@ -1208,10 +1197,7 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		const Array::Dimension &dimRowR = dimsR.GetRow();
 		const Array::Dimension &dimColL = dimsL.GetCol();
 		const Array::Dimension &dimColR = dimsR.GetCol();
-		if (dimColL.GetSize() != dimRowR.GetSize()) {
-			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
-			return false;
-		}
+		if (dimColL.GetSize() != dimRowR.GetSize()) goto error_done;
 		size_t elemNumMatR = dimRowR.GetSizeProd();
 		size_t elemNumRtn = dimColR.GetSize();
 		size_t offsetR = 0;
@@ -1230,10 +1216,7 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		const Array::Dimension &dimRowL = dimsL.GetRow();
 		const Array::Dimension &dimColL = dimsL.GetCol();
 		const Array::Dimension &dimRowR = dimsR.GetCol();	// takes a column as a row
-		if (dimColL.GetSize() != dimRowR.GetSize()) {
-			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
-			return false;
-		}
+		if (dimColL.GetSize() != dimRowR.GetSize()) goto error_done;
 		size_t elemNumMatL = dimRowL.GetSizeProd();
 		size_t elemNumRtn = dimRowL.GetSize();
 		size_t offsetL = 0;
@@ -1253,10 +1236,7 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		const Array::Dimension &dimColL = dimsL.GetCol();
 		const Array::Dimension &dimRowR = dimsR.GetRow();
 		const Array::Dimension &dimColR = dimsR.GetCol();
-		if (dimColL.GetSize() != dimRowR.GetSize()) {
-			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
-			return false;
-		}
+		if (dimColL.GetSize() != dimRowR.GetSize()) goto error_done;
 		if (pArrayRtn.IsNull()) {
 			pArrayRtn.reset(ArrayT<T_ElemRtn>::Create2d(dimRowL.GetSize(), dimColR.GetSize()));
 		}
@@ -1267,10 +1247,7 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		const Array::Dimension &dimColL = dimsL.GetCol();
 		const Array::Dimension &dimRowR = dimsR.GetRow();
 		const Array::Dimension &dimColR = dimsR.GetCol();
-		if (dimColL.GetSize() != dimRowR.GetSize()) {
-			SetError_CantCalcuateDotProduct(sig, pArrayL, pArrayR);
-			return false;
-		}
+		if (dimColL.GetSize() != dimRowR.GetSize()) goto error_done;
 		size_t elemNumMatRtn = dimRowL.GetSize() * dimColR.GetSize();
 		size_t offsetL = 0, offsetR = 0;
 		if (dimsL.size() < dimsR.size()) {
@@ -1306,6 +1283,12 @@ bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 		}
 	}
 	return true;
+error_done:
+	sig.SetError(ERR_ValueError,
+				 "failed in array calculation: (%s) |.| (%s)",
+				 pArrayL->GetDimensions().ToString().c_str(),
+				 pArrayR->GetDimensions().ToString().c_str());
+	return false;
 }
 
 //------------------------------------------------------------------------------
