@@ -41,6 +41,8 @@ public:
 	};
 public:
 	typedef bool (*UnaryFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray);
+	typedef bool (*Unary2OutFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtnA,
+								   AutoPtr<Array> &pArrayRtnB, const Array *pArray);
 	typedef bool (*BinaryFuncT_array_array)(Signal &sig, AutoPtr<Array> &pArrayRtn,
 											const Array *pArrayL, const Array *pArrayR);
 	typedef bool (*BinaryFuncT_array_number)(Signal &sig, AutoPtr<Array> &pArrayRtn,
@@ -459,6 +461,9 @@ public:
 	static bool UnaryFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray);
 	template<typename T_ElemRtn, typename T_Elem, typename T_Operator>
 	static bool UnaryFuncTmpl_ExcludeZero(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray);
+	template<typename T_ElemRtnA, typename T_ElemRtnB, typename T_Elem, typename T_Operator>
+	static bool Unary2OutFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtnA,
+								  AutoPtr<Array> &pArrayRtnB, const Array *pArray);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
 	static bool BinaryFuncTmpl_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>

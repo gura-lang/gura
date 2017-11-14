@@ -4,48 +4,6 @@
 #include "stdafx.h"
 
 namespace Gura {
-
-
-//------------------------------------------------------------------------------
-// Unary2OutFuncTmpl
-//------------------------------------------------------------------------------
-template<typename T_ElemRtnA, typename T_ElemRtnB, typename T_Elem, typename T_Operator>
-void Unary2OutFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtnA, AutoPtr<Array> &pArrayRtnB, const Array *pArray)
-{
-	const Array::Dimensions &dims = pArray->GetDimensions();
-	if (pArrayRtnA.IsNull()) pArrayRtnA.reset(ArrayT<T_ElemRtnA>::Create(dims));
-	if (pArrayRtnB.IsNull()) pArrayRtnB.reset(ArrayT<T_ElemRtnB>::Create(dims));
-	T_ElemRtnA *pElemRtnA = dynamic_cast<ArrayT<T_ElemRtnA> *>(pArrayRtnA.get())->GetPointer();
-	T_ElemRtnB *pElemRtnB = dynamic_cast<ArrayT<T_ElemRtnB> *>(pArrayRtnB.get())->GetPointer();
-	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
-	if (pArray->IsRowMajor() || dims.size() < 2) {
-		size_t nElems = pArray->GetElemNum();
-		for (size_t i = 0; i < nElems; i++, pElem++) {
-			T_Operator::Calc(*pElemRtnA, *pElemRtnB, *pElem);
-			pElemRtnA++, pElemRtnB++;
-		}
-	} else { // pArray->IsColMajor() && dims.size() >= 2
-		const Array::Dimension &dimRow = dims.GetRow();
-		const Array::Dimension &dimCol = dims.GetCol();
-		size_t nMats = pArray->GetElemNum() / dimRow.GetSizeProd();
-		const T_Elem *pElemMat = pElem;
-		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
-			const T_Elem *pElemRow = pElemMat;
-			for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
-					 pElemRow += dimRow.GetStrides()) {
-				const T_Elem *pElemCol = pElemRow;
-				for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
-						 pElemCol += dimCol.GetStrides()) {
-					T_Operator::Calc(*pElemRtnA, *pElemRtnB, *pElemCol);
-					pElemRtnA++, pElemRtnB++;
-				}
-			}
-		}
-	}
-}
-
-typedef void (*Unary2OutFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtnA, AutoPtr<Array> &pArrayRtnB, const Array *pArray);
-
 //-----------------------------------------------------------------------------
 // Trainer
 //-----------------------------------------------------------------------------
@@ -575,25 +533,25 @@ bool Trainer::NodeGear_Relu::IsVulnerable() const
 
 bool Trainer::NodeGear_Relu::EvalForward(Environment &env)
 {
-	static const Unary2OutFuncT funcs[Array::ETYPE_Max] = {
+	static const Array::Unary2OutFuncT funcs[Array::ETYPE_Max] = {
 		nullptr,
-		&Unary2OutFuncTmpl<Boolean,	Boolean,	Boolean,	Operator_Relu2Out<Boolean> >,
-		&Unary2OutFuncTmpl<Int8,	Boolean,	Int8,		Operator_Relu2Out<Int8> >,
-		&Unary2OutFuncTmpl<UInt8,	Boolean,	UInt8,		Operator_Relu2Out<UInt8> >,
-		&Unary2OutFuncTmpl<Int16,	Boolean,	Int16,		Operator_Relu2Out<Int16> >,
-		&Unary2OutFuncTmpl<UInt16,	Boolean,	UInt16,		Operator_Relu2Out<UInt16> >,
-		&Unary2OutFuncTmpl<Int32,	Boolean,	Int32,		Operator_Relu2Out<Int32> >,
-		&Unary2OutFuncTmpl<UInt32,	Boolean,	UInt32,		Operator_Relu2Out<UInt32> >,
-		&Unary2OutFuncTmpl<Int64,	Boolean,	Int64,		Operator_Relu2Out<Int64> >,
-		&Unary2OutFuncTmpl<UInt64,	Boolean,	UInt64,		Operator_Relu2Out<UInt64> >,
-		&Unary2OutFuncTmpl<Half,	Boolean,	Half,		Operator_Relu2Out<Half> >,
-		&Unary2OutFuncTmpl<Float,	Boolean,	Float,		Operator_Relu2Out<Float> >,
-		&Unary2OutFuncTmpl<Double,	Boolean,	Double,		Operator_Relu2Out<Double> >,
+		&Array::Unary2OutFuncTmpl<Boolean,	Boolean,	Boolean,	Operator_Relu2Out<Boolean> >,
+		&Array::Unary2OutFuncTmpl<Int8,		Boolean,	Int8,		Operator_Relu2Out<Int8> >,
+		&Array::Unary2OutFuncTmpl<UInt8,	Boolean,	UInt8,		Operator_Relu2Out<UInt8> >,
+		&Array::Unary2OutFuncTmpl<Int16,	Boolean,	Int16,		Operator_Relu2Out<Int16> >,
+		&Array::Unary2OutFuncTmpl<UInt16,	Boolean,	UInt16,		Operator_Relu2Out<UInt16> >,
+		&Array::Unary2OutFuncTmpl<Int32,	Boolean,	Int32,		Operator_Relu2Out<Int32> >,
+		&Array::Unary2OutFuncTmpl<UInt32,	Boolean,	UInt32,		Operator_Relu2Out<UInt32> >,
+		&Array::Unary2OutFuncTmpl<Int64,	Boolean,	Int64,		Operator_Relu2Out<Int64> >,
+		&Array::Unary2OutFuncTmpl<UInt64,	Boolean,	UInt64,		Operator_Relu2Out<UInt64> >,
+		&Array::Unary2OutFuncTmpl<Half,		Boolean,	Half,		Operator_Relu2Out<Half> >,
+		&Array::Unary2OutFuncTmpl<Float,	Boolean,	Float,		Operator_Relu2Out<Float> >,
+		&Array::Unary2OutFuncTmpl<Double,	Boolean,	Double,		Operator_Relu2Out<Double> >,
 		nullptr,
 		nullptr,
 	};
 	const Array *pArray = GetConnectorSrc()->GetArrayFwd();
-	Unary2OutFuncT func = funcs[pArray->GetElemType()];
+	Array::Unary2OutFuncT func = funcs[pArray->GetElemType()];
 	if (func == nullptr) {
 		env.SetError(ERR_TypeError, "can't evaluate forward function");
 		return nullptr;

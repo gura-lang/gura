@@ -207,6 +207,46 @@ bool Array::UnaryFuncTmpl_ExcludeZero(Signal &sig, AutoPtr<Array> &pArrayRtn, co
 }
 
 //------------------------------------------------------------------------------
+// Unary2OutFuncTmpl
+//------------------------------------------------------------------------------
+template<typename T_ElemRtnA, typename T_ElemRtnB, typename T_Elem, typename T_Operator>
+bool Array::Unary2OutFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtnA,
+							  AutoPtr<Array> &pArrayRtnB, const Array *pArray)
+{
+	const Dimensions &dims = pArray->GetDimensions();
+	if (pArrayRtnA.IsNull()) pArrayRtnA.reset(ArrayT<T_ElemRtnA>::Create(dims));
+	if (pArrayRtnB.IsNull()) pArrayRtnB.reset(ArrayT<T_ElemRtnB>::Create(dims));
+	T_ElemRtnA *pElemRtnA = dynamic_cast<ArrayT<T_ElemRtnA> *>(pArrayRtnA.get())->GetPointer();
+	T_ElemRtnB *pElemRtnB = dynamic_cast<ArrayT<T_ElemRtnB> *>(pArrayRtnB.get())->GetPointer();
+	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
+	if (pArray->IsRowMajor() || dims.size() < 2) {
+		size_t nElems = pArray->GetElemNum();
+		for (size_t i = 0; i < nElems; i++, pElem++) {
+			T_Operator::Calc(*pElemRtnA, *pElemRtnB, *pElem);
+			pElemRtnA++, pElemRtnB++;
+		}
+	} else { // pArray->IsColMajor() && dims.size() >= 2
+		const Dimension &dimRow = dims.GetRow();
+		const Dimension &dimCol = dims.GetCol();
+		size_t nMats = pArray->GetElemNum() / dimRow.GetSizeProd();
+		const T_Elem *pElemMat = pElem;
+		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
+			const T_Elem *pElemRow = pElemMat;
+			for (size_t iRow = 0; iRow < dimRow.GetSize(); iRow++,
+					 pElemRow += dimRow.GetStrides()) {
+				const T_Elem *pElemCol = pElemRow;
+				for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
+						 pElemCol += dimCol.GetStrides()) {
+					T_Operator::Calc(*pElemRtnA, *pElemRtnB, *pElemCol);
+					pElemRtnA++, pElemRtnB++;
+				}
+			}
+		}
+	}
+	return true;
+}
+
+//------------------------------------------------------------------------------
 // BinaryFuncTmpl
 //------------------------------------------------------------------------------
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
