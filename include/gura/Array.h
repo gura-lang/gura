@@ -479,16 +479,16 @@ public:
 	static void DotFuncTmpl_1d_1d(T_ElemRtn *pElemRtn, const T_ElemL *pElemL, const T_ElemR *pElemR, size_t size);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 	static void DotFuncTmpl_1d_2d(T_ElemRtn *pElemRtn,
-								  const T_ElemL *pElemL, const Array::Dimension &dimColL,
-								  const T_ElemR *pElemR, const Array::Dimension &dimRowR, const Array::Dimension &dimColR);
+								  const T_ElemL *pElemL, const Dimension &dimColL,
+								  const T_ElemR *pElemR, const Dimension &dimRowR, const Dimension &dimColR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 	static void DotFuncTmpl_2d_1d(T_ElemRtn *pElemRtn,
-								  const T_ElemL *pElemL, const Array::Dimension &dimRowL, const Array::Dimension &dimColL,
-								  const T_ElemR *pElemR, const Array::Dimension &dimRowR);
+								  const T_ElemL *pElemL, const Dimension &dimRowL, const Dimension &dimColL,
+								  const T_ElemR *pElemR, const Dimension &dimRowR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 	static void DotFuncTmpl_2d_2d(T_ElemRtn *pElemRtn,
-								  const T_ElemL *pElemL, const Array::Dimension &dimRowL, const Array::Dimension &dimColL,
-								  const T_ElemR *pElemR, const Array::Dimension &dimRowR, const Array::Dimension &dimColR);
+								  const T_ElemL *pElemL, const Dimension &dimRowL, const Dimension &dimColL,
+								  const T_ElemR *pElemR, const Dimension &dimRowR, const Dimension &dimColR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 	static bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR);
 };

@@ -165,7 +165,7 @@ private:
 template<typename T_ElemRtn, typename T_Elem, typename T_Operator>
 bool Array::UnaryFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray)
 {
-	const Array::Dimensions &dims = pArray->GetDimensions();
+	const Dimensions &dims = pArray->GetDimensions();
 	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(dims));
 	T_ElemRtn *pElemRtn = dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn.get())->GetPointer();
 	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(pArray)->GetPointer();
@@ -176,8 +176,8 @@ bool Array::UnaryFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *p
 			pElemRtn++;
 		}
 	} else { // pArray->IsColMajor() && dims.size() >= 2
-		const Array::Dimension &dimRow = dims.GetRow();
-		const Array::Dimension &dimCol = dims.GetCol();
+		const Dimension &dimRow = dims.GetRow();
+		const Dimension &dimCol = dims.GetCol();
 		size_t nMats = pArray->GetElemNum() / dimRow.GetSizeProd();
 		const T_Elem *pElemMat = pElem;
 		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMat += dimRow.GetSizeProd()) {
@@ -212,8 +212,8 @@ bool Array::UnaryFuncTmpl_ExcludeZero(Signal &sig, AutoPtr<Array> &pArrayRtn, co
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
 bool Array::BinaryFuncTmpl_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR)
 {
-	const Array::Dimensions &dimsL = pArrayL->GetDimensions();
-	const Array::Dimensions &dimsR = pArrayR->GetDimensions();
+	const Dimensions &dimsL = pArrayL->GetDimensions();
+	const Dimensions &dimsR = pArrayR->GetDimensions();
 	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
 	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
 	size_t nElemsL = pArrayL->GetElemNum();
@@ -227,10 +227,10 @@ bool Array::BinaryFuncTmpl_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn, c
 				pElemRtn++;
 			}
 		} else { // dimsL.size() >= 2 && dimsR.size() >= 2
-			const Array::Dimension &dimRowL = dimsL.GetRow();
-			const Array::Dimension &dimColL = dimsL.GetCol();
-			const Array::Dimension &dimRowR = dimsR.GetRow();
-			const Array::Dimension &dimColR = dimsR.GetCol();
+			const Dimension &dimRowL = dimsL.GetRow();
+			const Dimension &dimColL = dimsL.GetCol();
+			const Dimension &dimRowR = dimsR.GetRow();
+			const Dimension &dimColR = dimsR.GetCol();
 			size_t nMats = pArrayL->GetElemNum() / dimRowL.GetSizeProd();
 			const T_ElemL *pElemMatL = pElemL;
 			const T_ElemR *pElemMatR = pElemR;
@@ -266,10 +266,10 @@ bool Array::BinaryFuncTmpl_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn, c
 				}
 			}
 		} else { // (pArrayL->IsColMajor() || pArrayR->IsColMajor()) && (dimsL.size() >= 2 && dimsR.size() >= 2)
-			const Array::Dimension &dimRowL = dimsL.GetRow();
-			const Array::Dimension &dimColL = dimsL.GetCol();
-			const Array::Dimension &dimRowR = dimsR.GetRow();
-			const Array::Dimension &dimColR = dimsR.GetCol();
+			const Dimension &dimRowL = dimsL.GetRow();
+			const Dimension &dimColL = dimsL.GetCol();
+			const Dimension &dimRowR = dimsR.GetRow();
+			const Dimension &dimColR = dimsR.GetCol();
 			size_t nBlks = nElemsR / nElemsL;
 			size_t nMats = pArrayL->GetElemNum() / dimRowL.GetSizeProd();
 			const T_ElemR *pElemBlkR = pElemR;
@@ -309,10 +309,10 @@ bool Array::BinaryFuncTmpl_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn, c
 				}
 			}
 		} else { // (pArrayL->IsColMajor() || pArrayR->IsColMajor()) && (dimsL.size() >= 2 && dimsR.size() >= 2)
-			const Array::Dimension &dimRowL = dimsL.GetRow();
-			const Array::Dimension &dimColL = dimsL.GetCol();
-			const Array::Dimension &dimRowR = dimsR.GetRow();
-			const Array::Dimension &dimColR = dimsR.GetCol();
+			const Dimension &dimRowL = dimsL.GetRow();
+			const Dimension &dimColL = dimsL.GetCol();
+			const Dimension &dimRowR = dimsR.GetRow();
+			const Dimension &dimColR = dimsR.GetCol();
 			size_t nBlks = nElemsL / nElemsR;
 			size_t nMats = pArrayR->GetElemNum() / dimRowR.GetSizeProd();
 			const T_ElemL *pElemBlkL = pElemL;
@@ -343,7 +343,7 @@ bool Array::BinaryFuncTmpl_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn, c
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
 bool Array::BinaryFuncTmpl_array_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const T_ElemR &elemR)
 {
-	const Array::Dimensions &dimsL = pArrayL->GetDimensions();
+	const Dimensions &dimsL = pArrayL->GetDimensions();
 	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
 	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(dimsL));
 	T_ElemRtn *pElemRtn = dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn.get())->GetPointer();
@@ -354,8 +354,8 @@ bool Array::BinaryFuncTmpl_array_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, 
 			pElemRtn++;
 		}
 	} else { // pArrayL->IsColMajor() && dimsL.size() >= 2
-		const Array::Dimension &dimRowL = dimsL.GetRow();
-		const Array::Dimension &dimColL = dimsL.GetCol();
+		const Dimension &dimRowL = dimsL.GetRow();
+		const Dimension &dimColL = dimsL.GetCol();
 		size_t nMats = pArrayL->GetElemNum() / dimRowL.GetSizeProd();
 		const T_ElemL *pElemMatL = pElemL;
 		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMatL += dimRowL.GetSizeProd()) {
@@ -377,7 +377,7 @@ bool Array::BinaryFuncTmpl_array_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, 
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
 bool Array::BinaryFuncTmpl_scalar_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const T_ElemL &elemL, const Array *pArrayR)
 {
-	const Array::Dimensions &dimsR = pArrayR->GetDimensions();
+	const Dimensions &dimsR = pArrayR->GetDimensions();
 	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
 	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_ElemRtn>::Create(dimsR));
 	T_ElemRtn *pElemRtn = dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn.get())->GetPointer();
@@ -388,8 +388,8 @@ bool Array::BinaryFuncTmpl_scalar_array(Signal &sig, AutoPtr<Array> &pArrayRtn, 
 			pElemRtn++;
 		}
 	} else { // pArrayR->IsColMajor() && dimsR.size() >= 2
-		const Array::Dimension &dimRowR = dimsR.GetRow();
-		const Array::Dimension &dimColR = dimsR.GetCol();
+		const Dimension &dimRowR = dimsR.GetRow();
+		const Dimension &dimColR = dimsR.GetCol();
 		size_t nMats = pArrayR->GetElemNum() / dimRowR.GetSizeProd();
 		const T_ElemR *pElemMatR = pElemR;
 		for (size_t iMat = 0; iMat < nMats; iMat++, pElemMatR += dimRowR.GetSizeProd()) {
@@ -471,8 +471,8 @@ void Array::DotFuncTmpl_1d_1d(T_ElemRtn *pElemRtn, const T_ElemL *pElemL, const 
 
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 void Array::DotFuncTmpl_1d_2d(T_ElemRtn *pElemRtn,
-					   const T_ElemL *pElemL, const Array::Dimension &dimColL,
-					   const T_ElemR *pElemR, const Array::Dimension &dimRowR, const Array::Dimension &dimColR)
+					   const T_ElemL *pElemL, const Dimension &dimColL,
+					   const T_ElemR *pElemR, const Dimension &dimRowR, const Dimension &dimColR)
 {
 	const T_ElemR *pElemColR = pElemR;
 	for (size_t iColR = 0; iColR < dimColR.GetSize(); iColR++,
@@ -490,8 +490,8 @@ void Array::DotFuncTmpl_1d_2d(T_ElemRtn *pElemRtn,
 
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 void Array::DotFuncTmpl_2d_1d(T_ElemRtn *pElemRtn,
-					   const T_ElemL *pElemL, const Array::Dimension &dimRowL, const Array::Dimension &dimColL,
-					   const T_ElemR *pElemR, const Array::Dimension &dimRowR)
+					   const T_ElemL *pElemL, const Dimension &dimRowL, const Dimension &dimColL,
+					   const T_ElemR *pElemR, const Dimension &dimRowR)
 {
 	const T_ElemL *pElemRowL = pElemL;
 	for (size_t iRowL = 0; iRowL < dimRowL.GetSize(); iRowL++,
@@ -509,8 +509,8 @@ void Array::DotFuncTmpl_2d_1d(T_ElemRtn *pElemRtn,
 
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 void Array::DotFuncTmpl_2d_2d(T_ElemRtn *pElemRtn,
-					   const T_ElemL *pElemL, const Array::Dimension &dimRowL, const Array::Dimension &dimColL,
-					   const T_ElemR *pElemR, const Array::Dimension &dimRowR, const Array::Dimension &dimColR)
+					   const T_ElemL *pElemL, const Dimension &dimRowL, const Dimension &dimColL,
+					   const T_ElemR *pElemR, const Dimension &dimRowR, const Dimension &dimColR)
 {
 	const T_ElemL *pElemRowL = pElemL;
 	for (size_t iRowL = 0; iRowL < dimRowL.GetSize(); iRowL++,
@@ -533,21 +533,21 @@ void Array::DotFuncTmpl_2d_2d(T_ElemRtn *pElemRtn,
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 bool Array::BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR)
 {
-	const Array::Dimensions &dimsL = pArrayL->GetDimensions();
-	const Array::Dimensions &dimsR = pArrayR->GetDimensions();
+	const Dimensions &dimsL = pArrayL->GetDimensions();
+	const Dimensions &dimsR = pArrayR->GetDimensions();
 	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(pArrayL)->GetPointer();
 	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(pArrayR)->GetPointer();
 	if (dimsL.size() == 1 && dimsR.size() == 1) {
-		const Array::Dimension &dimL = dimsL.GetCol();
-		const Array::Dimension &dimR = dimsR.GetCol();
+		const Dimension &dimL = dimsL.GetCol();
+		const Dimension &dimR = dimsR.GetCol();
 		if (dimL.GetSize() != dimR.GetSize()) goto error_done;
 		if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_ElemRtn>::CreateScalar(0));
 		T_ElemRtn *pElemRtn = dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn.get())->GetPointer();
 		DotFuncTmpl_1d_1d(pElemRtn, pElemL, pElemR, dimL.GetSize());
 	} else if (dimsL.size() == 1 && dimsR.size() >= 2) {
-		const Array::Dimension &dimRowR = dimsR.GetRow();
-		const Array::Dimension &dimColL = dimsL.GetCol();
-		const Array::Dimension &dimColR = dimsR.GetCol();
+		const Dimension &dimRowR = dimsR.GetRow();
+		const Dimension &dimColL = dimsL.GetCol();
+		const Dimension &dimColR = dimsR.GetCol();
 		if (dimColL.GetSize() != dimRowR.GetSize()) goto error_done;
 		size_t elemNumMatR = dimRowR.GetSizeProd();
 		size_t elemNumRtn = dimColR.GetSize();
@@ -564,9 +564,9 @@ bool Array::BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Arr
 			offsetR += elemNumMatR;
 		}
 	} else if (dimsL.size() >= 2 && dimsR.size() == 1) {
-		const Array::Dimension &dimRowL = dimsL.GetRow();
-		const Array::Dimension &dimColL = dimsL.GetCol();
-		const Array::Dimension &dimRowR = dimsR.GetCol();	// takes a column as a row
+		const Dimension &dimRowL = dimsL.GetRow();
+		const Dimension &dimColL = dimsL.GetCol();
+		const Dimension &dimRowR = dimsR.GetCol();	// takes a column as a row
 		if (dimColL.GetSize() != dimRowR.GetSize()) goto error_done;
 		size_t elemNumMatL = dimRowL.GetSizeProd();
 		size_t elemNumRtn = dimRowL.GetSize();
@@ -583,10 +583,10 @@ bool Array::BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Arr
 			offsetL += elemNumMatL;
 		}
 	} else if (dimsL.size() == 2 && dimsR.size() == 2) {
-		const Array::Dimension &dimRowL = dimsL.GetRow();
-		const Array::Dimension &dimColL = dimsL.GetCol();
-		const Array::Dimension &dimRowR = dimsR.GetRow();
-		const Array::Dimension &dimColR = dimsR.GetCol();
+		const Dimension &dimRowL = dimsL.GetRow();
+		const Dimension &dimColL = dimsL.GetCol();
+		const Dimension &dimRowR = dimsR.GetRow();
+		const Dimension &dimColR = dimsR.GetCol();
 		if (dimColL.GetSize() != dimRowR.GetSize()) goto error_done;
 		if (pArrayRtn.IsNull()) {
 			pArrayRtn.reset(ArrayT<T_ElemRtn>::Create2d(dimRowL.GetSize(), dimColR.GetSize()));
@@ -594,10 +594,10 @@ bool Array::BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Arr
 		T_ElemRtn *pElemRtn = dynamic_cast<ArrayT<T_ElemRtn> *>(pArrayRtn.get())->GetPointer();
 		DotFuncTmpl_2d_2d(pElemRtn, pElemL, dimRowL, dimColL, pElemR, dimRowR, dimColR);
 	} else { // dimsL.size() >= 2 && dimsR.size() >= 2
-		const Array::Dimension &dimRowL = dimsL.GetRow();
-		const Array::Dimension &dimColL = dimsL.GetCol();
-		const Array::Dimension &dimRowR = dimsR.GetRow();
-		const Array::Dimension &dimColR = dimsR.GetCol();
+		const Dimension &dimRowL = dimsL.GetRow();
+		const Dimension &dimColL = dimsL.GetCol();
+		const Dimension &dimRowR = dimsR.GetRow();
+		const Dimension &dimColR = dimsR.GetCol();
 		if (dimColL.GetSize() != dimRowR.GetSize()) goto error_done;
 		size_t elemNumMatRtn = dimRowL.GetSize() * dimColR.GetSize();
 		size_t offsetL = 0, offsetR = 0;
