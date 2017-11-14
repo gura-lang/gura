@@ -66,7 +66,7 @@ public:
 	virtual void Fill(Double num);
 	virtual void RoundOff(AutoPtr<Array> &pArrayRtn, double threshold) const;
 	virtual void Flatten(AutoPtr<Array> &pArrayRtn) const;
-	virtual bool Transpose(AutoPtr<Array> &pArrayRtn, const IntList &axes) const;
+	virtual void Transpose(AutoPtr<Array> &pArrayRtn, const IntList &axes) const;
 	virtual bool FindMax(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis) const;
 	virtual bool FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis) const;
 	virtual bool FindMaxIndex(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool lastFlag) const;

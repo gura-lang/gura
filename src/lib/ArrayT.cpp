@@ -1046,12 +1046,11 @@ void TransposeSub(void **ppElemDstRaw, const void *pElemSrcRaw, const Array::Dim
 }
 
 template<typename T_Elem>
-bool ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const IntList &axes) const
+void ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const IntList &axes) const
 {
-#if 1
 	if (axes.size() < 2) {
 		pArrayRtn.reset(Clone());
-		return true;
+		return;
 	}
 	Dimensions::const_reverse_iterator pDim = GetDimensions().rbegin();
 	bool memorySharableFlag = false;
@@ -1088,23 +1087,6 @@ bool ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const IntList &axes) c
 			TransposeSub<T_Elem>(&pElemDstRaw, GetPointerRaw(), GetDimensions(), axes.begin(), axes.end());
 		}
 	}
-	return true;
-#else
-	pArrayRtn.reset(Create());
-	const Dimensions &dimsSrc = GetDimensions();
-	Dimensions &dimsDst = pArrayRtn->GetDimensions();
-	dimsDst.reserve(GetDimensions().size());
-	foreach_const (IntList, pAxis, axes) {
-		dimsDst.push_back(dimsSrc[*pAxis]);
-	}
-	size_t sizeProd = 1;
-	foreach (Dimensions, pDim, dimsDst) {
-		sizeProd *= pDim->GetSize();
-		pDim->SetSizeProd(sizeProd);
-	}
-	pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
-	return true;
-#endif
 }
 
 template<typename T_Elem, bool (*op)(T_Elem, T_Elem)>

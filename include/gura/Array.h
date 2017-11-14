@@ -324,9 +324,10 @@ public:
 	bool Tail(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const;
 	bool Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const;
 	virtual void Flatten(AutoPtr<Array> &pArrayRtn) const = 0;
+	void Reshape(AutoPtr<Array> &pArrayRtn, const Dimensions &dims) const;
 	bool Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const;
 	bool Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const;
-	virtual bool Transpose(AutoPtr<Array> &pArrayRtn, const IntList &axes) const = 0;
+	virtual void Transpose(AutoPtr<Array> &pArrayRtn, const IntList &axes) const = 0;
 	void Transpose2d(AutoPtr<Array> &pArrayRtn) const;
 	virtual bool FindMax(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis) const = 0;
 	virtual bool FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis) const = 0;

@@ -266,6 +266,14 @@ bool Array::Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 	return true;
 }
 
+void Array::Reshape(AutoPtr<Array> &pArrayRtn, const Dimensions &dims) const
+{
+	pArrayRtn.reset(Create(GetElemType()));
+	pArrayRtn->SetDimensions(dims);
+	if (IsColMajor()) pArrayRtn->SetColMajor();
+	pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
+}
+
 bool Array::Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const
 {
 	bool unfixedFlag = false;
@@ -320,7 +328,8 @@ bool Array::Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &v
 		}
 		axes.push_back(axis);
 	}
-	return Transpose(pArrayRtn, axes);
+	Transpose(pArrayRtn, axes);
+	return true;
 }
 
 void Array::Transpose2d(AutoPtr<Array> &pArrayRtn) const
