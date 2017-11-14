@@ -5,14 +5,14 @@ import(hash)
 
 testcase('path.walk()') {
 	path.walk('test-zip/test.zip/') {|fileName|
-		println(fileName)
+		println(fileName.replace('\\', '/'))
 	}
 }
 testcase('stream out zip content') {
 	path.walk('test-zip/test.zip/') {|fileName|
 		md5 = hash.md5()
 		stream.copy(fileName, md5)
-		println(fileName, ': ', md5.hexdigest)
+		println(fileName.replace('\\', '/'), ': ', md5.hexdigest)
 	}
 }
 testcase('zip.reader()') {
