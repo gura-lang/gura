@@ -1108,8 +1108,7 @@ bool BinaryFuncTmpl_Div_scalar_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, co
 // DotFuncTmpl
 //------------------------------------------------------------------------------
 template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
-void DotFuncTmpl_1d_1d(T_ElemRtn *pElemRtn,
-					   const T_ElemL *pElemL, const T_ElemR *pElemR, size_t size)
+void DotFuncTmpl_1d_1d(T_ElemRtn *pElemRtn, const T_ElemL *pElemL, const T_ElemR *pElemR, size_t size)
 {
 	T_ElemRtn elemRtn = 0;
 	for (size_t i = 0; i < size; i++, pElemL++, pElemR++) {

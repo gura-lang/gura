@@ -453,8 +453,48 @@ public:
 	static bool ApplyInvertFunc(
 		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, Double epsilon);
 	static void SetError_UnacceptableValueAsElement(Environment &env, const Value &value);
+public:
+	template<typename T_Elem> inline static bool IsZero(const T_Elem &elem) { return elem == 0; }
+	template<typename T_ElemRtn, typename T_Elem, typename T_Operator>
+	static bool UnaryFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray);
+	template<typename T_ElemRtn, typename T_Elem, typename T_Operator>
+	static bool UnaryFuncTmpl_ExcludeZero(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray);
+	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
+	static bool BinaryFuncTmpl_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR);
+	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
+	static bool BinaryFuncTmpl_array_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const T_ElemR &elemR);
+	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
+	static bool BinaryFuncTmpl_scalar_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const T_ElemL &elemL, const Array *pArrayR);
+	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
+	static bool BinaryFuncTmpl_scalar_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, const T_ElemL &elemL, const T_ElemR &elemR);
+	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
+	static bool BinaryFuncTmpl_Div_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR);
+	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
+	static bool BinaryFuncTmpl_Div_array_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const T_ElemR &elemR);
+	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
+	static bool BinaryFuncTmpl_Div_scalar_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const T_ElemL &elemL, const Array *pArrayR);
+	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
+	static bool BinaryFuncTmpl_Div_scalar_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, const T_ElemL &elemL, const T_ElemR &elemR);
+	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
+	static void DotFuncTmpl_1d_1d(T_ElemRtn *pElemRtn, const T_ElemL *pElemL, const T_ElemR *pElemR, size_t size);
+	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
+	static void DotFuncTmpl_1d_2d(T_ElemRtn *pElemRtn,
+								  const T_ElemL *pElemL, const Array::Dimension &dimColL,
+								  const T_ElemR *pElemR, const Array::Dimension &dimRowR, const Array::Dimension &dimColR);
+	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
+	static void DotFuncTmpl_2d_1d(T_ElemRtn *pElemRtn,
+								  const T_ElemL *pElemL, const Array::Dimension &dimRowL, const Array::Dimension &dimColL,
+								  const T_ElemR *pElemR, const Array::Dimension &dimRowR);
+	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
+	static void DotFuncTmpl_2d_2d(T_ElemRtn *pElemRtn,
+								  const T_ElemL *pElemL, const Array::Dimension &dimRowL, const Array::Dimension &dimColL,
+								  const T_ElemR *pElemR, const Array::Dimension &dimRowR, const Array::Dimension &dimColR);
+	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
+	static bool BinaryFuncTmpl_Dot(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR);
 };
 	
+template<> inline bool Array::IsZero<Complex>(const Complex &elem) { return elem.IsZero(); }
+
 //-----------------------------------------------------------------------------
 // ArrayList
 //-----------------------------------------------------------------------------
