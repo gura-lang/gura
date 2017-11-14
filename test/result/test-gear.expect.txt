@@ -6,126 +6,126 @@ gear.calcpadding(13, 6, 5, `valid) .. [2, 0]
 ======== #2 gear@conv1d ========
 
 gear@conv1d(array.zeros([5])) .. <gear@conv1d:size=5:strides=1:padding=same:channel_pos=none>
-f.size .. 5
-f.strides .. 1
-f.padding .. same
-f.channel_pos .. none
-f.channel_num .. nil
-f.filter_num .. nil
+g.size .. 5
+g.strides .. 1
+g.padding .. same
+g.channel_pos .. none
+g.channel_num .. nil
+g.filter_num .. nil
 gear@conv1d(array.zeros([5, 3])) .. <gear@conv1d:channel_num=3:size=5:strides=1:padding=same:channel_pos=last>
-f.size .. 5
-f.strides .. 1
-f.padding .. same
-f.channel_pos .. last
-f.channel_num .. 3
-f.filter_num .. nil
+g.size .. 5
+g.strides .. 1
+g.padding .. same
+g.channel_pos .. last
+g.channel_num .. 3
+g.filter_num .. nil
 gear@conv1d(array.zeros([16, 5, 3])) .. <gear@conv1d:filter_num=16:channel_num=3:size=5:strides=1:padding=same:channel_pos=last>
-f.size .. 5
-f.strides .. 1
-f.padding .. same
-f.channel_pos .. last
-f.channel_num .. 3
-f.filter_num .. 16
+g.size .. 5
+g.strides .. 1
+g.padding .. same
+g.channel_pos .. last
+g.channel_num .. 3
+g.filter_num .. 16
 gear@conv1d(array.zeros([4, 16, 5, 3])) .. ValueError: the `array` instance given to `gear@conv1d` constructor must have dimensions of 1, 2 or 3.
 gear@conv1d(array.zeros([16, 5, 3]), 4) .. <gear@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=same:channel_pos=last>
-f.size .. 5
-f.strides .. 4
-f.padding .. same
-f.channel_pos .. last
-f.channel_num .. 3
-f.filter_num .. 16
+g.size .. 5
+g.strides .. 4
+g.padding .. same
+g.channel_pos .. last
+g.channel_num .. 3
+g.filter_num .. 16
 gear@conv1d(array.zeros([16, 5, 3]), 4, `same) .. <gear@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=same:channel_pos=last>
-f.size .. 5
-f.strides .. 4
-f.padding .. same
-f.channel_pos .. last
-f.channel_num .. 3
-f.filter_num .. 16
+g.size .. 5
+g.strides .. 4
+g.padding .. same
+g.channel_pos .. last
+g.channel_num .. 3
+g.filter_num .. 16
 gear@conv1d(array.zeros([16, 5, 3]), 4, `valid) .. <gear@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=valid:channel_pos=last>
-f.size .. 5
-f.strides .. 4
-f.padding .. valid
-f.channel_pos .. last
-f.channel_num .. 3
-f.filter_num .. 16
+g.size .. 5
+g.strides .. 4
+g.padding .. valid
+g.channel_pos .. last
+g.channel_num .. 3
+g.filter_num .. 16
 gear@conv1d(array.zeros([16, 5, 3]), 4, `xxxx) .. ValueError: specify `valid or `same for padding type
 gear@conv1d(array.zeros([16, 3, 5]), 4, `valid, `first) .. <gear@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=valid:channel_pos=first>
-f.size .. 5
-f.strides .. 4
-f.padding .. valid
-f.channel_pos .. first
-f.channel_num .. 3
-f.filter_num .. 16
+g.size .. 5
+g.strides .. 4
+g.padding .. valid
+g.channel_pos .. first
+g.channel_num .. 3
+g.filter_num .. 16
 gear@conv1d(array.zeros([16, 5, 3]), 4, `valid, `last) .. <gear@conv1d:filter_num=16:channel_num=3:size=5:strides=4:padding=valid:channel_pos=last>
-f.size .. 5
-f.strides .. 4
-f.padding .. valid
-f.channel_pos .. last
-f.channel_num .. 3
-f.filter_num .. 16
+g.size .. 5
+g.strides .. 4
+g.padding .. valid
+g.channel_pos .. last
+g.channel_num .. 3
+g.filter_num .. 16
 gear@conv1d(array.zeros([16, 5, 3]), 4, `xxxx, `last) .. ValueError: specify `valid or `same for padding type
 gear@conv1d(array.zeros([16, 5, 3]), 4, `valid, `xxxx) .. ValueError: specify `none, `first or `last for channel positioning
 
 ======== #3 gear@conv2d ========
 
 gear@conv2d(array.zeros([5, 6])) .. <gear@conv2d:size=(5,6):strides=(1,1):padding=same:channel_pos=none>
-f.size .. [5, 6]
-f.strides .. [1, 1]
-f.padding .. same
-f.channel_pos .. none
-f.channel_num .. nil
-f.filter_num .. nil
+g.size .. [5, 6]
+g.strides .. [1, 1]
+g.padding .. same
+g.channel_pos .. none
+g.channel_num .. nil
+g.filter_num .. nil
 gear@conv2d(array.zeros([5, 6, 3])) .. <gear@conv2d:channel_num=3:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
-f.size .. [5, 6]
-f.strides .. [1, 1]
-f.padding .. same
-f.channel_pos .. last
-f.channel_num .. 3
-f.filter_num .. nil
+g.size .. [5, 6]
+g.strides .. [1, 1]
+g.padding .. same
+g.channel_pos .. last
+g.channel_num .. 3
+g.filter_num .. nil
 gear@conv2d(array.zeros([16, 5, 6, 3])) .. <gear@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
-f.size .. [5, 6]
-f.strides .. [1, 1]
-f.padding .. same
-f.channel_pos .. last
-f.channel_num .. 3
-f.filter_num .. 16
+g.size .. [5, 6]
+g.strides .. [1, 1]
+g.padding .. same
+g.channel_pos .. last
+g.channel_num .. 3
+g.filter_num .. 16
 gear@conv2d(array.zeros([4, 16, 5, 6, 3])) .. ValueError: the `array` instance given to `gear@conv2d` constructor must have dimensions of 2, 3 or 4.
 gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3]) .. <gear@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
-f.size .. [5, 6]
-f.strides .. [4, 3]
-f.padding .. same
-f.channel_pos .. last
-f.channel_num .. 3
-f.filter_num .. 16
+g.size .. [5, 6]
+g.strides .. [4, 3]
+g.padding .. same
+g.channel_pos .. last
+g.channel_num .. 3
+g.filter_num .. 16
 gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `same) .. <gear@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
-f.size .. [5, 6]
-f.strides .. [4, 3]
-f.padding .. same
-f.channel_pos .. last
-f.channel_num .. 3
-f.filter_num .. 16
+g.size .. [5, 6]
+g.strides .. [4, 3]
+g.padding .. same
+g.channel_pos .. last
+g.channel_num .. 3
+g.filter_num .. 16
 gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid) .. <gear@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=valid:channel_pos=last>
-f.size .. [5, 6]
-f.strides .. [4, 3]
-f.padding .. valid
-f.channel_pos .. last
-f.channel_num .. 3
-f.filter_num .. 16
+g.size .. [5, 6]
+g.strides .. [4, 3]
+g.padding .. valid
+g.channel_pos .. last
+g.channel_num .. 3
+g.filter_num .. 16
 gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `xxxx) .. ValueError: specify `valid or `same for padding type
 gear@conv2d(array.zeros([16, 3, 5, 6]), [4, 3], `valid, `first) .. <gear@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=valid:channel_pos=first>
-f.size .. [5, 6]
-f.strides .. [4, 3]
-f.padding .. valid
-f.channel_pos .. first
-f.channel_num .. 3
-f.filter_num .. 16
+g.size .. [5, 6]
+g.strides .. [4, 3]
+g.padding .. valid
+g.channel_pos .. first
+g.channel_num .. 3
+g.filter_num .. 16
 gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid, `last) .. <gear@conv2d:filter_num=16:channel_num=3:size=(5,6):strides=(4,3):padding=valid:channel_pos=last>
-f.size .. [5, 6]
-f.strides .. [4, 3]
-f.padding .. valid
-f.channel_pos .. last
-f.channel_num .. 3
-f.filter_num .. 16
+g.size .. [5, 6]
+g.strides .. [4, 3]
+g.padding .. valid
+g.channel_pos .. last
+g.channel_num .. 3
+g.filter_num .. 16
 gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `xxxx, `last) .. ValueError: specify `valid or `same for padding type
 gear@conv2d(array.zeros([16, 5, 6, 3]), [4, 3], `valid, `xxxx) .. ValueError: specify `none, `first or `last for channel positioning
 
@@ -175,40 +175,40 @@ x_5_5_4 |*| f_3_3_3_last .. ValueError: unmatched dimension between array (5, 5,
 ======== #8 gear@maxpool1d ========
 
 gear@maxpool1d(4) .. <gear@maxpool1d:size=4:strides=1:padding=same:channel_pos=last>
-f.size .. 4
-f.strides .. 1
-f.padding .. same
-f.channel_pos .. last
+g.size .. 4
+g.strides .. 1
+g.padding .. same
+g.channel_pos .. last
 gear@maxpool1d(4, 3) .. <gear@maxpool1d:size=4:strides=3:padding=same:channel_pos=last>
-f.size .. 4
-f.strides .. 3
-f.padding .. same
-f.channel_pos .. last
+g.size .. 4
+g.strides .. 3
+g.padding .. same
+g.channel_pos .. last
 gear@maxpool1d(4, 3, `same) .. <gear@maxpool1d:size=4:strides=3:padding=same:channel_pos=last>
-f.size .. 4
-f.strides .. 3
-f.padding .. same
-f.channel_pos .. last
+g.size .. 4
+g.strides .. 3
+g.padding .. same
+g.channel_pos .. last
 gear@maxpool1d(4, 3, `valid) .. <gear@maxpool1d:size=4:strides=3:padding=valid:channel_pos=last>
-f.size .. 4
-f.strides .. 3
-f.padding .. valid
-f.channel_pos .. last
+g.size .. 4
+g.strides .. 3
+g.padding .. valid
+g.channel_pos .. last
 gear@maxpool1d(4, 3, `same, `none) .. <gear@maxpool1d:size=4:strides=3:padding=same:channel_pos=none>
-f.size .. 4
-f.strides .. 3
-f.padding .. same
-f.channel_pos .. none
+g.size .. 4
+g.strides .. 3
+g.padding .. same
+g.channel_pos .. none
 gear@maxpool1d(4, 3, `same, `first) .. <gear@maxpool1d:size=4:strides=3:padding=same:channel_pos=first>
-f.size .. 4
-f.strides .. 3
-f.padding .. same
-f.channel_pos .. first
+g.size .. 4
+g.strides .. 3
+g.padding .. same
+g.channel_pos .. first
 gear@maxpool1d(4, 3, `same, `last) .. <gear@maxpool1d:size=4:strides=3:padding=same:channel_pos=last>
-f.size .. 4
-f.strides .. 3
-f.padding .. same
-f.channel_pos .. last
+g.size .. 4
+g.strides .. 3
+g.padding .. same
+g.channel_pos .. last
 x |*| gear@maxpool1d(1, 1, `same, `first) .. {68, 79, 68, 92, 33, 30, 63,  2, 72, 90, 54, 52, 76, 54, 68, 52, 84, 79, 80, 24}
 x |*| gear@maxpool1d(2, 1, `same, `first) .. {79, 79, 92, 92, 33, 63, 63, 72, 90, 90, 54, 76, 76, 68, 68, 84, 84, 80, 80, 24}
 x |*| gear@maxpool1d(3, 1, `same, `first) .. {79, 79, 92, 92, 92, 63, 63, 72, 90, 90, 90, 76, 76, 76, 68, 84, 84, 84, 80, 80}
@@ -302,40 +302,40 @@ x |*| gear@maxpool1d(4, 3, `same, `last) .. {{35, 86, 62},
 ======== #9 gear@maxpool2d ========
 
 gear@maxpool2d([5, 6]) .. <gear@maxpool2d:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
-f.size .. [5, 6]
-f.strides .. [1, 1]
-f.padding .. same
-f.channel_pos .. last
+g.size .. [5, 6]
+g.strides .. [1, 1]
+g.padding .. same
+g.channel_pos .. last
 gear@maxpool2d([5, 6], [4, 3]) .. <gear@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
-f.size .. [5, 6]
-f.strides .. [4, 3]
-f.padding .. same
-f.channel_pos .. last
+g.size .. [5, 6]
+g.strides .. [4, 3]
+g.padding .. same
+g.channel_pos .. last
 gear@maxpool2d([5, 6], [4, 3], `same) .. <gear@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
-f.size .. [5, 6]
-f.strides .. [4, 3]
-f.padding .. same
-f.channel_pos .. last
+g.size .. [5, 6]
+g.strides .. [4, 3]
+g.padding .. same
+g.channel_pos .. last
 gear@maxpool2d([5, 6], [4, 3], `valid) .. <gear@maxpool2d:size=(5,6):strides=(4,3):padding=valid:channel_pos=last>
-f.size .. [5, 6]
-f.strides .. [4, 3]
-f.padding .. valid
-f.channel_pos .. last
+g.size .. [5, 6]
+g.strides .. [4, 3]
+g.padding .. valid
+g.channel_pos .. last
 gear@maxpool2d([5, 6], [4, 3], `same, `none) .. <gear@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=none>
-f.size .. [5, 6]
-f.strides .. [4, 3]
-f.padding .. same
-f.channel_pos .. none
+g.size .. [5, 6]
+g.strides .. [4, 3]
+g.padding .. same
+g.channel_pos .. none
 gear@maxpool2d([5, 6], [4, 3], `same, `first) .. <gear@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=first>
-f.size .. [5, 6]
-f.strides .. [4, 3]
-f.padding .. same
-f.channel_pos .. first
+g.size .. [5, 6]
+g.strides .. [4, 3]
+g.padding .. same
+g.channel_pos .. first
 gear@maxpool2d([5, 6], [4, 3], `same, `last) .. <gear@maxpool2d:size=(5,6):strides=(4,3):padding=same:channel_pos=last>
-f.size .. [5, 6]
-f.strides .. [4, 3]
-f.padding .. same
-f.channel_pos .. last
+g.size .. [5, 6]
+g.strides .. [4, 3]
+g.padding .. same
+g.channel_pos .. last
 
 ======== #10 gear@maxpool3d ========
 
@@ -352,8 +352,8 @@ x |*| gear@sigmoid() .. {0.268941,  0.28905, 0.310026, 0.331812, 0.354344, 0.377
 
 ======== #13 gear@softmax ========
 
-f.axis .. nil
-f.axis .. 3
+g.axis .. nil
+g.axis .. 3
 array { 0.3, 2.9, 4.0 } |*| gear@softmax() .. {0.0182113,  0.245192,  0.736597}
 { 1,  2, -4, -3, -4} .. {  0.266661,   0.724861, 0.00179675, 0.00488407, 0.00179675} {  0.266661,   0.724861, 0.00179675, 0.00488407, 0.00179675}
 { 0,  0, -3,  4,  3} .. {  0.0130321,   0.0130321, 0.000648831,     0.71153,    0.261757} {  0.0130321,   0.0130321, 0.000648831,     0.71153,    0.261757}

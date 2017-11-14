@@ -6,11 +6,11 @@
 namespace Gura {
 
 //------------------------------------------------------------------------------
-// PairFuncTmpl
+// UnaryPairFuncTmpl
 //------------------------------------------------------------------------------
 template<typename T_ElemRtnA, typename T_ElemRtnB, typename T_Elem,
 		 void (*op)(T_ElemRtnA &, T_ElemRtnB &, const T_Elem &)>
-void PairFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtnA, AutoPtr<Array> &pArrayRtnB, const Array *pArray)
+void UnaryPairFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtnA, AutoPtr<Array> &pArrayRtnB, const Array *pArray)
 {
 	const Array::Dimensions &dims = pArray->GetDimensions();
 	if (pArrayRtnA.IsNull()) pArrayRtnA.reset(ArrayT<T_ElemRtnA>::Create(dims));
@@ -575,18 +575,18 @@ bool Trainer::NodeGear_Relu::EvalForward(Environment &env)
 {
 	static const PairFuncT funcs[Array::ETYPE_Max] = {
 		nullptr,
-		&PairFuncTmpl<Boolean,	Boolean,	Boolean,	FuncRelu>,
-		&PairFuncTmpl<Int8,		Boolean,	Int8,		FuncRelu>,
-		&PairFuncTmpl<UInt8,	Boolean,	UInt8,		FuncRelu>,
-		&PairFuncTmpl<Int16,	Boolean,	Int16,		FuncRelu>,
-		&PairFuncTmpl<UInt16,	Boolean,	UInt16,		FuncRelu>,
-		&PairFuncTmpl<Int32,	Boolean,	Int32,		FuncRelu>,
-		&PairFuncTmpl<UInt32,	Boolean,	UInt32,		FuncRelu>,
-		&PairFuncTmpl<Int64,	Boolean,	Int64,		FuncRelu>,
-		&PairFuncTmpl<UInt64,	Boolean,	UInt64,		FuncRelu>,
-		&PairFuncTmpl<Half,		Boolean,	Half,		FuncRelu>,
-		&PairFuncTmpl<Float,	Boolean,	Float,		FuncRelu>,
-		&PairFuncTmpl<Double,	Boolean,	Double,		FuncRelu>,
+		&UnaryPairFuncTmpl<Boolean,	Boolean,	Boolean,	FuncRelu>,
+		&UnaryPairFuncTmpl<Int8,	Boolean,	Int8,		FuncRelu>,
+		&UnaryPairFuncTmpl<UInt8,	Boolean,	UInt8,		FuncRelu>,
+		&UnaryPairFuncTmpl<Int16,	Boolean,	Int16,		FuncRelu>,
+		&UnaryPairFuncTmpl<UInt16,	Boolean,	UInt16,		FuncRelu>,
+		&UnaryPairFuncTmpl<Int32,	Boolean,	Int32,		FuncRelu>,
+		&UnaryPairFuncTmpl<UInt32,	Boolean,	UInt32,		FuncRelu>,
+		&UnaryPairFuncTmpl<Int64,	Boolean,	Int64,		FuncRelu>,
+		&UnaryPairFuncTmpl<UInt64,	Boolean,	UInt64,		FuncRelu>,
+		&UnaryPairFuncTmpl<Half,	Boolean,	Half,		FuncRelu>,
+		&UnaryPairFuncTmpl<Float,	Boolean,	Float,		FuncRelu>,
+		&UnaryPairFuncTmpl<Double,	Boolean,	Double,		FuncRelu>,
 		nullptr,
 		nullptr,
 	};
