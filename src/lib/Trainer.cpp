@@ -5,12 +5,12 @@
 
 namespace Gura {
 
+
 //------------------------------------------------------------------------------
-// UnaryPairFuncTmpl
+// Unary2OutFuncTmpl
 //------------------------------------------------------------------------------
-template<typename T_ElemRtnA, typename T_ElemRtnB, typename T_Elem,
-		 void (*op)(T_ElemRtnA &, T_ElemRtnB &, const T_Elem &)>
-void UnaryPairFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtnA, AutoPtr<Array> &pArrayRtnB, const Array *pArray)
+template<typename T_ElemRtnA, typename T_ElemRtnB, typename T_Elem, typename T_Operator>
+void Unary2OutFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtnA, AutoPtr<Array> &pArrayRtnB, const Array *pArray)
 {
 	const Array::Dimensions &dims = pArray->GetDimensions();
 	if (pArrayRtnA.IsNull()) pArrayRtnA.reset(ArrayT<T_ElemRtnA>::Create(dims));
@@ -21,7 +21,7 @@ void UnaryPairFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtnA, AutoPtr<Array> &
 	if (pArray->IsRowMajor() || dims.size() < 2) {
 		size_t nElems = pArray->GetElemNum();
 		for (size_t i = 0; i < nElems; i++, pElem++) {
-			op(*pElemRtnA, *pElemRtnB, *pElem);
+			T_Operator::Calc(*pElemRtnA, *pElemRtnB, *pElem);
 			pElemRtnA++, pElemRtnB++;
 		}
 	} else { // pArray->IsColMajor() && dims.size() >= 2
@@ -36,13 +36,15 @@ void UnaryPairFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtnA, AutoPtr<Array> &
 				const T_Elem *pElemCol = pElemRow;
 				for (size_t iCol = 0; iCol < dimCol.GetSize(); iCol++,
 						 pElemCol += dimCol.GetStrides()) {
-					op(*pElemRtnA, *pElemRtnB, *pElemCol);
+					T_Operator::Calc(*pElemRtnA, *pElemRtnB, *pElemCol);
 					pElemRtnA++, pElemRtnB++;
 				}
 			}
 		}
 	}
 }
+
+typedef void (*Unary2OutFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtnA, AutoPtr<Array> &pArrayRtnB, const Array *pArray);
 
 //-----------------------------------------------------------------------------
 // Trainer
@@ -557,14 +559,14 @@ bool Trainer::NodeGear_MaxPool3d::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear_Relu
 //-----------------------------------------------------------------------------
-typedef void (*PairFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtnA, AutoPtr<Array> &pArrayRtnB, const Array *pArray);
-
-template<typename T_ElemRtn, typename T_Elem>
-void FuncRelu(T_ElemRtn &elemRtn, Boolean &elemBool, const T_Elem &elem)
-{
-	elemBool = (elem > 0);
-	elemRtn = elemBool? elem : 0;
-}
+template<typename T_Elem>
+class Operator_Relu2Out {
+public:
+	inline static void Calc(T_Elem &elemRtn, Boolean &elemBool, const T_Elem &elem) {
+		elemBool = (elem > 0);
+		elemRtn = elemBool? elem : 0;
+	}
+};
 
 bool Trainer::NodeGear_Relu::IsVulnerable() const
 {
@@ -573,30 +575,30 @@ bool Trainer::NodeGear_Relu::IsVulnerable() const
 
 bool Trainer::NodeGear_Relu::EvalForward(Environment &env)
 {
-	static const PairFuncT funcs[Array::ETYPE_Max] = {
+	static const Unary2OutFuncT funcs[Array::ETYPE_Max] = {
 		nullptr,
-		&UnaryPairFuncTmpl<Boolean,	Boolean,	Boolean,	FuncRelu>,
-		&UnaryPairFuncTmpl<Int8,	Boolean,	Int8,		FuncRelu>,
-		&UnaryPairFuncTmpl<UInt8,	Boolean,	UInt8,		FuncRelu>,
-		&UnaryPairFuncTmpl<Int16,	Boolean,	Int16,		FuncRelu>,
-		&UnaryPairFuncTmpl<UInt16,	Boolean,	UInt16,		FuncRelu>,
-		&UnaryPairFuncTmpl<Int32,	Boolean,	Int32,		FuncRelu>,
-		&UnaryPairFuncTmpl<UInt32,	Boolean,	UInt32,		FuncRelu>,
-		&UnaryPairFuncTmpl<Int64,	Boolean,	Int64,		FuncRelu>,
-		&UnaryPairFuncTmpl<UInt64,	Boolean,	UInt64,		FuncRelu>,
-		&UnaryPairFuncTmpl<Half,	Boolean,	Half,		FuncRelu>,
-		&UnaryPairFuncTmpl<Float,	Boolean,	Float,		FuncRelu>,
-		&UnaryPairFuncTmpl<Double,	Boolean,	Double,		FuncRelu>,
+		&Unary2OutFuncTmpl<Boolean,	Boolean,	Boolean,	Operator_Relu2Out<Boolean> >,
+		&Unary2OutFuncTmpl<Int8,	Boolean,	Int8,		Operator_Relu2Out<Int8> >,
+		&Unary2OutFuncTmpl<UInt8,	Boolean,	UInt8,		Operator_Relu2Out<UInt8> >,
+		&Unary2OutFuncTmpl<Int16,	Boolean,	Int16,		Operator_Relu2Out<Int16> >,
+		&Unary2OutFuncTmpl<UInt16,	Boolean,	UInt16,		Operator_Relu2Out<UInt16> >,
+		&Unary2OutFuncTmpl<Int32,	Boolean,	Int32,		Operator_Relu2Out<Int32> >,
+		&Unary2OutFuncTmpl<UInt32,	Boolean,	UInt32,		Operator_Relu2Out<UInt32> >,
+		&Unary2OutFuncTmpl<Int64,	Boolean,	Int64,		Operator_Relu2Out<Int64> >,
+		&Unary2OutFuncTmpl<UInt64,	Boolean,	UInt64,		Operator_Relu2Out<UInt64> >,
+		&Unary2OutFuncTmpl<Half,	Boolean,	Half,		Operator_Relu2Out<Half> >,
+		&Unary2OutFuncTmpl<Float,	Boolean,	Float,		Operator_Relu2Out<Float> >,
+		&Unary2OutFuncTmpl<Double,	Boolean,	Double,		Operator_Relu2Out<Double> >,
 		nullptr,
 		nullptr,
 	};
 	const Array *pArray = GetConnectorSrc()->GetArrayFwd();
-	PairFuncT pairFunc = funcs[pArray->GetElemType()];
-	if (pairFunc == nullptr) {
+	Unary2OutFuncT func = funcs[pArray->GetElemType()];
+	if (func == nullptr) {
 		env.SetError(ERR_TypeError, "can't evaluate forward function");
 		return nullptr;
 	}
-	(*pairFunc)(env, _pArrayFwd, _pArrayBool, pArray);
+	(*func)(env, _pArrayFwd, _pArrayBool, pArray);
 	return env.IsNoSignalled();
 }
 
