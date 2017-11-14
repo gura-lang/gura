@@ -627,6 +627,9 @@ void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const 
 	if (col != 0) stream.Printf(sig, "\n");
 }
 
+template<typename T_Elem>
+void ArrayT<T_Elem>::Dump(Signal &sig, Stream &stream, bool upperFlag) const {}
+
 template<>
 void ArrayT<Boolean>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {

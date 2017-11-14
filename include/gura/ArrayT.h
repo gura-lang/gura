@@ -52,7 +52,7 @@ public:
 	inline operator const T_Elem *() const { return GetPointer(); }
 	virtual Array *Clone() const;
 	virtual String ToString(bool exprFlag) const;
-	virtual void Dump(Signal &sig, Stream &stream, bool upperFlag) const {};
+	virtual void Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 	virtual bool DoesContainZero() const;
 	virtual bool DoesContainMinus() const;
 	virtual bool DoesContainZeroOrMinus() const;
