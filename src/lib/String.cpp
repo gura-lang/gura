@@ -55,9 +55,9 @@ Number ToNumber(const char *str, bool *pSuccessFlag)
 	Number num;
 	char *next = nullptr;
 	if (str[0] == '0' && (str[1] == 'x' || str[1] == 'X' || IsOctDigit(str[1]))) {
-		num = ::strtoul(str, &next, 0);
+		num = static_cast<Number>(::strtoull(str, &next, 0));
 	} else if (str[0] == '0' && (str[1] == 'b' || str[1] == 'B')) {
-		num = ::strtoul(str + 2, &next, 2);
+		num = static_cast<Number>(::strtoull(str + 2, &next, 2));
 	} else {
 		num = ::strtod(str, &next);
 	}
