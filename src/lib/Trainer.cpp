@@ -414,7 +414,7 @@ bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 	const Double padNum = 0;
 	// pArraySrc .. [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
 	const Array *pArraySrc = GetConnectorSrc()->GetArrayFwd();
-	// _pArraySrcVec .. [H_out, W_out, C * FH * FW] or [N, H_out, W_out, C * FH * FW]
+	// _pArraySrcVec .. [H_out, W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
 	if (_pArraySrcVec.IsNull()) {
 		Gear::CalcPadding2d(pGear, pArraySrc->GetDimensions(), &_sizePadRow, &_sizePadCol);
 	}
@@ -422,6 +422,7 @@ bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 		_pArraySrcVec, pGear->GetSizeRow(), pGear->GetSizeCol(),
 		pGear->GetStridesRow(), pGear->GetStridesCol(), _sizePadRow, _sizePadCol,
 		pGear->GetChannelPos(), padNum);
+	//::printf("%s\n", _pArraySrcVec->GetDimensions().ToString().c_str());
 	// pArrayGear .. [FN, C, FH, FW] or [FN, FH, FW, C]
 	const Array *pArrayGear = pGear->GetArrayGear();
 	const Array::Dimensions &dimsGear = pArrayGear->GetDimensions();
@@ -440,7 +441,7 @@ bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 	}
 	// _pArrayGearTrans .. [C * FH * FW] or [C * FH * FW, FN]
 	_pArrayGearReshape->Transpose2d(_pArrayGearTrans);
-	// _pArrayFwd = _pArraySrcVec |.| _pArrayGearTrans .. [N, H_out, W_out, FN]
+	// _pArrayFwd = _pArraySrcVec |.| _pArrayGearTrans .. [N, H_out * W_out, FN]
 	if (!Array::ApplyBinaryFunc(
 			env, Array::binaryFuncPack_Dot, _pArrayFwd,
 			_pArraySrcVec.get(), _pArrayGearTrans.get())) return false;
