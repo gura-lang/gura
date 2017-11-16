@@ -425,15 +425,20 @@ bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 	// pArrayGear .. [FN, C, FH, FW] or [FN, FH, FW, C]
 	const Array *pArrayGear = pGear->GetArrayGear();
 	const Array::Dimensions &dimsGear = pArrayGear->GetDimensions();
-	// _pArrayGearReshape .. [FN, C * FH * FW]
+	// _pArrayGearReshape .. [C * FH * FW] or [FN, C * FH * FW]
 	if (_pArrayGearReshape.IsNull()) {
 		Array::Dimensions dims;
-		dims.reserve(2);
-		dims.push_back(Array::Dimension(dimsGear[0].GetSize()));
-		dims.push_back(Array::Dimension(dimsGear[1].GetSize() * dimsGear[2].GetSize() * dimsGear[3].GetSize()));
+		if (pGear->HasFilterDim()) {
+			dims.reserve(2);
+			dims.push_back(Array::Dimension(dimsGear[0].GetSize()));
+			dims.push_back(Array::Dimension(dimsGear[1].GetSize() * dimsGear[2].GetSize() * dimsGear[3].GetSize()));
+		} else {
+			dims.reserve(1);
+			dims.push_back(Array::Dimension(dimsGear[0].GetSize() * dimsGear[1].GetSize() * dimsGear[2].GetSize()));
+		}
 		pArrayGear->Reshape(_pArrayGearReshape, dims);
 	}
-	// _pArrayGearTrans .. [C * FH * FW, FN]	
+	// _pArrayGearTrans .. [C * FH * FW] or [C * FH * FW, FN]
 	_pArrayGearReshape->Transpose2d(_pArrayGearTrans);
 	// _pArrayFwd = _pArraySrcVec |.| _pArrayGearTrans .. [N, H_out, W_out, FN]
 	if (!Array::ApplyBinaryFunc(

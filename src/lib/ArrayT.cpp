@@ -1696,13 +1696,13 @@ void ArrayT<T_Elem>::ExpandKernelVec1d(
 {
 	const Dimensions &dims = GetDimensions();
 	if (channelPos == CHANNELPOS_Last) {
-		if (dims.size() < 2) return;
+		// ASSERT(dims.size() >= 2)
 		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		ScanKernel1d(
 			const_cast<ArrayT *>(this), dims.GetBack(1), 0,
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
 	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
-		if (dims.size() < 1) return;
+		// ASSERT(dims.size() >= 1)
 		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		ScanKernel1d(
 			const_cast<ArrayT *>(this), dims.GetBack(0), 0,
@@ -1718,14 +1718,14 @@ void ArrayT<T_Elem>::ExpandKernelVec2d(
 {
 	const Dimensions &dims = GetDimensions();
 	if (channelPos == CHANNELPOS_Last) {
-		if (dims.size() < 3) return;
+		// ASSERT(dims.size() >= 3);
 		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		ScanKernel2d(
 			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), 0,
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
 	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
-		if (dims.size() < 2) return;
+		// ASSERT(dims.size() >= 2)
 		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		ScanKernel2d(
 			const_cast<ArrayT *>(this), dims.GetBack(1), dims.GetBack(0), 0,
@@ -1743,7 +1743,7 @@ void ArrayT<T_Elem>::ExpandKernelVec3d(
 {
 	const Dimensions &dims = GetDimensions();
 	if (channelPos == CHANNELPOS_Last) {
-		if (dims.size() < 2) return;
+		// ASSERT(dims.size() >= 4)
 		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		ScanKernel3d(
 			const_cast<ArrayT *>(this), dims.GetBack(3), dims.GetBack(2), dims.GetBack(1), 0,
@@ -1751,7 +1751,7 @@ void ArrayT<T_Elem>::ExpandKernelVec3d(
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
 	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
-		if (dims.size() < 2) return;
+		// ASSERT(dims.size() >= 3)
 		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		ScanKernel3d(
 			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0), 0,
