@@ -373,7 +373,7 @@ public:
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
 	bool CheckDimsGearForCalcConv(Signal &sig, const Dimensions &dimsGear,
-									size_t nDimsKernel, ChannelPos channelPos) const;
+								  size_t nDimsKernel, ChannelPos channelPos) const;
 	virtual void CalcConv1d(
 		AutoPtr<Array> &pArrayRtn, const Array *pArrayGear, size_t stridesKernel,
 		size_t sizePad, ChannelPos channelPos) const = 0;
@@ -466,21 +466,29 @@ public:
 	static bool Unary2OutFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtnA,
 								  AutoPtr<Array> &pArrayRtnB, const Array *pArray);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR);
+	static bool BinaryFuncTmpl_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn,
+										   const Array *pArrayL, const Array *pArrayR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_array_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const T_ElemR &elemR);
+	static bool BinaryFuncTmpl_array_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn,
+											const Array *pArrayL, const T_ElemR &elemR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_scalar_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const T_ElemL &elemL, const Array *pArrayR);
+	static bool BinaryFuncTmpl_scalar_array(Signal &sig, AutoPtr<Array> &pArrayRtn,
+											const T_ElemL &elemL, const Array *pArrayR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_scalar_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, const T_ElemL &elemL, const T_ElemR &elemR);
+	static bool BinaryFuncTmpl_scalar_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn,
+											 const T_ElemL &elemL, const T_ElemR &elemR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_Div_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR);
+	static bool BinaryFuncTmpl_Div_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn,
+											   const Array *pArrayL, const Array *pArrayR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_Div_array_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const T_ElemR &elemR);
+	static bool BinaryFuncTmpl_Div_array_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn,
+												const Array *pArrayL, const T_ElemR &elemR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_Div_scalar_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const T_ElemL &elemL, const Array *pArrayR);
+	static bool BinaryFuncTmpl_Div_scalar_array(Signal &sig, AutoPtr<Array> &pArrayRtn,
+												const T_ElemL &elemL, const Array *pArrayR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_Div_scalar_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, const T_ElemL &elemL, const T_ElemR &elemR);
+	static bool BinaryFuncTmpl_Div_scalar_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn,
+												 const T_ElemL &elemL, const T_ElemR &elemR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 	static void DotFuncTmpl_1d_1d(T_ElemRtn *pElemRtn, const T_ElemL *pElemL, const T_ElemR *pElemR, size_t size);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>

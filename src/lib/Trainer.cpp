@@ -411,33 +411,28 @@ bool Trainer::NodeGear_Conv2d::IsVulnerable() const
 bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 {
 	Gear_Conv2d *pGear = GetGear();
-	size_t _sizePadRow = 0;
-	size_t _sizePadCol = 0;
-	AutoPtr<Array> _pArraySrcVec;
-	AutoPtr<Array> _pArrayGearReshape;
-	AutoPtr<Array> _pArrayGearTrans;
 	const Double padNum = 0;
-	// pArraySrc .. [N, C, H, W] or [N, H, W, C]
+	// pArraySrc .. [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
 	const Array *pArraySrc = GetConnectorSrc()->GetArrayFwd();
-	// pArrayGear .. [FN, C, FH, FW] or [FN, FH, FW, C]
-	const Array *pArrayGear = pGear->GetArrayGear();
-	const Array::Dimensions &dimsGear = pArrayGear->GetDimensions();
+	// _pArraySrcVec .. [H_out, W_out, C * FH * FW] or [N, H_out, W_out, C * FH * FW]
 	if (_pArraySrcVec.IsNull()) {
 		Gear::CalcPadding2d(pGear, pArraySrc->GetDimensions(), &_sizePadRow, &_sizePadCol);
 	}
+	pArraySrc->ExpandKernelVec2d(
+		_pArraySrcVec, pGear->GetSizeRow(), pGear->GetSizeCol(),
+		pGear->GetStridesRow(), pGear->GetStridesCol(), _sizePadRow, _sizePadCol,
+		pGear->GetChannelPos(), padNum);
+	// pArrayGear .. [FN, C, FH, FW] or [FN, FH, FW, C]
+	const Array *pArrayGear = pGear->GetArrayGear();
+	const Array::Dimensions &dimsGear = pArrayGear->GetDimensions();
 	// _pArrayGearReshape .. [FN, C * FH * FW]
-	do {
+	if (_pArrayGearReshape.IsNull()) {
 		Array::Dimensions dims;
 		dims.reserve(2);
 		dims.push_back(Array::Dimension(dimsGear[0].GetSize()));
 		dims.push_back(Array::Dimension(dimsGear[1].GetSize() * dimsGear[2].GetSize() * dimsGear[3].GetSize()));
 		pArrayGear->Reshape(_pArrayGearReshape, dims);
-	} while (0);
-	// _pArraySrcVec .. [N, H_out, W_out, C * FH * FW]
-	pArraySrc->ExpandKernelVec2d(
-		_pArraySrcVec, pGear->GetSizeRow(), pGear->GetSizeCol(),
-		pGear->GetStridesRow(), pGear->GetStridesCol(), _sizePadRow, _sizePadCol,
-		pGear->GetChannelPos(), padNum);
+	}
 	// _pArrayGearTrans .. [C * FH * FW, FN]	
 	_pArrayGearReshape->Transpose2d(_pArrayGearTrans);
 	// _pArrayFwd = _pArraySrcVec |.| _pArrayGearTrans .. [N, H_out, W_out, FN]
