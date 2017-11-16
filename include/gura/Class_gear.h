@@ -31,66 +31,64 @@ public:
 	virtual String ToString() const = 0;
 public:
 	static void CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
-							size_t *pSizeOut, size_t *pSizePad);
-	static void CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
-							size_t *pSizeOut, size_t *pSizePadHead, size_t *pSizePadTail);
+							size_t *pSizePad, size_t *pSizeOut);
 	static PaddingType SymbolToPaddingType(Signal &sig, const Symbol *pSymbol);
 	static PaddingType SymbolToPaddingType(const Symbol *pSymbol);
 	static const Symbol *PaddingTypeToSymbol(PaddingType paddingType);
 	template<typename T_Gear>
-	static void CalcPadding1d(const T_Gear *pGear, const Array::Dimensions &dims,
-							  size_t *pSizePad);
+	static void CalcPadding1d(
+		const T_Gear *pGear, const Array::Dimensions &dims,
+		size_t *pSizePad, size_t *pSizeOut = nullptr);
 	template<typename T_Gear>
-	static void CalcPadding2d(const T_Gear *pGear, const Array::Dimensions &dims,
-							  size_t *pSizePadRow, size_t *pSizePadCol);
+	static void CalcPadding2d(
+		const T_Gear *pGear, const Array::Dimensions &dims,
+		size_t *pSizePadRow, size_t *pSizePadCol,
+		size_t *pSizeOutRow = nullptr, size_t *pSizeOutCol = nullptr);
 	template<typename T_Gear>
-	static void CalcPadding3d(const T_Gear *pGear, const Array::Dimensions &dims,
-							  size_t *pSizePadPlane, size_t *pSizePadRow, size_t *pSizePadCol);
+	static void CalcPadding3d(
+		const T_Gear *pGear, const Array::Dimensions &dims,
+		size_t *pSizePadPlane, size_t *pSizePadRow, size_t *pSizePadCol,
+		size_t *pSizeOutPlane = nullptr, size_t *pSizeOutRow = nullptr, size_t *pSizeOutCol = nullptr);
 };
 
 template<typename T_Gear>
 void Gear::CalcPadding1d(const T_Gear *pGear, const Array::Dimensions &dims,
-						  size_t *pSizePad)
+						 size_t *pSizePad, size_t *pSizeOut)
 {
-	size_t sizeOut = 0;
 	bool chLastFlag = (pGear->GetChannelPos() == Array::CHANNELPOS_Last);
 	CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
 				pGear->GetSize(), pGear->GetStrides(), pGear->GetPaddingType(),
-				&sizeOut, pSizePad);
+				pSizePad, pSizeOut);
 }
 
 template<typename T_Gear>
 void Gear::CalcPadding2d(const T_Gear *pGear, const Array::Dimensions &dims,
-						   size_t *pSizePadRow, size_t *pSizePadCol)
+						 size_t *pSizePadRow, size_t *pSizePadCol, size_t *pSizeOutRow, size_t *pSizeOutCol)
 {
-	size_t sizeOutRow = 0;
-	size_t sizeOutCol = 0;
 	bool chLastFlag = (pGear->GetChannelPos() == Array::CHANNELPOS_Last);
 	CalcPadding(dims.GetBack(chLastFlag? 2 : 1).GetSize(),
 				pGear->GetSizeRow(), pGear->GetStridesRow(), pGear->GetPaddingType(),
-				&sizeOutRow, pSizePadRow);
+				pSizePadRow, pSizeOutRow);
 	CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
 				pGear->GetSizeCol(), pGear->GetStridesCol(), pGear->GetPaddingType(),
-				&sizeOutCol, pSizePadCol);
+				pSizePadCol, pSizeOutCol);
 }
 
 template<typename T_Gear>
 void Gear::CalcPadding3d(const T_Gear *pGear, const Array::Dimensions &dims,
-						   size_t *pSizePadPlane, size_t *pSizePadRow, size_t *pSizePadCol)
+						 size_t *pSizePadPlane, size_t *pSizePadRow, size_t *pSizePadCol,
+						 size_t *pSizeOutPlane, size_t *pSizeOutRow, size_t *pSizeOutCol)
 {
-	size_t sizeOutPlane = 0;
-	size_t sizeOutRow = 0;
-	size_t sizeOutCol = 0;
 	bool chLastFlag = (pGear->GetChannelPos() == Array::CHANNELPOS_Last);
 	CalcPadding(dims.GetBack(chLastFlag? 3 : 2).GetSize(),
 				pGear->GetSizePlane(), pGear->GetStridesPlane(), pGear->GetPaddingType(),
-				&sizeOutPlane, pSizePadPlane);
+				pSizePadPlane, pSizeOutPlane);
 	CalcPadding(dims.GetBack(chLastFlag? 2 : 1).GetSize(),
 				pGear->GetSizeRow(), pGear->GetStridesRow(), pGear->GetPaddingType(),
-				&sizeOutRow, pSizePadRow);
+				pSizePadRow, pSizeOutRow);
 	CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
 				pGear->GetSizeCol(), pGear->GetStridesCol(), pGear->GetPaddingType(),
-				&sizeOutCol, pSizePadCol);
+				pSizePadCol, pSizeOutCol);
 }
 
 //-----------------------------------------------------------------------------

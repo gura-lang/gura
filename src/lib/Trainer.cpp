@@ -416,13 +416,13 @@ bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 	const Array *pArraySrc = GetConnectorSrc()->GetArrayFwd();
 	// _pArraySrcVec .. [H_out, W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
 	if (_pArraySrcVec.IsNull()) {
-		Gear::CalcPadding2d(pGear, pArraySrc->GetDimensions(), &_sizePadRow, &_sizePadCol);
+		Gear::CalcPadding2d(pGear, pArraySrc->GetDimensions(),
+							&_sizePadRow, &_sizePadCol, &_sizeOutRow, &_sizeOutCol);
 	}
 	pArraySrc->ExpandKernelVec2d(
 		_pArraySrcVec, pGear->GetSizeRow(), pGear->GetSizeCol(),
 		pGear->GetStridesRow(), pGear->GetStridesCol(), _sizePadRow, _sizePadCol,
 		pGear->GetChannelPos(), padNum);
-	//::printf("%s\n", _pArraySrcVec->GetDimensions().ToString().c_str());
 	// pArrayGear .. [FN, C, FH, FW] or [FN, FH, FW, C]
 	const Array *pArrayGear = pGear->GetArrayGear();
 	const Array::Dimensions &dimsGear = pArrayGear->GetDimensions();
@@ -441,10 +441,29 @@ bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 	}
 	// _pArrayGearTrans .. [C * FH * FW] or [C * FH * FW, FN]
 	_pArrayGearReshape->Transpose2d(_pArrayGearTrans);
-	// _pArrayFwd = _pArraySrcVec |.| _pArrayGearTrans .. [N, H_out * W_out, FN]
+	// _pArrayFwdPre = _pArraySrcVec |.| _pArrayGearTrans .. [N, H_out * W_out] or [N, H_out * W_out, FN]
 	if (!Array::ApplyBinaryFunc(
-			env, Array::binaryFuncPack_Dot, _pArrayFwd,
+			env, Array::binaryFuncPack_Dot, _pArrayFwdPre,
 			_pArraySrcVec.get(), _pArrayGearTrans.get())) return false;
+	// _pArrayFwd .. [N, H_out, W_out] or [N, H_out, W_out, FN]
+	if (_pArrayFwd.IsNull()) {
+		const Array::Dimensions &dimsPre = _pArrayFwdPre->GetDimensions();
+		Array::Dimensions dims;
+		if (dimsPre.size() == 2) {
+			dims.reserve(3);
+			dims.push_back(Array::Dimension(dimsPre[0].GetSize()));
+			dims.push_back(Array::Dimension(_sizeOutRow));
+			dims.push_back(Array::Dimension(_sizeOutCol));
+		} else {
+			dims.reserve(4);
+			dims.push_back(Array::Dimension(dimsPre[0].GetSize()));
+			dims.push_back(Array::Dimension(_sizeOutRow));
+			dims.push_back(Array::Dimension(_sizeOutCol));
+			dims.push_back(Array::Dimension(dimsPre[2].GetSize()));
+		}
+		//::printf("%s\n", dims.ToString().c_str());
+		_pArrayFwdPre->Reshape(_pArrayFwd, dims);
+	}
 	return true;
 }
 

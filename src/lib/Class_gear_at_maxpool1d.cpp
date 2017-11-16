@@ -13,11 +13,8 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 bool Gear_MaxPool1d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
-	size_t sizeOut = 0, sizePad = 0;
-	bool chLastFlag = (GetChannelPos() == Array::CHANNELPOS_Last);
-	const Array::Dimensions &dims = pArray->GetDimensions();
-	Gear::CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(), GetSize(), GetStrides(), GetPaddingType(),
-						&sizeOut, &sizePad);
+	size_t sizePad = 0;
+	CalcPadding1d(this, pArray->GetDimensions(), &sizePad);
 	pArray->CalcMaxPool1d(pArrayRtn, GetSize(), GetStrides(), sizePad, GetChannelPos());
 	return true;
 }

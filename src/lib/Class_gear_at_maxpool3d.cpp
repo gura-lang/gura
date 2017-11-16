@@ -13,20 +13,8 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 bool Gear_MaxPool3d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
-	size_t sizeOutPlane = 0, sizePadPlane = 0;
-	size_t sizeOutRow = 0, sizePadRow = 0;
-	size_t sizeOutCol = 0, sizePadCol = 0;
-	bool chLastFlag = (GetChannelPos() == Array::CHANNELPOS_Last);
-	const Array::Dimensions &dims = pArray->GetDimensions();
-	Gear::CalcPadding(dims.GetBack(chLastFlag? 3 : 2).GetSize(),
-						GetSizePlane(), GetStridesPlane(), GetPaddingType(),
-						&sizeOutPlane, &sizePadPlane);
-	Gear::CalcPadding(dims.GetBack(chLastFlag? 2 : 1).GetSize(),
-						GetSizeRow(), GetStridesRow(), GetPaddingType(),
-						&sizeOutRow, &sizePadRow);
-	Gear::CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
-						GetSizeCol(), GetStridesCol(), GetPaddingType(),
-						&sizeOutCol, &sizePadCol);
+	size_t sizePadPlane = 0, sizePadRow = 0, sizePadCol = 0;
+	CalcPadding3d(this, pArray->GetDimensions(), &sizePadPlane, &sizePadRow, &sizePadCol);
 	pArray->CalcMaxPool3d(pArrayRtn, GetSizePlane(), GetSizeRow(), GetSizeCol(),
 						  GetStridesPlane(), GetStridesRow(), GetStridesCol(),
 						  sizePadPlane, sizePadRow, sizePadCol, GetChannelPos());

@@ -255,12 +255,15 @@ public:
 	private:
 		size_t _sizePadRow;
 		size_t _sizePadCol;
+		size_t _sizeOutRow;
+		size_t _sizeOutCol;
 		AutoPtr<Array> _pArraySrcVec;
 		AutoPtr<Array> _pArrayGearReshape;
 		AutoPtr<Array> _pArrayGearTrans;
+		AutoPtr<Array> _pArrayFwdPre;
 	public:
 		inline NodeGear_Conv2d(Gear_Conv2d *pGear, Connector *pConnectorDst) :
-				NodeGear(pGear, pConnectorDst), _sizePadRow(0), _sizePadCol(0) {}
+			NodeGear(pGear, pConnectorDst), _sizePadRow(0), _sizePadCol(0), _sizeOutRow(0), _sizeOutCol(0) {}
 		inline Gear_Conv2d *GetGear() { return dynamic_cast<Gear_Conv2d *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);

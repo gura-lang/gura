@@ -1,7 +1,7 @@
 ======== #1 calculation of padding amount ========
 
 gear.calcpadding(13, 6, 5, `same) .. [3, 3]
-gear.calcpadding(13, 6, 5, `valid) .. [2, 0]
+gear.calcpadding(13, 6, 5, `valid) .. [0, 2]
 
 ======== #2 gear@conv1d ========
 
