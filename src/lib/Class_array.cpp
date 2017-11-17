@@ -1418,7 +1418,7 @@ Gura_ImplementMethod(array, tolist)
 Gura_DeclareMethod(array, tostring)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "ndims_horz", VTYPE_number);
+	DeclareArg(env, "ndims_horz", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
 		"Converts the array instance to a string.\n"
