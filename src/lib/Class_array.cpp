@@ -1421,7 +1421,9 @@ Gura_DeclareMethod(array, tostring)
 	DeclareArg(env, "ndims_horz", VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Converts the array instance to a string.\n"
+		"\n"
+		"The argument `ndims_horz` specifies the number of dimensions to be placed in one line.\n");
 }
 
 Gura_ImplementMethod(array, tostring)
