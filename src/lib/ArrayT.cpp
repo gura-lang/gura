@@ -531,14 +531,23 @@ Array *ArrayT<T_Elem>::Clone() const
 
 template<typename T_Elem>
 void ToString_Sub(String &rtn, size_t colTop, int wdPad, const Array::Dimensions &dims,
-				  Array::Dimensions::const_iterator pDim, const T_Elem *pElem)
+				  Array::Dimensions::const_iterator pDim, const T_Elem *pElem, size_t nDimsOnHorz)
 {
 	char buff[128];
 	size_t nestLevel = std::distance(dims.begin(), pDim);
+	String strSep;
+	if (dims.size() < nDimsOnHorz + nestLevel + 1) {
+		strSep = ", ";
+	} else {
+		size_t nLineFeeds = dims.size() - (nDimsOnHorz + nestLevel + 1);
+		strSep = ",\n";
+		for (size_t i = 0; i < nLineFeeds; i++) strSep += '\n';
+		for (size_t i = 0; i < nestLevel + colTop + 1; i++) strSep += ' ';
+	}
 	if (pDim + 1 == dims.end()) {
 		rtn += "{";
 		for (size_t i = 0; i < pDim->GetSize(); i++, pElem += pDim->GetStrides()) {
-			if (i > 0) rtn += ", ";
+			if (i > 0) rtn += strSep;
 			FormatElem(buff, wdPad, *pElem);
 			rtn += buff;
 		}
@@ -546,20 +555,15 @@ void ToString_Sub(String &rtn, size_t colTop, int wdPad, const Array::Dimensions
 	} else {
 		rtn += "{";
 		for (size_t i = 0; i < pDim->GetSize(); i++, pElem += pDim->GetStrides()) {
-			if (i > 0) {
-				rtn += ',';
-				rtn += '\n';
-				for (size_t j = 0; j < dims.size() - nestLevel - 2; j++) rtn += '\n';
-				for (size_t j = 0; j < nestLevel + colTop + 1; j++) rtn += ' ';
-			}
-			ToString_Sub(rtn, colTop, wdPad, dims, pDim + 1, pElem);
+			if (i > 0) rtn += strSep;
+			ToString_Sub(rtn, colTop, wdPad, dims, pDim + 1, pElem, nDimsOnHorz);
 		}
 		rtn += "}";
 	}
 }
 
 template<typename T_Elem>
-String ArrayT<T_Elem>::ToString(bool exprFlag) const
+String ArrayT<T_Elem>::ToString(bool exprFlag, size_t nDimsOnHorz) const
 {
 	String rtn;
 	char buff[128];
@@ -578,9 +582,9 @@ String ArrayT<T_Elem>::ToString(bool exprFlag) const
 		if (exprFlag) {
 			rtn += ConstructorName;
 			rtn += " ";
-			ToString_Sub(rtn, rtn.size(), wdPad, _dims, _dims.begin(), pElem);
+			ToString_Sub(rtn, rtn.size(), wdPad, _dims, _dims.begin(), pElem, nDimsOnHorz);
 		} else {
-			ToString_Sub(rtn, 0, wdPad, _dims, _dims.begin(), pElem);
+			ToString_Sub(rtn, 0, wdPad, _dims, _dims.begin(), pElem, nDimsOnHorz);
 		}
 	}
 	return rtn;

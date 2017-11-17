@@ -2435,7 +2435,123 @@ complex
 [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29]
 [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29]
 
-======== #19 head/tail ========
+======== #19 tostring ========
+
+x.tostring(0) .. {0,
+ 0,
+ 0}
+x.tostring(1) .. {0, 0, 0}
+x.tostring(0) .. {{0,
+  0,
+  0,
+  0},
+
+ {0,
+  0,
+  0,
+  0},
+
+ {0,
+  0,
+  0,
+  0}}
+x.tostring(1) .. {{0, 0, 0, 0},
+ {0, 0, 0, 0},
+ {0, 0, 0, 0}}
+x.tostring(2) .. {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}
+x.tostring(0) .. {{{0,
+   0,
+   0,
+   0,
+   0},
+
+  {0,
+   0,
+   0,
+   0,
+   0},
+
+  {0,
+   0,
+   0,
+   0,
+   0},
+
+  {0,
+   0,
+   0,
+   0,
+   0}},
+
+
+ {{0,
+   0,
+   0,
+   0,
+   0},
+
+  {0,
+   0,
+   0,
+   0,
+   0},
+
+  {0,
+   0,
+   0,
+   0,
+   0},
+
+  {0,
+   0,
+   0,
+   0,
+   0}},
+
+
+ {{0,
+   0,
+   0,
+   0,
+   0},
+
+  {0,
+   0,
+   0,
+   0,
+   0},
+
+  {0,
+   0,
+   0,
+   0,
+   0},
+
+  {0,
+   0,
+   0,
+   0,
+   0}}}
+x.tostring(1) .. {{{0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0}},
+
+ {{0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0}},
+
+ {{0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0}}}
+x.tostring(2) .. {{{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}},
+ {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}},
+ {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}}
+x.tostring(3) .. {{{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}}
+
+======== #20 head/tail ========
 
 boolean
 [ 0  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1]
@@ -3933,7 +4049,7 @@ offset(3):
 offset(4):
 {}
 
-======== #20 offset ========
+======== #21 offset ========
 
 boolean
 [ 0  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1]
@@ -4027,7 +4143,7 @@ complex
 []
 expected error occurs: OutOfRange: offset is out of range
 
-======== #21 paste ========
+======== #22 paste ========
 
 boolean
 [ 0  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1]
@@ -4108,7 +4224,7 @@ complex
 expected error occurs: OutOfRange: out of range
 [90 91 92 93 94 95 96 97 98 99 10 11 93 94 95 96 97 98 99 19 90 91 92 93 94 95 96 97 98 99]
 
-======== #22 initializer ========
+======== #23 initializer ========
 
 boolean:[ 0  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1]
 int8:[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31]
@@ -4150,7 +4266,7 @@ float:[[[ 0  1  2  3][ 4  5  6  7]][[ 8  9 10 11][12 13 14 15]][[16 17 18 19][20
 double:[[[ 0  1  2  3][ 4  5  6  7]][[ 8  9 10 11][12 13 14 15]][[16 17 18 19][20 21 22 23]][[24 25 26 27][28 29 30 31]]]
 complex:[[[ 0  1  2  3][ 4  5  6  7]][[ 8  9 10 11][12 13 14 15]][[16 17 18 19][20 21 22 23]][[24 25 26 27][28 29 30 31]]]
 
-======== #23 operator ========
+======== #24 operator ========
 
 boolean
 { +a } = [ 1  1  1  1  1  1  1  1  1  1]
@@ -4556,7 +4672,7 @@ complex
 { 3 ^ b } = TypeError: can't apply xor function on these arrays
 
 
-======== #24 cast to memory ========
+======== #25 cast to memory ========
 
 boolean
 16bytes
@@ -4632,11 +4748,11 @@ complex
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 2c 40 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 2e 40 00 00 00 00 00 00 00 00
 
-======== #25 error for infinite iterator ========
+======== #26 error for infinite iterator ========
 
 expected error occurs: IteratorError: cannot evaluate infinite iterator
 
-======== #26 divide by zero ========
+======== #27 divide by zero ========
 
 boolean
 x / y .. ZeroDivisionError: divide by zero
@@ -4691,7 +4807,7 @@ x / y .. ZeroDivisionError: divide by zero
 x / 0 .. ZeroDivisionError: divide by zero
 2 / y .. ZeroDivisionError: divide by zero
 
-======== #27 sum/mean ========
+======== #28 sum/mean ========
 
 boolean
 sum = 10
@@ -4733,7 +4849,7 @@ complex
 sum = 55
 avg = 5.5
 
-======== #28 modification on referenced instance ========
+======== #29 modification on referenced instance ========
 
 {{1, 2},
  {3, 4},
@@ -4744,13 +4860,13 @@ avg = 5.5
  {3, 4},
  {5, 6}}
 
-======== #29 array#flatten() ========
+======== #30 array#flatten() ========
 
 array([[1, 2], [3, 4], [5, 6]], elemtype => `int32).flatten() .. {1, 2, 3, 4, 5, 6}
 array([[[1, 2], [3, 4], [5, 6]], [[7, 8], [9, 10], [11, 12]]], elemtype => `int32).flatten() .. { 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12}
 array([[[1, 2], [3, 4], [5, 6]], [[7, 8], [9, 10], [11, 12]]], elemtype => `int32)[1].flatten() .. { 7,  8,  9, 10, 11, 12}
 
-======== #30 array#reshape() ========
+======== #31 array#reshape() ========
 
 { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23}
 x.reshape([nil]) .. { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23}
@@ -4838,7 +4954,7 @@ x.T.reshape([4, 2, nil]) .. {{{ 0,  1,  2},
  {{18, 19, 20},
   {21, 22, 23}}}
 
-======== #31 array#transpose() ========
+======== #32 array#transpose() ========
 
 {{ 1,  2,  3,  4},
  { 5,  6,  7,  8},
@@ -4896,7 +5012,7 @@ ValueError: mismatched number of axes to transpose
 ValueError: mismatched number of axes to transpose
 ValueError: duplicated axis is specified
 
-======== #32 array#T ========
+======== #33 array#T ========
 
 {{ 1,  2,  3,  4},
  { 5,  6,  7,  8},
@@ -4907,7 +5023,7 @@ ValueError: duplicated axis is specified
  { 3,  7, 11},
  { 4,  8, 12}}
 
-======== #33 array.dot() ========
+======== #34 array.dot() ========
 
 elemtype: half
 array.dot(a, f) .. -5
@@ -5374,7 +5490,7 @@ g |.| a .. {{{ 24},
   {-38},
   { 38}}}
 
-======== #34 array.invert() ========
+======== #35 array.invert() ========
 
 elemtype: half
 array([[1, 1, -1], [-2, 0, 1], [0, 2, 1]], elemtype).invert() .. {{ -0.5, -0.75,  0.25},
@@ -5462,7 +5578,7 @@ array([[[1, 1, -1], [-2, 0, 1], [0, 2, 1]], [[1, 2, 1], [2, 1, 0], [1, 1, 2]], [
   {    1,    -1,     0}}}
 array.zeros([3, 3]).invert() .. ValueError: failed to calculate inverted matrix
 
-======== #35 properties ========
+======== #36 properties ========
 
 boolean
 elembytes: 1
@@ -5543,7 +5659,7 @@ ndim: 3
 shape: [4, 2, 3]
 size: 24
 
-======== #36 array as an alias of array@double ========
+======== #37 array as an alias of array@double ========
 
 array.identity(5) .. {{1, 0, 0, 0, 0},
  {0, 1, 0, 0, 0},
@@ -5564,7 +5680,7 @@ array.zeros([3, 4]) .. {{0, 0, 0, 0},
  {0, 0, 0, 0},
  {0, 0, 0, 0}}
 
-======== #37 constructor with initial values ========
+======== #38 constructor with initial values ========
 
 boolean
 {}
@@ -5827,13 +5943,13 @@ complex
 {1, 2, 3}
 {1, 2, 3, 4}
 
-======== #38 dimension mismatch error ========
+======== #39 dimension mismatch error ========
 
 array { 1, 2, 3 } + array { 1, 2 } .. ValueError: failed in array calculation: (3) + (2)
 array { { 1, 2 }, { 3, 4 } } + array { { 1, 2, 3 }, { 4, 5, 6 } } .. ValueError: failed in array calculation: (2, 2) + (2, 3)
 array { { 1, 2 }, { 3, 4 } } |.| array { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } } .. ValueError: failed in array calculation: (2, 2) |.| (3, 3)
 
-======== #39 sum ========
+======== #40 sum ========
 
 ----
 {}
@@ -5967,7 +6083,7 @@ a.sum(3) .. {{{ 1,  5,  9},
   {85, 89, 93}}}
 a.sum(4) .. OutOfRange: specified axis is out of range
 
-======== #40 mean ========
+======== #41 mean ========
 
 ----
 {}
@@ -6101,7 +6217,7 @@ a.mean(3) .. {{{ 0.5,  2.5,  4.5},
   {42.5, 44.5, 46.5}}}
 a.mean(4) .. OutOfRange: specified axis is out of range
 
-======== #41 constructor with elemtype ========
+======== #42 constructor with elemtype ========
 
 int8: {{0, 1, 2},
  {3, 4, 5}}
@@ -6125,7 +6241,7 @@ double: {{0, 1, 2},
  {3, 4, 5}}
 ValueError: invalid symbol for element type of array: int9
 
-======== #42 operation test on array with offset ========
+======== #43 operation test on array with offset ========
 
 x_off .. {32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63}
 x_off.flatten() .. {32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63}
@@ -6138,7 +6254,7 @@ x_off.tail(16) .. {48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 6
 x_off.offset(16) .. {48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63}
 x_off.each().head(16):list .. [32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]
 
-======== #43 tranpsose() and T ========
+======== #44 tranpsose() and T ========
 
 x .. { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11}
 x.transpose() .. { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11}
@@ -6270,7 +6386,7 @@ x.T .. {{{{ 0,  4,  8},
    {62, 66, 70},
    {63, 67, 71}}}}
 
-======== #44 array#transpose() sharing memory ========
+======== #45 array#transpose() sharing memory ========
 
 x =
 {}
@@ -6676,7 +6792,7 @@ transpose([1, 0]) =
  { 3,  7, 11}} .. not-shared
 ----
 
-======== #45 sharing collapses after assignment ========
+======== #46 sharing collapses after assignment ========
 
 {{ 0,  1,  2},
  { 3,  4,  5},
@@ -6687,7 +6803,7 @@ not-shared
 shared
 not-shared
 
-======== #46 array#issquare() ========
+======== #47 array#issquare() ========
 
 array.zeros([]).issquare() .. false
 array.zeros([3]).issquare() .. false
@@ -6696,7 +6812,7 @@ array.zeros([3, 3]).issquare() .. true
 array.zeros([2, 4, 3, 3]).issquare() .. true
 array.zeros([2, 4, 3, 2]).issquare() .. false
 
-======== #47 pointer ========
+======== #48 pointer ========
 
 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f  ................
 10 11 12 13 14 15 16 17                          ........
@@ -6705,7 +6821,7 @@ array.zeros([2, 4, 3, 2]).issquare() .. false
 0d0c
 11100f0e
 
-======== #48 index-get ========
+======== #49 index-get ========
 
 {{ 0,  1,  2,  3,  4,  5,  6,  7},
  { 8,  9, 10, 11, 12, 13, 14, 15},
@@ -6750,7 +6866,7 @@ x[1 .. 4, *] .. {{ 8,  9, 10, 11, 12, 13, 14, 15},
 x[1 .. 4, 3] .. {11, 19, 27, 35}
 x[4, 2 .. 6] .. {34, 35, 36, 37, 38}
 
-======== #49 index-set ========
+======== #50 index-set ========
 
 { x[] = 3 }
 {{3, 3, 3, 3, 3, 3, 3, 3},
@@ -6855,7 +6971,7 @@ ValueError: value of string can not be stored in array
  {0, 0, 1, 1, 1, 1, 1, 0},
  {0, 0, 0, 0, 0, 0, 0, 0}}
 
-======== #50 index-set with column-majored array ========
+======== #51 index-set with column-majored array ========
 
 { x[] = 3 }
 {{3, 3, 3, 3, 3, 3, 3, 3},
@@ -6960,7 +7076,7 @@ ValueError: value of string can not be stored in array
  {0, 0, 1, 1, 1, 1, 1, 0},
  {0, 0, 0, 0, 0, 0, 0, 0}}
 
-======== #51 index-set with iterator assigned ========
+======== #52 index-set with iterator assigned ========
 
 { x[] = 1.. }
 {{ 1,  2,  3,  4,  5,  6,  7,  8},
@@ -7047,7 +7163,7 @@ ValueError: value of string can not be stored in array
  {25, 26, 27, 28, 29, 30, 31, 32},
  { 0,  0,  0,  0,  0,  0,  0,  0}}
 
-======== #52 index-set with array assigned ========
+======== #53 index-set with array assigned ========
 
 { x[2] = array.range(12) + 1 }
 {{{ 0,  0,  0},
@@ -7225,12 +7341,12 @@ ValueError: value of string can not be stored in array
   {0, 0, 5},
   {0, 0, 6}}}
 
-======== #53 index-set between array@complex and array of other type ========
+======== #54 index-set between array@complex and array of other type ========
 
 { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11}
 expected error occured: TypeError: can't copy elements from array@complex to array@double
 
-======== #54 operation between array and complex ========
+======== #55 operation between array and complex ========
 
 x + 2j .. { 1+2j,  2+2j,  3+2j,  4+2j,  5+2j,  6+2j,  7+2j,  8+2j,  9+2j, 10+2j}
 x - 2j .. { 1-2j,  2-2j,  3-2j,  4-2j,  5-2j,  6-2j,  7-2j,  8-2j,  9-2j, 10-2j}
@@ -7242,7 +7358,7 @@ x ** 2j .. {                   1,   0.183457+0.983028j,  -0.586255+0.810127j,  -
 2j * x .. { 2j,  4j,  6j,  8j, 10j, 12j, 14j, 16j, 18j, 20j}
 2j / x .. {       2j,        1j, 0.666667j,      0.5j,      0.4j, 0.333333j, 0.285714j,     0.25j, 0.222222j,      0.2j}
 
-======== #55 index-set to array@complex ========
+======== #56 index-set to array@complex ========
 
 { x[] = 3 }
 {{3, 3, 3},
@@ -7330,7 +7446,7 @@ x ** 2j .. {                   1,   0.183457+0.983028j,  -0.586255+0.810127j,  -
  {2+1j, 3-1j,    4},
  {   1,    0,    0}}
 
-======== #56 array#elemcast() ========
+======== #57 array#elemcast() ========
 
 {false,  true,  true,  true,  true,  true,  true,  true,  true,  true}: boolean <- boolean [shared]
 {0, 1, 1, 1, 1, 1, 1, 1, 1, 1}: int8 <- boolean
@@ -7502,7 +7618,7 @@ TypeError: can't copy elements from array@complex to array@float: float <- compl
 TypeError: can't copy elements from array@complex to array@double: double <- complex
 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}: complex <- complex [shared]
 
-======== #57 store several matrices in a multi-dimensional array ========
+======== #58 store several matrices in a multi-dimensional array ========
 
 half
 {{{       1,        0},
@@ -7621,7 +7737,7 @@ x |.| array { 1, 0 } .. {{{        1},
  {{     -0.5},
   {-0.866025}}}
 
-======== #58 comparator ========
+======== #59 comparator ========
 
 boolean
 x == 5 .. {false, false, false, false, false, false, false, false, false, false}
@@ -7715,13 +7831,13 @@ x < 5 .. {false, false, false, false, false, false, false, false, false, false}
 x >= 5 .. {false, false, false, false, false, false, false, false, false, false}
 x <= 5 .. {false, false, false, false, false, false, false, false, false, false}
 
-======== #59 logical operation on array@boolean ========
+======== #60 logical operation on array@boolean ========
 
 {false,  true, false,  true} & {false, false,  true,  true} -> {false, false, false,  true}
 {false,  true, false,  true} | {false, false,  true,  true} -> {false,  true,  true,  true}
 {false,  true, false,  true} ^ {false, false,  true,  true} -> {false,  true,  true, false}
 
-======== #60 array#iselemsame() ========
+======== #61 array#iselemsame() ========
 
 array(1 .. 1000, elemtype => `double).iselemsame(array(1 .. 1000, elemtype => `double)) .. true
 array(1 .. 1000, elemtype => `double).iselemsame(array(1 .. 1000, elemtype => `float)) .. false
@@ -7729,7 +7845,7 @@ array(1 .. 1000, elemtype => `double).iselemsame(array(1000 .. 1, elemtype => `d
 array(1 .. 1000, elemtype => `double).iselemsame(array(1 .. 1000, elemtype => `double).reshape([nil])) .. true
 array(1 .. 1000, elemtype => `double).iselemsame(array(1 .. 1000, elemtype => `double).reshape([100, nil])) .. false
 
-======== #61 array#max(), array#min() ========
+======== #62 array#max(), array#min() ========
 
 {{{ 1,  2,  1,  4},
   {-2, -2,  1, -5},
@@ -7835,7 +7951,7 @@ x.min(2):last_index .. {{2, 3, 3},
  {0, 2, 2},
  {0, 2, 1}}
 
-======== #62 array#argmax(), array#argmin() ========
+======== #63 array#argmax(), array#argmin() ========
 
 {{{ 1,  2,  1,  4},
   {-2, -2,  1, -5},
@@ -7913,7 +8029,7 @@ x.argmin(2):last_index .. {{2, 3, 3},
  {0, 2, 2},
  {0, 2, 1}}
 
-======== #63 array#std() ========
+======== #64 array#std() ========
 
 x .. {31, 30, 27, 25, 29, 34, 32, 31, 30, 29}
 x.std() .. 2.52982
@@ -7963,7 +8079,7 @@ x.std(2):p .. {{2.33238, 2.41661, 2.60768, 2.48193},
  {2.09762, 1.93907, 2.41661,     2.4},
  {3.42929, 2.31517, 2.09762, 2.92575}}
 
-======== #64 array#var() ========
+======== #65 array#var() ========
 
 x .. {31, 30, 27, 25, 29, 34, 32, 31, 30, 29}
 x.var() .. 6.4
@@ -8013,7 +8129,7 @@ x.var(2):p .. {{ 5.44,  5.84,   6.8,  6.16},
  {  4.4,  3.76,  5.84,  5.76},
  {11.76,  5.36,   4.4,  8.56}}
 
-======== #65 index-access test ========
+======== #66 index-access test ========
 
 {{ 0,  0,  1,  2,  0,  0},
  { 0,  0,  4,  5,  0,  0},
@@ -8021,7 +8137,7 @@ x.var(2):p .. {{ 5.44,  5.84,   6.8,  6.16},
  { 0,  0, 10, 11,  0,  0},
  { 0,  0,  1,  2,  0,  0}}
 
-======== #66 broadcast ========
+======== #67 broadcast ========
 
 a .. {{{ 0,  1,  2},
   { 3,  4,  5},
@@ -8221,7 +8337,7 @@ b.T + a.T .. {{{{ 0,  6, 12, 18},
    {62, 68, 74, 80},
    {64, 70, 76, 82}}}}
 
-======== #67 test with transposed array ========
+======== #68 test with transposed array ========
 
 x .. {{{ 1, -2,  2},
   { 2, -2,  4},
@@ -8368,7 +8484,7 @@ x + 3j .. {{{ 1+3j, -2+3j,  2+3j},
   { 3+3j, -1+3j,  1+3j},
   { 1+3j,  4+3j,  3+3j}}}
 
-======== #68 transpose to an array that has been applied with T ========
+======== #69 transpose to an array that has been applied with T ========
 
 x .. {{{ 0,  1,  2,  3},
   { 4,  5,  6,  7},
@@ -8506,7 +8622,7 @@ x.T.transpose([0, 2, 1]) .. {{{ 0,  1,  2,  3},
   {52, 53, 54, 55},
   {56, 57, 58, 59}}}
 
-======== #69 array#tolist() ========
+======== #70 array#tolist() ========
 
 x .. {{{ 0,  1,  2,  3},
   { 4,  5,  6,  7},
@@ -8554,7 +8670,7 @@ x.T .. {{{ 0,  4,  8},
   {51, 55, 59}}}
 x.T.tolist() .. [[[0, 4, 8], [1, 5, 9], [2, 6, 10], [3, 7, 11]], [[12, 16, 20], [13, 17, 21], [14, 18, 22], [15, 19, 23]], [[24, 28, 32], [25, 29, 33], [26, 30, 34], [27, 31, 35]], [[36, 40, 44], [37, 41, 45], [38, 42, 46], [39, 43, 47]], [[48, 52, 56], [49, 53, 57], [50, 54, 58], [51, 55, 59]]]
 
-======== #70 operation on transposed array: argmax, argmin, max, min, std, sum ========
+======== #71 operation on transposed array: argmax, argmin, max, min, std, sum ========
 
 xt = x.transpose([0, 1, 3, 2] ... shared:false
 xT = x.T ... shared:true
@@ -9027,7 +9143,7 @@ xT.sum(3) .. {{{ -1, -22, -12,  10},
  {{-12,  -7, -10,  -4},
   {  3,   9,   6,   6}}}
 
-======== #71 operation on transposed array: head, tail, offset ========
+======== #72 operation on transposed array: head, tail, offset ========
 
 xt.head(3) .. {{{ 0,  4,  8},
   { 1,  5,  9},
@@ -9104,7 +9220,7 @@ xT.offset(3) .. {{{36, 40, 44},
   {50, 54, 58},
   {51, 55, 59}}}
 
-======== #72 operation on transposed array: roundoff ========
+======== #73 operation on transposed array: roundoff ========
 
 x .. {{{0.0008, 0.0044,  0.006, 0.0078, 0.0174},
   {0.0028, 0.0016, 0.0186,  0.013, 0.0028},
@@ -9186,7 +9302,7 @@ xT.roundoff(.01) .. {{{     0,      0, 0.0124,   0.01},
   {0.0116, 0.0138, 0.0164,      0},
   {     0,      0, 0.0136,      0}}}
 
-======== #73 operation on transposed array: flatten ========
+======== #74 operation on transposed array: flatten ========
 
 xt .. {{ 0,  4,  8},
  { 1,  5,  9},
@@ -9221,7 +9337,7 @@ xt .. {{{ 0,  4,  8},
 xt.flatten() .. { 0,  4,  8,  1,  5,  9,  2,  6, 10,  3,  7, 11, 12, 16, 20, 13, 17, 21, 14, 18, 22, 15, 19, 23, 24, 28, 32, 25, 29, 33, 26, 30, 34, 27, 31, 35, 36, 40, 44, 37, 41, 45, 38, 42, 46, 39, 43, 47, 48, 52, 56, 49, 53, 57, 50, 54, 58, 51, 55, 59}
 xT.flatten() .. { 0,  4,  8,  1,  5,  9,  2,  6, 10,  3,  7, 11, 12, 16, 20, 13, 17, 21, 14, 18, 22, 15, 19, 23, 24, 28, 32, 25, 29, 33, 26, 30, 34, 27, 31, 35, 36, 40, 44, 37, 41, 45, 38, 42, 46, 39, 43, 47, 48, 52, 56, 49, 53, 57, 50, 54, 58, 51, 55, 59}
 
-======== #74 boolean indexing - 1 ========
+======== #75 boolean indexing - 1 ========
 
 x .. {{0, 0, 0, 0},
  {0, 0, 0, 0},
@@ -9246,7 +9362,7 @@ f .. {{ true, false, false, false},
  {6, 0, 0, 0}}
 x[f] .. {0, 4, 7, 8}
 
-======== #75 boolean indexing - 2 ========
+======== #76 boolean indexing - 2 ========
 
 f .. {{{ true,  true,  true,  true, false},
   {false,  true, false,  true,  true},
@@ -9337,7 +9453,7 @@ x .. {{{ 0,  0,  0,  0,  1},
   {23, 24, 25, 26,  0},
   {27, 28,  0, 29, 30}}}
 
-======== #76 boolean indexing with column-majored array ========
+======== #77 boolean indexing with column-majored array ========
 
 target..row-major, index..row-major
 x .. {{{ 1,  2,  3,  4,  0},
@@ -9400,7 +9516,7 @@ x .. {{{ 1,  2,  3,  4,  0},
   {30, 31, 32, 33,  0},
   {34, 35,  0, 36, 37}}}
 
-======== #77 array#flatten with column-majored array ========
+======== #78 array#flatten with column-majored array ========
 
 column
 {{{ 0,  1,  2},
@@ -9428,7 +9544,7 @@ column
   {57, 58, 59}}}
 x.flatten() .. { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59}
 
-======== #78 array#fill ========
+======== #79 array#fill ========
 
 boolean
 {{true, true, true, true},
@@ -9483,7 +9599,7 @@ complex
  {3.141, 3.141, 3.141, 3.141},
  {3.141, 3.141, 3.141, 3.141}}
 
-======== #79 array#dump() ========
+======== #80 array#dump() ========
 
 uint8
 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17
@@ -9857,7 +9973,7 @@ complex
 406f800000000000 0000000000000000 406fa00000000000 0000000000000000
 406fc00000000000 0000000000000000 406fe00000000000 0000000000000000
 
-======== #80 array#expand_kernelvec1d() padding test ========
+======== #81 array#expand_kernelvec1d() padding test ========
 
 x .. {0, 1, 2}
 x.expand_kernelvec1d(3, 1, 0) .. {{0, 1, 2}}
@@ -9884,7 +10000,7 @@ x.expand_kernelvec1d(3, 1, 2) .. {{0, 0, 1},
  {7, 8, 9},
  {8, 9, 0}}
 
-======== #81 array#expand_kernelvec1d() strides test ========
+======== #82 array#expand_kernelvec1d() strides test ========
 
 x .. {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 x.expand_kernelvec1d(3, 2, 0) .. {{0, 1, 2},
@@ -9903,7 +10019,7 @@ x.expand_kernelvec1d(3, 2, 4) .. {{0, 0, 0},
  {6, 7, 8},
  {8, 9, 0}}
 
-======== #82 array#expand_kernelvec2d() padding test ========
+======== #83 array#expand_kernelvec2d() padding test ========
 
 x .. {{0, 1, 2},
  {3, 4, 5},
@@ -10066,7 +10182,7 @@ x.expand_kernelvec2d([3, 3], [1, 1], [2, 2]) .. {{ 0,  0,  0,  0,  0,  1,  0,  5
  {17, 18, 19, 22, 23, 24,  0,  0,  0},
  {18, 19,  0, 23, 24,  0,  0,  0,  0}}
 
-======== #83 array#expand_kernelvec2d() strides test ========
+======== #84 array#expand_kernelvec2d() strides test ========
 
 x .. {{0, 1, 2},
  {3, 4, 5},

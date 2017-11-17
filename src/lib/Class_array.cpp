@@ -1414,6 +1414,23 @@ Gura_ImplementMethod(array, tolist)
 	return ReturnValue(env, arg, value);
 }
 
+// array#tostring(ndims_horz?:number)
+Gura_DeclareMethod(array, tostring)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "ndims_horz", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(array, tostring)
+{
+	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
+	size_t nDimsOnHorz = arg.IsValid(0)? arg.GetSizeT(0) : 1;
+	return Value(pArraySelf->ToString(false, nDimsOnHorz));
+}
+
 // array#transpose(axes[]?:number) {block?}
 Gura_DeclareMethod(array, transpose)
 {
@@ -1523,6 +1540,7 @@ void Class_array::DoPrepare(Environment &env)
 	Gura_AssignMethod(array, sum);
 	Gura_AssignMethod(array, tail);
 	Gura_AssignMethod(array, tolist);
+	Gura_AssignMethod(array, tostring);
 	Gura_AssignMethod(array, transpose);
 	Gura_AssignMethod(array, var);
 	// help document
