@@ -1968,6 +1968,7 @@ void ArrayT<T_Elem>::CalcConv1d(
 	const Dimension *pDimGearFilter = nullptr;
 	size_t sizeBlock = 0;
 	if (channelPos == CHANNELPOS_Last) {
+		// this .. [W, C] or [N, W, C]
 		// pArrayGear .. [FW, C] or [FN, FW, C]
 		// ASSERT(dims.size() >= 2)
 		pDimCol = &dims.GetBack(1);
@@ -1976,6 +1977,7 @@ void ArrayT<T_Elem>::CalcConv1d(
 		if (dimsGear.size() == 3) pDimGearFilter = &dimsGear.GetBack(2);
 		sizeBlock = dims.GetBack(1).GetSizeProd();
 	} else if (channelPos == CHANNELPOS_First) {
+		// this .. [C, W] or [N, C, W]
 		// pArrayGear .. [C, FW] or [FN, C, FW]
 		// ASSERT(dims.size() >= 2)
 		pDimCol = &dims.GetBack(0);
@@ -1984,6 +1986,7 @@ void ArrayT<T_Elem>::CalcConv1d(
 		if (dimsGear.size() == 3) pDimGearFilter = &dimsGear.GetBack(2);
 		sizeBlock = dims.GetBack(1).GetSizeProd();
 	} else { // channelPos == CHANNELPOS_None
+		// this .. [W] or [N, W]
 		// pArrayGear .. [FW] or [FN, FW]
 		// ASSERT(dims.size() >= 1)
 		pDimCol = &dims.GetBack(0);
@@ -2025,6 +2028,7 @@ void ArrayT<T_Elem>::CalcConv2d(
 	const Dimension *pDimGearFilter = nullptr;
 	size_t sizeBlock = 0;
 	if (channelPos == CHANNELPOS_Last) {
+		// this .. [H, W, C] or [N, H, W, C]
 		// pArrayGear .. [FH, FW, C] or [FN, FH, FW, C]
 		// ASSERT(dims.size() >= 3)
 		pDimRow = &dims.GetBack(2);
@@ -2035,6 +2039,7 @@ void ArrayT<T_Elem>::CalcConv2d(
 		if (dimsGear.size() == 4) pDimGearFilter = &dimsGear.GetBack(3);
 		sizeBlock = dims.GetBack(2).GetSizeProd();
 	} else if (channelPos == CHANNELPOS_First) {
+		// this .. [C, H, W] or [N, C, H, W]
 		// pArrayGear .. [C, FH, FW] or [FN, C, FH, FW]
 		// ASSERT(dims.size() >= 3)
 		pDimRow = &dims.GetBack(1);
@@ -2045,6 +2050,7 @@ void ArrayT<T_Elem>::CalcConv2d(
 		if (dimsGear.size() == 4) pDimGearFilter = &dimsGear.GetBack(3);
 		sizeBlock = dims.GetBack(2).GetSizeProd();
 	} else { // channelPos == CHANNELPOS_None
+		// this .. [H, W] or [N, H, W]
 		// pArrayGear .. [FH, FW], [FN, FH, FW]
 		// ASSERT(dims.size() >= 2)
 		pDimRow = &dims.GetBack(1);
