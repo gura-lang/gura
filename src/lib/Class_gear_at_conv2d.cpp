@@ -126,11 +126,14 @@ Gura_ImplementFunction(gear_at_conv2d)
 	Array::ChannelPos channelPos = Array::CHANNELPOS_Invalid;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
-		if (channelPos == Array::CHANNELPOS_Invalid) {
-			return Value::Nil;
-		} else if (channelPos == Array::CHANNELPOS_None) {
+		if (channelPos == Array::CHANNELPOS_None) {
 			if (nDims == 4) {
 				env.SetError(ERR_ValueError, "channel dimension does exist in the array");
+				return Value::Nil;
+			}
+		} else if (channelPos == Array::CHANNELPOS_First) {
+			if (nDims == 2) {
+				env.SetError(ERR_ValueError, "channel dimension is expected to exist at first");
 				return Value::Nil;
 			}
 		} else if (channelPos == Array::CHANNELPOS_Last) {
@@ -138,6 +141,8 @@ Gura_ImplementFunction(gear_at_conv2d)
 				env.SetError(ERR_ValueError, "channel dimension is expected to exist at last");
 				return Value::Nil;
 			}
+		} else { // channelPos == Array::CHANNELPOS_Invalid
+			return Value::Nil;
 		}
 	} else {
 		channelPos = (nDims == 2)? Array::CHANNELPOS_None : Array::CHANNELPOS_Last;

@@ -410,7 +410,7 @@ array
   array#sum(axis?:number):map {block?}
   array#tail(n:number):map {block?}
   array#tolist():map {block?}
-  array#tostring(ndims_horz:number)
+  array#tostring(ndims_horz?:number)
   array.translation(xtrans:number, ytrans:number, ztrans?:number, elemtype?:symbol):static:map {block?}
   array#transpose(axes[]?:number) {block?}
   array#var(axis?:number):map:[p] {block?}

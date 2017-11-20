@@ -138,7 +138,7 @@ gear@conv1d(array.zeros([3]), 1, `same, `last) .. ValueError: channel dimension 
 x_5 |*| f_3 .. {0, 0, 0, 0, 0}
 x_5 |*| f_4 .. {0, 0, 0, 0, 0}
 x_5 |*| f_5 .. {0, 0, 0, 0, 0}
-x_5 |*| f_6 .. ValueError: target array (5) is smaller than applied gear (6) with channel at first
+x_5 |*| f_6 .. ValueError: target array (5) is smaller than applied gear (6) without channel
 
 ======== #6 error check for gear@conv2d ========
 
@@ -153,8 +153,8 @@ x_5_5 |*| f_4_3 .. {{0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0}}
-x_5_5 |*| f_6_5 .. ValueError: target array (5, 5) is smaller than applied gear (6, 5) with channel at first
-x_5_5 |*| f_5_6 .. ValueError: target array (5, 5) is smaller than applied gear (5, 6) with channel at first
+x_5_5 |*| f_6_5 .. ValueError: target array (5, 5) is smaller than applied gear (6, 5) without channel
+x_5_5 |*| f_5_6 .. ValueError: target array (5, 5) is smaller than applied gear (5, 6) without channel
 x_5_5 |*| f_3_3_3 .. ValueError: unmatched dimension between array (5, 5) and gear (3, 3, 3) with channel at first
 x_3_5_5 |*| f_3_3_3 .. {{0, 0, 0, 0, 0},
  {0, 0, 0, 0, 0},
