@@ -414,7 +414,7 @@ bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 	const Double padNum = 0;
 	// pArraySrc .. [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
 	const Array *pArraySrc = GetConnectorSrc()->GetArrayFwd();
-	// _pArraySrcVec .. [H_out, W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
+	// _pArraySrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
 	if (_pArraySrcVec.IsNull()) {
 		Gear::CalcPadding2d(pGear, pArraySrc->GetDimensions(),
 							&_sizePadRow, &_sizePadCol, &_sizeOutRow, &_sizeOutCol);
@@ -443,20 +443,26 @@ bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 	}
 	// _pArrayGearTrans .. [C * FH * FW, FN] or [C * FH * FW]
 	_pArrayGearReshape->Transpose2d(_pArrayGearTrans);
-	// _pArrayFwdPre = _pArraySrcVec |.| _pArrayGearTrans .. [N, H_out * W_out, FN] or [N, H_out * W_out]
+	// _pArrayFwdPre = _pArraySrcVec |.| _pArrayGearTrans
 	if (!Array::ApplyBinaryFunc(
 			env, Array::binaryFuncPack_Dot, _pArrayFwdPre,
 			_pArraySrcVec.get(), _pArrayGearTrans.get())) return false;
-	// _pArrayFwd ..  [N, H_out, W_out, FN] or [N, H_out, W_out]
+	//::printf("_pArraySrcVec: %s\n", _pArraySrcVec->GetDimensions().ToString().c_str());
+	//::printf("_pArrayGearTrans: %s\n", _pArrayGearTrans->GetDimensions().ToString().c_str());
+	//::printf("_pArrayFwdPre: %s\n", _pArrayFwdPre->GetDimensions().ToString().c_str());
 	if (_pArrayFwd.IsNull()) {
 		const Array::Dimensions &dimsPre = _pArrayFwdPre->GetDimensions();
 		Array::Dimensions dims;
 		if (dimsPre.size() == 2) {
+			// _pArrayFwdPre .. [N, H_out * W_out]
+			// _pArrayFwd .. [N, H_out, W_out]
 			dims.reserve(3);
 			dims.push_back(Array::Dimension(dimsPre[0].GetSize()));
 			dims.push_back(Array::Dimension(_sizeOutRow));
 			dims.push_back(Array::Dimension(_sizeOutCol));
 		} else {
+			// _pArrayFwdPre .. [N, H_out * W_out, FN]
+			// _pArrayFwd .. [N, H_out, W_out, FN]
 			dims.reserve(4);
 			dims.push_back(Array::Dimension(dimsPre[0].GetSize()));
 			dims.push_back(Array::Dimension(_sizeOutRow));
