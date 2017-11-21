@@ -415,30 +415,33 @@ private:
 	const ArrayT<T_Elem> *_pArrayGear;
 	size_t _iFilter;
 	size_t _offsetFilter;
+	size_t _stridesChannel;
 	const Array::Dimension &_dimGearCol;
 	const Array::Dimension *_pDimGearFilter;
 	const Array::Dimension *_pDimGearChannel;
 	size_t _numChannel;
-	size_t _stridesChannel;
+	size_t _stridesChannelGear;
 	const T_Elem *_pElemGear;
 	T_Elem *_pElemDst;
 	T_Elem _elemAccum;
 public:
 	KernelScanner_CalcConv(AutoPtr<Array> &pArrayRtn, const ArrayT<T_Elem> *pArraySrc,
 						   const ArrayT<T_Elem> *pArrayGear, size_t iFilter, size_t offsetFilter,
+						   size_t stridesChannel,
 						   const Array::Dimension &dimGearCol,
 						   const Array::Dimension *pDimGearFilter,
 						   const Array::Dimension *pDimGearChannel) :
 		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc),
 		_pArrayGear(pArrayGear), _iFilter(iFilter), _offsetFilter(offsetFilter),
+		_stridesChannel(stridesChannel),
 		_dimGearCol(dimGearCol), _pDimGearFilter(pDimGearFilter), _pDimGearChannel(pDimGearChannel),
 		_pElemGear(nullptr), _pElemDst(nullptr), _elemAccum(0) {
 		if (pDimGearChannel == nullptr) {
 			_numChannel = 1;
-			_stridesChannel = 0;
+			_stridesChannelGear = 0;
 		} else {
 			_numChannel = pDimGearChannel->GetSize();
-			_stridesChannel = pDimGearChannel->GetStrides();
+			_stridesChannelGear = pDimGearChannel->GetStrides();
 		}
 	}
 	void Initialize1d(size_t nKernels, size_t sizeKernel);
@@ -460,7 +463,8 @@ public:
 	}
 	inline void DoElement(T_Elem *pElem) {
 		const T_Elem *pElemGear = _pElemGear;
-		for (size_t iChannel = 0; iChannel < _numChannel; iChannel++, pElemGear += _stridesChannel) {
+		for (size_t iChannel = 0; iChannel < _numChannel;
+			 iChannel++, pElem += _stridesChannel, pElemGear += _stridesChannelGear) {
 			_elemAccum += *pElem * *pElemGear;
 		}
 		_pElemGear += _dimGearCol.GetStrides();
@@ -1973,6 +1977,7 @@ void ArrayT<T_Elem>::CalcConv1d(
 	const Dimension *pDimGearChannel = nullptr;
 	const Dimension *pDimGearFilter = nullptr;
 	size_t sizeBlock = 0;
+	size_t stridesChannel = 0;
 	if (channelPos == CHANNELPOS_Last) {
 		// this .. [W, C] or [N, W, C]
 		// pArrayGear .. [FW, C] or [FN, FW, C]
@@ -1982,6 +1987,7 @@ void ArrayT<T_Elem>::CalcConv1d(
 		pDimGearCol = &dimsGear.GetBack(1);
 		if (dimsGear.size() == 3) pDimGearFilter = &dimsGear.GetBack(2);
 		sizeBlock = dims.GetBack(1).GetSizeProd();
+		stridesChannel = dims.GetBack(0).GetStrides();
 	} else if (channelPos == CHANNELPOS_First) {
 		// this .. [C, W] or [N, C, W]
 		// pArrayGear .. [C, FW] or [FN, C, FW]
@@ -1991,6 +1997,7 @@ void ArrayT<T_Elem>::CalcConv1d(
 		pDimGearChannel = &dimsGear.GetBack(1);
 		if (dimsGear.size() == 3) pDimGearFilter = &dimsGear.GetBack(2);
 		sizeBlock = dims.GetBack(1).GetSizeProd();
+		stridesChannel = dims.GetBack(1).GetStrides();
 	} else { // channelPos == CHANNELPOS_None
 		// this .. [W] or [N, W]
 		// pArrayGear .. [FW] or [FN, FW]
@@ -1999,6 +2006,7 @@ void ArrayT<T_Elem>::CalcConv1d(
 		pDimGearCol = &dimsGear.GetBack(0);
 		if (dimsGear.size() == 2) pDimGearFilter = &dimsGear.GetBack(1);
 		sizeBlock = dims.GetBack(0).GetSizeProd();
+		stridesChannel = 0;
 	}
 	size_t offsetFilter = 0;
 	size_t numFilter = 1;
@@ -2010,7 +2018,7 @@ void ArrayT<T_Elem>::CalcConv1d(
 	for (size_t iFilter = 0; iFilter < numFilter; iFilter++) {
 		KernelScanner_CalcConv<T_Elem> kernelScanner(
 			pArrayRtn, this, dynamic_cast<const ArrayT *>(pArrayGear),
-			iFilter, offsetFilter, *pDimGearCol, pDimGearFilter, pDimGearChannel);
+			iFilter, offsetFilter, stridesChannel, *pDimGearCol, pDimGearFilter, pDimGearChannel);
 		ScanKernel1d(
 			const_cast<ArrayT *>(this), *pDimCol, sizeBlock,
 			pDimGearCol->GetSize(), stridesKernel, sizePad, kernelScanner);
@@ -2033,6 +2041,7 @@ void ArrayT<T_Elem>::CalcConv2d(
 	const Dimension *pDimGearChannel = nullptr;
 	const Dimension *pDimGearFilter = nullptr;
 	size_t sizeBlock = 0;
+	size_t stridesChannel = 0;
 	if (channelPos == CHANNELPOS_Last) {
 		// this .. [H, W, C] or [N, H, W, C]
 		// pArrayGear .. [FH, FW, C] or [FN, FH, FW, C]
@@ -2044,6 +2053,7 @@ void ArrayT<T_Elem>::CalcConv2d(
 		pDimGearChannel = &dimsGear.GetBack(0);
 		if (dimsGear.size() == 4) pDimGearFilter = &dimsGear.GetBack(3);
 		sizeBlock = dims.GetBack(2).GetSizeProd();
+		stridesChannel = dims.GetBack(0).GetStrides();
 	} else if (channelPos == CHANNELPOS_First) {
 		// this .. [C, H, W] or [N, C, H, W]
 		// pArrayGear .. [C, FH, FW] or [FN, C, FH, FW]
@@ -2055,6 +2065,7 @@ void ArrayT<T_Elem>::CalcConv2d(
 		pDimGearChannel = &dimsGear.GetBack(2);
 		if (dimsGear.size() == 4) pDimGearFilter = &dimsGear.GetBack(3);
 		sizeBlock = dims.GetBack(2).GetSizeProd();
+		stridesChannel = dims.GetBack(2).GetStrides();
 	} else { // channelPos == CHANNELPOS_None
 		// this .. [H, W] or [N, H, W]
 		// pArrayGear .. [FH, FW], [FN, FH, FW]
@@ -2066,6 +2077,7 @@ void ArrayT<T_Elem>::CalcConv2d(
 		pDimGearChannel = nullptr;
 		if (dimsGear.size() == 3) pDimGearFilter = &dimsGear.GetBack(2);
 		sizeBlock = dims.GetBack(1).GetSizeProd();
+		stridesChannel = 0;
 	}
 	size_t offsetFilter = 0;
 	size_t numFilter = 1;
@@ -2077,7 +2089,7 @@ void ArrayT<T_Elem>::CalcConv2d(
 	for (size_t iFilter = 0; iFilter < numFilter; iFilter++) {
 		KernelScanner_CalcConv<T_Elem> kernelScanner(
 			pArrayRtn, this, dynamic_cast<const ArrayT *>(pArrayGear),
-			iFilter, offsetFilter, *pDimGearCol, pDimGearFilter, pDimGearChannel);
+			iFilter, offsetFilter, stridesChannel, *pDimGearCol, pDimGearFilter, pDimGearChannel);
 		ScanKernel2d(
 			const_cast<ArrayT *>(this), *pDimRow, *pDimCol, sizeBlock,
 			pDimGearRow->GetSize(), pDimGearCol->GetSize(), stridesKernelRow, stridesKernelCol,
