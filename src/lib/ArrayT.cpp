@@ -3,14 +3,6 @@
 //=============================================================================
 #include "stdafx.h"
 
-//------------------------------------------------------------------------------
-// Macros
-//------------------------------------------------------------------------------
-#define ImplementArrayT(T_Elem) \
-template<> \
-ArrayT<T_Elem>::ArrayT() : Array(ETYPE_##T_Elem) {} \
-template class ArrayT<T_Elem>;
-
 namespace Gura {
 
 //------------------------------------------------------------------------------
@@ -533,6 +525,20 @@ void KernelScanner_CalcConv<T_Elem>::Initialize3d(
 //------------------------------------------------------------------------------
 // ArrayT
 //------------------------------------------------------------------------------
+template<> ArrayT<Boolean>::ArrayT() :	Array(ETYPE_Boolean) {}
+template<> ArrayT<Int8>::ArrayT() :		Array(ETYPE_Int8) {}
+template<> ArrayT<UInt8>::ArrayT() :	Array(ETYPE_UInt8) {}
+template<> ArrayT<Int16>::ArrayT() :	Array(ETYPE_Int16) {}
+template<> ArrayT<UInt16>::ArrayT() :	Array(ETYPE_UInt16) {}
+template<> ArrayT<Int32>::ArrayT() :	Array(ETYPE_Int32) {}
+template<> ArrayT<UInt32>::ArrayT() :	Array(ETYPE_UInt32) {}
+template<> ArrayT<Int64>::ArrayT() :	Array(ETYPE_Int64) {}
+template<> ArrayT<UInt64>::ArrayT() :	Array(ETYPE_UInt64) {}
+template<> ArrayT<Half>::ArrayT() :		Array(ETYPE_Half) {}
+template<> ArrayT<Float>::ArrayT() :	Array(ETYPE_Float) {}
+template<> ArrayT<Double>::ArrayT() :	Array(ETYPE_Double) {}
+template<> ArrayT<Complex>::ArrayT() :	Array(ETYPE_Complex) {}
+
 template<typename T_Elem>
 Array *ArrayT<T_Elem>::Clone() const
 {
@@ -2346,19 +2352,18 @@ void ArrayT<T_Elem>::Iterator_Each::GatherFollower(
 //------------------------------------------------------------------------------
 // Realization of ArrayT
 //------------------------------------------------------------------------------
-ImplementArrayT(Boolean)
-ImplementArrayT(Int8)
-ImplementArrayT(UInt8)
-ImplementArrayT(Int16)
-ImplementArrayT(UInt16)
-ImplementArrayT(Int32)
-ImplementArrayT(UInt32)
-ImplementArrayT(Int64)
-ImplementArrayT(UInt64)
-ImplementArrayT(Half)
-ImplementArrayT(Float)
-ImplementArrayT(Double)
-ImplementArrayT(Complex)
-//ImplementArrayT(Value)
+template class ArrayT<Boolean>;
+template class ArrayT<Int8>;
+template class ArrayT<UInt8>;
+template class ArrayT<Int16>;
+template class ArrayT<UInt16>;
+template class ArrayT<Int32>;
+template class ArrayT<UInt32>;
+template class ArrayT<Int64>;
+template class ArrayT<UInt64>;
+template class ArrayT<Half>;
+template class ArrayT<Float>;
+template class ArrayT<Double>;
+template class ArrayT<Complex>;
 
 }
