@@ -530,7 +530,8 @@ ABCDEFG
 e'' .. 
 e'simple string' .. simple string
 e'variable ${var} reference' .. variable hoge reference
-e'variable ${var} reference\n' .. variable hoge reference
+e'variable ${var} reference\n' ..
+variable hoge reference
 
 e'${=extends(base)}' .. [original] original
 e'${=extends(base)}${=block(`head)}replaced${end}' .. [replaced] original

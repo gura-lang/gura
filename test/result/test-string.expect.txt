@@ -8,7 +8,8 @@
 'abcdef'.chop('F'):icase .. abcde
 'abcdef'.chop():eol .. abcdef
 'abcdef\n'.chop():eol .. abcdef
-'abcdef\n'.chop('f') .. abcdef
+'abcdef\n'.chop('f') ..
+abcdef
 
 'abcdef\n'.chop('f'):eol .. abcde
 'abcdef'.chop('f', 'g', 'h') .. abcde
@@ -1073,7 +1074,8 @@ format('[%s]', str.strip():right) .. [   hello world]
 
 ======== #11 ========
 
-str .. first line
+str ..
+first line
 second line
 third line
 fourth line
@@ -1083,7 +1085,8 @@ str.eachline():list .. ['first line\n', 'second line\n', 'third line\n', 'fourth
 str.eachline(2):list .. ['first line\n', 'second line\n']
 str.eachline():chop:list .. ['first line', 'second line', 'third line', 'fourth line', 'fifth line']
 str.eachline(2):chop:list .. ['first line', 'second line']
-str .. first line
+str ..
+first line
 second line
 third line
 fourth line

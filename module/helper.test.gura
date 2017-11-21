@@ -23,12 +23,13 @@ print_func(func:function) = printf('%s = %s\n', func, func.expr)
 
 tester(tests+:expr):map:dynamic_scope:void {block?} = {
 	tests.each {|test|
-		printf('%s .. ', test)
+		printf('%s ..', test)
 		try {
-			printf('%s\n', (rtn = test.eval())):nomap
+			rtn = test.eval()
+			printf('%s%s\n', cond(rtn.tostring().find('\n'), '\n', ' '), rtn):nomap
 			block && block(rtn)
 		} catch {|e|
-			println(e.text)
+			println(' ', e.text)
 		}
 	}
 }
