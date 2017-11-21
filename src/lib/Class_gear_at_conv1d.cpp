@@ -24,13 +24,19 @@ String Gear_Conv1d::ToString() const
 {
 	char buff[80];
 	String str = "conv1d";
+	str += ":filter_num=";
 	if (HasFilterDim()) {
-		::sprintf(buff, ":filter_num=%zu", GetFilterNum());
+		::sprintf(buff, "%zu", GetFilterNum());
 		str += buff;
+	} else {
+		str += "none";
 	}
+	str += ":channel_num=";
 	if (HasChannelDim()) {
-		::sprintf(buff, ":channel_num=%zu", GetChannelNum());
+		::sprintf(buff, "%zu", GetChannelNum());
 		str += buff;
+	} else {
+		str += "none";
 	}
 	::sprintf(buff, ":size=%zu", GetSize());
 	str += buff;

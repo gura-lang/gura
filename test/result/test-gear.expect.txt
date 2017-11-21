@@ -5,14 +5,14 @@ gear.calcpadding(13, 6, 5, `valid) .. [0, 2]
 
 ======== #2 gear@conv1d ========
 
-gear@conv1d(array.zeros([5])) .. <gear@conv1d:size=5:strides=1:padding=same:channel_pos=none>
+gear@conv1d(array.zeros([5])) .. <gear@conv1d:filter_num=none:channel_num=none:size=5:strides=1:padding=same:channel_pos=none>
 g.size .. 5
 g.strides .. 1
 g.padding .. same
 g.channel_pos .. none
 g.channel_num .. nil
 g.filter_num .. nil
-gear@conv1d(array.zeros([5, 3])) .. <gear@conv1d:channel_num=3:size=5:strides=1:padding=same:channel_pos=last>
+gear@conv1d(array.zeros([5, 3])) .. <gear@conv1d:filter_num=none:channel_num=3:size=5:strides=1:padding=same:channel_pos=last>
 g.size .. 5
 g.strides .. 1
 g.padding .. same
@@ -68,14 +68,14 @@ gear@conv1d(array.zeros([16, 5, 3]), 4, `valid, `xxxx) .. ValueError: specify `n
 
 ======== #3 gear@conv2d ========
 
-gear@conv2d(array.zeros([5, 6])) .. <gear@conv2d:size=(5,6):strides=(1,1):padding=same:channel_pos=none>
+gear@conv2d(array.zeros([5, 6])) .. <gear@conv2d:filter_num=none:channel_num=none:size=(5,6):strides=(1,1):padding=same:channel_pos=none>
 g.size .. [5, 6]
 g.strides .. [1, 1]
 g.padding .. same
 g.channel_pos .. none
 g.channel_num .. nil
 g.filter_num .. nil
-gear@conv2d(array.zeros([5, 6, 3])) .. <gear@conv2d:channel_num=3:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
+gear@conv2d(array.zeros([5, 6, 3])) .. <gear@conv2d:filter_num=none:channel_num=3:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
 g.size .. [5, 6]
 g.strides .. [1, 1]
 g.padding .. same
