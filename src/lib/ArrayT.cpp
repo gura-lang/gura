@@ -528,15 +528,19 @@ void KernelScanner_CalcConv<T_Elem>::Initialize3d(
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
 {
 	if (_pArrayRtn.IsNull()) {
-		const Array::Dimensions &dims = _pArraySrc->GetDimensions();
-		_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-		if (dims.size() <= 4) {
-			_pArrayRtn->SetDimensions(nKernelsPlane, nKernelsRow, nKernelsCol);
-		} else {
-			_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 4,
-									  nKernelsPlane, nKernelsRow, nKernelsCol);
+		const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+		Array::Dimensions dimsRtn;
+		if (dimsSrc.size() > 4) {
+			dimsRtn.insert(dimsRtn.begin(), dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 4);
 		}
-		_pArrayRtn->AllocMemory();
+		dimsRtn.push_back(Array::Dimension(nKernelsPlane));
+		dimsRtn.push_back(Array::Dimension(nKernelsRow));
+		dimsRtn.push_back(Array::Dimension(nKernelsCol));
+		if (_pDimGearFilter != nullptr) {
+			dimsRtn.push_back(Array::Dimension(_pDimGearFilter->GetSize()));
+			_stridesColDst = _pDimGearFilter->GetSize();
+		}
+		_pArrayRtn.reset(ArrayT<T_Elem>::Create(dimsRtn));
 		_pArrayRtn->FillZero();
 	}
 	_pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
