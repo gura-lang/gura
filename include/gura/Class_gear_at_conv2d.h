@@ -38,8 +38,12 @@ public:
 	inline bool IsChLast() const { return _channelPos == Array::CHANNELPOS_Last; }
 	inline Array *GetArrayGear() { return _pArrayGear.get(); }
 	inline const Array *GetArrayGear() const { return _pArrayGear.get(); }
-	inline bool HasChannelDim() const { return _pArrayGear->GetDimensions().size() >= 3; }
-	inline bool HasFilterDim() const { return _pArrayGear->GetDimensions().size() == 4; }
+	inline bool HasChannelDim() const {
+		return _channelPos == Array::CHANNELPOS_First || _channelPos == Array::CHANNELPOS_Last;
+	}
+	inline bool HasFilterDim() const {
+		return _pArrayGear->GetDimensions().size() == (HasChannelDim()? 4 : 3);
+	}
 	inline size_t GetSizeCol() const {
 		return _pArrayGear->GetDimensions().GetBack(IsChLast()? 1 : 0).GetSize();
 	}
@@ -50,7 +54,7 @@ public:
 		return HasChannelDim()? _pArrayGear->GetDimensions().GetBack(IsChLast()? 0 : 2).GetSize() : 1;
 	}
 	inline size_t GetFilterNum() const {
-		return HasFilterDim()? _pArrayGear->GetDimensions().GetBack(3).GetSize() : 1;
+		return HasFilterDim()? _pArrayGear->GetDimensions().GetBack(HasChannelDim()? 3 : 2).GetSize() : 1;
 	}
 	inline size_t GetStridesRow() const { return _stridesRow; }
 	inline size_t GetStridesCol() const { return _stridesCol; }
