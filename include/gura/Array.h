@@ -170,6 +170,21 @@ public:
 		inline bool IsColMajor() const { return !empty() && GetCol().GetStrides() != 1; }
 		inline bool IsRowMajor() const { return !IsColMajor(); }
 		inline size_t GetElemNum() const { return empty()? 1 : front().GetSizeProd(); }
+		void Store(size_t size);
+		void Store(size_t size1, size_t size2);
+		void Store(size_t size1, size_t size2, size_t size3);
+		void Store(size_t size1, size_t size2, size_t size3, size_t size4);
+		void Store(const Dimensions &dims);
+		void Store(const_iterator pDim, const_iterator pDimEnd);
+		void Store(size_t size, const_iterator pDim, const_iterator pDimEnd);
+		void Store(const_iterator pDim, const_iterator pDimEnd, size_t size);
+		void Store(const_iterator pDim, const_iterator pDimEnd, size_t size1, size_t size2);
+		void Store(const_iterator pDim, const_iterator pDimEnd, size_t size1, size_t size2, size_t size3);
+		void Store(const_iterator pDim, const_iterator pDimEnd,
+						   size_t size1, size_t size2, size_t size3, size_t size4);
+		void Store(const_iterator pDim1, const_iterator pDim1End,
+						   const_iterator pDim2, const_iterator pDim2End);
+		void Store(const ValueList &valList);
 		static String ToString(const_iterator pDim, const_iterator pDimEnd, const char *sep = ", ");
 		inline String ToString(const char *sep = ", ") const { return ToString(begin(), end(), sep); }
 		bool Serialize(Environment &env, Stream &stream) const;

@@ -96,122 +96,88 @@ void Array::FlipAxisMajor()
 
 void Array::StoreDimensions(const Dimensions &dims)
 {
-	_dims = dims;
+	_dims.Store(dims);
 }
 
 void Array::SetDimension(size_t size)
 {
-	_dims.reserve(1);
-	_dims.push_back(Dimension(size));
+	_dims.Store(size);
 	UpdateMetrics();
 }
 
 void Array::SetDimensions(size_t size1, size_t size2)
 {
-	_dims.reserve(2);
-	_dims.push_back(Dimension(size1));
-	_dims.push_back(Dimension(size2));
+	_dims.Store(size1, size2);
 	UpdateMetrics();
 }
 
 void Array::SetDimensions(size_t size1, size_t size2, size_t size3)
 {
-	_dims.reserve(3);
-	_dims.push_back(Dimension(size1));
-	_dims.push_back(Dimension(size2));
-	_dims.push_back(Dimension(size3));
+	_dims.Store(size1, size2, size3);
 	UpdateMetrics();
 }
 
 void Array::SetDimensions(size_t size1, size_t size2, size_t size3, size_t size4)
 {
-	_dims.reserve(4);
-	_dims.push_back(Dimension(size1));
-	_dims.push_back(Dimension(size2));
-	_dims.push_back(Dimension(size3));
-	_dims.push_back(Dimension(size4));
+	_dims.Store(size1, size2, size3, size4);
 	UpdateMetrics();
 }
 
 void Array::SetDimensions(const Dimensions &dims)
 {
-	_dims = dims;
+	_dims.Store(dims);
 	UpdateMetrics();
 }
 
 void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
 {
-	_dims.reserve(std::distance(pDim, pDimEnd));
-	std::copy(pDim, pDimEnd, std::back_inserter(_dims));
+	_dims.Store(pDim, pDimEnd);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(size_t size,
-						  Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
+void Array::SetDimensions(size_t size, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
 {
-	_dims.reserve(std::distance(pDim, pDimEnd) + 1);
-	_dims.push_back(Dimension(size));
-	_dims.insert(_dims.end(), pDim, pDimEnd);
+	_dims.Store(size, pDim, pDimEnd);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-						  size_t size)
+void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd, size_t size)
 {
-	_dims.reserve(std::distance(pDim, pDimEnd) + 1);
-	_dims.insert(_dims.end(), pDim, pDimEnd);
-	_dims.push_back(Dimension(size));
+	_dims.Store(pDim, pDimEnd, size);
 	UpdateMetrics();
 }
 
 void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t size1, size_t size2)
 {
-	_dims.reserve(std::distance(pDim, pDimEnd) + 2);
-	_dims.insert(_dims.end(), pDim, pDimEnd);
-	_dims.push_back(Dimension(size1));
-	_dims.push_back(Dimension(size2));
+	_dims.Store(pDim, pDimEnd, size1, size2);
 	UpdateMetrics();
 }
 
 void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t size1, size_t size2, size_t size3)
 {
-	_dims.reserve(std::distance(pDim, pDimEnd) + 3);
-	_dims.insert(_dims.end(), pDim, pDimEnd);
-	_dims.push_back(Dimension(size1));
-	_dims.push_back(Dimension(size2));
-	_dims.push_back(Dimension(size3));
+	_dims.Store(pDim, pDimEnd, size1, size2, size3);
 	UpdateMetrics();
 }
 
 void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t size1, size_t size2, size_t size3, size_t size4)
 {
-	_dims.reserve(std::distance(pDim, pDimEnd) + 4);
-	_dims.insert(_dims.end(), pDim, pDimEnd);
-	_dims.push_back(Dimension(size1));
-	_dims.push_back(Dimension(size2));
-	_dims.push_back(Dimension(size3));
-	_dims.push_back(Dimension(size4));
+	_dims.Store(pDim, pDimEnd, size1, size2, size3, size4);
 	UpdateMetrics();
 }
 
 void Array::SetDimensions(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
 						  Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End)
 {
-	_dims.reserve(std::distance(pDim1, pDim1End) + std::distance(pDim2, pDim2End));
-	_dims.insert(_dims.end(), pDim1, pDim1End);
-	_dims.insert(_dims.end(), pDim2, pDim2End);
+	_dims.Store(pDim1, pDim1End, pDim2, pDim2End);
 	UpdateMetrics();
 }
 
 void Array::SetDimensions(const ValueList &valList)
 {
-	_dims.reserve(valList.size());
-	foreach_const (ValueList, pValue, valList) {
-		_dims.push_back(pValue->GetSizeT());
-	}
+	_dims.Store(valList);
 	UpdateMetrics();
 }
 
@@ -999,6 +965,106 @@ void Array::SetError_UnacceptableValueAsElement(Environment &env, const Value &v
 //-----------------------------------------------------------------------------
 // Array::Dimensions
 //-----------------------------------------------------------------------------
+void Array::Dimensions::Store(size_t size)
+{
+	reserve(1);
+	push_back(Dimension(size));
+}
+
+void Array::Dimensions::Store(size_t size1, size_t size2)
+{
+	reserve(2);
+	push_back(Dimension(size1));
+	push_back(Dimension(size2));
+}
+
+void Array::Dimensions::Store(size_t size1, size_t size2, size_t size3)
+{
+	reserve(3);
+	push_back(Dimension(size1));
+	push_back(Dimension(size2));
+	push_back(Dimension(size3));
+}
+
+void Array::Dimensions::Store(size_t size1, size_t size2, size_t size3, size_t size4)
+{
+	reserve(4);
+	push_back(Dimension(size1));
+	push_back(Dimension(size2));
+	push_back(Dimension(size3));
+	push_back(Dimension(size4));
+}
+
+void Array::Dimensions::Store(const Dimensions &dims)
+{
+	*this = dims;
+}
+
+void Array::Dimensions::Store(const_iterator pDim, const_iterator pDimEnd)
+{
+	reserve(std::distance(pDim, pDimEnd));
+	insert(end(), pDim, pDimEnd);
+}
+
+void Array::Dimensions::Store(size_t size, const_iterator pDim, const_iterator pDimEnd)
+{
+	reserve(std::distance(pDim, pDimEnd) + 1);
+	push_back(Dimension(size));
+	insert(end(), pDim, pDimEnd);
+}
+
+void Array::Dimensions::Store(const_iterator pDim, const_iterator pDimEnd, size_t size)
+{
+	reserve(std::distance(pDim, pDimEnd) + 1);
+	insert(end(), pDim, pDimEnd);
+	push_back(Dimension(size));
+}
+
+void Array::Dimensions::Store(const_iterator pDim, const_iterator pDimEnd, size_t size1, size_t size2)
+{
+	reserve(std::distance(pDim, pDimEnd) + 2);
+	insert(end(), pDim, pDimEnd);
+	push_back(Dimension(size1));
+	push_back(Dimension(size2));
+}
+
+void Array::Dimensions::Store(const_iterator pDim, const_iterator pDimEnd,
+							  size_t size1, size_t size2, size_t size3)
+{
+	reserve(std::distance(pDim, pDimEnd) + 3);
+	insert(end(), pDim, pDimEnd);
+	push_back(Dimension(size1));
+	push_back(Dimension(size2));
+	push_back(Dimension(size3));
+}
+
+void Array::Dimensions::Store(const_iterator pDim, const_iterator pDimEnd,
+							  size_t size1, size_t size2, size_t size3, size_t size4)
+{
+	reserve(std::distance(pDim, pDimEnd) + 4);
+	insert(end(), pDim, pDimEnd);
+	push_back(Dimension(size1));
+	push_back(Dimension(size2));
+	push_back(Dimension(size3));
+	push_back(Dimension(size4));
+}
+
+void Array::Dimensions::Store(const_iterator pDim1, const_iterator pDim1End,
+							  const_iterator pDim2, const_iterator pDim2End)
+{
+	reserve(std::distance(pDim1, pDim1End) + std::distance(pDim2, pDim2End));
+	insert(end(), pDim1, pDim1End);
+	insert(end(), pDim2, pDim2End);
+}
+
+void Array::Dimensions::Store(const ValueList &valList)
+{
+	reserve(valList.size());
+	foreach_const (ValueList, pValue, valList) {
+		push_back(pValue->GetSizeT());
+	}
+}
+
 String Array::Dimensions::ToString(const_iterator pDim, const_iterator pDimEnd, const char *sep)
 {
 	String rtn;
