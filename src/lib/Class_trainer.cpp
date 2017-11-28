@@ -37,11 +37,11 @@ String Object_trainer::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// trainer(expr:expr, inputs*:symbol):map {block?}
+// trainer(model:expr, inputs*:symbol):map {block?}
 Gura_DeclareFunction(trainer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "expr", VTYPE_expr, OCCUR_Once);
+	DeclareArg(env, "model", VTYPE_expr, OCCUR_Once);
 	DeclareArg(env, "inputs", VTYPE_symbol, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_trainer));
@@ -80,8 +80,8 @@ Gura_ImplementPropertyGetter(trainer, result)
 	return (pArray == nullptr)? Value::Nil : Array::ToValue(env, pArray->Reference());
 }
 
-// trainer#source
-Gura_DeclareProperty_R(trainer, source)
+// trainer#model
+Gura_DeclareProperty_R(trainer, model)
 {
 	SetPropAttr(VTYPE_expr);
 	AddHelp(
@@ -89,11 +89,10 @@ Gura_DeclareProperty_R(trainer, source)
 		"Evaluation result.");
 }
 
-Gura_ImplementPropertyGetter(trainer, source)
+Gura_ImplementPropertyGetter(trainer, model)
 {
 	Trainer *pTrainer = Object_trainer::GetObject(valueThis)->GetTrainer();
-	//return Array::ToValue(env, pTrainer->GetResult()->Reference());
-	return Value(new Object_expr(env, pTrainer->GetExprSrc()->Reference()));
+	return Value(new Object_expr(env, pTrainer->GetExprModel()->Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -154,7 +153,7 @@ void Class_trainer::DoPrepare(Environment &env)
 	Gura_AssignFunction(trainer);
 	// Assignment of properties
 	Gura_AssignProperty(trainer, result);
-	Gura_AssignProperty(trainer, source);
+	Gura_AssignProperty(trainer, model);
 	// Assignment of methods
 	Gura_AssignMethod(trainer, eval);
 	Gura_AssignMethod(trainer, train);

@@ -354,7 +354,7 @@ tokens(stream:stream):map {block?}
 tonumber(value):map:[nil,raise,strict,zero]
 tostring(value):map
 tosymbol(str:string):map
-trainer:class = <class:trainer(expr:expr, inputs*:symbol):map {block?}>
+trainer:class = <class:trainer(model:expr, inputs*:symbol):map {block?}>
 true:boolean = true
 try():leader {block}
 typename(`value)

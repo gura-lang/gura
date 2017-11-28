@@ -399,7 +399,7 @@ private:
 	int _cntRef;
 	AutoPtr<NodeBottom> _pNodeBottom;
 	NodeOwner _nodeOwner;
-	AutoPtr<Expr> _pExprSrc;
+	AutoPtr<Expr> _pExprModel;
 public:
 	Gura_DeclareReferenceAccessor(Trainer);
 public:
@@ -407,13 +407,13 @@ public:
 protected:
 	virtual ~Trainer();
 public:
-	bool CreateFromExpr(Environment &env, const Expr *pExprSrc, const SymbolSet &symbolsInput);
+	bool CreateFromExpr(Environment &env, const Expr *pExprModel, const SymbolSet &symbolsInput);
 	bool EvalForward(Environment &env);
 	bool EvalBackward(Environment &env, const Array *pArrayCorrect);
 	const Array *GetResult() const;
 	const Array *GetResultSoftmax() const;
 	inline const NodeOwner &GetNodeOwner() const { return _nodeOwner; }
-	inline const Expr *GetExprSrc() const { return _pExprSrc.get(); }
+	inline const Expr *GetExprModel() const { return _pExprModel.get(); }
 	void Print() const;
 };
 

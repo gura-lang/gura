@@ -16,10 +16,10 @@ Trainer::~Trainer()
 {
 }
 
-bool Trainer::CreateFromExpr(Environment &env, const Expr *pExprSrc, const SymbolSet &symbolsInput)
+bool Trainer::CreateFromExpr(Environment &env, const Expr *pExprModel, const SymbolSet &symbolsInput)
 {
-	_pExprSrc.reset(pExprSrc->Reference());
-	return _nodeOwner.CreateFromExpr(env, pExprSrc, _pNodeBottom->GetConnectorSrc(), symbolsInput);
+	_pExprModel.reset(pExprModel->Reference());
+	return _nodeOwner.CreateFromExpr(env, pExprModel, _pNodeBottom->GetConnectorSrc(), symbolsInput);
 }
 
 bool Trainer::EvalForward(Environment &env)

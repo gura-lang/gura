@@ -1,9 +1,9 @@
-======== #1 source in trainer#eval() ========
+======== #1 input values in trainer#eval() ========
 
-no source specified
+no inputs specified
 { x = 3, tr.eval() } .. 3
 { x = 5, tr.eval() } .. 3
-x is specified as a source
+x is specified as an input
 { x = 7, tr.eval() } .. 7
 { x = 9, tr.eval() } .. 9
 
