@@ -15,9 +15,14 @@ private:
 	const Array *_pArraySrc;
 	T_Elem *_pElemDst;
 	T_Elem _padNum;
+	size_t _nChannels;
+	size_t _stridesChannel;
+	size_t _stridesChannelDst;
+	size_t _stepKernel;
 public:
 	KernelScanner_ExpandVec(AutoPtr<Array> &pArrayRtn, const Array *pArraySrc, T_Elem padNum) :
-		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc), _pElemDst(nullptr), _padNum(padNum) {}
+		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc), _pElemDst(nullptr), _padNum(padNum),
+		_nChannels(1), _stridesChannel(0), _stridesChannelDst(0), _stepKernel(0) {}
 	void Initialize1d(size_t nKernels, size_t sizeKernel);
 	void Initialize2d(size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol);
 	void Initialize3d(size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
@@ -25,19 +30,43 @@ public:
 	inline void Begin(T_Elem *pElem) {}			// nothing to do
 	inline void End() {}						// nothing to do
 	inline void BeginKernel(T_Elem *pElem) {}	// nothing to do
-	inline void EndKernel() {}					// nothing to do
+	inline void EndKernel() { _pElemDst += _stepKernel; }
 	inline void DoPadding(size_t n) {
-		for (size_t nElems = n; nElems > 0; nElems--) *_pElemDst++ = _padNum;
+		T_Elem *pElemDstHead = _pElemDst;
+		for (size_t iChannel = 0; iChannel < _nChannels; iChannel++) {
+			T_Elem *pElemDst = pElemDstHead;
+			for (size_t nElems = n; nElems > 0; nElems--) {
+				*pElemDst++ = _padNum;
+			}
+			pElemDstHead += _stridesChannelDst;
+		}
+		_pElemDst += n;
 	}
-	inline void DoElement(T_Elem *pElem) { *_pElemDst++ = *pElem; }
+	inline void DoElement(T_Elem *pElem) {
+		T_Elem *pElemDst = _pElemDst;
+		for (size_t iChannel = 0; iChannel < _nChannels; iChannel++) {
+			*pElemDst = *pElem;
+			pElemDst += _stridesChannelDst;
+			pElem += _stridesChannel;
+		}
+		_pElemDst++;
+	}
 };
 
 template<typename T_Elem>
 void KernelScanner_ExpandVec<T_Elem>::Initialize1d(size_t nKernels, size_t sizeKernel)
 {
 	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
+	size_t nDimsSub = 1;
+	if (dims.size() >= 2) {
+		nDimsSub = 2;
+		_nChannels = dims.GetBack(1).GetSize();
+		_stridesChannel = dims.GetBack(1).GetStrides();
+		_stridesChannelDst = sizeKernel;
+		_stepKernel = _stridesChannelDst * (_nChannels - 1);
+	}
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 1, nKernels, sizeKernel);
+	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - nDimsSub, nKernels, sizeKernel * _nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
 }
@@ -47,9 +76,17 @@ void KernelScanner_ExpandVec<T_Elem>::Initialize2d(
 	size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
 {
 	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
+	size_t nDimsSub = 2;
+	if (dims.size() >= 3) {
+		nDimsSub = 3;
+		_nChannels = dims.GetBack(2).GetSize();
+		_stridesChannel = dims.GetBack(2).GetStrides();
+		_stridesChannelDst = sizeKernelRow * sizeKernelCol;
+		_stepKernel = _stridesChannelDst * (_nChannels - 1);
+	}
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 2,
-							  nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol);
+	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - nDimsSub,
+							  nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol * _nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
 }
@@ -60,10 +97,18 @@ void KernelScanner_ExpandVec<T_Elem>::Initialize3d(
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
 {
 	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
+	size_t nDimsSub = 3;
+	if (dims.size() >= 4) {
+		nDimsSub = 4;
+		_nChannels = dims.GetBack(3).GetSize();
+		_stridesChannel = dims.GetBack(3).GetStrides();
+		_stridesChannelDst = sizeKernelPlane * sizeKernelRow * sizeKernelCol;
+		_stepKernel = _stridesChannelDst * (_nChannels - 1);
+	}
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 3,
+	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - nDimsSub,
 							  nKernelsPlane * nKernelsRow * nKernelsCol,
-							  sizeKernelPlane * sizeKernelRow * sizeKernelCol);
+							  sizeKernelPlane * sizeKernelRow * sizeKernelCol * _nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
 }
@@ -1745,8 +1790,9 @@ void ArrayT<T_Elem>::ExpandKernelVec1d(
 	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
 		// ASSERT(dims.size() >= 1)
 		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
+		size_t sizeBlock = dims.GetBack((dims.size() < 2)? 0 : 1).GetSizeProd();
 		ScanKernel1d(
-			const_cast<ArrayT *>(this), dims.GetBack(0), 0,
+			const_cast<ArrayT *>(this), dims.GetBack(0), sizeBlock,
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
 	}
 }
@@ -1768,8 +1814,9 @@ void ArrayT<T_Elem>::ExpandKernelVec2d(
 	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
 		// ASSERT(dims.size() >= 2)
 		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
+		size_t sizeBlock = dims.GetBack((dims.size() < 3)? 1 : 2).GetSizeProd();
 		ScanKernel2d(
-			const_cast<ArrayT *>(this), dims.GetBack(1), dims.GetBack(0), 0,
+			const_cast<ArrayT *>(this), dims.GetBack(1), dims.GetBack(0), sizeBlock,
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
 	}
@@ -1794,8 +1841,9 @@ void ArrayT<T_Elem>::ExpandKernelVec3d(
 	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
 		// ASSERT(dims.size() >= 3)
 		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
+		size_t sizeBlock = dims.GetBack((dims.size() < 4)? 2 : 3).GetSizeProd();
 		ScanKernel3d(
-			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0), 0,
+			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0), sizeBlock,
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);

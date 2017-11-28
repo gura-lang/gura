@@ -69,6 +69,7 @@ set cases=%cases% suffixmgr
 set cases=%cases% symbol
 set cases=%cases% tar
 set cases=%cases% template
+set cases=%cases% trainer
 set cases=%cases% uri
 set cases=%cases% value
 set cases=%cases% vertex
