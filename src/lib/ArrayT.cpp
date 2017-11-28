@@ -5,77 +5,6 @@
 
 namespace Gura {
 
-//------------------------------------------------------------------------------
-// Utility functions
-//------------------------------------------------------------------------------
-template<typename T_Elem> void FormatElem(char *buff, int wdPad, const T_Elem &x);
-
-template<> void FormatElem(char *buff, int wdPad, const Boolean &x) {
-	::sprintf(buff, "%*s", wdPad, x? "true" : "false");
-}
-
-template<> void FormatElem(char *buff, int wdPad, const Int8 &x) {
-	::sprintf(buff, "%*d", wdPad, x);
-}
-
-template<> void FormatElem(char *buff, int wdPad, const UInt8 &x) {
-	::sprintf(buff, "%*u", wdPad, x);
-}
-
-template<> void FormatElem(char *buff, int wdPad, const Int16 &x) {
-	::sprintf(buff, "%*d", wdPad, x);
-}
-
-template<> void FormatElem(char *buff, int wdPad, const UInt16 &x) {
-	::sprintf(buff, "%*u", wdPad, x);
-}
-
-template<> void FormatElem(char *buff, int wdPad, const Int32 &x) {
-	::sprintf(buff, "%*d", wdPad, x);
-}
-
-template<> void FormatElem(char *buff, int wdPad, const UInt32 &x) {
-	::sprintf(buff, "%*u", wdPad, x);
-}
-
-template<> void FormatElem(char *buff, int wdPad, const Int64 &x) {
-	::sprintf(buff, "%*lld", wdPad, x);
-}
-
-template<> void FormatElem(char *buff, int wdPad, const UInt64 &x) {
-	::sprintf(buff, "%*llu", wdPad, x);
-}
-
-template<> void FormatElem(char *buff, int wdPad, const Half &x) {
-	::sprintf(buff, "%*g", wdPad, static_cast<Float>(x));
-}
-
-template<> void FormatElem(char *buff, int wdPad, const Float &x) {
-	::sprintf(buff, "%*g", wdPad, x);
-}
-
-template<> void FormatElem(char *buff, int wdPad, const Double &x) {
-	::sprintf(buff, "%*g", wdPad, x);
-}
-
-template<> void FormatElem(char *buff, int wdPad, const Complex &x) {
-	char tmp[128];
-	if (x.real() == 0) {
-		if (x.imag() == 0) {
-			::sprintf(tmp, "0");
-		} else {
-			::sprintf(tmp, "%gj", x.imag());
-		}
-	} else {
-		if (x.imag() == 0) {
-			::sprintf(tmp, "%g", x.real());
-		} else {
-			::sprintf(tmp, "%g%+gj", x.real(), x.imag());
-		}
-	}
-	::sprintf(buff, "%*s", wdPad, tmp);
-}
-
 //-----------------------------------------------------------------------------
 // KernelScanner_ExpandVec
 //-----------------------------------------------------------------------------
@@ -568,6 +497,74 @@ Array *ArrayT<T_Elem>::Clone() const
 {
 	return new ArrayT<T_Elem>(*this);
 }	
+
+template<typename T_Elem> void FormatElem(char *buff, int wdPad, const T_Elem &x);
+
+template<> void FormatElem(char *buff, int wdPad, const Boolean &x) {
+	::sprintf(buff, "%*s", wdPad, x? "true" : "false");
+}
+
+template<> void FormatElem(char *buff, int wdPad, const Int8 &x) {
+	::sprintf(buff, "%*d", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const UInt8 &x) {
+	::sprintf(buff, "%*u", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const Int16 &x) {
+	::sprintf(buff, "%*d", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const UInt16 &x) {
+	::sprintf(buff, "%*u", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const Int32 &x) {
+	::sprintf(buff, "%*d", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const UInt32 &x) {
+	::sprintf(buff, "%*u", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const Int64 &x) {
+	::sprintf(buff, "%*lld", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const UInt64 &x) {
+	::sprintf(buff, "%*llu", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const Half &x) {
+	::sprintf(buff, "%*g", wdPad, static_cast<Float>(x));
+}
+
+template<> void FormatElem(char *buff, int wdPad, const Float &x) {
+	::sprintf(buff, "%*g", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const Double &x) {
+	::sprintf(buff, "%*g", wdPad, x);
+}
+
+template<> void FormatElem(char *buff, int wdPad, const Complex &x) {
+	char tmp[128];
+	if (x.real() == 0) {
+		if (x.imag() == 0) {
+			::sprintf(tmp, "0");
+		} else {
+			::sprintf(tmp, "%gj", x.imag());
+		}
+	} else {
+		if (x.imag() == 0) {
+			::sprintf(tmp, "%g", x.real());
+		} else {
+			::sprintf(tmp, "%g%+gj", x.real(), x.imag());
+		}
+	}
+	::sprintf(buff, "%*s", wdPad, tmp);
+}
 
 template<typename T_Elem>
 void ToString_Sub(String &rtn, size_t colTop, int wdPad, const Array::Dimensions &dims,
