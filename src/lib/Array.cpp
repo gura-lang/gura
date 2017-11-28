@@ -1132,8 +1132,8 @@ bool Array::Dimensions::HasShape(const_iterator pDim1, const_iterator pDim1End,
 								 const_iterator pDim2, const_iterator pDim2End) const
 {
 	const_iterator pDimThis = begin();
-	return Compare(pDimThis, end(), pDim1, pDim1End) && Compare(pDimThis, end(), pDim2, pDim2End) &&
-		pDimThis == end();
+	return Compare(pDimThis, end(), pDim1, pDim1End) &&
+		Compare(pDimThis, end(), pDim2, pDim2End) && pDimThis == end();
 }
 
 String Array::Dimensions::ToString(const_iterator pDim, const_iterator pDimEnd, const char *sep)
