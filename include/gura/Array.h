@@ -170,14 +170,14 @@ public:
 		inline bool IsColMajor() const { return !empty() && GetCol().GetStrides() != 1; }
 		inline bool IsRowMajor() const { return !IsColMajor(); }
 		inline size_t GetElemNum() const { return empty()? 1 : front().GetSizeProd(); }
-		void Store(size_t size);
+		void Store(size_t size1);
 		void Store(size_t size1, size_t size2);
 		void Store(size_t size1, size_t size2, size_t size3);
 		void Store(size_t size1, size_t size2, size_t size3, size_t size4);
 		void Store(const Dimensions &dims);
 		void Store(const_iterator pDim, const_iterator pDimEnd);
-		void Store(size_t size, const_iterator pDim, const_iterator pDimEnd);
-		void Store(const_iterator pDim, const_iterator pDimEnd, size_t size);
+		void Store(size_t size1, const_iterator pDim, const_iterator pDimEnd);
+		void Store(const_iterator pDim, const_iterator pDimEnd, size_t size1);
 		void Store(const_iterator pDim, const_iterator pDimEnd, size_t size1, size_t size2);
 		void Store(const_iterator pDim, const_iterator pDimEnd, size_t size1, size_t size2, size_t size3);
 		void Store(const_iterator pDim, const_iterator pDimEnd,
@@ -185,12 +185,32 @@ public:
 		void Store(const_iterator pDim1, const_iterator pDim1End,
 						   const_iterator pDim2, const_iterator pDim2End);
 		void Store(const ValueList &valList);
+		bool HasShape(size_t size1) const;
+		bool HasShape(size_t size1, size_t size2) const;
+		bool HasShape(size_t size1, size_t size2, size_t size3) const;
+		bool HasShape(size_t size1, size_t size2, size_t size3, size_t size4) const;
+		bool HasShape(const Dimensions &dims) const;
+		bool HasShape(const_iterator pDim, const_iterator pDimEnd) const;
+		bool HasShape(size_t size1, const_iterator pDim, const_iterator pDimEnd) const;
+		bool HasShape(const_iterator pDim, const_iterator pDimEnd, size_t size1) const;
+		bool HasShape(const_iterator pDim, const_iterator pDimEnd, size_t size1, size_t size2) const;
+		bool HasShape(const_iterator pDim, const_iterator pDimEnd, size_t size1, size_t size2, size_t size3) const;
+		bool HasShape(const_iterator pDim, const_iterator pDimEnd,
+					  size_t size1, size_t size2, size_t size3, size_t size4) const;
+		bool HasShape(const_iterator pDim1, const_iterator pDim1End,
+					  const_iterator pDim2, const_iterator pDim2End) const;
 		static String ToString(const_iterator pDim, const_iterator pDimEnd, const char *sep = ", ");
 		inline String ToString(const char *sep = ", ") const { return ToString(begin(), end(), sep); }
 		bool Serialize(Environment &env, Stream &stream) const;
 		bool Deserialize(Environment &env, Stream &stream);
 		void UpdateMetrics();
 		void SetColMajor();
+		static bool Compare(const_iterator &pDim, const_iterator pDimEnd, size_t size1);
+		static bool Compare(const_iterator &pDim, const_iterator pDimEnd, size_t size1, size_t size2);
+		static bool Compare(const_iterator &pDim, const_iterator pDimEnd, size_t size1, size_t size2, size_t size3);
+		static bool Compare(const_iterator &pDim, const_iterator pDimEnd, size_t size1, size_t size2, size_t size3, size_t size4);
+		static bool Compare(const_iterator &pDimA, const_iterator pDimEndA,
+							const_iterator &pDimB, const_iterator pDimEndB);
 		static bool IsSameShape(const_iterator pDimA, const_iterator pDimEndA,
 								const_iterator pDimB, const_iterator pDimEndB);
 		inline static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB) {
@@ -413,9 +433,6 @@ public:
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const = 0;
 	bool IsSquare() const;
-	bool HasShape(size_t size) const;
-	bool HasShape(size_t sizeRow, size_t sizeCol) const;
-	bool HasShape(const Value &valList) const;
 	bool HasSameElements(const Array &array) const;
 	bool PrepareModification(Signal &sig);
 	static Value ToValue(Environment &env, Array *pArray);

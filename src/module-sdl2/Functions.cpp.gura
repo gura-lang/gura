@@ -801,7 +801,8 @@ SDL_SetWindowFullscreen(window:SDL_Window@, flags:Uint32):negerr = `auto %% {`en
 
 SDL_SetWindowGammaRamp(window:SDL_Window@, red[]:Uint16, green[]:Uint16, blue[]:Uint16):void = R'''
 	Signal &sig = env.GetSignal();
-	if (!red.HasShape(256) || !green.HasShape(256) || !blue.HasShape(256)) {
+	if (!red.GetDimensions().HasShape(256) || !green.GetDimensions().HasShape(256) ||
+													!blue.GetDimensions().HasShape(256)) {
 		sig.SetError(ERR_ValueError, "red, green and blue must have 256 elements");
 		return Value::Nil;
 	}

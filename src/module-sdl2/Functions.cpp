@@ -2253,7 +2253,8 @@ Gura_ImplementFunction(__SetWindowGammaRamp)
 	AutoPtr<ArrayT<Uint16> > _blue(ArrayT<Uint16>::CreateFromList(arg.GetList(3)));
 	ArrayT<Uint16> &blue = *_blue;
 	Signal &sig = env.GetSignal();
-	if (!red.HasShape(256) || !green.HasShape(256) || !blue.HasShape(256)) {
+	if (!red.GetDimensions().HasShape(256) || !green.GetDimensions().HasShape(256) ||
+													!blue.GetDimensions().HasShape(256)) {
 		sig.SetError(ERR_ValueError, "red, green and blue must have 256 elements");
 		return Value::Nil;
 	}

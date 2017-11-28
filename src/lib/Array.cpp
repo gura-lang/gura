@@ -391,16 +391,6 @@ bool Array::IsSquare() const
 	return _dims.HasRowCol() && (_dims.GetRow().GetSize() == _dims.GetCol().GetSize());
 }
 
-bool Array::HasShape(size_t size) const
-{
-	return (_dims.size() == 1) && _dims[0].GetSize() == size;
-}
-
-bool Array::HasShape(size_t sizeRow, size_t sizeCol) const
-{
-	return (_dims.size() == 2) && _dims[0].GetSize() == sizeRow && _dims[1].GetSize() == sizeCol;
-}
-
 bool Array::HasSameElements(const Array &array) const
 {
 	if (GetElemType() != array.GetElemType()) return false;
@@ -1065,6 +1055,87 @@ void Array::Dimensions::Store(const ValueList &valList)
 	}
 }
 
+bool Array::Dimensions::HasShape(size_t size1) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), size1) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(size_t size1, size_t size2) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), size1, size2) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(size_t size1, size_t size2, size_t size3) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), size1, size2, size3) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(size_t size1, size_t size2, size_t size3, size_t size4) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), size1, size2, size3, size4) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(const Dimensions &dims) const
+{
+	const_iterator pDimThis = begin(), pDim = dims.begin();
+	return Compare(pDimThis, end(), pDim, dims.end()) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(const_iterator pDim, const_iterator pDimEnd) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), pDim, pDimEnd) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(size_t size1, const_iterator pDim, const_iterator pDimEnd) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), size1) &&
+		Compare(pDimThis, end(), pDim, pDimEnd) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(const_iterator pDim, const_iterator pDimEnd, size_t size1) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), pDim, pDimEnd) &&
+		Compare(pDimThis, end(), size1) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(const_iterator pDim, const_iterator pDimEnd, size_t size1, size_t size2) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), pDim, pDimEnd) &&
+		Compare(pDimThis, end(), size1, size2) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(const_iterator pDim, const_iterator pDimEnd,
+								 size_t size1, size_t size2, size_t size3) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), pDim, pDimEnd) &&
+		Compare(pDimThis, end(), size1, size2, size3) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(const_iterator pDim, const_iterator pDimEnd,
+								 size_t size1, size_t size2, size_t size3, size_t size4) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), pDim, pDimEnd) &&
+		Compare(pDimThis, end(), size1, size2, size3, size4) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(const_iterator pDim1, const_iterator pDim1End,
+								 const_iterator pDim2, const_iterator pDim2End) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), pDim1, pDim1End) && Compare(pDimThis, end(), pDim2, pDim2End) &&
+		pDimThis == end();
+}
+
 String Array::Dimensions::ToString(const_iterator pDim, const_iterator pDimEnd, const char *sep)
 {
 	String rtn;
@@ -1122,13 +1193,61 @@ bool Array::Dimensions::Deserialize(Environment &env, Stream &stream)
 	return true;
 }
 
-bool Array::Dimensions::IsSameShape(const_iterator pDimA, const_iterator pDimEndA,
-									const_iterator pDimB, const_iterator pDimEndB)
+bool Array::Dimensions::Compare(const_iterator &pDim, const_iterator pDimEnd, size_t size1)
+{
+	if (pDim == pDimEnd || pDim->GetSize() != size1) return false;
+	pDim++;
+	return true;
+}
+
+bool Array::Dimensions::Compare(const_iterator &pDim, const_iterator pDimEnd, size_t size1, size_t size2)
+{
+	if (pDim == pDimEnd || pDim->GetSize() != size1) return false;
+	pDim++;
+	if (pDim == pDimEnd || pDim->GetSize() != size2) return false;
+	pDim++;
+	return true;
+}
+
+bool Array::Dimensions::Compare(const_iterator &pDim, const_iterator pDimEnd,
+								size_t size1, size_t size2, size_t size3)
+{
+	if (pDim == pDimEnd || pDim->GetSize() != size1) return false;
+	pDim++;
+	if (pDim == pDimEnd || pDim->GetSize() != size2) return false;
+	pDim++;
+	if (pDim == pDimEnd || pDim->GetSize() != size3) return false;
+	pDim++;
+	return true;
+}
+
+bool Array::Dimensions::Compare(const_iterator &pDim, const_iterator pDimEnd,
+								size_t size1, size_t size2, size_t size3, size_t size4)
+{
+	if (pDim == pDimEnd || pDim->GetSize() != size1) return false;
+	pDim++;
+	if (pDim == pDimEnd || pDim->GetSize() != size2) return false;
+	pDim++;
+	if (pDim == pDimEnd || pDim->GetSize() != size3) return false;
+	pDim++;
+	if (pDim == pDimEnd || pDim->GetSize() != size4) return false;
+	pDim++;
+	return true;
+}
+
+bool Array::Dimensions::Compare(const_iterator &pDimA, const_iterator pDimEndA,
+								const_iterator &pDimB, const_iterator pDimEndB)
 {
 	for ( ; pDimA != pDimEndA && pDimB != pDimEndB; pDimA++, pDimB++) {
 		if (pDimA->GetSize() != pDimB->GetSize()) return false;
 	}
-	return pDimA == pDimEndA && pDimB == pDimEndB;
+	return true;
+}
+
+bool Array::Dimensions::IsSameShape(const_iterator pDimA, const_iterator pDimEndA,
+									const_iterator pDimB, const_iterator pDimEndB)
+{
+	return Compare(pDimA, pDimEndA, pDimB, pDimEndB) && pDimA == pDimEndA && pDimB == pDimEndB;
 }
 
 bool Array::Dimensions::CheckSameShape(Signal &sig, const_iterator pDimA, const_iterator pDimEndA,
