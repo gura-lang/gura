@@ -36,8 +36,8 @@ public:
 	enum ChannelPos {
 		CHANNELPOS_Invalid,
 		CHANNELPOS_None,
-		CHANNELPOS_Last,
 		CHANNELPOS_First,
+		CHANNELPOS_Last,
 	};
 public:
 	typedef bool (*UnaryFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray);
