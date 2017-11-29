@@ -14,14 +14,16 @@ private:
 	AutoPtr<Array> &_pArrayRtn;
 	const Array *_pArraySrc;
 	T_Elem *_pElemDst;
+	bool _hasChannelFlag;
 	T_Elem _padNum;
 	size_t _nChannels;
 	size_t _stridesChannel;
 	size_t _stridesChannelDst;
 	size_t _stepKernel;
 public:
-	KernelScanner_ExpandVec(AutoPtr<Array> &pArrayRtn, const Array *pArraySrc, T_Elem padNum) :
-		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc), _pElemDst(nullptr), _padNum(padNum),
+	KernelScanner_ExpandVec(AutoPtr<Array> &pArrayRtn, const Array *pArraySrc, bool hasChannelFlag, T_Elem padNum) :
+		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc), _pElemDst(nullptr),
+		_hasChannelFlag(hasChannelFlag), _padNum(padNum),
 		_nChannels(1), _stridesChannel(0), _stridesChannelDst(0), _stepKernel(0) {}
 	void Initialize1d(size_t nKernels, size_t sizeKernel);
 	void Initialize2d(size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol);
@@ -58,7 +60,7 @@ void KernelScanner_ExpandVec<T_Elem>::Initialize1d(size_t nKernels, size_t sizeK
 {
 	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
 	size_t nDimsSub = 1;
-	if (dims.size() >= 2) {
+	if (_hasChannelFlag) {
 		nDimsSub = 2;
 		_nChannels = dims.GetBack(1).GetSize();
 		_stridesChannel = dims.GetBack(1).GetStrides();
@@ -77,7 +79,7 @@ void KernelScanner_ExpandVec<T_Elem>::Initialize2d(
 {
 	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
 	size_t nDimsSub = 2;
-	if (dims.size() >= 3) {
+	if (_hasChannelFlag) {
 		nDimsSub = 3;
 		_nChannels = dims.GetBack(2).GetSize();
 		_stridesChannel = dims.GetBack(2).GetStrides();
@@ -98,7 +100,7 @@ void KernelScanner_ExpandVec<T_Elem>::Initialize3d(
 {
 	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
 	size_t nDimsSub = 3;
-	if (dims.size() >= 4) {
+	if (_hasChannelFlag) {
 		nDimsSub = 4;
 		_nChannels = dims.GetBack(3).GetSize();
 		_stridesChannel = dims.GetBack(3).GetStrides();
@@ -1785,18 +1787,26 @@ void ArrayT<T_Elem>::ExpandKernelVec1d(
 	ChannelPos channelPos, Double padNum) const
 {
 	const Dimensions &dims = GetDimensions();
-	if (channelPos == CHANNELPOS_Last) {
-		// ASSERT(dims.size() >= 2)
-		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
-		ScanKernel1d(
-			const_cast<ArrayT *>(this), dims.GetBack(1), 0,
-			sizeKernel, stridesKernel, sizePad, kernelScanner);
-	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
+	if (channelPos == CHANNELPOS_None) {
 		// ASSERT(dims.size() >= 1)
-		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
-		size_t sizeBlock = dims.GetBack((dims.size() < 2)? 0 : 1).GetSizeProd();
+		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, false, static_cast<T_Elem>(padNum));
+		size_t sizeBlock = dims.GetBack(0).GetSizeProd();
 		ScanKernel1d(
 			const_cast<ArrayT *>(this), dims.GetBack(0), sizeBlock,
+			sizeKernel, stridesKernel, sizePad, kernelScanner);
+	} else if (channelPos == CHANNELPOS_First) {
+		// ASSERT(dims.size() >= 2)
+		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, true, static_cast<T_Elem>(padNum));
+		size_t sizeBlock = dims.GetBack(1).GetSizeProd();
+		ScanKernel1d(
+			const_cast<ArrayT *>(this), dims.GetBack(0), sizeBlock,
+			sizeKernel, stridesKernel, sizePad, kernelScanner);
+	} else { // channelPos == CHANNELPOS_Last
+		// ASSERT(dims.size() >= 2)
+		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
+		size_t sizeBlock = dims.GetBack(1).GetSizeProd();
+		ScanKernel1d(
+			const_cast<ArrayT *>(this), dims.GetBack(1), sizeBlock,
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
 	}
 }
@@ -1808,19 +1818,28 @@ void ArrayT<T_Elem>::ExpandKernelVec2d(
 	ChannelPos channelPos, Double padNum) const
 {
 	const Dimensions &dims = GetDimensions();
-	if (channelPos == CHANNELPOS_Last) {
-		// ASSERT(dims.size() >= 3);
-		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
-		ScanKernel2d(
-			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), 0,
-			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
-			sizePadRow, sizePadCol, kernelScanner);
-	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
+	if (channelPos == CHANNELPOS_None) {
 		// ASSERT(dims.size() >= 2)
-		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
-		size_t sizeBlock = dims.GetBack((dims.size() < 3)? 1 : 2).GetSizeProd();
+		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, false, static_cast<T_Elem>(padNum));
+		size_t sizeBlock = dims.GetBack(1).GetSizeProd();
 		ScanKernel2d(
 			const_cast<ArrayT *>(this), dims.GetBack(1), dims.GetBack(0), sizeBlock,
+			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
+			sizePadRow, sizePadCol, kernelScanner);
+	} else if (channelPos == CHANNELPOS_First) {
+		// ASSERT(dims.size() >= 3)
+		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, true, static_cast<T_Elem>(padNum));
+		size_t sizeBlock = dims.GetBack(2).GetSizeProd();
+		ScanKernel2d(
+			const_cast<ArrayT *>(this), dims.GetBack(1), dims.GetBack(0), sizeBlock,
+			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
+			sizePadRow, sizePadCol, kernelScanner);
+	} else { // channelPos == CHANNELPOS_Last
+		// ASSERT(dims.size() >= 3);
+		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
+		size_t sizeBlock = dims.GetBack(2).GetSizeProd();
+		ScanKernel2d(
+			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), sizeBlock,
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
 	}
@@ -1834,20 +1853,30 @@ void ArrayT<T_Elem>::ExpandKernelVec3d(
 	ChannelPos channelPos, Double padNum) const
 {
 	const Dimensions &dims = GetDimensions();
-	if (channelPos == CHANNELPOS_Last) {
-		// ASSERT(dims.size() >= 4)
-		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
+	if (channelPos == CHANNELPOS_None) {
+		// ASSERT(dims.size() >= 3)
+		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, false, static_cast<T_Elem>(padNum));
+		size_t sizeBlock = dims.GetBack(2).GetSizeProd();
 		ScanKernel3d(
-			const_cast<ArrayT *>(this), dims.GetBack(3), dims.GetBack(2), dims.GetBack(1), 0,
+			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0), sizeBlock,
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
-	} else { // channelPos == CHANNELPOS_None || channelPos == CHANNELPOS_First
-		// ASSERT(dims.size() >= 3)
-		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
-		size_t sizeBlock = dims.GetBack((dims.size() < 4)? 2 : 3).GetSizeProd();
+	} else if (channelPos == CHANNELPOS_First) {
+		// ASSERT(dims.size() >= 4)
+		KernelScanner_ExpandVec<T_Elem> kernelScanner(pArrayRtn, this, true, static_cast<T_Elem>(padNum));
+		size_t sizeBlock = dims.GetBack(3).GetSizeProd();
 		ScanKernel3d(
 			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0), sizeBlock,
+			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
+			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
+			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
+	} else { // channelPos == CHANNELPOS_Last
+		// ASSERT(dims.size() >= 4)
+		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
+		size_t sizeBlock = dims.GetBack(3).GetSizeProd();
+		ScanKernel3d(
+			const_cast<ArrayT *>(this), dims.GetBack(3), dims.GetBack(2), dims.GetBack(1), sizeBlock,
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
