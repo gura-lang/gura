@@ -443,7 +443,8 @@ KernelScanner_CalcConv<T_Elem>::KernelScanner_CalcConv(
 	_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc), _pArrayGear(pArrayGear),
 	_dimGearCol(dimGearCol), _pDimGearFilter(pDimGearFilter), _pDimGearChannel(pDimGearChannel),
 	_pElemGear(nullptr), _pElemRtn(nullptr),
-	_stridesColDst(1), _iFilter(0), _offsetFilter(0), _elemAccum(0) {
+	_stridesColDst(1), _iFilter(0), _offsetFilter(0), _elemAccum(0)
+{
 	_stridesChannel = (pDimChannel == nullptr)? 0 : pDimChannel->GetStrides();
 	if (pDimGearChannel == nullptr) {
 		_numChannel = 1;
@@ -460,8 +461,9 @@ void KernelScanner_CalcConv<T_Elem>::Initialize1d(size_t nKernels, size_t sizeKe
 	if (_pArrayRtn.IsNull()) {
 		const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
 		Array::Dimensions dimsRtn;
-		if (dimsSrc.size() > 2) {
-			dimsRtn.insert(dimsRtn.begin(), dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 2);
+		size_t nDimsPerBatch = (_pDimGearChannel == nullptr)? 1 : 2;
+		if (dimsSrc.size() > nDimsPerBatch) {
+			dimsRtn.insert(dimsRtn.begin(), dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - nDimsPerBatch);
 		}
 		dimsRtn.push_back(Array::Dimension(nKernels));
 		if (_pDimGearFilter != nullptr) {
@@ -481,8 +483,9 @@ void KernelScanner_CalcConv<T_Elem>::Initialize2d(
 	if (_pArrayRtn.IsNull()) {
 		const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
 		Array::Dimensions dimsRtn;
-		if (dimsSrc.size() > 3) {
-			dimsRtn.insert(dimsRtn.begin(), dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 3);
+		size_t nDimsPerBatch = (_pDimGearChannel == nullptr)? 2 : 3;
+		if (dimsSrc.size() > nDimsPerBatch) {
+			dimsRtn.insert(dimsRtn.begin(), dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - nDimsPerBatch);
 		}
 		dimsRtn.push_back(Array::Dimension(nKernelsRow));
 		dimsRtn.push_back(Array::Dimension(nKernelsCol));
@@ -504,8 +507,9 @@ void KernelScanner_CalcConv<T_Elem>::Initialize3d(
 	if (_pArrayRtn.IsNull()) {
 		const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
 		Array::Dimensions dimsRtn;
-		if (dimsSrc.size() > 4) {
-			dimsRtn.insert(dimsRtn.begin(), dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 4);
+		size_t nDimsPerBatch = (_pDimGearChannel == nullptr)? 3 : 4;
+		if (dimsSrc.size() > nDimsPerBatch) {
+			dimsRtn.insert(dimsRtn.begin(), dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - nDimsPerBatch);
 		}
 		dimsRtn.push_back(Array::Dimension(nKernelsPlane));
 		dimsRtn.push_back(Array::Dimension(nKernelsRow));
