@@ -158,12 +158,12 @@ testcase('gear@maxpool1d') {
 		tester_gear@maxpool_properties(g)
 	}
 	x = array@double {68, 79, 68, 92, 33, 30, 63,  2, 72, 90, 54, 52, 76, 54, 68, 52, 84, 79, 80, 24}
-	tester(`(x |*| gear@maxpool1d(1, 1, `same, `first)))
-	tester(`(x |*| gear@maxpool1d(2, 1, `same, `first)))
-	tester(`(x |*| gear@maxpool1d(3, 1, `same, `first)))
-	tester(`(x |*| gear@maxpool1d(4, 1, `same, `first)))
-	tester(`(x |*| gear@maxpool1d(4, 2, `same, `first)))
-	tester(`(x |*| gear@maxpool1d(4, 3, `same, `first)))
+	tester(`(x |*| gear@maxpool1d(1, 1, `same, `none)))
+	tester(`(x |*| gear@maxpool1d(2, 1, `same, `none)))
+	tester(`(x |*| gear@maxpool1d(3, 1, `same, `none)))
+	tester(`(x |*| gear@maxpool1d(4, 1, `same, `none)))
+	tester(`(x |*| gear@maxpool1d(4, 2, `same, `none)))
+	tester(`(x |*| gear@maxpool1d(4, 3, `same, `none)))
 	x = array@double {
 		{18,  1, 35, 28, 62, 91, 98, 10, 17,  3},
 		{86, 52, 83, 23,  0, 67, 66,  5, 55, 16},
