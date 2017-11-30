@@ -15,8 +15,7 @@ bool Gear_MaxPool1d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *
 {
 	size_t sizePad = 0;
 	CalcPadding1d(this, pArray->GetDimensions(), &sizePad);
-	pArray->CalcMaxPool1d(pArrayRtn, GetSize(), GetStrides(), sizePad, GetChannelPos());
-	return true;
+	return pArray->CalcMaxPool1d(sig, pArrayRtn, GetSize(), GetStrides(), sizePad, GetChannelPos());
 }
 
 String Gear_MaxPool1d::ToString() const

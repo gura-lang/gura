@@ -15,9 +15,8 @@ bool Gear_MaxPool2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *
 {
 	size_t sizePadRow = 0, sizePadCol = 0;
 	CalcPadding2d(this, pArray->GetDimensions(), &sizePadRow, &sizePadCol);
-	pArray->CalcMaxPool2d(pArrayRtn, GetSizeRow(), GetSizeCol(), GetStridesRow(), GetStridesCol(),
-						  sizePadRow, sizePadCol, GetChannelPos());
-	return true;
+	return pArray->CalcMaxPool2d(sig, pArrayRtn, GetSizeRow(), GetSizeCol(), GetStridesRow(), GetStridesCol(),
+								 sizePadRow, sizePadCol, GetChannelPos());
 }
 
 String Gear_MaxPool2d::ToString() const

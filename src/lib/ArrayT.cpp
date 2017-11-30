@@ -327,17 +327,17 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// KernelScanner_CalcMaxPool
+// KernelScanner_CalcMaxPool_ChNone
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class KernelScanner_CalcMaxPool {
+class KernelScanner_CalcMaxPool_ChNone {
 private:
 	AutoPtr<Array> &_pArrayRtn;
 	const Array *_pArraySrc;
 	T_Elem *_pElemDst;
 	T_Elem _elemMax;
 public:
-	KernelScanner_CalcMaxPool(AutoPtr<Array> &pArrayRtn, const Array *pArraySrc) :
+	KernelScanner_CalcMaxPool_ChNone(AutoPtr<Array> &pArrayRtn, const Array *pArraySrc) :
 		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc), _pElemDst(nullptr), _elemMax(0) {}
 	void Initialize1d(size_t nKernels, size_t sizeKernel);
 	void Initialize2d(size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol);
@@ -352,7 +352,7 @@ public:
 };
 
 template<typename T_Elem>
-void KernelScanner_CalcMaxPool<T_Elem>::Initialize1d(size_t nKernels, size_t sizeKernel)
+void KernelScanner_CalcMaxPool_ChNone<T_Elem>::Initialize1d(size_t nKernels, size_t sizeKernel)
 {
 	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
@@ -362,7 +362,7 @@ void KernelScanner_CalcMaxPool<T_Elem>::Initialize1d(size_t nKernels, size_t siz
 }
 
 template<typename T_Elem>
-void KernelScanner_CalcMaxPool<T_Elem>::Initialize2d(
+void KernelScanner_CalcMaxPool_ChNone<T_Elem>::Initialize2d(
 	size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
 {
 	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
@@ -373,7 +373,7 @@ void KernelScanner_CalcMaxPool<T_Elem>::Initialize2d(
 }
 
 template<typename T_Elem>
-void KernelScanner_CalcMaxPool<T_Elem>::Initialize3d(
+void KernelScanner_CalcMaxPool_ChNone<T_Elem>::Initialize3d(
 	size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
 {
@@ -383,6 +383,12 @@ void KernelScanner_CalcMaxPool<T_Elem>::Initialize3d(
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
 }
+
+//-----------------------------------------------------------------------------
+// KernelScanner_CalcMaxPool_ChFirst
+//-----------------------------------------------------------------------------
+template<typename T_Elem>
+using KernelScanner_CalcMaxPool_ChFirst = KernelScanner_CalcMaxPool_ChNone<T_Elem>;
 
 //-----------------------------------------------------------------------------
 // KernelScanner_CalcMaxPool_ChLast
@@ -2118,88 +2124,117 @@ void ArrayT<T_Elem>::RestoreKernelVec3d(
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::CalcMaxPool1d(
-		AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
-		size_t sizePad, ChannelPos channelPos) const
+bool ArrayT<T_Elem>::CalcMaxPool1d(
+	Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
+	size_t sizePad, ChannelPos channelPos) const
 {
 	const Dimensions &dims = GetDimensions();
 	if (channelPos == CHANNELPOS_None) {
-		if (dims.size() < 1) return;
-		KernelScanner_CalcMaxPool<T_Elem> kernelScanner(pArrayRtn, this);
+		if (dims.size() < 1) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [W] or [N, W]");
+			return false;
+		}
+		KernelScanner_CalcMaxPool_ChNone<T_Elem> kernelScanner(pArrayRtn, this);
 		ScanKernel1d(
 			const_cast<ArrayT *>(this), dims.GetBack(0), 0,
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
 	} else if (channelPos == CHANNELPOS_First) {
-		if (dims.size() < 2) return;
-		KernelScanner_CalcMaxPool<T_Elem> kernelScanner(pArrayRtn, this);
+		if (dims.size() < 2) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [C, W] or [N, C, W]");
+			return false;
+		}
+		KernelScanner_CalcMaxPool_ChFirst<T_Elem> kernelScanner(pArrayRtn, this);
 		ScanKernel1d(
 			const_cast<ArrayT *>(this), dims.GetBack(0), 0,
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
 	} else { // channelPos == CHANNELPOS_Last
-		if (dims.size() < 2) return;
+		if (dims.size() < 2) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [W, C] or [N, W, C]");
+			return false;
+		}
 		KernelScanner_CalcMaxPool_ChLast<T_Elem> kernelScanner(pArrayRtn, this);
 		ScanKernel1d(
 			const_cast<ArrayT *>(this), dims.GetBack(1), 0,
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
 	}
+	return true;
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::CalcMaxPool2d(
-		AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
-		size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
+bool ArrayT<T_Elem>::CalcMaxPool2d(
+	Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
+	size_t stridesKernelRow, size_t stridesKernelCol,
+	size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
 {
 	const Dimensions &dims = GetDimensions();
 	if (channelPos == CHANNELPOS_None) {
-		if (dims.size() < 2) return;
-		KernelScanner_CalcMaxPool<T_Elem> kernelScanner(pArrayRtn, this);
+		if (dims.size() < 2) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [H, W] or [N, H, W]");
+			return false;
+		}
+		KernelScanner_CalcMaxPool_ChNone<T_Elem> kernelScanner(pArrayRtn, this);
 		ScanKernel2d(
 			const_cast<ArrayT *>(this), dims.GetBack(1), dims.GetBack(0), 0,
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
 	} else if (channelPos == CHANNELPOS_First) {
-		if (dims.size() < 3) return;
-		KernelScanner_CalcMaxPool<T_Elem> kernelScanner(pArrayRtn, this);
+		if (dims.size() < 3) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [C, H, W] or [N, C, H, W]");
+			return false;
+		}
+		KernelScanner_CalcMaxPool_ChFirst<T_Elem> kernelScanner(pArrayRtn, this);
 		ScanKernel2d(
 			const_cast<ArrayT *>(this), dims.GetBack(1), dims.GetBack(0), 0,
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
 	} else { // channelPos == CHANNELPOS_Last
-		if (dims.size() < 3) return;
+		if (dims.size() < 3) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [H, W, C] or [N, H, W, C]");
+			return false;
+		}
 		KernelScanner_CalcMaxPool_ChLast<T_Elem> kernelScanner(pArrayRtn, this);
 		ScanKernel2d(
 			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), 0,
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
 	}
+	return true;
 }
 
 template<typename T_Elem>
-void ArrayT<T_Elem>::CalcMaxPool3d(
-		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
-		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
+bool ArrayT<T_Elem>::CalcMaxPool3d(
+	Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
+	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
 {
 	const Dimensions &dims = GetDimensions();
 	if (channelPos == CHANNELPOS_None) {
-		if (dims.size() < 3) return;
-		KernelScanner_CalcMaxPool<T_Elem> kernelScanner(pArrayRtn, this);
+		if (dims.size() < 3) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [P, H, W] or [N, P, H, W]");
+			return false;
+		}
+		KernelScanner_CalcMaxPool_ChNone<T_Elem> kernelScanner(pArrayRtn, this);
 		ScanKernel3d(
 			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0), 0,
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
 	} else if (channelPos == CHANNELPOS_First) {
-		if (dims.size() < 4) return;
-		KernelScanner_CalcMaxPool<T_Elem> kernelScanner(pArrayRtn, this);
+		if (dims.size() < 4) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [C, P, H, W] or [N, C, P, H, W]");
+			return false;
+		}
+		KernelScanner_CalcMaxPool_ChFirst<T_Elem> kernelScanner(pArrayRtn, this);
 		ScanKernel3d(
 			const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0), 0,
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
 	} else { // channelPos == CHANNELPOS_Last
-		if (dims.size() < 4) return;
+		if (dims.size() < 4) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [P, H, W, C] or [N, P, H, W, C]");
+			return false;
+		}
 		KernelScanner_CalcMaxPool_ChLast<T_Elem> kernelScanner(pArrayRtn, this);
 		ScanKernel3d(
 			const_cast<ArrayT *>(this), dims.GetBack(3), dims.GetBack(2), dims.GetBack(1), 0,
@@ -2207,6 +2242,7 @@ void ArrayT<T_Elem>::CalcMaxPool3d(
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
 	}
+	return true;
 }
 
 template<typename T_Elem>
