@@ -376,15 +376,15 @@ array
   array#dump(stream?:stream):void:[upper]
   array#each():[flat] {block?}
   array#elemcast(elemtype:symbol) {block?}
-  array#expand_kernelvec1d(size:number, strides?:number, size_pad?:number, channel_pos?:symbol, padnum?:number):map {block?}
-  array#expand_kernelvec2d(size[]:number, strides[]?:number, size_pad[]?:number, channel_pos?:symbol, padnum?:number):map {block?}
-  array#expand_kernelvec3d(size[]:number, strides[]?:number, size_pad[]?:number, channel_pos?:symbol, padnum?:number):map {block?}
-  array#fill(value:number):map:void
+  array#expand_kernelvec1d(size:number, strides?:number, padding?, channel_pos?:symbol, padnum?:number) {block?}
+  array#expand_kernelvec2d(size[]:number, strides[]?:number, padding?:nomap, channel_pos?:symbol, padnum?:number) {block?}
+  array#expand_kernelvec3d(size[]:number, strides[]?:number, padding?:nomap, channel_pos?:symbol, padnum?:number) {block?}
+  array#fill(value:number):void
   array#flatten() {block?}
   array#head(n:number):map {block?}
   array.identity(n:number, elemtype?:symbol):static:map {block?}
   array.interval(begin:number, end:number, samples:number, elemtype?:symbol):static:map:[open,open_l,open_r] {block?}
-  array#invert(eps?:number):map {block?}
+  array#invert(eps?:number) {block?}
   array#iselemsame(array:array)
   array#issquare()
   array#max(axis?:number):map:[index,last_index] {block?}
@@ -397,9 +397,9 @@ array
   array.rands@normal(dims[]:number, mu?:number, sigma?:number, elemtype?:symbol):static:map {block?}
   array.range(num:number, num_end?:number, step?:number, elemtype?:symbol):static:map {block?}
   array#reshape(dims[]:number:nil) {block?}
-  array#restore_kernelvec1d(size_out:number, size:number, strides?:number, size_pad?:number, channel_pos?:symbol):map {block?}
-  array#restore_kernelvec2d(size_out[]:number, size[]:number, strides[]?:number, size_pad[]?:number, channel_pos?:symbol):map {block?}
-  array#restore_kernelvec3d(size_out[]:number, size[]:number, strides[]?:number, size_pad[]?:number, channel_pos?:symbol):map {block?}
+  array#restore_kernelvec1d(size_out:number, size:number, strides?:number, size_pad?:number, channel_pos?:symbol) {block?}
+  array#restore_kernelvec2d(size_out[]:number, size[]:number, strides[]?:number, size_pad[]?:number, channel_pos?:symbol) {block?}
+  array#restore_kernelvec3d(size_out[]:number, size[]:number, strides[]?:number, size_pad[]?:number, channel_pos?:symbol) {block?}
   array.rotation(angle:number, xtrans?:number, ytrans?:number, elemtype?:symbol):static:map:[deg] {block?}
   array.rotation@x(angle:number, xtrans?:number, ytrans?:number, ztrans?:number, elemtype?:symbol):static:map:[deg] {block?}
   array.rotation@y(angle:number, xtrans?:number, ytrans?:number, ztrans?:number, elemtype?:symbol):static:map:[deg] {block?}
@@ -409,7 +409,7 @@ array
   array#std(axis?:number):map:[p] {block?}
   array#sum(axis?:number):map {block?}
   array#tail(n:number):map {block?}
-  array#tolist():map {block?}
+  array#tolist() {block?}
   array#tostring(ndims_horz?:number)
   array.translation(xtrans:number, ytrans:number, ztrans?:number, elemtype?:symbol):static:map {block?}
   array#transpose(axes[]?:number) {block?}
