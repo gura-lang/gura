@@ -112,13 +112,16 @@ Gura_ImplementFunction(gear_at_conv1d)
 					 "the `array` instance given to `gear@conv1d` constructor must have dimensions of 1, 2 or 3.");
 		return Value::Nil;
 	}
-	size_t strides = arg.IsValid(1)? arg.GetSizeT(1) : 1;
+	size_t strides = 1;
 	Gear::PaddingType paddingType = Gear::PADDINGTYPE_Same;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_Invalid;
+	if (arg.IsValid(1)) {
+		strides = arg.GetSizeT(1);
+	}
 	if (arg.IsValid(2)) {
 		paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
 	}
-	Array::ChannelPos channelPos = Array::CHANNELPOS_Invalid;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
 		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;

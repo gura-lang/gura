@@ -115,21 +115,22 @@ Gura_ImplementFunction(gear_at_conv2d)
 	}
 	size_t stridesRow = 1;
 	size_t stridesCol = 1;
-	if (arg.IsValid(1)) {
-		const ValueList &valList = arg.GetList(1);
-		if (valList.size() != 2) {
-			env.SetError(ERR_ValueError, "strides must have two elements");
-			return Value::Nil;
-		}
-		stridesRow = valList[0].GetSizeT();
-		stridesCol = valList[1].GetSizeT();
-	}
 	Gear::PaddingType paddingType = Gear::PADDINGTYPE_Same;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_Invalid;
+	Value value1, value2;
+	if (arg.IsInvalid(1)) {
+		// nothing to do
+	} else if (arg.GetListValues(1, &value1, &value2)) {
+		stridesRow = value1.GetSizeT();
+		stridesCol = value2.GetSizeT();
+	} else {
+		env.SetError(ERR_ValueError, "strides must have two elements");
+		return Value::Nil;
+	}
 	if (arg.IsValid(2)) {
 		paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
 	}
-	Array::ChannelPos channelPos = Array::CHANNELPOS_Invalid;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
 		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;

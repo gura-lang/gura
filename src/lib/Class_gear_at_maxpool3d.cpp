@@ -72,35 +72,34 @@ Gura_ImplementFunction(gear_at_maxpool3d)
 	size_t sizePlane = 0;
 	size_t sizeRow = 0;
 	size_t sizeCol = 0;
-	do {
-		const ValueList &valList = arg.GetList(0);
-		if (valList.size() != 3) {
-			env.SetError(ERR_ValueError, "size must have three elements");
-			return Value::Nil;
-		}
-		sizePlane = valList[0].GetSizeT();
-		sizeRow = valList[1].GetSizeT();
-		sizeCol = valList[2].GetSizeT();
-	} while (0);
 	size_t stridesPlane = 1;
 	size_t stridesRow = 1;
 	size_t stridesCol = 1;
-	if (arg.IsValid(1)) {
-		const ValueList &valList = arg.GetList(1);
-		if (valList.size() != 3) {
-			env.SetError(ERR_ValueError, "strides must have three elements");
-			return Value::Nil;
-		}
-		stridesPlane = valList[0].GetSizeT();
-		stridesRow = valList[1].GetSizeT();
-		stridesCol = valList[2].GetSizeT();
-	}
 	Gear::PaddingType paddingType = Gear::PADDINGTYPE_Same;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
+	Value value1, value2, value3;
+	if (arg.GetListValues(0, &value1, &value2, &value3)) {
+		sizePlane = value1.GetSizeT();
+		sizeRow = value2.GetSizeT();
+		sizeCol = value3.GetSizeT();
+	} else {
+		env.SetError(ERR_ValueError, "size must have three elements");
+		return Value::Nil;
+	}
+	if (arg.IsInvalid(1)) {
+		// nothing to do
+	} else if (arg.GetListValues(1, &value1, &value2, &value3)) {
+		stridesPlane = value1.GetSizeT();
+		stridesRow = value2.GetSizeT();
+		stridesCol = value3.GetSizeT();
+	} else {
+		env.SetError(ERR_ValueError, "strides must have three elements");
+		return Value::Nil;
+	}
 	if (arg.IsValid(2)) {
 		paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
 	}
-	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
 		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;

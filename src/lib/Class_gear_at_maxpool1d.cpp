@@ -79,11 +79,14 @@ Gura_ImplementFunction(gear_at_maxpool1d)
 	size_t size = arg.GetSizeT(0);
 	size_t strides = arg.IsValid(1)? arg.GetSizeT(1) : 1;
 	Gear::PaddingType paddingType = Gear::PADDINGTYPE_Same;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
+	if (arg.IsValid(1)) {
+		strides = arg.GetSizeT(1);
+	}
 	if (arg.IsValid(2)) {
 		paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
 	}
-	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
 		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;

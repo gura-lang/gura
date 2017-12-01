@@ -70,32 +70,31 @@ Gura_ImplementFunction(gear_at_maxpool2d)
 {
 	size_t sizeRow = 0;
 	size_t sizeCol = 0;
-	do {
-		const ValueList &valList = arg.GetList(0);
-		if (valList.size() != 2) {
-			env.SetError(ERR_ValueError, "size must have two elements");
-			return Value::Nil;
-		}
-		sizeRow = valList[0].GetSizeT();
-		sizeCol = valList[1].GetSizeT();
-	} while (0);
 	size_t stridesRow = 1;
 	size_t stridesCol = 1;
-	if (arg.IsValid(1)) {
-		const ValueList &valList = arg.GetList(1);
-		if (valList.size() != 2) {
-			env.SetError(ERR_ValueError, "strides must have two elements");
-			return Value::Nil;
-		}
-		stridesRow = valList[0].GetSizeT();
-		stridesCol = valList[1].GetSizeT();
-	}
 	Gear::PaddingType paddingType = Gear::PADDINGTYPE_Same;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
+	Value value1, value2;
+	if (arg.GetListValues(0, &value1, &value2)) {
+		sizeRow = value1.GetSizeT();
+		sizeCol = value2.GetSizeT();
+	} else {
+		env.SetError(ERR_ValueError, "size must have two elements");
+		return Value::Nil;
+	}
+	if (arg.IsInvalid(1)) {
+		// nothing to do
+	} else if (arg.GetListValues(1, &value1, &value2)) {
+		stridesRow = value1.GetSizeT();
+		stridesCol = value2.GetSizeT();
+	} else {
+		env.SetError(ERR_ValueError, "strides must have two elements");
+		return Value::Nil;
+	}
 	if (arg.IsValid(2)) {
 		paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
 	}
-	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
 		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
