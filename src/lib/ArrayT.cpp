@@ -272,19 +272,26 @@ private:
 	const Array *_pArraySrc;
 	const T_Elem *_pElemSrc;
 	size_t _nChannels;
+	size_t _stridesChannel;
 public:
 	KernelScanner_RestoreVec_ChFirst(AutoPtr<Array> &pArrayRtn, const Array *pArraySrc) :
 		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc),
 		_pElemSrc(dynamic_cast<const ArrayT<T_Elem> *>(pArraySrc)->GetPointer()), _nChannels(0) {}
 	inline void Initialize1d(size_t nKernels, size_t sizeKernel) {
-		_nChannels = _pArraySrc->GetDimensions().GetBack(1).GetSize();
+		const Array::Dimension &dimChannel = _pArraySrc->GetDimensions().GetBack(1);
+		_nChannels = dimChannel.GetSize();
+		_stridesChannel = dimChannel.GetStrides();
 	}
 	inline void Initialize2d(size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol) {
-		_nChannels = _pArraySrc->GetDimensions().GetBack(2).GetSize();
+		const Array::Dimension &dimChannel = _pArraySrc->GetDimensions().GetBack(2);
+		_nChannels = dimChannel.GetSize();
+		_stridesChannel = dimChannel.GetStrides();
 	}
 	inline void Initialize3d(size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 							 size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol) {
-		_nChannels = _pArraySrc->GetDimensions().GetBack(3).GetSize();
+		const Array::Dimension &dimChannel = _pArraySrc->GetDimensions().GetBack(3);
+		_nChannels = dimChannel.GetSize();
+		_stridesChannel = dimChannel.GetStrides();
 	}
 	inline void Begin(T_Elem *pElem) {}			// nothing to do
 	inline void End() {}						// nothing to do
@@ -292,7 +299,10 @@ public:
 	inline void EndKernel() {}					// nothing to do
 	inline void DoPadding(size_t n) { _pElemSrc += n * _nChannels; }
 	inline void DoElement(T_Elem *pElem) {
-		*pElem += *_pElemSrc++;
+		for (size_t iChannel = 0; iChannel < _nChannels; iChannel++) {
+			*pElem += *_pElemSrc++;
+			pElem += _stridesChannel;
+		}
 	}
 };
 
