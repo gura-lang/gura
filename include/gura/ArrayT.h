@@ -74,19 +74,19 @@ public:
 	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool meanFlag) const;
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool populationFlag, bool stdFlag) const;
 	template<typename T_KernelScanner>
-	static void ScanKernel1d(
-		ArrayT *pArrayT, const Dimension &dimCol,
+	static bool ScanKernel1d(
+		Signal &sig, ArrayT *pArrayT, const Dimension &dimCol,
 		size_t sizeBlock, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
 		T_KernelScanner &kernelScanner);
 	template<typename T_KernelScanner>
-	static void ScanKernel2d(
-		ArrayT *pArrayT, const Dimension &dimRow, const Dimension &dimCol,
+	static bool ScanKernel2d(
+		Signal &sig, ArrayT *pArrayT, const Dimension &dimRow, const Dimension &dimCol,
 		size_t sizeBlock, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
 		T_KernelScanner &kernelScanner);
 	template<typename T_KernelScanner>
-	static void ScanKernel3d(
-		ArrayT *pArrayT, const Dimension &dimPlane, const Dimension &dimRow, const Dimension &dimCol,
+	static bool ScanKernel3d(
+		Signal &sig, ArrayT *pArrayT, const Dimension &dimPlane, const Dimension &dimRow, const Dimension &dimCol,
 		size_t sizeBlock, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
@@ -127,15 +127,15 @@ public:
 		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
-	virtual void CalcConv1d(
-		AutoPtr<Array> &pArrayRtn, const Array *pArrayGear, size_t stridesKernel,
+	virtual bool CalcConv1d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear, size_t stridesKernel,
 		size_t sizePad, ChannelPos channelPos) const;
-	virtual void CalcConv2d(
-		AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
+	virtual bool CalcConv2d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
 		size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
-	virtual void CalcConv3d(
-		AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
+	virtual bool CalcConv3d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const;

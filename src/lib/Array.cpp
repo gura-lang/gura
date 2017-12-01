@@ -356,36 +356,6 @@ error_done:
 	return false;
 }
 
-bool Array::CalcConv1d(
-	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear, size_t stridesKernel,
-	size_t sizePad, ChannelPos channelPos) const
-{
-	if (!CheckDimsGearForCalcConv(sig, pArrayGear->GetDimensions(), 1, channelPos)) return false;
-	CalcConv1d(pArrayRtn, pArrayGear, stridesKernel, sizePad, channelPos);
-	return true;
-}
-
-bool Array::CalcConv2d(
-	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
-	size_t stridesKernelRow, size_t stridesKernelCol,
-	size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
-{
-	if (!CheckDimsGearForCalcConv(sig, pArrayGear->GetDimensions(), 2, channelPos)) return false;
-	CalcConv2d(pArrayRtn, pArrayGear, stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol, channelPos);
-	return true;
-}
-
-bool Array::CalcConv3d(
-	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
-	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
-{
-	if (!CheckDimsGearForCalcConv(sig, pArrayGear->GetDimensions(), 3, channelPos)) return false;
-	CalcConv3d(sig, pArrayRtn, pArrayGear, stridesKernelPlane, stridesKernelRow, stridesKernelCol,
-			   sizePadPlane, sizePadRow, sizePadCol, channelPos);
-	return true;
-}
-
 bool Array::IsSquare() const
 {
 	return _dims.HasRowCol() && (_dims.GetRow().GetSize() == _dims.GetCol().GetSize());
