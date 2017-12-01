@@ -372,28 +372,28 @@ public:
 	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool meanFlag) const = 0;
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool populationFlag, bool stdFlag) const = 0;
 	bool Paste(Signal &sig, size_t offset, const Array *pArraySrc);
-	virtual void ExpandKernelVec1d(
-		AutoPtr<Array> &pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
+	virtual bool ExpandKernelVec1d(
+		Signal &sig, AutoPtr<Array> &pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
 		ChannelPos channelPos, Double padNum) const = 0;
-	virtual void ExpandKernelVec2d(
-		AutoPtr<Array> &pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
+	virtual bool ExpandKernelVec2d(
+		Signal &sig, AutoPtr<Array> &pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
 		ChannelPos channelPos, Double padNum) const = 0;
-	virtual void ExpandKernelVec3d(
-		AutoPtr<Array> &pArrayVec, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+	virtual bool ExpandKernelVec3d(
+		Signal &sig, AutoPtr<Array> &pArrayVec, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
 		ChannelPos channelPos, Double padNum) const = 0;
-	virtual void RestoreKernelVec1d(
-		AutoPtr<Array> &pArrayRtn, size_t size, size_t sizeKernel, size_t stridesKernel,
+	virtual bool RestoreKernelVec1d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t size, size_t sizeKernel, size_t stridesKernel,
 		size_t sizePad, ChannelPos channelPos) const = 0;
-	virtual void RestoreKernelVec2d(
-		AutoPtr<Array> &pArrayRtn, size_t sizeRow, size_t sizeCol,
+	virtual bool RestoreKernelVec2d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeRow, size_t sizeCol,
 		size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
-	virtual void RestoreKernelVec3d(
-		AutoPtr<Array> &pArrayRtn, size_t sizePlane, size_t sizeRow, size_t sizeCol,
+	virtual bool RestoreKernelVec3d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizePlane, size_t sizeRow, size_t sizeCol,
 		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;

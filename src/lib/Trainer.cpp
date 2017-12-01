@@ -419,10 +419,10 @@ bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 		Gear::CalcPadding2d(pGear, pArraySrc->GetDimensions(),
 							&_sizePadRow, &_sizePadCol, &_sizeOutRow, &_sizeOutCol);
 	}
-	pArraySrc->ExpandKernelVec2d(
-		_pArraySrcVec, pGear->GetSizeRow(), pGear->GetSizeCol(),
-		pGear->GetStridesRow(), pGear->GetStridesCol(), _sizePadRow, _sizePadCol,
-		pGear->GetChannelPos(), padNum);
+	if (!pArraySrc->ExpandKernelVec2d(
+			env, _pArraySrcVec, pGear->GetSizeRow(), pGear->GetSizeCol(),
+			pGear->GetStridesRow(), pGear->GetStridesCol(), _sizePadRow, _sizePadCol,
+			pGear->GetChannelPos(), padNum)) return false;
 	const Array *pArrayGear = pGear->GetArrayGear();
 	const Array::Dimensions &dimsGear = pArrayGear->GetDimensions();
 	if (_pArrayGearTrans.IsNull()) {
