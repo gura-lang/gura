@@ -1136,6 +1136,30 @@ bool Array::Dimensions::HasShape(const_iterator pDim1, const_iterator pDim1End,
 		Compare(pDimThis, end(), pDim2, pDim2End) && pDimThis == end();
 }
 
+bool Array::Dimensions::HasEnoughDims(Signal &sig, size_t nDims, ChannelPos channelPos) const
+{
+	if (size() < nDims) {
+		sig.SetError(ERR_ValueError, "the array is expected to have at least %zu dimensions", nDims);
+		return false;
+	}
+	if (channelPos == CHANNELPOS_None) {
+		// nothing to do
+	} else if (channelPos == CHANNELPOS_First) {
+		if (size() <= nDims) {
+			sig.SetError(ERR_ValueError, "channel dimension is expected to exist at first");
+			return false;
+		}
+	} else if (channelPos == CHANNELPOS_Last) {
+		if (size() <= nDims) {
+			sig.SetError(ERR_ValueError, "channel dimension is expected to exist at last");
+			return false;
+		}
+	} else { // channelPos == Array::CHANNELPOS_Invalid
+		return false;
+	}
+	return true;
+}
+
 String Array::Dimensions::ToString(const_iterator pDim, const_iterator pDimEnd, const char *sep)
 {
 	String rtn;

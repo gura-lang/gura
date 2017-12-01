@@ -121,27 +121,11 @@ Gura_ImplementFunction(gear_at_conv1d)
 	Array::ChannelPos channelPos = Array::CHANNELPOS_Invalid;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
-		if (channelPos == Array::CHANNELPOS_None) {
-			if (nDims == 3) {
-				env.SetError(ERR_ValueError, "channel dimension does exist in the array");
-				return Value::Nil;
-			}
-		} else if (channelPos == Array::CHANNELPOS_First) {
-			if (nDims == 1) {
-				env.SetError(ERR_ValueError, "channel dimension is expected to exist at first");
-				return Value::Nil;
-			}
-		} else if (channelPos == Array::CHANNELPOS_Last) {
-			if (nDims == 1) {
-				env.SetError(ERR_ValueError, "channel dimension is expected to exist at last");
-				return Value::Nil;
-			}
-		} else { // channelPos == Array::CHANNELPOS_Invalid
-			return Value::Nil;
-		}
+		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
 	} else {
 		channelPos = (nDims == 1)? Array::CHANNELPOS_None : Array::CHANNELPOS_Last;
 	}
+	if (!dims.HasEnoughDims(env, 1, channelPos)) return Value::Nil;
 	Object_gear_at_conv1d *pObj = new Object_gear_at_conv1d(
 		env, new Gear_Conv1d(pArrayGear->Reference(), strides, paddingType, channelPos));
 	return ReturnValue(env, arg, Value(pObj));

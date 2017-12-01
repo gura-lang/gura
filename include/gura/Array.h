@@ -199,6 +199,7 @@ public:
 					  size_t size1, size_t size2, size_t size3, size_t size4) const;
 		bool HasShape(const_iterator pDim1, const_iterator pDim1End,
 					  const_iterator pDim2, const_iterator pDim2End) const;
+		bool HasEnoughDims(Signal &sig, size_t nDims, ChannelPos channelPos) const;
 		static String ToString(const_iterator pDim, const_iterator pDimEnd, const char *sep = ", ");
 		inline String ToString(const char *sep = ", ") const { return ToString(begin(), end(), sep); }
 		bool Serialize(Environment &env, Stream &stream) const;

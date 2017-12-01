@@ -740,13 +740,13 @@ Gura_ImplementMethod(array, elemcast)
 	return ReturnValue(env, arg, value);
 }
 
-// array#expand_kernelvec1d(size:number, strides:number, size_pad:number, channel_pos?:symbol, padnum?:number) {block?}
+// array#expand_kernelvec1d(size:number, strides?:number, size_pad?:number, channel_pos?:symbol, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec1d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "strides", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -760,26 +760,37 @@ Gura_ImplementMethod(array, expand_kernelvec1d)
 {
 	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	AutoPtr<Array> pArrayRtn;
-	size_t sizeKernel = arg.GetSizeT(0);
-	size_t stridesKernel = arg.GetSizeT(1);
-	size_t sizePad = arg.GetSizeT(2);
+	size_t sizeKernel = 0;
+	size_t stridesKernel = 1;
+	size_t sizePad = 0;
 	Array::ChannelPos channelPos = Array::CHANNELPOS_None;
+	Double padNum = 0;
+	sizeKernel = arg.GetSizeT(0);
+	if (arg.IsValid(1)) {
+		stridesKernel = arg.GetSizeT(1);
+	}
+	if (arg.IsValid(2)) {
+		sizePad = arg.GetSizeT(2);
+	}
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
 		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
 	}
-	Double padNum = arg.IsValid(4)? arg.GetDouble(4) : 0;
+	if (arg.IsValid(4)) {
+		padNum = arg.GetDouble(4);
+	}
+	if (!pArraySelf->GetDimensions().HasEnoughDims(env, 1, channelPos)) return Value::Nil;
 	pArraySelf->ExpandKernelVec1d(pArrayRtn, sizeKernel, stridesKernel, sizePad, channelPos, padNum);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
-// array#expand_kernelvec2d(size[]:number, strides[]:number, size_pad[]:number, channel_pos?:symbol, padnum?:number) {block?}
+// array#expand_kernelvec2d(size[]:number, strides[]?:number, size_pad[]?:number, channel_pos?:symbol, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec2d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "strides", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
+	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
 	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -793,44 +804,61 @@ Gura_ImplementMethod(array, expand_kernelvec2d)
 {
 	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	AutoPtr<Array> pArrayRtn;
+	size_t sizeKernelRow = 0;
+	size_t sizeKernelCol = 0;
+	size_t stridesKernelRow = 1;
+	size_t stridesKernelCol = 1;
+	size_t sizePadRow = 0;
+	size_t sizePadCol = 0;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_None;
+	Double padNum = 0;
 	Value value1, value2;
-	if (!arg.GetListValues(0, &value1, &value2)) {
+	if (arg.GetListValues(0, &value1, &value2)) {
+		sizeKernelRow = value1.GetSizeT();
+		sizeKernelCol = value2.GetSizeT();
+	} else {
 		env.SetError(ERR_ValueError, "argument 'size' must have two elements");
 		return Value::Nil;
 	}
-	size_t sizeKernelRow = value1.GetSizeT();
-	size_t sizeKernelCol = value2.GetSizeT();
-	if (!arg.GetListValues(1, &value1, &value2)) {
+	if (arg.IsInvalid(1)) {
+		// nothing to do
+	} else if (arg.GetListValues(1, &value1, &value2)) {
+		stridesKernelRow = value1.GetSizeT();
+		stridesKernelCol = value2.GetSizeT();
+	} else {
 		env.SetError(ERR_ValueError, "argument 'strides' must have two elements");
 		return Value::Nil;
 	}
-	size_t stridesKernelRow = value1.GetSizeT();
-	size_t stridesKernelCol = value2.GetSizeT();
-	if (!arg.GetListValues(2, &value1, &value2)) {
+	if (arg.IsInvalid(2)) {
+		// nothing to do
+	} else if (arg.GetListValues(2, &value1, &value2)) {
+		sizePadRow = value1.GetSizeT();
+		sizePadCol = value2.GetSizeT();
+	} else {
 		env.SetError(ERR_ValueError, "argument 'size_pad' must have two elements");
 		return Value::Nil;
 	}
-	size_t sizePadRow = value1.GetSizeT();
-	size_t sizePadCol = value2.GetSizeT();
-	Array::ChannelPos channelPos = Array::CHANNELPOS_None;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
 		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
 	}
-	Double padNum = arg.IsValid(4)? arg.GetDouble(4) : 0;
+	if (arg.IsValid(4)) {
+		padNum = arg.GetDouble(4);
+	}
+	if (!pArraySelf->GetDimensions().HasEnoughDims(env, 2, channelPos)) return Value::Nil;
 	pArraySelf->ExpandKernelVec2d(pArrayRtn, sizeKernelRow, sizeKernelCol,
 								  stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol,
 								  channelPos, padNum);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
-// array#expand_kernelvec3d(size[]:number, strides[]:number, size_pad[]:number, channel_pos?:symbol, padnum?:number) {block?}
+// array#expand_kernelvec3d(size[]:number, strides[]?:number, size_pad[]?:number, channel_pos?:symbol, padnum?:number) {block?}
 Gura_DeclareMethod(array, expand_kernelvec3d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "strides", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
+	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
 	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "padnum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -844,34 +872,54 @@ Gura_ImplementMethod(array, expand_kernelvec3d)
 {
 	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	AutoPtr<Array> pArrayRtn;
+	size_t sizeKernelPlane = 0;
+	size_t sizeKernelRow = 0;
+	size_t sizeKernelCol = 0;
+	size_t stridesKernelPlane = 1;
+	size_t stridesKernelRow = 1;
+	size_t stridesKernelCol = 1;
+	size_t sizePadPlane = 0;
+	size_t sizePadRow = 0;
+	size_t sizePadCol = 0;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_None;
+	Double padNum = 0;
 	Value value1, value2, value3;
-	if (!arg.GetListValues(0, &value1, &value2, &value3)) {
+	if (arg.GetListValues(0, &value1, &value2, &value3)) {
+		sizeKernelPlane = value1.GetSizeT();
+		sizeKernelRow = value2.GetSizeT();
+		sizeKernelCol = value3.GetSizeT();
+	} else {
 		env.SetError(ERR_ValueError, "argument 'size' must have three elements");
 		return Value::Nil;
 	}
-	size_t sizeKernelPlane = value1.GetSizeT();
-	size_t sizeKernelRow = value2.GetSizeT();
-	size_t sizeKernelCol = value3.GetSizeT();
-	if (!arg.GetListValues(1, &value1, &value2, &value3)) {
+	if (arg.IsInvalid(1)) {
+		// nothing to do
+	} else if (arg.GetListValues(1, &value1, &value2, &value3)) {
+		stridesKernelPlane = value1.GetSizeT();
+		stridesKernelRow = value2.GetSizeT();
+		stridesKernelCol = value3.GetSizeT();
+	} else {
 		env.SetError(ERR_ValueError, "argument 'strides' must have three elements");
 		return Value::Nil;
 	}
-	size_t stridesKernelPlane = value1.GetSizeT();
-	size_t stridesKernelRow = value2.GetSizeT();
-	size_t stridesKernelCol = value3.GetSizeT();
-	if (!arg.GetListValues(2, &value1, &value2, &value3)) {
+	if (arg.IsInvalid(2)) {
+		// nothing to do
+	} else if (arg.GetListValues(2, &value1, &value2, &value3)) {
+		sizePadPlane = value1.GetSizeT();
+		sizePadRow = value2.GetSizeT();
+		sizePadCol = value3.GetSizeT();
+	} else {
 		env.SetError(ERR_ValueError, "argument 'size_pad' must have three elements");
 		return Value::Nil;
 	}
-	size_t sizePadPlane = value1.GetSizeT();
-	size_t sizePadRow = value2.GetSizeT();
-	size_t sizePadCol = value3.GetSizeT();
-	Array::ChannelPos channelPos = Array::CHANNELPOS_None;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
 		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
 	}
-	Double padNum = arg.IsValid(4)? arg.GetDouble(4) : 0;
+	if (arg.IsValid(4)) {
+		padNum = arg.GetDouble(4);
+	}
+	if (!pArraySelf->GetDimensions().HasEnoughDims(env, 3, channelPos)) return Value::Nil;
 	pArraySelf->ExpandKernelVec3d(pArrayRtn, sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 								  stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 								  sizePadPlane, sizePadRow, sizePadCol,
@@ -1165,8 +1213,8 @@ Gura_DeclareMethod(array, restore_kernelvec1d)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size_out", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "strides", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -1179,26 +1227,36 @@ Gura_ImplementMethod(array, restore_kernelvec1d)
 {
 	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	AutoPtr<Array> pArrayRtn;
-	size_t sizeOut = arg.GetSizeT(0);
-	size_t sizeKernel = arg.GetSizeT(1);
-	size_t stridesKernel = arg.GetSizeT(2);
-	size_t sizePad = arg.GetSizeT(3);
+	size_t sizeOut = 0;
+	size_t sizeKernel = 0;
+	size_t stridesKernel = 1;
+	size_t sizePad = 0;
 	Array::ChannelPos channelPos = Array::CHANNELPOS_First;
-	if (arg.IsValid(4) &&
-		(channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(4))) == Array::CHANNELPOS_Invalid) return Value::Nil;
+	sizeOut = arg.GetSizeT(0);
+	sizeKernel = arg.GetSizeT(1);
+	if (arg.IsValid(2)) {
+		stridesKernel = arg.GetSizeT(2);
+	}
+	if (arg.IsValid(3)) {
+		sizePad = arg.GetSizeT(3);
+	}
+	if (arg.IsValid(4)) {
+		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(4));
+		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
+	}
 	pArraySelf->RestoreKernelVec1d(pArrayRtn, sizeOut, sizeKernel, stridesKernel, sizePad, channelPos);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
-// array#restore_kernelvec2d(size_out[]:number, size[]:number, strides[]:number,
-//                           size_pad[]:number, channel_pos?:symbol) {block?}
+// array#restore_kernelvec2d(size_out[]:number, size[]:number, strides[]?:number,
+//                           size_pad[]?:number, channel_pos?:symbol) {block?}
 Gura_DeclareMethod(array, restore_kernelvec2d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size_out", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "strides", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
+	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
 	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -1211,49 +1269,67 @@ Gura_ImplementMethod(array, restore_kernelvec2d)
 {
 	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	AutoPtr<Array> pArrayRtn;
+	size_t sizeOutRow = 0;
+	size_t sizeOutCol = 0;
+	size_t sizeKernelRow = 0;
+	size_t sizeKernelCol = 0;
+	size_t stridesKernelRow = 1;
+	size_t stridesKernelCol = 1;
+	size_t sizePadRow = 0;
+	size_t sizePadCol = 0;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_First;
 	Value value1, value2;
-	if (!arg.GetListValues(0, &value1, &value2)) {
+	if (arg.GetListValues(0, &value1, &value2)) {
+		sizeOutRow = value1.GetSizeT();
+		sizeOutCol = value2.GetSizeT();
+	} else {
 		env.SetError(ERR_ValueError, "argument 'size_out' must have two elements");
 		return Value::Nil;
 	}
-	size_t sizeOutRow = value1.GetSizeT();
-	size_t sizeOutCol = value2.GetSizeT();
-	if (!arg.GetListValues(1, &value1, &value2)) {
+	if (arg.GetListValues(1, &value1, &value2)) {
+		sizeKernelRow = value1.GetSizeT();
+		sizeKernelCol = value2.GetSizeT();
+	} else {
 		env.SetError(ERR_ValueError, "argument 'size' must have two elements");
 		return Value::Nil;
 	}
-	size_t sizeKernelRow = value1.GetSizeT();
-	size_t sizeKernelCol = value2.GetSizeT();
-	if (!arg.GetListValues(2, &value1, &value2)) {
+	if (arg.IsInvalid(2)) {
+		// nothing to do
+	} else if (arg.GetListValues(2, &value1, &value2)) {
+		stridesKernelRow = value1.GetSizeT();
+		stridesKernelCol = value2.GetSizeT();
+	} else {
 		env.SetError(ERR_ValueError, "argument 'strides' must have two elements");
 		return Value::Nil;
 	}
-	size_t stridesKernelRow = value1.GetSizeT();
-	size_t stridesKernelCol = value2.GetSizeT();
-	if (!arg.GetListValues(3, &value1, &value2)) {
+	if (arg.IsInvalid(3)) {
+		// nothing to do
+	} else if (arg.GetListValues(3, &value1, &value2)) {
+		sizePadRow = value1.GetSizeT();
+		sizePadCol = value2.GetSizeT();
+	} else {
 		env.SetError(ERR_ValueError, "argument 'size_pad' must have two elements");
 		return Value::Nil;
 	}
-	size_t sizePadRow = value1.GetSizeT();
-	size_t sizePadCol = value2.GetSizeT();
-	Array::ChannelPos channelPos = Array::CHANNELPOS_First;
-	if (arg.IsValid(4) &&
-		(channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(4))) == Array::CHANNELPOS_Invalid) return Value::Nil;
+	if (arg.IsValid(4)) {
+		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(4));
+		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
+	}
 	pArraySelf->RestoreKernelVec2d(pArrayRtn, sizeOutRow, sizeOutCol, sizeKernelRow, sizeKernelCol,
 								  stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol,
 								  channelPos);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
-// array#restore_kernelvec3d(size_out[]:number, size[]:number, strides[]:number,
-//                           size_pad[]:number, channel_pos?:symbol) {block?}
+// array#restore_kernelvec3d(size_out[]:number, size[]:number, strides[]?:number,
+//                           size_pad[]?:number, channel_pos?:symbol) {block?}
 Gura_DeclareMethod(array, restore_kernelvec3d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size_out", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "strides", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "strides", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
+	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
 	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -1266,38 +1342,60 @@ Gura_ImplementMethod(array, restore_kernelvec3d)
 {
 	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	AutoPtr<Array> pArrayRtn;
+	size_t sizeOutPlane = 0;
+	size_t sizeOutRow = 0;
+	size_t sizeOutCol = 0;
+	size_t sizeKernelPlane = 0;
+	size_t sizeKernelRow = 0;
+	size_t sizeKernelCol = 0;
+	size_t stridesKernelPlane = 1;
+	size_t stridesKernelRow = 1;
+	size_t stridesKernelCol = 1;
+	size_t sizePadPlane = 0;
+	size_t sizePadRow = 0;
+	size_t sizePadCol = 0;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_First;
 	Value value1, value2, value3;
-	if (!arg.GetListValues(0, &value1, &value2, &value3)) {
+	if (arg.GetListValues(0, &value1, &value2, &value3)) {
+		sizeOutPlane = value1.GetSizeT();
+		sizeOutRow = value2.GetSizeT();
+		sizeOutCol = value3.GetSizeT();
+	} else {
 		env.SetError(ERR_ValueError, "argument 'size_out' must have three elements");
 		return Value::Nil;
 	}
-	size_t sizeOutPlane = value1.GetSizeT();
-	size_t sizeOutRow = value2.GetSizeT();
-	size_t sizeOutCol = value3.GetSizeT();
-	if (!arg.GetListValues(1, &value1, &value2, &value3)) {
+	if (arg.GetListValues(1, &value1, &value2, &value3)) {
+		sizeKernelPlane = value1.GetSizeT();
+		sizeKernelRow = value2.GetSizeT();
+		sizeKernelCol = value3.GetSizeT();
+	} else {
 		env.SetError(ERR_ValueError, "argument 'size' must have three elements");
 		return Value::Nil;
 	}
-	size_t sizeKernelPlane = value1.GetSizeT();
-	size_t sizeKernelRow = value2.GetSizeT();
-	size_t sizeKernelCol = value3.GetSizeT();
-	if (!arg.GetListValues(2, &value1, &value2, &value3)) {
+	if (arg.IsInvalid(2)) {
+		// nothing to do
+	} else if (arg.GetListValues(2, &value1, &value2, &value3)) {
+		stridesKernelPlane = value1.GetSizeT();
+		stridesKernelRow = value2.GetSizeT();
+		stridesKernelCol = value3.GetSizeT();
+	} else {
 		env.SetError(ERR_ValueError, "argument 'strides' must have three elements");
 		return Value::Nil;
 	}
-	size_t stridesKernelPlane = value1.GetSizeT();
-	size_t stridesKernelRow = value2.GetSizeT();
-	size_t stridesKernelCol = value3.GetSizeT();
-	if (!arg.GetListValues(3, &value1, &value2, &value3)) {
+	if (arg.IsInvalid(3)) {
+		// nothing to do
+	} else if (arg.GetListValues(3, &value1, &value2, &value3)) {
+		sizePadPlane = value1.GetSizeT();
+		sizePadRow = value2.GetSizeT();
+		sizePadCol = value3.GetSizeT();
+	} else {
 		env.SetError(ERR_ValueError, "argument 'sizepad' must have three elements");
 		return Value::Nil;
 	}
-	size_t sizePadPlane = value1.GetSizeT();
-	size_t sizePadRow = value2.GetSizeT();
-	size_t sizePadCol = value3.GetSizeT();
-	Array::ChannelPos channelPos = Array::CHANNELPOS_First;
-	if (arg.IsValid(4) &&
-		(channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(4))) == Array::CHANNELPOS_Invalid) return Value::Nil;
+	if (arg.IsValid(4)) {
+		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(4));
+		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
+	}
 	pArraySelf->RestoreKernelVec3d(pArrayRtn, sizeOutPlane, sizeOutRow, sizeOutCol,
 								   sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 								   stridesKernelPlane, stridesKernelRow, stridesKernelCol,
