@@ -1249,14 +1249,14 @@ Gura_ImplementMethod(array, reshape)
 }
 
 // array#restore_kernelvec1d(size_out:number, size:number, strides:number,
-//                           size_pad:number, channel_pos?:symbol) {block?}
+//                           padding?, channel_pos?:symbol) {block?}
 Gura_DeclareMethod(array, restore_kernelvec1d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "size_out", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "padding", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -1279,26 +1279,35 @@ Gura_ImplementMethod(array, restore_kernelvec1d)
 	if (arg.IsValid(2)) {
 		stridesKernel = arg.GetSizeT(2);
 	}
-	if (arg.IsValid(3)) {
-		sizePad = arg.GetSizeT(3);
-	}
 	if (arg.IsValid(4)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(4));
 		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
+	}
+	if (arg.IsInvalid(3)) {
+		// nothing to do
+	} else if (arg.Is_number(3)) {
+		sizePad = arg.GetSizeT(3);
+	} else if (arg.Is_symbol(3)) {
+		Gear::PaddingType paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(3));
+		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
+		Gear::CalcPadding(sizeOut, sizeKernel, stridesKernel, paddingType, &sizePad, nullptr);
+	} else {
+		env.SetError(ERR_ValueError, "argument 'padding' must be a number of a symbol");
+		return Value::Nil;
 	}
 	pArraySelf->RestoreKernelVec1d(pArrayRtn, sizeOut, sizeKernel, stridesKernel, sizePad, channelPos);
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
 
 // array#restore_kernelvec2d(size_out[]:number, size[]:number, strides[]?:number,
-//                           size_pad[]?:number, channel_pos?:symbol) {block?}
+//                           padding?:nomap, channel_pos?:symbol) {block?}
 Gura_DeclareMethod(array, restore_kernelvec2d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "size_out", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
-	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
+	DeclareArg(env, "padding", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
 	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -1344,18 +1353,28 @@ Gura_ImplementMethod(array, restore_kernelvec2d)
 		env.SetError(ERR_ValueError, "argument 'strides' must have two elements");
 		return Value::Nil;
 	}
-	if (arg.IsInvalid(3)) {
-		// nothing to do
-	} else if (arg.GetListValues(3, &value1, &value2)) {
-		sizePadRow = value1.GetSizeT();
-		sizePadCol = value2.GetSizeT();
-	} else {
-		env.SetError(ERR_ValueError, "argument 'size_pad' must have two elements");
-		return Value::Nil;
-	}
 	if (arg.IsValid(4)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(4));
 		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
+	}
+	if (arg.IsInvalid(3)) {
+		// nothing to do
+	} else if (arg.Is_list(3)) {
+		if (arg.GetListValues(3, &value1, &value2, VTYPE_number)) {
+			sizePadRow = value1.GetSizeT();
+			sizePadCol = value2.GetSizeT();
+		} else {
+			env.SetError(ERR_ValueError, "argument 'padding' must have two elements");
+			return Value::Nil;
+		}
+	} else if (arg.Is_symbol(3)) {
+		Gear::PaddingType paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(3));
+		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
+		Gear::CalcPadding(sizeOutRow, sizeKernelRow, stridesKernelRow, paddingType, &sizePadRow, nullptr);
+		Gear::CalcPadding(sizeOutCol, sizeKernelCol, stridesKernelCol, paddingType, &sizePadCol, nullptr);
+	} else {
+		env.SetError(ERR_ValueError, "argument 'padding' must be a list of numbers of a symbol");
+		return Value::Nil;
 	}
 	pArraySelf->RestoreKernelVec2d(pArrayRtn, sizeOutRow, sizeOutCol, sizeKernelRow, sizeKernelCol,
 								  stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol,
@@ -1364,14 +1383,14 @@ Gura_ImplementMethod(array, restore_kernelvec2d)
 }
 
 // array#restore_kernelvec3d(size_out[]:number, size[]:number, strides[]?:number,
-//                           size_pad[]?:number, channel_pos?:symbol) {block?}
+//                           padding?:nomap, channel_pos?:symbol) {block?}
 Gura_DeclareMethod(array, restore_kernelvec3d)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "size_out", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "strides", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
-	DeclareArg(env, "size_pad", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
+	DeclareArg(env, "padding", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
 	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -1424,19 +1443,30 @@ Gura_ImplementMethod(array, restore_kernelvec3d)
 		env.SetError(ERR_ValueError, "argument 'strides' must have three elements");
 		return Value::Nil;
 	}
-	if (arg.IsInvalid(3)) {
-		// nothing to do
-	} else if (arg.GetListValues(3, &value1, &value2, &value3)) {
-		sizePadPlane = value1.GetSizeT();
-		sizePadRow = value2.GetSizeT();
-		sizePadCol = value3.GetSizeT();
-	} else {
-		env.SetError(ERR_ValueError, "argument 'sizepad' must have three elements");
-		return Value::Nil;
-	}
 	if (arg.IsValid(4)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(4));
 		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
+	}
+	if (arg.IsInvalid(3)) {
+		// nothing to do
+	} else if (arg.Is_list(3)) {
+		if (arg.GetListValues(3, &value1, &value2, &value3, VTYPE_number)) {
+			sizePadPlane = value1.GetSizeT();
+			sizePadRow = value2.GetSizeT();
+			sizePadCol = value3.GetSizeT();
+		} else {
+			env.SetError(ERR_ValueError, "argument 'padding' must have two elements");
+			return Value::Nil;
+		}
+	} else if (arg.Is_symbol(3)) {
+		Gear::PaddingType paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(3));
+		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
+		Gear::CalcPadding(sizeOutPlane, sizeKernelPlane, stridesKernelPlane, paddingType, &sizePadPlane, nullptr);
+		Gear::CalcPadding(sizeOutRow, sizeKernelRow, stridesKernelRow, paddingType, &sizePadRow, nullptr);
+		Gear::CalcPadding(sizeOutCol, sizeKernelCol, stridesKernelCol, paddingType, &sizePadCol, nullptr);
+	} else {
+		env.SetError(ERR_ValueError, "argument 'padding' must be a list of numbers of a symbol");
+		return Value::Nil;
 	}
 	pArraySelf->RestoreKernelVec3d(pArrayRtn, sizeOutPlane, sizeOutRow, sizeOutCol,
 								   sizeKernelPlane, sizeKernelRow, sizeKernelCol,

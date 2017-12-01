@@ -6,7 +6,7 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// KernelScanner_ExpandVec
+// KernelScanner_ExpandVec_ChNone
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
 class KernelScanner_ExpandVec_ChNone {
@@ -2299,10 +2299,10 @@ void ArrayT<T_Elem>::CalcConv1d(
 		pDimGearCol = &dimsGear.GetBack(1);
 		pDimGearChannel = &dimsGear.GetBack(0);
 	}
-	size_t numFilter = (pDimGearFilter == nullptr)? 1 : pDimGearFilter->GetSize();
 	KernelScanner_CalcConv<T_Elem> kernelScanner(
 		pArrayRtn, this, dynamic_cast<const ArrayT *>(pArrayGear),
 		pDimChannel, *pDimGearCol, pDimGearFilter, pDimGearChannel);
+	size_t numFilter = (pDimGearFilter == nullptr)? 1 : pDimGearFilter->GetSize();
 	for (size_t iFilter = 0; iFilter < numFilter; iFilter++) {
 		kernelScanner.SetFilterIndex(iFilter);
 		ScanKernel1d(
@@ -2364,10 +2364,10 @@ void ArrayT<T_Elem>::CalcConv2d(
 		pDimGearCol = &dimsGear.GetBack(1);
 		pDimGearChannel = &dimsGear.GetBack(0);
 	}
-	size_t numFilter = (pDimGearFilter == nullptr)? 1 : pDimGearFilter->GetSize();
 	KernelScanner_CalcConv<T_Elem> kernelScanner(
 		pArrayRtn, this, dynamic_cast<const ArrayT *>(pArrayGear),
 		pDimChannel, *pDimGearCol, pDimGearFilter, pDimGearChannel);
+	size_t numFilter = (pDimGearFilter == nullptr)? 1 : pDimGearFilter->GetSize();
 	for (size_t iFilter = 0; iFilter < numFilter; iFilter++) {
 		kernelScanner.SetFilterIndex(iFilter);
 		ScanKernel2d(
@@ -2438,10 +2438,10 @@ void ArrayT<T_Elem>::CalcConv3d(
 		pDimGearCol = &dimsGear.GetBack(1);
 		pDimGearChannel = &dimsGear.GetBack(0);
 	}
-	size_t numFilter = (pDimGearFilter == nullptr)? 1 : pDimGearFilter->GetSize();
 	KernelScanner_CalcConv<T_Elem> kernelScanner(
 		pArrayRtn, this, dynamic_cast<const ArrayT *>(pArrayGear),
 		pDimChannel, *pDimGearCol, pDimGearFilter, pDimGearChannel);
+	size_t numFilter = (pDimGearFilter == nullptr)? 1 : pDimGearFilter->GetSize();
 	for (size_t iFilter = 0; iFilter < numFilter; iFilter++) {
 		kernelScanner.SetFilterIndex(iFilter);
 		ScanKernel3d(
