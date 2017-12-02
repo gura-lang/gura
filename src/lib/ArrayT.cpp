@@ -259,10 +259,10 @@ public:
 	KernelScanner_RestoreVec_ChNone(AutoPtr<Array> &pArrayRtn, const Array *pArraySrc) :
 		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc),
 		_pElemSrc(dynamic_cast<const ArrayT<T_Elem> *>(pArraySrc)->GetPointer()) {}
-	inline bool Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel) { return true; }
-	inline bool Initialize2d(Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol) { return true; }
-	inline bool Initialize3d(Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
-							 size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol) { return true; }
+	bool Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel);
+	bool Initialize2d(Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol);
+	bool Initialize3d(Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
+					  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol);
 	inline void Begin(T_Elem *pElem) {}			// nothing to do
 	inline void End() {}						// nothing to do
 	inline void BeginKernel(T_Elem *pElem) {}	// nothing to do
@@ -270,6 +270,27 @@ public:
 	inline void DoPadding(size_t n) { _pElemSrc += n; }
 	inline void DoElement(T_Elem *pElem) { *pElem += *_pElemSrc++; }
 };
+
+template<typename T_Elem>
+bool KernelScanner_RestoreVec_ChNone<T_Elem>::Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel)
+{
+	return true;
+}
+
+template<typename T_Elem>
+bool KernelScanner_RestoreVec_ChNone<T_Elem>::Initialize2d(
+	Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
+{
+	return true;
+}
+
+template<typename T_Elem>
+bool KernelScanner_RestoreVec_ChNone<T_Elem>::Initialize3d(
+	Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
+	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
+{
+	return true;
+}
 
 //-----------------------------------------------------------------------------
 // KernelScanner_RestoreVec_ChFirst
@@ -286,25 +307,10 @@ public:
 	KernelScanner_RestoreVec_ChFirst(AutoPtr<Array> &pArrayRtn, const Array *pArraySrc) :
 		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc),
 		_pElemSrc(dynamic_cast<const ArrayT<T_Elem> *>(pArraySrc)->GetPointer()), _nChannels(0) {}
-	inline bool Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel) {
-		const Array::Dimension &dimChannel = _pArraySrc->GetDimensions().GetBack(1);
-		_nChannels = dimChannel.GetSize();
-		_stridesChannel = dimChannel.GetStrides();
-		return true;
-	}
-	inline bool Initialize2d(Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol) {
-		const Array::Dimension &dimChannel = _pArraySrc->GetDimensions().GetBack(2);
-		_nChannels = dimChannel.GetSize();
-		_stridesChannel = dimChannel.GetStrides();
-		return true;
-	}
-	inline bool Initialize3d(Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
-							 size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol) {
-		const Array::Dimension &dimChannel = _pArraySrc->GetDimensions().GetBack(3);
-		_nChannels = dimChannel.GetSize();
-		_stridesChannel = dimChannel.GetStrides();
-		return true;
-	}
+	bool Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel);
+	bool Initialize2d(Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol);
+	bool Initialize3d(Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
+					  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol);
 	inline void Begin(T_Elem *pElem) {}			// nothing to do
 	inline void End() {}						// nothing to do
 	inline void BeginKernel(T_Elem *pElem) {}	// nothing to do
@@ -317,6 +323,36 @@ public:
 		}
 	}
 };
+
+template<typename T_Elem>
+bool KernelScanner_RestoreVec_ChFirst<T_Elem>::Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel)
+{
+	const Array::Dimension &dimChannel = _pArraySrc->GetDimensions().GetBack(1);
+	_nChannels = dimChannel.GetSize();
+	_stridesChannel = dimChannel.GetStrides();
+	return true;
+}
+
+template<typename T_Elem>
+bool KernelScanner_RestoreVec_ChFirst<T_Elem>::Initialize2d(
+	Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
+{
+	const Array::Dimension &dimChannel = _pArraySrc->GetDimensions().GetBack(2);
+	_nChannels = dimChannel.GetSize();
+	_stridesChannel = dimChannel.GetStrides();
+	return true;
+}
+
+template<typename T_Elem>
+bool KernelScanner_RestoreVec_ChFirst<T_Elem>::Initialize3d(
+	Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
+	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
+{
+	const Array::Dimension &dimChannel = _pArraySrc->GetDimensions().GetBack(3);
+	_nChannels = dimChannel.GetSize();
+	_stridesChannel = dimChannel.GetStrides();
+	return true;
+}
 
 //-----------------------------------------------------------------------------
 // KernelScanner_RestoreVec_ChLast
@@ -333,11 +369,11 @@ public:
 		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc),
 		_pElemSrc(dynamic_cast<const ArrayT<T_Elem> *>(pArraySrc)->GetPointer()),
 		_nChannels(_pArraySrc->GetDimensions().GetBack(0).GetSize()) {}
-	inline bool Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel) { return true; }
-	inline bool Initialize2d(Signal &sig, size_t nKernelsRow, size_t nKernelsCol,
-							 size_t sizeKernelRow, size_t sizeKernelCol) { return true; }
-	inline bool Initialize3d(Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
-							 size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol) { return true; }
+	bool Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel);
+	bool Initialize2d(Signal &sig, size_t nKernelsRow, size_t nKernelsCol,
+					  size_t sizeKernelRow, size_t sizeKernelCol);
+	bool Initialize3d(Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
+					  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol);
 	inline void Begin(T_Elem *pElem) {}			// nothing to do
 	inline void End() {}						// nothing to do
 	inline void BeginKernel(T_Elem *pElem) {}	// nothing to do
@@ -347,6 +383,27 @@ public:
 		for (size_t iChannel = 0; iChannel < _nChannels; iChannel++) *pElem++ += *_pElemSrc++;
 	}
 };
+
+template<typename T_Elem>
+bool KernelScanner_RestoreVec_ChLast<T_Elem>::Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel)
+{
+	return true;
+}
+
+template<typename T_Elem>
+bool KernelScanner_RestoreVec_ChLast<T_Elem>::Initialize2d(
+	Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
+{
+	return true;
+}
+
+template<typename T_Elem>
+bool KernelScanner_RestoreVec_ChLast<T_Elem>::Initialize3d(
+	Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
+	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
+{
+	return true;
+}
 
 //-----------------------------------------------------------------------------
 // KernelScanner_CalcMaxPool_ChNone
