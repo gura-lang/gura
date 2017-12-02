@@ -339,7 +339,10 @@ bool KernelScanner_RestoreVec_ChFirst<T_Elem>::Initialize1d(Signal &sig, size_t 
 	const Array::Dimension &dimChannel = _pArrayRtn->GetDimensions().GetBack(1);
 	_nChannels = dimChannel.GetSize();
 	_stridesChannel = dimChannel.GetStrides();
-	return true;
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	if (dimsSrc.GetBack(1).GetSize() == nKernels &&
+		dimsSrc.GetBack(0).GetSize() == sizeKernel * _nChannels) return true;
+	return false;
 }
 
 template<typename T_Elem>
@@ -349,7 +352,10 @@ bool KernelScanner_RestoreVec_ChFirst<T_Elem>::Initialize2d(
 	const Array::Dimension &dimChannel = _pArrayRtn->GetDimensions().GetBack(2);
 	_nChannels = dimChannel.GetSize();
 	_stridesChannel = dimChannel.GetStrides();
-	return true;
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	if (dimsSrc.GetBack(1).GetSize() == nKernelsRow * nKernelsCol &&
+		dimsSrc.GetBack(0).GetSize() == sizeKernelRow * sizeKernelCol) return true;
+	return false;
 }
 
 template<typename T_Elem>
@@ -360,7 +366,10 @@ bool KernelScanner_RestoreVec_ChFirst<T_Elem>::Initialize3d(
 	const Array::Dimension &dimChannel = _pArrayRtn->GetDimensions().GetBack(3);
 	_nChannels = dimChannel.GetSize();
 	_stridesChannel = dimChannel.GetStrides();
-	return true;
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	if (dimsSrc.GetBack(1).GetSize() == nKernelsPlane * nKernelsRow * nKernelsCol &&
+		dimsSrc.GetBack(0).GetSize() == sizeKernelPlane * sizeKernelRow * sizeKernelCol) return true;
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -396,14 +405,20 @@ public:
 template<typename T_Elem>
 bool KernelScanner_RestoreVec_ChLast<T_Elem>::Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel)
 {
-	return true;
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	if (dimsSrc.GetBack(1).GetSize() == nKernels &&
+		dimsSrc.GetBack(0).GetSize() == sizeKernel) return true;
+	return false;
 }
 
 template<typename T_Elem>
 bool KernelScanner_RestoreVec_ChLast<T_Elem>::Initialize2d(
 	Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	return true;
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	if (dimsSrc.GetBack(1).GetSize() == nKernelsRow * nKernelsCol &&
+		dimsSrc.GetBack(0).GetSize() == sizeKernelRow * sizeKernelCol) return true;
+	return false;
 }
 
 template<typename T_Elem>
@@ -411,7 +426,10 @@ bool KernelScanner_RestoreVec_ChLast<T_Elem>::Initialize3d(
 	Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	return true;
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	if (dimsSrc.GetBack(1).GetSize() == nKernelsPlane * nKernelsRow * nKernelsCol &&
+		dimsSrc.GetBack(0).GetSize() == sizeKernelPlane * sizeKernelRow * sizeKernelCol) return true;
+	return false;
 }
 
 //-----------------------------------------------------------------------------
