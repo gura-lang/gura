@@ -35,9 +35,9 @@ public:
 template<typename T_Elem>
 bool KernelScanner_ExpandVec_ChNone<T_Elem>::Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 1,
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 1,
 							  nKernels, sizeKernel);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
@@ -48,9 +48,9 @@ template<typename T_Elem>
 bool KernelScanner_ExpandVec_ChNone<T_Elem>::Initialize2d(
 	Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 2,
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 2,
 							  nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
@@ -62,9 +62,9 @@ bool KernelScanner_ExpandVec_ChNone<T_Elem>::Initialize3d(
 	Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 3,
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 3,
 							  nKernelsPlane * nKernelsRow * nKernelsCol,
 							  sizeKernelPlane * sizeKernelRow * sizeKernelCol);
 	_pArrayRtn->AllocMemory();
@@ -123,13 +123,13 @@ public:
 template<typename T_Elem>
 bool KernelScanner_ExpandVec_ChFirst<T_Elem>::Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
-	_nChannels = dims.GetBack(1).GetSize();
-	_stridesChannel = dims.GetBack(1).GetStrides();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	_nChannels = dimsSrc.GetBack(1).GetSize();
+	_stridesChannel = dimsSrc.GetBack(1).GetStrides();
 	_stridesChannelDst = sizeKernel;
 	_stepKernel = _stridesChannelDst * (_nChannels - 1);
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (1 + 1),
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - (1 + 1),
 							  nKernels, sizeKernel * _nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
@@ -140,13 +140,13 @@ template<typename T_Elem>
 bool KernelScanner_ExpandVec_ChFirst<T_Elem>::Initialize2d(
 	Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
-	_nChannels = dims.GetBack(2).GetSize();
-	_stridesChannel = dims.GetBack(2).GetStrides();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	_nChannels = dimsSrc.GetBack(2).GetSize();
+	_stridesChannel = dimsSrc.GetBack(2).GetStrides();
 	_stridesChannelDst = sizeKernelRow * sizeKernelCol;
 	_stepKernel = _stridesChannelDst * (_nChannels - 1);
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (1 + 2),
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - (1 + 2),
 							  nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol * _nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
@@ -158,13 +158,13 @@ bool KernelScanner_ExpandVec_ChFirst<T_Elem>::Initialize3d(
 	Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
-	_nChannels = dims.GetBack(3).GetSize();
-	_stridesChannel = dims.GetBack(3).GetStrides();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	_nChannels = dimsSrc.GetBack(3).GetSize();
+	_stridesChannel = dimsSrc.GetBack(3).GetStrides();
 	_stridesChannelDst = sizeKernelPlane * sizeKernelRow * sizeKernelCol;
 	_stepKernel = _stridesChannelDst * (_nChannels - 1);
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (1 + 3),
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - (1 + 3),
 							  nKernelsPlane * nKernelsRow * nKernelsCol,
 							  sizeKernelPlane * sizeKernelRow * sizeKernelCol * _nChannels);
 	_pArrayRtn->AllocMemory();
@@ -206,10 +206,10 @@ public:
 template<typename T_Elem>
 bool KernelScanner_ExpandVec_ChLast<T_Elem>::Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
-	_nChannels = dims.GetBack(0).GetSize();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	_nChannels = dimsSrc.GetBack(0).GetSize();
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (1 + 1),
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - (1 + 1),
 							  nKernels, sizeKernel * _nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
@@ -220,10 +220,10 @@ template<typename T_Elem>
 bool KernelScanner_ExpandVec_ChLast<T_Elem>::Initialize2d(
 	Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
-	_nChannels = dims.GetBack(0).GetSize();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	_nChannels = dimsSrc.GetBack(0).GetSize();
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (2 + 1),
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - (2 + 1),
 							  nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol * _nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
@@ -235,10 +235,10 @@ bool KernelScanner_ExpandVec_ChLast<T_Elem>::Initialize3d(
 	Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
-	_nChannels = dims.GetBack(0).GetSize();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	_nChannels = dimsSrc.GetBack(0).GetSize();
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (3 + 1),
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - (3 + 1),
 							  nKernelsPlane * nKernelsRow * nKernelsCol,
 							  sizeKernelPlane * sizeKernelRow * sizeKernelCol * _nChannels);
 	_pArrayRtn->AllocMemory();
@@ -274,14 +274,20 @@ public:
 template<typename T_Elem>
 bool KernelScanner_RestoreVec_ChNone<T_Elem>::Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel)
 {
-	return true;
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	if (dimsSrc.GetBack(1).GetSize() == nKernels &&
+		dimsSrc.GetBack(0).GetSize() == sizeKernel) return true;
+	return false;
 }
 
 template<typename T_Elem>
 bool KernelScanner_RestoreVec_ChNone<T_Elem>::Initialize2d(
 	Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	return true;
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	if (dimsSrc.GetBack(1).GetSize() == nKernelsRow * nKernelsCol &&
+		dimsSrc.GetBack(0).GetSize() == sizeKernelRow * sizeKernelCol) return true;
+	return false;
 }
 
 template<typename T_Elem>
@@ -289,7 +295,10 @@ bool KernelScanner_RestoreVec_ChNone<T_Elem>::Initialize3d(
 	Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	return true;
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	if (dimsSrc.GetBack(1).GetSize() == nKernelsPlane * nKernelsRow * nKernelsCol &&
+		dimsSrc.GetBack(0).GetSize() == sizeKernelPlane * sizeKernelRow * sizeKernelCol) return true;
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -327,7 +336,7 @@ public:
 template<typename T_Elem>
 bool KernelScanner_RestoreVec_ChFirst<T_Elem>::Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel)
 {
-	const Array::Dimension &dimChannel = _pArraySrc->GetDimensions().GetBack(1);
+	const Array::Dimension &dimChannel = _pArrayRtn->GetDimensions().GetBack(1);
 	_nChannels = dimChannel.GetSize();
 	_stridesChannel = dimChannel.GetStrides();
 	return true;
@@ -337,7 +346,7 @@ template<typename T_Elem>
 bool KernelScanner_RestoreVec_ChFirst<T_Elem>::Initialize2d(
 	Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	const Array::Dimension &dimChannel = _pArraySrc->GetDimensions().GetBack(2);
+	const Array::Dimension &dimChannel = _pArrayRtn->GetDimensions().GetBack(2);
 	_nChannels = dimChannel.GetSize();
 	_stridesChannel = dimChannel.GetStrides();
 	return true;
@@ -348,7 +357,7 @@ bool KernelScanner_RestoreVec_ChFirst<T_Elem>::Initialize3d(
 	Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	const Array::Dimension &dimChannel = _pArraySrc->GetDimensions().GetBack(3);
+	const Array::Dimension &dimChannel = _pArrayRtn->GetDimensions().GetBack(3);
 	_nChannels = dimChannel.GetSize();
 	_stridesChannel = dimChannel.GetStrides();
 	return true;
@@ -368,7 +377,7 @@ public:
 	KernelScanner_RestoreVec_ChLast(AutoPtr<Array> &pArrayRtn, const Array *pArraySrc) :
 		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc),
 		_pElemSrc(dynamic_cast<const ArrayT<T_Elem> *>(pArraySrc)->GetPointer()),
-		_nChannels(_pArraySrc->GetDimensions().GetBack(0).GetSize()) {}
+		_nChannels(pArrayRtn->GetDimensions().GetBack(0).GetSize()) {}
 	bool Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel);
 	bool Initialize2d(Signal &sig, size_t nKernelsRow, size_t nKernelsCol,
 					  size_t sizeKernelRow, size_t sizeKernelCol);
@@ -433,9 +442,9 @@ public:
 template<typename T_Elem>
 bool KernelScanner_CalcMaxPool_ChNone<T_Elem>::Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 1, nKernels);
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 1, nKernels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
 	return true;
@@ -445,9 +454,9 @@ template<typename T_Elem>
 bool KernelScanner_CalcMaxPool_ChNone<T_Elem>::Initialize2d(
 	Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 2, nKernelsRow, nKernelsCol);
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 2, nKernelsRow, nKernelsCol);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
 	return true;
@@ -458,9 +467,9 @@ bool KernelScanner_CalcMaxPool_ChNone<T_Elem>::Initialize3d(
 	Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - 3, nKernelsPlane, nKernelsRow, nKernelsCol);
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 3, nKernelsPlane, nKernelsRow, nKernelsCol);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
 	return true;
@@ -515,10 +524,10 @@ public:
 template<typename T_Elem>
 bool KernelScanner_CalcMaxPool_ChLast<T_Elem>::Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
-	_nChannels = dims.GetBack(0).GetSize();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	_nChannels = dimsSrc.GetBack(0).GetSize();
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (1 + 1),
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - (1 + 1),
 							  nKernels, _nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
@@ -530,10 +539,10 @@ template<typename T_Elem>
 bool KernelScanner_CalcMaxPool_ChLast<T_Elem>::Initialize2d(
 	Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
-	_nChannels = dims.GetBack(0).GetSize();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	_nChannels = dimsSrc.GetBack(0).GetSize();
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (2 + 1),
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - (2 + 1),
 							  nKernelsRow, nKernelsCol, _nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
@@ -546,10 +555,10 @@ bool KernelScanner_CalcMaxPool_ChLast<T_Elem>::Initialize3d(
 	Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
 	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
 {
-	const Array::Dimensions &dims = _pArraySrc->GetDimensions();
-	_nChannels = dims.GetBack(0).GetSize();
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDimensions();
+	_nChannels = dimsSrc.GetBack(0).GetSize();
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
-	_pArrayRtn->SetDimensions(dims.begin(), dims.begin() + dims.size() - (3 + 1),
+	_pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - (3 + 1),
 							  nKernelsPlane, nKernelsRow, nKernelsCol, _nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
@@ -2090,11 +2099,11 @@ bool ArrayT<T_Elem>::RestoreKernelVec1d(
 	size_t sizePad, ChannelPos channelPos) const
 {
 	const Dimensions &dimsSrc = GetDimensions();
-	size_t nChannels = dimsSrc.GetBack(0).GetSize() / sizeKernel;
 	pArrayRtn.reset(ArrayT<T_Elem>::Create());
 	if (dimsSrc.size() < 2) {
 		return false;
 	}
+	size_t nChannels = dimsSrc.GetBack(0).GetSize() / sizeKernel;
 	if (channelPos == CHANNELPOS_None) {
 		pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 2,
 								 size);
@@ -2136,11 +2145,11 @@ bool ArrayT<T_Elem>::RestoreKernelVec2d(
 	size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
 {
 	const Dimensions &dimsSrc = GetDimensions();
-	size_t nChannels = dimsSrc.GetBack(0).GetSize() / (sizeKernelRow * sizeKernelCol);
 	pArrayRtn.reset(ArrayT<T_Elem>::Create());
 	if (dimsSrc.size() < 2) {
 		return false;
 	}
+	size_t nChannels = dimsSrc.GetBack(0).GetSize() / (sizeKernelRow * sizeKernelCol);
 	if (channelPos == CHANNELPOS_None) {
 		pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 2,
 								 sizeRow, sizeCol);
@@ -2185,11 +2194,11 @@ bool ArrayT<T_Elem>::RestoreKernelVec3d(
 	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
 {
 	const Dimensions &dimsSrc = GetDimensions();
-	size_t nChannels = dimsSrc.GetBack(0).GetSize() / (sizeKernelPlane * sizeKernelRow * sizeKernelCol);
 	pArrayRtn.reset(ArrayT<T_Elem>::Create());
 	if (dimsSrc.size() < 2) {
 		return false;
 	}
+	size_t nChannels = dimsSrc.GetBack(0).GetSize() / (sizeKernelPlane * sizeKernelRow * sizeKernelCol);
 	if (channelPos == CHANNELPOS_None) {
 		pArrayRtn->SetDimensions(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 2,
 								 sizePlane, sizeRow, sizeCol);
