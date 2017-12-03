@@ -355,6 +355,7 @@ tonumber(value):map:[nil,raise,strict,zero]
 tostring(value):map
 tosymbol(str:string):map
 trainer:class = <class:trainer(model:expr, inputs*:symbol):map {block?}>
+trainernode:class = <class:trainernode>
 true:boolean = true
 try():leader {block}
 typename(`value)
@@ -721,7 +722,7 @@ function
   function.getsymbol(func:function):static:map
   function#mathdiff(var?:symbol):reduce
 gear
-  gear.calcpadding(size_in:number, size_kernel:number, strides:number, padding:symbol):static
+  gear.calcpadding(size_in:number, size_kernel:number, strides:number, padding:symbol):static:map {block?}
 gear@conv1d
 gear@conv2d
 gear@conv3d
@@ -1101,6 +1102,7 @@ token
 trainer
   trainer#eval(env?:environment) {block?}
   trainer#train(correct:array):void {block?}
+trainernode
 undefined
 uri
   uri#getfragment()

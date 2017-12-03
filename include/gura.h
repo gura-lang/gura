@@ -123,6 +123,7 @@
 #include "gura/Class_timedelta.h"
 #include "gura/Class_token.h"
 #include "gura/Class_trainer.h"
+#include "gura/Class_trainernode.h"
 #include "gura/Class_undefined.h"
 #include "gura/Class_uri.h"
 #include "gura/Class_vertex.h"

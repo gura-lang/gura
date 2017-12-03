@@ -107,14 +107,15 @@ String Object_gear::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// gear.calcpadding(size_in:number, size_kernel:number, strides:number, padding:symbol)
+// gear.calcpadding(size_in:number, size_kernel:number, strides:number, padding:symbol):map {block?}
 Gura_DeclareClassMethod(gear, calcpadding)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size_in", VTYPE_number);
 	DeclareArg(env, "size_kernel", VTYPE_number);
 	DeclareArg(env, "strides", VTYPE_number);
 	DeclareArg(env, "padding", VTYPE_symbol);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
 		"Calculates padding amounts from given input size, gear size and strides.\n"

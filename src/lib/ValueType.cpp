@@ -72,6 +72,7 @@ ValueType VTYPE_template				= static_cast<ValueType>(0);
 ValueType VTYPE_timedelta				= static_cast<ValueType>(0);
 ValueType VTYPE_token					= static_cast<ValueType>(0);
 ValueType VTYPE_trainer					= static_cast<ValueType>(0);
+ValueType VTYPE_trainernode				= static_cast<ValueType>(0);
 ValueType VTYPE_uri						= static_cast<ValueType>(0);
 ValueType VTYPE_vertex					= static_cast<ValueType>(0);
 ValueType VTYPE_gear					= static_cast<ValueType>(0);
@@ -227,6 +228,7 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_RealizeVTYPE(timedelta);
 	Gura_RealizeVTYPE(token);
 	Gura_RealizeVTYPE(trainer);
+	Gura_RealizeVTYPE(trainernode);
 	Gura_RealizeVTYPE(uri);
 	Gura_RealizeVTYPE(vertex);
 	Gura_RealizeVTYPE(gear);
@@ -321,6 +323,7 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_VTYPEInfo(timedelta	)->SetClass(new Class_timedelta(pClass));
 	Gura_VTYPEInfo(token		)->SetClass(new Class_token(pClass));
 	Gura_VTYPEInfo(trainer		)->SetClass(new Class_trainer(pClass));
+	Gura_VTYPEInfo(trainernode	)->SetClass(new Class_trainernode(pClass));
 	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
 	Gura_VTYPEInfo(vertex		)->SetClass(new Class_vertex(pClass));
 	Class *pClass_gear = nullptr;
@@ -404,6 +407,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_timedelta				)->Prepare(env);
 	env.LookupClass(VTYPE_token					)->Prepare(env);
 	env.LookupClass(VTYPE_trainer				)->Prepare(env);
+	env.LookupClass(VTYPE_trainernode			)->Prepare(env);
 	env.LookupClass(VTYPE_uri					)->Prepare(env);
 	env.LookupClass(VTYPE_vertex				)->Prepare(env);
 	env.LookupClass(VTYPE_gear					)->Prepare(env);

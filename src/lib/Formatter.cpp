@@ -105,6 +105,8 @@ bool Formatter::DoFormat(Signal &sig, const char *format, Source &source)
 				stat = STAT_PrecisionPre;
 			} else if (ch == 'l') {
 				// just ignore it
+			} else if (ch == 'z') {
+				// just ignore it
 			} else if (ch == 'd' || ch == 'i') {
 				Value value = source.GetInt();
 				if (!value.GetClass()->Format_d(this, flags, value)) break;
