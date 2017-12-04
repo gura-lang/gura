@@ -55,6 +55,17 @@ Trainer::Node::~Node()
 {
 }
 
+bool Trainer::Node::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return true;
+}
+
+Value Trainer::Node::DoGetProp(Environment &env, const Symbol *pSymbol,
+							   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Nil;
+}
+
 void Trainer::Node::Print(int indentLevel) const
 {
 	::printf("%-*s%s\n", indentLevel * 2, "", ToString().c_str());
@@ -114,10 +125,21 @@ bool Trainer::NodeHead::EvalBackward(Environment &env)
 	return true;
 }
 
+bool Trainer::NodeHead::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Node::DoDirProp(env, symbols);
+}
+
+Value Trainer::NodeHead::DoGetProp(Environment &env, const Symbol *pSymbol,
+							   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Node::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 String Trainer::NodeHead::ToString() const
 {
 	String str;
-	str += "Head:";
+	str += "head:";
 	str += _pExpr->ToString(Expr::SCRSTYLE_OneLine);
 	return str;
 }
@@ -160,11 +182,22 @@ bool Trainer::NodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayC
 	return true;
 }
 
+bool Trainer::NodeBottom::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Node::DoDirProp(env, symbols);
+}
+
+Value Trainer::NodeBottom::DoGetProp(Environment &env, const Symbol *pSymbol,
+							   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Node::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 String Trainer::NodeBottom::ToString() const
 {
 	String str;
 	char buff[128];
-	str += "Tail";
+	str += "tail";
 	::sprintf(buff, " [fwd:%p,bwd:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
 	str += buff;
 	return str;
@@ -191,11 +224,22 @@ bool Trainer::NodeUnary::EvalForward(Environment &env)
 		env, _unaryFuncPack, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
 }
 
+bool Trainer::NodeUnary::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Node::DoDirProp(env, symbols);
+}
+
+Value Trainer::NodeUnary::DoGetProp(Environment &env, const Symbol *pSymbol,
+							   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Node::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 String Trainer::NodeUnary::ToString() const
 {
 	String str;
 	char buff[128];
-	str += "Unary:";
+	str += "unary:";
 	str += _unaryFuncPack.name;
 	::sprintf(buff, " [fwd:%p,bwd:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
 	str += buff;
@@ -253,11 +297,22 @@ bool Trainer::NodeBinary::EvalForward(Environment &env)
 			GetConnectorSrcRight()->GetArrayFwd());
 }
 
+bool Trainer::NodeBinary::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Node::DoDirProp(env, symbols);
+}
+
+Value Trainer::NodeBinary::DoGetProp(Environment &env, const Symbol *pSymbol,
+							   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Node::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 String Trainer::NodeBinary::ToString() const
 {
 	String str;
 	char buff[128];
-	str += "Binary:";
+	str += "binary:";
 	str += _binaryFuncPack.name;
 	::sprintf(buff, " [fwd:%p,bwd:%p][fwd:%p,bwd:%p]",
 			  _connectorSrcLeft.GetArrayFwd(), _connectorSrcLeft.GetArrayBwd(),
@@ -365,11 +420,22 @@ bool Trainer::NodeBinary_Dot::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear
 //-----------------------------------------------------------------------------
+bool Trainer::NodeGear::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Node::DoDirProp(env, symbols);
+}
+
+Value Trainer::NodeGear::DoGetProp(Environment &env, const Symbol *pSymbol,
+								   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Node::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 String Trainer::NodeGear::ToString() const
 {
 	String str;
 	char buff[128];
-	str += "Gear:";
+	str += "gear:";
 	str += _pGear->ToString();
 	::sprintf(buff, " [fwd:%p,bwd:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
 	str += buff;
@@ -383,13 +449,27 @@ void Trainer::NodeGear::Print(int indentLevel) const
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeGear_Conv1d
+// Trainer::NodeGear_Conv
 //-----------------------------------------------------------------------------
-bool Trainer::NodeGear_Conv1d::IsVulnerable() const
+bool Trainer::NodeGear_Conv::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
 }
 
+bool Trainer::NodeGear_Conv::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return NodeGear::DoDirProp(env, symbols);
+}
+
+Value Trainer::NodeGear_Conv::DoGetProp(Environment &env, const Symbol *pSymbol,
+								   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
+//-----------------------------------------------------------------------------
+// Trainer::NodeGear_Conv1d
+//-----------------------------------------------------------------------------
 bool Trainer::NodeGear_Conv1d::EvalForward(Environment &env)
 {
 	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
@@ -403,11 +483,6 @@ bool Trainer::NodeGear_Conv1d::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear_Conv2d
 //-----------------------------------------------------------------------------
-bool Trainer::NodeGear_Conv2d::IsVulnerable() const
-{
-	return _connectorSrc.GetNodeSrc()->IsVulnerable();
-}
-
 bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 {
 	Gear_Conv2d *pGear = GetGear();
@@ -519,11 +594,6 @@ bool Trainer::NodeGear_Conv2d::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear_Conv3d
 //-----------------------------------------------------------------------------
-bool Trainer::NodeGear_Conv3d::IsVulnerable() const
-{
-	return _connectorSrc.GetNodeSrc()->IsVulnerable();
-}
-
 bool Trainer::NodeGear_Conv3d::EvalForward(Environment &env)
 {
 	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
@@ -646,6 +716,17 @@ bool Trainer::NodeGear_Relu::EvalBackward(Environment &env)
 	return true;
 }
 
+bool Trainer::NodeGear_Relu::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return NodeGear::DoDirProp(env, symbols);
+}
+
+Value Trainer::NodeGear_Relu::DoGetProp(Environment &env, const Symbol *pSymbol,
+								   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear_Sigmoid
 //-----------------------------------------------------------------------------
@@ -679,6 +760,17 @@ bool Trainer::NodeGear_Sigmoid::EvalBackward(Environment &env)
 				(*ppConnectorDst)->GetArrayBwd())) return false;
 	}
 	return true;
+}
+
+bool Trainer::NodeGear_Sigmoid::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return NodeGear::DoDirProp(env, symbols);
+}
+
+Value Trainer::NodeGear_Sigmoid::DoGetProp(Environment &env, const Symbol *pSymbol,
+										   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -759,7 +851,14 @@ void Trainer::NodeOwner::Clear()
 bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 										Node::Connector *pConnector, const SymbolSet &symbolsInput)
 {
-	if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
+	if (pExpr->IsType(EXPRTYPE_Assign)) {
+		const Expr_Assign *pExprEx = dynamic_cast<const Expr_Assign *>(pExpr);
+		if (pExprEx->GetOperatorToApply() != nullptr) {
+			env.SetError(ERR_SyntaxError, "invalid assignment");
+			return false;
+		}
+		
+	} else if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
 		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
 		return CreateNodeUnary(env, pExprEx, pConnector, symbolsInput);
 	} else if (pExpr->IsType(EXPRTYPE_BinaryOp)) {

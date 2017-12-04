@@ -72,6 +72,9 @@ public:
 		virtual bool IsVulnerable() const = 0;
 		virtual bool EvalForward(Environment &env) = 0;
 		virtual bool EvalBackward(Environment &env) = 0;
+		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 		virtual String ToString() const = 0;
 		virtual void Print(int indentLevel) const;
 	};
@@ -92,6 +95,9 @@ public:
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
+		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 		virtual String ToString() const;
 		virtual void Print(int indentLevel) const;
 	};
@@ -109,6 +115,9 @@ public:
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 		bool EvalBackwardTop(Environment &env, const Array *pArrayCorrect);
+		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 		virtual String ToString() const;
 		virtual void Print(int indentLevel) const;
 	};
@@ -125,6 +134,9 @@ public:
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
+		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 		virtual String ToString() const;
 		virtual void Print(int indentLevel) const;
 	};
@@ -162,6 +174,9 @@ public:
 		inline Connector *GetConnectorSrcRight() { return &_connectorSrcRight; }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
+		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 		virtual String ToString() const;
 		virtual void Print(int indentLevel) const;
 	};
@@ -233,51 +248,64 @@ public:
 		inline NodeGear(Gear *pGear, Connector *pConnectorDst) :
 				Node(pConnectorDst), _pGear(pGear), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
+		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 		virtual String ToString() const;
 		virtual void Print(int indentLevel) const;
 	};
 	//-------------------------------------------------------------------------
+	// NodeGear_Conv
+	//-------------------------------------------------------------------------
+	class NodeGear_Conv : public NodeGear {
+	protected:
+		AutoPtr<Array> _pArraySrcVec;
+		AutoPtr<Array> _pArrayGearReshape;
+		AutoPtr<Array> _pArrayGearTrans;
+		AutoPtr<Array> _pArrayFwdPre;
+	public:
+		inline NodeGear_Conv(Gear *pGear, Connector *pConnectorDst) :
+				NodeGear(pGear, pConnectorDst) {}
+		virtual bool IsVulnerable() const;
+		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	};
+	//-------------------------------------------------------------------------
 	// NodeGear_Conv1d
 	//-------------------------------------------------------------------------
-	class NodeGear_Conv1d : public NodeGear {
+	class NodeGear_Conv1d : public NodeGear_Conv {
 	public:
 		inline NodeGear_Conv1d(Gear_Conv1d *pGear, Connector *pConnectorDst) :
-				NodeGear(pGear, pConnectorDst) {}
+				NodeGear_Conv(pGear, pConnectorDst) {}
 		inline Gear_Conv1d *GetGear() { return dynamic_cast<Gear_Conv1d *>(_pGear.get()); }
-		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
 	// NodeGear_Conv2d
 	//-------------------------------------------------------------------------
-	class NodeGear_Conv2d : public NodeGear {
+	class NodeGear_Conv2d : public NodeGear_Conv {
 	private:
 		size_t _sizePadRow;
 		size_t _sizePadCol;
 		size_t _sizeOutRow;
 		size_t _sizeOutCol;
-		AutoPtr<Array> _pArraySrcVec;
-		AutoPtr<Array> _pArrayGearReshape;
-		AutoPtr<Array> _pArrayGearTrans;
-		AutoPtr<Array> _pArrayFwdPre;
 	public:
 		inline NodeGear_Conv2d(Gear_Conv2d *pGear, Connector *pConnectorDst) :
-			NodeGear(pGear, pConnectorDst), _sizePadRow(0), _sizePadCol(0), _sizeOutRow(0), _sizeOutCol(0) {}
+			NodeGear_Conv(pGear, pConnectorDst), _sizePadRow(0), _sizePadCol(0), _sizeOutRow(0), _sizeOutCol(0) {}
 		inline Gear_Conv2d *GetGear() { return dynamic_cast<Gear_Conv2d *>(_pGear.get()); }
-		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
 	// NodeGear_Conv3d
 	//-------------------------------------------------------------------------
-	class NodeGear_Conv3d : public NodeGear {
+	class NodeGear_Conv3d : public NodeGear_Conv {
 	public:
 		inline NodeGear_Conv3d(Gear_Conv3d *pGear, Connector *pConnectorDst) :
-				NodeGear(pGear, pConnectorDst) {}
+				NodeGear_Conv(pGear, pConnectorDst) {}
 		inline Gear_Conv3d *GetGear() { return dynamic_cast<Gear_Conv3d *>(_pGear.get()); }
-		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
@@ -330,6 +358,9 @@ public:
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
+		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 	};
 	//-------------------------------------------------------------------------
 	// NodeGear_Sigmoid
@@ -344,6 +375,9 @@ public:
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
+		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 	};
 	//-------------------------------------------------------------------------
 	// NodeGear_softmax

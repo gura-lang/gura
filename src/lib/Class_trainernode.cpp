@@ -25,9 +25,23 @@ Object *Object_trainernode::Clone() const
 	return new Object_trainernode(*this);
 }
 
+bool Object_trainernode::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return _pNode->DoDirProp(env, symbols);
+}
+
+Value Object_trainernode::DoGetProp(Environment &env, const Symbol *pSymbol,
+									const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return _pNode->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 String Object_trainernode::ToString(bool exprFlag)
 {
 	String str;
+	str += "<trainernode:";
+	str += _pNode->ToString();
+	str += ">";
 	return str;
 }
 

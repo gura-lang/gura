@@ -35,6 +35,9 @@ public:
 	Object_trainernode(const Object_trainernode &obj);
 	virtual ~Object_trainernode();
 	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Trainer::Node *GetTrainerNode() { return _pNode.get(); }
 	inline const Trainer::Node *GetTrainerNode() const { return _pNode.get(); }
