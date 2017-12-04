@@ -121,6 +121,25 @@ public:
 		virtual String ToString() const;
 		virtual void Print(int indentLevel) const;
 	};
+#if 0
+	//-------------------------------------------------------------------------
+	// NodeAssign
+	//-------------------------------------------------------------------------
+	class NodeAssign : public Node {
+	protected:
+		Node *_pNodeSrc;
+	public:
+		inline NodeAssign(Node *pNode) :
+				Node(pConnectorDst), _unaryFuncPack(unaryFuncPack), _connectorSrc(this) {}
+		virtual bool IsVulnerable() const;
+		virtual bool EvalForward(Environment &env);
+		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+		virtual String ToString() const;
+		virtual void Print(int indentLevel) const;
+	};
+#endif
 	//-------------------------------------------------------------------------
 	// NodeUnary
 	//-------------------------------------------------------------------------
