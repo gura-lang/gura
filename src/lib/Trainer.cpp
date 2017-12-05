@@ -57,7 +57,7 @@ Trainer::Node *Trainer::CreateNode(Environment &env, const Expr *pExpr,
 			env.SetError(ERR_SyntaxError, "invalid assignment");
 			return nullptr;
 		}
-		if (pExprEx->GetLeft()->IsIdentifier()) {
+		if (!pExprEx->GetLeft()->IsIdentifier()) {
 			env.SetError(ERR_SyntaxError, "assignment to an identifier is only supported");
 			return nullptr;
 		}
