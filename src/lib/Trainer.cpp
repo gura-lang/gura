@@ -19,7 +19,7 @@ Trainer::~Trainer()
 bool Trainer::CreateFromExpr(Environment &env, const Expr *pExprModel, const SymbolSet &symbolsInput)
 {
 	_pExprModel.reset(pExprModel->Reference());
-	return _nodeOwner.CreateNode(env, pExprModel, _pNodeBottom->GetConnectorSrc(), symbolsInput) != nullptr;
+	return CreateNode(env, pExprModel, _pNodeBottom->GetConnectorSrc(), symbolsInput) != nullptr;
 }
 
 bool Trainer::EvalForward(Environment &env)
@@ -37,9 +37,148 @@ const Array *Trainer::GetResult() const
 	return _pNodeBottom->GetArrayFwd();
 }
 
+Trainer::Node *Trainer::FindNode(const Symbol *pSymbol) const
+{
+	NodeMap::const_iterator iter = _nodeMap.find(pSymbol);
+	return (iter == _nodeMap.end())? nullptr : iter->second;
+}
+
 void Trainer::Print() const
 {
 	_pNodeBottom->Print(0);
+}
+
+Trainer::Node *Trainer::CreateNode(Environment &env, const Expr *pExpr,
+								   Node::Connector *pConnector, const SymbolSet &symbolsInput)
+{
+	if (pExpr->IsType(EXPRTYPE_Assign)) {
+		const Expr_Assign *pExprEx = dynamic_cast<const Expr_Assign *>(pExpr);
+		if (pExprEx->GetOperatorToApply() != nullptr) {
+			env.SetError(ERR_SyntaxError, "invalid assignment");
+			return nullptr;
+		}
+		if (pExprEx->GetLeft()->IsIdentifier()) {
+			env.SetError(ERR_SyntaxError, "assignment to an identifier is only supported");
+			return nullptr;
+		}
+		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExprEx->GetLeft())->GetSymbol();
+		Node *pNode = CreateNode(env, pExprEx->GetRight(), pConnector, symbolsInput);
+		if (pNode == nullptr) return nullptr;
+		_nodeMap[pSymbol] = pNode;
+		return pNode;
+	} else if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
+		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
+		return CreateNodeUnary(env, pExprEx, pConnector, symbolsInput);
+	} else if (pExpr->IsType(EXPRTYPE_BinaryOp)) {
+		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExpr);
+		return pExprEx->GetOperator()->IsOpType(OPTYPE_Gear)?
+			CreateNodeGear(env, pExprEx, pConnector, symbolsInput) :
+			CreateNodeBinary(env, pExprEx, pConnector, symbolsInput);
+	}
+	Node::Trait trait = Node::TRAIT_Variable;
+	if (pExpr->IsIdentifier() &&
+		symbolsInput.IsSet(dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol())) {
+		trait = Node::TRAIT_Input;
+	} else if (pExpr->IsValue()) {
+		trait = Node::TRAIT_Constant;
+	}
+	AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), trait));
+	_nodeOwner.push_back(pNode.get());
+	return pNode.release();
+}
+
+Trainer::Node *Trainer::CreateNodeUnary(Environment &env, const Expr_UnaryOp *pExprEx,
+										Node::Connector *pConnector, const SymbolSet &symbolsInput)
+{
+	const Operator *pOperator = pExprEx->GetOperator();
+	AutoPtr<NodeUnary> pNode;
+	if (pOperator->IsOpType(OPTYPE_Pos)) {
+		pNode.reset(new NodeUnary_Pos(pConnector));
+	} else if (pOperator->IsOpType(OPTYPE_Neg)) {
+		pNode.reset(new NodeUnary_Neg(pConnector));
+	} else {
+		env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
+		return nullptr;
+	}
+	Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
+	Node *pNodeRtn = pNode.get();
+	_nodeOwner.push_back(pNode.release());
+	return
+		(CreateNode(env, pExprEx->GetChild(), pConnectorSrc, symbolsInput) == nullptr)?
+		nullptr : pNodeRtn;
+}
+
+Trainer::Node *Trainer::CreateNodeBinary(Environment &env, const Expr_BinaryOp *pExprEx,
+										 Node::Connector *pConnector, const SymbolSet &symbolsInput)
+{
+	const Operator *pOperator = pExprEx->GetOperator();
+	AutoPtr<NodeBinary> pNode;
+	if (pOperator->IsOpType(OPTYPE_Add)) {
+		pNode.reset(new NodeBinary_Add(pConnector));
+	} else if (pOperator->IsOpType(OPTYPE_Sub)) {
+		pNode.reset(new NodeBinary_Sub(pConnector));
+	} else if (pOperator->IsOpType(OPTYPE_Mul)) {
+		pNode.reset(new NodeBinary_Mul(pConnector));
+	} else if (pOperator->IsOpType(OPTYPE_Div)) {
+		pNode.reset(new NodeBinary_Div(pConnector));
+	} else if (pOperator->IsOpType(OPTYPE_Pow)) {
+		pNode.reset(new NodeBinary_Pow(pConnector));
+	} else if (pOperator->IsOpType(OPTYPE_Dot)) {
+		pNode.reset(new NodeBinary_Dot(pConnector));
+	} else {
+		env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
+		return nullptr;
+	}
+	Node::Connector *pConnectorSrcLeft = pNode->GetConnectorSrcLeft();
+	Node::Connector *pConnectorSrcRight = pNode->GetConnectorSrcRight();
+	Node *pNodeRtn = pNode.get();
+	_nodeOwner.push_back(pNode.release());
+	return
+		(CreateNode(env, pExprEx->GetLeft(), pConnectorSrcLeft, symbolsInput) == nullptr) ||
+		(CreateNode(env, pExprEx->GetRight(), pConnectorSrcRight, symbolsInput) == nullptr)?
+		nullptr : pNodeRtn;
+}
+
+Trainer::Node *Trainer::CreateNodeGear(Environment &env, const Expr_BinaryOp *pExprEx,
+									   Node::Connector *pConnector, const SymbolSet &symbolsInput)
+{
+	Value value = pExprEx->GetRight()->Exec(env);
+	if (env.IsSignalled()) return nullptr;
+	AutoPtr<NodeGear> pNode;
+	if (!value.IsInstanceOf(VTYPE_gear)) {
+		env.SetError(ERR_ValueError, "gear instance is expected as a right-side operand of a gear operator");
+		return nullptr;
+	}
+	const Gear *pGear = Object_gear::GetObject(value)->GetGear();
+	if (value.Is_gear_at_conv1d()) {
+		pNode.reset(new NodeGear_Conv1d(dynamic_cast<Gear_Conv1d *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_conv2d()) {
+		pNode.reset(new NodeGear_Conv2d(dynamic_cast<Gear_Conv2d *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_conv3d()) {
+		pNode.reset(new NodeGear_Conv3d(dynamic_cast<Gear_Conv3d *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_maxpool1d()) {
+		pNode.reset(new NodeGear_MaxPool1d(dynamic_cast<Gear_MaxPool1d *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_maxpool2d()) {
+		pNode.reset(new NodeGear_MaxPool2d(dynamic_cast<Gear_MaxPool2d *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_maxpool3d()) {
+		pNode.reset(new NodeGear_MaxPool3d(dynamic_cast<Gear_MaxPool3d *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_relu()) {
+		pNode.reset(new NodeGear_Relu(dynamic_cast<Gear_Relu *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_sigmoid()) {
+		pNode.reset(new NodeGear_Sigmoid(dynamic_cast<Gear_Sigmoid *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_softmax()) {
+		pNode.reset(new NodeGear_Softmax(dynamic_cast<Gear_Softmax *>(pGear->Reference()), pConnector));
+	} else if (value.Is_gear_at_tanh()) {
+		pNode.reset(new NodeGear_Tanh(dynamic_cast<Gear_Tanh *>(pGear->Reference()), pConnector));
+	} else {
+		env.SetError(ERR_ValueError, "unsupported gear type: %s", value.MakeValueTypeName().c_str());
+		return nullptr;
+	}
+	Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
+	Node *pNodeRtn = pNode.get();
+	_nodeOwner.push_back(pNode.release());
+	return (CreateNode(env, pExprEx->GetLeft(), pConnectorSrc, symbolsInput) == nullptr)?
+		nullptr : pNodeRtn;
 }
 
 //-----------------------------------------------------------------------------
@@ -846,131 +985,6 @@ void Trainer::NodeOwner::Clear()
 		Trainer::Node::Delete(*ppNode);
 	}
 	clear();
-}
-
-Trainer::Node *Trainer::NodeOwner::CreateNode(Environment &env, const Expr *pExpr,
-											  Node::Connector *pConnector, const SymbolSet &symbolsInput)
-{
-	if (pExpr->IsType(EXPRTYPE_Assign)) {
-		const Expr_Assign *pExprEx = dynamic_cast<const Expr_Assign *>(pExpr);
-		if (pExprEx->GetOperatorToApply() != nullptr) {
-			env.SetError(ERR_SyntaxError, "invalid assignment");
-			return nullptr;
-		}
-		
-	} else if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
-		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
-		return CreateNodeUnary(env, pExprEx, pConnector, symbolsInput);
-	} else if (pExpr->IsType(EXPRTYPE_BinaryOp)) {
-		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExpr);
-		return pExprEx->GetOperator()->IsOpType(OPTYPE_Gear)?
-			CreateNodeGear(env, pExprEx, pConnector, symbolsInput) :
-			CreateNodeBinary(env, pExprEx, pConnector, symbolsInput);
-	}
-	Node::Trait trait = Node::TRAIT_Variable;
-	if (pExpr->IsIdentifier() &&
-		symbolsInput.IsSet(dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol())) {
-		trait = Node::TRAIT_Input;
-	} else if (pExpr->IsValue()) {
-		trait = Node::TRAIT_Constant;
-	}
-	AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), trait));
-	push_back(pNode.get());
-	return pNode.release();
-}
-
-Trainer::Node *Trainer::NodeOwner::CreateNodeUnary(Environment &env, const Expr_UnaryOp *pExprEx,
-												   Node::Connector *pConnector, const SymbolSet &symbolsInput)
-{
-	const Operator *pOperator = pExprEx->GetOperator();
-	AutoPtr<NodeUnary> pNode;
-	if (pOperator->IsOpType(OPTYPE_Pos)) {
-		pNode.reset(new NodeUnary_Pos(pConnector));
-	} else if (pOperator->IsOpType(OPTYPE_Neg)) {
-		pNode.reset(new NodeUnary_Neg(pConnector));
-	} else {
-		env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
-		return nullptr;
-	}
-	Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
-	Node *pNodeRtn = pNode.get();
-	push_back(pNode.release());
-	return
-		(CreateNode(env, pExprEx->GetChild(), pConnectorSrc, symbolsInput) == nullptr)?
-		nullptr : pNodeRtn;
-}
-
-Trainer::Node *Trainer::NodeOwner::CreateNodeBinary(Environment &env, const Expr_BinaryOp *pExprEx,
-													Node::Connector *pConnector, const SymbolSet &symbolsInput)
-{
-	const Operator *pOperator = pExprEx->GetOperator();
-	AutoPtr<NodeBinary> pNode;
-	if (pOperator->IsOpType(OPTYPE_Add)) {
-		pNode.reset(new NodeBinary_Add(pConnector));
-	} else if (pOperator->IsOpType(OPTYPE_Sub)) {
-		pNode.reset(new NodeBinary_Sub(pConnector));
-	} else if (pOperator->IsOpType(OPTYPE_Mul)) {
-		pNode.reset(new NodeBinary_Mul(pConnector));
-	} else if (pOperator->IsOpType(OPTYPE_Div)) {
-		pNode.reset(new NodeBinary_Div(pConnector));
-	} else if (pOperator->IsOpType(OPTYPE_Pow)) {
-		pNode.reset(new NodeBinary_Pow(pConnector));
-	} else if (pOperator->IsOpType(OPTYPE_Dot)) {
-		pNode.reset(new NodeBinary_Dot(pConnector));
-	} else {
-		env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
-		return nullptr;
-	}
-	Node::Connector *pConnectorSrcLeft = pNode->GetConnectorSrcLeft();
-	Node::Connector *pConnectorSrcRight = pNode->GetConnectorSrcRight();
-	Node *pNodeRtn = pNode.get();
-	push_back(pNode.release());
-	return
-		(CreateNode(env, pExprEx->GetLeft(), pConnectorSrcLeft, symbolsInput) == nullptr) ||
-		(CreateNode(env, pExprEx->GetRight(), pConnectorSrcRight, symbolsInput) == nullptr)?
-		nullptr : pNodeRtn;
-}
-
-Trainer::Node *Trainer::NodeOwner::CreateNodeGear(Environment &env, const Expr_BinaryOp *pExprEx,
-										  Node::Connector *pConnector, const SymbolSet &symbolsInput)
-{
-	Value value = pExprEx->GetRight()->Exec(env);
-	if (env.IsSignalled()) return nullptr;
-	AutoPtr<NodeGear> pNode;
-	if (!value.IsInstanceOf(VTYPE_gear)) {
-		env.SetError(ERR_ValueError, "gear instance is expected as a right-side operand of a gear operator");
-		return nullptr;
-	}
-	const Gear *pGear = Object_gear::GetObject(value)->GetGear();
-	if (value.Is_gear_at_conv1d()) {
-		pNode.reset(new NodeGear_Conv1d(dynamic_cast<Gear_Conv1d *>(pGear->Reference()), pConnector));
-	} else if (value.Is_gear_at_conv2d()) {
-		pNode.reset(new NodeGear_Conv2d(dynamic_cast<Gear_Conv2d *>(pGear->Reference()), pConnector));
-	} else if (value.Is_gear_at_conv3d()) {
-		pNode.reset(new NodeGear_Conv3d(dynamic_cast<Gear_Conv3d *>(pGear->Reference()), pConnector));
-	} else if (value.Is_gear_at_maxpool1d()) {
-		pNode.reset(new NodeGear_MaxPool1d(dynamic_cast<Gear_MaxPool1d *>(pGear->Reference()), pConnector));
-	} else if (value.Is_gear_at_maxpool2d()) {
-		pNode.reset(new NodeGear_MaxPool2d(dynamic_cast<Gear_MaxPool2d *>(pGear->Reference()), pConnector));
-	} else if (value.Is_gear_at_maxpool3d()) {
-		pNode.reset(new NodeGear_MaxPool3d(dynamic_cast<Gear_MaxPool3d *>(pGear->Reference()), pConnector));
-	} else if (value.Is_gear_at_relu()) {
-		pNode.reset(new NodeGear_Relu(dynamic_cast<Gear_Relu *>(pGear->Reference()), pConnector));
-	} else if (value.Is_gear_at_sigmoid()) {
-		pNode.reset(new NodeGear_Sigmoid(dynamic_cast<Gear_Sigmoid *>(pGear->Reference()), pConnector));
-	} else if (value.Is_gear_at_softmax()) {
-		pNode.reset(new NodeGear_Softmax(dynamic_cast<Gear_Softmax *>(pGear->Reference()), pConnector));
-	} else if (value.Is_gear_at_tanh()) {
-		pNode.reset(new NodeGear_Tanh(dynamic_cast<Gear_Tanh *>(pGear->Reference()), pConnector));
-	} else {
-		env.SetError(ERR_ValueError, "unsupported gear type: %s", value.MakeValueTypeName().c_str());
-		return nullptr;
-	}
-	Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
-	Node *pNodeRtn = pNode.get();
-	push_back(pNode.release());
-	return (CreateNode(env, pExprEx->GetLeft(), pConnectorSrc, symbolsInput) == nullptr)?
-		nullptr : pNodeRtn;
 }
 
 }

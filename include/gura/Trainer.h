@@ -404,6 +404,10 @@ public:
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
+	// NodeMap
+	//-------------------------------------------------------------------------
+	typedef std::unordered_map<const Symbol *, Node *, Symbol::Hasher, Symbol::EqualTo> NodeMap;
+	//-------------------------------------------------------------------------
 	// NodeList
 	//-------------------------------------------------------------------------
 	class NodeList : public std::vector<Node *> {
@@ -416,23 +420,16 @@ public:
 	// NodeOwner
 	//-------------------------------------------------------------------------
 	class NodeOwner : public NodeList {
+	private:
 	public:
 		~NodeOwner();
 		void Clear();
-		Node *CreateNode(Environment &env, const Expr *pExpr,
-						 Node::Connector *pConnector, const SymbolSet &symbolsInput);
-	private:
-		Node *CreateNodeUnary(Environment &env, const Expr_UnaryOp *pExprEx,
-							  Node::Connector *pConnector, const SymbolSet &symbolsInput);
-		Node *CreateNodeBinary(Environment &env, const Expr_BinaryOp *pExprEx,
-							   Node::Connector *pConnector, const SymbolSet &symbolsInput);
-		Node *CreateNodeGear(Environment &env, const Expr_BinaryOp *pExprEx,
-							 Node::Connector *pConnector, const SymbolSet &symbolsInput);
 	};
 private:
 	int _cntRef;
 	AutoPtr<NodeBottom> _pNodeBottom;
 	NodeOwner _nodeOwner;
+	NodeMap _nodeMap;
 	AutoPtr<Expr> _pExprModel;
 public:
 	Gura_DeclareReferenceAccessor(Trainer);
@@ -445,10 +442,19 @@ public:
 	bool EvalForward(Environment &env);
 	bool EvalBackward(Environment &env, const Array *pArrayCorrect);
 	const Array *GetResult() const;
-	const Array *GetResultSoftmax() const;
 	inline const NodeOwner &GetNodeOwner() const { return _nodeOwner; }
 	inline const Expr *GetExprModel() const { return _pExprModel.get(); }
+	Node *FindNode(const Symbol *pSymbol) const;
 	void Print() const;
+private:
+	Node *CreateNode(Environment &env, const Expr *pExpr,
+					 Node::Connector *pConnector, const SymbolSet &symbolsInput);
+	Node *CreateNodeUnary(Environment &env, const Expr_UnaryOp *pExprEx,
+						  Node::Connector *pConnector, const SymbolSet &symbolsInput);
+	Node *CreateNodeBinary(Environment &env, const Expr_BinaryOp *pExprEx,
+						   Node::Connector *pConnector, const SymbolSet &symbolsInput);
+	Node *CreateNodeGear(Environment &env, const Expr_BinaryOp *pExprEx,
+						 Node::Connector *pConnector, const SymbolSet &symbolsInput);
 };
 
 }

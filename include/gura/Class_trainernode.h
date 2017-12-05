@@ -26,12 +26,13 @@ class GURA_DLLDECLARE Object_trainernode : public Object {
 public:
 	Gura_DeclareObjectAccessor(trainernode)
 private:
-	AutoPtr<Trainer::Node> _pNode;
+	AutoPtr<Trainer> _pTrainer;
+	Trainer::Node *_pNode;
 public:
-	inline Object_trainernode(Environment &env, Trainer::Node *pNode) :
-			Object(env.LookupClass(VTYPE_trainernode)), _pNode(pNode) {}
-	inline Object_trainernode(Class *pClass, Trainer::Node *pNode) :
-			Object(pClass), _pNode(pNode) {}
+	inline Object_trainernode(Environment &env, Trainer *pTrainer, Trainer::Node *pNode) :
+	Object(env.LookupClass(VTYPE_trainernode)), _pTrainer(pTrainer), _pNode(pNode) {}
+	inline Object_trainernode(Class *pClass, Trainer *pTrainer, Trainer::Node *pNode) :
+		Object(pClass), _pTrainer(pTrainer), _pNode(pNode) {}
 	Object_trainernode(const Object_trainernode &obj);
 	virtual ~Object_trainernode();
 	virtual Object *Clone() const;
@@ -39,8 +40,8 @@ public:
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	inline Trainer::Node *GetTrainerNode() { return _pNode.get(); }
-	inline const Trainer::Node *GetTrainerNode() const { return _pNode.get(); }
+	inline Trainer::Node *GetTrainerNode() { return _pNode; }
+	inline const Trainer::Node *GetTrainerNode() const { return _pNode; }
 };
 
 }
