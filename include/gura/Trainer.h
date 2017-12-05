@@ -121,25 +121,6 @@ public:
 		virtual String ToString() const;
 		virtual void Print(int indentLevel) const;
 	};
-#if 0
-	//-------------------------------------------------------------------------
-	// NodeAssign
-	//-------------------------------------------------------------------------
-	class NodeAssign : public Node {
-	protected:
-		Node *_pNodeSrc;
-	public:
-		inline NodeAssign(Node *pNode) :
-				Node(pConnectorDst), _unaryFuncPack(unaryFuncPack), _connectorSrc(this) {}
-		virtual bool IsVulnerable() const;
-		virtual bool EvalForward(Environment &env);
-		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
-		virtual String ToString() const;
-		virtual void Print(int indentLevel) const;
-	};
-#endif
 	//-------------------------------------------------------------------------
 	// NodeUnary
 	//-------------------------------------------------------------------------
@@ -438,15 +419,15 @@ public:
 	public:
 		~NodeOwner();
 		void Clear();
-		bool CreateFromExpr(Environment &env, const Expr *pExpr,
-							Node::Connector *pConnector, const SymbolSet &symbolsInput);
+		Node *CreateNode(Environment &env, const Expr *pExpr,
+						 Node::Connector *pConnector, const SymbolSet &symbolsInput);
 	private:
-		bool CreateNodeUnary(Environment &env, const Expr_UnaryOp *pExprEx,
-							 Node::Connector *pConnector, const SymbolSet &symbolsInput);
-		bool CreateNodeBinary(Environment &env, const Expr_BinaryOp *pExprEx,
+		Node *CreateNodeUnary(Environment &env, const Expr_UnaryOp *pExprEx,
 							  Node::Connector *pConnector, const SymbolSet &symbolsInput);
-		bool CreateNodeGear(Environment &env, const Expr_BinaryOp *pExprEx,
-							Node::Connector *pConnector, const SymbolSet &symbolsInput);
+		Node *CreateNodeBinary(Environment &env, const Expr_BinaryOp *pExprEx,
+							   Node::Connector *pConnector, const SymbolSet &symbolsInput);
+		Node *CreateNodeGear(Environment &env, const Expr_BinaryOp *pExprEx,
+							 Node::Connector *pConnector, const SymbolSet &symbolsInput);
 	};
 private:
 	int _cntRef;

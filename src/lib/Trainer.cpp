@@ -19,7 +19,7 @@ Trainer::~Trainer()
 bool Trainer::CreateFromExpr(Environment &env, const Expr *pExprModel, const SymbolSet &symbolsInput)
 {
 	_pExprModel.reset(pExprModel->Reference());
-	return _nodeOwner.CreateFromExpr(env, pExprModel, _pNodeBottom->GetConnectorSrc(), symbolsInput);
+	return _nodeOwner.CreateNode(env, pExprModel, _pNodeBottom->GetConnectorSrc(), symbolsInput) != nullptr;
 }
 
 bool Trainer::EvalForward(Environment &env)
@@ -848,14 +848,14 @@ void Trainer::NodeOwner::Clear()
 	clear();
 }
 
-bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
-										Node::Connector *pConnector, const SymbolSet &symbolsInput)
+Trainer::Node *Trainer::NodeOwner::CreateNode(Environment &env, const Expr *pExpr,
+											  Node::Connector *pConnector, const SymbolSet &symbolsInput)
 {
 	if (pExpr->IsType(EXPRTYPE_Assign)) {
 		const Expr_Assign *pExprEx = dynamic_cast<const Expr_Assign *>(pExpr);
 		if (pExprEx->GetOperatorToApply() != nullptr) {
 			env.SetError(ERR_SyntaxError, "invalid assignment");
-			return false;
+			return nullptr;
 		}
 		
 	} else if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
@@ -875,12 +875,12 @@ bool Trainer::NodeOwner::CreateFromExpr(Environment &env, const Expr *pExpr,
 		trait = Node::TRAIT_Constant;
 	}
 	AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), trait));
-	push_back(pNode.release());
-	return true;
+	push_back(pNode.get());
+	return pNode.release();
 }
 
-bool Trainer::NodeOwner::CreateNodeUnary(Environment &env, const Expr_UnaryOp *pExprEx,
-										 Node::Connector *pConnector, const SymbolSet &symbolsInput)
+Trainer::Node *Trainer::NodeOwner::CreateNodeUnary(Environment &env, const Expr_UnaryOp *pExprEx,
+												   Node::Connector *pConnector, const SymbolSet &symbolsInput)
 {
 	const Operator *pOperator = pExprEx->GetOperator();
 	AutoPtr<NodeUnary> pNode;
@@ -890,15 +890,18 @@ bool Trainer::NodeOwner::CreateNodeUnary(Environment &env, const Expr_UnaryOp *p
 		pNode.reset(new NodeUnary_Neg(pConnector));
 	} else {
 		env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
-		return false;
+		return nullptr;
 	}
 	Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
+	Node *pNodeRtn = pNode.get();
 	push_back(pNode.release());
-	return CreateFromExpr(env, pExprEx->GetChild(), pConnectorSrc, symbolsInput);
+	return
+		(CreateNode(env, pExprEx->GetChild(), pConnectorSrc, symbolsInput) == nullptr)?
+		nullptr : pNodeRtn;
 }
 
-bool Trainer::NodeOwner::CreateNodeBinary(Environment &env, const Expr_BinaryOp *pExprEx,
-										  Node::Connector *pConnector, const SymbolSet &symbolsInput)
+Trainer::Node *Trainer::NodeOwner::CreateNodeBinary(Environment &env, const Expr_BinaryOp *pExprEx,
+													Node::Connector *pConnector, const SymbolSet &symbolsInput)
 {
 	const Operator *pOperator = pExprEx->GetOperator();
 	AutoPtr<NodeBinary> pNode;
@@ -916,24 +919,27 @@ bool Trainer::NodeOwner::CreateNodeBinary(Environment &env, const Expr_BinaryOp 
 		pNode.reset(new NodeBinary_Dot(pConnector));
 	} else {
 		env.SetError(ERR_ValueError, "unsupported operator: %s", pOperator->GetName());
-		return false;
+		return nullptr;
 	}
 	Node::Connector *pConnectorSrcLeft = pNode->GetConnectorSrcLeft();
 	Node::Connector *pConnectorSrcRight = pNode->GetConnectorSrcRight();
+	Node *pNodeRtn = pNode.get();
 	push_back(pNode.release());
-	return CreateFromExpr(env, pExprEx->GetLeft(), pConnectorSrcLeft, symbolsInput) &&
-		CreateFromExpr(env, pExprEx->GetRight(), pConnectorSrcRight, symbolsInput);
+	return
+		(CreateNode(env, pExprEx->GetLeft(), pConnectorSrcLeft, symbolsInput) == nullptr) ||
+		(CreateNode(env, pExprEx->GetRight(), pConnectorSrcRight, symbolsInput) == nullptr)?
+		nullptr : pNodeRtn;
 }
 
-bool Trainer::NodeOwner::CreateNodeGear(Environment &env, const Expr_BinaryOp *pExprEx,
+Trainer::Node *Trainer::NodeOwner::CreateNodeGear(Environment &env, const Expr_BinaryOp *pExprEx,
 										  Node::Connector *pConnector, const SymbolSet &symbolsInput)
 {
 	Value value = pExprEx->GetRight()->Exec(env);
-	if (env.IsSignalled()) return false;
+	if (env.IsSignalled()) return nullptr;
 	AutoPtr<NodeGear> pNode;
 	if (!value.IsInstanceOf(VTYPE_gear)) {
 		env.SetError(ERR_ValueError, "gear instance is expected as a right-side operand of a gear operator");
-		return false;
+		return nullptr;
 	}
 	const Gear *pGear = Object_gear::GetObject(value)->GetGear();
 	if (value.Is_gear_at_conv1d()) {
@@ -958,11 +964,13 @@ bool Trainer::NodeOwner::CreateNodeGear(Environment &env, const Expr_BinaryOp *p
 		pNode.reset(new NodeGear_Tanh(dynamic_cast<Gear_Tanh *>(pGear->Reference()), pConnector));
 	} else {
 		env.SetError(ERR_ValueError, "unsupported gear type: %s", value.MakeValueTypeName().c_str());
-		return false;
+		return nullptr;
 	}
 	Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
+	Node *pNodeRtn = pNode.get();
 	push_back(pNode.release());
-	return CreateFromExpr(env, pExprEx->GetLeft(), pConnectorSrc, symbolsInput);
+	return (CreateNode(env, pExprEx->GetLeft(), pConnectorSrc, symbolsInput) == nullptr)?
+		nullptr : pNodeRtn;
 }
 
 }
