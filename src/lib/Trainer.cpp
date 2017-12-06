@@ -51,6 +51,18 @@ void Trainer::Print() const
 Trainer::Node *Trainer::CreateNode(Environment &env, const Expr *pExpr,
 								   Node::Connector *pConnector, const SymbolSet &symbolsInput)
 {
+	if (pExpr->IsType(EXPRTYPE_Block)) {
+		Node *pNodeRtn = nullptr;
+		const Expr_Block *pExprEx = dynamic_cast<const Expr_Block *>(pExpr);
+		const ExprOwner &exprOwner = pExprEx->GetExprOwner();
+		foreach_const (ExprOwner, ppExprEach, exprOwner) {
+			const Expr *pExprEach = *ppExprEach;
+			Node::Connector *pConnectorEach = (ppExprEach + 1 == exprOwner.end())? pConnector : nullptr;
+			pNodeRtn = CreateNode(env, pExprEach, pConnectorEach, symbolsInput);
+			if (pNodeRtn == nullptr) return nullptr;
+		}
+		return pNodeRtn;
+	}
 	if (pExpr->IsType(EXPRTYPE_Assign)) {
 		const Expr_Assign *pExprEx = dynamic_cast<const Expr_Assign *>(pExpr);
 		if (pExprEx->GetOperatorToApply() != nullptr) {
@@ -64,6 +76,10 @@ Trainer::Node *Trainer::CreateNode(Environment &env, const Expr *pExpr,
 		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExprEx->GetLeft())->GetSymbol();
 		Node *pNode = CreateNode(env, pExprEx->GetRight(), pConnector, symbolsInput);
 		if (pNode == nullptr) return nullptr;
+		if (_nodeMap.find(pSymbol) != _nodeMap.end()) {
+			env.SetError(ERR_SyntaxError, "duplicated assignment to the identifier %s", pSymbol->GetName());
+			return nullptr;
+		}
 		_nodeMap[pSymbol] = pNode;
 		return pNode;
 	} else if (pExpr->IsType(EXPRTYPE_UnaryOp)) {
@@ -74,17 +90,21 @@ Trainer::Node *Trainer::CreateNode(Environment &env, const Expr *pExpr,
 		return pExprEx->GetOperator()->IsOpType(OPTYPE_Gear)?
 			CreateNodeGear(env, pExprEx, pConnector, symbolsInput) :
 			CreateNodeBinary(env, pExprEx, pConnector, symbolsInput);
+	} else if (pExpr->IsIdentifier()) {
+		const Expr_Identifier *pExprEx = dynamic_cast<const Expr_Identifier *>(pExpr);
+		const Symbol *pSymbol = pExprEx->GetSymbol();
+		Node *pNodeFound = FindNode(pSymbol);
+		if (pNodeFound != nullptr) return pNodeFound;
+		Node::Trait trait = symbolsInput.IsSet(pSymbol)? Node::TRAIT_Input : Node::TRAIT_Variable;
+		AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), trait));
+		_nodeOwner.push_back(pNode.get());
+		return pNode.release();
+	} else {
+		Node::Trait trait = pExpr->IsValue()? Node::TRAIT_Constant : Node::TRAIT_Variable;
+		AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), trait));
+		_nodeOwner.push_back(pNode.get());
+		return pNode.release();
 	}
-	Node::Trait trait = Node::TRAIT_Variable;
-	if (pExpr->IsIdentifier() &&
-		symbolsInput.IsSet(dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol())) {
-		trait = Node::TRAIT_Input;
-	} else if (pExpr->IsValue()) {
-		trait = Node::TRAIT_Constant;
-	}
-	AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), trait));
-	_nodeOwner.push_back(pNode.get());
-	return pNode.release();
 }
 
 Trainer::Node *Trainer::CreateNodeUnary(Environment &env, const Expr_UnaryOp *pExprEx,
@@ -186,8 +206,10 @@ Trainer::Node *Trainer::CreateNodeGear(Environment &env, const Expr_BinaryOp *pE
 //-----------------------------------------------------------------------------
 Trainer::Node::Node(Connector *pConnectorDst) : _cntRef(1)
 {
-	pConnectorDst->SetNodeSrc(this);
-	_connectorsDst.push_back(pConnectorDst);
+	if (pConnectorDst != nullptr) {
+		pConnectorDst->SetNodeSrc(this);
+		_connectorsDst.push_back(pConnectorDst);
+	}
 }
 
 Trainer::Node::~Node()
@@ -252,6 +274,7 @@ bool Trainer::NodeHead::EvalBackward(Environment &env)
 {
 	Double alpha = .01;
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (IsVulnerable()) {
 		if (!Array::ApplyBinaryFunc_array_number(
 				env, Array::binaryFuncPack_Mul, _pArrayBwdAdj,
@@ -398,6 +421,7 @@ bool Trainer::NodeUnary_Pos::EvalBackward(Environment &env)
 {
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
 		ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+		if (ppConnectorDst == _connectorsDst.end()) return true;
 		_connectorSrc.SetArrayBwd((*ppConnectorDst)->GetArrayBwd()->Reference());
 	}
 	return true;
@@ -409,6 +433,7 @@ bool Trainer::NodeUnary_Pos::EvalBackward(Environment &env)
 bool Trainer::NodeUnary_Neg::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
 		if (!Array::ApplyUnaryFunc(
 				env, Array::unaryFuncPack_Neg, _connectorSrc.GetArrayBwdAutoPtr(),
@@ -473,6 +498,7 @@ void Trainer::NodeBinary::Print(int indentLevel) const
 bool Trainer::NodeBinary_Add::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
 	const Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd();
 	_connectorSrcLeft.SetArrayBwd(pArrayBwd->Reference());
 	_connectorSrcRight.SetArrayBwd(pArrayBwd->Reference());
@@ -485,6 +511,7 @@ bool Trainer::NodeBinary_Add::EvalBackward(Environment &env)
 bool Trainer::NodeBinary_Sub::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
 		_connectorSrcLeft.SetArrayBwd((*ppConnectorDst)->GetArrayBwd()->Reference());
 	}
@@ -502,6 +529,7 @@ bool Trainer::NodeBinary_Sub::EvalBackward(Environment &env)
 bool Trainer::NodeBinary_Mul::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
 		if (!Array::ApplyBinaryFunc(
 				env, Array::binaryFuncPack_Mul, _connectorSrcLeft.GetArrayBwdAutoPtr(),
@@ -539,6 +567,7 @@ bool Trainer::NodeBinary_Pow::EvalBackward(Environment &env)
 bool Trainer::NodeBinary_Dot::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
 		_connectorSrcRight.GetArrayFwd()->Transpose2d(_pArrayFwdRightTrans);
 		if (!Array::ApplyBinaryFunc(
@@ -846,6 +875,7 @@ bool Trainer::NodeGear_Relu::EvalForward(Environment &env)
 bool Trainer::NodeGear_Relu::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
 		if (!Array::ApplyBinaryFunc(
 				env, Array::binaryFuncPack_Mul, _connectorSrc.GetArrayBwdAutoPtr(),
@@ -882,6 +912,7 @@ bool Trainer::NodeGear_Sigmoid::EvalForward(Environment &env)
 bool Trainer::NodeGear_Sigmoid::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
 		// 1 - y
 		if (!Array::ApplyBinaryFunc_number_array(
@@ -928,6 +959,7 @@ bool Trainer::NodeGear_Softmax::EvalForward(Environment &env)
 bool Trainer::NodeGear_Softmax::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
 	_connectorSrc.SetArrayBwd((*ppConnectorDst)->GetArrayBwd()->Reference());
 	return true;
 }

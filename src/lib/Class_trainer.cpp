@@ -120,6 +120,34 @@ Gura_ImplementMethod(trainer, eval)
 	return ReturnValue(env, arg, Array::ToValue(env, pTrainer->GetResult()->Reference()));
 }
 
+// trainer#node(id:symbol):map:[nil]
+Gura_DeclareMethod(trainer, node)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "id", VTYPE_symbol);
+	DeclareAttr(Gura_Symbol(nil));
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(trainer, node)
+{
+	Trainer *pTrainer = Object_trainer::GetObjectThis(arg)->GetTrainer();
+	const Symbol *pSymbol = arg.GetSymbol(0);
+	Trainer::Node *pNode = pTrainer->FindNode(pSymbol);
+	Value valueRtn;
+	if (pNode == nullptr) {
+		if (!arg.IsSet(Gura_Symbol(nil))) {
+			env.SetError(ERR_ValueError, "failed to find a node with the specified id");
+			return Value::Nil;
+		}
+	} else {
+		valueRtn = Value(new Object_trainernode(env, pTrainer->Reference(), pNode));
+	}
+	return valueRtn;
+}
+
 // trainer#train(correct:array):void
 Gura_DeclareMethod(trainer, train)
 {
@@ -156,6 +184,7 @@ void Class_trainer::DoPrepare(Environment &env)
 	Gura_AssignProperty(trainer, model);
 	// Assignment of methods
 	Gura_AssignMethod(trainer, eval);
+	Gura_AssignMethod(trainer, node);
 	Gura_AssignMethod(trainer, train);
 	// Assignment of value
 	// help document
