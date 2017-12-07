@@ -656,14 +656,14 @@ bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 	Gear_Conv2d *pGear = GetGear();
 	const Double padNum = 0;
 	// pArraySrc .. [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
-	const Array *pArraySrc = GetConnectorSrc()->GetArrayFwd();
-	// _pArraySrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
-	if (_pArraySrcVec.IsNull()) {
-		Gear::CalcPadding2d(pGear, pArraySrc->GetDimensions(),
+	const Array *pArrayFwdSrc = GetConnectorSrc()->GetArrayFwd();
+	// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
+	if (_pArrayFwdSrcVec.IsNull()) {
+		Gear::CalcPadding2d(pGear, pArrayFwdSrc->GetDimensions(),
 							&_sizePadRow, &_sizePadCol, &_sizeOutRow, &_sizeOutCol);
 	}
-	if (!pArraySrc->ExpandKernelVec2d(
-			env, _pArraySrcVec, pGear->GetSizeRow(), pGear->GetSizeCol(),
+	if (!pArrayFwdSrc->ExpandKernelVec2d(
+			env, _pArrayFwdSrcVec, pGear->GetSizeRow(), pGear->GetSizeCol(),
 			pGear->GetStridesRow(), pGear->GetStridesCol(), _sizePadRow, _sizePadCol,
 			pGear->GetChannelPos(), padNum)) return false;
 	const Array *pArrayGear = pGear->GetArrayGear();
@@ -706,11 +706,11 @@ bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 		pArrayGear->Reshape(_pArrayGearReshape, dims);
 		_pArrayGearReshape->Transpose2d(_pArrayGearTrans);
 	}
-	// _pArrayFwdPre = _pArraySrcVec |.| _pArrayGearTrans
+	// _pArrayFwdPre = _pArrayFwdSrcVec |.| _pArrayGearTrans
 	if (!Array::ApplyBinaryFunc(
 			env, Array::binaryFuncPack_Dot, _pArrayFwdPre,
-			_pArraySrcVec.get(), _pArrayGearTrans.get())) return false;
-	//::printf("_pArraySrcVec: %s\n", _pArraySrcVec->GetDimensions().ToString().c_str());
+			_pArrayFwdSrcVec.get(), _pArrayGearTrans.get())) return false;
+	//::printf("_pArrayFwdSrcVec: %s\n", _pArrayFwdSrcVec->GetDimensions().ToString().c_str());
 	//::printf("_pArrayGearTrans: %s\n", _pArrayGearTrans->GetDimensions().ToString().c_str());
 	//::printf("_pArrayFwdPre: %s\n", _pArrayFwdPre->GetDimensions().ToString().c_str());
 	if (_pArrayFwd.IsNull()) {
@@ -756,7 +756,24 @@ bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 
 bool Trainer::NodeGear_Conv2d::EvalBackward(Environment &env)
 {
-	return false;
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
+	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
+		//const Array *pArrayBwdSrc = (*ppConnectorDst)->GetArrayBwd();
+		//AutoPtr<Array> &pArrayBwd = _connectorSrc.GetArrayBwdAutoPtr();
+		// pArrayBwdSrc .. [H_out, W_out], [H_out, W_out, FN], [FN, H_out, W_out], [N, H_out, W_out], [N, H_out, W_out, FN]
+		// pArrayBwdSrcReshape .. [H_out * W_out], [H_out * W_out, FN], [FN, H_out * W_out], [N * h_out, W_out], [N * H_out * W_out, FN]
+		// pArrayBwdSrcTrans .. [FN, N * H_out * W_out]
+		// _pArrayFwdPre = _pArrayFwdSrcVec |.| _pArrayGearTrans
+		// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
+		// _pArrayGearReshape .. [FN, C * FH * FW]
+		// _pArrayGearTrans .. [C * FH * FW, FN]
+		// pArrayBwdVec = pArrayBwdSrcReshape |.| _pArrayGearReshape
+		// pArrayGearDiff = pArrayBwdSrcTrans |.| _pArrayFwdSrcVec
+		// pArrayBwdVec .. [N * H_out * W_out, C * FH * FW]
+		// pArrayGearDiff .. [FN, C * FH * FW]
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------

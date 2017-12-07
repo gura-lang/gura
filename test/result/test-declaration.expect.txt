@@ -1101,6 +1101,7 @@ timedelta
 token
 trainer
   trainer#eval(env?:environment) {block?}
+  trainer#node(id:symbol):map:[nil]
   trainer#train(correct:array):void {block?}
 trainernode
 undefined

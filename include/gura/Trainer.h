@@ -259,7 +259,7 @@ public:
 	//-------------------------------------------------------------------------
 	class NodeGear_Conv : public NodeGear {
 	protected:
-		AutoPtr<Array> _pArraySrcVec;
+		AutoPtr<Array> _pArrayFwdSrcVec;
 		AutoPtr<Array> _pArrayGearReshape;
 		AutoPtr<Array> _pArrayGearTrans;
 		AutoPtr<Array> _pArrayFwdPre;
