@@ -12,7 +12,7 @@ static const char *helpDoc_en = R"**(
 // Object_trainernode
 //-----------------------------------------------------------------------------
 Object_trainernode::Object_trainernode(const Object_trainernode &obj) :
-								Object(obj), _pNode(obj._pNode->Reference())
+	Object(obj), _pTrainer(obj._pTrainer->Reference()), _pNode(obj._pNode)
 {
 }
 

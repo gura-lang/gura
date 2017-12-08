@@ -30,7 +30,7 @@ private:
 	Trainer::Node *_pNode;
 public:
 	inline Object_trainernode(Environment &env, Trainer *pTrainer, Trainer::Node *pNode) :
-	Object(env.LookupClass(VTYPE_trainernode)), _pTrainer(pTrainer), _pNode(pNode) {}
+		Object(env.LookupClass(VTYPE_trainernode)), _pTrainer(pTrainer), _pNode(pNode) {}
 	inline Object_trainernode(Class *pClass, Trainer *pTrainer, Trainer::Node *pNode) :
 		Object(pClass), _pTrainer(pTrainer), _pNode(pNode) {}
 	Object_trainernode(const Object_trainernode &obj);

@@ -227,7 +227,7 @@ Value Trainer::Node::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(arrayfwd))) {
 		evaluatedFlag = true;
-		return Array::ToValue(env, GetArrayFwd());
+		return Array::ToValue(env, Array::Reference(GetArrayFwd()));
 	}
 	return Value::Nil;
 }
