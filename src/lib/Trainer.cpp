@@ -218,12 +218,17 @@ Trainer::Node::~Node()
 
 bool Trainer::Node::DoDirProp(Environment &env, SymbolSet &symbols)
 {
+	symbols.insert(Gura_Symbol(arraybwd));
 	return true;
 }
 
 Value Trainer::Node::DoGetProp(Environment &env, const Symbol *pSymbol,
 							   const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	if (pSymbol->IsIdentical(Gura_Symbol(arrayfwd))) {
+		evaluatedFlag = true;
+		return Array::ToValue(env, GetArrayFwd());
+	}
 	return Value::Nil;
 }
 
@@ -346,12 +351,17 @@ bool Trainer::NodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayC
 
 bool Trainer::NodeBottom::DoDirProp(Environment &env, SymbolSet &symbols)
 {
+	symbols.insert(Gura_Symbol(arraybwd));
 	return Node::DoDirProp(env, symbols);
 }
 
 Value Trainer::NodeBottom::DoGetProp(Environment &env, const Symbol *pSymbol,
 							   const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	if (pSymbol->IsIdentical(Gura_Symbol(arraybwd))) {
+		evaluatedFlag = true;
+		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayBwd()));
+	}
 	return Node::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 

@@ -442,6 +442,8 @@ public:
 	bool EvalForward(Environment &env);
 	bool EvalBackward(Environment &env, const Array *pArrayCorrect);
 	const Array *GetResult() const;
+	inline NodeBottom *GetNodeBottom() { return _pNodeBottom.get(); }
+	inline const NodeBottom *GetNodeBottom() const { return _pNodeBottom.get(); }
 	inline const NodeOwner &GetNodeOwner() const { return _nodeOwner; }
 	inline const Expr *GetExprModel() const { return _pExprModel.get(); }
 	Node *FindNode(const Symbol *pSymbol) const;

@@ -64,6 +64,36 @@ Gura_ImplementFunction(trainer)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
+// trainer#model
+Gura_DeclareProperty_R(trainer, model)
+{
+	SetPropAttr(VTYPE_expr);
+	AddHelp(
+		Gura_Symbol(en),
+		"Evaluation result.");
+}
+
+Gura_ImplementPropertyGetter(trainer, model)
+{
+	Trainer *pTrainer = Object_trainer::GetObject(valueThis)->GetTrainer();
+	return Value(new Object_expr(env, pTrainer->GetExprModel()->Reference()));
+}
+
+// trainer#node@bottom
+Gura_DeclarePropertyAlias_R(trainer, node_at_bottom, "node@bottom")
+{
+	SetPropAttr(VTYPE_expr);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns a `trainernode` instance that is placed at bottom.");
+}
+
+Gura_ImplementPropertyGetter(trainer, node_at_bottom)
+{
+	Trainer *pTrainer = Object_trainer::GetObject(valueThis)->GetTrainer();
+	return Value(new Object_trainernode(env, pTrainer->Reference(), pTrainer->GetNodeBottom()));
+}
+
 // trainer#result:nil
 Gura_DeclareProperty_R(trainer, result)
 {
@@ -78,21 +108,6 @@ Gura_ImplementPropertyGetter(trainer, result)
 	Trainer *pTrainer = Object_trainer::GetObject(valueThis)->GetTrainer();
 	const Array *pArray = pTrainer->GetResult();
 	return (pArray == nullptr)? Value::Nil : Array::ToValue(env, pArray->Reference());
-}
-
-// trainer#model
-Gura_DeclareProperty_R(trainer, model)
-{
-	SetPropAttr(VTYPE_expr);
-	AddHelp(
-		Gura_Symbol(en),
-		"Evaluation result.");
-}
-
-Gura_ImplementPropertyGetter(trainer, model)
-{
-	Trainer *pTrainer = Object_trainer::GetObject(valueThis)->GetTrainer();
-	return Value(new Object_expr(env, pTrainer->GetExprModel()->Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -181,8 +196,9 @@ void Class_trainer::DoPrepare(Environment &env)
 	// Assignment of function
 	Gura_AssignFunction(trainer);
 	// Assignment of properties
-	Gura_AssignProperty(trainer, result);
 	Gura_AssignProperty(trainer, model);
+	Gura_AssignProperty(trainer, node_at_bottom);
+	Gura_AssignProperty(trainer, result);
 	// Assignment of methods
 	Gura_AssignMethod(trainer, eval);
 	Gura_AssignMethod(trainer, node);

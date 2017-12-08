@@ -436,6 +436,7 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(arraybwd);
 	Gura_RealizeSymbol(arraybwd_left);
 	Gura_RealizeSymbol(arraybwd_right);
+	Gura_RealizeSymbol(arrayfwd);
 	Gura_RealizeSymbol(ascend);
 	Gura_RealizeSymbol(ascii);
 	Gura_RealizeSymbol(asctime);

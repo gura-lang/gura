@@ -236,6 +236,7 @@ public:
 	Gura_DeclareSymbol(arraybwd);
 	Gura_DeclareSymbol(arraybwd_left);
 	Gura_DeclareSymbol(arraybwd_right);
+	Gura_DeclareSymbol(arrayfwd);
 	Gura_DeclareSymbol(ascend);
 	Gura_DeclareSymbol(ascii);
 	Gura_DeclareSymbol(asctime);
