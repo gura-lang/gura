@@ -120,12 +120,13 @@ Gura_ImplementMethod(trainer, eval)
 	return ReturnValue(env, arg, Array::ToValue(env, pTrainer->GetResult()->Reference()));
 }
 
-// trainer#node(id:symbol):map:[nil]
+// trainer#node(id:symbol):map:[nil] {block?}
 Gura_DeclareMethod(trainer, node)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_symbol);
 	DeclareAttr(Gura_Symbol(nil));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -145,7 +146,7 @@ Gura_ImplementMethod(trainer, node)
 	} else {
 		valueRtn = Value(new Object_trainernode(env, pTrainer->Reference(), pNode));
 	}
-	return valueRtn;
+	return ReturnValue(env, arg, valueRtn);
 }
 
 // trainer#train(correct:array):void

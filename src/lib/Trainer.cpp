@@ -396,6 +396,7 @@ Value Trainer::NodeUnary::DoGetProp(Environment &env, const Symbol *pSymbol,
 							   const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(arraybwd))) {
+		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayBwd()));
 	}
 	return Node::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
@@ -476,8 +477,10 @@ Value Trainer::NodeBinary::DoGetProp(Environment &env, const Symbol *pSymbol,
 							   const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(arraybwd_left))) {
+		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrcLeft.GetArrayBwd()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(arraybwd_right))) {
+		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrcRight.GetArrayBwd()));
 	}
 	return Node::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
@@ -609,6 +612,7 @@ Value Trainer::NodeGear::DoGetProp(Environment &env, const Symbol *pSymbol,
 								   const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(arraybwd))) {
+		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayBwd()));
 	}
 	return Node::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
