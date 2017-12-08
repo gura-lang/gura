@@ -384,10 +384,16 @@ bool Array::PrepareModification(Signal &sig)
 
 Value Array::ToValue(Environment &env, Array *pArray)
 {
-	return (pArray == nullptr)? Value::Nil :
-		!pArray->IsScalar()? Value(new Object_array(env, pArray)) :
-		pArray->IsElemType(ETYPE_Complex)? Value(pArray->GetScalarComplex()) :
-		Value(pArray->GetScalarNumber());
+	if (pArray == nullptr) {
+		return Value::Nil;
+	} else if (pArray->IsScalar()) {
+		Value valueRtn = pArray->IsElemType(ETYPE_Complex)?
+			Value(pArray->GetScalarComplex()) : Value(pArray->GetScalarNumber());
+		Array::Delete(pArray);
+		return valueRtn;
+	} else {
+		return Value(new Object_array(env, pArray));
+	}
 }
 
 bool Array::Serialize(Environment &env, Stream &stream) const
