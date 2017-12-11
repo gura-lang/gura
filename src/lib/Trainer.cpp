@@ -222,7 +222,7 @@ Trainer::Node::~Node()
 
 bool Trainer::Node::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	symbols.insert(Gura_Symbol(arraybwd));
+	symbols.insert(Gura_Symbol(arrayfwd));
 	symbols.insert(Gura_Symbol(type));
 	return true;
 }
