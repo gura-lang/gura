@@ -16,6 +16,10 @@ Trainer::~Trainer()
 {
 }
 
+void Trainer::Bootup()
+{
+}
+
 bool Trainer::CreateFromExpr(Environment &env, const Expr *pExprModel, const SymbolSet &symbolsInput)
 {
 	_pExprModel.reset(pExprModel->Reference());
@@ -204,7 +208,7 @@ Trainer::Node *Trainer::CreateNodeGear(Environment &env, const Expr_BinaryOp *pE
 //-----------------------------------------------------------------------------
 // Trainer::Node
 //-----------------------------------------------------------------------------
-Trainer::Node::Node(Connector *pConnectorDst) : _cntRef(1)
+Trainer::Node::Node(NodeType nodeType, Connector *pConnectorDst) : _cntRef(1), _nodeType(nodeType)
 {
 	if (pConnectorDst != nullptr) {
 		pConnectorDst->SetNodeSrc(this);
@@ -219,6 +223,7 @@ Trainer::Node::~Node()
 bool Trainer::Node::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_Symbol(arraybwd));
+	symbols.insert(Gura_Symbol(type));
 	return true;
 }
 
@@ -228,6 +233,9 @@ Value Trainer::Node::DoGetProp(Environment &env, const Symbol *pSymbol,
 	if (pSymbol->IsIdentical(Gura_Symbol(arrayfwd))) {
 		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(GetArrayFwd()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(type))) {
+		evaluatedFlag = true;
+		return Value(Symbol::Add(GetNodeTypeName()));
 	}
 	return Value::Nil;
 }
@@ -235,6 +243,33 @@ Value Trainer::Node::DoGetProp(Environment &env, const Symbol *pSymbol,
 void Trainer::Node::Print(int indentLevel) const
 {
 	::printf("%-*s%s\n", indentLevel * 2, "", ToString().c_str());
+}
+
+const char *Trainer::Node::GetNodeTypeName() const
+{
+	const char *tbl[] = {
+		"head",
+		"bottom",
+		"unary_pos",
+		"unary_neg",
+		"binary_add",
+		"binary_sub",
+		"binary_mul",
+		"binary_div",
+		"binary_pow",
+		"binary_dot",
+		"gear_conv1d",
+		"gear_conv2d",
+		"gear_conv3d",
+		"gear_maxpool1d",
+		"gear_maxpool2d",
+		"gear_maxpool3d",
+		"gear_relu",
+		"gear_sigmoid",
+		"gear_softmax",
+		"gear_tanh",
+	};
+	return tbl[_nodeType];
 }
 
 //-----------------------------------------------------------------------------
@@ -306,7 +341,8 @@ Value Trainer::NodeHead::DoGetProp(Environment &env, const Symbol *pSymbol,
 String Trainer::NodeHead::ToString() const
 {
 	String str;
-	str += "head:";
+	str += GetNodeTypeName();
+	str += ":";
 	str += _pExpr->ToString(Expr::SCRSTYLE_OneLine);
 	return str;
 }
@@ -369,7 +405,7 @@ String Trainer::NodeBottom::ToString() const
 {
 	String str;
 	char buff[128];
-	str += "tail";
+	str += GetNodeTypeName();
 	::sprintf(buff, " [fwd:%p,bwd:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
 	str += buff;
 	return str;
@@ -416,8 +452,7 @@ String Trainer::NodeUnary::ToString() const
 {
 	String str;
 	char buff[128];
-	str += "unary:";
-	str += _unaryFuncPack.name;
+	str += GetNodeTypeName();
 	::sprintf(buff, " [fwd:%p,bwd:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
 	str += buff;
 	return str;
@@ -500,8 +535,7 @@ String Trainer::NodeBinary::ToString() const
 {
 	String str;
 	char buff[128];
-	str += "binary:";
-	str += _binaryFuncPack.name;
+	str += GetNodeTypeName();
 	::sprintf(buff, " [fwd:%p,bwd:%p][fwd:%p,bwd:%p]",
 			  _connectorSrcLeft.GetArrayFwd(), _connectorSrcLeft.GetArrayBwd(),
 			  _connectorSrcRight.GetArrayFwd(), _connectorSrcRight.GetArrayBwd());
@@ -632,8 +666,7 @@ String Trainer::NodeGear::ToString() const
 {
 	String str;
 	char buff[128];
-	str += "gear:";
-	str += _pGear->ToString();
+	str += GetNodeTypeName();
 	::sprintf(buff, " [fwd:%p,bwd:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
 	str += buff;
 	return str;
