@@ -121,7 +121,10 @@ Gura_DeclareMethod(trainer, eval)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Evaluates the registered model and returns its result.\n"
+		"\n"
+		"If the argument `env` is specified, evaluation is done in that environment.\n"
+		"Otherwise, the scope where the methos is called is used.\n");
 }
 
 Gura_ImplementMethod(trainer, eval)
@@ -133,6 +136,34 @@ Gura_ImplementMethod(trainer, eval)
 		env.Derive(ENVTYPE_block));
 	if (!pTrainer->EvalForward(*pEnv)) return Value::Nil;
 	return ReturnValue(env, arg, Array::ToValue(env, pTrainer->GetResult()->Reference()));
+}
+
+// trainer#evalbwd(correct:array, env?:environment):void
+Gura_DeclareMethod(trainer, evalbwd)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "correct", VTYPE_array);
+	DeclareArg(env, "env", VTYPE_environment, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Evaluates backward proces for the registered model. This must be called after `trainer#eval()`.\n"
+		"\n"
+		"The argument `correct` takes an `array` instance that represents the 'correct' answer for the result."
+		"\n"
+		"If the argument `env` is specified, evaluation is done in that environment.\n"
+		"Otherwise, the scope where the methos is called is used.\n");
+}
+
+Gura_ImplementMethod(trainer, evalbwd)
+{
+	Trainer *pTrainer = Object_trainer::GetObjectThis(arg)->GetTrainer();
+	const Array *pArrayCorrect = Object_array::GetObject(arg, 0)->GetArray();
+	AutoPtr<Environment> pEnv(
+		arg.Is_environment(0)?
+		Object_environment::GetObject(arg, 0)->GetEnv().Reference() :
+		env.Derive(ENVTYPE_block));
+	if (!pTrainer->EvalBackward(*pEnv, pArrayCorrect)) return Value::Nil;
+	return Value::Nil;
 }
 
 // trainer#node(id:symbol):map:[nil] {block?}
@@ -164,23 +195,33 @@ Gura_ImplementMethod(trainer, node)
 	return ReturnValue(env, arg, valueRtn);
 }
 
-// trainer#train(correct:array):void
+// trainer#train(correct:array, env?:environment):void
 Gura_DeclareMethod(trainer, train)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "correct", VTYPE_array);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "env", VTYPE_environment, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Do evaluating and backward-evaluating in a row.\n"
+		"Calling this methos is the same as calling `trainer#eval()` and then `trainer#evalbwd()`.\n"
+		"\n"
+		"The argument `correct` takes an `array` instance that represents the 'correct' answer for the result."
+		"\n"
+		"If the argument `env` is specified, evaluation is done in that environment.\n"
+		"Otherwise, the scope where the methos is called is used.\n");
 }
 
 Gura_ImplementMethod(trainer, train)
 {
 	Trainer *pTrainer = Object_trainer::GetObjectThis(arg)->GetTrainer();
 	const Array *pArrayCorrect = Object_array::GetObject(arg, 0)->GetArray();
-	if (!pTrainer->EvalForward(env)) return Value::Nil;
-	if (!pTrainer->EvalBackward(env, pArrayCorrect)) return Value::Nil;
+	AutoPtr<Environment> pEnv(
+		arg.Is_environment(0)?
+		Object_environment::GetObject(arg, 0)->GetEnv().Reference() :
+		env.Derive(ENVTYPE_block));
+	if (!pTrainer->EvalForward(*pEnv)) return Value::Nil;
+	if (!pTrainer->EvalBackward(*pEnv, pArrayCorrect)) return Value::Nil;
 	return Value::Nil;
 }
 
@@ -201,6 +242,7 @@ void Class_trainer::DoPrepare(Environment &env)
 	Gura_AssignProperty(trainer, result);
 	// Assignment of methods
 	Gura_AssignMethod(trainer, eval);
+	Gura_AssignMethod(trainer, evalbwd);
 	Gura_AssignMethod(trainer, node);
 	Gura_AssignMethod(trainer, train);
 	// Assignment of value
