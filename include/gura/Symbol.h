@@ -233,10 +233,6 @@ public:
 	Gura_DeclareSymbol(argument);
 	Gura_DeclareSymbol(argsymbols);
 	Gura_DeclareSymbol(array);
-	Gura_DeclareSymbol(arraybwd);
-	Gura_DeclareSymbol(arraybwd_left);
-	Gura_DeclareSymbol(arraybwd_right);
-	Gura_DeclareSymbol(arrayfwd);
 	Gura_DeclareSymbol(ascend);
 	Gura_DeclareSymbol(ascii);
 	Gura_DeclareSymbol(asctime);
@@ -405,6 +401,12 @@ public:
 	Gura_DeclareSymbol(indent);
 	Gura_DeclareSymbol(index);
 	Gura_DeclareSymbol(indices);
+	Gura_DeclareSymbol(input);
+	Gura_DeclareSymbol(input_at_left);
+	Gura_DeclareSymbol(input_at_right);
+	Gura_DeclareSymbol(inputbwd);
+	Gura_DeclareSymbol(inputbwd_at_left);
+	Gura_DeclareSymbol(inputbwd_at_right);
 	Gura_DeclareSymbol(inside_scope);
 	Gura_DeclareSymbol(int_);
 	Gura_DeclareSymbol(int8);
@@ -502,6 +504,8 @@ public:
 	Gura_DeclareSymbol(open_r);
 	Gura_DeclareSymbol(operator_);
 	Gura_DeclareSymbol(or);
+	Gura_DeclareSymbol(output);
+	Gura_DeclareSymbol(outputbwd);
 	Gura_DeclareSymbol(overwrite);
 	Gura_DeclareSymbol(p);
 	Gura_DeclareSymbol(P);

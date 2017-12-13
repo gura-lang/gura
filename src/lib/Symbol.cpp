@@ -433,10 +433,6 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(argument);
 	Gura_RealizeSymbol(argsymbols);
 	Gura_RealizeSymbol(array);
-	Gura_RealizeSymbol(arraybwd);
-	Gura_RealizeSymbol(arraybwd_left);
-	Gura_RealizeSymbol(arraybwd_right);
-	Gura_RealizeSymbol(arrayfwd);
 	Gura_RealizeSymbol(ascend);
 	Gura_RealizeSymbol(ascii);
 	Gura_RealizeSymbol(asctime);
@@ -605,6 +601,12 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(indent);
 	Gura_RealizeSymbol(index);
 	Gura_RealizeSymbol(indices);
+	Gura_RealizeSymbol(input);
+	Gura_RealizeSymbolAlias(input_at_left,		"input@left");
+	Gura_RealizeSymbolAlias(input_at_right,		"input@right");
+	Gura_RealizeSymbol(inputbwd);
+	Gura_RealizeSymbolAlias(inputbwd_at_left,	"inputbwd@left");
+	Gura_RealizeSymbolAlias(inputbwd_at_right,	"inputbwd@right");
 	Gura_RealizeSymbol(inside_scope);
 	Gura_RealizeSymbolAlias(int_,			"int");
 	Gura_RealizeSymbol(int8);
@@ -702,6 +704,8 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(open_r);
 	Gura_RealizeSymbolAlias(operator_,		"operator");
 	Gura_RealizeSymbol(or);
+	Gura_RealizeSymbol(output);
+	Gura_RealizeSymbol(outputbwd);
 	Gura_RealizeSymbol(overwrite);
 	Gura_RealizeSymbol(p);
 	Gura_RealizeSymbol(P);

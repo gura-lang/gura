@@ -222,7 +222,7 @@ Trainer::Node::~Node()
 
 bool Trainer::Node::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	symbols.insert(Gura_Symbol(arrayfwd));
+	symbols.insert(Gura_Symbol(output));
 	symbols.insert(Gura_Symbol(type));
 	return true;
 }
@@ -230,7 +230,7 @@ bool Trainer::Node::DoDirProp(Environment &env, SymbolSet &symbols)
 Value Trainer::Node::DoGetProp(Environment &env, const Symbol *pSymbol,
 							   const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	if (pSymbol->IsIdentical(Gura_Symbol(arrayfwd))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(output))) {
 		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(GetArrayFwd()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(type))) {
@@ -387,14 +387,18 @@ bool Trainer::NodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayC
 
 bool Trainer::NodeBottom::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	symbols.insert(Gura_Symbol(arraybwd));
+	symbols.insert(Gura_Symbol(input));
+	symbols.insert(Gura_Symbol(inputbwd));
 	return Node::DoDirProp(env, symbols);
 }
 
 Value Trainer::NodeBottom::DoGetProp(Environment &env, const Symbol *pSymbol,
 							   const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	if (pSymbol->IsIdentical(Gura_Symbol(arraybwd))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(input))) {
+		evaluatedFlag = true;
+		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayFwd()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(inputbwd))) {
 		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayBwd()));
 	}
@@ -434,14 +438,18 @@ bool Trainer::NodeUnary::EvalForward(Environment &env)
 
 bool Trainer::NodeUnary::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	symbols.insert(Gura_Symbol(arraybwd));
+	symbols.insert(Gura_Symbol(input));
+	symbols.insert(Gura_Symbol(inputbwd));
 	return Node::DoDirProp(env, symbols);
 }
 
 Value Trainer::NodeUnary::DoGetProp(Environment &env, const Symbol *pSymbol,
 							   const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	if (pSymbol->IsIdentical(Gura_Symbol(arraybwd))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(input))) {
+		evaluatedFlag = true;
+		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayFwd()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(inputbwd))) {
 		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayBwd()));
 	}
@@ -513,18 +521,26 @@ bool Trainer::NodeBinary::EvalForward(Environment &env)
 
 bool Trainer::NodeBinary::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	symbols.insert(Gura_Symbol(arraybwd_left));
-	symbols.insert(Gura_Symbol(arraybwd_right));
+	symbols.insert(Gura_Symbol(input_at_left));
+	symbols.insert(Gura_Symbol(input_at_right));
+	symbols.insert(Gura_Symbol(inputbwd_at_left));
+	symbols.insert(Gura_Symbol(inputbwd_at_right));
 	return Node::DoDirProp(env, symbols);
 }
 
 Value Trainer::NodeBinary::DoGetProp(Environment &env, const Symbol *pSymbol,
 							   const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	if (pSymbol->IsIdentical(Gura_Symbol(arraybwd_left))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(input_at_left))) {
+		evaluatedFlag = true;
+		return Array::ToValue(env, Array::Reference(_connectorSrcLeft.GetArrayFwd()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(input_at_right))) {
+		evaluatedFlag = true;
+		return Array::ToValue(env, Array::Reference(_connectorSrcRight.GetArrayFwd()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(inputbwd_at_left))) {
 		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrcLeft.GetArrayBwd()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(arraybwd_right))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(inputbwd_at_right))) {
 		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrcRight.GetArrayBwd()));
 	}
@@ -648,14 +664,18 @@ bool Trainer::NodeBinary_Dot::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 bool Trainer::NodeGear::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	symbols.insert(Gura_Symbol(arraybwd));
+	symbols.insert(Gura_Symbol(input));
+	symbols.insert(Gura_Symbol(inputbwd));
 	return Node::DoDirProp(env, symbols);
 }
 
 Value Trainer::NodeGear::DoGetProp(Environment &env, const Symbol *pSymbol,
 								   const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	if (pSymbol->IsIdentical(Gura_Symbol(arraybwd))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(input))) {
+		evaluatedFlag = true;
+		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayFwd()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(inputbwd))) {
 		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayBwd()));
 	}
