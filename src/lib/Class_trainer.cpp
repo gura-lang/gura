@@ -52,7 +52,8 @@ Gura_DeclareFunction(trainer)
 
 Gura_ImplementFunction(trainer)
 {
-	AutoPtr<Trainer> pTrainer(new Trainer());
+	Trainer::Optimizer *pOptimizer = new Trainer::Optimizer_GradientDescent(.01);
+	AutoPtr<Trainer> pTrainer(new Trainer(pOptimizer));
 	SymbolSet symbolsInput;
 	foreach_const (ValueList, pValue, arg.GetList(1)) {
 		symbolsInput.Insert(pValue->GetSymbol());

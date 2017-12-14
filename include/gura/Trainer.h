@@ -44,6 +44,51 @@ public:
 		NODETYPE_Gear_Tanh,
 	};
 	//-------------------------------------------------------------------------
+	// Optimizer
+	//-------------------------------------------------------------------------
+	class Optimizer {
+	public:
+		class Instance {
+		public:
+			virtual bool Update(Signal &sig, AutoPtr<Array> &array, const Array *pArrayBwd) = 0;
+		};
+	public:
+		virtual Instance *CreateInstance() = 0;
+	};
+	//-------------------------------------------------------------------------
+	// Optimizer_None
+	//-------------------------------------------------------------------------
+	class Optimizer_None : public Optimizer {
+	public:
+		class InstanceEx : public Instance {
+		public:
+			inline InstanceEx() {}
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+		};
+	public:
+		inline Optimizer_None() {}
+		virtual Instance *CreateInstance();
+	};
+	//-------------------------------------------------------------------------
+	// Optimizer_GradientDescent
+	//-------------------------------------------------------------------------
+	class Optimizer_GradientDescent : public Optimizer {
+	private:
+		Double _alpha;
+	public:
+		class InstanceEx : public Instance {
+		private:
+			Double _alpha;
+			AutoPtr<Array> _pArrayAdj;
+		public:
+			inline InstanceEx(Double alpha) : _alpha(alpha) {}
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+		};
+	public:
+		inline Optimizer_GradientDescent(Double alpha) : _alpha(alpha) {}
+		virtual Instance *CreateInstance();
+	};
+	//-------------------------------------------------------------------------
 	// Node
 	//-------------------------------------------------------------------------
 	class Node {
@@ -114,9 +159,10 @@ public:
 		AutoPtr<Expr> _pExpr;
 		AutoPtr<Array> _pArrayBwdAdj;
 		Trait _trait;
+		std::unique_ptr<Optimizer::Instance> _pOptimizerInst;
 	public:
-		inline NodeHead(Connector *pConnectorDst, Expr *pExpr, Trait trait) :
-			Node(NODETYPE_Head, pConnectorDst), _pExpr(pExpr), _trait(trait) {}
+		inline NodeHead(Connector *pConnectorDst, Expr *pExpr, Trait trait, Optimizer::Instance *pOptimizerInst) :
+			Node(NODETYPE_Head, pConnectorDst), _pExpr(pExpr), _trait(trait), _pOptimizerInst(pOptimizerInst) {}
 		inline bool IsVariable() const { return _trait == TRAIT_Variable; }
 		inline bool IsConstant() const { return _trait == TRAIT_Constant; }
 		inline bool IsInput() const { return _trait == TRAIT_Input; }
@@ -456,6 +502,7 @@ public:
 	};
 private:
 	int _cntRef;
+	std::unique_ptr<Optimizer> _pOptimizer;
 	AutoPtr<NodeBottom> _pNodeBottom;
 	NodeOwner _nodeOwner;
 	NodeMap _nodeMap;
@@ -463,7 +510,7 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Trainer);
 public:
-	Trainer();
+	Trainer(Optimizer *pOptimizer);
 protected:
 	virtual ~Trainer();
 public:

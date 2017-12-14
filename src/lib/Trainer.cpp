@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Trainer
 //-----------------------------------------------------------------------------
-Trainer::Trainer() : _cntRef(1), _pNodeBottom(new NodeBottom())
+Trainer::Trainer(Optimizer *pOptimizer) : _cntRef(1), _pOptimizer(pOptimizer), _pNodeBottom(new NodeBottom())
 {
 }
 
@@ -99,13 +99,23 @@ Trainer::Node *Trainer::CreateNode(Environment &env, const Expr *pExpr,
 		const Symbol *pSymbol = pExprEx->GetSymbol();
 		Node *pNodeFound = FindNode(pSymbol);
 		if (pNodeFound != nullptr) return pNodeFound;
-		Node::Trait trait = symbolsInput.IsSet(pSymbol)? Node::TRAIT_Input : Node::TRAIT_Variable;
-		AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), trait));
+		Node::Trait trait = Node::TRAIT_Input;
+		Optimizer::Instance *pOptimizerInst = nullptr;
+		if (!symbolsInput.IsSet(pSymbol)) {
+			trait = Node::TRAIT_Variable;
+			pOptimizerInst = _pOptimizer->CreateInstance();
+		}
+		AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), trait, pOptimizerInst));
 		_nodeOwner.push_back(pNode.get());
 		return pNode.release();
 	} else {
-		Node::Trait trait = pExpr->IsValue()? Node::TRAIT_Constant : Node::TRAIT_Variable;
-		AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), trait));
+		Node::Trait trait = Node::TRAIT_Constant;
+		Optimizer::Instance *pOptimizerInst = nullptr;
+		if (!pExpr->IsValue()) {
+			trait = Node::TRAIT_Variable;
+			pOptimizerInst = _pOptimizer->CreateInstance();
+		}
+		AutoPtr<NodeHead> pNode(new NodeHead(pConnector, Expr::Reference(pExpr), trait, pOptimizerInst));
 		_nodeOwner.push_back(pNode.get());
 		return pNode.release();
 	}
@@ -312,17 +322,10 @@ bool Trainer::NodeHead::EvalForward(Environment &env)
 
 bool Trainer::NodeHead::EvalBackward(Environment &env)
 {
-	Double alpha = .01;
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
-	if (IsVulnerable()) {
-		if (!Array::ApplyBinaryFunc_array_number(
-				env, Array::binaryFuncPack_Mul, _pArrayBwdAdj,
-				(*ppConnectorDst)->GetArrayBwd(), alpha)) return false;
-		if (!Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Sub, _pArrayFwd,
-				_pArrayFwd.get(),
-				_pArrayBwdAdj.get())) return false;
+	if (_pOptimizerInst.get() != nullptr) {
+		if (!_pOptimizerInst->Update(env, _pArrayFwd, (*ppConnectorDst)->GetArrayBwd())) return false;
 	}
 	return true;
 }
@@ -1116,6 +1119,39 @@ void Trainer::NodeOwner::Clear()
 		Trainer::Node::Delete(*ppNode);
 	}
 	clear();
+}
+
+//-------------------------------------------------------------------------
+// Trainer::Optimizer_None
+//-------------------------------------------------------------------------
+Trainer::Optimizer::Instance *Trainer::Optimizer_None::CreateInstance()
+{
+	return new InstanceEx();
+}
+
+bool Trainer::Optimizer_None::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+{
+	return true;
+}
+
+//-------------------------------------------------------------------------
+// Trainer::Optimizer_GradientDescent
+//-------------------------------------------------------------------------
+Trainer::Optimizer::Instance *Trainer::Optimizer_GradientDescent::CreateInstance()
+{
+	return new InstanceEx(_alpha);
+}
+
+bool Trainer::Optimizer_GradientDescent::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+{
+	if (!Array::ApplyBinaryFunc_array_number(
+			sig, Array::binaryFuncPack_Mul, _pArrayAdj,
+			pArrayBwd, _alpha)) return false;
+	if (!Array::ApplyBinaryFunc(
+			sig, Array::binaryFuncPack_Sub, pArray,
+			pArray.get(),
+			_pArrayAdj.get())) return false;
+	return true;
 }
 
 }
