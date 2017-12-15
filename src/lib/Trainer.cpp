@@ -240,18 +240,44 @@ bool Trainer::Optimizer_None::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pA
 //-------------------------------------------------------------------------
 Trainer::Optimizer::Instance *Trainer::Optimizer_GradientDescent::CreateInstance()
 {
-	return new InstanceEx(_alpha);
+	return new InstanceEx(_learningRate);
 }
 
 bool Trainer::Optimizer_GradientDescent::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
 {
 	if (!Array::ApplyBinaryFunc_array_number(
 			sig, Array::binaryFuncPack_Mul, _pArrayAdj,
-			pArrayBwd, _alpha)) return false;
+			pArrayBwd, _learningRate)) return false;
 	if (!Array::ApplyBinaryFunc(
 			sig, Array::binaryFuncPack_Sub, pArray,
 			pArray.get(),
 			_pArrayAdj.get())) return false;
+	return true;
+}
+
+//-------------------------------------------------------------------------
+// Trainer::Optimizer_Adam
+//-------------------------------------------------------------------------
+Trainer::Optimizer::Instance *Trainer::Optimizer_Adam::CreateInstance()
+{
+	return new InstanceEx();
+}
+
+bool Trainer::Optimizer_Adam::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+{
+	return true;
+}
+
+//-------------------------------------------------------------------------
+// Trainer::Optimizer_Momentum
+//-------------------------------------------------------------------------
+Trainer::Optimizer::Instance *Trainer::Optimizer_Momentum::CreateInstance()
+{
+	return new InstanceEx();
+}
+
+bool Trainer::Optimizer_Momentum::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+{
 	return true;
 }
 

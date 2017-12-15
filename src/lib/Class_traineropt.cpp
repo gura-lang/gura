@@ -33,11 +33,27 @@ String Object_traineropt::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// traineropt@gradient_descent(alpha:number):map {block?}
+// traineropt@adam():map {block?}
+Gura_DeclareFunctionAlias(traineropt_at_adam, "traineropt@adam")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementFunction(traineropt_at_adam)
+{
+	AutoPtr<Trainer::Optimizer> pOptimizer(new Trainer::Optimizer_Adam());
+	return ReturnValue(env, arg, Value(new Object_traineropt(env, pOptimizer.release())));
+}
+
+// traineropt@gradient_descent(learning_rate:number):map {block?}
 Gura_DeclareFunctionAlias(traineropt_at_gradient_descent, "traineropt@gradient_descent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "alpha", VTYPE_number);
+	DeclareArg(env, "learning_rate", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -46,8 +62,24 @@ Gura_DeclareFunctionAlias(traineropt_at_gradient_descent, "traineropt@gradient_d
 
 Gura_ImplementFunction(traineropt_at_gradient_descent)
 {
-	Double alpha = arg.GetDouble(0);
-	AutoPtr<Trainer::Optimizer> pOptimizer(new Trainer::Optimizer_GradientDescent(alpha));
+	Double learningRate = arg.GetDouble(0);
+	AutoPtr<Trainer::Optimizer> pOptimizer(new Trainer::Optimizer_GradientDescent(learningRate));
+	return ReturnValue(env, arg, Value(new Object_traineropt(env, pOptimizer.release())));
+}
+
+// traineropt@momentum():map {block?}
+Gura_DeclareFunctionAlias(traineropt_at_momentum, "traineropt@momentum")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementFunction(traineropt_at_momentum)
+{
+	AutoPtr<Trainer::Optimizer> pOptimizer(new Trainer::Optimizer_Momentum());
 	return ReturnValue(env, arg, Value(new Object_traineropt(env, pOptimizer.release())));
 }
 
@@ -77,7 +109,9 @@ Class_traineropt::Class_traineropt(Environment *pEnvOuter) : ClassFundamental(pE
 void Class_traineropt::DoPrepare(Environment &env)
 {
 	// Assignment of function
+	Gura_AssignFunction(traineropt_at_adam);
 	Gura_AssignFunction(traineropt_at_gradient_descent);
+	Gura_AssignFunction(traineropt_at_momentum);
 	Gura_AssignFunction(traineropt_at_none);
 	// Assignment of value
 	Gura_AssignValue(traineropt, Value(this));

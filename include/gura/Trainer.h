@@ -84,18 +84,47 @@ public:
 	//-------------------------------------------------------------------------
 	class Optimizer_GradientDescent : public Optimizer {
 	private:
-		Double _alpha;
+		Double _learningRate;
 	public:
 		class InstanceEx : public Instance {
 		private:
-			Double _alpha;
+			Double _learningRate;
 			AutoPtr<Array> _pArrayAdj;
 		public:
-			inline InstanceEx(Double alpha) : _alpha(alpha) {}
+			inline InstanceEx(Double learningRate) : _learningRate(learningRate) {}
 			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
 		};
 	public:
-		inline Optimizer_GradientDescent(Double alpha) : Optimizer("gradient_descent"), _alpha(alpha) {}
+		inline Optimizer_GradientDescent(Double learningRate) :
+					Optimizer("gradient_descent"), _learningRate(learningRate) {}
+		virtual Instance *CreateInstance();
+	};
+	//-------------------------------------------------------------------------
+	// Optimizer_Adam
+	//-------------------------------------------------------------------------
+	class Optimizer_Adam : public Optimizer {
+	public:
+		class InstanceEx : public Instance {
+		public:
+			inline InstanceEx() {}
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+		};
+	public:
+		inline Optimizer_Adam() : Optimizer("adam") {}
+		virtual Instance *CreateInstance();
+	};
+	//-------------------------------------------------------------------------
+	// Optimizer_Momentum
+	//-------------------------------------------------------------------------
+	class Optimizer_Momentum : public Optimizer {
+	public:
+		class InstanceEx : public Instance {
+		public:
+			inline InstanceEx() {}
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+		};
+	public:
+		inline Optimizer_Momentum() : Optimizer("momentum") {}
 		virtual Instance *CreateInstance();
 	};
 	//-------------------------------------------------------------------------
