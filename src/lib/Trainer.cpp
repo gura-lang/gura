@@ -215,6 +215,46 @@ Trainer::Node *Trainer::CreateNodeGear(Environment &env, const Expr_BinaryOp *pE
 		nullptr : pNodeRtn;
 }
 
+//-------------------------------------------------------------------------
+// Trainer::Optimizer
+//-------------------------------------------------------------------------
+Trainer::Optimizer::~Optimizer()
+{
+}
+
+//-------------------------------------------------------------------------
+// Trainer::Optimizer_None
+//-------------------------------------------------------------------------
+Trainer::Optimizer::Instance *Trainer::Optimizer_None::CreateInstance()
+{
+	return new InstanceEx();
+}
+
+bool Trainer::Optimizer_None::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+{
+	return true;
+}
+
+//-------------------------------------------------------------------------
+// Trainer::Optimizer_GradientDescent
+//-------------------------------------------------------------------------
+Trainer::Optimizer::Instance *Trainer::Optimizer_GradientDescent::CreateInstance()
+{
+	return new InstanceEx(_alpha);
+}
+
+bool Trainer::Optimizer_GradientDescent::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+{
+	if (!Array::ApplyBinaryFunc_array_number(
+			sig, Array::binaryFuncPack_Mul, _pArrayAdj,
+			pArrayBwd, _alpha)) return false;
+	if (!Array::ApplyBinaryFunc(
+			sig, Array::binaryFuncPack_Sub, pArray,
+			pArray.get(),
+			_pArrayAdj.get())) return false;
+	return true;
+}
+
 //-----------------------------------------------------------------------------
 // Trainer::Node
 //-----------------------------------------------------------------------------
@@ -1119,39 +1159,6 @@ void Trainer::NodeOwner::Clear()
 		Trainer::Node::Delete(*ppNode);
 	}
 	clear();
-}
-
-//-------------------------------------------------------------------------
-// Trainer::Optimizer_None
-//-------------------------------------------------------------------------
-Trainer::Optimizer::Instance *Trainer::Optimizer_None::CreateInstance()
-{
-	return new InstanceEx();
-}
-
-bool Trainer::Optimizer_None::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
-{
-	return true;
-}
-
-//-------------------------------------------------------------------------
-// Trainer::Optimizer_GradientDescent
-//-------------------------------------------------------------------------
-Trainer::Optimizer::Instance *Trainer::Optimizer_GradientDescent::CreateInstance()
-{
-	return new InstanceEx(_alpha);
-}
-
-bool Trainer::Optimizer_GradientDescent::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
-{
-	if (!Array::ApplyBinaryFunc_array_number(
-			sig, Array::binaryFuncPack_Mul, _pArrayAdj,
-			pArrayBwd, _alpha)) return false;
-	if (!Array::ApplyBinaryFunc(
-			sig, Array::binaryFuncPack_Sub, pArray,
-			pArray.get(),
-			_pArrayAdj.get())) return false;
-	return true;
 }
 
 }

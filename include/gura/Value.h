@@ -258,6 +258,7 @@ public:
 	inline bool Is_token() const				{ return IsType(VTYPE_token);					}
 	inline bool Is_trainer() const				{ return IsType(VTYPE_trainer);					}
 	inline bool Is_trainernode() const			{ return IsType(VTYPE_trainernode);				}
+	inline bool Is_traineropt() const			{ return IsType(VTYPE_traineropt);				}
 	inline bool Is_uri() const					{ return IsType(VTYPE_uri);						}
 	inline bool Is_vertex() const				{ return IsType(VTYPE_vertex);					}
 	inline bool Is_gear() const					{ return IsType(VTYPE_gear);					}
@@ -397,6 +398,8 @@ public:
 								{ return MustBe(sig, Is_trainer(),		"trainer");			}
 	inline bool MustBe_trainernode(Signal &sig) const
 								{ return MustBe(sig, Is_trainernode(),	"trainernode");		}
+	inline bool MustBe_traineropt(Signal &sig) const
+								{ return MustBe(sig, Is_traineropt(),	"traineropt");		}
 	inline bool MustBe_uri(Signal &sig) const
 								{ return MustBe(sig, Is_uri(), 			"uri");				}
 	inline bool MustBe_vertex(Signal &sig) const

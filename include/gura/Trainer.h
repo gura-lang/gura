@@ -52,6 +52,14 @@ public:
 		public:
 			virtual bool Update(Signal &sig, AutoPtr<Array> &array, const Array *pArrayBwd) = 0;
 		};
+	private:
+		int _cntRef;
+	public:
+		Gura_DeclareReferenceAccessor(Optimizer);
+	public:
+		inline Optimizer() : _cntRef(1) {}
+	protected:
+		virtual ~Optimizer();
 	public:
 		virtual Instance *CreateInstance() = 0;
 	};
@@ -502,7 +510,7 @@ public:
 	};
 private:
 	int _cntRef;
-	std::unique_ptr<Optimizer> _pOptimizer;
+	AutoPtr<Optimizer> _pOptimizer;
 	AutoPtr<NodeBottom> _pNodeBottom;
 	NodeOwner _nodeOwner;
 	NodeMap _nodeMap;

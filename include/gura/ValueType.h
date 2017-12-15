@@ -101,6 +101,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_timedelta;
 GURA_DLLDECLARE extern ValueType VTYPE_token;
 GURA_DLLDECLARE extern ValueType VTYPE_trainer;
 GURA_DLLDECLARE extern ValueType VTYPE_trainernode;
+GURA_DLLDECLARE extern ValueType VTYPE_traineropt;
 GURA_DLLDECLARE extern ValueType VTYPE_uri;
 GURA_DLLDECLARE extern ValueType VTYPE_vertex;
 GURA_DLLDECLARE extern ValueType VTYPE_gear;
@@ -226,6 +227,7 @@ public:
 	Gura_DeclareVTYPE(token);
 	Gura_DeclareVTYPE(trainer);
 	Gura_DeclareVTYPE(trainernode);
+	Gura_DeclareVTYPE(traineropt);
 	Gura_DeclareVTYPE(uri);
 	Gura_DeclareVTYPE(vertex);
 	Gura_DeclareVTYPE(gear);

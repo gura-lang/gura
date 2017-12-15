@@ -37,11 +37,12 @@ String Object_trainer::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// trainer(model:expr, inputs*:symbol):map {block?}
+// trainer(model:expr, optimizer:traineropt, inputs*:symbol):map {block?}
 Gura_DeclareFunction(trainer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "model", VTYPE_expr, OCCUR_Once);
+	DeclareArg(env, "optimizer", VTYPE_traineropt, OCCUR_Once);
 	DeclareArg(env, "inputs", VTYPE_symbol, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_trainer));
@@ -52,10 +53,10 @@ Gura_DeclareFunction(trainer)
 
 Gura_ImplementFunction(trainer)
 {
-	Trainer::Optimizer *pOptimizer = new Trainer::Optimizer_GradientDescent(.01);
-	AutoPtr<Trainer> pTrainer(new Trainer(pOptimizer));
+	const Trainer::Optimizer *pOptimizer = Object_traineropt::GetObject(arg, 1)->GetOptimizer();
+	AutoPtr<Trainer> pTrainer(new Trainer(pOptimizer->Reference()));
 	SymbolSet symbolsInput;
-	foreach_const (ValueList, pValue, arg.GetList(1)) {
+	foreach_const (ValueList, pValue, arg.GetList(2)) {
 		symbolsInput.Insert(pValue->GetSymbol());
 	}
 	if (!pTrainer->CreateFromExpr(env, Object_expr::GetObject(arg, 0)->GetExpr(), symbolsInput)) return Value::Nil;

@@ -55,6 +55,7 @@ Class_timedelta.cpp
 Class_token.cpp
 Class_trainer.cpp
 Class_trainernode.cpp
+Class_traineropt.cpp
 Class_undefined.cpp
 Class_uri.cpp
 Class_vertex.cpp
