@@ -24,7 +24,8 @@ Object_traineropt::Object_traineropt(Class *pClass, Trainer::Optimizer *pOptimiz
 String Object_traineropt::ToString(bool exprFlag)
 {
 	String str;
-	str += "<traineropt";
+	str += "<traineropt:";
+	str += _pOptimizer->GetName(); 
 	str += ">";
 	return str;
 }

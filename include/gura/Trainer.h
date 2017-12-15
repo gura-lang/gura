@@ -54,14 +54,16 @@ public:
 		};
 	private:
 		int _cntRef;
+		const char *_name;
 	public:
 		Gura_DeclareReferenceAccessor(Optimizer);
 	public:
-		inline Optimizer() : _cntRef(1) {}
+		inline Optimizer(const char *name) : _cntRef(1), _name(name) {}
 	protected:
 		virtual ~Optimizer();
 	public:
 		virtual Instance *CreateInstance() = 0;
+		inline const char *GetName() const { return _name; }
 	};
 	//-------------------------------------------------------------------------
 	// Optimizer_None
@@ -74,7 +76,7 @@ public:
 			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
 		};
 	public:
-		inline Optimizer_None() {}
+		inline Optimizer_None() : Optimizer("none") {}
 		virtual Instance *CreateInstance();
 	};
 	//-------------------------------------------------------------------------
@@ -93,7 +95,7 @@ public:
 			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
 		};
 	public:
-		inline Optimizer_GradientDescent(Double alpha) : _alpha(alpha) {}
+		inline Optimizer_GradientDescent(Double alpha) : Optimizer("gradient_descent"), _alpha(alpha) {}
 		virtual Instance *CreateInstance();
 	};
 	//-------------------------------------------------------------------------
