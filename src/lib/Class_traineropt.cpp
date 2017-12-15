@@ -50,6 +50,22 @@ Gura_ImplementFunction(traineropt_at_gradient_descent)
 	return ReturnValue(env, arg, Value(new Object_traineropt(env, pOptimizer.release())));
 }
 
+// traineropt@none():map {block?}
+Gura_DeclareFunctionAlias(traineropt_at_none, "traineropt@none")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementFunction(traineropt_at_none)
+{
+	AutoPtr<Trainer::Optimizer> pOptimizer(new Trainer::Optimizer_None());
+	return ReturnValue(env, arg, Value(new Object_traineropt(env, pOptimizer.release())));
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -61,6 +77,7 @@ void Class_traineropt::DoPrepare(Environment &env)
 {
 	// Assignment of function
 	Gura_AssignFunction(traineropt_at_gradient_descent);
+	Gura_AssignFunction(traineropt_at_none);
 	// Assignment of value
 	Gura_AssignValue(traineropt, Value(this));
 	// help document
