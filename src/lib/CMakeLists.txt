@@ -40,6 +40,7 @@ Class_monitor.cpp
 Class_nil.cpp
 Class_number.cpp
 Class_operator.cpp
+Class_optimizer.cpp
 Class_palette.cpp
 Class_pointer.cpp
 Class_propdeclaration.cpp
@@ -55,7 +56,6 @@ Class_timedelta.cpp
 Class_token.cpp
 Class_trainer.cpp
 Class_trainernode.cpp
-Class_traineropt.cpp
 Class_undefined.cpp
 Class_uri.cpp
 Class_vertex.cpp

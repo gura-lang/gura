@@ -62,6 +62,7 @@ ValueType VTYPE_list					= static_cast<ValueType>(0);
 ValueType VTYPE_memory					= static_cast<ValueType>(0);
 ValueType VTYPE_monitor					= static_cast<ValueType>(0);
 ValueType VTYPE_operator				= static_cast<ValueType>(0);
+ValueType VTYPE_optimizer				= static_cast<ValueType>(0);
 ValueType VTYPE_palette					= static_cast<ValueType>(0);
 ValueType VTYPE_pointer					= static_cast<ValueType>(0);
 ValueType VTYPE_propdeclaration			= static_cast<ValueType>(0);
@@ -73,7 +74,6 @@ ValueType VTYPE_timedelta				= static_cast<ValueType>(0);
 ValueType VTYPE_token					= static_cast<ValueType>(0);
 ValueType VTYPE_trainer					= static_cast<ValueType>(0);
 ValueType VTYPE_trainernode				= static_cast<ValueType>(0);
-ValueType VTYPE_traineropt				= static_cast<ValueType>(0);
 ValueType VTYPE_uri						= static_cast<ValueType>(0);
 ValueType VTYPE_vertex					= static_cast<ValueType>(0);
 ValueType VTYPE_gear					= static_cast<ValueType>(0);
@@ -219,6 +219,7 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_RealizeVTYPE(memory);
 	Gura_RealizeVTYPE(monitor);
 	Gura_RealizeVTYPE(operator);
+	Gura_RealizeVTYPE(optimizer);
 	Gura_RealizeVTYPE(palette);
 	Gura_RealizeVTYPE(pointer);
 	Gura_RealizeVTYPE(propdeclaration);
@@ -230,7 +231,6 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_RealizeVTYPE(token);
 	Gura_RealizeVTYPE(trainer);
 	Gura_RealizeVTYPE(trainernode);
-	Gura_RealizeVTYPE(traineropt);
 	Gura_RealizeVTYPE(uri);
 	Gura_RealizeVTYPE(vertex);
 	Gura_RealizeVTYPE(gear);
@@ -315,6 +315,7 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_VTYPEInfo(memory		)->SetClass(new Class_memory(pClass));
 	Gura_VTYPEInfo(monitor		)->SetClass(new Class_monitor(pClass));
 	Gura_VTYPEInfo(operator		)->SetClass(new Class_operator(pClass));
+	Gura_VTYPEInfo(optimizer	)->SetClass(new Class_optimizer(pClass));
 	Gura_VTYPEInfo(palette		)->SetClass(new Class_palette(pClass));
 	Gura_VTYPEInfo(pointer		)->SetClass(new Class_pointer(pClass));
 	Gura_VTYPEInfo(propdeclaration)->SetClass(new Class_propdeclaration(pClass));
@@ -326,7 +327,6 @@ void ValueTypePool::_Bootup(Environment &env)
 	Gura_VTYPEInfo(token		)->SetClass(new Class_token(pClass));
 	Gura_VTYPEInfo(trainer		)->SetClass(new Class_trainer(pClass));
 	Gura_VTYPEInfo(trainernode	)->SetClass(new Class_trainernode(pClass));
-	Gura_VTYPEInfo(traineropt	)->SetClass(new Class_traineropt(pClass));
 	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
 	Gura_VTYPEInfo(vertex		)->SetClass(new Class_vertex(pClass));
 	Class *pClass_gear = nullptr;
@@ -400,6 +400,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_memory				)->Prepare(env);
 	env.LookupClass(VTYPE_monitor				)->Prepare(env);
 	env.LookupClass(VTYPE_operator				)->Prepare(env);
+	env.LookupClass(VTYPE_optimizer				)->Prepare(env);
 	env.LookupClass(VTYPE_palette				)->Prepare(env);
 	env.LookupClass(VTYPE_pointer				)->Prepare(env);
 	env.LookupClass(VTYPE_propdeclaration		)->Prepare(env);
@@ -411,7 +412,6 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_token					)->Prepare(env);
 	env.LookupClass(VTYPE_trainer				)->Prepare(env);
 	env.LookupClass(VTYPE_trainernode			)->Prepare(env);
-	env.LookupClass(VTYPE_traineropt			)->Prepare(env);
 	env.LookupClass(VTYPE_uri					)->Prepare(env);
 	env.LookupClass(VTYPE_vertex				)->Prepare(env);
 	env.LookupClass(VTYPE_gear					)->Prepare(env);
