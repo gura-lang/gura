@@ -223,14 +223,14 @@ Trainer::Optimizer::~Optimizer()
 }
 
 //-------------------------------------------------------------------------
-// Trainer::Optimizer_None
+// Trainer::Optimizer_Adam
 //-------------------------------------------------------------------------
-Trainer::Optimizer::Instance *Trainer::Optimizer_None::CreateInstance()
+Trainer::Optimizer::Instance *Trainer::Optimizer_Adam::CreateInstance()
 {
 	return new InstanceEx();
 }
 
-bool Trainer::Optimizer_None::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+bool Trainer::Optimizer_Adam::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
 {
 	return true;
 }
@@ -256,19 +256,6 @@ bool Trainer::Optimizer_GradientDescent::InstanceEx::Update(Signal &sig, AutoPtr
 }
 
 //-------------------------------------------------------------------------
-// Trainer::Optimizer_Adam
-//-------------------------------------------------------------------------
-Trainer::Optimizer::Instance *Trainer::Optimizer_Adam::CreateInstance()
-{
-	return new InstanceEx();
-}
-
-bool Trainer::Optimizer_Adam::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
-{
-	return true;
-}
-
-//-------------------------------------------------------------------------
 // Trainer::Optimizer_Momentum
 //-------------------------------------------------------------------------
 Trainer::Optimizer::Instance *Trainer::Optimizer_Momentum::CreateInstance()
@@ -277,6 +264,19 @@ Trainer::Optimizer::Instance *Trainer::Optimizer_Momentum::CreateInstance()
 }
 
 bool Trainer::Optimizer_Momentum::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+{
+	return true;
+}
+
+//-------------------------------------------------------------------------
+// Trainer::Optimizer_None
+//-------------------------------------------------------------------------
+Trainer::Optimizer::Instance *Trainer::Optimizer_None::CreateInstance()
+{
+	return new InstanceEx();
+}
+
+bool Trainer::Optimizer_None::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
 {
 	return true;
 }
@@ -768,27 +768,24 @@ void Trainer::NodeGear::Print(int indentLevel) const
 }
 
 //-----------------------------------------------------------------------------
-// Trainer::NodeGear_Conv
+// Trainer::NodeGear_Conv1d
 //-----------------------------------------------------------------------------
-bool Trainer::NodeGear_Conv::IsVulnerable() const
+bool Trainer::NodeGear_Conv1d::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
 }
 
-bool Trainer::NodeGear_Conv::DoDirProp(Environment &env, SymbolSet &symbols)
+bool Trainer::NodeGear_Conv1d::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	return NodeGear::DoDirProp(env, symbols);
 }
 
-Value Trainer::NodeGear_Conv::DoGetProp(Environment &env, const Symbol *pSymbol,
+Value Trainer::NodeGear_Conv1d::DoGetProp(Environment &env, const Symbol *pSymbol,
 								   const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
-//-----------------------------------------------------------------------------
-// Trainer::NodeGear_Conv1d
-//-----------------------------------------------------------------------------
 bool Trainer::NodeGear_Conv1d::EvalForward(Environment &env)
 {
 	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
@@ -802,6 +799,22 @@ bool Trainer::NodeGear_Conv1d::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear_Conv2d
 //-----------------------------------------------------------------------------
+bool Trainer::NodeGear_Conv2d::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool Trainer::NodeGear_Conv2d::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return NodeGear::DoDirProp(env, symbols);
+}
+
+Value Trainer::NodeGear_Conv2d::DoGetProp(Environment &env, const Symbol *pSymbol,
+								   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 bool Trainer::NodeGear_Conv2d::EvalForward(Environment &env)
 {
 	Gear_Conv2d *pGear = GetGear();
@@ -930,6 +943,22 @@ bool Trainer::NodeGear_Conv2d::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear_Conv3d
 //-----------------------------------------------------------------------------
+bool Trainer::NodeGear_Conv3d::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool Trainer::NodeGear_Conv3d::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return NodeGear::DoDirProp(env, symbols);
+}
+
+Value Trainer::NodeGear_Conv3d::DoGetProp(Environment &env, const Symbol *pSymbol,
+								   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 bool Trainer::NodeGear_Conv3d::EvalForward(Environment &env)
 {
 	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());

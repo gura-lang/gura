@@ -66,9 +66,9 @@ public:
 		inline const char *GetName() const { return _name; }
 	};
 	//-------------------------------------------------------------------------
-	// Optimizer_None
+	// Optimizer_Adam
 	//-------------------------------------------------------------------------
-	class Optimizer_None : public Optimizer {
+	class Optimizer_Adam : public Optimizer {
 	public:
 		class InstanceEx : public Instance {
 		public:
@@ -76,7 +76,7 @@ public:
 			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
 		};
 	public:
-		inline Optimizer_None() : Optimizer("none") {}
+		inline Optimizer_Adam() : Optimizer("adam") {}
 		virtual Instance *CreateInstance();
 	};
 	//-------------------------------------------------------------------------
@@ -100,20 +100,6 @@ public:
 		virtual Instance *CreateInstance();
 	};
 	//-------------------------------------------------------------------------
-	// Optimizer_Adam
-	//-------------------------------------------------------------------------
-	class Optimizer_Adam : public Optimizer {
-	public:
-		class InstanceEx : public Instance {
-		public:
-			inline InstanceEx() {}
-			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
-		};
-	public:
-		inline Optimizer_Adam() : Optimizer("adam") {}
-		virtual Instance *CreateInstance();
-	};
-	//-------------------------------------------------------------------------
 	// Optimizer_Momentum
 	//-------------------------------------------------------------------------
 	class Optimizer_Momentum : public Optimizer {
@@ -125,6 +111,20 @@ public:
 		};
 	public:
 		inline Optimizer_Momentum() : Optimizer("momentum") {}
+		virtual Instance *CreateInstance();
+	};
+	//-------------------------------------------------------------------------
+	// Optimizer_None
+	//-------------------------------------------------------------------------
+	class Optimizer_None : public Optimizer {
+	public:
+		class InstanceEx : public Instance {
+		public:
+			inline InstanceEx() {}
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+		};
+	public:
+		inline Optimizer_None() : Optimizer("none") {}
 		virtual Instance *CreateInstance();
 	};
 	//-------------------------------------------------------------------------
@@ -368,58 +368,67 @@ public:
 		virtual void Print(int indentLevel) const;
 	};
 	//-------------------------------------------------------------------------
-	// NodeGear_Conv
+	// NodeGear_Conv1d
 	//-------------------------------------------------------------------------
-	class NodeGear_Conv : public NodeGear {
-	protected:
+	class NodeGear_Conv1d : public NodeGear {
+	private:
 		AutoPtr<Array> _pArrayFwdSrcVec;
 		AutoPtr<Array> _pArrayGearReshape;
 		AutoPtr<Array> _pArrayGearTrans;
 		AutoPtr<Array> _pArrayFwdPre;
 	public:
-		inline NodeGear_Conv(NodeType nodeType, Gear *pGear, Connector *pConnectorDst) :
-				NodeGear(nodeType, pGear, pConnectorDst) {}
+		inline NodeGear_Conv1d(Gear_Conv1d *pGear, Connector *pConnectorDst) :
+				NodeGear(NODETYPE_Gear_Conv1d, pGear, pConnectorDst) {}
+		inline Gear_Conv1d *GetGear() { return dynamic_cast<Gear_Conv1d *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	};
-	//-------------------------------------------------------------------------
-	// NodeGear_Conv1d
-	//-------------------------------------------------------------------------
-	class NodeGear_Conv1d : public NodeGear_Conv {
-	public:
-		inline NodeGear_Conv1d(Gear_Conv1d *pGear, Connector *pConnectorDst) :
-				NodeGear_Conv(NODETYPE_Gear_Conv1d, pGear, pConnectorDst) {}
-		inline Gear_Conv1d *GetGear() { return dynamic_cast<Gear_Conv1d *>(_pGear.get()); }
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
 	// NodeGear_Conv2d
 	//-------------------------------------------------------------------------
-	class NodeGear_Conv2d : public NodeGear_Conv {
+	class NodeGear_Conv2d : public NodeGear {
 	private:
+		AutoPtr<Array> _pArrayFwdSrcVec;
+		AutoPtr<Array> _pArrayGearReshape;
+		AutoPtr<Array> _pArrayGearTrans;
+		AutoPtr<Array> _pArrayFwdPre;
 		size_t _sizePadRow;
 		size_t _sizePadCol;
 		size_t _sizeOutRow;
 		size_t _sizeOutCol;
 	public:
 		inline NodeGear_Conv2d(Gear_Conv2d *pGear, Connector *pConnectorDst) :
-				NodeGear_Conv(NODETYPE_Gear_Conv2d, pGear, pConnectorDst),
+				NodeGear(NODETYPE_Gear_Conv2d, pGear, pConnectorDst),
 				_sizePadRow(0), _sizePadCol(0), _sizeOutRow(0), _sizeOutCol(0) {}
 		inline Gear_Conv2d *GetGear() { return dynamic_cast<Gear_Conv2d *>(_pGear.get()); }
+		virtual bool IsVulnerable() const;
+		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
 	// NodeGear_Conv3d
 	//-------------------------------------------------------------------------
-	class NodeGear_Conv3d : public NodeGear_Conv {
+	class NodeGear_Conv3d : public NodeGear {
+	private:
+		AutoPtr<Array> _pArrayFwdSrcVec;
+		AutoPtr<Array> _pArrayGearReshape;
+		AutoPtr<Array> _pArrayGearTrans;
+		AutoPtr<Array> _pArrayFwdPre;
 	public:
 		inline NodeGear_Conv3d(Gear_Conv3d *pGear, Connector *pConnectorDst) :
-				NodeGear_Conv(NODETYPE_Gear_Conv3d, pGear, pConnectorDst) {}
+				NodeGear(NODETYPE_Gear_Conv3d, pGear, pConnectorDst) {}
 		inline Gear_Conv3d *GetGear() { return dynamic_cast<Gear_Conv3d *>(_pGear.get()); }
+		virtual bool IsVulnerable() const;
+		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
