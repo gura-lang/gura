@@ -321,35 +321,6 @@ void Trainer::Node::Print(int indentLevel) const
 	::printf("%-*s%s\n", indentLevel * 2, "", ToString().c_str());
 }
 
-#if 0
-const char *Trainer::Node::GetNodeTypeName() const
-{
-	const char *tbl[] = {
-		"head",
-		"bottom",
-		"unary_pos",
-		"unary_neg",
-		"binary_add",
-		"binary_sub",
-		"binary_mul",
-		"binary_div",
-		"binary_pow",
-		"binary_dot",
-		"gear_conv1d",
-		"gear_conv2d",
-		"gear_conv3d",
-		"gear_maxpool1d",
-		"gear_maxpool2d",
-		"gear_maxpool3d",
-		"gear_relu",
-		"gear_sigmoid",
-		"gear_softmax",
-		"gear_tanh",
-	};
-	return tbl[_nodeType];
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Trainer::Node::Connector
 //-----------------------------------------------------------------------------
