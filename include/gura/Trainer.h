@@ -19,31 +19,6 @@ namespace Gura {
 class Trainer {
 public:
 	//-------------------------------------------------------------------------
-	// NodeType
-	//-------------------------------------------------------------------------
-	enum NodeType {
-		NODETYPE_Head,
-		NODETYPE_Bottom,
-		NODETYPE_Unary_Pos,
-		NODETYPE_Unary_Neg,
-		NODETYPE_Binary_Add,
-		NODETYPE_Binary_Sub,
-		NODETYPE_Binary_Mul,
-		NODETYPE_Binary_Div,
-		NODETYPE_Binary_Pow,
-		NODETYPE_Binary_Dot,
-		NODETYPE_Gear_Conv1d,
-		NODETYPE_Gear_Conv2d,
-		NODETYPE_Gear_Conv3d,
-		NODETYPE_Gear_MaxPool1d,
-		NODETYPE_Gear_MaxPool2d,
-		NODETYPE_Gear_MaxPool3d,
-		NODETYPE_Gear_Relu,
-		NODETYPE_Gear_Sigmoid,
-		NODETYPE_Gear_Softmax,
-		NODETYPE_Gear_Tanh,
-	};
-	//-------------------------------------------------------------------------
 	// Optimizer
 	//-------------------------------------------------------------------------
 	class Optimizer {
@@ -165,19 +140,18 @@ public:
 		};
 	protected:
 		int _cntRef;
-		NodeType _nodeType;
+		const char *_nodeTypeName;
 		ConnectorList _connectorsDst;
 		AutoPtr<Array> _pArrayFwd;
 	public:
 		Gura_DeclareReferenceAccessor(Node);
 	public:
-		inline Node(NodeType nodeType) : _cntRef(1), _nodeType(nodeType) {}
-		Node(NodeType nodeType, Connector *pConnectorDst);
+		inline Node(const char *nodeTypeName) : _cntRef(1), _nodeTypeName(nodeTypeName) {}
+		Node(const char *nodeTypeName, Connector *pConnectorDst);
 	protected:
 		virtual ~Node();
 	public:
-		inline NodeType GetNodeType() const { return _nodeType; }
-		const char *GetNodeTypeName() const;
+		inline const char *GetNodeTypeName() const { return _nodeTypeName; }
 		inline void AddConnectorDst(Connector *pConnectorDst) { _connectorsDst.push_back(pConnectorDst); }
 		inline Array *GetArrayFwd() { return _pArrayFwd.get(); }
 		inline AutoPtr<Array> &GetArrayFwdAutoPtr() { return _pArrayFwd; }
@@ -201,7 +175,7 @@ public:
 		std::unique_ptr<Optimizer::Instance> _pOptimizerInst;
 	public:
 		inline NodeHead(Connector *pConnectorDst, Expr *pExpr, Trait trait, Optimizer::Instance *pOptimizerInst) :
-			Node(NODETYPE_Head, pConnectorDst), _pExpr(pExpr), _trait(trait), _pOptimizerInst(pOptimizerInst) {}
+			Node("head", pConnectorDst), _pExpr(pExpr), _trait(trait), _pOptimizerInst(pOptimizerInst) {}
 		inline bool IsVariable() const { return _trait == TRAIT_Variable; }
 		inline bool IsConstant() const { return _trait == TRAIT_Constant; }
 		inline bool IsInput() const { return _trait == TRAIT_Input; }
@@ -222,7 +196,7 @@ public:
 		Connector _connectorSrc;
 		AutoPtr<Array> _pArrayCorrect;
 	public:
-		inline NodeBottom() : Node(NODETYPE_Bottom), _connectorSrc(this) {}
+		inline NodeBottom() : Node("bottom"), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
@@ -242,8 +216,8 @@ public:
 		const Array::UnaryFuncPack &_unaryFuncPack;
 		Connector _connectorSrc;
 	public:
-		inline NodeUnary(NodeType nodeType, const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
-			Node(nodeType, pConnectorDst), _unaryFuncPack(unaryFuncPack), _connectorSrc(this) {}
+		inline NodeUnary(const char *nodeTypeName, const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
+			Node(nodeTypeName, pConnectorDst), _unaryFuncPack(unaryFuncPack), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
@@ -259,7 +233,7 @@ public:
 	class NodeUnary_Pos : public NodeUnary {
 	public:
 		inline NodeUnary_Pos(Connector *pConnectorDst) :
-				NodeUnary(NODETYPE_Unary_Pos, Array::unaryFuncPack_Pos, pConnectorDst) {}
+				NodeUnary("unary_pos", Array::unaryFuncPack_Pos, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -268,7 +242,7 @@ public:
 	class NodeUnary_Neg : public NodeUnary {
 	public:
 		inline NodeUnary_Neg(Connector *pConnectorDst) :
-				NodeUnary(NODETYPE_Unary_Neg, Array::unaryFuncPack_Neg, pConnectorDst) {}
+				NodeUnary("unary_neg", Array::unaryFuncPack_Neg, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -280,8 +254,8 @@ public:
 		Connector _connectorSrcLeft;
 		Connector _connectorSrcRight;
 	public:
-		inline NodeBinary(NodeType nodeType, const Array::BinaryFuncPack &binaryFuncPack, Connector *pConnectorDst) :
-				Node(nodeType, pConnectorDst), _binaryFuncPack(binaryFuncPack),
+		inline NodeBinary(const char *nodeTypeName, const Array::BinaryFuncPack &binaryFuncPack, Connector *pConnectorDst) :
+				Node(nodeTypeName, pConnectorDst), _binaryFuncPack(binaryFuncPack),
 				_connectorSrcLeft(this), _connectorSrcRight(this) {}
 		inline Connector *GetConnectorSrcLeft() { return &_connectorSrcLeft; }
 		inline Connector *GetConnectorSrcRight() { return &_connectorSrcRight; }
@@ -299,7 +273,7 @@ public:
 	class NodeBinary_Add : public NodeBinary {
 	public:
 		inline NodeBinary_Add(Connector *pConnectorDst) :
-				NodeBinary(NODETYPE_Binary_Add, Array::binaryFuncPack_Add, pConnectorDst) {}
+				NodeBinary("binary_add", Array::binaryFuncPack_Add, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -308,7 +282,7 @@ public:
 	class NodeBinary_Sub : public NodeBinary {
 	public:
 		inline NodeBinary_Sub(Connector *pConnectorDst) :
-				NodeBinary(NODETYPE_Binary_Sub, Array::binaryFuncPack_Sub, pConnectorDst) {}
+				NodeBinary("binary_sub", Array::binaryFuncPack_Sub, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -317,7 +291,7 @@ public:
 	class NodeBinary_Mul : public NodeBinary {
 	public:
 		inline NodeBinary_Mul(Connector *pConnectorDst) :
-				NodeBinary(NODETYPE_Binary_Mul, Array::binaryFuncPack_Mul, pConnectorDst) {}
+				NodeBinary("binary_mul", Array::binaryFuncPack_Mul, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -326,7 +300,7 @@ public:
 	class NodeBinary_Div : public NodeBinary {
 	public:
 		inline NodeBinary_Div(Connector *pConnectorDst) :
-				NodeBinary(NODETYPE_Binary_Div, Array::binaryFuncPack_Div, pConnectorDst) {}
+				NodeBinary("binary_div", Array::binaryFuncPack_Div, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -335,7 +309,7 @@ public:
 	class NodeBinary_Pow : public NodeBinary {
 	public:
 		inline NodeBinary_Pow(Connector *pConnectorDst) :
-				NodeBinary(NODETYPE_Binary_Pow, Array::binaryFuncPack_Pow, pConnectorDst) {}
+				NodeBinary("binary_pow", Array::binaryFuncPack_Pow, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -347,7 +321,7 @@ public:
 		AutoPtr<Array> _pArrayFwdRightTrans;
 	public:
 		inline NodeBinary_Dot(Connector *pConnectorDst) :
-				NodeBinary(NODETYPE_Binary_Dot, Array::binaryFuncPack_Dot, pConnectorDst) {}
+				NodeBinary("binary_dot", Array::binaryFuncPack_Dot, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -358,8 +332,8 @@ public:
 		AutoPtr<Gear> _pGear;
 		Connector _connectorSrc;
 	public:
-		inline NodeGear(NodeType nodeType, Gear *pGear, Connector *pConnectorDst) :
-				Node(nodeType, pConnectorDst), _pGear(pGear), _connectorSrc(this) {}
+		inline NodeGear(const char *nodeTypeName, Gear *pGear, Connector *pConnectorDst) :
+				Node(nodeTypeName, pConnectorDst), _pGear(pGear), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
@@ -378,7 +352,7 @@ public:
 		AutoPtr<Array> _pArrayFwdPre;
 	public:
 		inline NodeGear_Conv1d(Gear_Conv1d *pGear, Connector *pConnectorDst) :
-				NodeGear(NODETYPE_Gear_Conv1d, pGear, pConnectorDst) {}
+				NodeGear("gear_conv1d", pGear, pConnectorDst) {}
 		inline Gear_Conv1d *GetGear() { return dynamic_cast<Gear_Conv1d *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
@@ -402,7 +376,7 @@ public:
 		size_t _sizeOutCol;
 	public:
 		inline NodeGear_Conv2d(Gear_Conv2d *pGear, Connector *pConnectorDst) :
-				NodeGear(NODETYPE_Gear_Conv2d, pGear, pConnectorDst),
+				NodeGear("gear_conv2d", pGear, pConnectorDst),
 				_sizePadRow(0), _sizePadCol(0), _sizeOutRow(0), _sizeOutCol(0) {}
 		inline Gear_Conv2d *GetGear() { return dynamic_cast<Gear_Conv2d *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
@@ -423,7 +397,7 @@ public:
 		AutoPtr<Array> _pArrayFwdPre;
 	public:
 		inline NodeGear_Conv3d(Gear_Conv3d *pGear, Connector *pConnectorDst) :
-				NodeGear(NODETYPE_Gear_Conv3d, pGear, pConnectorDst) {}
+				NodeGear("gear_conv3d", pGear, pConnectorDst) {}
 		inline Gear_Conv3d *GetGear() { return dynamic_cast<Gear_Conv3d *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
@@ -438,7 +412,7 @@ public:
 	class NodeGear_MaxPool1d : public NodeGear {
 	public:
 		inline NodeGear_MaxPool1d(Gear_MaxPool1d *pGear, Connector *pConnectorDst) :
-				NodeGear(NODETYPE_Gear_MaxPool1d, pGear, pConnectorDst) {}
+				NodeGear("gear_maxpool1d", pGear, pConnectorDst) {}
 		inline Gear_MaxPool1d *GetGear() { return dynamic_cast<Gear_MaxPool1d *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
@@ -450,7 +424,7 @@ public:
 	class NodeGear_MaxPool2d : public NodeGear {
 	public:
 		inline NodeGear_MaxPool2d(Gear_MaxPool2d *pGear, Connector *pConnectorDst) :
-				NodeGear(NODETYPE_Gear_MaxPool2d, pGear, pConnectorDst) {}
+				NodeGear("gear_maxpool2d", pGear, pConnectorDst) {}
 		inline Gear_MaxPool2d *GetGear() { return dynamic_cast<Gear_MaxPool2d *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
@@ -462,7 +436,7 @@ public:
 	class NodeGear_MaxPool3d : public NodeGear {
 	public:
 		inline NodeGear_MaxPool3d(Gear_MaxPool3d *pGear, Connector *pConnectorDst) :
-				NodeGear(NODETYPE_Gear_MaxPool3d, pGear, pConnectorDst) {}
+				NodeGear("gear_maxpool3d", pGear, pConnectorDst) {}
 		inline Gear_MaxPool3d *GetGear() { return dynamic_cast<Gear_MaxPool3d *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
@@ -476,7 +450,7 @@ public:
 		AutoPtr<Array> _pArrayBool;
 	public:
 		inline NodeGear_Relu(Gear_Relu *pGear, Connector *pConnectorDst) :
-				NodeGear(NODETYPE_Gear_Relu, pGear, pConnectorDst) {}
+				NodeGear("gear_relu", pGear, pConnectorDst) {}
 		inline Gear_Relu *GetGear() { return dynamic_cast<Gear_Relu *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
@@ -493,7 +467,7 @@ public:
 		AutoPtr<Array> _pArrayTmp;
 	public:
 		inline NodeGear_Sigmoid(Gear_Sigmoid *pGear, Connector *pConnectorDst) :
-				NodeGear(NODETYPE_Gear_Sigmoid, pGear, pConnectorDst) {}
+				NodeGear("gera_sigmoid", pGear, pConnectorDst) {}
 		inline Gear_Sigmoid *GetGear() { return dynamic_cast<Gear_Sigmoid *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
@@ -508,7 +482,7 @@ public:
 	class NodeGear_Softmax : public NodeGear {
 	public:
 		inline NodeGear_Softmax(Gear_Softmax *pGear, Connector *pConnectorDst) :
-				NodeGear(NODETYPE_Gear_Softmax, pGear, pConnectorDst) {}
+				NodeGear("gear_softmax", pGear, pConnectorDst) {}
 		inline Gear_Softmax *GetGear() { return dynamic_cast<Gear_Softmax *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
@@ -520,7 +494,7 @@ public:
 	class NodeGear_Tanh : public NodeGear {
 	public:
 		inline NodeGear_Tanh(Gear_Tanh *pGear, Connector *pConnectorDst) :
-				NodeGear(NODETYPE_Gear_Tanh, pGear, pConnectorDst) {}
+				NodeGear("gear_tanh", pGear, pConnectorDst) {}
 		inline Gear_Tanh *GetGear() { return dynamic_cast<Gear_Tanh *>(_pGear.get()); }
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);

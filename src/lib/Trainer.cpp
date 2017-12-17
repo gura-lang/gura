@@ -284,7 +284,7 @@ bool Trainer::Optimizer_None::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pA
 //-----------------------------------------------------------------------------
 // Trainer::Node
 //-----------------------------------------------------------------------------
-Trainer::Node::Node(NodeType nodeType, Connector *pConnectorDst) : _cntRef(1), _nodeType(nodeType)
+Trainer::Node::Node(const char *nodeTypeName, Connector *pConnectorDst) : _cntRef(1), _nodeTypeName(nodeTypeName)
 {
 	if (pConnectorDst != nullptr) {
 		pConnectorDst->SetNodeSrc(this);
@@ -321,6 +321,7 @@ void Trainer::Node::Print(int indentLevel) const
 	::printf("%-*s%s\n", indentLevel * 2, "", ToString().c_str());
 }
 
+#if 0
 const char *Trainer::Node::GetNodeTypeName() const
 {
 	const char *tbl[] = {
@@ -347,6 +348,7 @@ const char *Trainer::Node::GetNodeTypeName() const
 	};
 	return tbl[_nodeType];
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Trainer::Node::Connector
