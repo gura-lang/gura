@@ -30,7 +30,7 @@ public:
 	Gura_DeclareReferenceAccessor(Gear_Conv1d);
 public:
 	inline Gear_Conv1d(Array *pArrayGear, size_t strides, PaddingType paddingType, Array::ChannelPos channelPos) :
-		_pArrayGear(pArrayGear), _strides(strides),
+		Gear("gear@conv1d"), _pArrayGear(pArrayGear), _strides(strides),
 		_paddingType(paddingType), _channelPos(channelPos) {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
@@ -74,7 +74,7 @@ private:
 	AutoPtr<Array> _pArrayFwdPre;
 public:
 	inline NodeGear_Conv1d(Gear_Conv1d *pGear, Connector *pConnectorDst) :
-		NodeGear("gear_conv1d", pGear, pConnectorDst) {}
+		NodeGear(pGear, pConnectorDst) {}
 	inline Gear_Conv1d *GetGear() { return dynamic_cast<Gear_Conv1d *>(_pGear.get()); }
 	virtual bool IsVulnerable() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);

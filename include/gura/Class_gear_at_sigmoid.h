@@ -23,7 +23,7 @@ public:
 public:
 	Gura_DeclareReferenceAccessor(Gear_Sigmoid);
 public:
-	inline Gear_Sigmoid() {}
+	inline Gear_Sigmoid() : Gear("gear@sigmoid") {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;
@@ -42,7 +42,7 @@ private:
 	AutoPtr<Array> _pArrayTmp;
 public:
 	inline NodeGear_Sigmoid(Gear_Sigmoid *pGear, Connector *pConnectorDst) :
-			NodeGear("gera_sigmoid", pGear, pConnectorDst) {}
+			NodeGear(pGear, pConnectorDst) {}
 	inline Gear_Sigmoid *GetGear() { return dynamic_cast<Gear_Sigmoid *>(_pGear.get()); }
 	virtual bool IsVulnerable() const;
 	virtual bool EvalForward(Environment &env);

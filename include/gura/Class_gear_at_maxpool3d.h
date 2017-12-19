@@ -27,7 +27,7 @@ public:
 	inline Gear_MaxPool3d(size_t sizePlane, size_t sizeRow, size_t sizeCol,
 							size_t stridesPlane, size_t stridesRow, size_t stridesCol,
 							PaddingType paddingType, Array::ChannelPos channelPos) :
-		_sizePlane(sizePlane), _sizeRow(sizeRow), _sizeCol(sizeCol),
+		Gear("gear@maxpool3d"), _sizePlane(sizePlane), _sizeRow(sizeRow), _sizeCol(sizeCol),
 		_stridesPlane(stridesPlane), _stridesRow(stridesRow), _stridesCol(stridesCol),
 		_paddingType(paddingType), _channelPos(channelPos) {}
 	inline size_t GetSizePlane() const { return _sizePlane; }
@@ -54,7 +54,7 @@ public:
 	};
 public:
 	inline NodeGear_MaxPool3d(Gear_MaxPool3d *pGear, Connector *pConnectorDst) :
-			NodeGear("gear_maxpool3d", pGear, pConnectorDst) {}
+			NodeGear(pGear, pConnectorDst) {}
 	inline Gear_MaxPool3d *GetGear() { return dynamic_cast<Gear_MaxPool3d *>(_pGear.get()); }
 	virtual bool IsVulnerable() const;
 	virtual bool EvalForward(Environment &env);

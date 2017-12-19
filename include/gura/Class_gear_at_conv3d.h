@@ -23,7 +23,7 @@ public:
 public:
 	Gura_DeclareReferenceAccessor(Gear_Conv3d);
 public:
-	inline Gear_Conv3d() {}
+	inline Gear_Conv3d() : Gear("gear@conv3d") {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;
@@ -45,7 +45,7 @@ private:
 	AutoPtr<Array> _pArrayFwdPre;
 public:
 	inline NodeGear_Conv3d(Gear_Conv3d *pGear, Connector *pConnectorDst) :
-			NodeGear("gear_conv3d", pGear, pConnectorDst) {}
+			NodeGear(pGear, pConnectorDst) {}
 	inline Gear_Conv3d *GetGear() { return dynamic_cast<Gear_Conv3d *>(_pGear.get()); }
 	virtual bool IsVulnerable() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);

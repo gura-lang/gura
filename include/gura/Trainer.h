@@ -224,7 +224,7 @@ public:
 	class NodeUnary_Pos : public NodeUnary {
 	public:
 		inline NodeUnary_Pos(Connector *pConnectorDst) :
-				NodeUnary("unary_pos", Array::unaryFuncPack_Pos, pConnectorDst) {}
+				NodeUnary("unary@pos", Array::unaryFuncPack_Pos, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -233,7 +233,7 @@ public:
 	class NodeUnary_Neg : public NodeUnary {
 	public:
 		inline NodeUnary_Neg(Connector *pConnectorDst) :
-				NodeUnary("unary_neg", Array::unaryFuncPack_Neg, pConnectorDst) {}
+				NodeUnary("unary@neg", Array::unaryFuncPack_Neg, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -264,7 +264,7 @@ public:
 	class NodeBinary_Add : public NodeBinary {
 	public:
 		inline NodeBinary_Add(Connector *pConnectorDst) :
-				NodeBinary("binary_add", Array::binaryFuncPack_Add, pConnectorDst) {}
+				NodeBinary("binary@add", Array::binaryFuncPack_Add, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -273,7 +273,7 @@ public:
 	class NodeBinary_Sub : public NodeBinary {
 	public:
 		inline NodeBinary_Sub(Connector *pConnectorDst) :
-				NodeBinary("binary_sub", Array::binaryFuncPack_Sub, pConnectorDst) {}
+				NodeBinary("binary@sub", Array::binaryFuncPack_Sub, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -282,7 +282,7 @@ public:
 	class NodeBinary_Mul : public NodeBinary {
 	public:
 		inline NodeBinary_Mul(Connector *pConnectorDst) :
-				NodeBinary("binary_mul", Array::binaryFuncPack_Mul, pConnectorDst) {}
+				NodeBinary("binary@mul", Array::binaryFuncPack_Mul, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -291,7 +291,7 @@ public:
 	class NodeBinary_Div : public NodeBinary {
 	public:
 		inline NodeBinary_Div(Connector *pConnectorDst) :
-				NodeBinary("binary_div", Array::binaryFuncPack_Div, pConnectorDst) {}
+				NodeBinary("binary@div", Array::binaryFuncPack_Div, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -300,7 +300,7 @@ public:
 	class NodeBinary_Pow : public NodeBinary {
 	public:
 		inline NodeBinary_Pow(Connector *pConnectorDst) :
-				NodeBinary("binary_pow", Array::binaryFuncPack_Pow, pConnectorDst) {}
+				NodeBinary("binary@pow", Array::binaryFuncPack_Pow, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -312,7 +312,7 @@ public:
 		AutoPtr<Array> _pArrayFwdRightTrans;
 	public:
 		inline NodeBinary_Dot(Connector *pConnectorDst) :
-				NodeBinary("binary_dot", Array::binaryFuncPack_Dot, pConnectorDst) {}
+				NodeBinary("binary@dot", Array::binaryFuncPack_Dot, pConnectorDst) {}
 		virtual bool EvalBackward(Environment &env);
 	};
 	//-------------------------------------------------------------------------
@@ -328,8 +328,8 @@ public:
 		AutoPtr<Gear> _pGear;
 		Connector _connectorSrc;
 	public:
-		inline NodeGear(const char *nodeTypeName, Gear *pGear, Connector *pConnectorDst) :
-				Node(nodeTypeName, pConnectorDst), _pGear(pGear), _connectorSrc(this) {}
+		inline NodeGear(Gear *pGear, Connector *pConnectorDst) :
+				Node(pGear->GetName(), pConnectorDst), _pGear(pGear), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
 		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,

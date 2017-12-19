@@ -20,16 +20,18 @@ public:
 	};
 protected:
 	int _cntRef;
+	const char *_name;
 public:
 	Gura_DeclareReferenceAccessor(Gear);
 public:
-	inline Gear() : _cntRef(1) {}
+	inline Gear(const char *name) : _cntRef(1), _name(name) {}
 protected:
 	virtual ~Gear();
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const = 0;
 	virtual String ToString() const = 0;
 public:
+	inline const char *GetName() const { return _name; }
 	static void CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
 							size_t *pSizePad, size_t *pSizeOut);
 	static PaddingType SymbolToPaddingType(Signal &sig, const Symbol *pSymbol);

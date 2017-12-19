@@ -25,7 +25,7 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Gear_Softmax);
 public:
-	inline Gear_Softmax(size_t axis = static_cast<size_t>(-1)) : _axis(axis) {}
+	inline Gear_Softmax(size_t axis = static_cast<size_t>(-1)) : Gear("gear@softmax"), _axis(axis) {}
 	inline size_t GetAxis() const { return _axis; }
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
@@ -43,7 +43,7 @@ public:
 	};
 public:
 	inline NodeGear_Softmax(Gear_Softmax *pGear, Connector *pConnectorDst) :
-			NodeGear("gear_softmax", pGear, pConnectorDst) {}
+			NodeGear(pGear, pConnectorDst) {}
 	inline Gear_Softmax *GetGear() { return dynamic_cast<Gear_Softmax *>(_pGear.get()); }
 	virtual bool IsVulnerable() const;
 	virtual bool EvalForward(Environment &env);

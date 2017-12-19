@@ -24,7 +24,7 @@ public:
 public:
 	inline Gear_MaxPool2d(size_t sizeRow, size_t sizeCol, size_t stridesRow, size_t stridesCol,
 							PaddingType paddingType, Array::ChannelPos channelPos) :
-		_sizeRow(sizeRow), _sizeCol(sizeCol),
+		Gear("gear@maxpool2d"), _sizeRow(sizeRow), _sizeCol(sizeCol),
 		_stridesRow(stridesRow), _stridesCol(stridesCol),
 		_paddingType(paddingType), _channelPos(channelPos) {}
 	inline size_t GetSizeRow() const { return _sizeRow; }
@@ -49,7 +49,7 @@ public:
 	};
 public:
 	inline NodeGear_MaxPool2d(Gear_MaxPool2d *pGear, Connector *pConnectorDst) :
-			NodeGear("gear_maxpool2d", pGear, pConnectorDst) {}
+			NodeGear(pGear, pConnectorDst) {}
 	inline Gear_MaxPool2d *GetGear() { return dynamic_cast<Gear_MaxPool2d *>(_pGear.get()); }
 	virtual bool IsVulnerable() const;
 	virtual bool EvalForward(Environment &env);

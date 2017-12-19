@@ -23,7 +23,7 @@ public:
 public:
 	Gura_DeclareReferenceAccessor(Gear_Relu);
 public:
-	inline Gear_Relu() {}
+	inline Gear_Relu() : Gear("gear@relu") {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
 	virtual String ToString() const;
@@ -42,7 +42,7 @@ private:
 	AutoPtr<Array> _pArrayBool;
 public:
 	inline NodeGear_Relu(Gear_Relu *pGear, Connector *pConnectorDst) :
-			NodeGear("gear_relu", pGear, pConnectorDst) {}
+			NodeGear(pGear, pConnectorDst) {}
 	inline Gear_Relu *GetGear() { return dynamic_cast<Gear_Relu *>(_pGear.get()); }
 	virtual bool IsVulnerable() const;
 	virtual bool EvalForward(Environment &env);

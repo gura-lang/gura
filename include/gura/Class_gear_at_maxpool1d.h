@@ -21,7 +21,7 @@ public:
 	Gura_DeclareReferenceAccessor(Gear_MaxPool1d);
 public:
 	inline Gear_MaxPool1d(size_t size, size_t strides, PaddingType paddingType, Array::ChannelPos channelPos) :
-		_size(size), _strides(strides),
+		Gear("gear@maxpool1d"), _size(size), _strides(strides),
 		_paddingType(paddingType), _channelPos(channelPos) {}
 	inline size_t GetSize() const { return _size; }
 	inline size_t GetStrides() const { return _strides; }
@@ -43,7 +43,7 @@ public:
 	};
 public:
 	inline NodeGear_MaxPool1d(Gear_MaxPool1d *pGear, Connector *pConnectorDst) :
-			NodeGear("gear_maxpool1d", pGear, pConnectorDst) {}
+			NodeGear(pGear, pConnectorDst) {}
 	inline Gear_MaxPool1d *GetGear() { return dynamic_cast<Gear_MaxPool1d *>(_pGear.get()); }
 	virtual bool IsVulnerable() const;
 	virtual bool EvalForward(Environment &env);

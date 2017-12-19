@@ -31,7 +31,7 @@ public:
 public:
 	inline Gear_Conv2d(Array *pArrayGear, size_t stridesRow, size_t stridesCol,
 						 PaddingType paddingType, Array::ChannelPos channelPos) :
-		_pArrayGear(pArrayGear),
+		Gear("gear@conv2d"), _pArrayGear(pArrayGear),
 		_stridesRow(stridesRow), _stridesCol(stridesCol),
 		_paddingType(paddingType), _channelPos(channelPos) {}
 public:
@@ -84,7 +84,7 @@ private:
 	size_t _sizeOutCol;
 public:
 	inline NodeGear_Conv2d(Gear_Conv2d *pGear, Connector *pConnectorDst) :
-			NodeGear("gear_conv2d", pGear, pConnectorDst),
+			NodeGear(pGear, pConnectorDst),
 			_sizePadRow(0), _sizePadCol(0), _sizeOutRow(0), _sizeOutCol(0) {}
 	inline Gear_Conv2d *GetGear() { return dynamic_cast<Gear_Conv2d *>(_pGear.get()); }
 	virtual bool IsVulnerable() const;
