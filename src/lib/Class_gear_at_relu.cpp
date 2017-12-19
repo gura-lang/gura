@@ -152,6 +152,8 @@ void Class_gear_at_relu::DoPrepare(Environment &env)
 	Gura_AssignFunction(gear_at_relu);
 	// Assignment of value
 	Object_gear_at_relu::valueConst = Value(new Object_gear_at_relu(env, new Gear_Relu()));
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_relu, new NodeGear_Relu::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

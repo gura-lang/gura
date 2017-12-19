@@ -199,6 +199,8 @@ void Class_gear_at_maxpool1d::DoPrepare(Environment &env)
 	Gura_AssignProperty(gear_at_maxpool1d, padding);
 	Gura_AssignProperty(gear_at_maxpool1d, size);
 	Gura_AssignProperty(gear_at_maxpool1d, strides);
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_maxpool1d, new NodeGear_MaxPool1d::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

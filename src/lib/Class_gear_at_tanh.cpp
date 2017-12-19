@@ -100,6 +100,8 @@ void Class_gear_at_tanh::DoPrepare(Environment &env)
 	Gura_AssignFunction(gear_at_tanh);
 	// Assignment of value
 	Object_gear_at_tanh::valueConst = Value(new Object_gear_at_tanh(env, new Gear_Tanh()));
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_tanh, new NodeGear_Tanh::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

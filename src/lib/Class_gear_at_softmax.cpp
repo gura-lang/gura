@@ -124,6 +124,8 @@ void Class_gear_at_softmax::DoPrepare(Environment &env)
 	// Assignment of properties
 	Gura_AssignProperty(gear_at_softmax, axis);
 	// Assignment of value
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_softmax, new NodeGear_Softmax::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

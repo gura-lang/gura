@@ -108,6 +108,8 @@ void Class_gear_at_conv3d::DoPrepare(Environment &env)
 {
 	// Assignment of function
 	Gura_AssignFunction(gear_at_conv3d);
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_conv3d, new NodeGear_Conv3d::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

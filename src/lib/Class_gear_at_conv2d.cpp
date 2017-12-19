@@ -421,6 +421,8 @@ void Class_gear_at_conv2d::DoPrepare(Environment &env)
 	Gura_AssignProperty(gear_at_conv2d, padding);
 	Gura_AssignProperty(gear_at_conv2d, size);
 	Gura_AssignProperty(gear_at_conv2d, strides);
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_conv2d, new NodeGear_Conv2d::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

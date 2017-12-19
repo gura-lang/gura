@@ -129,6 +129,8 @@ void Class_gear_at_sigmoid::DoPrepare(Environment &env)
 	Gura_AssignFunction(gear_at_sigmoid);
 	// Assignment of value
 	Object_gear_at_sigmoid::valueConst = Value(new Object_gear_at_sigmoid(env, new Gear_Sigmoid()));
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_sigmoid, new NodeGear_Sigmoid::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

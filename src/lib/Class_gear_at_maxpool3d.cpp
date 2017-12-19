@@ -145,6 +145,8 @@ void Class_gear_at_maxpool3d::DoPrepare(Environment &env)
 {
 	// Assignment of function
 	Gura_AssignFunction(gear_at_maxpool3d);
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_maxpool3d, new NodeGear_MaxPool3d::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

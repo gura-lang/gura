@@ -20,16 +20,6 @@ Trainer::~Trainer()
 
 void Trainer::Bootup()
 {
-	RegisterNodeGearCreator(VTYPE_gear_at_conv1d, new NodeGear_Conv1d::CreatorEx());
-	RegisterNodeGearCreator(VTYPE_gear_at_conv2d, new NodeGear_Conv2d::CreatorEx());
-	RegisterNodeGearCreator(VTYPE_gear_at_conv3d, new NodeGear_Conv3d::CreatorEx());
-	RegisterNodeGearCreator(VTYPE_gear_at_maxpool1d, new NodeGear_MaxPool1d::CreatorEx());
-	RegisterNodeGearCreator(VTYPE_gear_at_maxpool2d, new NodeGear_MaxPool2d::CreatorEx());
-	RegisterNodeGearCreator(VTYPE_gear_at_maxpool3d, new NodeGear_MaxPool3d::CreatorEx());
-	RegisterNodeGearCreator(VTYPE_gear_at_relu, new NodeGear_Relu::CreatorEx());
-	RegisterNodeGearCreator(VTYPE_gear_at_sigmoid, new NodeGear_Sigmoid::CreatorEx());
-	RegisterNodeGearCreator(VTYPE_gear_at_softmax, new NodeGear_Softmax::CreatorEx());
-	RegisterNodeGearCreator(VTYPE_gear_at_tanh, new NodeGear_Tanh::CreatorEx());
 }
 
 bool Trainer::CreateFromExpr(Environment &env, const Expr *pExprModel, const SymbolSet &symbolsInput)
