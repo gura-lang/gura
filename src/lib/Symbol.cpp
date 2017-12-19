@@ -578,6 +578,7 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(func_scope);
 	Gura_RealizeSymbol(g);
 	Gura_RealizeSymbol(G);
+	Gura_RealizeSymbol(gear);
 	Gura_RealizeSymbol(gnuc);
 	Gura_RealizeSymbol(gray);
 	Gura_RealizeSymbol(green);

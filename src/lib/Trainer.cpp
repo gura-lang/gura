@@ -305,6 +305,12 @@ void Trainer::Node::Print(int indentLevel) const
 	::printf("%-*s%s\n", indentLevel * 2, "", ToString().c_str());
 }
 
+bool Trainer::Node::IsHead() { return false; }
+bool Trainer::Node::IsBottom() { return false; }
+bool Trainer::Node::IsUnary() { return false; }
+bool Trainer::Node::IsBinary() { return false; }
+bool Trainer::Node::IsGear() { return false; }
+
 //-----------------------------------------------------------------------------
 // Trainer::Node::Connector
 //-----------------------------------------------------------------------------
@@ -316,6 +322,8 @@ void Trainer::Node::Print(int indentLevel) const
 //-----------------------------------------------------------------------------
 // Trainer::NodeHead
 //-----------------------------------------------------------------------------
+bool Trainer::NodeHead::IsHead() { return true; }
+
 bool Trainer::NodeHead::IsVulnerable() const
 {
 	return IsVariable();
@@ -381,6 +389,8 @@ void Trainer::NodeHead::Print(int indentLevel) const
 //-----------------------------------------------------------------------------
 // Trainer::NodeBottom
 //-----------------------------------------------------------------------------
+bool Trainer::NodeBottom::IsBottom() { return true; }
+
 bool Trainer::NodeBottom::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
@@ -450,6 +460,8 @@ void Trainer::NodeBottom::Print(int indentLevel) const
 //-----------------------------------------------------------------------------
 // Trainer::NodeUnary
 //-----------------------------------------------------------------------------
+bool Trainer::NodeUnary::IsUnary() { return true; }
+
 bool Trainer::NodeUnary::IsVulnerable() const
 {
 	return _connectorSrc.GetNodeSrc()->IsVulnerable();
@@ -529,6 +541,8 @@ bool Trainer::NodeUnary_Neg::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeBinary
 //-----------------------------------------------------------------------------
+bool Trainer::NodeBinary::IsBinary() { return true; }
+
 bool Trainer::NodeBinary::IsVulnerable() const
 {
 	return
@@ -688,8 +702,11 @@ bool Trainer::NodeBinary_Dot::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear
 //-----------------------------------------------------------------------------
+bool Trainer::NodeGear::IsGear() { return true; }
+
 bool Trainer::NodeGear::DoDirProp(Environment &env, SymbolSet &symbols)
 {
+	symbols.insert(Gura_Symbol(gear));
 	symbols.insert(Gura_Symbol(input));
 	symbols.insert(Gura_Symbol(inputbwd));
 	return Node::DoDirProp(env, symbols);
@@ -698,7 +715,10 @@ bool Trainer::NodeGear::DoDirProp(Environment &env, SymbolSet &symbols)
 Value Trainer::NodeGear::DoGetProp(Environment &env, const Symbol *pSymbol,
 								   const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	if (pSymbol->IsIdentical(Gura_Symbol(input))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(gear))) {
+		evaluatedFlag = true;
+		return Value(new Object_gear(env, _pGear->Reference()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(input))) {
 		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayFwd()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(inputbwd))) {

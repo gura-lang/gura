@@ -79,10 +79,14 @@ Object *Object_gear_at_conv3d::Clone() const
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// gear@conv3d():map {block?}
+// gear@conv3d(array:array, strides[]?:number, padding?:symbol, channel_pos?:symbol):map {block?}
 Gura_DeclareFunctionAlias(gear_at_conv3d, "gear@conv3d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "array", VTYPE_array);
+	DeclareArg(env, "strides", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
+	DeclareArg(env, "padding", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "channel_pos", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_gear_at_conv3d));
 	AddHelp(

@@ -378,6 +378,7 @@ public:
 	Gura_DeclareSymbol(func_scope);
 	Gura_DeclareSymbol(g);
 	Gura_DeclareSymbol(G);
+	Gura_DeclareSymbol(gear);
 	Gura_DeclareSymbol(gnuc);
 	Gura_DeclareSymbol(gray);
 	Gura_DeclareSymbol(green);

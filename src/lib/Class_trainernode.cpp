@@ -56,6 +56,80 @@ String Object_trainernode::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+// trainernode#isbinary()
+Gura_DeclareMethod(trainernode, isbinary)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns `true` if the target is a binary node.\n");
+}
+
+Gura_ImplementMethod(trainernode, isbinary)
+{
+	Object_trainernode *pThis = Object_trainernode::GetObjectThis(arg);
+	return Value(pThis->GetTrainerNode()->IsBinary());
+}
+
+// trainernode#isbottom()
+Gura_DeclareMethod(trainernode, isbottom)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns `true` if the target is a bottom node.\n");
+}
+
+Gura_ImplementMethod(trainernode, isbottom)
+{
+	Object_trainernode *pThis = Object_trainernode::GetObjectThis(arg);
+	return Value(pThis->GetTrainerNode()->IsBottom());
+}
+
+// trainernode#isgear()
+Gura_DeclareMethod(trainernode, isgear)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns `true` if the target is a gear node.\n");
+}
+
+Gura_ImplementMethod(trainernode, isgear)
+{
+	Object_trainernode *pThis = Object_trainernode::GetObjectThis(arg);
+	return Value(pThis->GetTrainerNode()->IsGear());
+}
+
+// trainernode#ishead()
+Gura_DeclareMethod(trainernode, ishead)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns `true` if the target is a head node.\n");
+}
+
+Gura_ImplementMethod(trainernode, ishead)
+{
+	Object_trainernode *pThis = Object_trainernode::GetObjectThis(arg);
+	return Value(pThis->GetTrainerNode()->IsHead());
+}
+
+// trainernode#isunary()
+Gura_DeclareMethod(trainernode, isunary)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns `true` if the target is a unary node.\n");
+}
+
+Gura_ImplementMethod(trainernode, isunary)
+{
+	Object_trainernode *pThis = Object_trainernode::GetObjectThis(arg);
+	return Value(pThis->GetTrainerNode()->IsUnary());
+}
 
 //-----------------------------------------------------------------------------
 // Implementation of class
@@ -69,6 +143,11 @@ void Class_trainernode::DoPrepare(Environment &env)
 	// Assignment of function
 	// Assignment of properties
 	// Assignment of methods
+	Gura_AssignMethod(trainernode, isbinary);
+	Gura_AssignMethod(trainernode, isbottom);
+	Gura_AssignMethod(trainernode, isgear);
+	Gura_AssignMethod(trainernode, ishead);
+	Gura_AssignMethod(trainernode, isunary);
 	// Assignment of values
 	Gura_AssignValue(trainernode, Value(Reference()));
 	// help document
