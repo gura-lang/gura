@@ -50,6 +50,40 @@ String Gear_Conv1d::ToString() const
 }
 
 //-----------------------------------------------------------------------------
+// NodeGear_Conv1d
+//-----------------------------------------------------------------------------
+bool NodeGear_Conv1d::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool NodeGear_Conv1d::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return NodeGear::DoDirProp(env, symbols);
+}
+
+Value NodeGear_Conv1d::DoGetProp(Environment &env, const Symbol *pSymbol,
+								   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
+bool NodeGear_Conv1d::EvalForward(Environment &env)
+{
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+}
+
+bool NodeGear_Conv1d::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+Trainer::NodeGear *NodeGear_Conv1d::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_Conv1d(Object_gear_at_conv1d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
+//-----------------------------------------------------------------------------
 // Object_gear_at_conv1d
 //-----------------------------------------------------------------------------
 Object_gear_at_conv1d::Object_gear_at_conv1d(Environment &env, Gear_Conv1d *pGear) :

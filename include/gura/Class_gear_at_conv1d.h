@@ -5,6 +5,7 @@
 #define __GURA_CLASS_GEAR_AT_CONV1D_H__
 
 #include "Class_gear.h"
+#include "Trainer.h"
 
 namespace Gura {
 
@@ -55,6 +56,32 @@ public:
 	inline size_t GetStrides() const { return _strides; }
 	inline PaddingType GetPaddingType() const { return _paddingType; }
 	inline Array::ChannelPos GetChannelPos() const { return _channelPos; }
+};
+
+//-------------------------------------------------------------------------
+// NodeGear_Conv1d
+//-------------------------------------------------------------------------
+class NodeGear_Conv1d : public Trainer::NodeGear {
+public:
+	class CreatorEx : public Creator {
+	public:
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+	};
+private:
+	AutoPtr<Array> _pArrayFwdSrcVec;
+	AutoPtr<Array> _pArrayGearReshape;
+	AutoPtr<Array> _pArrayGearTrans;
+	AutoPtr<Array> _pArrayFwdPre;
+public:
+	inline NodeGear_Conv1d(Gear_Conv1d *pGear, Connector *pConnectorDst) :
+		NodeGear("gear_conv1d", pGear, pConnectorDst) {}
+	inline Gear_Conv1d *GetGear() { return dynamic_cast<Gear_Conv1d *>(_pGear.get()); }
+	virtual bool IsVulnerable() const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------

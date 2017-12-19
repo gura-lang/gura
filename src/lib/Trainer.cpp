@@ -21,6 +21,7 @@ Trainer::~Trainer()
 void Trainer::Bootup()
 {
 	RegisterNodeGearCreator(VTYPE_gear_at_conv1d, new NodeGear_Conv1d::CreatorEx());
+#if 0
 	RegisterNodeGearCreator(VTYPE_gear_at_conv2d, new NodeGear_Conv2d::CreatorEx());
 	RegisterNodeGearCreator(VTYPE_gear_at_conv3d, new NodeGear_Conv3d::CreatorEx());
 	RegisterNodeGearCreator(VTYPE_gear_at_maxpool1d, new NodeGear_MaxPool1d::CreatorEx());
@@ -30,6 +31,7 @@ void Trainer::Bootup()
 	RegisterNodeGearCreator(VTYPE_gear_at_sigmoid, new NodeGear_Sigmoid::CreatorEx());
 	RegisterNodeGearCreator(VTYPE_gear_at_softmax, new NodeGear_Softmax::CreatorEx());
 	RegisterNodeGearCreator(VTYPE_gear_at_tanh, new NodeGear_Tanh::CreatorEx());
+#endif
 }
 
 bool Trainer::CreateFromExpr(Environment &env, const Expr *pExprModel, const SymbolSet &symbolsInput)
@@ -734,40 +736,7 @@ void Trainer::NodeGear::Print(int indentLevel) const
 	_connectorSrc.GetNodeSrc()->Print(indentLevel + 1);
 }
 
-//-----------------------------------------------------------------------------
-// Trainer::NodeGear_Conv1d
-//-----------------------------------------------------------------------------
-bool Trainer::NodeGear_Conv1d::IsVulnerable() const
-{
-	return _connectorSrc.GetNodeSrc()->IsVulnerable();
-}
-
-bool Trainer::NodeGear_Conv1d::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	return NodeGear::DoDirProp(env, symbols);
-}
-
-Value Trainer::NodeGear_Conv1d::DoGetProp(Environment &env, const Symbol *pSymbol,
-								   const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-}
-
-bool Trainer::NodeGear_Conv1d::EvalForward(Environment &env)
-{
-	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
-}
-
-bool Trainer::NodeGear_Conv1d::EvalBackward(Environment &env)
-{
-	return false;
-}
-
-Trainer::NodeGear *Trainer::NodeGear_Conv1d::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
-{
-	return new NodeGear_Conv1d(Object_gear_at_conv1d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
-}
-
+#if 0
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear_Conv2d
 //-----------------------------------------------------------------------------
@@ -1195,6 +1164,8 @@ Trainer::NodeGear *Trainer::NodeGear_Tanh::CreatorEx::Create(const Value &value,
 {
 	return new NodeGear_Tanh(Object_gear_at_tanh::GetObject(value)->GetGear()->Reference(), pConnectorDst);
 }
+
+#endif
 
 //-----------------------------------------------------------------------------
 // Trainer::NodeList

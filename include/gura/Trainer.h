@@ -1,5 +1,7 @@
 #ifndef __GURA_TRAINER_H__
 #define __GURA_TRAINER_H__
+#include "Class_gear.h"
+#if 0
 #include "Class_gear_at_conv1d.h"
 #include "Class_gear_at_conv2d.h"
 #include "Class_gear_at_conv3d.h"
@@ -10,6 +12,7 @@
 #include "Class_gear_at_sigmoid.h"
 #include "Class_gear_at_softmax.h"
 #include "Class_gear_at_tanh.h"
+#endif
 
 namespace Gura {
 
@@ -346,31 +349,7 @@ public:
 		virtual String ToString() const;
 		virtual void Print(int indentLevel) const;
 	};
-	//-------------------------------------------------------------------------
-	// NodeGear_Conv1d
-	//-------------------------------------------------------------------------
-	class NodeGear_Conv1d : public NodeGear {
-	public:
-		class CreatorEx : public Creator {
-		public:
-			virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
-		};
-	private:
-		AutoPtr<Array> _pArrayFwdSrcVec;
-		AutoPtr<Array> _pArrayGearReshape;
-		AutoPtr<Array> _pArrayGearTrans;
-		AutoPtr<Array> _pArrayFwdPre;
-	public:
-		inline NodeGear_Conv1d(Gear_Conv1d *pGear, Connector *pConnectorDst) :
-				NodeGear("gear_conv1d", pGear, pConnectorDst) {}
-		inline Gear_Conv1d *GetGear() { return dynamic_cast<Gear_Conv1d *>(_pGear.get()); }
-		virtual bool IsVulnerable() const;
-		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
-		virtual bool EvalForward(Environment &env);
-		virtual bool EvalBackward(Environment &env);
-	};
+#if 0
 	//-------------------------------------------------------------------------
 	// NodeGear_Conv2d
 	//-------------------------------------------------------------------------
@@ -555,6 +534,7 @@ public:
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
 	};
+#endif
 	//-------------------------------------------------------------------------
 	// NodeMap
 	//-------------------------------------------------------------------------
