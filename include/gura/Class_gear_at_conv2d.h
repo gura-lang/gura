@@ -64,6 +64,37 @@ public:
 	inline Array::ChannelPos GetChannelPos() const { return _channelPos; }
 };
 
+//-------------------------------------------------------------------------
+// NodeGear_Conv2d
+//-------------------------------------------------------------------------
+class NodeGear_Conv2d : public Trainer::NodeGear {
+public:
+	class CreatorEx : public Creator {
+	public:
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+	};
+private:
+	AutoPtr<Array> _pArrayFwdSrcVec;
+	AutoPtr<Array> _pArrayGearReshape;
+	AutoPtr<Array> _pArrayGearTrans;
+	AutoPtr<Array> _pArrayFwdPre;
+	size_t _sizePadRow;
+	size_t _sizePadCol;
+	size_t _sizeOutRow;
+	size_t _sizeOutCol;
+public:
+	inline NodeGear_Conv2d(Gear_Conv2d *pGear, Connector *pConnectorDst) :
+			NodeGear("gear_conv2d", pGear, pConnectorDst),
+			_sizePadRow(0), _sizePadCol(0), _sizeOutRow(0), _sizeOutCol(0) {}
+	inline Gear_Conv2d *GetGear() { return dynamic_cast<Gear_Conv2d *>(_pGear.get()); }
+	virtual bool IsVulnerable() const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
+};
+
 //-----------------------------------------------------------------------------
 // Class_gear_at_conv2d
 //-----------------------------------------------------------------------------

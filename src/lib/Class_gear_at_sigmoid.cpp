@@ -30,6 +30,58 @@ String Gear_Sigmoid::ToString() const
 }
 
 //-----------------------------------------------------------------------------
+// NodeGear_Sigmoid
+//-----------------------------------------------------------------------------
+bool NodeGear_Sigmoid::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool NodeGear_Sigmoid::EvalForward(Environment &env)
+{
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+}
+
+bool NodeGear_Sigmoid::EvalBackward(Environment &env)
+{
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
+	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
+		// 1 - y
+		if (!Array::ApplyBinaryFunc_number_array(
+				env, Array::binaryFuncPack_Sub, _pArrayTmp,
+				1, _pArrayFwd.get())) return false;
+		// (1 - y) * y
+		if (!Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, _pArrayTmp,
+				_pArrayTmp.get(), _pArrayFwd.get())) return false;
+		if (env.IsSignalled()) return false;
+		// (1 - y) * y * bwd_in
+		if (!Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, _connectorSrc.GetArrayBwdAutoPtr(),
+				_pArrayTmp.get(),
+				(*ppConnectorDst)->GetArrayBwd())) return false;
+	}
+	return true;
+}
+
+bool NodeGear_Sigmoid::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return NodeGear::DoDirProp(env, symbols);
+}
+
+Value NodeGear_Sigmoid::DoGetProp(Environment &env, const Symbol *pSymbol,
+										   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
+Trainer::NodeGear *NodeGear_Sigmoid::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_Sigmoid(Object_gear_at_sigmoid::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
+//-----------------------------------------------------------------------------
 // Object_gear_at_sigmoid
 //-----------------------------------------------------------------------------
 Value Object_gear_at_sigmoid::valueConst;

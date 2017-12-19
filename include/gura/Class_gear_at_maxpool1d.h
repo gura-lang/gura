@@ -32,6 +32,24 @@ public:
 	virtual String ToString() const;
 };
 
+//-------------------------------------------------------------------------
+// NodeGear_MaxPool1d
+//-------------------------------------------------------------------------
+class NodeGear_MaxPool1d : public Trainer::NodeGear {
+public:
+	class CreatorEx : public Creator {
+	public:
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+	};
+public:
+	inline NodeGear_MaxPool1d(Gear_MaxPool1d *pGear, Connector *pConnectorDst) :
+			NodeGear("gear_maxpool1d", pGear, pConnectorDst) {}
+	inline Gear_MaxPool1d *GetGear() { return dynamic_cast<Gear_MaxPool1d *>(_pGear.get()); }
+	virtual bool IsVulnerable() const;
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
+};
+
 //-----------------------------------------------------------------------------
 // Class_gear_at_maxpool1d
 //-----------------------------------------------------------------------------

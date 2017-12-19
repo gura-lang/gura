@@ -30,6 +30,32 @@ String Gear_Softmax::ToString() const
 }
 
 //-----------------------------------------------------------------------------
+// NodeGear_Softmax
+//-----------------------------------------------------------------------------
+bool NodeGear_Softmax::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool NodeGear_Softmax::EvalForward(Environment &env)
+{
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+}
+
+bool NodeGear_Softmax::EvalBackward(Environment &env)
+{
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
+	_connectorSrc.SetArrayBwd((*ppConnectorDst)->GetArrayBwd()->Reference());
+	return true;
+}
+
+Trainer::NodeGear *NodeGear_Softmax::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_Softmax(Object_gear_at_softmax::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
+//-----------------------------------------------------------------------------
 // Object_gear_at_softmax
 //-----------------------------------------------------------------------------
 Object_gear_at_softmax::Object_gear_at_softmax(Environment &env, Gear_Softmax *pGear) :

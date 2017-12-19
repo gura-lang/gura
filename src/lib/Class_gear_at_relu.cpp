@@ -30,6 +30,81 @@ String Gear_Relu::ToString() const
 }
 
 //-----------------------------------------------------------------------------
+// NodeGear_Relu
+//-----------------------------------------------------------------------------
+template<typename T_Elem>
+class Operator_Relu2Out {
+public:
+	inline static void Calc(T_Elem &elemRtn, Boolean &elemBool, const T_Elem &elem) {
+		elemBool = (elem > 0);
+		elemRtn = elemBool? elem : 0;
+	}
+};
+
+bool NodeGear_Relu::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool NodeGear_Relu::EvalForward(Environment &env)
+{
+	static const Array::Unary2OutFuncT funcs[Array::ETYPE_Max] = {
+		nullptr,
+		&Array::Unary2OutFuncTmpl<Boolean,	Boolean,	Boolean,	Operator_Relu2Out<Boolean> >,
+		&Array::Unary2OutFuncTmpl<Int8,		Boolean,	Int8,		Operator_Relu2Out<Int8> >,
+		&Array::Unary2OutFuncTmpl<UInt8,	Boolean,	UInt8,		Operator_Relu2Out<UInt8> >,
+		&Array::Unary2OutFuncTmpl<Int16,	Boolean,	Int16,		Operator_Relu2Out<Int16> >,
+		&Array::Unary2OutFuncTmpl<UInt16,	Boolean,	UInt16,		Operator_Relu2Out<UInt16> >,
+		&Array::Unary2OutFuncTmpl<Int32,	Boolean,	Int32,		Operator_Relu2Out<Int32> >,
+		&Array::Unary2OutFuncTmpl<UInt32,	Boolean,	UInt32,		Operator_Relu2Out<UInt32> >,
+		&Array::Unary2OutFuncTmpl<Int64,	Boolean,	Int64,		Operator_Relu2Out<Int64> >,
+		&Array::Unary2OutFuncTmpl<UInt64,	Boolean,	UInt64,		Operator_Relu2Out<UInt64> >,
+		&Array::Unary2OutFuncTmpl<Half,		Boolean,	Half,		Operator_Relu2Out<Half> >,
+		&Array::Unary2OutFuncTmpl<Float,	Boolean,	Float,		Operator_Relu2Out<Float> >,
+		&Array::Unary2OutFuncTmpl<Double,	Boolean,	Double,		Operator_Relu2Out<Double> >,
+		nullptr,
+		nullptr,
+	};
+	const Array *pArray = GetConnectorSrc()->GetArrayFwd();
+	Array::Unary2OutFuncT func = funcs[pArray->GetElemType()];
+	if (func == nullptr) {
+		env.SetError(ERR_TypeError, "can't evaluate forward function");
+		return nullptr;
+	}
+	(*func)(env, _pArrayFwd, _pArrayBool, pArray);
+	return env.IsNoSignalled();
+}
+
+bool NodeGear_Relu::EvalBackward(Environment &env)
+{
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
+	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
+		if (!Array::ApplyBinaryFunc(
+				env, Array::binaryFuncPack_Mul, _connectorSrc.GetArrayBwdAutoPtr(),
+				_pArrayBool.get(),
+				(*ppConnectorDst)->GetArrayBwd())) return false;
+	}
+	return true;
+}
+
+bool NodeGear_Relu::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return NodeGear::DoDirProp(env, symbols);
+}
+
+Value NodeGear_Relu::DoGetProp(Environment &env, const Symbol *pSymbol,
+								   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
+Trainer::NodeGear *NodeGear_Relu::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_Relu(Object_gear_at_relu::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
+//-----------------------------------------------------------------------------
 // Object_gear_at_relu
 //-----------------------------------------------------------------------------
 Value Object_gear_at_relu::valueConst;

@@ -29,6 +29,32 @@ public:
 	virtual String ToString() const;
 };
 
+//-------------------------------------------------------------------------
+// NodeGear_Conv3d
+//-------------------------------------------------------------------------
+class NodeGear_Conv3d : public Trainer::NodeGear {
+public:
+	class CreatorEx : public Creator {
+	public:
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+	};
+private:
+	AutoPtr<Array> _pArrayFwdSrcVec;
+	AutoPtr<Array> _pArrayGearReshape;
+	AutoPtr<Array> _pArrayGearTrans;
+	AutoPtr<Array> _pArrayFwdPre;
+public:
+	inline NodeGear_Conv3d(Gear_Conv3d *pGear, Connector *pConnectorDst) :
+			NodeGear("gear_conv3d", pGear, pConnectorDst) {}
+	inline Gear_Conv3d *GetGear() { return dynamic_cast<Gear_Conv3d *>(_pGear.get()); }
+	virtual bool IsVulnerable() const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
+};
+
 //-----------------------------------------------------------------------------
 // Class_gear_at_conv3d
 //-----------------------------------------------------------------------------

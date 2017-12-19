@@ -32,6 +32,24 @@ public:
 	virtual String ToString() const;
 };
 
+//-------------------------------------------------------------------------
+// NodeGear_Softmax
+//-------------------------------------------------------------------------
+class NodeGear_Softmax : public Trainer::NodeGear {
+public:
+	class CreatorEx : public Creator {
+	public:
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+	};
+public:
+	inline NodeGear_Softmax(Gear_Softmax *pGear, Connector *pConnectorDst) :
+			NodeGear("gear_softmax", pGear, pConnectorDst) {}
+	inline Gear_Softmax *GetGear() { return dynamic_cast<Gear_Softmax *>(_pGear.get()); }
+	virtual bool IsVulnerable() const;
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
+};
+
 //-----------------------------------------------------------------------------
 // Class_gear_at_softmax
 //-----------------------------------------------------------------------------

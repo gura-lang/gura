@@ -37,6 +37,29 @@ String Gear_MaxPool3d::ToString() const
 }
 
 //-----------------------------------------------------------------------------
+// NodeGear_MaxPool3d
+//-----------------------------------------------------------------------------
+bool NodeGear_MaxPool3d::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool NodeGear_MaxPool3d::EvalForward(Environment &env)
+{
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+}
+
+bool NodeGear_MaxPool3d::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+Trainer::NodeGear *NodeGear_MaxPool3d::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_MaxPool3d(Object_gear_at_maxpool3d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
+//-----------------------------------------------------------------------------
 // Object_gear_at_maxpool3d
 //-----------------------------------------------------------------------------
 Object_gear_at_maxpool3d::Object_gear_at_maxpool3d(Environment &env, Gear_MaxPool3d *pGear) :

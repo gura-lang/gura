@@ -51,6 +51,155 @@ String Gear_Conv2d::ToString() const
 }
 
 //-----------------------------------------------------------------------------
+// NodeGear_Conv2d
+//-----------------------------------------------------------------------------
+bool NodeGear_Conv2d::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool NodeGear_Conv2d::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return NodeGear::DoDirProp(env, symbols);
+}
+
+Value NodeGear_Conv2d::DoGetProp(Environment &env, const Symbol *pSymbol,
+								   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
+bool NodeGear_Conv2d::EvalForward(Environment &env)
+{
+	Gear_Conv2d *pGear = GetGear();
+	const Double padNum = 0;
+	// pArraySrc .. [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
+	const Array *pArrayFwdSrc = GetConnectorSrc()->GetArrayFwd();
+	// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
+	if (_pArrayFwdSrcVec.IsNull()) {
+		Gear::CalcPadding2d(pGear, pArrayFwdSrc->GetDimensions(),
+							&_sizePadRow, &_sizePadCol, &_sizeOutRow, &_sizeOutCol);
+	}
+	if (!pArrayFwdSrc->ExpandKernelVec2d(
+			env, _pArrayFwdSrcVec, pGear->GetSizeRow(), pGear->GetSizeCol(),
+			pGear->GetStridesRow(), pGear->GetStridesCol(), _sizePadRow, _sizePadCol,
+			pGear->GetChannelPos(), padNum)) return false;
+	const Array *pArrayGear = pGear->GetArrayGear();
+	const Array::Dimensions &dimsGear = pArrayGear->GetDimensions();
+	if (_pArrayGearTrans.IsNull()) {
+		Array::Dimensions dims;
+		if (pGear->HasChannelDim()) {
+			if (pGear->HasFilterDim()) {
+				// pArrayGear .. [FN, C, FH, FW] or [FN, FH, FW, C]
+				// _pArrayGearReshape .. [FN, C * FH * FW]
+				// _pArrayGearTrans .. [C * FH * FW, FN]
+				dims.reserve(2);
+				dims.push_back(Array::Dimension(dimsGear[0].GetSize()));
+				dims.push_back(Array::Dimension(dimsGear[1].GetSize() * dimsGear[2].GetSize() * dimsGear[3].GetSize()));
+			} else {
+				// pArrayGear .. [C, FH, FW], [FH, FW, C]
+				// _pArrayGearReshape .. [1, C * FH * FW]
+				// _pArrayGearTrans .. [C * FH * FW, 1]
+				dims.reserve(2);
+				dims.push_back(Array::Dimension(1));
+				dims.push_back(Array::Dimension(dimsGear[0].GetSize() * dimsGear[1].GetSize() * dimsGear[2].GetSize()));
+			}
+		} else {
+			if (pGear->HasFilterDim()) {
+				// pArrayGear .. [FN, FH, FW] or [FN, FH, FW]
+				// _pArrayGearReshape .. [FN, FH * FW]
+				// _pArrayGearTrans .. [FH * FW, FN]
+				dims.reserve(2);
+				dims.push_back(Array::Dimension(dimsGear[0].GetSize()));
+				dims.push_back(Array::Dimension(dimsGear[1].GetSize() * dimsGear[2].GetSize()));
+			} else {
+				// pArrayGear .. [FH, FW], [FH, FW]
+				// _pArrayGearReshape .. [1, FH * FW]
+				// _pArrayGearTrans .. [FH * FW, 1]
+				dims.reserve(2);
+				dims.push_back(Array::Dimension(1));
+				dims.push_back(Array::Dimension(dimsGear[0].GetSize() * dimsGear[1].GetSize()));
+			}
+		}
+		pArrayGear->Reshape(_pArrayGearReshape, dims);
+		_pArrayGearReshape->Transpose2d(_pArrayGearTrans);
+	}
+	// _pArrayFwdPre = _pArrayFwdSrcVec |.| _pArrayGearTrans
+	if (!Array::ApplyBinaryFunc(
+			env, Array::binaryFuncPack_Dot, _pArrayFwdPre,
+			_pArrayFwdSrcVec.get(), _pArrayGearTrans.get())) return false;
+	//::printf("_pArrayFwdSrcVec: %s\n", _pArrayFwdSrcVec->GetDimensions().ToString().c_str());
+	//::printf("_pArrayGearTrans: %s\n", _pArrayGearTrans->GetDimensions().ToString().c_str());
+	//::printf("_pArrayFwdPre: %s\n", _pArrayFwdPre->GetDimensions().ToString().c_str());
+	if (_pArrayFwd.IsNull()) {
+		const Array::Dimensions &dimsPre = _pArrayFwdPre->GetDimensions();
+		Array::Dimensions dims;
+		if (dimsPre.size() == 2) {
+			if (pGear->HasFilterDim()) {
+				// _pArrayFwdPre .. [H_out * W_out, FN]
+				// _pArrayFwd .. [H_out, W_out, FN]
+				dims.reserve(3);
+				dims.push_back(Array::Dimension(_sizeOutRow));
+				dims.push_back(Array::Dimension(_sizeOutCol));
+				dims.push_back(Array::Dimension(dimsPre[1].GetSize()));
+			} else {
+				// _pArrayFwdPre .. [H_out * W_out, 1]
+				// _pArrayFwd .. [H_out, W_out]
+				dims.reserve(3);
+				dims.push_back(Array::Dimension(_sizeOutRow));
+				dims.push_back(Array::Dimension(_sizeOutCol));
+			}
+		} else {
+			if (pGear->HasFilterDim()) {
+				// _pArrayFwdPre .. [N, H_out * W_out, FN]
+				// _pArrayFwd .. [N, H_out, W_out, FN]
+				dims.reserve(4);
+				dims.push_back(Array::Dimension(dimsPre[0].GetSize()));
+				dims.push_back(Array::Dimension(_sizeOutRow));
+				dims.push_back(Array::Dimension(_sizeOutCol));
+				dims.push_back(Array::Dimension(dimsPre[2].GetSize()));
+			} else {
+				// _pArrayFwdPre .. [N, H_out * W_out, 1]
+				// _pArrayFwd .. [N, H_out, W_out]
+				dims.reserve(3);
+				dims.push_back(Array::Dimension(dimsPre[0].GetSize()));
+				dims.push_back(Array::Dimension(_sizeOutRow));
+				dims.push_back(Array::Dimension(_sizeOutCol));
+			}
+		}
+		_pArrayFwdPre->Reshape(_pArrayFwd, dims);
+	}
+	return true;
+}
+
+bool NodeGear_Conv2d::EvalBackward(Environment &env)
+{
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
+	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
+		//const Array *pArrayBwdSrc = (*ppConnectorDst)->GetArrayBwd();
+		//AutoPtr<Array> &pArrayBwd = _connectorSrc.GetArrayBwdAutoPtr();
+		// pArrayBwdSrc .. [H_out, W_out], [H_out, W_out, FN], [FN, H_out, W_out], [N, H_out, W_out], [N, H_out, W_out, FN]
+		// pArrayBwdSrcReshape .. [H_out * W_out], [H_out * W_out, FN], [FN, H_out * W_out], [N * h_out, W_out], [N * H_out * W_out, FN]
+		// pArrayBwdSrcTrans .. [FN, N * H_out * W_out]
+		// _pArrayFwdPre = _pArrayFwdSrcVec |.| _pArrayGearTrans
+		// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
+		// _pArrayGearReshape .. [FN, C * FH * FW]
+		// _pArrayGearTrans .. [C * FH * FW, FN]
+		// pArrayBwdVec = pArrayBwdSrcReshape |.| _pArrayGearReshape
+		// pArrayGearDiff = pArrayBwdSrcTrans |.| _pArrayFwdSrcVec
+		// pArrayBwdVec .. [N * H_out * W_out, C * FH * FW]
+		// pArrayGearDiff .. [FN, C * FH * FW]
+	}
+	return true;
+}
+
+Trainer::NodeGear *NodeGear_Conv2d::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_Conv2d(Object_gear_at_conv2d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
+//-----------------------------------------------------------------------------
 // Object_gear_at_conv2d
 //-----------------------------------------------------------------------------
 Object_gear_at_conv2d::Object_gear_at_conv2d(Environment &env, Gear_Conv2d *pGear) :

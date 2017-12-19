@@ -36,6 +36,29 @@ String Gear_MaxPool2d::ToString() const
 }
 
 //-----------------------------------------------------------------------------
+// NodeGear_MaxPool2d
+//-----------------------------------------------------------------------------
+bool NodeGear_MaxPool2d::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool NodeGear_MaxPool2d::EvalForward(Environment &env)
+{
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+}
+
+bool NodeGear_MaxPool2d::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+Trainer::NodeGear *NodeGear_MaxPool2d::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_MaxPool2d(Object_gear_at_maxpool2d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
+//-----------------------------------------------------------------------------
 // Object_gear_at_maxpool2d
 //-----------------------------------------------------------------------------
 Object_gear_at_maxpool2d::Object_gear_at_maxpool2d(Environment &env, Gear_MaxPool2d *pGear) :

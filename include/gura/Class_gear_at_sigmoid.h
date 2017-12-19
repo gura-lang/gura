@@ -29,6 +29,29 @@ public:
 	virtual String ToString() const;
 };
 
+//-------------------------------------------------------------------------
+// NodeGear_Sigmoid
+//-------------------------------------------------------------------------
+class NodeGear_Sigmoid : public Trainer::NodeGear {
+public:
+	class CreatorEx : public Creator {
+	public:
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+	};
+private:
+	AutoPtr<Array> _pArrayTmp;
+public:
+	inline NodeGear_Sigmoid(Gear_Sigmoid *pGear, Connector *pConnectorDst) :
+			NodeGear("gera_sigmoid", pGear, pConnectorDst) {}
+	inline Gear_Sigmoid *GetGear() { return dynamic_cast<Gear_Sigmoid *>(_pGear.get()); }
+	virtual bool IsVulnerable() const;
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+};
+
 //-----------------------------------------------------------------------------
 // Class_gear_at_sigmoid
 //-----------------------------------------------------------------------------

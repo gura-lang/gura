@@ -29,6 +29,29 @@ public:
 	virtual String ToString() const;
 };
 
+//-------------------------------------------------------------------------
+// NodeGear_Relu
+//-------------------------------------------------------------------------
+class NodeGear_Relu : public Trainer::NodeGear {
+public:
+	class CreatorEx : public Creator {
+	public:
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+	};
+private:
+	AutoPtr<Array> _pArrayBool;
+public:
+	inline NodeGear_Relu(Gear_Relu *pGear, Connector *pConnectorDst) :
+			NodeGear("gear_relu", pGear, pConnectorDst) {}
+	inline Gear_Relu *GetGear() { return dynamic_cast<Gear_Relu *>(_pGear.get()); }
+	virtual bool IsVulnerable() const;
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+};
+
 //-----------------------------------------------------------------------------
 // Class_gear_at_relu
 //-----------------------------------------------------------------------------

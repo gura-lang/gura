@@ -30,6 +30,29 @@ String Gear_Tanh::ToString() const
 }
 
 //-----------------------------------------------------------------------------
+// NodeGear_Tanh
+//-----------------------------------------------------------------------------
+bool NodeGear_Tanh::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool NodeGear_Tanh::EvalForward(Environment &env)
+{
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+}
+
+bool NodeGear_Tanh::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+Trainer::NodeGear *NodeGear_Tanh::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_Tanh(Object_gear_at_tanh::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
+//-----------------------------------------------------------------------------
 // Object_gear_at_tanh
 //-----------------------------------------------------------------------------
 Value Object_gear_at_tanh::valueConst;
