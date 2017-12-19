@@ -20,6 +20,8 @@ private:
 	PaddingType _paddingType;
 	Array::ChannelPos _channelPos;
 public:
+	Gura_DeclareReferenceAccessor(Gear_MaxPool2d);
+public:
 	inline Gear_MaxPool2d(size_t sizeRow, size_t sizeCol, size_t stridesRow, size_t stridesCol,
 							PaddingType paddingType, Array::ChannelPos channelPos) :
 		_sizeRow(sizeRow), _sizeCol(sizeCol),

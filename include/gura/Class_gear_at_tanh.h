@@ -21,6 +21,8 @@ public:
 public:
 	static GearFuncTable gearFuncTable;
 public:
+	Gura_DeclareReferenceAccessor(Gear_Tanh);
+public:
 	inline Gear_Tanh() {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;

@@ -26,6 +26,8 @@ private:
 	PaddingType _paddingType;
 	Array::ChannelPos _channelPos;
 public:
+	Gura_DeclareReferenceAccessor(Gear_Conv1d);
+public:
 	inline Gear_Conv1d(Array *pArrayGear, size_t strides, PaddingType paddingType, Array::ChannelPos channelPos) :
 		_pArrayGear(pArrayGear), _strides(strides),
 		_paddingType(paddingType), _channelPos(channelPos) {}

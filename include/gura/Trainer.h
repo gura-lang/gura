@@ -328,6 +328,11 @@ public:
 	// NodeGear
 	//-------------------------------------------------------------------------
 	class NodeGear : public Node {
+	public:
+		class Creator {
+		public:
+			virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const = 0;
+		};
 	protected:
 		AutoPtr<Gear> _pGear;
 		Connector _connectorSrc;
@@ -345,6 +350,11 @@ public:
 	// NodeGear_Conv1d
 	//-------------------------------------------------------------------------
 	class NodeGear_Conv1d : public NodeGear {
+	public:
+		class CreatorEx : public Creator {
+		public:
+			virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		};
 	private:
 		AutoPtr<Array> _pArrayFwdSrcVec;
 		AutoPtr<Array> _pArrayGearReshape;
@@ -365,6 +375,11 @@ public:
 	// NodeGear_Conv2d
 	//-------------------------------------------------------------------------
 	class NodeGear_Conv2d : public NodeGear {
+	public:
+		class CreatorEx : public Creator {
+		public:
+			virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		};
 	private:
 		AutoPtr<Array> _pArrayFwdSrcVec;
 		AutoPtr<Array> _pArrayGearReshape;
@@ -390,6 +405,11 @@ public:
 	// NodeGear_Conv3d
 	//-------------------------------------------------------------------------
 	class NodeGear_Conv3d : public NodeGear {
+	public:
+		class CreatorEx : public Creator {
+		public:
+			virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		};
 	private:
 		AutoPtr<Array> _pArrayFwdSrcVec;
 		AutoPtr<Array> _pArrayGearReshape;
@@ -411,6 +431,11 @@ public:
 	//-------------------------------------------------------------------------
 	class NodeGear_MaxPool1d : public NodeGear {
 	public:
+		class CreatorEx : public Creator {
+		public:
+			virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		};
+	public:
 		inline NodeGear_MaxPool1d(Gear_MaxPool1d *pGear, Connector *pConnectorDst) :
 				NodeGear("gear_maxpool1d", pGear, pConnectorDst) {}
 		inline Gear_MaxPool1d *GetGear() { return dynamic_cast<Gear_MaxPool1d *>(_pGear.get()); }
@@ -422,6 +447,11 @@ public:
 	// NodeGear_MaxPool2d
 	//-------------------------------------------------------------------------
 	class NodeGear_MaxPool2d : public NodeGear {
+	public:
+		class CreatorEx : public Creator {
+		public:
+			virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		};
 	public:
 		inline NodeGear_MaxPool2d(Gear_MaxPool2d *pGear, Connector *pConnectorDst) :
 				NodeGear("gear_maxpool2d", pGear, pConnectorDst) {}
@@ -435,6 +465,11 @@ public:
 	//-------------------------------------------------------------------------
 	class NodeGear_MaxPool3d : public NodeGear {
 	public:
+		class CreatorEx : public Creator {
+		public:
+			virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		};
+	public:
 		inline NodeGear_MaxPool3d(Gear_MaxPool3d *pGear, Connector *pConnectorDst) :
 				NodeGear("gear_maxpool3d", pGear, pConnectorDst) {}
 		inline Gear_MaxPool3d *GetGear() { return dynamic_cast<Gear_MaxPool3d *>(_pGear.get()); }
@@ -446,6 +481,11 @@ public:
 	// NodeGear_Relu
 	//-------------------------------------------------------------------------
 	class NodeGear_Relu : public NodeGear {
+	public:
+		class CreatorEx : public Creator {
+		public:
+			virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		};
 	private:
 		AutoPtr<Array> _pArrayBool;
 	public:
@@ -463,6 +503,11 @@ public:
 	// NodeGear_Sigmoid
 	//-------------------------------------------------------------------------
 	class NodeGear_Sigmoid : public NodeGear {
+	public:
+		class CreatorEx : public Creator {
+		public:
+			virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		};
 	private:
 		AutoPtr<Array> _pArrayTmp;
 	public:
@@ -481,6 +526,11 @@ public:
 	//-------------------------------------------------------------------------
 	class NodeGear_Softmax : public NodeGear {
 	public:
+		class CreatorEx : public Creator {
+		public:
+			virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		};
+	public:
 		inline NodeGear_Softmax(Gear_Softmax *pGear, Connector *pConnectorDst) :
 				NodeGear("gear_softmax", pGear, pConnectorDst) {}
 		inline Gear_Softmax *GetGear() { return dynamic_cast<Gear_Softmax *>(_pGear.get()); }
@@ -492,6 +542,11 @@ public:
 	// NodeGear_Tanh
 	//-------------------------------------------------------------------------
 	class NodeGear_Tanh : public NodeGear {
+	public:
+		class CreatorEx : public Creator {
+		public:
+			virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		};
 	public:
 		inline NodeGear_Tanh(Gear_Tanh *pGear, Connector *pConnectorDst) :
 				NodeGear("gear_tanh", pGear, pConnectorDst) {}
@@ -522,6 +577,10 @@ public:
 		~NodeOwner();
 		void Clear();
 	};
+	//-------------------------------------------------------------------------
+	// NodeGearCreatorMap
+	//-------------------------------------------------------------------------
+	typedef std::map<ValueType, const NodeGear::Creator *> NodeGearCreatorMap;
 private:
 	int _cntRef;
 	AutoPtr<Optimizer> _pOptimizer;
@@ -529,6 +588,7 @@ private:
 	NodeOwner _nodeOwner;
 	NodeMap _nodeMap;
 	AutoPtr<Expr> _pExprModel;
+	static NodeGearCreatorMap _nodeGearCreatorMap;
 public:
 	Gura_DeclareReferenceAccessor(Trainer);
 public:
@@ -548,6 +608,9 @@ public:
 	inline const Expr *GetExprModel() const { return _pExprModel.get(); }
 	Node *FindNode(const Symbol *pSymbol) const;
 	void Print() const;
+	static inline void RegisterNodeGearCreator(ValueType valType, const NodeGear::Creator *pCreator) {
+		_nodeGearCreatorMap[valType] = pCreator;
+	}
 private:
 	Node *CreateNode(Environment &env, const Expr *pExpr,
 					 Node::Connector *pConnector, const SymbolSet &symbolsInput);

@@ -8,6 +8,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Trainer
 //-----------------------------------------------------------------------------
+Trainer::NodeGearCreatorMap Trainer::_nodeGearCreatorMap;
+
 Trainer::Trainer(Optimizer *pOptimizer) : _cntRef(1), _pOptimizer(pOptimizer), _pNodeBottom(new NodeBottom())
 {
 }
@@ -18,6 +20,7 @@ Trainer::~Trainer()
 
 void Trainer::Bootup()
 {
+	RegisterNodeGearCreator(VTYPE_gear_at_conv1d, new NodeGear_Conv1d::CreatorEx());
 }
 
 bool Trainer::CreateFromExpr(Environment &env, const Expr *pExprModel, const SymbolSet &symbolsInput)
@@ -173,6 +176,7 @@ Trainer::Node *Trainer::CreateNodeBinary(Environment &env, const Expr_BinaryOp *
 		nullptr : pNodeRtn;
 }
 
+
 Trainer::Node *Trainer::CreateNodeGear(Environment &env, const Expr_BinaryOp *pExprEx,
 									   Node::Connector *pConnector, const SymbolSet &symbolsInput)
 {
@@ -183,27 +187,40 @@ Trainer::Node *Trainer::CreateNodeGear(Environment &env, const Expr_BinaryOp *pE
 		env.SetError(ERR_ValueError, "gear instance is expected as a right-side operand of a gear operator");
 		return nullptr;
 	}
-	const Gear *pGear = Object_gear::GetObject(value)->GetGear();
-	if (value.Is_gear_at_conv1d()) {
-		pNode.reset(new NodeGear_Conv1d(dynamic_cast<Gear_Conv1d *>(pGear->Reference()), pConnector));
+	NodeGearCreatorMap::iterator iter = _nodeGearCreatorMap.find(value.GetValueType());
+	if (iter != _nodeGearCreatorMap.end()) {
+		const NodeGear::Creator *pCreator = iter->second;
+		pNode.reset(pCreator->Create(value, pConnector));
+	} else if (value.Is_gear_at_conv1d()) {
+		const Gear_Conv1d *pGear = Object_gear_at_conv1d::GetObject(value)->GetGear();
+		pNode.reset(new NodeGear_Conv1d(pGear->Reference(), pConnector));
 	} else if (value.Is_gear_at_conv2d()) {
-		pNode.reset(new NodeGear_Conv2d(dynamic_cast<Gear_Conv2d *>(pGear->Reference()), pConnector));
+		const Gear_Conv2d *pGear = Object_gear_at_conv2d::GetObject(value)->GetGear();
+		pNode.reset(new NodeGear_Conv2d(pGear->Reference(), pConnector));
 	} else if (value.Is_gear_at_conv3d()) {
-		pNode.reset(new NodeGear_Conv3d(dynamic_cast<Gear_Conv3d *>(pGear->Reference()), pConnector));
+		const Gear_Conv3d *pGear = Object_gear_at_conv3d::GetObject(value)->GetGear();
+		pNode.reset(new NodeGear_Conv3d(pGear->Reference(), pConnector));
 	} else if (value.Is_gear_at_maxpool1d()) {
-		pNode.reset(new NodeGear_MaxPool1d(dynamic_cast<Gear_MaxPool1d *>(pGear->Reference()), pConnector));
+		const Gear_MaxPool1d *pGear = Object_gear_at_maxpool1d::GetObject(value)->GetGear();
+		pNode.reset(new NodeGear_MaxPool1d(pGear->Reference(), pConnector));
 	} else if (value.Is_gear_at_maxpool2d()) {
-		pNode.reset(new NodeGear_MaxPool2d(dynamic_cast<Gear_MaxPool2d *>(pGear->Reference()), pConnector));
+		const Gear_MaxPool2d *pGear = Object_gear_at_maxpool2d::GetObject(value)->GetGear();
+		pNode.reset(new NodeGear_MaxPool2d(pGear->Reference(), pConnector));
 	} else if (value.Is_gear_at_maxpool3d()) {
-		pNode.reset(new NodeGear_MaxPool3d(dynamic_cast<Gear_MaxPool3d *>(pGear->Reference()), pConnector));
+		const Gear_MaxPool3d *pGear = Object_gear_at_maxpool3d::GetObject(value)->GetGear();
+		pNode.reset(new NodeGear_MaxPool3d(pGear->Reference(), pConnector));
 	} else if (value.Is_gear_at_relu()) {
-		pNode.reset(new NodeGear_Relu(dynamic_cast<Gear_Relu *>(pGear->Reference()), pConnector));
+		const Gear_Relu *pGear = Object_gear_at_relu::GetObject(value)->GetGear();
+		pNode.reset(new NodeGear_Relu(pGear->Reference(), pConnector));
 	} else if (value.Is_gear_at_sigmoid()) {
-		pNode.reset(new NodeGear_Sigmoid(dynamic_cast<Gear_Sigmoid *>(pGear->Reference()), pConnector));
+		const Gear_Sigmoid *pGear = Object_gear_at_sigmoid::GetObject(value)->GetGear();
+		pNode.reset(new NodeGear_Sigmoid(pGear->Reference(), pConnector));
 	} else if (value.Is_gear_at_softmax()) {
-		pNode.reset(new NodeGear_Softmax(dynamic_cast<Gear_Softmax *>(pGear->Reference()), pConnector));
+		const Gear_Softmax *pGear = Object_gear_at_softmax::GetObject(value)->GetGear();
+		pNode.reset(new NodeGear_Softmax(pGear->Reference(), pConnector));
 	} else if (value.Is_gear_at_tanh()) {
-		pNode.reset(new NodeGear_Tanh(dynamic_cast<Gear_Tanh *>(pGear->Reference()), pConnector));
+		const Gear_Tanh *pGear = Object_gear_at_tanh::GetObject(value)->GetGear();
+		pNode.reset(new NodeGear_Tanh(pGear->Reference(), pConnector));
 	} else {
 		env.SetError(ERR_ValueError, "unsupported gear type: %s", value.MakeValueTypeName().c_str());
 		return nullptr;
@@ -769,6 +786,11 @@ bool Trainer::NodeGear_Conv1d::EvalBackward(Environment &env)
 	return false;
 }
 
+Trainer::NodeGear *Trainer::NodeGear_Conv1d::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_Conv1d(Object_gear_at_conv1d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear_Conv2d
 //-----------------------------------------------------------------------------
@@ -913,6 +935,11 @@ bool Trainer::NodeGear_Conv2d::EvalBackward(Environment &env)
 	return true;
 }
 
+Trainer::NodeGear *Trainer::NodeGear_Conv2d::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_Conv2d(Object_gear_at_conv2d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear_Conv3d
 //-----------------------------------------------------------------------------
@@ -942,6 +969,11 @@ bool Trainer::NodeGear_Conv3d::EvalBackward(Environment &env)
 	return false;
 }
 
+Trainer::NodeGear *Trainer::NodeGear_Conv3d::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_Conv3d(Object_gear_at_conv3d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear_MaxPool1d
 //-----------------------------------------------------------------------------
@@ -958,6 +990,11 @@ bool Trainer::NodeGear_MaxPool1d::EvalForward(Environment &env)
 bool Trainer::NodeGear_MaxPool1d::EvalBackward(Environment &env)
 {
 	return false;
+}
+
+Trainer::NodeGear *Trainer::NodeGear_MaxPool1d::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_MaxPool1d(Object_gear_at_maxpool1d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
 }
 
 //-----------------------------------------------------------------------------
@@ -978,6 +1015,11 @@ bool Trainer::NodeGear_MaxPool2d::EvalBackward(Environment &env)
 	return false;
 }
 
+Trainer::NodeGear *Trainer::NodeGear_MaxPool2d::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_MaxPool2d(Object_gear_at_maxpool2d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear_MaxPool3d
 //-----------------------------------------------------------------------------
@@ -994,6 +1036,11 @@ bool Trainer::NodeGear_MaxPool3d::EvalForward(Environment &env)
 bool Trainer::NodeGear_MaxPool3d::EvalBackward(Environment &env)
 {
 	return false;
+}
+
+Trainer::NodeGear *Trainer::NodeGear_MaxPool3d::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_MaxPool3d(Object_gear_at_maxpool3d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
 }
 
 //-----------------------------------------------------------------------------
@@ -1066,6 +1113,11 @@ Value Trainer::NodeGear_Relu::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
+Trainer::NodeGear *Trainer::NodeGear_Relu::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_Relu(Object_gear_at_relu::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear_Sigmoid
 //-----------------------------------------------------------------------------
@@ -1113,6 +1165,11 @@ Value Trainer::NodeGear_Sigmoid::DoGetProp(Environment &env, const Symbol *pSymb
 	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
+Trainer::NodeGear *Trainer::NodeGear_Sigmoid::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_Sigmoid(Object_gear_at_sigmoid::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear_Softmax
 //-----------------------------------------------------------------------------
@@ -1134,6 +1191,11 @@ bool Trainer::NodeGear_Softmax::EvalBackward(Environment &env)
 	return true;
 }
 
+Trainer::NodeGear *Trainer::NodeGear_Softmax::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_Softmax(Object_gear_at_softmax::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+}
+
 //-----------------------------------------------------------------------------
 // Trainer::NodeGear_Tanh
 //-----------------------------------------------------------------------------
@@ -1150,6 +1212,11 @@ bool Trainer::NodeGear_Tanh::EvalForward(Environment &env)
 bool Trainer::NodeGear_Tanh::EvalBackward(Environment &env)
 {
 	return false;
+}
+
+Trainer::NodeGear *Trainer::NodeGear_Tanh::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+{
+	return new NodeGear_Tanh(Object_gear_at_tanh::GetObject(value)->GetGear()->Reference(), pConnectorDst);
 }
 
 //-----------------------------------------------------------------------------

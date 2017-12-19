@@ -23,6 +23,8 @@ public:
 private:
 	size_t _axis;
 public:
+	Gura_DeclareReferenceAccessor(Gear_Softmax);
+public:
 	inline Gear_Softmax(size_t axis = static_cast<size_t>(-1)) : _axis(axis) {}
 	inline size_t GetAxis() const { return _axis; }
 public:
