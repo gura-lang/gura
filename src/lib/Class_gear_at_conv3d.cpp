@@ -270,7 +270,8 @@ Gura_DeclareProperty_R(gear_at_conv3d, size)
 Gura_ImplementPropertyGetter(gear_at_conv3d, size)
 {
 	const Gear_Conv3d *pGear = Object_gear_at_conv3d::GetObject(valueThis)->GetGear();
-	return Value::CreateList(env, Value(pGear->GetSizePlane()), Value(pGear->GetSizeRow()), Value(pGear->GetSizeCol()));
+	return Value::CreateList(env, Value(pGear->GetSizePlane()),
+							 Value(pGear->GetSizeRow()), Value(pGear->GetSizeCol()));
 }
 
 // gear@conv3d#strides
@@ -285,7 +286,8 @@ Gura_DeclareProperty_R(gear_at_conv3d, strides)
 Gura_ImplementPropertyGetter(gear_at_conv3d, strides)
 {
 	const Gear_Conv3d *pGear = Object_gear_at_conv3d::GetObject(valueThis)->GetGear();
-	return Value::CreateList(env, Value(pGear->GetStridesRow()), Value(pGear->GetStridesCol()));
+	return Value::CreateList(env, Value(pGear->GetStridesPlane()),
+							 Value(pGear->GetStridesRow()), Value(pGear->GetStridesCol()));
 }
 
 //-----------------------------------------------------------------------------
