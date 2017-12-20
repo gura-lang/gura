@@ -46,11 +46,11 @@ public:
 	inline bool HasFilterDim() const {
 		return _pArrayGear->GetDimensions().size() == (HasChannelDim()? 4 : 3);
 	}
-	inline size_t GetSizeCol() const {
-		return _pArrayGear->GetDimensions().GetBack(IsChLast()? 1 : 0).GetSize();
-	}
 	inline size_t GetSizeRow() const {
 		return _pArrayGear->GetDimensions().GetBack(IsChLast()? 2 : 1).GetSize();
+	}
+	inline size_t GetSizeCol() const {
+		return _pArrayGear->GetDimensions().GetBack(IsChLast()? 1 : 0).GetSize();
 	}
 	inline size_t GetChannelNum() const {
 		return HasChannelDim()? _pArrayGear->GetDimensions().GetBack(IsChLast()? 0 : 2).GetSize() : 1;

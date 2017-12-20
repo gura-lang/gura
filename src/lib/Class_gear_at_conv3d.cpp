@@ -15,18 +15,39 @@ Gear_Conv3d::GearFuncTable Gear_Conv3d::gearFuncTable = {{{nullptr}}};
 
 bool Gear_Conv3d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
-	GearFuncT gearFunc = gearFuncTable.funcs[pArray->GetElemType()][Array::ETYPE_None];
-	if (gearFunc == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply 3-dimension convolution gear on array@%s",
-					 pArray->GetElemTypeName());
-		return nullptr;
-	}
-	return (*gearFunc)(sig, pArrayRtn, pArray, this);
+	size_t sizePadPlane = 0, sizePadRow = 0, sizePadCol = 0;
+	CalcPadding3d(this, pArray->GetDimensions(), &sizePadPlane, &sizePadRow, &sizePadCol);
+	return pArray->CalcConv3d(sig, pArrayRtn, GetArrayGear(), GetStridesPlane(), GetStridesRow(), GetStridesCol(),
+							  sizePadPlane, sizePadRow, sizePadCol, GetChannelPos());
 }
 
 String Gear_Conv3d::ToString() const
 {
-	return "conv3d";
+	char buff[80];
+	String str = "conv3d";
+	str += ":filter_num=";
+	if (HasFilterDim()) {
+		::sprintf(buff, "%zu", GetFilterNum());
+		str += buff;
+	} else {
+		str += "none";
+	}
+	str += ":channel_num=";
+	if (HasChannelDim()) {
+		::sprintf(buff, "%zu", GetChannelNum());
+		str += buff;
+	} else {
+		str += "none";
+	}
+	::sprintf(buff, ":size=(%zu,%zu,%zu)", GetSizePlane(), GetSizeRow(), GetSizeCol());
+	str += buff;
+	::sprintf(buff, ":strides=(%zu,%zu,%zu)", GetStridesPlane(), GetStridesRow(), GetStridesCol());
+	str += buff;
+	::sprintf(buff, ":padding=%s", PaddingTypeToSymbol(GetPaddingType())->GetName());
+	str += buff;
+	::sprintf(buff, ":channel_pos=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
+	str += buff;
+	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -96,7 +117,43 @@ Gura_DeclareFunctionAlias(gear_at_conv3d, "gear@conv3d")
 
 Gura_ImplementFunction(gear_at_conv3d)
 {
-	Object_gear_at_conv3d *pObj = new Object_gear_at_conv3d(env, new Gear_Conv3d());
+	const Array *pArrayGear = Object_array::GetObject(arg, 0)->GetArray();
+	const Array::Dimensions &dims = pArrayGear->GetDimensions();
+	size_t nDims = dims.size();
+	if (nDims != 3 && nDims != 4 && nDims != 5) {
+		env.SetError(ERR_ValueError,
+					 "the `array` instance given to `gear@conv3d` constructor must have dimensions of 3, 4 or 5.");
+		return Value::Nil;
+	}
+	size_t stridesPlane = 1;
+	size_t stridesRow = 1;
+	size_t stridesCol = 1;
+	Gear::PaddingType paddingType = Gear::PADDINGTYPE_Same;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_Invalid;
+	Value value1, value2, value3;
+	if (arg.IsInvalid(1)) {
+		// nothing to do
+	} else if (arg.GetListValues(1, &value1, &value2, &value3)) {
+		stridesPlane = value1.GetSizeT();
+		stridesRow = value2.GetSizeT();
+		stridesCol = value3.GetSizeT();
+	} else {
+		env.SetError(ERR_ValueError, "strides must have two elements");
+		return Value::Nil;
+	}
+	if (arg.IsValid(2)) {
+		paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(2));
+		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
+	}
+	if (arg.IsValid(3)) {
+		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
+		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
+	} else {
+		channelPos = (nDims == 2)? Array::CHANNELPOS_None : Array::CHANNELPOS_Last;
+	}
+	if (!dims.HasEnoughDims(env, 2, channelPos)) return Value::Nil;
+	Object_gear_at_conv3d *pObj = new Object_gear_at_conv3d(
+		env, new Gear_Conv3d(pArrayGear->Reference(), stridesPlane, stridesRow, stridesCol, paddingType, channelPos));
 	return ReturnValue(env, arg, Value(pObj));
 }
 
