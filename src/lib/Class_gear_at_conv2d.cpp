@@ -145,11 +145,11 @@ bool NodeGear_Conv2d::EvalForward(Environment &env)
 			} else {
 				// _pArrayFwdPre .. [H_out * W_out, 1]
 				// _pArrayFwd .. [H_out, W_out]
-				dims.reserve(3);
+				dims.reserve(2);
 				dims.push_back(Array::Dimension(_sizeOutRow));
 				dims.push_back(Array::Dimension(_sizeOutCol));
 			}
-		} else {
+		} else if (dimsPre.size() == 3) {
 			if (pGear->HasFilterDim()) {
 				// _pArrayFwdPre .. [N, H_out * W_out, FN]
 				// _pArrayFwd .. [N, H_out, W_out, FN]
@@ -166,6 +166,9 @@ bool NodeGear_Conv2d::EvalForward(Environment &env)
 				dims.push_back(Array::Dimension(_sizeOutRow));
 				dims.push_back(Array::Dimension(_sizeOutCol));
 			}
+		} else {
+			env.SetError(ERR_ValueError, "invalid array");
+			return false;
 		}
 		_pArrayFwdPre->Reshape(_pArrayFwd, dims);
 	}
@@ -174,13 +177,50 @@ bool NodeGear_Conv2d::EvalForward(Environment &env)
 
 bool NodeGear_Conv2d::EvalBackward(Environment &env)
 {
+	Gear_Conv2d *pGear = GetGear();
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
-		//const Array *pArrayBwdSrc = (*ppConnectorDst)->GetArrayBwd();
+		const Array *pArrayBwdSrc = (*ppConnectorDst)->GetArrayBwd();
+		AutoPtr<Array> _pArrayBwdPre;
+		if (_pArrayBwdPre.IsNull()) {
+			const Array::Dimensions &dimsBwdSrc = pArrayBwdSrc->GetDimensions();
+			Array::Dimensions dims;
+			if (dimsBwdSrc.size() == 2) {
+				// _pArrayBwdSrc .. [H_out, W_out]
+				// _pArrayBwdSrcReshape .. [H_out * W_out]
+				dims.reserve(1);
+				dims.push_back(Array::Dimension(dimsBwdSrc[0].GetSize() * dimsBwdSrc[1].GetSize()));
+			} else if (dimsBwdSrc.size() == 3) {
+				if (pGear->HasFilterDim()) {
+					// _pArrayBwdSrc .. [H_out, W_out, FN]
+					// _pArrayBwdSrcReshape .. [H_out * W_out, FN]
+					dims.reserve(2);
+					dims.push_back(Array::Dimension(dimsBwdSrc[0].GetSize() * dimsBwdSrc[1].GetSize()));
+					dims.push_back(Array::Dimension(dimsBwdSrc[2].GetSize()));
+				} else {
+					// _pArrayBwdSrc .. [N, H_out, W_out]
+					// _pArrayBwdSrcReshape .. [N, H_out * W_out, 1]
+					dims.reserve(3);
+					dims.push_back(Array::Dimension(dimsBwdSrc[0].GetSize()));
+					dims.push_back(Array::Dimension(dimsBwdSrc[1].GetSize() * dimsBwdSrc[2].GetSize()));
+					dims.push_back(Array::Dimension(1));
+				}
+			} else if (dimsBwdSrc.size() == 4) {
+				// pArrayBwdSrc .. [N, H_out, W_out, FN]
+				// pArrayBwdSrcReshape .. [N, H_out * W_out, FN]
+				dims.reserve(4);
+				dims.push_back(Array::Dimension(dimsBwdSrc[0].GetSize()));
+				dims.push_back(Array::Dimension(dimsBwdSrc[1].GetSize() * dimsBwdSrc[2].GetSize()));
+				dims.push_back(Array::Dimension(dimsBwdSrc[3].GetSize()));
+			} else {
+				env.SetError(ERR_ValueError, "invalid array");
+				return false;
+			}
+			_pArrayBwdPre->Reshape(_pArrayFwd, dims);
+		}		
+		
 		//AutoPtr<Array> &pArrayBwd = _connectorSrc.GetArrayBwdAutoPtr();
-		// pArrayBwdSrc .. [H_out, W_out], [H_out, W_out, FN], [FN, H_out, W_out], [N, H_out, W_out], [N, H_out, W_out, FN]
-		// pArrayBwdSrcReshape .. [H_out * W_out], [H_out * W_out, FN], [FN, H_out * W_out], [N * h_out, W_out], [N * H_out * W_out, FN]
 		// pArrayBwdSrcTrans .. [FN, N * H_out * W_out]
 		// _pArrayFwdPre = _pArrayFwdSrcVec |.| _pArrayGearTrans
 		// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
