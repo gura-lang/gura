@@ -80,10 +80,8 @@ bool NodeGear_Relu::EvalBackward(Environment &env)
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
-		if (!Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Mul, _connectorSrc.GetArrayBwdAutoPtr(),
-				_pArrayBool.get(),
-				(*ppConnectorDst)->GetArrayBwd())) return false;
+		if (!Array::Mul(env, _connectorSrc.GetArrayBwdAutoPtr(),
+						_pArrayBool.get(), (*ppConnectorDst)->GetArrayBwd())) return false;
 	}
 	return true;
 }

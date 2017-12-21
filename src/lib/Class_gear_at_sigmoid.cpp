@@ -48,19 +48,13 @@ bool NodeGear_Sigmoid::EvalBackward(Environment &env)
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
 		// 1 - y
-		if (!Array::ApplyBinaryFunc_number_array(
-				env, Array::binaryFuncPack_Sub, _pArrayTmp,
-				1, _pArrayFwd.get())) return false;
+		if (!Array::Sub(env, _pArrayTmp, 1, _pArrayFwd.get())) return false;
 		// (1 - y) * y
-		if (!Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Mul, _pArrayTmp,
-				_pArrayTmp.get(), _pArrayFwd.get())) return false;
+		if (!Array::Mul(env, _pArrayTmp, _pArrayTmp.get(), _pArrayFwd.get())) return false;
 		if (env.IsSignalled()) return false;
 		// (1 - y) * y * bwd_in
-		if (!Array::ApplyBinaryFunc(
-				env, Array::binaryFuncPack_Mul, _connectorSrc.GetArrayBwdAutoPtr(),
-				_pArrayTmp.get(),
-				(*ppConnectorDst)->GetArrayBwd())) return false;
+		if (!Array::Mul(env, _connectorSrc.GetArrayBwdAutoPtr(),
+						_pArrayTmp.get(), (*ppConnectorDst)->GetArrayBwd())) return false;
 	}
 	return true;
 }
