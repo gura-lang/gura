@@ -8,6 +8,28 @@
 #include "Iterator.h"
 #include "Stream.h"
 
+#define Gura_ImplementArrayMethod_Array_UnaryFunc(op) \
+inline static bool op(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) { \
+	return ApplyUnaryFunc(sig, unaryFuncPack_##op, pArrayRtn, pArray); \
+}
+
+#define Gura_ImplementArrayMethod_Array_BinaryFunc(op) \
+inline static bool op(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR) { \
+	return ApplyBinaryFunc(sig, binaryFuncPack_##op, pArrayRtn, pArrayL, pArrayR); \
+} \
+inline static bool op(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Double &elemR) { \
+	return ApplyBinaryFunc_array_number(sig, binaryFuncPack_##op, pArrayRtn, pArrayL, elemR); \
+} \
+inline static bool op(Signal &sig, AutoPtr<Array> &pArrayRtn, const Double &elemL, const Array *pArrayR) { \
+	return ApplyBinaryFunc_number_array(sig, binaryFuncPack_##op, pArrayRtn, elemL, pArrayR); \
+} \
+inline static bool op(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Complex &complexR) { \
+	return ApplyBinaryFunc_array_complex(sig, binaryFuncPack_##op, pArrayRtn, pArrayL, complexR); \
+} \
+inline static bool op(Signal &sig, AutoPtr<Array> &pArrayRtn, const Complex &complexL, const Array *pArrayR) { \
+	return ApplyBinaryFunc_complex_array(sig, binaryFuncPack_##op, pArrayRtn, complexL, pArrayR); \
+}
+
 namespace Gura {
 
 //-----------------------------------------------------------------------------
@@ -478,6 +500,52 @@ public:
 	static bool ApplyInvertFunc(
 		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, Double epsilon);
 	static void SetError_UnacceptableValueAsElement(Environment &env, const Value &value);
+public:
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Pos);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Neg);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Add);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Sub);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Mul);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Div);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Mod);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Pow);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Dot);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Eq);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Ne);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Gt);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Lt);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Ge);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Le);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(And);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Or);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Xor);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Shl);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Shr);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_abs);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_acos);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_arg);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_asin);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_atan);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_ceil);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_conj);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_cos);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_cosh);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_delta);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_exp);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_floor);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_imag);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_log);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_log10);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_norm);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_real);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_relu);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_sigmoid);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_sin);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_sinh);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_sqrt);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_tan);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_tanh);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_unitstep);
 public:
 	template<typename T_Elem> inline static bool IsZero(const T_Elem &elem) { return elem == 0; }
 	template<typename T_ElemRtn, typename T_Elem, typename T_Operator>
