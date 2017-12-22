@@ -121,6 +121,10 @@ public:
 	static void GetMonthDay(Int16 year, Int16 dayOfYear, Int8 &month, Int8 &day);
 	static Int8 GetDayOfWeek(Int16 year, Int8 month, Int8 day);
 	static Int8 GetDaysOfMonth(Int16 year, Int8 month);
+	static void Add(DateTime &dtRtn, const DateTime &dt, const TimeDelta &td);
+	static void Add(DateTime &dtRtn, const TimeDelta &td, const DateTime &dt);
+	static void Sub(DateTime &dtRtn, const DateTime &dt, const TimeDelta &td);
+	static bool Sub(Signal &sig, TimeDelta &tdRtn, const DateTime &dt1, const DateTime &dt2);
 	static int Compare(const DateTime &dt1, const DateTime &dt2);
 };
 

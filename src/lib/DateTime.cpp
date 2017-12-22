@@ -659,6 +659,34 @@ Int8 DateTime::GetDayOfWeek(Int16 year, Int8 month, Int8 day)
 	return (rtn + 6) % 7;
 }
 
+void DateTime::Add(DateTime &dtRtn, const DateTime &dt, const TimeDelta &td)
+{
+	dtRtn = dt;
+	dtRtn.Plus(td);
+}
+
+void DateTime::Add(DateTime &dtRtn, const TimeDelta &td, const DateTime &dt)
+{
+	dtRtn = dt;
+	dtRtn.Plus(td);
+}
+
+void DateTime::Sub(DateTime &dtRtn, const DateTime &dt, const TimeDelta &td)
+{
+	dtRtn = dt;
+	dtRtn.Minus(td);
+}
+
+bool DateTime::Sub(Signal &sig, TimeDelta &tdRtn, const DateTime &dt1, const DateTime &dt2)
+{
+	if ((dt1.HasTZOffset() && !dt2.HasTZOffset()) || (!dt1.HasTZOffset() && dt2.HasTZOffset())) {
+		sig.SetError(ERR_ValueError, "failed to calculate datetime difference");
+		return false;
+	}
+	tdRtn = dt1.Minus(dt2);
+	return true;
+}
+
 int DateTime::Compare(const DateTime &dt1, const DateTime &dt2)
 {
 	Int32 result = 0;

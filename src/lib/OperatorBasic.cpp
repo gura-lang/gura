@@ -212,18 +212,20 @@ Gura_ImplementBinaryOperator(Add, complex, number)
 
 Gura_ImplementBinaryOperator(Add, datetime, timedelta)
 {
-	DateTime dateTime = Object_datetime::GetObject(valueLeft)->GetDateTime();
-	const TimeDelta &timeDelta = Object_timedelta::GetObject(valueRight)->GetTimeDelta();
-	dateTime.Plus(timeDelta);
-	return Value(new Object_datetime(env, dateTime));
+	DateTime dtRtn;
+	DateTime::Add(dtRtn,
+				  Object_datetime::GetObject(valueLeft)->GetDateTime(),
+				  Object_timedelta::GetObject(valueRight)->GetTimeDelta());
+	return Value(new Object_datetime(env, dtRtn));
 }
 
 Gura_ImplementBinaryOperator(Add, timedelta, datetime)
 {
-	const TimeDelta &timeDelta = Object_timedelta::GetObject(valueLeft)->GetTimeDelta();
-	DateTime dateTime = Object_datetime::GetObject(valueRight)->GetDateTime();
-	dateTime.Plus(timeDelta);
-	return Value(new Object_datetime(env, dateTime));
+	DateTime dtRtn;
+	DateTime::Add(dtRtn,
+				  Object_timedelta::GetObject(valueLeft)->GetTimeDelta(),
+				  Object_datetime::GetObject(valueRight)->GetDateTime());
+	return Value(new Object_datetime(env, dtRtn));
 }
 
 Gura_ImplementBinaryOperator(Add, timedelta, timedelta)
@@ -377,22 +379,21 @@ Gura_ImplementBinaryOperator(Sub, complex, number)
 
 Gura_ImplementBinaryOperator(Sub, datetime, timedelta)
 {
-	DateTime dateTime = Object_datetime::GetObject(valueLeft)->GetDateTime();
-	dateTime.Minus(Object_timedelta::GetObject(valueRight)->GetTimeDelta());
-	return Value(new Object_datetime(env, dateTime));
+	DateTime dtRtn;
+	DateTime::Sub(dtRtn,
+				  Object_datetime::GetObject(valueLeft)->GetDateTime(),
+				  Object_timedelta::GetObject(valueRight)->GetTimeDelta());
+	return Value(new Object_datetime(env, dtRtn));
 }
 
 Gura_ImplementBinaryOperator(Sub, datetime, datetime)
 {
-	Signal &sig = env.GetSignal();
-	const DateTime &dt1 = Object_datetime::GetObject(valueLeft)->GetDateTime();
-	const DateTime &dt2 = Object_datetime::GetObject(valueRight)->GetDateTime();
-	if ((dt1.HasTZOffset() && !dt2.HasTZOffset()) ||
-								(!dt1.HasTZOffset() && dt2.HasTZOffset())) {
-		sig.SetError(ERR_ValueError, "failed to calculate datetime difference");
-		return Value::Nil;
-	}
-	return Value(new Object_timedelta(env, dt1.Minus(dt2)));
+	TimeDelta tdRtn;
+	if (!DateTime::Sub(
+			env, tdRtn,
+			Object_datetime::GetObject(valueLeft)->GetDateTime(),
+			Object_datetime::GetObject(valueRight)->GetDateTime())) return Value::Nil;
+	return Value(new Object_timedelta(env, tdRtn));
 }
 
 Gura_ImplementBinaryOperator(Sub, timedelta, timedelta)
