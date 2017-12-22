@@ -47,35 +47,67 @@ Vertex Vertex::RotateZ(double rad) const
 	return Vertex(numCos * x - numSin * y, numSin * x + numCos * y, z);
 }
 
-double Vertex::CalcNorm(const Vertex &v)
+void Vertex::Neg(Vertex &vRtn, const Vertex &v)
 {
-	return ::sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	vRtn = Vertex(-v.x, -v.y, -v.z);
 }
 
-Vertex Vertex::CalcCrossProduct(const Vertex &v1, const Vertex &v2)
+void Vertex::Add(Vertex &vRtn, const Vertex &v1, const Vertex &v2)
+{
+	vRtn = Vertex(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
+}
+
+void Vertex::Sub(Vertex &vRtn, const Vertex &v1, const Vertex &v2)
+{
+	vRtn = Vertex(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
+}
+
+void Vertex::Mul(Vertex &vRtn, const Vertex &v, const double &num)
+{
+	vRtn = Vertex(v.x * num, v.y * num, v.z * num);
+}
+
+bool Vertex::Div(Signal &sig, Vertex &vRtn, const Vertex &v, const double &num)
+{
+	if (num == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return false;
+	}
+	vRtn = Vertex(v.x / num, v.y / num, v.z / num);
+	return true;
+}
+
+void Vertex::Dot(double &rtn, const Vertex &v1, const Vertex &v2)
+{
+	rtn = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+}
+
+void Vertex::Cross(Vertex &vRtn, const Vertex &v1, const Vertex &v2)
 {
 	double x = v1.y * v2.z - v1.z * v2.y;
 	double y = v1.z * v2.x - v1.x * v2.z;
 	double z = v1.x * v2.y - v1.y * v2.x;
-	return Vertex(x, y, z);
+	vRtn = Vertex(x, y, z);
 }
 
-double Vertex::CalcDotProduct(const Vertex &v1, const Vertex &v2)
+void Vertex::Norm(double &rtn, const Vertex &v)
 {
-	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+	rtn = ::sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
-Vertex Vertex::CalcNormal(const Vertex &v1, const Vertex &v2, const Vertex &v3, bool unitFlag)
+void Vertex::Normal(Vertex &vRtn, const Vertex &v1, const Vertex &v2, const Vertex &v3, bool unitFlag)
 {
 	double x1 = v2.x - v1.x, y1 = v2.y - v1.y, z1 = v2.z - v1.z;
 	double x2 = v3.x - v1.x, y2 = v3.y - v1.y, z2 = v3.z - v1.z;
 	double x = y1 * z2 - z1 * y2;
 	double y = z1 * x2 - x1 * z2;
 	double z = x1 * y2 - y1 * x2;
-	if (!unitFlag) return Vertex(x, y, z);
-	double len = ::sqrt(x * x + y * y + z * z);
-	if (len == 0) return Vertex::Zero;
-	return Vertex(x / len, y / len, z / len);
+	if (!unitFlag) {
+		vRtn = Vertex(x, y, z);
+	} else {
+		double len = ::sqrt(x * x + y * y + z * z);
+		vRtn = (len == 0)? Vertex::Zero : Vertex(x / len, y / len, z / len);
+	}
 }
 
 String Vertex::ToString() const

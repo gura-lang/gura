@@ -69,8 +69,9 @@ Gura_ImplementUnaryOperator(Neg, timedelta)
 
 Gura_ImplementUnaryOperator(Neg, vertex)
 {
-	const Vertex &vertex = Object_vertex::GetObject(value)->GetVertex();
-	return Value(new Object_vertex(env, Vertex(-vertex.x, -vertex.y, -vertex.z)));
+	Vertex vRtn;
+	Vertex::Neg(vRtn, Object_vertex::GetObject(value)->GetVertex());
+	return Value(new Object_vertex(env, vRtn));
 }
 
 //-----------------------------------------------------------------------------
@@ -288,12 +289,10 @@ Gura_ImplementBinaryOperator(Add, any, string)
 
 Gura_ImplementBinaryOperator(Add, vertex, vertex)
 {
-	const Vertex &vertexL = Object_vertex::GetObject(valueLeft)->GetVertex();
-	const Vertex &vertexR = Object_vertex::GetObject(valueRight)->GetVertex();
-	return Value(new Object_vertex(env, Vertex(
-									   vertexL.x + vertexR.x,
-									   vertexL.y + vertexR.y,
-									   vertexL.z + vertexR.z)));
+	Vertex vRtn;
+	Vertex::Add(vRtn, Object_vertex::GetObject(valueLeft)->GetVertex(),
+				Object_vertex::GetObject(valueRight)->GetVertex());
+	return Value(new Object_vertex(env, vRtn));
 }
 
 //-----------------------------------------------------------------------------
@@ -437,12 +436,10 @@ Gura_ImplementBinaryOperator(Sub, pointer, pointer)
 
 Gura_ImplementBinaryOperator(Sub, vertex, vertex)
 {
-	const Vertex &vertexL = Object_vertex::GetObject(valueLeft)->GetVertex();
-	const Vertex &vertexR = Object_vertex::GetObject(valueRight)->GetVertex();
-	return Value(new Object_vertex(env, Vertex(
-									   vertexL.x - vertexR.x,
-									   vertexL.y - vertexR.y,
-									   vertexL.z - vertexR.z)));
+	Vertex vRtn;
+	Vertex::Sub(vRtn, Object_vertex::GetObject(valueLeft)->GetVertex(),
+				Object_vertex::GetObject(valueRight)->GetVertex());
+	return Value(new Object_vertex(env, vRtn));
 }
 
 //-----------------------------------------------------------------------------
@@ -603,12 +600,10 @@ Gura_ImplementBinaryOperator(Mul, number, binary)
 
 Gura_ImplementBinaryOperator(Mul, vertex, number)
 {
-	const Vertex &vertex = Object_vertex::GetObject(valueLeft)->GetVertex();
-	double num = valueRight.GetDouble();
-	return Value(new Object_vertex(env, Vertex(
-									   vertex.x * num,
-									   vertex.y * num,
-									   vertex.z * num)));
+	Vertex vRtn;
+	Vertex::Mul(vRtn, Object_vertex::GetObject(valueLeft)->GetVertex(),
+				valueRight.GetDouble());
+	return Value(new Object_vertex(env, vRtn));
 }
 
 //-----------------------------------------------------------------------------
@@ -702,17 +697,10 @@ Gura_ImplementBinaryOperator(Div, complex, number)
 
 Gura_ImplementBinaryOperator(Div, vertex, number)
 {
-	Signal &sig = env.GetSignal();
-	const Vertex &vertex = Object_vertex::GetObject(valueLeft)->GetVertex();
-	double numRight = valueRight.GetDouble();
-	if (numRight == 0) {
-		Operator::SetError_DivideByZero(sig);
-		return Value::Nil;
-	}
-	return Value(new Object_vertex(env, Vertex(
-									   vertex.x / numRight,
-									   vertex.y / numRight,
-									   vertex.z / numRight)));
+	Vertex vRtn;
+	if (!Vertex::Div(env, vRtn, Object_vertex::GetObject(valueLeft)->GetVertex(),
+					 valueRight.GetDouble())) return Value::Nil;
+	return Value(new Object_vertex(env, vRtn));
 }
 
 //-----------------------------------------------------------------------------
@@ -743,9 +731,10 @@ Gura_ImplementBinaryOperator(Dot, number, number)
 
 Gura_ImplementBinaryOperator(Dot, vertex, vertex)
 {
-	const Vertex &v1 = Object_vertex::GetObject(valueLeft)->GetVertex();
-	const Vertex &v2 = Object_vertex::GetObject(valueRight)->GetVertex();
-	return Value(Vertex::CalcDotProduct(v1, v2));
+	double rtn;
+	Vertex::Dot(rtn, Object_vertex::GetObject(valueLeft)->GetVertex(),
+				Object_vertex::GetObject(valueRight)->GetVertex());
+	return Value(rtn);
 }
 
 //-----------------------------------------------------------------------------
@@ -753,9 +742,10 @@ Gura_ImplementBinaryOperator(Dot, vertex, vertex)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Cross, vertex, vertex)
 {
-	const Vertex &v1 = Object_vertex::GetObject(valueLeft)->GetVertex();
-	const Vertex &v2 = Object_vertex::GetObject(valueRight)->GetVertex();
-	return Value(new Object_vertex(env, Vertex::CalcCrossProduct(v1, v2)));
+	Vertex vRtn;
+	Vertex::Cross(vRtn, Object_vertex::GetObject(valueLeft)->GetVertex(),
+				  Object_vertex::GetObject(valueRight)->GetVertex());
+	return Value(new Object_vertex(env, vRtn));
 }
 
 //-----------------------------------------------------------------------------
