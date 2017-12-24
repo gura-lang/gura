@@ -72,6 +72,7 @@ Value NodeGear_Conv2d::DoGetProp(Environment &env, const Symbol *pSymbol,
 bool NodeGear_Conv2d::EvalForward(Environment &env)
 {
 	Gear_Conv2d *pGear = GetGear();
+	const Array *pArrayGear = pGear->GetArrayGear();
 	const Double padNum = 0;
 	// pArraySrc .. [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
 	const Array *pArrayFwdSrc = GetConnectorSrc()->GetArrayFwd();
@@ -84,10 +85,9 @@ bool NodeGear_Conv2d::EvalForward(Environment &env)
 			env, _pArrayFwdSrcVec, pGear->GetSizeRow(), pGear->GetSizeCol(),
 			pGear->GetStridesRow(), pGear->GetStridesCol(), _sizePadRow, _sizePadCol,
 			pGear->GetChannelPos(), padNum)) return false;
-	const Array *pArrayGear = pGear->GetArrayGear();
-	const Array::Dimensions &dimsGear = pArrayGear->GetDimensions();
 	if (_pArrayGearTrans.IsNull()) {
 		Array::Dimensions dims;
+		const Array::Dimensions &dimsGear = pArrayGear->GetDimensions();
 		if (pGear->HasChannelDim()) {
 			if (pGear->HasFilterDim()) {
 				// pArrayGear .. [FN, C, FH, FW] or [FN, FH, FW, C]
@@ -176,12 +176,18 @@ bool NodeGear_Conv2d::EvalForward(Environment &env)
 bool NodeGear_Conv2d::EvalBackward(Environment &env)
 {
 	Gear_Conv2d *pGear = GetGear();
+	const Array *pArrayGear = pGear->GetArrayGear();
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
 		const Array *pArrayBwdSrc = (*ppConnectorDst)->GetArrayBwd();
 		AutoPtr<Array> _pArrayBwdSrcReshape;
 		AutoPtr<Array> _pArrayBwdSrcTrans;
+		AutoPtr<Array> _pArrayFwdSrcVecReshape;
+		AutoPtr<Array> _pArrayGearDiff;
+		AutoPtr<Array> _pArrayGearDiffPre;
+		AutoPtr<Array> _pArrayFwdSrcVecDiff;
+		AutoPtr<Array> _pArrayFwdSrcVecDiffPre;
 		if (_pArrayBwdSrcTrans.IsNull()) {
 			const Array::Dimensions &dimsBwdSrc = pArrayBwdSrc->GetDimensions();
 			Array::Dimensions dims;
@@ -224,7 +230,6 @@ bool NodeGear_Conv2d::EvalBackward(Environment &env)
 			pArrayBwdSrc->Reshape(_pArrayBwdSrcReshape, dims);
 			_pArrayBwdSrcReshape->Transpose2d(_pArrayBwdSrcTrans);
 		}		
-		AutoPtr<Array> _pArrayFwdSrcVecReshape;
 		// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
 		// _pArrayFwdSrcVecReshape .. [1 * H_out * W_out, C * FH * FW] or [N * H_out * W_out, C * FH * FW]
 		if (_pArrayFwdSrcVecReshape.IsNull()) {
@@ -237,25 +242,34 @@ bool NodeGear_Conv2d::EvalBackward(Environment &env)
 				_pArrayFwdSrcVec->Reshape(_pArrayFwdSrcVecReshape, dims);
 			}
 		}
-		AutoPtr<Array> _pArrayGearDiffPre;
 		// _pArrayGearDiffPre = _pArrayBwdSrcTrans |.| _pArrayFwdSrcVecReshape
 		// _pArrayGearDiffPre .. [FN, C * FH * FW]
+		// pArrayGear .. [FN, C, FH, FW] or [FN, FH, FW, C]
 		if (!Array::Dot(env, _pArrayGearDiffPre,
 						_pArrayBwdSrcTrans.get(), _pArrayFwdSrcVecReshape.get())) return false;
+		if (_pArrayGearDiff.IsNull()) {
+			_pArrayGearDiffPre->Reshape(_pArrayGearDiff, pArrayGear->GetDimensions());
+		}
+		if (!_pOptimizerInst->Update(env, pGear->GetArrayGearAutoPtr(), _pArrayGearDiff.get())) return false;
 		// _pArrayBwdSrcReshape .. [N * H_out * W_out, FN]
 		// _pArrayGearReshape .. [FN, C * FH * FW]
-		AutoPtr<Array> _pArrayFwdSrcVecReshapeDiff;
 		// _pArrayFwdSrcVecDiffPre = _pArrayBwdSrcReshape |.| _pArrayGearReshape
 		// _pArrayFwdSrcVecDiffPre .. [N * H_out * W_out, C * FH * FW]
-		if (!Array::Dot(env, _pArrayFwdSrcVecReshapeDiff,
+		// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
+		if (!Array::Dot(env, _pArrayFwdSrcVecDiffPre,
 						_pArrayBwdSrcReshape.get(), _pArrayGearReshape.get())) return false;
+		if (_pArrayFwdSrcVecDiff.IsNull()) {
+			_pArrayFwdSrcVecDiffPre->Reshape(_pArrayFwdSrcVecDiff, _pArrayFwdSrcVec->GetDimensions());
+		}
+		
 	}
 	return true;
 }
 
-Trainer::NodeGear *NodeGear_Conv2d::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+Trainer::NodeGear *NodeGear_Conv2d::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
 {
-	return new NodeGear_Conv2d(Object_gear_at_conv2d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+	return new NodeGear_Conv2d(Object_gear_at_conv2d::GetObject(value)->GetGear()->Reference(), pConnectorDst,
+							   pTrainer->CreateOptimizerInstance());
 }
 
 //-----------------------------------------------------------------------------

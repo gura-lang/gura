@@ -70,7 +70,7 @@ Value NodeGear_Sigmoid::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
-Trainer::NodeGear *NodeGear_Sigmoid::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+Trainer::NodeGear *NodeGear_Sigmoid::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
 {
 	return new NodeGear_Sigmoid(Object_gear_at_sigmoid::GetObject(value)->GetGear()->Reference(), pConnectorDst);
 }

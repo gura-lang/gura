@@ -50,7 +50,7 @@ class NodeGear_MaxPool3d : public Trainer::NodeGear {
 public:
 	class CreatorEx : public Creator {
 	public:
-		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const;
 	};
 public:
 	inline NodeGear_MaxPool3d(Gear_MaxPool3d *pGear, Connector *pConnectorDst) :

@@ -28,7 +28,7 @@ public:
 	protected:
 		virtual ~Optimizer();
 	public:
-		virtual Instance *CreateInstance() = 0;
+		virtual Instance *CreateInstance() const = 0;
 		inline const char *GetName() const { return _name; }
 	};
 	//-------------------------------------------------------------------------
@@ -43,7 +43,7 @@ public:
 		};
 	public:
 		inline Optimizer_Adam() : Optimizer("adam") {}
-		virtual Instance *CreateInstance();
+		virtual Instance *CreateInstance() const;
 	};
 	//-------------------------------------------------------------------------
 	// Optimizer_GradientDescent
@@ -63,7 +63,7 @@ public:
 	public:
 		inline Optimizer_GradientDescent(Double learningRate) :
 					Optimizer("gradient_descent"), _learningRate(learningRate) {}
-		virtual Instance *CreateInstance();
+		virtual Instance *CreateInstance() const;
 	};
 	//-------------------------------------------------------------------------
 	// Optimizer_Momentum
@@ -77,7 +77,7 @@ public:
 		};
 	public:
 		inline Optimizer_Momentum() : Optimizer("momentum") {}
-		virtual Instance *CreateInstance();
+		virtual Instance *CreateInstance() const;
 	};
 	//-------------------------------------------------------------------------
 	// Optimizer_None
@@ -91,7 +91,7 @@ public:
 		};
 	public:
 		inline Optimizer_None() : Optimizer("none") {}
-		virtual Instance *CreateInstance();
+		virtual Instance *CreateInstance() const;
 	};
 	//-------------------------------------------------------------------------
 	// Node
@@ -331,7 +331,7 @@ public:
 	public:
 		class Creator {
 		public:
-			virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const = 0;
+			virtual NodeGear *Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const = 0;
 		};
 	protected:
 		AutoPtr<Gear> _pGear;
@@ -398,6 +398,7 @@ public:
 	inline const NodeBottom *GetNodeBottom() const { return _pNodeBottom.get(); }
 	inline const NodeOwner &GetNodeOwner() const { return _nodeOwner; }
 	inline const Expr *GetExprModel() const { return _pExprModel.get(); }
+	inline Optimizer::Instance *CreateOptimizerInstance() const { return _pOptimizer->CreateInstance(); }
 	Node *FindNode(const Symbol *pSymbol) const;
 	void Print() const;
 	static inline void RegisterNodeGearCreator(ValueType valType, const NodeGear::Creator *pCreator) {

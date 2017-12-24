@@ -76,16 +76,17 @@ class NodeGear_Conv3d : public Trainer::NodeGear {
 public:
 	class CreatorEx : public Creator {
 	public:
-		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const;
 	};
 private:
+	std::unique_ptr<Trainer::Optimizer::Instance> _pOptimizerInst;
 	AutoPtr<Array> _pArrayFwdSrcVec;
 	AutoPtr<Array> _pArrayGearReshape;
 	AutoPtr<Array> _pArrayGearTrans;
 	AutoPtr<Array> _pArrayFwdPre;
 public:
-	inline NodeGear_Conv3d(Gear_Conv3d *pGear, Connector *pConnectorDst) :
-			NodeGear(pGear, pConnectorDst) {}
+	inline NodeGear_Conv3d(Gear_Conv3d *pGear, Connector *pConnectorDst, Trainer::Optimizer::Instance *pOptimizerInst) :
+			NodeGear(pGear, pConnectorDst), _pOptimizerInst(pOptimizerInst) {}
 	inline Gear_Conv3d *GetGear() { return dynamic_cast<Gear_Conv3d *>(_pGear.get()); }
 	virtual bool IsVulnerable() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);

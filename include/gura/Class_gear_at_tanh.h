@@ -36,7 +36,7 @@ class NodeGear_Tanh : public Trainer::NodeGear {
 public:
 	class CreatorEx : public Creator {
 	public:
-		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const;
 	};
 public:
 	inline NodeGear_Tanh(Gear_Tanh *pGear, Connector *pConnectorDst) :

@@ -36,7 +36,7 @@ class NodeGear_Sigmoid : public Trainer::NodeGear {
 public:
 	class CreatorEx : public Creator {
 	public:
-		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const;
 	};
 private:
 	AutoPtr<Array> _pArrayTmp;

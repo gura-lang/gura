@@ -50,7 +50,7 @@ bool NodeGear_Softmax::EvalBackward(Environment &env)
 	return true;
 }
 
-Trainer::NodeGear *NodeGear_Softmax::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+Trainer::NodeGear *NodeGear_Softmax::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
 {
 	return new NodeGear_Softmax(Object_gear_at_softmax::GetObject(value)->GetGear()->Reference(), pConnectorDst);
 }

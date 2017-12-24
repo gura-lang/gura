@@ -78,9 +78,10 @@ bool NodeGear_Conv1d::EvalBackward(Environment &env)
 	return false;
 }
 
-Trainer::NodeGear *NodeGear_Conv1d::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+Trainer::NodeGear *NodeGear_Conv1d::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
 {
-	return new NodeGear_Conv1d(Object_gear_at_conv1d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
+	return new NodeGear_Conv1d(Object_gear_at_conv1d::GetObject(value)->GetGear()->Reference(), pConnectorDst,
+							   pTrainer->CreateOptimizerInstance());
 }
 
 //-----------------------------------------------------------------------------

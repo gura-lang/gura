@@ -40,6 +40,7 @@ public:
 	inline bool IsChLast() const { return _channelPos == Array::CHANNELPOS_Last; }
 	inline Array *GetArrayGear() { return _pArrayGear.get(); }
 	inline const Array *GetArrayGear() const { return _pArrayGear.get(); }
+	inline AutoPtr<Array> &GetArrayGearAutoPtr() { return _pArrayGear; }
 	inline bool HasChannelDim() const {
 		return _channelPos == Array::CHANNELPOS_First || _channelPos == Array::CHANNELPOS_Last;
 	}
@@ -71,9 +72,10 @@ class NodeGear_Conv2d : public Trainer::NodeGear {
 public:
 	class CreatorEx : public Creator {
 	public:
-		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst) const;
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const;
 	};
 private:
+	std::unique_ptr<Trainer::Optimizer::Instance> _pOptimizerInst;
 	AutoPtr<Array> _pArrayFwdSrcVec;
 	AutoPtr<Array> _pArrayGearReshape;
 	AutoPtr<Array> _pArrayGearTrans;
@@ -83,9 +85,9 @@ private:
 	size_t _sizeOutRow;
 	size_t _sizeOutCol;
 public:
-	inline NodeGear_Conv2d(Gear_Conv2d *pGear, Connector *pConnectorDst) :
-			NodeGear(pGear, pConnectorDst),
-			_sizePadRow(0), _sizePadCol(0), _sizeOutRow(0), _sizeOutCol(0) {}
+	inline NodeGear_Conv2d(Gear_Conv2d *pGear, Connector *pConnectorDst, Trainer::Optimizer::Instance *pOptimizerInst) :
+		NodeGear(pGear, pConnectorDst), _pOptimizerInst(pOptimizerInst),
+		_sizePadRow(0), _sizePadCol(0), _sizeOutRow(0), _sizeOutCol(0) {}
 	inline Gear_Conv2d *GetGear() { return dynamic_cast<Gear_Conv2d *>(_pGear.get()); }
 	virtual bool IsVulnerable() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);

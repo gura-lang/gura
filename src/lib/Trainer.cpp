@@ -191,7 +191,7 @@ Trainer::Node *Trainer::CreateNodeGear(Environment &env, const Expr_BinaryOp *pE
 		return nullptr;
 	}
 	const NodeGear::Creator *pCreator = iter->second;
-	AutoPtr<NodeGear> pNode(pCreator->Create(value, pConnector));
+	AutoPtr<NodeGear> pNode(pCreator->Create(value, pConnector, this));
 	Node::Connector *pConnectorSrc = pNode->GetConnectorSrc();
 	Node *pNodeRtn = pNode.get();
 	_nodeOwner.push_back(pNode.release());
@@ -209,7 +209,7 @@ Trainer::Optimizer::~Optimizer()
 //-------------------------------------------------------------------------
 // Trainer::Optimizer_Adam
 //-------------------------------------------------------------------------
-Trainer::Optimizer::Instance *Trainer::Optimizer_Adam::CreateInstance()
+Trainer::Optimizer::Instance *Trainer::Optimizer_Adam::CreateInstance() const
 {
 	return new InstanceEx();
 }
@@ -222,7 +222,7 @@ bool Trainer::Optimizer_Adam::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pA
 //-------------------------------------------------------------------------
 // Trainer::Optimizer_GradientDescent
 //-------------------------------------------------------------------------
-Trainer::Optimizer::Instance *Trainer::Optimizer_GradientDescent::CreateInstance()
+Trainer::Optimizer::Instance *Trainer::Optimizer_GradientDescent::CreateInstance() const
 {
 	return new InstanceEx(_learningRate);
 }
@@ -237,7 +237,7 @@ bool Trainer::Optimizer_GradientDescent::InstanceEx::Update(Signal &sig, AutoPtr
 //-------------------------------------------------------------------------
 // Trainer::Optimizer_Momentum
 //-------------------------------------------------------------------------
-Trainer::Optimizer::Instance *Trainer::Optimizer_Momentum::CreateInstance()
+Trainer::Optimizer::Instance *Trainer::Optimizer_Momentum::CreateInstance() const
 {
 	return new InstanceEx();
 }
@@ -250,7 +250,7 @@ bool Trainer::Optimizer_Momentum::InstanceEx::Update(Signal &sig, AutoPtr<Array>
 //-------------------------------------------------------------------------
 // Trainer::Optimizer_None
 //-------------------------------------------------------------------------
-Trainer::Optimizer::Instance *Trainer::Optimizer_None::CreateInstance()
+Trainer::Optimizer::Instance *Trainer::Optimizer_None::CreateInstance() const
 {
 	return new InstanceEx();
 }

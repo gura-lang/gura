@@ -47,7 +47,7 @@ bool NodeGear_Tanh::EvalBackward(Environment &env)
 	return false;
 }
 
-Trainer::NodeGear *NodeGear_Tanh::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+Trainer::NodeGear *NodeGear_Tanh::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
 {
 	return new NodeGear_Tanh(Object_gear_at_tanh::GetObject(value)->GetGear()->Reference(), pConnectorDst);
 }

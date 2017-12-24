@@ -53,7 +53,7 @@ bool NodeGear_MaxPool2d::EvalBackward(Environment &env)
 	return false;
 }
 
-Trainer::NodeGear *NodeGear_MaxPool2d::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+Trainer::NodeGear *NodeGear_MaxPool2d::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
 {
 	return new NodeGear_MaxPool2d(Object_gear_at_maxpool2d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
 }

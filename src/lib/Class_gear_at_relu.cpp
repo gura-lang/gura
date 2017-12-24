@@ -97,7 +97,7 @@ Value NodeGear_Relu::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
-Trainer::NodeGear *NodeGear_Relu::CreatorEx::Create(const Value &value, Connector *pConnectorDst) const
+Trainer::NodeGear *NodeGear_Relu::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
 {
 	return new NodeGear_Relu(Object_gear_at_relu::GetObject(value)->GetGear()->Reference(), pConnectorDst);
 }
