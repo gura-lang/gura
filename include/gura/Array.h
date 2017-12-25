@@ -395,14 +395,16 @@ public:
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool populationFlag, bool stdFlag) const = 0;
 	bool Paste(Signal &sig, size_t offset, const Array *pArraySrc);
 	virtual bool ExpandKernelVec1d(
-		Signal &sig, AutoPtr<Array> &pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
-		ChannelPos channelPos, Double padNum) const = 0;
+		Signal &sig, AutoPtr<Array> &pArrayVec, size_t *pSize, size_t sizeKernel, size_t stridesKernel,
+		size_t sizePad, ChannelPos channelPos, Double padNum) const = 0;
 	virtual bool ExpandKernelVec2d(
-		Signal &sig, AutoPtr<Array> &pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
+		Signal &sig, AutoPtr<Array> &pArrayVec, size_t *pSizeRow, size_t *pSizeCol,
+		size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
 		ChannelPos channelPos, Double padNum) const = 0;
 	virtual bool ExpandKernelVec3d(
-		Signal &sig, AutoPtr<Array> &pArrayVec, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+		Signal &sig, AutoPtr<Array> &pArrayVec, size_t *pSizePlane, size_t *pSizeRow, size_t *pSizeCol,
+		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
 		ChannelPos channelPos, Double padNum) const = 0;

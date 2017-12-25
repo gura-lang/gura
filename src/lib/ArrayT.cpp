@@ -1990,16 +1990,19 @@ bool ArrayT<T_Elem>::ScanKernel3d(
 
 template<typename T_Elem>
 bool ArrayT<T_Elem>::ExpandKernelVec1d(
-	Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
-	ChannelPos channelPos, Double padNum) const
+	Signal &sig, AutoPtr<Array> &pArrayRtn, size_t *pSize, size_t sizeKernel, size_t stridesKernel,
+	size_t sizePad, ChannelPos channelPos, Double padNum) const
 {
 	const Dimensions &dims = GetDimensions();
+	size_t size = 0;
+	if (pSize == nullptr) pSize = &size;
 	if (channelPos == CHANNELPOS_None) {
 		if (dims.size() < 1) {
 			return false;
 		}
 		KernelScanner_ExpandVec_ChNone<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		size_t sizeBlock = dims.GetBack(0).GetSizeProd();
+		*pSize = dims.GetBack(0).GetSize();
 		return ScanKernel1d(
 			sig, const_cast<ArrayT *>(this), dims.GetBack(0), sizeBlock,
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
@@ -2009,6 +2012,7 @@ bool ArrayT<T_Elem>::ExpandKernelVec1d(
 		}
 		KernelScanner_ExpandVec_ChFirst<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		size_t sizeBlock = dims.GetBack(1).GetSizeProd();
+		*pSize = dims.GetBack(0).GetSize();
 		return ScanKernel1d(
 			sig, const_cast<ArrayT *>(this), dims.GetBack(0), sizeBlock,
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
@@ -2018,6 +2022,7 @@ bool ArrayT<T_Elem>::ExpandKernelVec1d(
 		}
 		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		size_t sizeBlock = dims.GetBack(1).GetSizeProd();
+		*pSize = dims.GetBack(1).GetSize();
 		return ScanKernel1d(
 			sig, const_cast<ArrayT *>(this), dims.GetBack(1), sizeBlock,
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
@@ -2026,17 +2031,22 @@ bool ArrayT<T_Elem>::ExpandKernelVec1d(
 
 template<typename T_Elem>
 bool ArrayT<T_Elem>::ExpandKernelVec2d(
-	Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
+	Signal &sig, AutoPtr<Array> &pArrayRtn, size_t *pSizeRow, size_t *pSizeCol,
+	size_t sizeKernelRow, size_t sizeKernelCol,
 	size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
 	ChannelPos channelPos, Double padNum) const
 {
 	const Dimensions &dims = GetDimensions();
+	size_t sizeRow = 0, sizeCol = 0;
+	if (pSizeRow == nullptr) pSizeRow = &sizeRow;
+	if (pSizeCol == nullptr) pSizeCol = &sizeCol;
 	if (channelPos == CHANNELPOS_None) {
 		if (dims.size() < 2) {
 			return false;
 		}
 		KernelScanner_ExpandVec_ChNone<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		size_t sizeBlock = dims.GetBack(1).GetSizeProd();
+		*pSizeRow = dims.GetBack(1).GetSize(), *pSizeCol = dims.GetBack(0).GetSize();
 		return ScanKernel2d(
 			sig, const_cast<ArrayT *>(this), dims.GetBack(1), dims.GetBack(0), sizeBlock,
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
@@ -2047,6 +2057,7 @@ bool ArrayT<T_Elem>::ExpandKernelVec2d(
 		}
 		KernelScanner_ExpandVec_ChFirst<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		size_t sizeBlock = dims.GetBack(2).GetSizeProd();
+		*pSizeRow = dims.GetBack(1).GetSize(), *pSizeCol = dims.GetBack(0).GetSize();
 		return ScanKernel2d(
 			sig, const_cast<ArrayT *>(this), dims.GetBack(1), dims.GetBack(0), sizeBlock,
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
@@ -2057,6 +2068,7 @@ bool ArrayT<T_Elem>::ExpandKernelVec2d(
 		}
 		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		size_t sizeBlock = dims.GetBack(2).GetSizeProd();
+		*pSizeRow = dims.GetBack(2).GetSize(), *pSizeCol = dims.GetBack(1).GetSize();
 		return ScanKernel2d(
 			sig, const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), sizeBlock,
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
@@ -2066,18 +2078,24 @@ bool ArrayT<T_Elem>::ExpandKernelVec2d(
 
 template<typename T_Elem>
 bool ArrayT<T_Elem>::ExpandKernelVec3d(
-	Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+	Signal &sig, AutoPtr<Array> &pArrayRtn, size_t *pSizePlane, size_t *pSizeRow, size_t *pSizeCol,
+	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
 	ChannelPos channelPos, Double padNum) const
 {
 	const Dimensions &dims = GetDimensions();
+	size_t sizePlane = 0, sizeRow = 0, sizeCol = 0;
+	if (pSizePlane == nullptr) pSizePlane = &sizePlane;
+	if (pSizeRow == nullptr) pSizeRow = &sizeRow;
+	if (pSizeCol == nullptr) pSizeCol = &sizeCol;
 	if (channelPos == CHANNELPOS_None) {
 		if (dims.size() < 3) {
 			return false;
 		}
 		KernelScanner_ExpandVec_ChNone<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		size_t sizeBlock = dims.GetBack(2).GetSizeProd();
+		*pSizePlane = dims.GetBack(2).GetSize(), *pSizeRow = dims.GetBack(1).GetSize(), *pSizeCol = dims.GetBack(0).GetSize();
 		return ScanKernel3d(
 			sig, const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0), sizeBlock,
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
@@ -2089,6 +2107,7 @@ bool ArrayT<T_Elem>::ExpandKernelVec3d(
 		}
 		KernelScanner_ExpandVec_ChFirst<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		size_t sizeBlock = dims.GetBack(3).GetSizeProd();
+		*pSizePlane = dims.GetBack(2).GetSize(), *pSizeRow = dims.GetBack(1).GetSize(), *pSizeCol = dims.GetBack(0).GetSize();
 		return ScanKernel3d(
 			sig, const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0), sizeBlock,
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
@@ -2100,6 +2119,7 @@ bool ArrayT<T_Elem>::ExpandKernelVec3d(
 		}
 		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		size_t sizeBlock = dims.GetBack(3).GetSizeProd();
+		*pSizePlane = dims.GetBack(3).GetSize(), *pSizeRow = dims.GetBack(2).GetSize(), *pSizeCol = dims.GetBack(1).GetSize();
 		return ScanKernel3d(
 			sig, const_cast<ArrayT *>(this), dims.GetBack(3), dims.GetBack(2), dims.GetBack(1), sizeBlock,
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,

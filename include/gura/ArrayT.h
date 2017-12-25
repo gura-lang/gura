@@ -92,14 +92,16 @@ public:
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
 		T_KernelScanner &kernelScanner);
 	virtual bool ExpandKernelVec1d(
-		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
-		ChannelPos channelPos, Double padNum) const;
+		Signal &sig, AutoPtr<Array> &pArrayVec, size_t *pSize, size_t sizeKernel, size_t stridesKernel,
+		size_t sizePad, ChannelPos channelPos, Double padNum) const;
 	virtual bool ExpandKernelVec2d(
-		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
-		size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos, Double padNum) const;
+		Signal &sig, AutoPtr<Array> &pArrayVec, size_t *pSizeRow, size_t *pSizeCol,
+		size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
+		ChannelPos channelPos, Double padNum) const;
 	virtual bool ExpandKernelVec3d(
-		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+		Signal &sig, AutoPtr<Array> &pArrayVec, size_t *pSizePlane, size_t *pSizeRow, size_t *pSizeCol,
+		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
 		ChannelPos channelPos, Double padNum) const;

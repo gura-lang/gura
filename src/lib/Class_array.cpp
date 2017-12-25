@@ -792,7 +792,7 @@ Gura_ImplementMethod(array, expand_kernelvec1d)
 		env.SetError(ERR_ValueError, "argument 'padding' must be a number of a symbol");
 		return Value::Nil;
 	}
-	if (!pArraySelf->ExpandKernelVec1d(env, pArrayRtn, sizeKernel,
+	if (!pArraySelf->ExpandKernelVec1d(env, pArrayRtn, nullptr, sizeKernel,
 									   stridesKernel, sizePad, channelPos, padNum)) return Value::Nil;
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
 }
@@ -873,7 +873,7 @@ Gura_ImplementMethod(array, expand_kernelvec2d)
 		env.SetError(ERR_ValueError, "argument 'padding' must be a list of numbers of a symbol");
 		return Value::Nil;
 	}
-	if (!pArraySelf->ExpandKernelVec2d(env, pArrayRtn, sizeKernelRow, sizeKernelCol,
+	if (!pArraySelf->ExpandKernelVec2d(env, pArrayRtn, nullptr, nullptr, sizeKernelRow, sizeKernelCol,
 									   stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol,
 									   channelPos, padNum)) return Value::Nil;
 	return ReturnValue(env, arg, Array::ToValue(env, pArrayRtn.release()));
@@ -963,7 +963,8 @@ Gura_ImplementMethod(array, expand_kernelvec3d)
 		env.SetError(ERR_ValueError, "argument 'padding' must be a list of numbers of a symbol");
 		return Value::Nil;
 	}
-	if (!pArraySelf->ExpandKernelVec3d(env, pArrayRtn, sizeKernelPlane, sizeKernelRow, sizeKernelCol,
+	if (!pArraySelf->ExpandKernelVec3d(env, pArrayRtn, nullptr, nullptr, nullptr,
+									   sizeKernelPlane, sizeKernelRow, sizeKernelCol,
 									   stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 									   sizePadPlane, sizePadRow, sizePadCol,
 									   channelPos, padNum)) return Value::Nil;

@@ -82,7 +82,7 @@ bool NodeGear_Conv2d::EvalForward(Environment &env)
 							&_sizePadRow, &_sizePadCol, &_sizeOutRow, &_sizeOutCol);
 	}
 	if (!pArrayFwdSrc->ExpandKernelVec2d(
-			env, _pArrayFwdSrcVec, pGear->GetSizeRow(), pGear->GetSizeCol(),
+			env, _pArrayFwdSrcVec, nullptr, nullptr, pGear->GetSizeRow(), pGear->GetSizeCol(),
 			pGear->GetStridesRow(), pGear->GetStridesCol(), _sizePadRow, _sizePadCol,
 			pGear->GetChannelPos(), padNum)) return false;
 	if (_pArrayGearTrans.IsNull()) {
@@ -181,13 +181,6 @@ bool NodeGear_Conv2d::EvalBackward(Environment &env)
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
 		const Array *pArrayBwdSrc = (*ppConnectorDst)->GetArrayBwd();
-		AutoPtr<Array> _pArrayBwdSrcReshape;
-		AutoPtr<Array> _pArrayBwdSrcTrans;
-		AutoPtr<Array> _pArrayFwdSrcVecReshape;
-		AutoPtr<Array> _pArrayGearDiff;
-		AutoPtr<Array> _pArrayGearDiffPre;
-		AutoPtr<Array> _pArrayFwdSrcVecDiff;
-		AutoPtr<Array> _pArrayFwdSrcVecDiffPre;
 		if (_pArrayBwdSrcTrans.IsNull()) {
 			const Array::Dimensions &dimsBwdSrc = pArrayBwdSrc->GetDimensions();
 			Array::Dimensions dims;
@@ -261,7 +254,13 @@ bool NodeGear_Conv2d::EvalBackward(Environment &env)
 		if (_pArrayFwdSrcVecDiff.IsNull()) {
 			_pArrayFwdSrcVecDiffPre->Reshape(_pArrayFwdSrcVecDiff, _pArrayFwdSrcVec->GetDimensions());
 		}
-		
+		const Array *pArrayFwdSrc = GetConnectorSrc()->GetArrayFwd();
+		// pArrayBwd ... [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
+		if (!_pArrayFwdSrcVecDiff->RestoreKernelVec2d(
+				env, _connectorSrc.GetArrayBwdAutoPtr(), 0, 0,
+				pGear->GetSizeRow(), pGear->GetSizeCol(),
+				pGear->GetStridesRow(), pGear->GetStridesCol(),
+				_sizePadRow, _sizePadCol, pGear->GetChannelPos())) return false;
 	}
 	return true;
 }

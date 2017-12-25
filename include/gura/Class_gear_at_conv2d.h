@@ -76,10 +76,17 @@ public:
 	};
 private:
 	std::unique_ptr<Trainer::Optimizer::Instance> _pOptimizerInst;
-	AutoPtr<Array> _pArrayFwdSrcVec;
-	AutoPtr<Array> _pArrayGearReshape;
-	AutoPtr<Array> _pArrayGearTrans;
-	AutoPtr<Array> _pArrayFwdPre;
+	AutoPtr<Array> _pArrayFwdSrcVec;		// EvalForward
+	AutoPtr<Array> _pArrayGearReshape;		// EvalForward
+	AutoPtr<Array> _pArrayGearTrans;		// EvalForward
+	AutoPtr<Array> _pArrayFwdPre;			// EvalForward
+	AutoPtr<Array> _pArrayBwdSrcReshape;	// EvalBackward
+	AutoPtr<Array> _pArrayBwdSrcTrans;		// EvalBackward
+	AutoPtr<Array> _pArrayFwdSrcVecReshape;	// EvalBackward
+	AutoPtr<Array> _pArrayGearDiff;			// EvalBackward
+	AutoPtr<Array> _pArrayGearDiffPre;		// EvalBackward
+	AutoPtr<Array> _pArrayFwdSrcVecDiff;	// EvalBackward
+	AutoPtr<Array> _pArrayFwdSrcVecDiffPre;	// EvalBackward
 	size_t _sizePadRow;
 	size_t _sizePadCol;
 	size_t _sizeOutRow;
