@@ -2095,7 +2095,9 @@ bool ArrayT<T_Elem>::ExpandKernelVec3d(
 		}
 		KernelScanner_ExpandVec_ChNone<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		size_t sizeBlock = dims.GetBack(2).GetSizeProd();
-		*pSizePlane = dims.GetBack(2).GetSize(), *pSizeRow = dims.GetBack(1).GetSize(), *pSizeCol = dims.GetBack(0).GetSize();
+		*pSizePlane = dims.GetBack(2).GetSize();
+		*pSizeRow = dims.GetBack(1).GetSize();
+		*pSizeCol = dims.GetBack(0).GetSize();
 		return ScanKernel3d(
 			sig, const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0), sizeBlock,
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
@@ -2107,7 +2109,9 @@ bool ArrayT<T_Elem>::ExpandKernelVec3d(
 		}
 		KernelScanner_ExpandVec_ChFirst<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		size_t sizeBlock = dims.GetBack(3).GetSizeProd();
-		*pSizePlane = dims.GetBack(2).GetSize(), *pSizeRow = dims.GetBack(1).GetSize(), *pSizeCol = dims.GetBack(0).GetSize();
+		*pSizePlane = dims.GetBack(2).GetSize();
+		*pSizeRow = dims.GetBack(1).GetSize();
+		*pSizeCol = dims.GetBack(0).GetSize();
 		return ScanKernel3d(
 			sig, const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0), sizeBlock,
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
@@ -2119,7 +2123,9 @@ bool ArrayT<T_Elem>::ExpandKernelVec3d(
 		}
 		KernelScanner_ExpandVec_ChLast<T_Elem> kernelScanner(pArrayRtn, this, static_cast<T_Elem>(padNum));
 		size_t sizeBlock = dims.GetBack(3).GetSizeProd();
-		*pSizePlane = dims.GetBack(3).GetSize(), *pSizeRow = dims.GetBack(2).GetSize(), *pSizeCol = dims.GetBack(1).GetSize();
+		*pSizePlane = dims.GetBack(3).GetSize();
+		*pSizeRow = dims.GetBack(2).GetSize();
+		*pSizeCol = dims.GetBack(1).GetSize();
 		return ScanKernel3d(
 			sig, const_cast<ArrayT *>(this), dims.GetBack(3), dims.GetBack(2), dims.GetBack(1), sizeBlock,
 			sizeKernelPlane, sizeKernelRow, sizeKernelCol,

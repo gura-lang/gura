@@ -195,6 +195,7 @@ public:
 	public:
 		inline NodeBottom() : Node("bottom"), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
+		inline const Connector *GetConnectorSrc() const { return &_connectorSrc; }
 		virtual bool IsBottom();
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
@@ -217,6 +218,7 @@ public:
 		inline NodeUnary(const char *nodeTypeName, const Array::UnaryFuncPack &unaryFuncPack, Connector *pConnectorDst) :
 			Node(nodeTypeName, pConnectorDst), _unaryFuncPack(unaryFuncPack), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
+		inline const Connector *GetConnectorSrc() const { return &_connectorSrc; }
 		virtual bool IsUnary();
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
@@ -258,6 +260,8 @@ public:
 				_connectorSrcLeft(this), _connectorSrcRight(this) {}
 		inline Connector *GetConnectorSrcLeft() { return &_connectorSrcLeft; }
 		inline Connector *GetConnectorSrcRight() { return &_connectorSrcRight; }
+		inline const Connector *GetConnectorSrcLeft() const { return &_connectorSrcLeft; }
+		inline const Connector *GetConnectorSrcRight() const { return &_connectorSrcRight; }
 		virtual bool IsBinary();
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
@@ -340,6 +344,7 @@ public:
 		inline NodeGear(Gear *pGear, Connector *pConnectorDst) :
 				Node(pGear->GetName(), pConnectorDst), _pGear(pGear), _connectorSrc(this) {}
 		inline Connector *GetConnectorSrc() { return &_connectorSrc; }
+		inline const Connector *GetConnectorSrc() const { return &_connectorSrc; }
 		virtual bool IsGear();
 		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 		virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,

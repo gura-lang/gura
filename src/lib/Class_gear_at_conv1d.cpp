@@ -54,7 +54,7 @@ String Gear_Conv1d::ToString() const
 //-----------------------------------------------------------------------------
 bool NodeGear_Conv1d::IsVulnerable() const
 {
-	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+	return true;
 }
 
 bool NodeGear_Conv1d::DoDirProp(Environment &env, SymbolSet &symbols)

@@ -87,6 +87,8 @@ private:
 	AutoPtr<Array> _pArrayGearDiffPre;		// EvalBackward
 	AutoPtr<Array> _pArrayFwdSrcVecDiff;	// EvalBackward
 	AutoPtr<Array> _pArrayFwdSrcVecDiffPre;	// EvalBackward
+	size_t _sizeRow;
+	size_t _sizeCol;
 	size_t _sizePadRow;
 	size_t _sizePadCol;
 	size_t _sizeOutRow;
@@ -94,7 +96,7 @@ private:
 public:
 	inline NodeGear_Conv2d(Gear_Conv2d *pGear, Connector *pConnectorDst, Trainer::Optimizer::Instance *pOptimizerInst) :
 		NodeGear(pGear, pConnectorDst), _pOptimizerInst(pOptimizerInst),
-		_sizePadRow(0), _sizePadCol(0), _sizeOutRow(0), _sizeOutCol(0) {}
+		_sizeRow(0), _sizeCol(0), _sizePadRow(0), _sizePadCol(0), _sizeOutRow(0), _sizeOutCol(0) {}
 	inline Gear_Conv2d *GetGear() { return dynamic_cast<Gear_Conv2d *>(_pGear.get()); }
 	virtual bool IsVulnerable() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);

@@ -55,7 +55,7 @@ String Gear_Conv2d::ToString() const
 //-----------------------------------------------------------------------------
 bool NodeGear_Conv2d::IsVulnerable() const
 {
-	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+	return true;
 }
 
 bool NodeGear_Conv2d::DoDirProp(Environment &env, SymbolSet &symbols)
@@ -82,7 +82,7 @@ bool NodeGear_Conv2d::EvalForward(Environment &env)
 							&_sizePadRow, &_sizePadCol, &_sizeOutRow, &_sizeOutCol);
 	}
 	if (!pArrayFwdSrc->ExpandKernelVec2d(
-			env, _pArrayFwdSrcVec, nullptr, nullptr, pGear->GetSizeRow(), pGear->GetSizeCol(),
+			env, _pArrayFwdSrcVec, &_sizeRow, &_sizeCol, pGear->GetSizeRow(), pGear->GetSizeCol(),
 			pGear->GetStridesRow(), pGear->GetStridesCol(), _sizePadRow, _sizePadCol,
 			pGear->GetChannelPos(), padNum)) return false;
 	if (_pArrayGearTrans.IsNull()) {
@@ -179,7 +179,7 @@ bool NodeGear_Conv2d::EvalBackward(Environment &env)
 	const Array *pArrayGear = pGear->GetArrayGear();
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
-	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
+	if (GetConnectorSrc()->GetNodeSrc()->IsVulnerable()) {
 		const Array *pArrayBwdSrc = (*ppConnectorDst)->GetArrayBwd();
 		if (_pArrayBwdSrcTrans.IsNull()) {
 			const Array::Dimensions &dimsBwdSrc = pArrayBwdSrc->GetDimensions();
@@ -244,23 +244,24 @@ bool NodeGear_Conv2d::EvalBackward(Environment &env)
 			_pArrayGearDiffPre->Reshape(_pArrayGearDiff, pArrayGear->GetDimensions());
 		}
 		if (!_pOptimizerInst->Update(env, pGear->GetArrayGearAutoPtr(), _pArrayGearDiff.get())) return false;
-		// _pArrayBwdSrcReshape .. [N * H_out * W_out, FN]
-		// _pArrayGearReshape .. [FN, C * FH * FW]
-		// _pArrayFwdSrcVecDiffPre = _pArrayBwdSrcReshape |.| _pArrayGearReshape
-		// _pArrayFwdSrcVecDiffPre .. [N * H_out * W_out, C * FH * FW]
-		// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
-		if (!Array::Dot(env, _pArrayFwdSrcVecDiffPre,
-						_pArrayBwdSrcReshape.get(), _pArrayGearReshape.get())) return false;
-		if (_pArrayFwdSrcVecDiff.IsNull()) {
-			_pArrayFwdSrcVecDiffPre->Reshape(_pArrayFwdSrcVecDiff, _pArrayFwdSrcVec->GetDimensions());
+		if (GetConnectorSrc()->GetNodeSrc()->IsVulnerable()) {
+			// _pArrayBwdSrcReshape .. [N * H_out * W_out, FN]
+			// _pArrayGearReshape .. [FN, C * FH * FW]
+			// _pArrayFwdSrcVecDiffPre = _pArrayBwdSrcReshape |.| _pArrayGearReshape
+			// _pArrayFwdSrcVecDiffPre .. [N * H_out * W_out, C * FH * FW]
+			// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
+			if (!Array::Dot(env, _pArrayFwdSrcVecDiffPre,
+							_pArrayBwdSrcReshape.get(), _pArrayGearReshape.get())) return false;
+			if (_pArrayFwdSrcVecDiff.IsNull()) {
+				_pArrayFwdSrcVecDiffPre->Reshape(_pArrayFwdSrcVecDiff, _pArrayFwdSrcVec->GetDimensions());
+			}
+			// pArrayBwd ... [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
+			if (!_pArrayFwdSrcVecDiff->RestoreKernelVec2d(
+					env, GetConnectorSrc()->GetArrayBwdAutoPtr(), _sizeRow, _sizeCol,
+					pGear->GetSizeRow(), pGear->GetSizeCol(),
+					pGear->GetStridesRow(), pGear->GetStridesCol(),
+					_sizePadRow, _sizePadCol, pGear->GetChannelPos())) return false;
 		}
-		const Array *pArrayFwdSrc = GetConnectorSrc()->GetArrayFwd();
-		// pArrayBwd ... [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
-		if (!_pArrayFwdSrcVecDiff->RestoreKernelVec2d(
-				env, _connectorSrc.GetArrayBwdAutoPtr(), 0, 0,
-				pGear->GetSizeRow(), pGear->GetSizeCol(),
-				pGear->GetStridesRow(), pGear->GetStridesCol(),
-				_sizePadRow, _sizePadCol, pGear->GetChannelPos())) return false;
 	}
 	return true;
 }
