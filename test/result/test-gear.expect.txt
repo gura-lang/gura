@@ -176,7 +176,34 @@ x_5_5_4 |*| f_3_3_3_last .. ValueError: unmatched dimension between array (5, 5,
 ======== #7 error check for gear@conv3d ========
 
 
-======== #8 gear@maxpool1d ========
+======== #8 gear@conv1d evaluation ========
+
+
+======== #9 gear@conv2d evaluation ========
+
+f_HW .. <gear@conv2d:filter_num=none:channel_num=none:size=(4,5):strides=(1,1):padding=same:channel_pos=none>
+f_CHW .. <gear@conv2d:filter_num=none:channel_num=3:size=(4,5):strides=(1,1):padding=same:channel_pos=first>
+f_HWC .. <gear@conv2d:filter_num=none:channel_num=3:size=(4,5):strides=(1,1):padding=same:channel_pos=last>
+f_FHW .. <gear@conv2d:filter_num=6:channel_num=none:size=(4,5):strides=(1,1):padding=same:channel_pos=none>
+f_FCHW .. <gear@conv2d:filter_num=6:channel_num=3:size=(4,5):strides=(1,1):padding=same:channel_pos=first>
+f_FHWC .. <gear@conv2d:filter_num=6:channel_num=3:size=(4,5):strides=(1,1):padding=same:channel_pos=last>
+x_HW |*| f_HW .. [4, 5], [4, 5] matched:true
+x_CHW |*| f_CHW .. [4, 5], [4, 5] matched:true
+x_HWC |*| f_HWC .. [4, 5], [4, 5] matched:true
+x_NHW |*| f_HW .. [7, 4, 5], [7, 4, 5] matched:true
+x_NCHW |*| f_CHW .. [7, 4, 5], [7, 4, 5] matched:true
+x_NHWC |*| f_HWC .. [7, 4, 5], [7, 4, 5] matched:true
+x_HW |*| f_FHW .. [4, 5, 6], [4, 5, 6] matched:true
+x_CHW |*| f_FCHW .. [4, 5, 6], [4, 5, 6] matched:true
+x_HWC |*| f_FHWC .. [4, 5, 6], [4, 5, 6] matched:true
+x_NHW |*| f_FHW .. [7, 4, 5, 6], [7, 4, 5, 6] matched:true
+x_NCHW |*| f_FCHW .. [7, 4, 5, 6], [7, 4, 5, 6] matched:true
+x_NHWC |*| f_FHWC .. [7, 4, 5, 6], [7, 4, 5, 6] matched:true
+
+======== #10 gear@conv3d evaluation ========
+
+
+======== #11 gear@maxpool1d ========
 
 gear@maxpool1d(4) .. <gear@maxpool1d:size=4:strides=1:padding=same:channel_pos=last>
 g.size .. 4
@@ -317,7 +344,7 @@ x |*| gear@maxpool1d(4, 3, `same, `last) ..
  {98, 67, 80},
  {17, 55, 82}}
 
-======== #9 gear@maxpool2d ========
+======== #12 gear@maxpool2d ========
 
 gear@maxpool2d([5, 6]) .. <gear@maxpool2d:size=(5,6):strides=(1,1):padding=same:channel_pos=last>
 g.size .. [5, 6]
@@ -355,20 +382,20 @@ g.strides .. [4, 3]
 g.padding .. same
 g.channel_pos .. last
 
-======== #10 gear@maxpool3d ========
+======== #13 gear@maxpool3d ========
 
 
-======== #11 gear@relu ========
+======== #14 gear@relu ========
 
 x .. {  -1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1,    0,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,    1}
 x |*| gear@relu() .. {  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,   1}
 
-======== #12 gear@sigmoid ========
+======== #15 gear@sigmoid ========
 
 x .. {  -1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1,    0,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,    1}
 x |*| gear@sigmoid() .. {0.268941,  0.28905, 0.310026, 0.331812, 0.354344, 0.377541, 0.401312, 0.425557, 0.450166, 0.475021,      0.5, 0.524979, 0.549834, 0.574443, 0.598688, 0.622459, 0.645656, 0.668188, 0.689974,  0.71095, 0.731059}
 
-======== #13 gear@softmax ========
+======== #16 gear@softmax ========
 
 g.axis .. nil
 g.axis .. 3
@@ -489,7 +516,7 @@ x |*| gear@softmax() ..
   {  0.0417726,     0.11355,   0.0056533,    0.839025},
   {  0.0419224,  0.00208719,    0.113957,    0.842034}}}
 
-======== #14 gear@softmax with large number ========
+======== #17 gear@softmax with large number ========
 
 {{{ 1e+06,  1e+06,  1e+06,  1e+06},
   {999998, 999998,  1e+06, 999995},
@@ -591,7 +618,7 @@ x |*| gear@softmax() ..
   {  0.0417726,     0.11355,   0.0056533,    0.839025},
   {  0.0419224,  0.00208719,    0.113957,    0.842034}}}
 
-======== #15 gear@tanh ========
+======== #18 gear@tanh ========
 
 x .. {  -1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1,    0,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,    1}
 x |*| gear@tanh() .. {-0.761594, -0.716298, -0.664037, -0.604368,  -0.53705, -0.462117, -0.379949, -0.291313, -0.197375, -0.099668,         0,  0.099668,  0.197375,  0.291313,  0.379949,  0.462117,   0.53705,  0.604368,  0.664037,  0.716298,  0.761594}

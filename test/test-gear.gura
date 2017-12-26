@@ -92,7 +92,7 @@ testcase('gear@conv2d') {
 }
 testcase('gear@conv3d') {
 }
-testcase("error check for gear@conv1d") {
+testcase('error check for gear@conv1d') {
 	tester(`gear@conv1d(array.zeros([3]), 1, `same, `last))
 	x_5 = array.zeros([5])
 	x_3_5 = array.zeros([3, 5])
@@ -110,19 +110,19 @@ testcase("error check for gear@conv1d") {
 	tester(`(x_5 |*| f_5))
 	tester(`(x_5 |*| f_6))
 }
-testcase("error check for gear@conv2d") {
+testcase('error check for gear@conv2d') {
 	tester(`gear@conv2d(array.zeros([3, 3]), [1, 1], `same, `last))
 	x_5_5 = array.zeros([5, 5])
 	x_3_5_5 = array.zeros([3, 5, 5])
 	x_4_5_5 = array.zeros([4, 5, 5])
 	x_5_5_3 = array.zeros([5, 5, 3])
 	x_5_5_4 = array.zeros([5, 5, 4])
-	f_3_3 = gear@conv2d(array.zeros([3, 3]), [1, 1], `same, `none)
-	f_4_3 = gear@conv2d(array.zeros([4, 3]), [1, 1], `same, `none)
-	f_6_5 = gear@conv2d(array.zeros([6, 5]), [1, 1], `same, `none)
-	f_5_6 = gear@conv2d(array.zeros([5, 6]), [1, 1], `same, `none)
-	f_3_3_3 = gear@conv2d(array.zeros([3, 3, 3]), [1, 1], `same, `first)
-	f_3_3_3_last = gear@conv2d(array.zeros([3, 3, 3]), [1, 1], `same, `last)
+	f_3_3 = gear@conv2d(array.zeros([3, 3]), [1, 1], `same, `none)			// [H, W]
+	f_4_3 = gear@conv2d(array.zeros([4, 3]), [1, 1], `same, `none)			// [H, W]
+	f_6_5 = gear@conv2d(array.zeros([6, 5]), [1, 1], `same, `none)			// [H, W]
+	f_5_6 = gear@conv2d(array.zeros([5, 6]), [1, 1], `same, `none)			// [H, W]
+	f_3_3_3 = gear@conv2d(array.zeros([3, 3, 3]), [1, 1], `same, `first)	// [C, H, W]
+	f_3_3_3_last = gear@conv2d(array.zeros([3, 3, 3]), [1, 1], `same, `last)// [H, W, C]
 	tester(`(x_5_5 |*| f_3_3))
 	tester(`(x_5_5 |*| f_4_3))
 	tester(`(x_5_5 |*| f_6_5))
@@ -133,7 +133,52 @@ testcase("error check for gear@conv2d") {
 	tester(`(x_5_5_3 |*| f_3_3_3_last))
 	tester(`(x_5_5_4 |*| f_3_3_3_last))
 }
-testcase("error check for gear@conv3d") {
+testcase('error check for gear@conv3d') {
+}
+testcase('gear@conv1d evaluation') {
+}
+testcase('gear@conv2d evaluation') {
+	randseed(0)
+	x_HW = array.rands([4, 5], 10)
+	x_CHW = array.rands([3, 4, 5], 10)
+	x_HWC = array.rands([4, 5, 3], 10)
+	x_NHW = array.rands([7, 4, 5], 10)
+	x_NCHW = array.rands([7, 3, 4, 5], 10)
+	x_NHWC = array.rands([7, 4, 5, 3], 10)
+	f_HW = gear@conv2d(array.rands([4, 5], 10), [1, 1], `same, `none)			// [H, W]
+	f_CHW = gear@conv2d(array.rands([3, 4, 5], 10), [1, 1], `same, `first)		// [C, H, W]
+	f_HWC = gear@conv2d(array.rands([4, 5, 3], 10), [1, 1], `same, `last)		// [H, W, C]
+	f_FHW = gear@conv2d(array.rands([6, 4, 5], 10), [1, 1], `same, `none)		// [F, H, W]
+	f_FCHW = gear@conv2d(array.rands([6, 3, 4, 5], 10), [1, 1], `same, `first)	// [F, C, H, W]
+	f_FHWC = gear@conv2d(array.rands([6, 4, 5, 3], 10), [1, 1], `same, `last)	// [F, H, W, C]
+	tester(`f_HW)
+	tester(`f_CHW)
+	tester(`f_HWC)
+	tester(`f_FHW)
+	tester(`f_FCHW)
+	tester(`f_FHWC)
+	models = [
+		`(x_HW |*| f_HW)
+		`(x_CHW |*| f_CHW)
+		`(x_HWC |*| f_HWC)
+		`(x_NHW |*| f_HW)
+		`(x_NCHW |*| f_CHW)
+		`(x_NHWC |*| f_HWC)
+		`(x_HW |*| f_FHW)
+		`(x_CHW |*| f_FCHW)
+		`(x_HWC |*| f_FHWC)
+		`(x_NHW |*| f_FHW)
+		`(x_NCHW |*| f_FCHW)
+		`(x_NHWC |*| f_FHWC)
+	]
+	models.each {|model|
+		tr = trainer(model, optimizer@none())
+		m1 = model.eval()
+		m2 = tr.eval()
+		printf('%s .. %s, %s matched:%s\n', model, m1.shape, m2.shape, m1.iselemsame(m2)):nomap
+	}
+}
+testcase('gear@conv3d evaluation') {
 }
 testcase('gear@maxpool1d') {
 	tester(`gear@maxpool1d(4)) {|g|

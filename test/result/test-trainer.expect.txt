@@ -1,4 +1,33 @@
-======== #1 input values in trainer#eval() ========
+======== #1 node information ========
+
+node@a = +a .. unary@pos
+node@a = -a .. unary@neg
+node@a = a + b .. binary@add
+node@a = a - b .. binary@sub
+node@a = a * b .. binary@mul
+node@a = a / b .. binary@div
+node@a = a ** b .. binary@pow
+node@a = a |.| b .. binary@dot
+node@a = a |*| gear@conv1d(array.zeros([3])) .. gear@conv1d
+<gear@conv1d:filter_num=none:channel_num=none:size=3:strides=1:padding=same:channel_pos=none>
+node@a = a |*| gear@conv2d(array.zeros([3, 3])) .. gear@conv2d
+<gear@conv2d:filter_num=none:channel_num=none:size=(3,3):strides=(1,1):padding=same:channel_pos=none>
+node@a = a |*| gear@maxpool1d(3) .. gear@maxpool1d
+<gear@maxpool1d:size=3:strides=1:padding=same:channel_pos=last>
+node@a = a |*| gear@maxpool2d([3, 3]) .. gear@maxpool2d
+<gear@maxpool2d:size=(3,3):strides=(1,1):padding=same:channel_pos=last>
+node@a = a |*| gear@maxpool3d([3, 3, 3]) .. gear@maxpool3d
+<gear@maxpool2d:size=(3,3,3):strides=(1,1,1):padding=same:channel_pos=last>
+node@a = a |*| gear@relu() .. gear@relu
+<gear@relu>
+node@a = a |*| gear@sigmoid() .. gear@sigmoid
+<gear@sigmoid>
+node@a = a |*| gear@softmax() .. gear@softmax
+<gear@softmax>
+node@a = a |*| gear@tanh() .. gear@tanh
+<gear@tanh>
+
+======== #2 input values in trainer#eval() ========
 
 no inputs specified
 { x = 3, tr.eval() } .. 3
@@ -7,7 +36,7 @@ x is specified as an input
 { x = 7, tr.eval() } .. 7
 { x = 9, tr.eval() } .. 9
 
-======== #2 trainer#eval() ========
+======== #3 trainer#eval() ========
 
 a + b
 { a = 3, b = 5, tr.eval() } .. 8
@@ -20,7 +49,7 @@ a / b
 a |.| b
 { a = 3, b = 5, tr.eval() } .. 15
 
-======== #3 gear@conv2d ========
+======== #4 gear@conv2d ========
 
 ------------------------------------------------------------------------------
 target:[H, W] filter:[FH, FW]
