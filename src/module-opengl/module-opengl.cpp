@@ -27,7 +27,7 @@ bool CheckArray(Signal &sig, GLenum pname, const Array *pArray)
 {
 	ParamInfoDict::iterator iter = _pParamInfoDict->find(pname);
 	if (iter == _pParamInfoDict->end()) return true;
-	if (pArray->GetDimensions().HasShape(iter->second)) return true;
+	if (pArray->GetDims().HasShape(iter->second)) return true;
 	sig.SetError(ERR_ValueError, "the array must contain %d elements", iter->second);
 	return false;
 }

@@ -224,6 +224,7 @@ public:
 		bool HasEnoughDims(Signal &sig, size_t nDims, ChannelPos channelPos) const;
 		static String ToString(const_iterator pDim, const_iterator pDimEnd, const char *sep = ", ");
 		inline String ToString(const char *sep = ", ") const { return ToString(begin(), end(), sep); }
+		inline void Print() const { ::printf("%s\n", ToString().c_str()); }
 		bool Serialize(Environment &env, Stream &stream) const;
 		bool Deserialize(Environment &env, Stream &stream);
 		void UpdateMetrics();
@@ -285,7 +286,7 @@ public:
 	public:
 		Indexer(const Array *pArray);
 		bool InitIndices(Environment &env, const ValueList &valListIdx);
-		void MakeResultDimensions(Dimensions &dimsRtn);
+		void MakeResultDims(Dimensions &dimsRtn);
 		inline size_t GetOffsetTarget() const { return _offsetTarget; }
 		inline bool HasGenerator() const { return _pGeneratorOwner.get() != nullptr; }
 		inline bool IsEmptyGenerator() const { return HasGenerator() && _pGeneratorOwner->IsEmptyGenerator(); }
@@ -326,8 +327,8 @@ public:
 	}
 	inline Memory &GetMemory() { return *_pMemory; }
 	inline const Memory &GetMemory() const { return *_pMemory; }
-	inline Dimensions &GetDimensions() { return _dims; }
-	inline const Dimensions &GetDimensions() const { return _dims; }
+	inline Dimensions &GetDims() { return _dims; }
+	inline const Dimensions &GetDims() const { return _dims; }
 	inline bool IsScalar() const { return _dims.empty(); }
 	inline size_t GetElemNum() const { return _dims.GetElemNum(); }
 	inline void SetOffsetBase(size_t offsetBase) { _offsetBase = offsetBase; }
@@ -353,26 +354,27 @@ public:
 	static const char *GetElemTypeName(ElemType elemType);
 	inline const char *GetElemTypeName() const { return GetElemTypeName(_elemType); }
 	void FlipAxisMajor();
-	void StoreDimensions(const Dimensions &dims);
-	void SetDimension(size_t size);
-	void SetDimensions(size_t size1, size_t size2);
-	void SetDimensions(size_t size1, size_t size2, size_t size3);
-	void SetDimensions(size_t size1, size_t size2, size_t size3, size_t size4);
-	void SetDimensions(const Dimensions &dims);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
-	void SetDimensions(size_t size,
-					   Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-					   size_t size);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-					   size_t size1, size_t size2);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-					   size_t size1, size_t size2, size_t size3);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-					   size_t size1, size_t size2, size_t size3, size_t size4);
-	void SetDimensions(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
-					   Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
-	void SetDimensions(const ValueList &valList);
+	void StoreDims(const Dimensions &dims);
+	void SetDim(size_t size);
+	void SetDims(size_t size1, size_t size2);
+	void SetDims(size_t size1, size_t size2, size_t size3);
+	void SetDims(size_t size1, size_t size2, size_t size3, size_t size4);
+	void SetDims(const Dimensions &dims);
+	void SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
+	void SetDims(size_t size,
+				 Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
+	void SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+				 size_t size);
+	void SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+				 size_t size1, size_t size2);
+	void SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+				 size_t size1, size_t size2, size_t size3);
+	void SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+				 size_t size1, size_t size2, size_t size3, size_t size4);
+	void SetDims(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
+				 Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
+	void SetDims(const ValueList &valList);
+	inline void PrintDims() const { _dims.Print(); }
 	inline void UpdateMetrics() { _dims.UpdateMetrics(); }
 	inline void SetColMajor() { _dims.SetColMajor(); }
 	void FillZero();
@@ -464,11 +466,11 @@ public:
 		return pArrayA->IsColMajor() == pArrayB->IsColMajor();
 	}
 	inline static bool CheckSameShape(Signal &sig, const Array *pArrayA, const Array *pArrayB) {
-		return Dimensions::CheckSameShape(sig, pArrayA->GetDimensions(), pArrayB->GetDimensions());
+		return Dimensions::CheckSameShape(sig, pArrayA->GetDims(), pArrayB->GetDims());
 	}
 	inline static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 												 const Array *pArrayL, const Array *pArrayR) {
-		return Dimensions::CheckElemwiseCalculatable(sig, pack, pArrayL->GetDimensions(), pArrayR->GetDimensions());
+		return Dimensions::CheckElemwiseCalculatable(sig, pack, pArrayL->GetDims(), pArrayR->GetDims());
 	}
 	static bool CopyElements(Environment &env, Array *pArrayDst, const Array *pArraySrc);
 	static bool CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeDst,

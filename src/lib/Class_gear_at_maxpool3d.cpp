@@ -14,7 +14,7 @@ static const char *helpDoc_en = R"**(
 bool Gear_MaxPool3d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
 	size_t sizePadPlane = 0, sizePadRow = 0, sizePadCol = 0;
-	CalcPadding3d(this, pArray->GetDimensions(), &sizePadPlane, &sizePadRow, &sizePadCol);
+	CalcPadding3d(this, pArray->GetDims(), &sizePadPlane, &sizePadRow, &sizePadCol);
 	return pArray->CalcMaxPool3d(sig, pArrayRtn, GetSizePlane(), GetSizeRow(), GetSizeCol(),
 								 GetStridesPlane(), GetStridesRow(), GetStridesCol(),
 								 sizePadPlane, sizePadRow, sizePadCol, GetChannelPos());

@@ -36,7 +36,7 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 	Value valueRtn;
 	if (indexer.HasGenerator()) {
 		Array::Dimensions dimsRtn;
-		indexer.MakeResultDimensions(dimsRtn);
+		indexer.MakeResultDims(dimsRtn);
 		AutoPtr<ArrayT<T_Elem> > pArrayTRtn(ArrayT<T_Elem>::Create(dimsRtn));
 		if (pArrayT->IsColMajor()) pArrayTRtn->SetColMajor();
 		if (!indexer.IsEmptyGenerator()) {
@@ -58,8 +58,8 @@ Value EvalIndexGetTmpl(Environment &env, const ValueList &valListIdx, Object_arr
 		pArrayTRtn->SetMemory(pArrayT->GetMemory().Reference(),
 							  pArrayT->GetOffsetBase() + indexer.GetOffsetTarget());
 		Array::Dimensions dimsRtn;
-		indexer.MakeResultDimensions(dimsRtn);
-		pArrayTRtn->SetDimensions(dimsRtn);
+		indexer.MakeResultDims(dimsRtn);
+		pArrayTRtn->SetDims(dimsRtn);
 		if (pArrayT->IsColMajor()) pArrayTRtn->SetColMajor();
 		valueRtn = Array::ToValue(env, pArrayTRtn.release());
 	}
@@ -392,7 +392,7 @@ Gura_DeclareProperty_R(array, ndim)
 Gura_ImplementPropertyGetter(array, ndim)
 {
 	Array *pArray = Object_array::GetObject(valueThis)->GetArray();
-	return Value(pArray->GetDimensions().size());
+	return Value(pArray->GetDims().size());
 }
 
 // array#p
@@ -426,7 +426,7 @@ Gura_ImplementPropertyGetter(array, shape)
 	Array *pArray = Object_array::GetObject(valueThis)->GetArray();
 	Value value;
 	Object_list *pObjList = value.InitAsList(env);
-	Array::Dimensions &dims = pArray->GetDimensions();
+	Array::Dimensions &dims = pArray->GetDims();
 	pObjList->Reserve(dims.size());
 	foreach_const (Array::Dimensions, pDim, dims) {
 		pObjList->AddFast(Value(pDim->GetSize()));
@@ -616,7 +616,7 @@ Gura_DeclareMethod(array, colmajor)
 Gura_ImplementMethod(array, colmajor)
 {
 	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
-	if (pArraySelf->GetDimensions().size() != 1) {
+	if (pArraySelf->GetDims().size() != 1) {
 		env.SetError(ERR_ValueError, "unable to turn on column-major flag of a multi-dimensional array");
 		return Value::Nil;
 	}
@@ -732,7 +732,7 @@ Gura_ImplementMethod(array, elemcast)
 		value = Value(new Object_array(env, pArraySelf->Clone()));
 	} else {
 		AutoPtr<Array> pArrayDst(Array::Create(elemType));
-		pArrayDst->SetDimensions(pArraySelf->GetDimensions());
+		pArrayDst->SetDims(pArraySelf->GetDims());
 		pArrayDst->AllocMemory();
 		if (!Array::CopyElements(env, pArrayDst.get(), pArraySelf)) return Value::Nil;
 		value = Value(new Object_array(env, pArrayDst.release()));
@@ -759,7 +759,7 @@ Gura_DeclareMethod(array, expand_kernelvec1d)
 Gura_ImplementMethod(array, expand_kernelvec1d)
 {
 	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
-	const Array::Dimensions &dims = pArraySelf->GetDimensions();
+	const Array::Dimensions &dims = pArraySelf->GetDims();
 	AutoPtr<Array> pArrayRtn;
 	size_t sizeKernel = 0;
 	size_t stridesKernel = 1;
@@ -777,7 +777,7 @@ Gura_ImplementMethod(array, expand_kernelvec1d)
 	if (arg.IsValid(4)) {
 		padNum = arg.GetDouble(4);
 	}
-	if (!pArraySelf->GetDimensions().HasEnoughDims(env, 1, channelPos)) return Value::Nil;
+	if (!pArraySelf->GetDims().HasEnoughDims(env, 1, channelPos)) return Value::Nil;
 	if (arg.IsInvalid(2)) {
 		// nothing to do
 	} else if (arg.Is_number(2)) {
@@ -816,7 +816,7 @@ Gura_DeclareMethod(array, expand_kernelvec2d)
 Gura_ImplementMethod(array, expand_kernelvec2d)
 {
 	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
-	const Array::Dimensions &dims = pArraySelf->GetDimensions();
+	const Array::Dimensions &dims = pArraySelf->GetDims();
 	AutoPtr<Array> pArrayRtn;
 	size_t sizeKernelRow = 0;
 	size_t sizeKernelCol = 0;
@@ -850,7 +850,7 @@ Gura_ImplementMethod(array, expand_kernelvec2d)
 	if (arg.IsValid(4)) {
 		padNum = arg.GetDouble(4);
 	}
-	if (!pArraySelf->GetDimensions().HasEnoughDims(env, 2, channelPos)) return Value::Nil;
+	if (!pArraySelf->GetDims().HasEnoughDims(env, 2, channelPos)) return Value::Nil;
 	if (arg.IsInvalid(2)) {
 		// nothing to do
 	} else if (arg.Is_list(2)) {
@@ -898,7 +898,7 @@ Gura_DeclareMethod(array, expand_kernelvec3d)
 Gura_ImplementMethod(array, expand_kernelvec3d)
 {
 	const Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
-	const Array::Dimensions &dims = pArraySelf->GetDimensions();
+	const Array::Dimensions &dims = pArraySelf->GetDims();
 	AutoPtr<Array> pArrayRtn;
 	size_t sizeKernelPlane = 0;
 	size_t sizeKernelRow = 0;
@@ -937,7 +937,7 @@ Gura_ImplementMethod(array, expand_kernelvec3d)
 	if (arg.IsValid(4)) {
 		padNum = arg.GetDouble(4);
 	}
-	if (!pArraySelf->GetDimensions().HasEnoughDims(env, 3, channelPos)) return Value::Nil;
+	if (!pArraySelf->GetDims().HasEnoughDims(env, 3, channelPos)) return Value::Nil;
 	if (arg.IsInvalid(2)) {
 		// nothing to do
 	} else if (arg.Is_list(2)) {

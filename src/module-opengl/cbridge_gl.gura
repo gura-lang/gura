@@ -172,7 +172,7 @@ cbridge.AddTypeConvs {
 			R'''
 			AutoPtr<ArrayT<GLboolean> > _${arg.name}(ArrayT<GLboolean>::CreateFromList(arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
-			if (!_${arg.name}->GetDimensions().HasShape(1)) {
+			if (!_${arg.name}->GetDims().HasShape(1)) {
 				env.SetError(ERR_ValueError, "the list must have one element");
 				return Value::Nil;
 			}''',
@@ -183,7 +183,7 @@ cbridge.AddTypeConvs {
 			R'''
 			AutoPtr<ArrayT<GLboolean> > _${arg.name}(ArrayT<GLboolean>::CreateFromList(arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
-			if (!_${arg.name}->GetDimensions().HasShape(2)) {
+			if (!_${arg.name}->GetDims().HasShape(2)) {
 				env.SetError(ERR_ValueError, "the list must have two elements");
 				return Value::Nil;
 			}''',
@@ -194,7 +194,7 @@ cbridge.AddTypeConvs {
 			R'''
 			AutoPtr<ArrayT<GLboolean> > _${arg.name}(ArrayT<GLboolean>::CreateFromList(arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
-			if (!_${arg.name}->GetDimensions().HasShape(3)) {
+			if (!_${arg.name}->GetDims().HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -213,7 +213,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<Int8> *_${arg.name} = Object_arrayT<Int8>::GetObject(arg, ${idx})->GetArrayT();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(3)) {
+			if (!_${arg.name}->GetDims().HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -224,7 +224,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<Int8> *_${arg.name} = Object_arrayT<Int8>::GetObject(arg, ${idx})->GetArrayT();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(4)) {
+			if (!_${arg.name}->GetDims().HasShape(4)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -283,7 +283,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<UInt8> *_${arg.name} = Object_arrayT<UInt8>::GetObject(arg, ${idx})->GetArrayT();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(3)) {
+			if (!_${arg.name}->GetDims().HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -294,7 +294,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<UInt8> *_${arg.name} = Object_arrayT<UInt8>::GetObject(arg, ${idx})->GetArrayT();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(4)) {
+			if (!_${arg.name}->GetDims().HasShape(4)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -323,7 +323,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<Int16> *_${arg.name} = Object_arrayT<Int16>::GetObject(arg, ${idx})->GetArrayT();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(1)) {
+			if (!_${arg.name}->GetDims().HasShape(1)) {
 				env.SetError(ERR_ValueError, "the list must have one element");
 				return Value::Nil;
 			}''',
@@ -334,7 +334,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<Int16> *_${arg.name} = Object_arrayT<Int16>::GetObject(arg, ${idx})->GetArrayT();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(2)) {
+			if (!_${arg.name}->GetDims().HasShape(2)) {
 				env.SetError(ERR_ValueError, "the list must have two elements");
 				return Value::Nil;
 			}''',
@@ -345,7 +345,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<Int16> *_${arg.name} = Object_arrayT<Int16>::GetObject(arg, ${idx})->GetArrayT();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(3)) {
+			if (!_${arg.name}->GetDims().HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -356,7 +356,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<Int16> *_${arg.name} = Object_arrayT<Int16>::GetObject(arg, ${idx})->GetArrayT();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(4)) {
+			if (!_${arg.name}->GetDims().HasShape(4)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -393,7 +393,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<UInt16> *_${arg.name} = Object_arrayT<UInt16>::GetObject(arg, ${idx})->GetArrayT();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(3)) {
+			if (!_${arg.name}->GetDims().HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -404,7 +404,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<UInt16> *_${arg.name} = Object_arrayT<UInt16>::GetObject(arg, ${idx})->GetArrayT();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(4)) {
+			if (!_${arg.name}->GetDims().HasShape(4)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -441,7 +441,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<int> *_${arg.name} = Object_arrayT<int>::GetObject(arg, ${idx})->GetArrayT();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(1)) {
+			if (!_${arg.name}->GetDims().HasShape(1)) {
 				env.SetError(ERR_ValueError, "the list must have one element");
 				return Value::Nil;
 			}''',
@@ -452,7 +452,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<int> *_${arg.name} = Object_arrayT<int>::GetObject(arg, ${idx})->GetArrayT();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(2)) {
+			if (!_${arg.name}->GetDims().HasShape(2)) {
 				env.SetError(ERR_ValueError, "the list must have two elements");
 				return Value::Nil;
 			}''',
@@ -463,7 +463,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<int> *_${arg.name} = Object_arrayT<int>::GetObject(arg, ${idx})->GetArrayT();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(3)) {
+			if (!_${arg.name}->GetDims().HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -474,7 +474,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<int> *_${arg.name} = Object_arrayT<int>::GetObject(arg, ${idx})->GetArrayT();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(4)) {
+			if (!_${arg.name}->GetDims().HasShape(4)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -527,7 +527,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<UInt> *_${arg.name} = Object_arrayT<UInt>::GetObject(arg, ${idx})->GetArrayT();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(3)) {
+			if (!_${arg.name}->GetDims().HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -538,7 +538,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<UInt> *_${arg.name} = Object_arrayT<UInt>::GetObject(arg, ${idx})->GetArrayT();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(4)) {
+			if (!_${arg.name}->GetDims().HasShape(4)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -575,7 +575,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<float> *_${arg.name} = Object_arrayT<float>::GetObject(arg, ${idx})->GetArrayT();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(1)) {
+			if (!_${arg.name}->GetDims().HasShape(1)) {
 				env.SetError(ERR_ValueError, "the list must have one element");
 				return Value::Nil;
 			}''',
@@ -586,7 +586,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<float> *_${arg.name} = Object_arrayT<float>::GetObject(arg, ${idx})->GetArrayT();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(2)) {
+			if (!_${arg.name}->GetDims().HasShape(2)) {
 				env.SetError(ERR_ValueError, "the list must have two elements");
 				return Value::Nil;
 			}''',
@@ -597,7 +597,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<float> *_${arg.name} = Object_arrayT<float>::GetObject(arg, ${idx})->GetArrayT();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(3)) {
+			if (!_${arg.name}->GetDims().HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -608,7 +608,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<float> *_${arg.name} = Object_arrayT<float>::GetObject(arg, ${idx})->GetArrayT();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(4)) {
+			if (!_${arg.name}->GetDims().HasShape(4)) {
 				env.SetError(ERR_ValueError, "the list must have four elements");
 				return Value::Nil;
 			}''',
@@ -662,7 +662,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<double> *_${arg.name} = Object_arrayT<double>::GetObject(arg, ${idx})->GetArrayT();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(1)) {
+			if (!_${arg.name}->GetDims().HasShape(1)) {
 				env.SetError(ERR_ValueError, "the list must have one element");
 				return Value::Nil;
 			}''',
@@ -673,7 +673,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<double> *_${arg.name} = Object_arrayT<double>::GetObject(arg, ${idx})->GetArrayT();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(2)) {
+			if (!_${arg.name}->GetDims().HasShape(2)) {
 				env.SetError(ERR_ValueError, "the list must have two elements");
 				return Value::Nil;
 			}''',
@@ -684,7 +684,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<double> *_${arg.name} = Object_arrayT<double>::GetObject(arg, ${idx})->GetArrayT();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(3)) {
+			if (!_${arg.name}->GetDims().HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
@@ -695,7 +695,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<double> *_${arg.name} = Object_arrayT<double>::GetObject(arg, ${idx})->GetArrayT();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(4)) {
+			if (!_${arg.name}->GetDims().HasShape(4)) {
 				env.SetError(ERR_ValueError, "the list must have four elements");
 				return Value::Nil;
 			}''',
@@ -706,7 +706,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<double> *_${arg.name} = Object_arrayT<double>::GetObject(arg, ${idx})->GetArrayT();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
-			if (!_${arg.name}->GetDimensions().HasShape(4)) {
+			if (!_${arg.name}->GetDims().HasShape(4)) {
 				env.SetError(ERR_ValueError, "the list must have four elements");
 				return Value::Nil;
 			}''',

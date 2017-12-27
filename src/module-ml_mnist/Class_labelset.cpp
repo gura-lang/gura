@@ -68,7 +68,7 @@ Array *LabelSet::ToArray(Signal &sig, bool onehotFlag, Array::ElemType elemType)
 		} else {
 			pArray.reset(ArrayT<UInt8>::Create());
 			pArray->SetMemory(_pMemory->Reference(), 0);
-			pArray->SetDimension(_nLabels);
+			pArray->SetDim(_nLabels);
 		}
 	} else if (elemType == Array::ETYPE_Half) {
 		pArray.reset(CreateArrayOfLabels<Half>(sig, pElemSrc, _nLabels, onehotFlag));

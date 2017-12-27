@@ -14,7 +14,7 @@ static const char *helpDoc_en = R"**(
 bool Gear_MaxPool1d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
 	size_t sizePad = 0;
-	CalcPadding1d(this, pArray->GetDimensions(), &sizePad);
+	CalcPadding1d(this, pArray->GetDims(), &sizePad);
 	return pArray->CalcMaxPool1d(sig, pArrayRtn, GetSize(), GetStrides(), sizePad, GetChannelPos());
 }
 

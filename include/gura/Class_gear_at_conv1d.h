@@ -42,16 +42,16 @@ public:
 		return _channelPos == Array::CHANNELPOS_First || _channelPos == Array::CHANNELPOS_Last;
 	}
 	inline bool HasFilterDim() const {
-		return _pArrayGear->GetDimensions().size() == (HasChannelDim()? 3 : 2);
+		return _pArrayGear->GetDims().size() == (HasChannelDim()? 3 : 2);
 	}
 	inline size_t GetSize() const {
-		return _pArrayGear->GetDimensions().GetBack(IsChLast()? 1 : 0).GetSize();
+		return _pArrayGear->GetDims().GetBack(IsChLast()? 1 : 0).GetSize();
 	}
 	inline size_t GetChannelNum() const {
-		return HasChannelDim()? _pArrayGear->GetDimensions().GetBack(IsChLast()? 0 : 1).GetSize() : 1;
+		return HasChannelDim()? _pArrayGear->GetDims().GetBack(IsChLast()? 0 : 1).GetSize() : 1;
 	}
 	inline size_t GetFilterNum() const {
-		return HasFilterDim()? _pArrayGear->GetDimensions().GetBack(HasChannelDim()? 2 : 1).GetSize() : 1;
+		return HasFilterDim()? _pArrayGear->GetDims().GetBack(HasChannelDim()? 2 : 1).GetSize() : 1;
 	}
 	inline size_t GetStrides() const { return _strides; }
 	inline PaddingType GetPaddingType() const { return _paddingType; }

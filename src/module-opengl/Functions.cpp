@@ -513,7 +513,7 @@ Gura_ImplementFunction(__glClipPlane)
 	GLenum plane = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<double> *_equation = Object_arrayT<double>::GetObject(arg, 1)->GetArrayT();
 	GLdouble *equation = reinterpret_cast<GLdouble *>(_equation->GetPointer());
-	if (!_equation->GetDimensions().HasShape(4)) {
+	if (!_equation->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
@@ -556,7 +556,7 @@ Gura_ImplementFunction(__glColor3bv)
 {
 	ArrayT<Int8> *_v = Object_arrayT<Int8>::GetObject(arg, 0)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -599,7 +599,7 @@ Gura_ImplementFunction(__glColor3dv)
 {
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -642,7 +642,7 @@ Gura_ImplementFunction(__glColor3fv)
 {
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -685,7 +685,7 @@ Gura_ImplementFunction(__glColor3iv)
 {
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -728,7 +728,7 @@ Gura_ImplementFunction(__glColor3sv)
 {
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -771,7 +771,7 @@ Gura_ImplementFunction(__glColor3ubv)
 {
 	ArrayT<UInt8> *_v = Object_arrayT<UInt8>::GetObject(arg, 0)->GetArrayT();
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -814,7 +814,7 @@ Gura_ImplementFunction(__glColor3uiv)
 {
 	ArrayT<UInt> *_v = Object_arrayT<UInt>::GetObject(arg, 0)->GetArrayT();
 	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -857,7 +857,7 @@ Gura_ImplementFunction(__glColor3usv)
 {
 	ArrayT<UInt16> *_v = Object_arrayT<UInt16>::GetObject(arg, 0)->GetArrayT();
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -902,7 +902,7 @@ Gura_ImplementFunction(__glColor4bv)
 {
 	ArrayT<Int8> *_v = Object_arrayT<Int8>::GetObject(arg, 0)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -947,7 +947,7 @@ Gura_ImplementFunction(__glColor4dv)
 {
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
@@ -992,7 +992,7 @@ Gura_ImplementFunction(__glColor4fv)
 {
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
@@ -1037,7 +1037,7 @@ Gura_ImplementFunction(__glColor4iv)
 {
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -1082,7 +1082,7 @@ Gura_ImplementFunction(__glColor4sv)
 {
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -1127,7 +1127,7 @@ Gura_ImplementFunction(__glColor4ubv)
 {
 	ArrayT<UInt8> *_v = Object_arrayT<UInt8>::GetObject(arg, 0)->GetArrayT();
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -1172,7 +1172,7 @@ Gura_ImplementFunction(__glColor4uiv)
 {
 	ArrayT<UInt> *_v = Object_arrayT<UInt>::GetObject(arg, 0)->GetArrayT();
 	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -1217,7 +1217,7 @@ Gura_ImplementFunction(__glColor4usv)
 {
 	ArrayT<UInt16> *_v = Object_arrayT<UInt16>::GetObject(arg, 0)->GetArrayT();
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -2016,7 +2016,7 @@ Gura_ImplementFunction(__glEdgeFlagv)
 {
 	AutoPtr<ArrayT<GLboolean> > _flag(ArrayT<GLboolean>::CreateFromList(arg.GetList(0)));
 	GLboolean *flag = _flag->GetPointer();
-	if (!_flag->GetDimensions().HasShape(1)) {
+	if (!_flag->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -2119,7 +2119,7 @@ Gura_ImplementFunction(__glEvalCoord1dv)
 {
 	ArrayT<double> *_u = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *u = reinterpret_cast<GLdouble *>(_u->GetPointer());
-	if (!_u->GetDimensions().HasShape(1)) {
+	if (!_u->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -2158,7 +2158,7 @@ Gura_ImplementFunction(__glEvalCoord1fv)
 {
 	ArrayT<float> *_u = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *u = reinterpret_cast<GLfloat *>(_u->GetPointer());
-	if (!_u->GetDimensions().HasShape(1)) {
+	if (!_u->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -2199,7 +2199,7 @@ Gura_ImplementFunction(__glEvalCoord2dv)
 {
 	ArrayT<double> *_u = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *u = reinterpret_cast<GLdouble *>(_u->GetPointer());
-	if (!_u->GetDimensions().HasShape(2)) {
+	if (!_u->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -2240,7 +2240,7 @@ Gura_ImplementFunction(__glEvalCoord2fv)
 {
 	ArrayT<float> *_u = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *u = reinterpret_cast<GLfloat *>(_u->GetPointer());
-	if (!_u->GetDimensions().HasShape(2)) {
+	if (!_u->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -4496,7 +4496,7 @@ Gura_ImplementFunction(__glNormal3bv)
 {
 	ArrayT<Int8> *_v = Object_arrayT<Int8>::GetObject(arg, 0)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -4539,7 +4539,7 @@ Gura_ImplementFunction(__glNormal3dv)
 {
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -4582,7 +4582,7 @@ Gura_ImplementFunction(__glNormal3fv)
 {
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -4625,7 +4625,7 @@ Gura_ImplementFunction(__glNormal3iv)
 {
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -4668,7 +4668,7 @@ Gura_ImplementFunction(__glNormal3sv)
 {
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -5170,7 +5170,7 @@ Gura_ImplementFunction(__glRasterPos2dv)
 {
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -5211,7 +5211,7 @@ Gura_ImplementFunction(__glRasterPos2fv)
 {
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -5252,7 +5252,7 @@ Gura_ImplementFunction(__glRasterPos2iv)
 {
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -5293,7 +5293,7 @@ Gura_ImplementFunction(__glRasterPos2sv)
 {
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -5336,7 +5336,7 @@ Gura_ImplementFunction(__glRasterPos3dv)
 {
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -5379,7 +5379,7 @@ Gura_ImplementFunction(__glRasterPos3fv)
 {
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -5422,7 +5422,7 @@ Gura_ImplementFunction(__glRasterPos3iv)
 {
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -5465,7 +5465,7 @@ Gura_ImplementFunction(__glRasterPos3sv)
 {
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -5510,7 +5510,7 @@ Gura_ImplementFunction(__glRasterPos4dv)
 {
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
@@ -5555,7 +5555,7 @@ Gura_ImplementFunction(__glRasterPos4fv)
 {
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
@@ -5600,7 +5600,7 @@ Gura_ImplementFunction(__glRasterPos4iv)
 {
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -5645,7 +5645,7 @@ Gura_ImplementFunction(__glRasterPos4sv)
 {
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -5742,13 +5742,13 @@ Gura_ImplementFunction(__glRectdv)
 {
 	ArrayT<double> *_v1 = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v1 = reinterpret_cast<GLdouble *>(_v1->GetPointer());
-	if (!_v1->GetDimensions().HasShape(2)) {
+	if (!_v1->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	ArrayT<double> *_v2 = Object_arrayT<double>::GetObject(arg, 1)->GetArrayT();
 	GLdouble *v2 = reinterpret_cast<GLdouble *>(_v2->GetPointer());
-	if (!_v2->GetDimensions().HasShape(2)) {
+	if (!_v2->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -5794,13 +5794,13 @@ Gura_ImplementFunction(__glRectfv)
 {
 	ArrayT<float> *_v1 = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v1 = reinterpret_cast<GLfloat *>(_v1->GetPointer());
-	if (!_v1->GetDimensions().HasShape(2)) {
+	if (!_v1->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	ArrayT<float> *_v2 = Object_arrayT<float>::GetObject(arg, 1)->GetArrayT();
 	GLfloat *v2 = reinterpret_cast<GLfloat *>(_v2->GetPointer());
-	if (!_v2->GetDimensions().HasShape(2)) {
+	if (!_v2->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -5846,13 +5846,13 @@ Gura_ImplementFunction(__glRectiv)
 {
 	ArrayT<int> *_v1 = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v1 = reinterpret_cast<GLint *>(_v1->GetPointer());
-	if (!_v1->GetDimensions().HasShape(2)) {
+	if (!_v1->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	ArrayT<int> *_v2 = Object_arrayT<int>::GetObject(arg, 1)->GetArrayT();
 	GLint *v2 = reinterpret_cast<GLint *>(_v2->GetPointer());
-	if (!_v2->GetDimensions().HasShape(2)) {
+	if (!_v2->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -5898,13 +5898,13 @@ Gura_ImplementFunction(__glRectsv)
 {
 	ArrayT<Int16> *_v1 = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v1 = reinterpret_cast<GLshort *>(_v1->GetPointer());
-	if (!_v1->GetDimensions().HasShape(2)) {
+	if (!_v1->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	ArrayT<Int16> *_v2 = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v2 = reinterpret_cast<GLshort *>(_v2->GetPointer());
-	if (!_v2->GetDimensions().HasShape(2)) {
+	if (!_v2->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -6215,7 +6215,7 @@ Gura_ImplementFunction(__glTexCoord1dv)
 {
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(1)) {
+	if (!_v->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -6254,7 +6254,7 @@ Gura_ImplementFunction(__glTexCoord1fv)
 {
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(1)) {
+	if (!_v->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -6293,7 +6293,7 @@ Gura_ImplementFunction(__glTexCoord1iv)
 {
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(1)) {
+	if (!_v->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -6332,7 +6332,7 @@ Gura_ImplementFunction(__glTexCoord1sv)
 {
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(1)) {
+	if (!_v->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -6373,7 +6373,7 @@ Gura_ImplementFunction(__glTexCoord2dv)
 {
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -6414,7 +6414,7 @@ Gura_ImplementFunction(__glTexCoord2fv)
 {
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -6455,7 +6455,7 @@ Gura_ImplementFunction(__glTexCoord2iv)
 {
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -6496,7 +6496,7 @@ Gura_ImplementFunction(__glTexCoord2sv)
 {
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -6539,7 +6539,7 @@ Gura_ImplementFunction(__glTexCoord3dv)
 {
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -6582,7 +6582,7 @@ Gura_ImplementFunction(__glTexCoord3fv)
 {
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -6625,7 +6625,7 @@ Gura_ImplementFunction(__glTexCoord3iv)
 {
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -6668,7 +6668,7 @@ Gura_ImplementFunction(__glTexCoord3sv)
 {
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -6713,7 +6713,7 @@ Gura_ImplementFunction(__glTexCoord4dv)
 {
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
@@ -6758,7 +6758,7 @@ Gura_ImplementFunction(__glTexCoord4fv)
 {
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
@@ -6803,7 +6803,7 @@ Gura_ImplementFunction(__glTexCoord4iv)
 {
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -6848,7 +6848,7 @@ Gura_ImplementFunction(__glTexCoord4sv)
 {
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -7547,7 +7547,7 @@ Gura_ImplementFunction(__glVertex2dv)
 {
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -7588,7 +7588,7 @@ Gura_ImplementFunction(__glVertex2fv)
 {
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -7629,7 +7629,7 @@ Gura_ImplementFunction(__glVertex2iv)
 {
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -7670,7 +7670,7 @@ Gura_ImplementFunction(__glVertex2sv)
 {
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -7713,7 +7713,7 @@ Gura_ImplementFunction(__glVertex3dv)
 {
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -7756,7 +7756,7 @@ Gura_ImplementFunction(__glVertex3fv)
 {
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -7799,7 +7799,7 @@ Gura_ImplementFunction(__glVertex3iv)
 {
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -7842,7 +7842,7 @@ Gura_ImplementFunction(__glVertex3sv)
 {
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -7887,7 +7887,7 @@ Gura_ImplementFunction(__glVertex4dv)
 {
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
@@ -7932,7 +7932,7 @@ Gura_ImplementFunction(__glVertex4fv)
 {
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
@@ -7977,7 +7977,7 @@ Gura_ImplementFunction(__glVertex4iv)
 {
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -8022,7 +8022,7 @@ Gura_ImplementFunction(__glVertex4sv)
 {
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -8142,7 +8142,7 @@ Gura_ImplementFunction(__glMultiTexCoord1dv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 1)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(1)) {
+	if (!_v->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -8197,7 +8197,7 @@ Gura_ImplementFunction(__glMultiTexCoord1fv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 1)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(1)) {
+	if (!_v->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -8252,7 +8252,7 @@ Gura_ImplementFunction(__glMultiTexCoord1iv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 1)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(1)) {
+	if (!_v->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -8307,7 +8307,7 @@ Gura_ImplementFunction(__glMultiTexCoord1sv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(1)) {
+	if (!_v->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -8364,7 +8364,7 @@ Gura_ImplementFunction(__glMultiTexCoord2dv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 1)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -8421,7 +8421,7 @@ Gura_ImplementFunction(__glMultiTexCoord2fv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 1)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -8478,7 +8478,7 @@ Gura_ImplementFunction(__glMultiTexCoord2iv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 1)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -8535,7 +8535,7 @@ Gura_ImplementFunction(__glMultiTexCoord2sv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -8594,7 +8594,7 @@ Gura_ImplementFunction(__glMultiTexCoord3dv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 1)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -8653,7 +8653,7 @@ Gura_ImplementFunction(__glMultiTexCoord3fv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 1)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -8712,7 +8712,7 @@ Gura_ImplementFunction(__glMultiTexCoord3iv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 1)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -8771,7 +8771,7 @@ Gura_ImplementFunction(__glMultiTexCoord3sv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -8832,7 +8832,7 @@ Gura_ImplementFunction(__glMultiTexCoord4dv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 1)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
@@ -8893,7 +8893,7 @@ Gura_ImplementFunction(__glMultiTexCoord4fv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 1)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
@@ -8954,7 +8954,7 @@ Gura_ImplementFunction(__glMultiTexCoord4iv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 1)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -9015,7 +9015,7 @@ Gura_ImplementFunction(__glMultiTexCoord4sv)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -9066,7 +9066,7 @@ Gura_ImplementFunction(__glFogCoordfv)
 	ImplementGLExtension();
 	ArrayT<float> *_coord = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *coord = reinterpret_cast<GLfloat *>(_coord->GetPointer());
-	if (!_coord->GetDimensions().HasShape(1)) {
+	if (!_coord->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -9117,7 +9117,7 @@ Gura_ImplementFunction(__glFogCoorddv)
 	ImplementGLExtension();
 	ArrayT<double> *_coord = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *coord = reinterpret_cast<GLdouble *>(_coord->GetPointer());
-	if (!_coord->GetDimensions().HasShape(1)) {
+	if (!_coord->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -9172,7 +9172,7 @@ Gura_ImplementFunction(__glSecondaryColor3bv)
 	ImplementGLExtension();
 	ArrayT<Int8> *_v = Object_arrayT<Int8>::GetObject(arg, 0)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -9227,7 +9227,7 @@ Gura_ImplementFunction(__glSecondaryColor3dv)
 	ImplementGLExtension();
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -9282,7 +9282,7 @@ Gura_ImplementFunction(__glSecondaryColor3fv)
 	ImplementGLExtension();
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -9337,7 +9337,7 @@ Gura_ImplementFunction(__glSecondaryColor3iv)
 	ImplementGLExtension();
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -9392,7 +9392,7 @@ Gura_ImplementFunction(__glSecondaryColor3sv)
 	ImplementGLExtension();
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -9447,7 +9447,7 @@ Gura_ImplementFunction(__glSecondaryColor3ubv)
 	ImplementGLExtension();
 	ArrayT<UInt8> *_v = Object_arrayT<UInt8>::GetObject(arg, 0)->GetArrayT();
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -9502,7 +9502,7 @@ Gura_ImplementFunction(__glSecondaryColor3uiv)
 	ImplementGLExtension();
 	ArrayT<UInt> *_v = Object_arrayT<UInt>::GetObject(arg, 0)->GetArrayT();
 	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -9557,7 +9557,7 @@ Gura_ImplementFunction(__glSecondaryColor3usv)
 	ImplementGLExtension();
 	ArrayT<UInt16> *_v = Object_arrayT<UInt16>::GetObject(arg, 0)->GetArrayT();
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -9781,7 +9781,7 @@ Gura_ImplementFunction(__glWindowPos2dv)
 	ImplementGLExtension();
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -9834,7 +9834,7 @@ Gura_ImplementFunction(__glWindowPos2fv)
 	ImplementGLExtension();
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -9887,7 +9887,7 @@ Gura_ImplementFunction(__glWindowPos2iv)
 	ImplementGLExtension();
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -9940,7 +9940,7 @@ Gura_ImplementFunction(__glWindowPos2sv)
 	ImplementGLExtension();
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -9995,7 +9995,7 @@ Gura_ImplementFunction(__glWindowPos3dv)
 	ImplementGLExtension();
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 0)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -10050,7 +10050,7 @@ Gura_ImplementFunction(__glWindowPos3fv)
 	ImplementGLExtension();
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 0)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -10105,7 +10105,7 @@ Gura_ImplementFunction(__glWindowPos3iv)
 	ImplementGLExtension();
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 0)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -10160,7 +10160,7 @@ Gura_ImplementFunction(__glWindowPos3sv)
 	ImplementGLExtension();
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -10671,7 +10671,7 @@ Gura_ImplementFunction(__glVertexAttrib1dv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 1)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(1)) {
+	if (!_v->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -10726,7 +10726,7 @@ Gura_ImplementFunction(__glVertexAttrib1fv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 1)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(1)) {
+	if (!_v->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -10781,7 +10781,7 @@ Gura_ImplementFunction(__glVertexAttrib1sv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(1)) {
+	if (!_v->GetDims().HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
@@ -10838,7 +10838,7 @@ Gura_ImplementFunction(__glVertexAttrib2dv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 1)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -10895,7 +10895,7 @@ Gura_ImplementFunction(__glVertexAttrib2fv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 1)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -10952,7 +10952,7 @@ Gura_ImplementFunction(__glVertexAttrib2sv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(2)) {
+	if (!_v->GetDims().HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
@@ -11011,7 +11011,7 @@ Gura_ImplementFunction(__glVertexAttrib3dv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 1)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -11070,7 +11070,7 @@ Gura_ImplementFunction(__glVertexAttrib3fv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 1)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -11129,7 +11129,7 @@ Gura_ImplementFunction(__glVertexAttrib3sv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(3)) {
+	if (!_v->GetDims().HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -11159,7 +11159,7 @@ Gura_ImplementFunction(__glVertexAttrib4Nbv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<Int8> *_v = Object_arrayT<Int8>::GetObject(arg, 1)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -11189,7 +11189,7 @@ Gura_ImplementFunction(__glVertexAttrib4Niv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 1)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -11219,7 +11219,7 @@ Gura_ImplementFunction(__glVertexAttrib4Nsv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -11280,7 +11280,7 @@ Gura_ImplementFunction(__glVertexAttrib4Nubv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<UInt8> *_v = Object_arrayT<UInt8>::GetObject(arg, 1)->GetArrayT();
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -11310,7 +11310,7 @@ Gura_ImplementFunction(__glVertexAttrib4Nuiv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<UInt> *_v = Object_arrayT<UInt>::GetObject(arg, 1)->GetArrayT();
 	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -11340,7 +11340,7 @@ Gura_ImplementFunction(__glVertexAttrib4Nusv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<UInt16> *_v = Object_arrayT<UInt16>::GetObject(arg, 1)->GetArrayT();
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -11370,7 +11370,7 @@ Gura_ImplementFunction(__glVertexAttrib4bv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<Int8> *_v = Object_arrayT<Int8>::GetObject(arg, 1)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -11431,7 +11431,7 @@ Gura_ImplementFunction(__glVertexAttrib4dv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<double> *_v = Object_arrayT<double>::GetObject(arg, 1)->GetArrayT();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
@@ -11492,7 +11492,7 @@ Gura_ImplementFunction(__glVertexAttrib4fv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<float> *_v = Object_arrayT<float>::GetObject(arg, 1)->GetArrayT();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
@@ -11522,7 +11522,7 @@ Gura_ImplementFunction(__glVertexAttrib4iv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<int> *_v = Object_arrayT<int>::GetObject(arg, 1)->GetArrayT();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -11583,7 +11583,7 @@ Gura_ImplementFunction(__glVertexAttrib4sv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -11613,7 +11613,7 @@ Gura_ImplementFunction(__glVertexAttrib4ubv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<UInt8> *_v = Object_arrayT<UInt8>::GetObject(arg, 1)->GetArrayT();
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -11643,7 +11643,7 @@ Gura_ImplementFunction(__glVertexAttrib4uiv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<UInt> *_v = Object_arrayT<UInt>::GetObject(arg, 1)->GetArrayT();
 	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
@@ -11673,7 +11673,7 @@ Gura_ImplementFunction(__glVertexAttrib4usv)
 	GLuint index = arg.GetUInt(0);
 	ArrayT<UInt16> *_v = Object_arrayT<UInt16>::GetObject(arg, 1)->GetArrayT();
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
-	if (!_v->GetDimensions().HasShape(4)) {
+	if (!_v->GetDims().HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}

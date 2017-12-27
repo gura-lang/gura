@@ -16,7 +16,7 @@ Gear_Conv2d::GearFuncTable Gear_Conv2d::gearFuncTable = {{{nullptr}}};
 bool Gear_Conv2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
 	size_t sizePadRow = 0, sizePadCol = 0;
-	CalcPadding2d(this, pArray->GetDimensions(), &sizePadRow, &sizePadCol);
+	CalcPadding2d(this, pArray->GetDims(), &sizePadRow, &sizePadCol);
 	return pArray->CalcConv2d(sig, pArrayRtn, GetArrayGear(), GetStridesRow(), GetStridesCol(),
 							  sizePadRow, sizePadCol, GetChannelPos());
 }
@@ -78,7 +78,7 @@ bool NodeGear_Conv2d::EvalForward(Environment &env)
 	const Array *pArrayFwdSrc = GetConnectorSrc()->GetArrayFwd();
 	// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
 	if (_pArrayFwdSrcVec.IsNull()) {
-		Gear::CalcPadding2d(pGear, pArrayFwdSrc->GetDimensions(),
+		Gear::CalcPadding2d(pGear, pArrayFwdSrc->GetDims(),
 							&_sizePadRow, &_sizePadCol, &_sizeOutRow, &_sizeOutCol);
 	}
 	if (!pArrayFwdSrc->ExpandKernelVec2d(
@@ -87,7 +87,7 @@ bool NodeGear_Conv2d::EvalForward(Environment &env)
 			pGear->GetChannelPos(), padNum)) return false;
 	if (_pArrayGearTrans.IsNull()) {
 		Array::Dimensions dims;
-		const Array::Dimensions &dimsGear = pArrayGear->GetDimensions();
+		const Array::Dimensions &dimsGear = pArrayGear->GetDims();
 		if (pGear->HasChannelDim()) {
 			if (pGear->HasFilterDim()) {
 				// pArrayGear .. [FN, C, FH, FW] or [FN, FH, FW, C]
@@ -126,11 +126,11 @@ bool NodeGear_Conv2d::EvalForward(Environment &env)
 	}
 	// _pArrayFwdPre = _pArrayFwdSrcVec |.| _pArrayGearTrans
 	if (!Array::Dot(env, _pArrayFwdPre, _pArrayFwdSrcVec.get(), _pArrayGearTrans.get())) return false;
-	//::printf("_pArrayFwdSrcVec: %s\n", _pArrayFwdSrcVec->GetDimensions().ToString().c_str());
-	//::printf("_pArrayGearTrans: %s\n", _pArrayGearTrans->GetDimensions().ToString().c_str());
-	//::printf("_pArrayFwdPre: %s\n", _pArrayFwdPre->GetDimensions().ToString().c_str());
+	//::printf("_pArrayFwdSrcVec: %s\n", _pArrayFwdSrcVec->GetDims().ToString().c_str());
+	//::printf("_pArrayGearTrans: %s\n", _pArrayGearTrans->GetDims().ToString().c_str());
+	//::printf("_pArrayFwdPre: %s\n", _pArrayFwdPre->GetDims().ToString().c_str());
 	if (_pArrayFwd.IsNull()) {
-		const Array::Dimensions &dimsPre = _pArrayFwdPre->GetDimensions();
+		const Array::Dimensions &dimsPre = _pArrayFwdPre->GetDims();
 		Array::Dimensions dims;
 		if (dimsPre.size() == 2) {
 			if (pGear->HasFilterDim()) {
@@ -182,7 +182,7 @@ bool NodeGear_Conv2d::EvalBackward(Environment &env)
 	if (GetConnectorSrc()->GetNodeSrc()->IsVulnerable()) {
 		const Array *pArrayBwdSrc = (*ppConnectorDst)->GetArrayBwd();
 		if (_pArrayBwdSrcTrans.IsNull()) {
-			const Array::Dimensions &dimsBwdSrc = pArrayBwdSrc->GetDimensions();
+			const Array::Dimensions &dimsBwdSrc = pArrayBwdSrc->GetDims();
 			Array::Dimensions dims;
 			if (dimsBwdSrc.size() == 2) {
 				// _pArrayBwdSrc .. [H_out, W_out]
@@ -226,13 +226,18 @@ bool NodeGear_Conv2d::EvalBackward(Environment &env)
 		// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
 		// _pArrayFwdSrcVecReshape .. [1 * H_out * W_out, C * FH * FW] or [N * H_out * W_out, C * FH * FW]
 		if (_pArrayFwdSrcVecReshape.IsNull()) {
-			Array::Dimensions &dimsSrcVec = _pArrayFwdSrcVec->GetDimensions();
-			if (dimsSrcVec.size() == 3) {
+			Array::Dimensions &dimsSrcVec = _pArrayFwdSrcVec->GetDims();
+			if (dimsSrcVec.size() == 2)  {
+				_pArrayFwdSrcVecReshape.reset(_pArrayFwdSrcVec->Reference());
+			} else if (dimsSrcVec.size() == 3) {
 				Array::Dimensions dims;
 				dims.reserve(2);
 				dims.push_back(Array::Dimension(dimsSrcVec[0].GetSize() * dimsSrcVec[1].GetSize()));
 				dims.push_back(Array::Dimension(dimsSrcVec[2].GetSize()));
 				_pArrayFwdSrcVec->Reshape(_pArrayFwdSrcVecReshape, dims);
+			} else {
+				env.SetError(ERR_ValueError, "invalid array");
+				return false;
 			}
 		}
 		// _pArrayGearDiffPre = _pArrayBwdSrcTrans |.| _pArrayFwdSrcVecReshape
@@ -241,7 +246,7 @@ bool NodeGear_Conv2d::EvalBackward(Environment &env)
 		if (!Array::Dot(env, _pArrayGearDiffPre,
 						_pArrayBwdSrcTrans.get(), _pArrayFwdSrcVecReshape.get())) return false;
 		if (_pArrayGearDiff.IsNull()) {
-			_pArrayGearDiffPre->Reshape(_pArrayGearDiff, pArrayGear->GetDimensions());
+			_pArrayGearDiffPre->Reshape(_pArrayGearDiff, pArrayGear->GetDims());
 		}
 		if (!_pOptimizerInst->Update(env, pGear->GetArrayGearAutoPtr(), _pArrayGearDiff.get())) return false;
 		if (GetConnectorSrc()->GetNodeSrc()->IsVulnerable()) {
@@ -253,7 +258,7 @@ bool NodeGear_Conv2d::EvalBackward(Environment &env)
 			if (!Array::Dot(env, _pArrayFwdSrcVecDiffPre,
 							_pArrayBwdSrcReshape.get(), _pArrayGearReshape.get())) return false;
 			if (_pArrayFwdSrcVecDiff.IsNull()) {
-				_pArrayFwdSrcVecDiffPre->Reshape(_pArrayFwdSrcVecDiff, _pArrayFwdSrcVec->GetDimensions());
+				_pArrayFwdSrcVecDiffPre->Reshape(_pArrayFwdSrcVecDiff, _pArrayFwdSrcVec->GetDims());
 			}
 			// pArrayBwd ... [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
 			if (!_pArrayFwdSrcVecDiff->RestoreKernelVec2d(
@@ -328,7 +333,7 @@ Gura_DeclareFunctionAlias(gear_at_conv2d, "gear@conv2d")
 Gura_ImplementFunction(gear_at_conv2d)
 {
 	const Array *pArrayGear = Object_array::GetObject(arg, 0)->GetArray();
-	const Array::Dimensions &dims = pArrayGear->GetDimensions();
+	const Array::Dimensions &dims = pArrayGear->GetDims();
 	size_t nDims = dims.size();
 	if (nDims != 2 && nDims != 3 && nDims != 4) {
 		env.SetError(ERR_ValueError,

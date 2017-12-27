@@ -94,88 +94,88 @@ void Array::FlipAxisMajor()
 	}
 }
 
-void Array::StoreDimensions(const Dimensions &dims)
+void Array::StoreDims(const Dimensions &dims)
 {
 	_dims.Store(dims);
 }
 
-void Array::SetDimension(size_t size)
+void Array::SetDim(size_t size)
 {
 	_dims.Store(size);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(size_t size1, size_t size2)
+void Array::SetDims(size_t size1, size_t size2)
 {
 	_dims.Store(size1, size2);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(size_t size1, size_t size2, size_t size3)
+void Array::SetDims(size_t size1, size_t size2, size_t size3)
 {
 	_dims.Store(size1, size2, size3);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(size_t size1, size_t size2, size_t size3, size_t size4)
+void Array::SetDims(size_t size1, size_t size2, size_t size3, size_t size4)
 {
 	_dims.Store(size1, size2, size3, size4);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(const Dimensions &dims)
+void Array::SetDims(const Dimensions &dims)
 {
 	_dims.Store(dims);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
+void Array::SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
 {
 	_dims.Store(pDim, pDimEnd);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(size_t size, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
+void Array::SetDims(size_t size, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
 {
 	_dims.Store(size, pDim, pDimEnd);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd, size_t size)
+void Array::SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd, size_t size)
 {
 	_dims.Store(pDim, pDimEnd, size);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+void Array::SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t size1, size_t size2)
 {
 	_dims.Store(pDim, pDimEnd, size1, size2);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+void Array::SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t size1, size_t size2, size_t size3)
 {
 	_dims.Store(pDim, pDimEnd, size1, size2, size3);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+void Array::SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t size1, size_t size2, size_t size3, size_t size4)
 {
 	_dims.Store(pDim, pDimEnd, size1, size2, size3, size4);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
+void Array::SetDims(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
 						  Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End)
 {
 	_dims.Store(pDim1, pDim1End, pDim2, pDim2End);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(const ValueList &valList)
+void Array::SetDims(const ValueList &valList)
 {
 	_dims.Store(valList);
 	UpdateMetrics();
@@ -188,14 +188,14 @@ void Array::FillZero()
 
 bool Array::Head(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 {
-	const Dimension &dimFirst = GetDimensions().front();
+	const Dimension &dimFirst = GetDims().front();
 	if (n > dimFirst.GetSize()) {
 		sig.SetError(ERR_OutOfRangeError, "specified size is out of range");
 		return false;
 	}
 	size_t offsetBase = GetOffsetBase();
 	pArrayRtn.reset(Create(GetElemType()));
-	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetDims(n, GetDims().begin() + 1, GetDims().end());
 	if (IsColMajor()) pArrayRtn->SetColMajor();
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
@@ -203,14 +203,14 @@ bool Array::Head(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 
 bool Array::Tail(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 {
-	const Dimension &dimFirst = GetDimensions().front();
+	const Dimension &dimFirst = GetDims().front();
 	if (n > dimFirst.GetSize()) {
 		sig.SetError(ERR_OutOfRangeError, "specified size is out of range");
 		return false;
 	}
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * (dimFirst.GetSize() - n);
 	pArrayRtn.reset(Create(GetElemType()));
-	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetDims(n, GetDims().begin() + 1, GetDims().end());
 	if (IsColMajor()) pArrayRtn->SetColMajor();
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
@@ -218,7 +218,7 @@ bool Array::Tail(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 
 bool Array::Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 {
-	const Dimension &dimFirst = GetDimensions().front();
+	const Dimension &dimFirst = GetDims().front();
 	if (n > dimFirst.GetSize()) {
 		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
 		return false;
@@ -226,7 +226,7 @@ bool Array::Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 	size_t nElems = dimFirst.GetSize() - n;
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * n;
 	pArrayRtn.reset(Create(GetElemType()));
-	pArrayRtn->SetDimensions(nElems, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetDims(nElems, GetDims().begin() + 1, GetDims().end());
 	if (IsColMajor()) pArrayRtn->SetColMajor();
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
@@ -235,7 +235,7 @@ bool Array::Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 void Array::Reshape(AutoPtr<Array> &pArrayRtn, const Dimensions &dims) const
 {
 	pArrayRtn.reset(Create(GetElemType()));
-	pArrayRtn->SetDimensions(dims);
+	pArrayRtn->SetDims(dims);
 	if (IsColMajor()) pArrayRtn->SetColMajor();
 	pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
 }
@@ -260,7 +260,7 @@ bool Array::Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &val
 		return false;
 	}
 	pArrayRtn.reset(Create(GetElemType()));
-	Dimensions &dims = pArrayRtn->GetDimensions();
+	Dimensions &dims = pArrayRtn->GetDims();
 	dims.reserve(valList.size());
 	foreach_const (ValueList, pValue, valList) {
 		if (pValue->Is_number() && pValue->GetNumber() >= 0) {
@@ -277,7 +277,7 @@ bool Array::Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &val
 
 bool Array::Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const
 {
-	if (GetDimensions().size() != valList.size()) {
+	if (GetDims().size() != valList.size()) {
 		sig.SetError(ERR_ValueError, "mismatched number of axes to transpose");
 		return false;
 	}
@@ -288,7 +288,7 @@ bool Array::Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &v
 			sig.SetError(ERR_ValueError, "duplicated axis is specified");
 			return false;
 		}
-		if (axis >= GetDimensions().size()) {
+		if (axis >= GetDims().size()) {
 			sig.SetError(ERR_ValueError, "specified axis is out of range");
 			return false;
 		}
@@ -323,7 +323,7 @@ bool Array::Paste(Signal &sig, size_t offset, const Array *pArraySrc)
 bool Array::CheckDimsGearForCalcConv(Signal &sig, const Dimensions &dimsGear,
 									   size_t nDimsKernel, ChannelPos channelPos) const
 {
-	const Dimensions &dims = GetDimensions();
+	const Dimensions &dims = GetDims();
 	size_t iDimBack = 0;
 	if (channelPos == CHANNELPOS_Last) {
 		if (iDimBack >= dims.size()) goto error_done;
@@ -364,7 +364,7 @@ bool Array::IsSquare() const
 bool Array::HasSameElements(const Array &array) const
 {
 	if (GetElemType() != array.GetElemType()) return false;
-	if (!Dimensions::IsSameShape(GetDimensions(), array.GetDimensions())) return false;
+	if (!Dimensions::IsSameShape(GetDims(), array.GetDims())) return false;
 	size_t bytes = GetElemBytes() * GetElemNum();
 	if (memcmp(GetPointerRaw(), array.GetPointerRaw(), bytes) != 0) return false;
 	return true;
@@ -412,7 +412,7 @@ Array *Array::Deserialize(Environment &env, Stream &stream)
 	Array::Dimensions dims;
 	if (!dims.Deserialize(env, stream)) return nullptr;
 	AutoPtr<Array> pArray(Create(static_cast<ElemType>(elemTypeRaw)));
-	pArray->StoreDimensions(dims);
+	pArray->StoreDims(dims);
 	pArray->AllocMemory();
 	size_t bytes = pArray->GetElemBytes() * pArray->GetElemNum();
 	if (stream.Read(env, pArray->GetPointerRaw(), bytes) < bytes) return nullptr;
@@ -1403,7 +1403,7 @@ template<typename T_Elem>
 bool InvertFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, Double epsilon)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	const Array::Dimensions &dims = pArrayT->GetDims();
 	if (!dims.HasRowCol()) {
 		sig.SetError(ERR_ValueError, "inversion can only be calculated with matrix");
 		return false;
@@ -1416,7 +1416,7 @@ bool InvertFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray,
 	}
 	std::unique_ptr<T_Elem []> pElemWork(new T_Elem [nRows * nCols * 2]);
 	std::unique_ptr<T_Elem *[]> pElemRows(new T_Elem *[nRows]);
-	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_Elem>::Create(pArrayT->GetDimensions()));
+	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_Elem>::Create(pArrayT->GetDims()));
 	size_t elemNumMat = nRows * nCols;
 	const T_Elem *pElemOrg = pArrayT->GetPointer();
 	T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
@@ -1439,7 +1439,7 @@ bool InvertFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray,
 // Array::Indexer
 //-----------------------------------------------------------------------------
 Array::Indexer::Indexer(const Array *pArray) :
-	_pArray(pArray), _dims(pArray->GetDimensions()), _offsetTarget(0)
+	_pArray(pArray), _dims(pArray->GetDims()), _offsetTarget(0)
 {
 	_pDim = _dims.begin();
 }
@@ -1495,7 +1495,7 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 				env.SetError(ERR_IndexError, "array for indices must be boolean type");
 				return false;
 			}
-			const Dimensions &dimsIdx = pArrayIdx->GetDimensions();
+			const Dimensions &dimsIdx = pArrayIdx->GetDims();
 			if (!Dimensions::CheckSameShape(env, _pDim, _dims.end(), dimsIdx.begin(), dimsIdx.end())) return false;
 			std::unique_ptr<Generator> pGenerator(new Generator(1));
 			const Boolean *pElemIdx = dynamic_cast<const ArrayT<Boolean> *>(pArrayIdx)->GetPointer();
@@ -1551,7 +1551,7 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 	return true;
 }
 
-void Array::Indexer::MakeResultDimensions(Dimensions &dimsRtn)
+void Array::Indexer::MakeResultDims(Dimensions &dimsRtn)
 {
 	if (_pGeneratorOwner.get() == nullptr) {
 		dimsRtn.reserve(std::distance(_pDim, _dims.end()));

@@ -32,8 +32,9 @@ Face::~Face()
 
 void Face::UpdateNormal()
 {
-	_pNormal.reset(new VertexRef(
-					   Vertex::CalcNormal(*_pVertexes[0], *_pVertexes[1], *_pVertexes[2], true)));
+	Vertex vRtn;
+	Vertex::Normal(vRtn, *_pVertexes[0], *_pVertexes[1], *_pVertexes[2], true);
+	_pNormal.reset(new VertexRef(vRtn));
 }
 
 String Face::ToString(const char *sep) const

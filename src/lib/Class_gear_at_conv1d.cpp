@@ -16,7 +16,7 @@ Gear_Conv1d::GearFuncTable Gear_Conv1d::gearFuncTable = {{{nullptr}}};
 bool Gear_Conv1d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
 	size_t sizePad = 0;
-	CalcPadding1d(this, pArray->GetDimensions(), &sizePad);
+	CalcPadding1d(this, pArray->GetDims(), &sizePad);
 	return pArray->CalcConv1d(sig, pArrayRtn, GetArrayGear(), GetStrides(), sizePad, GetChannelPos());
 }
 
@@ -140,7 +140,7 @@ Gura_DeclareFunctionAlias(gear_at_conv1d, "gear@conv1d")
 Gura_ImplementFunction(gear_at_conv1d)
 {
 	const Array *pArrayGear = Object_array::GetObject(arg, 0)->GetArray();
-	const Array::Dimensions &dims = pArrayGear->GetDimensions();
+	const Array::Dimensions &dims = pArrayGear->GetDims();
 	size_t nDims = dims.size();
 	if (nDims != 1 && nDims != 2 && nDims != 3) {
 		env.SetError(ERR_ValueError,

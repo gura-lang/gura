@@ -16,7 +16,7 @@ Gear_Conv3d::GearFuncTable Gear_Conv3d::gearFuncTable = {{{nullptr}}};
 bool Gear_Conv3d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
 	size_t sizePadPlane = 0, sizePadRow = 0, sizePadCol = 0;
-	CalcPadding3d(this, pArray->GetDimensions(), &sizePadPlane, &sizePadRow, &sizePadCol);
+	CalcPadding3d(this, pArray->GetDims(), &sizePadPlane, &sizePadRow, &sizePadCol);
 	return pArray->CalcConv3d(sig, pArrayRtn, GetArrayGear(), GetStridesPlane(), GetStridesRow(), GetStridesCol(),
 							  sizePadPlane, sizePadRow, sizePadCol, GetChannelPos());
 }
@@ -141,7 +141,7 @@ Gura_DeclareFunctionAlias(gear_at_conv3d, "gear@conv3d")
 Gura_ImplementFunction(gear_at_conv3d)
 {
 	const Array *pArrayGear = Object_array::GetObject(arg, 0)->GetArray();
-	const Array::Dimensions &dims = pArrayGear->GetDimensions();
+	const Array::Dimensions &dims = pArrayGear->GetDims();
 	size_t nDims = dims.size();
 	if (nDims != 3 && nDims != 4 && nDims != 5) {
 		env.SetError(ERR_ValueError,
