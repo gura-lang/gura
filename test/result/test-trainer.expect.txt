@@ -1,31 +1,77 @@
 ======== #1 node information ========
 
 node@a = +a .. unary@pos
+node@a.input .. nil
+node@a.inputbwd .. nil
 node@a = -a .. unary@neg
+node@a.input .. nil
+node@a.inputbwd .. nil
 node@a = a + b .. binary@add
+node@a.input@left .. nil
+node@a.input@right .. nil
+node@a.inputbwd@left .. nil
+node@a.inputbwd@right .. nil
 node@a = a - b .. binary@sub
+node@a.input@left .. nil
+node@a.input@right .. nil
+node@a.inputbwd@left .. nil
+node@a.inputbwd@right .. nil
 node@a = a * b .. binary@mul
+node@a.input@left .. nil
+node@a.input@right .. nil
+node@a.inputbwd@left .. nil
+node@a.inputbwd@right .. nil
 node@a = a / b .. binary@div
+node@a.input@left .. nil
+node@a.input@right .. nil
+node@a.inputbwd@left .. nil
+node@a.inputbwd@right .. nil
 node@a = a ** b .. binary@pow
+node@a.input@left .. nil
+node@a.input@right .. nil
+node@a.inputbwd@left .. nil
+node@a.inputbwd@right .. nil
 node@a = a |.| b .. binary@dot
+node@a.input@left .. nil
+node@a.input@right .. nil
+node@a.inputbwd@left .. nil
+node@a.inputbwd@right .. nil
 node@a = a |*| gear@conv1d(array.zeros([3])) .. gear@conv1d
 <gear@conv1d:filter_num=none:channel_num=none:size=3:strides=1:padding=same:channel_pos=none>
+node@a.input .. nil
+node@a.inputbwd .. nil
 node@a = a |*| gear@conv2d(array.zeros([3, 3])) .. gear@conv2d
 <gear@conv2d:filter_num=none:channel_num=none:size=(3,3):strides=(1,1):padding=same:channel_pos=none>
+node@a.input .. nil
+node@a.inputbwd .. nil
 node@a = a |*| gear@maxpool1d(3) .. gear@maxpool1d
 <gear@maxpool1d:size=3:strides=1:padding=same:channel_pos=last>
+node@a.input .. nil
+node@a.inputbwd .. nil
 node@a = a |*| gear@maxpool2d([3, 3]) .. gear@maxpool2d
 <gear@maxpool2d:size=(3,3):strides=(1,1):padding=same:channel_pos=last>
+node@a.input .. nil
+node@a.inputbwd .. nil
 node@a = a |*| gear@maxpool3d([3, 3, 3]) .. gear@maxpool3d
 <gear@maxpool2d:size=(3,3,3):strides=(1,1,1):padding=same:channel_pos=last>
+node@a.input .. nil
+node@a.inputbwd .. nil
 node@a = a |*| gear@relu() .. gear@relu
 <gear@relu>
+node@a.input .. nil
+node@a.inputbwd .. nil
 node@a = a |*| gear@sigmoid() .. gear@sigmoid
 <gear@sigmoid>
+node@a.input .. nil
+node@a.inputbwd .. nil
 node@a = a |*| gear@softmax() .. gear@softmax
 <gear@softmax>
+node@a.input .. nil
+node@a.inputbwd .. nil
 node@a = a |*| gear@tanh() .. gear@tanh
 <gear@tanh>
+node@a.input .. nil
+node@a.inputbwd .. nil
 
 ======== #2 input values in trainer#eval() ========
 

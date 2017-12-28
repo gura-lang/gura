@@ -1,0 +1,169 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+import(arrayt)
+
+tester_trainer(model:expr, x:array, g:gear) = {
+	tester(`model)
+	tester(`x.shape)
+	tester(`g)
+	tester(`x.tostring(cond(g.channel_pos == `last, 2, 1)))
+	tester(`g.array.tostring(cond(g.channel_pos == `last, 2, 1)))
+	strDirect = model.eval().tostring(cond(g.filter_num, 2, 1))
+	strTrainer = trainer(model, nil).eval().tostring(cond(g.filter_num, 2, 1))
+	printf('== %s ==\n', cond(strDirect == strTrainer, 'OK', '*NG*'))
+	tester(`strDirect)
+	tester(`strTrainer)
+}
+testcase('node information') {
+	models = [
+		`(node@a = +a)
+		`(node@a = -a)
+		`(node@a = (a + b))
+		`(node@a = (a - b))
+		`(node@a = (a * b))
+		`(node@a = (a / b))
+		`(node@a = (a ** b))
+		`(node@a = (a |.| b))
+		`(node@a = (a |*| gear@conv1d(array.zeros([3]))))
+		`(node@a = (a |*| gear@conv2d(array.zeros([3, 3]))))
+		//`(node@a = (a |*| gear@conv3d(array.zeros([3, 3, 3]))))
+		`(node@a = (a |*| gear@maxpool1d(3)))
+		`(node@a = (a |*| gear@maxpool2d([3, 3])))
+		`(node@a = (a |*| gear@maxpool3d([3, 3, 3])))
+		`(node@a = (a |*| gear@relu()))
+		`(node@a = (a |*| gear@sigmoid()))
+		`(node@a = (a |*| gear@softmax()))
+		`(node@a = (a |*| gear@tanh()))
+	]
+	trainer(models, optimizer@none()) {|tr|
+		node@a = tr.node(`node@a)
+		println(tr.model, ' .. ', node@a.type)
+		if (node@a.isunary()) {
+			tester(`node@a.input)
+			tester(`node@a.inputbwd)
+		} elsif (node@a.isbinary()) {
+			tester(`node@a.input@left)
+			tester(`node@a.input@right)
+			tester(`node@a.inputbwd@left)
+			tester(`node@a.inputbwd@right)
+		} elsif (node@a.isgear()) {
+			println(node@a.gear)
+			tester(`node@a.input)
+			tester(`node@a.inputbwd)
+		}
+	}
+}
+testcase('input values in trainer#eval()') {
+	trainer(`x, nil) {|tr|
+		println('no inputs specified')
+		tester(`{x = 3, tr.eval()})
+		tester(`{x = 5, tr.eval()})
+	}
+	trainer(`x, nil, `x) {|tr|
+		println('x is specified as an input')
+		tester(`{x = 7, tr.eval()})
+		tester(`{x = 9, tr.eval()})
+	}
+}
+testcase('trainer#eval()') {
+	trainer(`(a + b), nil) {|tr|
+		println(tr.model)
+		tester(`{a = 3, b = 5, tr.eval()})
+	}
+	trainer(`(a - b), nil) {|tr|
+		println(tr.model)
+		tester(`{a = 3, b = 5, tr.eval()})
+	}
+	trainer(`(a * b), nil) {|tr|
+		println(tr.model)
+		tester(`{a = 3, b = 5, tr.eval()})
+	}
+	trainer(`(a / b), nil) {|tr|
+		println(tr.model)
+		tester(`{a = 3, b = 5, tr.eval()})
+	}
+	trainer(`(a |.| b), nil) {|tr|
+		println(tr.model)
+		tester(`{a = 3, b = 5, tr.eval()})
+	}
+}
+testcase('gear@conv2d') {
+	model = `(x |*| g)
+	scope {
+		println('-' * 78)
+		println('target:[H, W] filter:[FH, FW]')
+		randseed(0)
+		x = array.rands([5, 5], 2) // [H, W]
+		g = gear@conv2d(array.rands([2, 2], 2), [1, 1], `valid, `none) // [FH, FW]
+		tester_trainer(model, x, g)
+	}
+	scope {
+		println('-' * 78)
+		println('target:[H, W] filter:[FN, FH, FW]')
+		randseed(0)
+		x = array.rands([5, 5], 2) // [H, W]
+		g = gear@conv2d(array.rands([4, 2, 2], 2), [1, 1], `valid, `none) // [FN, FH, FW]
+		tester_trainer(model, x, g)
+	}
+	scope {
+		println('-' * 78)
+		println('target:[N, H, W] filter:[FN, FH, FW]')
+		randseed(0)
+		x = array.rands([3, 5, 5], 2) // [N, H, W]
+		g = gear@conv2d(array.rands([4, 2, 2], 2), [1, 1], `valid, `none) // [FN, FH, FW]
+		tester(`x.expand_kernelvec2d([2, 2], [1, 1], [0, 0], `none))
+		tester_trainer(model, x, g)
+	}
+	scope {
+		println('-' * 78)
+		println('target:[C, H, W] filter:[C, FH, FW]')
+		randseed(0)
+		x = array.rands([3, 5, 5], 2) // [C, H, W]
+		g = gear@conv2d(array.rands([3, 2, 2], 2), [1, 1], `valid, `first) // [C, FH, FW]
+		tester(`x)
+		//tester(`x.expand_kernelvec2d([2, 2], [1, 1], [0, 0], `first))
+		tester_trainer(model, x, g)
+	}
+	scope {
+		println('-' * 78)
+		println('target:[C, H, W] filter:[FN, C, FH, FW]')
+		randseed(0)
+		x = array.rands([3, 5, 5], 2) // [C, H, W]
+		g = gear@conv2d(array.rands([4, 3, 2, 2], 2), [1, 1], `valid, `first) // [FN, C, FH, FW]
+		tester(`x)
+		tester_trainer(model, x, g)
+	}
+	scope {
+		println('-' * 78)
+		println('target:[N, C, H, W] filter:[FN, C, FH, FW]')
+		randseed(0)
+		x = array.rands([3, 3, 5, 5], 2) // [N, C, H, W]
+		g = gear@conv2d(array.rands([4, 3, 2, 2], 2), [1, 1], `valid, `first) // [FN, C, FH, FW]
+		tester(`x)
+		tester_trainer(model, x, g)
+	}
+	scope {
+		println('-' * 78)
+		println('target:[H, W, C] filter:[FH, FW, C]')
+		randseed(0)
+		x = array.rands([5, 5, 3], 2) // [H, W, C]
+		g = gear@conv2d(array.rands([2, 2, 3], 2), [1, 1], `valid, `last) // [FH, FW, C]
+		tester_trainer(model, x, g)
+	}
+	scope {
+		println('-' * 78)
+		println('target:[H, W, C] filter:[FN, FH, FW, C]')
+		randseed(0)
+		x = array.rands([5, 5, 3], 2) // [H, W, C]
+		g = gear@conv2d(array.rands([4, 2, 2, 3], 2), [1, 1], `valid, `last) // [FN, FH, FW, C]
+		tester_trainer(model, x, g)
+	}
+	scope {
+		println('-' * 78)
+		println('target:[N, H, W, C] filter:[FN, FH, FW, C]')
+		randseed(0)
+		x = array.rands([3, 5, 5, 3], 2) // [N, H, W, C]
+		g = gear@conv2d(array.rands([4, 2, 2, 3], 2), [1, 1], `valid, `last) // [FN, FH, FW, C]
+		tester_trainer(model, x, g)
+	}
+}
