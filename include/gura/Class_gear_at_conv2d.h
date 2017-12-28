@@ -36,6 +36,9 @@ public:
 		_paddingType(paddingType), _channelPos(channelPos) {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString() const;
 	inline bool IsChLast() const { return _channelPos == Array::CHANNELPOS_Last; }
 	inline Array *GetArrayGear() { return _pArrayGear.get(); }

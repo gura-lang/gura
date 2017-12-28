@@ -15,6 +15,16 @@ Gear::~Gear()
 {
 }
 
+bool Gear::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return true;
+}
+
+Value Gear::DoGetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Nil;
+}
+
 void Gear::CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
 					   size_t *pSizePad, size_t *pSizeOut)
 {
@@ -93,6 +103,17 @@ Object_gear::Object_gear(Environment &env, Gear *pGear) :
 Object_gear::Object_gear(Class *pClass, Gear *pGear) :
 	Object(pClass), _pGear(pGear)
 {
+}
+
+bool Object_gear::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return _pGear->DoDirProp(env, symbols);
+}
+
+Value Object_gear::DoGetProp(Environment &env, const Symbol *pSymbol,
+							 const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return _pGear->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_gear::ToString(bool exprFlag)

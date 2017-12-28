@@ -21,6 +21,16 @@ bool Gear_Conv3d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 							  sizePadPlane, sizePadRow, sizePadCol, GetChannelPos());
 }
 
+bool Gear_Conv3d::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Gear::DoDirProp(env, symbols);
+}
+
+Value Gear_Conv3d::DoGetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Gear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 String Gear_Conv3d::ToString() const
 {
 	char buff[80];

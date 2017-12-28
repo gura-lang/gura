@@ -29,6 +29,9 @@ protected:
 	virtual ~Gear();
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const = 0;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString() const = 0;
 public:
 	inline const char *GetName() const { return _name; }
@@ -114,6 +117,9 @@ public:
 public:
 	Object_gear(Environment &env, Gear *pGear);
 	Object_gear(Class *pClass, Gear *pGear);
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Gear *GetGear() { return _pGear.get(); }
 	inline const Gear *GetGear() const { return _pGear.get(); }

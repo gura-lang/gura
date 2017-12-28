@@ -21,6 +21,16 @@ bool Gear_Conv2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 							  sizePadRow, sizePadCol, GetChannelPos());
 }
 
+bool Gear_Conv2d::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Gear::DoDirProp(env, symbols);
+}
+
+Value Gear_Conv2d::DoGetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Gear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 String Gear_Conv2d::ToString() const
 {
 	char buff[80];

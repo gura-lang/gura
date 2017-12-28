@@ -20,6 +20,16 @@ bool Gear_Conv1d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pAr
 	return pArray->CalcConv1d(sig, pArrayRtn, GetArrayGear(), GetStrides(), sizePad, GetChannelPos());
 }
 
+bool Gear_Conv1d::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Gear::DoDirProp(env, symbols);
+}
+
+Value Gear_Conv1d::DoGetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Gear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 String Gear_Conv1d::ToString() const
 {
 	char buff[80];

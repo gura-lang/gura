@@ -26,6 +26,9 @@ public:
 	inline Gear_Sigmoid() : Gear("gear@sigmoid") {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString() const;
 };
 

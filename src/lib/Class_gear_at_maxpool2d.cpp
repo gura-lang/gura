@@ -19,6 +19,16 @@ bool Gear_MaxPool2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *
 								 sizePadRow, sizePadCol, GetChannelPos());
 }
 
+bool Gear_MaxPool2d::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Gear::DoDirProp(env, symbols);
+}
+
+Value Gear_MaxPool2d::DoGetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Gear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 String Gear_MaxPool2d::ToString() const
 {
 	String str;
