@@ -33,6 +33,7 @@ public:
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString() const = 0;
+	virtual Object *ToObject(Environment &env) const = 0;
 public:
 	inline const char *GetName() const { return _name; }
 	static void CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,

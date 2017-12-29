@@ -60,6 +60,11 @@ String Gear_Conv2d::ToString() const
 	return str;
 }
 
+Object *Gear_Conv2d::ToObject(Environment &env) const
+{
+	return new Object_gear_at_conv2d(env, Reference());
+}
+
 //-----------------------------------------------------------------------------
 // NodeGear_Conv2d
 //-----------------------------------------------------------------------------

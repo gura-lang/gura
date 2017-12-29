@@ -39,6 +39,11 @@ String Gear_Relu::ToString() const
 	return "relu";
 }
 
+Object *Gear_Relu::ToObject(Environment &env) const
+{
+	return new Object_gear_at_relu(env, Reference());
+}
+
 //-----------------------------------------------------------------------------
 // NodeGear_Relu
 //-----------------------------------------------------------------------------

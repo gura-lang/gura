@@ -698,7 +698,7 @@ Value Trainer::NodeGear::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(gear))) {
 		evaluatedFlag = true;
-		return Value(new Object_gear(env, _pGear->Reference()));
+		return Value(_pGear->ToObject(env));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(input))) {
 		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayFwd()));

@@ -45,6 +45,11 @@ String Gear_MaxPool2d::ToString() const
 	return str;
 }
 
+Object *Gear_MaxPool2d::ToObject(Environment &env) const
+{
+	return new Object_gear_at_maxpool2d(env, Reference());
+}
+
 //-----------------------------------------------------------------------------
 // NodeGear_MaxPool2d
 //-----------------------------------------------------------------------------

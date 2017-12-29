@@ -39,6 +39,11 @@ String Gear_Sigmoid::ToString() const
 	return "sigmoid";
 }
 
+Object *Gear_Sigmoid::ToObject(Environment &env) const
+{
+	return new Object_gear_at_sigmoid(env, Reference());
+}
+
 //-----------------------------------------------------------------------------
 // NodeGear_Sigmoid
 //-----------------------------------------------------------------------------

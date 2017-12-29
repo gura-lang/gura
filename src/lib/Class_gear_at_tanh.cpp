@@ -39,6 +39,11 @@ String Gear_Tanh::ToString() const
 	return "tanh";
 }
 
+Object *Gear_Tanh::ToObject(Environment &env) const
+{
+	return new Object_gear_at_tanh(env, Reference());
+}
+
 //-----------------------------------------------------------------------------
 // NodeGear_Tanh
 //-----------------------------------------------------------------------------

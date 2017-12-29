@@ -39,6 +39,11 @@ String Gear_Softmax::ToString() const
 	return "softmax";
 }
 
+Object *Gear_Softmax::ToObject(Environment &env) const
+{
+	return new Object_gear_at_softmax(env, Reference());
+}
+
 //-----------------------------------------------------------------------------
 // NodeGear_Softmax
 //-----------------------------------------------------------------------------

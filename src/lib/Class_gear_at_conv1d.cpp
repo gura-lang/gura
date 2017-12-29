@@ -59,6 +59,11 @@ String Gear_Conv1d::ToString() const
 	return str;
 }
 
+Object *Gear_Conv1d::ToObject(Environment &env) const
+{
+	return new Object_gear_at_conv1d(env, Reference());
+}
+
 //-----------------------------------------------------------------------------
 // NodeGear_Conv1d
 //-----------------------------------------------------------------------------
