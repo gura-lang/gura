@@ -434,6 +434,20 @@ public:
 		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
+	virtual bool CalcMaxPoolWithIndex1d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, AutoPtr<Array> &pArrayOfIndex,
+		size_t sizeKernel, size_t stridesKernel,
+		size_t sizePad, ChannelPos channelPos) const = 0;
+	virtual bool CalcMaxPoolWithIndex2d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, AutoPtr<Array> &pArrayOfIndex,
+		size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
+	virtual bool CalcMaxPoolWithIndex3d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, AutoPtr<Array> &pArrayOfIndex,
+		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
 	bool CheckDimsGearForCalcConv(Signal &sig, const Dimensions &dimsGear,
 								  size_t nDimsKernel, ChannelPos channelPos) const;
 	virtual bool CalcConv1d(
