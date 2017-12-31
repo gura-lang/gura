@@ -28,6 +28,11 @@ bool Trainer::CreateFromExpr(Environment &env, const Expr *pExprModel, const Sym
 	return CreateNode(env, pExprModel, _pNodeBottom->GetConnectorSrc(), symbolsInput) != nullptr;
 }
 
+void Trainer::Reset(Environment &env)
+{
+	_nodeOwner.Reset(env);
+}
+
 bool Trainer::EvalForward(Environment &env)
 {
 	return _nodeOwner.EvalForward(env) && _pNodeBottom->EvalForward(env);
@@ -206,12 +211,20 @@ Trainer::Optimizer::~Optimizer()
 {
 }
 
+void Trainer::Optimizer::Instance::Reset(Environment &env)
+{
+}
+
 //-------------------------------------------------------------------------
 // Trainer::Optimizer_Adam
 //-------------------------------------------------------------------------
 Trainer::Optimizer::Instance *Trainer::Optimizer_Adam::CreateInstance() const
 {
 	return new InstanceEx();
+}
+
+void Trainer::Optimizer_Adam::InstanceEx::Reset(Environment &env)
+{
 }
 
 bool Trainer::Optimizer_Adam::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
@@ -240,6 +253,10 @@ bool Trainer::Optimizer_GradientDescent::InstanceEx::Update(Signal &sig, AutoPtr
 Trainer::Optimizer::Instance *Trainer::Optimizer_Momentum::CreateInstance() const
 {
 	return new InstanceEx();
+}
+
+void Trainer::Optimizer_Momentum::InstanceEx::Reset(Environment &env)
+{
 }
 
 bool Trainer::Optimizer_Momentum::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
@@ -306,6 +323,10 @@ bool Trainer::Node::IsUnary() { return false; }
 bool Trainer::Node::IsBinary() { return false; }
 bool Trainer::Node::IsGear() { return false; }
 
+void Trainer::Node::Reset(Environment &env)
+{
+}
+
 //-----------------------------------------------------------------------------
 // Trainer::Node::Connector
 //-----------------------------------------------------------------------------
@@ -322,6 +343,11 @@ bool Trainer::NodeHead::IsHead() { return true; }
 bool Trainer::NodeHead::IsVulnerable() const
 {
 	return IsVariable();
+}
+
+void Trainer::NodeHead::Reset(Environment &env)
+{
+	_pOptimizerInst->Reset(env);
 }
 
 bool Trainer::NodeHead::EvalForward(Environment &env)
@@ -728,6 +754,14 @@ void Trainer::NodeGear::Print(int indentLevel) const
 //-----------------------------------------------------------------------------
 // Trainer::NodeList
 //-----------------------------------------------------------------------------
+void Trainer::NodeList::Reset(Environment &env)
+{
+	foreach (NodeList, ppNode, *this) {
+		Node *pNode = *ppNode;
+		pNode->Reset(env);
+	}
+}
+
 bool Trainer::NodeList::EvalForward(Environment &env)
 {
 	foreach_reverse (NodeList, ppNode, *this) {

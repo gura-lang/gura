@@ -16,6 +16,7 @@ public:
 	public:
 		class Instance {
 		public:
+			virtual void Reset(Environment &env);
 			virtual bool Update(Signal &sig, AutoPtr<Array> &array, const Array *pArrayBwd) = 0;
 		};
 	private:
@@ -39,6 +40,7 @@ public:
 		class InstanceEx : public Instance {
 		public:
 			inline InstanceEx() {}
+			virtual void Reset(Environment &env);
 			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
 		};
 	public:
@@ -73,6 +75,7 @@ public:
 		class InstanceEx : public Instance {
 		public:
 			inline InstanceEx() {}
+			virtual void Reset(Environment &env);
 			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
 		};
 	public:
@@ -152,6 +155,7 @@ public:
 		virtual bool IsBinary();
 		virtual bool IsGear();
 		virtual bool IsVulnerable() const = 0;
+		virtual void Reset(Environment &env);
 		virtual bool EvalForward(Environment &env) = 0;
 		virtual bool EvalBackward(Environment &env) = 0;
 		virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
@@ -176,6 +180,7 @@ public:
 		inline bool IsConstant() const { return _trait == TRAIT_Constant; }
 		inline bool IsInput() const { return _trait == TRAIT_Input; }
 		virtual bool IsHead();
+		virtual void Reset(Environment &env);
 		virtual bool IsVulnerable() const;
 		virtual bool EvalForward(Environment &env);
 		virtual bool EvalBackward(Environment &env);
@@ -362,6 +367,7 @@ public:
 	class NodeList : public std::vector<Node *> {
 	public:
 		inline NodeList() {}
+		void Reset(Environment &env);
 		bool EvalForward(Environment &env);
 		bool EvalBackward(Environment &env);
 	};
@@ -396,6 +402,7 @@ public:
 	static void Bootup();
 public:
 	bool CreateFromExpr(Environment &env, const Expr *pExprModel, const SymbolSet &symbolsInput);
+	void Reset(Environment &env);
 	bool EvalForward(Environment &env);
 	bool EvalBackward(Environment &env, const Array *pArrayCorrect);
 	const Array *GetResult() const;
