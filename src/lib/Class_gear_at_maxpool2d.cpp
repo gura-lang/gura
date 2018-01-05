@@ -60,12 +60,41 @@ bool NodeGear_MaxPool2d::IsVulnerable() const
 
 bool NodeGear_MaxPool2d::EvalForward(Environment &env)
 {
-	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+	Gear_MaxPool2d *pGear = GetGear();
+	const Array *pArrayFwdSrc = GetConnectorSrc()->GetArrayFwd();
+	if (_pArrayFwd.IsNull()) {
+		Gear::CalcPadding2d(pGear, pArrayFwdSrc->GetDims(), &_sizePadRow, &_sizePadCol);
+	}
+	return pArrayFwdSrc->CalcMaxPoolWithIndex2d(
+		env, _pArrayFwd, _pArrayOfIndex,
+		pGear->GetSizeRow(), pGear->GetSizeCol(), pGear->GetStridesRow(), pGear->GetStridesCol(),
+		_sizePadRow, _sizePadCol, pGear->GetChannelPos());
 }
 
 bool NodeGear_MaxPool2d::EvalBackward(Environment &env)
 {
-	return false;
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
+	AutoPtr<Array> &pArrayBwdDst = GetConnectorSrc()->GetArrayBwdAutoPtr();		
+	if (pArrayBwdDst.IsNull()) {
+		const Array *pArrayFwd = GetConnectorSrc()->GetArrayFwd();
+		pArrayBwdDst.reset(Array::Create(pArrayFwd->GetElemType()));
+		pArrayBwdDst->SetDims(pArrayFwd->GetDims());
+		pArrayBwdDst->AllocMemory();
+	}
+	pArrayBwdDst->FillZero();
+	if (GetConnectorSrc()->GetNodeSrc()->IsVulnerable()) {
+		//*******************
+		const Array *pArrayBwdSrc = (*ppConnectorDst)->GetArrayBwd();
+		const Double *pElemBwdSrc = dynamic_cast<const ArrayT<Double> *>(pArrayBwdSrc)->GetPointer();
+		Double *pElemBwdDst = dynamic_cast<ArrayT<Double> *>(pArrayBwdDst.get())->GetPointer();
+		const UInt32 *pElemIndex = dynamic_cast<ArrayT<UInt32> *>(_pArrayOfIndex.get())->GetPointer();
+		size_t nElems = pArrayBwdSrc->GetElemNum();
+		for (size_t iElem = 0; iElem < nElems; iElem++, pElemBwdSrc++, pElemIndex++) {
+			*(pElemBwdDst + *pElemIndex) += *pElemBwdSrc;
+		}
+	}
+	return true;
 }
 
 Trainer::NodeGear *NodeGear_MaxPool2d::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
