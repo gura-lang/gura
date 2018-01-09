@@ -33,6 +33,21 @@ public:
 		inline const char *GetName() const { return _name; }
 	};
 	//-------------------------------------------------------------------------
+	// Optimizer_AdaGrad
+	//-------------------------------------------------------------------------
+	class Optimizer_AdaGrad : public Optimizer {
+	public:
+		class InstanceEx : public Instance {
+		public:
+			inline InstanceEx() {}
+			virtual void Reset(Environment &env);
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+		};
+	public:
+		inline Optimizer_AdaGrad() : Optimizer("adagrad") {}
+		virtual Instance *CreateInstance() const;
+	};
+	//-------------------------------------------------------------------------
 	// Optimizer_Adam
 	//-------------------------------------------------------------------------
 	class Optimizer_Adam : public Optimizer {
@@ -83,6 +98,21 @@ public:
 		virtual Instance *CreateInstance() const;
 	};
 	//-------------------------------------------------------------------------
+	// Optimizer_Nesterov
+	//-------------------------------------------------------------------------
+	class Optimizer_Nesterov : public Optimizer {
+	public:
+		class InstanceEx : public Instance {
+		public:
+			inline InstanceEx() {}
+			virtual void Reset(Environment &env);
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+		};
+	public:
+		inline Optimizer_Nesterov() : Optimizer("nesterov") {}
+		virtual Instance *CreateInstance() const;
+	};
+	//-------------------------------------------------------------------------
 	// Optimizer_None
 	//-------------------------------------------------------------------------
 	class Optimizer_None : public Optimizer {
@@ -94,6 +124,21 @@ public:
 		};
 	public:
 		inline Optimizer_None() : Optimizer("none") {}
+		virtual Instance *CreateInstance() const;
+	};
+	//-------------------------------------------------------------------------
+	// Optimizer_RMSprop
+	//-------------------------------------------------------------------------
+	class Optimizer_RMSprop : public Optimizer {
+	public:
+		class InstanceEx : public Instance {
+		public:
+			inline InstanceEx() {}
+			virtual void Reset(Environment &env);
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+		};
+	public:
+		inline Optimizer_RMSprop() : Optimizer("rmsprop") {}
 		virtual Instance *CreateInstance() const;
 	};
 	//-------------------------------------------------------------------------

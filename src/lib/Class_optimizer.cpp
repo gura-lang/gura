@@ -33,6 +33,22 @@ String Object_optimizer::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
+// optimizer@adagrad():map {block?}
+Gura_DeclareFunctionAlias(optimizer_at_adagrad, "optimizer@adagrad")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementFunction(optimizer_at_adagrad)
+{
+	AutoPtr<Trainer::Optimizer> pOptimizer(new Trainer::Optimizer_AdaGrad());
+	return ReturnValue(env, arg, Value(new Object_optimizer(env, pOptimizer.release())));
+}
+
 // optimizer@adam():map {block?}
 Gura_DeclareFunctionAlias(optimizer_at_adam, "optimizer@adam")
 {
@@ -83,6 +99,22 @@ Gura_ImplementFunction(optimizer_at_momentum)
 	return ReturnValue(env, arg, Value(new Object_optimizer(env, pOptimizer.release())));
 }
 
+// optimizer@nesterov():map {block?}
+Gura_DeclareFunctionAlias(optimizer_at_nesterov, "optimizer@nesterov")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementFunction(optimizer_at_nesterov)
+{
+	AutoPtr<Trainer::Optimizer> pOptimizer(new Trainer::Optimizer_Nesterov());
+	return ReturnValue(env, arg, Value(new Object_optimizer(env, pOptimizer.release())));
+}
+
 // optimizer@none():map {block?}
 Gura_DeclareFunctionAlias(optimizer_at_none, "optimizer@none")
 {
@@ -99,6 +131,22 @@ Gura_ImplementFunction(optimizer_at_none)
 	return ReturnValue(env, arg, Value(new Object_optimizer(env, pOptimizer.release())));
 }
 
+// optimizer@rmsprop():map {block?}
+Gura_DeclareFunctionAlias(optimizer_at_rmsprop, "optimizer@rmsprop")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementFunction(optimizer_at_rmsprop)
+{
+	AutoPtr<Trainer::Optimizer> pOptimizer(new Trainer::Optimizer_RMSprop());
+	return ReturnValue(env, arg, Value(new Object_optimizer(env, pOptimizer.release())));
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -109,10 +157,13 @@ Class_optimizer::Class_optimizer(Environment *pEnvOuter) : ClassFundamental(pEnv
 void Class_optimizer::DoPrepare(Environment &env)
 {
 	// Assignment of function
+	Gura_AssignFunction(optimizer_at_adagrad);
 	Gura_AssignFunction(optimizer_at_adam);
 	Gura_AssignFunction(optimizer_at_gradient_descent);
 	Gura_AssignFunction(optimizer_at_momentum);
+	Gura_AssignFunction(optimizer_at_nesterov);
 	Gura_AssignFunction(optimizer_at_none);
+	Gura_AssignFunction(optimizer_at_rmsprop);
 	// Assignment of value
 	Gura_AssignValue(optimizer, Value(this));
 	// help document

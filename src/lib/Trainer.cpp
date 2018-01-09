@@ -216,6 +216,23 @@ void Trainer::Optimizer::Instance::Reset(Environment &env)
 }
 
 //-------------------------------------------------------------------------
+// Trainer::Optimizer_AdaGrad
+//-------------------------------------------------------------------------
+Trainer::Optimizer::Instance *Trainer::Optimizer_AdaGrad::CreateInstance() const
+{
+	return new InstanceEx();
+}
+
+void Trainer::Optimizer_AdaGrad::InstanceEx::Reset(Environment &env)
+{
+}
+
+bool Trainer::Optimizer_AdaGrad::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+{
+	return true;
+}
+
+//-------------------------------------------------------------------------
 // Trainer::Optimizer_Adam
 //-------------------------------------------------------------------------
 Trainer::Optimizer::Instance *Trainer::Optimizer_Adam::CreateInstance() const
@@ -265,6 +282,23 @@ bool Trainer::Optimizer_Momentum::InstanceEx::Update(Signal &sig, AutoPtr<Array>
 }
 
 //-------------------------------------------------------------------------
+// Trainer::Optimizer_Nesterov
+//-------------------------------------------------------------------------
+Trainer::Optimizer::Instance *Trainer::Optimizer_Nesterov::CreateInstance() const
+{
+	return new InstanceEx();
+}
+
+void Trainer::Optimizer_Nesterov::InstanceEx::Reset(Environment &env)
+{
+}
+
+bool Trainer::Optimizer_Nesterov::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+{
+	return true;
+}
+
+//-------------------------------------------------------------------------
 // Trainer::Optimizer_None
 //-------------------------------------------------------------------------
 Trainer::Optimizer::Instance *Trainer::Optimizer_None::CreateInstance() const
@@ -273,6 +307,23 @@ Trainer::Optimizer::Instance *Trainer::Optimizer_None::CreateInstance() const
 }
 
 bool Trainer::Optimizer_None::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+{
+	return true;
+}
+
+//-------------------------------------------------------------------------
+// Trainer::Optimizer_RMSprop
+//-------------------------------------------------------------------------
+Trainer::Optimizer::Instance *Trainer::Optimizer_RMSprop::CreateInstance() const
+{
+	return new InstanceEx();
+}
+
+void Trainer::Optimizer_RMSprop::InstanceEx::Reset(Environment &env)
+{
+}
+
+bool Trainer::Optimizer_RMSprop::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
 {
 	return true;
 }
