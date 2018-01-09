@@ -194,94 +194,92 @@ bool NodeGear_Conv2d::EvalBackward(Environment &env)
 	const Array *pArrayGear = pGear->GetArrayGear();
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
-	if (GetConnectorSrc()->GetNodeSrc()->IsVulnerable()) {
-		const Array *pArrayBwdSrc = (*ppConnectorDst)->GetArrayBwd();
-		if (_pArrayBwdSrcTrans.IsNull()) {
-			const Array::Dimensions &dimsBwdSrc = pArrayBwdSrc->GetDims();
-			Array::Dimensions dims;
-			if (dimsBwdSrc.size() == 2) {
-				// _pArrayBwdSrc .. [H_out, W_out]
-				// _pArrayBwdSrcReshape .. [1 * H_out * W_out, 1]
-				// _pArrayBwdSrcTrans .. [1, 1 * H_out * W_out]
+	const Array *pArrayBwdSrc = (*ppConnectorDst)->GetArrayBwd();
+	if (_pArrayBwdSrcTrans.IsNull()) {
+		const Array::Dimensions &dimsBwdSrc = pArrayBwdSrc->GetDims();
+		Array::Dimensions dims;
+		if (dimsBwdSrc.size() == 2) {
+			// _pArrayBwdSrc .. [H_out, W_out]
+			// _pArrayBwdSrcReshape .. [1 * H_out * W_out, 1]
+			// _pArrayBwdSrcTrans .. [1, 1 * H_out * W_out]
+			dims.reserve(2);
+			dims.push_back(Array::Dimension(dimsBwdSrc[0].GetSize() * dimsBwdSrc[1].GetSize()));
+			dims.push_back(Array::Dimension(1));
+		} else if (dimsBwdSrc.size() == 3) {
+			if (pGear->HasFilterDim()) {
+				// _pArrayBwdSrc .. [H_out, W_out, FN]
+				// _pArrayBwdSrcReshape .. [1 * H_out * W_out, FN]
+				// _pArrayBwdSrcTrans .. [FN, 1 * H_out * W_out]
 				dims.reserve(2);
 				dims.push_back(Array::Dimension(dimsBwdSrc[0].GetSize() * dimsBwdSrc[1].GetSize()));
-				dims.push_back(Array::Dimension(1));
-			} else if (dimsBwdSrc.size() == 3) {
-				if (pGear->HasFilterDim()) {
-					// _pArrayBwdSrc .. [H_out, W_out, FN]
-					// _pArrayBwdSrcReshape .. [1 * H_out * W_out, FN]
-					// _pArrayBwdSrcTrans .. [FN, 1 * H_out * W_out]
-					dims.reserve(2);
-					dims.push_back(Array::Dimension(dimsBwdSrc[0].GetSize() * dimsBwdSrc[1].GetSize()));
-					dims.push_back(Array::Dimension(dimsBwdSrc[2].GetSize()));
-				} else {
-					// _pArrayBwdSrc .. [N, H_out, W_out]
-					// _pArrayBwdSrcReshape .. [N * H_out * W_out, 1]
-					// _pArrayBwdSrcTrans .. [1, N * H_out * W_out]
-					dims.reserve(2);
-					dims.push_back(Array::Dimension(dimsBwdSrc[0].GetSize() *
-													dimsBwdSrc[1].GetSize() * dimsBwdSrc[2].GetSize()));
-					dims.push_back(Array::Dimension(1));
-				}
-			} else if (dimsBwdSrc.size() == 4) {
-				// _pArrayBwdSrc .. [N, H_out, W_out, FN]
-				// _pArrayBwdSrcReshape .. [N * H_out * W_out, FN]
-				// _pArrayBwdSrcTrans .. [FN, N * H_out * W_out]
+				dims.push_back(Array::Dimension(dimsBwdSrc[2].GetSize()));
+			} else {
+				// _pArrayBwdSrc .. [N, H_out, W_out]
+				// _pArrayBwdSrcReshape .. [N * H_out * W_out, 1]
+				// _pArrayBwdSrcTrans .. [1, N * H_out * W_out]
 				dims.reserve(2);
 				dims.push_back(Array::Dimension(dimsBwdSrc[0].GetSize() *
 												dimsBwdSrc[1].GetSize() * dimsBwdSrc[2].GetSize()));
-				dims.push_back(Array::Dimension(dimsBwdSrc[3].GetSize()));
-			} else {
-				env.SetError(ERR_ValueError, "invalid array");
-				return false;
+				dims.push_back(Array::Dimension(1));
 			}
-			pArrayBwdSrc->Reshape(_pArrayBwdSrcReshape, dims);
-			_pArrayBwdSrcReshape->Transpose2d(_pArrayBwdSrcTrans);
-		}		
-		// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
-		// _pArrayFwdSrcVecReshape .. [1 * H_out * W_out, C * FH * FW] or [N * H_out * W_out, C * FH * FW]
-		if (_pArrayFwdSrcVecReshape.IsNull()) {
-			Array::Dimensions &dimsSrcVec = _pArrayFwdSrcVec->GetDims();
-			if (dimsSrcVec.size() == 2)  {
-				_pArrayFwdSrcVecReshape.reset(_pArrayFwdSrcVec->Reference());
-			} else if (dimsSrcVec.size() == 3) {
-				Array::Dimensions dims;
-				dims.reserve(2);
-				dims.push_back(Array::Dimension(dimsSrcVec[0].GetSize() * dimsSrcVec[1].GetSize()));
-				dims.push_back(Array::Dimension(dimsSrcVec[2].GetSize()));
-				_pArrayFwdSrcVec->Reshape(_pArrayFwdSrcVecReshape, dims);
-			} else {
-				env.SetError(ERR_ValueError, "invalid array");
-				return false;
-			}
-		}
-		// _pArrayGearDiffPre = _pArrayBwdSrcTrans |.| _pArrayFwdSrcVecReshape
-		// _pArrayGearDiffPre .. [FN, C * FH * FW]
-		// pArrayGear .. [FN, C, FH, FW] or [FN, FH, FW, C]
-		if (!Array::Dot(env, _pArrayGearDiffPre,
-						_pArrayBwdSrcTrans.get(), _pArrayFwdSrcVecReshape.get())) return false;
-		if (_pArrayGearDiff.IsNull()) {
-			_pArrayGearDiffPre->Reshape(_pArrayGearDiff, pArrayGear->GetDims());
-		}
-		if (!_pOptimizerInst->Update(env, pGear->GetArrayGearAutoPtr(), _pArrayGearDiff.get())) return false;
-		if (GetConnectorSrc()->GetNodeSrc()->IsVulnerable()) {
+		} else if (dimsBwdSrc.size() == 4) {
+			// _pArrayBwdSrc .. [N, H_out, W_out, FN]
 			// _pArrayBwdSrcReshape .. [N * H_out * W_out, FN]
-			// _pArrayGearReshape .. [FN, C * FH * FW]
-			// _pArrayFwdSrcVecDiffPre = _pArrayBwdSrcReshape |.| _pArrayGearReshape
-			// _pArrayFwdSrcVecDiffPre .. [N * H_out * W_out, C * FH * FW]
-			// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
-			if (!Array::Dot(env, _pArrayFwdSrcVecDiffPre,
-							_pArrayBwdSrcReshape.get(), _pArrayGearReshape.get())) return false;
-			if (_pArrayFwdSrcVecDiff.IsNull()) {
-				_pArrayFwdSrcVecDiffPre->Reshape(_pArrayFwdSrcVecDiff, _pArrayFwdSrcVec->GetDims());
-			}
-			// pArrayBwd ... [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
-			if (!_pArrayFwdSrcVecDiff->RestoreKernelVec2d(
-					env, GetConnectorSrc()->GetArrayBwdAutoPtr(), _sizeRow, _sizeCol,
-					pGear->GetSizeRow(), pGear->GetSizeCol(),
-					pGear->GetStridesRow(), pGear->GetStridesCol(),
-					_sizePadRow, _sizePadCol, pGear->GetChannelPos())) return false;
+			// _pArrayBwdSrcTrans .. [FN, N * H_out * W_out]
+			dims.reserve(2);
+			dims.push_back(Array::Dimension(dimsBwdSrc[0].GetSize() *
+											dimsBwdSrc[1].GetSize() * dimsBwdSrc[2].GetSize()));
+			dims.push_back(Array::Dimension(dimsBwdSrc[3].GetSize()));
+		} else {
+			env.SetError(ERR_ValueError, "invalid array");
+			return false;
 		}
+		pArrayBwdSrc->Reshape(_pArrayBwdSrcReshape, dims);
+		_pArrayBwdSrcReshape->Transpose2d(_pArrayBwdSrcTrans);
+	}		
+	// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
+	// _pArrayFwdSrcVecReshape .. [1 * H_out * W_out, C * FH * FW] or [N * H_out * W_out, C * FH * FW]
+	if (_pArrayFwdSrcVecReshape.IsNull()) {
+		Array::Dimensions &dimsSrcVec = _pArrayFwdSrcVec->GetDims();
+		if (dimsSrcVec.size() == 2)  {
+			_pArrayFwdSrcVecReshape.reset(_pArrayFwdSrcVec->Reference());
+		} else if (dimsSrcVec.size() == 3) {
+			Array::Dimensions dims;
+			dims.reserve(2);
+			dims.push_back(Array::Dimension(dimsSrcVec[0].GetSize() * dimsSrcVec[1].GetSize()));
+			dims.push_back(Array::Dimension(dimsSrcVec[2].GetSize()));
+			_pArrayFwdSrcVec->Reshape(_pArrayFwdSrcVecReshape, dims);
+		} else {
+			env.SetError(ERR_ValueError, "invalid array");
+			return false;
+		}
+	}
+	// _pArrayGearDiffPre = _pArrayBwdSrcTrans |.| _pArrayFwdSrcVecReshape
+	// _pArrayGearDiffPre .. [FN, C * FH * FW]
+	// pArrayGear .. [FN, C, FH, FW] or [FN, FH, FW, C]
+	if (!Array::Dot(env, _pArrayGearDiffPre,
+					_pArrayBwdSrcTrans.get(), _pArrayFwdSrcVecReshape.get())) return false;
+	if (_pArrayGearDiff.IsNull()) {
+		_pArrayGearDiffPre->Reshape(_pArrayGearDiff, pArrayGear->GetDims());
+	}
+	if (!_pOptimizerInst->Update(env, pGear->GetArrayGearAutoPtr(), _pArrayGearDiff.get())) return false;
+	if (GetConnectorSrc()->GetNodeSrc()->IsVulnerable()) {
+		// _pArrayBwdSrcReshape .. [N * H_out * W_out, FN]
+		// _pArrayGearReshape .. [FN, C * FH * FW]
+		// _pArrayFwdSrcVecDiffPre = _pArrayBwdSrcReshape |.| _pArrayGearReshape
+		// _pArrayFwdSrcVecDiffPre .. [N * H_out * W_out, C * FH * FW]
+		// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
+		if (!Array::Dot(env, _pArrayFwdSrcVecDiffPre,
+						_pArrayBwdSrcReshape.get(), _pArrayGearReshape.get())) return false;
+		if (_pArrayFwdSrcVecDiff.IsNull()) {
+			_pArrayFwdSrcVecDiffPre->Reshape(_pArrayFwdSrcVecDiff, _pArrayFwdSrcVec->GetDims());
+		}
+		// pArrayBwd ... [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
+		if (!_pArrayFwdSrcVecDiff->RestoreKernelVec2d(
+				env, GetConnectorSrc()->GetArrayBwdAutoPtr(), _sizeRow, _sizeCol,
+				pGear->GetSizeRow(), pGear->GetSizeCol(),
+				pGear->GetStridesRow(), pGear->GetStridesCol(),
+				_sizePadRow, _sizePadCol, pGear->GetChannelPos())) return false;
 	}
 	return true;
 }
