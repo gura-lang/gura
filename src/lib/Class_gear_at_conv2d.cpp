@@ -194,48 +194,48 @@ bool NodeGear_Conv2d::EvalBackward(Environment &env)
 	const Array *pArrayGear = pGear->GetArrayGear();
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
-	const Array *pArrayBwdSrc = (*ppConnectorDst)->GetArrayBwd();
-	if (_pArrayBwdSrcTrans.IsNull()) {
-		const Array::Dimensions &dimsBwdSrc = pArrayBwdSrc->GetDims();
+	const Array *pArrayGradSrc = (*ppConnectorDst)->GetArrayGrad();
+	if (_pArrayGradSrcTrans.IsNull()) {
+		const Array::Dimensions &dimsGradSrc = pArrayGradSrc->GetDims();
 		Array::Dimensions dims;
-		if (dimsBwdSrc.size() == 2) {
-			// _pArrayBwdSrc .. [H_out, W_out]
-			// _pArrayBwdSrcReshape .. [1 * H_out * W_out, 1]
-			// _pArrayBwdSrcTrans .. [1, 1 * H_out * W_out]
+		if (dimsGradSrc.size() == 2) {
+			// _pArrayGradSrc .. [H_out, W_out]
+			// _pArrayGradSrcReshape .. [1 * H_out * W_out, 1]
+			// _pArrayGradSrcTrans .. [1, 1 * H_out * W_out]
 			dims.reserve(2);
-			dims.push_back(Array::Dimension(dimsBwdSrc[0].GetSize() * dimsBwdSrc[1].GetSize()));
+			dims.push_back(Array::Dimension(dimsGradSrc[0].GetSize() * dimsGradSrc[1].GetSize()));
 			dims.push_back(Array::Dimension(1));
-		} else if (dimsBwdSrc.size() == 3) {
+		} else if (dimsGradSrc.size() == 3) {
 			if (pGear->HasFilterDim()) {
-				// _pArrayBwdSrc .. [H_out, W_out, FN]
-				// _pArrayBwdSrcReshape .. [1 * H_out * W_out, FN]
-				// _pArrayBwdSrcTrans .. [FN, 1 * H_out * W_out]
+				// _pArrayGradSrc .. [H_out, W_out, FN]
+				// _pArrayGradSrcReshape .. [1 * H_out * W_out, FN]
+				// _pArrayGradSrcTrans .. [FN, 1 * H_out * W_out]
 				dims.reserve(2);
-				dims.push_back(Array::Dimension(dimsBwdSrc[0].GetSize() * dimsBwdSrc[1].GetSize()));
-				dims.push_back(Array::Dimension(dimsBwdSrc[2].GetSize()));
+				dims.push_back(Array::Dimension(dimsGradSrc[0].GetSize() * dimsGradSrc[1].GetSize()));
+				dims.push_back(Array::Dimension(dimsGradSrc[2].GetSize()));
 			} else {
-				// _pArrayBwdSrc .. [N, H_out, W_out]
-				// _pArrayBwdSrcReshape .. [N * H_out * W_out, 1]
-				// _pArrayBwdSrcTrans .. [1, N * H_out * W_out]
+				// _pArrayGradSrc .. [N, H_out, W_out]
+				// _pArrayGradSrcReshape .. [N * H_out * W_out, 1]
+				// _pArrayGradSrcTrans .. [1, N * H_out * W_out]
 				dims.reserve(2);
-				dims.push_back(Array::Dimension(dimsBwdSrc[0].GetSize() *
-												dimsBwdSrc[1].GetSize() * dimsBwdSrc[2].GetSize()));
+				dims.push_back(Array::Dimension(dimsGradSrc[0].GetSize() *
+												dimsGradSrc[1].GetSize() * dimsGradSrc[2].GetSize()));
 				dims.push_back(Array::Dimension(1));
 			}
-		} else if (dimsBwdSrc.size() == 4) {
-			// _pArrayBwdSrc .. [N, H_out, W_out, FN]
-			// _pArrayBwdSrcReshape .. [N * H_out * W_out, FN]
-			// _pArrayBwdSrcTrans .. [FN, N * H_out * W_out]
+		} else if (dimsGradSrc.size() == 4) {
+			// _pArrayGradSrc .. [N, H_out, W_out, FN]
+			// _pArrayGradSrcReshape .. [N * H_out * W_out, FN]
+			// _pArrayGradSrcTrans .. [FN, N * H_out * W_out]
 			dims.reserve(2);
-			dims.push_back(Array::Dimension(dimsBwdSrc[0].GetSize() *
-											dimsBwdSrc[1].GetSize() * dimsBwdSrc[2].GetSize()));
-			dims.push_back(Array::Dimension(dimsBwdSrc[3].GetSize()));
+			dims.push_back(Array::Dimension(dimsGradSrc[0].GetSize() *
+											dimsGradSrc[1].GetSize() * dimsGradSrc[2].GetSize()));
+			dims.push_back(Array::Dimension(dimsGradSrc[3].GetSize()));
 		} else {
 			env.SetError(ERR_ValueError, "invalid array");
 			return false;
 		}
-		pArrayBwdSrc->Reshape(_pArrayBwdSrcReshape, dims);
-		_pArrayBwdSrcReshape->Transpose2d(_pArrayBwdSrcTrans);
+		pArrayGradSrc->Reshape(_pArrayGradSrcReshape, dims);
+		_pArrayGradSrcReshape->Transpose2d(_pArrayGradSrcTrans);
 	}		
 	// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
 	// _pArrayFwdSrcVecReshape .. [1 * H_out * W_out, C * FH * FW] or [N * H_out * W_out, C * FH * FW]
@@ -254,29 +254,29 @@ bool NodeGear_Conv2d::EvalBackward(Environment &env)
 			return false;
 		}
 	}
-	// _pArrayGearDiffPre = _pArrayBwdSrcTrans |.| _pArrayFwdSrcVecReshape
+	// _pArrayGearDiffPre = _pArrayGradSrcTrans |.| _pArrayFwdSrcVecReshape
 	// _pArrayGearDiffPre .. [FN, C * FH * FW]
 	// pArrayGear .. [FN, C, FH, FW] or [FN, FH, FW, C]
 	if (!Array::Dot(env, _pArrayGearDiffPre,
-					_pArrayBwdSrcTrans.get(), _pArrayFwdSrcVecReshape.get())) return false;
+					_pArrayGradSrcTrans.get(), _pArrayFwdSrcVecReshape.get())) return false;
 	if (_pArrayGearDiff.IsNull()) {
 		_pArrayGearDiffPre->Reshape(_pArrayGearDiff, pArrayGear->GetDims());
 	}
 	if (!_pOptimizerInst->Update(env, pGear->GetArrayGearAutoPtr(), _pArrayGearDiff.get())) return false;
 	if (GetConnectorSrc()->GetNodeSrc()->IsVulnerable()) {
-		// _pArrayBwdSrcReshape .. [N * H_out * W_out, FN]
+		// _pArrayGradSrcReshape .. [N * H_out * W_out, FN]
 		// _pArrayGearReshape .. [FN, C * FH * FW]
-		// _pArrayFwdSrcVecDiffPre = _pArrayBwdSrcReshape |.| _pArrayGearReshape
+		// _pArrayFwdSrcVecDiffPre = _pArrayGradSrcReshape |.| _pArrayGearReshape
 		// _pArrayFwdSrcVecDiffPre .. [N * H_out * W_out, C * FH * FW]
 		// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
 		if (!Array::Dot(env, _pArrayFwdSrcVecDiffPre,
-						_pArrayBwdSrcReshape.get(), _pArrayGearReshape.get())) return false;
+						_pArrayGradSrcReshape.get(), _pArrayGearReshape.get())) return false;
 		if (_pArrayFwdSrcVecDiff.IsNull()) {
 			_pArrayFwdSrcVecDiffPre->Reshape(_pArrayFwdSrcVecDiff, _pArrayFwdSrcVec->GetDims());
 		}
-		// pArrayBwd ... [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
+		// pArrayGrad ... [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
 		if (!_pArrayFwdSrcVecDiff->RestoreKernelVec2d(
-				env, GetConnectorSrc()->GetArrayBwdAutoPtr(), _sizeRow, _sizeCol,
+				env, GetConnectorSrc()->GetArrayGradAutoPtr(), _sizeRow, _sizeCol,
 				pGear->GetSizeRow(), pGear->GetSizeCol(),
 				pGear->GetStridesRow(), pGear->GetStridesCol(),
 				_sizePadRow, _sizePadCol, pGear->GetChannelPos())) return false;

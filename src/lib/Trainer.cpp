@@ -227,7 +227,7 @@ void Trainer::Optimizer_AdaGrad::InstanceEx::Reset(Environment &env)
 {
 }
 
-bool Trainer::Optimizer_AdaGrad::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+bool Trainer::Optimizer_AdaGrad::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad)
 {
 	return true;
 }
@@ -244,7 +244,7 @@ void Trainer::Optimizer_Adam::InstanceEx::Reset(Environment &env)
 {
 }
 
-bool Trainer::Optimizer_Adam::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+bool Trainer::Optimizer_Adam::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad)
 {
 	return true;
 }
@@ -257,9 +257,9 @@ Trainer::Optimizer::Instance *Trainer::Optimizer_GradientDescent::CreateInstance
 	return new InstanceEx(_learningRate);
 }
 
-bool Trainer::Optimizer_GradientDescent::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+bool Trainer::Optimizer_GradientDescent::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad)
 {
-	if (!Array::Mul(sig, _pArrayAdj, pArrayBwd, _learningRate)) return false;
+	if (!Array::Mul(sig, _pArrayAdj, pArrayGrad, _learningRate)) return false;
 	if (!Array::Sub(sig, pArray, pArray.get(), _pArrayAdj.get())) return false;
 	return true;
 }
@@ -276,7 +276,7 @@ void Trainer::Optimizer_Momentum::InstanceEx::Reset(Environment &env)
 {
 }
 
-bool Trainer::Optimizer_Momentum::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+bool Trainer::Optimizer_Momentum::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad)
 {
 	return true;
 }
@@ -293,7 +293,7 @@ void Trainer::Optimizer_Nesterov::InstanceEx::Reset(Environment &env)
 {
 }
 
-bool Trainer::Optimizer_Nesterov::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+bool Trainer::Optimizer_Nesterov::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad)
 {
 	return true;
 }
@@ -306,7 +306,7 @@ Trainer::Optimizer::Instance *Trainer::Optimizer_None::CreateInstance() const
 	return new InstanceEx();
 }
 
-bool Trainer::Optimizer_None::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+bool Trainer::Optimizer_None::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad)
 {
 	return true;
 }
@@ -323,7 +323,7 @@ void Trainer::Optimizer_RMSprop::InstanceEx::Reset(Environment &env)
 {
 }
 
-bool Trainer::Optimizer_RMSprop::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd)
+bool Trainer::Optimizer_RMSprop::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad)
 {
 	return true;
 }
@@ -428,7 +428,7 @@ bool Trainer::NodeHead::EvalBackward(Environment &env)
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_pOptimizerInst.get() != nullptr) {
-		if (!_pOptimizerInst->Update(env, _pArrayFwd, (*ppConnectorDst)->GetArrayBwd())) return false;
+		if (!_pOptimizerInst->Update(env, _pArrayFwd, (*ppConnectorDst)->GetArrayGrad())) return false;
 	}
 	return true;
 }
@@ -485,7 +485,7 @@ bool Trainer::NodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayC
 {
 	_pArrayCorrect.reset(pArrayCorrect->Reference());
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
-		if (!Array::Sub(env, _connectorSrc.GetArrayBwdAutoPtr(),
+		if (!Array::Sub(env, _connectorSrc.GetArrayGradAutoPtr(),
 						_connectorSrc.GetArrayFwd(), pArrayCorrect)) return false;
 	}
 	return true;
@@ -494,7 +494,7 @@ bool Trainer::NodeBottom::EvalBackwardTop(Environment &env, const Array *pArrayC
 bool Trainer::NodeBottom::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_Symbol(input));
-	symbols.insert(Gura_Symbol(inputbwd));
+	symbols.insert(Gura_Symbol(inputgrad));
 	return Node::DoDirProp(env, symbols);
 }
 
@@ -504,9 +504,9 @@ Value Trainer::NodeBottom::DoGetProp(Environment &env, const Symbol *pSymbol,
 	if (pSymbol->IsIdentical(Gura_Symbol(input))) {
 		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayFwd()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(inputbwd))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(inputgrad))) {
 		evaluatedFlag = true;
-		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayBwd()));
+		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayGrad()));
 	}
 	return Node::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
@@ -516,7 +516,7 @@ String Trainer::NodeBottom::ToString() const
 	String str;
 	char buff[128];
 	str += GetNodeTypeName();
-	::sprintf(buff, " [fwd:%p,bwd:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
+	::sprintf(buff, " [fwd:%p,grad:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayGrad());
 	str += buff;
 	return str;
 }
@@ -547,7 +547,7 @@ bool Trainer::NodeUnary::EvalForward(Environment &env)
 bool Trainer::NodeUnary::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_Symbol(input));
-	symbols.insert(Gura_Symbol(inputbwd));
+	symbols.insert(Gura_Symbol(inputgrad));
 	return Node::DoDirProp(env, symbols);
 }
 
@@ -557,9 +557,9 @@ Value Trainer::NodeUnary::DoGetProp(Environment &env, const Symbol *pSymbol,
 	if (pSymbol->IsIdentical(Gura_Symbol(input))) {
 		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayFwd()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(inputbwd))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(inputgrad))) {
 		evaluatedFlag = true;
-		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayBwd()));
+		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayGrad()));
 	}
 	return Node::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
@@ -569,7 +569,7 @@ String Trainer::NodeUnary::ToString() const
 	String str;
 	char buff[128];
 	str += GetNodeTypeName();
-	::sprintf(buff, " [fwd:%p,bwd:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
+	::sprintf(buff, " [fwd:%p,grad:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayGrad());
 	str += buff;
 	return str;
 }
@@ -588,7 +588,7 @@ bool Trainer::NodeUnary_Pos::EvalBackward(Environment &env)
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
 		ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 		if (ppConnectorDst == _connectorsDst.end()) return true;
-		_connectorSrc.SetArrayBwd((*ppConnectorDst)->GetArrayBwd()->Reference());
+		_connectorSrc.SetArrayGrad((*ppConnectorDst)->GetArrayGrad()->Reference());
 	}
 	return true;
 }
@@ -601,7 +601,7 @@ bool Trainer::NodeUnary_Neg::EvalBackward(Environment &env)
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
-		if (!Array::Neg(env, _connectorSrc.GetArrayBwdAutoPtr(), (*ppConnectorDst)->GetArrayBwd())) return false;
+		if (!Array::Neg(env, _connectorSrc.GetArrayGradAutoPtr(), (*ppConnectorDst)->GetArrayGrad())) return false;
 	}
 	return true;
 }
@@ -631,8 +631,8 @@ bool Trainer::NodeBinary::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_Symbol(input_at_left));
 	symbols.insert(Gura_Symbol(input_at_right));
-	symbols.insert(Gura_Symbol(inputbwd_at_left));
-	symbols.insert(Gura_Symbol(inputbwd_at_right));
+	symbols.insert(Gura_Symbol(inputgrad_at_left));
+	symbols.insert(Gura_Symbol(inputgrad_at_right));
 	return Node::DoDirProp(env, symbols);
 }
 
@@ -645,12 +645,12 @@ Value Trainer::NodeBinary::DoGetProp(Environment &env, const Symbol *pSymbol,
 	} else if (pSymbol->IsIdentical(Gura_Symbol(input_at_right))) {
 		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrcRight.GetArrayFwd()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(inputbwd_at_left))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(inputgrad_at_left))) {
 		evaluatedFlag = true;
-		return Array::ToValue(env, Array::Reference(_connectorSrcLeft.GetArrayBwd()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(inputbwd_at_right))) {
+		return Array::ToValue(env, Array::Reference(_connectorSrcLeft.GetArrayGrad()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(inputgrad_at_right))) {
 		evaluatedFlag = true;
-		return Array::ToValue(env, Array::Reference(_connectorSrcRight.GetArrayBwd()));
+		return Array::ToValue(env, Array::Reference(_connectorSrcRight.GetArrayGrad()));
 	}
 	return Node::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
@@ -660,9 +660,9 @@ String Trainer::NodeBinary::ToString() const
 	String str;
 	char buff[128];
 	str += GetNodeTypeName();
-	::sprintf(buff, " [fwd:%p,bwd:%p][fwd:%p,bwd:%p]",
-			  _connectorSrcLeft.GetArrayFwd(), _connectorSrcLeft.GetArrayBwd(),
-			  _connectorSrcRight.GetArrayFwd(), _connectorSrcRight.GetArrayBwd());
+	::sprintf(buff, " [fwd:%p,grad:%p][fwd:%p,grad:%p]",
+			  _connectorSrcLeft.GetArrayFwd(), _connectorSrcLeft.GetArrayGrad(),
+			  _connectorSrcRight.GetArrayFwd(), _connectorSrcRight.GetArrayGrad());
 	str += buff;
 	return str;
 }
@@ -681,9 +681,9 @@ bool Trainer::NodeBinary_Add::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
-	const Array *pArrayBwd = (*ppConnectorDst)->GetArrayBwd();
-	_connectorSrcLeft.SetArrayBwd(pArrayBwd->Reference());
-	_connectorSrcRight.SetArrayBwd(pArrayBwd->Reference());
+	const Array *pArrayGrad = (*ppConnectorDst)->GetArrayGrad();
+	_connectorSrcLeft.SetArrayGrad(pArrayGrad->Reference());
+	_connectorSrcRight.SetArrayGrad(pArrayGrad->Reference());
 	return true;
 }
 
@@ -695,10 +695,10 @@ bool Trainer::NodeBinary_Sub::EvalBackward(Environment &env)
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
-		_connectorSrcLeft.SetArrayBwd((*ppConnectorDst)->GetArrayBwd()->Reference());
+		_connectorSrcLeft.SetArrayGrad((*ppConnectorDst)->GetArrayGrad()->Reference());
 	}
 	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
-		if (!Array::Neg(env, _connectorSrcRight.GetArrayBwdAutoPtr(), (*ppConnectorDst)->GetArrayBwd())) return false;
+		if (!Array::Neg(env, _connectorSrcRight.GetArrayGradAutoPtr(), (*ppConnectorDst)->GetArrayGrad())) return false;
 	}
 	return true;
 }
@@ -711,12 +711,12 @@ bool Trainer::NodeBinary_Mul::EvalBackward(Environment &env)
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
-		if (!Array::Mul(env, _connectorSrcLeft.GetArrayBwdAutoPtr(),
-						_connectorSrcRight.GetArrayFwd(), (*ppConnectorDst)->GetArrayBwd())) return false;
+		if (!Array::Mul(env, _connectorSrcLeft.GetArrayGradAutoPtr(),
+						_connectorSrcRight.GetArrayFwd(), (*ppConnectorDst)->GetArrayGrad())) return false;
 	}
 	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
-		if (!Array::Mul(env, _connectorSrcRight.GetArrayBwdAutoPtr(),
-						_connectorSrcLeft.GetArrayFwd(), (*ppConnectorDst)->GetArrayBwd())) return false;
+		if (!Array::Mul(env, _connectorSrcRight.GetArrayGradAutoPtr(),
+						_connectorSrcLeft.GetArrayFwd(), (*ppConnectorDst)->GetArrayGrad())) return false;
 	}
 	return true;
 }
@@ -746,13 +746,13 @@ bool Trainer::NodeBinary_Dot::EvalBackward(Environment &env)
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
 		_connectorSrcRight.GetArrayFwd()->Transpose2d(_pArrayFwdRightTrans);
-		if (!Array::Dot(env, _connectorSrcLeft.GetArrayBwdAutoPtr(),
-						(*ppConnectorDst)->GetArrayBwd(), _pArrayFwdRightTrans.get())) return false;
+		if (!Array::Dot(env, _connectorSrcLeft.GetArrayGradAutoPtr(),
+						(*ppConnectorDst)->GetArrayGrad(), _pArrayFwdRightTrans.get())) return false;
 	}
 	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
 		_connectorSrcLeft.GetArrayFwd()->Transpose2d(_pArrayFwdLeftTrans);
-		if (!Array::Dot(env, _connectorSrcRight.GetArrayBwdAutoPtr(),
-						_pArrayFwdLeftTrans.get(), (*ppConnectorDst)->GetArrayBwd())) return false;
+		if (!Array::Dot(env, _connectorSrcRight.GetArrayGradAutoPtr(),
+						_pArrayFwdLeftTrans.get(), (*ppConnectorDst)->GetArrayGrad())) return false;
 	}
 	return true;
 }
@@ -766,7 +766,7 @@ bool Trainer::NodeGear::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_Symbol(gear));
 	symbols.insert(Gura_Symbol(input));
-	symbols.insert(Gura_Symbol(inputbwd));
+	symbols.insert(Gura_Symbol(inputgrad));
 	return Node::DoDirProp(env, symbols);
 }
 
@@ -779,9 +779,9 @@ Value Trainer::NodeGear::DoGetProp(Environment &env, const Symbol *pSymbol,
 	} else if (pSymbol->IsIdentical(Gura_Symbol(input))) {
 		evaluatedFlag = true;
 		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayFwd()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(inputbwd))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(inputgrad))) {
 		evaluatedFlag = true;
-		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayBwd()));
+		return Array::ToValue(env, Array::Reference(_connectorSrc.GetArrayGrad()));
 	}
 	return Node::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
@@ -791,7 +791,7 @@ String Trainer::NodeGear::ToString() const
 	String str;
 	char buff[128];
 	str += GetNodeTypeName();
-	::sprintf(buff, " [fwd:%p,bwd:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayBwd());
+	::sprintf(buff, " [fwd:%p,grad:%p]", _connectorSrc.GetArrayFwd(), _connectorSrc.GetArrayGrad());
 	str += buff;
 	return str;
 }

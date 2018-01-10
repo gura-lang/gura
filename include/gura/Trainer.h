@@ -17,7 +17,7 @@ public:
 		class Instance {
 		public:
 			virtual void Reset(Environment &env);
-			virtual bool Update(Signal &sig, AutoPtr<Array> &array, const Array *pArrayBwd) = 0;
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad) = 0;
 		};
 	private:
 		int _cntRef;
@@ -41,7 +41,7 @@ public:
 		public:
 			inline InstanceEx() {}
 			virtual void Reset(Environment &env);
-			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad);
 		};
 	public:
 		inline Optimizer_AdaGrad() : Optimizer("adagrad") {}
@@ -56,7 +56,7 @@ public:
 		public:
 			inline InstanceEx() {}
 			virtual void Reset(Environment &env);
-			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad);
 		};
 	public:
 		inline Optimizer_Adam() : Optimizer("adam") {}
@@ -75,7 +75,7 @@ public:
 			AutoPtr<Array> _pArrayAdj;
 		public:
 			inline InstanceEx(Double learningRate) : _learningRate(learningRate) {}
-			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad);
 		};
 	public:
 		inline Optimizer_GradientDescent(Double learningRate) :
@@ -91,7 +91,7 @@ public:
 		public:
 			inline InstanceEx() {}
 			virtual void Reset(Environment &env);
-			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad);
 		};
 	public:
 		inline Optimizer_Momentum() : Optimizer("momentum") {}
@@ -106,7 +106,7 @@ public:
 		public:
 			inline InstanceEx() {}
 			virtual void Reset(Environment &env);
-			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad);
 		};
 	public:
 		inline Optimizer_Nesterov() : Optimizer("nesterov") {}
@@ -120,7 +120,7 @@ public:
 		class InstanceEx : public Instance {
 		public:
 			inline InstanceEx() {}
-			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad);
 		};
 	public:
 		inline Optimizer_None() : Optimizer("none") {}
@@ -135,7 +135,7 @@ public:
 		public:
 			inline InstanceEx() {}
 			virtual void Reset(Environment &env);
-			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayBwd);
+			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad);
 		};
 	public:
 		inline Optimizer_RMSprop() : Optimizer("rmsprop") {}
@@ -155,7 +155,7 @@ public:
 		private:
 			Node *_pNodeSrc;
 			Node *_pNodeDst;
-			AutoPtr<Array> _pArrayBwd;
+			AutoPtr<Array> _pArrayGrad;
 		public:
 			inline Connector(Node *pNodeDst) :
 			_pNodeSrc(nullptr), _pNodeDst(pNodeDst) {}
@@ -166,12 +166,12 @@ public:
 			inline void SetNodeSrc(Node *pNodeSrc) {
 				_pNodeSrc = pNodeSrc;
 			}
-			inline void SetArrayBwd(Array *pArrayBwd) { _pArrayBwd.reset(pArrayBwd); }
+			inline void SetArrayGrad(Array *pArrayGrad) { _pArrayGrad.reset(pArrayGrad); }
 			inline Array *GetArrayFwd() { return _pNodeSrc->GetArrayFwd(); }
-			inline Array *GetArrayBwd() { return _pArrayBwd.get(); }
-			inline AutoPtr<Array> &GetArrayBwdAutoPtr() { return _pArrayBwd; }
+			inline Array *GetArrayGrad() { return _pArrayGrad.get(); }
+			inline AutoPtr<Array> &GetArrayGradAutoPtr() { return _pArrayGrad; }
 			inline const Array *GetArrayFwd() const { return _pNodeSrc->GetArrayFwd(); }
-			inline const Array *GetArrayBwd() const { return _pArrayBwd.get(); }
+			inline const Array *GetArrayGrad() const { return _pArrayGrad.get(); }
 		};
 		class ConnectorList : public std::vector<Connector *> {
 		public:
@@ -215,7 +215,7 @@ public:
 	class NodeHead : public Node {
 	protected:
 		AutoPtr<Expr> _pExpr;
-		AutoPtr<Array> _pArrayBwdAdj;
+		AutoPtr<Array> _pArrayGradAdj;
 		Trait _trait;
 		std::unique_ptr<Optimizer::Instance> _pOptimizerInst;
 	public:

@@ -61,7 +61,7 @@ bool NodeGear_Softmax::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
-	_connectorSrc.SetArrayBwd((*ppConnectorDst)->GetArrayBwd()->Reference());
+	_connectorSrc.SetArrayGrad((*ppConnectorDst)->GetArrayGrad()->Reference());
 	return true;
 }
 

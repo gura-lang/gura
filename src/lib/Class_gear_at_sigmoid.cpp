@@ -67,9 +67,9 @@ bool NodeGear_Sigmoid::EvalBackward(Environment &env)
 		// (1 - y) * y
 		if (!Array::Mul(env, _pArrayTmp, _pArrayTmp.get(), _pArrayFwd.get())) return false;
 		if (env.IsSignalled()) return false;
-		// (1 - y) * y * bwd_in
-		if (!Array::Mul(env, _connectorSrc.GetArrayBwdAutoPtr(),
-						_pArrayTmp.get(), (*ppConnectorDst)->GetArrayBwd())) return false;
+		// (1 - y) * y * grad_in
+		if (!Array::Mul(env, _connectorSrc.GetArrayGradAutoPtr(),
+						_pArrayTmp.get(), (*ppConnectorDst)->GetArrayGrad())) return false;
 	}
 	return true;
 }

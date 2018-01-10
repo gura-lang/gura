@@ -75,23 +75,23 @@ bool NodeGear_MaxPool2d::EvalBackward(Environment &env)
 {
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
-	AutoPtr<Array> &pArrayBwdDst = GetConnectorSrc()->GetArrayBwdAutoPtr();		
-	if (pArrayBwdDst.IsNull()) {
+	AutoPtr<Array> &pArrayGradDst = GetConnectorSrc()->GetArrayGradAutoPtr();		
+	if (pArrayGradDst.IsNull()) {
 		const Array *pArrayFwd = GetConnectorSrc()->GetArrayFwd();
-		pArrayBwdDst.reset(Array::Create(pArrayFwd->GetElemType()));
-		pArrayBwdDst->SetDims(pArrayFwd->GetDims());
-		pArrayBwdDst->AllocMemory();
+		pArrayGradDst.reset(Array::Create(pArrayFwd->GetElemType()));
+		pArrayGradDst->SetDims(pArrayFwd->GetDims());
+		pArrayGradDst->AllocMemory();
 	}
-	pArrayBwdDst->FillZero();
+	pArrayGradDst->FillZero();
 	if (GetConnectorSrc()->GetNodeSrc()->IsVulnerable()) {
 		//*******************
-		const Array *pArrayBwdSrc = (*ppConnectorDst)->GetArrayBwd();
-		const Double *pElemBwdSrc = dynamic_cast<const ArrayT<Double> *>(pArrayBwdSrc)->GetPointer();
-		Double *pElemBwdDst = dynamic_cast<ArrayT<Double> *>(pArrayBwdDst.get())->GetPointer();
+		const Array *pArrayGradSrc = (*ppConnectorDst)->GetArrayGrad();
+		const Double *pElemGradSrc = dynamic_cast<const ArrayT<Double> *>(pArrayGradSrc)->GetPointer();
+		Double *pElemGradDst = dynamic_cast<ArrayT<Double> *>(pArrayGradDst.get())->GetPointer();
 		const UInt32 *pElemIndex = dynamic_cast<ArrayT<UInt32> *>(_pArrayOfIndex.get())->GetPointer();
-		size_t nElems = pArrayBwdSrc->GetElemNum();
-		for (size_t iElem = 0; iElem < nElems; iElem++, pElemBwdSrc++, pElemIndex++) {
-			*(pElemBwdDst + *pElemIndex) += *pElemBwdSrc;
+		size_t nElems = pArrayGradSrc->GetElemNum();
+		for (size_t iElem = 0; iElem < nElems; iElem++, pElemGradSrc++, pElemIndex++) {
+			*(pElemGradDst + *pElemIndex) += *pElemGradSrc;
 		}
 	}
 	return true;

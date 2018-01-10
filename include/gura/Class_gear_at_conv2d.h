@@ -84,8 +84,8 @@ private:
 	AutoPtr<Array> _pArrayGearReshape;		// EvalForward
 	AutoPtr<Array> _pArrayGearTrans;		// EvalForward
 	AutoPtr<Array> _pArrayFwdPre;			// EvalForward
-	AutoPtr<Array> _pArrayBwdSrcReshape;	// EvalBackward
-	AutoPtr<Array> _pArrayBwdSrcTrans;		// EvalBackward
+	AutoPtr<Array> _pArrayGradSrcReshape;	// EvalBackward
+	AutoPtr<Array> _pArrayGradSrcTrans;		// EvalBackward
 	AutoPtr<Array> _pArrayFwdSrcVecReshape;	// EvalBackward
 	AutoPtr<Array> _pArrayGearDiff;			// EvalBackward
 	AutoPtr<Array> _pArrayGearDiffPre;		// EvalBackward

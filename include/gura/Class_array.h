@@ -49,6 +49,7 @@ public:
 		Object(pClass), _pArray(pArray) {}
 	inline Array *GetArray() { return _pArray.get(); }
 	inline const Array *GetArray() const { return _pArray.get(); }
+	inline AutoPtr<Array> &GetArrayAutoPtr() { return _pArray; }
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	virtual Value EvalIndexGet(Environment &env, const ValueList &valListIdx);

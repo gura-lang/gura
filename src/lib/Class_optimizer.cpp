@@ -30,6 +30,14 @@ String Object_optimizer::ToString(bool exprFlag)
 	return str;
 }
 
+Trainer::Optimizer::Instance *Object_optimizer::GetOptimizerInst()
+{
+	if (_pOptimizerInst.get() == nullptr) {
+		_pOptimizerInst.reset(_pOptimizer->CreateInstance());
+	}
+	return _pOptimizerInst.get();
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
@@ -148,6 +156,29 @@ Gura_ImplementFunction(optimizer_at_rmsprop)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of methods
+//-----------------------------------------------------------------------------
+// optimizer#update(array:array, array_grad:array):void
+Gura_DeclareMethod(optimizer, update)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "array", VTYPE_array);
+	DeclareArg(env, "array_grad", VTYPE_array);
+	AddHelp(
+		Gura_Symbol(en), 
+		"Updates `array`'s value by the optimizer calculation using the gradient information in `array_grad`.");
+}
+
+Gura_ImplementMethod(optimizer, update)
+{
+	Object_optimizer *pThis = Object_optimizer::GetObjectThis(arg);
+	AutoPtr<Array> &pArray = Object_array::GetObject(arg, 0)->GetArrayAutoPtr();
+	const Array *pArrayGrad = Object_array::GetObject(arg, 1)->GetArray();
+	pThis->GetOptimizerInst()->Update(env, pArray, pArrayGrad);
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
 Class_optimizer::Class_optimizer(Environment *pEnvOuter) : ClassFundamental(pEnvOuter, VTYPE_optimizer)
@@ -164,6 +195,8 @@ void Class_optimizer::DoPrepare(Environment &env)
 	Gura_AssignFunction(optimizer_at_nesterov);
 	Gura_AssignFunction(optimizer_at_none);
 	Gura_AssignFunction(optimizer_at_rmsprop);
+	// Assignment of methods
+	Gura_AssignMethod(optimizer, update);
 	// Assignment of value
 	Gura_AssignValue(optimizer, Value(this));
 	// help document

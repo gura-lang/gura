@@ -40,16 +40,16 @@ testcase('node information') {
 		println(tr.model, ' .. ', node@a.type)
 		if (node@a.isunary()) {
 			tester(`node@a.input)
-			tester(`node@a.inputbwd)
+			tester(`node@a.inputgrad)
 		} elsif (node@a.isbinary()) {
 			tester(`node@a.input@left)
 			tester(`node@a.input@right)
-			tester(`node@a.inputbwd@left)
-			tester(`node@a.inputbwd@right)
+			tester(`node@a.inputgrad@left)
+			tester(`node@a.inputgrad@right)
 		} elsif (node@a.isgear()) {
 			println(node@a.gear)
 			tester(`node@a.input)
-			tester(`node@a.inputbwd)
+			tester(`node@a.inputgrad)
 		}
 	}
 }

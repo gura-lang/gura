@@ -24,12 +24,14 @@ public:
 class GURA_DLLDECLARE Object_optimizer : public Object {
 protected:
 	AutoPtr<Trainer::Optimizer> _pOptimizer;
+	std::unique_ptr<Trainer::Optimizer::Instance> _pOptimizerInst;	// just for testcase
 public:
 	Gura_DeclareObjectAccessor(optimizer)
 public:
 	Object_optimizer(Environment &env, Trainer::Optimizer *pOptimizer);
 	Object_optimizer(Class *pClass, Trainer::Optimizer *pOptimizer);
 	virtual String ToString(bool exprFlag);
+	Trainer::Optimizer::Instance *GetOptimizerInst();
 	inline Trainer::Optimizer *GetOptimizer() { return _pOptimizer.get(); }
 	inline const Trainer::Optimizer *GetOptimizer() const { return _pOptimizer.get(); }
 };
