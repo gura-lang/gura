@@ -2,15 +2,6 @@
 import(cairo)
 import(wx.show)
 
-classref(`cairo.context) {|ref|
-	ref.hline(x:number, y:number, width:number):map:reduce = {
-		this.move_to(x, y).rel_line_to(width, 0)
-	}
-	ref.vline(x:number, y:number, height:number):map:reduce = {
-		this.move_to(x, y).rel_line_to(0, height)
-	}
-}
-
 //-----------------------------------------------------------------------------
 // Graph
 //-----------------------------------------------------------------------------
@@ -41,6 +32,12 @@ Graph = class {
 		tSteps = tStepBase * nScales
 		(tSteps.filter(tRange / tSteps >= 10):list).last()
 	}
+	drawHline(cr:cairo.context, x:number, y:number, width:number):map:void = {
+		cr.move_to(x, y).rel_line_to(width, 0)
+	}
+	drawVline(cr:cairo.context, x:number, y:number, height:number):map:void = {
+		cr.move_to(x, y).rel_line_to(0, height)
+	}
 	draw(cr:cairo.context) = {
 		[this.wdAxis, this.htAxis] = [cr.width * .9, cr.height * .9]
 		[this.xAxis, this.yAxis] = [(cr.width - this.wdAxis) / 2, (cr.height - this.htAxis) / 2]
@@ -55,21 +52,21 @@ Graph = class {
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
 			cr.set_dash([], 0)
-			cr.vline(this.coordX(0), this.yAxis, this.htAxis)
-			cr.hline(this.xAxis, this.coordY(0), this.wdAxis)
+			this.drawVline(cr, this.coordX(0), this.yAxis, this.htAxis)
+			this.drawHline(cr, this.xAxis, this.coordY(0), this.wdAxis)
 			cr.stroke()
 			cr.set_dash([2, 2], 0)
 			scope {
 				tStep = this.calcStep(this.xMin, this.xMax)
 				xs = (int(this.xMin / tStep) + \
 						(0 .. int((this.xMax - this.xMin) / tStep))) * tStep
-				cr.vline(this.coordX(xs), this.yAxis, this.htAxis)
+				this.drawVline(cr, this.coordX(xs), this.yAxis, this.htAxis)
 			}
 			scope {
 				tStep = this.calcStep(this.yMin, this.yMax)
 				ys = (int(this.yMin / tStep) + \
 						(0 .. int((this.yMax - this.yMin) / tStep))) * tStep
-				cr.hline(this.xAxis, this.coordY(ys), this.wdAxis)
+				this.drawHline(cr, this.xAxis, this.coordY(ys), this.wdAxis)
 			}
 			cr.stroke()
 		}
