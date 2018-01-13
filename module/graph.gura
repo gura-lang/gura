@@ -38,9 +38,9 @@ Graph = class {
 	drawVline(cr:cairo.context, x:number, y:number, height:number):map:void = {
 		cr.move_to(x, y).rel_line_to(0, height)
 	}
-	draw(cr:cairo.context) = {
-		[this.wdAxis, this.htAxis] = [cr.width * .9, cr.height * .9]
-		[this.xAxis, this.yAxis] = [(cr.width - this.wdAxis) / 2, (cr.height - this.htAxis) / 2]
+	draw(cr:cairo.context, xAxis:number, yAxis:number, wdAxis:number, htAxis:number) = {
+		[this.wdAxis, this.htAxis] = [wdAxis, htAxis]
+		[this.xAxis, this.yAxis] = [xAxis, yAxis]
 		cr.set_line_width(1)
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
@@ -107,8 +107,9 @@ img = image(`rgba, 300, 300, `white)
 img.cairo {|cr|
 	dir(cr.surface)
 	g = Graph()
-	g.addFunc(math.sin)
+	g.addFunc(function(x) {math.sin(x)})
+	//g.addFunc(function(x) {math.cos(x)})
 	g.addFunc(math.cos)
-	g.draw(cr)
+	g.draw(cr, 10, 10, 280, 280)
 }
 img.show()
