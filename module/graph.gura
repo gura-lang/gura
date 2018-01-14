@@ -3,9 +3,14 @@ import(cairo)
 import(wx.show)
 
 //-----------------------------------------------------------------------------
+// Coord
+//-----------------------------------------------------------------------------
+Coord = struct(x:number, y:number):map
+
+//-----------------------------------------------------------------------------
 // Plot
 //-----------------------------------------------------------------------------
-Plot = struct(x:expr, y:expr)
+Plot = struct(coords[]:Coord, style:symbol, size:number)
 
 //-----------------------------------------------------------------------------
 // Graph
@@ -255,20 +260,25 @@ Graph = class {
 			}
 		}
 		cr.save {
-			for (plot in this.plots) {
-				cr.line_to(this.coordX(plot.x.eval()), this.coordY(plot.y.eval()))
+			this.plots.each {|plot, i|
+				plot.coords.each {|coord, i|
+					this.drawMarker(cr, this.coordX(coord.x), this.coordY(coord.y), plot.style, plot.size)
+				}
 			}
 		}
 	}
-	plot(x:number, y:number) = {
-		
-		this
+	plot(plot:Plot) = {
+		this.plots.add(plot)
 	}
 	addFunc(func:function) = {
 		idx = (this.funcs::name == func.name).find():index
 		idx && this.funcs.erase(idx)
 		this.funcs.add(func)
 	}
+}
+
+MakeRandCoords(xCenter:number, yCenter:number, xRange:number, yRange:number) = {
+	Coord(xCenter + rands(nil, 10) * xRange - xRange / 2, yCenter + rands(nil, 10) * yRange - yRange / 2)
 }
 
 img = image(`rgba, 600, 600, `white)
@@ -278,6 +288,8 @@ img.cairo {|cr|
 	g.addFunc(function(x) {math.sin(x)})
 	//g.addFunc(function(x) {math.cos(x)})
 	g.addFunc(math.cos)
+	g.plot(Plot(MakeRandCoords(5, 5, 5, 5), `circle, 10))
+	g.plot(Plot(MakeRandCoords(5, -5, 5, 5), `point, 10))
 	g.draw(cr, 10, 10, 580, 580)
 }
 img.show(680, 680)
