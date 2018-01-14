@@ -3,6 +3,11 @@ import(cairo)
 import(wx.show)
 
 //-----------------------------------------------------------------------------
+// Plot
+//-----------------------------------------------------------------------------
+Plot = struct(x:expr, y:expr)
+
+//-----------------------------------------------------------------------------
 // Graph
 //-----------------------------------------------------------------------------
 Graph = class {
@@ -10,6 +15,8 @@ Graph = class {
 		xMin, xMax
 		yMin, yMax
 		cntSamples,
+		styleDefault,
+		sizeDefault,
 	}
 	__init__() = {
 		this.funcs = []
@@ -17,6 +24,23 @@ Graph = class {
 		[this.xMin, this.xMax] = [-10, 10]
 		[this.yMin, this.yMax] = [-10, 10]
 		this.cntSamples = 100
+		this.styleDefault = `square
+		this.sizeDefault = 10
+		this.dict@drawMarker = %{
+			`pixel			=> this.drawMarker_pixel
+			`square			=> this.drawMarker_square
+			`point			=> this.drawMarker_point
+			`circle			=> this.drawMarker_circle
+			`triangle_down	=> this.drawMarker_triangle_down
+			`triangle_up	=> this.drawMarker_triangle_up
+			`triangle_left	=> this.drawMarker_triangle_left
+			`triangle_right	=> this.drawMarker_triangle_right
+			`tri_down		=> this.drawMarker_tri_down
+			`tri_up			=> this.drawMarker_tri_up
+			`tri_left		=> this.drawMarker_tri_left
+			`tri_right		=> this.drawMarker_tri_right
+			`x				=> this.drawMarker_x
+		}
 	}
 	coordX(x:number):map = {
 		this.xAxis + (x - this.xMin) * this.wdAxis / (this.xMax - this.xMin)
@@ -38,9 +62,151 @@ Graph = class {
 	drawVline(cr:cairo.context, x:number, y:number, height:number):map:void = {
 		cr.move_to(x, y).rel_line_to(0, height)
 	}
+	drawMarker(cr:cairo.context, x:number, y:number, style?:symbol, size?:number):map:void = {
+		style = style || this.styleDefault
+		size = size || this.sizeDefault
+		this.dict@drawMarker[style](cr, x, y, size)
+	}
+	drawMarker_pixel(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		cr.save {
+			cr.rectangle(x - size / 2, y - size / 2, size, size)
+			cr.fill()
+		}
+	}
+	drawMarker_square(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		cr.save {
+			cr.rectangle(x - size / 2, y - size / 2, size, size)
+			cr.set_line_width(1)
+			cr.stroke()
+		}
+	}
+	drawMarker_point(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		cr.save {
+			cr.arc(x, y, size / 2, 0, math.pi * 2)
+			cr.fill()
+		}
+	}
+	drawMarker_circle(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		cr.save {
+			cr.arc(x, y, size / 2, 0, math.pi * 2)
+			cr.set_line_width(1)
+			cr.stroke()
+		}
+	}
+	makePath_triangle_down(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		sizeHalf = size / 2
+		sizeTan = size * 0.577	// 1 / sqrt(3)
+		cr.move_to(x, y + sizeHalf)
+		cr.line_to(x - sizeTan, y - sizeHalf)
+		cr.line_to(x + sizeTan, y - sizeHalf)
+		cr.line_to(x, y + sizeHalf)
+	}
+	makePath_triangle_up(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		sizeHalf = size / 2
+		sizeTan = size * 0.577	// 1 / sqrt(3)
+		cr.move_to(x, y - sizeHalf)
+		cr.line_to(x - sizeTan, y + sizeHalf)
+		cr.line_to(x + sizeTan, y + sizeHalf)
+		cr.line_to(x, y - sizeHalf)
+	}
+	makePath_triangle_left(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		sizeHalf = size / 2
+		sizeTan = size * 0.577	// 1 / sqrt(3)
+		cr.move_to(x - sizeHalf, y)
+		cr.line_to(x + sizeHalf, y - sizeTan)
+		cr.line_to(x + sizeHalf, y + sizeTan)
+		cr.line_to(x - sizeHalf, y)
+	}
+	makePath_triangle_right(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		sizeHalf = size / 2
+		sizeTan = size * 0.577	// 1 / sqrt(3)
+		cr.move_to(x + sizeHalf, y)
+		cr.line_to(x - sizeHalf, y - sizeTan)
+		cr.line_to(x - sizeHalf, y + sizeTan)
+		cr.line_to(x + sizeHalf, y)
+	}
+	drawMarker_triangle_down(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		cr.save {
+			makePath_triangle_down(cr, x, y, size)
+			cr.fill()
+		}
+	}
+	drawMarker_triangle_up(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		cr.save {
+			makePath_triangle_up(cr, x, y, size)
+			cr.fill()
+		}
+	}
+	drawMarker_triangle_left(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		cr.save {
+			makePath_triangle_left(cr, x, y, size)
+			cr.fill()
+		}
+	}
+	drawMarker_triangle_right(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		cr.save {
+			makePath_triangle_right(cr, x, y, size)
+			cr.fill()
+		}
+	}
+	drawMarker_tri_down(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		cr.save {
+			makePath_triangle_down(cr, x, y, size)
+			cr.set_line_width(1)
+			cr.stroke()
+		}
+	}
+	drawMarker_tri_up(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		cr.save {
+			makePath_triangle_up(cr, x, y, size)
+			cr.set_line_width(1)
+			cr.stroke()
+		}
+	}
+	drawMarker_tri_left(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		cr.save {
+			makePath_triangle_left(cr, x, y, size)
+			cr.set_line_width(1)
+			cr.stroke()
+		}
+	}
+	drawMarker_tri_right(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		cr.save {
+			makePath_triangle_right(cr, x, y, size)
+			cr.set_line_width(1)
+			cr.stroke()
+		}
+	}
+	drawMarker_x(cr:cairo.context, x:number, y:number, size:number):map:void = {
+		sizeHalf = size / 2
+		cr.save {
+			cr.move_to(x - sizeHalf, y - sizeHalf)
+			cr.line_to(x + sizeHalf, y + sizeHalf)
+			cr.move_to(x + sizeHalf, y - sizeHalf)
+			cr.line_to(x - sizeHalf, y + sizeHalf)
+			cr.set_line_width(1)
+			cr.stroke()
+		}
+	}
 	draw(cr:cairo.context, xAxis:number, yAxis:number, wdAxis:number, htAxis:number) = {
 		[this.wdAxis, this.htAxis] = [wdAxis, htAxis]
 		[this.xAxis, this.yAxis] = [xAxis, yAxis]
+		this.sizeDefault = 10
+		x = 60, y = 60, wdSkip = 40
+		this.drawMarker(cr, x, y, `pixel), x += wdSkip
+		this.drawMarker(cr, x, y, `square), x += wdSkip
+		this.drawMarker(cr, x, y, `point), x += wdSkip
+		this.drawMarker(cr, x, y, `circle), x += wdSkip
+		this.drawMarker(cr, x, y, `triangle_down), x += wdSkip
+		this.drawMarker(cr, x, y, `triangle_up), x += wdSkip
+		this.drawMarker(cr, x, y, `triangle_left), x += wdSkip
+		this.drawMarker(cr, x, y, `triangle_right), x += wdSkip
+		x = 60, y = 100, wdSkip = 40
+		this.drawMarker(cr, x, y, `tri_down), x += wdSkip
+		this.drawMarker(cr, x, y, `tri_up), x += wdSkip
+		this.drawMarker(cr, x, y, `tri_left), x += wdSkip
+		this.drawMarker(cr, x, y, `tri_right), x += wdSkip
+		this.drawMarker(cr, x, y, `x), x += wdSkip
 		cr.set_line_width(1)
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
@@ -90,11 +256,13 @@ Graph = class {
 		}
 		cr.save {
 			for (plot in this.plots) {
-				t = interval(plot.tMin, plot.tMax, this.cntSamples)
 				cr.line_to(this.coordX(plot.x.eval()), this.coordY(plot.y.eval()))
-				cr.stroke()
 			}
 		}
+	}
+	plot(x:number, y:number) = {
+		
+		this
 	}
 	addFunc(func:function) = {
 		idx = (this.funcs::name == func.name).find():index
@@ -103,13 +271,13 @@ Graph = class {
 	}
 }
 
-img = image(`rgba, 300, 300, `white)
+img = image(`rgba, 600, 600, `white)
 img.cairo {|cr|
 	dir(cr.surface)
 	g = Graph()
 	g.addFunc(function(x) {math.sin(x)})
 	//g.addFunc(function(x) {math.cos(x)})
 	g.addFunc(math.cos)
-	g.draw(cr, 10, 10, 280, 280)
+	g.draw(cr, 10, 10, 580, 580)
 }
-img.show()
+img.show(680, 680)
