@@ -25,6 +25,15 @@ Graph = class {
 		lineStyleDefault,
 	}
 	__init__() = {
+		this.fontName = if (sys.platform == `mswin) {
+			'Sans'
+		} elsif (sys.platform == `linux) {
+			'Sans'
+		} elsif (sys.platform == `darwin) {
+			'Hiragino Kaku Gothic Pro'
+		} else {
+			'Sans'
+		}
 		this.funcs = []
 		this.plots = []
 		[this.xMin, this.xMax] = [-10, 10]
@@ -214,10 +223,11 @@ Graph = class {
 			cr.stroke()
 		}
 	}
-	draw(cr:cairo.context, xAxis:number, yAxis:number, wdAxis:number, htAxis:number) = {
-		[this.wdAxis, this.htAxis] = [wdAxis, htAxis]
-		[this.xAxis, this.yAxis] = [xAxis, yAxis]
-		this.markerSizeDefault = 10
+	draw(cr:cairo.context, x:number, y:number, width:number, height:number) = {
+		[wdGraph, htGraph] = [width, height]
+		[xGraph, yGraph] = [x, y]
+		[this.wdAxis, this.htAxis] = [wdGraph, htGraph]
+		[this.xAxis, this.yAxis] = [xGraph, yGraph]
 		x = 60, y = 60, wdSkip = 40
 		this.drawMarker(cr, x, y, `pixel), x += wdSkip
 		this.drawMarker(cr, x, y, `square), x += wdSkip
@@ -233,6 +243,11 @@ Graph = class {
 		this.drawMarker(cr, x, y, `tri_left), x += wdSkip
 		this.drawMarker(cr, x, y, `tri_right), x += wdSkip
 		this.drawMarker(cr, x, y, `x), x += wdSkip
+		this.drawAxis(cr)
+		this.drawFuncs(cr)
+		this.drawPlots(cr)
+	}
+	drawAxis(cr:cairo.context) = {
 		cr.set_line_width(1)
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
@@ -243,25 +258,39 @@ Graph = class {
 		cr.clip()
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
-			cr.set_dash([], 0)
 			this.drawVline(cr, this.coordX(0), this.yAxis, this.htAxis)
 			this.drawHline(cr, this.xAxis, this.coordY(0), this.wdAxis)
+			cr.set_dash([], 0)
 			cr.stroke()
+			tStep = this.calcStep(this.xMin, this.xMax)
+			xs = (int(this.xMin / tStep) + \
+				  (0 .. int((this.xMax - this.xMin) / tStep))) * tStep
+			tStep = this.calcStep(this.yMin, this.yMax)
+			ys = (int(this.yMin / tStep) + \
+				  (0 .. int((this.yMax - this.yMin) / tStep))) * tStep
+			this.drawVline(cr, this.coordX(xs), this.yAxis, this.htAxis)
+			this.drawHline(cr, this.xAxis, this.coordY(ys), this.wdAxis)
 			cr.set_dash([2, 2], 0)
-			scope {
-				tStep = this.calcStep(this.xMin, this.xMax)
-				xs = (int(this.xMin / tStep) + \
-						(0 .. int((this.xMax - this.xMin) / tStep))) * tStep
-				this.drawVline(cr, this.coordX(xs), this.yAxis, this.htAxis)
-			}
-			scope {
-				tStep = this.calcStep(this.yMin, this.yMax)
-				ys = (int(this.yMin / tStep) + \
-						(0 .. int((this.yMax - this.yMin) / tStep))) * tStep
-				this.drawHline(cr, this.xAxis, this.coordY(ys), this.wdAxis)
-			}
 			cr.stroke()
+			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+			cr.set_font_size(15)
+			yDisp = this.coordY(0)
+			xs.each {|x|
+				text = '%.1f' % x
+				extText = cr.text_extents(text)
+				cr.move_to(this.coordX(x) - extText.x_advance / 2, yDisp + extText.height)
+				cr.show_text(text)
+			}
+			xDisp = this.coordX(0)
+			ys.each {|y|
+				text = '%.1f' % y
+				extText = cr.text_extents(text)
+				cr.move_to(xDisp - extText.x_advance, this.coordY(y) + extText.height / 2)
+				cr.show_text(text)
+			}
 		}
+	}
+	drawFuncs(cr:cairo.context) = {
 		cr.save {
 			x = interval(this.xMin, this.xMax, this.cntSamples)
 			y = interval(this.yMin, this.yMax, this.cntSamples)
@@ -280,18 +309,13 @@ Graph = class {
 				cr.stroke()
 			}
 		}
+	}
+	drawPlots(cr:cairo.context) = {
 		cr.save {
 			this.plots.each {|plot, i|
 				lineStyle = plot.lineStyle || this.lineStyleDefault
 				if (lineStyle != `none) {
-					plot.coords.each {|coord, i|
-						[x, y] = [this.coordX(coord.x), this.coordY(coord.y)]
-						if (i == 0) {
-							cr.move_to(x, y)
-						} else {
-							cr.line_to(x, y)
-						}
-					}
+					cr.line_to(this.coordX(plot.coords:*x), this.coordY(plot.coords:*y))
 					cr.stroke()
 				}
 				plot.coords.each {|coord|
