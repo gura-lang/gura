@@ -1,6 +1,5 @@
 #!/usr/bin/env gura
 import(cairo)
-import(wx.show)
 
 //-----------------------------------------------------------------------------
 // Coord
@@ -238,21 +237,6 @@ Graph = class {
 		[xGraph, yGraph] = [x, y]
 		[this.wdAxis, this.htAxis] = [wdGraph, htGraph]
 		[this.xAxis, this.yAxis] = [xGraph, yGraph]
-		x = 60, y = 60, wdSkip = 40
-		this.drawMarker(cr, x, y, `pixel), x += wdSkip
-		this.drawMarker(cr, x, y, `square), x += wdSkip
-		this.drawMarker(cr, x, y, `point), x += wdSkip
-		this.drawMarker(cr, x, y, `circle), x += wdSkip
-		this.drawMarker(cr, x, y, `triangle_down), x += wdSkip
-		this.drawMarker(cr, x, y, `triangle_up), x += wdSkip
-		this.drawMarker(cr, x, y, `triangle_left), x += wdSkip
-		this.drawMarker(cr, x, y, `triangle_right), x += wdSkip
-		x = 60, y = 100, wdSkip = 40
-		this.drawMarker(cr, x, y, `tri_down), x += wdSkip
-		this.drawMarker(cr, x, y, `tri_up), x += wdSkip
-		this.drawMarker(cr, x, y, `tri_left), x += wdSkip
-		this.drawMarker(cr, x, y, `tri_right), x += wdSkip
-		this.drawMarker(cr, x, y, `x), x += wdSkip
 		this.drawAxis(cr)
 		cr.save {
 			this.clipAxis(cr)
@@ -341,15 +325,41 @@ MakeRandCoords(xCenter:number, yCenter:number, xRange:number, yRange:number) = {
 	Coord(xCenter + rands(nil, 10) * xRange - xRange / 2, yCenter + rands(nil, 10) * yRange - yRange / 2)
 }
 
-img = image(`rgba, 600, 600, `white)
-img.cairo {|cr|
-	dir(cr.surface)
-	g = Graph()
-	g.addFunc(function(x) {math.sin(x)})
-	//g.addFunc(function(x) {math.cos(x)})
-	g.addFunc(math.cos)
-	g.plot(MakeRandCoords(5, 5, 5, 5), `circle, 10, `solid)
-	g.plot(MakeRandCoords(5, -5, 5, 5), `point, 10)
-	g.draw(cr, 10, 10, 580, 580)
+main() = {
+	img = image(`rgba, 600, 600, `white)
+	img.cairo {|cr|
+		dir(cr.surface)
+		g = Graph()
+		//g.addFunc(function(x) {math.sin(x)})
+		//g.addFunc(function(x) {math.cos(x)})
+		//g.addFunc(math.cos)
+		g.plot(MakeRandCoords(5, 5, 5, 5), `circle, 10, `solid)
+		g.plot(MakeRandCoords(5, -5, 5, 5), `point, 10)
+		g.draw(cr, 10, 10, 580, 580)
+		/*
+		scope {
+			x = 60, y = 60, wdSkip = 40
+			g.drawMarker(cr, x, y, `pixel), x += wdSkip
+			g.drawMarker(cr, x, y, `square), x += wdSkip
+			g.drawMarker(cr, x, y, `point), x += wdSkip
+			g.drawMarker(cr, x, y, `circle), x += wdSkip
+			g.drawMarker(cr, x, y, `triangle_down), x += wdSkip
+			g.drawMarker(cr, x, y, `triangle_up), x += wdSkip
+			g.drawMarker(cr, x, y, `triangle_left), x += wdSkip
+			g.drawMarker(cr, x, y, `triangle_right), x += wdSkip
+			x = 60, y = 100, wdSkip = 40
+			g.drawMarker(cr, x, y, `tri_down), x += wdSkip
+			g.drawMarker(cr, x, y, `tri_up), x += wdSkip
+			g.drawMarker(cr, x, y, `tri_left), x += wdSkip
+			g.drawMarker(cr, x, y, `tri_right), x += wdSkip
+			g.drawMarker(cr, x, y, `x), x += wdSkip
+		}
+		*/
+	}
+	img.show(680, 680)
 }
-img.show(680, 680)
+
+if (__name__ == '__main__') {
+	import(wx.show)
+	main()
+}
