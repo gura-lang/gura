@@ -328,7 +328,6 @@ MakeRandCoords(xCenter:number, yCenter:number, xRange:number, yRange:number) = {
 main() = {
 	img = image(`rgba, 600, 600, `white)
 	img.cairo {|cr|
-		dir(cr.surface)
 		g = Graph()
 		//g.addFunc(function(x) {math.sin(x)})
 		//g.addFunc(function(x) {math.cos(x)})
