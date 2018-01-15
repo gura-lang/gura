@@ -223,6 +223,16 @@ Graph = class {
 			cr.stroke()
 		}
 	}
+	drawTextOnN(cr:cairo.context, x:number, y:number, text:string):map:void = {
+		extText = cr.text_extents(text)
+		cr.move_to(x - extText.x_advance / 2, y + extText.height)
+		cr.show_text(text)
+	}
+	drawTextOnE(cr:cairo.context, x:number, y:number, text:string):map:void = {
+		extText = cr.text_extents(text)
+		cr.move_to(x - extText.x_advance, y + extText.height / 2)
+		cr.show_text(text)
+	}
 	draw(cr:cairo.context, x:number, y:number, width:number, height:number) = {
 		[wdGraph, htGraph] = [width, height]
 		[xGraph, yGraph] = [x, y]
@@ -244,50 +254,42 @@ Graph = class {
 		this.drawMarker(cr, x, y, `tri_right), x += wdSkip
 		this.drawMarker(cr, x, y, `x), x += wdSkip
 		this.drawAxis(cr)
-		this.drawFuncs(cr)
-		this.drawPlots(cr)
+		cr.save {
+			this.clipAxis(cr)
+			this.drawFuncs(cr)
+			this.drawPlots(cr)
+		}
+	}
+	clipAxis(cr:cairo.context) = {
+		cr.rectangle(this.xAxis, this.yAxis, this.wdAxis, this.htAxis)
+		cr.clip()
 	}
 	drawAxis(cr:cairo.context) = {
+		tStep = this.calcStep(this.xMin, this.xMax)
+		xCoords = (int(this.xMin / tStep) + (0 .. int((this.xMax - this.xMin) / tStep))) * tStep
+		tStep = this.calcStep(this.yMin, this.yMax)
+		yCoords = (int(this.yMin / tStep) + (0 .. int((this.yMax - this.yMin) / tStep))) * tStep
 		cr.set_line_width(1)
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
 			cr.rectangle(this.xAxis, this.yAxis, this.wdAxis, this.htAxis)
 			cr.stroke()
-		}
-		cr.rectangle(this.xAxis, this.yAxis, this.wdAxis, this.htAxis)
-		cr.clip()
-		cr.save {
+			this.clipAxis(cr)
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
 			this.drawVline(cr, this.coordX(0), this.yAxis, this.htAxis)
 			this.drawHline(cr, this.xAxis, this.coordY(0), this.wdAxis)
 			cr.set_dash([], 0)
 			cr.stroke()
-			tStep = this.calcStep(this.xMin, this.xMax)
-			xs = (int(this.xMin / tStep) + \
-				  (0 .. int((this.xMax - this.xMin) / tStep))) * tStep
-			tStep = this.calcStep(this.yMin, this.yMax)
-			ys = (int(this.yMin / tStep) + \
-				  (0 .. int((this.yMax - this.yMin) / tStep))) * tStep
-			this.drawVline(cr, this.coordX(xs), this.yAxis, this.htAxis)
-			this.drawHline(cr, this.xAxis, this.coordY(ys), this.wdAxis)
+			this.drawVline(cr, this.coordX(xCoords), this.yAxis, this.htAxis)
+			this.drawHline(cr, this.xAxis, this.coordY(yCoords), this.wdAxis)
 			cr.set_dash([2, 2], 0)
 			cr.stroke()
+		}
+		cr.save {
 			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 			cr.set_font_size(15)
-			yDisp = this.coordY(0)
-			xs.each {|x|
-				text = '%.1f' % x
-				extText = cr.text_extents(text)
-				cr.move_to(this.coordX(x) - extText.x_advance / 2, yDisp + extText.height)
-				cr.show_text(text)
-			}
-			xDisp = this.coordX(0)
-			ys.each {|y|
-				text = '%.1f' % y
-				extText = cr.text_extents(text)
-				cr.move_to(xDisp - extText.x_advance, this.coordY(y) + extText.height / 2)
-				cr.show_text(text)
-			}
+			this.drawTextOnN(cr, this.coordX(xCoords), this.coordY(0) + 4, format('%.1f', xCoords))
+			this.drawTextOnE(cr, this.coordX(0) - 4, this.coordY(yCoords), format('%.1f', yCoords))
 		}
 	}
 	drawFuncs(cr:cairo.context) = {
