@@ -327,39 +327,32 @@ Graph = class {
 	}
 }
 
-MakeRandCoords(xCenter:number, yCenter:number, xRange:number, yRange:number) = {
-	Coord(xCenter + rands(nil, 10) * xRange - xRange / 2, yCenter + rands(nil, 10) * yRange - yRange / 2)
-}
 
 main() = {
-	img = image(`rgba, 600, 600, `white)
-	g = Graph()
-	//g.addFunc(function(x) {math.sin(x)})
-	//g.addFunc(function(x) {math.cos(x)})
-	//g.addFunc(math.cos)
-	g.plot(MakeRandCoords(5, 5, 5, 5), `circle, 10, `solid)
-	g.plot(MakeRandCoords(5, -5, 5, 5), `point, 10)
-	g.draw(img) //, 10, 10, 580, 580)
-	img.show(680, 680)
-	/*
-		scope {
-			x = 60, y = 60, wdSkip = 40
-			g.drawMarker(cr, x, y, `pixel), x += wdSkip
-			g.drawMarker(cr, x, y, `square), x += wdSkip
-			g.drawMarker(cr, x, y, `point), x += wdSkip
-			g.drawMarker(cr, x, y, `circle), x += wdSkip
-			g.drawMarker(cr, x, y, `triangle_down), x += wdSkip
-			g.drawMarker(cr, x, y, `triangle_up), x += wdSkip
-			g.drawMarker(cr, x, y, `triangle_left), x += wdSkip
-			g.drawMarker(cr, x, y, `triangle_right), x += wdSkip
-			x = 60, y = 100, wdSkip = 40
-			g.drawMarker(cr, x, y, `tri_down), x += wdSkip
-			g.drawMarker(cr, x, y, `tri_up), x += wdSkip
-			g.drawMarker(cr, x, y, `tri_left), x += wdSkip
-			g.drawMarker(cr, x, y, `tri_right), x += wdSkip
-			g.drawMarker(cr, x, y, `x), x += wdSkip
+	MakeRandCoords(xCenter:number, yCenter:number, xRange:number, yRange:number) = {
+		Coord(xCenter + rands(nil, 10) * xRange - xRange / 2, yCenter + rands(nil, 10) * yRange - yRange / 2)
+	}
+	image(`rgba, 600, 600, `white) {|img|
+		Graph() {|g|
+			//g.addFunc(function(x):map {math.sin(x)})
+			//g.addFunc(function(x):map {math.cos(x)})
+			g.addFunc(math.sin)
+			g.addFunc(math.cos)
+			g.plot(MakeRandCoords(5, 5, 5, 5), `circle, 10, `solid)
+			g.plot(MakeRandCoords(5, -5, 5, 5), `point, 10)
+			symbols = [
+				`pixel, `square, `point, `circle
+				`triangle_down, `triangle_up, `triangle_left, `triangle_right
+				`tri_down, `tri_up, `tri_left, `tri_right
+				`x
+			]
+			for (x in interval(g.xMin, g.xMax, 30):open, symbol in symbols) {
+				g.plot([Coord(x, 4)], symbol)
+			}
+			g.draw(img)
 		}
-		*/
+		img.show(680, 680)
+	}
 }
 
 if (__name__ == '__main__') {
