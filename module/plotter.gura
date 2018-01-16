@@ -320,9 +320,7 @@ Graph = class {
 	plot(coords[]:Coord, markerStyle?:symbol, markerSize?:number, lineStyle?:symbol) = {
 		this.plots.add(Plot(coords, markerStyle, markerSize, lineStyle))
 	}
-	addFunc(func:function) = {
-		idx = (this.funcs::name == func.name).find():index
-		idx && this.funcs.erase(idx)
+	func(func:function) = {
 		this.funcs.add(func)
 	}
 }
@@ -334,10 +332,10 @@ main() = {
 	}
 	image(`rgba, 600, 600, `white) {|img|
 		Graph() {|g|
-			//g.addFunc(function(x):map {math.sin(x)})
-			//g.addFunc(function(x):map {math.cos(x)})
-			g.addFunc(math.sin)
-			g.addFunc(math.cos)
+			//g.func(function(x):map {math.sin(x)})
+			//g.func(function(x):map {math.cos(x)})
+			g.func(math.sin)
+			g.func(math.cos)
 			g.plot(MakeRandCoords(5, 5, 5, 5), `circle, 10, `solid)
 			g.plot(MakeRandCoords(5, -5, 5, 5), `point, 10)
 			symbols = [
