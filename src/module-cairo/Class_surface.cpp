@@ -718,15 +718,12 @@ Gura_ImplementUserClassWithCast(surface)
 
 Gura_ImplementCastFrom(surface)
 {
-	// Assignment of properties
-	Gura_AssignProperty(surface, type);
-	Signal &sig = GetSignal();
 	Value valueCast(value);
 	env.LookupClass(VTYPE_image)->CastFrom(env, valueCast, flags);
 	if (valueCast.Is_image()) {
 		Image *pImage = Object_image::GetObject(valueCast)->GetImage();
-		cairo_surface_t *surface = CreateSurfaceFromImage(sig, pImage);
-		if (sig.IsSignalled()) return false;
+		cairo_surface_t *surface = CreateSurfaceFromImage(env, pImage);
+		if (env.IsSignalled()) return false;
 		value = Value(new Object_image_surface(surface, pImage->Reference()));
 		return true;
 	}
@@ -735,8 +732,6 @@ Gura_ImplementCastFrom(surface)
 
 Gura_ImplementCastTo(surface)
 {
-	// Assignment of properties
-	Gura_AssignProperty(surface, type);
 	return false;
 }
 

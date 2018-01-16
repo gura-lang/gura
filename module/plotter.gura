@@ -22,6 +22,7 @@ Graph = class {
 		markerStyleDefault,
 		markerSizeDefault,
 		lineStyleDefault,
+		margine,
 	}
 	__init__() = {
 		this.fontName = if (sys.platform == `mswin) {
@@ -41,6 +42,7 @@ Graph = class {
 		this.markerStyleDefault = `square
 		this.markerSizeDefault = 10
 		this.lineStyleDefault = `none
+		this.margine = 10
 		this.dict@drawMarker = %{
 			`pixel			=> this.drawMarker_pixel
 			`square			=> this.drawMarker_square
@@ -232,7 +234,11 @@ Graph = class {
 		cr.move_to(x - extText.x_advance, y + extText.height / 2)
 		cr.show_text(text)
 	}
-	draw(cr:cairo.context, x:number, y:number, width:number, height:number) = {
+	draw(cr:cairo.context, x?:number, y?:number, width?:number, height?:number) = {
+		x = x || this.margine
+		y = y || this.margine
+		width = width || (cr.width - x - this.margine)
+		height = height || (cr.height - y - this.margine)
 		[wdGraph, htGraph] = [width, height]
 		[xGraph, yGraph] = [x, y]
 		[this.wdAxis, this.htAxis] = [wdGraph, htGraph]
@@ -327,15 +333,15 @@ MakeRandCoords(xCenter:number, yCenter:number, xRange:number, yRange:number) = {
 
 main() = {
 	img = image(`rgba, 600, 600, `white)
-	img.cairo {|cr|
-		g = Graph()
-		//g.addFunc(function(x) {math.sin(x)})
-		//g.addFunc(function(x) {math.cos(x)})
-		//g.addFunc(math.cos)
-		g.plot(MakeRandCoords(5, 5, 5, 5), `circle, 10, `solid)
-		g.plot(MakeRandCoords(5, -5, 5, 5), `point, 10)
-		g.draw(cr, 10, 10, 580, 580)
-		/*
+	g = Graph()
+	//g.addFunc(function(x) {math.sin(x)})
+	//g.addFunc(function(x) {math.cos(x)})
+	//g.addFunc(math.cos)
+	g.plot(MakeRandCoords(5, 5, 5, 5), `circle, 10, `solid)
+	g.plot(MakeRandCoords(5, -5, 5, 5), `point, 10)
+	g.draw(img) //, 10, 10, 580, 580)
+	img.show(680, 680)
+	/*
 		scope {
 			x = 60, y = 60, wdSkip = 40
 			g.drawMarker(cr, x, y, `pixel), x += wdSkip
@@ -354,8 +360,6 @@ main() = {
 			g.drawMarker(cr, x, y, `x), x += wdSkip
 		}
 		*/
-	}
-	img.show(680, 680)
 }
 
 if (__name__ == '__main__') {

@@ -25,11 +25,10 @@ Gura_DeclareMethod(image, cairo)
 
 Gura_ImplementMethod(image, cairo)
 {
-	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetObjectThis(arg);
 	Image *pImage = Image::Reference(pThis->GetImage());
-	cairo_surface_t *surface = CreateSurfaceFromImage(sig, pImage);
-	if (sig.IsSignalled()) {
+	cairo_surface_t *surface = CreateSurfaceFromImage(env, pImage);
+	if (env.IsSignalled()) {
 		Image::Delete(pImage);
 		return Value::Nil;
 	}

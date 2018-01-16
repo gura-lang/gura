@@ -2908,8 +2908,8 @@ Gura_ImplementMethod(context, glyph_extents)
 	return Value(pObjTextExtents);
 }
 
-// implementation of class Context
-Gura_ImplementUserClass(context)
+// implementation of class context
+Gura_ImplementUserClassWithCast(context)
 {
 	// Assignment of properties
 	Gura_AssignProperty(context, surface);
@@ -3019,6 +3019,27 @@ Gura_ImplementUserClass(context)
 	Gura_AssignMethod(context, font_extents);
 	Gura_AssignMethod(context, text_extents);
 	Gura_AssignMethod(context, glyph_extents);
+}
+
+Gura_ImplementCastFrom(context)
+{
+	Value valueCast(value);
+	env.LookupClass(VTYPE_image)->CastFrom(env, valueCast, flags);
+	if (valueCast.Is_image()) {
+		Image *pImage = Object_image::GetObject(valueCast)->GetImage();
+		cairo_surface_t *surface = CreateSurfaceFromImage(env, pImage);
+		if (env.IsSignalled()) return false;
+		Object_surface *pObjSurface = new Object_image_surface(surface, pImage->Reference());
+		cairo_t *cr = ::cairo_create(surface);
+		value = Value(new Object_context(cr, pObjSurface));
+		return true;
+	}
+	return false;
+}
+
+Gura_ImplementCastTo(context)
+{
+	return false;
 }
 
 Gura_EndModuleScope(cairo)
