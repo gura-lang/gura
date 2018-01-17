@@ -307,8 +307,17 @@ Graph = class {
 			this.plots.each {|plot, i|
 				lineStyle = plot.lineStyle || this.lineStyleDefault
 				if (lineStyle != `none) {
-					cr.line_to(this.coordX(plot.coords:*x), this.coordY(plot.coords:*y))
-					cr.stroke()
+					cr.save {
+						if (lineStyle == `solid) {
+							// nothing to do
+						} elsif (lineStyle == `dot) {
+							cr.set_dash([2, 2], 0)
+						} else {
+							raise(error.ValueError, 'invalid symbol')
+						}
+						cr.line_to(this.coordX(plot.coords:*x), this.coordY(plot.coords:*y))
+						cr.stroke()
+					}
 				}
 				plot.coords.each {|coord|
 					[x, y] = [this.coordX(coord.x), this.coordY(coord.y)]
@@ -332,12 +341,12 @@ main() = {
 	}
 	image(`rgba, 600, 600, `white) {|img|
 		Graph() {|g|
-			//g.func(function(x):map {math.sin(x)})
-			//g.func(function(x):map {math.cos(x)})
-			g.func(math.sin)
-			g.func(math.cos)
+			g.func(function(x):map {3 * math.sin(x)})
+			g.func(function(x):map {3 * math.cos(x)})
+			g.func(function(y):map {3 * math.sin(y)})
+			g.func(function(y):map {3 * math.cos(y)})
 			g.plot(MakeRandCoords(5, 5, 5, 5), `circle, 10, `solid)
-			g.plot(MakeRandCoords(5, -5, 5, 5), `point, 10)
+			g.plot(MakeRandCoords(5, -5, 5, 5), `point, 10, `dot)
 			symbols = [
 				`pixel, `square, `point, `circle
 				`triangle_down, `triangle_up, `triangle_left, `triangle_right
