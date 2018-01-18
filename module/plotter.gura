@@ -7,9 +7,54 @@ import(cairo)
 Coord = struct(x:number, y:number):map
 
 //-----------------------------------------------------------------------------
-// Plot
+// FuncInfo
 //-----------------------------------------------------------------------------
-Plot = struct(coords[]:Coord, markerStyle?:symbol, markerSize?:number, lineStyle?:symbol)
+FuncInfo = struct(func:function, lineStyle?:symbol)
+
+//-----------------------------------------------------------------------------
+// PlotInfo
+//-----------------------------------------------------------------------------
+PlotInfo = struct(coords[]:Coord, markerStyle?:symbol, markerSize?:number, lineStyle?:symbol)
+
+//-----------------------------------------------------------------------------
+// Canvas
+//-----------------------------------------------------------------------------
+Canvas = class {
+	public {
+		cr
+		margine,
+	}
+	__init__(cr:cairo.context) = {
+		this.cr = cr
+		this.mgnLeft = 10
+		this.mgnRight = 10
+		this.mgnTop = 10
+		this.mgnBottom = 10
+		this.wdSkip = 10
+		this.htSkip = 10
+		this.graphs = []
+	}
+	graph() {block?} = {
+		g = Graph(this)
+		this.graphs.add(g)
+		if (block) {block(g)} else {g}
+	}
+	render():void = {
+		nGraphs = this.graphs.len()
+		nGraphsHorz = nGraphs
+		nGraphsVert = 1
+		width = (this.cr.width - this.mgnLeft - this.mgnRight - this.wdSkip * (nGraphsHorz - 1)) / nGraphsHorz
+		height = (this.cr.height - this.mgnTop - this.mgnBottom - this.htSkip * (nGraphsVert - 1)) / nGraphsVert
+		gIter = this.graphs.each()
+		cross (iGraphVert in range(nGraphsVert), iGraphHorz in range(nGraphsHorz)) {
+			g = gIter.next()
+			!g && break
+			x = this.mgnLeft + iGraphHorz * (width + this.wdSkip)
+			y = this.mgnTop + iGraphVert * (height + this.htSkip)
+			g.render(x, y, width, height)
+		}
+	}
+}
 
 //-----------------------------------------------------------------------------
 // Graph
@@ -22,9 +67,9 @@ Graph = class {
 		markerStyleDefault,
 		markerSizeDefault,
 		lineStyleDefault,
-		margine,
 	}
-	__init__() = {
+	__init__(canvas:Canvas) = {
+		this.canvas = canvas
 		this.fontName = if (sys.platform == `mswin) {
 			'Sans'
 		} elsif (sys.platform == `linux) {
@@ -34,15 +79,14 @@ Graph = class {
 		} else {
 			'Sans'
 		}
-		this.funcs = []
-		this.plots = []
+		this.funcInfos = []
+		this.plotInfos = []
 		[this.xMin, this.xMax] = [-10, 10]
 		[this.yMin, this.yMax] = [-10, 10]
 		this.cntSamples = 100
 		this.markerStyleDefault = `square
 		this.markerSizeDefault = 10
 		this.lineStyleDefault = `none
-		this.margine = 10
 		this.dict@drawMarker = %{
 			`pixel			=> this.drawMarker_pixel
 			`square			=> this.drawMarker_square
@@ -57,6 +101,9 @@ Graph = class {
 			`tri_left		=> this.drawMarker_tri_left
 			`tri_right		=> this.drawMarker_tri_right
 			`x				=> this.drawMarker_x
+			`plus			=> this.drawMarker_plus
+			`diamond		=> this.drawMarker_diamond
+			`dia			=> this.drawMarker_dia
 		}
 	}
 	coordX(x:number):map = {
@@ -93,9 +140,9 @@ Graph = class {
 	drawMarker_square(cr:cairo.context, x:number, y:number, markerSize:number):map:void = {
 		cr.save {
 			cr.rectangle(x - markerSize / 2, y - markerSize / 2, markerSize, markerSize)
-			cr.set_source_rgb(1, 1, 1)
+			cr.set_source_color(`white)
 			cr.fill_preserve()
-			cr.set_source_rgb(0, 0, 0)
+			cr.set_source_color(`black)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -109,9 +156,9 @@ Graph = class {
 	drawMarker_circle(cr:cairo.context, x:number, y:number, markerSize:number):map:void = {
 		cr.save {
 			cr.arc(x, y, markerSize / 2, 0, math.pi * 2)
-			cr.set_source_rgb(1, 1, 1)
+			cr.set_source_color(`white)
 			cr.fill_preserve()
-			cr.set_source_rgb(0, 0, 0)
+			cr.set_source_color(`black)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -175,9 +222,9 @@ Graph = class {
 	drawMarker_tri_down(cr:cairo.context, x:number, y:number, markerSize:number):map:void = {
 		cr.save {
 			makePath_triangle_down(cr, x, y, markerSize)
-			cr.set_source_rgb(1, 1, 1)
+			cr.set_source_color(`white)
 			cr.fill_preserve()
-			cr.set_source_rgb(0, 0, 0)
+			cr.set_source_color(`black)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -185,9 +232,9 @@ Graph = class {
 	drawMarker_tri_up(cr:cairo.context, x:number, y:number, markerSize:number):map:void = {
 		cr.save {
 			makePath_triangle_up(cr, x, y, markerSize)
-			cr.set_source_rgb(1, 1, 1)
+			cr.set_source_color(`white)
 			cr.fill_preserve()
-			cr.set_source_rgb(0, 0, 0)
+			cr.set_source_color(`black)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -195,9 +242,9 @@ Graph = class {
 	drawMarker_tri_left(cr:cairo.context, x:number, y:number, markerSize:number):map:void = {
 		cr.save {
 			makePath_triangle_left(cr, x, y, markerSize)
-			cr.set_source_rgb(1, 1, 1)
+			cr.set_source_color(`white)
 			cr.fill_preserve()
-			cr.set_source_rgb(0, 0, 0)
+			cr.set_source_color(`black)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -205,9 +252,9 @@ Graph = class {
 	drawMarker_tri_right(cr:cairo.context, x:number, y:number, markerSize:number):map:void = {
 		cr.save {
 			makePath_triangle_right(cr, x, y, markerSize)
-			cr.set_source_rgb(1, 1, 1)
+			cr.set_source_color(`white)
 			cr.fill_preserve()
-			cr.set_source_rgb(0, 0, 0)
+			cr.set_source_color(`black)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -219,7 +266,41 @@ Graph = class {
 			cr.line_to(x + markerSizeHalf, y + markerSizeHalf)
 			cr.move_to(x + markerSizeHalf, y - markerSizeHalf)
 			cr.line_to(x - markerSizeHalf, y + markerSizeHalf)
-			cr.set_source_rgb(0, 0, 0)
+			cr.set_source_color(`black)
+			cr.set_line_width(1)
+			cr.stroke()
+		}
+	}
+	drawMarker_plus(cr:cairo.context, x:number, y:number, markerSize:number):map:void = {
+		markerSizeSqrt = markerSize * 0.705
+		cr.save {
+			cr.move_to(x - markerSizeSqrt, y)
+			cr.line_to(x + markerSizeSqrt, y)
+			cr.move_to(x, y - markerSizeSqrt)
+			cr.line_to(x, y + markerSizeSqrt)
+			cr.set_source_color(`black)
+			cr.set_line_width(1)
+			cr.stroke()
+		}
+	}
+	makePath_diamond(cr:cairo.context, x:number, y:number, markerSize:number):map:void = {
+		markerSizeSqrt = markerSize * 0.707	// 1 / sqrt(2)
+		cr.move_to(x + markerSizeSqrt, y)
+		cr.line_to(x, y - markerSizeSqrt)
+		cr.line_to(x - markerSizeSqrt, y)
+		cr.line_to(x, y + markerSizeSqrt)
+		cr.line_to(x + markerSizeSqrt, y)
+	}
+	drawMarker_diamond(cr:cairo.context, x:number, y:number, markerSize:number):map:void = {
+		cr.save {
+			makePath_diamond(cr, x, y, markerSize)
+			cr.fill()
+		}
+	}
+	drawMarker_dia(cr:cairo.context, x:number, y:number, markerSize:number):map:void = {
+		cr.save {
+			makePath_diamond(cr, x, y, markerSize)
+			cr.set_source_color(`black)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -234,11 +315,8 @@ Graph = class {
 		cr.move_to(x - extText.x_advance, y + extText.height / 2)
 		cr.show_text(text)
 	}
-	draw(cr:cairo.context, x?:number, y?:number, width?:number, height?:number) = {
-		x = x || this.margine
-		y = y || this.margine
-		width = width || (cr.width - x - this.margine)
-		height = height || (cr.height - y - this.margine)
+	render(x:number, y:number, width:number, height:number):void = {
+		cr = this.canvas.cr
 		[wdGraph, htGraph] = [width, height]
 		[xGraph, yGraph] = [x, y]
 		[this.wdAxis, this.htAxis] = [wdGraph, htGraph]
@@ -287,50 +365,60 @@ Graph = class {
 			x = interval(this.xMin, this.xMax, this.cntSamples)
 			y = interval(this.yMin, this.yMax, this.cntSamples)
 			cr.set_antialias(cairo.ANTIALIAS_DEFAULT)
-			for (func in this.funcs) {
-				syms = [func.decls:*symbol]
+			this.funcInfos.each {|funcInfo|
+				lineStyle = funcInfo.lineStyle || `solid
+				syms = [funcInfo.func.decls:*symbol]
 				if (syms.len() != 1) {
 					raise(error.ValueError, 'wrong number of arguments')
 				}
+				(lineStyle == `none) && continue
 				sym = syms.first()
 				if (sym == `y) {
-					cr.line_to(this.coordX(func(y)), this.coordY(y))
+					cr.line_to(this.coordX(funcInfo.func(y)), this.coordY(y))
 				} else {
-					cr.line_to(this.coordX(x), this.coordY(func(x)))
+					cr.line_to(this.coordX(x), this.coordY(funcInfo.func(x)))
 				}
+				applyLineStyle(cr, lineStyle)
 				cr.stroke()
 			}
 		}
 	}
+	applyLineStyle(cr:cairo.context, lineStyle:symbol) = {
+		if (lineStyle == `solid) {
+			cr.set_dash(nil, 0)
+		} elsif (lineStyle == `dot) {
+			cr.set_dash([2, 2], 0)
+		} elsif (lineStyle == `dash) {
+			cr.set_dash([4, 2], 0)
+		} elsif (lineStyle == `dashdot) {
+			cr.set_dash([2, 2, 8, 2], 0)
+		} else {
+			raise(error.ValueError, 'invalid symbol')
+		}
+	}
 	drawPlots(cr:cairo.context) = {
 		cr.save {
-			this.plots.each {|plot, i|
-				lineStyle = plot.lineStyle || this.lineStyleDefault
+			this.plotInfos.each {|plotInfo|
+				lineStyle = plotInfo.lineStyle || this.lineStyleDefault
 				if (lineStyle != `none) {
 					cr.save {
-						if (lineStyle == `solid) {
-							// nothing to do
-						} elsif (lineStyle == `dot) {
-							cr.set_dash([2, 2], 0)
-						} else {
-							raise(error.ValueError, 'invalid symbol')
-						}
-						cr.line_to(this.coordX(plot.coords:*x), this.coordY(plot.coords:*y))
+						applyLineStyle(cr, lineStyle)
+						cr.line_to(this.coordX(plotInfo.coords:*x), this.coordY(plotInfo.coords:*y))
 						cr.stroke()
 					}
 				}
-				plot.coords.each {|coord|
+				plotInfo.coords.each {|coord|
 					[x, y] = [this.coordX(coord.x), this.coordY(coord.y)]
-					this.drawMarker(cr, x, y, plot.markerStyle, plot.markerSize)
+					this.drawMarker(cr, x, y, plotInfo.markerStyle, plotInfo.markerSize)
 				}
 			}
 		}
 	}
 	plot(coords[]:Coord, markerStyle?:symbol, markerSize?:number, lineStyle?:symbol) = {
-		this.plots.add(Plot(coords, markerStyle, markerSize, lineStyle))
+		this.plotInfos.add(PlotInfo(coords, markerStyle, markerSize, lineStyle))
 	}
-	func(func:function) = {
-		this.funcs.add(func)
+	func(func:function, lineStyle?:symbol) = {
+		this.funcInfos.add(FuncInfo(func, lineStyle))
 	}
 }
 
@@ -340,24 +428,29 @@ main() = {
 		Coord(xCenter + rands(nil, 10) * xRange - xRange / 2, yCenter + rands(nil, 10) * yRange - yRange / 2)
 	}
 	image(`rgba, 600, 600, `white) {|img|
-		Graph() {|g|
-			g.func(function(x):map {3 * math.sin(x)})
-			g.func(function(x):map {3 * math.cos(x)})
+		canvas = Canvas(img)
+		canvas.graph {|g|
+			g.func(function(x):map {3 * math.sin(x)}, `solid)
+			g.func(function(x):map {3 * math.cos(x)}, `dot)
 			g.func(function(y):map {3 * math.sin(y)})
 			g.func(function(y):map {3 * math.cos(y)})
-			g.plot(MakeRandCoords(5, 5, 5, 5), `circle, 10, `solid)
-			g.plot(MakeRandCoords(5, -5, 5, 5), `point, 10, `dot)
+		}
+		canvas.graph {|g|
 			symbols = [
 				`pixel, `square, `point, `circle
 				`triangle_down, `triangle_up, `triangle_left, `triangle_right
 				`tri_down, `tri_up, `tri_left, `tri_right
-				`x
+				`x, `plus, `diamond, `dia
 			]
-			for (x in interval(g.xMin, g.xMax, 30):open, symbol in symbols) {
-				g.plot([Coord(x, 4)], symbol)
+			for (x in interval(g.xMin, g.xMax, symbols.len()):open, symbol in symbols) {
+				g.plot([Coord(x, 9)], symbol)
 			}
-			g.draw(img)
+			g.plot(MakeRandCoords(5, 4, 8, 8), `circle, 10, `solid)
+			g.plot(MakeRandCoords(5, -5, 8, 8), `point, 10, `dot)
+			g.plot(MakeRandCoords(-5, -5, 8, 8), `point, 10, `dash)
+			g.plot(MakeRandCoords(-5, 4, 8, 8), `point, 10, `dashdot)
 		}
+		canvas.render()
 		img.show(680, 680)
 	}
 }
