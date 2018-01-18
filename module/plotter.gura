@@ -21,11 +21,9 @@ PlotInfo = struct(coords[]:Coord, markerStyle?:symbol, markerSize?:number, lineS
 //-----------------------------------------------------------------------------
 Canvas = class {
 	public {
-		cr
 		margine,
 	}
-	__init__(cr:cairo.context) = {
-		this.cr = cr
+	__init__() = {
 		this.mgnLeft = 10
 		this.mgnRight = 10
 		this.mgnTop = 10
@@ -35,23 +33,28 @@ Canvas = class {
 		this.graphs = []
 	}
 	graph() {block?} = {
-		g = Graph(this)
+		g = Graph()
 		this.graphs.add(g)
 		if (block) {block(g)} else {g}
 	}
-	render():void = {
+	render(cr:cairo.context, nCols?:number):void = {
 		nGraphs = this.graphs.len()
-		nGraphsHorz = nGraphs
-		nGraphsVert = 1
-		width = (this.cr.width - this.mgnLeft - this.mgnRight - this.wdSkip * (nGraphsHorz - 1)) / nGraphsHorz
-		height = (this.cr.height - this.mgnTop - this.mgnBottom - this.htSkip * (nGraphsVert - 1)) / nGraphsVert
+		if (nCols) {
+			nGraphsHorz = min(nCols, nGraphs)
+			nGraphsVert = int((nGraphs + nCols - 1) / nCols)
+		} else {
+			nGraphsHorz = nGraphs
+			nGraphsVert = 1
+		}
+		width = (cr.width - this.mgnLeft - this.mgnRight - this.wdSkip * (nGraphsHorz - 1)) / nGraphsHorz
+		height = (cr.height - this.mgnTop - this.mgnBottom - this.htSkip * (nGraphsVert - 1)) / nGraphsVert
 		gIter = this.graphs.each()
 		cross (iGraphVert in range(nGraphsVert), iGraphHorz in range(nGraphsHorz)) {
 			g = gIter.next()
 			!g && break
 			x = this.mgnLeft + iGraphHorz * (width + this.wdSkip)
 			y = this.mgnTop + iGraphVert * (height + this.htSkip)
-			g.render(x, y, width, height)
+			g.render(cr, x, y, width, height)
 		}
 	}
 }
@@ -68,8 +71,7 @@ Graph = class {
 		markerSizeDefault,
 		lineStyleDefault,
 	}
-	__init__(canvas:Canvas) = {
-		this.canvas = canvas
+	__init__() = {
 		this.fontName = if (sys.platform == `mswin) {
 			'Sans'
 		} elsif (sys.platform == `linux) {
@@ -315,12 +317,9 @@ Graph = class {
 		cr.move_to(x - extText.x_advance, y + extText.height / 2)
 		cr.show_text(text)
 	}
-	render(x:number, y:number, width:number, height:number):void = {
-		cr = this.canvas.cr
-		[wdGraph, htGraph] = [width, height]
-		[xGraph, yGraph] = [x, y]
-		[this.wdAxis, this.htAxis] = [wdGraph, htGraph]
-		[this.xAxis, this.yAxis] = [xGraph, yGraph]
+	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
+		[this.xAxis, this.yAxis] = [x, y]
+		[this.wdAxis, this.htAxis] = [width, height]
 		this.drawAxis(cr)
 		cr.save {
 			this.clipAxis(cr)
@@ -427,8 +426,7 @@ main() = {
 	MakeRandCoords(xCenter:number, yCenter:number, xRange:number, yRange:number) = {
 		Coord(xCenter + rands(nil, 10) * xRange - xRange / 2, yCenter + rands(nil, 10) * yRange - yRange / 2)
 	}
-	image(`rgba, 600, 600, `white) {|img|
-		canvas = Canvas(img)
+	Canvas {|canvas|
 		canvas.graph {|g|
 			g.func(function(x):map {3 * math.sin(x)}, `solid)
 			g.func(function(x):map {3 * math.cos(x)}, `dot)
@@ -450,8 +448,13 @@ main() = {
 			g.plot(MakeRandCoords(-5, -5, 8, 8), `point, 10, `dash)
 			g.plot(MakeRandCoords(-5, 4, 8, 8), `point, 10, `dashdot)
 		}
-		canvas.render()
-		img.show(680, 680)
+		canvas.graph()
+		canvas.graph()
+		canvas.graph()
+		image(`rgba, 600, 800, `white) {|img|
+			canvas.render(img, 2)
+			img.show(680, 680)
+		}
 	}
 }
 
