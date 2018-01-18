@@ -23,38 +23,61 @@ Canvas = class {
 	public {
 		margine,
 	}
-	__init__() = {
-		this.mgnLeft = 10
-		this.mgnRight = 10
-		this.mgnTop = 10
-		this.mgnBottom = 10
-		this.wdSkip = 10
-		this.htSkip = 10
+	__init__(nCols?:number) = {
+		this.nCols = nCols
+		this.mgnLeft = nil
+		this.mgnRight = nil
+		this.mgnTop = nil
+		this.mgnBottom = nil
+		this.wdSkip = nil
+		this.htSkip = nil
+		this.mgnLeftP = 2
+		this.mgnRightP = 2
+		this.mgnTopP = 2
+		this.mgnBottomP = 2
+		this.wdSkipP = 2
+		this.htSkipP = 2
 		this.graphs = []
 	}
-	graph() {block?} = {
-		g = Graph()
+	graph(nSpans:number => 1) {block?} = {
+		g = Graph(nSpans)
 		this.graphs.add(g)
 		if (block) {block(g)} else {g}
 	}
-	render(cr:cairo.context, nCols?:number):void = {
+	render(cr:cairo.context):void = {
+		[wdCanvas, htCanvas] = [cr.width, cr.height]
 		nGraphs = this.graphs.len()
-		if (nCols) {
-			nGraphsHorz = min(nCols, nGraphs)
-			nGraphsVert = int((nGraphs + nCols - 1) / nCols)
+		if (this.nCols) {
+			nGraphsHorz = min(this.nCols, nGraphs)
+			nGraphsVert = int((nGraphs + this.nCols - 1) / this.nCols)
 		} else {
 			nGraphsHorz = nGraphs
 			nGraphsVert = 1
 		}
-		width = (cr.width - this.mgnLeft - this.mgnRight - this.wdSkip * (nGraphsHorz - 1)) / nGraphsHorz
-		height = (cr.height - this.mgnTop - this.mgnBottom - this.htSkip * (nGraphsVert - 1)) / nGraphsVert
-		gIter = this.graphs.each()
-		cross (iGraphVert in range(nGraphsVert), iGraphHorz in range(nGraphsHorz)) {
-			g = gIter.next()
-			!g && break
-			x = this.mgnLeft + iGraphHorz * (width + this.wdSkip)
-			y = this.mgnTop + iGraphVert * (height + this.htSkip)
+		[mgnLeft, mgnRight, wdSkip] = [this.mgnLeftP, this.mgnRightP, this.wdSkipP] * wdCanvas / 100
+		[mgnTop, mgnBottom, htSkip] = [this.mgnTopP, this.mgnBottomP, this.htSkipP] * htCanvas / 100
+		mgnLeft = this.mgnLeft || mgnLeft
+		mgnRight = this.mgnRight || mgnRight
+		mgnTop = this.mgnTop || mgnTop
+		mgnBottom = this.mgnBottom || mgnBottom
+		wdSkip = this.wdSkip || wdSkip
+		htSkip = this.htSkip || htSkip
+		wdCell = (wdCanvas - mgnLeft - mgnRight - wdSkip * (nGraphsHorz - 1)) / nGraphsHorz
+		htCell = (htCanvas - mgnTop - mgnBottom - htSkip * (nGraphsVert - 1)) / nGraphsVert
+		iGraphHorz = iGraphVert = 0
+		this.graphs.each {|g|
+			if (iGraphHorz + g.nSpans > nGraphsHorz) {
+				iGraphHorz = 0, iGraphVert += 1
+			}
+			x = mgnLeft + iGraphHorz * (wdCell + wdSkip)
+			y = mgnTop + iGraphVert * (htCell + htSkip)
+			width = wdCell + (wdCell + wdSkip) * (g.nSpans - 1)
+			height = htCell
 			g.render(cr, x, y, width, height)
+			iGraphHorz += g.nSpans
+			if (iGraphHorz >= nGraphsHorz) {
+				iGraphHorz = 0, iGraphVert += 1
+			}
 		}
 	}
 }
@@ -64,6 +87,7 @@ Canvas = class {
 //-----------------------------------------------------------------------------
 Graph = class {
 	public {
+		nSpans
 		xMin, xMax
 		yMin, yMax
 		cntSamples,
@@ -71,7 +95,7 @@ Graph = class {
 		markerSizeDefault,
 		lineStyleDefault,
 	}
-	__init__() = {
+	__init__(nSpans:number) = {
 		this.fontName = if (sys.platform == `mswin) {
 			'Sans'
 		} elsif (sys.platform == `linux) {
@@ -81,6 +105,7 @@ Graph = class {
 		} else {
 			'Sans'
 		}
+		this.nSpans = nSpans
 		this.funcInfos = []
 		this.plotInfos = []
 		[this.xMin, this.xMax] = [-10, 10]
@@ -426,7 +451,7 @@ main() = {
 	MakeRandCoords(xCenter:number, yCenter:number, xRange:number, yRange:number) = {
 		Coord(xCenter + rands(nil, 10) * xRange - xRange / 2, yCenter + rands(nil, 10) * yRange - yRange / 2)
 	}
-	Canvas {|canvas|
+	Canvas(4) {|canvas|
 		canvas.graph {|g|
 			g.func(function(x):map {3 * math.sin(x)}, `solid)
 			g.func(function(x):map {3 * math.cos(x)}, `dot)
@@ -448,11 +473,11 @@ main() = {
 			g.plot(MakeRandCoords(-5, -5, 8, 8), `point, 10, `dash)
 			g.plot(MakeRandCoords(-5, 4, 8, 8), `point, 10, `dashdot)
 		}
+		canvas.graph(2)
+		canvas.graph(3)
 		canvas.graph()
-		canvas.graph()
-		canvas.graph()
-		image(`rgba, 600, 800, `white) {|img|
-			canvas.render(img, 2)
+		image(`rgba, 1000, 800, `white) {|img|
+			canvas.render(img)
 			img.show(680, 680)
 		}
 	}
