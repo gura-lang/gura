@@ -44,6 +44,13 @@ Canvas = class {
 		this.graphs.add(g)
 		if (block) {block(g)} else {g}
 	}
+	show(width?:number, height?:number):void = {
+		width = width || 600
+		height = height || 600
+		img = image(`rgba, width, height, `white)
+		this.render(img)
+		img.show(width + 30 * 2, height + 30 * 2)
+	}
 	render(cr:cairo.context):void = {
 		[wdCanvas, htCanvas] = [cr.width, cr.height]
 		nGraphs = this.graphs.len()
@@ -94,15 +101,18 @@ Graph = class {
 		markerStyleDefault
 		markerSizeDefault
 		lineStyleDefault
-		sizeTitle
-		sizeTitleX
-		sizeTitleY
+		fontSizeTitle
+		fontSizeTitleX
+		fontSizeTitleY
+		fontSizeTitleYSub
 		title
 		titleX
 		titleY
+		titleYSub
 		mgnTitle
 		mgnTitleX
 		mgnTitleY
+		mgnTitleYSub
 	}
 	__init__(nSpans:number) = {
 		this.fontName = if (sys.platform == `mswin) {
@@ -123,15 +133,18 @@ Graph = class {
 		this.markerStyleDefault = `square
 		this.markerSizeDefault = 10
 		this.lineStyleDefault = `none
-		this.sizeTitle = 15
-		this.sizeTitleX = 15
-		this.sizeTitleY = 15
+		this.fontSizeTitle = 15
+		this.fontSizeTitleX = 15
+		this.fontSizeTitleY = 15
+		this.fontSizeTitleYSub = 15
 		this.title = ''
 		this.titleX = ''
 		this.titleY = ''
+		this.titleYSub = ''
 		this.mgnTitle = 4
 		this.mgnTitleX = 4
 		this.mgnTitleY = 4
+		this.mgnTitleYSub = 4
 		this.dict@drawMarker = %{
 			`pixel			=> this.drawMarker_pixel
 			`square			=> this.drawMarker_square
@@ -158,25 +171,31 @@ Graph = class {
 		this.funcInfos.add(FuncInfo(func, lineStyle))
 	}
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
-		spaceTitleX = cond(this.titleX.isempty(), 0, this.sizeTitleX + this.mgnTitleX)
-		spaceTitleY = cond(this.titleY.isempty(), 0, this.sizeTitleY + this.mgnTitleY)
-		spaceTitle = cond(this.title.isempty(), 0, this.sizeTitle + this.mgnTitle)
+		spaceTitle = cond(this.title.isempty(), 0, this.fontSizeTitle + this.mgnTitle)
+		spaceTitleX = cond(this.titleX.isempty(), 0, this.fontSizeTitleX + this.mgnTitleX)
+		spaceTitleY = cond(this.titleY.isempty(), 0, this.fontSizeTitleY + this.mgnTitleY)
+		spaceTitleYSub = cond(this.titleYSub.isempty(), 0, this.fontSizeTitleYSub + this.mgnTitleYSub)
 		[this.xAxis, this.yAxis] = [x + spaceTitleY, y + spaceTitle]
-		[this.wdAxis, this.htAxis] = [width - spaceTitleY, height - spaceTitleX - spaceTitle]
+		[this.wdAxis, this.htAxis] = [width - spaceTitleY - spaceTitleYSub, height - spaceTitleX - spaceTitle]
 		if (!this.title.isempty()) {
 			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-			cr.set_font_size(this.sizeTitle)
+			cr.set_font_size(this.fontSizeTitle)
 			this.drawTextOnN(cr, x + width / 2, y, this.title)
 		}
 		if (!this.titleX.isempty()) {
 			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-			cr.set_font_size(this.sizeTitleX)
+			cr.set_font_size(this.fontSizeTitleX)
 			this.drawTextOnS(cr, this.xAxis + this.wdAxis / 2, y + height, this.titleX)
 		}
-		if (!this.titleX.isempty()) {
+		if (!this.titleY.isempty()) {
 			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-			cr.set_font_size(this.sizeTitleY)
+			cr.set_font_size(this.fontSizeTitleY)
 			this.drawRotTextOnW(cr, x, this.yAxis + this.htAxis / 2, this.titleY)
+		}
+		if (!this.titleYSub.isempty()) {
+			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+			cr.set_font_size(this.fontSizeTitleY)
+			this.drawRotTextOnE(cr, x + width, this.yAxis + this.htAxis / 2, this.titleYSub)
 		}
 		cr.save {
 			this.drawAxis(cr)
@@ -406,6 +425,19 @@ Graph = class {
 			cr.rotate(-math.pi / 2)
 			cr.move_to(0, 0)
 			cr.show_text(text)
+			//cr.rectangle(0, -extText.height, extText.x_advance, extText.height)
+			//cr.stroke()
+		}
+	}
+	drawRotTextOnE(cr:cairo.context, x:number, y:number, text:string):map:void = {
+		extText = cr.text_extents(text)
+		cr.save {
+			cr.translate(x, y + extText.x_advance / 2)
+			cr.rotate(-math.pi / 2)
+			cr.move_to(0, 0)
+			cr.show_text(text)
+			//cr.rectangle(0, -extText.height, extText.x_advance, extText.height)
+			//cr.stroke()
 		}
 	}
 	clipAxis(cr:cairo.context) = {
@@ -465,7 +497,7 @@ Graph = class {
 	}
 	applyLineStyle(cr:cairo.context, lineStyle:symbol) = {
 		if (lineStyle == `solid) {
-			cr.set_dash(nil, 0)
+			cr.set_dash([], 0)
 		} elsif (lineStyle == `dot) {
 			cr.set_dash([2, 2], 0)
 		} elsif (lineStyle == `dash) {
@@ -506,6 +538,7 @@ main() = {
 			g.title = 'title'
 			g.titleX = 'title on x-axis'
 			g.titleY = 'title on y-axis'
+			g.titleYSub = 'title on y-axis [2]'
 			g.func(function(x):map {3 * math.sin(x)}, `solid)
 			g.func(function(x):map {3 * math.cos(x)}, `dot)
 		}
@@ -530,10 +563,11 @@ main() = {
 		}
 		canvas.graph(3)
 		canvas.graph()
-		image(`rgba, 1000, 800, `white) {|img|
-			canvas.render(img)
-			img.show(680, 680)
-		}
+		canvas.show()
+		//image(`rgba, 1000, 800, `white) {|img|
+		//	canvas.render(img)
+		//	img.show(680, 680)
+		//}
 	}
 }
 
