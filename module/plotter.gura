@@ -133,6 +133,24 @@ Graph = class {
 			`dia			=> this.drawMarker_dia
 		}
 	}
+	plot(coords[]:Coord, markerStyle?:symbol, markerSize?:number, lineStyle?:symbol) = {
+		this.plotInfos.add(PlotInfo(coords, markerStyle, markerSize, lineStyle))
+	}
+	func(func:function, lineStyle?:symbol) = {
+		this.funcInfos.add(FuncInfo(func, lineStyle))
+	}
+	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
+		cr.font_extents() {|ex|
+		}
+		[this.xAxis, this.yAxis] = [x, y]
+		[this.wdAxis, this.htAxis] = [width, height]
+		this.drawAxis(cr)
+		cr.save {
+			this.clipAxis(cr)
+			this.drawFuncs(cr)
+			this.drawPlots(cr)
+		}
+	}
 	coordX(x:number):map = {
 		this.xAxis + (x - this.xMin) * this.wdAxis / (this.xMax - this.xMin)
 	}
@@ -342,16 +360,6 @@ Graph = class {
 		cr.move_to(x - extText.x_advance, y + extText.height / 2)
 		cr.show_text(text)
 	}
-	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
-		[this.xAxis, this.yAxis] = [x, y]
-		[this.wdAxis, this.htAxis] = [width, height]
-		this.drawAxis(cr)
-		cr.save {
-			this.clipAxis(cr)
-			this.drawFuncs(cr)
-			this.drawPlots(cr)
-		}
-	}
 	clipAxis(cr:cairo.context) = {
 		cr.rectangle(this.xAxis, this.yAxis, this.wdAxis, this.htAxis)
 		cr.clip()
@@ -437,12 +445,6 @@ Graph = class {
 				}
 			}
 		}
-	}
-	plot(coords[]:Coord, markerStyle?:symbol, markerSize?:number, lineStyle?:symbol) = {
-		this.plotInfos.add(PlotInfo(coords, markerStyle, markerSize, lineStyle))
-	}
-	func(func:function, lineStyle?:symbol) = {
-		this.funcInfos.add(FuncInfo(func, lineStyle))
 	}
 }
 
