@@ -91,9 +91,18 @@ Graph = class {
 		xMin, xMax
 		yMin, yMax
 		cntSamples,
-		markerStyleDefault,
-		markerSizeDefault,
-		lineStyleDefault,
+		markerStyleDefault
+		markerSizeDefault
+		lineStyleDefault
+		sizeTitle
+		sizeTitleX
+		sizeTitleY
+		title
+		titleX
+		titleY
+		mgnTitle
+		mgnTitleX
+		mgnTitleY
 	}
 	__init__(nSpans:number) = {
 		this.fontName = if (sys.platform == `mswin) {
@@ -114,6 +123,15 @@ Graph = class {
 		this.markerStyleDefault = `square
 		this.markerSizeDefault = 10
 		this.lineStyleDefault = `none
+		this.sizeTitle = 15
+		this.sizeTitleX = 15
+		this.sizeTitleY = 15
+		this.title = ''
+		this.titleX = ''
+		this.titleY = ''
+		this.mgnTitle = 4
+		this.mgnTitleX = 4
+		this.mgnTitleY = 4
 		this.dict@drawMarker = %{
 			`pixel			=> this.drawMarker_pixel
 			`square			=> this.drawMarker_square
@@ -140,12 +158,28 @@ Graph = class {
 		this.funcInfos.add(FuncInfo(func, lineStyle))
 	}
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
-		cr.font_extents() {|ex|
+		spaceTitleX = cond(this.titleX.isempty(), 0, this.sizeTitleX + this.mgnTitleX)
+		spaceTitleY = cond(this.titleY.isempty(), 0, this.sizeTitleY + this.mgnTitleY)
+		spaceTitle = cond(this.title.isempty(), 0, this.sizeTitle + this.mgnTitle)
+		[this.xAxis, this.yAxis] = [x + spaceTitleY, y + spaceTitle]
+		[this.wdAxis, this.htAxis] = [width - spaceTitleY, height - spaceTitleX - spaceTitle]
+		if (!this.title.isempty()) {
+			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+			cr.set_font_size(this.sizeTitle)
+			this.drawTextOnN(cr, x + width / 2, y, this.title)
 		}
-		[this.xAxis, this.yAxis] = [x, y]
-		[this.wdAxis, this.htAxis] = [width, height]
-		this.drawAxis(cr)
+		if (!this.titleX.isempty()) {
+			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+			cr.set_font_size(this.sizeTitleX)
+			this.drawTextOnS(cr, this.xAxis + this.wdAxis / 2, y + height, this.titleX)
+		}
+		if (!this.titleX.isempty()) {
+			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+			cr.set_font_size(this.sizeTitleY)
+			this.drawRotTextOnW(cr, x, this.yAxis + this.htAxis / 2, this.titleY)
+		}
 		cr.save {
+			this.drawAxis(cr)
 			this.clipAxis(cr)
 			this.drawFuncs(cr)
 			this.drawPlots(cr)
@@ -355,10 +389,24 @@ Graph = class {
 		cr.move_to(x - extText.x_advance / 2, y + extText.height)
 		cr.show_text(text)
 	}
+	drawTextOnS(cr:cairo.context, x:number, y:number, text:string):map:void = {
+		extText = cr.text_extents(text)
+		cr.move_to(x - extText.x_advance / 2, y)
+		cr.show_text(text)
+	}
 	drawTextOnE(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extText = cr.text_extents(text)
 		cr.move_to(x - extText.x_advance, y + extText.height / 2)
 		cr.show_text(text)
+	}
+	drawRotTextOnW(cr:cairo.context, x:number, y:number, text:string):map:void = {
+		extText = cr.text_extents(text)
+		cr.save {
+			cr.translate(x + extText.height, y + extText.x_advance / 2)
+			cr.rotate(-math.pi / 2)
+			cr.move_to(0, 0)
+			cr.show_text(text)
+		}
 	}
 	clipAxis(cr:cairo.context) = {
 		cr.rectangle(this.xAxis, this.yAxis, this.wdAxis, this.htAxis)
@@ -455,8 +503,13 @@ main() = {
 	}
 	Canvas(4) {|canvas|
 		canvas.graph {|g|
+			g.title = 'title'
+			g.titleX = 'title on x-axis'
+			g.titleY = 'title on y-axis'
 			g.func(function(x):map {3 * math.sin(x)}, `solid)
 			g.func(function(x):map {3 * math.cos(x)}, `dot)
+		}
+		canvas.graph(2) {|g|
 			g.func(function(y):map {3 * math.sin(y)})
 			g.func(function(y):map {3 * math.cos(y)})
 		}
@@ -475,7 +528,6 @@ main() = {
 			g.plot(MakeRandCoords(-5, -5, 8, 8), `point, 10, `dash)
 			g.plot(MakeRandCoords(-5, 4, 8, 8), `point, 10, `dashdot)
 		}
-		canvas.graph(2)
 		canvas.graph(3)
 		canvas.graph()
 		image(`rgba, 1000, 800, `white) {|img|
