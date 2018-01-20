@@ -23,8 +23,10 @@ Canvas = class {
 	public {
 		margine,
 	}
-	__init__(nCols?:number) = {
-		this.nCols = nCols
+	__init__(orient?:symbol, nFolds?:number) = {
+		this.orient = orient || `vert
+		!(this.orient in [`horz, `vert]) && raise(error.ValueError, "the argument 'orient' takes `horz or `vert")
+		this.nFolds = nFolds
 		this.mgnLeft = nil
 		this.mgnRight = nil
 		this.mgnTop = nil
@@ -53,13 +55,13 @@ Canvas = class {
 	}
 	render(cr:cairo.context):void = {
 		[wdCanvas, htCanvas] = [cr.width, cr.height]
-		nGraphs = this.graphs.len()
-		if (this.nCols) {
-			nGraphsHorz = min(this.nCols, nGraphs)
-			nGraphsVert = int((nGraphs + this.nCols - 1) / this.nCols)
+		nSpansSum = this.graphs:*nSpans.sum()
+		if (this.nFolds) {
+			nGraphsMajor = min(this.nFolds, nSpansSum)
+			nGraphsMinor = int((nSpansSum + this.nFolds - 1) / this.nFolds)
 		} else {
-			nGraphsHorz = nGraphs
-			nGraphsVert = 1
+			nGraphsMajor = nSpansSum
+			nGraphsMinor = 1
 		}
 		[mgnLeft, mgnRight, wdSkip] = [this.mgnLeftP, this.mgnRightP, this.wdSkipP] * wdCanvas / 100
 		[mgnTop, mgnBottom, htSkip] = [this.mgnTopP, this.mgnBottomP, this.htSkipP] * htCanvas / 100
@@ -69,21 +71,33 @@ Canvas = class {
 		mgnBottom = this.mgnBottom || mgnBottom
 		wdSkip = this.wdSkip || wdSkip
 		htSkip = this.htSkip || htSkip
-		wdCell = (wdCanvas - mgnLeft - mgnRight - wdSkip * (nGraphsHorz - 1)) / nGraphsHorz
-		htCell = (htCanvas - mgnTop - mgnBottom - htSkip * (nGraphsVert - 1)) / nGraphsVert
-		iGraphHorz = iGraphVert = 0
+		if (this.orient == `vert) {
+			wdCell = (wdCanvas - mgnLeft - mgnRight - wdSkip * (nGraphsMinor - 1)) / nGraphsMinor
+			htCell = (htCanvas - mgnTop - mgnBottom - htSkip * (nGraphsMajor - 1)) / nGraphsMajor
+		} else {
+			wdCell = (wdCanvas - mgnLeft - mgnRight - wdSkip * (nGraphsMajor - 1)) / nGraphsMajor
+			htCell = (htCanvas - mgnTop - mgnBottom - htSkip * (nGraphsMinor - 1)) / nGraphsMinor
+		}
+		iGraphMajor = iGraphMinor = 0
 		this.graphs.each {|g|
-			if (iGraphHorz + g.nSpans > nGraphsHorz) {
-				iGraphHorz = 0, iGraphVert += 1
+			if (iGraphMajor + g.nSpans > nGraphsMajor) {
+				iGraphMajor = 0, iGraphMinor += 1
 			}
-			x = mgnLeft + iGraphHorz * (wdCell + wdSkip)
-			y = mgnTop + iGraphVert * (htCell + htSkip)
-			width = wdCell + (wdCell + wdSkip) * (g.nSpans - 1)
-			height = htCell
+			if (this.orient == `vert) {
+				x = mgnLeft + iGraphMinor * (wdCell + wdSkip)
+				y = mgnTop + iGraphMajor * (htCell + htSkip)
+				width = wdCell
+				height = htCell + (htCell + htSkip) * (g.nSpans - 1)
+			} else { // this.orient == `horz
+				x = mgnLeft + iGraphMajor * (wdCell + wdSkip)
+				y = mgnTop + iGraphMinor * (htCell + htSkip)
+				width = wdCell + (wdCell + wdSkip) * (g.nSpans - 1)
+				height = htCell
+			}
 			g.render(cr, x, y, width, height)
-			iGraphHorz += g.nSpans
-			if (iGraphHorz >= nGraphsHorz) {
-				iGraphHorz = 0, iGraphVert += 1
+			iGraphMajor += g.nSpans
+			if (iGraphMajor >= nGraphsMajor) {
+				iGraphMajor = 0, iGraphMinor += 1
 			}
 		}
 	}
@@ -171,10 +185,12 @@ Graph = class {
 		this.funcInfos.add(FuncInfo(func, lineStyle))
 	}
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
-		spaceTitle = cond(this.title.isempty(), 0, this.fontSizeTitle + this.mgnTitle)
-		spaceTitleX = cond(this.titleX.isempty(), 0, this.fontSizeTitleX + this.mgnTitleX)
-		spaceTitleY = cond(this.titleY.isempty(), 0, this.fontSizeTitleY + this.mgnTitleY)
-		spaceTitleYSub = cond(this.titleYSub.isempty(), 0, this.fontSizeTitleYSub + this.mgnTitleYSub)
+		cr.rectangle(x, y, width, height)
+		cr.stroke()
+		spaceTitle = cond(this.title.isempty(), 0, this.fontSizeTitle * 1.2 + this.mgnTitle)
+		spaceTitleX = cond(this.titleX.isempty(), 0, this.fontSizeTitleX * 1.2 + this.mgnTitleX)
+		spaceTitleY = cond(this.titleY.isempty(), 0, this.fontSizeTitleY * 1.2 + this.mgnTitleY)
+		spaceTitleYSub = cond(this.titleYSub.isempty(), 0, this.fontSizeTitleYSub * 1.2 + this.mgnTitleYSub)
 		[this.xAxis, this.yAxis] = [x + spaceTitleY, y + spaceTitle]
 		[this.wdAxis, this.htAxis] = [width - spaceTitleY - spaceTitleYSub, height - spaceTitleX - spaceTitle]
 		if (!this.title.isempty()) {
@@ -185,7 +201,7 @@ Graph = class {
 		if (!this.titleX.isempty()) {
 			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 			cr.set_font_size(this.fontSizeTitleX)
-			this.drawTextOnS(cr, this.xAxis + this.wdAxis / 2, y + height, this.titleX)
+			this.drawTextOnN(cr, this.xAxis + this.wdAxis / 2, this.yAxis + this.htAxis + this.mgnTitleX, this.titleX)
 		}
 		if (!this.titleY.isempty()) {
 			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
@@ -195,7 +211,8 @@ Graph = class {
 		if (!this.titleYSub.isempty()) {
 			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 			cr.set_font_size(this.fontSizeTitleY)
-			this.drawRotTextOnE(cr, x + width, this.yAxis + this.htAxis / 2, this.titleYSub)
+			this.drawRotTextOnW(cr, this.xAxis + this.wdAxis + this.mgnTitleYSub,
+								this.yAxis + this.htAxis / 2, this.titleYSub)
 		}
 		cr.save {
 			this.drawAxis(cr)
@@ -419,14 +436,13 @@ Graph = class {
 		cr.show_text(text)
 	}
 	drawRotTextOnW(cr:cairo.context, x:number, y:number, text:string):map:void = {
+		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
 		cr.save {
-			cr.translate(x + extText.height, y + extText.x_advance / 2)
+			cr.translate(x + extFont.ascent, y + extText.x_advance / 2)
 			cr.rotate(-math.pi / 2)
 			cr.move_to(0, 0)
 			cr.show_text(text)
-			//cr.rectangle(0, -extText.height, extText.x_advance, extText.height)
-			//cr.stroke()
 		}
 	}
 	drawRotTextOnE(cr:cairo.context, x:number, y:number, text:string):map:void = {
@@ -436,8 +452,6 @@ Graph = class {
 			cr.rotate(-math.pi / 2)
 			cr.move_to(0, 0)
 			cr.show_text(text)
-			//cr.rectangle(0, -extText.height, extText.x_advance, extText.height)
-			//cr.stroke()
 		}
 	}
 	clipAxis(cr:cairo.context) = {
@@ -533,12 +547,12 @@ main() = {
 	MakeRandCoords(xCenter:number, yCenter:number, xRange:number, yRange:number) = {
 		Coord(xCenter + rands(nil, 10) * xRange - xRange / 2, yCenter + rands(nil, 10) * yRange - yRange / 2)
 	}
-	Canvas(4) {|canvas|
+	Canvas(`vert, 4) {|canvas|
 		canvas.graph {|g|
-			g.title = 'title'
-			g.titleX = 'title on x-axis'
-			g.titleY = 'title on y-axis'
-			g.titleYSub = 'title on y-axis [2]'
+			g.title = 'Title'
+			g.titleX = 'Title on x-axis'
+			g.titleY = 'Title on y-axis'
+			g.titleYSub = 'Title on y-axis [2]'
 			g.func(function(x):map {3 * math.sin(x)}, `solid)
 			g.func(function(x):map {3 * math.cos(x)}, `dot)
 		}
