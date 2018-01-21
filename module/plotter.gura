@@ -119,6 +119,8 @@ Graph = class {
 		fontSizeTitleX
 		fontSizeTitleY
 		fontSizeTitleYSub
+		fontSizeAxisX
+		fontSizeAxisY
 		title
 		titleX
 		titleY
@@ -151,6 +153,8 @@ Graph = class {
 		this.fontSizeTitleX = 15
 		this.fontSizeTitleY = 15
 		this.fontSizeTitleYSub = 15
+		this.fontSizeAxisX = 12
+		this.fontSizeAxisY = 12
 		this.title = ''
 		this.titleX = ''
 		this.titleY = ''
@@ -481,8 +485,9 @@ Graph = class {
 		}
 		cr.save {
 			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-			cr.set_font_size(15)
+			cr.set_font_size(this.fontSizeAxisX)
 			this.drawTextOnN(cr, this.coordX(xCoords), this.coordY(0) + 4, format('%.1f', xCoords))
+			cr.set_font_size(this.fontSizeAxisY)
 			this.drawTextOnE(cr, this.coordX(0) - 4, this.coordY(yCoords), format('%.1f', yCoords))
 		}
 	}
