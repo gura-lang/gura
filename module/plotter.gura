@@ -203,8 +203,12 @@ Graph = class {
 	}
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
 		this.updateTickInfos()
+		cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 		cr.rectangle(x, y, width, height)
 		cr.stroke()
+		cr.save {
+
+		}
 		spaceTitle = cond(this.title.isempty(), 0, this.fontSizeTitle * 1.2 + this.mgnTitle)
 		spaceTitleX = cond(this.titleX.isempty(), 0, this.fontSizeTitleX * 1.2 + this.mgnTitleX)
 		spaceTitleY = cond(this.titleY.isempty(), 0, this.fontSizeTitleY * 1.2 + this.mgnTitleY)
@@ -215,23 +219,19 @@ Graph = class {
 			height - (spaceTitleX + spaceTitle + this.mgnTickX + this.htTickX)
 		]
 		if (!this.title.isempty()) {
-			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 			cr.set_font_size(this.fontSizeTitle)
 			this.drawTextOnN(cr, x + width / 2, y, this.title)
 		}
 		if (!this.titleX.isempty()) {
-			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 			cr.set_font_size(this.fontSizeTitleX)
 			this.drawTextOnN(cr, this.xAxis + this.wdAxis / 2,
 							 this.yAxis + this.htAxis + this.mgnTickX + this.htTickX + this.mgnTitleX, this.titleX)
 		}
 		if (!this.titleY.isempty()) {
-			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 			cr.set_font_size(this.fontSizeTitleY)
 			this.drawRotTextOnW(cr, x, this.yAxis + this.htAxis / 2, this.titleY)
 		}
 		if (!this.titleYSub.isempty()) {
-			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 			cr.set_font_size(this.fontSizeTitleY)
 			this.drawRotTextOnW(cr, this.xAxis + this.wdAxis + this.mgnTitleYSub,
 								this.yAxis + this.htAxis / 2, this.titleYSub)
