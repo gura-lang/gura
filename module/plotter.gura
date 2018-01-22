@@ -109,8 +109,8 @@ Canvas = class {
 Graph = class {
 	public {
 		nSpans
-		xMin, xMax
-		yMin, yMax
+		minX, maxX
+		minY, maxY
 		cntSamples,
 		markerStyleDefault
 		markerSizeDefault
@@ -119,8 +119,10 @@ Graph = class {
 		fontSizeTitleX
 		fontSizeTitleY
 		fontSizeTitleYSub
-		fontSizeAxisX
-		fontSizeAxisY
+		fontSizeTickX
+		fontSizeTickY
+		htTickX
+		wdTickY
 		title
 		titleX
 		titleY
@@ -143,8 +145,8 @@ Graph = class {
 		this.nSpans = nSpans
 		this.funcInfos = []
 		this.plotInfos = []
-		[this.xMin, this.xMax] = [-10, 10]
-		[this.yMin, this.yMax] = [-10, 10]
+		[this.minX, this.maxX] = [-10, 10]
+		[this.minY, this.maxY] = [-10, 10]
 		this.cntSamples = 100
 		this.markerStyleDefault = `square
 		this.markerSizeDefault = 10
@@ -153,8 +155,10 @@ Graph = class {
 		this.fontSizeTitleX = 15
 		this.fontSizeTitleY = 15
 		this.fontSizeTitleYSub = 15
-		this.fontSizeAxisX = 12
-		this.fontSizeAxisY = 12
+		this.fontSizeTickX = 12
+		this.fontSizeTickY = 12
+		this.htTickX = 12
+		this.wdTickY = 40
 		this.title = ''
 		this.titleX = ''
 		this.titleY = ''
@@ -163,6 +167,8 @@ Graph = class {
 		this.mgnTitleX = 4
 		this.mgnTitleY = 4
 		this.mgnTitleYSub = 4
+		this.mgnTickX = 4
+		this.mgnTickY = 4
 		this.dict@drawMarker = %{
 			`pixel			=> this.drawMarker_pixel
 			`square			=> this.drawMarker_square
@@ -195,8 +201,11 @@ Graph = class {
 		spaceTitleX = cond(this.titleX.isempty(), 0, this.fontSizeTitleX * 1.2 + this.mgnTitleX)
 		spaceTitleY = cond(this.titleY.isempty(), 0, this.fontSizeTitleY * 1.2 + this.mgnTitleY)
 		spaceTitleYSub = cond(this.titleYSub.isempty(), 0, this.fontSizeTitleYSub * 1.2 + this.mgnTitleYSub)
-		[this.xAxis, this.yAxis] = [x + spaceTitleY, y + spaceTitle]
-		[this.wdAxis, this.htAxis] = [width - spaceTitleY - spaceTitleYSub, height - spaceTitleX - spaceTitle]
+		[this.xAxis, this.yAxis] = [x + spaceTitleY + this.wdTickY + this.mgnTickY, y + spaceTitle]
+		[this.wdAxis, this.htAxis] = [
+			width - (spaceTitleY + spaceTitleYSub + this.wdTickY + this.mgnTickY)
+			height - (spaceTitleX + spaceTitle + this.mgnTickX + this.htTickX)
+		]
 		if (!this.title.isempty()) {
 			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 			cr.set_font_size(this.fontSizeTitle)
@@ -205,7 +214,8 @@ Graph = class {
 		if (!this.titleX.isempty()) {
 			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 			cr.set_font_size(this.fontSizeTitleX)
-			this.drawTextOnN(cr, this.xAxis + this.wdAxis / 2, this.yAxis + this.htAxis + this.mgnTitleX, this.titleX)
+			this.drawTextOnN(cr, this.xAxis + this.wdAxis / 2,
+							 this.yAxis + this.htAxis + this.mgnTickX + this.htTickX + this.mgnTitleX, this.titleX)
 		}
 		if (!this.titleY.isempty()) {
 			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
@@ -226,10 +236,10 @@ Graph = class {
 		}
 	}
 	coordX(x:number):map = {
-		this.xAxis + (x - this.xMin) * this.wdAxis / (this.xMax - this.xMin)
+		this.xAxis + (x - this.minX) * this.wdAxis / (this.maxX - this.minX)
 	}
 	coordY(y:number):map = {
-		this.yAxis + this.htAxis - (y - this.yMin) * this.htAxis / (this.yMax - this.yMin)
+		this.yAxis + this.htAxis - (y - this.minY) * this.htAxis / (this.maxY - this.minY)
 	}
 	coord(x:number, y:number) = [coordX(x), coordY(y)]
 	calcStep(tMin:number, tMax:number) = {
@@ -463,10 +473,10 @@ Graph = class {
 		cr.clip()
 	}
 	drawAxis(cr:cairo.context) = {
-		tStep = this.calcStep(this.xMin, this.xMax)
-		xCoords = (int(this.xMin / tStep) + (0 .. int((this.xMax - this.xMin) / tStep))) * tStep
-		tStep = this.calcStep(this.yMin, this.yMax)
-		yCoords = (int(this.yMin / tStep) + (0 .. int((this.yMax - this.yMin) / tStep))) * tStep
+		tStep = this.calcStep(this.minX, this.maxX)
+		xCoords = (int(this.minX / tStep) + (0 .. int((this.maxX - this.minX) / tStep))) * tStep
+		tStep = this.calcStep(this.minY, this.maxY)
+		yCoords = (int(this.minY / tStep) + (0 .. int((this.maxY - this.minY) / tStep))) * tStep
 		cr.set_line_width(1)
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
@@ -485,16 +495,18 @@ Graph = class {
 		}
 		cr.save {
 			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-			cr.set_font_size(this.fontSizeAxisX)
-			this.drawTextOnN(cr, this.coordX(xCoords), this.coordY(0) + 4, format('%.1f', xCoords))
-			cr.set_font_size(this.fontSizeAxisY)
-			this.drawTextOnE(cr, this.coordX(0) - 4, this.coordY(yCoords), format('%.1f', yCoords))
+			cr.set_font_size(this.fontSizeTickX)
+			this.drawTextOnS(cr, this.coordX(xCoords),
+							 this.yAxis + this.htAxis + this.mgnTickX + this.htTickX, format('%.1f', xCoords))
+			cr.set_font_size(this.fontSizeTickY)
+			this.drawTextOnE(cr, this.xAxis - this.mgnTickY,
+							 this.coordY(yCoords), format('%.1f', yCoords))
 		}
 	}
 	drawFuncs(cr:cairo.context) = {
 		cr.save {
-			x = interval(this.xMin, this.xMax, this.cntSamples)
-			y = interval(this.yMin, this.yMax, this.cntSamples)
+			x = interval(this.minX, this.maxX, this.cntSamples)
+			y = interval(this.minY, this.maxY, this.cntSamples)
 			cr.set_antialias(cairo.ANTIALIAS_DEFAULT)
 			this.funcInfos.each {|funcInfo|
 				lineStyle = funcInfo.lineStyle || `solid
@@ -566,13 +578,15 @@ main() = {
 			g.func(function(y):map {3 * math.cos(y)})
 		}
 		canvas.graph {|g|
+		}
+		canvas.graph(3) {|g|
 			symbols = [
 				`pixel, `square, `point, `circle
 				`triangle_down, `triangle_up, `triangle_left, `triangle_right
 				`tri_down, `tri_up, `tri_left, `tri_right
 				`x, `plus, `diamond, `dia
 			]
-			for (x in interval(g.xMin, g.xMax, symbols.len()):open, symbol in symbols) {
+			for (x in interval(g.minX, g.maxX, symbols.len()):open, symbol in symbols) {
 				g.plot([Coord(x, 9)], symbol)
 			}
 			g.plot(MakeRandCoords(5, 4, 8, 8), `circle, 10, `solid)
@@ -580,7 +594,6 @@ main() = {
 			g.plot(MakeRandCoords(-5, -5, 8, 8), `point, 10, `dash)
 			g.plot(MakeRandCoords(-5, 4, 8, 8), `point, 10, `dashdot)
 		}
-		canvas.graph(3)
 		canvas.graph()
 		canvas.show()
 		//image(`rgba, 1000, 800, `white) {|img|
