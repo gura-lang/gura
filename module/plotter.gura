@@ -17,6 +17,11 @@ FuncInfo = struct(func:function, lineStyle?:symbol)
 PlotInfo = struct(coords[]:Coord, markerStyle?:symbol, markerSize?:number, lineStyle?:symbol)
 
 //-----------------------------------------------------------------------------
+// TickInfo
+//-----------------------------------------------------------------------------
+TickInfo = struct(n:number, str:string):map
+
+//-----------------------------------------------------------------------------
 // Canvas
 //-----------------------------------------------------------------------------
 Canvas = class {
@@ -145,6 +150,8 @@ Graph = class {
 		this.nSpans = nSpans
 		this.funcInfos = []
 		this.plotInfos = []
+		this.tickInfosX = []
+		this.tickInfosY = []
 		[this.minX, this.maxX] = [-10, 10]
 		[this.minY, this.maxY] = [-10, 10]
 		this.cntSamples = 100
@@ -195,6 +202,7 @@ Graph = class {
 		this.funcInfos.add(FuncInfo(func, lineStyle))
 	}
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
+		this.updateTickInfos()
 		cr.rectangle(x, y, width, height)
 		cr.stroke()
 		spaceTitle = cond(this.title.isempty(), 0, this.fontSizeTitle * 1.2 + this.mgnTitle)
@@ -472,15 +480,20 @@ Graph = class {
 		cr.rectangle(this.xAxis, this.yAxis, this.wdAxis, this.htAxis)
 		cr.clip()
 	}
-	drawAxis(cr:cairo.context) = {
+	updateTickInfos() = {
 		tStep = this.calcStep(this.minX, this.maxX)
 		xCoords = (int(this.minX / tStep) + (0 .. int((this.maxX - this.minX) / tStep))) * tStep
+		this.tickInfosX = TickInfo(xCoords, format('%.1f', xCoords)):list
 		tStep = this.calcStep(this.minY, this.maxY)
 		yCoords = (int(this.minY / tStep) + (0 .. int((this.maxY - this.minY) / tStep))) * tStep
+		this.tickInfosY = TickInfo(yCoords, format('%.1f', yCoords)):list
+	}
+	drawAxis(cr:cairo.context) = {
 		cr.set_line_width(1)
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
 			cr.rectangle(this.xAxis, this.yAxis, this.wdAxis, this.htAxis)
+			cr.set_dash([], 0)
 			cr.stroke()
 			this.clipAxis(cr)
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
@@ -488,19 +501,19 @@ Graph = class {
 			this.drawHline(cr, this.xAxis, this.coordY(0), this.wdAxis)
 			cr.set_dash([], 0)
 			cr.stroke()
-			this.drawVline(cr, this.coordX(xCoords), this.yAxis, this.htAxis)
-			this.drawHline(cr, this.xAxis, this.coordY(yCoords), this.wdAxis)
+			this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.yAxis, this.htAxis)
+			this.drawHline(cr, this.xAxis, this.coordY(this.tickInfosY:*n), this.wdAxis)
 			cr.set_dash([2, 2], 0)
 			cr.stroke()
 		}
 		cr.save {
 			cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 			cr.set_font_size(this.fontSizeTickX)
-			this.drawTextOnS(cr, this.coordX(xCoords),
-							 this.yAxis + this.htAxis + this.mgnTickX + this.htTickX, format('%.1f', xCoords))
+			this.drawTextOnS(cr, this.coordX(this.tickInfosX:*n),
+							 this.yAxis + this.htAxis + this.mgnTickX + this.htTickX, this.tickInfosX:*str)
 			cr.set_font_size(this.fontSizeTickY)
 			this.drawTextOnE(cr, this.xAxis - this.mgnTickY,
-							 this.coordY(yCoords), format('%.1f', yCoords))
+							 this.coordY(this.tickInfosY:*n), this.tickInfosY:*str)
 		}
 	}
 	drawFuncs(cr:cairo.context) = {
