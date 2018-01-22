@@ -517,13 +517,13 @@ Graph = class {
 			cr.set_dash([], 0)
 			cr.stroke()
 			if (this.tickStyleX != `none) {
+				this.applyLineStyle(cr, this.tickStyleX)
 				this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.yAxis, this.htAxis)
-				cr.set_dash([2, 2], 0)
 				cr.stroke()
 			}
 			if (this.tickStyleY != `none) {
+				this.applyLineStyle(cr, this.tickStyleY)
 				this.drawHline(cr, this.xAxis, this.coordY(this.tickInfosY:*n), this.wdAxis)
-				cr.set_dash([2, 2], 0)
 				cr.stroke()
 			}
 		}
@@ -621,27 +621,32 @@ main() = {
 			g.func(function(x):map {3 * math.cos(x)}, `dot)
 		}
 		canvas.graph(2) {|g|
+			g.tickStyleX = `dot
+			g.tickStyleY = `dot
 			g.func(function(y):map {3 * math.sin(y)})
 			g.func(function(y):map {3 * math.cos(y)})
 		}
 		canvas.graph {|g|
 		}
 		canvas.graph(3) {|g|
+			g.plot(MakeRandCoords(5, 4, 8, 8), `circle, 10, `solid)
+			g.plot(MakeRandCoords(5, -5, 8, 8), `point, 10, `dot)
+			g.plot(MakeRandCoords(-5, -5, 8, 8), `point, 10, `dash)
+			g.plot(MakeRandCoords(-5, 4, 8, 8), `point, 10, `dashdot)
+		}
+		canvas.graph {|g|
 			symbols = [
 				`pixel, `square, `point, `circle
 				`triangle_down, `triangle_up, `triangle_left, `triangle_right
 				`tri_down, `tri_up, `tri_left, `tri_right
 				`x, `plus, `diamond, `dia
 			]
+			g.minX = 0, g.maxX = 10
+			g.minY = 0, g.maxY = 10
 			for (x in interval(g.minX, g.maxX, symbols.len()):open, symbol in symbols) {
-				g.plot([Coord(x, 9)], symbol)
+				g.plot([Coord(x, 5)], symbol)
 			}
-			g.plot(MakeRandCoords(5, 4, 8, 8), `circle, 10, `solid)
-			g.plot(MakeRandCoords(5, -5, 8, 8), `point, 10, `dot)
-			g.plot(MakeRandCoords(-5, -5, 8, 8), `point, 10, `dash)
-			g.plot(MakeRandCoords(-5, 4, 8, 8), `point, 10, `dashdot)
 		}
-		canvas.graph()
 		canvas.show()
 		//image(`rgba, 1000, 800, `white) {|img|
 		//	canvas.render(img)
