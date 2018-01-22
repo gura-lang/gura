@@ -132,6 +132,8 @@ Graph = class {
 		titleX
 		titleY
 		titleYSub
+		formatTickX
+		formatTickY
 		mgnTitle
 		mgnTitleX
 		mgnTitleY
@@ -165,11 +167,13 @@ Graph = class {
 		this.fontSizeTickX = 12
 		this.fontSizeTickY = 12
 		this.htTickX = 12
-		this.wdTickY = 40
+		this.wdTickY = 0
 		this.title = ''
 		this.titleX = ''
 		this.titleY = ''
 		this.titleYSub = ''
+		this.formatTickX = '%g'
+		this.formatTickY = '%g'
 		this.mgnTitle = 4
 		this.mgnTitleX = 4
 		this.mgnTitleY = 4
@@ -204,11 +208,11 @@ Graph = class {
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
 		this.updateTickInfos()
 		cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-		cr.rectangle(x, y, width, height)
-		cr.stroke()
+		//cr.rectangle(x, y, width, height)
+		//cr.stroke()
 		cr.save {
 			cr.set_font_size(this.fontSizeTickY)
-			println(cr.text_extents(this.tickInfosY:*text))
+			this.wdTickY = cr.text_extents(this.tickInfosY:*text):*width.max()
 		}
 		spaceTitle = cond(this.title.isempty(), 0, this.fontSizeTitle * 1.2 + this.mgnTitle)
 		spaceTitleX = cond(this.titleX.isempty(), 0, this.fontSizeTitleX * 1.2 + this.mgnTitleX)
@@ -251,12 +255,12 @@ Graph = class {
 		this.yAxis + this.htAxis - (y - this.minY) * this.htAxis / (this.maxY - this.minY)
 	}
 	coord(x:number, y:number) = [coordX(x), coordY(y)]
-	calcStep(tMin:number, tMax:number) = {
+	calcStep(tMin:number, tMax:number, n:number) = {
 		tRange = tMax - tMin
 		nScales = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000]
 		tStepBase = 10 ** (int(math.log10(tRange)) - 2)
 		tSteps = tStepBase * nScales
-		(tSteps.filter(tRange / tSteps >= 10):list).last()
+		(tSteps.filter(tRange / tSteps >= n):list).last()
 	}
 	drawHline(cr:cairo.context, x:number, y:number, width:number):map:void = {
 		cr.move_to(x, y).rel_line_to(width, 0)
@@ -482,12 +486,12 @@ Graph = class {
 		cr.clip()
 	}
 	updateTickInfos() = {
-		tStep = this.calcStep(this.minX, this.maxX)
+		tStep = this.calcStep(this.minX, this.maxX, 10)
 		xCoords = (int(this.minX / tStep) + (0 .. int((this.maxX - this.minX) / tStep))) * tStep
-		this.tickInfosX = TickInfo(xCoords, format('%.1f', xCoords)):list
-		tStep = this.calcStep(this.minY, this.maxY)
+		this.tickInfosX = TickInfo(xCoords, format(this.formatTickX, xCoords)):list
+		tStep = this.calcStep(this.minY, this.maxY, 10)
 		yCoords = (int(this.minY / tStep) + (0 .. int((this.maxY - this.minY) / tStep))) * tStep
-		this.tickInfosY = TickInfo(yCoords, format('%.1f', yCoords)):list
+		this.tickInfosY = TickInfo(yCoords, format(this.formatTickY, yCoords)):list
 	}
 	drawAxis(cr:cairo.context) = {
 		cr.set_line_width(1)
