@@ -9,7 +9,7 @@ Coord = struct(x:number, y:number):map
 //-----------------------------------------------------------------------------
 // FuncInfo
 //-----------------------------------------------------------------------------
-FuncInfo = struct(func:function, lineStyle?:symbol)
+FuncInfo = struct(func:function, lineStyle?:symbol):map
 
 //-----------------------------------------------------------------------------
 // PlotInfo
@@ -20,6 +20,11 @@ PlotInfo = struct(coords[]:Coord, markerStyle?:symbol, markerSize?:number, lineS
 // TickInfo
 //-----------------------------------------------------------------------------
 TickInfo = struct(n:number, text:string):map
+
+//-----------------------------------------------------------------------------
+// LegendInfo
+//-----------------------------------------------------------------------------
+LegendInfo = struct(text:string):map
 
 //-----------------------------------------------------------------------------
 // Canvas
@@ -138,6 +143,8 @@ Graph = class {
 		mgnTitleX
 		mgnTitleY
 		mgnTitleYSub
+		tickStyleX
+		tickStyleY
 	}
 	__init__(nSpans:number) = {
 		this.fontName = if (sys.platform == `mswin) {
@@ -154,6 +161,7 @@ Graph = class {
 		this.plotInfos = []
 		this.tickInfosX = []
 		this.tickInfosY = []
+		this.legendInfos = []
 		[this.minX, this.maxX] = [-10, 10]
 		[this.minY, this.maxY] = [-10, 10]
 		this.cntSamples = 100
@@ -180,6 +188,8 @@ Graph = class {
 		this.mgnTitleYSub = 4
 		this.mgnTickX = 4
 		this.mgnTickY = 4
+		this.tickStyleX = `none
+		this.tickStyleY = `none
 		this.dict@drawMarker = %{
 			`pixel			=> this.drawMarker_pixel
 			`square			=> this.drawMarker_square
@@ -246,6 +256,7 @@ Graph = class {
 			this.clipAxis(cr)
 			this.drawFuncs(cr)
 			this.drawPlots(cr)
+			this.drawLegends(cr)
 		}
 	}
 	coordX(x:number):map = {
@@ -501,15 +512,20 @@ Graph = class {
 			cr.set_dash([], 0)
 			cr.stroke()
 			this.clipAxis(cr)
-			cr.set_antialias(cairo.ANTIALIAS_NONE)
 			this.drawVline(cr, this.coordX(0), this.yAxis, this.htAxis)
 			this.drawHline(cr, this.xAxis, this.coordY(0), this.wdAxis)
 			cr.set_dash([], 0)
 			cr.stroke()
-			this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.yAxis, this.htAxis)
-			this.drawHline(cr, this.xAxis, this.coordY(this.tickInfosY:*n), this.wdAxis)
-			cr.set_dash([2, 2], 0)
-			cr.stroke()
+			if (this.tickStyleX != `none) {
+				this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.yAxis, this.htAxis)
+				cr.set_dash([2, 2], 0)
+				cr.stroke()
+			}
+			if (this.tickStyleY != `none) {
+				this.drawHline(cr, this.xAxis, this.coordY(this.tickInfosY:*n), this.wdAxis)
+				cr.set_dash([2, 2], 0)
+				cr.stroke()
+			}
 		}
 		cr.save {
 			cr.set_font_size(this.fontSizeTickX)
@@ -572,6 +588,20 @@ Graph = class {
 					this.drawMarker(cr, x, y, plotInfo.markerStyle, plotInfo.markerSize)
 				}
 			}
+		}
+	}
+	drawLegends(cr:cairo.context) = {
+		this.legendInfos.isempty() && return
+		wdLegend = 100, htLegend = 100
+		mgnLegendX = 10, mgnLegendY = 10
+		xLegend = this.xAxis + this.wdAxis - (mgnLegendX + wdLegend)
+		yLegend = this.yAxis + mgnLegendY
+		cr.save {
+			cr.rectangle(xLegend, yLegend, wdLegend, htLegend)
+			cr.set_source_color(`white)
+			cr.fill_preserve()
+			cr.set_source_color(`black)
+			cr.stroke()
 		}
 	}
 }
