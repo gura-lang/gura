@@ -208,7 +208,7 @@ Graph = class {
 		cr.stroke()
 		cr.save {
 			cr.set_font_size(this.fontSizeTickY)
-			cr.text_extents(this.tickInfosY:*text):*width
+			println(cr.text_extents(this.tickInfosY:*text))
 		}
 		spaceTitle = cond(this.title.isempty(), 0, this.fontSizeTitle * 1.2 + this.mgnTitle)
 		spaceTitleX = cond(this.titleX.isempty(), 0, this.fontSizeTitleX * 1.2 + this.mgnTitleX)

@@ -2731,10 +2731,10 @@ Gura_ImplementMethod(context, get_scaled_font)
 	return ReturnValue(env, arg, Value(pObjFontFace));
 }
 
-// cairo.context#show_text(text:string):reduce
+// cairo.context#show_text(text:string):reduce:map
 Gura_DeclareMethod(context, show_text)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 	AddHelp(Gura_Symbol(en),
 	"A drawing operator that generates the shape from a string of UTF-8 characters,\n"
@@ -2789,10 +2789,10 @@ Gura_ImplementMethod(context, show_glyphs)
 }
 
 // cairo.context#show_text_glyphs(text:string, glyphs:cairo.glyphs,
-//              clusters:cairo.text_cluster, cluster_flags:number):reduce
+//              clusters:cairo.text_cluster, cluster_flags:number):reduce:map
 Gura_DeclareMethod(context, show_text_glyphs)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "glyphs", VTYPE_glyph);
 	DeclareArg(env, "clusters", VTYPE_text_cluster);
@@ -2856,10 +2856,10 @@ Gura_ImplementMethod(context, font_extents)
 	return ReturnValue(env, arg, Value(pObjFontExtents));
 }
 
-// cairo.context#text_extents(text:string) {block?}
+// cairo.context#text_extents(text:string):map {block?}
 Gura_DeclareMethod(context, text_extents)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
