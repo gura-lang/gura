@@ -19,7 +19,7 @@ PlotAttr = struct(markerStyle:symbol, markerSize:number, lineStyle:symbol)
 //-----------------------------------------------------------------------------
 // PlotInfo
 //-----------------------------------------------------------------------------
-PlotInfo = struct(coords[]:Coord, markerStyle?:symbol, markerSize?:number, lineStyle?:symbol)
+PlotInfo = struct(coords[]:Coord, plotAttr:PlotAttr)
 
 //-----------------------------------------------------------------------------
 // TickInfo
@@ -173,9 +173,7 @@ Graph = class {
 		this.markerStyleDefault = `square
 		this.markerSizeDefault = 10
 		this.lineStyleDefault = `none
-		this.markerStyle = `square
-		this.markerSize = 10
-		this.lineStyle = `none
+		this.plotAttr = PlotAttr(`square, 10, `none)
 		this.fontSizeTitle = 15
 		this.fontSizeTitleX = 15
 		this.fontSizeTitleY = 15
@@ -217,19 +215,17 @@ Graph = class {
 			`dia			=> this.drawMarker_dia
 		}
 	}
-	setMarker(markerStyle?:symbol, markerSize?:number) = {
-		this.markerStyle = markerStyle
-		this.markerSize = markerSize
+	setMarker(markerStyle:symbol => `square, markerSize:number => 10) = {
+		this.plotAttr.markerStyle = markerStyle
+		this.plotAttr.markerSize = markerSize
+		this
 	}
-	setLine(lineStyle?:symbol) = {
-		this.lineStyle = lineStyle
+	setLine(lineStyle:symbol => `none) = {
+		this.plotAttr.lineStyle = lineStyle
+		this
 	}
 	plot2d(xs:iterator, ys:iterator) = {
-		markerStyle = nil, markerSize = nil, lineStyle = nil
-		this.plotInfos.add(PlotInfo(Coord(xs, ys), this.markerStyle, this.markerSize, this.lineStyle))
-	}
-	plot(coords[]:Coord, markerStyle?:symbol, markerSize?:number, lineStyle?:symbol) = {
-		this.plotInfos.add(PlotInfo(coords, markerStyle, markerSize, lineStyle))
+		this.plotInfos.add(PlotInfo(Coord(xs, ys), this.plotAttr.clone()))
 	}
 	func(func:function, lineStyle?:symbol) = {
 		this.funcInfos.add(FuncInfo(func, lineStyle))
@@ -594,7 +590,8 @@ Graph = class {
 	drawPlots(cr:cairo.context) = {
 		cr.save {
 			this.plotInfos.each {|plotInfo|
-				lineStyle = plotInfo.lineStyle || this.lineStyleDefault
+				plotAttr = plotInfo.plotAttr
+				lineStyle = plotAttr.lineStyle || this.lineStyleDefault
 				if (lineStyle != `none) {
 					cr.save {
 						applyLineStyle(cr, lineStyle)
@@ -604,7 +601,7 @@ Graph = class {
 				}
 				plotInfo.coords.each {|coord|
 					[x, y] = [this.coordX(coord.x), this.coordY(coord.y)]
-					this.drawMarker(cr, x, y, plotInfo.markerStyle, plotInfo.markerSize)
+					this.drawMarker(cr, x, y, plotAttr.markerStyle, plotAttr.markerSize)
 				}
 			}
 		}
@@ -627,8 +624,8 @@ Graph = class {
 
 
 main() = {
-	MakeRandCoords(xCenter:number, yCenter:number, xRange:number, yRange:number) = {
-		Coord(xCenter + rands(nil, 10) * xRange - xRange / 2, yCenter + rands(nil, 10) * yRange - yRange / 2)
+	MakeRands(center:number, range:number) = {
+		center + rands(nil, 10) * range - range / 2
 	}
 	Canvas(`vert, 4) {|canvas|
 		canvas.graph {|g|
@@ -648,10 +645,10 @@ main() = {
 		canvas.graph {|g|
 		}
 		canvas.graph(2) {|g|
-			g.plot(MakeRandCoords(5, 4, 8, 8), `circle, 10, `solid)
-			g.plot(MakeRandCoords(5, -5, 8, 8), `point, 10, `dot)
-			g.plot(MakeRandCoords(-5, -5, 8, 8), `point, 10, `dash)
-			g.plot(MakeRandCoords(-5, 4, 8, 8), `point, 10, `dashdot)
+			g.setMarker(`circle, 10).setLine(`solid).plot2d(MakeRands(5, 8), MakeRands(4, 8))
+			g.setMarker(`point, 10).setLine(`dot).plot2d(MakeRands(5, 8), MakeRands(-5, 8))
+			g.setMarker(`point, 10).setLine(`dash).plot2d(MakeRands(-5, 8), MakeRands(-5, 8))
+			g.setMarker(`point, 10).setLine(`dashdot).plot2d(MakeRands(-5, 8), MakeRands(4, 8))
 		}
 		canvas.graph(2) {|g|
 			symbols = [
