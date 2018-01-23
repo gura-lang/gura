@@ -1,0 +1,27 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+
+testcase {
+	T = struct(a, b, c) {
+		Print(t:T):static = {
+			printf('%d, %d, %d\n', t.a, t.b, t.c)
+		}
+		store(t:T) = {
+			[this.a, this.b, this.c] = [t.a, t.b, t.c]
+		}
+	}
+	println(T)
+	t = T(7, 5, 3)
+	T.Print(t)
+	t1 = T(0, 0, 0)
+	T.Print(t1)
+	t1.store(t)
+	T.Print(t1)
+	try {
+		T1 = struct(a, b, c) {
+			__init__(xx) = {}
+		}
+	} catch {|e|
+		println('expected error: ', e.text)
+	}
+}
