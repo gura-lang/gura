@@ -628,23 +628,30 @@ main() = {
 		}
 		canvas.graph {|g|
 		}
-		canvas.graph(3) {|g|
+		canvas.graph(2) {|g|
 			g.plot(MakeRandCoords(5, 4, 8, 8), `circle, 10, `solid)
 			g.plot(MakeRandCoords(5, -5, 8, 8), `point, 10, `dot)
 			g.plot(MakeRandCoords(-5, -5, 8, 8), `point, 10, `dash)
 			g.plot(MakeRandCoords(-5, 4, 8, 8), `point, 10, `dashdot)
 		}
-		canvas.graph {|g|
+		canvas.graph(2) {|g|
 			symbols = [
 				`pixel, `square, `point, `circle
 				`triangle_down, `triangle_up, `triangle_left, `triangle_right
 				`tri_down, `tri_up, `tri_left, `tri_right
 				`x, `plus, `diamond, `dia
 			]
+			g.title = 'Plot Symbols'
 			g.minX = 0, g.maxX = 10
 			g.minY = 0, g.maxY = 10
-			for (x in interval(g.minX, g.maxX, symbols.len()):open, symbol in symbols) {
-				g.plot([Coord(x, 5)], symbol)
+			nHorz = math.ceil(math.sqrt(symbols.len()))
+			nVert = int((symbols.len() + nHorz - 1) / nHorz)
+			xs = interval(g.minX, g.maxX, nHorz):open
+			ys = interval(g.maxY, g.minY, nVert):open
+			i = 0
+			cross (y in ys, x in xs) {
+				g.plot([Coord(x, y)], symbols[i])
+				i += 1
 			}
 		}
 		canvas.show()
