@@ -9,7 +9,7 @@ Coord = struct(x:number, y:number):map
 //-----------------------------------------------------------------------------
 // FuncInfo
 //-----------------------------------------------------------------------------
-FuncInfo = struct(func:function, cntSamples:number, lineStyle:symbol):map
+FuncInfo = struct(func:function, lineStyle:symbol, cntSamples:number):map
 
 //-----------------------------------------------------------------------------
 // PlotAttr
@@ -126,7 +126,6 @@ Graph = class {
 		nSpans
 		minX, maxX
 		minY, maxY
-		cntSamples,
 		fontSizeTitle
 		fontSizeTitleX
 		fontSizeTitleY
@@ -217,11 +216,15 @@ Graph = class {
 		this.plotAttr.lineStyle = lineStyle
 		this
 	}
-	plot2d(xs:iterator, ys:iterator) = {
-		this.plotInfos.add(PlotInfo(Coord(xs, ys), this.plotAttr.clone()))
+	plot(xs:iterator, ys?:iterator) = {
+		if (ys) {
+			this.plotInfos.add(PlotInfo(Coord(xs, ys), this.plotAttr.clone()))
+		} else {
+			this.plotInfos.add(PlotInfo(Coord(0.., xs), this.plotAttr.clone()))
+		}
 	}
-	func(func:function, cntSamples:number => 100, lineStyle:symbol => `solid) = {
-		this.funcInfos.add(FuncInfo(func, cntSamples, lineStyle))
+	func(func:function, lineStyle:symbol => `solid, cntSamples:number => 100) = {
+		this.funcInfos.add(FuncInfo(func, lineStyle, cntSamples))
 	}
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
 		this.updateTickInfos()
@@ -544,8 +547,6 @@ Graph = class {
 	}
 	drawFuncs(cr:cairo.context) = {
 		cr.save {
-			x = interval(this.minX, this.maxX, this.cntSamples)
-			y = interval(this.minY, this.maxY, this.cntSamples)
 			cr.set_antialias(cairo.ANTIALIAS_DEFAULT)
 			this.funcInfos.each {|funcInfo|
 				syms = [funcInfo.func.decls:*symbol]
@@ -555,9 +556,11 @@ Graph = class {
 				(funcInfo.lineStyle == `none) && continue
 				sym = syms.first()
 				if (sym == `y) {
-					cr.line_to(this.coordX(funcInfo.func(y)), this.coordY(y))
+					ys = interval(this.minY, this.maxY, funcInfo.cntSamples)
+					cr.line_to(this.coordX(funcInfo.func(ys)), this.coordY(ys))
 				} else {
-					cr.line_to(this.coordX(x), this.coordY(funcInfo.func(x)))
+					xs = interval(this.minX, this.maxX, funcInfo.cntSamples)
+					cr.line_to(this.coordX(xs), this.coordY(funcInfo.func(xs)))
 				}
 				applyLineStyle(cr, funcInfo.lineStyle)
 				cr.stroke()
@@ -586,9 +589,11 @@ Graph = class {
 					cr.line_to(this.coordX(plotInfo.coords:*x), this.coordY(plotInfo.coords:*y))
 					cr.stroke()
 				}
-				plotInfo.coords.each {|coord|
-					[x, y] = [this.coordX(coord.x), this.coordY(coord.y)]
-					this.drawMarker(cr, x, y, plotAttr.markerStyle, plotAttr.markerSize)
+				if (plotAttr.markerStyle != `none) {
+					plotInfo.coords.each {|coord|
+						[x, y] = [this.coordX(coord.x), this.coordY(coord.y)]
+						this.drawMarker(cr, x, y, plotAttr.markerStyle, plotAttr.markerSize)
+					}
 				}
 			}
 		}
@@ -611,8 +616,8 @@ Graph = class {
 
 
 main() = {
-	MakeRands(center:number, range:number) = {
-		center + rands(nil, 10) * range - range / 2
+	MakeRands(center:number, range:number, n:number) = {
+		center + rands(nil, n) * range - range / 2
 	}
 	Canvas(`vert, 4) {|canvas|
 		canvas.graph {|g|
@@ -630,12 +635,15 @@ main() = {
 			g.func(function(y):map {3 * math.cos(y)})
 		}
 		canvas.graph {|g|
+			g.minX = 0, g.maxX = 100
+			g.minY = -1.5, g.maxY = 1.5
+			g.setMarker(`none).setLine(`solid).plot(math.sin((0..) / 10) + MakeRands(0, 2, 100) * .4)
 		}
 		canvas.graph(2) {|g|
-			g.setMarker(`circle, 10).setLine(`solid).plot2d(MakeRands(5, 8), MakeRands(4, 8))
-			g.setMarker(`point, 10).setLine(`dot).plot2d(MakeRands(5, 8), MakeRands(-5, 8))
-			g.setMarker(`point, 10).setLine(`dash).plot2d(MakeRands(-5, 8), MakeRands(-5, 8))
-			g.setMarker(`point, 10).setLine(`dashdot).plot2d(MakeRands(-5, 8), MakeRands(4, 8))
+			g.setMarker(`circle, 10).setLine(`solid).plot(MakeRands(5, 8, 10), MakeRands(4, 8, 10))
+			g.setMarker(`point, 10).setLine(`dot).plot(MakeRands(5, 8, 10), MakeRands(-5, 8, 10))
+			g.setMarker(`point, 10).setLine(`dash).plot(MakeRands(-5, 8, 10), MakeRands(-5, 8, 10))
+			g.setMarker(`point, 10).setLine(`dashdot).plot(MakeRands(-5, 8, 10), MakeRands(4, 8, 10))
 		}
 		canvas.graph(2) {|g|
 			symbols = [
@@ -654,7 +662,7 @@ main() = {
 			i = 0
 			cross (y in ys, x in xs) {
 				g.setMarker(symbols[i])
-				g.plot2d([x], [y])
+				g.plot([x], [y])
 				i += 1
 			}
 		}
