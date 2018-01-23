@@ -144,8 +144,8 @@ Graph = class {
 		mgnTitleX
 		mgnTitleY
 		mgnTitleYSub
-		tickStyleX
-		tickStyleY
+		gridX
+		gridY
 	}
 	__init__(nSpans:number) = {
 		this.fontName = if (sys.platform == `mswin) {
@@ -186,8 +186,8 @@ Graph = class {
 		this.mgnTitleYSub = 4
 		this.mgnTickX = 4
 		this.mgnTickY = 4
-		this.tickStyleX = `none
-		this.tickStyleY = `none
+		this.gridX = `none
+		this.gridY = `none
 		this.dict@drawMarker = %{
 			`pixel			=> this.drawMarker_pixel
 			`square			=> this.drawMarker_square
@@ -525,13 +525,13 @@ Graph = class {
 			this.drawHline(cr, this.xAxis, this.coordY(0), this.wdAxis)
 			cr.set_dash([], 0)
 			cr.stroke()
-			if (this.tickStyleX != `none) {
-				this.applyLineStyle(cr, this.tickStyleX)
+			if (this.gridX != `none) {
+				this.applyLineStyle(cr, this.gridX)
 				this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.yAxis, this.htAxis)
 				cr.stroke()
 			}
-			if (this.tickStyleY != `none) {
-				this.applyLineStyle(cr, this.tickStyleY)
+			if (this.gridY != `none) {
+				this.applyLineStyle(cr, this.gridY)
 				this.drawHline(cr, this.xAxis, this.coordY(this.tickInfosY:*n), this.wdAxis)
 				cr.stroke()
 			}
@@ -629,8 +629,8 @@ main() = {
 			g.func(function(x):map {3 * math.cos(x)}, `dot)
 		}
 		canvas.graph(2) {|g|
-			g.tickStyleX = `dot
-			g.tickStyleY = `dot
+			g.gridX = `dot
+			g.gridY = `dot
 			g.func(function(y):map {3 * math.sin(y)})
 			g.func(function(y):map {3 * math.cos(y)})
 		}
