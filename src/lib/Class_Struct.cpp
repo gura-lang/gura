@@ -11,7 +11,7 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 // Object_Struct
 //-----------------------------------------------------------------------------
-Object_Struct::Object_Struct(const Object_Struct &obj) : Object(obj)
+Object_Struct::Object_Struct(const Object_Struct &obj) : Object(obj.GetClass())
 {
 	const DeclarationList &declList = obj.GetDeclList();
 	foreach_const (DeclarationList, ppDecl, declList) {

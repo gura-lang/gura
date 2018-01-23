@@ -42,3 +42,10 @@ spade 10
 spade 11
 spade 12
 spade 13
+
+======== #6 struct#clone() ========
+
+a .. A(x => 1, y => 2, z => 3)
+b .. A(x => 1, y => 2, z => 3)
+a .. A(x => 1, y => 2, z => 3)
+b .. A(x => 3, y => 4, z => 5)

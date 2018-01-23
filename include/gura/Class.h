@@ -152,7 +152,7 @@ public:
 	virtual Object *Clone() const;
 	virtual bool IsObject() const;
 	inline Class *GetClass() { return _pClass.get(); }
-	inline const Class *GetClass() const { return _pClass.get(); }
+	inline Class *GetClass() const { return _pClass.get(); }
 	inline void SetClass(Class *pClass) { _pClass.reset(pClass); }
 	const char *GetClassName() const;
 	bool IsInstanceOf(ValueType valType) const;
