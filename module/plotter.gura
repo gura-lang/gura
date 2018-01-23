@@ -127,9 +127,6 @@ Graph = class {
 		minX, maxX
 		minY, maxY
 		cntSamples,
-		markerStyleDefault
-		markerSizeDefault
-		lineStyleDefault
 		fontSizeTitle
 		fontSizeTitleX
 		fontSizeTitleY
@@ -170,9 +167,6 @@ Graph = class {
 		[this.minX, this.maxX] = [-10, 10]
 		[this.minY, this.maxY] = [-10, 10]
 		this.cntSamples = 100
-		this.markerStyleDefault = `square
-		this.markerSizeDefault = 10
-		this.lineStyleDefault = `none
 		this.plotAttr = PlotAttr(`square, 10, `none)
 		this.fontSizeTitle = 15
 		this.fontSizeTitleX = 15
@@ -294,9 +288,7 @@ Graph = class {
 	drawVline(cr:cairo.context, x:number, y:number, height:number):map:void = {
 		cr.move_to(x, y).rel_line_to(0, height)
 	}
-	drawMarker(cr:cairo.context, x:number, y:number, markerStyle?:symbol, markerSize?:number):map:void = {
-		markerStyle = markerStyle || this.markerStyleDefault
-		markerSize = markerSize || this.markerSizeDefault
+	drawMarker(cr:cairo.context, x:number, y:number, markerStyle:symbol, markerSize:number):map:void = {
 		this.dict@drawMarker[markerStyle](cr, x, y, markerSize)
 	}
 	drawMarker_pixel(cr:cairo.context, x:number, y:number, markerSize:number):map:void = {
@@ -591,10 +583,9 @@ Graph = class {
 		cr.save {
 			this.plotInfos.each {|plotInfo|
 				plotAttr = plotInfo.plotAttr
-				lineStyle = plotAttr.lineStyle || this.lineStyleDefault
-				if (lineStyle != `none) {
+				if (plotAttr.lineStyle != `none) {
 					cr.save {
-						applyLineStyle(cr, lineStyle)
+						applyLineStyle(cr, plotAttr.lineStyle)
 						cr.line_to(this.coordX(plotInfo.coords:*x), this.coordY(plotInfo.coords:*y))
 						cr.stroke()
 					}
