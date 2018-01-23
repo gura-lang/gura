@@ -12,6 +12,11 @@ Coord = struct(x:number, y:number):map
 FuncInfo = struct(func:function, lineStyle?:symbol):map
 
 //-----------------------------------------------------------------------------
+// PlotAttr
+//-----------------------------------------------------------------------------
+PlotAttr = struct(markerStyle:symbol, markerSize:number, lineStyle:symbol)
+
+//-----------------------------------------------------------------------------
 // PlotInfo
 //-----------------------------------------------------------------------------
 PlotInfo = struct(coords[]:Coord, markerStyle?:symbol, markerSize?:number, lineStyle?:symbol)
@@ -168,6 +173,9 @@ Graph = class {
 		this.markerStyleDefault = `square
 		this.markerSizeDefault = 10
 		this.lineStyleDefault = `none
+		this.markerStyle = `square
+		this.markerSize = 10
+		this.lineStyle = `none
 		this.fontSizeTitle = 15
 		this.fontSizeTitleX = 15
 		this.fontSizeTitleY = 15
@@ -208,6 +216,17 @@ Graph = class {
 			`diamond		=> this.drawMarker_diamond
 			`dia			=> this.drawMarker_dia
 		}
+	}
+	setMarker(markerStyle?:symbol, markerSize?:number) = {
+		this.markerStyle = markerStyle
+		this.markerSize = markerSize
+	}
+	setLine(lineStyle?:symbol) = {
+		this.lineStyle = lineStyle
+	}
+	plot2d(xs:iterator, ys:iterator) = {
+		markerStyle = nil, markerSize = nil, lineStyle = nil
+		this.plotInfos.add(PlotInfo(Coord(xs, ys), this.markerStyle, this.markerSize, this.lineStyle))
 	}
 	plot(coords[]:Coord, markerStyle?:symbol, markerSize?:number, lineStyle?:symbol) = {
 		this.plotInfos.add(PlotInfo(coords, markerStyle, markerSize, lineStyle))
@@ -650,7 +669,8 @@ main() = {
 			ys = interval(g.maxY, g.minY, nVert):open
 			i = 0
 			cross (y in ys, x in xs) {
-				g.plot([Coord(x, y)], symbols[i])
+				g.setMarker(symbols[i])
+				g.plot2d([x], [y])
 				i += 1
 			}
 		}
