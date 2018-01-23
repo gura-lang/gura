@@ -584,11 +584,9 @@ Graph = class {
 			this.plotInfos.each {|plotInfo|
 				plotAttr = plotInfo.plotAttr
 				if (plotAttr.lineStyle != `none) {
-					cr.save {
-						applyLineStyle(cr, plotAttr.lineStyle)
-						cr.line_to(this.coordX(plotInfo.coords:*x), this.coordY(plotInfo.coords:*y))
-						cr.stroke()
-					}
+					applyLineStyle(cr, plotAttr.lineStyle)
+					cr.line_to(this.coordX(plotInfo.coords:*x), this.coordY(plotInfo.coords:*y))
+					cr.stroke()
 				}
 				plotInfo.coords.each {|coord|
 					[x, y] = [this.coordX(coord.x), this.coordY(coord.y)]
