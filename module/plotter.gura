@@ -7,19 +7,19 @@ import(cairo)
 Coord = struct(x:number, y:number):map
 
 //-----------------------------------------------------------------------------
-// FuncInfo
+// Attr
 //-----------------------------------------------------------------------------
-FuncInfo = struct(func:function, lineStyle:symbol, cntSamples:number):map
+Attr = struct(markerStyle:symbol, markerSize:number, lineStyle:symbol)
 
 //-----------------------------------------------------------------------------
-// PlotAttr
+// FuncInfo
 //-----------------------------------------------------------------------------
-PlotAttr = struct(markerStyle:symbol, markerSize:number, lineStyle:symbol)
+FuncInfo = struct(func:function, attr:Attr, cntSamples:number):map
 
 //-----------------------------------------------------------------------------
 // PlotInfo
 //-----------------------------------------------------------------------------
-PlotInfo = struct(coords[]:Coord, plotAttr:PlotAttr)
+PlotInfo = struct(coords[]:Coord, attr:Attr)
 
 //-----------------------------------------------------------------------------
 // TickInfo
@@ -165,7 +165,8 @@ Graph = class {
 		this.legendInfos = []
 		[this.minX, this.maxX] = [-10, 10]
 		[this.minY, this.maxY] = [-10, 10]
-		this.plotAttr = PlotAttr(`square, 10, `none)
+		this.attrDefault = Attr(`square, 10, `solid)
+		this.attr = this.attrDefault.clone()
 		this.fontSizeTitle = 15
 		this.fontSizeTitleX = 15
 		this.fontSizeTitleY = 15
@@ -208,23 +209,25 @@ Graph = class {
 		}
 	}
 	setMarker(markerStyle:symbol => `square, markerSize:number => 10) = {
-		this.plotAttr.markerStyle = markerStyle
-		this.plotAttr.markerSize = markerSize
+		this.attr.markerStyle = markerStyle
+		this.attr.markerSize = markerSize
 		this
 	}
 	setLine(lineStyle:symbol => `none) = {
-		this.plotAttr.lineStyle = lineStyle
+		this.attr.lineStyle = lineStyle
 		this
 	}
 	plot(xs:iterator, ys?:iterator) = {
 		if (ys) {
-			this.plotInfos.add(PlotInfo(Coord(xs, ys), this.plotAttr.clone()))
+			this.plotInfos.add(PlotInfo(Coord(xs, ys), this.attr))
 		} else {
-			this.plotInfos.add(PlotInfo(Coord(0.., xs), this.plotAttr.clone()))
+			this.plotInfos.add(PlotInfo(Coord(0.., xs), this.attr))
 		}
+		this.attr = this.attrDefault.clone()
 	}
-	func(func:function, lineStyle:symbol => `solid, cntSamples:number => 100) = {
-		this.funcInfos.add(FuncInfo(func, lineStyle, cntSamples))
+	func(func:function, cntSamples:number => 100) = {
+		this.funcInfos.add(FuncInfo(func, this.attr, cntSamples))
+		this.attr = this.attrDefault.clone()
 	}
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
 		this.updateTickInfos()
@@ -549,11 +552,12 @@ Graph = class {
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_DEFAULT)
 			this.funcInfos.each {|funcInfo|
+				attr = funcInfo.attr
 				syms = [funcInfo.func.decls:*symbol]
 				if (syms.len() != 1) {
 					raise(error.ValueError, 'wrong number of arguments')
 				}
-				(funcInfo.lineStyle == `none) && continue
+				(attr.lineStyle == `none) && continue
 				sym = syms.first()
 				if (sym == `y) {
 					ys = interval(this.minY, this.maxY, funcInfo.cntSamples)
@@ -562,7 +566,7 @@ Graph = class {
 					xs = interval(this.minX, this.maxX, funcInfo.cntSamples)
 					cr.line_to(this.coordX(xs), this.coordY(funcInfo.func(xs)))
 				}
-				applyLineStyle(cr, funcInfo.lineStyle)
+				applyLineStyle(cr, attr.lineStyle)
 				cr.stroke()
 			}
 		}
@@ -583,16 +587,16 @@ Graph = class {
 	drawPlots(cr:cairo.context) = {
 		cr.save {
 			this.plotInfos.each {|plotInfo|
-				plotAttr = plotInfo.plotAttr
-				if (plotAttr.lineStyle != `none) {
-					applyLineStyle(cr, plotAttr.lineStyle)
+				attr = plotInfo.attr
+				if (attr.lineStyle != `none) {
+					applyLineStyle(cr, attr.lineStyle)
 					cr.line_to(this.coordX(plotInfo.coords:*x), this.coordY(plotInfo.coords:*y))
 					cr.stroke()
 				}
-				if (plotAttr.markerStyle != `none) {
+				if (attr.markerStyle != `none) {
 					plotInfo.coords.each {|coord|
 						[x, y] = [this.coordX(coord.x), this.coordY(coord.y)]
-						this.drawMarker(cr, x, y, plotAttr.markerStyle, plotAttr.markerSize)
+						this.drawMarker(cr, x, y, attr.markerStyle, attr.markerSize)
 					}
 				}
 			}
@@ -625,8 +629,8 @@ main() = {
 			g.titleX = 'Title on x-axis'
 			g.titleY = 'Title on y-axis'
 			g.titleYSub = 'Title on y-axis [2]'
-			g.func(function(x):map {3 * math.sin(x)}, `solid)
-			g.func(function(x):map {3 * math.cos(x)}, `dot)
+			g.setLine(`solid).func(function(x):map {3 * math.sin(x)})
+			g.setLine(`dot).func(function(x):map {3 * math.cos(x)})
 		}
 		canvas.graph(2) {|g|
 			g.gridX = `dot
