@@ -9,7 +9,8 @@ Coord = struct(x:number, y:number):map
 //-----------------------------------------------------------------------------
 // Attr
 //-----------------------------------------------------------------------------
-Attr = struct(markerStyle:symbol, markerSize:number, lineStyle:symbol)
+Attr = struct(markerStyle:symbol, markerSize:number, markerColor:color,
+			  lineStyle:symbol, lineColor:color)
 
 //-----------------------------------------------------------------------------
 // FuncInfo
@@ -165,7 +166,7 @@ Graph = class {
 		this.legendInfos = []
 		[this.minX, this.maxX] = [-10, 10]
 		[this.minY, this.maxY] = [-10, 10]
-		this.attrDefault = Attr(`square, 10, `solid)
+		this.attrDefault = Attr(`square, 10, `black, `solid, `black)
 		this.attr = this.attrDefault.clone()
 		this.fontSizeTitle = 15
 		this.fontSizeTitleX = 15
@@ -213,8 +214,9 @@ Graph = class {
 		this.attr.markerSize = markerSize
 		this
 	}
-	setLine(lineStyle:symbol => `none) = {
+	setLine(lineStyle:symbol => `none, lineColor:color => `black) = {
 		this.attr.lineStyle = lineStyle
+		this.attr.lineColor = lineColor
 		this
 	}
 	plot(xs:iterator, ys?:iterator) = {
@@ -566,6 +568,7 @@ Graph = class {
 					xs = interval(this.minX, this.maxX, funcInfo.cntSamples)
 					cr.line_to(this.coordX(xs), this.coordY(funcInfo.func(xs)))
 				}
+				cr.set_source_color(attr.lineColor)
 				applyLineStyle(cr, attr.lineStyle)
 				cr.stroke()
 			}
@@ -635,8 +638,8 @@ main() = {
 		canvas.graph(2) {|g|
 			g.gridX = `dot
 			g.gridY = `dot
-			g.func(function(y):map {3 * math.sin(y)})
-			g.func(function(y):map {3 * math.cos(y)})
+			g.setLine(`solid, `red).func(function(y):map {3 * math.sin(y)})
+			g.setLine(`solid, `blue).func(function(y):map {3 * math.cos(y)})
 		}
 		canvas.graph {|g|
 			g.minX = 0, g.maxX = 100
