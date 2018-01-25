@@ -7,20 +7,20 @@ import(cairo)
 Coord = struct(x:number, y:number):map
 
 //-----------------------------------------------------------------------------
-// Attr
+// AttrInfo
 //-----------------------------------------------------------------------------
-Attr = struct(markerStyle:symbol, markerSize:number, markerColor:color,
-			  lineStyle:symbol, lineColor:color)
+AttrInfo = struct(markerStyle:symbol, markerColor:color, markerSize:number, 
+				  lineStyle:symbol, lineColor:color, lineWidth:number)
 
 //-----------------------------------------------------------------------------
 // FuncInfo
 //-----------------------------------------------------------------------------
-FuncInfo = struct(func:function, attr:Attr, cntSamples:number):map
+FuncInfo = struct(func:function, attrInfo:AttrInfo, cntSamples:number):map
 
 //-----------------------------------------------------------------------------
 // PlotInfo
 //-----------------------------------------------------------------------------
-PlotInfo = struct(coords[]:Coord, attr:Attr)
+PlotInfo = struct(coords[]:Coord, attrInfo:AttrInfo)
 
 //-----------------------------------------------------------------------------
 // TickInfo
@@ -166,8 +166,8 @@ Graph = class {
 		this.legendInfos = []
 		[this.minX, this.maxX] = [-10, 10]
 		[this.minY, this.maxY] = [-10, 10]
-		this.attrDefault = Attr(`square, 10, `black, `solid, `black)
-		this.attr = this.attrDefault.clone()
+		this.attrInfoDefault = AttrInfo(`square, `black, 10, `solid, `black, 1)
+		this.attrInfoCur = this.attrInfoDefault.clone()
 		this.fontSizeTitle = 15
 		this.fontSizeTitleX = 15
 		this.fontSizeTitleY = 15
@@ -209,27 +209,27 @@ Graph = class {
 			`dia			=> this.drawMarker_dia
 		}
 	}
-	setMarker(markerStyle:symbol => `square, markerSize:number => 10) = {
-		this.attr.markerStyle = markerStyle
-		this.attr.markerSize = markerSize
-		this
-	}
-	setLine(lineStyle:symbol => `none, lineColor:color => `black) = {
-		this.attr.lineStyle = lineStyle
-		this.attr.lineColor = lineColor
+	attr(markerStyle:symbol => `square, markerColor:color => `black, markerSize:number => 10,
+		 lineStyle:symbol => `none, lineColor:color => `black, lineWidth:number => 1) = {
+		this.attrInfoCur.markerStyle = markerStyle
+		this.attrInfoCur.markerColor = markerColor
+		this.attrInfoCur.markerSize = markerSize
+		this.attrInfoCur.lineStyle = lineStyle
+		this.attrInfoCur.lineColor = lineColor
+		this.attrInfoCur.lineWidth = lineWidth
 		this
 	}
 	plot(xs:iterator, ys?:iterator) = {
 		if (ys) {
-			this.plotInfos.add(PlotInfo(Coord(xs, ys), this.attr))
+			this.plotInfos.add(PlotInfo(Coord(xs, ys), this.attrInfoCur))
 		} else {
-			this.plotInfos.add(PlotInfo(Coord(0.., xs), this.attr))
+			this.plotInfos.add(PlotInfo(Coord(0.., xs), this.attrInfoCur))
 		}
-		this.attr = this.attrDefault.clone()
+		this.attrInfoCur = this.attrInfoDefault.clone()
 	}
 	func(func:function, cntSamples:number => 100) = {
-		this.funcInfos.add(FuncInfo(func, this.attr, cntSamples))
-		this.attr = this.attrDefault.clone()
+		this.funcInfos.add(FuncInfo(func, this.attrInfoCur, cntSamples))
+		this.attrInfoCur = this.attrInfoDefault.clone()
 	}
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
 		this.updateTickInfos()
@@ -554,12 +554,12 @@ Graph = class {
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_DEFAULT)
 			this.funcInfos.each {|funcInfo|
-				attr = funcInfo.attr
+				attrInfo = funcInfo.attrInfo
 				syms = [funcInfo.func.decls:*symbol]
 				if (syms.len() != 1) {
 					raise(error.ValueError, 'wrong number of arguments')
 				}
-				(attr.lineStyle == `none) && continue
+				(attrInfo.lineStyle == `none) && continue
 				sym = syms.first()
 				if (sym == `y) {
 					ys = interval(this.minY, this.maxY, funcInfo.cntSamples)
@@ -568,8 +568,8 @@ Graph = class {
 					xs = interval(this.minX, this.maxX, funcInfo.cntSamples)
 					cr.line_to(this.coordX(xs), this.coordY(funcInfo.func(xs)))
 				}
-				cr.set_source_color(attr.lineColor)
-				applyLineStyle(cr, attr.lineStyle)
+				cr.set_source_color(attrInfo.lineColor)
+				applyLineStyle(cr, attrInfo.lineStyle)
 				cr.stroke()
 			}
 		}
@@ -590,16 +590,16 @@ Graph = class {
 	drawPlots(cr:cairo.context) = {
 		cr.save {
 			this.plotInfos.each {|plotInfo|
-				attr = plotInfo.attr
-				if (attr.lineStyle != `none) {
-					applyLineStyle(cr, attr.lineStyle)
+				attrInfo = plotInfo.attrInfo
+				if (attrInfo.lineStyle != `none) {
+					applyLineStyle(cr, attrInfo.lineStyle)
 					cr.line_to(this.coordX(plotInfo.coords:*x), this.coordY(plotInfo.coords:*y))
 					cr.stroke()
 				}
-				if (attr.markerStyle != `none) {
+				if (attrInfo.markerStyle != `none) {
 					plotInfo.coords.each {|coord|
 						[x, y] = [this.coordX(coord.x), this.coordY(coord.y)]
-						this.drawMarker(cr, x, y, attr.markerStyle, attr.markerSize)
+						this.drawMarker(cr, x, y, attrInfo.markerStyle, attrInfo.markerSize)
 					}
 				}
 			}
@@ -632,25 +632,25 @@ main() = {
 			g.titleX = 'Title on x-axis'
 			g.titleY = 'Title on y-axis'
 			g.titleYSub = 'Title on y-axis [2]'
-			g.setLine(`solid).func(function(x):map {3 * math.sin(x)})
-			g.setLine(`dot).func(function(x):map {3 * math.cos(x)})
+			g.attr(lineStyle => `solid).func(function(x):map {3 * math.sin(x)})
+			g.attr(lineStyle => `dot).func(function(x):map {3 * math.cos(x)})
 		}
 		canvas.graph(2) {|g|
 			g.gridX = `dot
 			g.gridY = `dot
-			g.setLine(`solid, `red).func(function(y):map {3 * math.sin(y)})
-			g.setLine(`solid, `blue).func(function(y):map {3 * math.cos(y)})
+			g.attr(lineStyle => `solid, lineColor => `red).func(function(y):map {3 * math.sin(y)})
+			g.attr(lineStyle => `solid, lineColor => `blue).func(function(y):map {3 * math.cos(y)})
 		}
 		canvas.graph {|g|
 			g.minX = 0, g.maxX = 100
 			g.minY = -1.5, g.maxY = 1.5
-			g.setMarker(`none).setLine(`solid).plot(math.sin((0..) / 10) + MakeRands(0, 2, 100) * .4)
+			g.attr(markerStyle => `none, lineStyle => `solid).plot(math.sin((0..) / 10) + MakeRands(0, 2, 100) * .4)
 		}
 		canvas.graph(2) {|g|
-			g.setMarker(`circle, 10).setLine(`solid).plot(MakeRands(5, 8, 10), MakeRands(4, 8, 10))
-			g.setMarker(`point, 10).setLine(`dot).plot(MakeRands(5, 8, 10), MakeRands(-5, 8, 10))
-			g.setMarker(`point, 10).setLine(`dash).plot(MakeRands(-5, 8, 10), MakeRands(-5, 8, 10))
-			g.setMarker(`point, 10).setLine(`dashdot).plot(MakeRands(-5, 8, 10), MakeRands(4, 8, 10))
+			g.attr(markerStyle => `circle, lineStyle => `solid).plot(MakeRands(5, 8, 10), MakeRands(4, 8, 10))
+			g.attr(markerStyle => `point, lineStyle => `dot).plot(MakeRands(5, 8, 10), MakeRands(-5, 8, 10))
+			g.attr(markerStyle => `point, lineStyle => `dash).plot(MakeRands(-5, 8, 10), MakeRands(-5, 8, 10))
+			g.attr(markerStyle => `point, lineStyle => `dashdot).plot(MakeRands(-5, 8, 10), MakeRands(4, 8, 10))
 		}
 		canvas.graph(2) {|g|
 			symbols = [
@@ -668,7 +668,7 @@ main() = {
 			ys = interval(g.maxY, g.minY, nVert):open
 			i = 0
 			cross (y in ys, x in xs) {
-				g.setMarker(symbols[i])
+				g.attr(markerStyle => symbols[i])
 				g.plot([x], [y])
 				i += 1
 			}
