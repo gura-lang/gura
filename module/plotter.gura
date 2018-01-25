@@ -7,10 +7,15 @@ import(cairo)
 Coord = struct(x:number, y:number):map
 
 //-----------------------------------------------------------------------------
+// AttrCycler
+//-----------------------------------------------------------------------------
+//AttrCycler = struct()
+
+//-----------------------------------------------------------------------------
 // AttrInfo
 //-----------------------------------------------------------------------------
-AttrInfo = struct(markerStyle:symbol, markerColor:color, markerSize:number, 
-				  lineStyle:symbol, lineColor:color, lineWidth:number)
+AttrInfo = struct(color:color, markerStyle:symbol, markerSize:number, 
+				  lineStyle:symbol, lineWidth:number)
 
 //-----------------------------------------------------------------------------
 // FuncInfo
@@ -166,8 +171,8 @@ Graph = class {
 		this.legendInfos = []
 		[this.minX, this.maxX] = [-10, 10]
 		[this.minY, this.maxY] = [-10, 10]
-		this.attrInfoDefault = AttrInfo(`square, `black, 10, `solid, `black, 1)
-		this.attrInfoCur = this.attrInfoDefault.clone()
+		this.attrInfoDefault = AttrInfo(`black, `square, 10, `solid, 1)
+		this.attrInfoCur = nil
 		this.fontSizeTitle = 15
 		this.fontSizeTitleX = 15
 		this.fontSizeTitleY = 15
@@ -209,27 +214,37 @@ Graph = class {
 			`dia			=> this.drawMarker_dia
 		}
 	}
-	attr(markerStyle:symbol => `square, markerColor:color => `black, markerSize:number => 10,
-		 lineStyle:symbol => `none, lineColor:color => `black, lineWidth:number => 1) = {
+	attr(color:color => `black, markerStyle:symbol => `square, markerSize:number => 10,
+		 lineStyle:symbol => `none, lineWidth:number => 1) = {
+		this.attrInfoCur = this.attrInfoCur || this.attrInfoDefault.clone()
+		this.attrInfoCur.color = color
 		this.attrInfoCur.markerStyle = markerStyle
-		this.attrInfoCur.markerColor = markerColor
 		this.attrInfoCur.markerSize = markerSize
 		this.attrInfoCur.lineStyle = lineStyle
-		this.attrInfoCur.lineColor = lineColor
 		this.attrInfoCur.lineWidth = lineWidth
 		this
 	}
-	plot(xs:iterator, ys?:iterator) = {
-		if (ys) {
-			this.plotInfos.add(PlotInfo(Coord(xs, ys), this.attrInfoCur))
+	getAttrInfo() = {
+		if (this.attrInfoCur) {
+			attrInfo = this.attrInfoCur
+			this.attrInfoCur = nil
 		} else {
-			this.plotInfos.add(PlotInfo(Coord(0.., xs), this.attrInfoCur))
+			attrInfo = this.attrInfoDefault.clone()
+			
 		}
-		this.attrInfoCur = this.attrInfoDefault.clone()
+		attrInfo
+	}
+	plot(xs:iterator, ys?:iterator) = {
+		attrInfo = this.getAttrInfo()
+		if (ys) {
+			this.plotInfos.add(PlotInfo(Coord(xs, ys), attrInfo))
+		} else {
+			this.plotInfos.add(PlotInfo(Coord(0.., xs), attrInfo))
+		}
 	}
 	func(func:function, cntSamples:number => 100) = {
-		this.funcInfos.add(FuncInfo(func, this.attrInfoCur, cntSamples))
-		this.attrInfoCur = this.attrInfoDefault.clone()
+		attrInfo = this.getAttrInfo()
+		this.funcInfos.add(FuncInfo(func, attrInfo, cntSamples))
 	}
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
 		this.updateTickInfos()
@@ -568,7 +583,7 @@ Graph = class {
 					xs = interval(this.minX, this.maxX, funcInfo.cntSamples)
 					cr.line_to(this.coordX(xs), this.coordY(funcInfo.func(xs)))
 				}
-				cr.set_source_color(attrInfo.lineColor)
+				cr.set_source_color(attrInfo.color)
 				applyLineStyle(cr, attrInfo.lineStyle)
 				cr.stroke()
 			}
@@ -638,8 +653,8 @@ main() = {
 		canvas.graph(2) {|g|
 			g.gridX = `dot
 			g.gridY = `dot
-			g.attr(lineStyle => `solid, lineColor => `red).func(function(y):map {3 * math.sin(y)})
-			g.attr(lineStyle => `solid, lineColor => `blue).func(function(y):map {3 * math.cos(y)})
+			g.attr(lineStyle => `solid, color => `red).func(function(y):map {3 * math.sin(y)})
+			g.attr(lineStyle => `solid, color => `blue).func(function(y):map {3 * math.cos(y)})
 		}
 		canvas.graph {|g|
 			g.minX = 0, g.maxX = 100
