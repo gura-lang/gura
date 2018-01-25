@@ -9,7 +9,7 @@ Coord = struct(x:number, y:number):map
 //-----------------------------------------------------------------------------
 // AttrCycler
 //-----------------------------------------------------------------------------
-//AttrCycler = struct()
+AttrCycler = struct(symbol:symbol, values[])
 
 //-----------------------------------------------------------------------------
 // AttrInfo
@@ -173,6 +173,7 @@ Graph = class {
 		[this.minY, this.maxY] = [-10, 10]
 		this.attrInfoDefault = AttrInfo(`black, `square, 10, `solid, 1)
 		this.attrInfoCur = nil
+		this.attrCyclers = []
 		this.fontSizeTitle = 15
 		this.fontSizeTitleX = 15
 		this.fontSizeTitleY = 15
@@ -233,6 +234,9 @@ Graph = class {
 			
 		}
 		attrInfo
+	}
+	addAttrCycler(symbol:symbol, values[]) = {
+		this.attrCyclers.add(AttrCycler(symbol, values))
 	}
 	plot(xs:iterator, ys?:iterator) = {
 		attrInfo = this.getAttrInfo()
