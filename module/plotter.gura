@@ -9,7 +9,7 @@ Coord = struct(x:number, y:number):map
 //-----------------------------------------------------------------------------
 // AttrCycler
 //-----------------------------------------------------------------------------
-AttrCycler = struct(symbol:symbol, values[])
+AttrCycler = struct(symbol:symbol, values[], iter:iterator => nil)
 
 //-----------------------------------------------------------------------------
 // AttrInfo
@@ -171,7 +171,7 @@ Graph = class {
 		this.legendInfos = []
 		[this.minX, this.maxX] = [-10, 10]
 		[this.minY, this.maxY] = [-10, 10]
-		this.attrInfoDefault = AttrInfo(`black, `square, 10, `solid, 1)
+		this.attrInfoDefault = AttrInfo(`black, `circle, 10, `solid, 1)
 		this.attrInfoCur = nil
 		this.attrCyclers = []
 		this.fontSizeTitle = 15
@@ -231,7 +231,10 @@ Graph = class {
 			this.attrInfoCur = nil
 		} else {
 			attrInfo = this.attrInfoDefault.clone()
-			
+			this.attrCyclers.each {|attrCycler|
+				attrCycler.iter = attrCycler.iter || attrCycler.values.cycle()
+				attrInfo.setprop!(attrCycler.symbol, attrCycler.iter.next())
+			}
 		}
 		attrInfo
 	}
@@ -607,15 +610,17 @@ Graph = class {
 		}
 	}
 	drawPlots(cr:cairo.context) = {
-		cr.save {
-			this.plotInfos.each {|plotInfo|
-				attrInfo = plotInfo.attrInfo
-				if (attrInfo.lineStyle != `none) {
+		this.plotInfos.each {|plotInfo|
+			attrInfo = plotInfo.attrInfo
+			if (attrInfo.lineStyle != `none) {
+				cr.save {
 					applyLineStyle(cr, attrInfo.lineStyle)
 					cr.line_to(this.coordX(plotInfo.coords:*x), this.coordY(plotInfo.coords:*y))
 					cr.stroke()
 				}
-				if (attrInfo.markerStyle != `none) {
+			}
+			if (attrInfo.markerStyle != `none) {
+				cr.save {
 					plotInfo.coords.each {|coord|
 						[x, y] = [this.coordX(coord.x), this.coordY(coord.y)]
 						this.drawMarker(cr, x, y, attrInfo.markerStyle, attrInfo.markerSize)
@@ -666,28 +671,29 @@ main() = {
 			g.attr(markerStyle => `none, lineStyle => `solid).plot(math.sin((0..) / 10) + MakeRands(0, 2, 100) * .4)
 		}
 		canvas.graph(2) {|g|
-			g.attr(markerStyle => `circle, lineStyle => `solid).plot(MakeRands(5, 8, 10), MakeRands(4, 8, 10))
-			g.attr(markerStyle => `point, lineStyle => `dot).plot(MakeRands(5, 8, 10), MakeRands(-5, 8, 10))
-			g.attr(markerStyle => `point, lineStyle => `dash).plot(MakeRands(-5, 8, 10), MakeRands(-5, 8, 10))
-			g.attr(markerStyle => `point, lineStyle => `dashdot).plot(MakeRands(-5, 8, 10), MakeRands(4, 8, 10))
+			g.addAttrCycler(`lineStyle, [`solid, `dot, `dash, `dashdot])
+			g.plot(MakeRands(5, 8, 10), MakeRands(4, 8, 10))
+			g.plot(MakeRands(5, 8, 10), MakeRands(-5, 8, 10))
+			g.plot(MakeRands(-5, 8, 10), MakeRands(-5, 8, 10))
+			g.plot(MakeRands(-5, 8, 10), MakeRands(4, 8, 10))
 		}
 		canvas.graph(2) {|g|
-			symbols = [
+			markerStyles = [
 				`pixel, `square, `point, `circle
 				`triangle_down, `triangle_up, `triangle_left, `triangle_right
 				`tri_down, `tri_up, `tri_left, `tri_right
 				`x, `plus, `diamond, `dia
 			]
-			g.title = 'Plot Symbols'
+			g.addAttrCycler(`markerStyle, markerStyles)
+			g.title = 'Marker Styles'
 			g.minX = 0, g.maxX = 10
 			g.minY = 0, g.maxY = 10
-			nHorz = math.ceil(math.sqrt(symbols.len()))
-			nVert = int((symbols.len() + nHorz - 1) / nHorz)
+			nHorz = math.ceil(math.sqrt(markerStyles.len()))
+			nVert = int((markerStyles.len() + nHorz - 1) / nHorz)
 			xs = interval(g.minX, g.maxX, nHorz):open
 			ys = interval(g.maxY, g.minY, nVert):open
 			i = 0
 			cross (y in ys, x in xs) {
-				g.attr(markerStyle => symbols[i])
 				g.plot([x], [y])
 				i += 1
 			}
