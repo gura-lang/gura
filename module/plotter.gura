@@ -692,17 +692,17 @@ main() = {
 			g.titleX = 'Title on x-axis'
 			g.titleY = 'Title on y-axis'
 			g.titleYSub = 'Title on y-axis [2]'
-			g.attr(lineStyle => `solid).func(function(x):map {3 * math.sin(x)})
-			g.attr(lineStyle => `dot).func(function(x):map {3 * math.cos(x)})
+			g.attr(lineStyle => `solid).func(f1(x) = {8 * math.sin(x)})
+			g.attr(lineStyle => `dot).func(f2(x) = {8 * math.cos(x)})
 		}
 		canvas.graph(2) {|g|
 			g.gridX = `dot
 			g.gridY = `dot
 			g.attr(lineWidth => 4)
 			g.attr(lineStyle => `dot).attr(color => `red)
-			g.func(function(y):map {3 * math.sin(y)})
+			g.func(f1(y) = {3 * math.sin(y)})
 			g.attr(lineStyle => `dashdot, color => `blue)
-			g.func(function(y):map {3 * math.cos(y)})
+			g.func(f2(y) = {3 * math.cos(y)})
 		}
 		canvas.graph {|g|
 			g.minX = 0, g.maxX = 100
