@@ -576,7 +576,6 @@ Graph = class {
 		cr.set_line_width(1)
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
-			cr.set_line_width(1)
 			cr.rectangle(this.xAxis, this.yAxis, this.wdAxis, this.htAxis)
 			cr.set_dash([], 0)
 			cr.stroke()
