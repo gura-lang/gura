@@ -215,8 +215,8 @@ Graph = class {
 			`dia			=> this.drawMarker_dia
 		}
 	}
-	attr(color:color => `black, markerStyle:symbol:nil => nil, markerSize:number => 10,
-		 lineStyle:symbol:nil => nil, lineWidth:number => 1) = {
+	attr(color:color => `black, markerStyle:symbol => `default, markerSize:number => 10,
+		 lineStyle:symbol => `default, lineWidth:number => 1) = {
 		this.attrInfoCur = this.attrInfoCur || this.attrInfoDefault.clone()
 		this.attrInfoCur.color = color
 		this.attrInfoCur.markerStyle = markerStyle
@@ -251,8 +251,8 @@ Graph = class {
 	}
 	plot(xs:iterator, ys?:iterator) = {
 		attrInfo = this.getAttrInfo()
-		attrInfo.markerStyle = attrInfo.markerStyle || `square
-		attrInfo.lineStyle = attrInfo.lineStyle || `none
+		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `square }
+		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `none }
 		if (ys) {
 			this.plotInfos.add(PlotInfo(Coord(xs, ys), attrInfo))
 		} else {
@@ -261,8 +261,8 @@ Graph = class {
 	}
 	func(func:function, cntSamples:number => 100) = {
 		attrInfo = this.getAttrInfo()
-		attrInfo.markerStyle = attrInfo.markerStyle || `none
-		attrInfo.lineStyle = attrInfo.lineStyle || `solid
+		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `none }
+		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `solid }
 		this.funcInfos.add(FuncInfo(func, attrInfo, cntSamples))
 	}
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
