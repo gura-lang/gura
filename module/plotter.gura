@@ -624,24 +624,23 @@ Graph = class {
 					cr.line_to(this.coordX(xs), this.coordY(funcInfo.func(xs)))
 				}
 				cr.set_source_color(attrInfo.color)
-				cr.set_line_width(attrInfo.lineWidth)
-				applyLineStyle(cr, attrInfo.lineStyle)
+				this.applyLineWidth(cr, attrInfo.lineWidth)
+				this.applyLineStyle(cr, attrInfo.lineStyle)
 				cr.stroke()
 			}
 		}
 	}
+	applyLineWidth(cr:cairo.context, lineWidth:number) = {
+		cr.set_line_width(lineWidth)
+	}
+	lineStyleDict = %{
+		`solid		=> []
+		`dot		=> [2, 2]
+		`dash		=> [4, 2]
+		`dashdot	=> [2, 2, 8, 2]
+	}
 	applyLineStyle(cr:cairo.context, lineStyle:symbol) = {
-		if (lineStyle == `solid) {
-			cr.set_dash([], 0)
-		} elsif (lineStyle == `dot) {
-			cr.set_dash([2, 2], 0)
-		} elsif (lineStyle == `dash) {
-			cr.set_dash([4, 2], 0)
-		} elsif (lineStyle == `dashdot) {
-			cr.set_dash([2, 2, 8, 2], 0)
-		} else {
-			raise(error.ValueError, 'invalid symbol')
-		}
+		cr.set_dash(this.lineStyleDict[lineStyle], 0)
 	}
 	drawPlots(cr:cairo.context) = {
 		this.plotInfos.each {|plotInfo|
@@ -650,8 +649,8 @@ Graph = class {
 				cr.save {
 					cr.line_to(this.coordX(plotInfo.coords:*x), this.coordY(plotInfo.coords:*y))
 					cr.set_source_color(attrInfo.color)
-					applyLineStyle(cr, attrInfo.lineStyle)
-					cr.set_line_width(attrInfo.lineWidth)
+					this.applyLineWidth(cr, attrInfo.lineWidth)
+					this.applyLineStyle(cr, attrInfo.lineStyle)
 					cr.stroke()
 				}
 			}
