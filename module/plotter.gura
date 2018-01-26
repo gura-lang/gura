@@ -173,6 +173,7 @@ Graph = class {
 		[this.minY, this.maxY] = [-10, 10]
 		this.attrInfoDefault = AttrInfo(`black, `default, 10, `default, 1)
 		this.attrInfoCur = this.attrInfoDefault.clone()
+		this.attrInfosSaved = []
 		this.attrCyclers = []
 		this.fontSizeTitle = 15
 		this.fontSizeTitleX = 15
@@ -213,6 +214,21 @@ Graph = class {
 			`plus			=> this.drawMarker_plus
 			`diamond		=> this.drawMarker_diamond
 			`dia			=> this.drawMarker_dia
+		}
+	}
+	saveAttr() {block?} = {
+		if (block) {
+			attrInfoSaved = this.attrInfoCur.clone()
+			block()
+			this.attrInfoCur = attrInfoSaved
+		} else {
+			this.attrInfosSaved.add(this.attrInfoCur.clone())
+		}
+	}
+	restoreAttr() = {
+		if (!this.attrInfosSaved.isempty()) {
+			this.attrInfoCur = this.attrInfosSaved.last()
+			this.attrInfoSaved.erase(-1)
 		}
 	}
 	attr(color?:color, markerStyle?:symbol, markerSize?:number,
@@ -683,8 +699,10 @@ main() = {
 			g.gridX = `dot
 			g.gridY = `dot
 			g.attr(lineWidth => 4)
-			g.attr(lineStyle => `dot).attr(color => `red).func(function(y):map {3 * math.sin(y)})
-			g.attr(lineStyle => `dashdot, color => `blue).func(function(y):map {3 * math.cos(y)})
+			g.attr(lineStyle => `dot).attr(color => `red)
+			g.func(function(y):map {3 * math.sin(y)})
+			g.attr(lineStyle => `dashdot, color => `blue)
+			g.func(function(y):map {3 * math.cos(y)})
 		}
 		canvas.graph {|g|
 			g.minX = 0, g.maxX = 100
