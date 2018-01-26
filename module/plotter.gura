@@ -171,8 +171,8 @@ Graph = class {
 		this.legendInfos = []
 		[this.minX, this.maxX] = [-10, 10]
 		[this.minY, this.maxY] = [-10, 10]
-		this.attrInfoDefault = AttrInfo(`black, `circle, 10, `solid, 1)
-		this.attrInfoCur = nil
+		this.attrInfoDefault = AttrInfo(`black, `default, 10, `default, 1)
+		this.attrInfoCur = this.attrInfoDefault.clone()
 		this.attrCyclers = []
 		this.fontSizeTitle = 15
 		this.fontSizeTitleX = 15
@@ -217,7 +217,6 @@ Graph = class {
 	}
 	attr(color?:color, markerStyle?:symbol, markerSize?:number,
 		 lineStyle?:symbol, lineWidth?:number) = {
-		this.attrInfoCur = this.attrInfoCur || this.attrInfoDefault.clone()
 		color?			&& (this.attrInfoCur.color = color)
 		markerStyle?	&& (this.attrInfoCur.markerStyle = markerStyle)
 		markerSize?		&& (this.attrInfoCur.markerSize = markerSize)
@@ -235,15 +234,10 @@ Graph = class {
 		this
 	}
 	getAttrInfo() = {
-		if (this.attrInfoCur) {
-			attrInfo = this.attrInfoCur
-			this.attrInfoCur = nil
-		} else {
-			attrInfo = this.attrInfoDefault.clone()
-			this.attrCyclers.each {|attrCycler|
-				attrCycler.iter = attrCycler.iter || attrCycler.values.cycle()
-				attrInfo.setprop!(attrCycler.symbol, attrCycler.iter.next())
-			}
+		attrInfo = this.attrInfoCur.clone()
+		this.attrCyclers.each {|attrCycler|
+			attrCycler.iter = attrCycler.iter || attrCycler.values.cycle()
+			attrInfo.setprop!(attrCycler.symbol, attrCycler.iter.next())
 		}
 		attrInfo
 	}
@@ -566,6 +560,7 @@ Graph = class {
 		cr.set_line_width(1)
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
+			cr.set_line_width(1)
 			cr.rectangle(this.xAxis, this.yAxis, this.wdAxis, this.htAxis)
 			cr.set_dash([], 0)
 			cr.stroke()
@@ -613,6 +608,7 @@ Graph = class {
 					cr.line_to(this.coordX(xs), this.coordY(funcInfo.func(xs)))
 				}
 				cr.set_source_color(attrInfo.color)
+				cr.set_line_width(attrInfo.lineWidth)
 				applyLineStyle(cr, attrInfo.lineStyle)
 				cr.stroke()
 			}
@@ -637,8 +633,9 @@ Graph = class {
 			if (attrInfo.lineStyle != `none) {
 				cr.save {
 					cr.line_to(this.coordX(plotInfo.coords:*x), this.coordY(plotInfo.coords:*y))
-					applyLineStyle(cr, attrInfo.lineStyle)
 					cr.set_source_color(attrInfo.color)
+					applyLineStyle(cr, attrInfo.lineStyle)
+					cr.set_line_width(attrInfo.lineWidth)
 					cr.stroke()
 				}
 			}
@@ -685,8 +682,9 @@ main() = {
 		canvas.graph(2) {|g|
 			g.gridX = `dot
 			g.gridY = `dot
-			g.attr(lineStyle => `solid, color => `red).func(function(y):map {3 * math.sin(y)})
-			g.attr(lineStyle => `solid, color => `blue).func(function(y):map {3 * math.cos(y)})
+			g.attr(lineWidth => 4)
+			g.attr(lineStyle => `dot).attr(color => `red).func(function(y):map {3 * math.sin(y)})
+			g.attr(lineStyle => `dashdot, color => `blue).func(function(y):map {3 * math.cos(y)})
 		}
 		canvas.graph {|g|
 			g.minX = 0, g.maxX = 100
@@ -694,6 +692,7 @@ main() = {
 			g.attr(markerStyle => `none, lineStyle => `solid).plot(math.sin((0..) / 10) + MakeRands(0, 2, 100) * .4)
 		}
 		canvas.graph(2) {|g|
+			g.attr(color => `blue)
 			g.attrCycle(lineStyle => [`solid, `dot, `dash, `dashdot])
 			g.plot(MakeRands(5, 8, 10), MakeRands(4, 8, 10))
 			g.plot(MakeRands(5, 8, 10), MakeRands(-5, 8, 10))
@@ -715,17 +714,11 @@ main() = {
 			nVert = int((markerStyles.len() + nHorz - 1) / nHorz)
 			xs = interval(g.minX, g.maxX, nHorz):open
 			ys = interval(g.maxY, g.minY, nVert):open
-			i = 0
 			cross (y in ys, x in xs) {
 				g.plot([x], [y])
-				i += 1
 			}
 		}
 		canvas.show()
-		//image(`rgba, 1000, 800, `white) {|img|
-		//	canvas.render(img)
-		//	img.show(680, 680)
-		//}
 	}
 }
 
