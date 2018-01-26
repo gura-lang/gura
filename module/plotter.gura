@@ -215,14 +215,14 @@ Graph = class {
 			`dia			=> this.drawMarker_dia
 		}
 	}
-	attr(color:color => `black, markerStyle:symbol => `default, markerSize:number => 10,
-		 lineStyle:symbol => `default, lineWidth:number => 1) = {
+	attr(color?:color, markerStyle?:symbol, markerSize?:number,
+		 lineStyle?:symbol, lineWidth?:number) = {
 		this.attrInfoCur = this.attrInfoCur || this.attrInfoDefault.clone()
-		this.attrInfoCur.color = color
-		this.attrInfoCur.markerStyle = markerStyle
-		this.attrInfoCur.markerSize = markerSize
-		this.attrInfoCur.lineStyle = lineStyle
-		this.attrInfoCur.lineWidth = lineWidth
+		color?			&& (this.attrInfoCur.color = color)
+		markerStyle?	&& (this.attrInfoCur.markerStyle = markerStyle)
+		markerSize?		&& (this.attrInfoCur.markerSize = markerSize)
+		lineStyle?		&& (this.attrInfoCur.lineStyle = lineStyle)
+		lineWidth?		&& (this.attrInfoCur.lineWidth = lineWidth)
 		this
 	}
 	attrCycle(color[]?:color, markerStyle[]?:symbol, markerSize[]?:number,
@@ -232,6 +232,7 @@ Graph = class {
 		markerSize?		&& this.addAttrCycler(`markerSize, markerSize)
 		lineStyle?		&& this.addAttrCycler(`lineStyle, lineStyle)
 		lineWidth?		&& this.addAttrCycler(`lineWidth, lineWidth)
+		this
 	}
 	getAttrInfo() = {
 		if (this.attrInfoCur) {
