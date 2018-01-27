@@ -18,16 +18,6 @@ AttrInfo = struct(color:color, markerStyle:symbol, markerSize:number,
 				  lineStyle:symbol, lineWidth:number)
 
 //-----------------------------------------------------------------------------
-// FuncInfo
-//-----------------------------------------------------------------------------
-FuncInfo = struct(func:function, attrInfo:AttrInfo, cntSamples:number):map
-
-//-----------------------------------------------------------------------------
-// PlotInfo
-//-----------------------------------------------------------------------------
-PlotInfo = struct(coords[]:Coord, attrInfo:AttrInfo)
-
-//-----------------------------------------------------------------------------
 // TickInfo
 //-----------------------------------------------------------------------------
 TickInfo = struct(n:number, text:string):map
@@ -67,9 +57,7 @@ Canvas = class {
 		this.graphs.add(g)
 		if (block) {block(g)} else {g}
 	}
-	show(width?:number, height?:number):void = {
-		width = width || 600
-		height = height || 600
+	show(width:number => 600, height:number => 600):void = {
 		img = image(`rgba, width, height, `white)
 		this.render(img)
 		img.show(width + 30 * 2, height + 30 * 2)
@@ -164,8 +152,7 @@ Graph = class {
 			'Sans'
 		}
 		this.nSpans = nSpans
-		this.funcInfos = []
-		this.plotInfos = []
+		this.itemInfos = []
 		this.tickInfosX = []
 		this.tickInfosY = []
 		this.legendInfos = []
@@ -265,16 +252,28 @@ Graph = class {
 		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `square }
 		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `none }
 		if (ys) {
-			this.plotInfos.add(PlotInfo(Coord(xs, ys), attrInfo))
+			this.itemInfos.add(PlotInfo(Coord(xs, ys), attrInfo))
 		} else {
-			this.plotInfos.add(PlotInfo(Coord(0.., xs), attrInfo))
+			this.itemInfos.add(PlotInfo(Coord(0.., xs), attrInfo))
 		}
 	}
-	func(func:function, cntSamples:number => 100) = {
+	func(func:function, min?:number, max?:number, cntSamples:number => 100):map:void = {
 		attrInfo = this.getAttrInfo()
 		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `none }
 		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `solid }
-		this.funcInfos.add(FuncInfo(func, attrInfo, cntSamples))
+		this.itemInfos.add(FuncInfo(func, attrInfo, min, max, cntSamples))
+	}
+	hline(y:number, min?:number, max?:number):map:void = {
+		attrInfo = this.getAttrInfo()
+		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `none }
+		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `solid }
+		this.itemInfos.add(HLineInfo(y, attrInfo, min, max))
+	}
+	vline(x:number, min?:number, max?:number):map:void = {
+		attrInfo = this.getAttrInfo()
+		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `none }
+		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `solid }
+		this.itemInfos.add(VLineInfo(x, attrInfo, min, max))
 	}
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
 		this.updateTickInfos()
@@ -315,8 +314,7 @@ Graph = class {
 		cr.save {
 			this.drawAxis(cr)
 			this.clipAxis(cr)
-			this.drawFuncs(cr)
-			this.drawPlots(cr)
+			this.itemInfos::draw(this, cr)
 			this.drawLegends(cr)
 		}
 	}
@@ -604,31 +602,6 @@ Graph = class {
 							 this.coordY(this.tickInfosY:*n), this.tickInfosY:*text)
 		}
 	}
-	drawFuncs(cr:cairo.context) = {
-		cr.save {
-			cr.set_antialias(cairo.ANTIALIAS_DEFAULT)
-			this.funcInfos.each {|funcInfo|
-				attrInfo = funcInfo.attrInfo
-				syms = [funcInfo.func.decls:*symbol]
-				if (syms.len() != 1) {
-					raise(error.ValueError, 'wrong number of arguments')
-				}
-				(attrInfo.lineStyle == `none) && continue
-				sym = syms.first()
-				if (sym == `y) {
-					ys = interval(this.minY, this.maxY, funcInfo.cntSamples)
-					cr.line_to(this.coordX(funcInfo.func(ys)), this.coordY(ys))
-				} else {
-					xs = interval(this.minX, this.maxX, funcInfo.cntSamples)
-					cr.line_to(this.coordX(xs), this.coordY(funcInfo.func(xs)))
-				}
-				cr.set_source_color(attrInfo.color)
-				this.applyLineWidth(cr, attrInfo.lineWidth)
-				this.applyLineStyle(cr, attrInfo.lineStyle)
-				cr.stroke()
-			}
-		}
-	}
 	applyLineWidth(cr:cairo.context, lineWidth:number) = {
 		cr.set_line_width(lineWidth)
 	}
@@ -640,28 +613,6 @@ Graph = class {
 	}
 	applyLineStyle(cr:cairo.context, lineStyle:symbol) = {
 		cr.set_dash(this.lineStyleDict[lineStyle], 0)
-	}
-	drawPlots(cr:cairo.context) = {
-		this.plotInfos.each {|plotInfo|
-			attrInfo = plotInfo.attrInfo
-			if (attrInfo.lineStyle != `none) {
-				cr.save {
-					cr.line_to(this.coordX(plotInfo.coords:*x), this.coordY(plotInfo.coords:*y))
-					cr.set_source_color(attrInfo.color)
-					this.applyLineWidth(cr, attrInfo.lineWidth)
-					this.applyLineStyle(cr, attrInfo.lineStyle)
-					cr.stroke()
-				}
-			}
-			if (attrInfo.markerStyle != `none) {
-				cr.save {
-					plotInfo.coords.each {|coord|
-						[x, y] = [this.coordX(coord.x), this.coordY(coord.y)]
-						this.drawMarker(cr, x, y, attrInfo)
-					}
-				}
-			}
-		}
 	}
 	drawLegends(cr:cairo.context) = {
 		this.legendInfos.isempty() && return
@@ -679,13 +630,102 @@ Graph = class {
 	}
 }
 
+//-----------------------------------------------------------------------------
+// PlotInfo
+//-----------------------------------------------------------------------------
+PlotInfo = struct(coords[]:Coord, attrInfo:AttrInfo) {
+	draw(g:Graph, cr:cairo.context):void = cr.save {
+		attrInfo = this.attrInfo
+		if (attrInfo.lineStyle != `none) {
+			cr.save {
+				cr.line_to(g.coordX(this.coords:*x), g.coordY(this.coords:*y))
+				cr.set_source_color(attrInfo.color)
+				g.applyLineWidth(cr, attrInfo.lineWidth)
+				g.applyLineStyle(cr, attrInfo.lineStyle)
+				cr.stroke()
+			}
+		}
+		if (attrInfo.markerStyle != `none) {
+			cr.save {
+				this.coords.each {|coord|
+					[x, y] = [g.coordX(coord.x), g.coordY(coord.y)]
+					g.drawMarker(cr, x, y, attrInfo)
+				}
+			}
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// FuncInfo
+//-----------------------------------------------------------------------------
+FuncInfo = struct(func:function, attrInfo:AttrInfo,
+				  min:number:nil, max:number:nil, cntSamples:number):map {
+	draw(g:Graph, cr:cairo.context) = cr.save {
+		cr.set_antialias(cairo.ANTIALIAS_DEFAULT)
+		attrInfo = this.attrInfo
+		syms = [this.func.decls:*symbol]
+		if (syms.len() != 1) {
+			raise(error.ValueError, 'wrong number of arguments')
+		}
+		(attrInfo.lineStyle == `none) && continue
+		sym = syms.first()
+		if (sym == `y) {
+			ys = interval(this.min || g.minY, this.max || g.maxY, this.cntSamples)
+			cr.line_to(g.coordX(this.func(ys)), g.coordY(ys))
+		} else {
+			xs = interval(this.min || g.minX, this.max || g.maxX, this.cntSamples)
+			cr.line_to(g.coordX(xs), g.coordY(this.func(xs)))
+		}
+		cr.set_source_color(attrInfo.color)
+		g.applyLineWidth(cr, attrInfo.lineWidth)
+		g.applyLineStyle(cr, attrInfo.lineStyle)
+		cr.stroke()
+	}
+}
+
+//-----------------------------------------------------------------------------
+// HLineInfo
+//-----------------------------------------------------------------------------
+HLineInfo = struct(y:number, attrInfo:AttrInfo, min:number:nil, max:number:nil):map {
+	draw(g:Graph, cr:cairo.context) = cr.save {
+		cr.set_antialias(cairo.ANTIALIAS_DEFAULT)
+		attrInfo = this.attrInfo
+		(attrInfo.lineStyle == `none) && continue
+		y = g.coordY(this.y)
+		cr.move_to(g.coordX(this.min || g.minX), y)
+		cr.line_to(g.coordX(this.max || g.maxX), y)
+		cr.set_source_color(attrInfo.color)
+		g.applyLineWidth(cr, attrInfo.lineWidth)
+		g.applyLineStyle(cr, attrInfo.lineStyle)
+		cr.stroke()
+	}
+}
+
+//-----------------------------------------------------------------------------
+// VLineInfo
+//-----------------------------------------------------------------------------
+VLineInfo = struct(x:number, attrInfo:AttrInfo, min:number:nil, max:number:nil):map {
+	draw(g:Graph, cr:cairo.context) = cr.save {
+		cr.set_antialias(cairo.ANTIALIAS_DEFAULT)
+		attrInfo = this.attrInfo
+		(attrInfo.lineStyle == `none) && continue
+		x = g.coordX(this.x)
+		cr.move_to(x, g.coordY(this.min || g.minY))
+		cr.line_to(x, g.coordY(this.max || g.maxY))
+		cr.set_source_color(attrInfo.color)
+		g.applyLineWidth(cr, attrInfo.lineWidth)
+		g.applyLineStyle(cr, attrInfo.lineStyle)
+		cr.stroke()
+	}
+}
 
 main() = {
 	MakeRands(center:number, range:number, n:number) = {
 		center + rands(nil, n) * range - range / 2
 	}
-	Canvas(`vert, 4) {|canvas|
-		canvas.graph {|g|
+	Canvas(`vert, 4) {|cv|
+		cv.graph {|g|
 			g.title = 'Title'
 			g.titleX = 'Title on x-axis'
 			g.titleY = 'Title on y-axis'
@@ -693,7 +733,7 @@ main() = {
 			g.attr(lineStyle => `solid).func(f1(x) = {8 * math.sin(x)})
 			g.attr(lineStyle => `dot).func(f2(x) = {8 * math.cos(x)})
 		}
-		canvas.graph(2) {|g|
+		cv.graph(2) {|g|
 			g.gridX = `dot
 			g.gridY = `dot
 			g.attr(lineWidth => 4)
@@ -702,12 +742,12 @@ main() = {
 			g.attr(lineStyle => `dashdot, color => `blue)
 			g.func(f2(y) = {3 * math.cos(y)})
 		}
-		canvas.graph {|g|
+		cv.graph {|g|
 			g.minX = 0, g.maxX = 100
 			g.minY = -1.5, g.maxY = 1.5
 			g.attr(markerStyle => `none, lineStyle => `solid).plot(math.sin((0..) / 10) + MakeRands(0, 2, 100) * .4)
 		}
-		canvas.graph(2) {|g|
+		cv.graph(2) {|g|
 			g.attr(color => `blue)
 			g.attrCycle(lineStyle => [`solid, `dot, `dash, `dashdot])
 			g.plot(MakeRands(5, 8, 10), MakeRands(4, 8, 10))
@@ -715,7 +755,7 @@ main() = {
 			g.plot(MakeRands(-5, 8, 10), MakeRands(-5, 8, 10))
 			g.plot(MakeRands(-5, 8, 10), MakeRands(4, 8, 10))
 		}
-		canvas.graph(2) {|g|
+		cv.graph(2) {|g|
 			markerStyles = [
 				`pixel, `square, `point, `circle
 				`triangle_down, `triangle_up, `triangle_left, `triangle_right
@@ -734,7 +774,21 @@ main() = {
 				g.plot([x], [y])
 			}
 		}
-		canvas.show()
+		cv.graph(2) {|g|
+			g.minY = -1.2, g.maxY = 1.2
+			g.minX = 0, g.maxX = 20
+			g.func(f(x) = {math.sin(x)}, min => 1, max => 19)
+			g.saveAttr {
+				g.attr(color => `green, lineStyle => `dot)
+				g.hline([1, -1])
+				g.vline([1, 19])
+			}
+		}
+		cv.graph {|g|
+		}
+		cv.graph {|g|
+		}
+		cv.show(1000, 600)
 	}
 }
 
