@@ -126,6 +126,8 @@ Graph = class {
 		nSpans
 		minX, maxX
 		minY, maxY
+		nTicksMaxX
+		nTicksMaxY
 		fontSizeTitle
 		fontSizeTitleX
 		fontSizeTitleY
@@ -164,6 +166,8 @@ Graph = class {
 		this.legendInfos = []
 		[this.minX, this.maxX] = [-10, 10]
 		[this.minY, this.maxY] = [-10, 10]
+		this.nTicksMaxX = 11
+		this.nTicksMaxY = 11
 		this.attrInfoDefault = AttrInfo(`black, `default, 10, `default, 1)
 		this.attrInfoCur = this.attrInfoDefault.clone()
 		this.attrInfosSaved = []
@@ -331,21 +335,12 @@ Graph = class {
 		this.yAxis + this.htAxis - (y - this.minY) * this.htAxis / (this.maxY - this.minY)
 	}
 	coord(x:number, y:number) = [coordX(x), coordY(y)]
-	/*
-	calcStep(tMin:number, tMax:number, n:number) = {
-		tRange = tMax - tMin
-		nScales = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000]
-		tStepBase = 10 ** (int(math.log10(tRange)) - 2)
-		tSteps = tStepBase * nScales
-		(tSteps.filter(tRange / tSteps >= n - 1):list).last()
-	}
-	*/
-	calcStep(tMin:number, tMax:number, n:number) = {
+	calcStep(tMin:number, tMax:number, nTicksMax:number) = {
 		tRange = tMax - tMin
 		nScales = [1000, 500, 200, 100, 50, 20, 10, 5, 2, 1]
 		tStepBase = 10 ** (int(math.log10(tRange)) - 2)
 		tSteps = tStepBase * nScales
-		(tSteps.filter(tRange / tSteps < n):list).last()
+		(tSteps.filter(tRange / tSteps < nTicksMax):list).last()
 	}
 	drawHline(cr:cairo.context, x:number, y:number, width:number):map:void = {
 		cr.move_to(x, y).rel_line_to(width, 0)
@@ -578,10 +573,10 @@ Graph = class {
 		cr.clip()
 	}
 	updateTickInfos() = {
-		tStep = this.calcStep(this.minX, this.maxX, 6)
+		tStep = this.calcStep(this.minX, this.maxX, this.nTicksMaxX)
 		xCoords = (int(this.minX / tStep) + (0 .. int((this.maxX - this.minX) / tStep))) * tStep
 		this.tickInfosX = TickInfo(xCoords, format(this.formatTickX, xCoords)):list
-		tStep = this.calcStep(this.minY, this.maxY, 6)
+		tStep = this.calcStep(this.minY, this.maxY, this.nTicksMaxY)
 		yCoords = (int(this.minY / tStep) + (0 .. int((this.maxY - this.minY) / tStep))) * tStep
 		this.tickInfosY = TickInfo(yCoords, format(this.formatTickY, yCoords)):list
 	}
@@ -739,6 +734,7 @@ main() = {
 			g.titleX = 'Title on x-axis'
 			g.titleY = 'Title on y-axis'
 			g.titleYSub = 'Title on y-axis [2]'
+			g.nTicksMaxY = 5
 			g.attr(lineStyle => `solid).func(f1(x) = {8 * math.sin(x)})
 			g.attr(lineStyle => `dot).func(f2(x) = {8 * math.cos(x)})
 		}
