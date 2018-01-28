@@ -120,7 +120,8 @@ Graph = class {
 		`solid		=> []
 		`dot		=> [2, 2]
 		`dash		=> [4, 2]
-		`dashdot	=> [2, 2, 8, 2]
+		`dashdot	=> [8, 2, 2, 2]
+		`dashdotdot	=> [8, 2, 2, 2, 2, 2]
 	}
 	public {
 		nSpans
@@ -259,7 +260,7 @@ Graph = class {
 	}
 	plot(xs:iterator, ys?:iterator) = {
 		attrInfo = this.getAttrInfo()
-		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `square }
+		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `point }
 		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `none }
 		if (ys) {
 			this.itemInfos.add(PlotInfo(Coord(xs, ys), attrInfo))
@@ -337,7 +338,7 @@ Graph = class {
 	coord(x:number, y:number) = [coordX(x), coordY(y)]
 	calcStep(tMin:number, tMax:number, nTicksMax:number) = {
 		tRange = tMax - tMin
-		nScales = [1000, 500, 200, 100, 50, 20, 10, 5, 2, 1]
+		nScales = [1000, 500, 250, 200, 150, 100, 50, 25, 20, 15, 10, 5, 2.5, 2, 1]
 		tStepBase = 10 ** (int(math.log10(tRange)) - 2)
 		tSteps = tStepBase * nScales
 		(tSteps.filter(tRange / tSteps < nTicksMax):list).last()
@@ -753,12 +754,13 @@ main() = {
 			g.attr(markerStyle => `none, lineStyle => `solid).plot(math.sin((0..) / 10) + MakeRands(0, 2, 100) * .4)
 		}
 		cv.graph(2) {|g|
-			g.attr(color => `blue)
-			g.attrCycle(lineStyle => [`solid, `dot, `dash, `dashdot])
-			g.plot(MakeRands(5, 8, 10), MakeRands(4, 8, 10))
-			g.plot(MakeRands(5, 8, 10), MakeRands(-5, 8, 10))
-			g.plot(MakeRands(-5, 8, 10), MakeRands(-5, 8, 10))
-			g.plot(MakeRands(-5, 8, 10), MakeRands(4, 8, 10))
+			g.title = 'Line Style'
+			g.minX = 0, g.maxX = 10
+			g.minY = 0, g.maxY = 10
+			g.attrCycle(lineStyle => [`solid, `dot, `dash, `dashdot, `dashdotdot])
+			interval(g.maxY, g.minY, 5):open {|y|
+				g.plot([1, 9], [y, y])
+			}
 		}
 		cv.graph(2) {|g|
 			markerStyles = [
@@ -768,7 +770,7 @@ main() = {
 				`x, `plus, `diamond, `dia
 			]
 			g.attrCycle(markerStyle => markerStyles, color => [`red, `blue, `green])
-			g.title = 'Marker Styles'
+			g.title = 'Marker Style'
 			g.minX = 0, g.maxX = 10
 			g.minY = 0, g.maxY = 10
 			nHorz = math.ceil(math.sqrt(markerStyles.len()))
