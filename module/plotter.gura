@@ -116,6 +116,12 @@ Canvas = class {
 // Graph
 //-----------------------------------------------------------------------------
 Graph = class {
+	lineStyleDict = %{
+		`solid		=> []
+		`dot		=> [2, 2]
+		`dash		=> [4, 2]
+		`dashdot	=> [2, 2, 8, 2]
+	}
 	public {
 		nSpans
 		minX, maxX
@@ -330,7 +336,7 @@ Graph = class {
 		nScales = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000]
 		tStepBase = 10 ** (int(math.log10(tRange)) - 2)
 		tSteps = tStepBase * nScales
-		(tSteps.filter(tRange / tSteps >= n):list).last()
+		(tSteps.filter(tRange / tSteps >= n - 1):list).last()
 	}
 	drawHline(cr:cairo.context, x:number, y:number, width:number):map:void = {
 		cr.move_to(x, y).rel_line_to(width, 0)
@@ -604,12 +610,6 @@ Graph = class {
 	}
 	applyLineWidth(cr:cairo.context, lineWidth:number) = {
 		cr.set_line_width(lineWidth)
-	}
-	lineStyleDict = %{
-		`solid		=> []
-		`dot		=> [2, 2]
-		`dash		=> [4, 2]
-		`dashdot	=> [2, 2, 8, 2]
 	}
 	applyLineStyle(cr:cairo.context, lineStyle:symbol) = {
 		cr.set_dash(this.lineStyleDict[lineStyle], 0)
