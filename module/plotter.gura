@@ -130,6 +130,7 @@ Graph = class {
 		fontSizeTitleYSub
 		fontSizeTickX
 		fontSizeTickY
+		fontSizeLabel
 		htTickX
 		wdTickY
 		title
@@ -174,6 +175,7 @@ Graph = class {
 		this.fontSizeTitleYSub = 15
 		this.fontSizeTickX = 12
 		this.fontSizeTickY = 12
+		this.fontSizeLabel = 12
 		this.htTickX = 12
 		this.wdTickY = 0
 		this.title = ''
@@ -203,7 +205,7 @@ Graph = class {
 			`tri_up			=> this.drawMarker_tri_up
 			`tri_left		=> this.drawMarker_tri_left
 			`tri_right		=> this.drawMarker_tri_right
-			`x				=> this.drawMarker_x
+			`cross			=> this.drawMarker_cross
 			`plus			=> this.drawMarker_plus
 			`diamond		=> this.drawMarker_diamond
 			`dia			=> this.drawMarker_dia
@@ -254,11 +256,13 @@ Graph = class {
 		labelAnchor?	&& this.addAttrCycler(`labelAnchor, labelAnchor)
 		this
 	}
-	getAttrInfo() = {
+	getAttrInfo(cycleFlag:boolean => true) = {
 		attrInfo = this.attrInfoCur.clone()
-		this.attrCyclers.each {|attrCycler|
-			attrCycler.iter = attrCycler.iter || attrCycler.values.cycle()
-			attrInfo.setprop!(attrCycler.symbol, attrCycler.iter.next())
+		if (cycleFlag) {
+			this.attrCyclers.each {|attrCycler|
+				attrCycler.iter = attrCycler.iter || attrCycler.values.cycle()
+				attrInfo.setprop!(attrCycler.symbol, attrCycler.iter.next())
+			}
 		}
 		attrInfo
 	}
@@ -281,8 +285,8 @@ Graph = class {
 		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `solid }
 		this.itemInfos.add(FuncInfo(func, min, max, cntSamples, attrInfo))
 	}
-	label(x:number, y:number, text:string) = {
-		attrInfo = this.getAttrInfo()
+	label(x:number, y:number, text:string):map:void = {
+		attrInfo = this.getAttrInfo(false)
 		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `none }
 		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `none }
 		this.itemInfos.add(LabelInfo(x, y, text, attrInfo))
@@ -501,7 +505,7 @@ Graph = class {
 			cr.stroke()
 		}
 	}
-	drawMarker_x(cr:cairo.context, x:number, y:number, attrInfo:AttrInfo):map:void = {
+	drawMarker_cross(cr:cairo.context, x:number, y:number, attrInfo:AttrInfo):map:void = {
 		markerSizeHalf = attrInfo.markerSize / 2
 		cr.save {
 			cr.move_to(x - markerSizeHalf, y - markerSizeHalf)
@@ -732,7 +736,9 @@ FuncInfo = struct(func:function, min:number:nil, max:number:nil,
 //-----------------------------------------------------------------------------
 LabelInfo = struct(x:number, y:number, text:string, attrInfo:AttrInfo) {
 	draw(g:Graph, cr:cairo.context) = cr.save {
-		g.drawText(cr, g.coordX(this.x), g.coordY(this.y), this.text, this.attrInfo)
+		attrInfo = this.attrInfo
+		cr.set_font_size(g.fontSizeLabel)
+		g.drawText(cr, g.coordX(this.x), g.coordY(this.y), this.text, attrInfo)
 	}
 }
 
@@ -805,6 +811,7 @@ main() = {
 			g.minX = 0, g.maxX = 10
 			g.minY = 0, g.maxY = 10
 			lineStyles = [`solid, `dot, `dash, `dashdot, `dashdotdot]
+			g.attr(labelAnchor => `n)
 			g.attrCycle(lineStyle => lineStyles)
 			interval(g.maxY, g.minY, 5):open {|y, i|
 				g.plot([1, 9], [y, y])
@@ -816,8 +823,9 @@ main() = {
 				`pixel, `square, `point, `circle
 				`triangle_down, `triangle_up, `triangle_left, `triangle_right
 				`tri_down, `tri_up, `tri_left, `tri_right
-				`x, `plus, `diamond, `dia
+				`cross, `plus, `diamond, `dia
 			]
+			g.attr(labelAnchor => `n)
 			g.attrCycle(markerStyle => markerStyles, color => [`red, `blue, `green])
 			g.title = 'Marker Style'
 			g.minX = 0, g.maxX = 10
@@ -826,8 +834,9 @@ main() = {
 			nVert = int((markerStyles.len() + nHorz - 1) / nHorz)
 			xs = interval(g.minX, g.maxX, nHorz):open
 			ys = interval(g.maxY, g.minY, nVert):open
-			cross (y in ys, x in xs) {
+			cross (y in ys, x in xs) {|i, j, k|
 				g.plot([x], [y])
+				g.label(x, y - .4, markerStyles[i])
 			}
 		}
 		cv.graph(2) {|g|
