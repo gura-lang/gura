@@ -2,11 +2,6 @@
 import(cairo)
 
 //-----------------------------------------------------------------------------
-// Coord
-//-----------------------------------------------------------------------------
-Coord = struct(x:number, y:number):map
-
-//-----------------------------------------------------------------------------
 // AttrCycler
 //-----------------------------------------------------------------------------
 AttrCycler = struct(symbol:symbol, values[], iter:iterator => nil)
@@ -258,14 +253,14 @@ Graph = class {
 	addAttrCycler(symbol:symbol, values[]) = {
 		this.attrCyclers.add(AttrCycler(symbol, values))
 	}
-	plot(xs:iterator, ys?:iterator) = {
+	plot(xs[]:number, ys[]?:number) = {
 		attrInfo = this.getAttrInfo()
 		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `point }
 		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `none }
 		if (ys) {
-			this.itemInfos.add(PlotInfo(Coord(xs, ys), attrInfo))
+			this.itemInfos.add(PlotInfo(xs, ys, attrInfo))
 		} else {
-			this.itemInfos.add(PlotInfo(Coord(0.., xs), attrInfo))
+			this.itemInfos.add(PlotInfo(range(xs.len()):list, xs, attrInfo))
 		}
 	}
 	func(func:function, min?:number, max?:number, cntSamples:number => 100):map:void = {
@@ -638,12 +633,12 @@ Graph = class {
 //-----------------------------------------------------------------------------
 // PlotInfo
 //-----------------------------------------------------------------------------
-PlotInfo = struct(coords[]:Coord, attrInfo:AttrInfo) {
+PlotInfo = struct(xs[]:number, ys[]:number, attrInfo:AttrInfo) {
 	draw(g:Graph, cr:cairo.context):void = cr.save {
 		attrInfo = this.attrInfo
 		if (attrInfo.lineStyle != `none) {
 			cr.save {
-				cr.line_to(g.coordX(this.coords:*x), g.coordY(this.coords:*y))
+				cr.line_to(g.coordX(this.xs), g.coordY(this.ys))
 				cr.set_source_color(attrInfo.color)
 				g.applyLineWidth(cr, attrInfo.lineWidth)
 				g.applyLineStyle(cr, attrInfo.lineStyle)
@@ -652,10 +647,7 @@ PlotInfo = struct(coords[]:Coord, attrInfo:AttrInfo) {
 		}
 		if (attrInfo.markerStyle != `none) {
 			cr.save {
-				this.coords.each {|coord|
-					[x, y] = [g.coordX(coord.x), g.coordY(coord.y)]
-					g.drawMarker(cr, x, y, attrInfo)
-				}
+				g.drawMarker(cr, g.coordX(this.xs), g.coordY(this.ys), attrInfo)
 			}
 		}
 	}
