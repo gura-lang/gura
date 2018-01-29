@@ -732,7 +732,7 @@ FuncInfo = struct(func:function, min:number:nil, max:number:nil,
 //-----------------------------------------------------------------------------
 LabelInfo = struct(x:number, y:number, text:string, attrInfo:AttrInfo) {
 	draw(g:Graph, cr:cairo.context) = cr.save {
-		g.drawText(cr, this.x, this.y, this.text, this.attrInfo)
+		g.drawText(cr, g.coordX(this.x), g.coordY(this.y), this.text, this.attrInfo)
 	}
 }
 
