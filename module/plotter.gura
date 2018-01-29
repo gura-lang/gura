@@ -556,8 +556,9 @@ Graph = class {
 		this.dict@drawText[attrInfo.labelAnchor](cr, x, y, text)
 	}
 	drawText_n(cr:cairo.context, x:number, y:number, text:string):map:void = {
+		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
-		cr.move_to(x - extText.x_advance / 2, y + extText.height)
+		cr.move_to(x - extText.x_advance / 2, y + extFont.ascent)
 		cr.show_text(text)
 	}
 	drawText_s(cr:cairo.context, x:number, y:number, text:string):map:void = {
@@ -566,23 +567,27 @@ Graph = class {
 		cr.show_text(text)
 	}
 	drawText_e(cr:cairo.context, x:number, y:number, text:string):map:void = {
+		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
-		cr.move_to(x - extText.x_advance, y + extText.height / 2)
+		cr.move_to(x - extText.x_advance, y + extFont.ascent / 2)
 		cr.show_text(text)
 	}
 	drawText_w(cr:cairo.context, x:number, y:number, text:string):map:void = {
+		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
-		cr.move_to(x, y + extText.height / 2)
+		cr.move_to(x, y + extFont.ascent / 2)
 		cr.show_text(text)
 	}
 	drawText_ne(cr:cairo.context, x:number, y:number, text:string):map:void = {
+		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
-		cr.move_to(x - extText.x_advance, y + extText.height)
+		cr.move_to(x - extText.x_advance, y + extText.ascent)
 		cr.show_text(text)
 	}
 	drawText_nw(cr:cairo.context, x:number, y:number, text:string):map:void = {
+		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
-		cr.move_to(x, y + extText.height)
+		cr.move_to(x, y + extFont.ascent)
 		cr.show_text(text)
 	}
 	drawText_se(cr:cairo.context, x:number, y:number, text:string):map:void = {
