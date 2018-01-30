@@ -866,8 +866,26 @@ main() = {
 			}
 		}
 		cv.graph {|g|
+			g.attr(color => `red) {
+				g.func(f(x) = .1 * x ** 3)
+			}
+			g.attr(color => `green) {
+				g.func(f(x) = .3 * x ** 2)
+			}
 		}
 		cv.graph {|g|
+			g.attr(markerStyle => `pixel) {
+				g.plot(MakeRands(5, 5, 10), MakeRands(5, 5, 10))
+			}
+			g.attr(markerStyle => `point) {
+				g.plot(MakeRands(-5, 5, 10), MakeRands(5, 5, 10))
+			}
+			g.attr(markerStyle => `cross) {
+				g.plot(MakeRands(-5, 5, 10), MakeRands(-5, 5, 10))
+			}
+			g.attr(markerStyle => `dia) {
+				g.plot(MakeRands(5, 5, 10), MakeRands(-5, 5, 10))
+			}
 		}
 		cv.show(1000, 600)
 	}
