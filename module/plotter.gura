@@ -750,8 +750,8 @@ LabelInfo = struct(x:number, y:number, text:string, xOffset:number, yOffset:numb
 	draw(g:Graph, cr:cairo.context) = cr.save {
 		attrInfo = this.attrInfo
 		cr.set_font_size(g.fontSizeLabel)
-		g.drawText(cr, g.coordX(this.x) + this.xOffset,
-				   g.coordY(this.y) + this.yOffset, this.text, attrInfo)
+		g.drawText(cr, g.coordX(this.x + this.xOffset),
+				   g.coordY(this.y + this.yOffset), this.text, attrInfo)
 	}
 }
 
@@ -829,7 +829,7 @@ main() = {
 			interval(g.maxY, g.minY, 5):open {|y, i|
 				g.plot([1, 9], [y, y])
 				g.attr(color => `green, labelAnchor => `s) {
-					g.label(5, y, lineStyles[i], 0, -8)
+					g.label(5, y, lineStyles[i], 0, .2)
 				}
 			}
 		}
@@ -852,7 +852,7 @@ main() = {
 			cross (y in ys, x in xs) {|i, j, k|
 				g.plot([x], [y])
 				g.attr(color => `green, labelAnchor => `s) {
-					g.label(x, y, markerStyles[i], 0, -14)
+					g.label(x, y, markerStyles[i], 0, .5)
 				}
 			}
 		}
