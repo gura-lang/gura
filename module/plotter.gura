@@ -233,17 +233,22 @@ Graph = class {
 	restoreAttr() = {
 		if (!this.attrInfosSaved.isempty()) {
 			this.attrInfoCur = this.attrInfosSaved.last()
-			this.attrInfoSaved.erase(-1)
+			this.attrInfosSaved.erase(-1)
 		}
 	}
 	attr(color?:color, markerStyle?:symbol, markerSize?:number,
-		 lineStyle?:symbol, lineWidth?:number, labelAnchor?:symbol) = {
+		 lineStyle?:symbol, lineWidth?:number, labelAnchor?:symbol) {block?} = {
+		block && this.saveAttr()
 		color?			&& (this.attrInfoCur.color = color)
 		markerStyle?	&& (this.attrInfoCur.markerStyle = markerStyle)
 		markerSize?		&& (this.attrInfoCur.markerSize = markerSize)
 		lineStyle?		&& (this.attrInfoCur.lineStyle = lineStyle)
 		lineWidth?		&& (this.attrInfoCur.lineWidth = lineWidth)
 		labelAnchor?	&& (this.attrInfoCur.labelAnchor = labelAnchor)
+		if (block) {
+			block()
+			this.restoreAttr()
+		}
 		this
 	}
 	attrCycle(color[]?:color, markerStyle[]?:symbol, markerSize[]?:number,
@@ -553,7 +558,9 @@ Graph = class {
 		}
 	}
 	drawText(cr:cairo.context, x:number, y:number, text:string, attrInfo:AttrInfo):map:void = {
+		cr.set_source_color(attrInfo.color)
 		this.dict@drawText[attrInfo.labelAnchor](cr, x, y, text)
+		cr.stroke() // just to remove current position
 	}
 	drawText_n(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extFont = cr.font_extents()
@@ -841,15 +848,16 @@ main() = {
 			ys = interval(g.maxY, g.minY, nVert):open
 			cross (y in ys, x in xs) {|i, j, k|
 				g.plot([x], [y])
-				g.label(x, y - .4, markerStyles[i])
+				g.attr(color => `green) {
+					g.label(x, y - .4, markerStyles[i])
+				}
 			}
 		}
 		cv.graph(2) {|g|
 			g.minY = -1.2, g.maxY = 1.2
 			g.minX = 0, g.maxX = 20
 			g.func(f(x) = {math.sin(x)}, min => 1, max => 19)
-			g.saveAttr {
-				g.attr(color => `green, lineStyle => `dot)
+			g.attr(color => `green, lineStyle => `dot) {
 				g.hline([1, -1])
 				g.vline([1, 19])
 			}
