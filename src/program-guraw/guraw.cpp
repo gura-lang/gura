@@ -75,7 +75,8 @@ int MainW(int argc, const char *argv[])
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
 			if (!env.ImportModules(pModuleNames->c_str(), false, false)) {
-				sig.PrintSignal(*env.GetConsoleErr());
+				//sig.PrintSignal(*env.GetConsoleErr());
+				UsageWindow().Show(sig.GetError().MakeText().c_str());
 				return 1;
 			}
 		}
@@ -87,15 +88,18 @@ int MainW(int argc, const char *argv[])
 			AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 			ExprOwner &exprOwner = pExprRoot->GetExprOwner();
 			if (!Parser(sig, SRCNAME_cmdline).ParseString(env, exprOwner, cmd, true)) {
-				sig.PrintSignal(*env.GetConsole());
+				//sig.PrintSignal(*env.GetConsole());
+				UsageWindow().Show(sig.GetError().MakeText().c_str());
 				return 1;
 			}
 			if (exprOwner.empty()) {
-				env.GetConsole()->Println(sig, "incomplete command");
+				//env.GetConsole()->Println(sig, "incomplete command");
+				UsageWindow().Show("incomplete command");
 			} else {
 				Value result = pExprRoot->Exec(env);
 				if (sig.IsSignalled()) {
-					sig.PrintSignal(*env.GetConsole());
+					UsageWindow().Show(sig.GetError().MakeText().c_str());
+					//sig.PrintSignal(*env.GetConsole());
 					return 1;
 				} else if (result.IsValid()) {
 					env.GetConsole()->Println(sig, result.ToString().c_str());
@@ -110,12 +114,14 @@ int MainW(int argc, const char *argv[])
 		AutoPtr<Expr_Root> pExprRoot(Parser(sig, sourceName).ParseStream(env,
 												sourceName.c_str(), encoding));
 		if (sig.IsSignalled()) {
-			sig.PrintSignal(*env.GetConsole());
+			UsageWindow().Show(sig.GetError().MakeText().c_str());
+			//sig.PrintSignal(*env.GetConsole());
 			return 1;
 		}
 		pExprRoot->Exec(env);
 		if (sig.IsSignalled()) {
-			sig.PrintSignal(*env.GetConsole());
+			UsageWindow().Show(sig.GetError().MakeText().c_str());
+			//sig.PrintSignal(*env.GetConsole());
 			sig.ClearSignal();
 		}
 		interactiveFlag = false;
@@ -168,14 +174,13 @@ LRESULT UsageWindow::Show(const char *strErr)
 			"-C dir         change directory before executing scripts\n"
 			"-v             print version string\n";
 		String msg;
-		if (strErr != nullptr) {
+		if (strErr == nullptr) {
+			msg += msgUsage;
+		} else {
 			msg += strErr;
-			msg += "\n";
-			msg += "\n";
 		}
-		msg += msgUsage;
-		_hwndUsage = ::CreateWindow("static", msg.c_str(),
-				WS_CHILD | WS_VISIBLE | SS_SUNKEN,
+		_hwndUsage = ::CreateWindow("edit", Replace(msg.c_str(), "\n", "\r\n", -1, false).c_str(),
+				WS_CHILD | WS_VISIBLE | SS_SUNKEN | ES_MULTILINE,
 				CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 				hwnd, reinterpret_cast<HMENU>(IDC_Usage), g_hInst, nullptr);
 		SetWindowFont(_hwndUsage, GetStockFont(ANSI_FIXED_FONT), FALSE);
