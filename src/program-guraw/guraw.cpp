@@ -10,11 +10,20 @@ static HINSTANCE g_hInst = nullptr;
 namespace Gura {
 
 const char *g_szTitle = "Gura Executable for Windows";
+const char *g_msgUsage =
+"usage: guraw [option] [file] [arg] ...\n"
+"available options:\n"
+"-h             print this help\n"
+"-i module[,..] import module(s) before parsing\n"
+"-I dir         specify a directory to search for modules\n"
+"-c cmd         execute program from command line\n"
+"-C dir         change directory before executing scripts\n"
+"-v             print version string\n";
 
 //-----------------------------------------------------------------------------
-// UsageWindow
+// ErrorWindow
 //-----------------------------------------------------------------------------
-class UsageWindow {
+class ErrorWindow {
 private:
 	enum {
 		ID_FIRST = 1000,
@@ -26,8 +35,8 @@ private:
 	HWND _hwndUsage;
 	HWND _hwndBtnOK;
 public:
-	inline UsageWindow() {}
-	LRESULT Show(const char *strErr = nullptr);
+	inline ErrorWindow() {}
+	LRESULT Show(const char *strErr);
 private:
 	LRESULT WndProc(HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK WndProcStub(HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam);
@@ -58,11 +67,11 @@ int MainW(int argc, const char *argv[])
 	}
 	Option &opt = env.GetOption();
 	if (opt.IsSet("version")) {
-		UsageWindow().Show();
+		ErrorWindow().Show(g_msgUsage);
 		return 0;
 	}
 	if (opt.IsSet("help")) {
-		UsageWindow().Show();
+		ErrorWindow().Show(g_msgUsage);
 		return 0;
 	}
 	if (opt.IsSet("directory") && !OAL::ChangeCurDir(opt.GetString("directory", ""))) {
@@ -75,8 +84,7 @@ int MainW(int argc, const char *argv[])
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
 			if (!env.ImportModules(pModuleNames->c_str(), false, false)) {
-				//sig.PrintSignal(*env.GetConsoleErr());
-				UsageWindow().Show(sig.GetError().MakeText().c_str());
+				ErrorWindow().Show(sig.GetError().MakeText().c_str());
 				return 1;
 			}
 		}
@@ -88,18 +96,15 @@ int MainW(int argc, const char *argv[])
 			AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 			ExprOwner &exprOwner = pExprRoot->GetExprOwner();
 			if (!Parser(sig, SRCNAME_cmdline).ParseString(env, exprOwner, cmd, true)) {
-				//sig.PrintSignal(*env.GetConsole());
-				UsageWindow().Show(sig.GetError().MakeText().c_str());
+				ErrorWindow().Show(sig.GetError().MakeText().c_str());
 				return 1;
 			}
 			if (exprOwner.empty()) {
-				//env.GetConsole()->Println(sig, "incomplete command");
-				UsageWindow().Show("incomplete command");
+				ErrorWindow().Show("incomplete command");
 			} else {
 				Value result = pExprRoot->Exec(env);
 				if (sig.IsSignalled()) {
-					UsageWindow().Show(sig.GetError().MakeText().c_str());
-					//sig.PrintSignal(*env.GetConsole());
+					ErrorWindow().Show(sig.GetError().MakeText().c_str());
 					return 1;
 				} else if (result.IsValid()) {
 					env.GetConsole()->Println(sig, result.ToString().c_str());
@@ -114,28 +119,26 @@ int MainW(int argc, const char *argv[])
 		AutoPtr<Expr_Root> pExprRoot(Parser(sig, sourceName).ParseStream(env,
 												sourceName.c_str(), encoding));
 		if (sig.IsSignalled()) {
-			UsageWindow().Show(sig.GetError().MakeText().c_str());
-			//sig.PrintSignal(*env.GetConsole());
+			ErrorWindow().Show(sig.GetError().MakeText().c_str());
 			return 1;
 		}
 		pExprRoot->Exec(env);
 		if (sig.IsSignalled()) {
-			UsageWindow().Show(sig.GetError().MakeText().c_str());
-			//sig.PrintSignal(*env.GetConsole());
+			ErrorWindow().Show(sig.GetError().MakeText().c_str());
 			sig.ClearSignal();
 		}
 		interactiveFlag = false;
 	}
 	if (interactiveFlag) {
-		UsageWindow().Show();
+		ErrorWindow().Show(g_msgUsage);
 	}
 	return 0;
 }
 
 //-----------------------------------------------------------------------------
-// UsageWindow
+// ErrorWindow
 //-----------------------------------------------------------------------------
-LRESULT UsageWindow::Show(const char *strErr)
+LRESULT ErrorWindow::Show(const char *strErr)
 {
 	const char *lpClassName = "guraw";
 	WNDCLASSEX wc;
@@ -164,22 +167,7 @@ LRESULT UsageWindow::Show(const char *strErr)
 		SetWindowFont(_hwndLabel, GetStockFont(DEFAULT_GUI_FONT), FALSE);
 	} while (0);
 	do {
-		const char *msgUsage =
-			"usage: guraw [option] [file] [arg] ...\n"
-			"available options:\n"
-			"-h             print this help\n"
-			"-i module[,..] import module(s) before parsing\n"
-			"-I dir         specify a directory to search for modules\n"
-			"-c cmd         execute program from command line\n"
-			"-C dir         change directory before executing scripts\n"
-			"-v             print version string\n";
-		String msg;
-		if (strErr == nullptr) {
-			msg += msgUsage;
-		} else {
-			msg += strErr;
-		}
-		_hwndUsage = ::CreateWindow("edit", Replace(msg.c_str(), "\n", "\r\n", -1, false).c_str(),
+		_hwndUsage = ::CreateWindow("edit", Replace(strErr, "\n", "\r\n", -1, false).c_str(),
 				WS_CHILD | WS_VISIBLE | SS_SUNKEN | ES_MULTILINE,
 				CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 				hwnd, reinterpret_cast<HMENU>(IDC_Usage), g_hInst, nullptr);
@@ -202,7 +190,7 @@ LRESULT UsageWindow::Show(const char *strErr)
 	return msg.wParam;
 }
 
-LRESULT UsageWindow::WndProc(HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
+LRESULT ErrorWindow::WndProc(HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (nMsg) {
 	case WM_SIZE: HANDLE_WM_SIZE(hwnd, wParam, lParam, OnSize); break;
@@ -213,13 +201,13 @@ LRESULT UsageWindow::WndProc(HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 	return ::DefWindowProc(hwnd, nMsg, wParam, lParam);
 }
 
-LRESULT CALLBACK UsageWindow::WndProcStub(HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK ErrorWindow::WndProcStub(HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 {
-	return reinterpret_cast<UsageWindow *>(::GetWindowLongPtr(hwnd,
+	return reinterpret_cast<ErrorWindow *>(::GetWindowLongPtr(hwnd,
 						GWLP_USERDATA))->WndProc(hwnd, nMsg, wParam, lParam);
 }
 
-void UsageWindow::OnSize(HWND hwnd, UINT state, int cx, int cy)
+void ErrorWindow::OnSize(HWND hwnd, UINT state, int cx, int cy)
 {
 	RECT rcClient;
 	RECT rcBtnOK;
@@ -249,7 +237,7 @@ void UsageWindow::OnSize(HWND hwnd, UINT state, int cx, int cy)
 	} while (0);
 }
 
-void UsageWindow::OnChar(HWND hwnd, TCHAR ch, int cRepeat)
+void ErrorWindow::OnChar(HWND hwnd, TCHAR ch, int cRepeat)
 {
 	if (ch == VK_ESCAPE) {
 		::DestroyWindow(hwnd);
@@ -258,7 +246,7 @@ void UsageWindow::OnChar(HWND hwnd, TCHAR ch, int cRepeat)
 	}
 }
 
-void UsageWindow::OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
+void ErrorWindow::OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 {
 	if (id == IDOK) {
 		::DestroyWindow(hwnd);
