@@ -250,6 +250,23 @@ testcase('cast from iterator') {
 	x:array@double = 0..29
 	PrintArray('%2d', x)
 }
+testcase('tostring') {
+	array.zeros([3]) {|x|
+		tester(`x.tostring(0))
+		tester(`x.tostring(1))
+	}
+	array.zeros([3, 4]) {|x|
+		tester(`x.tostring(0))
+		tester(`x.tostring(1))
+		tester(`x.tostring(2))
+	}
+	array.zeros([3, 4, 5]) {|x|
+		tester(`x.tostring(0))
+		tester(`x.tostring(1))
+		tester(`x.tostring(2))
+		tester(`x.tostring(3))
+	}
+}
 testcase('head/tail') {
 	elemtypeTbl.each {|elemtype|
 		println(elemtype)
@@ -1690,4 +1707,53 @@ testcase('array#expand_kernelvec2d() strides test') {
 		tester(`x)
 		tester(`x.expand_kernelvec2d([3, 3], [1, 2], [0, 0]))
 	}
+}
+testcase('array#expand_kernelvec3d() padding test') {
+}
+testcase('array#expand_kernelvec3d() strides test') {
+}
+testcase('array#restore_kernelvec1d()') {
+	randseed(0)
+	x = array.rands([3, 3], 2)	// [nKernelsCol, sizeKernelCol]
+	tester(`x)
+	tester(`x.restore_kernelvec1d(5, 3, 1, `valid))
+	randseed(0)
+	x = array.rands([4, 3, 3], 2)	// [N, nKernelsCol, sizeKernelCol]
+	tester(`x)
+	tester(`x.restore_kernelvec1d(5, 3, 1, `valid))
+	tester(`x[0].restore_kernelvec1d(5, 3, 1, `valid))
+	tester(`x[1].restore_kernelvec1d(5, 3, 1, `valid))
+	tester(`x[2].restore_kernelvec1d(5, 3, 1, `valid))
+	tester(`x[3].restore_kernelvec1d(5, 3, 1, `valid))
+	randseed(0)
+	x = array.rands([5, 3], 2)	// [nKernelsCol, sizeKernelCol]
+	tester(`x)
+	tester(`x.restore_kernelvec1d(5, 3, 1, `same))
+	randseed(0)
+	x = array.rands([3, 3], 2)	// [nKernelsCol, sizeKernelCol]
+	tester(`x)
+	tester(`x.restore_kernelvec1d(5, 3, 2, `same))
+}
+testcase('array#restore_kernelvec2d()') {
+	randseed(0)
+	x = array.rands([9, 12], 2)	// [nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol]
+	tester(`x)
+	tester(`x.restore_kernelvec2d([6, 5], [4, 3], [1, 1], `valid))
+	randseed(0)
+	x = array.rands([3, 9, 12], 2)	// [N, nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol]
+	tester(`x)
+	tester(`x.restore_kernelvec2d([6, 5], [4, 3], [1, 1], `valid))
+	tester(`x[0].restore_kernelvec2d([6, 5], [4, 3], [1, 1], `valid))
+	tester(`x[1].restore_kernelvec2d([6, 5], [4, 3], [1, 1], `valid))
+	tester(`x[2].restore_kernelvec2d([6, 5], [4, 3], [1, 1], `valid))
+	randseed(0)
+	x = array.rands([30, 12], 2)	// [nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol]
+	tester(`x)
+	tester(`x.restore_kernelvec2d([6, 5], [4, 3], [1, 1], `same))
+	randseed(0)
+	x = array.rands([9, 12], 2)	// [nKernelsRow * nKernelsCol, sizeKernelRow * sizeKernelCol]
+	tester(`x)
+	tester(`x.restore_kernelvec2d([6, 5], [4, 3], [2, 2], `same))
+}
+testcase('array#restore_kernelvec3d()') {
 }

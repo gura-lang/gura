@@ -21,10 +21,39 @@ public:
 public:
 	static GearFuncTable gearFuncTable;
 public:
-	inline Gear_Relu() {}
+	Gura_DeclareReferenceAccessor(Gear_Relu);
+public:
+	inline Gear_Relu() : Gear("gear@relu") {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString() const;
+	virtual Object *ToObject(Environment &env) const;
+};
+
+//-------------------------------------------------------------------------
+// NodeGear_Relu
+//-------------------------------------------------------------------------
+class NodeGear_Relu : public Trainer::NodeGear {
+public:
+	class CreatorEx : public Creator {
+	public:
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const;
+	};
+private:
+	AutoPtr<Array> _pArrayBool;
+public:
+	inline NodeGear_Relu(Gear_Relu *pGear, Connector *pConnectorDst) :
+			NodeGear(pGear, pConnectorDst) {}
+	inline Gear_Relu *GetGear() { return dynamic_cast<Gear_Relu *>(_pGear.get()); }
+	virtual bool IsVulnerable() const;
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
 //-----------------------------------------------------------------------------

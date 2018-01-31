@@ -171,7 +171,8 @@ cond((re.pattern('hello'):icase).match('HELLO WORLD'), 'match', 'not match') .. 
 ======== #27 ========
 
 re.sub(',\\s*', ':', '1234, 567,    890,   123') .. 1234:567:890:123
-re.sub('def\\s+([a-zA-Z_][a-zA-Z_0-9]*)\\s*\\(\\s*\\):', 'static PyObject*\\npy_\\1(void)\\n{', 'def myfunc():') .. static PyObject*
+re.sub('def\\s+([a-zA-Z_][a-zA-Z_0-9]*)\\s*\\(\\s*\\):', 'static PyObject*\\npy_\\1(void)\\n{', 'def myfunc():') ..
+static PyObject*
 py_myfunc(void)
 {
 dashrepl(matchobj) = { if (matchobj[0] == '-') { return(' ') } else { return('-') } }
@@ -180,7 +181,8 @@ re.sub('-{1,2}', dashrepl, 'pro----gram-files') .. pro--gram files
 ======== #28 ========
 
 re.pattern(',\\s*').sub(':', '1234, 567,    890,   123') .. 1234:567:890:123
-re.pattern('def\\s+([a-zA-Z_][a-zA-Z_0-9]*)\\s*\\(\\s*\\):').sub('static PyObject*\\npy_\\1(void)\\n{', 'def myfunc():') .. static PyObject*
+re.pattern('def\\s+([a-zA-Z_][a-zA-Z_0-9]*)\\s*\\(\\s*\\):').sub('static PyObject*\\npy_\\1(void)\\n{', 'def myfunc():') ..
+static PyObject*
 py_myfunc(void)
 {
 dashrepl(matchobj) = { if (matchobj[0] == '-') { return(' ') } else { return('-') } }

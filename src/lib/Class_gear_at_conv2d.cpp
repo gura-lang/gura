@@ -16,22 +16,38 @@ Gear_Conv2d::GearFuncTable Gear_Conv2d::gearFuncTable = {{{nullptr}}};
 bool Gear_Conv2d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
 	size_t sizePadRow = 0, sizePadCol = 0;
-	CalcPadding2d(this, pArray->GetDimensions(), &sizePadRow, &sizePadCol);
+	CalcPadding2d(this, pArray->GetDims(), &sizePadRow, &sizePadCol);
 	return pArray->CalcConv2d(sig, pArrayRtn, GetArrayGear(), GetStridesRow(), GetStridesCol(),
 							  sizePadRow, sizePadCol, GetChannelPos());
+}
+
+bool Gear_Conv2d::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Gear::DoDirProp(env, symbols);
+}
+
+Value Gear_Conv2d::DoGetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Gear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 String Gear_Conv2d::ToString() const
 {
 	char buff[80];
 	String str = "conv2d";
+	str += ":filter_num=";
 	if (HasFilterDim()) {
-		::sprintf(buff, ":filter_num=%zu", GetFilterNum());
+		::sprintf(buff, "%zu", GetFilterNum());
 		str += buff;
+	} else {
+		str += "none";
 	}
+	str += ":channel_num=";
 	if (HasChannelDim()) {
-		::sprintf(buff, ":channel_num=%zu", GetChannelNum());
+		::sprintf(buff, "%zu", GetChannelNum());
 		str += buff;
+	} else {
+		str += "none";
 	}
 	::sprintf(buff, ":size=(%zu,%zu)", GetSizeRow(), GetSizeCol());
 	str += buff;
@@ -42,6 +58,236 @@ String Gear_Conv2d::ToString() const
 	::sprintf(buff, ":channel_pos=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
 	str += buff;
 	return str;
+}
+
+Object *Gear_Conv2d::ToObject(Environment &env) const
+{
+	return new Object_gear_at_conv2d(env, Reference());
+}
+
+//-----------------------------------------------------------------------------
+// NodeGear_Conv2d
+//-----------------------------------------------------------------------------
+bool NodeGear_Conv2d::IsVulnerable() const
+{
+	return true;
+}
+
+bool NodeGear_Conv2d::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return NodeGear::DoDirProp(env, symbols);
+}
+
+Value NodeGear_Conv2d::DoGetProp(Environment &env, const Symbol *pSymbol,
+								   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
+bool NodeGear_Conv2d::EvalForward(Environment &env)
+{
+	Gear_Conv2d *pGear = GetGear();
+	const Array *pArrayGear = pGear->GetArrayGear();
+	const Double padNum = 0;
+	// pArraySrc .. [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
+	const Array *pArrayFwdSrc = GetConnectorSrc()->GetArrayFwd();
+	// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
+	if (_pArrayFwdSrcVec.IsNull()) {
+		Gear::CalcPadding2d(pGear, pArrayFwdSrc->GetDims(),
+							&_sizePadRow, &_sizePadCol, &_sizeOutRow, &_sizeOutCol);
+	}
+	if (!pArrayFwdSrc->ExpandKernelVec2d(
+			env, _pArrayFwdSrcVec, &_sizeRow, &_sizeCol, pGear->GetSizeRow(), pGear->GetSizeCol(),
+			pGear->GetStridesRow(), pGear->GetStridesCol(), _sizePadRow, _sizePadCol,
+			pGear->GetChannelPos(), padNum)) return false;
+	if (_pArrayGearTrans.IsNull()) {
+		Array::Dimensions dims;
+		const Array::Dimensions &dimsGear = pArrayGear->GetDims();
+		if (pGear->HasChannelDim()) {
+			if (pGear->HasFilterDim()) {
+				// pArrayGear .. [FN, C, FH, FW] or [FN, FH, FW, C]
+				// _pArrayGearReshape .. [FN, C * FH * FW]
+				// _pArrayGearTrans .. [C * FH * FW, FN]
+				dims.reserve(2);
+				dims.push_back(Array::Dimension(dimsGear[0].GetSize()));
+				dims.push_back(Array::Dimension(dimsGear[1].GetSize() * dimsGear[2].GetSize() * dimsGear[3].GetSize()));
+			} else {
+				// pArrayGear .. [C, FH, FW], [FH, FW, C]
+				// _pArrayGearReshape .. [1, C * FH * FW]
+				// _pArrayGearTrans .. [C * FH * FW, 1]
+				dims.reserve(2);
+				dims.push_back(Array::Dimension(1));
+				dims.push_back(Array::Dimension(dimsGear[0].GetSize() * dimsGear[1].GetSize() * dimsGear[2].GetSize()));
+			}
+		} else {
+			if (pGear->HasFilterDim()) {
+				// pArrayGear .. [FN, FH, FW] or [FN, FH, FW]
+				// _pArrayGearReshape .. [FN, 1 * FH * FW]
+				// _pArrayGearTrans .. [1 * FH * FW, FN]
+				dims.reserve(2);
+				dims.push_back(Array::Dimension(dimsGear[0].GetSize()));
+				dims.push_back(Array::Dimension(dimsGear[1].GetSize() * dimsGear[2].GetSize()));
+			} else {
+				// pArrayGear .. [FH, FW], [FH, FW]
+				// _pArrayGearReshape .. [1, 1 * FH * FW]
+				// _pArrayGearTrans .. [1 * FH * FW, 1]
+				dims.reserve(2);
+				dims.push_back(Array::Dimension(1));
+				dims.push_back(Array::Dimension(dimsGear[0].GetSize() * dimsGear[1].GetSize()));
+			}
+		}
+		pArrayGear->Reshape(_pArrayGearReshape, dims);
+		_pArrayGearReshape->Transpose2d(_pArrayGearTrans);
+	}
+	// _pArrayFwdPre = _pArrayFwdSrcVec |.| _pArrayGearTrans
+	if (!Array::Dot(env, _pArrayFwdPre, _pArrayFwdSrcVec.get(), _pArrayGearTrans.get())) return false;
+	//::printf("_pArrayFwdSrcVec: %s\n", _pArrayFwdSrcVec->GetDims().ToString().c_str());
+	//::printf("_pArrayGearTrans: %s\n", _pArrayGearTrans->GetDims().ToString().c_str());
+	//::printf("_pArrayFwdPre: %s\n", _pArrayFwdPre->GetDims().ToString().c_str());
+	if (_pArrayFwd.IsNull()) {
+		const Array::Dimensions &dimsPre = _pArrayFwdPre->GetDims();
+		Array::Dimensions dims;
+		if (dimsPre.size() == 2) {
+			if (pGear->HasFilterDim()) {
+				// _pArrayFwdPre .. [H_out * W_out, FN]
+				// _pArrayFwd .. [H_out, W_out, FN]
+				dims.reserve(3);
+				dims.push_back(Array::Dimension(_sizeOutRow));
+				dims.push_back(Array::Dimension(_sizeOutCol));
+				dims.push_back(Array::Dimension(dimsPre[1].GetSize()));
+			} else {
+				// _pArrayFwdPre .. [H_out * W_out, 1]
+				// _pArrayFwd .. [H_out, W_out]
+				dims.reserve(2);
+				dims.push_back(Array::Dimension(_sizeOutRow));
+				dims.push_back(Array::Dimension(_sizeOutCol));
+			}
+		} else if (dimsPre.size() == 3) {
+			if (pGear->HasFilterDim()) {
+				// _pArrayFwdPre .. [N, H_out * W_out, FN]
+				// _pArrayFwd .. [N, H_out, W_out, FN]
+				dims.reserve(4);
+				dims.push_back(Array::Dimension(dimsPre[0].GetSize()));
+				dims.push_back(Array::Dimension(_sizeOutRow));
+				dims.push_back(Array::Dimension(_sizeOutCol));
+				dims.push_back(Array::Dimension(dimsPre[2].GetSize()));
+			} else {
+				// _pArrayFwdPre .. [N, H_out * W_out, 1]
+				// _pArrayFwd .. [N, H_out, W_out]
+				dims.reserve(3);
+				dims.push_back(Array::Dimension(dimsPre[0].GetSize()));
+				dims.push_back(Array::Dimension(_sizeOutRow));
+				dims.push_back(Array::Dimension(_sizeOutCol));
+			}
+		} else {
+			env.SetError(ERR_ValueError, "invalid array");
+			return false;
+		}
+		_pArrayFwdPre->Reshape(_pArrayFwd, dims);
+	}
+	return true;
+}
+
+bool NodeGear_Conv2d::EvalBackward(Environment &env)
+{
+	Gear_Conv2d *pGear = GetGear();
+	const Array *pArrayGear = pGear->GetArrayGear();
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
+	const Array *pArrayGradSrc = (*ppConnectorDst)->GetArrayGrad();
+	if (_pArrayGradSrcTrans.IsNull()) {
+		const Array::Dimensions &dimsGradSrc = pArrayGradSrc->GetDims();
+		Array::Dimensions dims;
+		if (dimsGradSrc.size() == 2) {
+			// _pArrayGradSrc .. [H_out, W_out]
+			// _pArrayGradSrcReshape .. [1 * H_out * W_out, 1]
+			// _pArrayGradSrcTrans .. [1, 1 * H_out * W_out]
+			dims.reserve(2);
+			dims.push_back(Array::Dimension(dimsGradSrc[0].GetSize() * dimsGradSrc[1].GetSize()));
+			dims.push_back(Array::Dimension(1));
+		} else if (dimsGradSrc.size() == 3) {
+			if (pGear->HasFilterDim()) {
+				// _pArrayGradSrc .. [H_out, W_out, FN]
+				// _pArrayGradSrcReshape .. [1 * H_out * W_out, FN]
+				// _pArrayGradSrcTrans .. [FN, 1 * H_out * W_out]
+				dims.reserve(2);
+				dims.push_back(Array::Dimension(dimsGradSrc[0].GetSize() * dimsGradSrc[1].GetSize()));
+				dims.push_back(Array::Dimension(dimsGradSrc[2].GetSize()));
+			} else {
+				// _pArrayGradSrc .. [N, H_out, W_out]
+				// _pArrayGradSrcReshape .. [N * H_out * W_out, 1]
+				// _pArrayGradSrcTrans .. [1, N * H_out * W_out]
+				dims.reserve(2);
+				dims.push_back(Array::Dimension(dimsGradSrc[0].GetSize() *
+												dimsGradSrc[1].GetSize() * dimsGradSrc[2].GetSize()));
+				dims.push_back(Array::Dimension(1));
+			}
+		} else if (dimsGradSrc.size() == 4) {
+			// _pArrayGradSrc .. [N, H_out, W_out, FN]
+			// _pArrayGradSrcReshape .. [N * H_out * W_out, FN]
+			// _pArrayGradSrcTrans .. [FN, N * H_out * W_out]
+			dims.reserve(2);
+			dims.push_back(Array::Dimension(dimsGradSrc[0].GetSize() *
+											dimsGradSrc[1].GetSize() * dimsGradSrc[2].GetSize()));
+			dims.push_back(Array::Dimension(dimsGradSrc[3].GetSize()));
+		} else {
+			env.SetError(ERR_ValueError, "invalid array");
+			return false;
+		}
+		pArrayGradSrc->Reshape(_pArrayGradSrcReshape, dims);
+		_pArrayGradSrcReshape->Transpose2d(_pArrayGradSrcTrans);
+	}		
+	// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
+	// _pArrayFwdSrcVecReshape .. [1 * H_out * W_out, C * FH * FW] or [N * H_out * W_out, C * FH * FW]
+	if (_pArrayFwdSrcVecReshape.IsNull()) {
+		Array::Dimensions &dimsSrcVec = _pArrayFwdSrcVec->GetDims();
+		if (dimsSrcVec.size() == 2)  {
+			_pArrayFwdSrcVecReshape.reset(_pArrayFwdSrcVec->Reference());
+		} else if (dimsSrcVec.size() == 3) {
+			Array::Dimensions dims;
+			dims.reserve(2);
+			dims.push_back(Array::Dimension(dimsSrcVec[0].GetSize() * dimsSrcVec[1].GetSize()));
+			dims.push_back(Array::Dimension(dimsSrcVec[2].GetSize()));
+			_pArrayFwdSrcVec->Reshape(_pArrayFwdSrcVecReshape, dims);
+		} else {
+			env.SetError(ERR_ValueError, "invalid array");
+			return false;
+		}
+	}
+	// _pArrayGearDiffPre = _pArrayGradSrcTrans |.| _pArrayFwdSrcVecReshape
+	// _pArrayGearDiffPre .. [FN, C * FH * FW]
+	// pArrayGear .. [FN, C, FH, FW] or [FN, FH, FW, C]
+	if (!Array::Dot(env, _pArrayGearDiffPre,
+					_pArrayGradSrcTrans.get(), _pArrayFwdSrcVecReshape.get())) return false;
+	if (_pArrayGearDiff.IsNull()) {
+		_pArrayGearDiffPre->Reshape(_pArrayGearDiff, pArrayGear->GetDims());
+	}
+	if (!_pOptimizerInst->Update(env, pGear->GetArrayGearAutoPtr(), _pArrayGearDiff.get())) return false;
+	if (GetConnectorSrc()->GetNodeSrc()->IsVulnerable()) {
+		// _pArrayGradSrcReshape .. [N * H_out * W_out, FN]
+		// _pArrayGearReshape .. [FN, C * FH * FW]
+		// _pArrayFwdSrcVecDiffPre = _pArrayGradSrcReshape |.| _pArrayGearReshape
+		// _pArrayFwdSrcVecDiffPre .. [N * H_out * W_out, C * FH * FW]
+		// _pArrayFwdSrcVec .. [H_out * W_out, C * FH * FW] or [N, H_out * W_out, C * FH * FW]
+		if (!Array::Dot(env, _pArrayFwdSrcVecDiffPre,
+						_pArrayGradSrcReshape.get(), _pArrayGearReshape.get())) return false;
+		if (_pArrayFwdSrcVecDiff.IsNull()) {
+			_pArrayFwdSrcVecDiffPre->Reshape(_pArrayFwdSrcVecDiff, _pArrayFwdSrcVec->GetDims());
+		}
+		// pArrayGrad ... [H, W], [H, W, C], [C, H, W], [N, C, H, W] or [N, H, W, C]
+		if (!_pArrayFwdSrcVecDiff->RestoreKernelVec2d(
+				env, GetConnectorSrc()->GetArrayGradAutoPtr(), _sizeRow, _sizeCol,
+				pGear->GetSizeRow(), pGear->GetSizeCol(),
+				pGear->GetStridesRow(), pGear->GetStridesCol(),
+				_sizePadRow, _sizePadCol, pGear->GetChannelPos())) return false;
+	}
+	return true;
+}
+
+Trainer::NodeGear *NodeGear_Conv2d::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
+{
+	return new NodeGear_Conv2d(Object_gear_at_conv2d::GetObject(value)->GetGear()->Reference(), pConnectorDst,
+							   pTrainer->CreateOptimizerInstance());
 }
 
 //-----------------------------------------------------------------------------
@@ -100,7 +346,7 @@ Gura_DeclareFunctionAlias(gear_at_conv2d, "gear@conv2d")
 Gura_ImplementFunction(gear_at_conv2d)
 {
 	const Array *pArrayGear = Object_array::GetObject(arg, 0)->GetArray();
-	const Array::Dimensions &dims = pArrayGear->GetDimensions();
+	const Array::Dimensions &dims = pArrayGear->GetDims();
 	size_t nDims = dims.size();
 	if (nDims != 2 && nDims != 3 && nDims != 4) {
 		env.SetError(ERR_ValueError,
@@ -109,39 +355,29 @@ Gura_ImplementFunction(gear_at_conv2d)
 	}
 	size_t stridesRow = 1;
 	size_t stridesCol = 1;
-	if (arg.IsValid(1)) {
-		const ValueList &valList = arg.GetList(1);
-		if (valList.size() != 2) {
-			env.SetError(ERR_ValueError, "strides must have two elements");
-			return Value::Nil;
-		}
-		stridesRow = valList[0].GetSizeT();
-		stridesCol = valList[1].GetSizeT();
-	}
 	Gear::PaddingType paddingType = Gear::PADDINGTYPE_Same;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_Invalid;
+	Value value1, value2;
+	if (arg.IsInvalid(1)) {
+		// nothing to do
+	} else if (arg.GetListValues(1, &value1, &value2)) {
+		stridesRow = value1.GetSizeT();
+		stridesCol = value2.GetSizeT();
+	} else {
+		env.SetError(ERR_ValueError, "strides must have two elements");
+		return Value::Nil;
+	}
 	if (arg.IsValid(2)) {
 		paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
 	}
-	Array::ChannelPos channelPos = Array::CHANNELPOS_Invalid;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
-		if (channelPos == Array::CHANNELPOS_Invalid) {
-			return Value::Nil;
-		} else if (channelPos == Array::CHANNELPOS_None) {
-			if (nDims == 4) {
-				env.SetError(ERR_ValueError, "channel dimension does exist in the array");
-				return Value::Nil;
-			}
-		} else if (channelPos == Array::CHANNELPOS_Last) {
-			if (nDims == 2) {
-				env.SetError(ERR_ValueError, "channel dimension is expected to exist at last");
-				return Value::Nil;
-			}
-		}
+		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
 	} else {
 		channelPos = (nDims == 2)? Array::CHANNELPOS_None : Array::CHANNELPOS_Last;
 	}
+	if (!dims.HasEnoughDims(env, 2, channelPos)) return Value::Nil;
 	Object_gear_at_conv2d *pObj = new Object_gear_at_conv2d(
 		env, new Gear_Conv2d(pArrayGear->Reference(), stridesRow, stridesCol, paddingType, channelPos));
 	return ReturnValue(env, arg, Value(pObj));
@@ -276,6 +512,8 @@ void Class_gear_at_conv2d::DoPrepare(Environment &env)
 	Gura_AssignProperty(gear_at_conv2d, padding);
 	Gura_AssignProperty(gear_at_conv2d, size);
 	Gura_AssignProperty(gear_at_conv2d, strides);
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_conv2d, new NodeGear_Conv2d::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

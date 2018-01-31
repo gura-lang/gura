@@ -286,10 +286,11 @@ Gura_ImplementMethod(context, push_group_with_content)
 	return arg.GetValueThis();
 }
 
-// cairo.context#pop_group()
+// cairo.context#pop_group() {block?}
 Gura_DeclareMethod(context, pop_group)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
 	"Terminates the redirection begun by a call to `cairo.context#push_group()` or `cairo.context#push_group_with_content()`\n"
 	"and returns a new pattern containing the results of all drawing operations performed to the group.\n"
@@ -309,7 +310,7 @@ Gura_ImplementMethod(context, pop_group)
 	cairo_pattern_t *pattern = ::cairo_pop_group(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
 	Object_pattern *pObjPattern = new Object_pattern(pattern);
-	return Value(pObjPattern);
+	return ReturnValue(env, arg, Value(pObjPattern));
 }
 
 // cairo.context#pop_group_to_source():reduce
@@ -337,10 +338,11 @@ Gura_ImplementMethod(context, pop_group_to_source)
 	return arg.GetValueThis();
 }
 
-// cairo.context#get_group_target()
+// cairo.context#get_group_target() {block?}
 Gura_DeclareMethod(context, get_group_target)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
 	"Gets the current destination surface for the context.\n"
 	"This is either the original target surface as passed to `cairo.context` constructor\n"
@@ -359,7 +361,7 @@ Gura_ImplementMethod(context, get_group_target)
 	if (Is_error(sig, cr)) return Value::Nil;
 	Object_surface *pObjSurface =
 			new Object_surface(::cairo_surface_reference(surface));
-	return Value(pObjSurface);
+	return ReturnValue(env, arg, Value(pObjSurface));
 }
 
 // cairo.context#set_source_rgb(red:number, green:number, blue:number):reduce
@@ -519,10 +521,11 @@ Gura_ImplementMethod(context, set_source_surface)
 	return arg.GetValueThis();
 }
 
-// cairo.context#get_source()
+// cairo.context#get_source() {block?}
 Gura_DeclareMethod(context, get_source)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
 	"Gets the current source pattern for `cr`.\n"
 	);
@@ -536,9 +539,8 @@ Gura_ImplementMethod(context, get_source)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_pattern_t *pattern = ::cairo_get_source(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	Object_pattern *pObjPattern =
-				new Object_pattern(::cairo_pattern_reference(pattern));
-	return Value(pObjPattern);
+	Object_pattern *pObjPattern = new Object_pattern(::cairo_pattern_reference(pattern));
+	return ReturnValue(env, arg, Value(pObjPattern));
 }
 
 // cairo.context#set_antialias(antialias:number):reduce
@@ -2606,10 +2608,11 @@ Gura_ImplementMethod(context, set_font_options)
 	return arg.GetValueThis();
 }
 
-// cairo.context#get_font_options()
+// cairo.context#get_font_options() {block?}
 Gura_DeclareMethod(context, get_font_options)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
 	"Retrieves font rendering options set via cairo.context#set_font_options.\n"
 	"Note that the returned options do not include any options derived from the underlying surface;\n"
@@ -2630,7 +2633,7 @@ Gura_ImplementMethod(context, get_font_options)
 		return Value::Nil;
 	}
 	Object_font_options *pObjFontOptions = new Object_font_options(options);
-	return Value(pObjFontOptions);
+	return ReturnValue(env, arg, Value(pObjFontOptions));
 }
 
 // cairo.context#set_font_face(font_face:cairo.font_face):reduce
@@ -2656,10 +2659,11 @@ Gura_ImplementMethod(context, set_font_face)
 	return arg.GetValueThis();
 }
 
-// cairo.context#get_font_face()
+// cairo.context#get_font_face() {block?}
 Gura_DeclareMethod(context, get_font_face)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
 	"Gets the current font face for a cairo_t.\n"
 	);
@@ -2676,7 +2680,7 @@ Gura_ImplementMethod(context, get_font_face)
 		return Value::Nil;
 	}
 	Object_font_face *pObjFontFace = new Object_font_face(::cairo_font_face_reference(font_face));
-	return Value(pObjFontFace);
+	return ReturnValue(env, arg, Value(pObjFontFace));
 }
 
 // cairo.context#set_scaled_font(scaled_font:cairo.scaled_font):reduce
@@ -2703,10 +2707,11 @@ Gura_ImplementMethod(context, set_scaled_font)
 	return arg.GetValueThis();
 }
 
-// cairo.context#get_scaled_font()
+// cairo.context#get_scaled_font() {block?}
 Gura_DeclareMethod(context, get_scaled_font)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
 	"Gets the current scaled font for a cairo_t.\n"
 	);
@@ -2723,13 +2728,13 @@ Gura_ImplementMethod(context, get_scaled_font)
 		return Value::Nil;
 	}
 	Object_scaled_font *pObjFontFace = new Object_scaled_font(::cairo_scaled_font_reference(scaled_font));
-	return Value(pObjFontFace);
+	return ReturnValue(env, arg, Value(pObjFontFace));
 }
 
-// cairo.context#show_text(text:string):reduce
+// cairo.context#show_text(text:string):reduce:map
 Gura_DeclareMethod(context, show_text)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 	AddHelp(Gura_Symbol(en),
 	"A drawing operator that generates the shape from a string of UTF-8 characters,\n"
@@ -2784,10 +2789,10 @@ Gura_ImplementMethod(context, show_glyphs)
 }
 
 // cairo.context#show_text_glyphs(text:string, glyphs:cairo.glyphs,
-//              clusters:cairo.text_cluster, cluster_flags:number):reduce
+//              clusters:cairo.text_cluster, cluster_flags:number):reduce:map
 Gura_DeclareMethod(context, show_text_glyphs)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "glyphs", VTYPE_glyph);
 	DeclareArg(env, "clusters", VTYPE_text_cluster);
@@ -2828,10 +2833,11 @@ Gura_ImplementMethod(context, show_text_glyphs)
 	return arg.GetValueThis();
 }
 
-// cairo.context#font_extents()
+// cairo.context#font_extents() {block?}
 Gura_DeclareMethod(context, font_extents)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
 	"Gets the font extents for the currently selected font.\n"
 	);
@@ -2847,14 +2853,15 @@ Gura_ImplementMethod(context, font_extents)
 	::cairo_font_extents(cr, &extents);
 	if (Is_error(sig, cr)) return Value::Nil;
 	Object_font_extents *pObjFontExtents = new Object_font_extents(extents);
-	return Value(pObjFontExtents);
+	return ReturnValue(env, arg, Value(pObjFontExtents));
 }
 
-// cairo.context#text_extents(text:string)
+// cairo.context#text_extents(text:string):map {block?}
 Gura_DeclareMethod(context, text_extents)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
 	"Gets the extents for a string of text.\n"
 	"The extents describe a user-space rectangle that encloses the \"inked\" portion of the text, (as it would be drawn by cairo.context#show_text()).\n"
@@ -2877,14 +2884,15 @@ Gura_ImplementMethod(context, text_extents)
 	::cairo_text_extents(cr, arg.GetString(0), &extents);
 	if (Is_error(sig, cr)) return Value::Nil;
 	Object_text_extents *pObjTextExtents = new Object_text_extents(extents);
-	return Value(pObjTextExtents);
+	return ReturnValue(env, arg, Value(pObjTextExtents));
 }
 
-// cairo.context#glyph_extents(glyphs:cairo.glyph)
+// cairo.context#glyph_extents(glyphs:cairo.glyph) {block?}
 Gura_DeclareMethod(context, glyph_extents)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "glyphs", VTYPE_glyph);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
 	"Gets the extents for an array of glyphs.\n"
 	"The extents describe a user-space rectangle that encloses the \"inked\" portion of the glyphs, (as they would be drawn by cairo.context#show_glyphs()).\n"
@@ -2905,11 +2913,11 @@ Gura_ImplementMethod(context, glyph_extents)
 	::cairo_glyph_extents(cr, pObjGlyph->GetGlyphs(), pObjGlyph->GetNumGlyphs(), &extents);
 	if (Is_error(sig, cr)) return Value::Nil;
 	Object_text_extents *pObjTextExtents = new Object_text_extents(extents);
-	return Value(pObjTextExtents);
+	return ReturnValue(env, arg, Value(pObjTextExtents));
 }
 
-// implementation of class Context
-Gura_ImplementUserClass(context)
+// implementation of class context
+Gura_ImplementUserClassWithCast(context)
 {
 	// Assignment of properties
 	Gura_AssignProperty(context, surface);
@@ -3019,6 +3027,27 @@ Gura_ImplementUserClass(context)
 	Gura_AssignMethod(context, font_extents);
 	Gura_AssignMethod(context, text_extents);
 	Gura_AssignMethod(context, glyph_extents);
+}
+
+Gura_ImplementCastFrom(context)
+{
+	Value valueCast(value);
+	env.LookupClass(VTYPE_image)->CastFrom(env, valueCast, flags);
+	if (valueCast.Is_image()) {
+		Image *pImage = Object_image::GetObject(valueCast)->GetImage();
+		cairo_surface_t *surface = CreateSurfaceFromImage(env, pImage);
+		if (env.IsSignalled()) return false;
+		Object_surface *pObjSurface = new Object_image_surface(surface, pImage->Reference());
+		cairo_t *cr = ::cairo_create(surface);
+		value = Value(new Object_context(cr, pObjSurface));
+		return true;
+	}
+	return false;
+}
+
+Gura_ImplementCastTo(context)
+{
+	return false;
 }
 
 Gura_EndModuleScope(cairo)

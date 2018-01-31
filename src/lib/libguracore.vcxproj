@@ -224,6 +224,7 @@
     <ClCompile Include="Class_nil.cpp" />
     <ClCompile Include="Class_number.cpp" />
     <ClCompile Include="Class_operator.cpp" />
+    <ClCompile Include="Class_optimizer.cpp" />
     <ClCompile Include="Class_palette.cpp" />
     <ClCompile Include="Class_pointer.cpp" />
     <ClCompile Include="Class_propdeclaration.cpp" />
@@ -238,6 +239,7 @@
     <ClCompile Include="Class_timedelta.cpp" />
     <ClCompile Include="Class_token.cpp" />
     <ClCompile Include="Class_trainer.cpp" />
+    <ClCompile Include="Class_trainernode.cpp" />
     <ClCompile Include="Class_undefined.cpp" />
     <ClCompile Include="Class_uri.cpp" />
     <ClCompile Include="Class_vertex.cpp" />
@@ -374,6 +376,7 @@
     <ClInclude Include="..\..\include\gura\Class_nil.h" />
     <ClInclude Include="..\..\include\gura\Class_number.h" />
     <ClInclude Include="..\..\include\gura\Class_operator.h" />
+    <ClInclude Include="..\..\include\gura\Class_optimizer.h" />
     <ClInclude Include="..\..\include\gura\Class_palette.h" />
     <ClInclude Include="..\..\include\gura\Class_pointer.h" />
     <ClInclude Include="..\..\include\gura\Class_propdeclaration.h" />
@@ -388,6 +391,7 @@
     <ClInclude Include="..\..\include\gura\Class_timedelta.h" />
     <ClInclude Include="..\..\include\gura\Class_token.h" />
     <ClInclude Include="..\..\include\gura\Class_trainer.h" />
+    <ClInclude Include="..\..\include\gura\Class_trainernode.h" />
     <ClInclude Include="..\..\include\gura\Class_undefined.h" />
     <ClInclude Include="..\..\include\gura\Class_uri.h" />
     <ClInclude Include="..\..\include\gura\Class_vertex.h" />

@@ -15,10 +15,20 @@ Gear::~Gear()
 {
 }
 
-void Gear::CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
-						 size_t *pSizeOut, size_t *pSizePad)
+bool Gear::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	size_t sizeOut = 0, sizePad = 0;
+	return true;
+}
+
+Value Gear::DoGetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Nil;
+}
+
+void Gear::CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
+					   size_t *pSizePad, size_t *pSizeOut)
+{
+	size_t sizePad = 0, sizeOut = 0;
 	if (paddingType == PADDINGTYPE_Valid) {
 		// sizeIn = 9, strides = 3
 		// +++++++++  +++++++++  +++++++++  +++++++++
@@ -52,17 +62,8 @@ void Gear::CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, Padding
 	} else {
 		// nothing to do 
 	}
-	*pSizeOut = sizeOut;
-	*pSizePad = sizePad;
-}
-
-void Gear::CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
-						 size_t *pSizeOut, size_t *pSizePadHead, size_t *pSizePadTail)
-{
-	size_t sizePad = 0;
-	CalcPadding(sizeIn, sizeKernel, strides, paddingType, pSizeOut, &sizePad);
-	*pSizePadHead = sizePad / 2;
-	*pSizePadTail = sizePad - *pSizePadHead;
+	if (pSizePad != nullptr) *pSizePad = sizePad;
+	if (pSizeOut != nullptr) *pSizeOut = sizeOut;
 }
 
 Gear::PaddingType Gear::SymbolToPaddingType(Signal &sig, const Symbol *pSymbol)
@@ -104,6 +105,17 @@ Object_gear::Object_gear(Class *pClass, Gear *pGear) :
 {
 }
 
+bool Object_gear::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return _pGear->DoDirProp(env, symbols);
+}
+
+Value Object_gear::DoGetProp(Environment &env, const Symbol *pSymbol,
+							 const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return _pGear->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 String Object_gear::ToString(bool exprFlag)
 {
 	String str;
@@ -116,19 +128,20 @@ String Object_gear::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// gear.calcpadding(size_in:number, size_kernel:number, strides:number, padding:symbol)
+// gear.calcpadding(size_in:number, size_kernel:number, strides:number, padding:symbol):map {block?}
 Gura_DeclareClassMethod(gear, calcpadding)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size_in", VTYPE_number);
 	DeclareArg(env, "size_kernel", VTYPE_number);
 	DeclareArg(env, "strides", VTYPE_number);
 	DeclareArg(env, "padding", VTYPE_symbol);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
 		"Calculates padding amounts from given input size, gear size and strides.\n"
 		"The argument `padding` specifies padding manner and can take `` `same`` or `` `valid``.\n"
-		"The returned value is a list of `[size_out, padding]`.");
+		"The returned value is a list of `[padding, size_out]`.");
 }
 
 Gura_ImplementClassMethod(gear, calcpadding)
@@ -138,9 +151,9 @@ Gura_ImplementClassMethod(gear, calcpadding)
 	size_t strides = arg.GetSizeT(2);
 	Gear::PaddingType paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(3));
 	if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
-	size_t sizeOut = 0, sizePad = 0;
-	Gear::CalcPadding(sizeIn, sizeKernel, strides, paddingType, &sizeOut, &sizePad);
-	return Value::CreateList(env, Value(sizeOut), Value(sizePad));
+	size_t sizePad = 0, sizeOut = 0;
+	Gear::CalcPadding(sizeIn, sizeKernel, strides, paddingType, &sizePad, &sizeOut);
+	return Value::CreateList(env, Value(sizePad), Value(sizeOut));
 }
 
 //-----------------------------------------------------------------------------

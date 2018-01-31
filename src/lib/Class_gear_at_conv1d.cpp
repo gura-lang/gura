@@ -16,21 +16,37 @@ Gear_Conv1d::GearFuncTable Gear_Conv1d::gearFuncTable = {{{nullptr}}};
 bool Gear_Conv1d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
 	size_t sizePad = 0;
-	CalcPadding1d(this, pArray->GetDimensions(), &sizePad);
+	CalcPadding1d(this, pArray->GetDims(), &sizePad);
 	return pArray->CalcConv1d(sig, pArrayRtn, GetArrayGear(), GetStrides(), sizePad, GetChannelPos());
+}
+
+bool Gear_Conv1d::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Gear::DoDirProp(env, symbols);
+}
+
+Value Gear_Conv1d::DoGetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Gear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 String Gear_Conv1d::ToString() const
 {
 	char buff[80];
 	String str = "conv1d";
+	str += ":filter_num=";
 	if (HasFilterDim()) {
-		::sprintf(buff, ":filter_num=%zu", GetFilterNum());
+		::sprintf(buff, "%zu", GetFilterNum());
 		str += buff;
+	} else {
+		str += "none";
 	}
+	str += ":channel_num=";
 	if (HasChannelDim()) {
-		::sprintf(buff, ":channel_num=%zu", GetChannelNum());
+		::sprintf(buff, "%zu", GetChannelNum());
 		str += buff;
+	} else {
+		str += "none";
 	}
 	::sprintf(buff, ":size=%zu", GetSize());
 	str += buff;
@@ -41,6 +57,46 @@ String Gear_Conv1d::ToString() const
 	::sprintf(buff, ":channel_pos=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
 	str += buff;
 	return str;
+}
+
+Object *Gear_Conv1d::ToObject(Environment &env) const
+{
+	return new Object_gear_at_conv1d(env, Reference());
+}
+
+//-----------------------------------------------------------------------------
+// NodeGear_Conv1d
+//-----------------------------------------------------------------------------
+bool NodeGear_Conv1d::IsVulnerable() const
+{
+	return true;
+}
+
+bool NodeGear_Conv1d::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return NodeGear::DoDirProp(env, symbols);
+}
+
+Value NodeGear_Conv1d::DoGetProp(Environment &env, const Symbol *pSymbol,
+								   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
+bool NodeGear_Conv1d::EvalForward(Environment &env)
+{
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+}
+
+bool NodeGear_Conv1d::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+Trainer::NodeGear *NodeGear_Conv1d::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
+{
+	return new NodeGear_Conv1d(Object_gear_at_conv1d::GetObject(value)->GetGear()->Reference(), pConnectorDst,
+							   pTrainer->CreateOptimizerInstance());
 }
 
 //-----------------------------------------------------------------------------
@@ -99,38 +155,30 @@ Gura_DeclareFunctionAlias(gear_at_conv1d, "gear@conv1d")
 Gura_ImplementFunction(gear_at_conv1d)
 {
 	const Array *pArrayGear = Object_array::GetObject(arg, 0)->GetArray();
-	const Array::Dimensions &dims = pArrayGear->GetDimensions();
+	const Array::Dimensions &dims = pArrayGear->GetDims();
 	size_t nDims = dims.size();
 	if (nDims != 1 && nDims != 2 && nDims != 3) {
 		env.SetError(ERR_ValueError,
 					 "the `array` instance given to `gear@conv1d` constructor must have dimensions of 1, 2 or 3.");
 		return Value::Nil;
 	}
-	size_t strides = arg.IsValid(1)? arg.GetSizeT(1) : 1;
+	size_t strides = 1;
 	Gear::PaddingType paddingType = Gear::PADDINGTYPE_Same;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_Invalid;
+	if (arg.IsValid(1)) {
+		strides = arg.GetSizeT(1);
+	}
 	if (arg.IsValid(2)) {
 		paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
 	}
-	Array::ChannelPos channelPos = Array::CHANNELPOS_Invalid;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
-		if (channelPos == Array::CHANNELPOS_Invalid) {
-			return Value::Nil;
-		} else if (channelPos == Array::CHANNELPOS_None) {
-			if (nDims == 3) {
-				env.SetError(ERR_ValueError, "channel dimension does exist in the array");
-				return Value::Nil;
-			}
-		} else if (channelPos == Array::CHANNELPOS_Last) {
-			if (nDims == 1) {
-				env.SetError(ERR_ValueError, "channel dimension is expected to exist at last");
-				return Value::Nil;
-			}
-		}
+		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
 	} else {
 		channelPos = (nDims == 1)? Array::CHANNELPOS_None : Array::CHANNELPOS_Last;
 	}
+	if (!dims.HasEnoughDims(env, 1, channelPos)) return Value::Nil;
 	Object_gear_at_conv1d *pObj = new Object_gear_at_conv1d(
 		env, new Gear_Conv1d(pArrayGear->Reference(), strides, paddingType, channelPos));
 	return ReturnValue(env, arg, Value(pObj));
@@ -265,6 +313,8 @@ void Class_gear_at_conv1d::DoPrepare(Environment &env)
 	Gura_AssignProperty(gear_at_conv1d, padding);
 	Gura_AssignProperty(gear_at_conv1d, size);
 	Gura_AssignProperty(gear_at_conv1d, strides);
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_conv1d, new NodeGear_Conv1d::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

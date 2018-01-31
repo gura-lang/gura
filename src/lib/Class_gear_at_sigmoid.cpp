@@ -24,9 +24,70 @@ bool Gear_Sigmoid::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pA
 	return (*gearFunc)(sig, pArrayRtn, pArray, this);
 }
 
+bool Gear_Sigmoid::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Gear::DoDirProp(env, symbols);
+}
+
+Value Gear_Sigmoid::DoGetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Gear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 String Gear_Sigmoid::ToString() const
 {
 	return "sigmoid";
+}
+
+Object *Gear_Sigmoid::ToObject(Environment &env) const
+{
+	return new Object_gear_at_sigmoid(env, Reference());
+}
+
+//-----------------------------------------------------------------------------
+// NodeGear_Sigmoid
+//-----------------------------------------------------------------------------
+bool NodeGear_Sigmoid::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool NodeGear_Sigmoid::EvalForward(Environment &env)
+{
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+}
+
+bool NodeGear_Sigmoid::EvalBackward(Environment &env)
+{
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
+	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
+		// 1 - y
+		if (!Array::Sub(env, _pArrayTmp, 1, _pArrayFwd.get())) return false;
+		// (1 - y) * y
+		if (!Array::Mul(env, _pArrayTmp, _pArrayTmp.get(), _pArrayFwd.get())) return false;
+		if (env.IsSignalled()) return false;
+		// (1 - y) * y * grad_in
+		if (!Array::Mul(env, _connectorSrc.GetArrayGradAutoPtr(),
+						_pArrayTmp.get(), (*ppConnectorDst)->GetArrayGrad())) return false;
+	}
+	return true;
+}
+
+bool NodeGear_Sigmoid::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return NodeGear::DoDirProp(env, symbols);
+}
+
+Value NodeGear_Sigmoid::DoGetProp(Environment &env, const Symbol *pSymbol,
+										   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return NodeGear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
+Trainer::NodeGear *NodeGear_Sigmoid::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
+{
+	return new NodeGear_Sigmoid(Object_gear_at_sigmoid::GetObject(value)->GetGear()->Reference(), pConnectorDst);
 }
 
 //-----------------------------------------------------------------------------
@@ -77,6 +138,8 @@ void Class_gear_at_sigmoid::DoPrepare(Environment &env)
 	Gura_AssignFunction(gear_at_sigmoid);
 	// Assignment of value
 	Object_gear_at_sigmoid::valueConst = Value(new Object_gear_at_sigmoid(env, new Gear_Sigmoid()));
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_sigmoid, new NodeGear_Sigmoid::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

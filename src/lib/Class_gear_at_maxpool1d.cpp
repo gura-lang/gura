@@ -13,13 +13,19 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 bool Gear_MaxPool1d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
-	size_t sizeOut = 0, sizePad = 0;
-	bool chLastFlag = (GetChannelPos() == Array::CHANNELPOS_Last);
-	const Array::Dimensions &dims = pArray->GetDimensions();
-	Gear::CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(), GetSize(), GetStrides(), GetPaddingType(),
-						&sizeOut, &sizePad);
-	pArray->CalcMaxPool1d(pArrayRtn, GetSize(), GetStrides(), sizePad, GetChannelPos());
-	return true;
+	size_t sizePad = 0;
+	CalcPadding1d(this, pArray->GetDims(), &sizePad);
+	return pArray->CalcMaxPool1d(sig, pArrayRtn, GetSize(), GetStrides(), sizePad, GetChannelPos());
+}
+
+bool Gear_MaxPool1d::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Gear::DoDirProp(env, symbols);
+}
+
+Value Gear_MaxPool1d::DoGetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Gear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 String Gear_MaxPool1d::ToString() const
@@ -36,6 +42,34 @@ String Gear_MaxPool1d::ToString() const
 	::sprintf(buff, ":channel_pos=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
 	str += buff;
 	return str;
+}
+
+Object *Gear_MaxPool1d::ToObject(Environment &env) const
+{
+	return new Object_gear_at_maxpool1d(env, Reference());
+}
+
+//-----------------------------------------------------------------------------
+// NodeGear_MaxPool1d
+//-----------------------------------------------------------------------------
+bool NodeGear_MaxPool1d::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool NodeGear_MaxPool1d::EvalForward(Environment &env)
+{
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+}
+
+bool NodeGear_MaxPool1d::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+Trainer::NodeGear *NodeGear_MaxPool1d::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
+{
+	return new NodeGear_MaxPool1d(Object_gear_at_maxpool1d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
 }
 
 //-----------------------------------------------------------------------------
@@ -83,11 +117,14 @@ Gura_ImplementFunction(gear_at_maxpool1d)
 	size_t size = arg.GetSizeT(0);
 	size_t strides = arg.IsValid(1)? arg.GetSizeT(1) : 1;
 	Gear::PaddingType paddingType = Gear::PADDINGTYPE_Same;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
+	if (arg.IsValid(1)) {
+		strides = arg.GetSizeT(1);
+	}
 	if (arg.IsValid(2)) {
 		paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
 	}
-	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
 		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
@@ -177,6 +214,8 @@ void Class_gear_at_maxpool1d::DoPrepare(Environment &env)
 	Gura_AssignProperty(gear_at_maxpool1d, padding);
 	Gura_AssignProperty(gear_at_maxpool1d, size);
 	Gura_AssignProperty(gear_at_maxpool1d, strides);
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_maxpool1d, new NodeGear_MaxPool1d::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

@@ -11,8 +11,17 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 // Object_Struct
 //-----------------------------------------------------------------------------
-Object_Struct::Object_Struct(const Object_Struct &obj) : Object(obj)
+Object_Struct::Object_Struct(const Object_Struct &obj) : Object(obj.GetClass())
 {
+	const DeclarationList &declList = obj.GetDeclList();
+	foreach_const (DeclarationList, ppDecl, declList) {
+		const Declaration *pDecl = *ppDecl;
+		const Symbol *pSymbol = pDecl->GetSymbol();
+		const Value *pValue = obj.LookupValue(pSymbol, ENVREF_NoEscalate);
+		if (pValue != nullptr) {
+			AssignValue(pSymbol, *pValue, EXTRA_Public);
+		}
+	}	
 }
 
 Object_Struct::~Object_Struct()
@@ -28,8 +37,7 @@ String Object_Struct::ToString(bool exprFlag)
 {
 	Signal sig;
 	bool evaluatedFlag = false;
-	Value value = EvalMethod(*this, Gura_Symbol(__str__),
-											ValueList::Empty, evaluatedFlag);
+	Value value = EvalMethod(*this, Gura_Symbol(__str__), ValueList::Empty, evaluatedFlag);
 	if (sig.IsSignalled()) return "";
 	if (evaluatedFlag) return value.ToString(false);
 	String str;

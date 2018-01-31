@@ -13,7 +13,7 @@ template<typename T_ElemRtnA, typename T_ElemRtnB,
 		 typename T_Elem, void (*op)(T_ElemRtnA &, T_ElemRtnB &, const T_Elem &)>
 void PairFuncTmpl(Signal &sig, Array **ppArrayRtnA, Array **ppArrayRtnB, const Array *pArray)
 {
-	const Array::Dimensions &dims = pArray->GetDimensions();
+	const Array::Dimensions &dims = pArray->GetDims();
 	AutoPtr<ArrayT<T_ElemRtnA> > pArrayTRtnA(
 		(*ppArrayRtnA == nullptr)? ArrayT<T_ElemRtnA>::Create(dims) :
 		dynamic_cast<ArrayT<T_ElemRtnA> *>((*ppArrayRtnA)->Reference()));
@@ -58,7 +58,7 @@ template<typename T_ElemRtn, typename T_Elem, typename T_ElemGear>
 bool GearFuncTmpl_Conv1d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Gear_Conv1d *pGear)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	const Array::Dimensions &dims = pArrayT->GetDims();
 	pArrayRtn.reset(ArrayT<T_Elem>::Create(dims));
 	return true;
 }
@@ -70,7 +70,7 @@ template<typename T_ElemRtn, typename T_Elem, typename T_ElemGear>
 bool GearFuncTmpl_Conv2d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Gear_Conv2d *pGear)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	const Array::Dimensions &dims = pArrayT->GetDims();
 	pArrayRtn.reset(ArrayT<T_Elem>::Create(dims));
 	return true;
 }
@@ -82,7 +82,7 @@ template<typename T_ElemRtn, typename T_Elem, typename T_ElemGear>
 bool GearFuncTmpl_Conv3d(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Gear_Conv3d *pGear)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	const Array::Dimensions &dims = pArrayT->GetDims();
 	pArrayRtn.reset(ArrayT<T_Elem>::Create(dims));
 	return true;
 }
@@ -112,7 +112,7 @@ template<typename T_Elem>
 bool GearFuncTmpl_Softmax(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, const Gear_Softmax *pGear)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	const Array::Dimensions &dims = pArrayT->GetDims();
 	size_t axis = pGear->GetAxis();
 	if (axis > dims.size() - 1) axis = dims.size() - 1;
 	Array::Dimensions::const_iterator pDimAxis = dims.begin() + axis;

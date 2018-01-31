@@ -352,26 +352,29 @@ Environment *Argument::PrepareEnvironment(Environment &env)
 	return _pEnvPrepared->Reference();
 }
 
-bool Argument::GetListValues(size_t idxArg, Value *pValue1, Value *pValue2)
+bool Argument::GetListValues(size_t idxArg, Value *pValue1, Value *pValue2, ValueType valType)
 {
 	const ValueList &valList = GetList(idxArg);
 	if (valList.size() != 2) return false;
+	if (valType != VTYPE_any && !valList.CheckIfElementsInstanceOf(valType)) return false;
 	*pValue1 = valList[0], *pValue2 = valList[1];
 	return true;
 }
 
-bool Argument::GetListValues(size_t idxArg, Value *pValue1, Value *pValue2, Value *pValue3)
+bool Argument::GetListValues(size_t idxArg, Value *pValue1, Value *pValue2, Value *pValue3, ValueType valType)
 {
 	const ValueList &valList = GetList(idxArg);
 	if (valList.size() != 3) return false;
+	if (valType != VTYPE_any && !valList.CheckIfElementsInstanceOf(valType)) return false;
 	*pValue1 = valList[0], *pValue2 = valList[1], *pValue3 = valList[2];
 	return true;
 }
 
-bool Argument::GetListValues(size_t idxArg, Value *pValue1, Value *pValue2, Value *pValue3, Value *pValue4)
+bool Argument::GetListValues(size_t idxArg, Value *pValue1, Value *pValue2, Value *pValue3, Value *pValue4, ValueType valType)
 {
 	const ValueList &valList = GetList(idxArg);
 	if (valList.size() != 4) return false;
+	if (valType != VTYPE_any && !valList.CheckIfElementsInstanceOf(valType)) return false;
 	*pValue1 = valList[0], *pValue2 = valList[1], *pValue3 = valList[2], *pValue4 = valList[3];
 	return true;
 }

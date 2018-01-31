@@ -23,11 +23,35 @@ public:
 private:
 	size_t _axis;
 public:
-	inline Gear_Softmax(size_t axis = static_cast<size_t>(-1)) : _axis(axis) {}
+	Gura_DeclareReferenceAccessor(Gear_Softmax);
+public:
+	inline Gear_Softmax(size_t axis = static_cast<size_t>(-1)) : Gear("gear@softmax"), _axis(axis) {}
 	inline size_t GetAxis() const { return _axis; }
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString() const;
+	virtual Object *ToObject(Environment &env) const;
+};
+
+//-------------------------------------------------------------------------
+// NodeGear_Softmax
+//-------------------------------------------------------------------------
+class NodeGear_Softmax : public Trainer::NodeGear {
+public:
+	class CreatorEx : public Creator {
+	public:
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const;
+	};
+public:
+	inline NodeGear_Softmax(Gear_Softmax *pGear, Connector *pConnectorDst) :
+			NodeGear(pGear, pConnectorDst) {}
+	inline Gear_Softmax *GetGear() { return dynamic_cast<Gear_Softmax *>(_pGear.get()); }
+	virtual bool IsVulnerable() const;
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------

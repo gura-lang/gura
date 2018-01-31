@@ -94,124 +94,90 @@ void Array::FlipAxisMajor()
 	}
 }
 
-void Array::StoreDimensions(const Dimensions &dims)
+void Array::StoreDims(const Dimensions &dims)
 {
-	_dims = dims;
+	_dims.Store(dims);
 }
 
-void Array::SetDimension(size_t size)
+void Array::SetDim(size_t size)
 {
-	_dims.reserve(1);
-	_dims.push_back(Dimension(size));
+	_dims.Store(size);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(size_t size1, size_t size2)
+void Array::SetDims(size_t size1, size_t size2)
 {
-	_dims.reserve(2);
-	_dims.push_back(Dimension(size1));
-	_dims.push_back(Dimension(size2));
+	_dims.Store(size1, size2);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(size_t size1, size_t size2, size_t size3)
+void Array::SetDims(size_t size1, size_t size2, size_t size3)
 {
-	_dims.reserve(3);
-	_dims.push_back(Dimension(size1));
-	_dims.push_back(Dimension(size2));
-	_dims.push_back(Dimension(size3));
+	_dims.Store(size1, size2, size3);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(size_t size1, size_t size2, size_t size3, size_t size4)
+void Array::SetDims(size_t size1, size_t size2, size_t size3, size_t size4)
 {
-	_dims.reserve(4);
-	_dims.push_back(Dimension(size1));
-	_dims.push_back(Dimension(size2));
-	_dims.push_back(Dimension(size3));
-	_dims.push_back(Dimension(size4));
+	_dims.Store(size1, size2, size3, size4);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(const Dimensions &dims)
+void Array::SetDims(const Dimensions &dims)
 {
-	_dims = dims;
+	_dims.Store(dims);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
+void Array::SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
 {
-	_dims.reserve(std::distance(pDim, pDimEnd));
-	std::copy(pDim, pDimEnd, std::back_inserter(_dims));
+	_dims.Store(pDim, pDimEnd);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(size_t size,
-						  Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
+void Array::SetDims(size_t size, Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
 {
-	_dims.reserve(std::distance(pDim, pDimEnd) + 1);
-	_dims.push_back(Dimension(size));
-	_dims.insert(_dims.end(), pDim, pDimEnd);
+	_dims.Store(size, pDim, pDimEnd);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-						  size_t size)
+void Array::SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd, size_t size)
 {
-	_dims.reserve(std::distance(pDim, pDimEnd) + 1);
-	_dims.insert(_dims.end(), pDim, pDimEnd);
-	_dims.push_back(Dimension(size));
+	_dims.Store(pDim, pDimEnd, size);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+void Array::SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t size1, size_t size2)
 {
-	_dims.reserve(std::distance(pDim, pDimEnd) + 2);
-	_dims.insert(_dims.end(), pDim, pDimEnd);
-	_dims.push_back(Dimension(size1));
-	_dims.push_back(Dimension(size2));
+	_dims.Store(pDim, pDimEnd, size1, size2);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+void Array::SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t size1, size_t size2, size_t size3)
 {
-	_dims.reserve(std::distance(pDim, pDimEnd) + 3);
-	_dims.insert(_dims.end(), pDim, pDimEnd);
-	_dims.push_back(Dimension(size1));
-	_dims.push_back(Dimension(size2));
-	_dims.push_back(Dimension(size3));
+	_dims.Store(pDim, pDimEnd, size1, size2, size3);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+void Array::SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
 						  size_t size1, size_t size2, size_t size3, size_t size4)
 {
-	_dims.reserve(std::distance(pDim, pDimEnd) + 4);
-	_dims.insert(_dims.end(), pDim, pDimEnd);
-	_dims.push_back(Dimension(size1));
-	_dims.push_back(Dimension(size2));
-	_dims.push_back(Dimension(size3));
-	_dims.push_back(Dimension(size4));
+	_dims.Store(pDim, pDimEnd, size1, size2, size3, size4);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
+void Array::SetDims(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
 						  Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End)
 {
-	_dims.reserve(std::distance(pDim1, pDim1End) + std::distance(pDim2, pDim2End));
-	_dims.insert(_dims.end(), pDim1, pDim1End);
-	_dims.insert(_dims.end(), pDim2, pDim2End);
+	_dims.Store(pDim1, pDim1End, pDim2, pDim2End);
 	UpdateMetrics();
 }
 
-void Array::SetDimensions(const ValueList &valList)
+void Array::SetDims(const ValueList &valList)
 {
-	_dims.reserve(valList.size());
-	foreach_const (ValueList, pValue, valList) {
-		_dims.push_back(pValue->GetSizeT());
-	}
+	_dims.Store(valList);
 	UpdateMetrics();
 }
 
@@ -222,14 +188,14 @@ void Array::FillZero()
 
 bool Array::Head(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 {
-	const Dimension &dimFirst = GetDimensions().front();
+	const Dimension &dimFirst = GetDims().front();
 	if (n > dimFirst.GetSize()) {
 		sig.SetError(ERR_OutOfRangeError, "specified size is out of range");
 		return false;
 	}
 	size_t offsetBase = GetOffsetBase();
 	pArrayRtn.reset(Create(GetElemType()));
-	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetDims(n, GetDims().begin() + 1, GetDims().end());
 	if (IsColMajor()) pArrayRtn->SetColMajor();
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
@@ -237,14 +203,14 @@ bool Array::Head(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 
 bool Array::Tail(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 {
-	const Dimension &dimFirst = GetDimensions().front();
+	const Dimension &dimFirst = GetDims().front();
 	if (n > dimFirst.GetSize()) {
 		sig.SetError(ERR_OutOfRangeError, "specified size is out of range");
 		return false;
 	}
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * (dimFirst.GetSize() - n);
 	pArrayRtn.reset(Create(GetElemType()));
-	pArrayRtn->SetDimensions(n, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetDims(n, GetDims().begin() + 1, GetDims().end());
 	if (IsColMajor()) pArrayRtn->SetColMajor();
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
@@ -252,7 +218,7 @@ bool Array::Tail(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 
 bool Array::Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 {
-	const Dimension &dimFirst = GetDimensions().front();
+	const Dimension &dimFirst = GetDims().front();
 	if (n > dimFirst.GetSize()) {
 		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
 		return false;
@@ -260,10 +226,18 @@ bool Array::Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const
 	size_t nElems = dimFirst.GetSize() - n;
 	size_t offsetBase = GetOffsetBase() + dimFirst.GetStrides() * n;
 	pArrayRtn.reset(Create(GetElemType()));
-	pArrayRtn->SetDimensions(nElems, GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayRtn->SetDims(nElems, GetDims().begin() + 1, GetDims().end());
 	if (IsColMajor()) pArrayRtn->SetColMajor();
 	pArrayRtn->SetMemory(GetMemory().Reference(), offsetBase);
 	return true;
+}
+
+void Array::Reshape(AutoPtr<Array> &pArrayRtn, const Dimensions &dims) const
+{
+	pArrayRtn.reset(Create(GetElemType()));
+	pArrayRtn->SetDims(dims);
+	if (IsColMajor()) pArrayRtn->SetColMajor();
+	pArrayRtn->SetMemory(GetMemory().Reference(), GetOffsetBase());
 }
 
 bool Array::Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const
@@ -286,7 +260,7 @@ bool Array::Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &val
 		return false;
 	}
 	pArrayRtn.reset(Create(GetElemType()));
-	Dimensions &dims = pArrayRtn->GetDimensions();
+	Dimensions &dims = pArrayRtn->GetDims();
 	dims.reserve(valList.size());
 	foreach_const (ValueList, pValue, valList) {
 		if (pValue->Is_number() && pValue->GetNumber() >= 0) {
@@ -303,7 +277,7 @@ bool Array::Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &val
 
 bool Array::Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const
 {
-	if (GetDimensions().size() != valList.size()) {
+	if (GetDims().size() != valList.size()) {
 		sig.SetError(ERR_ValueError, "mismatched number of axes to transpose");
 		return false;
 	}
@@ -314,13 +288,14 @@ bool Array::Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &v
 			sig.SetError(ERR_ValueError, "duplicated axis is specified");
 			return false;
 		}
-		if (axis >= GetDimensions().size()) {
+		if (axis >= GetDims().size()) {
 			sig.SetError(ERR_ValueError, "specified axis is out of range");
 			return false;
 		}
 		axes.push_back(axis);
 	}
-	return Transpose(pArrayRtn, axes);
+	Transpose(pArrayRtn, axes);
+	return true;
 }
 
 void Array::Transpose2d(AutoPtr<Array> &pArrayRtn) const
@@ -348,7 +323,7 @@ bool Array::Paste(Signal &sig, size_t offset, const Array *pArraySrc)
 bool Array::CheckDimsGearForCalcConv(Signal &sig, const Dimensions &dimsGear,
 									   size_t nDimsKernel, ChannelPos channelPos) const
 {
-	const Dimensions &dims = GetDimensions();
+	const Dimensions &dims = GetDims();
 	size_t iDimBack = 0;
 	if (channelPos == CHANNELPOS_Last) {
 		if (iDimBack >= dims.size()) goto error_done;
@@ -381,55 +356,15 @@ error_done:
 	return false;
 }
 
-bool Array::CalcConv1d(
-	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear, size_t stridesKernel,
-	size_t sizePad, ChannelPos channelPos) const
-{
-	if (!CheckDimsGearForCalcConv(sig, pArrayGear->GetDimensions(), 1, channelPos)) return false;
-	CalcConv1d(pArrayRtn, pArrayGear, stridesKernel, sizePad, channelPos);
-	return true;
-}
-
-bool Array::CalcConv2d(
-	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
-	size_t stridesKernelRow, size_t stridesKernelCol,
-	size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
-{
-	if (!CheckDimsGearForCalcConv(sig, pArrayGear->GetDimensions(), 2, channelPos)) return false;
-	CalcConv2d(pArrayRtn, pArrayGear, stridesKernelRow, stridesKernelCol, sizePadRow, sizePadCol, channelPos);
-	return true;
-}
-
-bool Array::CalcConv3d(
-	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
-	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
-{
-	if (!CheckDimsGearForCalcConv(sig, pArrayGear->GetDimensions(), 3, channelPos)) return false;
-	CalcConv3d(sig, pArrayRtn, pArrayGear, stridesKernelPlane, stridesKernelRow, stridesKernelCol,
-			   sizePadPlane, sizePadRow, sizePadCol, channelPos);
-	return true;
-}
-
 bool Array::IsSquare() const
 {
 	return _dims.HasRowCol() && (_dims.GetRow().GetSize() == _dims.GetCol().GetSize());
 }
 
-bool Array::HasShape(size_t size) const
-{
-	return (_dims.size() == 1) && _dims[0].GetSize() == size;
-}
-
-bool Array::HasShape(size_t sizeRow, size_t sizeCol) const
-{
-	return (_dims.size() == 2) && _dims[0].GetSize() == sizeRow && _dims[1].GetSize() == sizeCol;
-}
-
 bool Array::HasSameElements(const Array &array) const
 {
 	if (GetElemType() != array.GetElemType()) return false;
-	if (!Dimensions::IsSameShape(GetDimensions(), array.GetDimensions())) return false;
+	if (!Dimensions::IsSameShape(GetDims(), array.GetDims())) return false;
 	size_t bytes = GetElemBytes() * GetElemNum();
 	if (memcmp(GetPointerRaw(), array.GetPointerRaw(), bytes) != 0) return false;
 	return true;
@@ -449,10 +384,16 @@ bool Array::PrepareModification(Signal &sig)
 
 Value Array::ToValue(Environment &env, Array *pArray)
 {
-	return (pArray == nullptr)? Value::Nil :
-		!pArray->IsScalar()? Value(new Object_array(env, pArray)) :
-		pArray->IsElemType(ETYPE_Complex)? Value(pArray->GetScalarComplex()) :
-		Value(pArray->GetScalarNumber());
+	if (pArray == nullptr) {
+		return Value::Nil;
+	} else if (pArray->IsScalar()) {
+		Value valueRtn = pArray->IsElemType(ETYPE_Complex)?
+			Value(pArray->GetScalarComplex()) : Value(pArray->GetScalarNumber());
+		Array::Delete(pArray);
+		return valueRtn;
+	} else {
+		return Value(new Object_array(env, pArray));
+	}
 }
 
 bool Array::Serialize(Environment &env, Stream &stream) const
@@ -471,7 +412,7 @@ Array *Array::Deserialize(Environment &env, Stream &stream)
 	Array::Dimensions dims;
 	if (!dims.Deserialize(env, stream)) return nullptr;
 	AutoPtr<Array> pArray(Create(static_cast<ElemType>(elemTypeRaw)));
-	pArray->StoreDimensions(dims);
+	pArray->StoreDims(dims);
 	pArray->AllocMemory();
 	size_t bytes = pArray->GetElemBytes() * pArray->GetElemNum();
 	if (stream.Read(env, pArray->GetPointerRaw(), bytes) < bytes) return nullptr;
@@ -990,6 +931,211 @@ void Array::SetError_UnacceptableValueAsElement(Environment &env, const Value &v
 //-----------------------------------------------------------------------------
 // Array::Dimensions
 //-----------------------------------------------------------------------------
+void Array::Dimensions::Store(size_t size)
+{
+	reserve(1);
+	push_back(Dimension(size));
+}
+
+void Array::Dimensions::Store(size_t size1, size_t size2)
+{
+	reserve(2);
+	push_back(Dimension(size1));
+	push_back(Dimension(size2));
+}
+
+void Array::Dimensions::Store(size_t size1, size_t size2, size_t size3)
+{
+	reserve(3);
+	push_back(Dimension(size1));
+	push_back(Dimension(size2));
+	push_back(Dimension(size3));
+}
+
+void Array::Dimensions::Store(size_t size1, size_t size2, size_t size3, size_t size4)
+{
+	reserve(4);
+	push_back(Dimension(size1));
+	push_back(Dimension(size2));
+	push_back(Dimension(size3));
+	push_back(Dimension(size4));
+}
+
+void Array::Dimensions::Store(const Dimensions &dims)
+{
+	*this = dims;
+}
+
+void Array::Dimensions::Store(const_iterator pDim, const_iterator pDimEnd)
+{
+	reserve(std::distance(pDim, pDimEnd));
+	insert(end(), pDim, pDimEnd);
+}
+
+void Array::Dimensions::Store(size_t size, const_iterator pDim, const_iterator pDimEnd)
+{
+	reserve(std::distance(pDim, pDimEnd) + 1);
+	push_back(Dimension(size));
+	insert(end(), pDim, pDimEnd);
+}
+
+void Array::Dimensions::Store(const_iterator pDim, const_iterator pDimEnd, size_t size)
+{
+	reserve(std::distance(pDim, pDimEnd) + 1);
+	insert(end(), pDim, pDimEnd);
+	push_back(Dimension(size));
+}
+
+void Array::Dimensions::Store(const_iterator pDim, const_iterator pDimEnd, size_t size1, size_t size2)
+{
+	reserve(std::distance(pDim, pDimEnd) + 2);
+	insert(end(), pDim, pDimEnd);
+	push_back(Dimension(size1));
+	push_back(Dimension(size2));
+}
+
+void Array::Dimensions::Store(const_iterator pDim, const_iterator pDimEnd,
+							  size_t size1, size_t size2, size_t size3)
+{
+	reserve(std::distance(pDim, pDimEnd) + 3);
+	insert(end(), pDim, pDimEnd);
+	push_back(Dimension(size1));
+	push_back(Dimension(size2));
+	push_back(Dimension(size3));
+}
+
+void Array::Dimensions::Store(const_iterator pDim, const_iterator pDimEnd,
+							  size_t size1, size_t size2, size_t size3, size_t size4)
+{
+	reserve(std::distance(pDim, pDimEnd) + 4);
+	insert(end(), pDim, pDimEnd);
+	push_back(Dimension(size1));
+	push_back(Dimension(size2));
+	push_back(Dimension(size3));
+	push_back(Dimension(size4));
+}
+
+void Array::Dimensions::Store(const_iterator pDim1, const_iterator pDim1End,
+							  const_iterator pDim2, const_iterator pDim2End)
+{
+	reserve(std::distance(pDim1, pDim1End) + std::distance(pDim2, pDim2End));
+	insert(end(), pDim1, pDim1End);
+	insert(end(), pDim2, pDim2End);
+}
+
+void Array::Dimensions::Store(const ValueList &valList)
+{
+	reserve(valList.size());
+	foreach_const (ValueList, pValue, valList) {
+		push_back(pValue->GetSizeT());
+	}
+}
+
+bool Array::Dimensions::HasShape(size_t size1) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), size1) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(size_t size1, size_t size2) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), size1, size2) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(size_t size1, size_t size2, size_t size3) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), size1, size2, size3) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(size_t size1, size_t size2, size_t size3, size_t size4) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), size1, size2, size3, size4) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(const Dimensions &dims) const
+{
+	const_iterator pDimThis = begin(), pDim = dims.begin();
+	return Compare(pDimThis, end(), pDim, dims.end()) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(const_iterator pDim, const_iterator pDimEnd) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), pDim, pDimEnd) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(size_t size1, const_iterator pDim, const_iterator pDimEnd) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), size1) &&
+		Compare(pDimThis, end(), pDim, pDimEnd) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(const_iterator pDim, const_iterator pDimEnd, size_t size1) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), pDim, pDimEnd) &&
+		Compare(pDimThis, end(), size1) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(const_iterator pDim, const_iterator pDimEnd, size_t size1, size_t size2) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), pDim, pDimEnd) &&
+		Compare(pDimThis, end(), size1, size2) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(const_iterator pDim, const_iterator pDimEnd,
+								 size_t size1, size_t size2, size_t size3) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), pDim, pDimEnd) &&
+		Compare(pDimThis, end(), size1, size2, size3) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(const_iterator pDim, const_iterator pDimEnd,
+								 size_t size1, size_t size2, size_t size3, size_t size4) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), pDim, pDimEnd) &&
+		Compare(pDimThis, end(), size1, size2, size3, size4) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasShape(const_iterator pDim1, const_iterator pDim1End,
+								 const_iterator pDim2, const_iterator pDim2End) const
+{
+	const_iterator pDimThis = begin();
+	return Compare(pDimThis, end(), pDim1, pDim1End) &&
+		Compare(pDimThis, end(), pDim2, pDim2End) && pDimThis == end();
+}
+
+bool Array::Dimensions::HasEnoughDims(Signal &sig, size_t nDims, ChannelPos channelPos) const
+{
+	if (size() < nDims) {
+		sig.SetError(ERR_ValueError, "the array is expected to have at least %zu dimensions", nDims);
+		return false;
+	}
+	if (channelPos == CHANNELPOS_None) {
+		// nothing to do
+	} else if (channelPos == CHANNELPOS_First) {
+		if (size() <= nDims) {
+			sig.SetError(ERR_ValueError, "channel dimension is expected to exist at first");
+			return false;
+		}
+	} else if (channelPos == CHANNELPOS_Last) {
+		if (size() <= nDims) {
+			sig.SetError(ERR_ValueError, "channel dimension is expected to exist at last");
+			return false;
+		}
+	} else { // channelPos == Array::CHANNELPOS_Invalid
+		return false;
+	}
+	return true;
+}
+
 String Array::Dimensions::ToString(const_iterator pDim, const_iterator pDimEnd, const char *sep)
 {
 	String rtn;
@@ -1047,13 +1193,61 @@ bool Array::Dimensions::Deserialize(Environment &env, Stream &stream)
 	return true;
 }
 
-bool Array::Dimensions::IsSameShape(const_iterator pDimA, const_iterator pDimEndA,
-									const_iterator pDimB, const_iterator pDimEndB)
+bool Array::Dimensions::Compare(const_iterator &pDim, const_iterator pDimEnd, size_t size1)
+{
+	if (pDim == pDimEnd || pDim->GetSize() != size1) return false;
+	pDim++;
+	return true;
+}
+
+bool Array::Dimensions::Compare(const_iterator &pDim, const_iterator pDimEnd, size_t size1, size_t size2)
+{
+	if (pDim == pDimEnd || pDim->GetSize() != size1) return false;
+	pDim++;
+	if (pDim == pDimEnd || pDim->GetSize() != size2) return false;
+	pDim++;
+	return true;
+}
+
+bool Array::Dimensions::Compare(const_iterator &pDim, const_iterator pDimEnd,
+								size_t size1, size_t size2, size_t size3)
+{
+	if (pDim == pDimEnd || pDim->GetSize() != size1) return false;
+	pDim++;
+	if (pDim == pDimEnd || pDim->GetSize() != size2) return false;
+	pDim++;
+	if (pDim == pDimEnd || pDim->GetSize() != size3) return false;
+	pDim++;
+	return true;
+}
+
+bool Array::Dimensions::Compare(const_iterator &pDim, const_iterator pDimEnd,
+								size_t size1, size_t size2, size_t size3, size_t size4)
+{
+	if (pDim == pDimEnd || pDim->GetSize() != size1) return false;
+	pDim++;
+	if (pDim == pDimEnd || pDim->GetSize() != size2) return false;
+	pDim++;
+	if (pDim == pDimEnd || pDim->GetSize() != size3) return false;
+	pDim++;
+	if (pDim == pDimEnd || pDim->GetSize() != size4) return false;
+	pDim++;
+	return true;
+}
+
+bool Array::Dimensions::Compare(const_iterator &pDimA, const_iterator pDimEndA,
+								const_iterator &pDimB, const_iterator pDimEndB)
 {
 	for ( ; pDimA != pDimEndA && pDimB != pDimEndB; pDimA++, pDimB++) {
 		if (pDimA->GetSize() != pDimB->GetSize()) return false;
 	}
-	return pDimA == pDimEndA && pDimB == pDimEndB;
+	return true;
+}
+
+bool Array::Dimensions::IsSameShape(const_iterator pDimA, const_iterator pDimEndA,
+									const_iterator pDimB, const_iterator pDimEndB)
+{
+	return Compare(pDimA, pDimEndA, pDimB, pDimEndB) && pDimA == pDimEndA && pDimB == pDimEndB;
 }
 
 bool Array::Dimensions::CheckSameShape(Signal &sig, const_iterator pDimA, const_iterator pDimEndA,
@@ -1209,7 +1403,7 @@ template<typename T_Elem>
 bool InvertFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, Double epsilon)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<const ArrayT<T_Elem> *>(pArray);
-	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	const Array::Dimensions &dims = pArrayT->GetDims();
 	if (!dims.HasRowCol()) {
 		sig.SetError(ERR_ValueError, "inversion can only be calculated with matrix");
 		return false;
@@ -1222,7 +1416,7 @@ bool InvertFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray,
 	}
 	std::unique_ptr<T_Elem []> pElemWork(new T_Elem [nRows * nCols * 2]);
 	std::unique_ptr<T_Elem *[]> pElemRows(new T_Elem *[nRows]);
-	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_Elem>::Create(pArrayT->GetDimensions()));
+	if (pArrayRtn.IsNull()) pArrayRtn.reset(ArrayT<T_Elem>::Create(pArrayT->GetDims()));
 	size_t elemNumMat = nRows * nCols;
 	const T_Elem *pElemOrg = pArrayT->GetPointer();
 	T_Elem *pElemRtn = dynamic_cast<ArrayT<T_Elem> *>(pArrayRtn.get())->GetPointer();
@@ -1245,7 +1439,7 @@ bool InvertFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray,
 // Array::Indexer
 //-----------------------------------------------------------------------------
 Array::Indexer::Indexer(const Array *pArray) :
-	_pArray(pArray), _dims(pArray->GetDimensions()), _offsetTarget(0)
+	_pArray(pArray), _dims(pArray->GetDims()), _offsetTarget(0)
 {
 	_pDim = _dims.begin();
 }
@@ -1301,7 +1495,7 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 				env.SetError(ERR_IndexError, "array for indices must be boolean type");
 				return false;
 			}
-			const Dimensions &dimsIdx = pArrayIdx->GetDimensions();
+			const Dimensions &dimsIdx = pArrayIdx->GetDims();
 			if (!Dimensions::CheckSameShape(env, _pDim, _dims.end(), dimsIdx.begin(), dimsIdx.end())) return false;
 			std::unique_ptr<Generator> pGenerator(new Generator(1));
 			const Boolean *pElemIdx = dynamic_cast<const ArrayT<Boolean> *>(pArrayIdx)->GetPointer();
@@ -1357,7 +1551,7 @@ bool Array::Indexer::InitIndices(Environment &env, const ValueList &valListIdx)
 	return true;
 }
 
-void Array::Indexer::MakeResultDimensions(Dimensions &dimsRtn)
+void Array::Indexer::MakeResultDims(Dimensions &dimsRtn)
 {
 	if (_pGeneratorOwner.get() == nullptr) {
 		dimsRtn.reserve(std::distance(_pDim, _dims.end()));

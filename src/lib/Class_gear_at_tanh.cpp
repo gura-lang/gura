@@ -24,9 +24,47 @@ bool Gear_Tanh::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArra
 	return (*gearFunc)(sig, pArrayRtn, pArray, this);
 }
 
+bool Gear_Tanh::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Gear::DoDirProp(env, symbols);
+}
+
+Value Gear_Tanh::DoGetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Gear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 String Gear_Tanh::ToString() const
 {
 	return "tanh";
+}
+
+Object *Gear_Tanh::ToObject(Environment &env) const
+{
+	return new Object_gear_at_tanh(env, Reference());
+}
+
+//-----------------------------------------------------------------------------
+// NodeGear_Tanh
+//-----------------------------------------------------------------------------
+bool NodeGear_Tanh::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool NodeGear_Tanh::EvalForward(Environment &env)
+{
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+}
+
+bool NodeGear_Tanh::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+Trainer::NodeGear *NodeGear_Tanh::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
+{
+	return new NodeGear_Tanh(Object_gear_at_tanh::GetObject(value)->GetGear()->Reference(), pConnectorDst);
 }
 
 //-----------------------------------------------------------------------------
@@ -77,6 +115,8 @@ void Class_gear_at_tanh::DoPrepare(Environment &env)
 	Gura_AssignFunction(gear_at_tanh);
 	// Assignment of value
 	Object_gear_at_tanh::valueConst = Value(new Object_gear_at_tanh(env, new Gear_Tanh()));
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_tanh, new NodeGear_Tanh::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

@@ -429,9 +429,7 @@ Gura_DeclareMethodPrimitive(Object, tostring)
 
 Gura_ImplementMethod(Object, tostring)
 {
-	String str = arg.GetValueThis().ToString(false);
-	if (env.IsSignalled()) return Value::Nil;
-	return Value(str);
+	return Value(arg.GetValueThis().ToString(false));
 }
 
 //-----------------------------------------------------------------------------

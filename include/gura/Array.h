@@ -8,6 +8,28 @@
 #include "Iterator.h"
 #include "Stream.h"
 
+#define Gura_ImplementArrayMethod_Array_UnaryFunc(op) \
+inline static bool op(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) { \
+	return ApplyUnaryFunc(sig, unaryFuncPack_##op, pArrayRtn, pArray); \
+}
+
+#define Gura_ImplementArrayMethod_Array_BinaryFunc(op) \
+inline static bool op(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR) { \
+	return ApplyBinaryFunc(sig, binaryFuncPack_##op, pArrayRtn, pArrayL, pArrayR); \
+} \
+inline static bool op(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Double &elemR) { \
+	return ApplyBinaryFunc_array_number(sig, binaryFuncPack_##op, pArrayRtn, pArrayL, elemR); \
+} \
+inline static bool op(Signal &sig, AutoPtr<Array> &pArrayRtn, const Double &elemL, const Array *pArrayR) { \
+	return ApplyBinaryFunc_number_array(sig, binaryFuncPack_##op, pArrayRtn, elemL, pArrayR); \
+} \
+inline static bool op(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Complex &complexR) { \
+	return ApplyBinaryFunc_array_complex(sig, binaryFuncPack_##op, pArrayRtn, pArrayL, complexR); \
+} \
+inline static bool op(Signal &sig, AutoPtr<Array> &pArrayRtn, const Complex &complexL, const Array *pArrayR) { \
+	return ApplyBinaryFunc_complex_array(sig, binaryFuncPack_##op, pArrayRtn, complexL, pArrayR); \
+}
+
 namespace Gura {
 
 //-----------------------------------------------------------------------------
@@ -36,11 +58,13 @@ public:
 	enum ChannelPos {
 		CHANNELPOS_Invalid,
 		CHANNELPOS_None,
-		CHANNELPOS_Last,
 		CHANNELPOS_First,
+		CHANNELPOS_Last,
 	};
 public:
 	typedef bool (*UnaryFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray);
+	typedef bool (*Unary2OutFuncT)(Signal &sig, AutoPtr<Array> &pArrayRtnA,
+								   AutoPtr<Array> &pArrayRtnB, const Array *pArray);
 	typedef bool (*BinaryFuncT_array_array)(Signal &sig, AutoPtr<Array> &pArrayRtn,
 											const Array *pArrayL, const Array *pArrayR);
 	typedef bool (*BinaryFuncT_array_number)(Signal &sig, AutoPtr<Array> &pArrayRtn,
@@ -168,12 +192,49 @@ public:
 		inline bool IsColMajor() const { return !empty() && GetCol().GetStrides() != 1; }
 		inline bool IsRowMajor() const { return !IsColMajor(); }
 		inline size_t GetElemNum() const { return empty()? 1 : front().GetSizeProd(); }
+		void Store(size_t size1);
+		void Store(size_t size1, size_t size2);
+		void Store(size_t size1, size_t size2, size_t size3);
+		void Store(size_t size1, size_t size2, size_t size3, size_t size4);
+		void Store(const Dimensions &dims);
+		void Store(const_iterator pDim, const_iterator pDimEnd);
+		void Store(size_t size1, const_iterator pDim, const_iterator pDimEnd);
+		void Store(const_iterator pDim, const_iterator pDimEnd, size_t size1);
+		void Store(const_iterator pDim, const_iterator pDimEnd, size_t size1, size_t size2);
+		void Store(const_iterator pDim, const_iterator pDimEnd, size_t size1, size_t size2, size_t size3);
+		void Store(const_iterator pDim, const_iterator pDimEnd,
+						   size_t size1, size_t size2, size_t size3, size_t size4);
+		void Store(const_iterator pDim1, const_iterator pDim1End,
+						   const_iterator pDim2, const_iterator pDim2End);
+		void Store(const ValueList &valList);
+		bool HasShape(size_t size1) const;
+		bool HasShape(size_t size1, size_t size2) const;
+		bool HasShape(size_t size1, size_t size2, size_t size3) const;
+		bool HasShape(size_t size1, size_t size2, size_t size3, size_t size4) const;
+		bool HasShape(const Dimensions &dims) const;
+		bool HasShape(const_iterator pDim, const_iterator pDimEnd) const;
+		bool HasShape(size_t size1, const_iterator pDim, const_iterator pDimEnd) const;
+		bool HasShape(const_iterator pDim, const_iterator pDimEnd, size_t size1) const;
+		bool HasShape(const_iterator pDim, const_iterator pDimEnd, size_t size1, size_t size2) const;
+		bool HasShape(const_iterator pDim, const_iterator pDimEnd, size_t size1, size_t size2, size_t size3) const;
+		bool HasShape(const_iterator pDim, const_iterator pDimEnd,
+					  size_t size1, size_t size2, size_t size3, size_t size4) const;
+		bool HasShape(const_iterator pDim1, const_iterator pDim1End,
+					  const_iterator pDim2, const_iterator pDim2End) const;
+		bool HasEnoughDims(Signal &sig, size_t nDims, ChannelPos channelPos) const;
 		static String ToString(const_iterator pDim, const_iterator pDimEnd, const char *sep = ", ");
 		inline String ToString(const char *sep = ", ") const { return ToString(begin(), end(), sep); }
+		inline void Print() const { ::printf("%s\n", ToString().c_str()); }
 		bool Serialize(Environment &env, Stream &stream) const;
 		bool Deserialize(Environment &env, Stream &stream);
 		void UpdateMetrics();
 		void SetColMajor();
+		static bool Compare(const_iterator &pDim, const_iterator pDimEnd, size_t size1);
+		static bool Compare(const_iterator &pDim, const_iterator pDimEnd, size_t size1, size_t size2);
+		static bool Compare(const_iterator &pDim, const_iterator pDimEnd, size_t size1, size_t size2, size_t size3);
+		static bool Compare(const_iterator &pDim, const_iterator pDimEnd, size_t size1, size_t size2, size_t size3, size_t size4);
+		static bool Compare(const_iterator &pDimA, const_iterator pDimEndA,
+							const_iterator &pDimB, const_iterator pDimEndB);
 		static bool IsSameShape(const_iterator pDimA, const_iterator pDimEndA,
 								const_iterator pDimB, const_iterator pDimEndB);
 		inline static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB) {
@@ -225,7 +286,7 @@ public:
 	public:
 		Indexer(const Array *pArray);
 		bool InitIndices(Environment &env, const ValueList &valListIdx);
-		void MakeResultDimensions(Dimensions &dimsRtn);
+		void MakeResultDims(Dimensions &dimsRtn);
 		inline size_t GetOffsetTarget() const { return _offsetTarget; }
 		inline bool HasGenerator() const { return _pGeneratorOwner.get() != nullptr; }
 		inline bool IsEmptyGenerator() const { return HasGenerator() && _pGeneratorOwner->IsEmptyGenerator(); }
@@ -266,8 +327,8 @@ public:
 	}
 	inline Memory &GetMemory() { return *_pMemory; }
 	inline const Memory &GetMemory() const { return *_pMemory; }
-	inline Dimensions &GetDimensions() { return _dims; }
-	inline const Dimensions &GetDimensions() const { return _dims; }
+	inline Dimensions &GetDims() { return _dims; }
+	inline const Dimensions &GetDims() const { return _dims; }
 	inline bool IsScalar() const { return _dims.empty(); }
 	inline size_t GetElemNum() const { return _dims.GetElemNum(); }
 	inline void SetOffsetBase(size_t offsetBase) { _offsetBase = offsetBase; }
@@ -277,7 +338,7 @@ public:
 	inline char *GetPointerRaw() { return GetPointerRawOrigin() + GetOffsetBase() * GetElemBytes(); }
 	inline const char *GetPointerRaw() const { return GetPointerRawOrigin() + GetOffsetBase() * GetElemBytes(); }
 	virtual Array *Clone() const = 0;
-	virtual String ToString(bool exprFlag) const = 0;
+	virtual String ToString(bool exprFlag, size_t nDimsOnHorz = 1) const = 0;
 	virtual void Dump(Signal &sig, Stream &stream, bool upperFlag) const = 0;
 	virtual bool DoesContainZero() const = 0;
 	virtual bool DoesContainMinus() const = 0;
@@ -293,26 +354,27 @@ public:
 	static const char *GetElemTypeName(ElemType elemType);
 	inline const char *GetElemTypeName() const { return GetElemTypeName(_elemType); }
 	void FlipAxisMajor();
-	void StoreDimensions(const Dimensions &dims);
-	void SetDimension(size_t size);
-	void SetDimensions(size_t size1, size_t size2);
-	void SetDimensions(size_t size1, size_t size2, size_t size3);
-	void SetDimensions(size_t size1, size_t size2, size_t size3, size_t size4);
-	void SetDimensions(const Dimensions &dims);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
-	void SetDimensions(size_t size,
-					   Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-					   size_t size);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-					   size_t size1, size_t size2);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-					   size_t size1, size_t size2, size_t size3);
-	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
-					   size_t size1, size_t size2, size_t size3, size_t size4);
-	void SetDimensions(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
-					   Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
-	void SetDimensions(const ValueList &valList);
+	void StoreDims(const Dimensions &dims);
+	void SetDim(size_t size);
+	void SetDims(size_t size1, size_t size2);
+	void SetDims(size_t size1, size_t size2, size_t size3);
+	void SetDims(size_t size1, size_t size2, size_t size3, size_t size4);
+	void SetDims(const Dimensions &dims);
+	void SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
+	void SetDims(size_t size,
+				 Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
+	void SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+				 size_t size);
+	void SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+				 size_t size1, size_t size2);
+	void SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+				 size_t size1, size_t size2, size_t size3);
+	void SetDims(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+				 size_t size1, size_t size2, size_t size3, size_t size4);
+	void SetDims(Dimensions::const_iterator pDim1, Dimensions::const_iterator pDim1End,
+				 Dimensions::const_iterator pDim2, Dimensions::const_iterator pDim2End);
+	void SetDims(const ValueList &valList);
+	inline void PrintDims() const { _dims.Print(); }
 	inline void UpdateMetrics() { _dims.UpdateMetrics(); }
 	inline void SetColMajor() { _dims.SetColMajor(); }
 	void FillZero();
@@ -322,9 +384,10 @@ public:
 	bool Tail(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const;
 	bool Offset(Signal &sig, AutoPtr<Array> &pArrayRtn, size_t n) const;
 	virtual void Flatten(AutoPtr<Array> &pArrayRtn) const = 0;
+	void Reshape(AutoPtr<Array> &pArrayRtn, const Dimensions &dims) const;
 	bool Reshape(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const;
 	bool Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &valList) const;
-	virtual bool Transpose(AutoPtr<Array> &pArrayRtn, const IntList &axes) const = 0;
+	virtual void Transpose(AutoPtr<Array> &pArrayRtn, const IntList &axes) const = 0;
 	void Transpose2d(AutoPtr<Array> &pArrayRtn) const;
 	virtual bool FindMax(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis) const = 0;
 	virtual bool FindMin(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis) const = 0;
@@ -333,71 +396,73 @@ public:
 	virtual bool CalcSum(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool meanFlag) const = 0;
 	virtual bool CalcVar(Signal &sig, AutoPtr<Array> &pArrayRtn, int axis, bool populationFlag, bool stdFlag) const = 0;
 	bool Paste(Signal &sig, size_t offset, const Array *pArraySrc);
-	virtual void ExpandKernelVec1d(
-		AutoPtr<Array> &pArrayVec, size_t sizeKernel, size_t stridesKernel, size_t sizePad,
-		ChannelPos channelPos, Double padNum) const = 0;
-	virtual void ExpandKernelVec2d(
-		AutoPtr<Array> &pArrayVec, size_t sizeKernelRow, size_t sizeKernelCol,
+	virtual bool ExpandKernelVec1d(
+		Signal &sig, AutoPtr<Array> &pArrayVec, size_t *pSize, size_t sizeKernel, size_t stridesKernel,
+		size_t sizePad, ChannelPos channelPos, Double padNum) const = 0;
+	virtual bool ExpandKernelVec2d(
+		Signal &sig, AutoPtr<Array> &pArrayVec, size_t *pSizeRow, size_t *pSizeCol,
+		size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol, size_t sizePadRow, size_t sizePadCol,
 		ChannelPos channelPos, Double padNum) const = 0;
-	virtual void ExpandKernelVec3d(
-		AutoPtr<Array> &pArrayVec, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+	virtual bool ExpandKernelVec3d(
+		Signal &sig, AutoPtr<Array> &pArrayVec, size_t *pSizePlane, size_t *pSizeRow, size_t *pSizeCol,
+		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol,
 		ChannelPos channelPos, Double padNum) const = 0;
-	virtual void RestoreKernelVec1d(
-		AutoPtr<Array> &pArrayRtn, size_t size, size_t sizeKernel, size_t stridesKernel,
+	virtual bool RestoreKernelVec1d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t size, size_t sizeKernel, size_t stridesKernel,
 		size_t sizePad, ChannelPos channelPos) const = 0;
-	virtual void RestoreKernelVec2d(
-		AutoPtr<Array> &pArrayRtn, size_t sizeRow, size_t sizeCol,
+	virtual bool RestoreKernelVec2d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeRow, size_t sizeCol,
 		size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
-	virtual void RestoreKernelVec3d(
-		AutoPtr<Array> &pArrayRtn, size_t sizePlane, size_t sizeRow, size_t sizeCol,
+	virtual bool RestoreKernelVec3d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizePlane, size_t sizeRow, size_t sizeCol,
 		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
-	virtual void CalcMaxPool1d(
-		AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
+	virtual bool CalcMaxPool1d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
 		size_t sizePad, ChannelPos channelPos) const = 0;
-	virtual void CalcMaxPool2d(
-		AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
+	virtual bool CalcMaxPool2d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
-	virtual void CalcMaxPool3d(
-		AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+	virtual bool CalcMaxPool3d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
+	virtual bool CalcMaxPoolWithIndex1d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, AutoPtr<Array> &pArrayOfIndex,
+		size_t sizeKernel, size_t stridesKernel,
+		size_t sizePad, ChannelPos channelPos) const = 0;
+	virtual bool CalcMaxPoolWithIndex2d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, AutoPtr<Array> &pArrayOfIndex,
+		size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
+	virtual bool CalcMaxPoolWithIndex3d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, AutoPtr<Array> &pArrayOfIndex,
+		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
 	bool CheckDimsGearForCalcConv(Signal &sig, const Dimensions &dimsGear,
-									size_t nDimsKernel, ChannelPos channelPos) const;
-	virtual void CalcConv1d(
-		AutoPtr<Array> &pArrayRtn, const Array *pArrayGear, size_t stridesKernel,
+								  size_t nDimsKernel, ChannelPos channelPos) const;
+	virtual bool CalcConv1d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear, size_t stridesKernel,
 		size_t sizePad, ChannelPos channelPos) const = 0;
-	virtual void CalcConv2d(
-		AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
+	virtual bool CalcConv2d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
 		size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
-	virtual void CalcConv3d(
-		AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
+	virtual bool CalcConv3d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
-	bool CalcConv1d(
-		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear, size_t stridesKernel,
-		size_t sizePad, ChannelPos channelPos) const;
-	bool CalcConv2d(
-		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
-		size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
-	bool CalcConv3d(
-		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear,
-		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
-		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const = 0;
 	bool IsSquare() const;
-	bool HasShape(size_t size) const;
-	bool HasShape(size_t sizeRow, size_t sizeCol) const;
-	bool HasShape(const Value &valList) const;
 	bool HasSameElements(const Array &array) const;
 	bool PrepareModification(Signal &sig);
 	static Value ToValue(Environment &env, Array *pArray);
@@ -415,11 +480,11 @@ public:
 		return pArrayA->IsColMajor() == pArrayB->IsColMajor();
 	}
 	inline static bool CheckSameShape(Signal &sig, const Array *pArrayA, const Array *pArrayB) {
-		return Dimensions::CheckSameShape(sig, pArrayA->GetDimensions(), pArrayB->GetDimensions());
+		return Dimensions::CheckSameShape(sig, pArrayA->GetDims(), pArrayB->GetDims());
 	}
 	inline static bool CheckElemwiseCalculatable(Signal &sig, const BinaryFuncPack &pack,
 												 const Array *pArrayL, const Array *pArrayR) {
-		return Dimensions::CheckElemwiseCalculatable(sig, pack, pArrayL->GetDimensions(), pArrayR->GetDimensions());
+		return Dimensions::CheckElemwiseCalculatable(sig, pack, pArrayL->GetDims(), pArrayR->GetDims());
 	}
 	static bool CopyElements(Environment &env, Array *pArrayDst, const Array *pArraySrc);
 	static bool CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeDst,
@@ -454,27 +519,84 @@ public:
 		Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray, Double epsilon);
 	static void SetError_UnacceptableValueAsElement(Environment &env, const Value &value);
 public:
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Pos);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Neg);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Add);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Sub);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Mul);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Div);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Mod);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Pow);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Dot);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Eq);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Ne);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Gt);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Lt);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Ge);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Le);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(And);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Or);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Xor);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Shl);
+	Gura_ImplementArrayMethod_Array_BinaryFunc(Shr);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_abs);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_acos);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_arg);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_asin);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_atan);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_ceil);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_conj);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_cos);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_cosh);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_delta);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_exp);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_floor);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_imag);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_log);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_log10);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_norm);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_real);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_relu);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_sigmoid);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_sin);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_sinh);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_sqrt);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_tan);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_tanh);
+	Gura_ImplementArrayMethod_Array_UnaryFunc(Math_unitstep);
+public:
 	template<typename T_Elem> inline static bool IsZero(const T_Elem &elem) { return elem == 0; }
 	template<typename T_ElemRtn, typename T_Elem, typename T_Operator>
 	static bool UnaryFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray);
 	template<typename T_ElemRtn, typename T_Elem, typename T_Operator>
 	static bool UnaryFuncTmpl_ExcludeZero(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray);
+	template<typename T_ElemRtnA, typename T_ElemRtnB, typename T_Elem, typename T_Operator>
+	static bool Unary2OutFuncTmpl(Signal &sig, AutoPtr<Array> &pArrayRtnA,
+								  AutoPtr<Array> &pArrayRtnB, const Array *pArray);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR);
+	static bool BinaryFuncTmpl_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn,
+										   const Array *pArrayL, const Array *pArrayR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_array_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const T_ElemR &elemR);
+	static bool BinaryFuncTmpl_array_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn,
+											const Array *pArrayL, const T_ElemR &elemR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_scalar_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const T_ElemL &elemL, const Array *pArrayR);
+	static bool BinaryFuncTmpl_scalar_array(Signal &sig, AutoPtr<Array> &pArrayRtn,
+											const T_ElemL &elemL, const Array *pArrayR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_scalar_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, const T_ElemL &elemL, const T_ElemR &elemR);
+	static bool BinaryFuncTmpl_scalar_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn,
+											 const T_ElemL &elemL, const T_ElemR &elemR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_Div_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR);
+	static bool BinaryFuncTmpl_Div_array_array(Signal &sig, AutoPtr<Array> &pArrayRtn,
+											   const Array *pArrayL, const Array *pArrayR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_Div_array_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const T_ElemR &elemR);
+	static bool BinaryFuncTmpl_Div_array_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn,
+												const Array *pArrayL, const T_ElemR &elemR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_Div_scalar_array(Signal &sig, AutoPtr<Array> &pArrayRtn, const T_ElemL &elemL, const Array *pArrayR);
+	static bool BinaryFuncTmpl_Div_scalar_array(Signal &sig, AutoPtr<Array> &pArrayRtn,
+												const T_ElemL &elemL, const Array *pArrayR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR, typename T_Operator>
-	static bool BinaryFuncTmpl_Div_scalar_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn, const T_ElemL &elemL, const T_ElemR &elemR);
+	static bool BinaryFuncTmpl_Div_scalar_scalar(Signal &sig, AutoPtr<Array> &pArrayRtn,
+												 const T_ElemL &elemL, const T_ElemR &elemR);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>
 	static void DotFuncTmpl_1d_1d(T_ElemRtn *pElemRtn, const T_ElemL *pElemL, const T_ElemR *pElemR, size_t size);
 	template<typename T_ElemRtn, typename T_ElemL, typename T_ElemR>

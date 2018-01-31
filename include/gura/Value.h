@@ -247,6 +247,7 @@ public:
 	inline bool Is_memory() const				{ return IsType(VTYPE_memory);					}
 	inline bool Is_monitor() const				{ return IsType(VTYPE_monitor);					}
 	inline bool Is_operator() const				{ return IsType(VTYPE_operator);				}
+	inline bool Is_optimizer() const			{ return IsType(VTYPE_optimizer);				}
 	inline bool Is_palette() const				{ return IsType(VTYPE_palette);					}
 	inline bool Is_pointer() const				{ return IsType(VTYPE_pointer);					}
 	inline bool Is_propdeclaration() const		{ return IsType(VTYPE_propdeclaration);			}
@@ -257,6 +258,7 @@ public:
 	inline bool Is_timedelta() const			{ return IsType(VTYPE_timedelta);				}
 	inline bool Is_token() const				{ return IsType(VTYPE_token);					}
 	inline bool Is_trainer() const				{ return IsType(VTYPE_trainer);					}
+	inline bool Is_trainernode() const			{ return IsType(VTYPE_trainernode);				}
 	inline bool Is_uri() const					{ return IsType(VTYPE_uri);						}
 	inline bool Is_vertex() const				{ return IsType(VTYPE_vertex);					}
 	inline bool Is_gear() const					{ return IsType(VTYPE_gear);					}
@@ -374,6 +376,8 @@ public:
 								{ return MustBe(sig, Is_monitor(), 		"monitor");			}
 	inline bool MustBe_operator(Signal &sig) const
 								{ return MustBe(sig, Is_operator(), 	"operator");		}
+	inline bool MustBe_optimizer(Signal &sig) const
+								{ return MustBe(sig, Is_optimizer(),	"optimizer");		}
 	inline bool MustBe_palette(Signal &sig) const
 								{ return MustBe(sig, Is_palette(), 		"palette");			}
 	inline bool MustBe_pointer(Signal &sig) const
@@ -394,6 +398,8 @@ public:
 								{ return MustBe(sig, Is_token(),	 	"token");			}
 	inline bool MustBe_trainer(Signal &sig) const
 								{ return MustBe(sig, Is_trainer(),		"trainer");			}
+	inline bool MustBe_trainernode(Signal &sig) const
+								{ return MustBe(sig, Is_trainernode(),	"trainernode");		}
 	inline bool MustBe_uri(Signal &sig) const
 								{ return MustBe(sig, Is_uri(), 			"uri");				}
 	inline bool MustBe_vertex(Signal &sig) const

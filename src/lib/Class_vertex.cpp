@@ -148,10 +148,10 @@ Gura_DeclareClassMethod(vertex, cross)
 
 Gura_ImplementClassMethod(vertex, cross)
 {
-	const Vertex &v1 = Object_vertex::GetObject(arg, 0)->GetVertex();
-	const Vertex &v2 = Object_vertex::GetObject(arg, 1)->GetVertex();
-	return ReturnValue(
-		env, arg, Value(new Object_vertex(env, Vertex::CalcCrossProduct(v1, v2))));
+	Vertex vRtn;
+	Vertex::Cross(vRtn, Object_vertex::GetObject(arg, 0)->GetVertex(),
+				  Object_vertex::GetObject(arg, 1)->GetVertex());
+	return ReturnValue(env, arg, Value(new Object_vertex(env, vRtn)));
 }
 
 // vertex.dot(v1:vertex, v2:vertex):map {block?}
@@ -169,10 +169,10 @@ Gura_DeclareClassMethod(vertex, dot)
 
 Gura_ImplementClassMethod(vertex, dot)
 {
-	const Vertex &v1 = Object_vertex::GetObject(arg, 0)->GetVertex();
-	const Vertex &v2 = Object_vertex::GetObject(arg, 1)->GetVertex();
-	return ReturnValue(
-		env, arg, Value(Vertex::CalcDotProduct(v1, v2)));
+	double rtn;
+	Vertex::Dot(rtn, Object_vertex::GetObject(arg, 0)->GetVertex(),
+				  Object_vertex::GetObject(arg, 1)->GetVertex());
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 // vertex#norm()
@@ -187,8 +187,9 @@ Gura_DeclareMethod(vertex, norm)
 
 Gura_ImplementMethod(vertex, norm)
 {
-	const Vertex &vertex = Object_vertex::GetObjectThis(arg)->GetVertex();
-	return Value(Vertex::CalcNorm(vertex));
+	double rtn;
+	Vertex::Norm(rtn, Object_vertex::GetObjectThis(arg)->GetVertex());
+	return Value(rtn);
 }
 
 // vertex.normal(v1:vertex, v2:vertex, v3:vertex):map:[unit] {block?}
@@ -213,12 +214,13 @@ Gura_DeclareClassMethod(vertex, normal)
 
 Gura_ImplementClassMethod(vertex, normal)
 {
-	const Vertex &v1 = Object_vertex::GetObject(arg, 0)->GetVertex();
-	const Vertex &v2 = Object_vertex::GetObject(arg, 1)->GetVertex();
-	const Vertex &v3 = Object_vertex::GetObject(arg, 2)->GetVertex();
-	bool unitFlag = arg.IsSet(Gura_Symbol(unit));
-	return ReturnValue(
-		env, arg, Value(new Object_vertex(env, Vertex::CalcNormal(v1, v2, v3, unitFlag))));
+	Vertex vRtn;
+	Vertex::Normal(vRtn,
+				   Object_vertex::GetObject(arg, 0)->GetVertex(),
+				   Object_vertex::GetObject(arg, 1)->GetVertex(),
+				   Object_vertex::GetObject(arg, 2)->GetVertex(),
+				   arg.IsSet(Gura_Symbol(unit)));
+	return ReturnValue(env, arg, Value(new Object_vertex(env, vRtn)));
 }
 
 // vertex#rotate@x(angle:number):[deg] {block?}

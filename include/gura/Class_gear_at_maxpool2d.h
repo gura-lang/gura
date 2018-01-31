@@ -20,9 +20,11 @@ private:
 	PaddingType _paddingType;
 	Array::ChannelPos _channelPos;
 public:
+	Gura_DeclareReferenceAccessor(Gear_MaxPool2d);
+public:
 	inline Gear_MaxPool2d(size_t sizeRow, size_t sizeCol, size_t stridesRow, size_t stridesCol,
 							PaddingType paddingType, Array::ChannelPos channelPos) :
-		_sizeRow(sizeRow), _sizeCol(sizeCol),
+		Gear("gear@maxpool2d"), _sizeRow(sizeRow), _sizeCol(sizeCol),
 		_stridesRow(stridesRow), _stridesCol(stridesCol),
 		_paddingType(paddingType), _channelPos(channelPos) {}
 	inline size_t GetSizeRow() const { return _sizeRow; }
@@ -33,7 +35,33 @@ public:
 	inline Array::ChannelPos GetChannelPos() const { return _channelPos; }
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString() const;
+	virtual Object *ToObject(Environment &env) const;
+};
+
+//-------------------------------------------------------------------------
+// NodeGear_MaxPool2d
+//-------------------------------------------------------------------------
+class NodeGear_MaxPool2d : public Trainer::NodeGear {
+private:
+	size_t _sizePadRow;
+	size_t _sizePadCol;
+	AutoPtr<Array> _pArrayOfIndex;
+public:
+	class CreatorEx : public Creator {
+	public:
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const;
+	};
+public:
+	inline NodeGear_MaxPool2d(Gear_MaxPool2d *pGear, Connector *pConnectorDst) :
+		NodeGear(pGear, pConnectorDst), _sizePadRow(0), _sizePadCol(0) {}
+	inline Gear_MaxPool2d *GetGear() { return dynamic_cast<Gear_MaxPool2d *>(_pGear.get()); }
+	virtual bool IsVulnerable() const;
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------

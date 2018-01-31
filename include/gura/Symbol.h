@@ -378,6 +378,7 @@ public:
 	Gura_DeclareSymbol(func_scope);
 	Gura_DeclareSymbol(g);
 	Gura_DeclareSymbol(G);
+	Gura_DeclareSymbol(gear);
 	Gura_DeclareSymbol(gnuc);
 	Gura_DeclareSymbol(gray);
 	Gura_DeclareSymbol(green);
@@ -401,6 +402,12 @@ public:
 	Gura_DeclareSymbol(indent);
 	Gura_DeclareSymbol(index);
 	Gura_DeclareSymbol(indices);
+	Gura_DeclareSymbol(input);
+	Gura_DeclareSymbol(input_at_left);
+	Gura_DeclareSymbol(input_at_right);
+	Gura_DeclareSymbol(inputgrad);
+	Gura_DeclareSymbol(inputgrad_at_left);
+	Gura_DeclareSymbol(inputgrad_at_right);
 	Gura_DeclareSymbol(inside_scope);
 	Gura_DeclareSymbol(int_);
 	Gura_DeclareSymbol(int8);
@@ -498,6 +505,8 @@ public:
 	Gura_DeclareSymbol(open_r);
 	Gura_DeclareSymbol(operator_);
 	Gura_DeclareSymbol(or);
+	Gura_DeclareSymbol(output);
+	Gura_DeclareSymbol(outputgrad);
 	Gura_DeclareSymbol(overwrite);
 	Gura_DeclareSymbol(p);
 	Gura_DeclareSymbol(P);

@@ -24,7 +24,7 @@ Value CallMethod(Environment &env, Argument &arg, const MethodT methods[],
 ArrayT<Complex> *MakeArrayResult(const Array::Dimensions &dims)
 {
 	AutoPtr<ArrayT<Complex> > pArrayT(ArrayT<Complex>::Create());
-	pArrayT->SetDimensions(dims.begin(), dims.begin() + dims.size() - 1, dims.back().GetSize() / 2 + 1);
+	pArrayT->SetDims(dims.begin(), dims.begin() + dims.size() - 1, dims.back().GetSize() / 2 + 1);
 	pArrayT->AllocMemory();
 	return pArrayT.release();
 }
@@ -57,7 +57,7 @@ template<typename T_Elem>
 Value Method_array_dft(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	ArrayT<T_Elem> *pArrayTSelf = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	const Array::Dimensions &dims = pArrayTSelf->GetDimensions();
+	const Array::Dimensions &dims = pArrayTSelf->GetDims();
 	AutoPtr<ArrayT<Complex> > pArrayTRtn(MakeArrayResult(dims));
 	std::unique_ptr<int []> n(MakeDimension(dims));
 	AutoPtr<Memory> pMemoryIn(new MemoryHeap(sizeof(double) * pArrayTSelf->GetElemNum()));
@@ -82,7 +82,7 @@ template<>
 Value Method_array_dft<Double>(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	ArrayT<Double> *pArrayTSelf = dynamic_cast<ArrayT<Double> *>(pArraySelf);
-	const Array::Dimensions &dims = pArrayTSelf->GetDimensions();
+	const Array::Dimensions &dims = pArrayTSelf->GetDims();
 	AutoPtr<ArrayT<Complex> > pArrayTRtn(MakeArrayResult(dims));
 	std::unique_ptr<int []> n(MakeDimension(dims));
 	double *in = pArrayTSelf->GetPointer();
@@ -99,7 +99,7 @@ template<>
 Value Method_array_dft<Complex>(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	ArrayT<Complex> *pArrayTSelf = dynamic_cast<ArrayT<Complex> *>(pArraySelf);
-	const Array::Dimensions &dims = pArrayTSelf->GetDimensions();
+	const Array::Dimensions &dims = pArrayTSelf->GetDims();
 	AutoPtr<ArrayT<Complex> > pArrayTRtn(MakeArrayResult(dims));
 	std::unique_ptr<int []> n(MakeDimension(dims));
 	fftw_complex *in = reinterpret_cast<fftw_complex *>(pArrayTSelf->GetPointer());

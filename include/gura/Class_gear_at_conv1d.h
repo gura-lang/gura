@@ -5,6 +5,7 @@
 #define __GURA_CLASS_GEAR_AT_CONV1D_H__
 
 #include "Class_gear.h"
+#include "Trainer.h"
 
 namespace Gura {
 
@@ -26,29 +27,66 @@ private:
 	PaddingType _paddingType;
 	Array::ChannelPos _channelPos;
 public:
+	Gura_DeclareReferenceAccessor(Gear_Conv1d);
+public:
 	inline Gear_Conv1d(Array *pArrayGear, size_t strides, PaddingType paddingType, Array::ChannelPos channelPos) :
-		_pArrayGear(pArrayGear), _strides(strides),
+		Gear("gear@conv1d"), _pArrayGear(pArrayGear), _strides(strides),
 		_paddingType(paddingType), _channelPos(channelPos) {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString() const;
+	virtual Object *ToObject(Environment &env) const;
 	inline bool IsChLast() const { return _channelPos == Array::CHANNELPOS_Last; }
 	inline Array *GetArrayGear() { return _pArrayGear.get(); }
 	inline const Array *GetArrayGear() const { return _pArrayGear.get(); }
-	inline bool HasChannelDim() const { return _pArrayGear->GetDimensions().size() >= 2; }
-	inline bool HasFilterDim() const { return _pArrayGear->GetDimensions().size() == 3; }
+	inline bool HasChannelDim() const {
+		return _channelPos == Array::CHANNELPOS_First || _channelPos == Array::CHANNELPOS_Last;
+	}
+	inline bool HasFilterDim() const {
+		return _pArrayGear->GetDims().size() == (HasChannelDim()? 3 : 2);
+	}
 	inline size_t GetSize() const {
-		return _pArrayGear->GetDimensions().GetBack(IsChLast()? 1 : 0).GetSize();
+		return _pArrayGear->GetDims().GetBack(IsChLast()? 1 : 0).GetSize();
 	}
 	inline size_t GetChannelNum() const {
-		return HasChannelDim()? _pArrayGear->GetDimensions().GetBack(IsChLast()? 0 : 1).GetSize() : 1;
+		return HasChannelDim()? _pArrayGear->GetDims().GetBack(IsChLast()? 0 : 1).GetSize() : 1;
 	}
 	inline size_t GetFilterNum() const {
-		return HasFilterDim()? _pArrayGear->GetDimensions().GetBack(2).GetSize() : 1;
+		return HasFilterDim()? _pArrayGear->GetDims().GetBack(HasChannelDim()? 2 : 1).GetSize() : 1;
 	}
 	inline size_t GetStrides() const { return _strides; }
 	inline PaddingType GetPaddingType() const { return _paddingType; }
 	inline Array::ChannelPos GetChannelPos() const { return _channelPos; }
+};
+
+//-------------------------------------------------------------------------
+// NodeGear_Conv1d
+//-------------------------------------------------------------------------
+class NodeGear_Conv1d : public Trainer::NodeGear {
+public:
+	class CreatorEx : public Creator {
+	public:
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const;
+	};
+private:
+	std::unique_ptr<Trainer::Optimizer::Instance> _pOptimizerInst;
+	AutoPtr<Array> _pArrayFwdSrcVec;
+	AutoPtr<Array> _pArrayGearReshape;
+	AutoPtr<Array> _pArrayGearTrans;
+	AutoPtr<Array> _pArrayFwdPre;
+public:
+	inline NodeGear_Conv1d(Gear_Conv1d *pGear, Connector *pConnectorDst, Trainer::Optimizer::Instance *pOptimizerInst) :
+		NodeGear(pGear, pConnectorDst), _pOptimizerInst(pOptimizerInst) {}
+	inline Gear_Conv1d *GetGear() { return dynamic_cast<Gear_Conv1d *>(_pGear.get()); }
+	virtual bool IsVulnerable() const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------

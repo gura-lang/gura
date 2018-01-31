@@ -24,9 +24,50 @@ bool Gear_Softmax::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pA
 	return (*gearFunc)(sig, pArrayRtn, pArray, this);
 }
 
+bool Gear_Softmax::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Gear::DoDirProp(env, symbols);
+}
+
+Value Gear_Softmax::DoGetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Gear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
 String Gear_Softmax::ToString() const
 {
 	return "softmax";
+}
+
+Object *Gear_Softmax::ToObject(Environment &env) const
+{
+	return new Object_gear_at_softmax(env, Reference());
+}
+
+//-----------------------------------------------------------------------------
+// NodeGear_Softmax
+//-----------------------------------------------------------------------------
+bool NodeGear_Softmax::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool NodeGear_Softmax::EvalForward(Environment &env)
+{
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+}
+
+bool NodeGear_Softmax::EvalBackward(Environment &env)
+{
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
+	_connectorSrc.SetArrayGrad((*ppConnectorDst)->GetArrayGrad()->Reference());
+	return true;
+}
+
+Trainer::NodeGear *NodeGear_Softmax::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
+{
+	return new NodeGear_Softmax(Object_gear_at_softmax::GetObject(value)->GetGear()->Reference(), pConnectorDst);
 }
 
 //-----------------------------------------------------------------------------
@@ -98,6 +139,8 @@ void Class_gear_at_softmax::DoPrepare(Environment &env)
 	// Assignment of properties
 	Gura_AssignProperty(gear_at_softmax, axis);
 	// Assignment of value
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_softmax, new NodeGear_Softmax::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

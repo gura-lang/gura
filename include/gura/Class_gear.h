@@ -20,77 +20,81 @@ public:
 	};
 protected:
 	int _cntRef;
+	const char *_name;
 public:
 	Gura_DeclareReferenceAccessor(Gear);
 public:
-	inline Gear() : _cntRef(1) {}
+	inline Gear(const char *name) : _cntRef(1), _name(name) {}
 protected:
 	virtual ~Gear();
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const = 0;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString() const = 0;
+	virtual Object *ToObject(Environment &env) const = 0;
 public:
+	inline const char *GetName() const { return _name; }
 	static void CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
-							size_t *pSizeOut, size_t *pSizePad);
-	static void CalcPadding(size_t sizeIn, size_t sizeKernel, size_t strides, PaddingType paddingType,
-							size_t *pSizeOut, size_t *pSizePadHead, size_t *pSizePadTail);
+							size_t *pSizePad, size_t *pSizeOut);
 	static PaddingType SymbolToPaddingType(Signal &sig, const Symbol *pSymbol);
 	static PaddingType SymbolToPaddingType(const Symbol *pSymbol);
 	static const Symbol *PaddingTypeToSymbol(PaddingType paddingType);
 	template<typename T_Gear>
-	static void CalcPadding1d(const T_Gear *pGear, const Array::Dimensions &dims,
-							  size_t *pSizePad);
+	static void CalcPadding1d(
+		const T_Gear *pGear, const Array::Dimensions &dims,
+		size_t *pSizePad, size_t *pSizeOut = nullptr);
 	template<typename T_Gear>
-	static void CalcPadding2d(const T_Gear *pGear, const Array::Dimensions &dims,
-							  size_t *pSizePadRow, size_t *pSizePadCol);
+	static void CalcPadding2d(
+		const T_Gear *pGear, const Array::Dimensions &dims,
+		size_t *pSizePadRow, size_t *pSizePadCol,
+		size_t *pSizeOutRow = nullptr, size_t *pSizeOutCol = nullptr);
 	template<typename T_Gear>
-	static void CalcPadding3d(const T_Gear *pGear, const Array::Dimensions &dims,
-							  size_t *pSizePadPlane, size_t *pSizePadRow, size_t *pSizePadCol);
+	static void CalcPadding3d(
+		const T_Gear *pGear, const Array::Dimensions &dims,
+		size_t *pSizePadPlane, size_t *pSizePadRow, size_t *pSizePadCol,
+		size_t *pSizeOutPlane = nullptr, size_t *pSizeOutRow = nullptr, size_t *pSizeOutCol = nullptr);
 };
 
 template<typename T_Gear>
 void Gear::CalcPadding1d(const T_Gear *pGear, const Array::Dimensions &dims,
-						  size_t *pSizePad)
+						 size_t *pSizePad, size_t *pSizeOut)
 {
-	size_t sizeOut = 0;
 	bool chLastFlag = (pGear->GetChannelPos() == Array::CHANNELPOS_Last);
 	CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
 				pGear->GetSize(), pGear->GetStrides(), pGear->GetPaddingType(),
-				&sizeOut, pSizePad);
+				pSizePad, pSizeOut);
 }
 
 template<typename T_Gear>
 void Gear::CalcPadding2d(const T_Gear *pGear, const Array::Dimensions &dims,
-						   size_t *pSizePadRow, size_t *pSizePadCol)
+						 size_t *pSizePadRow, size_t *pSizePadCol, size_t *pSizeOutRow, size_t *pSizeOutCol)
 {
-	size_t sizeOutRow = 0;
-	size_t sizeOutCol = 0;
 	bool chLastFlag = (pGear->GetChannelPos() == Array::CHANNELPOS_Last);
 	CalcPadding(dims.GetBack(chLastFlag? 2 : 1).GetSize(),
 				pGear->GetSizeRow(), pGear->GetStridesRow(), pGear->GetPaddingType(),
-				&sizeOutRow, pSizePadRow);
+				pSizePadRow, pSizeOutRow);
 	CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
 				pGear->GetSizeCol(), pGear->GetStridesCol(), pGear->GetPaddingType(),
-				&sizeOutCol, pSizePadCol);
+				pSizePadCol, pSizeOutCol);
 }
 
 template<typename T_Gear>
 void Gear::CalcPadding3d(const T_Gear *pGear, const Array::Dimensions &dims,
-						   size_t *pSizePadPlane, size_t *pSizePadRow, size_t *pSizePadCol)
+						 size_t *pSizePadPlane, size_t *pSizePadRow, size_t *pSizePadCol,
+						 size_t *pSizeOutPlane, size_t *pSizeOutRow, size_t *pSizeOutCol)
 {
-	size_t sizeOutPlane = 0;
-	size_t sizeOutRow = 0;
-	size_t sizeOutCol = 0;
 	bool chLastFlag = (pGear->GetChannelPos() == Array::CHANNELPOS_Last);
 	CalcPadding(dims.GetBack(chLastFlag? 3 : 2).GetSize(),
 				pGear->GetSizePlane(), pGear->GetStridesPlane(), pGear->GetPaddingType(),
-				&sizeOutPlane, pSizePadPlane);
+				pSizePadPlane, pSizeOutPlane);
 	CalcPadding(dims.GetBack(chLastFlag? 2 : 1).GetSize(),
 				pGear->GetSizeRow(), pGear->GetStridesRow(), pGear->GetPaddingType(),
-				&sizeOutRow, pSizePadRow);
+				pSizePadRow, pSizeOutRow);
 	CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
 				pGear->GetSizeCol(), pGear->GetStridesCol(), pGear->GetPaddingType(),
-				&sizeOutCol, pSizePadCol);
+				pSizePadCol, pSizeOutCol);
 }
 
 //-----------------------------------------------------------------------------
@@ -114,6 +118,9 @@ public:
 public:
 	Object_gear(Environment &env, Gear *pGear);
 	Object_gear(Class *pClass, Gear *pGear);
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Gear *GetGear() { return _pGear.get(); }
 	inline const Gear *GetGear() const { return _pGear.get(); }

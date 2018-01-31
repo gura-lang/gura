@@ -13,24 +13,21 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 bool Gear_MaxPool3d::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const
 {
-	size_t sizeOutPlane = 0, sizePadPlane = 0;
-	size_t sizeOutRow = 0, sizePadRow = 0;
-	size_t sizeOutCol = 0, sizePadCol = 0;
-	bool chLastFlag = (GetChannelPos() == Array::CHANNELPOS_Last);
-	const Array::Dimensions &dims = pArray->GetDimensions();
-	Gear::CalcPadding(dims.GetBack(chLastFlag? 3 : 2).GetSize(),
-						GetSizePlane(), GetStridesPlane(), GetPaddingType(),
-						&sizeOutPlane, &sizePadPlane);
-	Gear::CalcPadding(dims.GetBack(chLastFlag? 2 : 1).GetSize(),
-						GetSizeRow(), GetStridesRow(), GetPaddingType(),
-						&sizeOutRow, &sizePadRow);
-	Gear::CalcPadding(dims.GetBack(chLastFlag? 1 : 0).GetSize(),
-						GetSizeCol(), GetStridesCol(), GetPaddingType(),
-						&sizeOutCol, &sizePadCol);
-	pArray->CalcMaxPool3d(pArrayRtn, GetSizePlane(), GetSizeRow(), GetSizeCol(),
-						  GetStridesPlane(), GetStridesRow(), GetStridesCol(),
-						  sizePadPlane, sizePadRow, sizePadCol, GetChannelPos());
-	return true;
+	size_t sizePadPlane = 0, sizePadRow = 0, sizePadCol = 0;
+	CalcPadding3d(this, pArray->GetDims(), &sizePadPlane, &sizePadRow, &sizePadCol);
+	return pArray->CalcMaxPool3d(sig, pArrayRtn, GetSizePlane(), GetSizeRow(), GetSizeCol(),
+								 GetStridesPlane(), GetStridesRow(), GetStridesCol(),
+								 sizePadPlane, sizePadRow, sizePadCol, GetChannelPos());
+}
+
+bool Gear_MaxPool3d::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return Gear::DoDirProp(env, symbols);
+}
+
+Value Gear_MaxPool3d::DoGetProp(Environment &env, const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Gear::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 String Gear_MaxPool3d::ToString() const
@@ -47,6 +44,34 @@ String Gear_MaxPool3d::ToString() const
 	::sprintf(buff, ":channel_pos=%s", Array::ChannelPosToSymbol(GetChannelPos())->GetName());
 	str += buff;
 	return str;
+}
+
+Object *Gear_MaxPool3d::ToObject(Environment &env) const
+{
+	return new Object_gear_at_maxpool3d(env, Reference());
+}
+
+//-----------------------------------------------------------------------------
+// NodeGear_MaxPool3d
+//-----------------------------------------------------------------------------
+bool NodeGear_MaxPool3d::IsVulnerable() const
+{
+	return _connectorSrc.GetNodeSrc()->IsVulnerable();
+}
+
+bool NodeGear_MaxPool3d::EvalForward(Environment &env)
+{
+	return _pGear->Apply(env, _pArrayFwd, GetConnectorSrc()->GetArrayFwd());
+}
+
+bool NodeGear_MaxPool3d::EvalBackward(Environment &env)
+{
+	return false;
+}
+
+Trainer::NodeGear *NodeGear_MaxPool3d::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
+{
+	return new NodeGear_MaxPool3d(Object_gear_at_maxpool3d::GetObject(value)->GetGear()->Reference(), pConnectorDst);
 }
 
 //-----------------------------------------------------------------------------
@@ -85,35 +110,34 @@ Gura_ImplementFunction(gear_at_maxpool3d)
 	size_t sizePlane = 0;
 	size_t sizeRow = 0;
 	size_t sizeCol = 0;
-	do {
-		const ValueList &valList = arg.GetList(0);
-		if (valList.size() != 3) {
-			env.SetError(ERR_ValueError, "size must have three elements");
-			return Value::Nil;
-		}
-		sizePlane = valList[0].GetSizeT();
-		sizeRow = valList[1].GetSizeT();
-		sizeCol = valList[2].GetSizeT();
-	} while (0);
 	size_t stridesPlane = 1;
 	size_t stridesRow = 1;
 	size_t stridesCol = 1;
-	if (arg.IsValid(1)) {
-		const ValueList &valList = arg.GetList(1);
-		if (valList.size() != 3) {
-			env.SetError(ERR_ValueError, "strides must have three elements");
-			return Value::Nil;
-		}
-		stridesPlane = valList[0].GetSizeT();
-		stridesRow = valList[1].GetSizeT();
-		stridesCol = valList[2].GetSizeT();
-	}
 	Gear::PaddingType paddingType = Gear::PADDINGTYPE_Same;
+	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
+	Value value1, value2, value3;
+	if (arg.GetListValues(0, &value1, &value2, &value3)) {
+		sizePlane = value1.GetSizeT();
+		sizeRow = value2.GetSizeT();
+		sizeCol = value3.GetSizeT();
+	} else {
+		env.SetError(ERR_ValueError, "size must have three elements");
+		return Value::Nil;
+	}
+	if (arg.IsInvalid(1)) {
+		// nothing to do
+	} else if (arg.GetListValues(1, &value1, &value2, &value3)) {
+		stridesPlane = value1.GetSizeT();
+		stridesRow = value2.GetSizeT();
+		stridesCol = value3.GetSizeT();
+	} else {
+		env.SetError(ERR_ValueError, "strides must have three elements");
+		return Value::Nil;
+	}
 	if (arg.IsValid(2)) {
 		paddingType = Gear::SymbolToPaddingType(env, arg.GetSymbol(2));
 		if (paddingType == Gear::PADDINGTYPE_Invalid) return Value::Nil;
 	}
-	Array::ChannelPos channelPos = Array::CHANNELPOS_Last;
 	if (arg.IsValid(3)) {
 		channelPos = Array::SymbolToChannelPos(env, arg.GetSymbol(3));
 		if (channelPos == Array::CHANNELPOS_Invalid) return Value::Nil;
@@ -136,6 +160,8 @@ void Class_gear_at_maxpool3d::DoPrepare(Environment &env)
 {
 	// Assignment of function
 	Gura_AssignFunction(gear_at_maxpool3d);
+	// Assignment of NodeGear creator for Trainer
+	Trainer::RegisterNodeGearCreator(VTYPE_gear_at_maxpool3d, new NodeGear_MaxPool3d::CreatorEx());
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }

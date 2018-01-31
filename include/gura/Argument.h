@@ -250,6 +250,7 @@ public:
 	inline bool Is_list(size_t idxArg) const			{ return GetValue(idxArg).Is_list();			}
 	inline bool Is_memory(size_t idxArg) const			{ return GetValue(idxArg).Is_memory();			}
 	inline bool Is_operator(size_t idxArg) const		{ return GetValue(idxArg).Is_operator();		}
+	inline bool Is_optimizer(size_t idxArg) const		{ return GetValue(idxArg).Is_optimizer();		}
 	inline bool Is_palette(size_t idxArg) const			{ return GetValue(idxArg).Is_palette();			}
 	inline bool Is_pointer(size_t idxArg) const			{ return GetValue(idxArg).Is_pointer();			}
 	inline bool Is_propdeclaration(size_t idxArg) const	{ return GetValue(idxArg).Is_propdeclaration();	}
@@ -260,6 +261,7 @@ public:
 	inline bool Is_timedelta(size_t idxArg) const		{ return GetValue(idxArg).Is_timedelta();		}
 	inline bool Is_token(size_t idxArg) const			{ return GetValue(idxArg).Is_token();			}
 	inline bool Is_trainer(size_t idxArg) const			{ return GetValue(idxArg).Is_trainer();			}
+	inline bool Is_trainernode(size_t idxArg) const		{ return GetValue(idxArg).Is_trainernode();		}
 	inline bool Is_uri(size_t idxArg) const				{ return GetValue(idxArg).Is_uri();				}
 	inline bool Is_vertex(size_t idxArg) const			{ return GetValue(idxArg).Is_vertex();			}
 	inline bool IsInstanceOf(size_t idxArg, ValueType valType) { return GetValue(idxArg).IsInstanceOf(valType); }
@@ -311,9 +313,9 @@ public:
 	inline MapMode GetMapMode() const { return _mapMode; }
 	inline size_t CountSlot() const { return _slots.size(); }
 	inline Slot *FindSlotBySymbol(const Symbol *pSymbol) { return _slots.FindBySymbol(pSymbol); }
-	bool GetListValues(size_t idxArg, Value *pValue1, Value *pValue2);
-	bool GetListValues(size_t idxArg, Value *pValue1, Value *pValue2, Value *pValue3);
-	bool GetListValues(size_t idxArg, Value *pValue1, Value *pValue2, Value *pValue3, Value *pValue4);
+	bool GetListValues(size_t idxArg, Value *pValue1, Value *pValue2, ValueType valType = VTYPE_any);
+	bool GetListValues(size_t idxArg, Value *pValue1, Value *pValue2, Value *pValue3, ValueType valType = VTYPE_any);
+	bool GetListValues(size_t idxArg, Value *pValue1, Value *pValue2, Value *pValue3, Value *pValue4, ValueType valType = VTYPE_any);
 	bool IsInfiniteMap() const;
 	void AssignSlotValuesToEnvironment(Environment &env);
 	void AssignSlotValuesToEnvironmentFast(Environment &env);

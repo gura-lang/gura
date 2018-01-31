@@ -69,8 +69,9 @@ Gura_ImplementUnaryOperator(Neg, timedelta)
 
 Gura_ImplementUnaryOperator(Neg, vertex)
 {
-	const Vertex &vertex = Object_vertex::GetObject(value)->GetVertex();
-	return Value(new Object_vertex(env, Vertex(-vertex.x, -vertex.y, -vertex.z)));
+	Vertex vRtn;
+	Vertex::Neg(vRtn, Object_vertex::GetObject(value)->GetVertex());
+	return Value(new Object_vertex(env, vRtn));
 }
 
 //-----------------------------------------------------------------------------
@@ -211,18 +212,20 @@ Gura_ImplementBinaryOperator(Add, complex, number)
 
 Gura_ImplementBinaryOperator(Add, datetime, timedelta)
 {
-	DateTime dateTime = Object_datetime::GetObject(valueLeft)->GetDateTime();
-	const TimeDelta &timeDelta = Object_timedelta::GetObject(valueRight)->GetTimeDelta();
-	dateTime.Plus(timeDelta);
-	return Value(new Object_datetime(env, dateTime));
+	DateTime dtRtn;
+	DateTime::Add(dtRtn,
+				  Object_datetime::GetObject(valueLeft)->GetDateTime(),
+				  Object_timedelta::GetObject(valueRight)->GetTimeDelta());
+	return Value(new Object_datetime(env, dtRtn));
 }
 
 Gura_ImplementBinaryOperator(Add, timedelta, datetime)
 {
-	const TimeDelta &timeDelta = Object_timedelta::GetObject(valueLeft)->GetTimeDelta();
-	DateTime dateTime = Object_datetime::GetObject(valueRight)->GetDateTime();
-	dateTime.Plus(timeDelta);
-	return Value(new Object_datetime(env, dateTime));
+	DateTime dtRtn;
+	DateTime::Add(dtRtn,
+				  Object_timedelta::GetObject(valueLeft)->GetTimeDelta(),
+				  Object_datetime::GetObject(valueRight)->GetDateTime());
+	return Value(new Object_datetime(env, dtRtn));
 }
 
 Gura_ImplementBinaryOperator(Add, timedelta, timedelta)
@@ -288,12 +291,10 @@ Gura_ImplementBinaryOperator(Add, any, string)
 
 Gura_ImplementBinaryOperator(Add, vertex, vertex)
 {
-	const Vertex &vertexL = Object_vertex::GetObject(valueLeft)->GetVertex();
-	const Vertex &vertexR = Object_vertex::GetObject(valueRight)->GetVertex();
-	return Value(new Object_vertex(env, Vertex(
-									   vertexL.x + vertexR.x,
-									   vertexL.y + vertexR.y,
-									   vertexL.z + vertexR.z)));
+	Vertex vRtn;
+	Vertex::Add(vRtn, Object_vertex::GetObject(valueLeft)->GetVertex(),
+				Object_vertex::GetObject(valueRight)->GetVertex());
+	return Value(new Object_vertex(env, vRtn));
 }
 
 //-----------------------------------------------------------------------------
@@ -378,22 +379,21 @@ Gura_ImplementBinaryOperator(Sub, complex, number)
 
 Gura_ImplementBinaryOperator(Sub, datetime, timedelta)
 {
-	DateTime dateTime = Object_datetime::GetObject(valueLeft)->GetDateTime();
-	dateTime.Minus(Object_timedelta::GetObject(valueRight)->GetTimeDelta());
-	return Value(new Object_datetime(env, dateTime));
+	DateTime dtRtn;
+	DateTime::Sub(dtRtn,
+				  Object_datetime::GetObject(valueLeft)->GetDateTime(),
+				  Object_timedelta::GetObject(valueRight)->GetTimeDelta());
+	return Value(new Object_datetime(env, dtRtn));
 }
 
 Gura_ImplementBinaryOperator(Sub, datetime, datetime)
 {
-	Signal &sig = env.GetSignal();
-	const DateTime &dt1 = Object_datetime::GetObject(valueLeft)->GetDateTime();
-	const DateTime &dt2 = Object_datetime::GetObject(valueRight)->GetDateTime();
-	if ((dt1.HasTZOffset() && !dt2.HasTZOffset()) ||
-								(!dt1.HasTZOffset() && dt2.HasTZOffset())) {
-		sig.SetError(ERR_ValueError, "failed to calculate datetime difference");
-		return Value::Nil;
-	}
-	return Value(new Object_timedelta(env, dt1.Minus(dt2)));
+	TimeDelta tdRtn;
+	if (!DateTime::Sub(
+			env, tdRtn,
+			Object_datetime::GetObject(valueLeft)->GetDateTime(),
+			Object_datetime::GetObject(valueRight)->GetDateTime())) return Value::Nil;
+	return Value(new Object_timedelta(env, tdRtn));
 }
 
 Gura_ImplementBinaryOperator(Sub, timedelta, timedelta)
@@ -437,12 +437,10 @@ Gura_ImplementBinaryOperator(Sub, pointer, pointer)
 
 Gura_ImplementBinaryOperator(Sub, vertex, vertex)
 {
-	const Vertex &vertexL = Object_vertex::GetObject(valueLeft)->GetVertex();
-	const Vertex &vertexR = Object_vertex::GetObject(valueRight)->GetVertex();
-	return Value(new Object_vertex(env, Vertex(
-									   vertexL.x - vertexR.x,
-									   vertexL.y - vertexR.y,
-									   vertexL.z - vertexR.z)));
+	Vertex vRtn;
+	Vertex::Sub(vRtn, Object_vertex::GetObject(valueLeft)->GetVertex(),
+				Object_vertex::GetObject(valueRight)->GetVertex());
+	return Value(new Object_vertex(env, vRtn));
 }
 
 //-----------------------------------------------------------------------------
@@ -603,12 +601,10 @@ Gura_ImplementBinaryOperator(Mul, number, binary)
 
 Gura_ImplementBinaryOperator(Mul, vertex, number)
 {
-	const Vertex &vertex = Object_vertex::GetObject(valueLeft)->GetVertex();
-	double num = valueRight.GetDouble();
-	return Value(new Object_vertex(env, Vertex(
-									   vertex.x * num,
-									   vertex.y * num,
-									   vertex.z * num)));
+	Vertex vRtn;
+	Vertex::Mul(vRtn, Object_vertex::GetObject(valueLeft)->GetVertex(),
+				valueRight.GetDouble());
+	return Value(new Object_vertex(env, vRtn));
 }
 
 //-----------------------------------------------------------------------------
@@ -702,17 +698,10 @@ Gura_ImplementBinaryOperator(Div, complex, number)
 
 Gura_ImplementBinaryOperator(Div, vertex, number)
 {
-	Signal &sig = env.GetSignal();
-	const Vertex &vertex = Object_vertex::GetObject(valueLeft)->GetVertex();
-	double numRight = valueRight.GetDouble();
-	if (numRight == 0) {
-		Operator::SetError_DivideByZero(sig);
-		return Value::Nil;
-	}
-	return Value(new Object_vertex(env, Vertex(
-									   vertex.x / numRight,
-									   vertex.y / numRight,
-									   vertex.z / numRight)));
+	Vertex vRtn;
+	if (!Vertex::Div(env, vRtn, Object_vertex::GetObject(valueLeft)->GetVertex(),
+					 valueRight.GetDouble())) return Value::Nil;
+	return Value(new Object_vertex(env, vRtn));
 }
 
 //-----------------------------------------------------------------------------
@@ -743,9 +732,10 @@ Gura_ImplementBinaryOperator(Dot, number, number)
 
 Gura_ImplementBinaryOperator(Dot, vertex, vertex)
 {
-	const Vertex &v1 = Object_vertex::GetObject(valueLeft)->GetVertex();
-	const Vertex &v2 = Object_vertex::GetObject(valueRight)->GetVertex();
-	return Value(Vertex::CalcDotProduct(v1, v2));
+	double rtn;
+	Vertex::Dot(rtn, Object_vertex::GetObject(valueLeft)->GetVertex(),
+				Object_vertex::GetObject(valueRight)->GetVertex());
+	return Value(rtn);
 }
 
 //-----------------------------------------------------------------------------
@@ -753,9 +743,10 @@ Gura_ImplementBinaryOperator(Dot, vertex, vertex)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Cross, vertex, vertex)
 {
-	const Vertex &v1 = Object_vertex::GetObject(valueLeft)->GetVertex();
-	const Vertex &v2 = Object_vertex::GetObject(valueRight)->GetVertex();
-	return Value(new Object_vertex(env, Vertex::CalcCrossProduct(v1, v2)));
+	Vertex vRtn;
+	Vertex::Cross(vRtn, Object_vertex::GetObject(valueLeft)->GetVertex(),
+				  Object_vertex::GetObject(valueRight)->GetVertex());
+	return Value(new Object_vertex(env, vRtn));
 }
 
 //-----------------------------------------------------------------------------

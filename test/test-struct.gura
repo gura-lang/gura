@@ -1,0 +1,75 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+
+testcase('struct\'s instance passed as arguments') {
+	A = struct(x, y, z)
+	f(a1:A, a2:A) = {
+		println(a1.x, ' ', a1.y, ' ', a1.z)
+		println(a2.x, ' ', a2.y, ' ', a2.z)
+	}
+	f(A(1, 2, 3), A(4, 5, 6))
+}
+testcase('struct and methods') {
+	T = struct(a, b, c) {
+		Print(t:T):static = {
+			printf('%d, %d, %d\n', t.a, t.b, t.c)
+		}
+		store(t:T) = {
+			[this.a, this.b, this.c] = [t.a, t.b, t.c]
+		}
+	}
+	println(T)
+	t = T(7, 5, 3)
+	T.Print(t)
+	t1 = T(0, 0, 0)
+	T.Print(t1)
+	t1.store(t)
+	T.Print(t1)
+	try {
+		T1 = struct(a, b, c) {
+			__init__(xx) = {}
+		}
+	} catch {|e|
+		println('expected error: ', e.text)
+	}
+}
+testcase('instantiation with a list') {
+	point_t = struct(x:number, y:number)
+	knots_t = struct(a:point_t, b:point_t, c:point_t, d:point_t)
+	knots = @(knots_t) {
+	    @(point_t) { {0, 0}, {0, 100}, {100, 100}, {100, 0} },
+	    @(point_t) { {0, 0}, {75, 100}, {25, 100}, {100, 0} },
+	    @(point_t) { {0, 0}, {100, 100}, {0, 100}, {100, 0} },
+	    @(point_t) { {0, 0}, {150, 100}, {-50, 100}, {100, 0} },
+	    @(point_t) { {0, 0}, {100, 200}, {0, -100}, {100, 100} },
+	};
+	println(knots)
+}
+testcase('struct declaration with arguments that has default value') {
+	A = struct(name:string => 'Taro', age:number => 23)
+	a = A()
+	printf('%s: %d\n', a.name, a.age)
+	a = A('Jiro')
+	printf('%s: %d\n', a.name, a.age)
+	a = A(name => 'Jiro')
+	printf('%s: %d\n', a.name, a.age)
+	a = A(age => 25)
+	printf('%s: %d\n', a.name, a.age)
+	a = A('Takeshi', 21)
+	printf('%s: %d\n', a.name, a.age)
+}
+testcase('struct with implicit-mapping') {
+	Card = struct(suit:symbol, rank:number):map
+	cards = Card(`spade, 1..13)
+	println(cards::suit, ' ', cards::rank)
+}
+testcase('struct#clone()') {
+	A = struct(x, y, z)
+	a = A(1, 2, 3)
+	b = a.clone()
+	tester(`a)
+	tester(`b)
+	b.x = 3, b.y = 4, b.z = 5
+	tester(`a)
+	tester(`b)
+}

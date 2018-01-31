@@ -21,10 +21,34 @@ public:
 public:
 	static GearFuncTable gearFuncTable;
 public:
-	inline Gear_Tanh() {}
+	Gura_DeclareReferenceAccessor(Gear_Tanh);
+public:
+	inline Gear_Tanh() : Gear("gear@tanh") {}
 public:
 	virtual bool Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArray) const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString() const;
+	virtual Object *ToObject(Environment &env) const;
+};
+
+//-------------------------------------------------------------------------
+// NodeGear_Tanh
+//-------------------------------------------------------------------------
+class NodeGear_Tanh : public Trainer::NodeGear {
+public:
+	class CreatorEx : public Creator {
+	public:
+		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const;
+	};
+public:
+	inline NodeGear_Tanh(Gear_Tanh *pGear, Connector *pConnectorDst) :
+			NodeGear(pGear, pConnectorDst) {}
+	inline Gear_Tanh *GetGear() { return dynamic_cast<Gear_Tanh *>(_pGear.get()); }
+	virtual bool IsVulnerable() const;
+	virtual bool EvalForward(Environment &env);
+	virtual bool EvalBackward(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
