@@ -594,41 +594,51 @@ Graph = class {
 	drawText_n(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
-		cr.move_to(x - extText.x_advance / 2, y + extFont.ascent)
+		x -= extText.x_advance / 2
+		y += extFont.ascent
+		cr.move_to(x, y)
 		cr.show_text(text)
 	}
 	drawText_s(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extText = cr.text_extents(text)
-		cr.move_to(x - extText.x_advance / 2, y)
+		x -= extText.x_advance / 2
+		cr.move_to(x, y)
 		cr.show_text(text)
 	}
 	drawText_e(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
-		cr.move_to(x - extText.x_advance, y + extFont.ascent / 2)
+		x -= extText.x_advance
+		y += extFont.ascent / 2
+		cr.move_to(x, y)
 		cr.show_text(text)
 	}
 	drawText_w(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
-		cr.move_to(x, y + extFont.ascent / 2)
+		y += extFont.ascent / 2
+		cr.move_to(x, y)
 		cr.show_text(text)
 	}
 	drawText_ne(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
-		cr.move_to(x - extText.x_advance, y + extText.ascent)
+		x -= extText.x_advance
+		y += extFont.ascent
+		cr.move_to(x, y)
 		cr.show_text(text)
 	}
 	drawText_nw(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
-		cr.move_to(x, y + extFont.ascent)
+		y += extFont.ascent
+		cr.move_to(x, y)
 		cr.show_text(text)
 	}
 	drawText_se(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extText = cr.text_extents(text)
-		cr.move_to(x - extText.x_advance, y)
+		x -= extText.x_advance
+		cr.move_to(x, y)
 		cr.show_text(text)
 	}
 	drawText_sw(cr:cairo.context, x:number, y:number, text:string):map:void = {
@@ -896,20 +906,30 @@ main() = {
 			}
 		}
 		cv.graph(2) {|g|
-			g.minY = -1.2, g.maxY = 1.2
-			g.minX = 0, g.maxX = 20
-			g.func(f(x) = {math.sin(x)}, min => 1, max => 19)
-			g.attr(color => `green, lineStyle => `dot) {
-				g.hline([1, -1])
-				g.vline([1, 19])
+			g.attr(markerStyle => `pixel) {
+				g.plot([0, 0], [5, -5])
 			}
+			mgn = 0.8
+			g.attr(labelAnchor => `nw) { g.label(0, 5, 'anchor at nw', mgn, -mgn) }
+			g.attr(labelAnchor => `ne) { g.label(0, 5, 'anchor at ne', -mgn, -mgn) }
+			g.attr(labelAnchor => `sw) { g.label(0, 5, 'anchor at sw', mgn, mgn) }
+			g.attr(labelAnchor => `se) { g.label(0, 5, 'anchor at se', -mgn, mgn) }
+			g.attr(labelAnchor => `n) { g.label(0, -5, 'anchor at n', 0, -mgn) }
+			g.attr(labelAnchor => `e) { g.label(0, -5, 'anchor at e', -mgn, 0) }
+			g.attr(labelAnchor => `w) { g.label(0, -5, 'anchor at w', mgn, 0) }
+			g.attr(labelAnchor => `s) { g.label(0, -5, 'anchor at s', 0, mgn) }
 		}
 		cv.graph {|g|
+			g.func(f(x) = {8 * math.sin(x)}, min => 1, max => 9)
 			g.attr(color => `red) {
 				g.func(f(x) = .1 * x ** 3)
 			}
 			g.attr(color => `green) {
 				g.func(f(x) = .3 * x ** 2)
+			}
+			g.attr(color => `green, lineStyle => `dot) {
+				g.hline([-8, 8])
+				g.vline([1, 9])
 			}
 		}
 		cv.graph {|g|
