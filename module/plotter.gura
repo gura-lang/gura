@@ -164,7 +164,6 @@ Graph = class {
 			'Sans'
 		}
 		this.nSpans = nSpans
-		this.autoAdjustFlag = false
 		this.itemInfos = []
 		this.tickInfosX = []
 		this.tickInfosY = []
@@ -230,9 +229,6 @@ Graph = class {
 			`se				=> this.drawText_se
 			`sw				=> this.drawText_sw
 		}
-	}
-	autoAdjust() = {
-		this.autoAdjustFlag = true
 	}
 	saveAttr() {block?} = {
 		if (block) {
@@ -360,14 +356,13 @@ Graph = class {
 								this.yAxis + this.htAxis / 2, this.titleYSub)
 		}
 		cr.save {
-			this.autoAdjustFlag && this.doAutoAdjust()
 			this.drawAxis(cr)
 			this.clipAxis(cr)
 			this.itemInfos::draw(this, cr)
 			this.drawLegends(cr)
 		}
 	}
-	doAutoAdjust() = {
+	autoAdjust() = {
 		ranges = this.itemInfos:*getRange().skipnil()
 		minX = ranges:*minX.min(), maxX = ranges:*maxX.max()
 		minY = ranges:*minY.min(), maxY = ranges:*maxY.max()
