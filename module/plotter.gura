@@ -23,6 +23,11 @@ TickInfo = struct(n:number, text:string):map
 LegendInfo = struct(text:string):map
 
 //-----------------------------------------------------------------------------
+// Range
+//-----------------------------------------------------------------------------
+Range = struct(minX:number, maxX:number, minY:number, maxY:number):map
+
+//-----------------------------------------------------------------------------
 // Canvas
 //-----------------------------------------------------------------------------
 Canvas = class {
@@ -139,6 +144,8 @@ Graph = class {
 		titleYSub
 		formatTickX
 		formatTickY
+		showTickX
+		showTickY
 		mgnTitle
 		mgnTitleX
 		mgnTitleY
@@ -157,6 +164,7 @@ Graph = class {
 			'Sans'
 		}
 		this.nSpans = nSpans
+		this.autoAdjustFlag = false
 		this.itemInfos = []
 		this.tickInfosX = []
 		this.tickInfosY = []
@@ -184,6 +192,8 @@ Graph = class {
 		this.titleYSub = ''
 		this.formatTickX = '%g'
 		this.formatTickY = '%g'
+		this.showTickX = true
+		this.showTickY = true
 		this.mgnTitle = 4
 		this.mgnTitleX = 4
 		this.mgnTitleY = 4
@@ -220,6 +230,9 @@ Graph = class {
 			`se				=> this.drawText_se
 			`sw				=> this.drawText_sw
 		}
+	}
+	autoAdjust() = {
+		this.autoAdjustFlag = true
 	}
 	saveAttr() {block?} = {
 		if (block) {
@@ -321,10 +334,12 @@ Graph = class {
 		spaceTitleX = cond(this.titleX.isempty(), 0, this.fontSizeTitleX * 1.2 + this.mgnTitleX)
 		spaceTitleY = cond(this.titleY.isempty(), 0, this.fontSizeTitleY * 1.2 + this.mgnTitleY)
 		spaceTitleYSub = cond(this.titleYSub.isempty(), 0, this.fontSizeTitleYSub * 1.2 + this.mgnTitleYSub)
-		[this.xAxis, this.yAxis] = [x + spaceTitleY + this.wdTickY + this.mgnTickY, y + spaceTitle]
+		[wdTickY, mgnTickY] = if (this.showTickY) {[this.wdTickY, this.mgnTickY]} else {[0, 0]}
+		[htTickX, mgnTickX] = if (this.showTickX) {[this.htTickX, this.mgnTickX]} else {[0, 0]}
+		[this.xAxis, this.yAxis] = [x + spaceTitleY + wdTickY + mgnTickY, y + spaceTitle]
 		[this.wdAxis, this.htAxis] = [
-			width - (spaceTitleY + spaceTitleYSub + this.wdTickY + this.mgnTickY)
-			height - (spaceTitleX + spaceTitle + this.mgnTickX + this.htTickX)
+			width - (spaceTitleY + spaceTitleYSub + wdTickY + mgnTickY)
+			height - (spaceTitleX + spaceTitle + mgnTickX + htTickX)
 		]
 		if (!this.title.isempty()) {
 			cr.set_font_size(this.fontSizeTitle)
@@ -333,7 +348,7 @@ Graph = class {
 		if (!this.titleX.isempty()) {
 			cr.set_font_size(this.fontSizeTitleX)
 			this.drawText_n(cr, this.xAxis + this.wdAxis / 2,
-							 this.yAxis + this.htAxis + this.mgnTickX + this.htTickX + this.mgnTitleX, this.titleX)
+							this.yAxis + this.htAxis + mgnTickX + htTickX + this.mgnTitleX, this.titleX)
 		}
 		if (!this.titleY.isempty()) {
 			cr.set_font_size(this.fontSizeTitleY)
@@ -345,10 +360,24 @@ Graph = class {
 								this.yAxis + this.htAxis / 2, this.titleYSub)
 		}
 		cr.save {
+			this.autoAdjustFlag && this.doAutoAdjust()
 			this.drawAxis(cr)
 			this.clipAxis(cr)
 			this.itemInfos::draw(this, cr)
 			this.drawLegends(cr)
+		}
+	}
+	doAutoAdjust() = {
+		ranges = this.itemInfos:*getRange().skipnil()
+		minX = ranges:*minX.min(), maxX = ranges:*maxX.max()
+		minY = ranges:*minY.min(), maxY = ranges:*maxY.max()
+		if ((d = maxX - minX) > 0) {
+			mgn = d * .1
+			this.minX = minX - mgn, this.maxX = maxX + mgn
+		}
+		if ((d = maxY - minY) > 0) {
+			mgn = d * .1
+			this.minY = minY- mgn, this.maxY = maxY + mgn
 		}
 	}
 	coordX(x:number):map = {
@@ -662,12 +691,16 @@ Graph = class {
 			}
 		}
 		cr.save {
-			cr.set_font_size(this.fontSizeTickX)
-			this.drawText_s(cr, this.coordX(this.tickInfosX:*n),
-							this.yAxis + this.htAxis + this.mgnTickX + this.htTickX, this.tickInfosX:*text)
-			cr.set_font_size(this.fontSizeTickY)
-			this.drawText_e(cr, this.xAxis - this.mgnTickY,
-							this.coordY(this.tickInfosY:*n), this.tickInfosY:*text)
+			if (this.showTickX) {
+				cr.set_font_size(this.fontSizeTickX)
+				this.drawText_s(cr, this.coordX(this.tickInfosX:*n),
+								this.yAxis + this.htAxis + this.mgnTickX + this.htTickX, this.tickInfosX:*text)
+			}
+			if (this.showTickY) {
+				cr.set_font_size(this.fontSizeTickY)
+				this.drawText_e(cr, this.xAxis - this.mgnTickY,
+								this.coordY(this.tickInfosY:*n), this.tickInfosY:*text)
+			}
 		}
 	}
 	applyLineWidth(cr:cairo.context, lineWidth:number) = {
@@ -713,13 +746,13 @@ PlotInfo = struct(xs[]:number, ys[]:number, attrInfo:AttrInfo) {
 			}
 		}
 	}
+	getRange() = Range(this.xs.min(), this.xs.max(), this.ys.min(), this.ys.max())
 }
 
 //-----------------------------------------------------------------------------
 // FuncInfo
 //-----------------------------------------------------------------------------
-FuncInfo = struct(func:function, min:number:nil, max:number:nil,
-				  cntSamples:number, attrInfo:AttrInfo):map {
+FuncInfo = struct(func:function, min:number:nil, max:number:nil, cntSamples:number, attrInfo:AttrInfo):map {
 	draw(g:Graph, cr:cairo.context) = cr.save {
 		cr.set_antialias(cairo.ANTIALIAS_DEFAULT)
 		attrInfo = this.attrInfo
@@ -741,6 +774,7 @@ FuncInfo = struct(func:function, min:number:nil, max:number:nil,
 		g.applyLineStyle(cr, attrInfo.lineStyle)
 		cr.stroke()
 	}
+	getRange() = nil
 }
 
 //-----------------------------------------------------------------------------
@@ -753,6 +787,7 @@ LabelInfo = struct(x:number, y:number, text:string, xOffset:number, yOffset:numb
 		g.drawText(cr, g.coordX(this.x + this.xOffset),
 				   g.coordY(this.y + this.yOffset), this.text, attrInfo)
 	}
+	getRange() = Range(this.x + this.xOffset, this.x + this.xOffset, this.y + this.yOffset, this.y + this.yOffset)
 }
 
 //-----------------------------------------------------------------------------
@@ -771,6 +806,7 @@ HLineInfo = struct(y:number, min:number:nil, max:number:nil, attrInfo:AttrInfo):
 		g.applyLineStyle(cr, attrInfo.lineStyle)
 		cr.stroke()
 	}
+	getRange() = Range(this.min, this.max, y, y)
 }
 
 //-----------------------------------------------------------------------------
@@ -789,6 +825,7 @@ VLineInfo = struct(x:number, min:number:nil, max:number:nil, attrInfo:AttrInfo):
 		g.applyLineStyle(cr, attrInfo.lineStyle)
 		cr.stroke()
 	}
+	getRange() = Range(x, x, this.min, this.max)
 }
 
 main() = {
@@ -797,15 +834,15 @@ main() = {
 	}
 	Canvas(`vert, 4) {|cv|
 		cv.graph {|g|
-			g.title = 'Title'
-			g.titleX = 'Title on x-axis'
-			g.titleY = 'Title on y-axis'
-			g.titleYSub = 'Title on y-axis [2]'
 			g.nTicksMaxY = 5
 			g.attr(lineStyle => `solid).func(f1(x) = {8 * math.sin(x)})
 			g.attr(lineStyle => `dot).func(f2(x) = {8 * math.cos(x)})
 		}
 		cv.graph(2) {|g|
+			g.title = 'Title'
+			g.titleX = 'Title on x-axis'
+			g.titleY = 'Title on y-axis'
+			g.titleYSub = 'Title on y-axis [2]'
 			g.gridX = `dot
 			g.gridY = `dot
 			g.attr(lineWidth => 4)
@@ -823,6 +860,7 @@ main() = {
 			g.title = 'Line Style'
 			g.minX = 0, g.maxX = 10
 			g.minY = 0, g.maxY = 10
+			g.showTickX = g.showTickY = false
 			lineStyles = [`solid, `dot, `dash, `dashdot, `dashdotdot]
 			g.attr(labelAnchor => `n)
 			g.attrCycle(lineStyle => lineStyles)
@@ -845,6 +883,7 @@ main() = {
 			g.title = 'Marker Style'
 			g.minX = 0, g.maxX = 10
 			g.minY = 0, g.maxY = 10
+			g.showTickX = g.showTickY = false
 			nHorz = math.ceil(math.sqrt(markerStyles.len()))
 			nVert = int((markerStyles.len() + nHorz - 1) / nHorz)
 			xs = interval(g.minX, g.maxX, nHorz):open
@@ -886,6 +925,7 @@ main() = {
 			g.attr(markerStyle => `dia) {
 				g.plot(MakeRands(5, 5, 10), MakeRands(-5, 5, 10))
 			}
+			g.autoAdjust()
 		}
 		cv.show(1000, 600)
 	}
