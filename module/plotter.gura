@@ -104,6 +104,8 @@ Canvas = class {
 				width = wdCell + (wdCell + wdSpace) * (g.nSpans - 1)
 				height = htCell
 			}
+			//cr.rectangle(x, y, width, height)
+			//cr.stroke()
 			g.render(cr, x, y, width, height)
 			iGraphMajor += g.nSpans
 			if (iGraphMajor >= nGraphsMajor) {
@@ -328,8 +330,6 @@ Graph = class {
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
 		this.updateTickInfos()
 		cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-		//cr.rectangle(x, y, width, height)
-		//cr.stroke()
 		cr.save {
 			cr.set_font_size(this.fontSizeTickY)
 			this.wdTickY = cr.text_extents(this.tickInfosY:*text):*width.max()
@@ -359,7 +359,7 @@ Graph = class {
 			this.drawRotText_w(cr, x, this.yAxis + this.htAxis / 2, this.titleY)
 		}
 		if (!this.titleYSub.isempty()) {
-			cr.set_font_size(this.fontSizeTitleY)
+			cr.set_font_size(this.fontSizeTitleYSub)
 			this.drawRotText_w(cr, this.xAxis + this.wdAxis + this.mgnTitleYSub,
 								this.yAxis + this.htAxis / 2, this.titleYSub)
 		}
