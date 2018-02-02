@@ -1,0 +1,18 @@
+#!/usr/bin/env gura
+import(plotter)
+
+plotter.canvas {|cv|
+	cv.graph() {|g|
+		g.title = 'graph-1'
+		g.showBoundingBox = true
+	}
+	cv.graph() {|g|
+		g.title = 'graph-2'
+		g.showBoundingBox = true
+	}
+	cv.graph() {|g|
+		g.title = 'graph-3'
+		g.showBoundingBox = true
+	}
+	cv.show()
+}

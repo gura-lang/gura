@@ -33,11 +33,14 @@ Range = struct(minX:number, maxX:number, minY:number, maxY:number):map
 //-----------------------------------------------------------------------------
 Canvas = class {
 	public {
-		margine,
+		width
+		height
 	}
 	__init__(orient?:symbol, nFolds?:number) = {
 		this.orient = orient || `vert
 		!(this.orient in [`horz, `vert]) && raise(error.ValueError, "the argument 'orient' takes `horz or `vert")
+		this.width = 0
+		this.height = 0
 		this.nFolds = nFolds
 		this.mgnLeft = nil
 		this.mgnRight = nil
@@ -64,7 +67,8 @@ Canvas = class {
 		img.show(width + 30 * 2, height + 30 * 2)
 	}
 	render(cr:cairo.context):void = {
-		[wdCanvas, htCanvas] = [cr.width, cr.height]
+		[this.width, this.height] = [cr.width, cr.height]
+		this.graphs.isempty() && return
 		nSpansSum = this.graphs:*nSpans.sum()
 		if (this.nFolds) {
 			nGraphsMajor = min(this.nFolds, nSpansSum)
@@ -73,20 +77,18 @@ Canvas = class {
 			nGraphsMajor = nSpansSum
 			nGraphsMinor = 1
 		}
-		[mgnLeft, mgnRight, wdSpace] = [this.mgnLeftP, this.mgnRightP, this.wdSpaceP] * wdCanvas / 100
-		[mgnTop, mgnBottom, htSpace] = [this.mgnTopP, this.mgnBottomP, this.htSpaceP] * htCanvas / 100
-		mgnLeft = this.mgnLeft || mgnLeft
-		mgnRight = this.mgnRight || mgnRight
-		mgnTop = this.mgnTop || mgnTop
-		mgnBottom = this.mgnBottom || mgnBottom
-		wdSpace = this.wdSpace || wdSpace
-		htSpace = this.htSpace || htSpace
+		mgnLeft = this.mgnLeft || (this.mgnLeftP * this.width / 100)
+		mgnRight = this.mgnRight || (this.mgnRightP * this.width / 100)
+		mgnTop = this.mgnTop || (this.mgnTopP * this.height / 100)
+		mgnBottom = this.mgnBottom || (this.mgnBottomP * this.height / 100)
+		wdSpace = this.wdSpace || (this.wdSpaceP * this.width / 100)
+		htSpace = this.htSpace || (this.htSpaceP * this.height / 100)
 		if (this.orient == `vert) {
-			wdCell = (wdCanvas - mgnLeft - mgnRight - wdSpace * (nGraphsMinor - 1)) / nGraphsMinor
-			htCell = (htCanvas - mgnTop - mgnBottom - htSpace * (nGraphsMajor - 1)) / nGraphsMajor
+			wdCell = (this.width - mgnLeft - mgnRight - wdSpace * (nGraphsMinor - 1)) / nGraphsMinor
+			htCell = (this.height - mgnTop - mgnBottom - htSpace * (nGraphsMajor - 1)) / nGraphsMajor
 		} else {
-			wdCell = (wdCanvas - mgnLeft - mgnRight - wdSpace * (nGraphsMajor - 1)) / nGraphsMajor
-			htCell = (htCanvas - mgnTop - mgnBottom - htSpace * (nGraphsMinor - 1)) / nGraphsMinor
+			wdCell = (this.width - mgnLeft - mgnRight - wdSpace * (nGraphsMajor - 1)) / nGraphsMajor
+			htCell = (this.height - mgnTop - mgnBottom - htSpace * (nGraphsMinor - 1)) / nGraphsMinor
 		}
 		iGraphMajor = iGraphMinor = 0
 		this.graphs.each {|g|
@@ -104,8 +106,6 @@ Canvas = class {
 				width = wdCell + (wdCell + wdSpace) * (g.nSpans - 1)
 				height = htCell
 			}
-			//cr.rectangle(x, y, width, height)
-			//cr.stroke()
 			g.render(cr, x, y, width, height)
 			iGraphMajor += g.nSpans
 			if (iGraphMajor >= nGraphsMajor) {
@@ -128,6 +128,15 @@ Graph = class {
 	}
 	public {
 		nSpans
+		showBoundingBox
+		mgnLeft
+		mgnRight
+		mgnTop
+		mgnBottom
+		mgnLeftP
+		mgnRightP
+		mgnTopP
+		mgnBottomP
 		minX, maxX
 		minY, maxY
 		nTicksMaxX
@@ -168,6 +177,15 @@ Graph = class {
 		}
 		this.cv = cv
 		this.nSpans = nSpans
+		this.showBoundingBox = false
+		this.mgnLeft = nil
+		this.mgnRight = nil
+		this.mgnTop = nil
+		this.mgnBottom = nil
+		this.mgnLeftP = 0
+		this.mgnRightP = 0
+		this.mgnTopP = 0
+		this.mgnBottomP = 0
 		this.itemInfos = []
 		this.tickInfosX = []
 		this.tickInfosY = []
@@ -334,20 +352,27 @@ Graph = class {
 			cr.set_font_size(this.fontSizeTickY)
 			this.wdTickY = cr.text_extents(this.tickInfosY:*text):*width.max()
 		}
+		mgnLeft = this.mgnLeft || (this.mgnLeftP * this.cv.width / 100)
+		mgnRight = this.mgnRight || (this.mgnRightP * this.cv.width / 100)
+		mgnTop = this.mgnTop || (this.mgnTopP * this.cv.height / 100)
+		mgnBottom = this.mgnBottom || (this.mgnBottomP * this.cv.height / 100)
 		spaceTitle = cond(this.title.isempty(), 0, this.fontSizeTitle * 1.2 + this.mgnTitle)
 		spaceTitleX = cond(this.titleX.isempty(), 0, this.fontSizeTitleX * 1.2 + this.mgnTitleX)
 		spaceTitleY = cond(this.titleY.isempty(), 0, this.fontSizeTitleY * 1.2 + this.mgnTitleY)
 		spaceTitleYSub = cond(this.titleYSub.isempty(), 0, this.fontSizeTitleYSub * 1.2 + this.mgnTitleYSub)
 		[wdTickY, mgnTickY] = if (this.showTickY) {[this.wdTickY, this.mgnTickY]} else {[0, 0]}
 		[htTickX, mgnTickX] = if (this.showTickX) {[this.htTickX, this.mgnTickX]} else {[0, 0]}
-		[this.xAxis, this.yAxis] = [x + spaceTitleY + wdTickY + mgnTickY, y + spaceTitle]
+		[this.xAxis, this.yAxis] = [
+			x + mgnLeft + spaceTitleY + wdTickY + mgnTickY
+			y + mgnTop + spaceTitle
+		]
 		[this.wdAxis, this.htAxis] = [
-			width - (spaceTitleY + spaceTitleYSub + wdTickY + mgnTickY)
-			height - (spaceTitleX + spaceTitle + mgnTickX + htTickX)
+			width - (mgnLeft + spaceTitleY + spaceTitleYSub + wdTickY + mgnTickY + mgnRight)
+			height - (mgnTop + spaceTitleX + spaceTitle + mgnTickX + htTickX + mgnBottom)
 		]
 		if (!this.title.isempty()) {
 			cr.set_font_size(this.fontSizeTitle)
-			this.drawText_n(cr, x + width / 2, y, this.title)
+			this.drawText_n(cr, x + width / 2, y + mgnTop, this.title)
 		}
 		if (!this.titleX.isempty()) {
 			cr.set_font_size(this.fontSizeTitleX)
@@ -368,6 +393,14 @@ Graph = class {
 			this.clipAxis(cr)
 			this.itemInfos::draw(this, cr)
 			this.drawLegends(cr)
+		}
+		if (this.showBoundingBox) {
+			cr.save {
+				cr.set_line_width(1)
+				cr.set_dash([4, 2], 0)
+				cr.rectangle(x, y, width, height)
+				cr.stroke()
+			}
 		}
 	}
 	autoAdjust() = {
