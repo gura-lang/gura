@@ -1,16 +1,17 @@
 #!/usr/bin/env gura
 import(plotter)
-import(wx.show)
 
-MakeRandCoords(xCenter:number, yCenter:number, xRange:number, yRange:number) = {
-	plotter.Coord(xCenter + rands(nil, 10) * xRange - xRange / 2, yCenter + rands(nil, 10) * yRange - yRange / 2)
-}
-
-plotter.Canvas {|c|
-	c.graph {|g|
-		g.titleX = 'X-axis'
-		g.titleY = 'Y-Axis'
-		g.minX = -8.66671, g.maxX = 8.90951		
-		c.show()
+plotter.graph {|g|
+	g.title = 'Plotter Sample'
+	g.titleX = 'X-axis'
+	g.titleY = 'Y-axis'
+	g.attr(markerStyle => `none, lineStyle => `solid) {
+		nSamples = 1000
+		t1 = interval(0, 2 * math.pi, nSamples)
+		t2 = interval(0, 12 * 2 * math.pi, nSamples)
+		xs = 7 * math.sin(t1) + 2 * math.sin(t2)
+		ys = 7 * math.cos(t1) + 2 * math.cos(t2)
+		g.plot(xs, ys)
 	}
+	g.show()
 }

@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(cairo)
+import(wx.show)
 
 //-----------------------------------------------------------------------------
 // AttrCycler
@@ -42,18 +43,18 @@ Canvas = class {
 		this.mgnRight = nil
 		this.mgnTop = nil
 		this.mgnBottom = nil
-		this.wdSkip = nil
-		this.htSkip = nil
 		this.mgnLeftP = 2
 		this.mgnRightP = 2
 		this.mgnTopP = 2
 		this.mgnBottomP = 2
-		this.wdSkipP = 2
-		this.htSkipP = 2
+		this.wdSpace = nil
+		this.htSpace = nil
+		this.wdSpaceP = 2
+		this.htSpaceP = 2
 		this.graphs = []
 	}
 	graph(nSpans:number => 1) {block?} = {
-		g = Graph(nSpans)
+		g = Graph(this, nSpans)
 		this.graphs.add(g)
 		if (block) {block(g)} else {g}
 	}
@@ -72,20 +73,20 @@ Canvas = class {
 			nGraphsMajor = nSpansSum
 			nGraphsMinor = 1
 		}
-		[mgnLeft, mgnRight, wdSkip] = [this.mgnLeftP, this.mgnRightP, this.wdSkipP] * wdCanvas / 100
-		[mgnTop, mgnBottom, htSkip] = [this.mgnTopP, this.mgnBottomP, this.htSkipP] * htCanvas / 100
+		[mgnLeft, mgnRight, wdSpace] = [this.mgnLeftP, this.mgnRightP, this.wdSpaceP] * wdCanvas / 100
+		[mgnTop, mgnBottom, htSpace] = [this.mgnTopP, this.mgnBottomP, this.htSpaceP] * htCanvas / 100
 		mgnLeft = this.mgnLeft || mgnLeft
 		mgnRight = this.mgnRight || mgnRight
 		mgnTop = this.mgnTop || mgnTop
 		mgnBottom = this.mgnBottom || mgnBottom
-		wdSkip = this.wdSkip || wdSkip
-		htSkip = this.htSkip || htSkip
+		wdSpace = this.wdSpace || wdSpace
+		htSpace = this.htSpace || htSpace
 		if (this.orient == `vert) {
-			wdCell = (wdCanvas - mgnLeft - mgnRight - wdSkip * (nGraphsMinor - 1)) / nGraphsMinor
-			htCell = (htCanvas - mgnTop - mgnBottom - htSkip * (nGraphsMajor - 1)) / nGraphsMajor
+			wdCell = (wdCanvas - mgnLeft - mgnRight - wdSpace * (nGraphsMinor - 1)) / nGraphsMinor
+			htCell = (htCanvas - mgnTop - mgnBottom - htSpace * (nGraphsMajor - 1)) / nGraphsMajor
 		} else {
-			wdCell = (wdCanvas - mgnLeft - mgnRight - wdSkip * (nGraphsMajor - 1)) / nGraphsMajor
-			htCell = (htCanvas - mgnTop - mgnBottom - htSkip * (nGraphsMinor - 1)) / nGraphsMinor
+			wdCell = (wdCanvas - mgnLeft - mgnRight - wdSpace * (nGraphsMajor - 1)) / nGraphsMajor
+			htCell = (htCanvas - mgnTop - mgnBottom - htSpace * (nGraphsMinor - 1)) / nGraphsMinor
 		}
 		iGraphMajor = iGraphMinor = 0
 		this.graphs.each {|g|
@@ -93,14 +94,14 @@ Canvas = class {
 				iGraphMajor = 0, iGraphMinor += 1
 			}
 			if (this.orient == `vert) {
-				x = mgnLeft + iGraphMinor * (wdCell + wdSkip)
-				y = mgnTop + iGraphMajor * (htCell + htSkip)
+				x = mgnLeft + iGraphMinor * (wdCell + wdSpace)
+				y = mgnTop + iGraphMajor * (htCell + htSpace)
 				width = wdCell
-				height = htCell + (htCell + htSkip) * (g.nSpans - 1)
+				height = htCell + (htCell + htSpace) * (g.nSpans - 1)
 			} else { // this.orient == `horz
-				x = mgnLeft + iGraphMajor * (wdCell + wdSkip)
-				y = mgnTop + iGraphMinor * (htCell + htSkip)
-				width = wdCell + (wdCell + wdSkip) * (g.nSpans - 1)
+				x = mgnLeft + iGraphMajor * (wdCell + wdSpace)
+				y = mgnTop + iGraphMinor * (htCell + htSpace)
+				width = wdCell + (wdCell + wdSpace) * (g.nSpans - 1)
 				height = htCell
 			}
 			g.render(cr, x, y, width, height)
@@ -153,7 +154,7 @@ Graph = class {
 		gridX
 		gridY
 	}
-	__init__(nSpans:number) = {
+	__init__(cv:Canvas, nSpans:number) = {
 		this.fontName = if (sys.platform == `mswin) {
 			'Sans'
 		} elsif (sys.platform == `linux) {
@@ -163,6 +164,7 @@ Graph = class {
 		} else {
 			'Sans'
 		}
+		this.cv = cv
 		this.nSpans = nSpans
 		this.itemInfos = []
 		this.tickInfosX = []
@@ -229,6 +231,12 @@ Graph = class {
 			`se				=> this.drawText_se
 			`sw				=> this.drawText_sw
 		}
+	}
+	show(width:number => 600, height:number => 600):void = {
+		this.cv.show(width, height)
+	}
+	render(cr:cairo.context):void = {
+		this.cv.render(cr)
 	}
 	saveAttr() {block?} = {
 		if (block) {
@@ -833,6 +841,20 @@ VLineInfo = struct(x:number, min:number:nil, max:number:nil, attrInfo:AttrInfo):
 	getRange() = Range(x, x, this.min, this.max)
 }
 
+//-----------------------------------------------------------------------------
+// functions
+//-----------------------------------------------------------------------------
+canvas() {`block} = {
+	Canvas() {|block|}
+}
+
+graph() {`block} = {
+	Canvas().graph() {|block|}
+}
+
+//-----------------------------------------------------------------------------
+// test script
+//-----------------------------------------------------------------------------
 main() = {
 	MakeRands(center:number, range:number, n:number) = {
 		center + rands(nil, n) * range - range / 2
