@@ -9,8 +9,14 @@ plotter.graph {|g|
 		nSamples = 1000
 		t1 = interval(0, 2 * math.pi, nSamples)
 		t2 = interval(0, 12 * 2 * math.pi, nSamples)
-		xs = 7 * math.sin(t1) + 2 * math.sin(t2)
-		ys = 7 * math.cos(t1) + 2 * math.cos(t2)
+		xs = 7 * math.cos(t1) + 2 * math.cos(t2)
+		ys = 7 * math.sin(t1) + 2 * math.sin(t2)
+		g.plot(xs, ys)
+	}
+	g.attr(markerStyle => `none, lineStyle => `solid) {
+		ns = interval(0, 20, 20)
+		xs = math.cos(math.pi * ns) * 5
+		ys = math.sin(math.pi * ns) * 5
 		g.plot(xs, ys)
 	}
 	g.show()
