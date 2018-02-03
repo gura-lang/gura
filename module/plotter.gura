@@ -26,7 +26,7 @@ LegendInfo = struct(text:string):map
 //-----------------------------------------------------------------------------
 // Range
 //-----------------------------------------------------------------------------
-Range = struct(minX:number, maxX:number, minY:number, maxY:number):map
+Range = struct(min:number, max:number):map
 
 //-----------------------------------------------------------------------------
 // Canvas
@@ -404,9 +404,10 @@ Graph = class {
 		}
 	}
 	autoAdjust() = {
-		ranges = this.itemInfos:*getRange().skipnil()
-		minX = ranges:*minX.min(), maxX = ranges:*maxX.max()
-		minY = ranges:*minY.min(), maxY = ranges:*maxY.max()
+		rangesX = this.itemInfos:*getRangeX().skipnil()
+		rangesY = this.itemInfos:*getRangeY().skipnil()
+		minX = rangesX:*min.min(), maxX = rangesX:*max.max()
+		minY = rangesY:*min.min(), maxY = rangesY:*max.max()
 		if ((d = maxX - minX) > 0) {
 			mgn = d * .1
 			this.minX = minX - mgn, this.maxX = maxX + mgn
@@ -792,7 +793,8 @@ PlotInfo = struct(xs[]:number, ys[]:number, attrInfo:AttrInfo) {
 			}
 		}
 	}
-	getRange() = Range(this.xs.min(), this.xs.max(), this.ys.min(), this.ys.max())
+	getRangeX() = Range(this.xs.min(), this.xs.max())
+	getRangeY() = Range(this.ys.min(), this.ys.max())
 }
 
 //-----------------------------------------------------------------------------
@@ -820,7 +822,8 @@ FuncInfo = struct(func:function, min:number:nil, max:number:nil, cntSamples:numb
 		g.applyLineStyle(cr, attrInfo.lineStyle)
 		cr.stroke()
 	}
-	getRange() = nil
+	getRangeX() = nil
+	getRangeY() = nil
 }
 
 //-----------------------------------------------------------------------------
@@ -833,7 +836,8 @@ LabelInfo = struct(x:number, y:number, text:string, xOffset:number, yOffset:numb
 		g.drawText(cr, g.coordX(this.x) + this.xOffset,
 				   g.coordY(this.y) + this.yOffset, this.text, attrInfo)
 	}
-	getRange() = Range(this.x, this.x, this.y, this.y)
+	getRangeX() = Range(this.x, this.x)
+	getRangeY() = Range(this.y, this.y)
 }
 
 //-----------------------------------------------------------------------------
@@ -852,7 +856,8 @@ HLineInfo = struct(y:number, min:number:nil, max:number:nil, attrInfo:AttrInfo):
 		g.applyLineStyle(cr, attrInfo.lineStyle)
 		cr.stroke()
 	}
-	getRange() = Range(this.min, this.max, y, y)
+	getRangeX() = Range(this.min, this.max)
+	getRangeY() = Range(y, y)
 }
 
 //-----------------------------------------------------------------------------
@@ -871,7 +876,8 @@ VLineInfo = struct(x:number, min:number:nil, max:number:nil, attrInfo:AttrInfo):
 		g.applyLineStyle(cr, attrInfo.lineStyle)
 		cr.stroke()
 	}
-	getRange() = Range(x, x, this.min, this.max)
+	getRangeX() = Range(x, x)
+	getRangeY() = Range(this.min, this.max)
 }
 
 //-----------------------------------------------------------------------------
