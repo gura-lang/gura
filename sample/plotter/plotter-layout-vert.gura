@@ -1,17 +1,43 @@
 #!/usr/bin/env gura
 import(plotter)
 
-plotter.canvas {|cv|
-	cv.graph() {|g|
-		g.title = 'graph-1'
+plotter.canvas(`vert, 6) {|cv|
+	i = 0
+	repeat (6) {
+		cv.graph() {|g|
+			i += 1
+			g.title = format('graph-%d', i)
+			g.showBoundingBox = true
+		}
+	}
+	cv.graph(2) {|g|
+		i += 1
+		g.title = format('graph-%d', i)
 		g.showBoundingBox = true
 	}
 	cv.graph() {|g|
-		g.title = 'graph-2'
+		i += 1
+		g.title = format('graph-%d', i)
+		g.showBoundingBox = true
+	}
+	cv.graph(2) {|g|
+		i += 1
+		g.title = format('graph-%d', i)
 		g.showBoundingBox = true
 	}
 	cv.graph() {|g|
-		g.title = 'graph-3'
+		i += 1
+		g.title = format('graph-%d', i)
+		g.showBoundingBox = true
+	}
+	cv.graph(3) {|g|
+		i += 1
+		g.title = format('graph-%d', i)
+		g.showBoundingBox = true
+	}
+	cv.graph(3) {|g|
+		i += 1
+		g.title = format('graph-%d', i)
 		g.showBoundingBox = true
 	}
 	cv.show()
