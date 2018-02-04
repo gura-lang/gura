@@ -1,0 +1,30 @@
+#!/usr/bin/env gura
+import(plotter)
+
+plotter.canvas(`vert, 3) {|cv|
+	cv.blank()
+	cv.graph {|g|
+		graphY = g
+		g.minY = -1, g.maxY = 7
+	}
+	cv.blank()
+	cv.graph {|g|
+		graphX = g
+		g.minX = 3, g.maxX = 18
+	}
+	cv.graph {|g|
+		g.syncRangeX(graphX)
+		g.syncRangeY(graphY)
+	}
+	cv.blank()
+	cv.graph {|g|
+		g.minX = -14, g.maxX = 23
+	}
+	cv.graph {|g|
+		g.syncRangeX()
+	}
+	cv.graph {|g|
+		g.syncRangeX()
+	}
+	cv.show()
+}

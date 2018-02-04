@@ -35,12 +35,14 @@ Canvas = class {
 	public {
 		width
 		height
+		graphs
 	}
 	__init__(orient?:symbol, nFolds?:number) = {
 		this.orient = orient || `vert
 		!(this.orient in [`horz, `vert]) && raise(error.ValueError, "the argument 'orient' takes `horz or `vert")
 		this.width = 0
 		this.height = 0
+		this.graphs = []
 		this.nFolds = nFolds
 		this.mgnLeft = nil
 		this.mgnRight = nil
@@ -54,7 +56,6 @@ Canvas = class {
 		this.htSpace = nil
 		this.wdSpaceP = 2
 		this.htSpaceP = 2
-		this.graphs = []
 	}
 	graph(nSpans:number => 1) {block?} = {
 		g = Graph(this, nSpans)
@@ -71,6 +72,7 @@ Canvas = class {
 		img.show(width + 30 * 2, height + 30 * 2)
 	}
 	render(cr:cairo.context):void = {
+		this.graphs::doSyncRange()
 		[this.width, this.height] = [cr.width, cr.height]
 		this.graphs.isempty() && return
 		nSpansSum = this.graphs:*nSpans.sum()
@@ -132,6 +134,7 @@ Graph = class {
 	}
 	public {
 		nSpans
+		graphPrev
 		showBoundingBox
 		mgnLeft
 		mgnRight
@@ -181,6 +184,7 @@ Graph = class {
 		}
 		this.cv = cv
 		this.nSpans = nSpans
+		this.graphPrev = if (cv.graphs.isempty()) {nil} else {cv.graphs.last()}
 		this.showBoundingBox = false
 		this.mgnLeft = nil
 		this.mgnRight = nil
@@ -227,6 +231,8 @@ Graph = class {
 		this.mgnTickY = 4
 		this.gridX = `none
 		this.gridY = `none
+		this.graphSyncRangeX = nil
+		this.graphSyncRangeY = nil
 		this.dict@drawMarker = %{
 			`pixel			=> this.drawMarker_pixel
 			`square			=> this.drawMarker_square
@@ -404,7 +410,7 @@ Graph = class {
 			}
 		}
 	}
-	autoAdjust(mgnPropX?:number, mgnPropY?:number) = {
+	adjustRange(mgnPropX?:number, mgnPropY?:number) = {
 		mgnPropX = mgnPropX || 10
 		mgnPropY = mgnPropY || mgnPropX
 		rangesX = this.itemInfos:*getRangeX().skipnil()
@@ -419,6 +425,22 @@ Graph = class {
 			mgn = d * mgnPropY / 100
 			this.minY = minY- mgn, this.maxY = maxY + mgn
 		}
+	}
+	doSyncRange():void = {
+		if (this.graphSyncRangeX) {
+			this.minX = this.graphSyncRangeX.minX
+			this.maxX = this.graphSyncRangeX.maxX
+		}
+		if (this.graphSyncRangeY) {
+			this.minY = this.graphSyncRangeY.minY
+			this.maxY = this.graphSyncRangeY.maxY
+		}
+	}
+	syncRangeX(g?:Graph) = {
+		this.graphSyncRangeX = g || this.graphPrev
+	}
+	syncRangeY(g?:Graph) = {
+		this.graphSyncRangeY = g || this.graphPrev
 	}
 	coordX(x:number):map = {
 		this.xAxis + (x - this.minX) * this.wdAxis / (this.maxX - this.minX)
@@ -787,6 +809,9 @@ GraphBlank = class {
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
 		// nothing to do
 	}
+	doSyncRange():void = {
+		// nothing to do
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -1018,7 +1043,7 @@ main() = {
 			g.attr(markerStyle => `dia) {
 				g.plot(MakeRands(5, 5, 10), MakeRands(-5, 5, 10))
 			}
-			g.autoAdjust()
+			g.adjustRange()
 		}
 		cv.show(1000, 600)
 	}
