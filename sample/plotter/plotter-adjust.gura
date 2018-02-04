@@ -1,0 +1,29 @@
+#!/usr/bin/env gura
+import(plotter)
+#!/usr/bin/env gura
+import(plotter)
+
+plotter.canvas(`horz, 2) {|cv|
+	xs = [10, -10, -10, 10]
+	ys = [10, 10, -10, -10]
+	cv.graph() {|g|
+		g.title = 'No adjustment'
+		g.plot(xs, ys)
+	}
+	cv.graph() {|g|
+		g.title = 'autoAdjust()'
+		g.plot(xs, ys)
+		g.autoAdjust()
+	}
+	cv.graph() {|g|
+		g.title = 'autoAdjust(20)'
+		g.plot(xs, ys)
+		g.autoAdjust(20)
+	}
+	cv.graph() {|g|
+		g.title = 'autoAdjust(20, 30)'
+		g.plot(xs, ys)
+		g.autoAdjust(20, 30)
+	}
+	cv.show()
+}

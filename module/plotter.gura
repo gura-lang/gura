@@ -61,6 +61,10 @@ Canvas = class {
 		this.graphs.add(g)
 		if (block) {block(g)} else {g}
 	}
+	blank(nSpans:number => 1) = {
+		g = GraphBlank(this, nSpans)
+		this.graphs.add(g)
+	}
 	show(width:number => 600, height:number => 600):void = {
 		img = image(`rgba, width, height, `white)
 		this.render(img)
@@ -255,9 +259,6 @@ Graph = class {
 	show(width:number => 600, height:number => 600):void = {
 		this.cv.show(width, height)
 	}
-	render(cr:cairo.context):void = {
-		this.cv.render(cr)
-	}
 	saveAttr() {block?} = {
 		if (block) {
 			attrInfoSaved = this.attrInfoCur.clone()
@@ -403,17 +404,19 @@ Graph = class {
 			}
 		}
 	}
-	autoAdjust() = {
+	autoAdjust(mgnPropX?:number, mgnPropY?:number) = {
+		mgnPropX = mgnPropX || 10
+		mgnPropY = mgnPropY || mgnPropX
 		rangesX = this.itemInfos:*getRangeX().skipnil()
 		rangesY = this.itemInfos:*getRangeY().skipnil()
 		minX = rangesX:*min.min(), maxX = rangesX:*max.max()
 		minY = rangesY:*min.min(), maxY = rangesY:*max.max()
 		if ((d = maxX - minX) > 0) {
-			mgn = d * .1
+			mgn = d * mgnPropX / 100
 			this.minX = minX - mgn, this.maxX = maxX + mgn
 		}
 		if ((d = maxY - minY) > 0) {
-			mgn = d * .1
+			mgn = d * mgnPropY / 100
 			this.minY = minY- mgn, this.maxY = maxY + mgn
 		}
 	}
@@ -423,7 +426,6 @@ Graph = class {
 	coordY(y:number):map = {
 		this.yAxis + this.htAxis - (y - this.minY) * this.htAxis / (this.maxY - this.minY)
 	}
-	coord(x:number, y:number) = [coordX(x), coordY(y)]
 	calcStep(tMin:number, tMax:number, nTicksMax:number) = {
 		tRange = tMax - tMin
 		nScales = [1000, 500, 250, 200, 150, 100, 50, 25, 20, 15, 10, 5, 2.5, 2, 1]
@@ -769,6 +771,21 @@ Graph = class {
 			cr.set_source_color(`black)
 			cr.stroke()
 		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// GraphBlank
+//-----------------------------------------------------------------------------
+GraphBlank = class {
+	public {
+		nSpans
+	}
+	__init__(cv:Canvas, nSpans:number) = {
+		this.nSpans = nSpans
+	}
+	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
+		// nothing to do
 	}
 }
 
