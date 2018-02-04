@@ -372,7 +372,7 @@ Graph = class {
 		]
 		if (!this.title.isempty()) {
 			cr.set_font_size(this.fontSizeTitle)
-			this.drawText_n(cr, x + width / 2, y + mgnTop, this.title)
+			this.drawText_n(cr, x + mgnLeft + (width - mgnLeft - mgnRight) / 2, y + mgnTop, this.title)
 		}
 		if (!this.titleX.isempty()) {
 			cr.set_font_size(this.fontSizeTitleX)
@@ -381,7 +381,7 @@ Graph = class {
 		}
 		if (!this.titleY.isempty()) {
 			cr.set_font_size(this.fontSizeTitleY)
-			this.drawRotText_w(cr, x, this.yAxis + this.htAxis / 2, this.titleY)
+			this.drawRotText_w(cr, x + mgnLeft, this.yAxis + this.htAxis / 2, this.titleY)
 		}
 		if (!this.titleYSub.isempty()) {
 			cr.set_font_size(this.fontSizeTitleYSub)
