@@ -10,8 +10,9 @@ AttrCycler = struct(symbol:symbol, values[], iter:iterator => nil)
 //-----------------------------------------------------------------------------
 // AttrInfo
 //-----------------------------------------------------------------------------
-AttrInfo = struct(color:color, markerStyle:symbol, markerSize:number, 
-				  lineStyle:symbol, lineWidth:number, labelAnchor:symbol)
+AttrInfo = struct(color:color, markerStyle:symbol, markerSize:number, markerColor:color:nil,
+				  lineStyle:symbol, lineWidth:number, lineColor:color:nil,
+				  labelAnchor:symbol)
 
 //-----------------------------------------------------------------------------
 // TickInfo
@@ -202,7 +203,7 @@ Graph = class {
 		[this.minY, this.maxY] = [-10, 10]
 		this.nTicksMaxX = 11
 		this.nTicksMaxY = 11
-		this.attrInfoDefault = AttrInfo(`black, `point, 10, `solid, 1, `nw)
+		this.attrInfoDefault = AttrInfo(`black, `point, 10, nil, `solid, 1, nil, `nw)
 		this.attrInfoCur = this.attrInfoDefault.clone()
 		this.attrInfosSaved = []
 		this.attrCyclers = []
@@ -280,14 +281,16 @@ Graph = class {
 			this.attrInfosSaved.erase(-1)
 		}
 	}
-	attr(color?:color, markerStyle?:symbol, markerSize?:number,
-		 lineStyle?:symbol, lineWidth?:number, labelAnchor?:symbol) {block?} = {
+	attr(color?:color, markerStyle?:symbol, markerSize?:number, markerColor?:color,
+		 lineStyle?:symbol, lineWidth?:number, lineColor?:color, labelAnchor?:symbol) {block?} = {
 		block && this.saveAttr()
 		color?			&& (this.attrInfoCur.color = color)
 		markerStyle?	&& (this.attrInfoCur.markerStyle = markerStyle)
 		markerSize?		&& (this.attrInfoCur.markerSize = markerSize)
+		markerColor?	&& (this.attrInfoCur.markerColor = markerColor)
 		lineStyle?		&& (this.attrInfoCur.lineStyle = lineStyle)
 		lineWidth?		&& (this.attrInfoCur.lineWidth = lineWidth)
+		lineColor?		&& (this.attrInfoCur.lineColor = lineColor)
 		labelAnchor?	&& (this.attrInfoCur.labelAnchor = labelAnchor)
 		if (block) {
 			block()
@@ -295,13 +298,15 @@ Graph = class {
 		}
 		this
 	}
-	attrCycle(color[]?:color, markerStyle[]?:symbol, markerSize[]?:number,
-			  lineStyle[]?:symbol, lineWidth[]?:number, labelAnchor[]?:symbol) = {
+	attrCycle(color[]?:color, markerStyle[]?:symbol, markerSize[]?:number, markerColor[]?:color,
+			  lineStyle[]?:symbol, lineWidth[]?:number, lineColor[]?:color, labelAnchor[]?:symbol) = {
 		color?			&& this.addAttrCycler(`color, color)
 		markerStyle?	&& this.addAttrCycler(`markerStyle, markerStyle)
 		markerSize?		&& this.addAttrCycler(`markerSize, markerSize)
+		markerColor?	&& this.addAttrCycler(`markerColor, markerColor)
 		lineStyle?		&& this.addAttrCycler(`lineStyle, lineStyle)
 		lineWidth?		&& this.addAttrCycler(`lineWidth, lineWidth)
+		lineColor?		&& this.addAttrCycler(`lineColor, lineColor)
 		labelAnchor?	&& this.addAttrCycler(`labelAnchor, labelAnchor)
 		this
 	}
@@ -473,7 +478,7 @@ Graph = class {
 		cr.save {
 			cr.rectangle(x - attrInfo.markerSize / 2, y - attrInfo.markerSize / 2,
 						 attrInfo.markerSize, attrInfo.markerSize)
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.fill()
 		}
 	}
@@ -483,7 +488,7 @@ Graph = class {
 						 attrInfo.markerSize, attrInfo.markerSize)
 			cr.set_source_color(`white)
 			cr.fill_preserve()
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -491,7 +496,7 @@ Graph = class {
 	drawMarker_point(cr:cairo.context, x:number, y:number, attrInfo:AttrInfo):map:void = {
 		cr.save {
 			cr.arc(x, y, attrInfo.markerSize / 2, 0, math.pi * 2)
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.fill()
 		}
 	}
@@ -500,7 +505,7 @@ Graph = class {
 			cr.arc(x, y, attrInfo.markerSize / 2, 0, math.pi * 2)
 			cr.set_source_color(`white)
 			cr.fill_preserve()
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -540,28 +545,28 @@ Graph = class {
 	drawMarker_triangle_down(cr:cairo.context, x:number, y:number, attrInfo:AttrInfo):map:void = {
 		cr.save {
 			makePath_triangle_down(cr, x, y, attrInfo)
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.fill()
 		}
 	}
 	drawMarker_triangle_up(cr:cairo.context, x:number, y:number, attrInfo:AttrInfo):map:void = {
 		cr.save {
 			makePath_triangle_up(cr, x, y, attrInfo)
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.fill()
 		}
 	}
 	drawMarker_triangle_left(cr:cairo.context, x:number, y:number, attrInfo:AttrInfo):map:void = {
 		cr.save {
 			makePath_triangle_left(cr, x, y, attrInfo)
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.fill()
 		}
 	}
 	drawMarker_triangle_right(cr:cairo.context, x:number, y:number, attrInfo:AttrInfo):map:void = {
 		cr.save {
 			makePath_triangle_right(cr, x, y, attrInfo)
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.fill()
 		}
 	}
@@ -570,7 +575,7 @@ Graph = class {
 			makePath_triangle_down(cr, x, y, attrInfo)
 			cr.set_source_color(`white)
 			cr.fill_preserve()
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -580,7 +585,7 @@ Graph = class {
 			makePath_triangle_up(cr, x, y, attrInfo)
 			cr.set_source_color(`white)
 			cr.fill_preserve()
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -590,7 +595,7 @@ Graph = class {
 			makePath_triangle_left(cr, x, y, attrInfo)
 			cr.set_source_color(`white)
 			cr.fill_preserve()
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -600,7 +605,7 @@ Graph = class {
 			makePath_triangle_right(cr, x, y, attrInfo)
 			cr.set_source_color(`white)
 			cr.fill_preserve()
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -612,7 +617,7 @@ Graph = class {
 			cr.line_to(x + markerSizeHalf, y + markerSizeHalf)
 			cr.move_to(x + markerSizeHalf, y - markerSizeHalf)
 			cr.line_to(x - markerSizeHalf, y + markerSizeHalf)
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -624,7 +629,7 @@ Graph = class {
 			cr.line_to(x + markerSizeSqrt, y)
 			cr.move_to(x, y - markerSizeSqrt)
 			cr.line_to(x, y + markerSizeSqrt)
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -640,14 +645,14 @@ Graph = class {
 	drawMarker_diamond(cr:cairo.context, x:number, y:number, attrInfo:AttrInfo):map:void = {
 		cr.save {
 			makePath_diamond(cr, x, y, attrInfo)
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.fill()
 		}
 	}
 	drawMarker_dia(cr:cairo.context, x:number, y:number, attrInfo:AttrInfo):map:void = {
 		cr.save {
 			makePath_diamond(cr, x, y, attrInfo)
-			cr.set_source_color(attrInfo.color)
+			cr.set_source_color(attrInfo.markerColor || attrInfo.color)
 			cr.set_line_width(1)
 			cr.stroke()
 		}
@@ -828,7 +833,7 @@ PlotInfo = struct(xs[]:number, ys[]:number, attrInfo:AttrInfo) {
 		if (attrInfo.lineStyle != `none) {
 			cr.save {
 				cr.line_to(g.coordX(this.xs), g.coordY(this.ys))
-				cr.set_source_color(attrInfo.color)
+				cr.set_source_color(attrInfo.lineColor || attrInfo.color)
 				g.applyLineWidth(cr, attrInfo.lineWidth)
 				g.applyLineStyle(cr, attrInfo.lineStyle)
 				cr.stroke()
@@ -864,7 +869,7 @@ FuncInfo = struct(func:function, min:number:nil, max:number:nil, cntSamples:numb
 			xs = interval(this.min || g.minX, this.max || g.maxX, this.cntSamples)
 			cr.line_to(g.coordX(xs), g.coordY(this.func(xs)))
 		}
-		cr.set_source_color(attrInfo.color)
+		cr.set_source_color(attrInfo.lineColor || attrInfo.color)
 		g.applyLineWidth(cr, attrInfo.lineWidth)
 		g.applyLineStyle(cr, attrInfo.lineStyle)
 		cr.stroke()
@@ -898,7 +903,7 @@ HLineInfo = struct(y:number, min:number:nil, max:number:nil, attrInfo:AttrInfo):
 		y = g.coordY(this.y)
 		cr.move_to(g.coordX(this.min || g.minX), y)
 		cr.line_to(g.coordX(this.max || g.maxX), y)
-		cr.set_source_color(attrInfo.color)
+		cr.set_source_color(attrInfo.lineColor || attrInfo.color)
 		g.applyLineWidth(cr, attrInfo.lineWidth)
 		g.applyLineStyle(cr, attrInfo.lineStyle)
 		cr.stroke()
@@ -918,7 +923,7 @@ VLineInfo = struct(x:number, min:number:nil, max:number:nil, attrInfo:AttrInfo):
 		x = g.coordX(this.x)
 		cr.move_to(x, g.coordY(this.min || g.minY))
 		cr.line_to(x, g.coordY(this.max || g.maxY))
-		cr.set_source_color(attrInfo.color)
+		cr.set_source_color(attrInfo.lineColor || attrInfo.color)
 		g.applyLineWidth(cr, attrInfo.lineWidth)
 		g.applyLineStyle(cr, attrInfo.lineStyle)
 		cr.stroke()
