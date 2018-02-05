@@ -12,7 +12,7 @@ AttrCycler = struct(symbol:symbol, values[], iter:iterator => nil)
 //-----------------------------------------------------------------------------
 AttrInfo = struct(color:color, markerStyle:symbol, markerSize:number, markerColor:color:nil,
 				  lineStyle:symbol, lineWidth:number, lineColor:color:nil,
-				  labelAnchor:symbol)
+				  labelAnchor:symbol, labelColor:color:nil)
 
 //-----------------------------------------------------------------------------
 // TickInfo
@@ -203,7 +203,7 @@ Graph = class {
 		[this.minY, this.maxY] = [-10, 10]
 		this.nTicksMaxX = 11
 		this.nTicksMaxY = 11
-		this.attrInfoDefault = AttrInfo(`black, `point, 10, nil, `solid, 1, nil, `nw)
+		this.attrInfoDefault = AttrInfo(`black, `point, 10, nil, `solid, 1, nil, `nw, nil)
 		this.attrInfoCur = this.attrInfoDefault.clone()
 		this.attrInfosSaved = []
 		this.attrCyclers = []
@@ -252,15 +252,15 @@ Graph = class {
 			`diamond		=> this.drawMarker_diamond
 			`dia			=> this.drawMarker_dia
 		}
-		this.dict@drawText = %{
-			`n				=> this.drawText_n
-			`s				=> this.drawText_s
-			`e				=> this.drawText_e
-			`w				=> this.drawText_w
-			`ne				=> this.drawText_ne
-			`nw				=> this.drawText_nw
-			`se				=> this.drawText_se
-			`sw				=> this.drawText_sw
+		this.dict@drawLabel = %{
+			`n				=> this.drawLabel_n
+			`s				=> this.drawLabel_s
+			`e				=> this.drawLabel_e
+			`w				=> this.drawLabel_w
+			`ne				=> this.drawLabel_ne
+			`nw				=> this.drawLabel_nw
+			`se				=> this.drawLabel_se
+			`sw				=> this.drawLabel_sw
 		}
 	}
 	show(width:number => 600, height:number => 600):void = {
@@ -282,7 +282,8 @@ Graph = class {
 		}
 	}
 	attr(color?:color, markerStyle?:symbol, markerSize?:number, markerColor?:color,
-		 lineStyle?:symbol, lineWidth?:number, lineColor?:color, labelAnchor?:symbol) {block?} = {
+		 lineStyle?:symbol, lineWidth?:number, lineColor?:color,
+		 labelAnchor?:symbol, labelColor?:color) {block?} = {
 		block && this.saveAttr()
 		color?			&& (this.attrInfoCur.color = color)
 		markerStyle?	&& (this.attrInfoCur.markerStyle = markerStyle)
@@ -292,6 +293,7 @@ Graph = class {
 		lineWidth?		&& (this.attrInfoCur.lineWidth = lineWidth)
 		lineColor?		&& (this.attrInfoCur.lineColor = lineColor)
 		labelAnchor?	&& (this.attrInfoCur.labelAnchor = labelAnchor)
+		labelColor?		&& (this.attrInfoCur.labelColor = labelColor)
 		if (block) {
 			block()
 			this.restoreAttr()
@@ -299,7 +301,8 @@ Graph = class {
 		this
 	}
 	attrCycle(color[]?:color, markerStyle[]?:symbol, markerSize[]?:number, markerColor[]?:color,
-			  lineStyle[]?:symbol, lineWidth[]?:number, lineColor[]?:color, labelAnchor[]?:symbol) = {
+			  lineStyle[]?:symbol, lineWidth[]?:number, lineColor[]?:color,
+			  labelAnchor[]?:symbol, labelColor[]?:color) = {
 		color?			&& this.addAttrCycler(`color, color)
 		markerStyle?	&& this.addAttrCycler(`markerStyle, markerStyle)
 		markerSize?		&& this.addAttrCycler(`markerSize, markerSize)
@@ -308,6 +311,7 @@ Graph = class {
 		lineWidth?		&& this.addAttrCycler(`lineWidth, lineWidth)
 		lineColor?		&& this.addAttrCycler(`lineColor, lineColor)
 		labelAnchor?	&& this.addAttrCycler(`labelAnchor, labelAnchor)
+		labelColor?		&& this.addAttrCycler(`labelColor, labelColor)
 		this
 	}
 	getAttrInfo(cycleFlag:boolean => true) = {
@@ -389,11 +393,11 @@ Graph = class {
 		]
 		if (!this.title.isempty()) {
 			cr.set_font_size(this.fontSizeTitle)
-			this.drawText_n(cr, x + mgnLeft + (width - mgnLeft - mgnRight) / 2, y + mgnTop, this.title)
+			this.drawLabel_n(cr, x + mgnLeft + (width - mgnLeft - mgnRight) / 2, y + mgnTop, this.title)
 		}
 		if (!this.titleX.isempty()) {
 			cr.set_font_size(this.fontSizeTitleX)
-			this.drawText_n(cr, this.xAxis + this.wdAxis / 2,
+			this.drawLabel_n(cr, this.xAxis + this.wdAxis / 2,
 							this.yAxis + this.htAxis + mgnTickX + htTickX + this.mgnTitleX, this.titleX)
 		}
 		if (!this.titleY.isempty()) {
@@ -657,12 +661,12 @@ Graph = class {
 			cr.stroke()
 		}
 	}
-	drawText(cr:cairo.context, x:number, y:number, text:string, attrInfo:AttrInfo):map:void = {
-		cr.set_source_color(attrInfo.color)
-		this.dict@drawText[attrInfo.labelAnchor](cr, x, y, text)
+	drawLabel(cr:cairo.context, x:number, y:number, text:string, attrInfo:AttrInfo):map:void = {
+		cr.set_source_color(attrInfo.labelColor || attrInfo.color)
+		this.dict@drawLabel[attrInfo.labelAnchor](cr, x, y, text)
 		cr.stroke() // just to remove current position
 	}
-	drawText_n(cr:cairo.context, x:number, y:number, text:string):map:void = {
+	drawLabel_n(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
 		x -= extText.x_advance / 2
@@ -670,13 +674,13 @@ Graph = class {
 		cr.move_to(x, y)
 		cr.show_text(text)
 	}
-	drawText_s(cr:cairo.context, x:number, y:number, text:string):map:void = {
+	drawLabel_s(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extText = cr.text_extents(text)
 		x -= extText.x_advance / 2
 		cr.move_to(x, y)
 		cr.show_text(text)
 	}
-	drawText_e(cr:cairo.context, x:number, y:number, text:string):map:void = {
+	drawLabel_e(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
 		x -= extText.x_advance
@@ -684,14 +688,14 @@ Graph = class {
 		cr.move_to(x, y)
 		cr.show_text(text)
 	}
-	drawText_w(cr:cairo.context, x:number, y:number, text:string):map:void = {
+	drawLabel_w(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
 		y += extFont.ascent / 2
 		cr.move_to(x, y)
 		cr.show_text(text)
 	}
-	drawText_ne(cr:cairo.context, x:number, y:number, text:string):map:void = {
+	drawLabel_ne(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
 		x -= extText.x_advance
@@ -699,20 +703,20 @@ Graph = class {
 		cr.move_to(x, y)
 		cr.show_text(text)
 	}
-	drawText_nw(cr:cairo.context, x:number, y:number, text:string):map:void = {
+	drawLabel_nw(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
 		y += extFont.ascent
 		cr.move_to(x, y)
 		cr.show_text(text)
 	}
-	drawText_se(cr:cairo.context, x:number, y:number, text:string):map:void = {
+	drawLabel_se(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extText = cr.text_extents(text)
 		x -= extText.x_advance
 		cr.move_to(x, y)
 		cr.show_text(text)
 	}
-	drawText_sw(cr:cairo.context, x:number, y:number, text:string):map:void = {
+	drawLabel_sw(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extText = cr.text_extents(text)
 		cr.move_to(x, y)
 		cr.show_text(text)
@@ -774,12 +778,12 @@ Graph = class {
 		cr.save {
 			if (this.showTickX) {
 				cr.set_font_size(this.fontSizeTickX)
-				this.drawText_s(cr, this.coordX(this.tickInfosX:*n),
+				this.drawLabel_s(cr, this.coordX(this.tickInfosX:*n),
 								this.yAxis + this.htAxis + this.mgnTickX + this.htTickX, this.tickInfosX:*text)
 			}
 			if (this.showTickY) {
 				cr.set_font_size(this.fontSizeTickY)
-				this.drawText_e(cr, this.xAxis - this.mgnTickY,
+				this.drawLabel_e(cr, this.xAxis - this.mgnTickY,
 								this.coordY(this.tickInfosY:*n), this.tickInfosY:*text)
 			}
 		}
@@ -885,7 +889,7 @@ LabelInfo = struct(x:number, y:number, text:string, xOffset:number, yOffset:numb
 	draw(g:Graph, cr:cairo.context) = cr.save {
 		attrInfo = this.attrInfo
 		cr.set_font_size(g.fontSizeLabel)
-		g.drawText(cr, g.coordX(this.x) + this.xOffset,
+		g.drawLabel(cr, g.coordX(this.x) + this.xOffset,
 				   g.coordY(this.y) + this.yOffset, this.text, attrInfo)
 	}
 	getRangeX() = Range(this.x, this.x)
@@ -980,7 +984,7 @@ main() = {
 			g.minY = 0, g.maxY = 10
 			g.showTickX = g.showTickY = false
 			lineStyles = [`solid, `dot, `dash, `dashdot, `dashdotdot]
-			g.attr(labelAnchor => `n)
+			g.attr(markerColor => `red, labelColor => `green, labelAnchor => `n)
 			g.attrCycle(lineStyle => lineStyles)
 			interval(g.maxY, g.minY, 5):open {|y, i|
 				g.linedMarker([1, 9], [y, y])
@@ -1014,6 +1018,7 @@ main() = {
 			}
 		}
 		cv.graph(2) {|g|
+			g.attr(markerColor => `red, labelColor => `green)
 			g.attr(markerStyle => `pixel) {
 				g.marker([0, 0], [5, -5])
 			}
