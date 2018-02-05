@@ -9,6 +9,8 @@ The `plotter` module ...
 ## Module Function
 
 ${markdown.makedoc@function(`en
+plotter.canvas
+plotter.graph
 )}
 
 '''.embed()
