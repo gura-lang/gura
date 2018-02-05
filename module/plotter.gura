@@ -202,7 +202,7 @@ Graph = class {
 		[this.minY, this.maxY] = [-10, 10]
 		this.nTicksMaxX = 11
 		this.nTicksMaxY = 11
-		this.attrInfoDefault = AttrInfo(`black, `default, 10, `default, 1, `nw)
+		this.attrInfoDefault = AttrInfo(`black, `point, 10, `solid, 1, `nw)
 		this.attrInfoCur = this.attrInfoDefault.clone()
 		this.attrInfosSaved = []
 		this.attrCyclers = []
@@ -318,10 +318,18 @@ Graph = class {
 	addAttrCycler(symbol:symbol, values[]) = {
 		this.attrCyclers.add(AttrCycler(symbol, values))
 	}
-	plot(xs[]:number, ys[]?:number) = {
+	marker(xs[]:number, ys[]:number) = {
 		attrInfo = this.getAttrInfo()
-		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `point }
-		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `none }
+		attrInfo.lineStyle = `none
+		this.itemInfos.add(PlotInfo(xs, ys, attrInfo))
+	}
+	linedMarker(xs[]:number, ys[]:number) = {
+		attrInfo = this.getAttrInfo()
+		this.itemInfos.add(PlotInfo(xs, ys, attrInfo))
+	}
+	line(xs[]:number, ys[]?:number) = {
+		attrInfo = this.getAttrInfo()
+		attrInfo.markerStyle = `none
 		if (ys) {
 			this.itemInfos.add(PlotInfo(xs, ys, attrInfo))
 		} else {
@@ -330,26 +338,23 @@ Graph = class {
 	}
 	func(func:function, min?:number, max?:number, cntSamples:number => 100):map:void = {
 		attrInfo = this.getAttrInfo()
-		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `none }
-		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `solid }
+		attrInfo.markerStyle = `none
 		this.itemInfos.add(FuncInfo(func, min, max, cntSamples, attrInfo))
 	}
 	label(x:number, y:number, text:string, xOffset:number => 0, yOffset:number => 0):map:void = {
 		attrInfo = this.getAttrInfo(false)
-		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `none }
-		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `none }
+		attrInfo.markerStyle = `none
+		attrInfo.lineStyle = `none
 		this.itemInfos.add(LabelInfo(x, y, text, xOffset, yOffset, attrInfo))
 	}
 	hline(y:number, min?:number, max?:number):map:void = {
 		attrInfo = this.getAttrInfo()
-		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `none }
-		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `solid }
+		attrInfo.markerStyle = `none
 		this.itemInfos.add(HLineInfo(y, min, max, attrInfo))
 	}
 	vline(x:number, min?:number, max?:number):map:void = {
 		attrInfo = this.getAttrInfo()
-		if (attrInfo.markerStyle == `default) { attrInfo.markerStyle = `none }
-		if (attrInfo.lineStyle == `default) { attrInfo.lineStyle = `solid }
+		attrInfo.markerStyle = `none
 		this.itemInfos.add(VLineInfo(x, min, max, attrInfo))
 	}
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
@@ -962,7 +967,7 @@ main() = {
 		cv.graph {|g|
 			g.minX = 0, g.maxX = 100
 			g.minY = -1.5, g.maxY = 1.5
-			g.attr(markerStyle => `none, lineStyle => `solid).plot(math.sin((0..) / 10) + MakeRands(0, 2, 100) * .4)
+			g.attr(markerStyle => `none, lineStyle => `solid).line(math.sin((0..) / 10) + MakeRands(0, 2, 100) * .4)
 		}
 		cv.graph(2) {|g|
 			g.title = 'Line Style'
@@ -973,7 +978,7 @@ main() = {
 			g.attr(labelAnchor => `n)
 			g.attrCycle(lineStyle => lineStyles)
 			interval(g.maxY, g.minY, 5):open {|y, i|
-				g.plot([1, 9], [y, y])
+				g.linedMarker([1, 9], [y, y])
 				g.attr(color => `green, labelAnchor => `s) {
 					g.label(5, y, lineStyles[i], 0, -10)
 				}
@@ -997,7 +1002,7 @@ main() = {
 			xs = interval(g.minX, g.maxX, nHorz):open
 			ys = interval(g.maxY, g.minY, nVert):open
 			cross (y in ys, x in xs) {|i, j, k|
-				g.plot([x], [y])
+				g.marker([x], [y])
 				g.attr(color => `green, labelAnchor => `s) {
 					g.label(x, y, markerStyles[i], 0, -16)
 				}
@@ -1005,7 +1010,7 @@ main() = {
 		}
 		cv.graph(2) {|g|
 			g.attr(markerStyle => `pixel) {
-				g.plot([0, 0], [5, -5])
+				g.marker([0, 0], [5, -5])
 			}
 			mgn = 20
 			g.attr(labelAnchor => `nw) { g.label(0, 5, 'anchor at nw', mgn, -mgn) }
@@ -1032,16 +1037,16 @@ main() = {
 		}
 		cv.graph {|g|
 			g.attr(markerStyle => `pixel) {
-				g.plot(MakeRands(5, 5, 10), MakeRands(5, 5, 10))
+				g.marker(MakeRands(5, 5, 10), MakeRands(5, 5, 10))
 			}
 			g.attr(markerStyle => `point) {
-				g.plot(MakeRands(-5, 5, 10), MakeRands(5, 5, 10))
+				g.marker(MakeRands(-5, 5, 10), MakeRands(5, 5, 10))
 			}
 			g.attr(markerStyle => `cross) {
-				g.plot(MakeRands(-5, 5, 10), MakeRands(-5, 5, 10))
+				g.marker(MakeRands(-5, 5, 10), MakeRands(-5, 5, 10))
 			}
 			g.attr(markerStyle => `dia) {
-				g.plot(MakeRands(5, 5, 10), MakeRands(-5, 5, 10))
+				g.marker(MakeRands(5, 5, 10), MakeRands(-5, 5, 10))
 			}
 			g.adjustRange()
 		}

@@ -6,21 +6,21 @@ plotter.canvas(`horz, 2) {|cv|
 	ys = [10, 10, -10, -10]
 	cv.graph {|g|
 		g.title = 'No adjustment'
-		g.plot(xs, ys)
+		g.marker(xs, ys)
 	}
 	cv.graph {|g|
 		g.title = 'adjustRange()'
-		g.plot(xs, ys)
+		g.marker(xs, ys)
 		g.adjustRange()
 	}
 	cv.graph {|g|
 		g.title = 'adjustRange(20)'
-		g.plot(xs, ys)
+		g.marker(xs, ys)
 		g.adjustRange(20)
 	}
 	cv.graph {|g|
 		g.title = 'adjustRange(20, 30)'
-		g.plot(xs, ys)
+		g.marker(xs, ys)
 		g.adjustRange(20, 30)
 	}
 	cv.show()
