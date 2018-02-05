@@ -1401,9 +1401,8 @@ Gura_DeclareFunctionAlias(struct_, "struct")
 
 Gura_ImplementFunction(struct_)
 {
-	Signal &sig = env.GetSignal();
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-	if (sig.IsSignalled()) return Value::Nil;
+	if (env.IsSignalled()) return Value::Nil;
 	Class *pClassSuper = env.LookupClass(VTYPE_Struct);
 	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
 			pClassSuper->GetValueType(),
@@ -1454,11 +1453,10 @@ Gura_DeclareFunction(super)
 
 Gura_ImplementFunction(super)
 {
-	Signal &sig = env.GetSignal();
 	Value rtn(arg.GetValue(0));
 	int cntSuperSkip = rtn.GetSuperSkipCount() + 1;
 	if (cntSuperSkip > Value::MaxSuperSkipCount) {
-		sig.SetError(ERR_SystemError,
+		env.SetError(ERR_SystemError,
 			"number of super reference is limited under %d", Value::MaxSuperSkipCount);
 		return Value::Nil;
 	}
@@ -1494,16 +1492,15 @@ Gura_DeclareFunctionAlias(extern_, "extern")
 
 Gura_ImplementFunction(extern_)
 {
-	Signal &sig = env.GetSignal();
 	foreach_const (ValueList, pValue, arg.GetList(0)) {
 		const Expr *pExpr = pValue->GetExpr();
 		if (!pExpr->IsIdentifier()) {
-			sig.SetError(ERR_ValueError, "identifier must be specified");
+			env.SetError(ERR_ValueError, "identifier must be specified");
 			return Value::Nil;
 		}
 		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
 		if (env.LookupValue(pSymbol, ENVREF_Escalate) == nullptr) {
-			sig.SetError(ERR_ValueError, "undefined symbol '%s'", pSymbol->GetName());
+			env.SetError(ERR_ValueError, "undefined symbol '%s'", pSymbol->GetName());
 		}
 	}
 	return Value::Nil;
@@ -1522,11 +1519,10 @@ Gura_DeclareFunction(local)
 
 Gura_ImplementFunction(local)
 {
-	Signal &sig = env.GetSignal();
 	foreach_const (ValueList, pValue, arg.GetList(0)) {
 		const Expr *pExpr = pValue->GetExpr();
 		if (!pExpr->IsIdentifier()) {
-			sig.SetError(ERR_ValueError, "identifier must be specified");
+			env.SetError(ERR_ValueError, "identifier must be specified");
 			return Value::Nil;
 		}
 		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
@@ -1593,7 +1589,6 @@ Gura_DeclareFunctionAlias(public_, "public")
 
 Gura_ImplementFunction(public_)
 {
-	Signal &sig = env.GetSignal();
 	SymbolSet &symbolsPublic = env.PrepareSymbolsPublic();
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
@@ -1604,15 +1599,15 @@ Gura_ImplementFunction(public_)
 		} else if (pExpr->IsAssign()) {
 			const Expr_Assign *pExprAssign = dynamic_cast<const Expr_Assign *>(pExpr);
 			if (!pExprAssign->GetLeft()->IsIdentifier()) {
-				sig.SetError(ERR_ValueError, "invalid element for public");
+				env.SetError(ERR_ValueError, "invalid element for public");
 				return Value::Nil;
 			}
 			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExprAssign->GetLeft());
 			symbolsPublic.Insert(pExprIdentifier->GetSymbol());
 			pExpr->Exec(env);
-			if (sig.IsSignalled()) return Value::Nil;
+			if (env.IsSignalled()) return Value::Nil;
 		} else {
-			sig.SetError(ERR_ValueError, "invalid element for public");
+			env.SetError(ERR_ValueError, "invalid element for public");
 			return Value::Nil;
 		}
 	}
@@ -1632,11 +1627,10 @@ Gura_DeclareFunction(scope)
 
 Gura_ImplementFunction(scope)
 {
-	Signal &sig = env.GetSignal();
 	if (arg.IsInvalid(0)) {
 		AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_local));
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		return pExprBlock->Exec(*pEnvBlock);
 	} else {
 		Environment *pEnv = nullptr;
@@ -1649,11 +1643,11 @@ Gura_ImplementFunction(scope)
 		}
 		if (pEnv != nullptr) {
 			const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnv);
-			if (sig.IsSignalled()) return Value::Nil;
+			if (env.IsSignalled()) return Value::Nil;
 			return pExprBlock->Exec(*pEnv);
 		}
 	}
-	sig.SetError(ERR_ValueError, "module or environment must be specified");
+	env.SetError(ERR_ValueError, "module or environment must be specified");
 	return Value::Nil;
 }
 
@@ -1673,9 +1667,8 @@ Gura_DeclareFunction(module)
 
 Gura_ImplementFunction(module)
 {
-	Signal &sig = env.GetSignal();
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-	if (sig.IsSignalled()) return Value::Nil;
+	if (env.IsSignalled()) return Value::Nil;
 	Module *pModule = new Module(&env, Gura_Symbol(_anonymous_), "", nullptr, nullptr);
 	pExprBlock->Exec(*pModule);
 	return Value(pModule);
@@ -1730,15 +1723,14 @@ Gura_DeclareFunctionAlias(import_, "import")
 
 Gura_ImplementFunction(import_)
 {
-	Signal &sig = env.GetSignal();
 	SymbolSet symbolsToMixIn;
 	SymbolSet *pSymbolsToMixIn = nullptr;
 	if (arg.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 			if (!(*ppExpr)->IsIdentifier()) {
-				sig.SetError(ERR_SyntaxError,
+				env.SetError(ERR_SyntaxError,
 					"wrong format for an element in import list");
 				return Value::Nil;
 			}
@@ -1752,7 +1744,7 @@ Gura_ImplementFunction(import_)
 	if (!arg.Is_expr(1)) {
 		// nothing to do
 	} else if (!arg.GetExpr(1)->IsIdentifier()) {
-		sig.SetError(ERR_ValueError, "identifier is expected as a module name");
+		env.SetError(ERR_ValueError, "identifier is expected as a module name");
 		return Value::Nil;
 	} else {
 		pSymbolAlias = dynamic_cast<const Expr_Identifier *>(arg.GetExpr(1))->GetSymbol();
@@ -1914,7 +1906,6 @@ Gura_DeclareFunctionAlias(undef_, "undef")
 
 Gura_ImplementFunction(undef_)
 {
-	Signal &sig = env.GetSignal();
 	bool raiseFlag = arg.IsSet(Gura_Symbol(raise));
 	foreach_const (ValueList, pValueArg, arg.GetList(0)) {
 		const Expr *pExpr = pValueArg->GetExpr();
@@ -1926,7 +1917,7 @@ Gura_ImplementFunction(undef_)
 			SymbolList symbolList;
 			//if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
 			if (!symbolList.AddFromExpr(pExpr)) {
-				sig.SetError(ERR_ValueError, "invalid identifier name");
+				env.SetError(ERR_ValueError, "invalid identifier name");
 				return Value::Nil;
 			}
 			for (SymbolList::iterator ppSymbol = symbolList.begin();
@@ -1934,7 +1925,7 @@ Gura_ImplementFunction(undef_)
 				Value *pValue = pEnv->LookupValue(*ppSymbol, ENVREF_NoEscalate);
 				if (pValue == nullptr) {
 					if (raiseFlag) {
-						sig.SetError(ERR_ValueError, "undefined identifier");
+						env.SetError(ERR_ValueError, "undefined identifier");
 					}
 					return Value::Nil;
 				}
@@ -1945,14 +1936,14 @@ Gura_ImplementFunction(undef_)
 				} else if (pValue->IsObject()) {
 					pEnv = pValue->GetObject();
 				} else {
-					sig.SetError(ERR_ValueError, "invalid identifier name");
+					env.SetError(ERR_ValueError, "invalid identifier name");
 					return Value::Nil;
 				}
 			}
 			pSymbol = symbolList.back();
 		}
 		if (raiseFlag && !pEnv->LookupValue(pSymbol, ENVREF_NoEscalate)) {
-			sig.SetError(ERR_ValueError, "undefined identifier");
+			env.SetError(ERR_ValueError, "undefined identifier");
 			return Value::Nil;
 		}
 		pEnv->RemoveValue(pSymbol);
@@ -1981,11 +1972,10 @@ Gura_DeclareFunction(choose)
 
 Gura_ImplementFunction(choose)
 {
-	Signal &sig = env.GetSignal();
 	size_t index = arg.GetSizeT(0);
 	const ValueList &valList = arg.GetList(1);
 	if (index >= valList.size()) {
-		sig.SetError(ERR_IndexError, "index is out of range");
+		env.SetError(ERR_IndexError, "index is out of range");
 		return Value::Nil;
 	}
 	return valList[index];
@@ -2073,13 +2063,12 @@ Gura_DeclareFunction(max)
 
 Gura_ImplementFunction(max)
 {
-	Signal &sig = env.GetSignal();
 	const ValueList &valList = arg.GetList(0);
 	ValueList::const_iterator pValue = valList.begin();
 	Value result = *pValue++;
 	for ( ; pValue != valList.end(); pValue++) {
 		int cmp = Value::Compare(env, result, *pValue);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		if (cmp < 0) result = *pValue;
 	}
 	return result;
@@ -2097,13 +2086,12 @@ Gura_DeclareFunction(min)
 
 Gura_ImplementFunction(min)
 {
-	Signal &sig = env.GetSignal();
 	const ValueList &valList = arg.GetList(0);
 	ValueList::const_iterator pValue = valList.begin();
 	Value result = *pValue++;
 	for ( ; pValue != valList.end(); pValue++) {
 		int cmp = Value::Compare(env, result, *pValue);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		if (cmp > 0) result = *pValue;
 	}
 	return result;
