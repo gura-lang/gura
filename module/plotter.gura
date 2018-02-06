@@ -230,8 +230,9 @@ Graph = class {
 		this.mgnTitleYSub = 4
 		this.mgnTickX = 4
 		this.mgnTickY = 4
-		this.gridX = `none
-		this.gridY = `none
+		this.lenGridBit = 6
+		this.gridX = `bit
+		this.gridY = `bit
 		this.graphSyncRangeX = nil
 		this.graphSyncRangeY = nil
 		this.dict@drawMarker = %{
@@ -764,15 +765,37 @@ Graph = class {
 			this.drawHline(cr, this.xAxis, this.coordY(0), this.wdAxis)
 			cr.set_dash([], 0)
 			cr.stroke()
-			if (this.gridX != `none) {
-				this.applyLineStyle(cr, this.gridX)
-				this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.yAxis, this.htAxis)
-				cr.stroke()
+			if (this.gridX == `none) {
+				// nothing to do
+			} elsif (this.gridX == `bit) {
+				if (this.showTickX) {
+					cr.save {
+						this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.yAxis + this.htAxis, -this.lenGridBit)
+						cr.stroke()
+					}
+				}
+			} else {
+				cr.save {
+					this.applyLineStyle(cr, this.gridX)
+					this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.yAxis, this.htAxis)
+					cr.stroke()
+				}
 			}
-			if (this.gridY != `none) {
-				this.applyLineStyle(cr, this.gridY)
-				this.drawHline(cr, this.xAxis, this.coordY(this.tickInfosY:*n), this.wdAxis)
-				cr.stroke()
+			if (this.gridY == `none) {
+				// nothing to do
+			} elsif (this.gridY == `bit) {
+				if (this.showTickY) {
+					cr.save {
+						this.drawHline(cr, this.xAxis, this.coordY(this.tickInfosY:*n), this.lenGridBit)
+						cr.stroke()
+					}
+				}
+			} else {
+				cr.save {
+					this.applyLineStyle(cr, this.gridY)
+					this.drawHline(cr, this.xAxis, this.coordY(this.tickInfosY:*n), this.wdAxis)
+					cr.stroke()
+				}
 			}
 		}
 		cr.save {
