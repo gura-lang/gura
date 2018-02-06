@@ -939,12 +939,12 @@ VLineInfo = struct(x:number, min:number:nil, max:number:nil, attrInfo:AttrInfo):
 //-----------------------------------------------------------------------------
 // functions
 //-----------------------------------------------------------------------------
-canvas(orient?:symbol, nFolds?:number) {`block} = {
-	Canvas(orient, nFolds) {|block|}
+canvas(orient?:symbol, nFolds?:number) {block} = {
+	Canvas(orient, nFolds) {|cv| block(cv)}
 }
 
-graph() {`block} = {
-	Canvas().graph() {|block|}
+graph() {block} = {
+	Canvas().graph() {|g| block(g)}
 }
 
 //-----------------------------------------------------------------------------
