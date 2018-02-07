@@ -41,10 +41,12 @@ Trainer::Optimizer::Instance *Object_optimizer::GetOptimizerInst()
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// optimizer@adagrad():map {block?}
+// optimizer@adagrad(learning_rate:number, epsilon?:number):map {block?}
 Gura_DeclareFunctionAlias(optimizer_at_adagrad, "optimizer@adagrad")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "learning_rate", VTYPE_number);
+	DeclareArg(env, "epsilon", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -53,7 +55,9 @@ Gura_DeclareFunctionAlias(optimizer_at_adagrad, "optimizer@adagrad")
 
 Gura_ImplementFunction(optimizer_at_adagrad)
 {
-	AutoPtr<Trainer::Optimizer> pOptimizer(new Trainer::Optimizer_AdaGrad());
+	Double learningRate = arg.GetDouble(0);
+	Double epsilon = arg.IsValid(1)? arg.GetDouble(1) : 1e-7;
+	AutoPtr<Trainer::Optimizer> pOptimizer(new Trainer::Optimizer_AdaGrad(learningRate, epsilon));
 	return ReturnValue(env, arg, Value(new Object_optimizer(env, pOptimizer.release())));
 }
 

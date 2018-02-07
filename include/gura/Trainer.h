@@ -36,15 +36,25 @@ public:
 	// Optimizer_AdaGrad
 	//-------------------------------------------------------------------------
 	class Optimizer_AdaGrad : public Optimizer {
+	private:
+		Double _learningRate;
+		Double _epsilon;
 	public:
 		class InstanceEx : public Instance {
+		private:
+			Double _learningRate;
+			Double _epsilon;
+			AutoPtr<Array> _pArrayH;
+			AutoPtr<Array> _pArrayWork;
 		public:
-			inline InstanceEx() {}
+			inline InstanceEx(Double learningRate, Double epsilon) :
+								_learningRate(learningRate), _epsilon(epsilon) {}
 			virtual void Reset(Environment &env);
 			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad);
 		};
 	public:
-		inline Optimizer_AdaGrad() : Optimizer("adagrad") {}
+		inline Optimizer_AdaGrad(Double learningRate, Double epsilon) : Optimizer("adagrad"),
+								_learningRate(learningRate), _epsilon(epsilon) {}
 		virtual Instance *CreateInstance() const;
 	};
 	//-------------------------------------------------------------------------
@@ -72,7 +82,7 @@ public:
 		class InstanceEx : public Instance {
 		private:
 			Double _learningRate;
-			AutoPtr<Array> _pArrayAdj;
+			AutoPtr<Array> _pArrayWork;
 		public:
 			inline InstanceEx(Double learningRate) : _learningRate(learningRate) {}
 			virtual void Reset(Environment &env);
@@ -96,7 +106,7 @@ public:
 			Double _learningRate;
 			Double _momentum;
 			AutoPtr<Array> _pArrayVel;
-			AutoPtr<Array> _pArrayAdj;
+			AutoPtr<Array> _pArrayWork;
 		public:
 			inline InstanceEx(Double learningRate, Double momentum) :
 							_learningRate(learningRate), _momentum(momentum) {}
