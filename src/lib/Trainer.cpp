@@ -257,9 +257,15 @@ Trainer::Optimizer::Instance *Trainer::Optimizer_GradientDescent::CreateInstance
 	return new InstanceEx(_learningRate);
 }
 
+void Trainer::Optimizer_GradientDescent::InstanceEx::Reset(Environment &env)
+{
+}
+
 bool Trainer::Optimizer_GradientDescent::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad)
 {
+	// _pArrayAdj <- pArrayGrad * _learningRate
 	if (!Array::Mul(sig, _pArrayAdj, pArrayGrad, _learningRate)) return false;
+	// pArray <- pArray - _pArrayAdj
 	if (!Array::Sub(sig, pArray, pArray.get(), _pArrayAdj.get())) return false;
 	return true;
 }
@@ -269,15 +275,29 @@ bool Trainer::Optimizer_GradientDescent::InstanceEx::Update(Signal &sig, AutoPtr
 //-------------------------------------------------------------------------
 Trainer::Optimizer::Instance *Trainer::Optimizer_Momentum::CreateInstance() const
 {
-	return new InstanceEx();
+	return new InstanceEx(_learningRate, _momentum);
 }
 
 void Trainer::Optimizer_Momentum::InstanceEx::Reset(Environment &env)
 {
+	_pArrayVel.reset(nullptr);
+	_pArrayAdj.reset(nullptr);
 }
 
 bool Trainer::Optimizer_Momentum::InstanceEx::Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad)
 {
+	// _pArrayAdj <- pArrayGrad * _learningRate
+	if (!Array::Mul(sig, _pArrayAdj, pArrayGrad, _learningRate)) return false;
+	// _pArrayVel <- _pArrayVel * _momentum
+	if (_pArrayVel.IsNull()) {
+		_pArrayVel.reset(_pArrayAdj->CreateLike());
+		_pArrayVel->FillZero();
+	}
+	if (!Array::Mul(sig, _pArrayVel, _pArrayVel.get(), _momentum)) return false;
+	// _pArrayVel <- _pArrayVel - _pArrayAdj
+	if (!Array::Sub(sig, _pArrayVel, _pArrayVel.get(), _pArrayAdj.get())) return false;
+	// pArray <- pArray + _pArrayVel
+	if (!Array::Add(sig, pArray, pArray.get(), _pArrayVel.get())) return false;
 	return true;
 }
 

@@ -1091,6 +1091,12 @@ String ArrayT<T_Elem>::ToString(bool exprFlag, size_t nDimsOnHorz) const
 	return rtn;
 }
 
+template<typename T_Elem>
+Array *ArrayT<T_Elem>::CreateLike() const
+{
+	return Create(GetDims());
+}
+
 template<typename T_Elem, typename T_ElemCast>
 void DumpInteger(Signal &sig, Stream &stream, const char *fmt, size_t cols, const T_Elem *p, size_t n)
 {

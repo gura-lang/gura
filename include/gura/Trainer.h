@@ -75,6 +75,7 @@ public:
 			AutoPtr<Array> _pArrayAdj;
 		public:
 			inline InstanceEx(Double learningRate) : _learningRate(learningRate) {}
+			virtual void Reset(Environment &env);
 			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad);
 		};
 	public:
@@ -86,15 +87,25 @@ public:
 	// Optimizer_Momentum
 	//-------------------------------------------------------------------------
 	class Optimizer_Momentum : public Optimizer {
+	private:
+		Double _learningRate;
+		Double _momentum;
 	public:
 		class InstanceEx : public Instance {
+		private:
+			Double _learningRate;
+			Double _momentum;
+			AutoPtr<Array> _pArrayVel;
+			AutoPtr<Array> _pArrayAdj;
 		public:
-			inline InstanceEx() {}
+			inline InstanceEx(Double learningRate, Double momentum) :
+							_learningRate(learningRate), _momentum(momentum) {}
 			virtual void Reset(Environment &env);
 			virtual bool Update(Signal &sig, AutoPtr<Array> &pArray, const Array *pArrayGrad);
 		};
 	public:
-		inline Optimizer_Momentum() : Optimizer("momentum") {}
+		inline Optimizer_Momentum(Double learningRate, Double momentum) : Optimizer("momentum"),
+							_learningRate(learningRate), _momentum(momentum) {}
 		virtual Instance *CreateInstance() const;
 	};
 	//-------------------------------------------------------------------------

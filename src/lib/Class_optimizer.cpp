@@ -91,10 +91,12 @@ Gura_ImplementFunction(optimizer_at_gradient_descent)
 	return ReturnValue(env, arg, Value(new Object_optimizer(env, pOptimizer.release())));
 }
 
-// optimizer@momentum():map {block?}
+// optimizer@momentum(learning_rate:number, momentum:number):map {block?}
 Gura_DeclareFunctionAlias(optimizer_at_momentum, "optimizer@momentum")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "learning_rate", VTYPE_number);
+	DeclareArg(env, "momentum", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -103,7 +105,9 @@ Gura_DeclareFunctionAlias(optimizer_at_momentum, "optimizer@momentum")
 
 Gura_ImplementFunction(optimizer_at_momentum)
 {
-	AutoPtr<Trainer::Optimizer> pOptimizer(new Trainer::Optimizer_Momentum());
+	Double learningRate = arg.GetDouble(0);
+	Double momentum = arg.GetDouble(1);
+	AutoPtr<Trainer::Optimizer> pOptimizer(new Trainer::Optimizer_Momentum(learningRate, momentum));
 	return ReturnValue(env, arg, Value(new Object_optimizer(env, pOptimizer.release())));
 }
 

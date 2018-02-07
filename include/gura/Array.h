@@ -339,6 +339,7 @@ public:
 	inline const char *GetPointerRaw() const { return GetPointerRawOrigin() + GetOffsetBase() * GetElemBytes(); }
 	virtual Array *Clone() const = 0;
 	virtual String ToString(bool exprFlag, size_t nDimsOnHorz = 1) const = 0;
+	virtual Array *CreateLike() const = 0;
 	virtual void Dump(Signal &sig, Stream &stream, bool upperFlag) const = 0;
 	virtual bool DoesContainZero() const = 0;
 	virtual bool DoesContainMinus() const = 0;

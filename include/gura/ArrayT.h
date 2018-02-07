@@ -52,6 +52,7 @@ public:
 	inline operator const T_Elem *() const { return GetPointer(); }
 	virtual Array *Clone() const;
 	virtual String ToString(bool exprFlag, size_t nDimsOnHorz) const;
+	virtual Array *CreateLike() const;
 	virtual void Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 	virtual bool DoesContainZero() const;
 	virtual bool DoesContainMinus() const;
