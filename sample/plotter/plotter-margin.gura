@@ -2,28 +2,28 @@
 import(plotter)
 
 plotter.canvas(`vert, 2) {|cv|
-	cv.graph() {|g|
+	cv.graph {|g|
 		g.title = 'mgnTopP = 10'
 		g.titleX = 'Axis-X'
 		g.titleY = 'Axis-Y'
 		g.mgnTopP = 10
 		g.showBoundingBox = true
 	}
-	cv.graph() {|g|
+	cv.graph {|g|
 		g.title = 'mgnBottomP = 10'
 		g.titleX = 'Axis-X'
 		g.titleY = 'Axis-Y'
 		g.mgnBottomP = 10
 		g.showBoundingBox = true
 	}
-	cv.graph() {|g|
+	cv.graph {|g|
 		g.title = 'mgnLeftP = 10'
 		g.titleX = 'Axis-X'
 		g.titleY = 'Axis-Y'
 		g.mgnLeftP = 10
 		g.showBoundingBox = true
 	}
-	cv.graph() {|g|
+	cv.graph {|g|
 		g.title = 'mgnRightP = 10'
 		g.titleX = 'Axis-X'
 		g.titleY = 'Axis-Y'

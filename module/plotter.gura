@@ -254,6 +254,7 @@ Graph = class {
 			`dia			=> this.drawMarker_dia
 		}
 		this.dict@drawLabel = %{
+			`c				=> this.drawLabel_c
 			`n				=> this.drawLabel_n
 			`s				=> this.drawLabel_s
 			`e				=> this.drawLabel_e
@@ -667,6 +668,14 @@ Graph = class {
 		this.dict@drawLabel[attrInfo.labelAnchor](cr, x, y, text)
 		cr.stroke() // just to remove current position
 	}
+	drawLabel_c(cr:cairo.context, x:number, y:number, text:string):map:void = {
+		extFont = cr.font_extents()
+		extText = cr.text_extents(text)
+		x -= extText.x_advance / 2
+		y += extFont.ascent / 2
+		cr.move_to(x, y)
+		cr.show_text(text)
+	}
 	drawLabel_n(cr:cairo.context, x:number, y:number, text:string):map:void = {
 		extFont = cr.font_extents()
 		extText = cr.text_extents(text)
@@ -1017,35 +1026,12 @@ main() = {
 			}
 		}
 		cv.graph(2) {|g|
-			markerStyles = [
-				`pixel, `square, `point, `circle
-				`triangle_down, `triangle_up, `triangle_left, `triangle_right
-				`tri_down, `tri_up, `tri_left, `tri_right
-				`cross, `plus, `diamond, `dia
-			]
-			g.attr(labelAnchor => `n)
-			g.attrCycle(markerStyle => markerStyles, color => [`red, `blue, `green])
-			g.title = 'Marker Style'
-			g.minX = 0, g.maxX = 10
-			g.minY = 0, g.maxY = 10
-			g.showTickX = g.showTickY = false
-			nHorz = math.ceil(math.sqrt(markerStyles.len()))
-			nVert = int((markerStyles.len() + nHorz - 1) / nHorz)
-			xs = interval(g.minX, g.maxX, nHorz):open
-			ys = interval(g.maxY, g.minY, nVert):open
-			cross (y in ys, x in xs) {|i, j, k|
-				g.marker([x], [y])
-				g.attr(color => `green, labelAnchor => `s) {
-					g.label(x, y, markerStyles[i], 0, -16)
-				}
-			}
-		}
-		cv.graph(2) {|g|
 			g.attr(markerColor => `red, labelColor => `green)
 			g.attr(markerStyle => `pixel) {
-				g.marker([0, 0], [5, -5])
+				g.marker([0, 0, 0], [0, 5, -5])
 			}
 			mgn = 20
+			g.attr(labelAnchor => `c) { g.label(0, 0, 'anchor at c', 0, 0) }
 			g.attr(labelAnchor => `nw) { g.label(0, 5, 'anchor at nw', mgn, -mgn) }
 			g.attr(labelAnchor => `ne) { g.label(0, 5, 'anchor at ne', -mgn, -mgn) }
 			g.attr(labelAnchor => `sw) { g.label(0, 5, 'anchor at sw', mgn, mgn) }
