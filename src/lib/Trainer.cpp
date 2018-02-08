@@ -239,12 +239,16 @@ bool Trainer::Optimizer_AdaGrad::InstanceEx::Update(Signal &sig, AutoPtr<Array> 
 		_pArrayH->FillZero();
 	}
 	if (!Array::Add(sig, _pArrayH, _pArrayH.get(), _pArrayWork.get())) return false;
-#if 0
 	// _pArrayWork <- sqrt(_pArrayH)
-	if (!Array::Sub(sig, _pArrayH, _pArrayH.get(), _pArrayWork.get())) return false;
-	// pArray <- pArray + _pArrayH
-	if (!Array::Add(sig, pArray, pArray.get(), _pArrayH.get())) return false;
-#endif
+	if (!Array::Math_sqrt(sig, _pArrayWork, _pArrayH.get())) return false;
+	// _pArrayWork <- _pArrayWork + _epsilon
+	if (!Array::Add(sig, _pArrayWork, _pArrayWork.get(), _epsilon)) return false;
+	// _pArrayWork <- _pArrayGrad / _pArrayWork
+	if (!Array::Div(sig, _pArrayWork, pArrayGrad, _pArrayWork.get())) return false;
+	// _pArrayWork <- _pArrayWork * _learningRate
+	if (!Array::Mul(sig, _pArrayWork, _pArrayWork.get(), _learningRate)) return false;
+	// pArray <- pArray - _pArrayWork
+	if (!Array::Sub(sig, pArray, pArray.get(), _pArrayWork.get())) return false;
 	return true;
 }
 
