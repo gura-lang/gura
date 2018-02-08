@@ -166,6 +166,22 @@ Gura_ImplementFunction(optimizer_at_rmsprop)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+// optimizer#reset():void
+Gura_DeclareMethod(optimizer, reset)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), 
+		"Resets the status of the optimizer, if exists.");
+}
+
+Gura_ImplementMethod(optimizer, reset)
+{
+	Object_optimizer *pThis = Object_optimizer::GetObjectThis(arg);
+	pThis->GetOptimizerInst()->Reset(env);
+	return Value::Nil;
+}
+
 // optimizer#update(array:array, array_grad:array):void
 Gura_DeclareMethod(optimizer, update)
 {
@@ -204,6 +220,7 @@ void Class_optimizer::DoPrepare(Environment &env)
 	Gura_AssignFunction(optimizer_at_none);
 	Gura_AssignFunction(optimizer_at_rmsprop);
 	// Assignment of methods
+	Gura_AssignMethod(optimizer, reset);
 	Gura_AssignMethod(optimizer, update);
 	// Assignment of value
 	Gura_AssignValue(optimizer, Value(this));
