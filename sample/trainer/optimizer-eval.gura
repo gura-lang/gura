@@ -6,8 +6,6 @@ import(arrayt)
 import(plotter)
 
 func(g:plotter.Graph, opt:optimizer) = {
-	g.minX = -10, g.maxX = 3
-	g.minY = -5, g.maxY = 5
 	opt.reset()
 	arr = array {-7, 2}
 	arrs = []
@@ -18,6 +16,8 @@ func(g:plotter.Graph, opt:optimizer) = {
 		opt.update(arr, arr_grad)
 		arrs.add([arr[0], arr[1]])
 	}
+	g.minX = -10, g.maxX = 3
+	g.minY = -5, g.maxY = 5
 	g.attr (markerStyle => `cross) {
 		g.marker([0], [0])
 	}
