@@ -1,0 +1,31 @@
+#!/usr/bin/env gura
+import(plotter)
+
+plotter.canvas {|cv|
+	cv.graph {|g|
+		g.title = 'Line Style'
+		g.minX = 0, g.maxX = 10
+		g.minY = 0, g.maxY = 10
+		g.showTickX = g.showTickY = false
+		lineStyles = [`solid, `dot, `dash, `dashdot, `dashdotdot]
+		g.attr(labelColor => `green)
+		height = (g.maxY - g.minY) / lineStyles.len()
+		repeat (lineStyles.len()) {|i|
+			lineStyle = lineStyles[i]
+			g.attr(lineStyle => lineStyle)
+			topY = g.maxY - height * i, btmY = topY - height
+			ys = interval(topY, btmY, 3):open:list
+			g.attr(labelAnchor => `w) {
+				g.label(1, ys[0], lineStyle)
+			}
+			g.attr(labelAnchor => `e)
+			ys.each {|y, i|
+				lineWidth = i + 1
+				g.attr(lineWidth => lineWidth)
+				g.line([3, 9], [y, y])
+				g.label(3, y, '%d' % lineWidth, -8, 0)
+			}
+		}
+	}
+	cv.show()
+}

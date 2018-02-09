@@ -769,54 +769,59 @@ Graph = class {
 			cr.rectangle(this.xAxis, this.yAxis, this.wdAxis, this.htAxis)
 			cr.set_dash([], 0)
 			cr.stroke()
-			this.clipAxis(cr)
+		}
+		if (this.gridX != `none && this.minX < 0 && 0 < this.maxX) {
 			this.drawVline(cr, this.coordX(0), this.yAxis, this.htAxis)
+			cr.set_dash([], 0)
+			cr.stroke()
+		}
+		if (this.gridY != `none && this.minY < 0 && 0 < this.maxY) {
 			this.drawHline(cr, this.xAxis, this.coordY(0), this.wdAxis)
 			cr.set_dash([], 0)
 			cr.stroke()
+		}
+		cr.save {
+			this.clipAxis(cr)
 			if (this.gridX == `none) {
 				// nothing to do
 			} elsif (this.gridX == `bit) {
 				if (this.showTickX) {
-					cr.save {
-						this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.yAxis + this.htAxis, -this.lenGridBit)
-						cr.stroke()
-					}
-				}
-			} else {
-				cr.save {
-					this.applyLineStyle(cr, this.gridX)
-					this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.yAxis, this.htAxis)
+					this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.yAxis + this.htAxis, -this.lenGridBit)
 					cr.stroke()
 				}
+			} else {
+				this.applyLineStyle(cr, this.gridX)
+				this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.yAxis, this.htAxis)
+				cr.stroke()
 			}
+		}
+		cr.save {
+			this.clipAxis(cr)
 			if (this.gridY == `none) {
 				// nothing to do
 			} elsif (this.gridY == `bit) {
 				if (this.showTickY) {
-					cr.save {
-						this.drawHline(cr, this.xAxis, this.coordY(this.tickInfosY:*n), this.lenGridBit)
-						cr.stroke()
-					}
-				}
-			} else {
-				cr.save {
-					this.applyLineStyle(cr, this.gridY)
-					this.drawHline(cr, this.xAxis, this.coordY(this.tickInfosY:*n), this.wdAxis)
+					this.drawHline(cr, this.xAxis, this.coordY(this.tickInfosY:*n), this.lenGridBit)
 					cr.stroke()
 				}
+			} else {
+				this.applyLineStyle(cr, this.gridY)
+				this.drawHline(cr, this.xAxis, this.coordY(this.tickInfosY:*n), this.wdAxis)
+				cr.stroke()
 			}
 		}
-		cr.save {
-			if (this.showTickX) {
+		if (this.showTickX) {
+			cr.save {
 				cr.set_font_size(this.fontSizeTickX)
 				this.drawLabel_s(cr, this.coordX(this.tickInfosX:*n),
-								this.yAxis + this.htAxis + this.mgnTickX + this.htTickX, this.tickInfosX:*text)
+								 this.yAxis + this.htAxis + this.mgnTickX + this.htTickX, this.tickInfosX:*text)
 			}
-			if (this.showTickY) {
+		}
+		if (this.showTickY) {
+			cr.save {
 				cr.set_font_size(this.fontSizeTickY)
 				this.drawLabel_e(cr, this.xAxis - this.mgnTickY,
-								this.coordY(this.tickInfosY:*n), this.tickInfosY:*text)
+								 this.coordY(this.tickInfosY:*n), this.tickInfosY:*text)
 			}
 		}
 	}
