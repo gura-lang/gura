@@ -1016,21 +1016,6 @@ main() = {
 			g.attr(markerStyle => `none, lineStyle => `solid).line(math.sin((0..) / 10) + MakeRands(0, 2, 100) * .4)
 		}
 		cv.graph(2) {|g|
-			g.title = 'Line Style'
-			g.minX = 0, g.maxX = 10
-			g.minY = 0, g.maxY = 10
-			g.showTickX = g.showTickY = false
-			lineStyles = [`solid, `dot, `dash, `dashdot, `dashdotdot]
-			g.attr(markerColor => `red, labelColor => `green, labelAnchor => `n)
-			g.attrCycle(lineStyle => lineStyles)
-			interval(g.maxY, g.minY, 5):open {|y, i|
-				g.linedMarker([1, 9], [y, y])
-				g.attr(color => `green, labelAnchor => `s) {
-					g.label(5, y, lineStyles[i], 0, -10)
-				}
-			}
-		}
-		cv.graph(2) {|g|
 			g.attr(markerColor => `red, labelColor => `green)
 			g.attr(markerStyle => `pixel) {
 				g.marker([0, 0, 0], [0, 5, -5])
@@ -1060,18 +1045,11 @@ main() = {
 			}
 		}
 		cv.graph {|g|
-			g.attr(markerStyle => `pixel) {
-				g.marker(MakeRands(5, 5, 10), MakeRands(5, 5, 10))
-			}
-			g.attr(markerStyle => `point) {
-				g.marker(MakeRands(-5, 5, 10), MakeRands(5, 5, 10))
-			}
-			g.attr(markerStyle => `cross) {
-				g.marker(MakeRands(-5, 5, 10), MakeRands(-5, 5, 10))
-			}
-			g.attr(markerStyle => `dia) {
-				g.marker(MakeRands(5, 5, 10), MakeRands(-5, 5, 10))
-			}
+			g.attrCycle(markerStyle => [`pixel, `point, `cross, `dia])
+			g.marker(MakeRands(5, 5, 10), MakeRands(5, 5, 10))
+			g.marker(MakeRands(-5, 5, 10), MakeRands(5, 5, 10))
+			g.marker(MakeRands(-5, 5, 10), MakeRands(-5, 5, 10))
+			g.marker(MakeRands(5, 5, 10), MakeRands(-5, 5, 10))
 			g.adjustRange()
 		}
 		cv.show(1000, 600)
