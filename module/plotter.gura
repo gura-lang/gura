@@ -267,7 +267,8 @@ Graph = class {
 	}
 	show(width:number => 600, height:number => 600):void = {
 		this.cv.show(width, height)
-	}
+	} %% {`en, R'''
+	'''}
 	saveAttr() {block?} = {
 		if (block) {
 			attrInfoSaved = this.attrInfoCur.clone()
@@ -276,13 +277,15 @@ Graph = class {
 		} else {
 			this.attrInfosSaved.add(this.attrInfoCur.clone())
 		}
-	}
+	} %% {`en, R'''
+	'''}
 	restoreAttr() = {
 		if (!this.attrInfosSaved.isempty()) {
 			this.attrInfoCur = this.attrInfosSaved.last()
 			this.attrInfosSaved.erase(-1)
 		}
-	}
+	} %% {`en, R'''
+	'''}
 	attr(color?:color, markerStyle?:symbol, markerSize?:number, markerColor?:color,
 		 lineStyle?:symbol, lineWidth?:number, lineColor?:color,
 		 labelAnchor?:symbol, labelColor?:color) {block?} = {
@@ -301,7 +304,8 @@ Graph = class {
 			this.restoreAttr()
 		}
 		this
-	}
+	} %% {`en, R'''
+	'''}
 	attrCycle(color[]?:color, markerStyle[]?:symbol, markerSize[]?:number, markerColor[]?:color,
 			  lineStyle[]?:symbol, lineWidth[]?:number, lineColor[]?:color,
 			  labelAnchor[]?:symbol, labelColor[]?:color) = {
@@ -315,7 +319,8 @@ Graph = class {
 		labelAnchor?	&& this.addAttrCycler(`labelAnchor, labelAnchor)
 		labelColor?		&& this.addAttrCycler(`labelColor, labelColor)
 		this
-	}
+	} %% {`en, R'''
+	'''}
 	getAttrInfo(cycleFlag:boolean => true) = {
 		attrInfo = this.attrInfoCur.clone()
 		if (cycleFlag) {
@@ -333,11 +338,13 @@ Graph = class {
 		attrInfo = this.getAttrInfo()
 		attrInfo.lineStyle = `none
 		this.itemInfos.add(PlotInfo(xs, ys, attrInfo))
-	}
+	} %% {`en, R'''
+	'''}
 	linedMarker(xs[]:number, ys[]:number) = {
 		attrInfo = this.getAttrInfo()
 		this.itemInfos.add(PlotInfo(xs, ys, attrInfo))
-	}
+	} %% {`en, R'''
+	'''}
 	line(xs[]:number, ys[]?:number) = {
 		attrInfo = this.getAttrInfo()
 		attrInfo.markerStyle = `none
@@ -346,28 +353,33 @@ Graph = class {
 		} else {
 			this.itemInfos.add(PlotInfo(range(xs.len()):list, xs, attrInfo))
 		}
-	}
+	} %% {`en, R'''
+	'''}
 	func(func:function, min?:number, max?:number, cntSamples:number => 100):map:void = {
 		attrInfo = this.getAttrInfo()
 		attrInfo.markerStyle = `none
 		this.itemInfos.add(FuncInfo(func, min, max, cntSamples, attrInfo))
-	}
+	} %% {`en, R'''
+	'''}
 	label(x:number, y:number, text:string, xOffset:number => 0, yOffset:number => 0):map:void = {
 		attrInfo = this.getAttrInfo(false)
 		attrInfo.markerStyle = `none
 		attrInfo.lineStyle = `none
 		this.itemInfos.add(LabelInfo(x, y, text, xOffset, yOffset, attrInfo))
-	}
+	} %% {`en, R'''
+	'''}
 	hline(y:number, min?:number, max?:number):map:void = {
 		attrInfo = this.getAttrInfo()
 		attrInfo.markerStyle = `none
 		this.itemInfos.add(HLineInfo(y, min, max, attrInfo))
-	}
+	} %% {`en, R'''
+	'''}
 	vline(x:number, min?:number, max?:number):map:void = {
 		attrInfo = this.getAttrInfo()
 		attrInfo.markerStyle = `none
 		this.itemInfos.add(VLineInfo(x, min, max, attrInfo))
-	}
+	} %% {`en, R'''
+	'''}
 	render(cr:cairo.context, x:number, y:number, width:number, height:number):void = {
 		this.updateTickInfos()
 		cr.select_font_face(this.fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
@@ -441,7 +453,8 @@ Graph = class {
 			mgn = d * mgnPropY / 100
 			this.minY = minY- mgn, this.maxY = maxY + mgn
 		}
-	}
+	} %% {`en, R'''
+	'''}
 	doSyncRange():void = {
 		if (this.graphSyncRangeX) {
 			this.minX = this.graphSyncRangeX.minX
@@ -454,10 +467,12 @@ Graph = class {
 	}
 	syncRangeX(g?:Graph) = {
 		this.graphSyncRangeX = g || this.graphPrev
-	}
+	} %% {`en, R'''
+	'''}
 	syncRangeY(g?:Graph) = {
 		this.graphSyncRangeY = g || this.graphPrev
-	}
+	} %% {`en, R'''
+	'''}
 	coordX(x:number):map = {
 		this.xAxis + (x - this.minX) * this.wdAxis / (this.maxX - this.minX)
 	}
@@ -978,11 +993,20 @@ VLineInfo = struct(x:number, min:number:nil, max:number:nil, attrInfo:AttrInfo):
 //-----------------------------------------------------------------------------
 canvas(orient?:symbol, nFolds?:number) {block} = {
 	Canvas(orient, nFolds) {|cv| block(cv)}
-}
+} %% {`en, R'''
+Creates an `plotter.Canvas` instance.
+
+The argument `orient` takes a symbol that indicates in which direction the inner graphs shall be aligned:
+`` `vert`` in vertical and `` `horz`` in horizontal.
+
+The argument `nFolds` specifies the number of graphs placed in an alignment direction.
+'''}
 
 graph() {block} = {
 	Canvas().graph() {|g| block(g)}
-}
+} %% {`en, R'''
+Creates an `plotter.Graph` instance after creating a `plotter.Canvas` instance that contains it.
+'''}
 
 //-----------------------------------------------------------------------------
 // test script

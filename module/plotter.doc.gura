@@ -13,6 +13,42 @@ plotter.canvas
 plotter.graph
 )}
 
+## plotter.Canvas Class
+
+### Method
+
+${markdown.makedoc@function(`en
+plotter.Canvas.graph
+plotter.Canvas.blank
+plotter.Canvas.show
+plotter.Canvas.render
+)}
+
+## plotter.Graph Class
+
+### Property
+
+
+### Method
+
+${markdown.makedoc@function(`en
+plotter.Graph.show
+plotter.Graph.saveAttr
+plotter.Graph.restoreAttr
+plotter.Graph.attr
+plotter.Graph.attrCycle
+plotter.Graph.marker
+plotter.Graph.linedMarker
+plotter.Graph.line
+plotter.Graph.func
+plotter.Graph.label
+plotter.Graph.hline
+plotter.Graph.vline
+plotter.Graph.adjustRange
+plotter.Graph.syncRangeX
+plotter.Graph.syncRangeY
+)}
+
 '''.embed()
 
 markdown.makedoc@module(locals(), %{`en => text@en})
