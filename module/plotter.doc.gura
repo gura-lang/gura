@@ -28,6 +28,73 @@ plotter.Canvas.render
 
 ### Property
 
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>nSpans</code></td><td><code>number</code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>graphPrev</code></td><td><code>plotter.Graph</code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>showBoundingBox</code></td><td><code>boolean</code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>mgnLeft</code></td><td><code>number</code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>mgnRight</code></td><td><code>number</code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>mgnTop</code></td><td><code>number</code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>mgnBottom</code></td><td><code>number</code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>  </code></td><td><code>  </code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>  </code></td><td><code>  </code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>  </code></td><td><code>  </code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>  </code></td><td><code>  </code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>  </code></td><td><code>  </code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>  </code></td><td><code>  </code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>  </code></td><td><code>  </code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>  </code></td><td><code>  </code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>  </code></td><td><code>  </code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>  </code></td><td><code>  </code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>  </code></td><td><code>  </code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>  </code></td><td><code>  </code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>  </code></td><td><code>  </code></td><td>R/W</td>
+<td>  </td></tr>
+
+<tr><td><code>  </code></td><td><code>  </code></td><td>R/W</td>
+<td>  </td></tr>
+
+</table>
 
 ### Method
 
