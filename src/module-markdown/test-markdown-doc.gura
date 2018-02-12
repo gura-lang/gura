@@ -1,0 +1,32 @@
+#!/usr/bin/env gura
+import(plotter)
+
+func1(a:number, b:number) = {
+} %% {`en, R'''
+Adds two numbers and returns the result.
+
+- `a` ... number on the left.
+- `b` ... number on the right.
+'''}
+
+func2(str:string) = {
+} %% {`en, R'''
+Reverses the string `str` and returns the result.
+'''}
+
+text@en = R'''
+# Header Level 1
+
+## Header Level 2
+
+### Header Level 3
+
+### Function Test
+
+${markdown.makedoc@function(`en
+func1
+func2
+)}
+'''.embed()
+
+markdown.makedoc@module(locals(), %{`en => text@en})
