@@ -1028,71 +1028,16 @@ Creates a `plotter.Graph` instance after creating a `plotter.Canvas` instance th
 // test script
 //-----------------------------------------------------------------------------
 main() = {
-	MakeRands(center:number, range:number, n:number) = {
-		center + rands(nil, n) * range - range / 2
-	}
-	Canvas(`vert, 4) {|cv|
+	Canvas {|cv|
 		cv.graph {|g|
-			g.nTicksMaxY = 5
-			g.attr(lineStyle => `solid).func(f1(x) = {8 * math.sin(x)})
-			g.attr(lineStyle => `dot).func(f2(x) = {8 * math.cos(x)})
-		}
-		cv.graph(2) {|g|
 			g.title = 'Title'
-			g.titleX = 'Title on x-axis'
-			g.titleY = 'Title on y-axis'
-			g.titleYSub = 'Title on y-axis [2]'
-			g.gridX = `dot
-			g.gridY = `dot
-			g.attr(lineWidth => 4)
-			g.attr(lineStyle => `dot).attr(color => `red)
-			g.func(f1(y) = {3 * math.sin(y)})
-			g.attr(lineStyle => `dashdot, color => `blue)
-			g.func(f2(y) = {3 * math.cos(y)})
-		}
-		cv.graph {|g|
-			g.minX = 0, g.maxX = 100
+			g.titleX = 'X-axis'
+			g.titleY = 'Y-axis'
+			g.minX = -10, g.maxX = 10
 			g.minY = -1.5, g.maxY = 1.5
-			g.attr(markerStyle => `none, lineStyle => `solid).line(math.sin((0..) / 10) + MakeRands(0, 2, 100) * .4)
+			g.func(f(x) = math.sin(x))
 		}
-		cv.graph(2) {|g|
-			g.attr(markerColor => `red, labelColor => `green)
-			g.attr(markerStyle => `pixel) {
-				g.marker([0, 0, 0], [0, 5, -5])
-			}
-			mgn = 20
-			g.attr(labelAnchor => `c) { g.label(0, 0, 'anchor at c', 0, 0) }
-			g.attr(labelAnchor => `nw) { g.label(0, 5, 'anchor at nw', mgn, -mgn) }
-			g.attr(labelAnchor => `ne) { g.label(0, 5, 'anchor at ne', -mgn, -mgn) }
-			g.attr(labelAnchor => `sw) { g.label(0, 5, 'anchor at sw', mgn, mgn) }
-			g.attr(labelAnchor => `se) { g.label(0, 5, 'anchor at se', -mgn, mgn) }
-			g.attr(labelAnchor => `n) { g.label(0, -5, 'anchor at n', 0, -mgn) }
-			g.attr(labelAnchor => `e) { g.label(0, -5, 'anchor at e', -mgn, 0) }
-			g.attr(labelAnchor => `w) { g.label(0, -5, 'anchor at w', mgn, 0) }
-			g.attr(labelAnchor => `s) { g.label(0, -5, 'anchor at s', 0, mgn) }
-		}
-		cv.graph {|g|
-			g.func(f(x) = {8 * math.sin(x)}, min => 1, max => 9)
-			g.attr(color => `red) {
-				g.func(f(x) = .1 * x ** 3)
-			}
-			g.attr(color => `green) {
-				g.func(f(x) = .3 * x ** 2)
-			}
-			g.attr(color => `green, lineStyle => `dot) {
-				g.hline([-8, 8])
-				g.vline([1, 9])
-			}
-		}
-		cv.graph {|g|
-			g.attrCycle(markerStyle => [`pixel, `point, `cross, `dia])
-			g.marker(MakeRands(5, 5, 10), MakeRands(5, 5, 10))
-			g.marker(MakeRands(-5, 5, 10), MakeRands(5, 5, 10))
-			g.marker(MakeRands(-5, 5, 10), MakeRands(-5, 5, 10))
-			g.marker(MakeRands(5, 5, 10), MakeRands(-5, 5, 10))
-			g.adjustRange()
-		}
-		cv.show(1000, 600)
+		cv.show()
 	}
 }
 

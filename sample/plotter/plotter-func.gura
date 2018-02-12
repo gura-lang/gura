@@ -1,0 +1,36 @@
+#!/usr/bin/env gura
+import(plotter)
+
+plotter.canvas(`vert, 2) {|cv|
+	cv.graph {|g|
+		g.title = 'y = sin(x), y = cos(x)'
+		g.titleX = 'x'
+		g.titleY = 'y'
+		g.minY = -2, g.maxY = 2
+		g.attr(lineStyle => `solid).func(f1(x) = {math.sin(x)})
+		g.attr(lineStyle => `dot).func(f2(x) = {math.cos(x)})
+	}
+	cv.graph {|g|
+		g.title = 'x = sin(y), x = cos(y)'
+		g.titleX = 'x'
+		g.titleY = 'y'
+		g.minX = -2, g.maxX = 2
+		g.attr(lineStyle => `solid).func(f1(y) = {math.sin(y)})
+		g.attr(lineStyle => `dot).func(f2(y) = {math.cos(y)})
+	}
+	cv.graph {|g|
+		g.attrCycle(color => [`black, `red, `green])
+		g.func(f(x) = x)
+		g.func(f(x) = .3 * x ** 2)
+		g.func(f(x) = .1 * x ** 3)
+	}
+	cv.graph {|g|
+		g.minY = -2, g.maxY = 2
+		g.func(f(x) = {math.sin(x)}, min => -8, max => 8)
+		g.attr(color => `green, lineStyle => `dot) {
+			g.hline([-1, 1])
+			g.vline([-8, 8])
+		}
+	}
+	cv.show()
+}

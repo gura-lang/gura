@@ -1,0 +1,23 @@
+#!/usr/bin/env gura
+import(plotter)
+
+plotter.canvas {|cv|
+	cv.graph {|g|
+		g.title = 'Anchor Test'
+		g.attr(markerColor => `red, labelColor => `green)
+		g.attr(markerStyle => `pixel) {
+			g.marker([0, 0, 0], [0, 5, -5])
+		}
+		mgn = 20
+		g.attr(labelAnchor => `c) { g.label(0, 0, 'anchor at c', 0, 0) }
+		g.attr(labelAnchor => `nw) { g.label(0, 5, 'anchor at nw', mgn, -mgn) }
+		g.attr(labelAnchor => `ne) { g.label(0, 5, 'anchor at ne', -mgn, -mgn) }
+		g.attr(labelAnchor => `sw) { g.label(0, 5, 'anchor at sw', mgn, mgn) }
+		g.attr(labelAnchor => `se) { g.label(0, 5, 'anchor at se', -mgn, mgn) }
+		g.attr(labelAnchor => `n) { g.label(0, -5, 'anchor at n', 0, -mgn) }
+		g.attr(labelAnchor => `e) { g.label(0, -5, 'anchor at e', -mgn, 0) }
+		g.attr(labelAnchor => `w) { g.label(0, -5, 'anchor at w', mgn, 0) }
+		g.attr(labelAnchor => `s) { g.label(0, -5, 'anchor at s', 0, mgn) }
+	}
+	cv.show()
+}
