@@ -62,16 +62,32 @@ Canvas = class {
 		g = Graph(this, nSpans)
 		this.graphs.add(g)
 		if (block) {block(g)} else {g}
-	}
+	} %% {`en, R'''
+	Creates a `plotter.Graph` instance in the target `plotter.Canvas` instance.
+
+	The argument `nSpans` indicates the span size that the created graph occupies. The default is one.
+
+	If `block` is specified, it would be evaluated with a block parameter `|g:plotter.Graph|`,
+	where `g` is the created instance.\n
+	In this case, the block's result would become the function's returned value.
+	'''}
 	blank(nSpans:number => 1) = {
 		g = GraphBlank(this, nSpans)
 		this.graphs.add(g)
-	}
+	} %% {`en, R'''
+	Adds a blank to the target `plotter.Canvas` instance instead of a `plotter.Graph`.
+
+	The argument `nSpans` indicates the span size of the blank. The default is one.
+	'''}
 	show(width:number => 600, height:number => 600):void = {
 		img = image(`rgba, width, height, `white)
 		this.render(img)
 		img.show(width + 30 * 2, height + 30 * 2)
-	}
+	} %% {`en, R'''
+	Shows a GUI window that renders the content of `plotter.Canvas`.
+
+	The arguments `width` and `height` indicate the canvas size in pixel.
+	'''}
 	render(cr:cairo.context):void = {
 		this.graphs::doSyncRange()
 		[this.width, this.height] = [cr.width, cr.height]
@@ -994,10 +1010,10 @@ VLineInfo = struct(x:number, min:number:nil, max:number:nil, attrInfo:AttrInfo):
 canvas(orient?:symbol, nFolds?:number) {block} = {
 	Canvas(orient, nFolds) {|cv| block(cv)}
 } %% {`en, R'''
-Creates an `plotter.Canvas` instance.
+Creates a `plotter.Canvas` instance.
 
 The argument `orient` takes a symbol that indicates in which direction the inner graphs shall be aligned:
-`` `vert`` in vertical and `` `horz`` in horizontal.
+`` `vert`` in vertical direction and `` `horz`` in horizontal.
 
 The argument `nFolds` specifies the number of graphs placed in an alignment direction.
 '''}
@@ -1005,7 +1021,7 @@ The argument `nFolds` specifies the number of graphs placed in an alignment dire
 graph() {block} = {
 	Canvas().graph() {|g| block(g)}
 } %% {`en, R'''
-Creates an `plotter.Graph` instance after creating a `plotter.Canvas` instance that contains it.
+Creates a `plotter.Graph` instance after creating a `plotter.Canvas` instance that contains it.
 '''}
 
 //-----------------------------------------------------------------------------

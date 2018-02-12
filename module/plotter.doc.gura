@@ -21,7 +21,6 @@ ${markdown.makedoc@function(`en
 plotter.Canvas.graph
 plotter.Canvas.blank
 plotter.Canvas.show
-plotter.Canvas.render
 )}
 
 ## plotter.Graph Class
