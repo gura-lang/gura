@@ -1,26 +1,35 @@
 #!/usr/bin/env gura
 import(plotter)
 
-plotter.canvas(`horz, 2) {|cv|
+drawItems(g:plotter.Graph) = {
 	xs = [10, -10, -10, 10]
 	ys = [10, 10, -10, -10]
+	g.marker(xs, ys)
+	mgn = 8
+	g.attr(labelAnchor => `ne).label(10, 10, '(10, 10)', -mgn, mgn)
+	g.attr(labelAnchor => `nw).label(-10, 10, '(-10, 10)', mgn, mgn)
+	g.attr(labelAnchor => `sw).label(-10, -10, '(-10, -10)', mgn, -mgn)
+	g.attr(labelAnchor => `se).label(10, -10, '(10, -10)', -mgn, -mgn)
+}
+
+plotter.canvas(`horz, 2) {|cv|
 	cv.graph {|g|
 		g.title = 'No adjustment'
-		g.marker(xs, ys)
+		drawItems(g)
 	}
 	cv.graph {|g|
 		g.title = 'adjustRange()'
-		g.marker(xs, ys)
+		drawItems(g)
 		g.adjustRange()
 	}
 	cv.graph {|g|
 		g.title = 'adjustRange(20)'
-		g.marker(xs, ys)
+		drawItems(g)
 		g.adjustRange(20)
 	}
 	cv.graph {|g|
 		g.title = 'adjustRange(20, 30)'
-		g.marker(xs, ys)
+		drawItems(g)
 		g.adjustRange(20, 30)
 	}
 	cv.show()
