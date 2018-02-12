@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(conio)
+import(re)
 import(markdown):binary:mixin_type {*}
 
 MakeAnchorNameDef(indices[]:number) = 'anchor-' + format('%d', indices).join('-')
@@ -156,21 +157,33 @@ Renderer@html = class {
 		} elsif (item.type == `entity) {
 			this.out.print('&', item.text.escapehtml(), ';')
 		} elsif (item.type == `tag) {
-			inlineFlag = item.text in tagsInline
-			this.out.print('<')
-			this.out.print(item.text)
-			item.attrs && this.out.print(' ', item.attrs)
-			if (item.children) {
-				this.out.print('>')
-				!inlineFlag && this.out.println()
-				item.children && this.RenderItem(item.children)
-				this.out.print('</')
-				this.out.print(item.text)
-				this.out.print('>')
+			if (item.text == 'funcentry') {
+				if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
+					this.out.printf(R'''
+					<div><strong>%s</strong></div>
+					<div><code>%s</code></div><p />
+					''', m[1], m[2])
+				} else {
+					println('**** error ****')
+					sys.exit(1)
+				}
 			} else {
-				this.out.print(' />')
+				inlineFlag = item.text in tagsInline
+				this.out.print('<')
+				this.out.print(item.text)
+				item.attrs && this.out.print(' ', item.attrs)
+				if (item.children) {
+					this.out.print('>')
+					!inlineFlag && this.out.println()
+					item.children && this.RenderItem(item.children)
+					this.out.print('</')
+					this.out.print(item.text)
+					this.out.print('>')
+				} else {
+					this.out.print(' />')
+				}
+				!inlineFlag && this.out.println()
 			}
-			!inlineFlag && this.out.println()
 		} elsif (item.type == `hr) {
 			this.out.print('<hr />\n')
 		} elsif (item.type == `br) {
