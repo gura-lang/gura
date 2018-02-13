@@ -651,6 +651,7 @@ bool KernelScanner_CalcMaxPoolWithIndex_ChNone<T_Elem>::Initialize2d(
 	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
 	_pArrayRtn->SetDims(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 2, nKernelsRow, nKernelsCol);
 	_pArrayRtn->AllocMemory();
+	_pArrayOfIndex.reset(ArrayT<UInt32>::Create(_pArrayRtn->GetDims()));
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
 	_pElemDstOfIndex = dynamic_cast<ArrayT<UInt32> *>(_pArrayOfIndex.get())->GetPointer();
 	return true;

@@ -81,7 +81,6 @@ bool NodeGear_MaxPool2d::EvalBackward(Environment &env)
 	}
 	pArrayGradDst->FillZero();
 	if (GetConnectorSrc()->GetNodeSrc()->IsVulnerable()) {
-		//*******************
 		const Array *pArrayGradSrc = (*ppConnectorDst)->GetArrayGrad();
 		const Double *pElemGradSrc = dynamic_cast<const ArrayT<Double> *>(pArrayGradSrc)->GetPointer();
 		Double *pElemGradDst = dynamic_cast<ArrayT<Double> *>(pArrayGradDst.get())->GetPointer();
