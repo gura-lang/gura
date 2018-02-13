@@ -77,10 +77,7 @@ bool NodeGear_MaxPool2d::EvalBackward(Environment &env)
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	AutoPtr<Array> &pArrayGradDst = GetConnectorSrc()->GetArrayGradAutoPtr();		
 	if (pArrayGradDst.IsNull()) {
-		const Array *pArrayFwd = GetConnectorSrc()->GetArrayFwd();
-		pArrayGradDst.reset(Array::Create(pArrayFwd->GetElemType()));
-		pArrayGradDst->SetDims(pArrayFwd->GetDims());
-		pArrayGradDst->AllocMemory();
+		pArrayGradDst.reset(GetConnectorSrc()->GetArrayFwd()->CreateLike());
 	}
 	pArrayGradDst->FillZero();
 	if (GetConnectorSrc()->GetNodeSrc()->IsVulnerable()) {
