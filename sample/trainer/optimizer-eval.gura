@@ -30,6 +30,6 @@ func(cv:plotter.Canvas, opt:optimizer, title:string) = {
 plotter.canvas {|cv|
 	func(cv, optimizer@gradient_descent(0.95), 'gradient_descent (learning_rate = 0.95)')
 	func(cv, optimizer@momentum(.1, .9), 'momentum (learning_rate = 0.1, momentum = 0.9)')
-	func(cv, optimizer@adagrad(1.3), 'adagrad (learning_rate = 1.5)')
+	func(cv, optimizer@adagrad(1.3), 'adagrad (learning_rate = 1.3)')
 	cv.show()
 }

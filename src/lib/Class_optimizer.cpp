@@ -50,7 +50,12 @@ Gura_DeclareFunctionAlias(optimizer_at_adagrad, "optimizer@adagrad")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Creates an `optimizer` instance that uses AdaGrad approach for optimization.\n"
+		"\n"
+		"The argument `learning_rate` indicates the learning rate per one training session.\n"
+		"\n"
+		"The argumnent `epsilon` is a value that is added to the denominator in a divination\n"
+		"to avoid zero-divided error. The default is `1e-7`.\n");
 }
 
 Gura_ImplementFunction(optimizer_at_adagrad)
@@ -85,7 +90,9 @@ Gura_DeclareFunctionAlias(optimizer_at_gradient_descent, "optimizer@gradient_des
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Creates an `optimizer` instance that uses gradient descent approach for optimization.\n"
+		"\n"
+		"The argument `learning_rate` indicates the learning rate per one training session.\n");
 }
 
 Gura_ImplementFunction(optimizer_at_gradient_descent)
@@ -95,22 +102,26 @@ Gura_ImplementFunction(optimizer_at_gradient_descent)
 	return ReturnValue(env, arg, Value(new Object_optimizer(env, pOptimizer.release())));
 }
 
-// optimizer@momentum(learning_rate:number, momentum:number):map {block?}
+// optimizer@momentum(learning_rate:number, momentum?:number):map {block?}
 Gura_DeclareFunctionAlias(optimizer_at_momentum, "optimizer@momentum")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "learning_rate", VTYPE_number);
-	DeclareArg(env, "momentum", VTYPE_number);
+	DeclareArg(env, "momentum", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Creates an `optimizer` instance that uses AdaGrad approach for optimization.\n"
+		"\n"
+		"The argument `learning_rate` indicates the learning rate per one training session.\n"
+		"\n"
+		"The argumnent `momentum` is a momentum parameter and has a default value of `0.9`.\n");
 }
 
 Gura_ImplementFunction(optimizer_at_momentum)
 {
 	Double learningRate = arg.GetDouble(0);
-	Double momentum = arg.GetDouble(1);
+	Double momentum = arg.IsValid(1)? arg.GetDouble(1) : .9;
 	AutoPtr<Trainer::Optimizer> pOptimizer(new Trainer::Optimizer_Momentum(learningRate, momentum));
 	return ReturnValue(env, arg, Value(new Object_optimizer(env, pOptimizer.release())));
 }
