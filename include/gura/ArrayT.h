@@ -50,7 +50,7 @@ public:
 	inline const T_Elem *GetPointer() const { return GetPointerOrigin() + GetOffsetBase(); }
 	inline operator T_Elem *() { return GetPointer(); }
 	inline operator const T_Elem *() const { return GetPointer(); }
-	virtual Array *Clone() const;
+	virtual Array *Clone(bool cloneMemoryFlag) const;
 	virtual String ToString(bool exprFlag, size_t nDimsOnHorz) const;
 	virtual Array *CreateLike() const;
 	virtual void Dump(Signal &sig, Stream &stream, bool upperFlag) const;

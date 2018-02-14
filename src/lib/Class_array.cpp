@@ -93,7 +93,7 @@ void EvalIndexSetTmpl(Environment &env, const ValueList &valListIdx, const Value
 {
 	const bool complexFlag = (ArrayT<T_Elem>::ElemTypeThis == Array::ETYPE_Complex);
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
-	if (!pArrayT->PrepareModification(env.GetSignal())) return;
+	pArrayT->PrepareModification();
 	if (valListIdx.empty()) {
 		if (value.Is_number() || value.Is_boolean()) {
 			ArrayT<T_Elem>::FillDouble(pArrayT->GetPointer(), pArrayT->GetElemNum(), value.GetDouble(), 1);
@@ -729,7 +729,7 @@ Gura_ImplementMethod(array, elemcast)
 	if (env.IsSignalled()) return Value::Nil;
 	Value value;
 	if (pArraySelf->GetElemType() == elemType) {
-		value = Value(new Object_array(env, pArraySelf->Clone()));
+		value = Value(new Object_array(env, pArraySelf->Clone(false)));
 	} else {
 		AutoPtr<Array> pArrayDst(Array::Create(elemType));
 		pArrayDst->SetDims(pArraySelf->GetDims());
@@ -985,7 +985,7 @@ Gura_DeclareMethod(array, fill)
 Gura_ImplementMethod(array, fill)
 {
 	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
-	if (!pArraySelf->PrepareModification(env)) return Value::Nil;
+	pArraySelf->PrepareModification();
 	pArraySelf->Fill(arg.GetDouble(0));
 	return Value::Nil;
 }
@@ -1210,7 +1210,7 @@ Gura_ImplementMethod(array, paste)
 	Array *pArraySelf = Object_array::GetObjectThis(arg)->GetArray();
 	size_t offset = arg.GetSizeT(0);
 	const Array *pArraySrc = Object_array::GetObject(arg, 1)->GetArray();
-	if (!pArraySelf->PrepareModification(env)) return Value::Nil;
+	pArraySelf->PrepareModification();
 	pArraySelf->Paste(env, offset, pArraySrc);
 	return Value::Nil;
 }

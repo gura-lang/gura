@@ -337,7 +337,7 @@ public:
 	inline const char *GetPointerRawOrigin() const { return _pMemory->GetPointer(); }
 	inline char *GetPointerRaw() { return GetPointerRawOrigin() + GetOffsetBase() * GetElemBytes(); }
 	inline const char *GetPointerRaw() const { return GetPointerRawOrigin() + GetOffsetBase() * GetElemBytes(); }
-	virtual Array *Clone() const = 0;
+	virtual Array *Clone(bool cloneMemoryFlag) const = 0;
 	virtual String ToString(bool exprFlag, size_t nDimsOnHorz = 1) const = 0;
 	virtual Array *CreateLike() const = 0;
 	virtual void Dump(Signal &sig, Stream &stream, bool upperFlag) const = 0;
@@ -465,7 +465,8 @@ public:
 	virtual Iterator *CreateIteratorEach(bool flatFlag) const = 0;
 	bool IsSquare() const;
 	bool HasSameElements(const Array &array) const;
-	bool PrepareModification(Signal &sig);
+	void CloneMemory();
+	void PrepareModification();
 	static Value ToValue(Environment &env, Array *pArray);
 	bool Serialize(Environment &env, Stream &stream) const;
 	static Array *Deserialize(Environment &env, Stream &stream);

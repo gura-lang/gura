@@ -958,9 +958,11 @@ template<> ArrayT<Double>::ArrayT() :	Array(ETYPE_Double) {}
 template<> ArrayT<Complex>::ArrayT() :	Array(ETYPE_Complex) {}
 
 template<typename T_Elem>
-Array *ArrayT<T_Elem>::Clone() const
+Array *ArrayT<T_Elem>::Clone(bool cloneMemoryFlag) const
 {
-	return new ArrayT<T_Elem>(*this);
+	Array *pArray = new ArrayT<T_Elem>(*this);
+	if (cloneMemoryFlag) pArray->CloneMemory();
+	return pArray;
 }	
 
 template<typename T_Elem> void FormatElem(char *buff, int wdPad, const T_Elem &x);
@@ -1561,7 +1563,7 @@ template<typename T_Elem>
 void ArrayT<T_Elem>::Transpose(AutoPtr<Array> &pArrayRtn, const IntList &axes) const
 {
 	if (axes.size() < 2) {
-		pArrayRtn.reset(Clone());
+		pArrayRtn.reset(Clone(false));
 		return;
 	}
 	Dimensions::const_reverse_iterator pDim = GetDims().rbegin();

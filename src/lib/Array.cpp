@@ -300,7 +300,7 @@ bool Array::Transpose(Signal &sig, AutoPtr<Array> &pArrayRtn, const ValueList &v
 
 void Array::Transpose2d(AutoPtr<Array> &pArrayRtn) const
 {
-	pArrayRtn.reset(Clone());
+	pArrayRtn.reset(Clone(false));
 	pArrayRtn->FlipAxisMajor();
 }
 
@@ -370,16 +370,14 @@ bool Array::HasSameElements(const Array &array) const
 	return true;
 }
 
-bool Array::PrepareModification(Signal &sig)
+void Array::CloneMemory()
 {
-	if (_pMemory->GetCntRef() > 1) {
-		_pMemory.reset(_pMemory->Clone());
-		if (_pMemory.IsNull()) {
-			sig.SetError(ERR_MemoryError, "failed to allocate memory for array");
-			return false;
-		}
-	}
-	return true;
+	_pMemory.reset(_pMemory->Clone());
+}
+
+void Array::PrepareModification()
+{
+	if (_pMemory->GetCntRef() > 1) CloneMemory();
 }
 
 Value Array::ToValue(Environment &env, Array *pArray)
