@@ -1757,3 +1757,13 @@ testcase('array#restore_kernelvec2d()') {
 }
 testcase('array#restore_kernelvec3d()') {
 }
+testcase('array#clone()') {
+	a = array.rands([3, 4, 5], 10)
+	b = a.clone()
+	tester(`a)
+	tester(`b)
+	tester(`a.iselemsame(b))
+	b.fill(9)
+	tester(`b)
+	tester(`a.iselemsame(b))
+}
