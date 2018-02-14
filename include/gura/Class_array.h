@@ -47,6 +47,8 @@ public:
 		Object(env.LookupClass(VTYPE_array)), _pArray(pArray) {}
 	inline Object_array(Class *pClass, Array *pArray) :
 		Object(pClass), _pArray(pArray) {}
+	inline Object_array(const Object_array &obj) :
+		Object(obj), _pArray(obj._pArray->Clone()) {}
 	inline Array *GetArray() { return _pArray.get(); }
 	inline const Array *GetArray() const { return _pArray.get(); }
 	inline AutoPtr<Array> &GetArrayAutoPtr() { return _pArray; }

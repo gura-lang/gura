@@ -18,7 +18,7 @@ static const char *helpDoc_en = R"**(
 //-----------------------------------------------------------------------------
 Object *Object_array::Clone() const
 {
-	return nullptr;
+	return new Object_array(*this);
 }
 
 String Object_array::ToString(bool exprFlag)
