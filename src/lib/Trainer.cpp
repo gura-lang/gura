@@ -751,10 +751,12 @@ bool Trainer::NodeBinary_Mul::EvalBackward(Environment &env)
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
+		// res = right * grad
 		if (!Array::Mul(env, _connectorSrcLeft.GetArrayGradAutoPtr(),
 						_connectorSrcRight.GetArrayFwd(), (*ppConnectorDst)->GetArrayGrad())) return false;
 	}
 	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
+		// res = left * grad
 		if (!Array::Mul(env, _connectorSrcRight.GetArrayGradAutoPtr(),
 						_connectorSrcLeft.GetArrayFwd(), (*ppConnectorDst)->GetArrayGrad())) return false;
 	}
@@ -766,7 +768,25 @@ bool Trainer::NodeBinary_Mul::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 bool Trainer::NodeBinary_Div::EvalBackward(Environment &env)
 {
-	return false;
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
+	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
+		// res = grad * right
+		if (!Array::Div(env, _connectorSrcLeft.GetArrayGradAutoPtr(),
+						(*ppConnectorDst)->GetArrayGrad(), _connectorSrcRight.GetArrayFwd())) return false;
+	}
+	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
+		// res = -grad * right / (left * left)
+		if (!Array::Mul(env, _connectorSrcRight.GetArrayGradAutoPtr(),
+						_connectorSrcLeft.GetArrayFwd(), (*ppConnectorDst)->GetArrayGrad())) return false;
+		if (!Array::Mul(env, _pArrayWork,
+						_connectorSrcRight.GetArrayFwd(), _connectorSrcRight.GetArrayFwd())) return false;
+		if (!Array::Mul(env, _connectorSrcRight.GetArrayGradAutoPtr(),
+						_connectorSrcRight.GetArrayGrad(), _pArrayWork.get())) return false;
+		if (!Array::Neg(env, _connectorSrcRight.GetArrayGradAutoPtr(),
+						_connectorSrcRight.GetArrayGrad())) return false;
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------

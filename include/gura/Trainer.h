@@ -373,6 +373,8 @@ public:
 	// NodeBinary_Div
 	//-------------------------------------------------------------------------
 	class NodeBinary_Div : public NodeBinary {
+	private:
+		AutoPtr<Array> _pArrayWork;
 	public:
 		inline NodeBinary_Div(Connector *pConnectorDst) :
 				NodeBinary("binary@div", Array::binaryFuncPack_Div, pConnectorDst) {}
