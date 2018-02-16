@@ -219,4 +219,30 @@ testcase('backward propagation') {
 		}
 		tester(`x)
 	}
+	scope {
+		model = `(x ** y)
+		println('-' * 78)
+		x = array {
+			{7, 8, 7, 9, 4},
+			{3, 6, 1, 7, 9},
+			{5, 5, 7, 5, 7},
+			{5, 8, 8, 8, 3},
+			{9, 4, 8, 6, 2}}
+		y = array {
+			{2, 2, 2, 2, 1},
+            {0, 1, 0, 2, 2},
+            {1, 1, 2, 1, 2},
+            {1, 2, 2, 2, 0},
+            {2, 1, 2, 1, 0}}
+		tester(`x)
+		tester(`y)
+		tester(model)
+		trainer(model, optimizer@gradient_descent(1)) {|tr|
+			training_rtn = tr.eval()
+			tester(`training_rtn)
+			tr.evalbwd(training_rtn + .1)
+		}
+		tester(`x)
+		tester(`y)
+	}
 }

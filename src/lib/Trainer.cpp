@@ -628,6 +628,7 @@ bool Trainer::NodeUnary_Pos::EvalBackward(Environment &env)
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
 		ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 		if (ppConnectorDst == _connectorsDst.end()) return true;
+		// grad_src = grad_out
 		_connectorSrc.SetArrayGrad((*ppConnectorDst)->GetArrayGrad()->Reference());
 	}
 	return true;
@@ -641,6 +642,7 @@ bool Trainer::NodeUnary_Neg::EvalBackward(Environment &env)
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrc.GetNodeSrc()->IsVulnerable()) {
+		// grad_src = -grad_out
 		if (!Array::Neg(env, _connectorSrc.GetArrayGradAutoPtr(), (*ppConnectorDst)->GetArrayGrad())) return false;
 	}
 	return true;
@@ -722,8 +724,14 @@ bool Trainer::NodeBinary_Add::EvalBackward(Environment &env)
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	const Array *pArrayGrad = (*ppConnectorDst)->GetArrayGrad();
-	_connectorSrcLeft.SetArrayGrad(pArrayGrad->Reference());
-	_connectorSrcRight.SetArrayGrad(pArrayGrad->Reference());
+	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
+		// grad_left = grad_out
+		_connectorSrcLeft.SetArrayGrad(pArrayGrad->Reference());
+	}
+	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
+		// grad_right = grad_out
+		_connectorSrcRight.SetArrayGrad(pArrayGrad->Reference());
+	}
 	return true;
 }
 
@@ -735,9 +743,11 @@ bool Trainer::NodeBinary_Sub::EvalBackward(Environment &env)
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
+		// grad_left = grad_out
 		_connectorSrcLeft.SetArrayGrad((*ppConnectorDst)->GetArrayGrad()->Reference());
 	}
 	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
+		// grad_right = -grad_out
 		if (!Array::Neg(env, _connectorSrcRight.GetArrayGradAutoPtr(), (*ppConnectorDst)->GetArrayGrad())) return false;
 	}
 	return true;
@@ -751,14 +761,14 @@ bool Trainer::NodeBinary_Mul::EvalBackward(Environment &env)
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
-		// res = right * grad
+		// grad_left = grad_out * right
 		if (!Array::Mul(env, _connectorSrcLeft.GetArrayGradAutoPtr(),
-						_connectorSrcRight.GetArrayFwd(), (*ppConnectorDst)->GetArrayGrad())) return false;
+						(*ppConnectorDst)->GetArrayGrad(), _connectorSrcRight.GetArrayFwd())) return false;
 	}
 	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
-		// res = left * grad
+		// grad_right = grad_out * left
 		if (!Array::Mul(env, _connectorSrcRight.GetArrayGradAutoPtr(),
-						_connectorSrcLeft.GetArrayFwd(), (*ppConnectorDst)->GetArrayGrad())) return false;
+						(*ppConnectorDst)->GetArrayGrad(), _connectorSrcLeft.GetArrayFwd())) return false;
 	}
 	return true;
 }
@@ -771,12 +781,12 @@ bool Trainer::NodeBinary_Div::EvalBackward(Environment &env)
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
-		// res = grad_in / right
+		// grad_left = grad_out / right
 		if (!Array::Div(env, _connectorSrcLeft.GetArrayGradAutoPtr(),
 						(*ppConnectorDst)->GetArrayGrad(), _connectorSrcRight.GetArrayFwd())) return false;
 	}
 	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
-		// res = -grad_in * left / (right * right) = -grad_in * y / right
+		// grad_right = -grad_out * left / (right * right) = -grad_out * out / right
 		if (!Array::Mul(env, _connectorSrcRight.GetArrayGradAutoPtr(),
 						(*ppConnectorDst)->GetArrayGrad(), _pArrayFwd.get())) return false;
 		if (!Array::Div(env, _connectorSrcRight.GetArrayGradAutoPtr(),
@@ -792,7 +802,26 @@ bool Trainer::NodeBinary_Div::EvalBackward(Environment &env)
 //-----------------------------------------------------------------------------
 bool Trainer::NodeBinary_Pow::EvalBackward(Environment &env)
 {
-	return false;
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
+	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
+		// grad_left = grad_out * right * left ** (right - 1) = grad_out * out * right / left
+		if (!Array::Mul(env, _connectorSrcLeft.GetArrayGradAutoPtr(),
+						(*ppConnectorDst)->GetArrayGrad(), _pArrayFwd.get())) return false;
+		if (!Array::Mul(env, _connectorSrcLeft.GetArrayGradAutoPtr(),
+						_connectorSrcLeft.GetArrayGrad(), _connectorSrcRight.GetArrayFwd())) return false;
+		if (!Array::Div(env, _connectorSrcLeft.GetArrayGradAutoPtr(),
+						_connectorSrcLeft.GetArrayGrad(), _connectorSrcLeft.GetArrayFwd())) return false;
+	}
+	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
+		// grad_right = grad_out * log(left) * left ** right = grad_out * out * log(left)
+		if (!Array::Math_log(env, _pArrayWork, _connectorSrcLeft.GetArrayFwd())) return false;
+		if (!Array::Mul(env, _connectorSrcRight.GetArrayGradAutoPtr(),
+						(*ppConnectorDst)->GetArrayGrad(), _pArrayFwd.get())) return false;
+		if (!Array::Mul(env, _connectorSrcRight.GetArrayGradAutoPtr(),
+						_connectorSrcRight.GetArrayGrad(), _pArrayWork.get())) return false;
+	}	
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -803,11 +832,13 @@ bool Trainer::NodeBinary_Dot::EvalBackward(Environment &env)
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (_connectorSrcLeft.GetNodeSrc()->IsVulnerable()) {
+		// grad_left = grad_out |.| trans(right)
 		_connectorSrcRight.GetArrayFwd()->Transpose2d(_pArrayFwdRightTrans);
 		if (!Array::Dot(env, _connectorSrcLeft.GetArrayGradAutoPtr(),
 						(*ppConnectorDst)->GetArrayGrad(), _pArrayFwdRightTrans.get())) return false;
 	}
 	if (_connectorSrcRight.GetNodeSrc()->IsVulnerable()) {
+		// grad_right = trans(left) |.| grad_out
 		_connectorSrcLeft.GetArrayFwd()->Transpose2d(_pArrayFwdLeftTrans);
 		if (!Array::Dot(env, _connectorSrcRight.GetArrayGradAutoPtr(),
 						_pArrayFwdLeftTrans.get(), (*ppConnectorDst)->GetArrayGrad())) return false;

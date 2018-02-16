@@ -382,6 +382,8 @@ public:
 	// NodeBinary_Pow
 	//-------------------------------------------------------------------------
 	class NodeBinary_Pow : public NodeBinary {
+	private:
+		AutoPtr<Array> _pArrayWork;
 	public:
 		inline NodeBinary_Pow(Connector *pConnectorDst) :
 				NodeBinary("binary@pow", Array::binaryFuncPack_Pow, pConnectorDst) {}
