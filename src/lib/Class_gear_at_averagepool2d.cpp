@@ -73,6 +73,7 @@ bool NodeGear_AveragePool2d::EvalForward(Environment &env)
 
 bool NodeGear_AveragePool2d::EvalBackward(Environment &env)
 {
+#if 0
 	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	AutoPtr<Array> &pArrayGradDst = GetConnectorSrc()->GetArrayGradAutoPtr();		
@@ -90,7 +91,8 @@ bool NodeGear_AveragePool2d::EvalBackward(Environment &env)
 			*(pElemGradDst + *pElemIndex) += *pElemGradSrc;
 		}
 	}
-	return true;
+#endif
+	return false;
 }
 
 Trainer::NodeGear *NodeGear_AveragePool2d::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const

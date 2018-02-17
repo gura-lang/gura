@@ -438,10 +438,11 @@ private:
 	AutoPtr<Array> &_pArrayRtn;
 	const Array *_pArraySrc;
 	T_Elem *_pElemDst;
-	T_Elem _elemMax;
+	T_Elem _elemAccum;
+	int _nElemsAccum;
 public:
 	KernelScanner_CalcAveragePool_ChNone(AutoPtr<Array> &pArrayRtn, const Array *pArraySrc) :
-		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc), _pElemDst(nullptr), _elemMax(0) {}
+		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc), _pElemDst(nullptr), _elemAccum(0) {}
 	bool Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel);
 	bool Initialize2d(Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol);
 	bool Initialize3d(Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
@@ -449,14 +450,17 @@ public:
 	inline void Begin(T_Elem *pElem) {}			// nothing to do
 	inline void End() {}						// nothing to do
 	inline void BeginKernel(T_Elem *pElem) {
-		_elemMax = *pElem;
+		_elemAccum = 0;
+		_nElemsAccum = 0;
 	}
 	inline void EndKernel() {
-		*_pElemDst++ = _elemMax;
+		Operator_Div::Calc(*_pElemDst, _elemAccum, _nElemsAccum);
+		_pElemDst++;
 	}
 	inline void DoPadding(size_t n) {}			// nothing to do
 	inline void DoElement(T_Elem *pElem) {
-		if (_elemMax < *pElem) _elemMax = *pElem;
+		_elemAccum += *pElem;
+		_nElemsAccum++;
 	}
 };
 
@@ -511,8 +515,9 @@ private:
 	AutoPtr<Array> &_pArrayRtn;
 	const Array *_pArraySrc;
 	T_Elem *_pElemDst;
-	std::unique_ptr<T_Elem []> _elemMaxTbl;
+	std::unique_ptr<T_Elem []> _elemAccumTbl;
 	size_t _nChannels;
+	int _nElemsAccum;
 public:
 	KernelScanner_CalcAveragePool_ChLast(AutoPtr<Array> &pArrayRtn, const Array *pArraySrc) :
 		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc), _pElemDst(nullptr), _nChannels(0) {}
@@ -525,20 +530,21 @@ public:
 	inline void End() {}						// nothing to do
 	inline void BeginKernel(T_Elem *pElem) {
 		for (size_t iChannel = 0; iChannel < _nChannels; iChannel++, pElem++) {
-			_elemMaxTbl[iChannel] = *pElem;
+			_elemAccumTbl[iChannel] = 0;
 		}
 	}
 	inline void EndKernel() {
 		for (size_t iChannel = 0; iChannel < _nChannels; iChannel++) {
-			*_pElemDst++ = _elemMaxTbl[iChannel];
+			Operator_Div::Calc(*_pElemDst, _elemAccumTbl[iChannel], _nElemsAccum);
+			_pElemDst++;
 		}
 	}
 	inline void DoPadding(size_t n) {}			// nothing to do
 	inline void DoElement(T_Elem *pElem) {
 		for (size_t iChannel = 0; iChannel < _nChannels; iChannel++, pElem++) {
-			T_Elem &elemMax = _elemMaxTbl[iChannel];
-			if (elemMax < *pElem) elemMax = *pElem;
+			_elemAccumTbl[iChannel] += *pElem;
 		}
+		_nElemsAccum++;
 	}
 };
 
@@ -552,7 +558,7 @@ bool KernelScanner_CalcAveragePool_ChLast<T_Elem>::Initialize1d(Signal &sig, siz
 							  nKernels, _nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
-	_elemMaxTbl.reset(new T_Elem [_nChannels]);
+	_elemAccumTbl.reset(new T_Elem [_nChannels]);
 	return true;
 }
 
@@ -567,7 +573,7 @@ bool KernelScanner_CalcAveragePool_ChLast<T_Elem>::Initialize2d(
 							  nKernelsRow, nKernelsCol, _nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
-	_elemMaxTbl.reset(new T_Elem [_nChannels]);
+	_elemAccumTbl.reset(new T_Elem [_nChannels]);
 	return true;
 }
 
@@ -583,7 +589,7 @@ bool KernelScanner_CalcAveragePool_ChLast<T_Elem>::Initialize3d(
 							  nKernelsPlane, nKernelsRow, nKernelsCol, _nChannels);
 	_pArrayRtn->AllocMemory();
 	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
-	_elemMaxTbl.reset(new T_Elem [_nChannels]);
+	_elemAccumTbl.reset(new T_Elem [_nChannels]);
 	return true;
 }
 
