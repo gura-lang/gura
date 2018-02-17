@@ -77,23 +77,12 @@ bool NodeGear_MaxPool2d::EvalBackward(Environment &env)
 	if (ppConnectorDst == _connectorsDst.end()) return true;
 	if (GetConnectorSrc()->GetNodeSrc()->IsVulnerable()) {
 		AutoPtr<Array> &pArrayGradDst = GetConnectorSrc()->GetArrayGradAutoPtr();		
-
-		//**** implement this in ArrayT class ****/
-
+		const Array *pArrayGradSrc = (*ppConnectorDst)->GetArrayGrad();
 		if (pArrayGradDst.IsNull()) {
-			pArrayGradDst.reset(GetConnectorSrc()->GetArrayFwd()->CreateLike());
+			pArrayGradDst.reset(pArrayGradSrc->CreateLike());
 		}
 		pArrayGradDst->FillZero();
-		const Array *pArrayGradSrc = (*ppConnectorDst)->GetArrayGrad();
-		const Double *pElemGradSrc = dynamic_cast<const ArrayT<Double> *>(pArrayGradSrc)->GetPointer();
-		Double *pElemGradDst = dynamic_cast<ArrayT<Double> *>(pArrayGradDst.get())->GetPointer();
-		const UInt32 *pElemIndex = dynamic_cast<ArrayT<UInt32> *>(_pArrayOfIndex.get())->GetPointer();
-		size_t nElems = pArrayGradSrc->GetElemNum();
-		for (size_t iElem = 0; iElem < nElems; iElem++, pElemGradSrc++, pElemIndex++) {
-			*(pElemGradDst + *pElemIndex) += *pElemGradSrc;
-		}
-
-
+		pArrayGradSrc->AccumMaxPoolBackward(pArrayGradDst, _pArrayOfIndex.get());
 	}
 	return true;
 }

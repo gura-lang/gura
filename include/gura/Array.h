@@ -460,6 +460,7 @@ public:
 		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const = 0;
+	virtual void AccumMaxPoolBackward(AutoPtr<Array> &pArrayGradDst, const Array *pArrayOfIndex) const = 0;
 	bool CheckDimsGearForCalcConv(Signal &sig, const Dimensions &dimsGear,
 								  size_t nDimsKernel, ChannelPos channelPos) const;
 	virtual bool CalcConv1d(

@@ -3025,6 +3025,18 @@ bool ArrayT<T_Elem>::CalcMaxPoolWithIndex3d(
 }
 
 template<typename T_Elem>
+void ArrayT<T_Elem>::AccumMaxPoolBackward(AutoPtr<Array> &pArrayGradDst, const Array *pArrayOfIndex) const
+{
+	const T_Elem *pElemGradSrc = GetPointer();
+	T_Elem *pElemGradDst = dynamic_cast<ArrayT<T_Elem> *>(pArrayGradDst.get())->GetPointer();
+	const UInt32 *pElemIndex = dynamic_cast<const ArrayT<UInt32> *>(pArrayOfIndex)->GetPointer();
+	size_t nElems = GetElemNum();
+	for (size_t iElem = 0; iElem < nElems; iElem++, pElemGradSrc++, pElemIndex++) {
+		*(pElemGradDst + *pElemIndex) += *pElemGradSrc;
+	}
+}
+
+template<typename T_Elem>
 bool ArrayT<T_Elem>::CalcConv1d(
 	Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArrayGear, size_t stridesKernel,
 	size_t sizePad, ChannelPos channelPos) const
