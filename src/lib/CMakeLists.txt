@@ -60,6 +60,9 @@ Class_undefined.cpp
 Class_uri.cpp
 Class_vertex.cpp
 Class_gear.cpp
+Class_gear_at_averagepool1d.cpp
+Class_gear_at_averagepool2d.cpp
+Class_gear_at_averagepool3d.cpp
 Class_gear_at_conv1d.cpp
 Class_gear_at_conv2d.cpp
 Class_gear_at_conv3d.cpp

@@ -99,6 +99,9 @@ fs:module
   stat:class = <class:fs.stat(pathname:string) {block?}>
 function:class = <class:function(`args*) {block}>
 gear:class = <class:gear>
+gear@averagepool1d:class = <class:gear@averagepool1d(size:number, strides?:number, padding?:symbol, channel_pos?:symbol):map {block?}>
+gear@averagepool2d:class = <class:gear@averagepool2d(size[]:number, strides[]?:number, padding?:symbol, channel_pos?:symbol):map {block?}>
+gear@averagepool3d:class = <class:gear@averagepool3d(size[]:number, strides[]?:number, padding?:symbol, format?:symbol):map {block?}>
 gear@conv1d:class = <class:gear@conv1d(array:array, strides?:number, padding?:symbol, channel_pos?:symbol):map {block?}>
 gear@conv2d:class = <class:gear@conv2d(array:array, strides[]?:number, padding?:symbol, channel_pos?:symbol):map {block?}>
 gear@conv3d:class = <class:gear@conv3d(array:array, strides[]?:number, padding?:symbol, channel_pos?:symbol):map {block?}>
@@ -740,6 +743,9 @@ function
   function#mathdiff(var?:symbol):reduce
 gear
   gear.calcpadding(size_in:number, size_kernel:number, strides:number, padding:symbol):static:map {block?}
+gear@averagepool1d
+gear@averagepool2d
+gear@averagepool3d
 gear@conv1d
 gear@conv2d
 gear@conv3d

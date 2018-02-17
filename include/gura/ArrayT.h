@@ -119,6 +119,17 @@ public:
 		size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
 		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
+	virtual bool CalcAveragePool1d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
+		size_t sizePad, ChannelPos channelPos) const;
+	virtual bool CalcAveragePool2d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
+	virtual bool CalcAveragePool3d(
+		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+		size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
+		size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const;
 	virtual bool CalcMaxPool1d(
 		Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
 		size_t sizePad, ChannelPos channelPos) const;

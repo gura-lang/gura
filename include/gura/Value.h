@@ -262,6 +262,9 @@ public:
 	inline bool Is_uri() const					{ return IsType(VTYPE_uri);						}
 	inline bool Is_vertex() const				{ return IsType(VTYPE_vertex);					}
 	inline bool Is_gear() const					{ return IsType(VTYPE_gear);					}
+	inline bool Is_gear_at_averagepool1d() const{ return IsType(VTYPE_gear_at_averagepool1d);	}
+	inline bool Is_gear_at_averagepool2d() const{ return IsType(VTYPE_gear_at_averagepool2d);	}
+	inline bool Is_gear_at_averagepool3d() const{ return IsType(VTYPE_gear_at_averagepool3d);	}
 	inline bool Is_gear_at_conv1d() const		{ return IsType(VTYPE_gear_at_conv1d);			}
 	inline bool Is_gear_at_conv2d() const		{ return IsType(VTYPE_gear_at_conv2d);			}
 	inline bool Is_gear_at_conv3d() const		{ return IsType(VTYPE_gear_at_conv3d);			}
@@ -406,6 +409,12 @@ public:
 								{ return MustBe(sig, Is_vertex(), 		"vertex");			}
 	inline bool MustBe_gear(Signal &sig) const
 								{ return MustBe(sig, Is_gear(), 		"gear");			}
+	inline bool MustBe_gear_at_averagepool1d(Signal &sig) const
+								{ return MustBe(sig, Is_gear_at_averagepool1d(), "gear@averagepool1d");	}
+	inline bool MustBe_gear_at_averagepool2d(Signal &sig) const
+								{ return MustBe(sig, Is_gear_at_averagepool2d(), "gear@averagepool2d");	}
+	inline bool MustBe_gear_at_averagepool3d(Signal &sig) const
+								{ return MustBe(sig, Is_gear_at_averagepool3d(), "gear@averagepool3d");	}
 	inline bool MustBe_gear_at_conv1d(Signal &sig) const
 								{ return MustBe(sig, Is_gear_at_conv1d(), "gear@conv1d");	}
 	inline bool MustBe_gear_at_conv2d(Signal &sig) const

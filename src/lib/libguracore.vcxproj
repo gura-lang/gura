@@ -244,6 +244,9 @@
     <ClCompile Include="Class_uri.cpp" />
     <ClCompile Include="Class_vertex.cpp" />
     <ClCompile Include="Class_gear.cpp" />
+    <ClCompile Include="Class_gear_at_averagepool1d.cpp" />
+    <ClCompile Include="Class_gear_at_averagepool2d.cpp" />
+    <ClCompile Include="Class_gear_at_averagepool3d.cpp" />
     <ClCompile Include="Class_gear_at_conv1d.cpp" />
     <ClCompile Include="Class_gear_at_conv2d.cpp" />
     <ClCompile Include="Class_gear_at_conv3d.cpp" />
@@ -396,6 +399,9 @@
     <ClInclude Include="..\..\include\gura\Class_uri.h" />
     <ClInclude Include="..\..\include\gura\Class_vertex.h" />
     <ClInclude Include="..\..\include\gura\Class_gear.h" />
+    <ClInclude Include="..\..\include\gura\Class_gear_at_averagepool1d.h" />
+    <ClInclude Include="..\..\include\gura\Class_gear_at_averagepool2d.h" />
+    <ClInclude Include="..\..\include\gura\Class_gear_at_averagepool3d.h" />
     <ClInclude Include="..\..\include\gura\Class_gear_at_conv1d.h" />
     <ClInclude Include="..\..\include\gura\Class_gear_at_conv2d.h" />
     <ClInclude Include="..\..\include\gura\Class_gear_at_conv3d.h" />

@@ -2501,6 +2501,134 @@ bool ArrayT<T_Elem>::RestoreKernelVec3d(
 }
 
 template<typename T_Elem>
+bool ArrayT<T_Elem>::CalcAveragePool1d(
+	Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
+	size_t sizePad, ChannelPos channelPos) const
+{
+#if 0
+	const Dimensions &dims = GetDims();
+	if (channelPos == CHANNELPOS_None) {
+		if (dims.size() < 1) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [W] or [N, W]");
+			return false;
+		}
+		KernelScanner_CalcAveragePool_ChNone<T_Elem> kernelScanner(pArrayRtn, this);
+		return ScanKernel1d(
+			sig, const_cast<ArrayT *>(this), dims.GetBack(0), 0,
+			sizeKernel, stridesKernel, sizePad, kernelScanner);
+	} else if (channelPos == CHANNELPOS_First) {
+		if (dims.size() < 2) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [C, W] or [N, C, W]");
+			return false;
+		}
+		KernelScanner_CalcAveragePool_ChFirst<T_Elem> kernelScanner(pArrayRtn, this);
+		return ScanKernel1d(
+			sig, const_cast<ArrayT *>(this), dims.GetBack(0), 0,
+			sizeKernel, stridesKernel, sizePad, kernelScanner);
+	} else { // channelPos == CHANNELPOS_Last
+		if (dims.size() < 2) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [W, C] or [N, W, C]");
+			return false;
+		}
+		KernelScanner_CalcAveragePool_ChLast<T_Elem> kernelScanner(pArrayRtn, this);
+		return ScanKernel1d(
+			sig, const_cast<ArrayT *>(this), dims.GetBack(1), 0,
+			sizeKernel, stridesKernel, sizePad, kernelScanner);
+	}
+#endif
+	return false;
+}
+
+template<typename T_Elem>
+bool ArrayT<T_Elem>::CalcAveragePool2d(
+	Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernelRow, size_t sizeKernelCol,
+	size_t stridesKernelRow, size_t stridesKernelCol,
+	size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
+{
+#if 0
+	const Dimensions &dims = GetDims();
+	if (channelPos == CHANNELPOS_None) {
+		if (dims.size() < 2) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [H, W] or [N, H, W]");
+			return false;
+		}
+		KernelScanner_CalcAveragePool_ChNone<T_Elem> kernelScanner(pArrayRtn, this);
+		return ScanKernel2d(
+			sig, const_cast<ArrayT *>(this), dims.GetBack(1), dims.GetBack(0), 0,
+			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
+			sizePadRow, sizePadCol, kernelScanner);
+	} else if (channelPos == CHANNELPOS_First) {
+		if (dims.size() < 3) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [C, H, W] or [N, C, H, W]");
+			return false;
+		}
+		KernelScanner_CalcAveragePool_ChFirst<T_Elem> kernelScanner(pArrayRtn, this);
+		return ScanKernel2d(
+			sig, const_cast<ArrayT *>(this), dims.GetBack(1), dims.GetBack(0), 0,
+			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
+			sizePadRow, sizePadCol, kernelScanner);
+	} else { // channelPos == CHANNELPOS_Last
+		if (dims.size() < 3) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [H, W, C] or [N, H, W, C]");
+			return false;
+		}
+		KernelScanner_CalcAveragePool_ChLast<T_Elem> kernelScanner(pArrayRtn, this);
+		return ScanKernel2d(
+			sig, const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), 0,
+			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
+			sizePadRow, sizePadCol, kernelScanner);
+	}
+#endif
+	return false;
+}
+
+template<typename T_Elem>
+bool ArrayT<T_Elem>::CalcAveragePool3d(
+	Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol,
+	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
+	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
+{
+#if 0
+	const Dimensions &dims = GetDims();
+	if (channelPos == CHANNELPOS_None) {
+		if (dims.size() < 3) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [P, H, W] or [N, P, H, W]");
+			return false;
+		}
+		KernelScanner_CalcAveragePool_ChNone<T_Elem> kernelScanner(pArrayRtn, this);
+		return ScanKernel3d(
+			sig, const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0), 0,
+			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
+			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
+			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
+	} else if (channelPos == CHANNELPOS_First) {
+		if (dims.size() < 4) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [C, P, H, W] or [N, C, P, H, W]");
+			return false;
+		}
+		KernelScanner_CalcAveragePool_ChFirst<T_Elem> kernelScanner(pArrayRtn, this);
+		return ScanKernel3d(
+			sig, const_cast<ArrayT *>(this), dims.GetBack(2), dims.GetBack(1), dims.GetBack(0), 0,
+			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
+			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
+			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
+	} else { // channelPos == CHANNELPOS_Last
+		if (dims.size() < 4) {
+			sig.SetError(ERR_ValueError, "the array is expected to have a shape [P, H, W, C] or [N, P, H, W, C]");
+			return false;
+		}
+		KernelScanner_CalcAveragePool_ChLast<T_Elem> kernelScanner(pArrayRtn, this);
+		return ScanKernel3d(
+			sig, const_cast<ArrayT *>(this), dims.GetBack(3), dims.GetBack(2), dims.GetBack(1), 0,
+			sizeKernelPlane, sizeKernelRow, sizeKernelCol,
+			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
+			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
+	}
+#endif
+	return false;
+}
+
+template<typename T_Elem>
 bool ArrayT<T_Elem>::CalcMaxPool1d(
 	Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
 	size_t sizePad, ChannelPos channelPos) const
