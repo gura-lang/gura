@@ -430,6 +430,164 @@ bool KernelScanner_RestoreVec_ChLast<T_Elem>::Initialize3d(
 }
 
 //-----------------------------------------------------------------------------
+// KernelScanner_CalcAveragePool_ChNone
+//-----------------------------------------------------------------------------
+template<typename T_Elem>
+class KernelScanner_CalcAveragePool_ChNone {
+private:
+	AutoPtr<Array> &_pArrayRtn;
+	const Array *_pArraySrc;
+	T_Elem *_pElemDst;
+	T_Elem _elemMax;
+public:
+	KernelScanner_CalcAveragePool_ChNone(AutoPtr<Array> &pArrayRtn, const Array *pArraySrc) :
+		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc), _pElemDst(nullptr), _elemMax(0) {}
+	bool Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel);
+	bool Initialize2d(Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol);
+	bool Initialize3d(Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
+					  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol);
+	inline void Begin(T_Elem *pElem) {}			// nothing to do
+	inline void End() {}						// nothing to do
+	inline void BeginKernel(T_Elem *pElem) {
+		_elemMax = *pElem;
+	}
+	inline void EndKernel() {
+		*_pElemDst++ = _elemMax;
+	}
+	inline void DoPadding(size_t n) {}			// nothing to do
+	inline void DoElement(T_Elem *pElem) {
+		if (_elemMax < *pElem) _elemMax = *pElem;
+	}
+};
+
+template<typename T_Elem>
+bool KernelScanner_CalcAveragePool_ChNone<T_Elem>::Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel)
+{
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDims();
+	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
+	_pArrayRtn->SetDims(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 1, nKernels);
+	_pArrayRtn->AllocMemory();
+	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+	return true;
+}
+
+template<typename T_Elem>
+bool KernelScanner_CalcAveragePool_ChNone<T_Elem>::Initialize2d(
+	Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
+{
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDims();
+	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
+	_pArrayRtn->SetDims(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 2, nKernelsRow, nKernelsCol);
+	_pArrayRtn->AllocMemory();
+	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+	return true;
+}
+
+template<typename T_Elem>
+bool KernelScanner_CalcAveragePool_ChNone<T_Elem>::Initialize3d(
+	Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
+	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
+{
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDims();
+	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
+	_pArrayRtn->SetDims(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - 3, nKernelsPlane, nKernelsRow, nKernelsCol);
+	_pArrayRtn->AllocMemory();
+	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// KernelScanner_CalcAveragePool_ChFirst
+//-----------------------------------------------------------------------------
+template<typename T_Elem>
+using KernelScanner_CalcAveragePool_ChFirst = KernelScanner_CalcAveragePool_ChNone<T_Elem>;
+
+//-----------------------------------------------------------------------------
+// KernelScanner_CalcAveragePool_ChLast
+//-----------------------------------------------------------------------------
+template<typename T_Elem>
+class KernelScanner_CalcAveragePool_ChLast {
+private:
+	AutoPtr<Array> &_pArrayRtn;
+	const Array *_pArraySrc;
+	T_Elem *_pElemDst;
+	std::unique_ptr<T_Elem []> _elemMaxTbl;
+	size_t _nChannels;
+public:
+	KernelScanner_CalcAveragePool_ChLast(AutoPtr<Array> &pArrayRtn, const Array *pArraySrc) :
+		_pArrayRtn(pArrayRtn), _pArraySrc(pArraySrc), _pElemDst(nullptr), _nChannels(0) {}
+	bool Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel);
+	bool Initialize2d(Signal &sig, size_t nKernelsRow, size_t nKernelsCol,
+					  size_t sizeKernelRow, size_t sizeKernelCol);
+	bool Initialize3d(Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
+					  size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol);
+	inline void Begin(T_Elem *pElem) {}			// nothing to do
+	inline void End() {}						// nothing to do
+	inline void BeginKernel(T_Elem *pElem) {
+		for (size_t iChannel = 0; iChannel < _nChannels; iChannel++, pElem++) {
+			_elemMaxTbl[iChannel] = *pElem;
+		}
+	}
+	inline void EndKernel() {
+		for (size_t iChannel = 0; iChannel < _nChannels; iChannel++) {
+			*_pElemDst++ = _elemMaxTbl[iChannel];
+		}
+	}
+	inline void DoPadding(size_t n) {}			// nothing to do
+	inline void DoElement(T_Elem *pElem) {
+		for (size_t iChannel = 0; iChannel < _nChannels; iChannel++, pElem++) {
+			T_Elem &elemMax = _elemMaxTbl[iChannel];
+			if (elemMax < *pElem) elemMax = *pElem;
+		}
+	}
+};
+
+template<typename T_Elem>
+bool KernelScanner_CalcAveragePool_ChLast<T_Elem>::Initialize1d(Signal &sig, size_t nKernels, size_t sizeKernel)
+{
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDims();
+	_nChannels = dimsSrc.GetBack(0).GetSize();
+	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
+	_pArrayRtn->SetDims(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - (1 + 1),
+							  nKernels, _nChannels);
+	_pArrayRtn->AllocMemory();
+	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+	_elemMaxTbl.reset(new T_Elem [_nChannels]);
+	return true;
+}
+
+template<typename T_Elem>
+bool KernelScanner_CalcAveragePool_ChLast<T_Elem>::Initialize2d(
+	Signal &sig, size_t nKernelsRow, size_t nKernelsCol, size_t sizeKernelRow, size_t sizeKernelCol)
+{
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDims();
+	_nChannels = dimsSrc.GetBack(0).GetSize();
+	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
+	_pArrayRtn->SetDims(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - (2 + 1),
+							  nKernelsRow, nKernelsCol, _nChannels);
+	_pArrayRtn->AllocMemory();
+	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+	_elemMaxTbl.reset(new T_Elem [_nChannels]);
+	return true;
+}
+
+template<typename T_Elem>
+bool KernelScanner_CalcAveragePool_ChLast<T_Elem>::Initialize3d(
+	Signal &sig, size_t nKernelsPlane, size_t nKernelsRow, size_t nKernelsCol,
+	size_t sizeKernelPlane, size_t sizeKernelRow, size_t sizeKernelCol)
+{
+	const Array::Dimensions &dimsSrc = _pArraySrc->GetDims();
+	_nChannels = dimsSrc.GetBack(0).GetSize();
+	_pArrayRtn.reset(ArrayT<T_Elem>::Create());
+	_pArrayRtn->SetDims(dimsSrc.begin(), dimsSrc.begin() + dimsSrc.size() - (3 + 1),
+							  nKernelsPlane, nKernelsRow, nKernelsCol, _nChannels);
+	_pArrayRtn->AllocMemory();
+	_pElemDst = dynamic_cast<ArrayT<T_Elem> *>(_pArrayRtn.get())->GetPointer();
+	_elemMaxTbl.reset(new T_Elem [_nChannels]);
+	return true;
+}
+
+//-----------------------------------------------------------------------------
 // KernelScanner_CalcMaxPool_ChNone
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
@@ -2505,7 +2663,6 @@ bool ArrayT<T_Elem>::CalcAveragePool1d(
 	Signal &sig, AutoPtr<Array> &pArrayRtn, size_t sizeKernel, size_t stridesKernel,
 	size_t sizePad, ChannelPos channelPos) const
 {
-#if 0
 	const Dimensions &dims = GetDims();
 	if (channelPos == CHANNELPOS_None) {
 		if (dims.size() < 1) {
@@ -2535,8 +2692,6 @@ bool ArrayT<T_Elem>::CalcAveragePool1d(
 			sig, const_cast<ArrayT *>(this), dims.GetBack(1), 0,
 			sizeKernel, stridesKernel, sizePad, kernelScanner);
 	}
-#endif
-	return false;
 }
 
 template<typename T_Elem>
@@ -2545,7 +2700,6 @@ bool ArrayT<T_Elem>::CalcAveragePool2d(
 	size_t stridesKernelRow, size_t stridesKernelCol,
 	size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
 {
-#if 0
 	const Dimensions &dims = GetDims();
 	if (channelPos == CHANNELPOS_None) {
 		if (dims.size() < 2) {
@@ -2578,8 +2732,6 @@ bool ArrayT<T_Elem>::CalcAveragePool2d(
 			sizeKernelRow, sizeKernelCol, stridesKernelRow, stridesKernelCol,
 			sizePadRow, sizePadCol, kernelScanner);
 	}
-#endif
-	return false;
 }
 
 template<typename T_Elem>
@@ -2588,7 +2740,6 @@ bool ArrayT<T_Elem>::CalcAveragePool3d(
 	size_t stridesKernelPlane, size_t stridesKernelRow, size_t stridesKernelCol,
 	size_t sizePadPlane, size_t sizePadRow, size_t sizePadCol, ChannelPos channelPos) const
 {
-#if 0
 	const Dimensions &dims = GetDims();
 	if (channelPos == CHANNELPOS_None) {
 		if (dims.size() < 3) {
@@ -2624,8 +2775,6 @@ bool ArrayT<T_Elem>::CalcAveragePool3d(
 			stridesKernelPlane, stridesKernelRow, stridesKernelCol,
 			sizePadPlane, sizePadRow, sizePadCol, kernelScanner);
 	}
-#endif
-	return false;
 }
 
 template<typename T_Elem>
