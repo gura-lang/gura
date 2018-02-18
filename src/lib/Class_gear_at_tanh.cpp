@@ -59,6 +59,7 @@ bool NodeGear_Tanh::EvalForward(Environment &env)
 
 bool NodeGear_Tanh::EvalBackward(Environment &env)
 {
+	// grad_in = grad_out * (1 - out ** 2)
 	return false;
 }
 
