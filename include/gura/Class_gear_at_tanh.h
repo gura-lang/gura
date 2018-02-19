@@ -42,6 +42,9 @@ public:
 	public:
 		virtual NodeGear *Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const;
 	};
+private:
+	AutoPtr<Array> _pArrayWork1;	// EvalBackward
+	AutoPtr<Array> _pArrayWork2;	// EvalBackward
 public:
 	inline NodeGear_Tanh(Gear_Tanh *pGear, Connector *pConnectorDst) :
 			NodeGear(pGear, pConnectorDst) {}

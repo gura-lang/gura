@@ -59,8 +59,14 @@ bool NodeGear_Tanh::EvalForward(Environment &env)
 
 bool NodeGear_Tanh::EvalBackward(Environment &env)
 {
+	ConnectorList::iterator ppConnectorDst = _connectorsDst.begin();
+	if (ppConnectorDst == _connectorsDst.end()) return true;
+	const Array *pArrayGradSrc = (*ppConnectorDst)->GetArrayGrad();
 	// grad_in = grad_out * (1 - out ** 2)
-	return false;
+	if (!Array::Mul(env, _pArrayWork1, _pArrayFwd.get(), _pArrayFwd.get())) return false;
+	if (!Array::Sub(env, _pArrayWork2, 1, _pArrayWork1.get())) return false;
+	if (!Array::Mul(env, GetConnectorSrc()->GetArrayGradAutoPtr(), pArrayGradSrc, _pArrayWork2.get())) return false;
+	return true;
 }
 
 Trainer::NodeGear *NodeGear_Tanh::CreatorEx::Create(const Value &value, Connector *pConnectorDst, const Trainer *pTrainer) const
