@@ -5,7 +5,7 @@ import(wxutil)
 log = nil
 
 Frame = class(wx.Frame) {
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+	__init__(parent:wx.Window:nil) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
 		wx.SashLayoutWindow(this, wx.ID_ANY,
 					style => wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN) {|sash|
 			sash.SetDefaultSize(wx.Size(1000, 100));

@@ -127,8 +127,8 @@ Panel = class(wx.Panel) {
 }
 
 Frame = class(wx.Frame) {
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0]),
-													size => wx.Size(400, 600)|
+	__init__(parent:wx.Window:nil) = {|parent, wx.ID_ANY, path.filename(sys.argv[0]),
+									   size => wx.Size(400, 600)|
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		this.SetSizer(vbox)
 		vbox.Add(Panel(this), wx.SizerFlags().Expand())

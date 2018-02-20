@@ -10,7 +10,7 @@ Frame1 = class(wx.Frame) {
 	[
 		ID_TOOL1,
 	] = [1]
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+	__init__(parent:wx.Window:nil) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
 		wx.MenuBar() {|menuBar|
 			this.SetMenuBar(menuBar)
 			wx.Menu() {|menu|
@@ -50,7 +50,7 @@ Frame1 = class(wx.Frame) {
 }
 
 Frame2 = class(wx.Frame) {
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+	__init__(parent:wx.Window:nil) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
 		wx.ToolBar(this, wx.ID_ANY, style => wx.TB_RIGHT) {|toolBar|
 			this.SetToolBar(toolBar)
 			toolBar.AddTool(1, 'tool-1', image(I('arrow-green-d.gif')))

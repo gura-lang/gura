@@ -2,7 +2,7 @@
 import(wx)
 
 Frame = class(wx.Frame) {
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+	__init__(parent:wx.Window:nil) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
 		panel = wx.Panel(this)
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		panel.SetSizer(vbox)

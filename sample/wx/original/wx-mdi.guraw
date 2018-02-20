@@ -4,7 +4,7 @@ import(wxutil)
 import(gif)
 
 Frame = class(wx.MDIParentFrame) {
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
+	__init__(parent:wx.Window:nil) = {|parent, wx.ID_ANY,
 						path.filename(sys.argv[0]), size => wx.Size(640, 480)|
 		wx.MenuBar {|menuBar|
 			this.SetMenuBar(menuBar)

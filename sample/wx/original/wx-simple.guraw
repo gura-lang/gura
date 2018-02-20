@@ -3,7 +3,7 @@ import(wx)
 
 Frame = class(wx.Frame) {
 	[ID_BTN_1, ID_BTN_2] = wx.NewIds()
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+	__init__(parent:wx.Window:nil) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
 		wx.Panel(this) {|panel|
 			vbox = wx.BoxSizer(wx.VERTICAL)
 			panel.SetSizer(vbox)

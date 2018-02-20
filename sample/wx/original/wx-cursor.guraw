@@ -34,7 +34,7 @@ down_mask = @{
 }
 
 Frame = class(wx.Frame) {
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+	__init__(parent:wx.Window:nil) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
 		panel = wx.Panel(this)
 		grid = wx.GridSizer(nil, 4, 1, 1)
 		panel.SetSizer(grid)
