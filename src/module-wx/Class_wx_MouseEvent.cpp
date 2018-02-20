@@ -318,6 +318,21 @@ Gura_ImplementMethod(wx_MouseEvent, GetLinesPerAction)
 	return ReturnValue(env, arg, Value(rtn));
 }
 
+Gura_DeclareMethod(wx_MouseEvent, GetWheelAxis)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MouseEvent, GetWheelAxis)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	int rtn = pThis->GetEntity()->GetWheelAxis();
+	return ReturnValue(env, arg, Value(rtn));
+}
+
 Gura_DeclareMethod(wx_MouseEvent, GetWheelRotation)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -694,6 +709,7 @@ Gura_ImplementUserInheritableClass(wx_MouseEvent)
 	Gura_AssignMethod(wx_MouseEvent, GetPosition_2);
 	Gura_AssignMethod(wx_MouseEvent, GetLogicalPosition);
 	Gura_AssignMethod(wx_MouseEvent, GetLinesPerAction);
+	Gura_AssignMethod(wx_MouseEvent, GetWheelAxis);
 	Gura_AssignMethod(wx_MouseEvent, GetWheelRotation);
 	Gura_AssignMethod(wx_MouseEvent, GetWheelDelta);
 	Gura_AssignMethod(wx_MouseEvent, GetX);
