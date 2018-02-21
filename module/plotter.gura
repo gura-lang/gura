@@ -925,7 +925,7 @@ PlotInfo = struct(xs[]:number, ys[]:number, attrInfo:AttrInfo) {
 // FuncInfo
 //-----------------------------------------------------------------------------
 FuncInfo = struct(func:function, min:number:nil, max:number:nil, cntSamples:number, attrInfo:AttrInfo):map {
-	draw(g:Graph, cr:cairo.context) = cr.save {
+	draw(g:Graph, cr:cairo.context):void = cr.save {
 		cr.set_antialias(cairo.ANTIALIAS_DEFAULT)
 		attrInfo = this.attrInfo
 		syms = [this.func.decls:*symbol]
@@ -934,12 +934,16 @@ FuncInfo = struct(func:function, min:number:nil, max:number:nil, cntSamples:numb
 		}
 		(attrInfo.lineStyle == `none) && continue
 		sym = syms.first()
-		if (sym == `y) {
-			ys = interval(this.min || g.minY, this.max || g.maxY, this.cntSamples)
-			cr.line_to(g.coordX(this.func(ys)), g.coordY(ys))
-		} else {
-			xs = interval(this.min || g.minX, this.max || g.maxX, this.cntSamples)
-			cr.line_to(g.coordX(xs), g.coordY(this.func(xs)))
+		try {
+			if (sym == `y) {
+				ys = interval(this.min || g.minY, this.max || g.maxY, this.cntSamples)
+				cr.line_to(g.coordX(this.func(ys)), g.coordY(ys))
+			} else {
+				xs = interval(this.min || g.minX, this.max || g.maxX, this.cntSamples)
+				cr.line_to(g.coordX(xs), g.coordY(this.func(xs)))
+			}
+		} catch {
+			return
 		}
 		cr.set_source_color(attrInfo.lineColor || attrInfo.color)
 		g.applyLineWidth(cr, attrInfo.lineWidth)
