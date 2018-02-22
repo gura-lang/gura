@@ -372,6 +372,8 @@ Graph = class {
 	} %% {`en, R'''
 	'''}
 	func(func:function, min?:number, max?:number, cntSamples:number => 100):map:void = {
+		idxMatched = this.itemInfos:*isSymbolMatched(func.symbol).find():index
+		idxMatched && this.itemInfos.erase(idxMatched)
 		attrInfo = this.getAttrInfo()
 		attrInfo.markerStyle = `none
 		this.itemInfos.add(FuncInfo(func, min, max, cntSamples, attrInfo))
@@ -919,6 +921,7 @@ PlotInfo = struct(xs[]:number, ys[]:number, attrInfo:AttrInfo) {
 	}
 	getRangeX() = Range(this.xs.min(), this.xs.max())
 	getRangeY() = Range(this.ys.min(), this.ys.max())
+	isSymbolMatched(symbol:symbol) = false
 }
 
 //-----------------------------------------------------------------------------
@@ -952,6 +955,7 @@ FuncInfo = struct(func:function, min:number:nil, max:number:nil, cntSamples:numb
 	}
 	getRangeX() = nil
 	getRangeY() = nil
+	isSymbolMatched(symbol:symbol) = {this.func.symbol == symbol}
 }
 
 //-----------------------------------------------------------------------------
@@ -966,6 +970,7 @@ LabelInfo = struct(x:number, y:number, text:string, xOffset:number, yOffset:numb
 	}
 	getRangeX() = Range(this.x, this.x)
 	getRangeY() = Range(this.y, this.y)
+	isSymbolMatched(symbol:symbol) = false
 }
 
 //-----------------------------------------------------------------------------
@@ -986,6 +991,7 @@ HLineInfo = struct(y:number, min:number:nil, max:number:nil, attrInfo:AttrInfo):
 	}
 	getRangeX() = Range(this.min, this.max)
 	getRangeY() = Range(y, y)
+	isSymbolMatched(symbol:symbol) = false
 }
 
 //-----------------------------------------------------------------------------
@@ -1006,6 +1012,7 @@ VLineInfo = struct(x:number, min:number:nil, max:number:nil, attrInfo:AttrInfo):
 	}
 	getRangeX() = Range(x, x)
 	getRangeY() = Range(this.min, this.max)
+	isSymbolMatched(symbol:symbol) = false
 }
 
 //-----------------------------------------------------------------------------
