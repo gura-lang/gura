@@ -30,6 +30,15 @@ LegendInfo = struct(text:string):map
 Range = struct(min:number, max:number):map
 
 //-----------------------------------------------------------------------------
+// Rect
+//-----------------------------------------------------------------------------
+Rect = struct(x:number, y:number, width:number, height:number) {
+	contains(x:number, y:number) = {
+		this.x <= x && x <= this.x + this.width && this.y <= y && y <= this.y + this.height
+	}
+}
+
+//-----------------------------------------------------------------------------
 // Canvas
 //-----------------------------------------------------------------------------
 Canvas = class {
@@ -150,6 +159,7 @@ Graph = class {
 		`dashdotdot	=> [8, 2, 2, 2, 2, 2]
 	}
 	public {
+		focusFlag
 		nSpans
 		graphPrev
 		showBoundingBox
@@ -188,6 +198,7 @@ Graph = class {
 		mgnTitleYSub
 		gridX
 		gridY
+		rcAxis
 	}
 	__init__(cv:Canvas, nSpans:number) = {
 		this.fontName = if (sys.platform == `mswin) {
@@ -200,6 +211,7 @@ Graph = class {
 			'Sans'
 		}
 		this.cv = cv
+		this.focusFlag = false
 		this.nSpans = nSpans
 		this.graphPrev = if (cv.graphs.isempty()) {nil} else {cv.graphs.last()}
 		this.showBoundingBox = false
@@ -249,6 +261,7 @@ Graph = class {
 		this.lenGridBit = 6
 		this.gridX = `bit
 		this.gridY = `bit
+		this.rcAxis = nil
 		this.graphSyncRangeX = nil
 		this.graphSyncRangeY = nil
 		this.dict@drawMarker = %{
@@ -415,31 +428,28 @@ Graph = class {
 		spaceTitleYSub = cond(this.titleYSub.isempty(), 0, this.fontSizeTitleYSub * 1.2 + this.mgnTitleYSub)
 		[wdTickY, mgnTickY] = if (this.showTickY) {[this.wdTickY, this.mgnTickY]} else {[0, 0]}
 		[htTickX, mgnTickX] = if (this.showTickX) {[this.htTickX, this.mgnTickX]} else {[0, 0]}
-		[this.xAxis, this.yAxis] = [
-			x + mgnLeft + spaceTitleY + wdTickY + mgnTickY
-			y + mgnTop + spaceTitle
-		]
-		[this.wdAxis, this.htAxis] = [
-			width - (mgnLeft + spaceTitleY + spaceTitleYSub + wdTickY + mgnTickY + mgnRight)
-			height - (mgnTop + spaceTitleX + spaceTitle + mgnTickX + htTickX + mgnBottom)
-		]
+		this.rcAxis = Rect(
+				x + mgnLeft + spaceTitleY + wdTickY + mgnTickY
+				y + mgnTop + spaceTitle
+				width - (mgnLeft + spaceTitleY + spaceTitleYSub + wdTickY + mgnTickY + mgnRight)
+				height - (mgnTop + spaceTitleX + spaceTitle + mgnTickX + htTickX + mgnBottom))
 		if (!this.title.isempty()) {
 			cr.set_font_size(this.fontSizeTitle)
 			this.drawLabel_n(cr, x + mgnLeft + (width - mgnLeft - mgnRight) / 2, y + mgnTop, this.title)
 		}
 		if (!this.titleX.isempty()) {
 			cr.set_font_size(this.fontSizeTitleX)
-			this.drawLabel_n(cr, this.xAxis + this.wdAxis / 2,
-							this.yAxis + this.htAxis + mgnTickX + htTickX + this.mgnTitleX, this.titleX)
+			this.drawLabel_n(cr, this.rcAxis.x + this.rcAxis.width / 2,
+							this.rcAxis.y + this.rcAxis.height + mgnTickX + htTickX + this.mgnTitleX, this.titleX)
 		}
 		if (!this.titleY.isempty()) {
 			cr.set_font_size(this.fontSizeTitleY)
-			this.drawRotText_w(cr, x + mgnLeft, this.yAxis + this.htAxis / 2, this.titleY)
+			this.drawRotText_w(cr, x + mgnLeft, this.rcAxis.y + this.rcAxis.height / 2, this.titleY)
 		}
 		if (!this.titleYSub.isempty()) {
 			cr.set_font_size(this.fontSizeTitleYSub)
-			this.drawRotText_w(cr, this.xAxis + this.wdAxis + this.mgnTitleYSub,
-								this.yAxis + this.htAxis / 2, this.titleYSub)
+			this.drawRotText_w(cr, this.rcAxis.x + this.rcAxis.width + this.mgnTitleYSub,
+								this.rcAxis.y + this.rcAxis.height / 2, this.titleYSub)
 		}
 		cr.save {
 			this.drawAxis(cr)
@@ -492,10 +502,10 @@ Graph = class {
 	} %% {`en, R'''
 	'''}
 	coordX(x:number):map = {
-		this.xAxis + (x - this.minX) * this.wdAxis / (this.maxX - this.minX)
+		this.rcAxis.x + (x - this.minX) * this.rcAxis.width / (this.maxX - this.minX)
 	}
 	coordY(y:number):map = {
-		this.yAxis + this.htAxis - (y - this.minY) * this.htAxis / (this.maxY - this.minY)
+		this.rcAxis.y + this.rcAxis.height - (y - this.minY) * this.rcAxis.height / (this.maxY - this.minY)
 	}
 	calcStep(tMin:number, tMax:number, nTicksMax:number) = {
 		tRange = tMax - tMin
@@ -784,7 +794,7 @@ Graph = class {
 		}
 	}
 	clipAxis(cr:cairo.context) = {
-		cr.rectangle(this.xAxis, this.yAxis, this.wdAxis, this.htAxis)
+		cr.rectangle(this.rcAxis.x, this.rcAxis.y, this.rcAxis.width, this.rcAxis.height)
 		cr.clip()
 	}
 	updateTickInfos() = {
@@ -799,17 +809,22 @@ Graph = class {
 		cr.set_line_width(1)
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
-			cr.rectangle(this.xAxis, this.yAxis, this.wdAxis, this.htAxis)
+			cr.rectangle(this.rcAxis.x, this.rcAxis.y, this.rcAxis.width, this.rcAxis.height)
+			if (this.focusFlag) {
+				cr.set_source_color('#ffffe0')
+				cr.fill_preserve()
+			}
+			cr.set_source_color(`black)
 			cr.set_dash([], 0)
 			cr.stroke()
 		}
 		if (this.gridX != `none && this.minX < 0 && 0 < this.maxX) {
-			this.drawVline(cr, this.coordX(0), this.yAxis, this.htAxis)
+			this.drawVline(cr, this.coordX(0), this.rcAxis.y, this.rcAxis.height)
 			cr.set_dash([], 0)
 			cr.stroke()
 		}
 		if (this.gridY != `none && this.minY < 0 && 0 < this.maxY) {
-			this.drawHline(cr, this.xAxis, this.coordY(0), this.wdAxis)
+			this.drawHline(cr, this.rcAxis.x, this.coordY(0), this.rcAxis.width)
 			cr.set_dash([], 0)
 			cr.stroke()
 		}
@@ -819,12 +834,13 @@ Graph = class {
 				// nothing to do
 			} elsif (this.gridX == `bit) {
 				if (this.showTickX) {
-					this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.yAxis + this.htAxis, -this.lenGridBit)
+					this.drawVline(cr, this.coordX(this.tickInfosX:*n),
+								   this.rcAxis.y + this.rcAxis.height, -this.lenGridBit)
 					cr.stroke()
 				}
 			} else {
 				this.applyLineStyle(cr, this.gridX)
-				this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.yAxis, this.htAxis)
+				this.drawVline(cr, this.coordX(this.tickInfosX:*n), this.rcAxis.y, this.rcAxis.height)
 				cr.stroke()
 			}
 		}
@@ -834,12 +850,12 @@ Graph = class {
 				// nothing to do
 			} elsif (this.gridY == `bit) {
 				if (this.showTickY) {
-					this.drawHline(cr, this.xAxis, this.coordY(this.tickInfosY:*n), this.lenGridBit)
+					this.drawHline(cr, this.rcAxis.x, this.coordY(this.tickInfosY:*n), this.lenGridBit)
 					cr.stroke()
 				}
 			} else {
 				this.applyLineStyle(cr, this.gridY)
-				this.drawHline(cr, this.xAxis, this.coordY(this.tickInfosY:*n), this.wdAxis)
+				this.drawHline(cr, this.rcAxis.x, this.coordY(this.tickInfosY:*n), this.rcAxis.width)
 				cr.stroke()
 			}
 		}
@@ -847,13 +863,13 @@ Graph = class {
 			cr.save {
 				cr.set_font_size(this.fontSizeTickX)
 				this.drawLabel_s(cr, this.coordX(this.tickInfosX:*n),
-								 this.yAxis + this.htAxis + this.mgnTickX + this.htTickX, this.tickInfosX:*text)
+								 this.rcAxis.y + this.rcAxis.height + this.mgnTickX + this.htTickX, this.tickInfosX:*text)
 			}
 		}
 		if (this.showTickY) {
 			cr.save {
 				cr.set_font_size(this.fontSizeTickY)
-				this.drawLabel_e(cr, this.xAxis - this.mgnTickY,
+				this.drawLabel_e(cr, this.rcAxis.x - this.mgnTickY,
 								 this.coordY(this.tickInfosY:*n), this.tickInfosY:*text)
 			}
 		}
@@ -868,8 +884,8 @@ Graph = class {
 		this.legendInfos.isempty() && return
 		wdLegend = 100, htLegend = 100
 		mgnLegendX = 10, mgnLegendY = 10
-		xLegend = this.xAxis + this.wdAxis - (mgnLegendX + wdLegend)
-		yLegend = this.yAxis + mgnLegendY
+		xLegend = this.rcAxis.x + this.rcAxis.width - (mgnLegendX + wdLegend)
+		yLegend = this.rcAxis.y + mgnLegendY
 		cr.save {
 			cr.rectangle(xLegend, yLegend, wdLegend, htLegend)
 			cr.set_source_color(`white)
