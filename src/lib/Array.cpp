@@ -744,7 +744,7 @@ bool Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, AutoPtr<Array
 	UnaryFuncT unaryFunc = pack.table.funcs[pArray->GetElemType()];
 	if (unaryFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
-		return nullptr;
+		return false;
 	}
 	return (*unaryFunc)(sig, pArrayRtn, pArray);
 }

@@ -670,7 +670,7 @@ typedef std::deque<Value, Allocator<Value> > ValueDeque;
 //-----------------------------------------------------------------------------
 // ValueDict
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueDict : public std::map<Value, Value, Value::LessThan, Allocator<Value> > {
+class GURA_DLLDECLARE ValueDict : public std::map<Value, Value, Value::LessThan, Allocator<std::pair<const Value, Value> > > {
 public:
 	enum StoreMode {
 		STORE_Strict,
@@ -691,13 +691,13 @@ public:
 		MemoryPool::Deallocate(pv);
 	}
 public:
-	inline ValueDict() : std::map<Value, Value, Value::LessThan, Allocator<Value> >(),
+	inline ValueDict() : std::map<Value, Value, Value::LessThan, Allocator<std::pair<const Value, Value> > >(),
 								_cntRef(1), _ignoreCaseFlag(false) {}
 	inline ValueDict(bool ignoreCaseFlag) :
-		std::map<Value, Value, Value::LessThan, Allocator<Value> >(ignoreCaseFlag? Value::LessThanIgnoreCase : Value::LessThanCase),
+		std::map<Value, Value, Value::LessThan, Allocator<std::pair<const Value, Value> > >(ignoreCaseFlag? Value::LessThanIgnoreCase : Value::LessThanCase),
 		_cntRef(1), _ignoreCaseFlag(ignoreCaseFlag) {}
 	inline ValueDict(const ValueDict &valDict) :
-		std::map<Value, Value, Value::LessThan, Allocator<Value> >(valDict),
+		std::map<Value, Value, Value::LessThan, Allocator<std::pair<const Value, Value> > >(valDict),
 		_cntRef(1), _ignoreCaseFlag(valDict._ignoreCaseFlag) {}
 private:
 	inline ~ValueDict() {}
