@@ -778,31 +778,31 @@ bool Array::ApplyBinaryFunc(
 		if (!pArrayL->IsElemType(ETYPE_Complex) && !pArrayR->IsElemType(ETYPE_Complex)) {
 			if (pack.table.func_number_number == nullptr) {
 				sig.SetError(ERR_TypeError, "can't apply %s function on these scalars", pack.name);
-				return nullptr;
+				return false;
 			}
 			return (*pack.table.func_number_number)(
 				sig, pArrayRtn, pArrayL->GetScalarNumber(), pArrayR->GetScalarNumber());
 		} else {
 			if (pack.table.func_complex_complex == nullptr) {
 				sig.SetError(ERR_TypeError, "can't apply %s function on these scalars", pack.name);
-				return nullptr;
+				return false;
 			}
 			return (*pack.table.func_complex_complex)(
 				sig, pArrayRtn, pArrayL->GetScalarComplex(), pArrayR->GetScalarComplex());
 		}
 	}
-	return nullptr;
+	return false;
 }
 
 bool Array::ApplyBinaryFunc_array_array(
 	Signal &sig, const BinaryFuncPack &pack, AutoPtr<Array> &pArrayRtn, const Array *pArrayL, const Array *pArrayR)
 {
-	if (pack.elemwiseFlag && !CheckElemwiseCalculatable(sig, pack, pArrayL, pArrayR)) return nullptr;
+	if (pack.elemwiseFlag && !CheckElemwiseCalculatable(sig, pack, pArrayL, pArrayR)) return false;
 	BinaryFuncT_array_array binaryFunc_array_array =
 		pack.table.funcs_array_array[pArrayL->GetElemType()][pArrayR->GetElemType()];
 	if (binaryFunc_array_array == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
-		return nullptr;
+		return false;
 	}
 	return (*binaryFunc_array_array)(sig, pArrayRtn, pArrayL, pArrayR);
 }
@@ -825,7 +825,7 @@ bool Array::ApplyBinaryFunc_array_number(
 		pack.table.funcs_array_number[pArrayL->GetElemType()];
 	if (binaryFunc_array_number == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
-		return nullptr;
+		return false;
 	}
 	return (*binaryFunc_array_number)(sig, pArrayRtn, pArrayL, elemR);
 }
@@ -847,7 +847,7 @@ bool Array::ApplyBinaryFunc_number_array(
 		pack.table.funcs_number_array[pArrayR->GetElemType()];
 	if (binaryFunc_number_array == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
-		return nullptr;
+		return false;
 	}
 	return (*binaryFunc_number_array)(sig, pArrayRtn, elemL, pArrayR);
 }
@@ -869,7 +869,7 @@ bool Array::ApplyBinaryFunc_array_complex(
 		pack.table.funcs_array_complex[pArrayL->GetElemType()];
 	if (binaryFunc_array_complex == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
-		return nullptr;
+		return false;
 	}
 	return (*binaryFunc_array_complex)(sig, pArrayRtn, pArrayL, complexR);
 }
@@ -891,7 +891,7 @@ bool Array::ApplyBinaryFunc_complex_array(
 		pack.table.funcs_complex_array[pArrayR->GetElemType()];
 	if (binaryFunc_complex_array == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
-		return nullptr;
+		return false;
 	}
 	return (*binaryFunc_complex_array)(sig, pArrayRtn, complexL, pArrayR);
 }
@@ -911,7 +911,7 @@ bool Array::ApplyInvertFunc(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array 
 	InvertFuncT invertFunc = invertFuncTable.funcs[pArray->GetElemType()];
 	if (invertFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply invert function on this array");
-		return nullptr;
+		return false;
 	}
 	return (*invertFunc)(sig, pArrayRtn, pArray, epsilon);
 }

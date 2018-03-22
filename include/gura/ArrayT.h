@@ -500,7 +500,7 @@ bool Array::BinaryFuncTmpl_Div_array_scalar(Signal &sig, AutoPtr<Array> &pArrayR
 {
 	if (IsZero(elemR)) {
 		Operator::SetError_DivideByZero(sig);
-		return nullptr;
+		return false;
 	}
 	return BinaryFuncTmpl_array_scalar<T_ElemRtn, T_ElemL, T_ElemR, T_Operator>(sig, pArrayRtn, pArrayL, elemR);
 }
@@ -510,7 +510,7 @@ bool Array::BinaryFuncTmpl_Div_scalar_array(Signal &sig, AutoPtr<Array> &pArrayR
 {
 	if (pArrayR->DoesContainZero()) {
 		Operator::SetError_DivideByZero(sig);
-		return nullptr;
+		return false;
 	}
 	return BinaryFuncTmpl_scalar_array<T_ElemRtn, T_ElemL, T_ElemR, T_Operator>(sig, pArrayRtn, elemL, pArrayR);
 }
@@ -520,7 +520,7 @@ bool Array::BinaryFuncTmpl_Div_scalar_scalar(Signal &sig, AutoPtr<Array> &pArray
 {
 	if (IsZero(elemR)) {
 		Operator::SetError_DivideByZero(sig);
-		return nullptr;
+		return false;
 	}
 	return BinaryFuncTmpl_scalar_scalar<T_ElemRtn, T_ElemL, T_ElemR, T_Operator>(sig, pArrayRtn, elemL, elemR);
 }
