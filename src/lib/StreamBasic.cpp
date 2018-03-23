@@ -264,7 +264,9 @@ size_t StreamFIFO::DoWrite(Signal &sig, const void *buff, size_t len)
 			_readReqFlag = true;
 			_pSemaphore->Release();
 			if (_writeReqFlag) _pEventWriteReq->Notify();
-			_pEventReadReq->Wait();
+
+			_pEventReadReq->Wait(); // **** can be dead-locked ****
+
 			_pSemaphore->Wait();
 			_readReqFlag = false;
 		}
