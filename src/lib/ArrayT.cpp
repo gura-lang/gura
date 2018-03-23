@@ -3495,7 +3495,7 @@ void ArrayT<T_Elem>::Iterator_Each::GatherFollower(
 }
 
 //------------------------------------------------------------------------------
-// Realization of ArrayT
+// Instantiation of ArrayT
 //------------------------------------------------------------------------------
 template class ArrayT<Boolean>;
 template class ArrayT<Int8>;

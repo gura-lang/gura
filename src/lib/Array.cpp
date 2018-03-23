@@ -5,6 +5,24 @@
 
 namespace Gura {
 
+//------------------------------------------------------------------------------
+// Declaration of ArrayT
+// These are needed by references of ArrayT<T_Elem>::ElemBytes and ArrayT<T_Elem>::ElemTypeName
+//------------------------------------------------------------------------------
+extern template class ArrayT<Boolean>;
+extern template class ArrayT<Int8>;
+extern template class ArrayT<UInt8>;
+extern template class ArrayT<Int16>;
+extern template class ArrayT<UInt16>;
+extern template class ArrayT<Int32>;
+extern template class ArrayT<UInt32>;
+extern template class ArrayT<Int64>;
+extern template class ArrayT<UInt64>;
+extern template class ArrayT<Half>;
+extern template class ArrayT<Float>;
+extern template class ArrayT<Double>;
+extern template class ArrayT<Complex>;
+
 //-----------------------------------------------------------------------------
 // Array
 //-----------------------------------------------------------------------------

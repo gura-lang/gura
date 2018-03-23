@@ -19,7 +19,7 @@ bool Gear_Tanh::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArra
 	if (gearFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply tanh gear on array@%s",
 					 pArray->GetElemTypeName());
-		return nullptr;
+		return false;
 	}
 	return (*gearFunc)(sig, pArrayRtn, pArray, this);
 }

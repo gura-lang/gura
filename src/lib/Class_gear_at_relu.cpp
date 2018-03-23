@@ -19,7 +19,7 @@ bool Gear_Relu::Apply(Signal &sig, AutoPtr<Array> &pArrayRtn, const Array *pArra
 	if (gearFunc == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply ReLU gear on array@%s",
 					 pArray->GetElemTypeName());
-		return nullptr;
+		return false;
 	}
 	return (*gearFunc)(sig, pArrayRtn, pArray, this);
 }
@@ -84,7 +84,7 @@ bool NodeGear_Relu::EvalForward(Environment &env)
 	Array::Unary2OutFuncT func = funcs[pArray->GetElemType()];
 	if (func == nullptr) {
 		env.SetError(ERR_TypeError, "can't evaluate forward function");
-		return nullptr;
+		return false;
 	}
 	(*func)(env, _pArrayFwd, _pArrayBool, pArray);
 	return env.IsNoSignalled();
