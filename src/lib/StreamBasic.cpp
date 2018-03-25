@@ -211,6 +211,7 @@ size_t StreamFIFO::DoRead(Signal &sig, void *buff, size_t len)
 {
 	char *buffp = reinterpret_cast<char *>(buff);
 	_pSemaphore->Wait();
+	//::printf("+DoRead(%zu) bytesAvail=%zu\n", len, _bytesAvail);
 	if (_writeDoneFlag && _bytesAvail == 0) {
 		_pSemaphore->Release();
 		return 0;
@@ -218,14 +219,10 @@ size_t StreamFIFO::DoRead(Signal &sig, void *buff, size_t len)
 	size_t offset = 0;
 	while (offset < len) {
 		size_t bytesSpace = len - offset;
-		if (_bytesAvail == 0) {
-			//if (offset > 0) break;
-			_writeReqFlag = true;
+		while (_bytesAvail == 0 && !_writeDoneFlag) {
 			_pSemaphore->Release();
-			if (_readReqFlag) _pEventReadReq->Notify();
-			_pEventWriteReq->Wait();
+			OAL::Sleep(.001); // sleep for 1 msec
 			_pSemaphore->Wait();
-			_writeReqFlag = false;
 		}
 		if (_bytesAvail > 0) {
 			size_t bytesCopy = ChooseMin(bytesSpace, _bytesAvail);
@@ -245,12 +242,13 @@ size_t StreamFIFO::DoRead(Signal &sig, void *buff, size_t len)
 			}
 		}
 		if (_writeDoneFlag) {
+			//::printf("-DoRead(%zu) rtn=%zu\n", len, offset);
 			_pSemaphore->Release();
 			return offset;
 		}
 	}
+	//::printf("-DoRead(%zu) rtn=%zu\n", len, offset);
 	_pSemaphore->Release();
-	if (_readReqFlag) _pEventReadReq->Notify();
 	return offset;
 }
 
@@ -258,17 +256,13 @@ size_t StreamFIFO::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	const char *buffp = reinterpret_cast<const char *>(buff);
 	_pSemaphore->Wait();
+	//::printf("DoWrite(%zu) bytesAvail=%zu\n", len, _bytesAvail);
 	for (size_t offset = 0; offset < len; ) {
 		size_t bytesRest = len - offset;
-		if (_bytesAvail == _pMemory->GetSize()) {
-			_readReqFlag = true;
+		while (_bytesAvail == _pMemory->GetSize()) {
 			_pSemaphore->Release();
-			if (_writeReqFlag) _pEventWriteReq->Notify();
-
-			_pEventReadReq->Wait(); // **** can be dead-locked ****
-
+			OAL::Sleep(.001); // sleep for 1 msec
 			_pSemaphore->Wait();
-			_readReqFlag = false;
 		}
 		size_t bytesSpace = _pMemory->GetSize() - _bytesAvail;
 		size_t bytesCopy = ChooseMin(bytesRest, bytesSpace);
@@ -288,7 +282,6 @@ size_t StreamFIFO::DoWrite(Signal &sig, const void *buff, size_t len)
 		}
 	}
 	_pSemaphore->Release();
-	if (_writeReqFlag) _pEventWriteReq->Notify();
 	return len;
 }
 
@@ -315,7 +308,7 @@ size_t StreamFIFO::DoGetSize()
 void StreamFIFO::SetWriteDoneFlag()
 {
 	_writeDoneFlag = true;
-	_pEventWriteReq->Notify();
+	//_pEventWriteReq->Notify();
 }
 
 //-----------------------------------------------------------------------------
