@@ -1130,6 +1130,7 @@ String Object_Stat::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of properties
 //-----------------------------------------------------------------------------
+// curl.Stat#atime
 Gura_DeclareProperty_R(Stat, atime)
 {
 	SetPropAttr(VTYPE_datetime);
@@ -1141,9 +1142,107 @@ Gura_DeclareProperty_R(Stat, atime)
 
 Gura_ImplementPropertyGetter(Stat, atime)
 {
-	//const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
-	//return Value(new Object_datetime(env, fileStat.GetATime()));
-	return Value::Nil;
+	const Fileinfo *pFileinfo = Object_Stat::GetObject(valueThis)->GetFileinfo();
+	bool utcFlag = true;
+	return Value(new Object_datetime(env, OAL::ToDateTime(pFileinfo->GetTime(), utcFlag)));
+}
+
+// curl.Stat#ctime
+Gura_DeclareProperty_R(Stat, ctime)
+{
+	SetPropAttr(VTYPE_datetime);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, ctime)
+{
+	const Fileinfo *pFileinfo = Object_Stat::GetObject(valueThis)->GetFileinfo();
+	bool utcFlag = true;
+	return Value(new Object_datetime(env, OAL::ToDateTime(pFileinfo->GetTime(), utcFlag)));
+}
+
+// curl.Stat#filename
+Gura_DeclareProperty_R(Stat, filename)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, filename)
+{
+	const Fileinfo *pFileinfo = Object_Stat::GetObject(valueThis)->GetFileinfo();
+	return Value(pFileinfo->GetFilename());
+}
+
+// curl.Stat#gid
+Gura_DeclareProperty_R(Stat, gid)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, gid)
+{
+	const Fileinfo *pFileinfo = Object_Stat::GetObject(valueThis)->GetFileinfo();
+	return Value(pFileinfo->GetGid());
+}
+
+// curl.Stat#mtime
+Gura_DeclareProperty_R(Stat, mtime)
+{
+	SetPropAttr(VTYPE_datetime);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, mtime)
+{
+	const Fileinfo *pFileinfo = Object_Stat::GetObject(valueThis)->GetFileinfo();
+	bool utcFlag = true;
+	return Value(new Object_datetime(env, OAL::ToDateTime(pFileinfo->GetTime(), utcFlag)));
+}
+
+// curl.Stat#size
+Gura_DeclareProperty_R(Stat, size)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, size)
+{
+	const Fileinfo *pFileinfo = Object_Stat::GetObject(valueThis)->GetFileinfo();
+	return Value(pFileinfo->GetSize());
+}
+
+// curl.Stat#uid
+Gura_DeclareProperty_R(Stat, uid)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, uid)
+{
+	const Fileinfo *pFileinfo = Object_Stat::GetObject(valueThis)->GetFileinfo();
+	return Value(pFileinfo->GetUid());
 }
 
 //-----------------------------------------------------------------------------
@@ -1154,11 +1253,14 @@ Gura_ImplementUserClass(Stat)
 {
 	// Assignment of properties
 	Gura_AssignProperty(Stat, atime);
-#if 0
 	Gura_AssignProperty(Stat, ctime);
-	Gura_AssignProperty(Stat, dirname);
 	Gura_AssignProperty(Stat, filename);
 	Gura_AssignProperty(Stat, gid);
+	Gura_AssignProperty(Stat, mtime);
+	Gura_AssignProperty(Stat, size);
+	Gura_AssignProperty(Stat, uid);
+#if 0
+	Gura_AssignProperty(Stat, dirname);
 	Gura_AssignProperty(Stat, isblk);
 	Gura_AssignProperty(Stat, ischr);
 	Gura_AssignProperty(Stat, isdir);
@@ -1166,10 +1268,7 @@ Gura_ImplementUserClass(Stat)
 	Gura_AssignProperty(Stat, islnk);
 	Gura_AssignProperty(Stat, isreg);
 	Gura_AssignProperty(Stat, issock);
-	Gura_AssignProperty(Stat, mtime);
 	Gura_AssignProperty(Stat, pathname);
-	Gura_AssignProperty(Stat, size);
-	Gura_AssignProperty(Stat, uid);
 #endif
 }
 
