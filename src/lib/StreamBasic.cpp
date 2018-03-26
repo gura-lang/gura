@@ -181,9 +181,7 @@ StreamFIFO::StreamFIFO(Environment &env, size_t bytesBuff) :
 		Stream(env, ATTR_Readable | ATTR_Writable),
 		_pMemory(new MemoryHeap(bytesBuff)),
 		_offsetWrite(0), _offsetRead(0), _bytesAvail(0),
-		_readReqFlag(false), _writeReqFlag(false), _writeDoneFlag(false),
-		_pSemaphore(new OAL::Semaphore()),
-		_pEventReadReq(new OAL::Event()), _pEventWriteReq(new OAL::Event())
+		_writeDoneFlag(false), _pSemaphore(new OAL::Semaphore())
 {
 }
 

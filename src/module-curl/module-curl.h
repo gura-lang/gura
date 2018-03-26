@@ -157,6 +157,25 @@ public:
 	inline CURL *GetEntity() { return _curl; }
 };
 
+//-----------------------------------------------------------------------------
+// Object_Stat declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(Stat);
+
+class Object_Stat : public Object {
+public:
+	Gura_DeclareObjectAccessor(Stat)
+public:
+	inline Object_Stat() :
+				Object(Gura_UserClass(Stat)) {}
+	inline Object_Stat(const Object_Stat &obj) :
+				Object(obj) {}
+	virtual ~Object_Stat();
+	virtual Object *Clone() const;
+	virtual String ToString(bool exprFlag);
+	//inline OAL::FileStat &GetFileStat() { return _fileStat; }
+};
+
 Gura_EndModuleHeader(curl)
 
 #endif

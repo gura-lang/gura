@@ -211,9 +211,9 @@ Gura_ImplementFunction(test)
 			Fileinfo *pFileinfo = *ppFileinfo;
 			curlfiletype filetype = pFileinfo->GetFiletype();
 			::printf("%-40s %10zuB %s\n", pFileinfo->GetFilename(),
-				pFileinfo->GetSize(),
-				(filetype == CURLFILETYPE_DIRECTORY)? "DIR" :
-				(filetype == CURLFILETYPE_FILE)? "FILE" : "OTHER");
+					 static_cast<size_t>(pFileinfo->GetSize()),
+					 (filetype == CURLFILETYPE_DIRECTORY)? "DIR" :
+					 (filetype == CURLFILETYPE_FILE)? "FILE" : "OTHER");
 		}
 	} else {
 		::fprintf(stderr, "curl_easy_perform() failed: %s\n",
@@ -236,6 +236,7 @@ Gura_ModuleEntry()
 {
 	// class realization
 	Gura_RealizeAndPrepareUserClass(easy_handle, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Stat, env.LookupClass(VTYPE_object));
 	// class reference assignment
 	Gura_AssignValue(easy_handle, Value(Gura_UserClass(easy_handle)->Reference()));
 	// value assignment
@@ -1105,6 +1106,69 @@ Gura_ImplementUserClass(easy_handle)
 	Gura_AssignMethod(easy_handle, send);
 	Gura_AssignMethod(easy_handle, setopt);
 	Gura_AssignMethod(easy_handle, unescape);
+}
+
+//-----------------------------------------------------------------------------
+// Object_Stat implementation
+//-----------------------------------------------------------------------------
+Object_Stat::~Object_Stat()
+{
+}
+
+Object *Object_Stat::Clone() const
+{
+	return new Object_Stat(*this);
+}
+
+String Object_Stat::ToString(bool exprFlag)
+{
+	return String("<curl.stat>");
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+Gura_DeclareProperty_R(Stat, atime)
+{
+	SetPropAttr(VTYPE_datetime);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, atime)
+{
+	//const OAL::FileStat &fileStat = Object_Stat::GetObject(valueThis)->GetFileStat();
+	//return Value(new Object_datetime(env, fileStat.GetATime()));
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for Object_Stat
+//-----------------------------------------------------------------------------
+// implementation of class Stat
+Gura_ImplementUserClass(Stat)
+{
+	// Assignment of properties
+	Gura_AssignProperty(Stat, atime);
+#if 0
+	Gura_AssignProperty(Stat, ctime);
+	Gura_AssignProperty(Stat, dirname);
+	Gura_AssignProperty(Stat, filename);
+	Gura_AssignProperty(Stat, gid);
+	Gura_AssignProperty(Stat, isblk);
+	Gura_AssignProperty(Stat, ischr);
+	Gura_AssignProperty(Stat, isdir);
+	Gura_AssignProperty(Stat, isfifo);
+	Gura_AssignProperty(Stat, islnk);
+	Gura_AssignProperty(Stat, isreg);
+	Gura_AssignProperty(Stat, issock);
+	Gura_AssignProperty(Stat, mtime);
+	Gura_AssignProperty(Stat, pathname);
+	Gura_AssignProperty(Stat, size);
+	Gura_AssignProperty(Stat, uid);
+#endif
 }
 
 Gura_EndModuleBody(curl, curl)

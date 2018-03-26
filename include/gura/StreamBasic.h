@@ -87,12 +87,8 @@ private:
 	size_t _offsetWrite;
 	size_t _offsetRead;
 	size_t _bytesAvail;
-	bool _readReqFlag;
-	bool _writeReqFlag;
 	bool _writeDoneFlag;
 	std::unique_ptr<OAL::Semaphore> _pSemaphore;
-	std::unique_ptr<OAL::Event> _pEventReadReq;
-	std::unique_ptr<OAL::Event> _pEventWriteReq;
 public:
 	StreamFIFO(Environment &env, size_t bytesBuff);
 	virtual const char *GetName() const;
