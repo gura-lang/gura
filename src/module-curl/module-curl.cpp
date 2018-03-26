@@ -726,10 +726,8 @@ Directory *Directory_cURL::DoNext(Environment &env)
 	}
 	if (_ppFileinfo == _pFileinfoOwner->end()) return nullptr;
 	Fileinfo *pFileinfo = *_ppFileinfo++;
-	Type type = (pFileinfo->GetFiletype() == CURLFILETYPE_DIRECTORY)?
-												TYPE_Container : TYPE_Item;
-	return new Directory_cURL(Directory::Reference(this),
-										pFileinfo->GetFilename(), type);
+	Type type = (pFileinfo->GetFiletype() == CURLFILETYPE_DIRECTORY)? TYPE_Container : TYPE_Item;
+	return new Directory_cURL(Directory::Reference(this), pFileinfo->GetFilename(), type);
 }
 
 Stream *Directory_cURL::DoOpenStream(Environment &env, UInt32 attr)
@@ -737,10 +735,14 @@ Stream *Directory_cURL::DoOpenStream(Environment &env, UInt32 attr)
 	Signal &sig = env.GetSignal();
 	AutoPtr<StreamFIFO> pStream(new StreamFIFO(env, 65536));
 	// pThread will automatically be deleted after the thread is done.
-	Thread *pThread = new Thread(sig, GetName(),
-				dynamic_cast<StreamFIFO *>(Stream::Reference(pStream.get())));
+	Thread *pThread = new Thread(sig, GetName(), dynamic_cast<StreamFIFO *>(Stream::Reference(pStream.get())));
 	pThread->Start();
 	return pStream.release();
+}
+
+Object *Directory_cURL::DoGetStatObj(Signal &sig)
+{
+	return new Object_Stat();
 }
 
 FileinfoOwner *Directory_cURL::DoBrowse(Environment &env)
@@ -803,9 +805,8 @@ Directory *PathMgr_cURL::DoOpenDirectory(Environment &env,
 	const char *uri = *pPathName;
 	size_t len = ::strlen(uri);
 	Directory::Type type = (len > 0 && IsFileSeparator(uri[len - 1]))?
-						Directory::TYPE_Container : Directory::TYPE_Item;
-	AutoPtr<Directory> pDirectory(
-				new Directory_cURL(Directory::Reference(pParent), uri, type));
+		Directory::TYPE_Container : Directory::TYPE_Item;
+	AutoPtr<Directory> pDirectory(new Directory_cURL(Directory::Reference(pParent), uri, type));
 	*pPathName = uri + len;
 	return pDirectory.release();
 }
@@ -874,7 +875,7 @@ Gura_ImplementMethod(easy_handle, escape)
 	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(arg);
 	const String str = arg.GetStringSTL(0);
 	const char *rtn = ::curl_easy_escape(pThis->GetEntity(),
-								str.c_str(), static_cast<int>(str.size()));
+							str.c_str(), static_cast<int>(str.size()));
 	return Value(rtn);
 }
 

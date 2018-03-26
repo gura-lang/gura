@@ -10,7 +10,7 @@
 Gura_BeginModuleHeader(curl)
 
 //-----------------------------------------------------------------------------
-// FileinfoList
+// Fileinfo
 //-----------------------------------------------------------------------------
 class Fileinfo {
 private:
@@ -124,6 +124,7 @@ public:
 	virtual ~Directory_cURL();
 	virtual Directory *DoNext(Environment &env);
 	virtual Stream *DoOpenStream(Environment &env, UInt32 attr);
+	virtual Object *DoGetStatObj(Signal &sig);
 	FileinfoOwner *DoBrowse(Environment &env);
 };
 
