@@ -14,6 +14,7 @@ Gura_BeginModuleHeader(curl)
 //-----------------------------------------------------------------------------
 class Fileinfo {
 private:
+	int _cntRef;
 	String _filename;
 	curlfiletype _filetype;
 	time_t _time;
@@ -28,7 +29,12 @@ private:
 	//String group;
 	//String target; /* pointer to the target filename of a symlink */
 public:
+	Gura_DeclareReferenceAccessor(Fileinfo);
+public:
 	Fileinfo(const struct curl_fileinfo *finfo);
+protected:
+	inline ~Fileinfo() {}
+public:
 	inline const char *GetFilename() const { return _filename.c_str(); }
 	inline curlfiletype GetFiletype() const { return _filetype; }
 	inline time_t GetTime() const { return _time; }
@@ -116,11 +122,11 @@ public:
 		virtual void Run();
 	};
 private:
-	String _name;
+	AutoPtr<Fileinfo> _pFileinfo;	// this may be nullptr
 	std::unique_ptr<FileinfoOwner> _pFileinfoOwner;
 	FileinfoOwner::iterator _ppFileinfo;
 public:
-	Directory_cURL(Directory *pParent, const char *name, Type type);
+	Directory_cURL(Directory *pParent, const char *name, Type type, Fileinfo *pFileinfo);
 	virtual ~Directory_cURL();
 	virtual Directory *DoNext(Environment &env);
 	virtual Stream *DoOpenStream(Environment &env, UInt32 attr);
@@ -165,16 +171,18 @@ Gura_DeclareUserClass(Stat);
 
 class Object_Stat : public Object {
 public:
-	Gura_DeclareObjectAccessor(Stat)
+	Gura_DeclareObjectAccessor(Stat);
+private:
+	AutoPtr<Fileinfo> _pFileinfo;
 public:
-	inline Object_Stat() :
-				Object(Gura_UserClass(Stat)) {}
+	inline Object_Stat(Fileinfo *pFileinfo) :
+		Object(Gura_UserClass(Stat)), _pFileinfo(pFileinfo) {}
 	inline Object_Stat(const Object_Stat &obj) :
-				Object(obj) {}
+		Object(obj), _pFileinfo(Fileinfo::Reference(obj._pFileinfo.get())) {}
 	virtual ~Object_Stat();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	//inline OAL::FileStat &GetFileStat() { return _fileStat; }
+	inline const Fileinfo *GetFileinfo() const { return _pFileinfo.get(); }
 };
 
 Gura_EndModuleHeader(curl)

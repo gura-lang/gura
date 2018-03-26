@@ -35,14 +35,15 @@ void SetError_Curl(Signal &sig, CURLcode code)
 // Fileinfo
 //-----------------------------------------------------------------------------
 Fileinfo::Fileinfo(const struct curl_fileinfo *finfo) :
-			_filename(finfo->filename),
-			_filetype(finfo->filetype),
-			_time(finfo->time),
-			_perm(finfo->perm),
-			_uid(finfo->uid),
-			_gid(finfo->gid),
-			_size(finfo->size),
-			_hardlinks(finfo->hardlinks)
+	_cntRef(1),
+	_filename(finfo->filename),
+	_filetype(finfo->filetype),
+	_time(finfo->time),
+	_perm(finfo->perm),
+	_uid(finfo->uid),
+	_gid(finfo->gid),
+	_size(finfo->size),
+	_hardlinks(finfo->hardlinks)
 {
 }
 
@@ -58,7 +59,7 @@ void FileinfoOwner::Clear()
 {
 	foreach (FileinfoOwner, ppFileinfo, *this) {
 		Fileinfo *pFileinfo = *ppFileinfo;
-		delete pFileinfo;
+		Fileinfo::Delete(pFileinfo);
 	}
 	clear();
 }
@@ -707,8 +708,8 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // Directory_cURL implementation
 //-----------------------------------------------------------------------------
-Directory_cURL::Directory_cURL(Directory *pParent, const char *name, Type type) :
-							Directory(pParent, name, type, '/')
+Directory_cURL::Directory_cURL(Directory *pParent, const char *name, Type type, Fileinfo *pFileinfo) :
+	Directory(pParent, name, type, '/'), _pFileinfo(pFileinfo)
 {
 }
 
@@ -727,7 +728,7 @@ Directory *Directory_cURL::DoNext(Environment &env)
 	if (_ppFileinfo == _pFileinfoOwner->end()) return nullptr;
 	Fileinfo *pFileinfo = *_ppFileinfo++;
 	Type type = (pFileinfo->GetFiletype() == CURLFILETYPE_DIRECTORY)? TYPE_Container : TYPE_Item;
-	return new Directory_cURL(Directory::Reference(this), pFileinfo->GetFilename(), type);
+	return new Directory_cURL(Directory::Reference(this), pFileinfo->GetFilename(), type, pFileinfo->Reference());
 }
 
 Stream *Directory_cURL::DoOpenStream(Environment &env, UInt32 attr)
@@ -742,7 +743,7 @@ Stream *Directory_cURL::DoOpenStream(Environment &env, UInt32 attr)
 
 Object *Directory_cURL::DoGetStatObj(Signal &sig)
 {
-	return new Object_Stat();
+	return (_pFileinfo.get() == nullptr)? nullptr : new Object_Stat(_pFileinfo->Reference());
 }
 
 FileinfoOwner *Directory_cURL::DoBrowse(Environment &env)
@@ -806,7 +807,7 @@ Directory *PathMgr_cURL::DoOpenDirectory(Environment &env,
 	size_t len = ::strlen(uri);
 	Directory::Type type = (len > 0 && IsFileSeparator(uri[len - 1]))?
 		Directory::TYPE_Container : Directory::TYPE_Item;
-	AutoPtr<Directory> pDirectory(new Directory_cURL(Directory::Reference(pParent), uri, type));
+	AutoPtr<Directory> pDirectory(new Directory_cURL(Directory::Reference(pParent), uri, type, nullptr));
 	*pPathName = uri + len;
 	return pDirectory.release();
 }
