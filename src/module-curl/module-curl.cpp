@@ -739,6 +739,7 @@ FileinfoOwner *Directory_cURL::DoBrowse(Environment &env)
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_DATA, pBrowser.get());
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_BGN_FUNCTION, Browser::OnChunkBgnStub);
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_END_FUNCTION, Browser::OnChunkEndStub);
+	::curl_easy_setopt(curl, CURLOPT_FILETIME, 1L);
 	if (g_valueTimeout.Is_number()) {
 		::curl_easy_setopt(curl, CURLOPT_TIMEOUT, g_valueTimeout.GetLong());
 	}
@@ -1128,7 +1129,6 @@ Gura_ImplementPropertyGetter(Stat, atime)
 {
 	const Fileinfo *pFileinfo = Object_Stat::GetObject(valueThis)->GetFileinfo();
 	bool utcFlag = true;
-	::printf("%d\n", pFileinfo->GetTime());
 	return Value(new Object_datetime(env, OAL::ToDateTime(pFileinfo->GetTime(), utcFlag)));
 }
 
