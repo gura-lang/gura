@@ -24,6 +24,11 @@ Gura_AssignValue(VERSION_##name, Value(CURL_VERSION_##name))
 Gura_BeginModuleBody(curl)
 
 //-----------------------------------------------------------------------------
+// global variable
+//-----------------------------------------------------------------------------
+Value g_valueTimeout;
+
+//-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
 void SetError_Curl(Signal &sig, CURLcode code)
@@ -182,6 +187,22 @@ Gura_ImplementFunction(easy_init)
 {
 	CURL *curl = ::curl_easy_init();
 	return ReturnValue(env, arg, Value(new Object_easy_handle(curl)));
+}
+
+// curl.set_timeout(timeout:number):void
+Gura_DeclareFunction(set_timeout)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "timeout", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"Sets timeout in seconds that is applied while browsing directories.");
+}
+
+Gura_ImplementFunction(set_timeout)
+{
+	g_valueTimeout = arg.GetValue(0);
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -654,6 +675,7 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(version);
 	Gura_AssignFunction(easy_init);
+	Gura_AssignFunction(set_timeout);
 	// registration of directory factory
 	PathMgr::Register(env, new PathMgr_cURL());
 	return true;
@@ -717,6 +739,9 @@ FileinfoOwner *Directory_cURL::DoBrowse(Environment &env)
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_DATA, pBrowser.get());
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_BGN_FUNCTION, Browser::OnChunkBgnStub);
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_END_FUNCTION, Browser::OnChunkEndStub);
+	if (g_valueTimeout.Is_number()) {
+		::curl_easy_setopt(curl, CURLOPT_TIMEOUT, g_valueTimeout.GetLong());
+	}
 	CURLcode code = ::curl_easy_perform(curl);
 	if(code != CURLE_OK && code != CURLE_REMOTE_FILE_NOT_FOUND) {
 		// CURLE_REMOTE_FILE_NOT_FOUND is returned when a directory is empty
@@ -1103,6 +1128,7 @@ Gura_ImplementPropertyGetter(Stat, atime)
 {
 	const Fileinfo *pFileinfo = Object_Stat::GetObject(valueThis)->GetFileinfo();
 	bool utcFlag = true;
+	::printf("%d\n", pFileinfo->GetTime());
 	return Value(new Object_datetime(env, OAL::ToDateTime(pFileinfo->GetTime(), utcFlag)));
 }
 
