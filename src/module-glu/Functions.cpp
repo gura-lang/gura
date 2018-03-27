@@ -1053,7 +1053,7 @@ Gura_ImplementFunction(__gluScaleImage)
 	GLint rtn = gluScaleImage(format, wIn, hIn, typeIn, dataIn,
 										 	wOut, hOut, typeOut, dataOut);
 	if (rtn != 0) {
-		env.SetError(ERR_RuntimeError, "gluScaleImage error");
+		env.SetError(ERR_LibraryError, "gluScaleImage error");
 		return Value::Nil;
 	}
 	return Value(new Object_image(env, imageOut.release()));

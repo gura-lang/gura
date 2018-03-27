@@ -28,7 +28,7 @@ Gura_ImplementFunction(train)
 	struct parameter &param = Object_parameter::GetObject(arg, 1)->UpdateEntity();
 	const char *errorMsg = ::check_parameter(&prob, &param);
 	if (errorMsg != nullptr) {
-		env.SetError(ERR_RuntimeError, "%s", errorMsg);
+		env.SetError(ERR_LibraryError, "[linear] %s", errorMsg);
 		return Value::Nil;
 	}
 	struct model *pModel = ::train(&prob, &param);

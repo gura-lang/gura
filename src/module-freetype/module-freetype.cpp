@@ -645,7 +645,7 @@ String GetSysFontPathName(const char *name)
 
 void SetError_Freetype(Signal &sig, FT_Error err)
 {
-	sig.SetError(ERR_RuntimeError, "freetype error");
+	sig.SetError(ERR_LibraryError, "[freetype]");
 }
 
 Gura_EndModuleBody(freetype, freetype)

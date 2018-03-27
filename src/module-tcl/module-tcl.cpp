@@ -171,7 +171,7 @@ Value Object_interp::TclEval(Environment &env, const ValueList &valList)
 	if (sig.IsSignalled()) return Value::Nil;
 	int rtn = ::Tcl_EvalObjv(_interp, objc, objv, TCL_EVAL_DIRECT | TCL_EVAL_GLOBAL);
 	if (rtn != TCL_OK) {
-		sig.SetError(ERR_RuntimeError, "%s\n", ::Tcl_GetStringResult(_interp));
+		sig.SetError(ERR_LibraryError, "[tcl] %s\n", ::Tcl_GetStringResult(_interp));
 		delete[] objv;
 		return Value::Nil;
 	}
@@ -278,7 +278,7 @@ Value Object_interp::InvokeTclThread(Environment &env, Signal &sig,
 		int length;
 		const char *str = ::Tcl_GetStringFromObj(pEventPack->objRtn, &length);
 		Tcl_DecrRefCount(pEventPack->objRtn);
-		sig.SetError(ERR_RuntimeError, "%s\n", str);
+		sig.SetError(ERR_LibraryError, "[tcl] %s\n", str);
 		return Value::Nil;
 	}
 	Value result = ConvFromTclObj(env, sig, pEventPack->objRtn);
@@ -354,7 +354,7 @@ Gura_ImplementMethod(interp, evalscript)
 	Tcl_Interp *interp = pThis->GetInterp();
 	int rtn = ::Tcl_Eval(interp, arg.GetString(0));
 	if (rtn != TCL_OK) {
-		sig.SetError(ERR_RuntimeError, "%s\n", ::Tcl_GetStringResult(interp));
+		sig.SetError(ERR_LibraryError, "[tcl] %s\n", ::Tcl_GetStringResult(interp));
 		return Value::Nil;
 	}
 	return pThis->ConvFromTclObj(env, sig, ::Tcl_GetObjResult(interp));
@@ -815,12 +815,12 @@ Gura_ImplementFunction(interp)
 	Signal &sig = env.GetSignal();
 	Tcl_Interp *interp = ::Tcl_CreateInterp();
 	if (::Tcl_Init(interp) != TCL_OK) {
-		sig.SetError(ERR_RuntimeError, "%s\n", ::Tcl_GetStringResult(interp));
+		sig.SetError(ERR_LibraryError, "[tcl] %s\n", ::Tcl_GetStringResult(interp));
 		::Tcl_DeleteInterp(interp);
 		return Value::Nil;
 	}
 	if (::Tk_Init(interp) != TCL_OK) {
-		sig.SetError(ERR_RuntimeError, "%s\n", ::Tcl_GetStringResult(interp));
+		sig.SetError(ERR_LibraryError, "[tcl] %s\n", ::Tcl_GetStringResult(interp));
 		::Tcl_DeleteInterp(interp);
 		return Value::Nil;
 	}

@@ -29,6 +29,7 @@ enum ErrorType {
 	ERR_IOError,
 	ERR_IteratorError,
 	ERR_KeyError,
+	ERR_LibraryError,
 	ERR_MathError,
 	ERR_MemberAccessError,
 	ERR_MemoryError,

@@ -28,7 +28,7 @@ Gura_BeginModuleBody(curl)
 //-----------------------------------------------------------------------------
 void SetError_Curl(Signal &sig, CURLcode code)
 {
-	sig.SetError(ERR_RuntimeError, "%s", ::curl_easy_strerror(code));
+	sig.SetError(ERR_LibraryError, "[cURL] %s", ::curl_easy_strerror(code));
 }
 
 //-----------------------------------------------------------------------------
@@ -182,47 +182,6 @@ Gura_ImplementFunction(easy_init)
 {
 	CURL *curl = ::curl_easy_init();
 	return ReturnValue(env, arg, Value(new Object_easy_handle(curl)));
-}
-
-// curl.test()
-Gura_DeclareFunction(test)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en),
-		"");
-}
-
-Gura_ImplementFunction(test)
-{
-	Signal &sig = env.GetSignal();
-	CURLcode code;
-	CURL *curl = ::curl_easy_init();
-	if (curl == nullptr) return Value::Nil;
-	::curl_easy_setopt(curl, CURLOPT_URL, "ftp://ftp.debian.org/debian/*");
-	::curl_easy_setopt(curl, CURLOPT_WILDCARDMATCH, 1L);
-	std::unique_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
-	std::unique_ptr<Browser> pBrowser(new Browser(sig, *pFileinfoOwner));
-	::curl_easy_setopt(curl, CURLOPT_CHUNK_DATA, pBrowser.get());
-	::curl_easy_setopt(curl, CURLOPT_CHUNK_BGN_FUNCTION, Browser::OnChunkBgnStub);
-	::curl_easy_setopt(curl, CURLOPT_CHUNK_END_FUNCTION, Browser::OnChunkEndStub);
-	code = ::curl_easy_perform(curl);
-	if(code == CURLE_OK) {
-		foreach (FileinfoOwner, ppFileinfo, *pFileinfoOwner) {
-			Fileinfo *pFileinfo = *ppFileinfo;
-			curlfiletype filetype = pFileinfo->GetFiletype();
-			::printf("%-40s %10zuB %s\n", pFileinfo->GetFilename(),
-					 static_cast<size_t>(pFileinfo->GetSize()),
-					 (filetype == CURLFILETYPE_DIRECTORY)? "DIR" :
-					 (filetype == CURLFILETYPE_FILE)? "FILE" : "OTHER");
-		}
-	} else {
-		::fprintf(stderr, "curl_easy_perform() failed: %s\n",
-										::curl_easy_strerror(code));
-	}
-	::curl_easy_cleanup(curl);
-	::curl_global_cleanup();
-	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -695,7 +654,6 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(version);
 	Gura_AssignFunction(easy_init);
-	Gura_AssignFunction(test);
 	// registration of directory factory
 	PathMgr::Register(env, new PathMgr_cURL());
 	return true;

@@ -28,7 +28,7 @@ Gura_ImplementFunction(train)
 	struct svm_parameter &param = pObjParam->UpdateEntity(pObjProb->GetIndexMax());
 	const char *errorMsg = ::svm_check_parameter(&prob, &param);
 	if (errorMsg != nullptr) {
-		env.SetError(ERR_RuntimeError, "%s", errorMsg);
+		env.SetError(ERR_LibraryError, "[svm] %s", errorMsg);
 		return Value::Nil;
 	}
 	struct svm_model *pModel = ::svm_train(&prob, &param);

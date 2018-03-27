@@ -50,7 +50,7 @@ Value Object_db::Exec(Signal &sig, const char *sql, Argument &arg)
 	int rc = ::sqlite3_exec(_db, sql, Callback, &callbackInfo, &errMsg); 
 	if (rc == SQLITE_OK) return resultComposer.GetValueResult();
 	if (sig.IsSignalled()) return Value::Nil;
-	sig.SetError(ERR_RuntimeError, "sqlite3 %s", errMsg);
+	sig.SetError(ERR_LibraryError, "[sqlite3] %s", errMsg);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ bool Object_db::ExecNoResult(Signal &sig, const char *sql)
 	char *errMsg;
 	int rc = ::sqlite3_exec(_db, sql, nullptr, nullptr, &errMsg); 
 	if (rc != SQLITE_OK) {
-		sig.SetError(ERR_RuntimeError, "sqlite3 %s", errMsg);
+		sig.SetError(ERR_LibraryError, "[sqlite3] %s", errMsg);
 		return false;
 	}
 	return true;
@@ -79,7 +79,7 @@ Object_db::IteratorQuery *Object_db::Query(Signal &sig, const char *sql)
 	const char *pzTail;
 	int rc = ::sqlite3_prepare(_db, sql, -1, &pStmt, &pzTail);
 	if (rc != SQLITE_OK) {
-		sig.SetError(ERR_RuntimeError, "sqlite3 %s", ::sqlite3_errmsg(_db));
+		sig.SetError(ERR_LibraryError, "[sqlite3] %s", ::sqlite3_errmsg(_db));
 		return nullptr;
 	}
 	return new IteratorQuery(Object_db::Reference(this), pStmt);
@@ -96,7 +96,7 @@ Value Object_db::GetColumnNames(Signal &sig, const char *sql)
 	const char *pzTail;
 	int rc = ::sqlite3_prepare(_db, sql, -1, &pStmt, &pzTail);
 	if (rc != SQLITE_OK) {
-		sig.SetError(ERR_RuntimeError, "sqlite3 %s", ::sqlite3_errmsg(_db));
+		sig.SetError(ERR_LibraryError, "[sqlite3] %s", ::sqlite3_errmsg(_db));
 		return Value::Nil;
 	}
 	Value result;

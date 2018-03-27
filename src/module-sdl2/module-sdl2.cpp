@@ -837,7 +837,7 @@ void SetError_SDL(Signal &sig)
 {
 	const char *msg = ::SDL_GetError();
 	if (*msg == '\0') {
-		sig.SetError(ERR_RuntimeError, "%s", msg);
+		sig.SetError(ERR_LibraryError, "[sdl2] %s", msg);
 	}
 }
 

@@ -647,7 +647,7 @@ bool IsInvalid(Signal &sig, cairo_t *cr)
 bool Is_error(Signal &sig, cairo_status_t status)
 {
 	if (status == CAIRO_STATUS_SUCCESS) return false;
-	sig.SetError(ERR_RuntimeError, "%s", ::cairo_status_to_string(status));
+	sig.SetError(ERR_LibraryError, "[cairo] %s", ::cairo_status_to_string(status));
 	return true;
 }
 
