@@ -760,7 +760,8 @@ FileinfoOwner *Directory_cURL::DoBrowse(Environment &env)
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_BGN_FUNCTION, Browser::OnChunkBgnStub);
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_END_FUNCTION, Browser::OnChunkEndStub);
 	CURLcode code = ::curl_easy_perform(curl);
-	if(code != CURLE_OK) {
+	if(code != CURLE_OK && code != CURLE_REMOTE_FILE_NOT_FOUND) {
+		// CURLE_REMOTE_FILE_NOT_FOUND is returned when a directory is empty
 		SetError_Curl(sig, code);
 		::curl_easy_cleanup(curl);
 		::curl_global_cleanup();
