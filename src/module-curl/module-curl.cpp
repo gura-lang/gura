@@ -33,13 +33,13 @@ Value g_valueTimeout;
 //-----------------------------------------------------------------------------
 void SetError_Curl(Signal &sig, CURLcode code)
 {
-	sig.SetError(ERR_LibraryError, "[cURL] %s", ::curl_easy_strerror(code));
+	sig.SetError(ERR_LibraryError, "[curl] %s", ::curl_easy_strerror(code));
 }
 
 //-----------------------------------------------------------------------------
 // Fileinfo
 //-----------------------------------------------------------------------------
-Fileinfo::Fileinfo(const struct curl_fileinfo *finfo) :
+Fileinfo::Fileinfo(const struct curl_fileinfo *finfo, const String &dirName) :
 	_cntRef(1),
 	_filename(finfo->filename),
 	_filetype(finfo->filetype),
@@ -48,8 +48,14 @@ Fileinfo::Fileinfo(const struct curl_fileinfo *finfo) :
 	_uid(finfo->uid),
 	_gid(finfo->gid),
 	_size(finfo->size),
-	_hardlinks(finfo->hardlinks)
+	_hardlinks(finfo->hardlinks),
+	_dirName(dirName)
 {
+	//::printf("time:   %d %s\n", _time, finfo->strings.time);
+	//::printf("perm:   %o %s\n", _perm, finfo->strings.perm);
+	//::printf("user:   %d %s\n", _uid, finfo->strings.user);
+	//::printf("group:  %d %s\n", _gid, finfo->strings.group);
+	//::printf("target: %s\n", finfo->strings.target);
 }
 
 //-----------------------------------------------------------------------------
@@ -72,14 +78,14 @@ void FileinfoOwner::Clear()
 //-----------------------------------------------------------------------------
 // Browser
 //-----------------------------------------------------------------------------
-Browser::Browser(Signal &sig, FileinfoOwner &fileinfoOwner) :
-									_sig(sig), _fileinfoOwner(fileinfoOwner)
+Browser::Browser(Signal &sig, FileinfoOwner &fileinfoOwner, const String &dirName) :
+	_sig(sig), _fileinfoOwner(fileinfoOwner), _dirName(dirName)
 {
 }
 
 long Browser::OnChunkBgn(struct curl_fileinfo *finfo, int remains)
 {
-	_fileinfoOwner.push_back(new Fileinfo(finfo));
+	_fileinfoOwner.push_back(new Fileinfo(finfo, _dirName));
 	return CURL_CHUNK_BGN_FUNC_SKIP;
 }
 
@@ -732,14 +738,15 @@ FileinfoOwner *Directory_cURL::DoBrowse(Environment &env)
 	std::unique_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
 	CURL *curl = ::curl_easy_init();
 	if (curl == nullptr) return nullptr;
-	String url = OAL::JoinPathName('/', MakePathName(false, nullptr).c_str(), "*");
+	String dirName = MakePathName(true, nullptr);
+	String url = dirName + "*";
 	::curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 	::curl_easy_setopt(curl, CURLOPT_WILDCARDMATCH, 1L);
-	std::unique_ptr<Browser> pBrowser(new Browser(sig, *pFileinfoOwner));
+	std::unique_ptr<Browser> pBrowser(new Browser(sig, *pFileinfoOwner, dirName));
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_DATA, pBrowser.get());
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_BGN_FUNCTION, Browser::OnChunkBgnStub);
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_END_FUNCTION, Browser::OnChunkEndStub);
-	::curl_easy_setopt(curl, CURLOPT_FILETIME, 1L);
+	//::curl_easy_setopt(curl, CURLOPT_FILETIME, 1L);
 	if (g_valueTimeout.Is_number()) {
 		::curl_easy_setopt(curl, CURLOPT_TIMEOUT, g_valueTimeout.GetLong());
 	}
@@ -1149,6 +1156,22 @@ Gura_ImplementPropertyGetter(Stat, ctime)
 	return Value(new Object_datetime(env, OAL::ToDateTime(pFileinfo->GetTime(), utcFlag)));
 }
 
+// curl.Stat#dirname
+Gura_DeclareProperty_R(Stat, dirname)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, dirname)
+{
+	const Fileinfo *pFileinfo = Object_Stat::GetObject(valueThis)->GetFileinfo();
+	return Value(pFileinfo->GetDirname());
+}
+
 // curl.Stat#filename
 Gura_DeclareProperty_R(Stat, filename)
 {
@@ -1239,13 +1262,13 @@ Gura_ImplementUserClass(Stat)
 	// Assignment of properties
 	Gura_AssignProperty(Stat, atime);
 	Gura_AssignProperty(Stat, ctime);
+	Gura_AssignProperty(Stat, dirname);
 	Gura_AssignProperty(Stat, filename);
 	Gura_AssignProperty(Stat, gid);
 	Gura_AssignProperty(Stat, mtime);
 	Gura_AssignProperty(Stat, size);
 	Gura_AssignProperty(Stat, uid);
 #if 0
-	Gura_AssignProperty(Stat, dirname);
 	Gura_AssignProperty(Stat, isblk);
 	Gura_AssignProperty(Stat, ischr);
 	Gura_AssignProperty(Stat, isdir);

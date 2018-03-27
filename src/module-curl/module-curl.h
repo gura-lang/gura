@@ -28,10 +28,11 @@ private:
 	//String user;
 	//String group;
 	//String target; /* pointer to the target filename of a symlink */
+	String _dirName;
 public:
 	Gura_DeclareReferenceAccessor(Fileinfo);
 public:
-	Fileinfo(const struct curl_fileinfo *finfo);
+	Fileinfo(const struct curl_fileinfo *finfo, const String &dirName);
 protected:
 	inline ~Fileinfo() {}
 public:
@@ -43,6 +44,7 @@ public:
 	inline int GetGid() const { return _gid; }
 	inline curl_off_t GetSize() const { return _size; }
 	inline long int GetHardlinks() const { return _hardlinks; }
+	inline const char *GetDirname() const { return _dirName.c_str(); }
 private:
 	inline Fileinfo(const Fileinfo &fileInfo) {}
 };
@@ -69,8 +71,9 @@ class Browser {
 private:
 	Signal &_sig;
 	FileinfoOwner &_fileinfoOwner;
+	String _dirName;
 public:
-	Browser(Signal &sig, FileinfoOwner &fileinfoOwner);
+	Browser(Signal &sig, FileinfoOwner &fileinfoOwner, const String &dirName);
 	long OnChunkBgn(struct curl_fileinfo *finfo, int remains);
 	long OnChunkEnd();
 	static long OnChunkBgnStub(struct curl_fileinfo *finfo,

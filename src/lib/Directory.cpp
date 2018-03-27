@@ -59,7 +59,10 @@ String Directory::MakePathName(bool addSepFlag, const char *pathNameTrail) const
 			pathName += ch;
 		}
 	} else if (addSepFlag && IsContainer() && !_name.empty()) {
-		pathName += GetSeparator();
+		size_t len = pathName.size();
+		if (len > 0 && !IsFileSeparator(pathName[len - 1])) {
+			pathName += GetSeparator();
+		}
 	}
 	return pathName;
 }
