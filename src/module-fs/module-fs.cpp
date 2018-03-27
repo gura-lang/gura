@@ -5,22 +5,6 @@
 
 Gura_BeginModuleBody(fs)
 
-Gura_DeclarePrivUserSymbol(pathname);
-Gura_DeclarePrivUserSymbol(dirname);
-Gura_DeclarePrivUserSymbol(filename);
-Gura_DeclarePrivUserSymbol(size);
-Gura_DeclarePrivUserSymbol(uid);
-Gura_DeclarePrivUserSymbol(gid);
-Gura_DeclarePrivUserSymbol(atime);
-Gura_DeclarePrivUserSymbol(mtime);
-Gura_DeclarePrivUserSymbol(ctime);
-Gura_DeclarePrivUserSymbol(isdir);
-Gura_DeclarePrivUserSymbol(ischr);
-Gura_DeclarePrivUserSymbol(isblk);
-Gura_DeclarePrivUserSymbol(isreg);
-Gura_DeclarePrivUserSymbol(isfifo);
-Gura_DeclarePrivUserSymbol(islnk);
-Gura_DeclarePrivUserSymbol(issock);
 Gura_DeclarePrivUserSymbol(tree);
 Gura_DeclarePrivUserSymbol(follow_link);
 
@@ -1193,22 +1177,6 @@ Gura_ModuleValidate()
 Gura_ModuleEntry()
 {
 	// symbol realization
-	Gura_RealizeUserSymbol(pathname);
-	Gura_RealizeUserSymbol(dirname);
-	Gura_RealizeUserSymbol(filename);
-	Gura_RealizeUserSymbol(size);
-	Gura_RealizeUserSymbol(uid);
-	Gura_RealizeUserSymbol(gid);
-	Gura_RealizeUserSymbol(atime);
-	Gura_RealizeUserSymbol(mtime);
-	Gura_RealizeUserSymbol(ctime);
-	Gura_RealizeUserSymbol(isdir);
-	Gura_RealizeUserSymbol(ischr);
-	Gura_RealizeUserSymbol(isblk);
-	Gura_RealizeUserSymbol(isreg);
-	Gura_RealizeUserSymbol(isfifo);
-	Gura_RealizeUserSymbol(islnk);
-	Gura_RealizeUserSymbol(issock);
 	Gura_RealizeUserSymbol(tree);
 	Gura_RealizeUserSymbol(follow_link);
 	// class realization
