@@ -1221,6 +1221,25 @@ Gura_ImplementPropertyGetter(Stat, mtime)
 	return Value(new Object_datetime(env, OAL::ToDateTime(pFileinfo->GetTime(), utcFlag)));
 }
 
+// curl.Stat#pathname
+Gura_DeclareProperty_R(Stat, pathname)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(Stat, pathname)
+{
+	const Fileinfo *pFileinfo = Object_Stat::GetObject(valueThis)->GetFileinfo();
+	String pathName = pFileinfo->GetDirname();
+	pathName += pFileinfo->GetFilename();
+	if (pFileinfo->GetFiletype() == CURLFILETYPE_DIRECTORY) pathName += '/';
+	return Value(pathName.c_str());
+}
+
 // curl.Stat#size
 Gura_DeclareProperty_R(Stat, size)
 {
@@ -1266,6 +1285,7 @@ Gura_ImplementUserClass(Stat)
 	Gura_AssignProperty(Stat, filename);
 	Gura_AssignProperty(Stat, gid);
 	Gura_AssignProperty(Stat, mtime);
+	Gura_AssignProperty(Stat, pathname);
 	Gura_AssignProperty(Stat, size);
 	Gura_AssignProperty(Stat, uid);
 #if 0
@@ -1276,7 +1296,6 @@ Gura_ImplementUserClass(Stat)
 	Gura_AssignProperty(Stat, islnk);
 	Gura_AssignProperty(Stat, isreg);
 	Gura_AssignProperty(Stat, issock);
-	Gura_AssignProperty(Stat, pathname);
 #endif
 }
 
