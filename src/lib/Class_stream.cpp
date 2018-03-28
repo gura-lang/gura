@@ -322,20 +322,20 @@ Gura_DeclareClassMethod(stream, copy)
 		Gura_Symbol(en),
 		"Copies the content in `src` to the stream `dst`.\n"
 		"\n"
-		"The copying is done by the following process:\n"
+		"The copy process is done by the following steps:\n"
 		"\n"
 		"1. Reads data from stream `src` into a buffer with the size specified by `bytesunit`.\n"
-		"2. If `block` is specified, it would be evaluated with a block parameter `|buff:binary|`\n"
+		"2. (1) If `block` is specified, it would be evaluated with a block parameter `|buff:binary|`\n"
 		"   where `buff` contains the read data. When the block's result is a `binary` instance,\n"
 		"   the content would be written to the stream `dst`.\n"
 		"   Otherwise, the read data would be written to stream `dst`.\n"
-		"3. If `block` is not specified,　the read data would be written to stream `dst`.\n"
-		"4. Continues from step 1 to 3 until data from `src` runs out.\n"
+		"   (2) If `block` is not specified, the read data would be written to stream `dst`.\n"
+		"3. Continues from step 1 to 2 until data from `src` runs out.\n"
 		"\n"
-		"If the attribute `:finalize` is specified, some finalizing process will be applied\n"
-		"at the end such as copying time stamp and attributes.\n"
+		"If the attribute `:finalize` is specified, some finalizing process\n"
+		"such as copying the time stamp and attributes will be applied at the end.\n"
 		"\n"
-		"This has the same feature as `stream#copyfrom()` and `stream#copyto()`.");
+		"This works the same way as `stream#copyfrom()` and `stream#copyto()`.");
 }
 
 Gura_ImplementClassMethod(stream, copy)
@@ -367,22 +367,22 @@ Gura_DeclareMethod(stream, copyfrom)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Copies the content in `src` to the target stream instance.\n"
+		"Copies the content in `src` to target stream instance.\n"
 		"\n"
-		"The copying is done by the following process:\n"
+		"The copy process is done by the following steps:\n"
 		"\n"
 		"1. Reads data from stream `src` into a buffer with the size specified by `bytesunit`.\n"
-		"2. If `block` is specified, it would be evaluated with a block parameter `|buff:binary|`\n"
+		"2. (1) If `block` is specified, it would be evaluated with a block parameter `|buff:binary|`\n"
 		"   where `buff` contains the read data. When the block's result is a `binary` instance,\n"
-		"   the content would be written to the stream `dst`.\n"
-		"   Otherwise, the read data would be written to stream `dst`.\n"
-		"3. If `block` is not specified,　the read data would be written to stream `dst`.\n"
-		"4. Continues from step 1 to 3 until data from `src` runs out.\n"
+		"   the content would be written to the target stream.\n"
+		"   Otherwise, the read data would be written to the target stream.\n"
+		"   (2) If `block` is not specified, the read data would be written to the target stream.\n"
+		"3. Continues from step 1 to 2 until data from `src` runs out.\n"
 		"\n"
-		"If the attribute `:finalize` is specified, some finalizing process will be applied\n"
-		"at the end such as copying time stamp and attributes.\n"
+		"If the attribute `:finalize` is specified, some finalizing process\n"
+		"such as copying the time stamp and attributes will be applied at the end.\n"
 		"\n"
-		"This has the same feature as `stream.copy()` and `stream#copyto()`.");
+		"This works the same way as `stream.copy()` and `stream#copyto()`.");
 }
 
 Gura_ImplementMethod(stream, copyfrom)
@@ -415,22 +415,22 @@ Gura_DeclareMethod(stream, copyto)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"Copies the content in the target stream instance to stream `dst`.\n"
+		"Copies the content in the target stream to the stream `dst`.\n"
 		"\n"
-		"The copying is done by the following process:\n"
+		"The copy process is done by the following steps:\n"
 		"\n"
-		"1. Reads data from stream `src` into a buffer with the size specified by `bytesunit`.\n"
-		"2. If `block` is specified, it would be evaluated with a block parameter `|buff:binary|`\n"
+		"1. Reads data from the target stream into a buffer with the size specified by `bytesunit`.\n"
+		"2. (1) If `block` is specified, it would be evaluated with a block parameter `|buff:binary|`\n"
 		"   where `buff` contains the read data. When the block's result is a `binary` instance,\n"
 		"   the content would be written to the stream `dst`.\n"
 		"   Otherwise, the read data would be written to stream `dst`.\n"
-		"3. If `block` is not specified,　the read data would be written to stream `dst`.\n"
-		"4. Continues from step 1 to 3 until data from `src` runs out.\n"
+		"   (2) If `block` is not specified, the read data would be written to stream `dst`.\n"
+		"3. Continues from step 1 to 2 until data from the target stream runs out.\n"
 		"\n"
-		"If the attribute `:finalize` is specified, some finalizing process will be applied\n"
-		"at the end such as copying time stamp and attributes.\n"
+		"If the attribute `:finalize` is specified, some finalizing process\n"
+		"such as copying the time stamp and attributes will be applied at the end.\n"
 		"\n"
-		"This has the same feature as `stream.copy()` and `stream#copyfrom()`.");
+		"This works the same way as `stream.copy()` and `stream#copyfrom()`.\n");
 }
 
 Gura_ImplementMethod(stream, copyto)
