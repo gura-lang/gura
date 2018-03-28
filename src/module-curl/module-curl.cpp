@@ -774,7 +774,7 @@ void Directory_cURL::Thread::Run()
 	::curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Writer::OnWriteStub);
 	CURLcode code = ::curl_easy_perform(curl);
 	if (code != CURLE_OK) SetError_Curl(_sig, code);
-	//::curl_easy_cleanup(curl);
+	::curl_easy_cleanup(curl);
 	_pStreamFIFO->SetWriteDoneFlag();
 }
 
