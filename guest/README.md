@@ -38,7 +38,11 @@ Source URLs
 
 <tr><td>liblinear-2.11.zip</td><td>https://www.csie.ntu.edu.tw/~cjlin/liblinear/</td></tr>
 
+<tr><td>libmtp-1.1.15.tar.gz</td><td>http://libmtp.sourceforge.net/</td></tr>
+
 <tr><td>libsvm-3.22.zip</td><td>https://www.csie.ntu.edu.tw/~cjlin/libsvm/</td></tr>
+
+<tr><td>libusb-1.0.22.tar.bz2</td><td>http://libusb.info/</td></tr>
 
 <tr><td>mpir-2.6.0.tar.bz2</td><td>http://www.mpir.org/</td></tr>
 
