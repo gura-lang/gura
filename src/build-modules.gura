@@ -83,32 +83,23 @@ options:
 
 if (sys.platform == `linux) {
 	platform = nil
-	if (!platform && path.exists('/etc/lsb-release')) {
+	if (path.exists('/etc/lsb-release')) {
 		platform = `ubuntu
-	}
-	!platform && path.exists(fileName = '/etc/system-release') && \
-										readlines(fileName):chop {|line|
-		if (line.startswith('Fedora')) {
-			platform = `fedora
-			break
-		}
-	}
-	!platform && path.exists(fileName = '/etc/redhat-release') && \
-										readlines(fileName):chop {|line|
-		if (line.startswith('CentOS')) {
-			platform = `centos
-			break
-		} elsif (line.startswith('Red Hat')) {
-			platform = `redhat
-			break
+	} elsif (path.exists('/etc/system-release')) {
+		platform = `fedora
+	} elsif (path.exists(fileName = '/etc/redhat-release')) {
+		readlines(fileName):chop {|line|
+			if (line.startswith('CentOS')) {
+				platform = `centos
+				break
+			} elsif (line.startswith('Red Hat')) {
+				platform = `redhat
+				break
+			}
 		}
 	}
 } else {
 	platform = sys.platform
-}
-if (!(platform && platform in [`mswin, `ubuntu, `fedora, `darwin])) {
-	println('unsupported platform')
-	sys.exit(1)
 }
 argopt.Parser {|p|
 	p.addFlag('verbose',	'v', 'verbose mode')
@@ -119,6 +110,7 @@ argopt.Parser {|p|
 	p.addParam('incdir',	'I', 'specify include directory', 'DIR')
 	p.addParam('libdir',	'L', 'specify library directory', 'DIR')
 	p.addParam('moddir',	'M', 'specify directory to which module is installed', 'DIR')
+	p.addParam('platform',	'p', 'specify platform symbol', 'NAME')
 	try {
 		[cfg, argv] = p.parse(sys.argv)
 	} catch {|e|
@@ -142,6 +134,11 @@ argopt.Parser {|p|
 		sys.stderr.println('unknown command: ', argv[0])
 		sys.exit(1)
 	}
+	if (cfg['platform']) { platform = cfg['platform'].tosymbol() }
+}
+if (!(platform && platform in [`mswin, `ubuntu, `fedora, `darwin])) {
+	println('unsupported platform')
+	sys.exit(1)
 }
 getCommaSepList(str:string) = {
 	if (str.isempty()) {
