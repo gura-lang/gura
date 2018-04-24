@@ -83,15 +83,7 @@ options:
 
 if (sys.platform == `linux) {
 	platform = nil
-	!platform && path.exists(fileName = '/etc/lsb-release') && \
-										readlines(fileName):chop {|line|
-		//fields = line.split('='):list
-		//if (fields.len() == 2 && fields[0].strip() == 'DISTRIB_ID') {
-		//	value = fields[1].strip()
-		//	if (value == 'Ubuntu') {
-		//		platform = `ubuntu
-		//	break
-		//}
+	if (!platform && path.exists('/etc/lsb-release')) {
 		platform = `ubuntu
 	}
 	!platform && path.exists(fileName = '/etc/system-release') && \
