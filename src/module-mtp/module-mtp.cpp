@@ -17,6 +17,27 @@ Gura_DeclareFunction(test)
 		"MTP Test\n");
 }
 
+void ListFiles(LIBMTP_mtpdevice_t *mtpDevice, uint32_t storageId, uint32_t itemIdParent, int indentLevel)
+{
+	LIBMTP_file_t *fileInfo = ::LIBMTP_Get_Files_And_Folders(mtpDevice, storageId, itemIdParent);
+	if (fileInfo == nullptr) {
+		::LIBMTP_Dump_Errorstack(mtpDevice);
+		::LIBMTP_Clear_Errorstack(mtpDevice);
+	} else {
+		while (fileInfo != nullptr) {
+			if (fileInfo->filetype == LIBMTP_FILETYPE_FOLDER) {
+				printf("%*s[%s]\n", indentLevel * 2, "", fileInfo->filename);
+				ListFiles(mtpDevice, storageId, fileInfo->item_id, indentLevel + 1);
+			} else {
+				printf("%*s%s\n", indentLevel * 2, "", fileInfo->filename);
+			}
+			LIBMTP_file_t *fileInfoNext = fileInfo->next;
+			::LIBMTP_destroy_file_t(fileInfo);
+			fileInfo = fileInfoNext;
+		}
+	}
+}
+
 Gura_ImplementFunction(test)
 {
 	LIBMTP_raw_device_t *rawDevices;
@@ -39,27 +60,7 @@ Gura_ImplementFunction(test)
 		::printf("%s\n", friendlyName);
 		LIBMTP_devicestorage_t *deviceStorage;
 		for (deviceStorage = mtpDevice->storage; deviceStorage != nullptr; deviceStorage = deviceStorage->next) {
-			LIBMTP_file_t *files = ::LIBMTP_Get_Files_And_Folders(
-				mtpDevice, deviceStorage->id, LIBMTP_FILES_AND_FOLDERS_ROOT);
-			if (files == nullptr) {
-				::LIBMTP_Dump_Errorstack(mtpDevice);
-				::LIBMTP_Clear_Errorstack(mtpDevice);
-			} else {
-				LIBMTP_file_t *file, *tmp;
-				file = files;
-				while (file != nullptr) {
-					printf("Filename: %s\n", file->filename);
-					if (file->filetype == LIBMTP_FILETYPE_FOLDER) {
-						//dump_files(device, storageid, file->item_id);
-					} else {
-						
-						//dump_fileinfo(file);
-					}
-					tmp = file;
-					file = file->next;
-					::LIBMTP_destroy_file_t(tmp);
-				}
-			}
+			ListFiles(mtpDevice, deviceStorage->id, LIBMTP_FILES_AND_FOLDERS_ROOT, 0);
 		}
 		::LIBMTP_Release_Device(mtpDevice);
 	}
