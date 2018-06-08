@@ -225,6 +225,9 @@ pushd libusb-1.0.22
 ./configure
 make
 popd
+rm -f include/libusb
+ln -sf ../libusb-1.0.22/libusb include/libusb
+ln -sf ../libusb-1.0.22/libusb/.libs/libusb-1.0.a lib/libusb.a
 #---------------------------------------------------------------------------
 tar xfz libmtp-1.1.15.tar.gz
 pushd libmtp-1.1.15
