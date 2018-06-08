@@ -231,6 +231,9 @@ pushd libmtp-1.1.15
 ./configure LIBUSB_CFLAGS=-I`pwd`/../libusb-1.0.22/libusb LIBUSB_LIBS="-L`pwd`/../libusb-1.0.22/libusb/.libs -lusb-1.0"
 make
 popd
+rm -f include/libmtp
+ln -sf ../libmtp-1.1.15/src include/libmtp
+ln -sf ../libmtp-1.1.15/src/.libs/libmtp.a lib/libmtp.a
 #---------------------------------------------------------------------------
 if [ "$failed" != "" ] ; then
    echo ======================================================================
