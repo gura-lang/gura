@@ -9,27 +9,29 @@ if [ "$1" == "install" ] ; then
 fi
 #---------------------------------------------------------------------------
 files=""
-files="$files eigen-eigen-5a0156e40feb.zip"
-files="$files SDL-1.2.15.tar.gz"
-files="$files SDL2-2.0.4.tar.gz"
-files="$files cairo-1.12.18.tar.xz"
-files="$files expat-2.1.0.tar.gz"
-files="$files freetype-2.5.3.tar.bz2"
-files="$files fontconfig-2.11.1.tar.bz2"
-files="$files gmp-6.0.0a.tar.bz2"
-files="$files jpegsrc.v9a.tar.gz"
-files="$files libpng-1.6.12.tar.gz"
-files="$files onig-5.9.5.tar.gz"
-files="$files pixman-0.32.6.tar.gz"
-files="$files tiff-3.8.2.tar.gz"
-files="$files wxWidgets-3.1.0.tar.bz2"
-files="$files yaml-0.1.5.tar.gz"
-files="$files llvm-3.6.1.src.tar.xz"
-files="$files liblinear-2.11.zip"
-files="$files liblinear-2.11-gurapatch.zip"
-files="$files libsvm-3.22.zip"
-files="$files libsvm-3.22-gurapatch.zip"
-files="$files fftw-3.3.6-pl2.tar.gz"
+#files="$files eigen-eigen-5a0156e40feb.zip"
+#files="$files SDL-1.2.15.tar.gz"
+#files="$files SDL2-2.0.4.tar.gz"
+#files="$files cairo-1.12.18.tar.xz"
+#files="$files expat-2.1.0.tar.gz"
+#files="$files freetype-2.5.3.tar.bz2"
+#files="$files fontconfig-2.11.1.tar.bz2"
+#files="$files gmp-6.0.0a.tar.bz2"
+#files="$files jpegsrc.v9a.tar.gz"
+#files="$files libpng-1.6.12.tar.gz"
+#files="$files onig-5.9.5.tar.gz"
+#files="$files pixman-0.32.6.tar.gz"
+#files="$files tiff-3.8.2.tar.gz"
+#files="$files wxWidgets-3.1.0.tar.bz2"
+#files="$files yaml-0.1.5.tar.gz"
+#files="$files llvm-3.6.1.src.tar.xz"
+#files="$files liblinear-2.11.zip"
+#files="$files liblinear-2.11-gurapatch.zip"
+#files="$files libsvm-3.22.zip"
+#files="$files libsvm-3.22-gurapatch.zip"
+#files="$files fftw-3.3.6-pl2.tar.gz"
+files="$files libusb-1.0.22.tar.bz2"
+files="$files libmtp-1.1.15.tar.gz"
 for file in $files
 do
 	echo $file
@@ -217,6 +219,18 @@ popd
 rm -f include/fftw
 ln -sf ../fftw-3.3.6-pl2/api include/fftw
 ln -sf ../fftw-3.3.6-pl2/.libs/libfftw3.a lib/libfftw3.a
+#---------------------------------------------------------------------------
+tar xfz libusb-1.0.22.tar.bz2
+pushd libusb-1.0.22
+./configure
+make
+popd
+#---------------------------------------------------------------------------
+tar xfz libmtp-1.1.15.tar.gz
+pushd libmtp-1.1.15
+./configure LIBUSB_CFLAGS=-I`pwd`/../libusb-1.0.22/libusb LIBUSB_LIBS="-L`pwd`/../libusb-1.0.22/libusb/.libs -lusb-1.0"
+make
+popd
 #---------------------------------------------------------------------------
 if [ "$failed" != "" ] ; then
    echo ======================================================================
