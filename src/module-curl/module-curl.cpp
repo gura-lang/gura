@@ -108,54 +108,41 @@ long Browser::OnChunkEndStub(struct callback_data *data)
 }
 
 //-----------------------------------------------------------------------------
-// Writer
+// Downloader
 //-----------------------------------------------------------------------------
-Writer::Writer(Signal &sig, Stream *pStream) : _sig(sig), _pStream(pStream)
+Downloader::Downloader(Signal &sig, Stream *pStream) : _sig(sig), _pStream(pStream)
 {
 }
 
-size_t Writer::OnWrite(char *buffer, size_t size, size_t nitems)
+size_t Downloader::OnWrite(char *buffer, size_t size, size_t nitems)
 {
 	//::printf("OnWrite(%d)\n", nitems);
 	return _pStream->Write(_sig, buffer, size * nitems);
 }
 
-size_t Writer::OnWriteStub(char *buffer, size_t size, size_t nitems, void *outstream)
+size_t Downloader::OnWriteStub(char *buffer, size_t size, size_t nitems, void *outstream)
 {
-	Writer *pWriter = reinterpret_cast<Writer *>(outstream);
-	return pWriter->OnWrite(buffer, size, nitems);
+	Downloader *pDownloader = reinterpret_cast<Downloader *>(outstream);
+	return pDownloader->OnWrite(buffer, size, nitems);
 }
 
-#if 0
 //-----------------------------------------------------------------------------
-// Reader
+// Uploader
 //-----------------------------------------------------------------------------
-Reader::Reader(Signal &sig, Stream *pStream) : _sig(sig), _pStream(pStream)
+Uploader::Uploader(Signal &sig, Stream *pStream) : _sig(sig), _pStream(pStream)
 {
 }
 
-size_t Reader::OnRead(char *buffer, size_t size, size_t nitems)
+size_t Uploader::OnRead(char *buffer, size_t size, size_t nitems)
 {
 	return _pStream->Read(_sig, buffer, size * nitems);
 }
 
-int Reader::OnSeek(curl_off_t offset, int origin)
+size_t Uploader::OnReadStub(char *buffer, size_t size, size_t nitems, void *instream)
 {
-	return 0;
+	Uploader *pUploader = reinterpret_cast<Uploader *>(instream);
+	return pUploader->OnRead(buffer, size, nitems);
 }
-
-size_t Reader::OnReadStub(char *buffer, size_t size, size_t nitems, void *instream)
-{
-	Reader *pReader = reinterpret_cast<Reader *>(instream);
-	return pReader->OnRead(buffer, size, nitems);
-}
-
-int Reader::OnSeekStub(void *instream, curl_off_t offset, int origin)
-{
-	Reader *pReader = reinterpret_cast<Reader *>(instream);
-	return pReader->OnSeek(offset, origin);
-}
-#endif
 
 //-----------------------------------------------------------------------------
 // Gura module functions: curl
@@ -741,8 +728,12 @@ Stream *Directory_cURL::DoOpenStream(Environment &env, UInt32 attr)
 	Signal &sig = env.GetSignal();
 	AutoPtr<StreamFIFO> pStream(new StreamFIFO(env, 65536));
 	// pThread will automatically be deleted after the thread is done.
-	OAL::Thread *pThread = new ThreadDownload(
-		sig, GetName(), dynamic_cast<StreamFIFO *>(Stream::Reference(pStream.get())));
+	OAL::Thread *pThread = nullptr;
+	if (attr & Stream::ATTR_Writable) {
+		pThread = new ThreadUpload(sig, GetName(), dynamic_cast<StreamFIFO *>(pStream->Reference()));
+	} else {
+		pThread = new ThreadDownload(sig, GetName(), dynamic_cast<StreamFIFO *>(pStream->Reference()));
+	}
 	pThread->Start();
 	return pStream.release();
 }
@@ -783,19 +774,50 @@ FileinfoOwner *Directory_cURL::DoBrowse(Environment &env)
 	return pFileinfoOwner.release();
 }
 
+//-----------------------------------------------------------------------------
+// Directory_cURL::ThreadDownload
+//-----------------------------------------------------------------------------
 void Directory_cURL::ThreadDownload::Run()
 {
 	CURL *curl = ::curl_easy_init();
 	if (curl == nullptr) return;
 	::curl_easy_setopt(curl, CURLOPT_URL, _name.c_str());
 	::curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-	std::unique_ptr<Writer> pWriter(new Writer(_sig, Stream::Reference(_pStreamFIFO.get())));
-	::curl_easy_setopt(curl, CURLOPT_WRITEDATA, pWriter.get());
-	::curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Writer::OnWriteStub);
+	std::unique_ptr<Downloader> pDownloader(new Downloader(_sig, _pStreamFIFO->Reference()));
+	::curl_easy_setopt(curl, CURLOPT_WRITEDATA, pDownloader.get());
+	::curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Downloader::OnWriteStub);
 	CURLcode code = ::curl_easy_perform(curl);
 	if (code != CURLE_OK) SetError_Curl(_sig, code);
 	::curl_easy_cleanup(curl);
-	_pStreamFIFO->SetWriteDoneFlag();
+	//_pStreamFIFO->SetWriteDoneFlag();
+	_pStreamFIFO->Close();
+}
+
+//-----------------------------------------------------------------------------
+// Directory_cURL::ThreadUpload
+//-----------------------------------------------------------------------------
+void Directory_cURL::ThreadUpload::Run()
+{
+	CURL *curl = ::curl_easy_init();
+	if (curl == nullptr) return;
+	::curl_easy_setopt(curl, CURLOPT_URL, _name.c_str());
+	::curl_easy_setopt(curl, CURLOPT_UPLOAD, 1L);
+#if 0
+	do {
+		struct curl_slist *slist = nullptr;
+		slist = ::curl_slist_append(slist, cmd1);
+		slist = ::curl_slist_append(slist, cmd2);
+		::curl_easy_setopt(curl, CURLOPT_POSTQUOTE, slist);
+	} while (0);
+#endif
+	//::curl_easy_setopt(curl, CURLOPT_INFILESIZE_LARGE, static_cast<curl_off_t>(_pStreamFIFO->GetSize()));
+	std::unique_ptr<Uploader> pUploader(new Uploader(_sig, _pStreamFIFO->Reference()));
+	::curl_easy_setopt(curl, CURLOPT_READDATA, pUploader.get());
+	::curl_easy_setopt(curl, CURLOPT_READFUNCTION, Uploader::OnReadStub);
+	CURLcode code = ::curl_easy_perform(curl);
+	if (code != CURLE_OK) SetError_Curl(_sig, code);
+	//::curl_slist_free_all(slist);
+	::curl_easy_cleanup(curl);
 }
 
 //-----------------------------------------------------------------------------
@@ -975,9 +997,9 @@ Gura_ImplementMethod(easy_handle, perform)
 	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(arg);
 	Stream *pStreamOut = arg.Is_stream(0)?
 			&Object_stream::GetObject(arg, 0)->GetStream() : env.GetConsole();
-	std::unique_ptr<Writer> pWriter(new Writer(sig, Stream::Reference(pStreamOut)));
-	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEDATA, pWriter.get());
-	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEFUNCTION, Writer::OnWriteStub);
+	std::unique_ptr<Downloader> pDownloader(new Downloader(sig, Stream::Reference(pStreamOut)));
+	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEDATA, pDownloader.get());
+	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEFUNCTION, Downloader::OnWriteStub);
 	CURLcode code = ::curl_easy_perform(pThis->GetEntity());
 	if (code != CURLE_OK) SetError_Curl(sig, code);
 	return Value::Nil;

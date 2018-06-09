@@ -181,7 +181,7 @@ StreamFIFO::StreamFIFO(Environment &env, size_t bytesBuff) :
 		Stream(env, ATTR_Readable | ATTR_Writable),
 		_pMemory(new MemoryHeap(bytesBuff)),
 		_offsetWrite(0), _offsetRead(0), _bytesAvail(0),
-		_writeDoneFlag(false), _pSemaphore(new OAL::Semaphore())
+		_brokenFlag(false), _pSemaphore(new OAL::Semaphore())
 {
 }
 
@@ -210,14 +210,14 @@ size_t StreamFIFO::DoRead(Signal &sig, void *buff, size_t len)
 	char *buffp = reinterpret_cast<char *>(buff);
 	_pSemaphore->Wait();
 	//::printf("+DoRead(%zu) bytesAvail=%zu\n", len, _bytesAvail);
-	if (_writeDoneFlag && _bytesAvail == 0) {
+	if (_brokenFlag && _bytesAvail == 0) {
 		_pSemaphore->Release();
 		return 0;
 	}
 	size_t offset = 0;
 	while (offset < len) {
 		size_t bytesSpace = len - offset;
-		while (_bytesAvail == 0 && !_writeDoneFlag) {
+		while (_bytesAvail == 0 && !_brokenFlag) {
 			_pSemaphore->Release();
 			OAL::Sleep(.001); // sleep for 1 msec
 			_pSemaphore->Wait();
@@ -239,7 +239,7 @@ size_t StreamFIFO::DoRead(Signal &sig, void *buff, size_t len)
 				_bytesAvail -= bytesCopy;
 			}
 		}
-		if (_writeDoneFlag) {
+		if (_brokenFlag) {
 			//::printf("-DoRead(%zu) rtn=%zu\n", len, offset);
 			_pSemaphore->Release();
 			return offset;
@@ -295,18 +295,13 @@ bool StreamFIFO::DoFlush(Signal &sig)
 
 bool StreamFIFO::DoClose(Signal &sig)
 {
+	_brokenFlag = true;
 	return Stream::DoClose(sig);
 }
 
 size_t StreamFIFO::DoGetSize()
 {
 	return 0;
-}
-
-void StreamFIFO::SetWriteDoneFlag()
-{
-	_writeDoneFlag = true;
-	//_pEventWriteReq->Notify();
 }
 
 //-----------------------------------------------------------------------------

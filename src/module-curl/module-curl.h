@@ -82,31 +82,29 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Writer
+// Downloader
 //-----------------------------------------------------------------------------
-class Writer {
+class Downloader {
 private:
 	Signal &_sig;
 	AutoPtr<Stream> _pStream;
 public:
-	Writer(Signal &sig, Stream *pStream);
+	Downloader(Signal &sig, Stream *pStream);
 	size_t OnWrite(char *buffer, size_t size, size_t nitems);
 	static size_t OnWriteStub(char *buffer, size_t size, size_t nitems, void *outstream);
 };
 
 //-----------------------------------------------------------------------------
-// Reader
+// Uploader
 //-----------------------------------------------------------------------------
-class Reader {
+class Uploader {
 private:
 	Signal &_sig;
 	AutoPtr<Stream> _pStream;
 public:
-	Reader(Signal &sig, Stream *pStream);
+	Uploader(Signal &sig, Stream *pStream);
 	size_t OnRead(char *buffer, size_t size, size_t nitems);
-	int OnSeek(curl_off_t offset, int origin);
 	static size_t OnReadStub(char *buffer, size_t size, size_t nitems, void *instream);
-	static int OnSeekStub(void *instream, curl_off_t offset, int origin);
 };
 
 //-----------------------------------------------------------------------------
@@ -121,6 +119,16 @@ public:
 		AutoPtr<StreamFIFO> _pStreamFIFO;
 	public:
 		inline ThreadDownload(Signal &sig, const String &name, StreamFIFO *pStreamFIFO) :
+						_sig(sig), _name(name), _pStreamFIFO(pStreamFIFO) {}
+		virtual void Run();
+	};
+	class ThreadUpload : public OAL::Thread {
+	private:
+		Signal &_sig;
+		String _name;
+		AutoPtr<StreamFIFO> _pStreamFIFO;
+	public:
+		inline ThreadUpload(Signal &sig, const String &name, StreamFIFO *pStreamFIFO) :
 						_sig(sig), _name(name), _pStreamFIFO(pStreamFIFO) {}
 		virtual void Run();
 	};

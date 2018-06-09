@@ -87,7 +87,7 @@ private:
 	size_t _offsetWrite;
 	size_t _offsetRead;
 	size_t _bytesAvail;
-	bool _writeDoneFlag;
+	bool _brokenFlag;
 	std::unique_ptr<OAL::Semaphore> _pSemaphore;
 public:
 	StreamFIFO(Environment &env, size_t bytesBuff);
@@ -101,11 +101,6 @@ public:
 	virtual bool DoFlush(Signal &sig);
 	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
-	void SetWriteDoneFlag();
-public:
-	size_t GetOffsetWrite() const { return _offsetWrite; }
-	size_t GetOffsetRead() const { return _offsetRead; }
-	size_t GetBytesAvail() const { return _bytesAvail; }
 };
 
 //-----------------------------------------------------------------------------
