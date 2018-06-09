@@ -114,13 +114,13 @@ public:
 //-----------------------------------------------------------------------------
 class Directory_cURL : public Directory {
 public:
-	class Thread : public OAL::Thread {
+	class ThreadDownload : public OAL::Thread {
 	private:
 		Signal &_sig;
 		String _name;
 		AutoPtr<StreamFIFO> _pStreamFIFO;
 	public:
-		inline Thread(Signal &sig, const String &name, StreamFIFO *pStreamFIFO) :
+		inline ThreadDownload(Signal &sig, const String &name, StreamFIFO *pStreamFIFO) :
 						_sig(sig), _name(name), _pStreamFIFO(pStreamFIFO) {}
 		virtual void Run();
 	};

@@ -126,6 +126,7 @@ size_t Writer::OnWriteStub(char *buffer, size_t size, size_t nitems, void *outst
 	return pWriter->OnWrite(buffer, size, nitems);
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Reader
 //-----------------------------------------------------------------------------
@@ -154,11 +155,7 @@ int Reader::OnSeekStub(void *instream, curl_off_t offset, int origin)
 	Reader *pReader = reinterpret_cast<Reader *>(instream);
 	return pReader->OnSeek(offset, origin);
 }
-
-int fnmatch_callback(void *ptr, const char *pattern, const char *string)
-{
-	return 0;
-}
+#endif
 
 //-----------------------------------------------------------------------------
 // Gura module functions: curl
@@ -193,6 +190,27 @@ Gura_ImplementFunction(easy_init)
 {
 	CURL *curl = ::curl_easy_init();
 	return ReturnValue(env, arg, Value(new Object_easy_handle(curl)));
+}
+
+// curl.opendir(uri:string) {block?}
+Gura_DeclareFunction(opendir)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "uri", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns a `directory` instance that browses network resources.");
+}
+
+Gura_ImplementFunction(opendir)
+{
+	const char *uri = arg.GetString(0);
+	size_t len = ::strlen(uri);
+	Directory::Type type = (len > 0 && IsFileSeparator(uri[len - 1]))?
+		Directory::TYPE_Container : Directory::TYPE_Item;
+	AutoPtr<Directory> pDirectory(new Directory_cURL(nullptr, uri, type, nullptr));
+	return new Object_directory(env, pDirectory.release());
 }
 
 // curl.set_timeout(timeout:number):void
@@ -681,6 +699,7 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(version);
 	Gura_AssignFunction(easy_init);
+	Gura_AssignFunction(opendir);
 	Gura_AssignFunction(set_timeout);
 	// registration of directory factory
 	PathMgr::Register(env, new PathMgr_cURL());
@@ -722,7 +741,8 @@ Stream *Directory_cURL::DoOpenStream(Environment &env, UInt32 attr)
 	Signal &sig = env.GetSignal();
 	AutoPtr<StreamFIFO> pStream(new StreamFIFO(env, 65536));
 	// pThread will automatically be deleted after the thread is done.
-	Thread *pThread = new Thread(sig, GetName(), dynamic_cast<StreamFIFO *>(Stream::Reference(pStream.get())));
+	OAL::Thread *pThread = new ThreadDownload(
+		sig, GetName(), dynamic_cast<StreamFIFO *>(Stream::Reference(pStream.get())));
 	pThread->Start();
 	return pStream.release();
 }
@@ -763,7 +783,7 @@ FileinfoOwner *Directory_cURL::DoBrowse(Environment &env)
 	return pFileinfoOwner.release();
 }
 
-void Directory_cURL::Thread::Run()
+void Directory_cURL::ThreadDownload::Run()
 {
 	CURL *curl = ::curl_easy_init();
 	if (curl == nullptr) return;
