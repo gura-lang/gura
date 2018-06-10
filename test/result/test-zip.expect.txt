@@ -2,6 +2,8 @@
 
 test-zip/test.zip/Module_zipfile.cpp
 test-zip/test.zip/Module_zipfile.h
+Module_zipfile.cpp
+Module_zipfile.h
 
 ======== #2 stream out zip content ========
 

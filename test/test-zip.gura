@@ -7,6 +7,9 @@ testcase('path.walk()') {
 	path.walk('test-zip/test.zip/') {|fileName|
 		println(fileName.replace('\\', '/'))
 	}
+	path.walk(zip.opendir('test-zip/test.zip')) {|fileName|
+		println(fileName.replace('\\', '/'))
+	}
 }
 testcase('stream out zip content') {
 	path.walk('test-zip/test.zip/') {|fileName|
