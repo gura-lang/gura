@@ -500,6 +500,27 @@ void Iterator_Entry::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 //-----------------------------------------------------------------------------
 // Gura module functions: zip
 //-----------------------------------------------------------------------------
+// zip.opendir(stream:stream) {block?}
+Gura_DeclareFunction(opendir)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns a `directory` instance that browses the contents in a ZIP stream.");
+}
+
+Gura_ImplementFunction(opendir)
+{
+	const char *pathName = "";
+	Stream &stream = arg.GetStream(0);
+	PathMgr::NotFoundMode notFoundMode = PathMgr::NF_Signal;
+	AutoPtr<Directory> pDirectory(CreateDirectory(env, &stream, nullptr, &pathName, notFoundMode));
+	if (env.IsSignalled()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_directory(env, pDirectory.release())));
+}
+
 // zip.reader(stream:stream:r) {block?}
 Gura_DeclareFunction(reader)
 {
@@ -615,6 +636,7 @@ Gura_ModuleEntry()
 	Gura_RealizeAndPrepareUserClass(writer, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(stat, env.LookupClass(VTYPE_object));
 	// function assignment
+	Gura_AssignFunction(opendir);
 	Gura_AssignFunction(reader);
 	Gura_AssignFunction(writer);
 	Gura_AssignFunction(test);
@@ -1088,9 +1110,8 @@ bool PathMgr_ZIP::IsResponsible(Environment &env,
 Directory *PathMgr_ZIP::DoOpenDirectory(Environment &env,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
-	Signal &sig = env.GetSignal();
 	AutoPtr<Stream> pStreamSrc(pParent->DoOpenStream(env, Stream::ATTR_Readable));
-	if (sig.IsSignalled()) return nullptr;
+	if (env.IsSignalled()) return nullptr;
 	return CreateDirectory(env, pStreamSrc.get(), pParent, pPathName, notFoundMode);
 }
 

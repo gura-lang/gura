@@ -197,7 +197,7 @@ Gura_ImplementFunction(opendir)
 	Directory::Type type = (len > 0 && IsFileSeparator(uri[len - 1]))?
 		Directory::TYPE_Container : Directory::TYPE_Item;
 	AutoPtr<Directory> pDirectory(new Directory_cURL(nullptr, uri, type, nullptr));
-	return new Object_directory(env, pDirectory.release());
+	return ReturnValue(env, arg, Value(new Object_directory(env, pDirectory.release())));
 }
 
 // curl.set_timeout(timeout:number):void
