@@ -83,14 +83,32 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE StreamFIFO : public Stream {
 private:
-	AutoPtr<Memory> _pMemory;
-	size_t _offsetWrite;
-	size_t _offsetRead;
-	size_t _bytesAvail;
-	bool _brokenFlag;
-	std::unique_ptr<OAL::Semaphore> _pSemaphore;
+	class Entity {
+	private:
+		int _cntRef;
+		AutoPtr<Memory> _pMemory;
+		size_t _offsetWrite;
+		size_t _offsetRead;
+		size_t _bytesAvail;
+		bool _brokenFlag;
+		std::unique_ptr<OAL::Semaphore> _pSemaphore;
+	public:
+		Gura_DeclareReferenceAccessor(Entity);
+	public:
+		Entity(size_t bytesBuff);
+	protected:
+		inline ~Entity() {}
+	public:
+		size_t DoRead(Signal &sig, void *buff, size_t len);
+		size_t DoWrite(Signal &sig, const void *buff, size_t len);
+		inline void SetBrokenFlag() { _brokenFlag = true; }
+	};
+private:
+	AutoPtr<Entity> _pEntity;
 public:
 	StreamFIFO(Environment &env, size_t bytesBuff);
+	StreamFIFO(Environment &env, Entity *pEntity);
+	virtual ~StreamFIFO();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
@@ -101,6 +119,7 @@ public:
 	virtual bool DoFlush(Signal &sig);
 	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
+	inline Entity *GetEntity() { return _pEntity.get(); }
 };
 
 //-----------------------------------------------------------------------------

@@ -178,11 +178,18 @@ size_t StreamDumb::DoGetSize()
 // StreamFIFO
 //-----------------------------------------------------------------------------
 StreamFIFO::StreamFIFO(Environment &env, size_t bytesBuff) :
-		Stream(env, ATTR_Readable | ATTR_Writable),
-		_pMemory(new MemoryHeap(bytesBuff)),
-		_offsetWrite(0), _offsetRead(0), _bytesAvail(0),
-		_brokenFlag(false), _pSemaphore(new OAL::Semaphore())
+		Stream(env, ATTR_Readable | ATTR_Writable), _pEntity(new Entity(bytesBuff))
 {
+}
+
+StreamFIFO::StreamFIFO(Environment &env, Entity *pEntity) :
+		Stream(env, ATTR_Readable | ATTR_Writable), _pEntity(pEntity)
+{
+}
+
+StreamFIFO::~StreamFIFO()
+{
+	Close();
 }
 
 const char *StreamFIFO::GetName() const
@@ -206,6 +213,47 @@ bool StreamFIFO::SetAttribute(const Attribute &attr)
 }
 
 size_t StreamFIFO::DoRead(Signal &sig, void *buff, size_t len)
+{
+	return _pEntity->DoRead(sig, buff, len);
+}
+
+size_t StreamFIFO::DoWrite(Signal &sig, const void *buff, size_t len)
+{
+	return _pEntity->DoWrite(sig, buff, len);
+}
+
+bool StreamFIFO::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
+{
+	return false;
+}
+
+bool StreamFIFO::DoFlush(Signal &sig)
+{
+	return true;
+}
+
+bool StreamFIFO::DoClose(Signal &sig)
+{
+	_pEntity->SetBrokenFlag();
+	return Stream::DoClose(sig);
+}
+
+size_t StreamFIFO::DoGetSize()
+{
+	return 0;
+}
+
+//-----------------------------------------------------------------------------
+// StreamFIFO::Entity
+//-----------------------------------------------------------------------------
+StreamFIFO::Entity::Entity(size_t bytesBuff) : _cntRef(1),
+		_pMemory(new MemoryHeap(bytesBuff)),
+		_offsetWrite(0), _offsetRead(0), _bytesAvail(0),
+		_brokenFlag(false), _pSemaphore(new OAL::Semaphore())
+{
+}
+
+size_t StreamFIFO::Entity::DoRead(Signal &sig, void *buff, size_t len)
 {
 	char *buffp = reinterpret_cast<char *>(buff);
 	_pSemaphore->Wait();
@@ -250,7 +298,7 @@ size_t StreamFIFO::DoRead(Signal &sig, void *buff, size_t len)
 	return offset;
 }
 
-size_t StreamFIFO::DoWrite(Signal &sig, const void *buff, size_t len)
+size_t StreamFIFO::Entity::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	const char *buffp = reinterpret_cast<const char *>(buff);
 	_pSemaphore->Wait();
@@ -281,27 +329,6 @@ size_t StreamFIFO::DoWrite(Signal &sig, const void *buff, size_t len)
 	}
 	_pSemaphore->Release();
 	return len;
-}
-
-bool StreamFIFO::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
-{
-	return false;
-}
-
-bool StreamFIFO::DoFlush(Signal &sig)
-{
-	return true;
-}
-
-bool StreamFIFO::DoClose(Signal &sig)
-{
-	_brokenFlag = true;
-	return Stream::DoClose(sig);
-}
-
-size_t StreamFIFO::DoGetSize()
-{
-	return 0;
 }
 
 //-----------------------------------------------------------------------------

@@ -726,16 +726,17 @@ Directory *Directory_cURL::DoNext(Environment &env)
 Stream *Directory_cURL::DoOpenStream(Environment &env, UInt32 attr)
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<StreamFIFO> pStream(new StreamFIFO(env, 65536));
+	AutoPtr<StreamFIFO> pStreamFIFO(new StreamFIFO(env, 65536));
+	AutoPtr<StreamFIFO> pStreamFIFORtn(new StreamFIFO(env, pStreamFIFO->GetEntity()->Reference()));
 	// pThread will automatically be deleted after the thread is done.
 	OAL::Thread *pThread = nullptr;
 	if (attr & Stream::ATTR_Writable) {
-		pThread = new ThreadUpload(sig, GetName(), dynamic_cast<StreamFIFO *>(pStream->Reference()));
+		pThread = new ThreadUpload(sig, GetName(), pStreamFIFO.release());
 	} else {
-		pThread = new ThreadDownload(sig, GetName(), dynamic_cast<StreamFIFO *>(pStream->Reference()));
+		pThread = new ThreadDownload(sig, GetName(), pStreamFIFO.release());
 	}
 	pThread->Start();
-	return pStream.release();
+	return pStreamFIFORtn.release();
 }
 
 Object *Directory_cURL::DoGetStatObj(Signal &sig)
