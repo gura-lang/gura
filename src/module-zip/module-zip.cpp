@@ -513,10 +513,8 @@ Gura_DeclareFunction(opendir)
 
 Gura_ImplementFunction(opendir)
 {
-	const char *pathName = "";
 	Stream &stream = arg.GetStream(0);
-	PathMgr::NotFoundMode notFoundMode = PathMgr::NF_Signal;
-	AutoPtr<Directory> pDirectory(CreateDirectory(env, &stream, nullptr, &pathName, notFoundMode));
+	AutoPtr<Directory> pDirectory(CreateDirectory(env, &stream, nullptr, nullptr, PathMgr::NF_Signal));
 	if (env.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_directory(env, pDirectory.release())));
 }

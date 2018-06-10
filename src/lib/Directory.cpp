@@ -386,6 +386,8 @@ Record *Structure::AddRecord(const char *pathName)
 Directory *Structure::GenerateDirectory(Signal &sig, Directory *pParent,
 				const char **pPathName, PathMgr::NotFoundMode notFoundMode)
 {
+	static const char *strNull = "";
+	if (pPathName == nullptr) pPathName = &strNull;
 	Directory *pDirectory = nullptr;
 	const char *p = *pPathName;
 	if (IsFileSeparator(*p)) p++;
