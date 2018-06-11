@@ -913,41 +913,39 @@ bool PathMgr_TAR::IsResponsible(Environment &env,
 {
 	return pParent != nullptr && !pParent->IsContainer() &&
 			(EndsWith(pParent->GetName(), ".tar", true) ||
-										IsGZippedTar(pParent->GetName()));
+			 IsGZippedTar(pParent->GetName()) || IsBZippedTar(pParent->GetName()));
 }
 
 Directory *PathMgr_TAR::DoOpenDirectory(Environment &env,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
-	Signal &sig = env.GetSignal();
-	AutoPtr<Stream> pStream(pParent->DoOpenStream(env, Stream::ATTR_Readable));
-	if (sig.IsSignalled()) return nullptr;
-	pStream.reset(DecorateReaderStream(env,
-					pStream.release(), pParent->GetName(), COMPRESS_Auto));
-	if (sig.IsSignalled()) return nullptr;
-	AutoPtr<Memory> pMemory(new MemoryHeap(BLOCKSIZE));
-	void *buffBlock = pMemory->GetPointer();
-	AutoPtr<DirBuilder::Structure> pStructure(new DirBuilder::Structure());
-	pStructure->SetRoot(new Record_TAR(pStructure.get(), nullptr, "", true));
-	for (;;) {
-		std::unique_ptr<Header> pHdr(ReadHeader(sig, pStream.get(), buffBlock));
-		if (sig.IsSignalled()) return nullptr;
-		if (pHdr.get() == nullptr) break;
-		Record_TAR *pRecord =
-				dynamic_cast<Record_TAR *>(pStructure->AddRecord(pHdr->GetName()));
-		size_t offset = pHdr->CalcBlocks() * BLOCKSIZE;
-		pRecord->SetHeader(pHdr.release());
-		if (!pStream->Seek(sig, offset, Stream::SeekCur)) return nullptr;
-	}
-	Directory *pDirectory = pStructure->GenerateDirectory(sig,
-											pParent, pPathName, notFoundMode);
-	pStructure.release();
-	return pDirectory;
+	AutoPtr<Stream> pStreamSrc(pParent->DoOpenStream(env, Stream::ATTR_Readable));
+	if (env.IsSignalled()) return nullptr;
+	return CreateDirectory(env, pStreamSrc.get(), pParent, pPathName, notFoundMode);
 }
 
 //-----------------------------------------------------------------------------
 // Gura module functions: tar
 //-----------------------------------------------------------------------------
+// tar.opendir(stream:stream) {block?}
+Gura_DeclareFunction(opendir)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns a `directory` instance that browses the contents in a TAR stream.");
+}
+
+Gura_ImplementFunction(opendir)
+{
+	Stream &stream = arg.GetStream(0);
+	AutoPtr<Directory> pDirectory(CreateDirectory(env, &stream, nullptr, nullptr, PathMgr::NF_Signal));
+	if (env.IsSignalled()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_directory(env, pDirectory.release())));
+}
+
 // tar.reader(stream:stream:r, compression?:symbol) {block?}
 Gura_DeclareFunction(reader)
 {
@@ -1072,6 +1070,7 @@ Gura_ModuleEntry()
 	Gura_AssignValue(XHDTYPE,	Value(XHDTYPE));	// Extended header referring to the next file in the archive
 	Gura_AssignValue(XGLTYPE,	Value(XGLTYPE));	// Global extended header
 	// function assignment
+	Gura_AssignFunction(opendir);
 	Gura_AssignFunction(reader);
 	Gura_AssignFunction(writer);
 	// registration of directory factory
@@ -1193,6 +1192,28 @@ Stream *DecorateWriterStream(Environment &env, Stream *pStreamDst,
 		pStreamDst = pStreamCompressor.release();
 	}
 	return pStreamDst;
+}
+
+Directory *CreateDirectory(Environment &env, Stream *pStreamSrc,
+	Directory *pParent, const char **pPathName, PathMgr::NotFoundMode notFoundMode)
+{
+	AutoPtr<Stream> pStream(DecorateReaderStream(
+								env, pStreamSrc->Reference(), pStreamSrc->GetIdentifier(), COMPRESS_Auto));
+	if (env.IsSignalled()) return nullptr;
+	AutoPtr<Memory> pMemory(new MemoryHeap(BLOCKSIZE));
+	void *buffBlock = pMemory->GetPointer();
+	AutoPtr<DirBuilder::Structure> pStructure(new DirBuilder::Structure());
+	pStructure->SetRoot(new Record_TAR(pStructure.get(), nullptr, "", true));
+	for (;;) {
+		std::unique_ptr<Header> pHdr(ReadHeader(env, pStream.get(), buffBlock));
+		if (env.IsSignalled()) return nullptr;
+		if (pHdr.get() == nullptr) break;
+		Record_TAR *pRecord = dynamic_cast<Record_TAR *>(pStructure->AddRecord(pHdr->GetName()));
+		size_t offset = pHdr->CalcBlocks() * BLOCKSIZE;
+		pRecord->SetHeader(pHdr.release());
+		if (!pStream->Seek(env, offset, Stream::SeekCur)) return nullptr;
+	}
+	return pStructure->GenerateDirectory(env, pParent, pPathName, notFoundMode);
 }
 
 UInt32 OctetToUInt32(Signal &sig, const char *octet, size_t len)
