@@ -5,7 +5,7 @@ Gura_BeginModuleScope(mtp)
 //-----------------------------------------------------------------------------
 // Object_storage implementation
 //-----------------------------------------------------------------------------
-Object_storage::Object_storage() : Object(Gura_UserClass(storage))
+Object_storage::Object_storage(Storage *pStorage) : Object(Gura_UserClass(storage)), _pStorage(pStorage)
 {
 }
 

@@ -8,6 +8,40 @@ Gura_BeginModuleBody(mtp)
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
+// mtp.detectdevices() {block?}
+Gura_DeclareFunction(detectdevices)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Detects MTP devices and returns a list of `mtp.device` instances.\n");
+}
+
+Gura_ImplementFunction(detectdevices)
+{
+	LIBMTP_raw_device_t *rawDevices = nullptr;
+	int nRawDevices = 0;
+	Value valueRtn;
+	Object_list *pObjList = valueRtn.InitAsList(env);
+	LIBMTP_error_number_t err = ::LIBMTP_Detect_Raw_Devices(&rawDevices, &nRawDevices);
+	if (err == LIBMTP_ERROR_NONE) {
+		// nothing ot do
+	} else if (err == LIBMTP_ERROR_NO_DEVICE_ATTACHED) {
+		// nothing ot do
+	} else { // LIBMTP_ERROR_CONNECTING, LIBMTP_ERROR_MEMORY_ALLOCATION, LIBMTP_ERROR_GENERAL
+		env.SetError(ERR_LibraryError, "error occured while detecting devices");
+		return Value::Nil;
+	}
+	for (int i = 0; i < nRawDevices; i++) {
+		LIBMTP_mtpdevice_t *mtpDevice = ::LIBMTP_Open_Raw_Device_Uncached(&rawDevices[i]);
+		if (mtpDevice == nullptr) continue;
+		pObjList->Add(Value(new Object_device(new Device(mtpDevice))));
+	}	
+	::free(rawDevices);
+	return ReturnValue(env, arg, valueRtn);
+}
+
 // mtp.test():void
 Gura_DeclareFunction(test)
 {
@@ -43,8 +77,6 @@ Gura_ImplementFunction(test)
 	LIBMTP_raw_device_t *rawDevices;
 	int nRawDevices;
 	::printf("libmtp version: %s\n", LIBMTP_VERSION_STRING);
-	::LIBMTP_Init();
-
 	LIBMTP_error_number_t err = ::LIBMTP_Detect_Raw_Devices(&rawDevices, &nRawDevices);
 	if (err == LIBMTP_ERROR_NO_DEVICE_ATTACHED) {
 	} else if (err == LIBMTP_ERROR_CONNECTING) {
@@ -78,10 +110,12 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	::LIBMTP_Init();
 	// Realization of class
 	Gura_RealizeAndPrepareUserClass(device, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(storage, env.LookupClass(VTYPE_object));
 	// Assignment of function
+	Gura_AssignFunction(detectdevices);
 	Gura_AssignFunction(test);
 	return true;
 }

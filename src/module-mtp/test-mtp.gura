@@ -3,5 +3,6 @@ import(helper.test) {*}
 import(mtp)
 
 testcase {
-	mtp.test()
+	//mtp.test()
+	println(mtp.detectdevices())
 }
