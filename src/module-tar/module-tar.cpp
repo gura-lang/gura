@@ -927,11 +927,11 @@ Directory *PathMgr_TAR::DoOpenDirectory(Environment &env,
 //-----------------------------------------------------------------------------
 // Gura module functions: tar
 //-----------------------------------------------------------------------------
-// tar.opendir(stream:stream) {block?}
+// tar.opendir(stream:stream:r) {block?}
 Gura_DeclareFunction(opendir)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),

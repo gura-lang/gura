@@ -500,11 +500,11 @@ void Iterator_Entry::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 //-----------------------------------------------------------------------------
 // Gura module functions: zip
 //-----------------------------------------------------------------------------
-// zip.opendir(stream:stream) {block?}
+// zip.opendir(stream:stream:r) {block?}
 Gura_DeclareFunction(opendir)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
