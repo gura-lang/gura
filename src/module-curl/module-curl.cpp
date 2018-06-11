@@ -27,6 +27,7 @@ Gura_BeginModuleBody(curl)
 // global variable
 //-----------------------------------------------------------------------------
 Value g_valueTimeout;
+OAL::Semaphore *g_pSemaphoreCurl = nullptr;
 
 //-----------------------------------------------------------------------------
 // utility functions
@@ -226,6 +227,8 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	g_pSemaphoreCurl = new OAL::Semaphore();
+	::curl_global_init(CURL_GLOBAL_ALL);
 	// class realization
 	Gura_RealizeAndPrepareUserClass(easy_handle, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(Stat, env.LookupClass(VTYPE_object));
@@ -746,15 +749,18 @@ Object *Directory_cURL::DoGetStatObj(Signal &sig)
 
 FileinfoOwner *Directory_cURL::DoBrowse(Environment &env)
 {
-	Signal &sig = env.GetSignal();
+	g_pSemaphoreCurl->Wait();
 	std::unique_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
 	CURL *curl = ::curl_easy_init();
-	if (curl == nullptr) return nullptr;
+	if (curl == nullptr) {
+		g_pSemaphoreCurl->Release();
+		return nullptr;
+	}
 	String dirName = MakePathName(true, nullptr);
 	String url = dirName + "*";
 	::curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 	::curl_easy_setopt(curl, CURLOPT_WILDCARDMATCH, 1L);
-	std::unique_ptr<Browser> pBrowser(new Browser(sig, *pFileinfoOwner, dirName));
+	std::unique_ptr<Browser> pBrowser(new Browser(env, *pFileinfoOwner, dirName));
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_DATA, pBrowser.get());
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_BGN_FUNCTION, Browser::OnChunkBgnStub);
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_END_FUNCTION, Browser::OnChunkEndStub);
@@ -765,13 +771,13 @@ FileinfoOwner *Directory_cURL::DoBrowse(Environment &env)
 	CURLcode code = ::curl_easy_perform(curl);
 	if(code != CURLE_OK && code != CURLE_REMOTE_FILE_NOT_FOUND) {
 		// CURLE_REMOTE_FILE_NOT_FOUND is returned when a directory is empty
-		SetError_Curl(sig, code);
+		SetError_Curl(env, code);
 		::curl_easy_cleanup(curl);
-		::curl_global_cleanup();
+		g_pSemaphoreCurl->Release();
 		return nullptr;
 	}
 	::curl_easy_cleanup(curl);
-	::curl_global_cleanup();
+	g_pSemaphoreCurl->Release();
 	return pFileinfoOwner.release();
 }
 
@@ -780,18 +786,21 @@ FileinfoOwner *Directory_cURL::DoBrowse(Environment &env)
 //-----------------------------------------------------------------------------
 void Directory_cURL::ThreadDownload::Run()
 {
+	g_pSemaphoreCurl->Wait();
 	CURL *curl = ::curl_easy_init();
-	if (curl == nullptr) return;
-	::curl_easy_setopt(curl, CURLOPT_URL, _name.c_str());
-	::curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-	std::unique_ptr<Downloader> pDownloader(new Downloader(_sig, _pStreamFIFO->Reference()));
-	::curl_easy_setopt(curl, CURLOPT_WRITEDATA, pDownloader.get());
-	::curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Downloader::OnWriteStub);
-	CURLcode code = ::curl_easy_perform(curl);
-	if (code != CURLE_OK) SetError_Curl(_sig, code);
-	::curl_easy_cleanup(curl);
-	//_pStreamFIFO->SetWriteDoneFlag();
-	_pStreamFIFO->Close();
+	if (curl != nullptr) {
+		::curl_easy_setopt(curl, CURLOPT_URL, _name.c_str());
+		::curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+		std::unique_ptr<Downloader> pDownloader(new Downloader(_sig, _pStreamFIFO->Reference()));
+		::curl_easy_setopt(curl, CURLOPT_WRITEDATA, pDownloader.get());
+		::curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Downloader::OnWriteStub);
+		CURLcode code = ::curl_easy_perform(curl);
+		if (code != CURLE_OK) SetError_Curl(_sig, code);
+		::curl_easy_cleanup(curl);
+		//_pStreamFIFO->SetWriteDoneFlag();
+		_pStreamFIFO->Close();
+	}
+	g_pSemaphoreCurl->Release();
 }
 
 //-----------------------------------------------------------------------------
@@ -799,26 +808,29 @@ void Directory_cURL::ThreadDownload::Run()
 //-----------------------------------------------------------------------------
 void Directory_cURL::ThreadUpload::Run()
 {
+	g_pSemaphoreCurl->Wait();
 	CURL *curl = ::curl_easy_init();
-	if (curl == nullptr) return;
-	::curl_easy_setopt(curl, CURLOPT_URL, _name.c_str());
-	::curl_easy_setopt(curl, CURLOPT_UPLOAD, 1L);
+	if (curl != nullptr) {
+		::curl_easy_setopt(curl, CURLOPT_URL, _name.c_str());
+		::curl_easy_setopt(curl, CURLOPT_UPLOAD, 1L);
 #if 0
-	do {
-		struct curl_slist *slist = nullptr;
-		slist = ::curl_slist_append(slist, cmd1);
-		slist = ::curl_slist_append(slist, cmd2);
-		::curl_easy_setopt(curl, CURLOPT_POSTQUOTE, slist);
-	} while (0);
+		do {
+			struct curl_slist *slist = nullptr;
+			slist = ::curl_slist_append(slist, cmd1);
+			slist = ::curl_slist_append(slist, cmd2);
+			::curl_easy_setopt(curl, CURLOPT_POSTQUOTE, slist);
+		} while (0);
 #endif
-	//::curl_easy_setopt(curl, CURLOPT_INFILESIZE_LARGE, static_cast<curl_off_t>(_pStreamFIFO->GetSize()));
-	std::unique_ptr<Uploader> pUploader(new Uploader(_sig, _pStreamFIFO->Reference()));
-	::curl_easy_setopt(curl, CURLOPT_READDATA, pUploader.get());
-	::curl_easy_setopt(curl, CURLOPT_READFUNCTION, Uploader::OnReadStub);
-	CURLcode code = ::curl_easy_perform(curl);
-	if (code != CURLE_OK) SetError_Curl(_sig, code);
-	//::curl_slist_free_all(slist);
-	::curl_easy_cleanup(curl);
+		//::curl_easy_setopt(curl, CURLOPT_INFILESIZE_LARGE, static_cast<curl_off_t>(_pStreamFIFO->GetSize()));
+		std::unique_ptr<Uploader> pUploader(new Uploader(_sig, _pStreamFIFO->Reference()));
+		::curl_easy_setopt(curl, CURLOPT_READDATA, pUploader.get());
+		::curl_easy_setopt(curl, CURLOPT_READFUNCTION, Uploader::OnReadStub);
+		CURLcode code = ::curl_easy_perform(curl);
+		if (code != CURLE_OK) SetError_Curl(_sig, code);
+		//::curl_slist_free_all(slist);
+		::curl_easy_cleanup(curl);
+	}
+	g_pSemaphoreCurl->Release();
 }
 
 //-----------------------------------------------------------------------------
