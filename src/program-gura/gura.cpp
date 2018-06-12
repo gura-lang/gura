@@ -43,6 +43,7 @@ int Main(int argc, const char *argv[])
 		{ "version",		'v', Option::TYPE_Flag	},
 		{ "llvm",			'o', Option::TYPE_Value	},
 		{ "debug",			'g', Option::TYPE_Flag	},
+		{ "sharedscript",	'S', Option::TYPE_Flag	},
 	};
 	Signal sig;
 	AutoPtr<Environment> pEnv(new Environment(sig));
@@ -117,8 +118,11 @@ int Main(int argc, const char *argv[])
 	const char *encoding = opt.GetString("coding", "utf-8");
 	if (argc >= 2) {
 		String sourceName = OAL::FromNativeString(argv[1]);
-		AutoPtr<Expr_Root> pExprRoot(Parser(sig, sourceName).ParseStream(env,
-											sourceName.c_str(), encoding));
+		if (opt.IsSet("sharedscript") && !OAL::IsAbsPathName(sourceName.c_str())) {
+			sourceName = OAL::JoinPathName(OAL::GetScriptDir().c_str(), sourceName.c_str());
+		}
+		AutoPtr<Expr_Root> pExprRoot(
+			Parser(sig, sourceName).ParseStream(env, sourceName.c_str(), encoding));
 		if (sig.IsSignalled()) {
 			sig.PrintSignal(*env.GetConsoleErr());
 			return 1;
@@ -175,19 +179,20 @@ void PrintVersion(FILE *fp, bool timeStampFlag)
 void PrintHelp(FILE *fp)
 {
 	::fprintf(fp,
-"usage: gura [option] [file] [arg] ...\n"
+"usage: gura [option] [script file] [arg] ...\n"
 "available options:\n"
-"-h             print this help\n"
-"-t             interactive mode after running script file if specified\n"
-"-i module[,..] import module(s) before parsing\n"
-"-I dir         specify a directory to search for modules\n"
-"-c cmd         execute program from command line\n"
-"-q             suppress version printing at the beginning of interactive mode\n"
-"-T template    evaluate script code embedded in template\n"
-"-C dir         change directory before executing scripts\n"
-"-d coding      set character coding to describe script\n"
-"-g             debug mode\n"
-"-v             print version string\n"
+"-h               prints this help\n"
+"-t               enters interactive mode after running script file if specified\n"
+"-i module[,..]   imports module(s) before evaluating scripts\n"
+"-I dir           specifies a directory to search for modules\n"
+"-c cmd           executes a script from command line\n"
+"-q               suppresses version banner at the beginning of interactive mode\n"
+"-T template[,..] evaluates script code embedded in template\n"
+"-C dir           changes directory before executing scripts\n"
+"-d coding        sets character coding to describe script\n"
+"-g               enables debug mode\n"
+"-v               prints version string\n"
+"-S               searches a script file stored in shared directory\n"
 	);
 }
 

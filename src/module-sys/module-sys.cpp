@@ -109,6 +109,7 @@ Gura_ModuleEntry()
 	Gura_AssignValue(datadir,		Value(OAL::GetDataDir()));
 	Gura_AssignValue(moddir,		Value(OAL::GetModuleDir()));
 	Gura_AssignValue(fontdir,		Value(OAL::GetFontDir()));
+	Gura_AssignValue(scriptdir,		Value(OAL::GetScriptDir()));
 	Gura_AssignValue(localdir,		Value(OAL::GetLocalDir()));
 	Gura_AssignValue(appdir,		Value(OAL::GetApplicationDir()));
 	Gura_AssignValue(cfgdir,		Value(OAL::GetConfigDir()));

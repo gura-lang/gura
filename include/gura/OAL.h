@@ -100,6 +100,7 @@ GURA_DLLDECLARE String GetModuleDir();
 GURA_DLLDECLARE String GetIncludeDir();
 GURA_DLLDECLARE String GetLibraryDir();
 GURA_DLLDECLARE String GetFontDir();
+GURA_DLLDECLARE String GetScriptDir();
 GURA_DLLDECLARE String GetLocalDir();
 GURA_DLLDECLARE String GetApplicationDir();
 GURA_DLLDECLARE String GetConfigDir();

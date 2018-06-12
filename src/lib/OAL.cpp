@@ -993,6 +993,11 @@ String GetFontDir()
 	return JoinPathName(GetBaseDir().c_str(), "font");
 }
 
+String GetScriptDir()
+{
+	return JoinPathName(GetBaseDir().c_str(), "script");
+}
+
 String GetLocalDir()
 {
 	char buff[MAX_PATH];
@@ -1782,6 +1787,11 @@ String GetLibraryDir()
 String GetFontDir()
 {
 	return JoinPathName(GetDataDir().c_str(), "font");
+}
+
+String GetScriptDir()
+{
+	return JoinPathName(GetDataDir().c_str(), "script");
 }
 
 String GetLocalDir()
