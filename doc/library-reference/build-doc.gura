@@ -7,7 +7,7 @@ dirName@html = 'html'
 
 title = 'Gura Library Reference'
 author = 'Yutaka Saito'
-date = 'June 17th, 2017'
+date = 'June 11th, 2018'
 
 baseNames = [
 	'basement' // this must come at first
@@ -26,6 +26,7 @@ baseNames = [
 	'doxygen'
 	//'emf'
 	'example'
+	'fftw'
 	'freetype'
 	'fs'
 	'gif'
@@ -43,10 +44,12 @@ baseNames = [
 	'markdown'
 	'math'
 	'midi'
+	'ml.linear'
+	'ml.mnist'
+	'ml.svm'
 	'modbuild'
 	'model.obj'
 	'model.stl'
-	//'modgen'
 	'msico'
 	//'mswin'
 	//'mysql'

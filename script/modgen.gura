@@ -95,13 +95,18 @@ Gura_EndModuleBody(${ubarName}, ${baseName})
 Gura_RegisterModule(${ubarName})
 '''.template()
 
+strHelp = R'''
+Creates a set of files to build a Gura binary module.
+usage: modgen.gura module-name
+'''
+
 //======== main function ========
 main() = {
-	if (sys.argv.len() < 1) {
-		sys.stderr.println('module name needs to be specified')
+	if (sys.argv.len() < 2) {
+		sys.stderr.print(strHelp)
 		sys.exit(1)
 	}
-	fields = path.filename(sys.argv[0]).split('.'):list
+	fields = path.filename(sys.argv[1]).split('.'):list
 	dotName = fields.join('.')
 	ubarName = fields.join('_')
 	baseName = fields[-1]
@@ -129,7 +134,6 @@ main() = {
 	- Test Script:  ${fileTest}
 	- Source Files: ${fileAfx}, ${fileHdr}, ${fileSrc}
 	'''.template().render(sys.stdout)
-	sys.exit(0)
 }
 
 main()

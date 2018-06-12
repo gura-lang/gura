@@ -179,7 +179,7 @@ void PrintVersion(FILE *fp, bool timeStampFlag)
 void PrintHelp(FILE *fp)
 {
 	::fprintf(fp,
-"usage: gura [option] [script file] [arg] ...\n"
+"usage: gura [option] [script-file] [arg] ...\n"
 "available options:\n"
 "-h               prints this help\n"
 "-t               enters interactive mode after running script file if specified\n"
