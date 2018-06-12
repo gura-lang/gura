@@ -1,5 +1,8 @@
-#ifndef __MTP_CLASS_DEVICE_H__
-#define __MTP_CLASS_DEVICE_H__
+//=============================================================================
+// Gura class: mtp.device
+//=============================================================================
+#ifndef __GURA_MODULE_MTP_CLASS_DEVICE_H__
+#define __GURA_MODULE_MTP_CLASS_DEVICE_H__
 #include <gura.h>
 
 Gura_BeginModuleScope(mtp)

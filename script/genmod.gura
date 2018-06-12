@@ -96,8 +96,8 @@ Gura_RegisterModule(${ubarName})
 '''.template()
 
 strHelp = R'''
-Creates a set of files to build a Gura binary module.
-usage: modgen.gura module-name
+Generates a set of files to build a Gura binary module.
+usage: genmod.gura module-name
 '''
 
 //======== main function ========

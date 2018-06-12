@@ -1,3 +1,6 @@
+//=============================================================================
+// Gura class: mtp.device
+//=============================================================================
 #include "stdafx.h"
 
 Gura_BeginModuleScope(mtp)
@@ -20,7 +23,7 @@ const char *Device::GetFriendlyName() const
 }
 
 //-----------------------------------------------------------------------------
-// Object_device implementation
+// Implementation of Object_device
 //-----------------------------------------------------------------------------
 Object_device::Object_device(Device *pDevice) : Object(Gura_UserClass(device)), _pDevice(pDevice)
 {
@@ -35,9 +38,8 @@ String Object_device::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for mtp.device
+// Implementation of class mtp.device
 //-----------------------------------------------------------------------------
-// implementation of class device
 Gura_ImplementUserClass(device)
 {
 	// Assignment of value

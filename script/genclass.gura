@@ -1,0 +1,134 @@
+#!/usr/bin/env gura
+
+tmpl_fileHdr = R'''
+//=============================================================================
+// Gura class: ${moduleName}.${className}
+//=============================================================================
+#ifndef __GURA_MODULE_${moduleName.upper()}_CLASS_${className.upper()}_H__
+#define __GURA_MODULE_${moduleName.upper()}_CLASS_${className.upper()}_H__
+#include <gura.h>
+
+Gura_BeginModuleScope(${moduleName})
+
+//-----------------------------------------------------------------------------
+// Declaration of Object_${className}
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(${className});
+
+class Object_${className} : public Object {
+public:
+	Gura_DeclareObjectAccessor(${className})
+public:
+	Object_${className}();
+	virtual String ToString(bool exprFlag);
+};
+
+Gura_EndModuleScope(${moduleName})
+
+#endif
+'''.template()
+
+tmpl_fileSrc = R'''
+//=============================================================================
+// Gura class: ${moduleName}.${className}
+//=============================================================================
+#include "stdafx.h"
+
+Gura_BeginModuleScope(${moduleName})
+
+//-----------------------------------------------------------------------------
+// Implementation of Object_${className}
+//-----------------------------------------------------------------------------
+Object_${className}::Object_${className}() : Object(Gura_UserClass(${className}))
+{
+}
+
+String Object_${className}::ToString(bool exprFlag)
+{
+	String rtn = "<${moduleName}.${className}:";
+	rtn += ">";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of property
+//-----------------------------------------------------------------------------
+// ${moduleName}.${className}#prop1
+Gura_DeclareProperty_R(${className}, prop1)
+{
+	SetPropAttr(VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(${className}, prop1)
+{
+	//Object_${className} *pObjThis = Object_${className}::GetObject(valueThis);
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of method
+//-----------------------------------------------------------------------------
+// ${moduleName}.${className}#method1()
+Gura_DeclareMethod(${className}, method1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	//DeclareArg(env, "arg1", VTYPE_string);
+	//DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(${className}, method1)
+{
+	//Object_${className} *pThis = Object_${className}::GetObjectThis(arg);
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of class ${moduleName}.${className}
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(${className})
+{
+	// Assignment of property
+	Gura_AssignProperty(${className}, prop1);
+	// Assignment of method
+	Gura_AssignMethod(${className}, method1);
+	// Assignment of value
+	Gura_AssignValue(${className}, Value(Reference()));
+}
+
+Gura_EndModuleScope(${moduleName})
+'''.template()
+
+strHelp = R'''
+Generates skeleton source files for a Gura class.
+usage: genclass.gura class-name
+'''
+
+main() = {
+	if (sys.argv.len() < 2) {
+		sys.stderr.print(strHelp)
+		sys.exit(1)
+	}
+	fields = sys.argv[1].split('.')
+	if (fields.len() != 2) {
+		sys.stderr.println('class name must have a format: module.class')
+		sys.exit(1)
+	}
+	[moduleName, className] = fields
+	fileHdr = 'Class_' + className + '.h'
+	fileSrc = 'Class_' + className + '.cpp'
+	tmpl_fileHdr.render(open(fileHdr, 'w').addcr(false))
+	tmpl_fileSrc.render(open(fileSrc, 'w').addcr(false))
+	R'''
+	Following files were generated.
+	- Source Files: ${fileHdr}, ${fileSrc}
+	'''.template().render(sys.stdout)
+}
+
+main()

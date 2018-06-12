@@ -4,5 +4,5 @@ import(mtp)
 
 testcase {
 	//mtp.test()
-	println(mtp.detectdevices())
+	println(mtp.detect_devices())
 }

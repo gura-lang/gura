@@ -1,9 +1,12 @@
+//=============================================================================
+// Gura class: mtp.storage
+//=============================================================================
 #include "stdafx.h"
 
 Gura_BeginModuleScope(mtp)
 
 //-----------------------------------------------------------------------------
-// Object_storage implementation
+// Implementation of Object_storage
 //-----------------------------------------------------------------------------
 Object_storage::Object_storage(Storage *pStorage) : Object(Gura_UserClass(storage)), _pStorage(pStorage)
 {
@@ -15,9 +18,8 @@ String Object_storage::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for mtp.storage
+// Implementation of class mtp.storage
 //-----------------------------------------------------------------------------
-// implementation of class storage
 Gura_ImplementUserClass(storage)
 {
 	// Assignment of value

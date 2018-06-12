@@ -8,8 +8,8 @@ Gura_BeginModuleBody(mtp)
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
-// mtp.detectdevices() {block?}
-Gura_DeclareFunction(detectdevices)
+// mtp.detect_devices() {block?}
+Gura_DeclareFunction(detect_devices)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -18,7 +18,7 @@ Gura_DeclareFunction(detectdevices)
 		"Detects MTP devices and returns a list of `mtp.device` instances.\n");
 }
 
-Gura_ImplementFunction(detectdevices)
+Gura_ImplementFunction(detect_devices)
 {
 	LIBMTP_raw_device_t *rawDevices = nullptr;
 	int nRawDevices = 0;
@@ -115,7 +115,7 @@ Gura_ModuleEntry()
 	Gura_RealizeAndPrepareUserClass(device, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(storage, env.LookupClass(VTYPE_object));
 	// Assignment of function
-	Gura_AssignFunction(detectdevices);
+	Gura_AssignFunction(detect_devices);
 	Gura_AssignFunction(test);
 	return true;
 }
