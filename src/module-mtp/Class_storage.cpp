@@ -6,6 +6,26 @@
 Gura_BeginModuleScope(mtp)
 
 //-----------------------------------------------------------------------------
+// Storage
+//-----------------------------------------------------------------------------
+Storage::Storage(LIBMTP_devicestorage_t *deviceStorage) : _cntRef(1)
+{
+	_id = deviceStorage->id;
+	_storageType = deviceStorage->StorageType;
+	_filesystemType = deviceStorage->FilesystemType;
+	_acccessCapability = deviceStorage->AccessCapability;
+	_maxCapacity = deviceStorage->MaxCapacity;
+	_freeSpaceInBytes = deviceStorage->FreeSpaceInBytes;
+	_freeSpaceInObjects = deviceStorage->FreeSpaceInObjects;
+	if (deviceStorage->StorageDescription != nullptr) {
+		_storageDescription = deviceStorage->StorageDescription;
+	}
+	if (deviceStorage->VolumeIdentifier != nullptr) {
+		_volumeIdentifier = deviceStorage->VolumeIdentifier;
+	}
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of Object_storage
 //-----------------------------------------------------------------------------
 Object_storage::Object_storage(Storage *pStorage) : Object(Gura_UserClass(storage)), _pStorage(pStorage)
@@ -14,7 +34,10 @@ Object_storage::Object_storage(Storage *pStorage) : Object(Gura_UserClass(storag
 
 String Object_storage::ToString(bool exprFlag)
 {
-	return String("<mtp.storage>");
+	String rtn = "<mtp.storage:";
+	rtn += _pStorage->GetStorageDescription();
+	rtn += ">";
+	return rtn;
 }
 
 //-----------------------------------------------------------------------------

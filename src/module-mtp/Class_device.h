@@ -21,7 +21,31 @@ public:
 protected:
 	~Device();
 public:
-	const char *GetFriendlyName() const;
+	void LookupStorages(Object_list *pObjList) const;
+	inline const char *GetManufacturerName() const { return ::LIBMTP_Get_Manufacturername(_mtpDevice); }
+	inline const char *GetModelName() const { return ::LIBMTP_Get_Modelname(_mtpDevice); }
+	inline const char *GetSerialNumber() const { return ::LIBMTP_Get_Serialnumber(_mtpDevice); }
+	inline const char *GetDeviceVersion() const { return ::LIBMTP_Get_Deviceversion(_mtpDevice); }
+	inline const char *GetFriendlyName() const { return ::LIBMTP_Get_Friendlyname(_mtpDevice); }
+	inline const char *GetSyncPartner() const { return ::LIBMTP_Get_Syncpartner(_mtpDevice); }
+	inline int GetBatteryLevel() const {
+		//int LIBMTP_Get_Batterylevel(LIBMTP_mtpdevice_t *, uint8_t * const, uint8_t * const);
+		return 0;
+	}
+	inline int GetSecureTime() const {
+		//int LIBMTP_Get_Secure_Time(LIBMTP_mtpdevice_t *, char ** const);
+		return 0;
+	}
+	inline int GetDeviceCertificate() const {
+		//int LIBMTP_Get_Device_Certificate(LIBMTP_mtpdevice_t *, char ** const);
+		return 0;
+	}
+	inline int GetSupportedFileTypes() const {
+		//int LIBMTP_Get_Supported_Filetypes(LIBMTP_mtpdevice_t *, uint16_t ** const, uint16_t * const);
+		return 0;
+	}
+	//int LIBMTP_Set_Friendlyname(LIBMTP_mtpdevice_t*, char const * const);
+	//int LIBMTP_Set_Syncpartner(LIBMTP_mtpdevice_t*, char const * const);
 };
 
 //-----------------------------------------------------------------------------
@@ -37,6 +61,7 @@ public:
 public:
 	Object_device(Device *pDevice);
 	virtual String ToString(bool exprFlag);
+	inline const Device *GetDevice() const { return _pDevice.get(); }
 };
 
 Gura_EndModuleScope(mtp)

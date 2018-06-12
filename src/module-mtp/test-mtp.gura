@@ -4,5 +4,8 @@ import(mtp)
 
 testcase {
 	//mtp.test()
-	println(mtp.detect_devices())
+	mtp.detect_devices().each {|device|
+		println(device.friendlyName)
+		println(device.GetStorages())
+	}
 }
