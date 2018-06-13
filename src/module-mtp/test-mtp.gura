@@ -6,6 +6,17 @@ testcase {
 	//mtp.test()
 	mtp.detect_devices().each {|device|
 		println(device.friendlyName)
-		println(device.GetStorages())
+		storages = device.GetStorages()
+		storages.each {|storage|
+			printf('id:                 0x%08x\n', storage.id)
+			printf('storageType:        %s\n', storage.storageType)
+			printf('filesystemType:     %s\n', storage.filesystemType)
+			printf('accessCapability:   %s\n', storage.accessCapability)
+			printf('maxCapacity:        %d\n', storage.maxCapacity)
+			printf('freeSpaceInBytes:   %d\n', storage.freeSpaceInBytes)
+			printf('freeSpaceInObjects: %d\n', storage.freeSpaceInObjects)
+			printf('storageDescription: %s\n', storage.storageDescription)
+			printf('volumeIdentifier:   %s\n', storage.volumeIdentifier)
+		}
 	}
 }

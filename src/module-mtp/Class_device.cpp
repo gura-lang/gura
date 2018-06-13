@@ -21,7 +21,7 @@ void Device::LookupStorages(Object_list *pObjList) const
 {
 	LIBMTP_devicestorage_t *deviceStorage = _mtpDevice->storage;
 	for ( ; deviceStorage != nullptr; deviceStorage = deviceStorage->next) {
-		pObjList->Add(Value(new Object_storage(new Storage(deviceStorage))));
+		pObjList->Add(Value(new Object_storage(new Storage(Reference(), deviceStorage))));
 	}
 }
 

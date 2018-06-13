@@ -111,6 +111,18 @@ Gura_ModuleValidate()
 Gura_ModuleEntry()
 {
 	::LIBMTP_Init();
+	// Realization of symbol
+	Gura_RealizeUserSymbol(Undefined);
+	Gura_RealizeUserSymbol(FixedROM);
+	Gura_RealizeUserSymbol(RemovableROM);
+	Gura_RealizeUserSymbol(FixedRAM);
+	Gura_RealizeUserSymbol(RemovableRAM);
+	Gura_RealizeUserSymbol(GenericFlat);
+	Gura_RealizeUserSymbol(GenericHierarchical);
+	Gura_RealizeUserSymbol(DCF);
+	Gura_RealizeUserSymbol(ReadWrite);
+	Gura_RealizeUserSymbol(ReadOnly);
+	Gura_RealizeUserSymbol(ReadOnlyWithObjectDeletion);
 	// Realization of class
 	Gura_RealizeAndPrepareUserClass(device, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(storage, env.LookupClass(VTYPE_object));
