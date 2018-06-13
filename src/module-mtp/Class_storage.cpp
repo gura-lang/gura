@@ -179,6 +179,26 @@ Gura_ImplementPropertyGetter(storage, volumeIdentifier)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of method
+//-----------------------------------------------------------------------------
+// mtp.storage#opendir(dirname:string) {block?}
+Gura_DeclareMethod(storage, opendir)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "dirname", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(storage, opendir)
+{
+	//const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of Object_storage
 //-----------------------------------------------------------------------------
 Object_storage::Object_storage(Storage *pStorage) : Object(Gura_UserClass(storage)), _pStorage(pStorage)
@@ -208,6 +228,8 @@ Gura_ImplementUserClass(storage)
 	Gura_AssignProperty(storage, freeSpaceInObjects);
 	Gura_AssignProperty(storage, storageDescription);
 	Gura_AssignProperty(storage, volumeIdentifier);
+	// Assignment of method
+	Gura_AssignMethod(storage, opendir);
 	// Assignment of value
 	Gura_AssignValue(storage, Value(Reference()));
 }
