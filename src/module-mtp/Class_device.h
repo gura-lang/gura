@@ -23,6 +23,7 @@ protected:
 public:
 	void LookupStorages(Object_list *pObjList) const;
 	Directory *GenerateDirectory(Signal &sig, uint32_t storageId, const char *pathName) const;
+	inline LIBMTP_mtpdevice_t *GetMtpDevice() const { return _mtpDevice; }
 	inline const char *GetManufacturerName() const { return ::LIBMTP_Get_Manufacturername(_mtpDevice); }
 	inline const char *GetModelName() const { return ::LIBMTP_Get_Modelname(_mtpDevice); }
 	inline const char *GetSerialNumber() const { return ::LIBMTP_Get_Serialnumber(_mtpDevice); }
