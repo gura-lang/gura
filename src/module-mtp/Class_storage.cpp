@@ -181,11 +181,11 @@ Gura_ImplementPropertyGetter(storage, volumeIdentifier)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// mtp.storage#opendir(dirname:string) {block?}
+// mtp.storage#opendir(pathname:string) {block?}
 Gura_DeclareMethod(storage, opendir)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "dirname", VTYPE_string);
+	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -194,8 +194,11 @@ Gura_DeclareMethod(storage, opendir)
 
 Gura_ImplementMethod(storage, opendir)
 {
-	//const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
-	return Value::Nil;
+	const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
+	const char *pathName = arg.GetString(0);
+	AutoPtr<Directory> pDirectory(pStorage->GenerateDirectory(env, pathName));
+	if (pDirectory.IsNull()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_directory(env, pDirectory.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -234,6 +237,9 @@ Gura_ImplementUserClass(storage)
 	Gura_AssignValue(storage, Value(Reference()));
 }
 
+//-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
 const Symbol *StorageTypeToSymbol(uint16_t storageType)
 {
 	return

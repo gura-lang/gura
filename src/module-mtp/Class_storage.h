@@ -39,6 +39,9 @@ public:
 	inline uint64_t GetFreeSpaceInObjects() const { return _freeSpaceInObjects; }
 	inline const char *GetStorageDescription() const { return _storageDescription.c_str(); }
 	inline const char *GetVolumeIdentifier() { return _volumeIdentifier.c_str(); }
+	inline Directory *GenerateDirectory(Signal &sig, const char *pathName) const {
+		return _pDevice->GenerateDirectory(sig, _id, pathName);
+	}
 };
 
 //-----------------------------------------------------------------------------
