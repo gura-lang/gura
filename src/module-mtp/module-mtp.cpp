@@ -126,6 +126,7 @@ Gura_ModuleEntry()
 	// Realization of class
 	Gura_RealizeAndPrepareUserClass(device, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(storage, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(stat, env.LookupClass(VTYPE_object));
 	// Assignment of function
 	Gura_AssignFunction(detect_devices);
 	Gura_AssignFunction(test);

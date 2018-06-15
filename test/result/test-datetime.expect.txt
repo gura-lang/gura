@@ -45,6 +45,10 @@
 datetime(2011, 1, 10, 8, 3, 0, 0, 0).unixtime .. 1294646580
 datetime(2001, 9, 9, 1, 46, 40, 0, 0).unixtime .. 1000000000
 datetime(2009, 2, 13, 23, 31, 30, 0, 0).unixtime .. 1234567890
+datetime(2033, 5, 18, 3, 33, 20, 0, 0).unixtime .. 2000000000
+format('%x', datetime(2038, 1, 19, 3, 14, 7, 0, 0).unixtime) .. 7fffffff
+format('%x', datetime(2038, 1, 19, 3, 14, 8, 0, 0).unixtime) .. 80000000
+format('%x', datetime(2038, 1, 19, 3, 14, 59, 0, 0).unixtime) .. 80000033
 
 ======== #4 datetime.parse() ========
 
@@ -256,3 +260,13 @@ dt.usec = -1 .. ValueError: datetime#usec must be between 0 and 999999 inclusive
 dt.usec = 0 .. 0
 dt.usec = 999999 .. 999999
 dt.usec = 1000000 .. ValueError: datetime#usec must be between 0 and 999999 inclusive
+
+======== #8 datetime.fromunixtime ========
+
+datetime.fromunixtime(1000000000) .. <datetime:2001-09-09T01:46:40Z>
+datetime.fromunixtime(1111111111) .. <datetime:2005-03-18T01:58:31Z>
+datetime.fromunixtime(1234567890) .. <datetime:2009-02-13T23:31:30Z>
+datetime.fromunixtime(2000000000) .. <datetime:2033-05-18T03:33:20Z>
+datetime.fromunixtime(0x7fffffff) .. <datetime:2038-01-19T03:14:07Z>
+datetime.fromunixtime(0x80000000) .. <datetime:2038-01-19T03:14:08Z>
+datetime.fromunixtime(0x80000033) .. <datetime:2038-01-19T03:14:59Z>

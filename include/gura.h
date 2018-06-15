@@ -15,6 +15,7 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <math.h>
+#include <time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 

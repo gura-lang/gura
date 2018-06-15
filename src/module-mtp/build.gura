@@ -12,4 +12,4 @@ if (sys.platform == `mswin) {
 		'-framework', 'IOKit')
 	builder.libs.append(['mtp', 'usb', 'iconv'])
 }
-builder.build('mtp', ['module-mtp.cpp', 'Class_device.cpp', 'Class_storage.cpp'])
+builder.build('mtp', ['module-mtp.cpp', 'Class_device.cpp', 'Class_storage.cpp', 'Class_stat.cpp'])

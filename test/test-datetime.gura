@@ -18,6 +18,10 @@ testcase('unixtime property') {
 	tester(`datetime(2011, 1, 10, 8, 3, 0, 0, 0).unixtime)
 	tester(`datetime(2001, 9, 9, 1, 46, 40, 0, 0).unixtime)
 	tester(`datetime(2009, 2, 13, 23, 31, 30, 0, 0).unixtime)
+	tester(`datetime(2033, 5, 18, 3, 33, 20, 0, 0).unixtime)
+	tester(`format('%x', datetime(2038, 1, 19, 3, 14, 7, 0, 0).unixtime))
+	tester(`format('%x', datetime(2038, 1, 19, 3, 14, 8, 0, 0).unixtime))
+	tester(`format('%x', datetime(2038, 1, 19, 3, 14, 59, 0, 0).unixtime))
 }
 testcase('datetime.parse()') {
 	tester(`datetime.parse('Sun, 06 Nov 1994 08:49:37 -0900'))
@@ -137,4 +141,13 @@ testcase('property set') {
 	tester(`(dt.usec = 0))
 	tester(`(dt.usec = 999999))
 	tester(`(dt.usec = 1000000))
+}
+testcase('datetime.fromunixtime') {
+	tester(`datetime.fromunixtime(1000000000))
+	tester(`datetime.fromunixtime(1111111111))
+	tester(`datetime.fromunixtime(1234567890))
+	tester(`datetime.fromunixtime(2000000000))
+	tester(`datetime.fromunixtime(0x7fffffff))
+	tester(`datetime.fromunixtime(0x80000000))
+	tester(`datetime.fromunixtime(0x80000033))
 }

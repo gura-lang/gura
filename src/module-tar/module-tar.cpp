@@ -101,19 +101,19 @@ bool Header::SetRawHeader(Signal &sig, const star_header &rawHdr)
 	_size = OctetToUInt32(sig, rawHdr.size, sizeof(rawHdr.size));
 	if (sig.IsSignalled()) return false;
 	do {
-		UInt32 num = OctetToUInt32(sig, rawHdr.mtime, sizeof(rawHdr.mtime));
+		time_t time = static_cast<time_t>(OctetToUInt64(sig, rawHdr.mtime, sizeof(rawHdr.mtime)));
 		if (sig.IsSignalled()) return false;
-		_mtime.SetUnixTime(num);
+		_mtime = DateTime(&time);
 	} while (0);
 	do {
-		UInt32 num = OctetToUInt32(sig, rawHdr.atime, sizeof(rawHdr.atime));
+		time_t time = static_cast<time_t>(OctetToUInt64(sig, rawHdr.atime, sizeof(rawHdr.atime)));
 		if (sig.IsSignalled()) return false;
-		_atime.SetUnixTime(num);
+		_atime = DateTime(&time);
 	} while (0);
 	do {
-		UInt32 num = OctetToUInt32(sig, rawHdr.ctime, sizeof(rawHdr.ctime));
+		time_t time = static_cast<time_t>(OctetToUInt64(sig, rawHdr.ctime, sizeof(rawHdr.ctime)));
 		if (sig.IsSignalled()) return false;
-		_ctime.SetUnixTime(num);
+		_ctime = DateTime(&time);
 	} while (0);
 	_chksum = OctetToUInt32(sig, rawHdr.chksum, sizeof(rawHdr.chksum));
 	if (sig.IsSignalled()) return false;
@@ -135,7 +135,7 @@ void Header::ComposeHeaderBlock(void *memBlock) const
 	::sprintf(rawHdr.gid,			"%06o ", _gid);
 	::sprintf(rawHdr.size,			"%11o", static_cast<UInt32>(_size));
 	rawHdr.size[11] = ' ';
-	::sprintf(rawHdr.mtime,			"%11o", _mtime.GetUnixTime());
+	::sprintf(rawHdr.mtime,			"%11llo", static_cast<UInt64>(_mtime.GetUnixTime()));
 	rawHdr.mtime[11] = ' ';
 	::memset(rawHdr.chksum,			' ', 8);
 	rawHdr.typeflag = _typeflag;
@@ -1216,9 +1216,9 @@ Directory *CreateDirectory(Environment &env, Stream *pStreamSrc,
 	return pStructure->GenerateDirectory(env, pParent, pPathName, notFoundMode);
 }
 
-UInt32 OctetToUInt32(Signal &sig, const char *octet, size_t len)
+UInt64 OctetToUInt64(Signal &sig, const char *octet, size_t len)
 {
-	UInt32 num = 0;
+	UInt64 num = 0;
 	for (const char *p = octet; len > 0; len--, p++) {
 		char ch = *p;
 		if (ch == '\0') break;

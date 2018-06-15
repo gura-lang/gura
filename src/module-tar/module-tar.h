@@ -36,7 +36,10 @@ Stream *DecorateWriterStream(Environment &env, Stream *pStreamDst,
 						const char *name, CompressionType compressionType);
 Directory *CreateDirectory(Environment &env, Stream *pStreamSrc,
 						   Directory *pParent, const char **pPathName, PathMgr::NotFoundMode notFoundMode);
-UInt32 OctetToUInt32(Signal &sig, const char *octet, size_t len);
+UInt64 OctetToUInt64(Signal &sig, const char *octet, size_t len);
+inline UInt32 OctetToUInt32(Signal &sig, const char *octet, size_t len) {
+	return static_cast<UInt32>(OctetToUInt64(sig, octet, len));
+}
 
 CompressionType SymbolToCompressionType(const Symbol *pSymbol);
 

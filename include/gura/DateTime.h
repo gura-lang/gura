@@ -61,6 +61,7 @@ public:
 	inline DateTime(const DateTime &dt) :
 			_year(dt._year), _month(dt._month), _day(dt._day),
 			_sec(dt._sec), _usec(dt._usec), _tz(dt._tz) {}
+	DateTime(const time_t *timep);
 	DateTime &operator=(const DateTime &dt) {
 		_year = dt._year, _month = dt._month, _day = dt._day;
 		_sec = dt._sec, _usec = dt._usec;
@@ -107,8 +108,7 @@ public:
 	String GetTZOffsetStr(bool colonFlag) const;
 	void Plus(const TimeDelta &td);
 	void Minus(const TimeDelta &td);
-	void SetUnixTime(UInt32 time);
-	UInt32 GetUnixTime() const;
+	time_t GetUnixTime() const;
 	DateTime ToUTC() const;
 	TimeDelta Minus(const DateTime &dt) const;
 	static inline bool IsLeapYear(Int16 year) {

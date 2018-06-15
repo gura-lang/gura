@@ -46,6 +46,18 @@ int TimeDelta::Compare(const TimeDelta &td1, const TimeDelta &td2)
 //-----------------------------------------------------------------------------
 // DateTime
 //-----------------------------------------------------------------------------
+DateTime::DateTime(const time_t *timep)
+{
+	struct tm *tmp = ::gmtime(timep);
+	_year = tmp->tm_year + 1900;
+	_month = tmp->tm_mon + 1;
+	_day = tmp->tm_mday;
+	_sec = tmp->tm_hour * 3600 + tmp->tm_min * 60 + tmp->tm_sec;
+	_usec = 0;
+	_tz.validFlag = true;
+	_tz.secsOffset = 0;
+}
+
 String DateTime::GetTZOffsetStr(bool colonFlag) const
 {
 	if (!HasTZOffset()) return String("");
@@ -122,19 +134,11 @@ TimeDelta DateTime::Minus(const DateTime &dt) const
 	return TimeDelta(daysDiff, secsDiff, usecsDiff);
 }
 
-void DateTime::SetUnixTime(UInt32 time)
+time_t DateTime::GetUnixTime() const
 {
-	*this = DateTime(1970, 1, 1, 0, 0, 0);
-	const int secsPerDay = 3600 * 24;
-	Plus(TimeDelta(static_cast<Int32>(time / secsPerDay),
-								static_cast<Int32>(time % secsPerDay), 0));
-}
-
-UInt32 DateTime::GetUnixTime() const
-{
-	DateTime dtOrg(1970, 1, 1, 0, 0, 0);
-	TimeDelta td = Minus(dtOrg);
-	return td.GetSecsRaw() + td.GetDays() * 3600 * 24;
+	// Being affected by the system's timezone, you can't use mktime() for this purpose.
+	TimeDelta td = ToUTC().Minus(DateTime(1970, 1, 1, 0, 0, 0));
+	return static_cast<time_t>(static_cast<UInt64>(td.GetDays()) * 3600 * 24 + td.GetSecsRaw());
 }
 
 DateTime DateTime::ToUTC() const

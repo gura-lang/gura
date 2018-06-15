@@ -29,7 +29,7 @@ public:
 //-----------------------------------------------------------------------------
 Directory_MTP::Directory_MTP(Directory *pParent, const char *name, Type type,
 							 Device *pDevice, uint32_t storageId, uint32_t itemId) :
-	Directory(pParent, name, type, OAL::FileSeparator),
+	Directory(pParent, name, type, OAL::FileSeparatorUnix),
 	_pDevice(pDevice), _storageId(storageId), _itemId(itemId),
 	_fileInfo(nullptr), _fileInfoHead(nullptr)
 {
@@ -47,7 +47,6 @@ Directory_MTP::~Directory_MTP()
 
 Directory *Directory_MTP::DoNext(Environment &env)
 {
-	::printf("DoNext()\n");
 	if (_fileInfoHead == nullptr) {
 		_fileInfoHead = ::LIBMTP_Get_Files_And_Folders(_pDevice->GetMtpDevice(), _storageId, _itemId);
 		_fileInfo = _fileInfoHead;
@@ -113,8 +112,7 @@ Directory *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const char
 		fileInfo = fileInfoNext;
 	}
 #endif
-	::printf("GenerateDirectory()\n");
-	return new Directory_MTP(nullptr, "", Directory::TYPE_Container,
+	return new Directory_MTP(nullptr, "/", Directory::TYPE_Container,
 							 Reference(), storageId, LIBMTP_FILES_AND_FOLDERS_ROOT);
 }
 

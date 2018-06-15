@@ -17,7 +17,7 @@ testcase {
 			printf('freeSpaceInObjects: %d\n', storage.freeSpaceInObjects)
 			printf('storageDescription: %s\n', storage.storageDescription)
 			printf('volumeIdentifier:   %s\n', storage.volumeIdentifier)
-			path.dir(storage.opendir('/'))
+			println(path.walk(storage.opendir('/')))
 		}
 	}
 }

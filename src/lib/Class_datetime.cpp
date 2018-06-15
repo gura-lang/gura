@@ -361,7 +361,7 @@ Gura_DeclareProperty_R(datetime, unixtime)
 Gura_ImplementPropertyGetter(datetime, unixtime)
 {
 	const DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
-	return Value(static_cast<Number>(dateTime.GetUnixTime()));
+	return Value(static_cast<UInt64>(dateTime.GetUnixTime()));
 }
 
 //-----------------------------------------------------------------------------
@@ -466,6 +466,26 @@ Gura_ImplementMethod(datetime, format)
 	}
 	SetError_InvalidValType(sig, arg.GetValue(0));
 	return Value::Nil;
+}
+
+// datetime.fromunixtime(unixtime:number) {block?}
+Gura_DeclareClassMethod(datetime, fromunixtime)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "unixtime", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates a `datetime` instance from a unix-time.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("dt", "datetime"));
+}
+
+Gura_ImplementClassMethod(datetime, fromunixtime)
+{
+	time_t time = static_cast<time_t>(arg.GetUInt64(0));
+	DateTime dateTime(&time);
+	return ReturnValue(env, arg, Value(new Object_datetime(env, dateTime)));
 }
 
 // datetime.isleap(year:number):map
@@ -696,6 +716,7 @@ void Class_datetime::DoPrepare(Environment &env)
 	// Assignment of methods
 	Gura_AssignMethod(datetime, clrtzoff);
 	Gura_AssignMethod(datetime, format);
+	Gura_AssignMethod(datetime, fromunixtime);
 	Gura_AssignMethod(datetime, isleap);
 	Gura_AssignMethod(datetime, monthdays);
 	Gura_AssignMethod(datetime, now);

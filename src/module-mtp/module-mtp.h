@@ -7,6 +7,7 @@
 #include <libmtp.h>
 #include "Class_device.h"
 #include "Class_storage.h"
+#include "Class_stat.h"
 
 Gura_BeginModuleHeader(mtp)
 
