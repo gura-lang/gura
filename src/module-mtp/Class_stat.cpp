@@ -10,10 +10,14 @@ Gura_BeginModuleScope(mtp)
 //-----------------------------------------------------------------------------
 Stat::Stat(const LIBMTP_file_t *fileInfo) : _cntRef(1),
 	_fileName(fileInfo->filename), _fileSize(fileInfo->filesize),
-	_dtModification(fileInfo->)
-	_fileType(fileInfo->filetype)
+	_dtModification(&fileInfo->modificationdate), _fileType(fileInfo->filetype)
 {
-	
+}
+
+Stat::Stat(const char *fileName, size_t fileSize, const DateTime &dtModification, LIBMTP_filetype_t fileType) :
+	_fileName(fileName), _fileSize(fileSize),
+	_dtModification(dtModification), _fileType(fileType)
+{
 }
 
 //-----------------------------------------------------------------------------
@@ -26,6 +30,7 @@ Object_stat::Object_stat(Stat *pStat) : Object(Gura_UserClass(stat)), _pStat(pSt
 String Object_stat::ToString(bool exprFlag)
 {
 	String rtn = "<mtp.stat:";
+	rtn += _pStat->GetFileName();
 	rtn += ">";
 	return rtn;
 }
@@ -33,8 +38,40 @@ String Object_stat::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of property
 //-----------------------------------------------------------------------------
-// mtp.stat#prop1
-Gura_DeclareProperty_R(stat, prop1)
+// mtp.stat#filename
+Gura_DeclareProperty_R(stat, filename)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, filename)
+{
+	const Stat *pStat = Object_stat::GetObject(valueThis)->GetStat();
+	return Value(pStat->GetFileName());
+}
+
+// mtp.stat#mtime
+Gura_DeclareProperty_R(stat, mtime)
+{
+	SetPropAttr(VTYPE_datetime);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, mtime)
+{
+	const Stat *pStat = Object_stat::GetObject(valueThis)->GetStat();
+	return Value(new Object_datetime(env, pStat->GetDtModification()));
+}
+
+// mtp.stat#size
+Gura_DeclareProperty_R(stat, size)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -43,10 +80,10 @@ Gura_DeclareProperty_R(stat, prop1)
 		);
 }
 
-Gura_ImplementPropertyGetter(stat, prop1)
+Gura_ImplementPropertyGetter(stat, size)
 {
-	//Object_stat *pObjThis = Object_stat::GetObject(valueThis);
-	return Value::Nil;
+	const Stat *pStat = Object_stat::GetObject(valueThis)->GetStat();
+	return Value(pStat->GetFileSize());
 }
 
 //-----------------------------------------------------------------------------
@@ -75,7 +112,9 @@ Gura_ImplementMethod(stat, method1)
 Gura_ImplementUserClass(stat)
 {
 	// Assignment of property
-	Gura_AssignProperty(stat, prop1);
+	Gura_AssignProperty(stat, filename);
+	Gura_AssignProperty(stat, mtime);
+	Gura_AssignProperty(stat, size);
 	// Assignment of method
 	Gura_AssignMethod(stat, method1);
 	// Assignment of value

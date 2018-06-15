@@ -21,6 +21,13 @@ public:
 	Gura_DeclareReferenceAccessor(Stat);
 public:
 	Stat(const LIBMTP_file_t *fileInfo);
+	Stat(const char *fileName, size_t fileSize, const DateTime &dtModification, LIBMTP_filetype_t fileType);
+protected:
+	inline ~Stat() {}
+public:
+	inline const char *GetFileName() const { return _fileName.c_str(); }
+	inline size_t GetFileSize() const { return _fileSize; }
+	const DateTime &GetDtModification() const { return _dtModification; }
 };
 
 //-----------------------------------------------------------------------------
@@ -36,6 +43,7 @@ public:
 public:
 	Object_stat(Stat *pStat);
 	virtual String ToString(bool exprFlag);
+	inline Stat *GetStat() const { return _pStat.get(); }
 };
 
 Gura_EndModuleScope(mtp)
