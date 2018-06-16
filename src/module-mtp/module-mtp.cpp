@@ -137,6 +137,18 @@ Gura_ModuleTerminate()
 {
 }
 
+//-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
+void DestroyFileInfoList(LIBMTP_file_t *fileInfo)
+{
+	while (fileInfo != nullptr) {
+		LIBMTP_file_t *fileInfoNext = fileInfo->next;
+		::LIBMTP_destroy_file_t(fileInfo);
+		fileInfo = fileInfoNext;
+	}
+}
+
 Gura_EndModuleBody(mtp, mtp)
 
 Gura_RegisterModule(mtp)

@@ -7,7 +7,9 @@ testcase {
 	mtp.detect_devices().each {|device|
 		println(device.friendlyName)
 		storages = device.GetStorages()
+		println('-----')
 		storages.each {|storage|
+			/*
 			printf('id:                 0x%08x\n', storage.id)
 			printf('storageType:        %s\n', storage.storageType)
 			printf('filesystemType:     %s\n', storage.filesystemType)
@@ -17,7 +19,8 @@ testcase {
 			printf('freeSpaceInObjects: %d\n', storage.freeSpaceInObjects)
 			printf('storageDescription: %s\n', storage.storageDescription)
 			printf('volumeIdentifier:   %s\n', storage.volumeIdentifier)
-			stats = path.dir(storage.opendir('/')):stat
+			*/
+			stats = path.dir(storage.opendir('/DCIM/Camera/cache')):stat
 			printf('%-32s %s %d\n', stats:*filename, stats:*mtime, stats:*size);
 		}
 	}
