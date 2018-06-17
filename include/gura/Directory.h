@@ -76,7 +76,8 @@ public:
 	};
 protected:
 	int _cntRef;
-	Directory *_pParent;
+	AutoPtr<Directory> _pParent;
+	bool _ownParentFlag;
 	String _name;
 	Type _type;
 	char _chSeparator;
@@ -88,7 +89,7 @@ public:
 	Directory(Directory *pParent, const char *name, Type type, char chSeparator);
 	Directory(const Directory &directory);
 	inline const char *GetName() const { return _name.c_str(); }
-	inline Directory *GetParent() const { return _pParent; }
+	inline Directory *GetParent() const { return _pParent.get(); }
 	inline char GetSeparator() const { return _chSeparator; }
 	inline bool IsBoundaryContainer() const {
 		return _type == TYPE_BoundaryContainer;

@@ -13,8 +13,8 @@ Directory::Directory(Directory *pParent, const char *name, Type type, char chSep
 {
 }
 
-Directory::Directory(const Directory &directory) : _cntRef(1),
-	_pParent(Directory::Reference(directory._pParent)), _name(directory._name),
+Directory::Directory(const Directory &directory) :
+	_cntRef(1), _pParent(directory.GetParent()), _name(directory._name),
 	_type(directory._type), _chSeparator(directory._chSeparator)
 {
 }
