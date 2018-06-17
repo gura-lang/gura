@@ -361,6 +361,10 @@ Gura_DeclareProperty_R(datetime, unixtime)
 Gura_ImplementPropertyGetter(datetime, unixtime)
 {
 	const DateTime &dateTime = Object_datetime::GetObject(valueThis)->GetDateTime();
+	if (!dateTime.HasValidUnixTime()) {
+		env.SetError(ERR_ValueError, "can't calculate UNIX time");
+		return Value::Nil;
+	}
 	return Value(static_cast<UInt64>(dateTime.GetUnixTime()));
 }
 

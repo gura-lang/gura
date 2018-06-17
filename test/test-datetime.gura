@@ -15,6 +15,10 @@ testcase('subtraction between datetime instances') {
 	println(datetime(2000..2009, 1, 1) - datetime(2000, 1, 1))
 }
 testcase('unixtime property') {
+	tester(`datetime(1969, 12, 31, 23, 59, 59, 0, 0).unixtime)
+	tester(`datetime(1970, 1, 1, 0, 0, 0, 0, 0).unixtime)
+	tester(`datetime(1970, 1, 1, 0, 0, 1, 0, 0).unixtime)
+	tester(`datetime(1970, 1, 1, 0, 0, 59, 0, 0).unixtime)
 	tester(`datetime(2011, 1, 10, 8, 3, 0, 0, 0).unixtime)
 	tester(`datetime(2001, 9, 9, 1, 46, 40, 0, 0).unixtime)
 	tester(`datetime(2009, 2, 13, 23, 31, 30, 0, 0).unixtime)

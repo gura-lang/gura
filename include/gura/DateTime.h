@@ -108,6 +108,7 @@ public:
 	String GetTZOffsetStr(bool colonFlag) const;
 	void Plus(const TimeDelta &td);
 	void Minus(const TimeDelta &td);
+	bool HasValidUnixTime() const;
 	time_t GetUnixTime() const;
 	DateTime ToUTC() const;
 	TimeDelta Minus(const DateTime &dt) const;

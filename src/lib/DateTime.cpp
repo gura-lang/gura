@@ -134,6 +134,11 @@ TimeDelta DateTime::Minus(const DateTime &dt) const
 	return TimeDelta(daysDiff, secsDiff, usecsDiff);
 }
 
+bool DateTime::HasValidUnixTime() const
+{
+	return _year >= 1970;
+}
+
 time_t DateTime::GetUnixTime() const
 {
 	// Being affected by the system's timezone, you can't use mktime() for this purpose.
