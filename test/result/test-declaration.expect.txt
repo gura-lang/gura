@@ -676,6 +676,7 @@ datetime
   Wednesday:number = 3
   datetime#clrtzoff():reduce
   datetime#format(format => `w3c)
+  datetime.fromunixtime(unixtime:number):static {block?}
   datetime.isleap(year:number):static:map
   datetime.monthdays(year:number, month:number):static:map {block?}
   datetime.now():static:[utc] {block?}
