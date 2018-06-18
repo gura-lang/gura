@@ -84,54 +84,37 @@ public:
 //-----------------------------------------------------------------------------
 // Downloader
 //-----------------------------------------------------------------------------
-class Downloader {
+class Downloader : public OAL::Thread {
 private:
 	Signal &_sig;
+	String _uri;
 	AutoPtr<Stream> _pStream;
 public:
-	Downloader(Signal &sig, Stream *pStream);
+	Downloader(Signal &sig, const String &uri, Stream *pStream);
 	size_t OnWrite(char *buffer, size_t size, size_t nitems);
 	static size_t OnWriteStub(char *buffer, size_t size, size_t nitems, void *outstream);
+	virtual void Run();
 };
 
 //-----------------------------------------------------------------------------
 // Uploader
 //-----------------------------------------------------------------------------
-class Uploader {
+class Uploader : public OAL::Thread {
 private:
 	Signal &_sig;
+	String _uri;
 	AutoPtr<Stream> _pStream;
 public:
-	Uploader(Signal &sig, Stream *pStream);
+	Uploader(Signal &sig, const String &uri, Stream *pStream);
 	size_t OnRead(char *buffer, size_t size, size_t nitems);
 	static size_t OnReadStub(char *buffer, size_t size, size_t nitems, void *instream);
+	virtual void Run();
 };
 
 //-----------------------------------------------------------------------------
 // Directory_cURL declaration
 //-----------------------------------------------------------------------------
 class Directory_cURL : public Directory {
-public:
-	class ThreadDownload : public OAL::Thread {
-	private:
-		Signal &_sig;
-		String _name;
-		AutoPtr<StreamFIFO> _pStreamFIFO;
-	public:
-		inline ThreadDownload(Signal &sig, const String &name, StreamFIFO *pStreamFIFO) :
-						_sig(sig), _name(name), _pStreamFIFO(pStreamFIFO) {}
-		virtual void Run();
-	};
-	class ThreadUpload : public OAL::Thread {
-	private:
-		Signal &_sig;
-		String _name;
-		AutoPtr<StreamFIFO> _pStreamFIFO;
-	public:
-		inline ThreadUpload(Signal &sig, const String &name, StreamFIFO *pStreamFIFO) :
-						_sig(sig), _name(name), _pStreamFIFO(pStreamFIFO) {}
-		virtual void Run();
-	};
 private:
 	AutoPtr<Fileinfo> _pFileinfo;	// this may be nullptr
 	std::unique_ptr<FileinfoOwner> _pFileinfoOwner;
