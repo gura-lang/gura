@@ -84,6 +84,59 @@ Directory *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const char
 }
 
 //-----------------------------------------------------------------------------
+// Downloader
+//-----------------------------------------------------------------------------
+class Downloader : public OAL::Thread {
+private:
+	Signal &_sig;
+	AutoPtr<Device> _pDevice;
+	uint32_t _itemId;
+	AutoPtr<Stream> _pStream;
+public:
+	Downloader(Signal &sig, Device *pDevice, uint32_t itemId, Stream *pStream);
+	uint16_t OnWrite(void *params, uint32_t sendlen, unsigned char *data, uint32_t *putlen);
+	size_t OnWrite(char *buffer, size_t size, size_t nitems);
+	static uint16_t OnWriteStub(void *params, void *priv,
+								uint32_t sendlen, unsigned char *data, uint32_t *putlen);
+	virtual void Run();
+};
+
+//-----------------------------------------------------------------------------
+// Downloader
+//-----------------------------------------------------------------------------
+Downloader::Downloader(Signal &sig, Device *pDevice, uint32_t itemId, Stream *pStream) :
+	_sig(sig), _pDevice(pDevice), _itemId(itemId), _pStream(pStream)
+{
+}
+
+uint16_t Downloader::OnWrite(void *params, uint32_t sendlen, unsigned char *data, uint32_t *putlen)
+{
+	//::printf("OnWrite(%d)\n", nitems);
+	*putlen = static_cast<uint32_t>(_pStream->Write(_sig, data, sendlen));
+	return _sig.IsSignalled()? LIBMTP_HANDLER_RETURN_ERROR : LIBMTP_HANDLER_RETURN_OK;
+}
+
+uint16_t Downloader::OnWriteStub(void *params, void *priv,
+								 uint32_t sendlen, unsigned char *data, uint32_t *putlen)
+{
+	Downloader *pDownloader = reinterpret_cast<Downloader *>(priv);
+	return pDownloader->OnWrite(params, sendlen, data, putlen);
+}
+
+void Downloader::Run()
+{
+	/*
+	int LIBMTP_Get_File_To_Handler(LIBMTP_mtpdevice_t *,
+			       uint32_t const,
+			       MTPDataPutFunc,
+			       void *,
+			       LIBMTP_progressfunc_t const,
+			       void const * const);
+	*/
+	::LIBMTP_Get_File_To_Handler(_pDevice->GetMtpDevice(), _itemId, OnWriteStub, this, nullptr, nullptr);
+}
+
+//-----------------------------------------------------------------------------
 // Directory_MTP implementation
 //-----------------------------------------------------------------------------
 Directory_MTP::Directory_MTP(Directory *pParent, const char *name, Type type,
@@ -118,7 +171,11 @@ Directory *Directory_MTP::DoNext(Environment &env)
 
 Stream *Directory_MTP::DoOpenStream(Environment &env, UInt32 attr)
 {
-	return nullptr;
+	AutoPtr<StreamFIFO> pStreamFIFO(new StreamFIFO(env, 65536));
+	AutoPtr<StreamFIFO> pStreamFIFORtn(new StreamFIFO(env, pStreamFIFO->GetEntity()->Reference()));
+	OAL::Thread *pThread = new Downloader(env, _pDevice->Reference(), _itemId, pStreamFIFO.release());
+	pThread->Start();
+	return pStreamFIFORtn.release();
 }
 
 Object *Directory_MTP::DoGetStatObj(Signal &sig)
