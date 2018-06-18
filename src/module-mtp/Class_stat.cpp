@@ -76,6 +76,22 @@ Gura_ImplementPropertyGetter(stat, filename)
 	return Value(pStat->GetFileName());
 }
 
+// mtp.stat#isdir
+Gura_DeclareProperty_R(stat, isdir)
+{
+	SetPropAttr(VTYPE_boolean);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, isdir)
+{
+	const Stat *pStat = Object_stat::GetObject(valueThis)->GetStat();
+	return Value(pStat->IsFolder());
+}
+
 // mtp.stat#mtime
 Gura_DeclareProperty_R(stat, mtime)
 {
@@ -152,6 +168,7 @@ Gura_ImplementUserClass(stat)
 	// Assignment of property
 	Gura_AssignProperty(stat, dirname);
 	Gura_AssignProperty(stat, filename);
+	Gura_AssignProperty(stat, isdir);
 	Gura_AssignProperty(stat, mtime);
 	Gura_AssignProperty(stat, pathname);
 	Gura_AssignProperty(stat, size);

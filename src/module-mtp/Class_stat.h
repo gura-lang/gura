@@ -30,7 +30,7 @@ public:
 	inline const char *GetDirName() const { return _dirName.c_str(); }
 	inline const char *GetFileName() const { return _fileName.c_str(); }
 	inline size_t GetFileSize() const { return _fileSize; }
-	inline bool IsContainer() const { return _fileType == LIBMTP_FILETYPE_FOLDER; }
+	inline bool IsFolder() const { return _fileType == LIBMTP_FILETYPE_FOLDER; }
 	const DateTime &GetDtModification() const { return _dtModification; }
 	String MakePathName() const;
 };
