@@ -230,6 +230,7 @@ ln -sf ../libusb-1.0.22/libusb include/libusb
 ln -sf ../libusb-1.0.22/libusb/.libs/libusb-1.0.a lib/libusb.a
 #---------------------------------------------------------------------------
 tar xfz libmtp-1.1.15.tar.gz
+tar xfz libmtp-1.1.15-gurapatch.tar.gz
 pushd libmtp-1.1.15
 ./configure LIBUSB_CFLAGS=-I`pwd`/../libusb-1.0.22/libusb LIBUSB_LIBS="-L`pwd`/../libusb-1.0.22/libusb/.libs -lusb-1.0"
 make
