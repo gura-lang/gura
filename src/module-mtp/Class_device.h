@@ -51,6 +51,30 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Directory_MTP declaration
+//-----------------------------------------------------------------------------
+class Directory_MTP : public Directory {
+private:
+	AutoPtr<Device> _pDevice;
+	uint32_t _storageId;
+	uint32_t _itemId;
+	AutoPtr<Stat> _pStat;
+	struct {
+		LIBMTP_file_t *fileInfoHead;
+		LIBMTP_file_t *fileInfo;
+	} _browsePack;
+public:
+	Directory_MTP(Directory *pParent, const char *name, Type type,
+				  Device *pDevice, uint32_t storageId, uint32_t itemId, Stat *pStat);
+	virtual ~Directory_MTP();
+	virtual Directory *DoNext(Environment &env);
+	virtual Stream *DoOpenStream(Environment &env, UInt32 attr);
+	virtual Object *DoGetStatObj(Signal &sig);
+	inline uint32_t GetItemId() const { return _itemId; }
+	inline Stat *GetStat() const { return _pStat.get(); }
+};
+
+//-----------------------------------------------------------------------------
 // Object_device declaration
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(device);

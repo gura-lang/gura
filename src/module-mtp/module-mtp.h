@@ -5,9 +5,9 @@
 #define __GURA_MODULE_MTP_H__
 #include <gura.h>
 #include <libmtp.h>
+#include "Class_stat.h"
 #include "Class_device.h"
 #include "Class_storage.h"
-#include "Class_stat.h"
 
 Gura_BeginModuleHeader(mtp)
 

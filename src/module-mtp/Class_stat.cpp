@@ -8,16 +8,22 @@ Gura_BeginModuleScope(mtp)
 //-----------------------------------------------------------------------------
 // Stat
 //-----------------------------------------------------------------------------
-Stat::Stat(const LIBMTP_file_t *fileInfo) : _cntRef(1),
-	_fileName(fileInfo->filename), _fileSize(fileInfo->filesize),
+Stat::Stat(const char *dirName, const LIBMTP_file_t *fileInfo) :
+	_cntRef(1), _dirName(dirName), _fileName(fileInfo->filename), _fileSize(fileInfo->filesize),
 	_dtModification(&fileInfo->modificationdate), _fileType(fileInfo->filetype)
 {
 }
 
-Stat::Stat(const char *fileName, size_t fileSize, const DateTime &dtModification, LIBMTP_filetype_t fileType) :
-	_fileName(fileName), _fileSize(fileSize),
+Stat::Stat(const char *dirName, const char *fileName, size_t fileSize,
+		   const DateTime &dtModification, LIBMTP_filetype_t fileType) :
+	_cntRef(1), _dirName(dirName), _fileName(fileName), _fileSize(fileSize),
 	_dtModification(dtModification), _fileType(fileType)
 {
+}
+
+String Stat::MakePathName() const
+{
+	return OAL::JoinPathName(GetDirName(), GetFileName());
 }
 
 //-----------------------------------------------------------------------------
@@ -38,6 +44,22 @@ String Object_stat::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of property
 //-----------------------------------------------------------------------------
+// mtp.stat#dirname
+Gura_DeclareProperty_R(stat, dirname)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, dirname)
+{
+	const Stat *pStat = Object_stat::GetObject(valueThis)->GetStat();
+	return Value(pStat->GetDirName());
+}
+
 // mtp.stat#filename
 Gura_DeclareProperty_R(stat, filename)
 {
@@ -68,6 +90,22 @@ Gura_ImplementPropertyGetter(stat, mtime)
 {
 	const Stat *pStat = Object_stat::GetObject(valueThis)->GetStat();
 	return Value(new Object_datetime(env, pStat->GetDtModification()));
+}
+
+// mtp.stat#pathname
+Gura_DeclareProperty_R(stat, pathname)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(stat, pathname)
+{
+	const Stat *pStat = Object_stat::GetObject(valueThis)->GetStat();
+	return Value(pStat->MakePathName());
 }
 
 // mtp.stat#size
@@ -112,8 +150,10 @@ Gura_ImplementMethod(stat, method1)
 Gura_ImplementUserClass(stat)
 {
 	// Assignment of property
+	Gura_AssignProperty(stat, dirname);
 	Gura_AssignProperty(stat, filename);
 	Gura_AssignProperty(stat, mtime);
+	Gura_AssignProperty(stat, pathname);
 	Gura_AssignProperty(stat, size);
 	// Assignment of method
 	Gura_AssignMethod(stat, method1);

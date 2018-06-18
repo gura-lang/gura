@@ -6,71 +6,6 @@
 Gura_BeginModuleScope(mtp)
 
 //-----------------------------------------------------------------------------
-// Directory_MTP declaration
-//-----------------------------------------------------------------------------
-class Directory_MTP : public Directory {
-private:
-	AutoPtr<Device> _pDevice;
-	uint32_t _storageId;
-	uint32_t _itemId;
-	AutoPtr<Stat> _pStat;
-	struct {
-		LIBMTP_file_t *fileInfoHead;
-		LIBMTP_file_t *fileInfo;
-	} _browsePack;
-public:
-	Directory_MTP(Directory *pParent, const char *name, Type type,
-				  Device *pDevice, uint32_t storageId, uint32_t itemId, Stat *pStat);
-	virtual ~Directory_MTP();
-	virtual Directory *DoNext(Environment &env);
-	virtual Stream *DoOpenStream(Environment &env, UInt32 attr);
-	virtual Object *DoGetStatObj(Signal &sig);
-	inline uint32_t GetItemId() const { return _itemId; }
-};
-
-//-----------------------------------------------------------------------------
-// Directory_MTP implementation
-//-----------------------------------------------------------------------------
-Directory_MTP::Directory_MTP(Directory *pParent, const char *name, Type type,
-							 Device *pDevice, uint32_t storageId, uint32_t itemId, Stat *pStat) :
-	Directory(pParent, name, type, OAL::FileSeparatorUnix),
-	_pDevice(pDevice), _storageId(storageId), _itemId(itemId), _pStat(pStat)
-{
-	_browsePack.fileInfoHead = nullptr;
-	_browsePack.fileInfo = nullptr;
-}
-
-Directory_MTP::~Directory_MTP()
-{
-	DestroyFileInfoList(_browsePack.fileInfoHead);
-}
-
-Directory *Directory_MTP::DoNext(Environment &env)
-{
-	if (_browsePack.fileInfoHead == nullptr) {
-		_browsePack.fileInfoHead = ::LIBMTP_Get_Files_And_Folders(_pDevice->GetMtpDevice(), _storageId, _itemId);
-		_browsePack.fileInfo = _browsePack.fileInfoHead;
-	} else {
-		_browsePack.fileInfo = _browsePack.fileInfo->next;
-	}
-	if (_browsePack.fileInfo == nullptr) return nullptr;
-	Type type = (_browsePack.fileInfo->filetype == LIBMTP_FILETYPE_FOLDER)? TYPE_Container : TYPE_Item;
-	return new Directory_MTP(
-		Reference(), _browsePack.fileInfo->filename, type,
-		_pDevice->Reference(), _storageId, _browsePack.fileInfo->item_id, new Stat(_browsePack.fileInfo));
-}
-
-Stream *Directory_MTP::DoOpenStream(Environment &env, UInt32 attr)
-{
-	return nullptr;
-}
-
-Object *Directory_MTP::DoGetStatObj(Signal &sig)
-{
-	return new Object_stat(_pStat->Reference());
-}
-
-//-----------------------------------------------------------------------------
 // Device
 //-----------------------------------------------------------------------------
 Device::Device(LIBMTP_mtpdevice_t *mtpDevice) : _cntRef(1), _mtpDevice(mtpDevice)
@@ -97,7 +32,7 @@ Directory *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const char
 	Directory_MTP *pDirectory = new Directory_MTP(
 		nullptr, "/", Directory::TYPE_Container,
 		Reference(), storageId, LIBMTP_FILES_AND_FOLDERS_ROOT,
-		new Stat("", 0, DateTime(), LIBMTP_FILETYPE_FOLDER));
+		new Stat("", "", 0, DateTime(), LIBMTP_FILETYPE_FOLDER));
 	while (*p != '\0') {
 		if (!pDirectory->IsContainer()) {
 			sig.SetError(ERR_IOError, "can't browse inside an item");
@@ -141,10 +76,54 @@ Directory *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const char
 			pDirectory, fileInfoFound->filename,
 			(fileInfoFound->filetype == LIBMTP_FILETYPE_FOLDER)?
 								Directory::TYPE_Container : Directory::TYPE_Item,
-			Reference(), storageId, fileInfoFound->item_id, new Stat(fileInfoFound));
+			Reference(), storageId, fileInfoFound->item_id,
+			new Stat(pDirectory->MakePathName(false).c_str(), fileInfoFound));
 		DestroyFileInfoList(fileInfoHead);
 	}
 	return pDirectory;
+}
+
+//-----------------------------------------------------------------------------
+// Directory_MTP implementation
+//-----------------------------------------------------------------------------
+Directory_MTP::Directory_MTP(Directory *pParent, const char *name, Type type,
+							 Device *pDevice, uint32_t storageId, uint32_t itemId, Stat *pStat) :
+	Directory(pParent, name, type, OAL::FileSeparatorUnix),
+	_pDevice(pDevice), _storageId(storageId), _itemId(itemId), _pStat(pStat)
+{
+	_browsePack.fileInfoHead = nullptr;
+	_browsePack.fileInfo = nullptr;
+}
+
+Directory_MTP::~Directory_MTP()
+{
+	DestroyFileInfoList(_browsePack.fileInfoHead);
+}
+
+Directory *Directory_MTP::DoNext(Environment &env)
+{
+	if (_browsePack.fileInfoHead == nullptr) {
+		_browsePack.fileInfoHead = ::LIBMTP_Get_Files_And_Folders(_pDevice->GetMtpDevice(), _storageId, _itemId);
+		_browsePack.fileInfo = _browsePack.fileInfoHead;
+	} else {
+		_browsePack.fileInfo = _browsePack.fileInfo->next;
+	}
+	if (_browsePack.fileInfo == nullptr) return nullptr;
+	Type type = (_browsePack.fileInfo->filetype == LIBMTP_FILETYPE_FOLDER)? TYPE_Container : TYPE_Item;
+	return new Directory_MTP(
+		Reference(), _browsePack.fileInfo->filename, type,
+		_pDevice->Reference(), _storageId, _browsePack.fileInfo->item_id,
+		new Stat(MakePathName(false).c_str(), _browsePack.fileInfo));
+}
+
+Stream *Directory_MTP::DoOpenStream(Environment &env, UInt32 attr)
+{
+	return nullptr;
+}
+
+Object *Directory_MTP::DoGetStatObj(Signal &sig)
+{
+	return new Object_stat(_pStat->Reference());
 }
 
 //-----------------------------------------------------------------------------
