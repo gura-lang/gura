@@ -60,8 +60,8 @@ private:
 	uint32_t _itemId;
 	AutoPtr<Stat> _pStat;
 	struct {
-		LIBMTP_file_t *fileInfoHead;
-		LIBMTP_file_t *fileInfo;
+		LIBMTP_file_t *mtpfileHead;
+		LIBMTP_file_t *mtpfile;
 	} _browsePack;
 public:
 	Directory_MTP(Directory *pParent, const char *name, Type type,

@@ -8,9 +8,9 @@ Gura_BeginModuleScope(mtp)
 //-----------------------------------------------------------------------------
 // Stat
 //-----------------------------------------------------------------------------
-Stat::Stat(const char *dirName, const LIBMTP_file_t *fileInfo) :
-	_cntRef(1), _dirName(dirName), _fileName(fileInfo->filename), _fileSize(fileInfo->filesize),
-	_dtModification(&fileInfo->modificationdate), _fileType(fileInfo->filetype)
+Stat::Stat(const char *dirName, const LIBMTP_file_t *mtpfile) :
+	_cntRef(1), _dirName(dirName), _fileName(mtpfile->filename), _fileSize(mtpfile->filesize),
+	_dtModification(&mtpfile->modificationdate), _fileType(mtpfile->filetype)
 {
 }
 

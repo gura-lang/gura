@@ -26,7 +26,7 @@ Gura_DeclareUserSymbol(ReadOnlyWithObjectDeletion);
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-void DestroyFileInfoList(LIBMTP_file_t *fileInfo);
+void DestroyMtpfileList(LIBMTP_file_t *mtpfile);
 
 Gura_EndModuleHeader(mtp)
 

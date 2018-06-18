@@ -21,7 +21,7 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Stat);
 public:
-	Stat(const char *dirName, const LIBMTP_file_t *fileInfo);
+	Stat(const char *dirName, const LIBMTP_file_t *mtpfile);
 	Stat(const char *dirName, const char *fileName, size_t fileSize,
 		 const DateTime &dtModification, LIBMTP_filetype_t fileType);
 protected:

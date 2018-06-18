@@ -53,21 +53,21 @@ Gura_DeclareFunction(test)
 
 void ListFiles(LIBMTP_mtpdevice_t *mtpDevice, uint32_t storageId, uint32_t itemIdParent, int indentLevel)
 {
-	LIBMTP_file_t *fileInfo = ::LIBMTP_Get_Files_And_Folders(mtpDevice, storageId, itemIdParent);
-	if (fileInfo == nullptr) {
+	LIBMTP_file_t *mtpfile = ::LIBMTP_Get_Files_And_Folders(mtpDevice, storageId, itemIdParent);
+	if (mtpfile == nullptr) {
 		::LIBMTP_Dump_Errorstack(mtpDevice);
 		::LIBMTP_Clear_Errorstack(mtpDevice);
 	} else {
-		while (fileInfo != nullptr) {
-			if (fileInfo->filetype == LIBMTP_FILETYPE_FOLDER) {
-				printf("%*s[%s]\n", indentLevel * 2, "", fileInfo->filename);
-				ListFiles(mtpDevice, storageId, fileInfo->item_id, indentLevel + 1);
+		while (mtpfile != nullptr) {
+			if (mtpfile->filetype == LIBMTP_FILETYPE_FOLDER) {
+				printf("%*s[%s]\n", indentLevel * 2, "", mtpfile->filename);
+				ListFiles(mtpDevice, storageId, mtpfile->item_id, indentLevel + 1);
 			} else {
-				printf("%*s%s\n", indentLevel * 2, "", fileInfo->filename);
+				printf("%*s%s\n", indentLevel * 2, "", mtpfile->filename);
 			}
-			LIBMTP_file_t *fileInfoNext = fileInfo->next;
-			::LIBMTP_destroy_file_t(fileInfo);
-			fileInfo = fileInfoNext;
+			LIBMTP_file_t *mtpfileNext = mtpfile->next;
+			::LIBMTP_destroy_file_t(mtpfile);
+			mtpfile = mtpfileNext;
 		}
 	}
 }
@@ -140,12 +140,12 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-void DestroyFileInfoList(LIBMTP_file_t *fileInfo)
+void DestroyMtpfileList(LIBMTP_file_t *mtpfile)
 {
-	while (fileInfo != nullptr) {
-		LIBMTP_file_t *fileInfoNext = fileInfo->next;
-		::LIBMTP_destroy_file_t(fileInfo);
-		fileInfo = fileInfoNext;
+	while (mtpfile != nullptr) {
+		LIBMTP_file_t *mtpfileNext = mtpfile->next;
+		::LIBMTP_destroy_file_t(mtpfile);
+		mtpfile = mtpfileNext;
 	}
 }
 

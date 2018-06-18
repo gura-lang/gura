@@ -53,32 +53,32 @@ Directory *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const char
 			return nullptr;
 		}
 		//::printf("[%s]\n", field.c_str());
-		LIBMTP_file_t *fileInfoHead = ::LIBMTP_Get_Files_And_Folders(_mtpDevice, storageId, pDirectory->GetItemId());
-		if (fileInfoHead == nullptr) {
+		LIBMTP_file_t *mtpfileHead = ::LIBMTP_Get_Files_And_Folders(_mtpDevice, storageId, pDirectory->GetItemId());
+		if (mtpfileHead == nullptr) {
 			::LIBMTP_Dump_Errorstack(_mtpDevice);
 			::LIBMTP_Clear_Errorstack(_mtpDevice);
 			sig.SetError(ERR_LibraryError, "failed to get file information from MTP");
 			return nullptr;
 		}
-		LIBMTP_file_t *fileInfoFound = nullptr;
-		for (LIBMTP_file_t *fileInfo = fileInfoHead; fileInfo != nullptr; fileInfo = fileInfo->next) {
-			if (field == fileInfo->filename) {
-				fileInfoFound = fileInfo;
+		LIBMTP_file_t *mtpfileFound = nullptr;
+		for (LIBMTP_file_t *mtpfile = mtpfileHead; mtpfile != nullptr; mtpfile = mtpfile->next) {
+			if (field == mtpfile->filename) {
+				mtpfileFound = mtpfile;
 				break;
 			}
 		}
-		if (fileInfoFound == nullptr) {
-			DestroyFileInfoList(fileInfoHead);
+		if (mtpfileFound == nullptr) {
+			DestroyMtpfileList(mtpfileHead);
 			sig.SetError(ERR_IOError, "specified path doesn't exist");
 			return nullptr;
 		}
 		pDirectory = new Directory_MTP(
-			pDirectory, fileInfoFound->filename,
-			(fileInfoFound->filetype == LIBMTP_FILETYPE_FOLDER)?
+			pDirectory, mtpfileFound->filename,
+			(mtpfileFound->filetype == LIBMTP_FILETYPE_FOLDER)?
 								Directory::TYPE_Container : Directory::TYPE_Item,
-			Reference(), storageId, fileInfoFound->item_id,
-			new Stat(pDirectory->MakePathName(false).c_str(), fileInfoFound));
-		DestroyFileInfoList(fileInfoHead);
+			Reference(), storageId, mtpfileFound->item_id,
+			new Stat(pDirectory->MakePathName(false).c_str(), mtpfileFound));
+		DestroyMtpfileList(mtpfileHead);
 	}
 	return pDirectory;
 }
@@ -91,29 +91,29 @@ Directory_MTP::Directory_MTP(Directory *pParent, const char *name, Type type,
 	Directory(pParent, name, type, OAL::FileSeparatorUnix),
 	_pDevice(pDevice), _storageId(storageId), _itemId(itemId), _pStat(pStat)
 {
-	_browsePack.fileInfoHead = nullptr;
-	_browsePack.fileInfo = nullptr;
+	_browsePack.mtpfileHead = nullptr;
+	_browsePack.mtpfile = nullptr;
 }
 
 Directory_MTP::~Directory_MTP()
 {
-	DestroyFileInfoList(_browsePack.fileInfoHead);
+	DestroyMtpfileList(_browsePack.mtpfileHead);
 }
 
 Directory *Directory_MTP::DoNext(Environment &env)
 {
-	if (_browsePack.fileInfoHead == nullptr) {
-		_browsePack.fileInfoHead = ::LIBMTP_Get_Files_And_Folders(_pDevice->GetMtpDevice(), _storageId, _itemId);
-		_browsePack.fileInfo = _browsePack.fileInfoHead;
+	if (_browsePack.mtpfileHead == nullptr) {
+		_browsePack.mtpfileHead = ::LIBMTP_Get_Files_And_Folders(_pDevice->GetMtpDevice(), _storageId, _itemId);
+		_browsePack.mtpfile = _browsePack.mtpfileHead;
 	} else {
-		_browsePack.fileInfo = _browsePack.fileInfo->next;
+		_browsePack.mtpfile = _browsePack.mtpfile->next;
 	}
-	if (_browsePack.fileInfo == nullptr) return nullptr;
-	Type type = (_browsePack.fileInfo->filetype == LIBMTP_FILETYPE_FOLDER)? TYPE_Container : TYPE_Item;
+	if (_browsePack.mtpfile == nullptr) return nullptr;
+	Type type = (_browsePack.mtpfile->filetype == LIBMTP_FILETYPE_FOLDER)? TYPE_Container : TYPE_Item;
 	return new Directory_MTP(
-		Reference(), _browsePack.fileInfo->filename, type,
-		_pDevice->Reference(), _storageId, _browsePack.fileInfo->item_id,
-		new Stat(MakePathName(false).c_str(), _browsePack.fileInfo));
+		Reference(), _browsePack.mtpfile->filename, type,
+		_pDevice->Reference(), _storageId, _browsePack.mtpfile->item_id,
+		new Stat(MakePathName(false).c_str(), _browsePack.mtpfile));
 }
 
 Stream *Directory_MTP::DoOpenStream(Environment &env, UInt32 attr)
