@@ -7,25 +7,27 @@
 
 Gura_BeginModuleScope(mtp)
 
+class Directory_MTP;
+
 //-----------------------------------------------------------------------------
 // Device
 //-----------------------------------------------------------------------------
 class Device {
 public:
-	class Downloader : public OAL::Thread {
+	class Reader : public OAL::Thread {
 	private:
 		Signal &_sig;
 		AutoPtr<Device> _pDevice;
 		uint32_t _itemId;
 		AutoPtr<Stream> _pStream;
 	public:
-		Downloader(Signal &sig, Device *pDevice, uint32_t itemId, Stream *pStream);
-		uint16_t OnWrite(void *params, uint32_t sendlen, unsigned char *data, uint32_t *putlen);
-		static uint16_t OnWriteStub(void *params, void *priv,
-									uint32_t sendlen, unsigned char *data, uint32_t *putlen);
+		Reader(Signal &sig, Device *pDevice, uint32_t itemId, Stream *pStream);
+		uint16_t OnDataPut(void *params, uint32_t sendlen, unsigned char *data, uint32_t *putlen);
+		static uint16_t OnDataPutStub(void *params, void *priv,
+									  uint32_t sendlen, unsigned char *data, uint32_t *putlen);
 		virtual void Run();
 	};
-	class Uploader : public OAL::Thread {
+	class Writer : public OAL::Thread {
 	private:
 		Signal &_sig;
 		AutoPtr<Device> _pDevice;
@@ -33,10 +35,10 @@ public:
 		String _fileName;
 		AutoPtr<Stream> _pStream;
 	public:
-		Uploader(Signal &sig, Device *pDevice, uint32_t itemIdParent, const char *fileName, Stream *pStream);
-		uint16_t OnRead(void *params, uint32_t wantlen, unsigned char *data, uint32_t *gotlen);
-		static uint16_t OnReadStub(void *params, void *priv,
-								   uint32_t wantlen, unsigned char *data, uint32_t *gotlen);
+		Writer(Signal &sig, Device *pDevice, uint32_t itemIdParent, const char *fileName, Stream *pStream);
+		uint16_t OnDataGet(void *params, uint32_t wantlen, unsigned char *data, uint32_t *gotlen);
+		static uint16_t OnDataGetStub(void *params, void *priv,
+									  uint32_t wantlen, unsigned char *data, uint32_t *gotlen);
 		virtual void Run();
 	};
 private:
@@ -50,7 +52,7 @@ protected:
 	~Device();
 public:
 	void LookupStorages(Object_list *pObjList) const;
-	Directory *GenerateDirectory(Signal &sig, uint32_t storageId, const char *pathName) const;
+	Directory_MTP *GenerateDirectory(Signal &sig, uint32_t storageId, const char *pathName, const char *pathNameEnd) const;
 	inline LIBMTP_mtpdevice_t *GetMtpDevice() const { return _mtpDevice; }
 	inline const char *GetManufacturerName() const { return ::LIBMTP_Get_Manufacturername(_mtpDevice); }
 	inline const char *GetModelName() const { return ::LIBMTP_Get_Modelname(_mtpDevice); }

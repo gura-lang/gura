@@ -25,22 +25,23 @@ void Device::LookupStorages(Object_list *pObjList) const
 	}
 }
 
-Directory *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const char *pathName) const
+Directory_MTP *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const char *pathName, const char *pathNameEnd) const
 {
 	const char *p = pathName;
-	if (IsFileSeparator(*p)) p++;
+	if (pathNameEnd == nullptr) pathNameEnd = pathName + ::strlen(pathName);
+	if (p != pathNameEnd && IsFileSeparator(*p)) p++;
 	Directory_MTP *pDirectory = new Directory_MTP(
 		nullptr, "/", Directory::TYPE_Container,
 		Reference(), storageId, LIBMTP_FILES_AND_FOLDERS_ROOT,
 		new Stat("", "", 0, DateTime(), LIBMTP_FILETYPE_FOLDER));
-	while (*p != '\0') {
+	while (p != pathNameEnd) {
 		if (!pDirectory->IsContainer()) {
 			sig.SetError(ERR_IOError, "can't browse inside an item");
 			return nullptr;
 		}
 		String field;
 		for ( ; ; p++) {
-			if (*p == '\0') {
+			if (p == pathNameEnd) {
 				break;
 			} else if (IsFileSeparator(*p)) {
 				p++;
@@ -84,44 +85,44 @@ Directory *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const char
 }
 
 //-----------------------------------------------------------------------------
-// Device::Downloader
+// Device::Reader
 //-----------------------------------------------------------------------------
-Device::Downloader::Downloader(Signal &sig, Device *pDevice, uint32_t itemId, Stream *pStream) :
+Device::Reader::Reader(Signal &sig, Device *pDevice, uint32_t itemId, Stream *pStream) :
 	_sig(sig), _pDevice(pDevice), _itemId(itemId), _pStream(pStream)
 {
 }
 
-uint16_t Device::Downloader::OnWrite(void *params, uint32_t sendlen, unsigned char *data, uint32_t *putlen)
+uint16_t Device::Reader::OnDataPut(void *params, uint32_t sendlen, unsigned char *data, uint32_t *putlen)
 {
 	//::printf("OnWrite()\n");
 	*putlen = static_cast<uint32_t>(_pStream->Write(_sig, data, sendlen));
 	return _sig.IsSignalled()? LIBMTP_HANDLER_RETURN_ERROR : LIBMTP_HANDLER_RETURN_OK;
 }
 
-uint16_t Device::Downloader::OnWriteStub(void *params, void *priv,
+uint16_t Device::Reader::OnDataPutStub(void *params, void *priv,
 								 uint32_t sendlen, unsigned char *data, uint32_t *putlen)
 {
-	Downloader *pDownloader = reinterpret_cast<Downloader *>(priv);
-	return pDownloader->OnWrite(params, sendlen, data, putlen);
+	Reader *pReader = reinterpret_cast<Reader *>(priv);
+	return pReader->OnDataPut(params, sendlen, data, putlen);
 }
 
-void Device::Downloader::Run()
+void Device::Reader::Run()
 {
 	if (::LIBMTP_Get_File_To_Handler(
-			_pDevice->GetMtpDevice(), _itemId, OnWriteStub, this, nullptr, nullptr) != 0) {
+			_pDevice->GetMtpDevice(), _itemId, OnDataPutStub, this, nullptr, nullptr) != 0) {
 		_sig.SetError(ERR_LibraryError, "error while communicating in MTP protocol");
 	}
 }
 
 //-----------------------------------------------------------------------------
-// Device::Uploader
+// Device::Writer
 //-----------------------------------------------------------------------------
-Device::Uploader::Uploader(Signal &sig, Device *pDevice, uint32_t itemIdParent, const char *fileName, Stream *pStream) :
+Device::Writer::Writer(Signal &sig, Device *pDevice, uint32_t itemIdParent, const char *fileName, Stream *pStream) :
 	_sig(sig), _pDevice(pDevice), _itemIdParent(itemIdParent), _fileName(fileName), _pStream(pStream)
 {
 }
 
-uint16_t Device::Uploader::OnRead(void *params, uint32_t wantlen, unsigned char *data, uint32_t *gotlen)
+uint16_t Device::Writer::OnDataGet(void *params, uint32_t wantlen, unsigned char *data, uint32_t *gotlen)
 {
 	//::printf("OnRead()\n");
 	*gotlen = static_cast<uint32_t>(_pStream->Read(_sig, data, wantlen));
@@ -129,14 +130,14 @@ uint16_t Device::Uploader::OnRead(void *params, uint32_t wantlen, unsigned char 
 		(*gotlen == 0)? LIBMTP_HANDLER_RETURN_CANCEL : LIBMTP_HANDLER_RETURN_OK;
 }
 
-uint16_t Device::Uploader::OnReadStub(void *params, void *priv,
+uint16_t Device::Writer::OnDataGetStub(void *params, void *priv,
 							  uint32_t wantlen, unsigned char *data, uint32_t *gotlen)
 {
-	Uploader *pUploader = reinterpret_cast<Uploader *>(priv);
-	return pUploader->OnRead(params, wantlen, data, gotlen);
+	Writer *pWriter = reinterpret_cast<Writer *>(priv);
+	return pWriter->OnDataGet(params, wantlen, data, gotlen);
 }
 
-void Device::Uploader::Run()
+void Device::Writer::Run()
 {
 	/*
 	::LIBMTP_Send_File_From_Handler(LIBMTP_mtpdevice_t *,
@@ -152,7 +153,7 @@ void Device::Uploader::Run()
 	mtpfile->parent_id = _itemIdParent;
 	mtpfile->storage_id = 0;
 	::LIBMTP_Send_File_From_Handler(
-		_pDevice->GetMtpDevice(), OnReadStub, this, mtpfile, nullptr, nullptr);
+		_pDevice->GetMtpDevice(), OnDataGetStub, this, mtpfile, nullptr, nullptr);
 	::LIBMTP_destroy_file_t(mtpfile);
 }
 
@@ -191,17 +192,7 @@ Directory *Directory_MTP::DoNext(Environment &env)
 
 Stream *Directory_MTP::DoOpenStream(Environment &env, UInt32 attr)
 {
-	AutoPtr<StreamFIFO> pStreamFIFO(new StreamFIFO(env, 65536));
-	AutoPtr<StreamFIFO> pStreamFIFORtn(new StreamFIFO(env, pStreamFIFO->GetEntity()->Reference()));
-	OAL::Thread *pThread = nullptr;
-	if (attr & Stream::ATTR_Writable) {
-		uint32_t itemIdParent = dynamic_cast<Directory_MTP *>(GetParent())->GetItemId();
-		pThread = new Device::Uploader(env, _pDevice->Reference(), itemIdParent, GetName(), pStreamFIFO.release());
-	} else {
-		pThread = new Device::Downloader(env, _pDevice->Reference(), _itemId, pStreamFIFO.release());
-	}
-	pThread->Start();
-	return pStreamFIFORtn.release();
+	return nullptr;
 }
 
 Object *Directory_MTP::DoGetStatObj(Signal &sig)

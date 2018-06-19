@@ -31,6 +31,23 @@ Storage::Storage(Device *pDevice, LIBMTP_devicestorage_t *deviceStorage) : _cntR
 	}
 }
 
+Stream *Storage::GenerateWriterStream(Environment &env, const char *pathName) const
+{
+	return nullptr;
+}
+
+Stream *Storage::GenerateReaderStream(Environment &env, const char *pathName) const
+{
+	AutoPtr<Directory_MTP> pDirectory(GenerateDirectory(env, pathName));
+	if (pDirectory.IsNull()) return nullptr;
+	AutoPtr<StreamFIFO> pStreamFIFO(new StreamFIFO(env, 65536));
+	AutoPtr<StreamFIFO> pStreamFIFORtn(new StreamFIFO(env, pStreamFIFO->GetEntity()->Reference()));
+	OAL::Thread *pThread = new Device::Reader(
+		env, _pDevice->Reference(), pDirectory->GetItemId(), pStreamFIFO.release());
+	pThread->Start();
+	return pStreamFIFORtn.release();
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of property
 //-----------------------------------------------------------------------------
@@ -216,10 +233,7 @@ Gura_ImplementMethod(storage, reader)
 {
 	const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
 	const char *pathName = arg.GetString(0);
-	AutoPtr<Directory> pDirectory(pStorage->GenerateDirectory(env, pathName));
-	if (pDirectory.IsNull()) return Value::Nil;
-	UInt32 attr = 0;
-	return ReturnValue(env, arg, Value(new Object_stream(env, pDirectory->DoOpenStream(env, attr))));
+	return ReturnValue(env, arg, Value(new Object_stream(env, pStorage->GenerateReaderStream(env, pathName))));
 }
 
 // mtp.storage#writer(pathname:string) {block?}

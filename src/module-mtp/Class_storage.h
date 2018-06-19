@@ -39,9 +39,11 @@ public:
 	inline uint64_t GetFreeSpaceInObjects() const { return _freeSpaceInObjects; }
 	inline const char *GetStorageDescription() const { return _storageDescription.c_str(); }
 	inline const char *GetVolumeIdentifier() { return _volumeIdentifier.c_str(); }
-	inline Directory *GenerateDirectory(Signal &sig, const char *pathName) const {
-		return _pDevice->GenerateDirectory(sig, _id, pathName);
+	inline Directory_MTP *GenerateDirectory(Signal &sig, const char *pathName, const char *pathNameEnd = nullptr) const {
+		return _pDevice->GenerateDirectory(sig, _id, pathName, pathNameEnd);
 	}
+	Stream *GenerateReaderStream(Environment &env, const char *pathName) const;
+	Stream *GenerateWriterStream(Environment &env, const char *pathName) const;
 };
 
 //-----------------------------------------------------------------------------
