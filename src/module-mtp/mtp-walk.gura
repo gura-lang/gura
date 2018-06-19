@@ -1,6 +1,10 @@
 #!/usr/bin/env gura
 import(mtp)
 
+dirName = '/'
+if (sys.argv.len() >= 2) {
+	dirName = sys.argv[1]
+}
 mtp.detect_devices().each {|device|
 	println(device.friendlyName)
 	storages = device.GetStorages()
@@ -15,7 +19,8 @@ mtp.detect_devices().each {|device|
 		printf('storageDescription: %s\n', storage.storageDescription)
 		printf('volumeIdentifier:   %s\n', storage.volumeIdentifier)
 		println('-----')
-		stats = path.walk(storage.opendir('/')):stat
-		printf('%12d %s  %s\n', stats:*size, stats:*mtime:*format('%m %d %H:%M'), stats:*filename);
+		stats = path.walk(storage.opendir(dirName)):stat
+		//printf('%12d %s  %s\n', stats:*size, stats:*mtime:*format('%m %d %H:%M'), stats:*filename);
+		printf('%s\n', stats:*pathname);
 	}
 }

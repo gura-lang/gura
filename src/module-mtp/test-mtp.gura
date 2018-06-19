@@ -2,29 +2,6 @@
 import(helper.test) {*}
 import(mtp)
 
-/*
-testcase {
-	//mtp.test()
-	mtp.detect_devices().each {|device|
-		println(device.friendlyName)
-		storages = device.GetStorages()
-		storages.each {|storage|
-			printf('id:                 0x%08x\n', storage.id)
-			printf('storageType:        %s\n', storage.storageType)
-			printf('filesystemType:     %s\n', storage.filesystemType)
-			printf('accessCapability:   %s\n', storage.accessCapability)
-			printf('maxCapacity:        %d\n', storage.maxCapacity)
-			printf('freeSpaceInBytes:   %d\n', storage.freeSpaceInBytes)
-			printf('freeSpaceInObjects: %d\n', storage.freeSpaceInObjects)
-			printf('storageDescription: %s\n', storage.storageDescription)
-			printf('volumeIdentifier:   %s\n', storage.volumeIdentifier)
-			println('-----')
-			stats = path.walk(storage.opendir('/')):stat
-			printf('%-32s %s %d\n', stats:*dirname, stats:*mtime, stats:*size);
-		}
-	}
-}
-*/
 testcase {
 	device = mtp.detect_devices()[0]
 	storage = device.GetStorages()[0]
