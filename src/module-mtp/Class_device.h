@@ -11,6 +11,34 @@ Gura_BeginModuleScope(mtp)
 // Device
 //-----------------------------------------------------------------------------
 class Device {
+public:
+	class Downloader : public OAL::Thread {
+	private:
+		Signal &_sig;
+		AutoPtr<Device> _pDevice;
+		uint32_t _itemId;
+		AutoPtr<Stream> _pStream;
+	public:
+		Downloader(Signal &sig, Device *pDevice, uint32_t itemId, Stream *pStream);
+		uint16_t OnWrite(void *params, uint32_t sendlen, unsigned char *data, uint32_t *putlen);
+		static uint16_t OnWriteStub(void *params, void *priv,
+									uint32_t sendlen, unsigned char *data, uint32_t *putlen);
+		virtual void Run();
+	};
+	class Uploader : public OAL::Thread {
+	private:
+		Signal &_sig;
+		AutoPtr<Device> _pDevice;
+		uint32_t _itemIdParent;
+		String _fileName;
+		AutoPtr<Stream> _pStream;
+	public:
+		Uploader(Signal &sig, Device *pDevice, uint32_t itemIdParent, const char *fileName, Stream *pStream);
+		uint16_t OnRead(void *params, uint32_t wantlen, unsigned char *data, uint32_t *gotlen);
+		static uint16_t OnReadStub(void *params, void *priv,
+								   uint32_t wantlen, unsigned char *data, uint32_t *gotlen);
+		virtual void Run();
+	};
 private:
 	int _cntRef;
 	LIBMTP_mtpdevice_t *_mtpDevice;

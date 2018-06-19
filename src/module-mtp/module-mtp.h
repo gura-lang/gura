@@ -27,6 +27,7 @@ Gura_DeclareUserSymbol(ReadOnlyWithObjectDeletion);
 // utilities
 //-----------------------------------------------------------------------------
 void DestroyMtpfileList(LIBMTP_file_t *mtpfile);
+LIBMTP_filetype_t GetMtpfiletype(const char *fileName);
 
 Gura_EndModuleHeader(mtp)
 
