@@ -1,0 +1,18 @@
+#!/usr/bin/env gura
+import(mtp)
+
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: mtp-recv.gura src')
+	sys.exit(1)
+}
+devices = mtp.detect_devices()
+if (devices.len() == 0) {
+	sys.stderr.println('no device detected')
+	sys.exit(1)
+}
+pathNameSrc = sys.argv[1]
+pathNameDst = path.filename(pathNameSrc)
+device = devices[0]
+storage = device.GetStorages()[0]
+storage.recvfile(pathNameSrc, pathNameDst)
+sys.stderr.println(path.filename(pathName), ' was created')

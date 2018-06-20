@@ -39,11 +39,16 @@ public:
 	inline uint64_t GetFreeSpaceInObjects() const { return _freeSpaceInObjects; }
 	inline const char *GetStorageDescription() const { return _storageDescription.c_str(); }
 	inline const char *GetVolumeIdentifier() { return _volumeIdentifier.c_str(); }
-	inline Directory_MTP *GenerateDirectory(Signal &sig, const char *pathName, const char *pathNameEnd = nullptr) const {
-		return _pDevice->GenerateDirectory(sig, _id, pathName, pathNameEnd);
+	inline Directory_MTP *GenerateDirectory(Signal &sig, const char *pathName) const {
+		return _pDevice->GenerateDirectory(sig, _id, pathName);
 	}
 	Stream *GenerateReaderStream(Environment &env, const char *pathName) const;
-	Stream *GenerateWriterStream(Environment &env, const char *pathName) const;
+	bool RecvFile(Signal &sig, const char *pathName, Stream *pStream) const;
+	bool SendFile(Signal &sig, const char *pathName, Stream *pStream) const;
+	static uint16_t Handler_RecvFile(
+		void *params, void *priv, uint32_t sendlen, unsigned char *data, uint32_t *putlen);
+	static uint16_t Handler_SendFile(
+		void *params, void *priv, uint32_t wantlen, unsigned char *data, uint32_t *gotlen);
 };
 
 //-----------------------------------------------------------------------------

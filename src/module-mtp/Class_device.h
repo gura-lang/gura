@@ -27,20 +27,8 @@ public:
 									  uint32_t sendlen, unsigned char *data, uint32_t *putlen);
 		virtual void Run();
 	};
-	class Writer : public OAL::Thread {
-	private:
-		Signal &_sig;
-		AutoPtr<Device> _pDevice;
-		uint32_t _itemIdParent;
-		String _fileName;
-		AutoPtr<Stream> _pStream;
-	public:
-		Writer(Signal &sig, Device *pDevice, uint32_t itemIdParent, const char *fileName, Stream *pStream);
-		uint16_t OnDataGet(void *params, uint32_t wantlen, unsigned char *data, uint32_t *gotlen);
-		static uint16_t OnDataGetStub(void *params, void *priv,
-									  uint32_t wantlen, unsigned char *data, uint32_t *gotlen);
-		virtual void Run();
-	};
+	// Writer can not be implemented because MTP protocol needs to know the whole file size
+	// before transmitting data to a device while Writer is not capable of knowing it in advance.
 private:
 	int _cntRef;
 	LIBMTP_mtpdevice_t *_mtpDevice;
@@ -52,7 +40,7 @@ protected:
 	~Device();
 public:
 	void LookupStorages(Object_list *pObjList) const;
-	Directory_MTP *GenerateDirectory(Signal &sig, uint32_t storageId, const char *pathName, const char *pathNameEnd) const;
+	Directory_MTP *GenerateDirectory(Signal &sig, uint32_t storageId, const char *pathName) const;
 	inline LIBMTP_mtpdevice_t *GetMtpDevice() const { return _mtpDevice; }
 	inline const char *GetManufacturerName() const { return ::LIBMTP_Get_Manufacturername(_mtpDevice); }
 	inline const char *GetModelName() const { return ::LIBMTP_Get_Modelname(_mtpDevice); }

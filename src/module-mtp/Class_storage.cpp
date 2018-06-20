@@ -31,11 +31,6 @@ Storage::Storage(Device *pDevice, LIBMTP_devicestorage_t *deviceStorage) : _cntR
 	}
 }
 
-Stream *Storage::GenerateWriterStream(Environment &env, const char *pathName) const
-{
-	return nullptr;
-}
-
 Stream *Storage::GenerateReaderStream(Environment &env, const char *pathName) const
 {
 	AutoPtr<Directory_MTP> pDirectory(GenerateDirectory(env, pathName));
@@ -46,6 +41,66 @@ Stream *Storage::GenerateReaderStream(Environment &env, const char *pathName) co
 		env, _pDevice->Reference(), pDirectory->GetItemId(), pStreamFIFO.release());
 	pThread->Start();
 	return pStreamFIFORtn.release();
+}
+
+bool Storage::RecvFile(Signal &sig, const char *pathName, Stream *pStream) const
+{
+	bool rtn = true;
+	AutoPtr<Directory_MTP> pDirectory(GenerateDirectory(sig, pathName));
+	if (pDirectory.IsNull()) return false;
+	uint32_t itemId = pDirectory->GetItemId();
+	if (::LIBMTP_Get_File_To_Handler(
+			_pDevice->GetMtpDevice(), itemId, Handler_RecvFile, pStream, nullptr, nullptr) != 0) {
+		sig.SetError(ERR_LibraryError, "error while communicating in MTP protocol");
+		rtn = false;
+	}
+	return rtn;
+}
+
+bool Storage::SendFile(Signal &sig, const char *pathName, Stream *pStream) const
+{
+	if (pStream->IsInfinite()) {
+		sig.SetError(ERR_ValueError, "infinite stream can not be specified");
+		return false;
+	}
+	String dirName, fileName;
+	PathMgr::SplitFileName(pathName, &dirName, &fileName);
+	AutoPtr<Directory_MTP> pDirectory(GenerateDirectory(sig, dirName.c_str()));
+	if (pDirectory.IsNull()) return false;
+	uint32_t itemIdParent = pDirectory->GetItemId();
+	LIBMTP_file_t *mtpfile = ::LIBMTP_new_file_t();
+	mtpfile->filesize = static_cast<uint32_t>(pStream->GetSize());
+	mtpfile->filename = ::strdup(fileName.c_str());
+	mtpfile->filetype = GetMtpfiletype(fileName.c_str());
+	mtpfile->parent_id = itemIdParent;
+	mtpfile->storage_id = 0;
+	bool rtn = true;
+	if (::LIBMTP_Send_File_From_Handler(
+			_pDevice->GetMtpDevice(), Handler_SendFile, pStream, mtpfile, nullptr, nullptr) != 0) {
+		sig.SetError(ERR_LibraryError, "error while communicating in MTP protocol");
+		rtn = false;
+	}
+	::LIBMTP_destroy_file_t(mtpfile);
+	return rtn;
+}
+
+uint16_t Storage::Handler_RecvFile(
+	void *params, void *priv, uint32_t sendlen, unsigned char *data, uint32_t *putlen)
+{
+	Stream *pStream = reinterpret_cast<Stream *>(priv);
+	Signal &sig = pStream->GetSignal();
+	*putlen = static_cast<uint32_t>(pStream->Write(sig, data, sendlen));
+	return sig.IsSignalled()? LIBMTP_HANDLER_RETURN_ERROR : LIBMTP_HANDLER_RETURN_OK;
+}
+
+uint16_t Storage::Handler_SendFile(
+	void *params, void *priv, uint32_t wantlen, unsigned char *data, uint32_t *gotlen)
+{
+	Stream *pStream = reinterpret_cast<Stream *>(priv);
+	Signal &sig = pStream->GetSignal();
+	*gotlen = static_cast<uint32_t>(pStream->Read(sig, data, wantlen));
+	return sig.IsSignalled()? LIBMTP_HANDLER_RETURN_ERROR :
+		(*gotlen == 0)? LIBMTP_HANDLER_RETURN_CANCEL : LIBMTP_HANDLER_RETURN_OK;
 }
 
 //-----------------------------------------------------------------------------
@@ -236,28 +291,46 @@ Gura_ImplementMethod(storage, reader)
 	return ReturnValue(env, arg, Value(new Object_stream(env, pStorage->GenerateReaderStream(env, pathName))));
 }
 
-// mtp.storage#writer(pathname:string) {block?}
-Gura_DeclareMethod(storage, writer)
+// mtp.srorage#recvfile(pathname:string, stream:stream:w):reduce
+Gura_DeclareMethod(storage, recvfile)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "pathname", VTYPE_string);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
 }
 
-Gura_ImplementMethod(storage, writer)
+Gura_ImplementMethod(storage, recvfile)
 {
-#if 0
 	const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
 	const char *pathName = arg.GetString(0);
-	AutoPtr<Directory> pDirectory(pStorage->GenerateDirectory(env, pathName));
-	if (pDirectory.IsNull()) return Value::Nil;
-	UInt32 attr = 0;
-	return ReturnValue(env, arg, Value(new Object_stream(env, pDirectory->DoOpenStream(env, attr))));
-#endif
-	return Value::Nil;
+	Stream &stream = arg.GetStream(1);
+	if (!pStorage->RecvFile(env, pathName, &stream)) return Value::Nil;
+	return arg.GetValueThis();
+}
+
+// mtp.storage#sendfile(pathname:string, stream:stream:r):reduce
+Gura_DeclareMethod(storage, sendfile)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "pathname", VTYPE_string);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(storage, sendfile)
+{
+	const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
+	const char *pathName = arg.GetString(0);
+	Stream &stream = arg.GetStream(1);
+	if (!pStorage->SendFile(env, pathName, &stream)) return Value::Nil;
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -293,7 +366,8 @@ Gura_ImplementUserClass(storage)
 	// Assignment of method
 	Gura_AssignMethod(storage, opendir);
 	Gura_AssignMethod(storage, reader);
-	Gura_AssignMethod(storage, writer);
+	Gura_AssignMethod(storage, recvfile);
+	Gura_AssignMethod(storage, sendfile);
 	// Assignment of value
 	Gura_AssignValue(storage, Value(Reference()));
 }

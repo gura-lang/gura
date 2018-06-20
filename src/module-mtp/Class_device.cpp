@@ -25,23 +25,22 @@ void Device::LookupStorages(Object_list *pObjList) const
 	}
 }
 
-Directory_MTP *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const char *pathName, const char *pathNameEnd) const
+Directory_MTP *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const char *pathName) const
 {
 	const char *p = pathName;
-	if (pathNameEnd == nullptr) pathNameEnd = pathName + ::strlen(pathName);
-	if (p != pathNameEnd && IsFileSeparator(*p)) p++;
+	if (IsFileSeparator(*p)) p++;
 	Directory_MTP *pDirectory = new Directory_MTP(
 		nullptr, "/", Directory::TYPE_Container,
 		Reference(), storageId, LIBMTP_FILES_AND_FOLDERS_ROOT,
 		new Stat("", "", 0, DateTime(), LIBMTP_FILETYPE_FOLDER));
-	while (p != pathNameEnd) {
+	while (*p != '\0') {
 		if (!pDirectory->IsContainer()) {
 			sig.SetError(ERR_IOError, "can't browse inside an item");
 			return nullptr;
 		}
 		String field;
 		for ( ; ; p++) {
-			if (p == pathNameEnd) {
+			if (*p == '\0') {
 				break;
 			} else if (IsFileSeparator(*p)) {
 				p++;
@@ -112,49 +111,6 @@ void Device::Reader::Run()
 			_pDevice->GetMtpDevice(), _itemId, OnDataPutStub, this, nullptr, nullptr) != 0) {
 		_sig.SetError(ERR_LibraryError, "error while communicating in MTP protocol");
 	}
-}
-
-//-----------------------------------------------------------------------------
-// Device::Writer
-//-----------------------------------------------------------------------------
-Device::Writer::Writer(Signal &sig, Device *pDevice, uint32_t itemIdParent, const char *fileName, Stream *pStream) :
-	_sig(sig), _pDevice(pDevice), _itemIdParent(itemIdParent), _fileName(fileName), _pStream(pStream)
-{
-}
-
-uint16_t Device::Writer::OnDataGet(void *params, uint32_t wantlen, unsigned char *data, uint32_t *gotlen)
-{
-	//::printf("OnRead()\n");
-	*gotlen = static_cast<uint32_t>(_pStream->Read(_sig, data, wantlen));
-	return _sig.IsSignalled()? LIBMTP_HANDLER_RETURN_ERROR :
-		(*gotlen == 0)? LIBMTP_HANDLER_RETURN_CANCEL : LIBMTP_HANDLER_RETURN_OK;
-}
-
-uint16_t Device::Writer::OnDataGetStub(void *params, void *priv,
-							  uint32_t wantlen, unsigned char *data, uint32_t *gotlen)
-{
-	Writer *pWriter = reinterpret_cast<Writer *>(priv);
-	return pWriter->OnDataGet(params, wantlen, data, gotlen);
-}
-
-void Device::Writer::Run()
-{
-	/*
-	::LIBMTP_Send_File_From_Handler(LIBMTP_mtpdevice_t *,
-				  MTPDataGetFunc, void *,
-				  LIBMTP_file_t * const,
-				  LIBMTP_progressfunc_t const,
-				  void const * const);
-	*/
-	LIBMTP_file_t *mtpfile = ::LIBMTP_new_file_t();
-	mtpfile->filesize = static_cast<uint64_t>(_pStream->GetSize());
-	mtpfile->filename = ::strdup(_fileName.c_str());
-	mtpfile->filetype = GetMtpfiletype(_fileName.c_str());
-	mtpfile->parent_id = _itemIdParent;
-	mtpfile->storage_id = 0;
-	::LIBMTP_Send_File_From_Handler(
-		_pDevice->GetMtpDevice(), OnDataGetStub, this, mtpfile, nullptr, nullptr);
-	::LIBMTP_destroy_file_t(mtpfile);
 }
 
 //-----------------------------------------------------------------------------
