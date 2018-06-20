@@ -13,6 +13,6 @@ if (devices.len() == 0) {
 pathNameDst = sys.argv[1]
 pathNameSrc = sys.argv[2]
 device = devices[0]
-storage = device.GetStorages()[0]
+storage = device.storages[0]
 storage.sendfile(pathNameDst, pathNameSrc)
 sys.stderr.println(path.filename(pathNameSrc), ' was transferred')

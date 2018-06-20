@@ -186,31 +186,32 @@ Gura_DeclareProperty_R(device, friendlyName)
 
 Gura_ImplementPropertyGetter(device, friendlyName)
 {
-	Object_device *pObjThis = Object_device::GetObject(valueThis);
-	return Value(pObjThis->GetDevice()->GetFriendlyName());
+	const Device *pDevice = Object_device::GetObject(valueThis)->GetDevice();
+	return Value(pDevice->GetFriendlyName());
+}
+
+// mtp.device#storages
+Gura_DeclareProperty_R(device, storages)
+{
+	SetPropAttr(VTYPE_list);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(device, storages)
+{
+	const Device *pDevice = Object_device::GetObject(valueThis)->GetDevice();
+	Value valueRtn;
+	Object_list *pObjList = valueRtn.InitAsList(env);
+	pDevice->LookupStorages(pObjList);
+	return valueRtn;
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// mtp.device#GetStorages() {block?}
-Gura_DeclareMethod(device, GetStorages)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"");
-}
-
-Gura_ImplementMethod(device, GetStorages)
-{
-	const Device *pDevice = Object_device::GetObjectThis(arg)->GetDevice();
-	Value valueRtn;
-	Object_list *pObjList = valueRtn.InitAsList(env);
-	pDevice->LookupStorages(pObjList);
-	return ReturnValue(env, arg, valueRtn);
-}
 
 //-----------------------------------------------------------------------------
 // Implementation of class mtp.device
@@ -219,8 +220,8 @@ Gura_ImplementUserClass(device)
 {
 	// Assignment of property
 	Gura_AssignProperty(device, friendlyName);
+	Gura_AssignProperty(device, storages);
 	// Assignment of method
-	Gura_AssignMethod(device, GetStorages);
 	// Assignment of value
 	Gura_AssignValue(device, Value(Reference()));
 }

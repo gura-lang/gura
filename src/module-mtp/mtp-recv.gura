@@ -13,6 +13,6 @@ if (devices.len() == 0) {
 pathNameSrc = sys.argv[1]
 pathNameDst = path.filename(pathNameSrc)
 device = devices[0]
-storage = device.GetStorages()[0]
+storage = device.storages[0]
 storage.recvfile(pathNameSrc, pathNameDst)
 sys.stderr.println(path.filename(pathName), ' was created')
