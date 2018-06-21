@@ -122,8 +122,8 @@ Gura_ImplementPropertyGetter(storage, id)
 	return Value(pObjThis->GetStorage()->GetId());
 }
 
-// mtp.storage#storageType
-Gura_DeclareProperty_R(storage, storageType)
+// mtp.storage#storage_type
+Gura_DeclareProperty_R(storage, storage_type)
 {
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
@@ -132,14 +132,14 @@ Gura_DeclareProperty_R(storage, storageType)
 		);
 }
 
-Gura_ImplementPropertyGetter(storage, storageType)
+Gura_ImplementPropertyGetter(storage, storage_type)
 {
 	Object_storage *pObjThis = Object_storage::GetObject(valueThis);
 	return Value(StorageTypeToSymbol(pObjThis->GetStorage()->GetStorageType()));
 }
 
-// mtp.storage#filesystemType
-Gura_DeclareProperty_R(storage, filesystemType)
+// mtp.storage#filesystem_type
+Gura_DeclareProperty_R(storage, filesystem_type)
 {
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
@@ -148,14 +148,14 @@ Gura_DeclareProperty_R(storage, filesystemType)
 		);
 }
 
-Gura_ImplementPropertyGetter(storage, filesystemType)
+Gura_ImplementPropertyGetter(storage, filesystem_type)
 {
 	Object_storage *pObjThis = Object_storage::GetObject(valueThis);
 	return Value(FilesystemTypeToSymbol(pObjThis->GetStorage()->GetFilesystemType()));
 }
 
-// mtp.storage#accessCapability
-Gura_DeclareProperty_R(storage, accessCapability)
+// mtp.storage#access_capability
+Gura_DeclareProperty_R(storage, access_capability)
 {
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
@@ -164,14 +164,14 @@ Gura_DeclareProperty_R(storage, accessCapability)
 		);
 }
 
-Gura_ImplementPropertyGetter(storage, accessCapability)
+Gura_ImplementPropertyGetter(storage, access_capability)
 {
 	Object_storage *pObjThis = Object_storage::GetObject(valueThis);
 	return Value(AccessCapabilityToSymbol(pObjThis->GetStorage()->GetAccessCapability()));
 }
 
-// mtp.storage#maxCapacity
-Gura_DeclareProperty_R(storage, maxCapacity)
+// mtp.storage#max_capacity
+Gura_DeclareProperty_R(storage, max_capacity)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -180,14 +180,14 @@ Gura_DeclareProperty_R(storage, maxCapacity)
 		);
 }
 
-Gura_ImplementPropertyGetter(storage, maxCapacity)
+Gura_ImplementPropertyGetter(storage, max_capacity)
 {
 	Object_storage *pObjThis = Object_storage::GetObject(valueThis);
 	return Value(pObjThis->GetStorage()->GetMaxCapacity());
 }
 
-// mtp.storage#freeSpaceInBytes
-Gura_DeclareProperty_R(storage, freeSpaceInBytes)
+// mtp.storage#free_space_in_bytes
+Gura_DeclareProperty_R(storage, free_space_in_bytes)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -196,14 +196,14 @@ Gura_DeclareProperty_R(storage, freeSpaceInBytes)
 		);
 }
 
-Gura_ImplementPropertyGetter(storage, freeSpaceInBytes)
+Gura_ImplementPropertyGetter(storage, free_space_in_bytes)
 {
 	Object_storage *pObjThis = Object_storage::GetObject(valueThis);
 	return Value(pObjThis->GetStorage()->GetFreeSpaceInBytes());
 }
 
-// mtp.storage#freeSpaceInObjects
-Gura_DeclareProperty_R(storage, freeSpaceInObjects)
+// mtp.storage#free_space_in_objects
+Gura_DeclareProperty_R(storage, free_space_in_objects)
 {
 	SetPropAttr(VTYPE_number);
 	AddHelp(
@@ -212,14 +212,14 @@ Gura_DeclareProperty_R(storage, freeSpaceInObjects)
 		);
 }
 
-Gura_ImplementPropertyGetter(storage, freeSpaceInObjects)
+Gura_ImplementPropertyGetter(storage, free_space_in_objects)
 {
 	Object_storage *pObjThis = Object_storage::GetObject(valueThis);
 	return Value(pObjThis->GetStorage()->GetFreeSpaceInObjects());
 }
 
-// mtp.storage#storageDescription
-Gura_DeclareProperty_R(storage, storageDescription)
+// mtp.storage#storage_description
+Gura_DeclareProperty_R(storage, storage_description)
 {
 	SetPropAttr(VTYPE_string);
 	AddHelp(
@@ -228,14 +228,14 @@ Gura_DeclareProperty_R(storage, storageDescription)
 		);
 }
 
-Gura_ImplementPropertyGetter(storage, storageDescription)
+Gura_ImplementPropertyGetter(storage, storage_description)
 {
 	Object_storage *pObjThis = Object_storage::GetObject(valueThis);
 	return Value(pObjThis->GetStorage()->GetStorageDescription());
 }
 
-// mtp.storage#volumeIdentifier
-Gura_DeclareProperty_R(storage, volumeIdentifier)
+// mtp.storage#volume_identifier
+Gura_DeclareProperty_R(storage, volume_identifier)
 {
 	SetPropAttr(VTYPE_string);
 	AddHelp(
@@ -244,7 +244,7 @@ Gura_DeclareProperty_R(storage, volumeIdentifier)
 		);
 }
 
-Gura_ImplementPropertyGetter(storage, volumeIdentifier)
+Gura_ImplementPropertyGetter(storage, volume_identifier)
 {
 	Object_storage *pObjThis = Object_storage::GetObject(valueThis);
 	return Value(pObjThis->GetStorage()->GetVolumeIdentifier());
@@ -355,14 +355,14 @@ Gura_ImplementUserClass(storage)
 {
 	// Assignment of property
 	Gura_AssignProperty(storage, id);
-	Gura_AssignProperty(storage, storageType);
-	Gura_AssignProperty(storage, filesystemType);
-	Gura_AssignProperty(storage, accessCapability);
-	Gura_AssignProperty(storage, maxCapacity);
-	Gura_AssignProperty(storage, freeSpaceInBytes);
-	Gura_AssignProperty(storage, freeSpaceInObjects);
-	Gura_AssignProperty(storage, storageDescription);
-	Gura_AssignProperty(storage, volumeIdentifier);
+	Gura_AssignProperty(storage, storage_type);
+	Gura_AssignProperty(storage, filesystem_type);
+	Gura_AssignProperty(storage, access_capability);
+	Gura_AssignProperty(storage, max_capacity);
+	Gura_AssignProperty(storage, free_space_in_bytes);
+	Gura_AssignProperty(storage, free_space_in_objects);
+	Gura_AssignProperty(storage, storage_description);
+	Gura_AssignProperty(storage, volume_identifier);
 	// Assignment of method
 	Gura_AssignMethod(storage, opendir);
 	Gura_AssignMethod(storage, reader);

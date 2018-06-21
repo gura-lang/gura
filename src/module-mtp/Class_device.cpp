@@ -179,7 +179,7 @@ Object_device::Object_device(Device *pDevice) : Object(Gura_UserClass(device)), 
 String Object_device::ToString(bool exprFlag)
 {
 	String rtn = "<mtp.device:";
-	rtn += _pDevice->GetFriendlyName();
+	rtn += ::LIBMTP_Get_Friendlyname(_pDevice->GetMtpDevice());
 	rtn += ">";
 	return rtn;
 }
@@ -187,20 +187,89 @@ String Object_device::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of property
 //-----------------------------------------------------------------------------
-// mtp.device#friendlyName
-Gura_DeclareProperty_R(device, friendlyName)
+// mtp.device#deviceversion
+Gura_DeclareProperty_R(device, deviceversion)
 {
-	SetPropAttr(VTYPE_string);
+	SetPropAttr(VTYPE_string, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
 		""
 		);
 }
 
-Gura_ImplementPropertyGetter(device, friendlyName)
+Gura_ImplementPropertyGetter(device, deviceversion)
 {
 	const Device *pDevice = Object_device::GetObject(valueThis)->GetDevice();
-	return Value(pDevice->GetFriendlyName());
+	const char *str = ::LIBMTP_Get_Deviceversion(pDevice->GetMtpDevice());
+	return (str == nullptr)? Value::Nil : Value(str);
+}
+
+// mtp.device#friendlyname
+Gura_DeclareProperty_R(device, friendlyname)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(device, friendlyname)
+{
+	const Device *pDevice = Object_device::GetObject(valueThis)->GetDevice();
+	const char *str = ::LIBMTP_Get_Friendlyname(pDevice->GetMtpDevice());
+	return (str == nullptr)? Value::Nil : Value(str);
+}
+
+// mtp.device#manufacturername
+Gura_DeclareProperty_R(device, manufacturername)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(device, manufacturername)
+{
+	const Device *pDevice = Object_device::GetObject(valueThis)->GetDevice();
+	const char *str = ::LIBMTP_Get_Manufacturername(pDevice->GetMtpDevice());
+	return (str == nullptr)? Value::Nil : Value(str);
+}
+
+// mtp.device#modelname
+Gura_DeclareProperty_R(device, modelname)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(device, modelname)
+{
+	const Device *pDevice = Object_device::GetObject(valueThis)->GetDevice();
+	const char *str = ::LIBMTP_Get_Modelname(pDevice->GetMtpDevice());
+	return (str == nullptr)? Value::Nil : Value(str);
+}
+
+// mtp.device#serialnumber
+Gura_DeclareProperty_R(device, serialnumber)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(device, serialnumber)
+{
+	const Device *pDevice = Object_device::GetObject(valueThis)->GetDevice();
+	const char *str = ::LIBMTP_Get_Serialnumber(pDevice->GetMtpDevice());
+	return (str == nullptr)? Value::Nil : Value(str);
 }
 
 // mtp.device#storages
@@ -222,6 +291,23 @@ Gura_ImplementPropertyGetter(device, storages)
 	return valueRtn;
 }
 
+// mtp.device#syncpartner
+Gura_DeclareProperty_R(device, syncpartner)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+Gura_ImplementPropertyGetter(device, syncpartner)
+{
+	const Device *pDevice = Object_device::GetObject(valueThis)->GetDevice();
+	const char *str = ::LIBMTP_Get_Syncpartner(pDevice->GetMtpDevice());
+	return (str == nullptr)? Value::Nil : Value(str);
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
@@ -232,8 +318,13 @@ Gura_ImplementPropertyGetter(device, storages)
 Gura_ImplementUserClass(device)
 {
 	// Assignment of property
-	Gura_AssignProperty(device, friendlyName);
+	Gura_AssignProperty(device, deviceversion);
+	Gura_AssignProperty(device, friendlyname);
+	Gura_AssignProperty(device, manufacturername);
+	Gura_AssignProperty(device, modelname);
+	Gura_AssignProperty(device, serialnumber);
 	Gura_AssignProperty(device, storages);
+	Gura_AssignProperty(device, syncpartner);
 	// Assignment of method
 	// Assignment of value
 	Gura_AssignValue(device, Value(Reference()));
