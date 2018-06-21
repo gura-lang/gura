@@ -37,6 +37,7 @@ public:
 	static void SplitBottom(const char *pathName, String *pTop, String *pBottom);
 	static const char *SeekExtName(const char *pathName);
 	static bool HasWildCard(const char *pathName);
+	static bool HasFileSeparator(const char *pathName);
 	static String GetExecutable();
 	static const String &GetBaseDir();
 	static bool DoesMatchName(const char *pattern,

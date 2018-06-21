@@ -60,6 +60,14 @@ bool PathMgr::HasWildCard(const char *pathName)
 	return false;
 }
 
+bool PathMgr::HasFileSeparator(const char *pathName)
+{
+	for (const char *p = pathName; *p != '\0'; p++) {
+		if (*p == OAL::FileSeparatorWin || *p == OAL::FileSeparatorUnix) return true;
+	}
+	return false;
+}
+
 bool PathMgr::DoesMatchName(const char *pattern, const char *fileName, bool ignoreCaseFlag)
 {
 	if (*pattern == '!') {
