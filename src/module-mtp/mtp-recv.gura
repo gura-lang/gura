@@ -14,5 +14,10 @@ pathNameSrc = sys.argv[1]
 pathNameDst = path.filename(pathNameSrc)
 device = devices[0]
 storage = device.storages[0]
-storage.recvfile(pathNameSrc, pathNameDst)
-sys.stderr.println(path.filename(pathName), ' was created')
+try {
+	storage.recvfile(pathNameSrc, pathNameDst)
+	sys.stderr.println(path.filename(pathName), ' was created')
+} catch {|e|
+	sys.stderr.println(e.text)
+	fs.remove(pathNameDst)
+}
