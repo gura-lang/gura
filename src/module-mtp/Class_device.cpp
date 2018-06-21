@@ -25,10 +25,12 @@ void Device::LookupStorages(Object_list *pObjList) const
 	}
 }
 
-Directory_MTP *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const char *pathName) const
+Directory_MTP *Device::GeneratePartialDirectory(
+	Signal &sig, uint32_t storageId, const char *pathName, const char **pPathNamePartial) const
 {
 	const char *p = pathName;
 	if (IsFileSeparator(*p)) p++;
+	*pPathNamePartial = p;
 	Directory_MTP *pDirectory = new Directory_MTP(
 		nullptr, "/", Directory::TYPE_Container,
 		Reference(), storageId, LIBMTP_FILES_AND_FOLDERS_ROOT,
@@ -48,6 +50,7 @@ Directory_MTP *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const 
 			}
 			field += *p;
 		}
+		*pPathNamePartial = p;
 		if (field.empty()) {
 			sig.SetError(ERR_FormatError, "wrong format of path name");
 			return nullptr;
@@ -69,8 +72,7 @@ Directory_MTP *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const 
 		}
 		if (mtpfileFound == nullptr) {
 			DestroyMtpfileList(mtpfileHead);
-			sig.SetError(ERR_IOError, "specified path doesn't exist");
-			return nullptr;
+			break;
 		}
 		pDirectory = new Directory_MTP(
 			pDirectory, mtpfileFound->filename,
@@ -81,6 +83,17 @@ Directory_MTP *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const 
 		DestroyMtpfileList(mtpfileHead);
 	}
 	return pDirectory;
+}
+
+Directory_MTP *Device::GenerateDirectory(Signal &sig, uint32_t storageId, const char *pathName) const
+{
+	const char *pathNamePartial = nullptr;
+	AutoPtr<Directory_MTP> pDirectory(GeneratePartialDirectory(sig, storageId, pathName, &pathNamePartial));
+	if (*pathNamePartial != '\0') {
+		sig.SetError(ERR_IOError, "specified path doesn't exist");
+		return nullptr;
+	}
+	return pDirectory.release();
 }
 
 //-----------------------------------------------------------------------------

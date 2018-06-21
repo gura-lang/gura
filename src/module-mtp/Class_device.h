@@ -40,6 +40,8 @@ protected:
 	~Device();
 public:
 	void LookupStorages(Object_list *pObjList) const;
+	Directory_MTP *GeneratePartialDirectory(
+		Signal &sig, uint32_t storageId, const char *pathName, const char **pPathNamePartial) const;
 	Directory_MTP *GenerateDirectory(Signal &sig, uint32_t storageId, const char *pathName) const;
 	inline LIBMTP_mtpdevice_t *GetMtpDevice() const { return _mtpDevice; }
 	inline const char *GetManufacturerName() const { return ::LIBMTP_Get_Manufacturername(_mtpDevice); }
