@@ -45,6 +45,9 @@ public:
 	Stream *GenerateReaderStream(Environment &env, const char *pathName) const;
 	bool RecvFile(Signal &sig, const char *pathName, Stream *pStream, const Function *pFuncBlock) const;
 	bool SendFile(Signal &sig, const char *pathName, Stream *pStream, const Function *pFuncBlock) const;
+	bool DeleteFile(Signal &sig, const char *pathName) const;
+	bool MoveFile(Signal &sig, const char *pathNameOld, const char *pathNameNew) const;
+	bool CopyFile(Signal &sig, const char *pathNameSrc, const char *pathNameDst) const;
 	static uint16_t Callback_RecvFile(
 		void *params, void *priv, uint32_t sendlen, unsigned char *data, uint32_t *putlen);
 	static uint16_t Callback_SendFile(

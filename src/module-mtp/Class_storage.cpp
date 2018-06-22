@@ -48,9 +48,9 @@ bool Storage::RecvFile(Signal &sig, const char *pathName, Stream *pStream, const
 	bool rtn = true;
 	AutoPtr<Directory_MTP> pDirectory(GenerateDirectory(sig, pathName));
 	if (pDirectory.IsNull()) return false;
-	uint32_t itemId = pDirectory->GetItemId();
 	if (::LIBMTP_Get_File_To_Handler(
-			_pDevice->GetMtpDevice(), itemId, Callback_RecvFile, pStream, Callback_Progress, pFuncBlock) != 0) {
+			_pDevice->GetMtpDevice(), pDirectory->GetItemId(),
+			Callback_RecvFile, pStream, Callback_Progress, pFuncBlock) != 0) {
 		sig.SetError(ERR_LibraryError, "error while communicating in MTP protocol");
 		rtn = false;
 	}
@@ -65,14 +65,13 @@ bool Storage::SendFile(Signal &sig, const char *pathName, Stream *pStream, const
 	}
 	String dirName, fileName;
 	PathMgr::SplitFileName(pathName, &dirName, &fileName);
-	AutoPtr<Directory_MTP> pDirectory(GenerateDirectory(sig, dirName.c_str()));
-	if (pDirectory.IsNull()) return false;
-	uint32_t itemIdParent = pDirectory->GetItemId();
+	AutoPtr<Directory_MTP> pDirectoryParent(GenerateDirectory(sig, dirName.c_str()));
+	if (pDirectoryParent.IsNull()) return false;
 	LIBMTP_file_t *mtpfile = ::LIBMTP_new_file_t();
 	mtpfile->filesize = static_cast<uint32_t>(pStream->GetSize());
 	mtpfile->filename = ::strdup(fileName.c_str());
 	mtpfile->filetype = GetMtpfiletype(fileName.c_str());
-	mtpfile->parent_id = itemIdParent;
+	mtpfile->parent_id = pDirectoryParent->GetItemId();
 	mtpfile->storage_id = 0;
 	bool rtn = true;
 	if (::LIBMTP_Send_File_From_Handler(
@@ -82,6 +81,29 @@ bool Storage::SendFile(Signal &sig, const char *pathName, Stream *pStream, const
 	}
 	::LIBMTP_destroy_file_t(mtpfile);
 	return rtn;
+}
+
+bool Storage::DeleteFile(Signal &sig, const char *pathName) const
+{
+	bool rtn = true;
+	AutoPtr<Directory_MTP> pDirectory(GenerateDirectory(sig, pathName));
+	if (pDirectory.IsNull()) return false;
+	if (::LIBMTP_Delete_Object(
+			_pDevice->GetMtpDevice(), pDirectory->GetItemId()) != 0) {
+		sig.SetError(ERR_LibraryError, "error while communicating in MTP protocol");
+		rtn = false;
+	}
+	return rtn;
+}
+
+bool Storage::MoveFile(Signal &sig, const char *pathNameOld, const char *pathNameNew) const
+{
+	return false;
+}
+
+bool Storage::CopyFile(Signal &sig, const char *pathNameSrc, const char *pathNameDst) const
+{
+	return false;
 }
 
 uint16_t Storage::Callback_RecvFile(
