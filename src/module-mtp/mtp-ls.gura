@@ -6,11 +6,12 @@ if (sys.argv.len() >= 2) {
 	dirName = sys.argv[1]
 }
 mtp.detect_devices().each {|device|
-	println(device.friendlyName)
+	println(device.friendlyname)
 	storages = device.storages
 	storages.each {|storage|
 		println('-----')
-		stats = path.walk(storage.opendir(dirName)):stat
+		//stats = path.walk(storage.opendir(dirName)):stat
+		stats = path.dir(storage.opendir(dirName)):stat
 		//printf('%12d %s  %s\n', stats:*size, stats:*mtime:*format('%m %d %H:%M'), stats:*filename);
 		printf('%s\n', stats:*pathname);
 	}

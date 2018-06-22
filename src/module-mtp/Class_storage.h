@@ -43,12 +43,14 @@ public:
 		return _pDevice->GenerateDirectory(sig, _id, pathName);
 	}
 	Stream *GenerateReaderStream(Environment &env, const char *pathName) const;
-	bool RecvFile(Signal &sig, const char *pathName, Stream *pStream) const;
-	bool SendFile(Signal &sig, const char *pathName, Stream *pStream) const;
-	static uint16_t Handler_RecvFile(
+	bool RecvFile(Signal &sig, const char *pathName, Stream *pStream, const Function *pFuncBlock) const;
+	bool SendFile(Signal &sig, const char *pathName, Stream *pStream, const Function *pFuncBlock) const;
+	static uint16_t Callback_RecvFile(
 		void *params, void *priv, uint32_t sendlen, unsigned char *data, uint32_t *putlen);
-	static uint16_t Handler_SendFile(
+	static uint16_t Callback_SendFile(
 		void *params, void *priv, uint32_t wantlen, unsigned char *data, uint32_t *gotlen);
+	static int Callback_Progress(
+		uint64_t const sent, uint64_t const total, void const * const data);
 };
 
 //-----------------------------------------------------------------------------

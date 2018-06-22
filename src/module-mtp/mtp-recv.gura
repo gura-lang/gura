@@ -15,8 +15,11 @@ pathNameDst = path.filename(pathNameSrc)
 device = devices[0]
 storage = device.storages[0]
 try {
-	storage.recvfile(pathNameSrc, pathNameDst)
-	sys.stderr.println(path.filename(pathName), ' was created')
+	storage.recvfile(pathNameSrc, pathNameDst) {|sent, total|
+		sys.stderr.printf('%d/%d\r', sent, total)
+	}
+	sys.stderr.println()
+	sys.stderr.println(pathNameDst, ' was transferred')
 } catch {|e|
 	sys.stderr.println(e.text)
 	fs.remove(pathNameDst)

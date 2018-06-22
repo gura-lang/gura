@@ -14,5 +14,8 @@ pathNameDst = sys.argv[1]
 pathNameSrc = sys.argv[2]
 device = devices[0]
 storage = device.storages[0]
-storage.sendfile(pathNameDst, pathNameSrc)
+storage.sendfile(pathNameDst, pathNameSrc) {|sent, total|
+	sys.stderr.printf('%d/%d\r', sent, total)
+}
+sys.stderr.println()
 sys.stderr.println(path.filename(pathNameSrc), ' was transferred')
