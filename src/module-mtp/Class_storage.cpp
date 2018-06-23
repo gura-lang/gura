@@ -96,12 +96,40 @@ bool Storage::DeleteFile(Signal &sig, const char *pathName) const
 	return rtn;
 }
 
-bool Storage::MoveFile(Signal &sig, const char *pathNameOld, const char *pathNameNew) const
+bool Storage::MoveFile(Signal &sig, const char *pathNameOld, const char *pathNameNew, bool overwriteFlag) const
 {
-	return false;
+	bool rtn = true;
+	const char *pathNamePartialNew;
+	AutoPtr<Directory_MTP> pDirectoryOld(GenerateDirectory(sig, pathNameOld));
+	if (pDirectoryOld.IsNull()) return false;
+	AutoPtr<Directory_MTP> pDirectoryNew(GeneratePartialDirectory(sig, pathNameNew, &pathNamePartialNew));
+	if (pDirectoryNew.IsNull()) return false;
+	if (PathMgr::HasFileSeparator(pathNamePartialNew)) {
+		sig.SetError(ERR_FileError, "invalid path name as a destination");
+		return false;
+	}
+	if (*pathNamePartialNew == '\0') {
+		if (pDirectoryNew->IsContainer()) {
+			//int ::LIBMTP_Move_Object(LIBMTP_mtpdevice_t *, uint32_t, uint32_t, uint32_t);
+		} else if (overwriteFlag) {
+			
+		} else {
+			
+		}
+	} else {
+		
+	}
+#if 0
+	if (::LIBMTP_Delete_Object(
+			_pDevice->GetMtpDevice(), pDirectory->GetItemId()) != 0) {
+		sig.SetError(ERR_LibraryError, "error while communicating in MTP protocol");
+		rtn = false;
+	}
+#endif
+	return rtn;
 }
 
-bool Storage::CopyFile(Signal &sig, const char *pathNameSrc, const char *pathNameDst) const
+bool Storage::CopyFile(Signal &sig, const char *pathNameSrc, const char *pathNameDst, bool overwriteFlag) const
 {
 	return false;
 }
