@@ -127,7 +127,7 @@ find_program(DPKG NAMES dpkg-deb PATHS "/usr/bin")
 find_program(RPMBUILD NAMES rpmbuild PATHS "/usr/bin")
 
 set(CPACK_PACKAGE_NAME					"gura")
-set(CPACK_PACKAGE_CONTACT				"Yutaka Saito <ypsitau@nifty.com>")
+set(CPACK_PACKAGE_CONTACT				"Yutaka Saito <ypsitau@gmail.com>")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY	"Gura Programming Language")
 set(CPACK_PACKAGE_VERSION_MAJOR			${GURA_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR			${GURA_VERSION_MINOR})
