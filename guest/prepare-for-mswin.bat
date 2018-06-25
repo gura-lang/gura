@@ -10,7 +10,7 @@ set GNUMAKE="%BASEDIR%buildtools-mswin\UnxUtils\make.exe"
 set CURL="%BASEDIR%buildtools-mswin\curl\curl.exe"
 set FAILEDLIST=
 set VCVERSION=2017
-call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat" -arch=x86
+rem call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat" -arch=x86
 rem Add include path containing Win32.mak in case vs2015 doesn't include SDK
 rem that provides the file.
 set INCLUDE=%BASEDIR%include;%INCLUDE%
@@ -167,7 +167,7 @@ rem ---------------------------------------------------------------------------
 :build_expat
 %UNZIP% x -y expat-2.1.0.tar.gz
 %UNZIP% x -y expat-2.1.0.tar
-%UNZIP% x -y expat-2.1.0-gurapatch-vs2015.zip
+%UNZIP% x -y expat-2.1.0-gurapatch-vs2017.zip
 del expat-2.1.0.tar
 msbuild expat-2.1.0\lib\expat_static.vcxproj /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% expat
@@ -177,7 +177,7 @@ rem ---------------------------------------------------------------------------
 :build_fftw
 %UNZIP% x -y fftw-3.3.6-pl2.tar.gz
 %UNZIP% x -y fftw-3.3.6-pl2.tar
-%UNZIP% x -y fftw-3.3.6-pl2-gurapatch-vs2015.zip
+%UNZIP% x -y fftw-3.3.6-pl2-gurapatch-vs2017.zip
 del fftw-3.3.6-pl2.tar
 msbuild fftw-3.3.6-pl2\msw\fftw-3.3-libs.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Static-Release" /p:Platform=win32
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% fftw
@@ -187,9 +187,9 @@ rem ---------------------------------------------------------------------------
 :build_freeglut
 %UNZIP% x -y freeglut-2.8.1.tar.gz
 %UNZIP% x -y freeglut-2.8.1.tar
-%UNZIP% x -y freeglut-2.8.1-gurapatch.zip
+%UNZIP% x -y freeglut-2.8.1-gurapatch-vs2017.zip
 del freeglut-2.8.1.tar
-msbuild freeglut-2.8.1\VisualStudio\2015\freeglut.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release_Static /p:Platform=win32
+msbuild freeglut-2.8.1\VisualStudio\2017\freeglut.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release_Static /p:Platform=win32
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% freeglut
 exit /b
 
@@ -202,6 +202,10 @@ del freetype-2.5.3.tar
 msbuild freetype-2.5.3\builds\windows\vc2015\freetype.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% freetype
 exit /b
+
+
+
+
 
 rem ---------------------------------------------------------------------------
 :build_glew
@@ -249,7 +253,7 @@ rem ---------------------------------------------------------------------------
 :build_lpng
 rem You cannot build source code in libpng-x.x.x.tar.gz properly under Windows.
 %UNZIP% x -y lpng1520.zip
-%UNZIP% x -y lpng1520-gurapatch-vs2015.zip
+%UNZIP% x -y lpng1520-gurapatch-vs2017.zip
 msbuild lpng1520\projects\vstudio\vstudio.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Release Library" /p:Platform=win32
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% lpng
 exit /b
