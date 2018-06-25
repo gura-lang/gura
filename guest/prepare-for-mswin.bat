@@ -14,16 +14,14 @@ rem call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\
 rem Add include path containing Win32.mak in case vs2015 doesn't include SDK
 rem that provides the file.
 set INCLUDE=%BASEDIR%include;%INCLUDE%
-
 if not "%1" == "" (
 	call :build_%1
 	exit /b
 )
-
 rem ---------------------------------------------------------------------------
 call :download_buildtools
 call :download_packages
-
+rem ---------------------------------------------------------------------------
 call :build_eigen
 call :build_sqlite
 call :build_zlib
@@ -197,21 +195,17 @@ rem ---------------------------------------------------------------------------
 :build_freetype
 %UNZIP% x -y freetype-2.5.3.tar.bz2
 %UNZIP% x -y freetype-2.5.3.tar
-%UNZIP% x -y freetype-2.5.3-gurapatch.zip
+%UNZIP% x -y freetype-2.5.3-gurapatch-vs2017.zip
 del freetype-2.5.3.tar
-msbuild freetype-2.5.3\builds\windows\vc2015\freetype.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
+msbuild freetype-2.5.3\builds\windows\vc2017\freetype.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% freetype
 exit /b
-
-
-
-
 
 rem ---------------------------------------------------------------------------
 :build_glew
 %UNZIP% x -y glew-1.13.0.zip
-%UNZIP% x -y glew-1.13.0-gurapatch.zip
-msbuild glew-1.13.0\build\vc14\glew.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Release" /p:Platform=win32
+%UNZIP% x -y glew-1.13.0-gurapatch-vs2017.zip
+msbuild glew-1.13.0\build\vs2017\glew.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Release" /p:Platform=win32
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% glew
 exit /b
 
@@ -262,6 +256,7 @@ rem ---------------------------------------------------------------------------
 :build_mpir
 %UNZIP% x -y mpir-2.7.2.tar.bz2
 %UNZIP% x -y mpir-2.7.2.tar
+%UNZIP% x -y mpir-2.7.2-gurapatch-vs2017.zip
 del mpir-2.7.2.tar
 msbuild mpir-2.7.2\build.vc14\lib_mpir_gc\lib_mpir_gc.vcxproj /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% mpir_gc
@@ -300,7 +295,7 @@ exit /b
 rem ---------------------------------------------------------------------------
 :build_sdl
 %UNZIP% x -y SDL-1.2.15.zip
-%UNZIP% x -y SDL-1.2.15-gurapatch-vs2015.zip
+%UNZIP% x -y SDL-1.2.15-gurapatch-vs2017.zip
 msbuild SDL-1.2.15\VisualC\SDL.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% sdl
 copy SDL-1.2.15\VisualC\SDL\Release\SDL.dll dylib
@@ -309,7 +304,7 @@ exit /b
 rem ---------------------------------------------------------------------------
 :build_sdl2
 %UNZIP% x -y SDL2-2.0.4.zip
-%UNZIP% x -y SDL2-2.0.4-gurapatch.zip
+%UNZIP% x -y SDL2-2.0.4-gurapatch-vs2017.zip
 msbuild SDL2-2.0.4\VisualC\SDL.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% sdl2
 copy SDL2-2.0.4\VisualC\Win32\Release\SDL2.dll dylib
@@ -319,6 +314,9 @@ rem ---------------------------------------------------------------------------
 :build_sqlite
 %UNZIP% x -y -osqlite-amalgamation sqlite-amalgamation-201409011821.zip
 exit /b
+
+
+
 
 rem ---------------------------------------------------------------------------
 :build_tcltk
