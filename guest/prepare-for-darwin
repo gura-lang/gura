@@ -57,9 +57,9 @@ function main() {
 	build_jpegsrc
 	build_liblinear
 	build_libmtp
-	build_libspectre
+	#build_libspectre
 	build_libsvm
-	build_llvm
+	#build_llvm
 	build_onig
 	build_sdl
 	build_sdl2
