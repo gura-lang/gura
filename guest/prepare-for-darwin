@@ -61,7 +61,7 @@ function main() {
 	build_libsvm
 	#build_llvm
 	build_onig
-	build_sdl
+	#build_sdl
 	build_sdl2
 	build_tiff
 	build_wx
