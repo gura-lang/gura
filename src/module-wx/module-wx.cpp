@@ -2413,7 +2413,7 @@ _MS(PrepareClass(ThreadHelper));
 	do {
 		Gura_AssignWxValue(NB_BOTTOM);
 		Gura_AssignWxValue(NB_FIXEDWIDTH);
-		Gura_AssignWxValue(NB_FLAT);
+		//Gura_AssignWxValue(NB_FLAT);
 		Gura_AssignWxValue(NB_LEFT);
 		Gura_AssignWxValue(NB_MULTILINE);
 		Gura_AssignWxValue(NB_NOPAGETHEME);

@@ -11943,6 +11943,7 @@ Gura_ImplementUserInheritableClass(wx_StyledTextCtrl)
 	Gura_AssignWxValue(STC_PLM_OPERATOR);
 	Gura_AssignWxValue(STC_PLM_CONTROL);
 	Gura_AssignWxValue(STC_PLM_KEYWORD);
+#if 0
 	Gura_AssignWxValue(STC_4GL_DEFAULT);
 	Gura_AssignWxValue(STC_4GL_NUMBER);
 	Gura_AssignWxValue(STC_4GL_WORD);
@@ -11975,6 +11976,7 @@ Gura_ImplementUserInheritableClass(wx_StyledTextCtrl)
 	Gura_AssignWxValue(STC_4GL_COMMENT4_);
 	Gura_AssignWxValue(STC_4GL_COMMENT5_);
 	Gura_AssignWxValue(STC_4GL_COMMENT6_);
+#endif
 	Gura_AssignWxValue(STC_ABAQUS_DEFAULT);
 	Gura_AssignWxValue(STC_ABAQUS_COMMENT);
 	Gura_AssignWxValue(STC_ABAQUS_COMMENTBLOCK);
