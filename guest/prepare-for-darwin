@@ -22,7 +22,7 @@ files="$files llvm-3.6.1.src.tar.xz"
 files="$files libusb-1.0.22.tar.bz2"
 files="$files libmtp-1.1.15.tar.gz"
 files="$files onig-5.9.5.tar.gz"
-files="$files pixman-0.32.6.tar.gz"
+files="$files pixman-0.34.0.tar.gz"
 files="$files SDL-1.2.15.tar.gz"
 files="$files SDL2-2.0.4.tar.gz"
 files="$files tiff-3.8.2.tar.gz"
@@ -99,7 +99,7 @@ function setup_dylib() {
 #---------------------------------------------------------------------------
 # depends on: fontconfig, freetype, pixman, libpng
 function build_cairo() {
-	tar xfJ cairo-1.12.18.tar.xz
+	tar xfz cairo-1.12.18.tar.xz
 	pushd cairo-1.12.18
 	./configure pixman_CFLAGS=-I`pwd`/../include/pixman pixman_LIBS="-L`pwd`/../lib -lpixman-1" PKG_CONFIG=../pkg-config-fake png_CFLAGS=-I`pwd`/../include/png png_LIBS="-L`pwd`/../lib -lpng16" FONTCONFIG_CFLAGS=-I`pwd`/../include/fontconfig FONTCONFIG_LDFLAGS="-L`pwd`/../dylib -lfontconfig" FREETYPE_CFLAGS=-I`pwd`/../include/freetype FREETYPE_LIBS="-L`pwd`/../lib -lfreetype -lbz2" --disable-xlib --disable-xcb --disable-gobject --disable-fc --disable-ps
 	make $make_option || failed="$failed cairo"
@@ -142,7 +142,7 @@ function build_fftw() {
 #---------------------------------------------------------------------------
 # depends on: expat, freetype
 function build_fontconfig() {
-	tar xfy fontconfig-2.11.1.tar.bz2
+	tar xfz fontconfig-2.11.1.tar.bz2
 	pushd fontconfig-2.11.1
 	./configure PKG_CONFIG=../pkg-config-fake FREETYPE_CFLAGS=-I../../include/freetype FREETYPE_LIBS="-L../../lib -lfreetype -lz -lbz2" EXPAT_CFLAGS=-I../../include/expat EXPAT_LIBS="-L../../lib -lexpat"
 	make $make_option || failed="$failed fontconfig"
@@ -154,9 +154,9 @@ function build_fontconfig() {
 
 #---------------------------------------------------------------------------
 function build_freetype() {
-	tar xfy freetype-2.5.3.tar.bz2
+	tar xfz freetype-2.5.3.tar.bz2
 	pushd freetype-2.5.3
-	./configure
+	./configure --with-png=no
 	make $make_option || failed="$failed freetype"
 	popd
 	rm -f include/freetype
@@ -166,7 +166,7 @@ function build_freetype() {
 
 #---------------------------------------------------------------------------
 function build_gmp() {
-	tar xfy gmp-6.0.0a.tar.bz2
+	tar xfz gmp-6.0.0a.tar.bz2
 	pushd gmp-6.0.0
 	./configure
 	make $make_option || failed="$failed gmp"
@@ -284,14 +284,14 @@ function build_onig() {
 
 #---------------------------------------------------------------------------
 function build_pixman() {
-	tar xfz pixman-0.32.6.tar.gz
-	pushd pixman-0.32.6
+	tar xfz pixman-0.34.0.tar.gz
+	pushd pixman-0.34.0
 	./configure
 	make $make_option || failed="$failed pixman"
 	popd
 	rm -f include/pixman
-	ln -sf ../pixman-0.32.6/pixman/ include/pixman
-	ln -sf ../pixman-0.32.6/pixman/.libs/libpixman-1.a lib/libpixman-1.a
+	ln -sf ../pixman-0.34.0/pixman/ include/pixman
+	ln -sf ../pixman-0.34.0/pixman/.libs/libpixman-1.a lib/libpixman-1.a
 }
 
 #---------------------------------------------------------------------------
@@ -328,7 +328,7 @@ function build_tiff() {
 
 #---------------------------------------------------------------------------
 function build_wx() {
-	tar xfy wxWidgets-3.1.1.tar.bz2
+	tar xfz wxWidgets-3.1.1.tar.bz2
 	pushd wxWidgets-3.1.1
 	./configure --with-macosx-version-min=10.9 --disable-shared
 	make $make_option || failed="$failed wx"
