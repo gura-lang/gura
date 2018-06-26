@@ -32,7 +32,7 @@ call :build_tiff
 call :build_yaml
 call :build_onig
 call :build_expat
-call :build_tcltk
+rem call :build_tcltk
 call :build_wx
 call :build_pixman
 call :build_freeglut
@@ -77,39 +77,41 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/curl-7.38.0.zip
 %CURL% -O %GUESTURL%/eigen-eigen-5a0156e40feb.zip
 %CURL% -O %GUESTURL%/expat-2.1.0.tar.gz
-%CURL% -O %GUESTURL%/expat-2.1.0-gurapatch-vs2015.zip
+%CURL% -O %GUESTURL%/expat-2.1.0-gurapatch-vs2017.zip
 %CURL% -O %GUESTURL%/fftw-3.3.6-pl2.tar.gz
-%CURL% -O %GUESTURL%/fftw-3.3.6-pl2-gurapatch-vs2015.zip
+%CURL% -O %GUESTURL%/fftw-3.3.6-pl2-gurapatch-vs2017.zip
 %CURL% -O %GUESTURL%/fontconfig-2.11.tar.bz2
 %CURL% -O %GUESTURL%/freeglut-2.8.1.tar.gz
-%CURL% -O %GUESTURL%/freeglut-2.8.1-gurapatch.zip
+%CURL% -O %GUESTURL%/freeglut-2.8.1-gurapatch-vs2017.zip
 %CURL% -O %GUESTURL%/freetype-2.5.3.tar.bz2
-%CURL% -O %GUESTURL%/freetype-2.5.3-gurapatch.zip
+%CURL% -O %GUESTURL%/freetype-2.5.3-gurapatch-vs2017.zip
 %CURL% -O %GUESTURL%/glew-1.13.0.zip
-%CURL% -O %GUESTURL%/glew-1.13.0-gurapatch.zip
+%CURL% -O %GUESTURL%/glew-1.13.0-gurapatch-vs2017.zip
 %CURL% -O %GUESTURL%/jpegsrc.v9a.tar.gz
 %CURL% -O %GUESTURL%/liblinear-2.11.zip
 %CURL% -O %GUESTURL%/liblinear-2.11-gurapatch.zip
 %CURL% -O %GUESTURL%/libsvm-3.22.zip
 %CURL% -O %GUESTURL%/libsvm-3.22-gurapatch.zip
 %CURL% -O %GUESTURL%/lpng1520.zip
-%CURL% -O %GUESTURL%/lpng1520-gurapatch-vs2015.zip
+%CURL% -O %GUESTURL%/lpng1520-gurapatch-vs2017.zip
 %CURL% -O %GUESTURL%/mpir-2.7.2.tar.bz2
+%CURL% -O %GUESTURL%/mpir-2.7.2-gurapatch-vs2017.zip
 %CURL% -O %GUESTURL%/onig-5.9.5.tar.gz
 %CURL% -O %GUESTURL%/pixman-0.32.6.tar.gz
 %CURL% -O %GUESTURL%/pixman-0.32.6-gurapatch.zip
 %CURL% -O %GUESTURL%/SDL-1.2.15.zip
-%CURL% -O %GUESTURL%/SDL-1.2.15-gurapatch-vs2015.zip
+%CURL% -O %GUESTURL%/SDL-1.2.15-gurapatch-vs2017.zip
 %CURL% -O %GUESTURL%/SDL2-2.0.4.zip
-%CURL% -O %GUESTURL%/SDL2-2.0.4-gurapatch.zip
+%CURL% -O %GUESTURL%/SDL2-2.0.4-gurapatch-vs2017.zip
 %CURL% -O %GUESTURL%/sqlite-amalgamation-201409011821.zip
-%CURL% -O %GUESTURL%/tcl8519-src.zip
+%CURL% -O %GUESTURL%/tcl868-src.zip
 %CURL% -O %GUESTURL%/tiff-3.8.2.zip
 %CURL% -O %GUESTURL%/tiff-3.8.2-gurapatch.zip
-%CURL% -O %GUESTURL%/tk8519-src.zip
-%CURL% -O %GUESTURL%/wxWidgets-3.1.0.7z
+%CURL% -O %GUESTURL%/tk868-src.zip
+%CURL% -O %GUESTURL%/wxWidgets-3.1.1.7z
+%CURL% -O %GUESTURL%/wxWidgets-3.1.1-gurapatch-vs2017.zip
 %CURL% -O %GUESTURL%/yaml-0.1.5.tar.gz
-%CURL% -O %GUESTURL%/yaml-0.1.5-gurapatch-vs2015.zip
+%CURL% -O %GUESTURL%/yaml-0.1.5-gurapatch-vs2017.zip
 %CURL% -O %GUESTURL%/zlib127.zip
 exit /b
 
@@ -315,21 +317,19 @@ rem ---------------------------------------------------------------------------
 %UNZIP% x -y -osqlite-amalgamation sqlite-amalgamation-201409011821.zip
 exit /b
 
-
-
-
 rem ---------------------------------------------------------------------------
+rem Error occurs during tk compilation
 :build_tcltk
-%UNZIP% x -y tcl8519-src.zip -otcl
-%UNZIP% x -y tk8519-src.zip -otcl
-pushd tcl\tcl8.5.19\win
+%UNZIP% x -y tcl868-src.zip -otcl
+%UNZIP% x -y tk868-src.zip -otcl
+pushd tcl\tcl8.6.8\win
 nmake -f makefile.vc release
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% tcl
 nmake -f makefile.vc install INSTALLDIR=..\..
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% tcl
 popd
-pushd tcl\tk8.5.19\win
-nmake -f makefile.vc release TCLDIR=..\..\tcl8.5.19
+pushd tcl\tk8.6.8\win
+nmake -f makefile.vc release TCLDIR=..\..\tcl8.6.8
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% tk
 nmake -f makefile.vc install INSTALLDIR=..\..
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% tk
@@ -350,8 +350,9 @@ exit /b
 rem ---------------------------------------------------------------------------
 :build_wx
 rem Building wxWidgets library using /m option doesn't produce correct results.
-%UNZIP% x -y -owxWidgets-3.1.0 wxWidgets-3.1.0.7z
-msbuild wxWidgets-3.1.0\build\msw\wx_vc14.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
+%UNZIP% x -y -owxWidgets-3.1.1 wxWidgets-3.1.1.7z
+%UNZIP% x -y wxWidgets-3.1.1-gurapatch-vs2017.zip
+msbuild wxWidgets-3.1.1\build\msw\wx_vc15.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% wx
 exit /b
 
@@ -359,10 +360,11 @@ rem ---------------------------------------------------------------------------
 :build_yaml
 %UNZIP% x -y yaml-0.1.5.tar.gz
 %UNZIP% x -y yaml-0.1.5.tar
-%UNZIP% x -y yaml-0.1.5-gurapatch-vs2015.zip
+%UNZIP% x -y yaml-0.1.5-gurapatch-vs2017.zip
 del yaml-0.1.5.tar
-msbuild yaml-0.1.5\win32\vs2015\yaml.vcxproj /clp:DisableConsoleColor /t:Build /p:Configuration="Release" /p:Platform=win32
+msbuild yaml-0.1.5\win32\vs2017\yaml.vcxproj /clp:DisableConsoleColor /t:Build /p:Configuration="Release" /p:Platform=win32
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% yaml
+exit /b
 
 rem ---------------------------------------------------------------------------
 :build_zlib
