@@ -10,7 +10,7 @@ set GNUMAKE="%BASEDIR%buildtools-mswin\UnxUtils\make.exe"
 set CURL="%BASEDIR%buildtools-mswin\curl\curl.exe"
 set FAILEDLIST=
 set VCVERSION=2017
-rem call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat" -arch=x86
+call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat" -arch=x86
 rem Add include path containing Win32.mak in case vs2015 doesn't include SDK
 rem that provides the file.
 set INCLUDE=%BASEDIR%include;%INCLUDE%
