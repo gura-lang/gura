@@ -58,7 +58,7 @@ moduleInfos = @(ModuleInfo) {
 	['sqlite3',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['sys',				`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['tar',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['tcl',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['tcl',				`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['tester',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// just for test
 	['tiff',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['uuid',			`build,	[`mswin,	`darwin,												]]
