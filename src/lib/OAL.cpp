@@ -899,6 +899,30 @@ DateTime ToDateTime(const FILETIME &ft, bool utcFlag)
 	return ToDateTime(stUTC, 0);
 }
 
+DateTime ToDateTime(const struct tm &tm, int secsOffset)
+{
+	return DateTime(
+		static_cast<short>(tm.tm_year) + 1900,
+		static_cast<char>(tm.tm_mon) + 1,
+		static_cast<char>(tm.tm_mday),
+		static_cast<long>(tm.tm_hour) * 3600 +
+		static_cast<long>(tm.tm_min) * 60 + tm.tm_sec,
+		0, secsOffset);
+}
+
+DateTime ToDateTime(time_t t, bool utcFlag)
+{
+	struct tm tm;
+	int secsOffset = 0;
+	if (utcFlag) {
+		gmtime_s(&tm, &t);
+	} else {
+		localtime_s(&tm, &t);
+		secsOffset = GetSecsOffsetTZ();
+	}
+	return ToDateTime(tm, secsOffset);
+}
+
 SYSTEMTIME ToSYSTEMTIME(const DateTime &dt)
 {
 	SYSTEMTIME st;

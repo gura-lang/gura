@@ -84,6 +84,8 @@ GURA_DLLDECLARE DateTime GetCurDateTime(bool utcFlag = false);
 GURA_DLLDECLARE void SetModuleHandle(HMODULE hModule);
 GURA_DLLDECLARE DateTime ToDateTime(const SYSTEMTIME &st, int secsOffset);
 GURA_DLLDECLARE DateTime ToDateTime(const FILETIME &ft, bool utcFlag = false);
+GURA_DLLDECLARE DateTime ToDateTime(const struct tm &tm, int secsOffset);
+GURA_DLLDECLARE DateTime ToDateTime(time_t t, bool utcFlag = false);
 GURA_DLLDECLARE SYSTEMTIME ToSYSTEMTIME(const DateTime &dt);
 GURA_DLLDECLARE FILETIME ToFILETIME(const DateTime &dt);
 static inline bool IsPathSeparator(char ch) { return ch == ';'; }
