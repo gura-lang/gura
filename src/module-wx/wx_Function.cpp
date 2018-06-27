@@ -3094,9 +3094,13 @@ Gura_ImplementFunction(GetClipboardData)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if defined(__WXMSW__)
+#if 0
 	int dataFormat = arg.GetInt(0);
 	wxObject *rtn = (wxObject *)wxGetClipboardData(dataFormat);
 	return ReturnValue(env, arg, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Nil;
 #else
 	SetError_MSWOnly(sig);
 	return Value::Nil;
@@ -3212,12 +3216,16 @@ Gura_ImplementFunction(SetClipboardData)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if defined(__WXMSW__)
+#if 0
 	int dataFormat = arg.GetInt(0);
 	wxObject *data = Object_wx_Object::GetObject(arg, 1)->GetEntity();
 	int width = arg.GetInt(2);
 	int height = arg.GetInt(3);
 	bool rtn = wxSetClipboardData(dataFormat, data, width, height);
 	return ReturnValue(env, arg, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Nil;
 #else
 	SetError_MSWOnly(sig);
 	return Value::Nil;

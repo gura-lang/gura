@@ -144,7 +144,7 @@ BuilderBase = class {
 		buff = binary()
 		os.redirect(nil, buff) {
 			result = (os.exec(pathname, args*) == 0)
-			(!result || !this.quietFlag) && sys.stderr.print(os.fromnative(buff))
+			!result && sys.stderr.print(os.fromnative(buff))
 			result
 		}
 	}
