@@ -1,6 +1,8 @@
 #ifndef __STDAFX_H__
 #define __STDAFX_H__
 #include <gura.h>
+#define LPCTSTR LPCWSTR
+#define LPFINDREPLACE LPFINDREPLACEW
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
 #include <wx/aboutdlg.h>

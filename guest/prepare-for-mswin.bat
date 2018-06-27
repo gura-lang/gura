@@ -350,9 +350,10 @@ exit /b
 rem ---------------------------------------------------------------------------
 :build_wx
 rem Building wxWidgets library using /m option doesn't produce correct results.
-%UNZIP% x -y -owxWidgets-3.1.1 wxWidgets-3.1.1.7z
-%UNZIP% x -y wxWidgets-3.1.1-gurapatch-vs2017.zip
-msbuild wxWidgets-3.1.1\build\msw\wx_vc15.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
+rem It seems that wxWidgets-3.1.1 has some bugs in handling image list.
+%UNZIP% x -y -owxWidgets-3.1.0 wxWidgets-3.1.0.7z
+%UNZIP% x -y wxWidgets-3.1.0-gurapatch-vs2017.zip
+msbuild wxWidgets-3.1.0\build\msw\wx_vc14.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 if ERRORLEVEL 1 set FAILEDLIST=%FAILEDLIST% wx
 exit /b
 
