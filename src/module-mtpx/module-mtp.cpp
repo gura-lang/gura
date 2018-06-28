@@ -1,14 +1,14 @@
 //=============================================================================
-// Gura module: mtpx
+// Gura module: mtp
 //=============================================================================
 #include "stdafx.h"
 
-Gura_BeginModuleBody(mtpx)
+Gura_BeginModuleBody(mtp)
 
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
-// mtpx.test()
+// mtp.test()
 Gura_DeclareFunction(test)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -20,28 +20,14 @@ Gura_DeclareFunction(test)
 Gura_ImplementFunction(test)
 {
 	HRESULT hr;
-	ComPtr<IPortableDeviceValues> pPortableDeviceValues;
-	hr = ::CoCreateInstance(CLSID_PortableDeviceValues, nullptr,
-				CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pPortableDeviceValues));
-	if (FAILED(hr)) {
-		env.SetError(ERR_RuntimeError, "failed to get interface of PortableDeviceValues");
-		return Value::Nil;
-	}
-	ComPtr<IPortableDeviceManager> pPortableDeviceManager;
-	hr = ::CoCreateInstance(CLSID_PortableDeviceManager, nullptr,
-				CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pPortableDeviceManager));
-	if (FAILED(hr)) {
-		env.SetError(ERR_RuntimeError, "failed to get interface of PortableDeviceManager");
-		return Value::Nil;
-	}
-	ComPtr<IPortableDevice> pPortableDevice;
-	hr = CoCreateInstance(CLSID_PortableDeviceFTM, nullptr,
-				CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pPortableDevice));
-	if (FAILED(hr)) {
-		env.SetError(ERR_RuntimeError, "failed to get interface of PortableDeviceFTM");
-		return Value::Nil;
-	}
 	do {
+		ComPtr<IPortableDeviceValues> pPortableDeviceValues;
+		hr = ::CoCreateInstance(CLSID_PortableDeviceValues, nullptr,
+					CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pPortableDeviceValues));
+		if (FAILED(hr)) {
+			env.SetError(ERR_RuntimeError, "failed to get interface of PortableDeviceValues");
+			return Value::Nil;
+		}
 		hr = pPortableDeviceValues->SetStringValue(WPD_CLIENT_NAME, L"Gura mtp Module");
 		if (FAILED(hr)) goto error_done;
 		hr = pPortableDeviceValues->SetUnsignedIntegerValue(WPD_CLIENT_MAJOR_VERSION, GURA_VERSION_MAJOR);
@@ -52,6 +38,13 @@ Gura_ImplementFunction(test)
 		if (FAILED(hr)) goto error_done;
 	} while (0);
 	do {
+		ComPtr<IPortableDeviceManager> pPortableDeviceManager;
+		hr = ::CoCreateInstance(CLSID_PortableDeviceManager, nullptr,
+					CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pPortableDeviceManager));
+		if (FAILED(hr)) {
+			env.SetError(ERR_RuntimeError, "failed to get interface of PortableDeviceManager");
+			return Value::Nil;
+		}
 		DWORD nDeviceIDs = 0;
 		hr = pPortableDeviceManager->GetDevices(nullptr, &nDeviceIDs);
 		if (FAILED(hr)) goto error_done;
@@ -98,6 +91,17 @@ Gura_ImplementFunction(test)
 			::CoTaskMemFree(deviceIDs[i]);
 		}
 	} while (0);
+	do {
+		ComPtr<IPortableDevice> pPortableDevice;
+		hr = CoCreateInstance(CLSID_PortableDeviceFTM, nullptr,
+					CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pPortableDevice));
+		if (FAILED(hr)) {
+			env.SetError(ERR_RuntimeError, "failed to get interface of PortableDeviceFTM");
+			return Value::Nil;
+		}
+		hr = pPortableDevice->Open(nullptr, nullptr); //pnpDeviceIDs[currentDeviceIndex], clientInformation.Get());
+		
+	} while (0);
 	return Value::Nil;
 error_done:
 	env.SetError(ERR_RuntimeError, "error while calling COM function");
@@ -139,6 +143,6 @@ String WSTRToString(LPCWSTR wstr)
 	return String(psz);
 }
 
-Gura_EndModuleBody(mtpx, mtpx)
+Gura_EndModuleBody(mtp, mtp)
 
-Gura_RegisterModule(mtpx)
+Gura_RegisterModule(mtp)
