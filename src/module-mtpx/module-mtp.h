@@ -6,10 +6,9 @@
 #include <gura.h>
 #include <PortableDeviceApi.h>	// Windows Portable Device API interfaces
 #include <PortableDevice.h>		// Windows Portable Device definitions
-#include <wrl/client.h>
+#include "Platform_msw.h"
 #include "Class_device.h"
 
-using namespace Microsoft::WRL;
 
 Gura_BeginModuleHeader(mtp)
 

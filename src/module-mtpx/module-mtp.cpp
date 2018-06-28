@@ -130,19 +130,6 @@ Gura_ModuleTerminate()
 	//::CoUninitialize();
 }
 
-//-----------------------------------------------------------------------------
-// Utilities
-//-----------------------------------------------------------------------------
-String WSTRToString(LPCWSTR wstr)
-{
-	// cnt includes null-terminater
-	int cnt = ::WideCharToMultiByte(CP_UTF8, 0, wstr, -1, nullptr, 0, nullptr, nullptr);
-	char *psz = new char [cnt + 1];
-	::WideCharToMultiByte(CP_UTF8, 0, wstr, -1, psz, cnt, nullptr, nullptr);
-	psz[cnt] = '\0';
-	return String(psz);
-}
-
 Gura_EndModuleBody(mtp, mtp)
 
 Gura_RegisterModule(mtp)
