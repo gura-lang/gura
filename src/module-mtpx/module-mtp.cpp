@@ -19,6 +19,15 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
+	DeviceOwner deviceOwner;
+	if (!Device::Enumerate(env, deviceOwner)) return Value::Nil;
+	foreach (DeviceOwner, ppDevice, deviceOwner) {
+		Device *pDevice = *ppDevice;
+		::printf("friendlyName: %s\n", pDevice->GetFriendlyName());
+		::printf("manufacturer: %s\n", pDevice->GetManufacturer());
+		::printf("description:  %s\n", pDevice->GetDescription());
+	}
+#if 0
 	HRESULT hr;
 	do {
 		ComPtr<IPortableDeviceValues> pPortableDeviceValues;
@@ -105,6 +114,8 @@ Gura_ImplementFunction(test)
 	return Value::Nil;
 error_done:
 	env.SetError(ERR_RuntimeError, "error while calling COM function");
+	return Value::Nil;
+#endif
 	return Value::Nil;
 }
 

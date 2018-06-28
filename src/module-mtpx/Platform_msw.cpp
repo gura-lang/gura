@@ -43,19 +43,36 @@ bool Device::Enumerate(Signal &sig, DeviceOwner &deviceOwner)
 	if (FAILED(hr)) goto error_done;
 	for (DWORD i = 0; i < nDeviceIDs; i++) {
 		LPWSTR deviceID = deviceIDs[i];
-		deviceOwner.push_back(new Device(deviceID));
+		Device *pDevice = new Device(deviceID);
+		deviceOwner.push_back(pDevice);
+		::CoTaskMemFree(deviceID);
 		do {
 			DWORD len = 0;
-			hr = pPortableDeviceManager->GetDeviceFriendlyName(deviceID, nullptr, &len);
+			hr = pPortableDeviceManager->GetDeviceFriendlyName(pDevice->GetDeviceID(), nullptr, &len);
 			if (FAILED(hr)) goto error_done;
 			std::unique_ptr<WCHAR []> wstr(new WCHAR[len]);	// len contains terminal null.
-			hr = pPortableDeviceManager->GetDeviceFriendlyName(deviceID, wstr.get(), &len);
+			hr = pPortableDeviceManager->GetDeviceFriendlyName(pDevice->GetDeviceID(), wstr.get(), &len);
 			if (FAILED(hr)) goto error_done;
-			//friendlyName = WSTRToString(wstr.get());
+			pDevice->SetFriendlyName(WSTRToString(wstr.get()));
 		} while (0);
-		
-		
-		::CoTaskMemFree(deviceID);
+		do {
+			DWORD len = 0;
+			hr = pPortableDeviceManager->GetDeviceManufacturer(pDevice->GetDeviceID(), nullptr, &len);
+			if (FAILED(hr)) goto error_done;
+			std::unique_ptr<WCHAR []> wstr(new WCHAR[len]);	// len contains terminal null.
+			hr = pPortableDeviceManager->GetDeviceManufacturer(pDevice->GetDeviceID(), wstr.get(), &len);
+			if (FAILED(hr)) goto error_done;
+			pDevice->SetManufacturer(WSTRToString(wstr.get()));
+		} while (0);
+		do {
+			DWORD len = 0;
+			hr = pPortableDeviceManager->GetDeviceDescription(pDevice->GetDeviceID(), nullptr, &len);
+			if (FAILED(hr)) goto error_done;
+			std::unique_ptr<WCHAR []> wstr(new WCHAR[len]);	// len contains terminal null.
+			hr = pPortableDeviceManager->GetDeviceDescription(pDevice->GetDeviceID(), wstr.get(), &len);
+			if (FAILED(hr)) goto error_done;
+			pDevice->SetDescription(WSTRToString(wstr.get()));
+		} while (0);
 	}
 	return true;
 error_done:

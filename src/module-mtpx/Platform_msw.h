@@ -20,6 +20,9 @@ class Device {
 private:
 	int _cntRef;
 	std::basic_string<WCHAR> _deviceID;
+	String _friendlyName;
+	String _manufacturer;
+	String _description;
 	ComPtr<IPortableDevice> _pPortableDevice;
 public:
 	Gura_DeclareReferenceAccessor(Device);
@@ -29,6 +32,13 @@ protected:
 	inline ~Device() {}
 public:
 	bool Open(Signal &sig);
+	LPCWSTR GetDeviceID() const { return _deviceID.c_str(); }
+	inline void SetFriendlyName(const String &friendlyName) { _friendlyName = friendlyName; }
+	inline void SetManufacturer(const String &manufacturer) { _manufacturer = manufacturer; }
+	inline void SetDescription(const String &description) { _description = description; }
+	inline const char *GetFriendlyName() const { return _friendlyName.c_str(); }
+	inline const char *GetManufacturer() const { return _manufacturer.c_str(); }
+	inline const char *GetDescription() const { return _description.c_str(); }
 	static bool Enumerate(Signal &sig, DeviceOwner &deviceOwner);
 };
 
