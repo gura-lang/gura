@@ -10,6 +10,12 @@
 using namespace Microsoft::WRL;
 
 Gura_BeginModuleHeader(mtpx)
+
+//-----------------------------------------------------------------------------
+// Utilities
+//-----------------------------------------------------------------------------
+String WSTRToString(LPCWSTR wstr);
+
 Gura_EndModuleHeader(mtpx)
 
 #endif

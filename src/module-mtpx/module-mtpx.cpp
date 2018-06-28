@@ -5,16 +5,6 @@
 
 Gura_BeginModuleBody(mtpx)
 
-String BSTRToString(const OLECHAR *bstr)
-{
-	// cnt includes null-terminater
-	int cnt = ::WideCharToMultiByte(CP_UTF8, 0, bstr, -1, nullptr, 0, nullptr, nullptr);
-	char *psz = new char [cnt + 1];
-	::WideCharToMultiByte(CP_UTF8, 0, bstr, -1, psz, cnt, nullptr, nullptr);
-	psz[cnt] = '\0';
-	return String(psz);
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
@@ -71,28 +61,28 @@ Gura_ImplementFunction(test)
 				DWORD len = 0;
 				hr = pPortableDeviceManager->GetDeviceFriendlyName(deviceID, nullptr, &len);
 				if (FAILED(hr)) goto error_done;
-				std::unique_ptr<WCHAR []> str(new WCHAR[len + 1]);
-				hr = pPortableDeviceManager->GetDeviceFriendlyName(deviceID, str.get(), &len);
+				std::unique_ptr<WCHAR []> wstr(new WCHAR[len]);	// len contains terminal null.
+				hr = pPortableDeviceManager->GetDeviceFriendlyName(deviceID, wstr.get(), &len);
 				if (FAILED(hr)) goto error_done;
-				friendlyName = BSTRToString(str.get());
+				friendlyName = WSTRToString(wstr.get());
 			} while (0);
 			do {
 				DWORD len = 0;
 				hr = pPortableDeviceManager->GetDeviceManufacturer(deviceID, nullptr, &len);
 				if (FAILED(hr)) goto error_done;
-				std::unique_ptr<WCHAR []> str(new WCHAR[len + 1]);
-				hr = pPortableDeviceManager->GetDeviceManufacturer(deviceID, str.get(), &len);
+				std::unique_ptr<WCHAR []> wstr(new WCHAR[len]);	// len contains terminal null.
+				hr = pPortableDeviceManager->GetDeviceManufacturer(deviceID, wstr.get(), &len);
 				if (FAILED(hr)) goto error_done;
-				manufacturer = BSTRToString(str.get());
+				manufacturer = WSTRToString(wstr.get());
 			} while (0);
 			do {
 				DWORD len = 0;
 				hr = pPortableDeviceManager->GetDeviceDescription(deviceID, nullptr, &len);
 				if (FAILED(hr)) goto error_done;
-				std::unique_ptr<WCHAR []> str(new WCHAR[len + 1]);
-				hr = pPortableDeviceManager->GetDeviceDescription(deviceID, str.get(), &len);
+				std::unique_ptr<WCHAR []> wstr(new WCHAR[len]);	// len contains terminal null.
+				hr = pPortableDeviceManager->GetDeviceDescription(deviceID, wstr.get(), &len);
 				if (FAILED(hr)) goto error_done;
-				description = BSTRToString(str.get());
+				description = WSTRToString(wstr.get());
 			} while (0);
 			::printf("friendlyName: %s\n", friendlyName.c_str());
 			::printf("manufacturer: %s\n", manufacturer.c_str());
@@ -128,6 +118,19 @@ Gura_ModuleEntry()
 Gura_ModuleTerminate()
 {
 	//::CoUninitialize();
+}
+
+//-----------------------------------------------------------------------------
+// Utilities
+//-----------------------------------------------------------------------------
+String WSTRToString(LPCWSTR wstr)
+{
+	// cnt includes null-terminater
+	int cnt = ::WideCharToMultiByte(CP_UTF8, 0, wstr, -1, nullptr, 0, nullptr, nullptr);
+	char *psz = new char [cnt + 1];
+	::WideCharToMultiByte(CP_UTF8, 0, wstr, -1, psz, cnt, nullptr, nullptr);
+	psz[cnt] = '\0';
+	return String(psz);
 }
 
 Gura_EndModuleBody(mtpx, mtpx)
