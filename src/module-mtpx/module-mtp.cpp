@@ -8,6 +8,29 @@ Gura_BeginModuleBody(mtp)
 //-----------------------------------------------------------------------------
 // Implementation of function
 //-----------------------------------------------------------------------------
+// mtp.detect_devices() {block?}
+Gura_DeclareFunction(detect_devices)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Detects MTP devices and returns a list of `mtp.device` instances.\n");
+}
+
+Gura_ImplementFunction(detect_devices)
+{
+	DeviceOwner deviceOwner;
+	if (!deviceOwner.EnumerateDevices(env)) return Value::Nil;
+	Value valueRtn;
+	Object_list *pObjList = valueRtn.InitAsList(env);
+	foreach_const (DeviceOwner, ppDevice, deviceOwner) {
+		Device *pDevice = *ppDevice;
+		pObjList->Add(Value(new Object_device(pDevice->Reference())));
+	}
+	return ReturnValue(env, arg, valueRtn);
+}
+
 // mtp.test()
 Gura_DeclareFunction(test)
 {
@@ -61,6 +84,7 @@ Gura_ModuleEntry()
 	Gura_RealizeAndPrepareUserClass(storage, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(stat, env.LookupClass(VTYPE_object));
  	// Assignment of function
+	Gura_AssignFunction(detect_devices);
 	Gura_AssignFunction(test);
 	return true;
 }

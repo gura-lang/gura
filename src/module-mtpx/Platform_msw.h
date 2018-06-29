@@ -97,7 +97,7 @@ public:
 	inline UInt64 GetFreeSpaceInBytes() const { return _freeSpaceInBytes; }
 	inline UInt64 GetFreeSpaceInObjects() const { return _freeSpaceInObjects; }
 	inline const char *GetStorageDescription() const { return _storageDescription.c_str(); }
-	inline const char *GetVolumeIdentifier() { return _volumeIdentifier.c_str(); }
+	inline const char *GetVolumeIdentifier() const { return _volumeIdentifier.c_str(); }
 	inline void SetStorageType(const Symbol *pStorageType) { _pStorageType = pStorageType; }
 	inline void SetFilesystemType(const Symbol *pFilesystemType) { _pFilesystemType = pFilesystemType; }
 	inline void SetAccessCapability(const Symbol *pAccessCapability) { _pAccessCapability = pAccessCapability; }

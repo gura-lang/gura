@@ -13,11 +13,15 @@ Gura_BeginModuleScope(mtp)
 Gura_DeclareUserClass(device);
 
 class Object_device : public Object {
+private:
+	AutoPtr<Device> _pDevice;
 public:
 	Gura_DeclareObjectAccessor(device)
 public:
-	Object_device();
+	Object_device(Device *pDevice);
 	virtual String ToString(bool exprFlag);
+	inline Device *GetDevice() { return _pDevice.get(); }
+	inline const Device *GetDevice() const { return _pDevice.get(); }
 };
 
 Gura_EndModuleScope(mtp)
