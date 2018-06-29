@@ -56,6 +56,10 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(ReadWrite);
 	Gura_RealizeUserSymbol(ReadOnly);
 	Gura_RealizeUserSymbol(ReadOnlyWithObjectDeletion);
+	// Realization of class
+	Gura_RealizeAndPrepareUserClass(device, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(storage, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(stat, env.LookupClass(VTYPE_object));
  	// Assignment of function
 	Gura_AssignFunction(test);
 	return true;

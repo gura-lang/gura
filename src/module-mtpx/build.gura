@@ -3,4 +3,6 @@ import(modbuild)
 
 builder = modbuild.Builder()
 builder.libs.append('ShlWapi.lib', 'PortableDeviceGuids.lib')
-builder.build('mtp', ['module-mtp.cpp', 'Platform_msw.cpp', 'Class_device.cpp'])
+builder.build('mtp', [
+	'module-mtp.cpp', 'Platform_msw.cpp',
+	'Class_device.cpp', 'Class_storage.cpp', 'Class_stat.cpp'])
