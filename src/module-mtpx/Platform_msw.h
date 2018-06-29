@@ -70,15 +70,14 @@ private:
 	int _cntRef;
 	AutoPtr<Device> _pDevice;
 	std::basic_string<WCHAR> _objectID;
-	uint16_t _storageType;			// Storage type
-	uint16_t _filesystemType;		// Filesystem type
-	uint16_t _accessCapability;		// Access capability
-	uint64_t _maxCapacity;			// Maximum capability
-	uint64_t _freeSpaceInBytes;		// Free space in bytes
-	uint64_t _freeSpaceInObjects;	// Free space in objects
-	String _storageDescription;		// A brief description of this storage 
-	String _volumeIdentifier;		// A volume identifier
-	//ComPtr<IEnumPortableDeviceObjectIDs> _pEnumPortableDeviceObjectIDs;
+	const Symbol *_pStorageType;		// Storage type
+	const Symbol *_pFilesystemType;		// Filesystem type
+	const Symbol *_pAccessCapability;	// Access capability
+	UInt64 _maxCapacity;				// Maximum capability
+	UInt64 _freeSpaceInBytes;			// Free space in bytes
+	UInt64 _freeSpaceInObjects;			// Free space in objects
+	String _storageDescription;			// A brief description of this storage 
+	String _volumeIdentifier;			// A volume identifier
 public:
 	Gura_DeclareReferenceAccessor(Storage);
 public:
@@ -91,6 +90,37 @@ public:
 	//inline IEnumPortableDeviceObjectIDs *GetEnumPortableDeviceObjectIDs() {
 	//	return _pEnumPortableDeviceObjectIDs.Get();
 	//}
+	inline const Symbol *GetStorageType() const { return _pStorageType; }
+	inline const Symbol *GetFilesystemType() const { return _pFilesystemType; }
+	inline const Symbol *GetAccessCapability() const { return _pAccessCapability; }
+	inline UInt64 GetMaxCapacity() const { return _maxCapacity; }
+	inline UInt64 GetFreeSpaceInBytes() const { return _freeSpaceInBytes; }
+	inline UInt64 GetFreeSpaceInObjects() const { return _freeSpaceInObjects; }
+	inline const char *GetStorageDescription() const { return _storageDescription.c_str(); }
+	inline const char *GetVolumeIdentifier() { return _volumeIdentifier.c_str(); }
+	inline void SetStorageType(const Symbol *pStorageType) { _pStorageType = pStorageType; }
+	inline void SetFilesystemType(const Symbol *pFilesystemType) { _pFilesystemType = pFilesystemType; }
+	inline void SetAccessCapability(const Symbol *pAccessCapability) { _pAccessCapability = pAccessCapability; }
+	inline void SetMaxCapacity(UInt64 maxCapacity) { _maxCapacity = maxCapacity; }
+	inline void SetFreeSpaceInBytes(UInt64 freeSpaceInBytes) { _freeSpaceInBytes = freeSpaceInBytes; }
+	inline void SetFreeSpaceInObjects(UInt64 freeSpaceInObjects) { _freeSpaceInObjects = freeSpaceInObjects; }
+	inline void SetStorageDescription(const char *storageDescription) { _storageDescription = storageDescription; }
+	inline void SetVolumeIdentifier(const char *volumeIdentifier) { _volumeIdentifier = volumeIdentifier; }
+#if 0
+	inline Directory_MTP *GenerateDirectory(Signal &sig, const char *pathName) {
+		return _pDevice->GenerateDirectory(sig, _objectId, pathName);
+	}
+	inline Directory_MTP *GeneratePartialDirectory(Signal &sig, const char *pathName,
+												   const char **pPathNamePartial) const {
+		return _pDevice->GeneratePartialDirectory(sig, _objectId, pathName, pPathNamePartial);
+	}
+	Stream *GenerateReaderStream(Environment &env, const char *pathName) const;
+	bool RecvFile(Signal &sig, const char *pathName, Stream *pStream, const Function *pFuncBlock) const;
+	bool SendFile(Signal &sig, const char *pathName, Stream *pStream, const Function *pFuncBlock) const;
+	bool DeleteFile(Signal &sig, const char *pathName) const;
+	bool MoveFile(Signal &sig, const char *pathNameOld, const char *pathNameNew, bool overwriteFlag) const;
+	bool CopyFile(Signal &sig, const char *pathNameSrc, const char *pathNameDst, bool overwriteFlag) const;
+#endif
 };
 
 //-----------------------------------------------------------------------------

@@ -92,7 +92,9 @@ bool DeviceOwner::EnumerateDevices(Signal &sig)
 // Storage
 //-----------------------------------------------------------------------------
 Storage::Storage(Device *pDevice, LPCWSTR objectID) :
-					_cntRef(1), _pDevice(pDevice), _objectID(objectID)
+	_cntRef(1), _pDevice(pDevice), _objectID(objectID),
+	_pStorageType(Symbol::Empty), _pFilesystemType(Symbol::Empty), _pAccessCapability(Symbol::Empty),
+	_maxCapacity(0), _freeSpaceInBytes(0), _freeSpaceInObjects(0)
 {
 }
 
@@ -163,45 +165,49 @@ bool StorageOwner::EnumerateStorages(Signal &sig, Device *pDevice)
 				ULONG value = 0;
 				if (CatchErr(sig, pPortableDeviceValues->GetUnsignedIntegerValue(
 									WPD_STORAGE_TYPE, &value))) return false;
-				::printf("type: %d\n", value);
+				pStorage->SetStorageType(
+					(value == WPD_STORAGE_TYPE_FIXED_ROM)? Gura_UserSymbol(FixedROM) :
+					(value == WPD_STORAGE_TYPE_REMOVABLE_ROM)? Gura_UserSymbol(RemovableROM) :
+					(value == WPD_STORAGE_TYPE_FIXED_RAM)? Gura_UserSymbol(FixedRAM) :
+					(value ==  WPD_STORAGE_TYPE_REMOVABLE_RAM)? Gura_UserSymbol(RemovableRAM) :
+					Gura_UserSymbol(Undefined));
 			} while (0);
 			do { // WPD_STORAGE_FILE_SYSTEM_TYPE: VT_LPWSTR
 				LPWSTR value = nullptr;
 				if (CatchErr(sig, pPortableDeviceValues->GetStringValue(
 									WPD_STORAGE_FILE_SYSTEM_TYPE, &value))) return false;
-				::printf("file system type: %s\n", WSTRToString(value).c_str());
 				::CoTaskMemFree(value);
 			} while (0);
 			do { // WPD_STORAGE_CAPACITY: VT_UI8
 				ULONGLONG value = 0;
 				if (CatchErr(sig, pPortableDeviceValues->GetUnsignedLargeIntegerValue(
 									WPD_STORAGE_CAPACITY, &value))) return false;
-				::printf("capacity: %lld\n", value);
+				pStorage->SetMaxCapacity(value);
 			} while (0);
 			do { // WPD_STORAGE_FREE_SPACE_IN_BYTES: VT_UI8
 				ULONGLONG value = 0;
 				if (CatchErr(sig, pPortableDeviceValues->GetUnsignedLargeIntegerValue(
 									WPD_STORAGE_FREE_SPACE_IN_BYTES, &value))) return false;
-				::printf("free space: %lld\n", value);
+				pStorage->SetFreeSpaceInBytes(value);
 			} while (0);
 			do { // WPD_STORAGE_FREE_SPACE_IN_OBJECTS: VT_UI8
 				ULONGLONG value = 0;
 				if (CatchErr(sig, pPortableDeviceValues->GetUnsignedLargeIntegerValue(
 									WPD_STORAGE_FREE_SPACE_IN_OBJECTS, &value))) return false;
-				::printf("free space in obj: %lld\n", value);
+				pStorage->SetFreeSpaceInObjects(value);
 			} while (0);
 			do { // WPD_STORAGE_DESCRIPTION: VT_LPWSTR
 				LPWSTR value = nullptr;
 				if (CatchErr(sig, pPortableDeviceValues->GetStringValue(
 									WPD_STORAGE_DESCRIPTION, &value))) return false;
-				::printf("description: %s\n", WSTRToString(value).c_str());
+				pStorage->SetStorageDescription(WSTRToString(value).c_str());
 				::CoTaskMemFree(value);
 			} while (0);
 			do { // WPD_STORAGE_SERIAL_NUMBER: VT_LPWSTR
 				LPWSTR value = nullptr;
 				if (CatchErr(sig, pPortableDeviceValues->GetStringValue(
 									WPD_STORAGE_SERIAL_NUMBER, &value))) return false;
-				::printf("serial number: %s\n", WSTRToString(value).c_str());
+				pStorage->SetVolumeIdentifier(WSTRToString(value).c_str());
 				::CoTaskMemFree(value);
 			} while (0);
 #if 0
@@ -224,7 +230,11 @@ bool StorageOwner::EnumerateStorages(Signal &sig, Device *pDevice)
 				ULONG value = 0;
 				if (CatchErr(sig, pPortableDeviceValues->GetUnsignedIntegerValue(
 									WPD_STORAGE_ACCESS_CAPABILITY, &value))) return false;
-				::printf("access capability: %d\n", value);
+				pStorage->SetAccessCapability(
+					(value == WPD_STORAGE_ACCESS_CAPABILITY_READWRITE)? Gura_UserSymbol(ReadWrite) :
+					(value == WPD_STORAGE_ACCESS_CAPABILITY_READ_ONLY_WITHOUT_OBJECT_DELETION)? Gura_UserSymbol(ReadOnly) :
+					(value == WPD_STORAGE_ACCESS_CAPABILITY_READ_ONLY_WITH_OBJECT_DELETION)? Gura_UserSymbol(ReadOnlyWithObjectDeletion) :
+					Gura_UserSymbol(Undefined));
 			} while (0);
 			push_back(pStorage.release());
 		}

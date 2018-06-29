@@ -44,6 +44,18 @@ Gura_ModuleEntry()
 {
 	HRESULT hr = ::CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 	if (FAILED(hr)) return false;
+	// Realization of symbol
+	Gura_RealizeUserSymbol(Undefined);
+	Gura_RealizeUserSymbol(FixedROM);
+	Gura_RealizeUserSymbol(RemovableROM);
+	Gura_RealizeUserSymbol(FixedRAM);
+	Gura_RealizeUserSymbol(RemovableRAM);
+	Gura_RealizeUserSymbol(GenericFlat);
+	Gura_RealizeUserSymbol(GenericHierarchical);
+	Gura_RealizeUserSymbol(DCF);
+	Gura_RealizeUserSymbol(ReadWrite);
+	Gura_RealizeUserSymbol(ReadOnly);
+	Gura_RealizeUserSymbol(ReadOnlyWithObjectDeletion);
  	// Assignment of function
 	Gura_AssignFunction(test);
 	return true;
