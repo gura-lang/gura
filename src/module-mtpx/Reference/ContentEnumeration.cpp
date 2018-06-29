@@ -42,7 +42,7 @@ void RecursiveEnumerate(
         hr = enumObjectIDs->Next(NUM_OBJECTS_TO_REQUEST,    // Number of objects to request on each NEXT call
                                  objectIDArray,             // Array of PWSTR array which will be populated on each NEXT call
                                  &numFetched);              // Number of objects written to the PWSTR array
-        if (SUCCEEDED(hr))
+		if (SUCCEEDED(hr))
         {
             // Traverse the results of the Next() operation and recursively enumerate
             // Remember to free all returned object identifiers using CoTaskMemFree()
