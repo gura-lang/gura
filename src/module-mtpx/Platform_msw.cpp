@@ -14,33 +14,26 @@ bool Device::Open(Signal &sig)
 	HRESULT hr;
 	hr = ::CoCreateInstance(CLSID_PortableDeviceFTM, nullptr,
 				CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&_pPortableDevice));
-	if (FAILED(hr)) {
-		sig.SetError(ERR_RuntimeError, "failed to get interface of PortableDeviceFTM");
-		return false;
-	}
+	if (FailedHRESULT(sig, hr)) return false;
 	hr = _pPortableDevice->Open(_deviceID.c_str(), nullptr);
 	//pnpDeviceIDs[currentDeviceIndex], clientInformation.Get());
-	if (FAILED(hr)) {
-		sig.SetError(ERR_RuntimeError, "failed to open device");
-		return false;
-	}
+	if (FailedHRESULT(sig, hr)) return false;
 	return true;
 }
 
 bool Device::Enumerate(Signal &sig, DeviceOwner &deviceOwner)
 {
 	HRESULT hr;
-	std::unique_ptr<LPWSTR []> deviceIDs;
 	ComPtr<IPortableDeviceManager> pPortableDeviceManager;
 	hr = ::CoCreateInstance(CLSID_PortableDeviceManager, nullptr,
 				CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pPortableDeviceManager));
-	if (FAILED(hr)) goto error_done;
+	if (FailedHRESULT(sig, hr)) return false;
 	DWORD nDeviceIDs = 0;
 	hr = pPortableDeviceManager->GetDevices(nullptr, &nDeviceIDs);
-	if (FAILED(hr)) goto error_done;
-	deviceIDs.reset(new LPWSTR[nDeviceIDs]);
+	if (FailedHRESULT(sig, hr)) return false;
+	std::unique_ptr<LPWSTR []> deviceIDs(new LPWSTR[nDeviceIDs]);
 	hr = pPortableDeviceManager->GetDevices(deviceIDs.get(), &nDeviceIDs);
-	if (FAILED(hr)) goto error_done;
+	if (FailedHRESULT(sig, hr)) return false;
 	for (DWORD i = 0; i < nDeviceIDs; i++) {
 		LPWSTR deviceID = deviceIDs[i];
 		Device *pDevice = new Device(deviceID);
@@ -49,35 +42,32 @@ bool Device::Enumerate(Signal &sig, DeviceOwner &deviceOwner)
 		do {
 			DWORD len = 0;
 			hr = pPortableDeviceManager->GetDeviceFriendlyName(pDevice->GetDeviceID(), nullptr, &len);
-			if (FAILED(hr)) goto error_done;
+			if (FailedHRESULT(sig, hr)) return false;
 			std::unique_ptr<WCHAR []> wstr(new WCHAR[len]);	// len contains terminal null.
 			hr = pPortableDeviceManager->GetDeviceFriendlyName(pDevice->GetDeviceID(), wstr.get(), &len);
-			if (FAILED(hr)) goto error_done;
+			if (FailedHRESULT(sig, hr)) return false;
 			pDevice->SetFriendlyName(WSTRToString(wstr.get()));
 		} while (0);
 		do {
 			DWORD len = 0;
 			hr = pPortableDeviceManager->GetDeviceManufacturer(pDevice->GetDeviceID(), nullptr, &len);
-			if (FAILED(hr)) goto error_done;
+			if (FailedHRESULT(sig, hr)) return false;
 			std::unique_ptr<WCHAR []> wstr(new WCHAR[len]);	// len contains terminal null.
 			hr = pPortableDeviceManager->GetDeviceManufacturer(pDevice->GetDeviceID(), wstr.get(), &len);
-			if (FAILED(hr)) goto error_done;
+			if (FailedHRESULT(sig, hr)) return false;
 			pDevice->SetManufacturer(WSTRToString(wstr.get()));
 		} while (0);
 		do {
 			DWORD len = 0;
 			hr = pPortableDeviceManager->GetDeviceDescription(pDevice->GetDeviceID(), nullptr, &len);
-			if (FAILED(hr)) goto error_done;
+			if (FailedHRESULT(sig, hr)) return false;
 			std::unique_ptr<WCHAR []> wstr(new WCHAR[len]);	// len contains terminal null.
 			hr = pPortableDeviceManager->GetDeviceDescription(pDevice->GetDeviceID(), wstr.get(), &len);
-			if (FAILED(hr)) goto error_done;
+			if (FailedHRESULT(sig, hr)) return false;
 			pDevice->SetDescription(WSTRToString(wstr.get()));
 		} while (0);
 	}
 	return true;
-error_done:
-	sig.SetError(ERR_RuntimeError, "%s", HRESULTToString(hr).c_str());
-	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -120,6 +110,15 @@ String HRESULTToString(HRESULT hr)
 	if (wstr != nullptr) rtn = WSTRToString(wstr);
 	::LocalFree(wstr);
 	return rtn;
+}
+
+bool FailedHRESULT(Signal &sig, HRESULT hr)
+{
+	if (FAILED(hr)) {
+		sig.SetError(ERR_RuntimeError, "%s", HRESULTToString(hr).c_str());
+		return true;
+	}
+	return false;
 }
 
 Gura_EndModuleScope(mtp)

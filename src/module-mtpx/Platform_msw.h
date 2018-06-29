@@ -4,6 +4,8 @@
 #ifndef __GURA_MODULE_MTP_PLATFORM_MSW_H__
 #define __GURA_MODULE_MTP_PLATFORM_MSW_H__
 #include <gura.h>
+#include <PortableDeviceApi.h>	// Windows Portable Device API interfaces
+#include <PortableDevice.h>		// Windows Portable Device definitions
 #include <wrl/client.h>
 
 using namespace Microsoft::WRL;
@@ -62,6 +64,7 @@ public:
 //-----------------------------------------------------------------------------
 String WSTRToString(LPCWSTR wstr);
 String HRESULTToString(HRESULT hr);
+bool FailedHRESULT(Signal &sig, HRESULT hr);
 
 Gura_EndModuleScope(mtp)
 
