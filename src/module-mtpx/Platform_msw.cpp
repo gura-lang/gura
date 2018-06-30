@@ -31,6 +31,95 @@ bool Device::Open(Signal &sig)
 	return true;
 }
 
+Directory_MTP *Device::GeneratePartialDirectory(
+	Signal &sig, LPCWSTR objectID, const char *pathName, const char **pPathNamePartial) const
+{
+	const char *p = pathName;
+	if (IsFileSeparator(*p)) p++;
+	*pPathNamePartial = p;
+	ComPtr<IPortableDeviceProperties> pPortableDeviceProperties;
+	ComPtr<IPortableDeviceKeyCollection> pPortableDeviceKeyCollection;
+	if (CatchErr(sig, _pPortableDeviceContent->Properties(&pPortableDeviceProperties))) return false;
+	if (CatchErr(sig, ::CoCreateInstance(CLSID_PortableDeviceKeyCollection,
+			nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pPortableDeviceKeyCollection)))) return false;
+	if (CatchErr(sig, pPortableDeviceKeyCollection->Add(WPD_OBJECT_ORIGINAL_FILE_NAME))) return false;
+	Directory_MTP *pDirectory = new Directory_MTP(
+		nullptr, "/", Directory::TYPE_Container, Reference(), objectID);
+	while (*p != '\0') {
+		if (!pDirectory->IsContainer()) {
+			sig.SetError(ERR_IOError, "can't browse inside an item");
+			return nullptr;
+		}
+		String field;
+		for ( ; ; p++) {
+			if (*p == '\0') {
+				break;
+			} else if (IsFileSeparator(*p)) {
+				p++;
+				break;
+			}
+			field += *p;
+		}
+		*pPathNamePartial = p;
+		if (field.empty()) {
+			sig.SetError(ERR_FormatError, "wrong format of path name");
+			return nullptr;
+		}
+		//::printf("[%s]\n", field.c_str());
+		ComPtr<IEnumPortableDeviceObjectIDs> pEnumPortableDeviceObjectIDs;
+		if (CatchErr(sig, _pPortableDeviceContent->EnumObjects(
+			0, pDirectory->GetObjectID(), nullptr, &pEnumPortableDeviceObjectIDs))) return nullptr;
+		HRESULT hr;
+		LPWSTR objectIDs[32];
+		StringW objectIDFound;
+		String fileName;
+		do {
+			DWORD nObjectIDs = 0;
+			hr = pEnumPortableDeviceObjectIDs->Next(ArraySizeOf(objectIDs), objectIDs, &nObjectIDs);
+			if (CatchErr(sig, hr)) return false;
+			for (DWORD i = 0; i < nObjectIDs; i++) {
+				LPCWSTR objectID = objectIDs[i];
+				ComPtr<IPortableDeviceValues> pPortableDeviceValues;
+				if (CatchErr(sig, pPortableDeviceProperties->GetValues(
+					objectID, pPortableDeviceKeyCollection.Get(), &pPortableDeviceValues))) break;
+				// WPD_OBJECT_NAME: VT_LPWSTR
+				LPWSTR value = nullptr;
+				if (CatchErr(sig, pPortableDeviceValues->GetStringValue(
+									WPD_OBJECT_ORIGINAL_FILE_NAME, &value))) break;
+				fileName = WSTRToString(value);
+				::printf("%s\n", fileName.c_str());
+				::CoTaskMemFree(value);
+				if (field == fileName) {
+					objectIDFound = objectID;
+					break;
+				}
+			}
+			for (DWORD i = 0; i < nObjectIDs; i++) {
+				::CoTaskMemFree(objectIDs[i]);
+			}
+			if (sig.IsSignalled()) return false;
+		} while (hr == S_OK && objectIDFound.empty());
+		if (objectIDFound.empty()) break;
+		//pDirectory = new Directory_MTP(
+		//	pDirectory, fileName.c_str(),
+		//	(mtpfileFound->filetype == LIBMTP_FILETYPE_FOLDER)?
+		//						Directory::TYPE_Container : Directory::TYPE_Item,
+		//	Reference(), objectIDFound.c_str());
+	}
+	return pDirectory;
+}
+
+Directory_MTP *Device::GenerateDirectory(Signal &sig, LPCWSTR objectID, const char *pathName) const
+{
+	const char *pathNamePartial = nullptr;
+	AutoPtr<Directory_MTP> pDirectory(GeneratePartialDirectory(sig, objectID, pathName, &pathNamePartial));
+	if (*pathNamePartial != '\0') {
+		sig.SetError(ERR_IOError, "specified path doesn't exist");
+		return nullptr;
+	}
+	return pDirectory.release();
+}
+
 //-----------------------------------------------------------------------------
 // DeviceOwner
 //-----------------------------------------------------------------------------
@@ -240,6 +329,35 @@ bool StorageOwner::EnumerateStorages(Signal &sig, Device *pDevice)
 		}
 	} while (hr == S_OK);
 	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Directory_MTP
+//-----------------------------------------------------------------------------
+Directory_MTP::Directory_MTP(Directory *pParent, const char *name, Type type,
+		Device *pDevice, LPCWSTR objectID) :
+	Directory(pParent, name, type, OAL::FileSeparatorUnix),
+	_pDevice(pDevice), _objectID(objectID)
+{
+}
+
+Directory_MTP::~Directory_MTP()
+{
+}
+
+Directory *Directory_MTP::DoNext(Environment &env)
+{
+	return nullptr;
+}
+
+Stream *Directory_MTP::DoOpenStream(Environment &env, UInt32 attr)
+{
+	return nullptr;
+}
+
+Object *Directory_MTP::DoGetStatObj(Signal &sig)
+{
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------

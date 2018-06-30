@@ -154,21 +154,24 @@ Gura_ImplementPropertyGetter(storage, volume_identifier)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// mtp.storage#method1()
-Gura_DeclareMethod(storage, method1)
+// mtp.storage#opendir(pathname:string) {block?}
+Gura_DeclareMethod(storage, opendir)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	//DeclareArg(env, "arg1", VTYPE_string);
-	//DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "pathname", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
 }
 
-Gura_ImplementMethod(storage, method1)
+Gura_ImplementMethod(storage, opendir)
 {
-	//Object_storage *pThis = Object_storage::GetObjectThis(arg);
-	return Value::Nil;
+	const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
+	const char *pathName = arg.GetString(0);
+	AutoPtr<Directory> pDirectory(pStorage->GenerateDirectory(env, pathName));
+	if (pDirectory.IsNull()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_directory(env, pDirectory.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -186,7 +189,7 @@ Gura_ImplementUserClass(storage)
 	Gura_AssignProperty(storage, storage_description);
 	Gura_AssignProperty(storage, volume_identifier);
 	// Assignment of method
-	Gura_AssignMethod(storage, method1);
+	Gura_AssignMethod(storage, opendir);
 	// Assignment of value
 	Gura_AssignValue(storage, Value(Reference()));
 }

@@ -14,6 +14,12 @@ Gura_BeginModuleScope(mtp)
 
 class DeviceList;
 class DeviceOwner;
+class Directory_MTP;
+
+//-----------------------------------------------------------------------------
+// StringW
+//-----------------------------------------------------------------------------
+typedef std::basic_string<WCHAR> StringW;
 
 //-----------------------------------------------------------------------------
 // Device
@@ -21,7 +27,7 @@ class DeviceOwner;
 class Device {
 private:
 	int _cntRef;
-	std::basic_string<WCHAR> _deviceID;
+	StringW _deviceID;
 	String _friendlyName;
 	String _manufacturer;
 	String _description;
@@ -35,6 +41,9 @@ protected:
 	inline ~Device() {}
 public:
 	bool Open(Signal &sig);
+	Directory_MTP *GeneratePartialDirectory(
+		Signal &sig, LPCWSTR objectID, const char *pathName, const char **pPathNamePartial) const;
+	Directory_MTP *GenerateDirectory(Signal &sig, LPCWSTR objectID, const char *pathName) const;
 	inline LPCWSTR GetDeviceID() const { return _deviceID.c_str(); }
 	inline IPortableDevice *GetPortableDevice() { return _pPortableDevice.Get(); }
 	inline IPortableDeviceContent *GetPortableDeviceContent() { return _pPortableDeviceContent.Get(); }
@@ -69,7 +78,7 @@ class Storage {
 private:
 	int _cntRef;
 	AutoPtr<Device> _pDevice;
-	std::basic_string<WCHAR> _objectID;
+	StringW _objectID;
 	const Symbol *_pStorageType;		// Storage type
 	const Symbol *_pFilesystemType;		// Filesystem type
 	const Symbol *_pAccessCapability;	// Access capability
@@ -106,14 +115,14 @@ public:
 	inline void SetFreeSpaceInObjects(UInt64 freeSpaceInObjects) { _freeSpaceInObjects = freeSpaceInObjects; }
 	inline void SetStorageDescription(const char *storageDescription) { _storageDescription = storageDescription; }
 	inline void SetVolumeIdentifier(const char *volumeIdentifier) { _volumeIdentifier = volumeIdentifier; }
-#if 0
-	inline Directory_MTP *GenerateDirectory(Signal &sig, const char *pathName) {
-		return _pDevice->GenerateDirectory(sig, _objectId, pathName);
+	inline Directory_MTP *GenerateDirectory(Signal &sig, const char *pathName) const {
+		return _pDevice->GenerateDirectory(sig, GetObjectID(), pathName);
 	}
 	inline Directory_MTP *GeneratePartialDirectory(Signal &sig, const char *pathName,
 												   const char **pPathNamePartial) const {
-		return _pDevice->GeneratePartialDirectory(sig, _objectId, pathName, pPathNamePartial);
+		return _pDevice->GeneratePartialDirectory(sig, GetObjectID(), pathName, pPathNamePartial);
 	}
+#if 0
 	Stream *GenerateReaderStream(Environment &env, const char *pathName) const;
 	bool RecvFile(Signal &sig, const char *pathName, Stream *pStream, const Function *pFuncBlock) const;
 	bool SendFile(Signal &sig, const char *pathName, Stream *pStream, const Function *pFuncBlock) const;
@@ -137,6 +146,24 @@ public:
 	~StorageOwner();
 	void Clear();
 	bool EnumerateStorages(Signal &sig, Device *pDevice);
+};
+
+//-----------------------------------------------------------------------------
+// Directory_MTP declaration
+//-----------------------------------------------------------------------------
+class Directory_MTP : public Directory {
+private:
+	AutoPtr<Device> _pDevice;
+	StringW _objectID;
+	ComPtr<IEnumPortableDeviceObjectIDs> _pEnumPortableDeviceObjectIDs;
+public:
+	Directory_MTP(Directory *pParent, const char *name, Type type,
+		Device *pDevice, LPCWSTR objectID);
+	virtual ~Directory_MTP();
+	virtual Directory *DoNext(Environment &env);
+	virtual Stream *DoOpenStream(Environment &env, UInt32 attr);
+	virtual Object *DoGetStatObj(Signal &sig);
+	const LPCWSTR GetObjectID() const { return _objectID.c_str(); }
 };
 
 //-----------------------------------------------------------------------------
