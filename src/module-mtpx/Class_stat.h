@@ -13,11 +13,14 @@ Gura_BeginModuleScope(mtp)
 Gura_DeclareUserClass(stat);
 
 class Object_stat : public Object {
+private:
+	AutoPtr<Stat> _pStat;
 public:
 	Gura_DeclareObjectAccessor(stat)
 public:
-	Object_stat();
+	Object_stat(Stat *pStat);
 	virtual String ToString(bool exprFlag);
+	inline const Stat *GetStat() const { return _pStat.get(); }
 };
 
 Gura_EndModuleScope(mtp)

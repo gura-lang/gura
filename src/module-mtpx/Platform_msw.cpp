@@ -43,7 +43,7 @@ Directory_MTP *Device::GeneratePartialDirectory(
 	ComPtr<IPortableDeviceKeyCollection> pPortableDeviceKeyCollection;
 	if (CatchErr(sig, ::CoCreateInstance(CLSID_PortableDeviceKeyCollection,
 			nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pPortableDeviceKeyCollection)))) return false;
-	if (CatchErr(sig, pPortableDeviceKeyCollection->Add(WPD_OBJECT_NAME))) return false;
+	if (CatchErr(sig, pPortableDeviceKeyCollection->Add(WPD_OBJECT_ORIGINAL_FILE_NAME))) return false;
 	Directory_MTP *pDirectory = new Directory_MTP(
 		nullptr, "/", Directory::TYPE_Container, Reference(), objectID,
 		new Stat("", "/", 0, DateTime(), true));
@@ -84,10 +84,10 @@ Directory_MTP *Device::GeneratePartialDirectory(
 				ComPtr<IPortableDeviceValues> pPortableDeviceValues;
 				if (CatchErr(sig, _pPortableDeviceProperties->GetValues(
 					objectID, pPortableDeviceKeyCollection.Get(), &pPortableDeviceValues))) break;
-				// WPD_OBJECT_NAME: VT_LPWSTR
+				// WPD_OBJECT_ORIGINAL_FILE_NAME: VT_LPWSTR
 				LPWSTR value = nullptr;
 				if (CatchErr(sig, pPortableDeviceValues->GetStringValue(
-									WPD_OBJECT_NAME, &value))) break;
+									WPD_OBJECT_ORIGINAL_FILE_NAME, &value))) break;
 				fileName = WSTRToString(value);
 				//::printf("%s\n", fileName.c_str());
 				::CoTaskMemFree(value);
@@ -130,7 +130,7 @@ bool Device::DirectoryFactory::Initialize(Signal &sig)
 {
 	if (CatchErr(sig, ::CoCreateInstance(CLSID_PortableDeviceKeyCollection,
 			nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&_pPortableDeviceKeyCollection)))) return false;
-	if (CatchErr(sig, _pPortableDeviceKeyCollection->Add(WPD_OBJECT_NAME))) return false;
+	if (CatchErr(sig, _pPortableDeviceKeyCollection->Add(WPD_OBJECT_ORIGINAL_FILE_NAME))) return false;
 	if (CatchErr(sig, _pPortableDeviceKeyCollection->Add(WPD_OBJECT_CONTENT_TYPE))) return false;
 	if (CatchErr(sig, _pPortableDeviceKeyCollection->Add(WPD_OBJECT_SIZE))) return false;
 	if (CatchErr(sig, _pPortableDeviceKeyCollection->Add(WPD_OBJECT_DATE_MODIFIED))) return false;
@@ -144,10 +144,10 @@ Directory_MTP *Device::DirectoryFactory::Create(Signal &sig, Directory *pDirecto
 	if (CatchErr(sig, pPortableDeviceProperties->GetValues(
 		objectID, _pPortableDeviceKeyCollection.Get(), &pPortableDeviceValues))) return nullptr;
 	String fileName;
-	do { // WPD_OBJECT_NAME: VT_LPWSTR
+	do { // WPD_OBJECT_ORIGINAL_FILE_NAME: VT_LPWSTR
 		LPWSTR value = nullptr;
 		if (CatchErr(sig, pPortableDeviceValues->GetStringValue(
-							WPD_OBJECT_NAME, &value))) return nullptr;
+							WPD_OBJECT_ORIGINAL_FILE_NAME, &value))) return nullptr;
 		fileName = WSTRToString(value);
 		::CoTaskMemFree(value);
 	} while (0);
@@ -407,7 +407,7 @@ Stat::Stat(const String &dirName, const String &fileName, size_t fileSize,
 
 String Stat::MakePathName() const
 {
-	return OAL::JoinPathName(GetDirName(), GetFileName());
+	return OAL::JoinPathName(OAL::FileSeparatorUnix, GetDirName(), GetFileName());
 }
 
 //-----------------------------------------------------------------------------
@@ -455,7 +455,7 @@ Stream *Directory_MTP::DoOpenStream(Environment &env, UInt32 attr)
 
 Object *Directory_MTP::DoGetStatObj(Signal &sig)
 {
-	return nullptr;
+	return new Object_stat(_pStat->Reference());
 }
 
 void Directory_MTP::DestroyBrowse()
