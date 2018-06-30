@@ -34,7 +34,7 @@ public:
 	public:
 		DirectoryFactory(Device *pDevice);
 		bool Initialize(Signal &sig);
-		Directory_MTP *Create(Signal &sig, Directory *pDirectoryParent, LPCWSTR objectID);
+		Directory_MTP *Create(Signal &sig, Directory *pDirectoryParent, LPCWSTR objectID) const;
 	};
 private:
 	int _cntRef;
@@ -67,6 +67,7 @@ public:
 	inline const char *GetFriendlyName() const { return _friendlyName.c_str(); }
 	inline const char *GetManufacturer() const { return _manufacturer.c_str(); }
 	inline const char *GetDescription() const { return _description.c_str(); }
+	inline const DirectoryFactory *GetDirectoryFactory() const { return _pDirectoryFactory.get(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -189,19 +190,8 @@ public:
 // Directory_MTP declaration
 //-----------------------------------------------------------------------------
 class Directory_MTP : public Directory {
-public:
-	class Factory {
-	private:
-		AutoPtr<Device> _pDevice;
-		ComPtr<IPortableDeviceKeyCollection> _pPortableDeviceKeyCollection;
-	public:
-		Factory(Device *pDevice);
-		bool Initialize(Signal &sig);
-		Directory_MTP *Create(Signal &sig, Directory *pDirectoryParent, LPCWSTR objectID);
-		inline Device *GetDevice() { return _pDevice.get(); }
-	};
 private:
-	Factory _directoryFactory;
+	AutoPtr<Device> _pDevice;
 	StringW _objectID;
 	AutoPtr<Stat> _pStat;
 	ComPtr<IEnumPortableDeviceObjectIDs> _pEnumPortableDeviceObjectIDs;
@@ -218,7 +208,7 @@ public:
 	virtual Directory *DoNext(Environment &env);
 	virtual Stream *DoOpenStream(Environment &env, UInt32 attr);
 	virtual Object *DoGetStatObj(Signal &sig);
-	inline Device *GetDevice() { return _directoryFactory.GetDevice(); }
+	inline Device *GetDevice() { return _pDevice.get(); }
 	inline const LPCWSTR GetObjectID() const { return _objectID.c_str(); }
 	void DestroyBrowse();
 };

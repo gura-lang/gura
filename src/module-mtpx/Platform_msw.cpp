@@ -44,8 +44,6 @@ Directory_MTP *Device::GeneratePartialDirectory(
 	if (CatchErr(sig, ::CoCreateInstance(CLSID_PortableDeviceKeyCollection,
 			nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pPortableDeviceKeyCollection)))) return false;
 	if (CatchErr(sig, pPortableDeviceKeyCollection->Add(WPD_OBJECT_NAME))) return false;
-	Directory_MTP::Factory directoryFactory(Reference());
-	if (!directoryFactory.Initialize(sig)) return false;
 	Directory_MTP *pDirectory = new Directory_MTP(
 		nullptr, "/", Directory::TYPE_Container, Reference(), objectID,
 		new Stat("", "/", 0, DateTime(), true));
@@ -104,7 +102,7 @@ Directory_MTP *Device::GeneratePartialDirectory(
 			if (sig.IsSignalled()) return false;
 		} while (hr == S_OK && objectIDFound.empty());
 		if (objectIDFound.empty()) break;
-		pDirectory = directoryFactory.Create(sig, pDirectory, objectIDFound.c_str());
+		pDirectory = GetDirectoryFactory()->Create(sig, pDirectory, objectIDFound.c_str());
 		if (pDirectory == nullptr) return false;
 	}
 	return pDirectory;
@@ -139,7 +137,7 @@ bool Device::DirectoryFactory::Initialize(Signal &sig)
 	return true;
 }
 
-Directory_MTP *Device::DirectoryFactory::Create(Signal &sig, Directory *pDirectoryParent, LPCWSTR objectID)
+Directory_MTP *Device::DirectoryFactory::Create(Signal &sig, Directory *pDirectoryParent, LPCWSTR objectID) const
 {
 	IPortableDeviceProperties *pPortableDeviceProperties = _pDevice->GetPortableDeviceProperties();
 	ComPtr<IPortableDeviceValues> pPortableDeviceValues;
@@ -418,7 +416,7 @@ String Stat::MakePathName() const
 Directory_MTP::Directory_MTP(Directory *pParent, const char *name, Type type,
 						Device *pDevice, LPCWSTR objectID, Stat *pStat) :
 	Directory(pParent, name, type, OAL::FileSeparatorUnix),
-	_directoryFactory(pDevice), _objectID(objectID), _pStat(pStat)
+	_pDevice(pDevice), _objectID(objectID), _pStat(pStat)
 {
 	_browse.nObjectIDs = 0;
 	_browse.iObjectID = 0;
@@ -447,7 +445,7 @@ Directory *Directory_MTP::DoNext(Environment &env)
 		if (_browse.nObjectIDs == 0) return nullptr;
 	}
 	LPWSTR objectID = _browse.objectIDs[_browse.iObjectID++];
-	return _directoryFactory.Create(env, Reference(), objectID);
+	return _pDevice->GetDirectoryFactory()->Create(env, Reference(), objectID);
 }
 
 Stream *Directory_MTP::DoOpenStream(Environment &env, UInt32 attr)
@@ -467,72 +465,6 @@ void Directory_MTP::DestroyBrowse()
 	}
 	_browse.nObjectIDs = 0;
 	_browse.iObjectID = 0;
-}
-
-//-----------------------------------------------------------------------------
-// Directory_MTP::Factory
-//-----------------------------------------------------------------------------
-Directory_MTP::Factory::Factory(Device *pDevice) : _pDevice(pDevice)
-{
-}
-
-bool Directory_MTP::Factory::Initialize(Signal &sig)
-{
-	if (CatchErr(sig, ::CoCreateInstance(CLSID_PortableDeviceKeyCollection,
-			nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&_pPortableDeviceKeyCollection)))) return false;
-	if (CatchErr(sig, _pPortableDeviceKeyCollection->Add(WPD_OBJECT_NAME))) return false;
-	if (CatchErr(sig, _pPortableDeviceKeyCollection->Add(WPD_OBJECT_CONTENT_TYPE))) return false;
-	if (CatchErr(sig, _pPortableDeviceKeyCollection->Add(WPD_OBJECT_SIZE))) return false;
-	if (CatchErr(sig, _pPortableDeviceKeyCollection->Add(WPD_OBJECT_DATE_MODIFIED))) return false;
-	return true;
-}
-
-Directory_MTP *Directory_MTP::Factory::Create(Signal &sig, Directory *pDirectoryParent, LPCWSTR objectID)
-{
-	IPortableDeviceProperties *pPortableDeviceProperties = _pDevice->GetPortableDeviceProperties();
-	ComPtr<IPortableDeviceValues> pPortableDeviceValues;
-	if (CatchErr(sig, pPortableDeviceProperties->GetValues(
-		objectID, _pPortableDeviceKeyCollection.Get(), &pPortableDeviceValues))) return nullptr;
-	String fileName;
-	do { // WPD_OBJECT_NAME: VT_LPWSTR
-		LPWSTR value = nullptr;
-		if (CatchErr(sig, pPortableDeviceValues->GetStringValue(
-							WPD_OBJECT_NAME, &value))) return nullptr;
-		fileName = WSTRToString(value);
-		::CoTaskMemFree(value);
-	} while (0);
-	bool folderFlag = false;
-	const Symbol *pFileType = Symbol::Empty;
-	do { // WPD_OBJECT_CONTENT_TYPE: VT_CLSID
-		GUID value;
-		if (CatchErr(sig, pPortableDeviceValues->GetGuidValue(
-							WPD_OBJECT_CONTENT_TYPE, &value))) return nullptr;
-		folderFlag = IsEqualGUID(value, WPD_CONTENT_TYPE_FOLDER);
-	} while (0);
-	size_t fileSize = 0;
-	do { // WPD_OBJECT_SIZE: VT_UI8
-		ULONGLONG value = 0;
-		if (CatchErr(sig, pPortableDeviceValues->GetUnsignedLargeIntegerValue(
-							WPD_OBJECT_SIZE, &value))) return false;
-		fileSize = static_cast<size_t>(value);
-	} while (0);
-	DateTime dtModification;
-	do { // WPD_OBJECT_DATE_MODIFIED: VT_DATE
-		PROPVARIANT value;
-		if (CatchErr(sig, pPortableDeviceValues->GetValue(
-							WPD_OBJECT_DATE_MODIFIED, &value))) return false;
-		COleDateTime oleDateTime(value.date);
-		SYSTEMTIME st;
-		oleDateTime.GetAsSystemTime(st);
-		dtModification = OAL::ToDateTime(st, 0);
-	} while (0);
-	AutoPtr<Stat> pStat(new Stat(pDirectoryParent->MakePathName(false), fileName,
-					fileSize, dtModification, folderFlag));
-	AutoPtr<Directory_MTP> pDirectory(new Directory_MTP(
-		pDirectoryParent, fileName.c_str(),
-		folderFlag? Directory::TYPE_Container : Directory::TYPE_Item,
-		_pDevice->Reference(), objectID, pStat.release()));
-	return pDirectory.release();
 }
 
 //-----------------------------------------------------------------------------
