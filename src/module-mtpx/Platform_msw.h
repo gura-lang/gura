@@ -6,6 +6,7 @@
 #include <gura.h>
 #include <PortableDeviceApi.h>	// Windows Portable Device API interfaces
 #include <PortableDevice.h>		// Windows Portable Device definitions
+#include <ATLComTime.h>			// COleDateTime
 #include <wrl/client.h>
 
 using namespace Microsoft::WRL;
@@ -33,6 +34,7 @@ private:
 	String _description;
 	ComPtr<IPortableDevice> _pPortableDevice;
 	ComPtr<IPortableDeviceContent> _pPortableDeviceContent;
+	ComPtr<IPortableDeviceProperties> _pPortableDeviceProperties;
 public:
 	Gura_DeclareReferenceAccessor(Device);
 public:
@@ -47,6 +49,7 @@ public:
 	inline LPCWSTR GetDeviceID() const { return _deviceID.c_str(); }
 	inline IPortableDevice *GetPortableDevice() { return _pPortableDevice.Get(); }
 	inline IPortableDeviceContent *GetPortableDeviceContent() { return _pPortableDeviceContent.Get(); }
+	inline IPortableDeviceProperties *GetPortableDeviceProperties() { return _pPortableDeviceProperties.Get(); }
 	inline void SetFriendlyName(const String &friendlyName) { _friendlyName = friendlyName; }
 	inline void SetManufacturer(const String &manufacturer) { _manufacturer = manufacturer; }
 	inline void SetDescription(const String &description) { _description = description; }
@@ -149,16 +152,54 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Stat
+//-----------------------------------------------------------------------------
+class Stat {
+private:
+	int _cntRef;
+	String _dirName;
+	String _fileName;
+	size_t _fileSize;
+	DateTime _dtModification;
+	bool _folderFlag;
+public:
+	Gura_DeclareReferenceAccessor(Stat);
+public:
+	Stat(const String &dirName, const String &fileName, size_t fileSize,
+		 const DateTime &dtModification, bool folderFlag);
+protected:
+	inline ~Stat() {}
+public:
+	inline const char *GetDirName() const { return _dirName.c_str(); }
+	inline const char *GetFileName() const { return _fileName.c_str(); }
+	inline size_t GetFileSize() const { return _fileSize; }
+	inline const DateTime &GetDtModification() const { return _dtModification; }
+	inline bool IsFolder() const { return _folderFlag; }
+	String MakePathName() const;
+};
+
+//-----------------------------------------------------------------------------
 // Directory_MTP declaration
 //-----------------------------------------------------------------------------
 class Directory_MTP : public Directory {
+public:
+	class Factory {
+	private:
+		AutoPtr<Device> _pDevice;
+		ComPtr<IPortableDeviceKeyCollection> _pPortableDeviceKeyCollection;
+	public:
+		Factory(Device *pDevice);
+		bool Initialize(Signal &sig);
+		Directory_MTP *Create(Signal &sig, Directory *pDirectoryParent, LPCWSTR objectID);
+	};
 private:
 	AutoPtr<Device> _pDevice;
 	StringW _objectID;
+	AutoPtr<Stat> _pStat;
 	ComPtr<IEnumPortableDeviceObjectIDs> _pEnumPortableDeviceObjectIDs;
 public:
 	Directory_MTP(Directory *pParent, const char *name, Type type,
-		Device *pDevice, LPCWSTR objectID);
+		Device *pDevice, LPCWSTR objectID, Stat *pStat);
 	virtual ~Directory_MTP();
 	virtual Directory *DoNext(Environment &env);
 	virtual Stream *DoOpenStream(Environment &env, UInt32 attr);
