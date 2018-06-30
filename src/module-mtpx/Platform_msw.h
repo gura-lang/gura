@@ -26,6 +26,16 @@ typedef std::basic_string<WCHAR> StringW;
 // Device
 //-----------------------------------------------------------------------------
 class Device {
+public:
+	class DirectoryFactory {
+	private:
+		Device *_pDevice;
+		ComPtr<IPortableDeviceKeyCollection> _pPortableDeviceKeyCollection;
+	public:
+		DirectoryFactory(Device *pDevice);
+		bool Initialize(Signal &sig);
+		Directory_MTP *Create(Signal &sig, Directory *pDirectoryParent, LPCWSTR objectID);
+	};
 private:
 	int _cntRef;
 	StringW _deviceID;
@@ -35,6 +45,7 @@ private:
 	ComPtr<IPortableDevice> _pPortableDevice;
 	ComPtr<IPortableDeviceContent> _pPortableDeviceContent;
 	ComPtr<IPortableDeviceProperties> _pPortableDeviceProperties;
+	std::unique_ptr<DirectoryFactory> _pDirectoryFactory;
 public:
 	Gura_DeclareReferenceAccessor(Device);
 public:
@@ -97,11 +108,7 @@ public:
 protected:
 	inline ~Storage() {}
 public:
-	//bool Open(Signal &sig);
 	inline LPCWSTR GetObjectID() const { return _objectID.c_str(); }
-	//inline IEnumPortableDeviceObjectIDs *GetEnumPortableDeviceObjectIDs() {
-	//	return _pEnumPortableDeviceObjectIDs.Get();
-	//}
 	inline const Symbol *GetStorageType() const { return _pStorageType; }
 	inline const Symbol *GetFilesystemType() const { return _pFilesystemType; }
 	inline const Symbol *GetAccessCapability() const { return _pAccessCapability; }
