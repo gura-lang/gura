@@ -41,7 +41,7 @@ Directory_MTP *Device::GeneratePartialDirectory(
 	ComPtr<IPortableDeviceKeyCollection> pPortableDeviceKeyCollection;
 	if (CatchErr(sig, ::CoCreateInstance(CLSID_PortableDeviceKeyCollection,
 			nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pPortableDeviceKeyCollection)))) return false;
-	if (CatchErr(sig, pPortableDeviceKeyCollection->Add(WPD_OBJECT_ORIGINAL_FILE_NAME))) return false;
+	if (CatchErr(sig, pPortableDeviceKeyCollection->Add(WPD_OBJECT_NAME))) return false;
 	Directory_MTP::Factory directoryFactory(Reference());
 	if (!directoryFactory.Initialize(sig)) return false;
 	Directory_MTP *pDirectory = new Directory_MTP(
@@ -87,9 +87,9 @@ Directory_MTP *Device::GeneratePartialDirectory(
 				// WPD_OBJECT_NAME: VT_LPWSTR
 				LPWSTR value = nullptr;
 				if (CatchErr(sig, pPortableDeviceValues->GetStringValue(
-									WPD_OBJECT_ORIGINAL_FILE_NAME, &value))) break;
+									WPD_OBJECT_NAME, &value))) break;
 				fileName = WSTRToString(value);
-				::printf("%s\n", fileName.c_str());
+				//::printf("%s\n", fileName.c_str());
 				::CoTaskMemFree(value);
 				if (field == fileName) {
 					objectIDFound = objectID;
@@ -412,7 +412,7 @@ bool Directory_MTP::Factory::Initialize(Signal &sig)
 {
 	if (CatchErr(sig, ::CoCreateInstance(CLSID_PortableDeviceKeyCollection,
 			nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&_pPortableDeviceKeyCollection)))) return false;
-	if (CatchErr(sig, _pPortableDeviceKeyCollection->Add(WPD_OBJECT_ORIGINAL_FILE_NAME))) return false;
+	if (CatchErr(sig, _pPortableDeviceKeyCollection->Add(WPD_OBJECT_NAME))) return false;
 	if (CatchErr(sig, _pPortableDeviceKeyCollection->Add(WPD_OBJECT_CONTENT_TYPE))) return false;
 	if (CatchErr(sig, _pPortableDeviceKeyCollection->Add(WPD_OBJECT_SIZE))) return false;
 	if (CatchErr(sig, _pPortableDeviceKeyCollection->Add(WPD_OBJECT_DATE_MODIFIED))) return false;
@@ -426,10 +426,10 @@ Directory_MTP *Directory_MTP::Factory::Create(Signal &sig, Directory *pDirectory
 	if (CatchErr(sig, pPortableDeviceProperties->GetValues(
 		objectID, _pPortableDeviceKeyCollection.Get(), &pPortableDeviceValues))) return nullptr;
 	String fileName;
-	do { // WPD_OBJECT_ORIGINAL_FILE_NAME: VT_LPWSTR
+	do { // WPD_OBJECT_NAME: VT_LPWSTR
 		LPWSTR value = nullptr;
 		if (CatchErr(sig, pPortableDeviceValues->GetStringValue(
-							WPD_OBJECT_ORIGINAL_FILE_NAME, &value))) return nullptr;
+							WPD_OBJECT_NAME, &value))) return nullptr;
 		fileName = WSTRToString(value);
 		::CoTaskMemFree(value);
 	} while (0);
