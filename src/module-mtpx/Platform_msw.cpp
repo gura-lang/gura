@@ -348,19 +348,38 @@ String Stat::MakePathName() const
 // Directory_MTP
 //-----------------------------------------------------------------------------
 Directory_MTP::Directory_MTP(Directory *pParent, const char *name, Type type,
-		Device *pDevice, LPCWSTR objectID, Stat *pStat) :
+						Device *pDevice, LPCWSTR objectID, Stat *pStat) :
 	Directory(pParent, name, type, OAL::FileSeparatorUnix),
-	_pDevice(pDevice), _objectID(objectID), _pStat(pStat)
+	_directoryFactory(pDevice), _objectID(objectID), _pStat(pStat)
 {
+	_browse.nObjectIDs = 0;
+	_browse.iObjectID = 0;
+	_browse.lastFlag = false;
 }
 
 Directory_MTP::~Directory_MTP()
 {
+	DestroyBrowse();
 }
 
 Directory *Directory_MTP::DoNext(Environment &env)
 {
-	return nullptr;
+	IPortableDeviceContent *pPortableDeviceContent = GetDevice()->GetPortableDeviceContent();
+	HRESULT hr;
+	if (_browse.iObjectID >= _browse.nObjectIDs) {
+		DestroyBrowse();
+		if (_browse.lastFlag) return nullptr;
+		if (_pEnumPortableDeviceObjectIDs.Get() == nullptr) {
+			if (CatchErr(env, pPortableDeviceContent->EnumObjects(
+				0, GetObjectID(), nullptr, &_pEnumPortableDeviceObjectIDs))) return nullptr;
+		}
+		hr = _pEnumPortableDeviceObjectIDs->Next(
+				ArraySizeOf(_browse.objectIDs), _browse.objectIDs, &_browse.nObjectIDs);
+		if (hr != S_OK) _browse.lastFlag = true;
+		if (_browse.nObjectIDs == 0) return nullptr;
+	}
+	LPWSTR objectID = _browse.objectIDs[_browse.iObjectID++];
+	return _directoryFactory.Create(env, Reference(), objectID);
 }
 
 Stream *Directory_MTP::DoOpenStream(Environment &env, UInt32 attr)
@@ -371,6 +390,15 @@ Stream *Directory_MTP::DoOpenStream(Environment &env, UInt32 attr)
 Object *Directory_MTP::DoGetStatObj(Signal &sig)
 {
 	return nullptr;
+}
+
+void Directory_MTP::DestroyBrowse()
+{
+	for (DWORD i = 0; i < _browse.nObjectIDs; i++) {
+		::CoTaskMemFree(_browse.objectIDs[i]);
+	}
+	_browse.nObjectIDs = 0;
+	_browse.iObjectID = 0;
 }
 
 //-----------------------------------------------------------------------------

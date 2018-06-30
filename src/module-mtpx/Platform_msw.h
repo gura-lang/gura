@@ -191,12 +191,19 @@ public:
 		Factory(Device *pDevice);
 		bool Initialize(Signal &sig);
 		Directory_MTP *Create(Signal &sig, Directory *pDirectoryParent, LPCWSTR objectID);
+		inline Device *GetDevice() { return _pDevice.get(); }
 	};
 private:
-	AutoPtr<Device> _pDevice;
+	Factory _directoryFactory;
 	StringW _objectID;
 	AutoPtr<Stat> _pStat;
 	ComPtr<IEnumPortableDeviceObjectIDs> _pEnumPortableDeviceObjectIDs;
+	struct {
+		LPWSTR objectIDs[32];
+		DWORD nObjectIDs;
+		DWORD iObjectID;
+		bool lastFlag;
+	} _browse;
 public:
 	Directory_MTP(Directory *pParent, const char *name, Type type,
 		Device *pDevice, LPCWSTR objectID, Stat *pStat);
@@ -204,7 +211,9 @@ public:
 	virtual Directory *DoNext(Environment &env);
 	virtual Stream *DoOpenStream(Environment &env, UInt32 attr);
 	virtual Object *DoGetStatObj(Signal &sig);
-	const LPCWSTR GetObjectID() const { return _objectID.c_str(); }
+	inline Device *GetDevice() { return _directoryFactory.GetDevice(); }
+	inline const LPCWSTR GetObjectID() const { return _objectID.c_str(); }
+	void DestroyBrowse();
 };
 
 //-----------------------------------------------------------------------------
