@@ -252,16 +252,62 @@ Storage::Storage(Device *pDevice, LPCWSTR objectID) :
 {
 }
 
-#if 0
-bool Storage::Open(Signal &sig)
+bool Storage::RecvFile(Signal &sig, const char *pathName, Stream *pStream, const Function *pFuncBlock) const
 {
-	if (_pEnumPortableDeviceObjectIDs.Get() != nullptr) return true;
+	AutoPtr<Directory_MTP> pDirectory(GenerateDirectory(sig, pathName));
+	if (pDirectory.IsNull()) return false;
+	if (pDirectory->GetStat()->IsFolder()) {
+		sig.SetError(ERR_FileError, "can't transfer folder");
+		return false;
+	}
 	IPortableDeviceContent *pPortableDeviceContent = _pDevice->GetPortableDeviceContent();
-	if (CatchErr(sig, pPortableDeviceContent->EnumObjects(
-			0, _objectID.c_str(), nullptr, &_pEnumPortableDeviceObjectIDs))) return false;
+	ComPtr<IPortableDeviceResources> pPortableDeviceResources;
+ 	if (CatchErr(sig, pPortableDeviceContent->Transfer(&pPortableDeviceResources))) return false;
+	ComPtr<IStream> pStreamSrc;
+	DWORD bytesBuff;
+	if (CatchErr(sig, pPortableDeviceResources->GetStream(pDirectory->GetObjectID(),
+			WPD_RESOURCE_DEFAULT, STGM_READ, &bytesBuff, &pStreamSrc))) return false;
+	AutoPtr<Memory> pMemory(new MemoryHeap(bytesBuff));
+	char *buff = pMemory->GetPointer();
+	DWORD bytesTotal = pDirectory->GetStat()->GetFileSize();
+	DWORD bytesSent = 0;
+	for (;;) {
+		DWORD bytesRead;
+		if (CatchErr(sig, pStreamSrc->Read(buff, bytesBuff, &bytesRead))) return false;
+		if (bytesRead == 0) break;
+		pStream->Write(sig, buff, bytesRead);
+		if (sig.IsSignalled()) return false;
+		bytesSent = bytesRead;
+		if (pFuncBlock != nullptr) {
+			Environment &env = pFuncBlock->GetEnvScope();
+			AutoPtr<Argument> pArg(new Argument(pFuncBlock));
+			pArg->StoreValue(env, Value(bytesSent), Value(bytesTotal));
+			pFuncBlock->Eval(env, *pArg);
+			if (sig.IsSignalled()) return false;
+		}
+	}
 	return true;
 }
-#endif
+
+bool Storage::SendFile(Signal &sig, const char *pathName, Stream *pStream, const Function *pFuncBlock) const
+{
+	return false;
+}
+
+bool Storage::DeleteFile(Signal &sig, const char *pathName) const
+{
+	return false;
+}
+
+bool Storage::MoveFile(Signal &sig, const char *pathNameOld, const char *pathNameNew, bool overwriteFlag) const
+{
+	return false;
+}
+
+bool Storage::CopyFile(Signal &sig, const char *pathNameSrc, const char *pathNameDst, bool overwriteFlag) const
+{
+	return false;
+}
 
 //-----------------------------------------------------------------------------
 // StorageOwner

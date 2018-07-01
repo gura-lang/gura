@@ -174,6 +174,77 @@ Gura_ImplementMethod(storage, opendir)
 	return ReturnValue(env, arg, Value(new Object_directory(env, pDirectory.release())));
 }
 
+// mtp.storage#reader(pathname:string) {block?}
+Gura_DeclareMethod(storage, reader)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "pathname", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(storage, reader)
+{
+	//const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
+	//const char *pathName = arg.GetString(0);
+	//return ReturnValue(env, arg, Value(new Object_stream(env, pStorage->GenerateReaderStream(env, pathName))));
+	return Value::Nil;
+}
+
+// mtp.srorage#recvfile(pathname:string, stream:stream:w):reduce {block?}
+Gura_DeclareMethod(storage, recvfile)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "pathname", VTYPE_string);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(storage, recvfile)
+{
+	const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
+	const char *pathName = arg.GetString(0);
+	Stream &stream = arg.GetStream(1);
+	const Function *pFuncBlock = nullptr;
+	if (arg.IsBlockSpecified()) {
+		pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
+		if (pFuncBlock == nullptr) return Value::Nil;
+	}
+	if (!pStorage->RecvFile(env, pathName, &stream, pFuncBlock)) return Value::Nil;
+	return arg.GetValueThis();
+}
+
+// mtp.storage#sendfile(pathname:string, stream:stream:r):reduce {block?}
+Gura_DeclareMethod(storage, sendfile)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "pathname", VTYPE_string);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(storage, sendfile)
+{
+	const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
+	const char *pathName = arg.GetString(0);
+	Stream &stream = arg.GetStream(1);
+	const Function *pFuncBlock = nullptr;
+	if (arg.IsBlockSpecified()) {
+		pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
+		if (pFuncBlock == nullptr) return Value::Nil;
+	}
+	if (!pStorage->SendFile(env, pathName, &stream, pFuncBlock)) return Value::Nil;
+	return arg.GetValueThis();
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of class mtp.storage
 //-----------------------------------------------------------------------------
@@ -190,6 +261,9 @@ Gura_ImplementUserClass(storage)
 	Gura_AssignProperty(storage, volume_identifier);
 	// Assignment of method
 	Gura_AssignMethod(storage, opendir);
+	Gura_AssignMethod(storage, reader);
+	Gura_AssignMethod(storage, recvfile);
+	Gura_AssignMethod(storage, sendfile);
 	// Assignment of value
 	Gura_AssignValue(storage, Value(Reference()));
 }

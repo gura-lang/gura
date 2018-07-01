@@ -135,12 +135,12 @@ public:
 	}
 #if 0
 	Stream *GenerateReaderStream(Environment &env, const char *pathName) const;
+#endif
 	bool RecvFile(Signal &sig, const char *pathName, Stream *pStream, const Function *pFuncBlock) const;
 	bool SendFile(Signal &sig, const char *pathName, Stream *pStream, const Function *pFuncBlock) const;
 	bool DeleteFile(Signal &sig, const char *pathName) const;
 	bool MoveFile(Signal &sig, const char *pathNameOld, const char *pathNameNew, bool overwriteFlag) const;
 	bool CopyFile(Signal &sig, const char *pathNameSrc, const char *pathNameDst, bool overwriteFlag) const;
-#endif
 };
 
 //-----------------------------------------------------------------------------
@@ -210,6 +210,7 @@ public:
 	virtual Object *DoGetStatObj(Signal &sig);
 	inline Device *GetDevice() { return _pDevice.get(); }
 	inline const LPCWSTR GetObjectID() const { return _objectID.c_str(); }
+	inline const Stat *GetStat() const { return _pStat.get(); }
 	void DestroyBrowse();
 };
 
