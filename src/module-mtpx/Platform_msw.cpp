@@ -263,21 +263,21 @@ bool Storage::RecvFile(Signal &sig, const char *pathName, Stream *pStream, const
 	IPortableDeviceContent *pPortableDeviceContent = _pDevice->GetPortableDeviceContent();
 	ComPtr<IPortableDeviceResources> pPortableDeviceResources;
  	if (CatchErr(sig, pPortableDeviceContent->Transfer(&pPortableDeviceResources))) return false;
-	ComPtr<IStream> pStreamSrc;
+	ComPtr<IStream> pStreamOnDevice;
 	DWORD bytesBuff;
 	if (CatchErr(sig, pPortableDeviceResources->GetStream(pDirectory->GetObjectID(),
-			WPD_RESOURCE_DEFAULT, STGM_READ, &bytesBuff, &pStreamSrc))) return false;
+			WPD_RESOURCE_DEFAULT, STGM_READ, &bytesBuff, &pStreamOnDevice))) return false;
 	AutoPtr<Memory> pMemory(new MemoryHeap(bytesBuff));
 	char *buff = pMemory->GetPointer();
-	DWORD bytesTotal = pDirectory->GetStat()->GetFileSize();
-	DWORD bytesSent = 0;
+	size_t bytesTotal = pDirectory->GetStat()->GetFileSize();
+	size_t bytesSent = 0;
 	for (;;) {
 		DWORD bytesRead;
-		if (CatchErr(sig, pStreamSrc->Read(buff, bytesBuff, &bytesRead))) return false;
+		if (CatchErr(sig, pStreamOnDevice->Read(buff, bytesBuff, &bytesRead))) return false;
 		if (bytesRead == 0) break;
 		pStream->Write(sig, buff, bytesRead);
 		if (sig.IsSignalled()) return false;
-		bytesSent = bytesRead;
+		bytesSent += bytesRead;
 		if (pFuncBlock != nullptr) {
 			Environment &env = pFuncBlock->GetEnvScope();
 			AutoPtr<Argument> pArg(new Argument(pFuncBlock));
@@ -291,11 +291,52 @@ bool Storage::RecvFile(Signal &sig, const char *pathName, Stream *pStream, const
 
 bool Storage::SendFile(Signal &sig, const char *pathName, Stream *pStream, const Function *pFuncBlock) const
 {
-	return false;
+	String dirName, fileName, baseName;
+	PathMgr::SplitFileName(pathName, &dirName, &fileName);
+	PathMgr::SplitExtName(fileName.c_str(), &baseName, nullptr);
+	AutoPtr<Directory_MTP> pDirectoryParent(GenerateDirectory(sig, dirName.c_str()));
+	if (pDirectoryParent.IsNull()) return false;
+	IPortableDeviceContent *pPortableDeviceContent = _pDevice->GetPortableDeviceContent();
+	ComPtr<IPortableDeviceValues> pPortableDeviceValues;
+	if (CatchErr(sig, ::CoCreateInstance(CLSID_PortableDeviceValues, nullptr, CLSCTX_INPROC_SERVER,
+					IID_PPV_ARGS(&pPortableDeviceValues)))) return false;
+	if (CatchErr(sig, pPortableDeviceValues->SetStringValue(
+		WPD_OBJECT_PARENT_ID, pDirectoryParent->GetObjectID()))) return false;
+	if (CatchErr(sig, pPortableDeviceValues->SetUnsignedLargeIntegerValue(
+		WPD_OBJECT_SIZE, pStream->GetSize()))) return false;
+	if (CatchErr(sig, pPortableDeviceValues->SetStringValue(
+		WPD_OBJECT_ORIGINAL_FILE_NAME, STRToStringW(fileName.c_str()).c_str()))) return false;
+	if (CatchErr(sig, pPortableDeviceValues->SetStringValue(
+		WPD_OBJECT_NAME, STRToStringW(baseName.c_str()).c_str()))) return false;
+	ComPtr<IStream> pStreamOnDevice;
+	DWORD bytesBuff;
+	if (CatchErr(sig, pPortableDeviceContent->CreateObjectWithPropertiesAndData(
+		pPortableDeviceValues.Get(), &pStreamOnDevice, &bytesBuff, nullptr))) return false;
+	AutoPtr<Memory> pMemory(new MemoryHeap(bytesBuff));
+	char *buff = pMemory->GetPointer();
+	size_t bytesTotal = static_cast<DWORD>(pStream->GetSize());
+	size_t bytesSent = 0;
+	for (;;) {
+		size_t bytesRead = pStream->Read(sig, buff, bytesBuff);
+		if (sig.IsSignalled()) return false;
+		if (bytesRead == 0) break;
+		DWORD bytesWritten;
+		if (CatchErr(sig, pStreamOnDevice->Write(buff, bytesBuff, &bytesWritten))) return false;
+		bytesSent += bytesRead;
+		if (pFuncBlock != nullptr) {
+			Environment &env = pFuncBlock->GetEnvScope();
+			AutoPtr<Argument> pArg(new Argument(pFuncBlock));
+			pArg->StoreValue(env, Value(bytesSent), Value(bytesTotal));
+			pFuncBlock->Eval(env, *pArg);
+			if (sig.IsSignalled()) return false;
+		}
+	}
+	return true;
 }
 
 bool Storage::DeleteFile(Signal &sig, const char *pathName) const
 {
+
 	return false;
 }
 
@@ -516,14 +557,24 @@ void Directory_MTP::DestroyBrowse()
 //-----------------------------------------------------------------------------
 // Utilities
 //-----------------------------------------------------------------------------
+StringW STRToStringW(LPCSTR str)
+{
+	// cnt includes null-terminater
+	int cnt = ::MultiByteToWideChar(CP_UTF8, 0, str, -1, nullptr, 0);
+	std::unique_ptr<WCHAR []> wstr(new WCHAR [cnt + 1]);
+	::MultiByteToWideChar(CP_UTF8, 0, str, -1, wstr.get(), cnt);
+	wstr[cnt] = '\0';
+	return StringW(wstr.get());
+}
+
 String WSTRToString(LPCWSTR wstr)
 {
 	// cnt includes null-terminater
 	int cnt = ::WideCharToMultiByte(CP_UTF8, 0, wstr, -1, nullptr, 0, nullptr, nullptr);
-	char *psz = new char [cnt + 1];
-	::WideCharToMultiByte(CP_UTF8, 0, wstr, -1, psz, cnt, nullptr, nullptr);
-	psz[cnt] = '\0';
-	return String(psz);
+	std::unique_ptr<char []> str(new char [cnt + 1]);
+	::WideCharToMultiByte(CP_UTF8, 0, wstr, -1, str.get(), cnt, nullptr, nullptr);
+	str[cnt] = '\0';
+	return String(str.get());
 }
 
 //********************

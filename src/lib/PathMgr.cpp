@@ -40,6 +40,13 @@ void PathMgr::SplitBottom(const char *pathName, String *pTop, String *pBottom)
 	if (pBottom != nullptr) *pBottom = String(p, pEnd);
 }
 
+void PathMgr::SplitExtName(const char *pathName, String *pBaseName, String *pExtName)
+{
+	const char *p = SeekExtName(pathName);
+	if (pBaseName != nullptr) *pBaseName = String(pathName, p);
+	if (pExtName != nullptr) *pExtName = String(p);
+}
+
 const char *PathMgr::SeekExtName(const char *pathName)
 {
 	const char *pBtm = pathName + ::strlen(pathName);

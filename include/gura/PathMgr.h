@@ -35,6 +35,7 @@ public:
 	}
 	static void SplitFileName(const char *pathName, String *pDirName, String *pFileName);
 	static void SplitBottom(const char *pathName, String *pTop, String *pBottom);
+	static void SplitExtName(const char *pathName, String *pBaseName, String *pExtName);
 	static const char *SeekExtName(const char *pathName);
 	static bool HasWildCard(const char *pathName);
 	static bool HasFileSeparator(const char *pathName);

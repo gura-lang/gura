@@ -217,6 +217,7 @@ public:
 //-----------------------------------------------------------------------------
 // Utilities
 //-----------------------------------------------------------------------------
+StringW STRToStringW(LPCSTR str);
 String WSTRToString(LPCWSTR wstr);
 String HRESULTToString(HRESULT hr);
 bool CatchErr(Signal &sig, HRESULT hr);
