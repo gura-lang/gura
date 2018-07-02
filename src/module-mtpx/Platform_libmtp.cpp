@@ -26,14 +26,6 @@ Device::~Device()
 	::LIBMTP_Release_Device(_mtpDevice);
 }
 
-void Device::LookupStorages(Object_list *pObjList) const
-{
-	LIBMTP_devicestorage_t *deviceStorage = _mtpDevice->storage;
-	for ( ; deviceStorage != nullptr; deviceStorage = deviceStorage->next) {
-		pObjList->Add(Value(new Object_storage(new Storage(Reference(), deviceStorage))));
-	}
-}
-
 Directory_MTP *Device::GeneratePartialDirectory(
 	Signal &sig, uint32_t storageId, const char *pathName, const char **pPathNamePartial) const
 {
@@ -154,6 +146,23 @@ void DeviceOwner::Clear()
 
 bool DeviceOwner::EnumerateDevices(Signal &sig)
 {
+	LIBMTP_raw_device_t *rawDevices = nullptr;
+	int nRawDevices = 0;
+	LIBMTP_error_number_t err = ::LIBMTP_Detect_Raw_Devices(&rawDevices, &nRawDevices);
+	if (err == LIBMTP_ERROR_NONE) {
+		// nothing to do
+	} else if (err == LIBMTP_ERROR_NO_DEVICE_ATTACHED) {
+		// nothing to do
+	} else { // LIBMTP_ERROR_CONNECTING, LIBMTP_ERROR_MEMORY_ALLOCATION, LIBMTP_ERROR_GENERAL
+		sig.SetError(ERR_LibraryError, "error occured while detecting devices");
+		return false;
+	}
+	for (int i = 0; i < nRawDevices; i++) {
+		LIBMTP_mtpdevice_t *mtpDevice = ::LIBMTP_Open_Raw_Device_Uncached(&rawDevices[i]);
+		if (mtpDevice == nullptr) continue;
+		push_back(new Device(mtpDevice));
+	}	
+	::free(rawDevices);
 	return true;
 }
 
@@ -163,13 +172,29 @@ bool DeviceOwner::EnumerateDevices(Signal &sig)
 Storage::Storage(Device *pDevice, LIBMTP_devicestorage_t *deviceStorage) : _cntRef(1),
 	_pDevice(pDevice),
 	_id(deviceStorage->id),
-	_storageType(deviceStorage->StorageType),
-	_filesystemType(deviceStorage->FilesystemType),
-	_accessCapability(deviceStorage->AccessCapability),
 	_maxCapacity(deviceStorage->MaxCapacity),
 	_freeSpaceInBytes(deviceStorage->FreeSpaceInBytes),
 	_freeSpaceInObjects(deviceStorage->FreeSpaceInObjects)
 {
+	_pStorageType =
+		(deviceStorage->StorageType == PTP_ST_Undefined)? Gura_UserSymbol(Undefined) :
+		(deviceStorage->StorageType == PTP_ST_FixedROM)? Gura_UserSymbol(FixedROM) :
+		(deviceStorage->StorageType == PTP_ST_RemovableROM)? Gura_UserSymbol(RemovableROM) :
+		(deviceStorage->StorageType == PTP_ST_FixedRAM)? Gura_UserSymbol(FixedRAM) :
+		(deviceStorage->StorageType == PTP_ST_RemovableRAM)? Gura_UserSymbol(RemovableRAM) :
+		Gura_UserSymbol(Undefined);
+	_pFilesystemType =
+		(deviceStorage->FilesystemType == PTP_FST_Undefined)? Gura_UserSymbol(Undefined) :
+		(deviceStorage->FilesystemType == PTP_FST_GenericFlat)? Gura_UserSymbol(GenericFlat) :
+		(deviceStorage->FilesystemType == PTP_FST_GenericHierarchical)? Gura_UserSymbol(GenericHierarchical) :
+		(deviceStorage->FilesystemType == PTP_FST_DCF)? Gura_UserSymbol(DCF) :
+		Gura_UserSymbol(Undefined);
+	_pAccessCapability =
+		(deviceStorage->AccessCapability == PTP_AC_ReadWrite)? Gura_UserSymbol(ReadWrite) :
+		(deviceStorage->AccessCapability == PTP_AC_ReadOnly)? Gura_UserSymbol(ReadOnly) :
+		(deviceStorage->AccessCapability == PTP_AC_ReadOnly_with_Object_Deletion)?
+													Gura_UserSymbol(ReadOnlyWithObjectDeletion) :
+		Gura_UserSymbol(Undefined);
 	if (deviceStorage->StorageDescription != nullptr) {
 		_storageDescription = deviceStorage->StorageDescription;
 	}
@@ -330,6 +355,10 @@ void StorageOwner::Clear()
 
 bool StorageOwner::EnumerateStorages(Signal &sig, Device *pDevice)
 {
+	LIBMTP_devicestorage_t *deviceStorage = pDevice->GetMtpDevice()->storage;
+	for ( ; deviceStorage != nullptr; deviceStorage = deviceStorage->next) {
+		push_back(new Storage(pDevice->Reference(), deviceStorage));
+	}
 	return true;
 }
 

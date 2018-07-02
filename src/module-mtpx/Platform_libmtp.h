@@ -5,6 +5,7 @@
 #define __GURA_MODULE_MTP_PLATFORM_LIBMTP_H__
 #include <gura.h>
 #include <libmtp.h>
+#include <ptp.h>
 
 Gura_BeginModuleScope(mtp)
 
@@ -45,7 +46,6 @@ public:
 protected:
 	~Device();
 public:
-	void LookupStorages(Object_list *pObjList) const;
 	Directory_MTP *GeneratePartialDirectory(
 		Signal &sig, uint32_t storageId, const char *pathName, const char **pPathNamePartial) const;
 	Directory_MTP *GenerateDirectory(Signal &sig, uint32_t storageId, const char *pathName) const;
@@ -101,15 +101,15 @@ class Storage {
 private:
 	int _cntRef;
 	AutoPtr<Device> _pDevice;
-	uint32_t _id;					// Unique ID for this storage
-	uint16_t _storageType;			// Storage type
-	uint16_t _filesystemType;		// Filesystem type
-	uint16_t _accessCapability;		// Access capability
-	uint64_t _maxCapacity;			// Maximum capability
-	uint64_t _freeSpaceInBytes;		// Free space in bytes
-	uint64_t _freeSpaceInObjects;	// Free space in objects
-	String _storageDescription;		// A brief description of this storage 
-	String _volumeIdentifier;		// A volume identifier
+	uint32_t _id;						// Unique ID for this storage
+	const Symbol *_pStorageType;		// Storage type
+	const Symbol *_pFilesystemType;		// Filesystem type
+	const Symbol *_pAccessCapability;	// Access capability
+	uint64_t _maxCapacity;				// Maximum capability
+	uint64_t _freeSpaceInBytes;			// Free space in bytes
+	uint64_t _freeSpaceInObjects;		// Free space in objects
+	String _storageDescription;			// A brief description of this storage 
+	String _volumeIdentifier;			// A volume identifier
 public:
 	Gura_DeclareReferenceAccessor(Storage);
 public:
@@ -118,9 +118,9 @@ protected:
 	inline ~Storage() {}
 public:
 	inline uint32_t GetId() const { return _id; }
-	inline uint16_t GetStorageType() const { return _storageType; }
-	inline uint16_t GetFilesystemType() const { return _filesystemType; }
-	inline uint16_t GetAccessCapability() const { return _accessCapability; }
+	inline const Symbol *GetStorageType() const { return _pStorageType; }
+	inline const Symbol *GetFilesystemType() const { return _pFilesystemType; }
+	inline const Symbol *GetAccessCapability() const { return _pAccessCapability; }
 	inline uint64_t GetMaxCapacity() const { return _maxCapacity; }
 	inline uint64_t GetFreeSpaceInBytes() const { return _freeSpaceInBytes; }
 	inline uint64_t GetFreeSpaceInObjects() const { return _freeSpaceInObjects; }
