@@ -4,7 +4,11 @@
 #ifndef __GURA_MODULE_MTP_H__
 #define __GURA_MODULE_MTP_H__
 #include <gura.h>
+#if defined(GURA_ON_MSWIN)
 #include "Platform_msw.h"
+#else
+#include "Platform_libmpx.h"
+#endif
 #include "Class_device.h"
 #include "Class_storage.h"
 #include "Class_stat.h"

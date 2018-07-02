@@ -2,7 +2,16 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.libs.append('ShlWapi.lib', 'PortableDeviceGuids.lib')
-builder.build('mtp', [
-	'module-mtp.cpp', 'Platform_msw.cpp',
-	'Class_device.cpp', 'Class_storage.cpp', 'Class_stat.cpp'])
+srcs = [
+	'module-mtp.cpp',
+	'Class_device.cpp', 'Class_storage.cpp', 'Class_stat.cpp'
+]
+if (sys.platform == `mswin) {
+	srcs.append('Platform_msw.cpp')
+	builder.libs.append('ShlWapi.lib', 'PortableDeviceGuids.lib')
+} elsif (sys.platform == `linux) {
+	
+} elsif (sys.platform == `darwin) {
+	
+}
+builder.build('mtp', srcs)
