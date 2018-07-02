@@ -1,0 +1,17 @@
+#!/usr/bin/env gura
+import(mtp)
+
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: mtp-rm.gura tgt')
+	sys.exit(1)
+}
+devices = mtp.detect_devices()
+if (devices.len() == 0) {
+	sys.stderr.println('no device detected')
+	sys.exit(1)
+}
+pathName = sys.argv[1]
+device = devices[0]
+storage = device.storages[0]
+storage.deletefile(pathName)
+sys.stderr.println(pathName, ' was removed')
