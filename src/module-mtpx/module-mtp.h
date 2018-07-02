@@ -7,7 +7,7 @@
 #if defined(GURA_ON_MSWIN)
 #include "Platform_msw.h"
 #else
-#include "Platform_libmpx.h"
+#include "Platform_libmtp.h"
 #endif
 #include "Class_device.h"
 #include "Class_storage.h"

@@ -3,6 +3,14 @@
 Gura_BeginModuleScope(mtp)
 
 //-----------------------------------------------------------------------------
+// InitPlatform
+//-----------------------------------------------------------------------------
+bool InitPlatform()
+{
+	return SUCCEEDED(::CoInitializeEx(nullptr, COINIT_MULTITHREADED));
+}
+
+//-----------------------------------------------------------------------------
 // Device
 //-----------------------------------------------------------------------------
 Device::Device(LPCWSTR deviceID) : _cntRef(1), _deviceID(deviceID)

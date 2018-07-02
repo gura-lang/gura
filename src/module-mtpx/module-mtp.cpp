@@ -65,8 +65,7 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
-	HRESULT hr = ::CoInitializeEx(nullptr, COINIT_MULTITHREADED);
-	if (FAILED(hr)) return false;
+	if (!InitPlatform()) return false;
 	// Realization of symbol
 	Gura_RealizeUserSymbol(Undefined);
 	Gura_RealizeUserSymbol(FixedROM);
