@@ -7,9 +7,12 @@
 #include <PortableDeviceApi.h>	// Windows Portable Device API interfaces
 #include <PortableDevice.h>		// Windows Portable Device definitions
 #include <ATLComTime.h>			// COleDateTime
+#include <propvarutil.h>		// InitPropVariantFromString
 #include <wrl/client.h>
 
 using namespace Microsoft::WRL;
+
+#define CatchErr(sig, hr) _CatchErr(sig, hr, __LINE__)
 
 Gura_BeginModuleScope(mtp)
 
@@ -220,7 +223,7 @@ public:
 StringW STRToStringW(LPCSTR str);
 String WSTRToString(LPCWSTR wstr);
 String HRESULTToString(HRESULT hr);
-bool CatchErr(Signal &sig, HRESULT hr);
+bool _CatchErr(Signal &sig, HRESULT hr, int lineNo);
 
 Gura_EndModuleScope(mtp)
 

@@ -62,7 +62,6 @@ Directory_MTP *Device::GeneratePartialDirectory(
 			}
 			field += *p;
 		}
-		*pPathNamePartial = p;
 		if (field.empty()) {
 			sig.SetError(ERR_FormatError, "wrong format of path name");
 			return nullptr;
@@ -102,6 +101,7 @@ Directory_MTP *Device::GeneratePartialDirectory(
 			if (sig.IsSignalled()) return false;
 		} while (hr == S_OK && objectIDFound.empty());
 		if (objectIDFound.empty()) break;
+		*pPathNamePartial = p;
 		pDirectory = GetDirectoryFactory()->Create(sig, pDirectory, objectIDFound.c_str());
 		if (pDirectory == nullptr) return false;
 	}
@@ -257,7 +257,7 @@ bool Storage::RecvFile(Signal &sig, const char *pathName, Stream *pStream, const
 	AutoPtr<Directory_MTP> pDirectory(GenerateDirectory(sig, pathName));
 	if (pDirectory.IsNull()) return false;
 	if (pDirectory->GetStat()->IsFolder()) {
-		sig.SetError(ERR_FileError, "can't transfer folder");
+		sig.SetError(ERR_FileError, "can't transfer a folder");
 		return false;
 	}
 	IPortableDeviceContent *pPortableDeviceContent = _pDevice->GetPortableDeviceContent();
@@ -308,20 +308,28 @@ bool Storage::SendFile(Signal &sig, const char *pathName, Stream *pStream, const
 		WPD_OBJECT_ORIGINAL_FILE_NAME, STRToStringW(fileName.c_str()).c_str()))) return false;
 	if (CatchErr(sig, pPortableDeviceValues->SetStringValue(
 		WPD_OBJECT_NAME, STRToStringW(baseName.c_str()).c_str()))) return false;
-	ComPtr<IStream> pStreamOnDevice;
+#if 0
+	if (CatchErr(sig, pPortableDeviceValues->SetGuidValue(
+		WPD_OBJECT_CONTENT_TYPE, WPD_CONTENT_TYPE_IMAGE))) return false;
+	if (CatchErr(sig, pPortableDeviceValues->SetGuidValue(
+		WPD_OBJECT_FORMAT, WPD_OBJECT_FORMAT_EXIF))) return false;
+#endif
+	ComPtr<IStream> pStreamTmp;
 	DWORD bytesBuff;
 	if (CatchErr(sig, pPortableDeviceContent->CreateObjectWithPropertiesAndData(
-		pPortableDeviceValues.Get(), &pStreamOnDevice, &bytesBuff, nullptr))) return false;
+		pPortableDeviceValues.Get(), &pStreamTmp, &bytesBuff, nullptr))) return false;
+	ComPtr<IPortableDeviceDataStream> pPortableDeviceDataStream;
+	if (CatchErr(sig, pStreamTmp.As(&pPortableDeviceDataStream))) return false;
 	AutoPtr<Memory> pMemory(new MemoryHeap(bytesBuff));
 	char *buff = pMemory->GetPointer();
 	size_t bytesTotal = static_cast<DWORD>(pStream->GetSize());
 	size_t bytesSent = 0;
 	for (;;) {
-		size_t bytesRead = pStream->Read(sig, buff, bytesBuff);
+		DWORD bytesRead = static_cast<DWORD>(pStream->Read(sig, buff, bytesBuff));
 		if (sig.IsSignalled()) return false;
 		if (bytesRead == 0) break;
 		DWORD bytesWritten;
-		if (CatchErr(sig, pStreamOnDevice->Write(buff, bytesBuff, &bytesWritten))) return false;
+		if (CatchErr(sig, pPortableDeviceDataStream->Write(buff, bytesRead, &bytesWritten))) return false;
 		bytesSent += bytesRead;
 		if (pFuncBlock != nullptr) {
 			Environment &env = pFuncBlock->GetEnvScope();
@@ -331,12 +339,31 @@ bool Storage::SendFile(Signal &sig, const char *pathName, Stream *pStream, const
 			if (sig.IsSignalled()) return false;
 		}
 	}
+	if (CatchErr(sig, pPortableDeviceDataStream->Commit(STGC_DEFAULT))) return false;
 	return true;
 }
 
 bool Storage::DeleteFile(Signal &sig, const char *pathName) const
 {
-
+	IPortableDeviceContent *pPortableDeviceContent = _pDevice->GetPortableDeviceContent();
+	AutoPtr<Directory_MTP> pDirectory(GenerateDirectory(sig, pathName));
+	if (pDirectory.IsNull()) return false;
+	if (pDirectory->GetStat()->IsFolder()) {
+		sig.SetError(ERR_FileError, "can't delete a folder");
+		return false;
+	}
+	ComPtr<IPortableDevicePropVariantCollection> pPortableDevicePropVariantCollection;
+	if (CatchErr(sig, ::CoCreateInstance(CLSID_PortableDevicePropVariantCollection,
+		nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pPortableDevicePropVariantCollection)))) return false;
+	PROPVARIANT propVar;
+	if (CatchErr(sig, ::InitPropVariantFromString(pDirectory->GetObjectID(), &propVar))) return false;
+	if (CatchErr(sig, pPortableDevicePropVariantCollection->Add(&propVar))) goto error_done;
+	if (CatchErr(sig, pPortableDeviceContent->Delete(PORTABLE_DEVICE_DELETE_NO_RECURSION,
+		pPortableDevicePropVariantCollection.Get(), nullptr))) goto error_done;
+	PropVariantClear(&propVar);
+	return true;
+error_done:
+	PropVariantClear(&propVar);
 	return false;
 }
 
@@ -591,11 +618,10 @@ String HRESULTToString(HRESULT hr)
 	return rtn;
 }
 
-//********************
-bool CatchErr(Signal &sig, HRESULT hr)
+bool _CatchErr(Signal &sig, HRESULT hr, int lineNo)
 {
 	if (FAILED(hr)) {
-		sig.SetError(ERR_RuntimeError, "%s", HRESULTToString(hr).c_str());
+		sig.SetError(ERR_RuntimeError, "error occured at line %d in Platform_msw.cpp", lineNo);
 		return true;
 	}
 	return false;

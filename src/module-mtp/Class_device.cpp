@@ -50,7 +50,6 @@ Directory_MTP *Device::GeneratePartialDirectory(
 			}
 			field += *p;
 		}
-		*pPathNamePartial = p;
 		if (field.empty()) {
 			sig.SetError(ERR_FormatError, "wrong format of path name");
 			return nullptr;
@@ -74,6 +73,7 @@ Directory_MTP *Device::GeneratePartialDirectory(
 			DestroyMtpfileList(mtpfileHead);
 			break;
 		}
+		*pPathNamePartial = p;
 		pDirectory = new Directory_MTP(
 			pDirectory, mtpfileFound->filename,
 			(mtpfileFound->filetype == LIBMTP_FILETYPE_FOLDER)?

@@ -209,13 +209,13 @@ Gura_ImplementMethod(storage, recvfile)
 {
 	const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
 	const char *pathName = arg.GetString(0);
-	Stream &stream = arg.GetStream(1);
+	Stream *pStream = &arg.GetStream(1);
 	const Function *pFuncBlock = nullptr;
 	if (arg.IsBlockSpecified()) {
 		pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
 		if (pFuncBlock == nullptr) return Value::Nil;
 	}
-	if (!pStorage->RecvFile(env, pathName, &stream, pFuncBlock)) return Value::Nil;
+	if (!pStorage->RecvFile(env, pathName, pStream, pFuncBlock)) return Value::Nil;
 	return arg.GetValueThis();
 }
 
@@ -235,13 +235,31 @@ Gura_ImplementMethod(storage, sendfile)
 {
 	const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
 	const char *pathName = arg.GetString(0);
-	Stream &stream = arg.GetStream(1);
+	Stream *pStream  = &arg.GetStream(1);
 	const Function *pFuncBlock = nullptr;
 	if (arg.IsBlockSpecified()) {
 		pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
 		if (pFuncBlock == nullptr) return Value::Nil;
 	}
-	if (!pStorage->SendFile(env, pathName, &stream, pFuncBlock)) return Value::Nil;
+	if (!pStorage->SendFile(env, pathName, pStream, pFuncBlock)) return Value::Nil;
+	return arg.GetValueThis();
+}
+
+// mtp.storage#deletefile(pathname:string):reduce
+Gura_DeclareMethod(storage, deletefile)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "pathname", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(storage, deletefile)
+{
+	const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
+	const char *pathName = arg.GetString(0);
+	if (!pStorage->DeleteFile(env, pathName)) return Value::Nil;
 	return arg.GetValueThis();
 }
 
@@ -264,6 +282,7 @@ Gura_ImplementUserClass(storage)
 	Gura_AssignMethod(storage, reader);
 	Gura_AssignMethod(storage, recvfile);
 	Gura_AssignMethod(storage, sendfile);
+	Gura_AssignMethod(storage, deletefile);
 	// Assignment of value
 	Gura_AssignValue(storage, Value(Reference()));
 }
