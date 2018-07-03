@@ -45,6 +45,7 @@ moduleInfos = @(ModuleInfo) {
 	['model_stl',		`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['msico',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['mswin',			`build,	[`mswin,															]]
+	['mtp',				`build,	[`mswin,	`darwin													]]
 	['mysql',			`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// not completed
 	['opengl',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['os',				`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
