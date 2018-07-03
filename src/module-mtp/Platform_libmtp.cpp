@@ -367,7 +367,7 @@ bool StorageOwner::EnumerateStorages(Signal &sig, Device *pDevice)
 //-----------------------------------------------------------------------------
 Stat::Stat(const char *dirName, const LIBMTP_file_t *mtpfile) :
 	_cntRef(1), _dirName(dirName), _fileName(mtpfile->filename), _fileSize(mtpfile->filesize),
-	_dtModification(&mtpfile->modificationdate), _fileType(mtpfile->filetype)
+	_dtModification(OAL::ToDateTime(mtpfile->modificationdate)), _fileType(mtpfile->filetype)
 {
 }
 
