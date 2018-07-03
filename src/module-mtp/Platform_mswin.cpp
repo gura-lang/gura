@@ -223,6 +223,7 @@ bool DeviceOwner::EnumerateDevices(Signal &sig)
 	for (DWORD i = 0; i < nDeviceIDs; i++) {
 		AutoPtr<Device> pDevice(new Device(deviceIDs[i]));
 		::CoTaskMemFree(deviceIDs[i]);
+	 	if (!pDevice->Open(sig)) return false;
 		LPCWSTR deviceID = pDevice->GetDeviceID();
 		do {
 			DWORD len = 0;
@@ -404,7 +405,6 @@ void StorageOwner::Clear()
 
 bool StorageOwner::EnumerateStorages(Signal &sig, Device *pDevice)
 {
-	if (!pDevice->Open(sig)) return false;
 	IPortableDeviceContent *pPortableDeviceContent = pDevice->GetPortableDeviceContent();
 	IPortableDeviceProperties *pPortableDeviceProperties = pDevice->GetPortableDeviceProperties();
 	ComPtr<IEnumPortableDeviceObjectIDs> pEnumPortableDeviceObjectIDs;

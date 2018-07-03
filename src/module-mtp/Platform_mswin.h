@@ -74,7 +74,7 @@ public:
 	inline void SetDescription(const String &description) { _description = description; }
 	inline const char *GetFriendlyName() const { return _friendlyName.c_str(); }
 	inline const char *GetManufacturer() const { return _manufacturer.c_str(); }
-	inline const char *GetDescription() const { return _description.c_str(); }
+	//inline const char *GetDescription() const { return _description.c_str(); }
 	inline const DirectoryFactory *GetDirectoryFactory() const { return _pDirectoryFactory.get(); }
 };
 

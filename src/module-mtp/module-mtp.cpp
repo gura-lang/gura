@@ -31,30 +31,6 @@ Gura_ImplementFunction(detect_devices)
 	return ReturnValue(env, arg, valueRtn);
 }
 
-// mtp.test()
-Gura_DeclareFunction(test)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en),
-		"\n");
-}
-
-Gura_ImplementFunction(test)
-{
-	DeviceOwner deviceOwner;
-	if (!deviceOwner.EnumerateDevices(env)) return Value::Nil;
-	foreach (DeviceOwner, ppDevice, deviceOwner) {
-		Device *pDevice = *ppDevice;
-		::printf("friendlyName: %s\n", pDevice->GetFriendlyName());
-		::printf("manufacturer: %s\n", pDevice->GetManufacturer());
-		::printf("description:  %s\n", pDevice->GetDescription());
-		StorageOwner storageOwner;
-		if (!storageOwner.EnumerateStorages(env, pDevice)) return Value::Nil;
-	}
-	return Value::Nil;
-}
-
 //-----------------------------------------------------------------------------
 // Module Entry
 //-----------------------------------------------------------------------------
@@ -84,7 +60,6 @@ Gura_ModuleEntry()
 	Gura_RealizeAndPrepareUserClass(stat, env.LookupClass(VTYPE_object));
  	// Assignment of function
 	Gura_AssignFunction(detect_devices);
-	Gura_AssignFunction(test);
 	return true;
 }
 
