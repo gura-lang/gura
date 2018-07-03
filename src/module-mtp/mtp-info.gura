@@ -3,18 +3,18 @@ import(mtp)
 
 mtp.detect_devices().each {|device, iDevice|
 	printf('Device #%d\n', iDevice + 1)
-	printf('fiendlyname:      %s\n', device.friendlyname)
-	printf('manufacturer:     %s\n', device.manufacturer)
+	printf('  fiendlyname:  %s\n', device.friendlyname)
+	printf('  manufacturer: %s\n', device.manufacturer)
 	storages = device.storages
 	storages.each {|storage, iStorage|
-		printf('Storage #%d\n', iStorage + 1)
-		printf('  storage_type:          %s\n', storage.storage_type)
-		printf('  filesystem_type:       %s\n', storage.filesystem_type)
-		printf('  access_capability:     %s\n', storage.access_capability)
-		printf('  max_capacity:          %d\n', storage.max_capacity)
-		printf('  free_space_in_bytes:   %d\n', storage.free_space_in_bytes)
-		printf('  free_space_in_objects: %d\n', storage.free_space_in_objects)
-		printf('  storage_description:   %s\n', storage.storage_description)
-		printf('  volume_identifier:     %s\n', storage.volume_identifier)
+		printf('  Storage #%d\n', iStorage + 1)
+		printf('    storage_type:          %s\n', storage.storage_type)
+		printf('    filesystem_type:       %s\n', storage.filesystem_type)
+		printf('    access_capability:     %s\n', storage.access_capability)
+		printf('    max_capacity:          %d\n', storage.max_capacity)
+		printf('    free_space_in_bytes:   %d\n', storage.free_space_in_bytes)
+		printf('    free_space_in_objects: %d\n', storage.free_space_in_objects)
+		printf('    storage_description:   %s\n', storage.storage_description)
+		printf('    volume_identifier:     %s\n', storage.volume_identifier)
 	}
 }

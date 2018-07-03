@@ -9,10 +9,18 @@ mtp.detect_devices().each {|device|
 	println(device.friendlyname)
 	storages = device.storages
 	storages.each {|storage|
-		println('-----')
 		//stats = path.walk(storage.opendir(dirName)):stat
-		stats = path.dir(storage.opendir(dirName)):stat
-		//printf('%12d %s  %s\n', stats:*size, stats:*mtime:*format('%m %d %H:%M'), stats:*filename);
-		printf('%s\n', stats:*pathname);
+		path.dir(storage.opendir(dirName)):stat {|stat|
+			tm = stat.mtime
+			if (stat.isdir) {
+				printf('%04d/%02d/%02d %02d:%02d %12s %s\n',
+					   tm.year, tm.month, tm.day, tm.hour, tm.min,
+					   '<dir>', stat.filename)
+			} else {
+				printf('%04d/%02d/%02d %02d:%02d %12d %s\n',
+					   tm.year, tm.month, tm.day, tm.hour, tm.min,
+					   stat.size, stat.filename)
+			}
+		}
 	}
 }
