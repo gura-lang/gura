@@ -4,31 +4,10 @@ prefix=/usr
 libdir_guest=$prefix/lib/gura/guest
 make_option=-j3
 failed=""
-files=""
-files="$files cairo-1.12.18.tar.xz"
-files="$files eigen-eigen-5a0156e40feb.zip"
-files="$files expat-2.1.0.tar.gz"
-files="$files fftw-3.3.6-pl2.tar.gz"
-files="$files fontconfig-2.11.1.tar.bz2"
-files="$files freetype-2.5.3.tar.bz2"
-files="$files gmp-6.0.0a.tar.bz2"
-files="$files jpegsrc.v9a.tar.gz"
-files="$files libpng-1.6.12.tar.gz"
-files="$files liblinear-2.11.zip"
-files="$files liblinear-2.11-gurapatch.zip"
-files="$files libsvm-3.22.zip"
-files="$files libsvm-3.22-gurapatch.zip"
-files="$files llvm-3.6.1.src.tar.xz"
-files="$files libusb-1.0.22.tar.bz2"
-files="$files libmtp-1.1.15.tar.gz"
-files="$files libmtp-1.1.15-gurapatch.tar.gz"
-files="$files onig-5.9.5.tar.gz"
-files="$files pixman-0.34.0.tar.gz"
-files="$files SDL-1.2.15.tar.gz"
-files="$files SDL2-2.0.4.tar.gz"
-files="$files tiff-3.8.2.tar.gz"
-files="$files wxWidgets-3.1.1.tar.bz2"
-files="$files yaml-0.1.5.tar.gz"
+packages=""
+
+labels="expat freetype fontconfig libusb pixman libpng"
+labels="$labels cairo eigen fftw gmp jpegsrc liblinear libmtp libsvm onig sdl2 tiff wx yaml"
 
 #---------------------------------------------------------------------------
 function main() {
@@ -42,31 +21,16 @@ function main() {
 		exit
 	fi
 	# Download packages
-	download_packages
+	for label in $labels
+	do
+		packages_$label
+	done
+	#download_packages
 	# Build packages at first that are used by other packages
-	build_expat
-	build_freetype
-	build_fontconfig
-	build_libusb
-	build_pixman
-	build_libpng
-	# Build other packages
-	build_cairo
-	build_eigen
-	build_fftw
-	build_gmp
-	build_jpegsrc
-	build_liblinear
-	build_libmtp
-	#build_libspectre
-	build_libsvm
-	#build_llvm
-	build_onig
-	#build_sdl
-	build_sdl2
-	build_tiff
-	build_wx
-	build_yaml
+	for label in $labels
+	do
+		build_$label
+	done
 	# Prints a list of package names that have occcured errors
 	if [ -n "$failed" ] ; then
 		echo ======================================================================
@@ -77,10 +41,10 @@ function main() {
 
 #---------------------------------------------------------------------------
 function download_packages() {
-	for file in $files
+	for package in $packages
 	do
-		echo $file
-		curl -O http://www.gura-lang.org/guest/$file
+		echo $package
+		curl -O http://www.gura-lang.org/guest/$package
 	done
 }
 
@@ -99,6 +63,14 @@ function setup_dylib() {
 
 #---------------------------------------------------------------------------
 # depends on: fontconfig, freetype, pixman, libpng
+function packages_cairo() {
+	packages="$packages cairo-1.12.18.tar.xz"
+}
+
+function clean_cairo() {
+	rm -rf cairo-1.12.18
+}
+
 function build_cairo() {
 	tar xfz cairo-1.12.18.tar.xz
 	pushd cairo-1.12.18
@@ -111,12 +83,28 @@ function build_cairo() {
 }
 
 #---------------------------------------------------------------------------
+function packages_eigen() {
+	packages="$packages eigen-eigen-5a0156e40feb.zip"
+}
+
+function clean_eigen() {
+	rm -rf eigen-eigen-5a0156e40feb
+}
+
 function build_eigen() {
 	unzip -o eigen-eigen-5a0156e40feb.zip
 	ln -sf ../eigen-eigen-5a0156e40feb/Eigen include/Eigen
 }
 
 #---------------------------------------------------------------------------
+function packages_expat() {
+	packages="$packages expat-2.1.0.tar.gz"
+}
+
+function clean_expat() {
+	rm -rf expat-2.1.0
+}
+
 function build_expat() {
 	tar xfz expat-2.1.0.tar.gz
 	pushd expat-2.1.0
@@ -129,6 +117,14 @@ function build_expat() {
 }
 
 #---------------------------------------------------------------------------
+function packages_fftw() {
+	packages="$packages fftw-3.3.6-pl2.tar.gz"
+}
+
+function clean_fftw() {
+	rm -rf fftw-3.3.6-pl2
+}
+
 function build_fftw() {
 	tar xfz fftw-3.3.6-pl2.tar.gz
 	pushd fftw-3.3.6-pl2
@@ -142,6 +138,14 @@ function build_fftw() {
 
 #---------------------------------------------------------------------------
 # depends on: expat, freetype
+function packages_fontconfig() {
+	packages="$packages fontconfig-2.11.1.tar.bz2"
+}
+
+function clean_fontconfig() {
+	rm -rf fontconfig-2.11.1
+}
+
 function build_fontconfig() {
 	tar xfz fontconfig-2.11.1.tar.bz2
 	pushd fontconfig-2.11.1
@@ -154,6 +158,14 @@ function build_fontconfig() {
 }
 
 #---------------------------------------------------------------------------
+function packages_freetype() {
+	packages="$packages freetype-2.5.3.tar.bz2"
+}
+
+function clean_freetype() {
+	rm -rf freetype-2.5.3
+}
+
 function build_freetype() {
 	tar xfz freetype-2.5.3.tar.bz2
 	pushd freetype-2.5.3
@@ -166,6 +178,14 @@ function build_freetype() {
 }
 
 #---------------------------------------------------------------------------
+function packages_gmp() {
+	packages="$packages gmp-6.0.0a.tar.bz2"
+}
+
+function clean_gmp() {
+	rm -rf gmp-6.0.0
+}
+
 function build_gmp() {
 	tar xfz gmp-6.0.0a.tar.bz2
 	pushd gmp-6.0.0
@@ -178,6 +198,14 @@ function build_gmp() {
 }
 
 #---------------------------------------------------------------------------
+function packages_jpegsrc() {
+	packages="$packages jpegsrc.v9a.tar.gz"
+}
+
+function clean_jpegsrc() {
+	rm -rf jpeg-9a
+}
+
 function build_jpegsrc() {
 	tar xfz jpegsrc.v9a.tar.gz
 	pushd jpeg-9a
@@ -190,6 +218,15 @@ function build_jpegsrc() {
 }
 
 #---------------------------------------------------------------------------
+function packages_liblinear() {
+	packages="$packages liblinear-2.11.zip"
+	packages="$packages liblinear-2.11-gurapatch.zip"
+}
+
+function clean_liblinear() {
+	rm -rf liblinear-2.11
+}
+
 function build_liblinear() {
 	unzip -o liblinear-2.11.zip
 	unzip -o liblinear-2.11-gurapatch.zip
@@ -203,6 +240,15 @@ function build_liblinear() {
 
 #---------------------------------------------------------------------------
 # depends on: libusb
+function packages_libmtp() {
+	packages="$packages libmtp-1.1.15.tar.gz"
+	packages="$packages libmtp-1.1.15-gurapatch.tar.gz"
+}
+
+function clean_libmtp() {
+	rm -rf libmtp-1.1.15
+}
+
 function build_libmtp() {
 	tar xfz libmtp-1.1.15.tar.gz
 	tar xfz libmtp-1.1.15-gurapatch.tar.gz
@@ -216,6 +262,14 @@ function build_libmtp() {
 }
 
 #---------------------------------------------------------------------------
+function packages_libpng() {
+	packages="$packages libpng-1.6.12.tar.gz"
+}
+
+function clean_libpng() {
+	rm -rf libpng-1.6.12
+}
+
 function build_libpng() {
 	tar xfz libpng-1.6.12.tar.gz
 	pushd libpng-1.6.12
@@ -228,6 +282,14 @@ function build_libpng() {
 }
 
 #---------------------------------------------------------------------------
+function packages_libspectre() {
+	packages="$packages libspectre-0.2.7.tar.gz"
+}
+
+function clean_libspectre() {
+	rm -rf libspectre-0.2.7
+}
+
 function build_libspectre() {
 	tar xfz libspectre-0.2.7.tar.gz
 	pushd libspectre-0.2.7
@@ -237,6 +299,15 @@ function build_libspectre() {
 }
 
 #---------------------------------------------------------------------------
+function packages_libsvm() {
+	packages="$packages libsvm-3.22.zip"
+	packages="$packages libsvm-3.22-gurapatch.zip"
+}
+
+function clean_libsvm() {
+	rm -rf libsvm-3.22
+}
+
 function build_libsvm() {
 	unzip -o libsvm-3.22.zip
 	unzip -o libsvm-3.22-gurapatch.zip
@@ -249,6 +320,14 @@ function build_libsvm() {
 }
 
 #---------------------------------------------------------------------------
+function packages_libusb() {
+	packages="$packages libusb-1.0.22.tar.bz2"
+}
+
+function clean_libusb() {
+	rm -rf libusb-1.0.22
+}
+
 function build_libusb() {
 	tar xfz libusb-1.0.22.tar.bz2
 	pushd libusb-1.0.22
@@ -261,6 +340,14 @@ function build_libusb() {
 }
 
 #---------------------------------------------------------------------------
+function packages_llvm() {
+	packages="$packages llvm-3.6.1.src.tar.xz"
+}
+
+function clean_llvm() {
+	rm -rf llvm-3.6.1.src
+}
+
 function build_llvm() {
 	tar xfJ llvm-3.6.1.src.tar.xz
 	pushd llvm-3.6.1.src
@@ -272,6 +359,14 @@ function build_llvm() {
 }
 
 #---------------------------------------------------------------------------
+function packages_onig() {
+	packages="$packages onig-5.9.5.tar.gz"
+}
+
+function clean_onig() {
+	rm -rf onig-5.9.5
+}
+
 function build_onig() {
 	tar xfz onig-5.9.5.tar.gz
 	pushd onig-5.9.5
@@ -284,6 +379,14 @@ function build_onig() {
 }
 
 #---------------------------------------------------------------------------
+function packages_pixman() {
+	packages="$packages pixman-0.34.0.tar.gz"
+}
+
+function clean_pixman() {
+	rm -rf pixman-0.34.0
+}
+
 function build_pixman() {
 	tar xfz pixman-0.34.0.tar.gz
 	pushd pixman-0.34.0
@@ -296,6 +399,14 @@ function build_pixman() {
 }
 
 #---------------------------------------------------------------------------
+function packages_sdl() {
+	packages="$packages SDL-1.2.15.tar.gz"
+}
+
+function clean_sdl() {
+	rm -rf SDL-1.2.15
+}
+
 function build_sdl() {
 	tar xfz SDL-1.2.15.tar.gz
 	pushd SDL-1.2.15
@@ -304,6 +415,14 @@ function build_sdl() {
 }
 
 #---------------------------------------------------------------------------
+function packages_sdl2() {
+	packages="$packages SDL2-2.0.4.tar.gz"
+}
+
+function clean_sdl2() {
+	rm -rf SDL2-2.0.4
+}
+
 function build_sdl2() {
 	tar xfz SDL2-2.0.4.tar.gz
 	pushd SDL2-2.0.4
@@ -316,6 +435,14 @@ function build_sdl2() {
 }
 
 #---------------------------------------------------------------------------
+function packages_tiff() {
+	packages="$packages tiff-3.8.2.tar.gz"
+}
+
+function clean_tiff() {
+	rm -rf tiff-3.8.2
+}
+
 function build_tiff() {
 	tar xfz tiff-3.8.2.tar.gz
 	pushd tiff-3.8.2
@@ -328,6 +455,14 @@ function build_tiff() {
 }
 
 #---------------------------------------------------------------------------
+function packages_wx() {
+	packages="$packages wxWidgets-3.1.1.tar.bz2"
+}
+
+function clean_wx() {
+	rm -rf wxWidgets-3.1.1
+}
+
 function build_wx() {
 	tar xfz wxWidgets-3.1.1.tar.bz2
 	pushd wxWidgets-3.1.1
@@ -341,6 +476,14 @@ function build_wx() {
 }
 
 #---------------------------------------------------------------------------
+function packages_yaml() {
+	packages="$packages yaml-0.1.5.tar.gz"
+}
+
+function clean_yaml() {
+	rm -rf yaml-0.1.5
+}
+
 function build_yaml() {
 	tar xfz yaml-0.1.5.tar.gz
 	pushd yaml-0.1.5
