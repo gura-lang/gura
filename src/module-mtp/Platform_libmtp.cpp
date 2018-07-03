@@ -158,7 +158,10 @@ bool DeviceOwner::EnumerateDevices(Signal &sig)
 	}
 	for (int i = 0; i < nRawDevices; i++) {
 		LIBMTP_mtpdevice_t *mtpDevice = ::LIBMTP_Open_Raw_Device_Uncached(&rawDevices[i]);
-		if (mtpDevice == nullptr) continue;
+		if (mtpDevice == nullptr) {
+			sig.SetError(ERR_IOError, "failed to open MTP device");
+			return false;
+		}
 		push_back(new Device(mtpDevice));
 	}	
 	::free(rawDevices);
