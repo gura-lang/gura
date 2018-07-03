@@ -50,12 +50,12 @@ public:
 		Signal &sig, uint32_t storageId, const char *pathName, const char **pPathNamePartial) const;
 	Directory_MTP *GenerateDirectory(Signal &sig, uint32_t storageId, const char *pathName) const;
 	inline LIBMTP_mtpdevice_t *GetMtpDevice() const { return _mtpDevice; }
-	inline const char *GetManufacturer() const { return ::LIBMTP_Get_Manufacturername(_mtpDevice); }
-	inline const char *GetDescription() const { return ::LIBMTP_Get_Modelname(_mtpDevice); }
-	inline const char *GetSerialNumber() const { return ::LIBMTP_Get_Serialnumber(_mtpDevice); }
-	inline const char *GetDeviceVersion() const { return ::LIBMTP_Get_Deviceversion(_mtpDevice); }
 	inline const char *GetFriendlyName() const { return ::LIBMTP_Get_Friendlyname(_mtpDevice); }
-	inline const char *GetSyncPartner() const { return ::LIBMTP_Get_Syncpartner(_mtpDevice); }
+	inline const char *GetManufacturer() const { return ::LIBMTP_Get_Manufacturername(_mtpDevice); }
+	//inline const char *GetModelName() const { return ::LIBMTP_Get_Modelname(_mtpDevice); }
+	//inline const char *GetSerialNumber() const { return ::LIBMTP_Get_Serialnumber(_mtpDevice); }
+	//inline const char *GetDeviceVersion() const { return ::LIBMTP_Get_Deviceversion(_mtpDevice); }
+	//inline const char *GetSyncPartner() const { return ::LIBMTP_Get_Syncpartner(_mtpDevice); }
 #if 0
 	inline int GetBatterylevel(uint8_t * const maximum_level, uint8_t * ) const {
 		//int LIBMTP_Get_Batterylevel(LIBMTP_mtpdevice_t *, uint8_t * const, uint8_t * const);

@@ -1,16 +1,13 @@
 #!/usr/bin/env gura
 import(mtp)
 
-mtp.detect_devices().each {|device|
-	printf('deviceversion:    %s\n', device.deviceversion)
+mtp.detect_devices().each {|device, iDevice|
+	printf('Device #%d\n', iDevice + 1)
 	printf('fiendlyname:      %s\n', device.friendlyname)
 	printf('manufacturer:     %s\n', device.manufacturer)
-	printf('modelname:        %s\n', device.modelname)
-	printf('serialnumber:     %s\n', device.serialnumber)
-	printf('syncpartner:      %s\n', device.syncpartner)
 	storages = device.storages
-	storages.each {|storage, i|
-		printf('Storage #%d\n', i)
+	storages.each {|storage, iStorage|
+		printf('Storage #%d\n', iStorage + 1)
 		printf('  storage_type:          %s\n', storage.storage_type)
 		printf('  filesystem_type:       %s\n', storage.filesystem_type)
 		printf('  access_capability:     %s\n', storage.access_capability)
