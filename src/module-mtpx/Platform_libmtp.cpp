@@ -33,9 +33,8 @@ Directory_MTP *Device::GeneratePartialDirectory(
 	if (IsFileSeparator(*p)) p++;
 	*pPathNamePartial = p;
 	Directory_MTP *pDirectory = new Directory_MTP(
-		nullptr, "/", Directory::TYPE_Container,
-		Reference(), storageId, LIBMTP_FILES_AND_FOLDERS_ROOT,
-		new Stat("", "", 0, DateTime(), LIBMTP_FILETYPE_FOLDER));
+		nullptr, "/", Directory::TYPE_Container, Reference(), storageId, LIBMTP_FILES_AND_FOLDERS_ROOT,
+		new Stat("", "/", 0, DateTime(), LIBMTP_FILETYPE_FOLDER));
 	while (*p != '\0') {
 		if (!pDirectory->IsContainer()) {
 			sig.SetError(ERR_IOError, "can't browse inside an item");
@@ -270,15 +269,13 @@ bool Storage::DeleteFile(Signal &sig, const char *pathName) const
 
 bool Storage::MoveFile(Signal &sig, const char *pathNameOld, const char *pathNameNew, bool overwriteFlag) const
 {
-	bool rtn = true;
 	const char *pathNamePartialNew;
 	AutoPtr<Directory_MTP> pDirectoryOld(GenerateDirectory(sig, pathNameOld));
 	if (pDirectoryOld.IsNull()) return false;
 	AutoPtr<Directory_MTP> pDirectoryNew(GeneratePartialDirectory(sig, pathNameNew, &pathNamePartialNew));
 	if (pDirectoryNew.IsNull()) return false;
 	if (PathMgr::HasFileSeparator(pathNamePartialNew)) {
-		sig.SetError(ERR_FileError, "invalid path name as a destination");
-		return false;
+		goto error_done;
 	}
 	if (*pathNamePartialNew == '\0') {
 		if (pDirectoryNew->IsContainer()) {
@@ -286,19 +283,19 @@ bool Storage::MoveFile(Signal &sig, const char *pathNameOld, const char *pathNam
 		} else if (overwriteFlag) {
 			
 		} else {
-			
+			goto error_done;
 		}
 	} else {
-		
+		if (pDirectoryNew->IsContainer()) {
+			
+		} else {
+			goto error_done;
+		}
 	}
-#if 0
-	if (::LIBMTP_Delete_Object(
-			_pDevice->GetMtpDevice(), pDirectory->GetItemId()) != 0) {
-		sig.SetError(ERR_LibraryError, "error while communicating in MTP protocol");
-		rtn = false;
-	}
-#endif
-	return rtn;
+	return true;
+error_done:
+	sig.SetError(ERR_FileError, "failed to move the %s", pDirectoryOld->IsContainer()? "folder" : "file");
+	return false;
 }
 
 bool Storage::CopyFile(Signal &sig, const char *pathNameSrc, const char *pathNameDst, bool overwriteFlag) const

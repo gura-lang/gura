@@ -6,7 +6,7 @@ srcs = [
 	'module-mtp.cpp', 'Class_device.cpp', 'Class_storage.cpp', 'Class_stat.cpp'
 ]
 if (sys.platform == `mswin) {
-	srcs.append('Platform_msw.cpp')
+	srcs.append('Platform_mswin.cpp')
 	builder.libs.append('ShlWapi.lib', 'PortableDeviceGuids.lib')
 } elsif (sys.platform == `linux) {
 	

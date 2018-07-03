@@ -1,8 +1,8 @@
 //=============================================================================
-// Platform_msw
+// Platform_mswin
 //=============================================================================
-#ifndef __GURA_MODULE_MTP_PLATFORM_MSW_H__
-#define __GURA_MODULE_MTP_PLATFORM_MSW_H__
+#ifndef __GURA_MODULE_MTP_PLATFORM_MSWIN_H__
+#define __GURA_MODULE_MTP_PLATFORM_MSWIN_H__
 #include <gura.h>
 #include <PortableDeviceApi.h>	// Windows Portable Device API interfaces
 #include <PortableDevice.h>		// Windows Portable Device definitions

@@ -629,7 +629,7 @@ String HRESULTToString(HRESULT hr)
 bool _CatchErr(Signal &sig, HRESULT hr, int lineNo)
 {
 	if (FAILED(hr)) {
-		sig.SetError(ERR_RuntimeError, "error occured at line %d in Platform_msw.cpp", lineNo);
+		sig.SetError(ERR_RuntimeError, "error occured at line %d in Platform_mswin.cpp", lineNo);
 		return true;
 	}
 	return false;

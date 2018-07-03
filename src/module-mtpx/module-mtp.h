@@ -5,7 +5,7 @@
 #define __GURA_MODULE_MTP_H__
 #include <gura.h>
 #if defined(GURA_ON_MSWIN)
-#include "Platform_msw.h"
+#include "Platform_mswin.h"
 #else
 #include "Platform_libmtp.h"
 #endif
