@@ -1,0 +1,11 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+import(mtp)
+
+testcase {
+	device = mtp.detect_devices()[0]
+	storage = device.GetStorages()[0]
+	//stats = path.walk(storage.opendir('/')):stat
+	//printf('%-32s %s %d\n', stats:*pathname, stats:*mtime, stats:*size);
+	stream.copy(storage.reader('/DCIM/Camera/IMG_20180506_111127.jpg'), 'IMG_2018_0506_111127.jpg')
+}

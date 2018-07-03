@@ -6,27 +6,6 @@
 Gura_BeginModuleScope(mtp)
 
 //-----------------------------------------------------------------------------
-// Stat
-//-----------------------------------------------------------------------------
-Stat::Stat(const char *dirName, const LIBMTP_file_t *mtpfile) :
-	_cntRef(1), _dirName(dirName), _fileName(mtpfile->filename), _fileSize(mtpfile->filesize),
-	_dtModification(&mtpfile->modificationdate), _fileType(mtpfile->filetype)
-{
-}
-
-Stat::Stat(const char *dirName, const char *fileName, size_t fileSize,
-		   const DateTime &dtModification, LIBMTP_filetype_t fileType) :
-	_cntRef(1), _dirName(dirName), _fileName(fileName), _fileSize(fileSize),
-	_dtModification(dtModification), _fileType(fileType)
-{
-}
-
-String Stat::MakePathName() const
-{
-	return OAL::JoinPathName(GetDirName(), GetFileName());
-}
-
-//-----------------------------------------------------------------------------
 // Implementation of Object_stat
 //-----------------------------------------------------------------------------
 Object_stat::Object_stat(Stat *pStat) : Object(Gura_UserClass(stat)), _pStat(pStat)

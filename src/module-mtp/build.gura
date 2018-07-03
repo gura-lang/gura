@@ -2,9 +2,16 @@
 import(modbuild)
 
 builder = modbuild.Builder()
+srcs = [
+	'module-mtp.cpp', 'Class_device.cpp', 'Class_storage.cpp', 'Class_stat.cpp'
+]
 if (sys.platform == `mswin) {
+	srcs.append('Platform_mswin.cpp')
+	builder.libs.append('ShlWapi.lib', 'PortableDeviceGuids.lib')
 } elsif (sys.platform == `linux) {
+	
 } elsif (sys.platform == `darwin) {
+	srcs.append('Platform_libmtp.cpp')
 	builder.incDirs.append('guest/include/libmtp')
 	builder.libDirs.append('guest/lib')
 	builder.ldflags.append(
@@ -12,4 +19,4 @@ if (sys.platform == `mswin) {
 		'-framework', 'IOKit')
 	builder.libs.append(['mtp', 'usb', 'iconv'])
 }
-builder.build('mtp', ['module-mtp.cpp', 'Class_device.cpp', 'Class_storage.cpp', 'Class_stat.cpp'])
+builder.build('mtp', srcs)
