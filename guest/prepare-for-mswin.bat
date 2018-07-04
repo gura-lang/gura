@@ -13,19 +13,48 @@ if not defined VCINSTALLDIR call "C:\Program Files (x86)\Microsoft Visual Studio
 rem Add include path containing Win32.mak in case vs2015 doesn't include SDK
 rem that provides the file.
 set INCLUDE=%BASEDIR%include;%INCLUDE%
+set PACKAGES=
+rem ---------------------------------------------------------------------------
+rem Build specified package
+rem ---------------------------------------------------------------------------
 if not "%1" == "" (
+	call :package_%1
+	call :download_packages
+	call :clean_%1
 	call :build_%1
 	exit /b
 )
 rem ---------------------------------------------------------------------------
 rem Register labels of subroutines
 rem ---------------------------------------------------------------------------
-set LABELS=eigen sqlite zlib bzip2 jpegsrc lpng tiff yaml onig expat wx
-set LABELS=%LABELS% pixman freeglut glew freetype cairo sdl sdl2 curl mpir fftw liblinear libsvm
+rem At first, build packages that are referenced by others.
+LABELS=zlib bzip2 expat freetype pixman lpng
+rem Then, build other packages.
+set LABELS=%LABELS% cairo curl eigen fftw freeglut glew jpegsrc liblinear libsvm
+set LABELS=%LABELS% mpir onig sdl sdl2 sqlite tiff wx yaml
+rem ---------------------------------------------------------------------------
+rem Download build tools and packages
+rem ---------------------------------------------------------------------------
+call :download_buildtools
 for %%L in (%LABELS%) do call :package_%%L
+call :download_packages
+rem ---------------------------------------------------------------------------
+rem Build packages
+rem ---------------------------------------------------------------------------
+set FAILEDLIST
+for %%L in (%LABELS%) do call :build_%%L
+if not "%FAILEDLIST%" == "" (
+	echo ======================================================================
+	echo Error occured:%FAILEDLIST%
+	echo ======================================================================
+)
+pause
+exit /b
+
 rem ---------------------------------------------------------------------------
 rem Download build tools
 rem ---------------------------------------------------------------------------
+:download_buildtools
 if not exist buildtools-mswin (
 	git clone https://github.com/gura-lang/buildtools-mswin.git
 	%UNZIP% x -y -obuildtools-mswin\curl buildtools-mswin\curl_737_1.zip
@@ -34,24 +63,16 @@ if not exist buildtools-mswin (
 	%UNZIP% x -y -obuildtools-mswin\UnxUtils buildtools-mswin\UnxUpdates.zip
 	%UNZIP% x -y -obuildtools-mswin\wix38-binaries buildtools-mswin\wix38-binaries.zip
 )
+exit /b
+
 rem ---------------------------------------------------------------------------
 rem Download packages
 rem ---------------------------------------------------------------------------
+:download_packages
 for %%P in (%PACKAGES%) do (
 	echo %%P
 	if not exist %%P %CURL% -O %GUESTURL%/%%P
 )
-rem ---------------------------------------------------------------------------
-rem Build packages
-rem ---------------------------------------------------------------------------
-set FAILEDLIST=
-for %%L in (%LABELS%) do call :build_%%L
-if not "%FAILEDLIST%" == "" (
-	echo ======================================================================
-	echo Error occured:%FAILEDLIST%
-	echo ======================================================================
-)
-pause
 exit /b
 
 rem ---------------------------------------------------------------------------
@@ -64,7 +85,7 @@ set PACKAGES=%PACKAGES% bzip2-1.0.6.tar.gz
 exit /b
 
 :clean_bzip2
-rmdir /s bzip2-1.0.6
+rmdir /s /q bzip2-1.0.6
 exit /b
 
 :build_bzip2
@@ -80,10 +101,11 @@ exit /b
 rem ---------------------------------------------------------------------------
 :package_cairo
 set PACKAGES=%PACKAGES% cairo-1.12.18.tar.xz
+set PACKAGES=%PACKAGES% cairo-1.12.18-gurapatch.zip
 exit /b
 
 :clean_cairo
-rmdir /s cairo-1.12.18
+rmdir /s /q cairo-1.12.18
 exit /b
 
 :build_cairo
@@ -103,7 +125,7 @@ set PACKAGES=%PACKAGES% curl-7.38.0.zip
 exit /b
 
 :clean_curl
-rmdir /s curl-7.38.0
+rmdir /s /q curl-7.38.0
 exit /b
 
 :build_curl
@@ -126,7 +148,7 @@ set PACKAGES=%PACKAGES% eigen-eigen-5a0156e40feb.zip
 exit /b
 
 :clean_eigen
-rmdir /s eigen-eigen-5a0156e40feb
+rmdir /s /q eigen-eigen-5a0156e40feb
 exit /b
 
 :build_eigen
@@ -140,7 +162,7 @@ set PACKAGES=%PACKAGES% expat-2.1.0.tar.gz expat-2.1.0-gurapatch-vs2017.zip
 exit /b
 
 :clean_expat
-rmdir /s expat-2.1.0
+rmdir /s /q expat-2.1.0
 exit /b
 
 :build_expat
@@ -158,7 +180,7 @@ set PACKAGES=%PACKAGES% fftw-3.3.6-pl2.tar.gz fftw-3.3.6-pl2-gurapatch-vs2017.zi
 exit /b
 
 :clean_fftw
-rmdir /s fftw-3.3.6-pl2
+rmdir /s /q fftw-3.3.6-pl2
 exit /b
 
 :build_fftw
@@ -176,7 +198,7 @@ set PACKAGES=%PACKAGES% freeglut-2.8.1.tar.gz freeglut-2.8.1-gurapatch-vs2017.zi
 exit /b
 
 :clean_freeglut
-rmdir /s freeglut-2.8.1
+rmdir /s /q freeglut-2.8.1
 exit /b
 
 :build_freeglut
@@ -194,7 +216,7 @@ set PACKAGES=%PACKAGES% freetype-2.5.3.tar.bz2 freetype-2.5.3-gurapatch-vs2017.z
 exit /b
 
 :clean_freetype
-rmdir /s freetype-2.5.3
+rmdir /s /q freetype-2.5.3
 exit /b
 
 :build_freetype
@@ -212,7 +234,7 @@ set PACKAGES=%PACKAGES% glew-1.13.0.zip glew-1.13.0-gurapatch-vs2017.zip
 exit /b
 
 :clean_glew
-rmdir /s glew-1.13.0
+rmdir /s /q glew-1.13.0
 exit /b
 
 :build_glew
@@ -228,7 +250,7 @@ set PACKAGES=%PACKAGES% jpegsrc.v9a.tar.gz
 exit /b
 
 :clean_jpegsrc
-rmdir /s jpeg-9a
+rmdir /s /q jpeg-9a
 exit /b
 
 :build_jpegsrc
@@ -248,7 +270,7 @@ set PACKAGES=%PACKAGES% liblinear-2.11.zip liblinear-2.11-gurapatch.zip
 exit /b
 
 :clean_liblinear
-rmdir /s liblinear-2.11
+rmdir /s /q liblinear-2.11
 exit /b
 
 :build_liblinear
@@ -267,7 +289,7 @@ set PACKAGES=%PACKAGES% libsvm-3.22.zip libsvm-3.22-gurapatch.zip
 exit /b
 
 :clean_libsvm
-rmdir /s libsvm-3.22
+rmdir /s /q libsvm-3.22
 exit /b
 
 :build_libsvm
@@ -286,7 +308,7 @@ set PACKAGES=%PACKAGES% lpng1520.zip lpng1520-gurapatch-vs2017.zip
 exit /b
 
 :clean_lpng
-rmdir /s lpng1520
+rmdir /s /q lpng1520
 exit /b
 
 :build_lpng
@@ -303,7 +325,7 @@ set PACKAGES=%PACKAGES% mpir-2.7.2.tar.bz2 mpir-2.7.2-gurapatch-vs2017.zip
 exit /b
 
 :clean_mpir
-rmdir /s mpir-2.7.2
+rmdir /s /q mpir-2.7.2
 exit /b
 
 :build_mpir
@@ -325,7 +347,7 @@ set PACKAGES=%PACKAGES% onig-5.9.5.tar.gz
 exit /b
 
 :clean_onig
-rmdir /s onig-5.9.5
+rmdir /s /q onig-5.9.5
 exit /b
 
 :build_onig
@@ -346,7 +368,7 @@ set PACKAGES=%PACKAGES% pixman-0.32.6.tar.gz pixman-0.32.6-gurapatch.zip
 exit /b
 
 :clean_pixman
-rmdir /s pixman-0.32.6
+rmdir /s /q pixman-0.32.6
 exit /b
 
 :build_pixman
@@ -367,7 +389,7 @@ set PACKAGES=%PACKAGES% SDL-1.2.15.zip SDL-1.2.15-gurapatch-vs2017.zip
 exit /b
 
 :clean_sdl
-rmdir /s SDL-1.2.15
+rmdir /s /q SDL-1.2.15
 exit /b
 
 :build_sdl
@@ -384,7 +406,7 @@ set PACKAGES=%PACKAGES% SDL2-2.0.4.zip SDL2-2.0.4-gurapatch-vs2017.zip
 exit /b
 
 :clean_sdl2
-rmdir /s SDL2-2.0.4
+rmdir /s /q SDL2-2.0.4
 exit /b
 
 :build_sdl2
@@ -401,7 +423,7 @@ set PACKAGES=%PACKAGES% sqlite-amalgamation-201409011821.zip
 exit /b
 
 :clean_sqlite
-rmdir /s sqlite-amalgamation
+rmdir /s /q sqlite-amalgamation
 exit /b
 
 :build_sqlite
@@ -415,7 +437,7 @@ set PACKAGES=%PACKAGES% tcl868-src.zip tk868-src.zip
 exit /b
 
 :clean_tcltk
-rmdir /s tcl
+rmdir /s /q tcl
 exit /b
 
 :build_tcltk
@@ -441,7 +463,7 @@ set PACKAGES=%PACKAGES% tiff-3.8.2.zip tiff-3.8.2-gurapatch.zip
 exit /b
 
 :clean_tiff
-rmdir /s tiff-3.8.2
+rmdir /s /q tiff-3.8.2
 exit /b
 
 :build_tiff
@@ -460,7 +482,7 @@ set PACKAGES=%PACKAGES% wxWidgets-3.1.0.7z wxWidgets-3.1.0-gurapatch-vs2017.zip
 exit /b
 
 :clean_wx
-rmdir /s wxWidgets-3.1.0
+rmdir /s /q wxWidgets-3.1.0
 exit /b
 
 :build_wx
@@ -478,7 +500,7 @@ set PACKAGES=%PACKAGES% yaml-0.1.5.tar.gz yaml-0.1.5-gurapatch-vs2017.zip
 exit /b
 
 :clean_yaml
-rmdir /s yaml-0.1.5
+rmdir /s /q yaml-0.1.5
 exit /b
 
 :build_yaml
@@ -496,7 +518,7 @@ set PACKAGES=%PACKAGES% zlib127.zip
 exit /b
 
 :clean_zlib
-rmdir /s zlib-1.2.7
+rmdir /s /q zlib-1.2.7
 exit /b
 
 :build_zlib
