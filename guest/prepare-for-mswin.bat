@@ -13,11 +13,11 @@ if not defined VCINSTALLDIR call "C:\Program Files (x86)\Microsoft Visual Studio
 rem Add include path containing Win32.mak in case vs2015 doesn't include SDK
 rem that provides the file.
 set INCLUDE=%BASEDIR%include;%INCLUDE%
-set PACKAGES=
 rem ---------------------------------------------------------------------------
 rem Build specified package
 rem ---------------------------------------------------------------------------
 if not "%1" == "" (
+	set PACKAGES=
 	call :package_%1
 	call :download_packages
 	call :clean_%1
@@ -36,12 +36,13 @@ rem ---------------------------------------------------------------------------
 rem Download build tools and packages
 rem ---------------------------------------------------------------------------
 call :download_buildtools
+set PACKAGES=
 for %%L in (%LABELS%) do call :package_%%L
 call :download_packages
 rem ---------------------------------------------------------------------------
 rem Build packages
 rem ---------------------------------------------------------------------------
-set FAILEDLIST
+set FAILEDLIST=
 for %%L in (%LABELS%) do call :build_%%L
 if not "%FAILEDLIST%" == "" (
 	echo ======================================================================
