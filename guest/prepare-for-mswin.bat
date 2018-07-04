@@ -26,16 +26,21 @@ for %%L in (%LABELS%) do call :package_%%L
 rem ---------------------------------------------------------------------------
 rem Download build tools
 rem ---------------------------------------------------------------------------
-if not exist buildtools-mswin git clone https://github.com/gura-lang/buildtools-mswin.git
-%UNZIP% x -y -obuildtools-mswin\curl buildtools-mswin\curl_737_1.zip
-%CURL% %GUESTURL%/buildtools-mswin/UnxUpdates.zip -o buildtools-mswin\UnxUpdates.zip
-%CURL% %GUESTURL%/buildtools-mswin/wix38-binaries.zip -o buildtools-mswin\wix38-binaries.zip
-%UNZIP% x -y -obuildtools-mswin\UnxUtils buildtools-mswin\UnxUpdates.zip
-%UNZIP% x -y -obuildtools-mswin\wix38-binaries buildtools-mswin\wix38-binaries.zip
+if not exist buildtools-mswin (
+	git clone https://github.com/gura-lang/buildtools-mswin.git
+	%UNZIP% x -y -obuildtools-mswin\curl buildtools-mswin\curl_737_1.zip
+	%CURL% %GUESTURL%/buildtools-mswin/UnxUpdates.zip -o buildtools-mswin\UnxUpdates.zip
+	%CURL% %GUESTURL%/buildtools-mswin/wix38-binaries.zip -o buildtools-mswin\wix38-binaries.zip
+	%UNZIP% x -y -obuildtools-mswin\UnxUtils buildtools-mswin\UnxUpdates.zip
+	%UNZIP% x -y -obuildtools-mswin\wix38-binaries buildtools-mswin\wix38-binaries.zip
+)
 rem ---------------------------------------------------------------------------
 rem Download packages
 rem ---------------------------------------------------------------------------
-for %%P in (%PACKAGES%) do %CURL% -O %GUESTURL%/%%P
+for %%P in (%PACKAGES%) do (
+	echo %%P
+	if not exist %%P %CURL% -O %GUESTURL%/%%P
+)
 rem ---------------------------------------------------------------------------
 rem Build packages
 rem ---------------------------------------------------------------------------
