@@ -8,10 +8,8 @@ set BASEDIR=%~dp0
 set UNZIP="%BASEDIR%buildtools-mswin\7za920\7za.exe"
 set GNUMAKE="%BASEDIR%buildtools-mswin\UnxUtils\make.exe"
 set CURL="%BASEDIR%buildtools-mswin\curl\curl.exe"
-set VCVERSION=2017
 if not defined VCINSTALLDIR call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat" -arch=x86
-rem Add include path containing Win32.mak in case vs2015 doesn't include SDK
-rem that provides the file.
+rem Add include path containing Win32.mak in case vs2015 doesn't include SDK providing that file.
 set INCLUDE=%BASEDIR%include;%INCLUDE%
 rem ---------------------------------------------------------------------------
 rem Build specified package
@@ -27,7 +25,7 @@ if not "%1" == "" (
 rem ---------------------------------------------------------------------------
 rem Register labels of subroutines
 rem ---------------------------------------------------------------------------
-rem At first, build packages that are referenced by others.
+rem At first, build packages that are used by others.
 set LABELS=zlib bzip2 expat freetype pixman lpng
 rem Then, build other packages.
 set LABELS=%LABELS% cairo curl eigen fftw freeglut glew jpegsrc liblinear libsvm
