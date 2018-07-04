@@ -28,7 +28,7 @@ rem ---------------------------------------------------------------------------
 rem Register labels of subroutines
 rem ---------------------------------------------------------------------------
 rem At first, build packages that are referenced by others.
-LABELS=zlib bzip2 expat freetype pixman lpng
+set LABELS=zlib bzip2 expat freetype pixman lpng
 rem Then, build other packages.
 set LABELS=%LABELS% cairo curl eigen fftw freeglut glew jpegsrc liblinear libsvm
 set LABELS=%LABELS% mpir onig sdl sdl2 sqlite tiff wx yaml
