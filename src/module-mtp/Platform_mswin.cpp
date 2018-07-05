@@ -57,7 +57,7 @@ Directory_MTP *Device::GeneratePartialDirectory(
 		new Stat("", "/", 0, DateTime(), true));
 	while (*p != '\0') {
 		if (!pDirectory->IsContainer()) {
-			sig.SetError(ERR_IOError, "can't browse inside an item");
+			sig.SetError(ERR_FileError, "can't browse inside an item");
 			return nullptr;
 		}
 		String field;
@@ -121,7 +121,7 @@ Directory_MTP *Device::GenerateDirectory(Signal &sig, LPCWSTR objectID, const ch
 	const char *pathNamePartial = nullptr;
 	AutoPtr<Directory_MTP> pDirectory(GeneratePartialDirectory(sig, objectID, pathName, &pathNamePartial));
 	if (*pathNamePartial != '\0') {
-		sig.SetError(ERR_IOError, "specified path doesn't exist");
+		sig.SetError(ERR_FileError, "specified path doesn't exist");
 		return nullptr;
 	}
 	return pDirectory.release();
