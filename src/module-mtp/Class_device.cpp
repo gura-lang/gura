@@ -82,22 +82,6 @@ Gura_ImplementPropertyGetter(device, storages)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// mtp.device#method1()
-Gura_DeclareMethod(device, method1)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	//DeclareArg(env, "arg1", VTYPE_string);
-	//DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"");
-}
-
-Gura_ImplementMethod(device, method1)
-{
-	//Object_device *pThis = Object_device::GetObjectThis(arg);
-	return Value::Nil;
-}
 
 //-----------------------------------------------------------------------------
 // Implementation of class mtp.device
@@ -109,7 +93,6 @@ Gura_ImplementUserClass(device)
 	Gura_AssignProperty(device, manufacturer);
 	Gura_AssignProperty(device, storages);
 	// Assignment of method
-	Gura_AssignMethod(device, method1);
 	// Assignment of value
 	Gura_AssignValue(device, Value(Reference()));
 }

@@ -17,15 +17,13 @@ mtp.detect_devices
 
 ### Property
 
-### Method
-
-${markdown.makedoc@function(`en
-mtp.device
-)}
+${markdown.makedoc@property(`en, mtp.device)}
 
 ## mtp.storage Class
 
 ### Property
+
+${markdown.makedoc@property(`en, mtp.storage)}
 
 ### Method
 
@@ -39,6 +37,8 @@ mtp.storage.remove
 ## mtp.stat Class
 
 ### Property
+
+${markdown.makedoc@property(`en, mtp.stat)}
 
 ### Method
 
