@@ -14,9 +14,7 @@ if (sys.platform == `mswin) {
 	srcs.append('Platform_libmtp.cpp')
 	builder.incDirs.append('guest/include/libmtp')
 	builder.libDirs.append('guest/lib')
-	builder.ldflags.append(
-		'-framework', 'Carbon'
-		'-framework', 'IOKit')
+	builder.ldflags.append('-framework', 'Carbon', '-framework', 'IOKit')
 	builder.libs.append(['mtp', 'usb', 'iconv'])
 }
 builder.build('mtp', srcs)
