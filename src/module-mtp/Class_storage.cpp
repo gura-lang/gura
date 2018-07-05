@@ -29,7 +29,7 @@ Gura_DeclareProperty_R(storage, storage_type)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Returns one of the symbols: `` `Undefined``, `` `FixedROM``, `` `RemovableROM``, `` `FixedRAM``, `` `RemovableRAM``"
 		);
 }
 
@@ -45,7 +45,7 @@ Gura_DeclareProperty_R(storage, filesystem_type)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Returns one of the syhmbols: `` `Undefined``, `` `GenericFlat``, `` `GenericHierarchical``, `` `DCF``"
 		);
 }
 
@@ -61,7 +61,7 @@ Gura_DeclareProperty_R(storage, access_capability)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Returns one of the symbols: `` `ReadWrite``, `` `ReadOnly``, `` `ReadOnlyWithObjectDeletion``"
 		);
 }
 
@@ -77,7 +77,7 @@ Gura_DeclareProperty_R(storage, max_capacity)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Maximum capacity of the storage in bytes."
 		);
 }
 
@@ -93,7 +93,7 @@ Gura_DeclareProperty_R(storage, free_space_in_bytes)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Free space in the storage in bytes."
 		);
 }
 
@@ -109,7 +109,7 @@ Gura_DeclareProperty_R(storage, free_space_in_objects)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Free space in the storage in number of objects."
 		);
 }
 
@@ -125,7 +125,7 @@ Gura_DeclareProperty_R(storage, storage_description)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Storage description."
 		);
 }
 
@@ -141,7 +141,7 @@ Gura_DeclareProperty_R(storage, volume_identifier)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Volume identifier."
 		);
 }
 
@@ -219,6 +219,24 @@ Gura_ImplementMethod(storage, recvfile)
 	return arg.GetValueThis();
 }
 
+// mtp.storage#remove(pathname:string):reduce
+Gura_DeclareMethod(storage, remove)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "pathname", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementMethod(storage, remove)
+{
+	const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
+	const char *pathName = arg.GetString(0);
+	if (!pStorage->DeleteFile(env, pathName)) return Value::Nil;
+	return arg.GetValueThis();
+}
+
 // mtp.storage#sendfile(pathname:string, stream:stream:r):reduce {block?}
 Gura_DeclareMethod(storage, sendfile)
 {
@@ -245,24 +263,6 @@ Gura_ImplementMethod(storage, sendfile)
 	return arg.GetValueThis();
 }
 
-// mtp.storage#remove(pathname:string):reduce
-Gura_DeclareMethod(storage, remove)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "pathname", VTYPE_string);
-	AddHelp(
-		Gura_Symbol(en),
-		"");
-}
-
-Gura_ImplementMethod(storage, remove)
-{
-	const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
-	const char *pathName = arg.GetString(0);
-	if (!pStorage->DeleteFile(env, pathName)) return Value::Nil;
-	return arg.GetValueThis();
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of class mtp.storage
 //-----------------------------------------------------------------------------
@@ -279,10 +279,10 @@ Gura_ImplementUserClass(storage)
 	Gura_AssignProperty(storage, volume_identifier);
 	// Assignment of method
 	Gura_AssignMethod(storage, opendir);
-	Gura_AssignMethod(storage, reader);
+	//Gura_AssignMethod(storage, reader);
 	Gura_AssignMethod(storage, recvfile);
-	Gura_AssignMethod(storage, sendfile);
 	Gura_AssignMethod(storage, remove);
+	Gura_AssignMethod(storage, sendfile);
 	// Assignment of value
 	Gura_AssignValue(storage, Value(Reference()));
 }

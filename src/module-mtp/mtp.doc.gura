@@ -30,8 +30,8 @@ ${markdown.makedoc@property(`en, mtp.storage)}
 ${markdown.makedoc@function(`en
 mtp.storage.opendir
 mtp.storage.recvfile
-mtp.storage.sendfile
 mtp.storage.remove
+mtp.storage.sendfile
 )}
 
 ## mtp.stat Class

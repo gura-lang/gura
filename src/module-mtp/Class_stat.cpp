@@ -29,7 +29,7 @@ Gura_DeclareProperty_R(stat, dirname)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Directory name."
 		);
 }
 
@@ -45,7 +45,7 @@ Gura_DeclareProperty_R(stat, filename)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Filename."
 		);
 }
 
@@ -61,7 +61,7 @@ Gura_DeclareProperty_R(stat, isdir)
 	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Returns `true` for a directory and `false` for a file."
 		);
 }
 
@@ -77,7 +77,7 @@ Gura_DeclareProperty_R(stat, mtime)
 	SetPropAttr(VTYPE_datetime);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Returns a `datetime` instance indicating the modification time stamp."
 		);
 }
 
@@ -93,7 +93,7 @@ Gura_DeclareProperty_R(stat, pathname)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Path name."
 		);
 }
 
@@ -109,7 +109,7 @@ Gura_DeclareProperty_R(stat, size)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"File size in bytes."
 		);
 }
 

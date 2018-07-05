@@ -29,7 +29,7 @@ Gura_DeclareProperty_R(device, friendlyname)
 	SetPropAttr(VTYPE_string, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Friendly name."
 		);
 }
 
@@ -45,7 +45,7 @@ Gura_DeclareProperty_R(device, manufacturer)
 	SetPropAttr(VTYPE_string, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Manufacturer name."
 		);
 }
 
@@ -61,7 +61,7 @@ Gura_DeclareProperty_R(device, storages)
 	SetPropAttr(VTYPE_list);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Returns a list of `mtp.storage` instances."
 		);
 }
 
