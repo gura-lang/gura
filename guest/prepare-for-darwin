@@ -67,9 +67,8 @@ function setup_dylib() {
 
 #---------------------------------------------------------------------------
 # depends on: fontconfig, freetype, pixman, libpng
-ver_cairo=1.12.18
-
 function packages_cairo() {
+	ver_cairo=1.12.18
 	packages="$packages cairo-$ver_cairo.tar.xz"
 }
 
@@ -89,9 +88,8 @@ function build_cairo() {
 }
 
 #---------------------------------------------------------------------------
-ver_eigen=5a0156e40feb
-
 function packages_eigen() {
+	ver_eigen=5a0156e40feb
 	packages="$packages eigen-eigen-$ver_eigen.zip"
 }
 
@@ -105,9 +103,8 @@ function build_eigen() {
 }
 
 #---------------------------------------------------------------------------
-ver_expat=2.1.0
-
 function packages_expat() {
+	ver_expat=2.1.0
 	packages="$packages expat-$ver_expat.tar.gz"
 }
 
@@ -127,9 +124,8 @@ function build_expat() {
 }
 
 #---------------------------------------------------------------------------
-ver_fftw=3.3.6-pl2
-
 function packages_fftw() {
+	ver_fftw=3.3.6-pl2
 	packages="$packages fftw-$ver_fftw.tar.gz"
 }
 
@@ -150,9 +146,8 @@ function build_fftw() {
 
 #---------------------------------------------------------------------------
 # depends on: expat, freetype
-ver_fontconfig=2.11.1
-
 function packages_fontconfig() {
+	ver_fontconfig=2.11.1
 	packages="$packages fontconfig-$ver_fontconfig.tar.bz2"
 }
 
@@ -172,9 +167,8 @@ function build_fontconfig() {
 }
 
 #---------------------------------------------------------------------------
-ver_freetype=2.5.3
-
 function packages_freetype() {
+	ver_freetype=2.5.3
 	packages="$packages freetype-$ver_freetype.tar.bz2"
 }
 
@@ -194,9 +188,8 @@ function build_freetype() {
 }
 
 #---------------------------------------------------------------------------
-ver_gmp=6.0.0
-
 function packages_gmp() {
+	ver_gmp=6.0.0
 	packages="$packages gmp-${ver_gmp}a.tar.bz2"
 }
 
@@ -216,9 +209,8 @@ function build_gmp() {
 }
 
 #---------------------------------------------------------------------------
-ver_jpegsrc=9a
-
 function packages_jpegsrc() {
+	ver_jpegsrc=9a
 	packages="$packages jpegsrc.v$ver_jpegsrc.tar.gz"
 }
 
@@ -238,9 +230,8 @@ function build_jpegsrc() {
 }
 
 #---------------------------------------------------------------------------
-ver_liblinear=2.11
-
 function packages_liblinear() {
+	ver_liblinear=2.11
 	packages="$packages liblinear-$ver_liblinear.zip"
 	packages="$packages liblinear-$ver_liblinear-gurapatch.zip"
 }
@@ -262,9 +253,8 @@ function build_liblinear() {
 
 #---------------------------------------------------------------------------
 # depends on: libusb
-ver_libmtp=1.1.15
-
 function packages_libmtp() {
+	ver_libmtp=1.1.15
 	packages="$packages libmtp-$ver_libmtp.tar.gz"
 	packages="$packages libmtp-$ver_libmtp-gurapatch.tar.gz"
 }
@@ -286,9 +276,8 @@ function build_libmtp() {
 }
 
 #---------------------------------------------------------------------------
-ver_libpng=1.6.12
-
 function packages_libpng() {
+	ver_libpng=1.6.12
 	packages="$packages libpng-$ver_libpng.tar.gz"
 }
 
@@ -308,9 +297,8 @@ function build_libpng() {
 }
 
 #---------------------------------------------------------------------------
-ver_spectre=0.2.7
-
 function packages_libspectre() {
+	ver_spectre=0.2.7
 	packages="$packages libspectre-$ver_spectre.tar.gz"
 }
 
@@ -327,9 +315,8 @@ function build_libspectre() {
 }
 
 #---------------------------------------------------------------------------
-ver_libsvm=3.22
-
 function packages_libsvm() {
+	ver_libsvm=3.22
 	packages="$packages libsvm-$ver_libsvm.zip"
 	packages="$packages libsvm-$ver_libsvm-gurapatch.zip"
 }
@@ -350,9 +337,8 @@ function build_libsvm() {
 }
 
 #---------------------------------------------------------------------------
-ver_libusb=1.0.22
-
 function packages_libusb() {
+	ver_libusb=1.0.22
 	packages="$packages libusb-$ver_libusb.tar.bz2"
 }
 
@@ -372,9 +358,8 @@ function build_libusb() {
 }
 
 #---------------------------------------------------------------------------
-ver_llvm=3.6.1
-
 function packages_llvm() {
+	ver_llvm=3.6.1
 	packages="$packages llvm-$ver_llvm.src.tar.xz"
 }
 
@@ -393,9 +378,8 @@ function build_llvm() {
 }
 
 #---------------------------------------------------------------------------
-ver_onig=5.9.5
-
 function packages_onig() {
+	ver_onig=5.9.5
 	packages="$packages onig-$ver_onig.tar.gz"
 }
 
@@ -415,9 +399,8 @@ function build_onig() {
 }
 
 #---------------------------------------------------------------------------
-ver_pixman=0.34.0
-
 function packages_pixman() {
+	ver_pixman=0.34.0
 	packages="$packages pixman-$ver_pixman.tar.gz"
 }
 
@@ -437,9 +420,8 @@ function build_pixman() {
 }
 
 #---------------------------------------------------------------------------
-ver_sdl=1.2.15
-
 function packages_sdl() {
+	ver_sdl=1.2.15
 	packages="$packages SDL-$ver_sdl.tar.gz"
 }
 
@@ -455,9 +437,8 @@ function build_sdl() {
 }
 
 #---------------------------------------------------------------------------
-ver_sdl2=2.0.4
-
 function packages_sdl2() {
+	ver_sdl2=2.0.4
 	packages="$packages SDL2-$ver_sdl2.tar.gz"
 }
 
@@ -477,9 +458,8 @@ function build_sdl2() {
 }
 
 #---------------------------------------------------------------------------
-ver_tiff=3.8.2
-
 function packages_tiff() {
+	ver_tiff=3.8.2
 	packages="$packages tiff-$ver_tiff.tar.gz"
 }
 
@@ -499,9 +479,8 @@ function build_tiff() {
 }
 
 #---------------------------------------------------------------------------
-ver_wx=3.1.1
-
 function packages_wx() {
+	ver_wx=3.1.1
 	packages="$packages wxWidgets-$ver_wx.tar.bz2"
 }
 
@@ -522,9 +501,8 @@ function build_wx() {
 }
 
 #---------------------------------------------------------------------------
-ver_yaml=0.1.5
-
 function packages_yaml() {
+	ver_yaml=0.1.5
 	packages="$packages yaml-$ver_yaml.tar.gz"
 }
 
