@@ -122,22 +122,6 @@ Gura_ImplementPropertyGetter(stat, size)
 //-----------------------------------------------------------------------------
 // Implementation of method
 //-----------------------------------------------------------------------------
-// mtp.stat#method1()
-Gura_DeclareMethod(stat, method1)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	//DeclareArg(env, "arg1", VTYPE_string);
-	//DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"");
-}
-
-Gura_ImplementMethod(stat, method1)
-{
-	//Object_stat *pThis = Object_stat::GetObjectThis(arg);
-	return Value::Nil;
-}
 
 //-----------------------------------------------------------------------------
 // Implementation of class mtp.stat
@@ -152,7 +136,6 @@ Gura_ImplementUserClass(stat)
 	Gura_AssignProperty(stat, pathname);
 	Gura_AssignProperty(stat, size);
 	// Assignment of method
-	Gura_AssignMethod(stat, method1);
 	// Assignment of value
 	Gura_AssignValue(stat, Value(Reference()));
 }

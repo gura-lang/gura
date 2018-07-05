@@ -1,0 +1,54 @@
+#!/usr/bin/env gura
+import(markdown)
+import(mtp)
+
+text@en = R"""
+# mtp Module
+
+The `mtp` module provides measures to read/write data on a mobile platform like an Android device.
+
+## Module Function
+
+${markdown.makedoc@function(`en
+mtp.detect_devices
+)}
+
+## mtp.device Class
+
+### Property
+
+### Method
+
+${markdown.makedoc@function(`en
+mtp.device
+)}
+
+## mtp.storage Class
+
+### Property
+
+### Method
+
+${markdown.makedoc@function(`en
+mtp.storage.opendir
+mtp.storage.recvfile
+mtp.storage.sendfile
+mtp.storage.remove
+)}
+
+## mtp.stat Class
+
+### Property
+
+### Method
+
+## Thanks
+
+This module uses libusb and libmtp library which is distributed in the following site:
+
+- [https://libusb.info/](https://libusb.info/)
+- [http://libmtp.sourceforge.net/](http://libmtp.sourceforge.net/)
+
+""".embed()
+
+markdown.makedoc@module(locals(), %{`en => text@en})

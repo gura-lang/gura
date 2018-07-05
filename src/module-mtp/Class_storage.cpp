@@ -245,8 +245,8 @@ Gura_ImplementMethod(storage, sendfile)
 	return arg.GetValueThis();
 }
 
-// mtp.storage#deletefile(pathname:string):reduce
-Gura_DeclareMethod(storage, deletefile)
+// mtp.storage#remove(pathname:string):reduce
+Gura_DeclareMethod(storage, remove)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "pathname", VTYPE_string);
@@ -255,7 +255,7 @@ Gura_DeclareMethod(storage, deletefile)
 		"");
 }
 
-Gura_ImplementMethod(storage, deletefile)
+Gura_ImplementMethod(storage, remove)
 {
 	const Storage *pStorage = Object_storage::GetObjectThis(arg)->GetStorage();
 	const char *pathName = arg.GetString(0);
@@ -282,7 +282,7 @@ Gura_ImplementUserClass(storage)
 	Gura_AssignMethod(storage, reader);
 	Gura_AssignMethod(storage, recvfile);
 	Gura_AssignMethod(storage, sendfile);
-	Gura_AssignMethod(storage, deletefile);
+	Gura_AssignMethod(storage, remove);
 	// Assignment of value
 	Gura_AssignValue(storage, Value(Reference()));
 }
