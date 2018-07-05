@@ -17,7 +17,7 @@ function main() {
 	if [ $# -gt 0 ] ; then
 		label=$1
 		packages=""
-		packages_$label
+		getinfo_$label
 		download_packages
 		clean_$label
 		failed=""
@@ -27,7 +27,7 @@ function main() {
 	# Download packages
 	packages=""
 	for label in $labels; do
-		packages_$label
+		getinfo_$label
 	done
 	download_packages
 	# Build packages at first that are used by other packages
@@ -67,7 +67,7 @@ function setup_dylib() {
 
 #---------------------------------------------------------------------------
 # depends on: fontconfig, freetype, pixman, libpng
-function packages_cairo() {
+function getinfo_cairo() {
 	ver_cairo=1.12.18
 	packages="$packages cairo-$ver_cairo.tar.xz"
 }
@@ -88,7 +88,7 @@ function build_cairo() {
 }
 
 #---------------------------------------------------------------------------
-function packages_eigen() {
+function getinfo_eigen() {
 	ver_eigen=5a0156e40feb
 	packages="$packages eigen-eigen-$ver_eigen.zip"
 }
@@ -103,7 +103,7 @@ function build_eigen() {
 }
 
 #---------------------------------------------------------------------------
-function packages_expat() {
+function getinfo_expat() {
 	ver_expat=2.1.0
 	packages="$packages expat-$ver_expat.tar.gz"
 }
@@ -124,7 +124,7 @@ function build_expat() {
 }
 
 #---------------------------------------------------------------------------
-function packages_fftw() {
+function getinfo_fftw() {
 	ver_fftw=3.3.6-pl2
 	packages="$packages fftw-$ver_fftw.tar.gz"
 }
@@ -146,7 +146,7 @@ function build_fftw() {
 
 #---------------------------------------------------------------------------
 # depends on: expat, freetype
-function packages_fontconfig() {
+function getinfo_fontconfig() {
 	ver_fontconfig=2.11.1
 	packages="$packages fontconfig-$ver_fontconfig.tar.bz2"
 }
@@ -167,7 +167,7 @@ function build_fontconfig() {
 }
 
 #---------------------------------------------------------------------------
-function packages_freetype() {
+function getinfo_freetype() {
 	ver_freetype=2.5.3
 	packages="$packages freetype-$ver_freetype.tar.bz2"
 }
@@ -188,7 +188,7 @@ function build_freetype() {
 }
 
 #---------------------------------------------------------------------------
-function packages_gmp() {
+function getinfo_gmp() {
 	ver_gmp=6.0.0
 	packages="$packages gmp-${ver_gmp}a.tar.bz2"
 }
@@ -209,7 +209,7 @@ function build_gmp() {
 }
 
 #---------------------------------------------------------------------------
-function packages_jpegsrc() {
+function getinfo_jpegsrc() {
 	ver_jpegsrc=9a
 	packages="$packages jpegsrc.v$ver_jpegsrc.tar.gz"
 }
@@ -230,7 +230,7 @@ function build_jpegsrc() {
 }
 
 #---------------------------------------------------------------------------
-function packages_liblinear() {
+function getinfo_liblinear() {
 	ver_liblinear=2.11
 	packages="$packages liblinear-$ver_liblinear.zip"
 	packages="$packages liblinear-$ver_liblinear-gurapatch.zip"
@@ -253,7 +253,7 @@ function build_liblinear() {
 
 #---------------------------------------------------------------------------
 # depends on: libusb
-function packages_libmtp() {
+function getinfo_libmtp() {
 	ver_libmtp=1.1.15
 	packages="$packages libmtp-$ver_libmtp.tar.gz"
 	packages="$packages libmtp-$ver_libmtp-gurapatch.tar.gz"
@@ -276,7 +276,7 @@ function build_libmtp() {
 }
 
 #---------------------------------------------------------------------------
-function packages_libpng() {
+function getinfo_libpng() {
 	ver_libpng=1.6.12
 	packages="$packages libpng-$ver_libpng.tar.gz"
 }
@@ -297,7 +297,7 @@ function build_libpng() {
 }
 
 #---------------------------------------------------------------------------
-function packages_libspectre() {
+function getinfo_libspectre() {
 	ver_spectre=0.2.7
 	packages="$packages libspectre-$ver_spectre.tar.gz"
 }
@@ -315,7 +315,7 @@ function build_libspectre() {
 }
 
 #---------------------------------------------------------------------------
-function packages_libsvm() {
+function getinfo_libsvm() {
 	ver_libsvm=3.22
 	packages="$packages libsvm-$ver_libsvm.zip"
 	packages="$packages libsvm-$ver_libsvm-gurapatch.zip"
@@ -337,7 +337,7 @@ function build_libsvm() {
 }
 
 #---------------------------------------------------------------------------
-function packages_libusb() {
+function getinfo_libusb() {
 	ver_libusb=1.0.22
 	packages="$packages libusb-$ver_libusb.tar.bz2"
 }
@@ -358,7 +358,7 @@ function build_libusb() {
 }
 
 #---------------------------------------------------------------------------
-function packages_llvm() {
+function getinfo_llvm() {
 	ver_llvm=3.6.1
 	packages="$packages llvm-$ver_llvm.src.tar.xz"
 }
@@ -378,7 +378,7 @@ function build_llvm() {
 }
 
 #---------------------------------------------------------------------------
-function packages_onig() {
+function getinfo_onig() {
 	ver_onig=5.9.5
 	packages="$packages onig-$ver_onig.tar.gz"
 }
@@ -399,7 +399,7 @@ function build_onig() {
 }
 
 #---------------------------------------------------------------------------
-function packages_pixman() {
+function getinfo_pixman() {
 	ver_pixman=0.34.0
 	packages="$packages pixman-$ver_pixman.tar.gz"
 }
@@ -420,7 +420,7 @@ function build_pixman() {
 }
 
 #---------------------------------------------------------------------------
-function packages_sdl() {
+function getinfo_sdl() {
 	ver_sdl=1.2.15
 	packages="$packages SDL-$ver_sdl.tar.gz"
 }
@@ -437,7 +437,7 @@ function build_sdl() {
 }
 
 #---------------------------------------------------------------------------
-function packages_sdl2() {
+function getinfo_sdl2() {
 	ver_sdl2=2.0.4
 	packages="$packages SDL2-$ver_sdl2.tar.gz"
 }
@@ -458,7 +458,7 @@ function build_sdl2() {
 }
 
 #---------------------------------------------------------------------------
-function packages_tiff() {
+function getinfo_tiff() {
 	ver_tiff=3.8.2
 	packages="$packages tiff-$ver_tiff.tar.gz"
 }
@@ -479,7 +479,7 @@ function build_tiff() {
 }
 
 #---------------------------------------------------------------------------
-function packages_wx() {
+function getinfo_wx() {
 	ver_wx=3.1.1
 	packages="$packages wxWidgets-$ver_wx.tar.bz2"
 }
@@ -501,7 +501,7 @@ function build_wx() {
 }
 
 #---------------------------------------------------------------------------
-function packages_yaml() {
+function getinfo_yaml() {
 	ver_yaml=0.1.5
 	packages="$packages yaml-$ver_yaml.tar.gz"
 }
