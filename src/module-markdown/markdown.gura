@@ -949,7 +949,7 @@ makedoc@property(lang:symbol, obj) = {
 	propdecls = obj.__propdecls__():list
 	propdecls.isempty() && return
 	str = '<table>\n'
-	str += '<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>\n'
+	str += '<tr><th>Property</th><th>Type</th><th>R/W</th><th>Note</th></tr>\n'
 	str += '\n'
 	propdecls.each {|pd|
 		accessMode = if (pd.readable && !pd.writable) {
