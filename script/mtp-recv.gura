@@ -1,0 +1,26 @@
+#!/usr/bin/env gura
+import(mtp)
+
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: mtp-recv.gura src')
+	sys.exit(1)
+}
+devices = mtp.detect_devices()
+if (devices.len() == 0) {
+	sys.stderr.println('no device detected')
+	sys.exit(1)
+}
+pathNameSrc = sys.argv[1]
+pathNameDst = path.filename(pathNameSrc)
+device = devices[0]
+storage = device.storages[0]
+try {
+	storage.recvfile(pathNameSrc, pathNameDst) {|sent, total|
+		sys.stderr.printf('%d/%d\r', sent, total)
+	}
+	sys.stderr.println()
+	sys.stderr.println(pathNameDst, ' was transferred')
+} catch {|e|
+	sys.stderr.println(e.text)
+	fs.remove(pathNameDst)
+}

@@ -1,0 +1,21 @@
+#!/usr/bin/env gura
+import(mtp)
+
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: mtp-send.gura dst file')
+	sys.exit(1)
+}
+devices = mtp.detect_devices()
+if (devices.len() == 0) {
+	sys.stderr.println('no device detected')
+	sys.exit(1)
+}
+pathNameDst = sys.argv[1]
+pathNameSrc = sys.argv[2]
+device = devices[0]
+storage = device.storages[0]
+storage.sendfile(pathNameDst, pathNameSrc) {|sent, total|
+	sys.stderr.printf('%d/%d\r', sent, total)
+}
+sys.stderr.println()
+sys.stderr.println(path.filename(pathNameSrc), ' was transferred')
