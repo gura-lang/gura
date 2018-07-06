@@ -2,54 +2,50 @@
 import(argopt)
 import(mtp)
 
-main() = {
-	argopt.Parser {|p|
-		p.addFlag('recursive', 'R')
-		try {
-			[cfg, argv] = p.parse(sys.argv)
-			recursiveFlag = cfg['recursive']
-		} catch {|e|
-			sys.stderr.println(e.text)
-			sys.exit(1)
-		}
-	}
-	if (argv.len() >= 1) {
-		dirNames = [argv[0]]
-	} else {
-		dirNames = ['/']
-	}
+argopt.Parser {|p|
+	p.addFlag('recursive', 'R')
 	try {
-		devices = mtp.detect_devices()
-	} catch {
-		sys.stderr.println('Another application like Android File Transfer seems to be occupying the connection with the device.')
+		[cfg, argv] = p.parse(sys.argv)
+		recursiveFlag = cfg['recursive']
+	} catch {|e|
+		sys.stderr.println(e.text)
 		sys.exit(1)
 	}
-	device = devices[0]
-	println(device.friendlyname)
-	storage = device.storages[0]
-	firstFlag = true
-	while (!dirNames.isempty()) {
-		dirNamesSub = []
-		dirNames.each {|dirName|
-			!firstFlag && printf('\n%s:\n', dirName)
-			firstFlag = false
-			path.dir(storage.opendir(dirName)):stat {|stat|
-				tm = stat.mtime
-				if (stat.isdir) {
-					printf('%04d/%02d/%02d %02d:%02d %12s  %s\n',
-						   tm.year, tm.month, tm.day, tm.hour, tm.min,
-						   '<dir>', stat.filename)
-					dirNamesSub.append(stat.pathname)
-				} else {
-					printf('%04d/%02d/%02d %02d:%02d %12d  %s\n',
-						   tm.year, tm.month, tm.day, tm.hour, tm.min,
-						   stat.size, stat.filename)
-				}
+}
+if (argv.len() >= 1) {
+	dirNames = [argv[0]]
+} else {
+	dirNames = ['/']
+}
+try {
+	devices = mtp.detect_devices()
+} catch {
+	sys.stderr.println('Another application like Android File Transfer seems to be occupying the connection with the device.')
+	sys.exit(1)
+}
+device = devices[0]
+println(device.friendlyname)
+storage = device.storages[0]
+firstFlag = true
+while (!dirNames.isempty()) {
+	dirNamesSub = []
+	dirNames.each {|dirName|
+		!firstFlag && printf('\n%s:\n', dirName)
+		firstFlag = false
+		path.dir(storage.opendir(dirName)):stat {|stat|
+			tm = stat.mtime
+			if (stat.isdir) {
+				printf('%04d/%02d/%02d %02d:%02d %12s  %s\n',
+					   tm.year, tm.month, tm.day, tm.hour, tm.min,
+					   '<dir>', stat.filename)
+				dirNamesSub.append(stat.pathname)
+			} else {
+				printf('%04d/%02d/%02d %02d:%02d %12d  %s\n',
+					   tm.year, tm.month, tm.day, tm.hour, tm.min,
+					   stat.size, stat.filename)
 			}
 		}
-		!recursiveFlag && break
-		dirNames = dirNamesSub
 	}
+	!recursiveFlag && break
+	dirNames = dirNamesSub
 }
-
-main()
