@@ -1,26 +1,53 @@
 #!/usr/bin/env gura
+import(argopt)
 import(mtp)
 
-dirName = '/'
-if (sys.argv.len() >= 2) {
-	dirName = sys.argv[1]
-}
-mtp.detect_devices().each {|device|
-	println(device.friendlyname)
-	storages = device.storages
-	storages.each {|storage|
-		//stats = path.walk(storage.opendir(dirName)):stat
-		path.dir(storage.opendir(dirName)):stat {|stat|
-			tm = stat.mtime
-			if (stat.isdir) {
-				printf('%04d/%02d/%02d %02d:%02d %12s %s\n',
-					   tm.year, tm.month, tm.day, tm.hour, tm.min,
-					   '<dir>', stat.filename)
-			} else {
-				printf('%04d/%02d/%02d %02d:%02d %12d %s\n',
-					   tm.year, tm.month, tm.day, tm.hour, tm.min,
-					   stat.size, stat.filename)
-			}
+main() = {
+	argopt.Parser {|p|
+		p.addFlag('recursive', 'R')
+		try {
+			[cfg, argv] = p.parse(sys.argv)
+			recursiveFlag = cfg['recursive']
+		} catch {|e|
+			sys.stderr.println(e.text)
+			sys.exit(1)
 		}
 	}
+	if (argv.len() >= 1) {
+		dirNames = [argv[0]]
+	} else {
+		dirNames = ['/']
+	}
+	try {
+		devices = mtp.detect_devices()
+	} catch {
+		sys.stderr.println('Another application like Android File Transfer seems to be occupying the connection with the device.')
+		sys.exit(1)
+	}
+	device = devices[0]
+	println(device.friendlyname)
+	storage = device.storages[0]
+	while (!dirNames.isempty()) {
+		dirNamesSub = []
+		dirNames.each {|dirName|
+			printf('\n%s:\n', dirName)
+			path.dir(storage.opendir(dirName)):stat {|stat|
+				tm = stat.mtime
+				if (stat.isdir) {
+					printf('%04d/%02d/%02d %02d:%02d %12s %s\n',
+						   tm.year, tm.month, tm.day, tm.hour, tm.min,
+						   '<dir>', stat.filename)
+					dirNamesSub.append(stat.pathname)
+				} else {
+					printf('%04d/%02d/%02d %02d:%02d %12d %s\n',
+						   tm.year, tm.month, tm.day, tm.hour, tm.min,
+						   stat.size, stat.filename)
+				}
+			}
+		}
+		!recursiveFlag && break
+		dirNames = dirNamesSub
+	}
 }
+
+main()

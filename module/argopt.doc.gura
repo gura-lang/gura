@@ -23,6 +23,8 @@ Below is an example:
             sys.exit(1)
         }
     }
+    // The value of cfg['text'] is 'foo' when '--text=foo' is specified.
+    // The value of cfg['test'] is true when '--test' is specified.
 
 ## argopt.Parser Class
 
