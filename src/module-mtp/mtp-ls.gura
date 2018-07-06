@@ -27,19 +27,21 @@ main() = {
 	device = devices[0]
 	println(device.friendlyname)
 	storage = device.storages[0]
+	firstFlag = true
 	while (!dirNames.isempty()) {
 		dirNamesSub = []
 		dirNames.each {|dirName|
-			printf('\n%s:\n', dirName)
+			!firstFlag && printf('\n%s:\n', dirName)
+			firstFlag = false
 			path.dir(storage.opendir(dirName)):stat {|stat|
 				tm = stat.mtime
 				if (stat.isdir) {
-					printf('%04d/%02d/%02d %02d:%02d %12s %s\n',
+					printf('%04d/%02d/%02d %02d:%02d %12s  %s\n',
 						   tm.year, tm.month, tm.day, tm.hour, tm.min,
 						   '<dir>', stat.filename)
 					dirNamesSub.append(stat.pathname)
 				} else {
-					printf('%04d/%02d/%02d %02d:%02d %12d %s\n',
+					printf('%04d/%02d/%02d %02d:%02d %12d  %s\n',
 						   tm.year, tm.month, tm.day, tm.hour, tm.min,
 						   stat.size, stat.filename)
 				}
