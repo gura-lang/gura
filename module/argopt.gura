@@ -68,42 +68,47 @@ Parser = class {
 				}
 				entry = this.entries.find(this.entries:*longName == longName)
 				!entry && raise(error.ArgumentError, 'unknown option --' + longName)
+				if (entry.type == `flag) {
+					if (!value) {
+						value = true
+					} else {
+						str = value.lower()
+						if (str in ['t', 'true', 'on']) {
+							value = true
+						} elsif (str in ['f', 'false', 'off', 'nil']) {
+							value = false
+						} else {
+							raise(error.ArgumentError, 'invalid value for flag: ' + value)
+						}
+					}
+					cfg[entry.longName] = value
+				} elsif (value) {
+					cfg[entry.longName] = value
+				} else {
+					raise(error.ArgumentError, 'value is necessary')
+				}
 			} elsif (arg.startswith('-')) {
 				if (arg.len() == 1) {
 					argvRest.add(arg)
 					continue
 				}
-				shortName = arg.mid(1, 1)
-				if (arg.len() > 2) {
-					raise(error.ArgumentError, 'unknown option -' + arg.mid(1))
-				}
-				entry = this.entries.find(this.entries:*shortName == shortName)
-				!entry && raise(error.ArgumentError, 'unknown option -' + shortName)
-				if (entry.type != `flag && !value) {
-					value = i.next()
+				paramAppearanceFlag = false
+				arg.mid(1).each {|shortName|
+					entry = this.entries.find(this.entries:*shortName == shortName)
+					!entry && raise(error.ArgumentError, 'unknown option -' + shortName)
+					if (entry.type == `flag) {
+						cfg[entry.longName] = true
+					} else { // entry.type == `param
+						paramAppearanceFlag && raise(error.ArgumentError, 'invalid sequence of short names')
+						paramAppearanceFlag = true
+						value = i.next()
+						!value && raise(error.ArgumentError, 'value is necessary')
+						cfg[entry.longName] = value
+					}
 				}
 			} else {
 				argvRest.add(arg)
 				continue
-			}
-			if (entry.type == `flag) {
-				if (!value) {
-					value = true
-				} else {
-					str = value.lower()
-					if (str in ['t', 'true', 'on']) {
-						value = true
-					} elsif (str in ['f', 'false', 'off', 'nil']) {
-						value = false
-					} else {
-						raise(error.ArgumentError, 'invalid value for flag: ' + value)
-					}
-				}
-				cfg[entry.longName] = value
-			} elsif (value) {
-				cfg[entry.longName] = value
-			} else {
-				raise(error.ArgumentError, 'value is necessary')
 			}
 		}
 		[cfg, argvRest]
