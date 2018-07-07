@@ -33,11 +33,14 @@ testcase('argopt.Parser#parse') {
 	println(cfg)
 	[cfg, argv] = p.parse(['', '--flag1', '--flag2', '--text=value'])
 	println(cfg)
+	[cfg, argv] = p.parse(['', '-fg'])
+	println(cfg)
 }
 
 testcase('error handling') {
 	p = argopt.Parser()
-	p.addParam('text', 't', 'text value', 'txt')
+	p.addParam('text1', 't', 'text value', 'txt')
+	p.addParam('text2', 'u', 'text value', 'txt')
 	p.addFlag('flag1', 'f', 'flag option #1')
 	p.addFlag('flag2', 'g', 'flag option #2')
 	try {
@@ -56,7 +59,13 @@ testcase('error handling') {
 		println('expected error: ', e.text)
 	}
 	try {
-		[cfg, argv] = p.parse(['', '--text'])
+		[cfg, argv] = p.parse(['', '--text1'])
+	} catch {|e|
+		println('expected error: ', e.text)
+	}
+	try {
+		[cfg, argv] = p.parse(['', '-tu', 'value'])
+		println(cfg)
 	} catch {|e|
 		println('expected error: ', e.text)
 	}
