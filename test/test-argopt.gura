@@ -2,12 +2,12 @@
 import(helper.test) {*}
 import(argopt)
 
-p = argopt.Parser()
-p.addParam('text', 't', 'text value', 'txt')
-p.addFlag('flag1', 'f', 'flag option #1')
-p.addFlag('flag2', 'g', 'flag option #2')
 
 testcase('argopt.Parser#formatHelp') {
+	p = argopt.Parser()
+	p.addParam('text', 't', 'text value', 'txt')
+	p.addFlag('flag1', 'f', 'flag option #1')
+	p.addFlag('flag2', 'g', 'flag option #2')
 	println('long and short name')
 	println(p.formatHelp())
 	println('short name')
@@ -15,15 +15,49 @@ testcase('argopt.Parser#formatHelp') {
 	println('long name')
 	println(p.formatHelp(true, false))
 }
+
 testcase('argopt.Parser#parse') {
+	p = argopt.Parser()
+	p.addParam('text', 't', 'text value', 'txt')
+	p.addFlag('flag1', 'f', 'flag option #1')
+	p.addFlag('flag2', 'g', 'flag option #2')
 	[cfg, argv] = p.parse(['', '--flag1'])
 	println(cfg)
 	[cfg, argv] = p.parse(['', '--flag2'])
 	println(cfg)
 	[cfg, argv] = p.parse(['', '--text=value'])
 	println(cfg)
+	[cfg, argv] = p.parse(['', '--text='])
+	println(cfg)
 	[cfg, argv] = p.parse(['', '-t', 'value'])
 	println(cfg)
 	[cfg, argv] = p.parse(['', '--flag1', '--flag2', '--text=value'])
 	println(cfg)
+}
+
+testcase('error handling') {
+	p = argopt.Parser()
+	p.addParam('text', 't', 'text value', 'txt')
+	p.addFlag('flag1', 'f', 'flag option #1')
+	p.addFlag('flag2', 'g', 'flag option #2')
+	try {
+		[cfg, argv] = p.parse(['', '--flag3'])
+	} catch {|e|
+		println('expected error: ', e.text)
+	}
+	try {
+		[cfg, argv] = p.parse(['', '-a'])
+	} catch {|e|
+		println('expected error: ', e.text)
+	}
+	try {
+		[cfg, argv] = p.parse(['', '-t'])
+	} catch {|e|
+		println('expected error: ', e.text)
+	}
+	try {
+		[cfg, argv] = p.parse(['', '--text'])
+	} catch {|e|
+		println('expected error: ', e.text)
+	}
 }
