@@ -1,7 +1,18 @@
 #!/usr/bin/env gura
 import(mtp)
+import(argopt)
 
-if (sys.argv.len() < 2) {
+hasWildcard(str:string) = str.find('?') || str.find('*')
+
+argopt.Parser {|p|
+	try {
+		[cfg, argv] = p.parse(sys.argv)
+	} catch {|e|
+		sys.stderr.println(e.text)
+		sys.exit(1)
+	}
+}
+if (argv.len() < 1) {
 	sys.stderr.println('usage: mtp-recv.gura src')
 	sys.exit(1)
 }
@@ -10,16 +21,27 @@ if (devices.len() == 0) {
 	sys.stderr.println('no device detected')
 	sys.exit(1)
 }
-pathNameSrc = sys.argv[1]
-pathNameDst = path.filename(pathNameSrc)
 device = devices[0]
 storage = device.storages[0]
 try {
-	storage.recvfile(pathNameSrc, pathNameDst) {|sent, total|
-		sys.stderr.printf('%d/%d\r', sent, total)
+	[dirName, fileName] = path.split(argv[0])
+	if (hasWildcard(dirName)) {
+		sys.stderr.println('directory name can\'t contain wildcards')
+		sys.exit(1)
 	}
-	sys.stderr.println()
-	sys.stderr.println(pathNameDst, ' was transferred')
+	pathNamesSrc = if (hasWildcard(fileName)) {
+		path.dir(storage.opendir(dirName), fileName):file
+	} else {
+		[argv[0]]
+	}
+	pathNamesSrc.each {|pathNameSrc|
+		pathNameDst = path.filename(pathNameSrc)
+		storage.recvfile(pathNameSrc, pathNameDst) {|sent, total|
+			sys.stderr.printf('%d/%d\r', sent, total)
+		}
+		sys.stderr.println()
+		sys.stderr.println(pathNameDst, ' was transferred')
+	}
 } catch {|e|
 	sys.stderr.println(e.text)
 	fs.remove(pathNameDst)

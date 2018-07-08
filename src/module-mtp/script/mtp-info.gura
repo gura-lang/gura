@@ -6,6 +6,10 @@ mtp.detect_devices().each {|device, iDevice|
 	printf('  fiendlyname:  %s\n', device.friendlyname)
 	printf('  manufacturer: %s\n', device.manufacturer)
 	storages = device.storages
+	if (storages.len() == 0) {
+		printf('  (no storages)\n')
+		continue
+	}
 	storages.each {|storage, iStorage|
 		printf('  Storage #%d\n', iStorage + 1)
 		printf('    storage_type:          %s\n', storage.storage_type)

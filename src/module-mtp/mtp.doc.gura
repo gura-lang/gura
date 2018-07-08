@@ -17,11 +17,15 @@ mtp.detect_devices
 
 ### Property
 
+A `mtp.device` instance has the following properties:
+
 ${markdown.makedoc@property(`en, mtp.device)}
 
 ## mtp.storage Class
 
 ### Property
+
+A `mtp.storage` instance has the following properties:
 
 ${markdown.makedoc@property(`en, mtp.storage)}
 
@@ -37,6 +41,8 @@ mtp.storage.sendfile
 ## mtp.stat Class
 
 ### Property
+
+A `mtp.stat` instance has the following properties:
 
 ${markdown.makedoc@property(`en, mtp.stat)}
 
