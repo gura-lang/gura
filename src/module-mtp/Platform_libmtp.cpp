@@ -329,6 +329,7 @@ int Storage::Callback_Progress(
 		uint64_t const sent, uint64_t const total, void const * const data)
 {
 	const Function *pFuncBlock = reinterpret_cast<const Function *>(data);
+	if (pFuncBlock == nullptr) return 0;
 	Environment &env = pFuncBlock->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFuncBlock));
 	pArg->StoreValue(env, Value(sent), Value(total));
