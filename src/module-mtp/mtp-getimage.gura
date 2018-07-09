@@ -1,0 +1,37 @@
+#!/usr/bin/env gura
+import(mtp)
+import(jpeg)
+
+devices = mtp.detect_devices()
+if (devices.len() == 0) {
+	sys.stderr.println('no devices detected')
+	sys.exit(1)
+}
+device = devices[0]
+if (device.storages.len() == 0) {
+	sys.stderr.println('no storages publicized')
+	sys.exit(1)
+}
+storage = device.storages[0]
+path.walk(storage.opendir('/DCIM'), nil, '*.jpg', '*.jpeg'):file:icase {|pathName|
+	buff = binary()
+	fileName = path.filename(pathName)
+	storage.recvfile(pathName, buff) {|sent, total|
+		sys.stderr.printf('%s %d/%d\r', fileName, sent, total)
+	}
+	jpeg.exif(buff) {|exif|
+		if (exif) {
+			exif.ifd0.DateTime.value.match(r'(\d{4}):(\d{2}):(\d{2})\s+(\d{2}):(\d{2}):(\d{2})') {|m|
+				[year, month, day, hour, min, sec] = int(m[1..6])
+				dirNameDst = format('%04d/%04d%02d%02d xxxx', year, year, month, day)
+				fileNameDst = format('%04d_%02d%02d_%02d%02d%02dAA.jpg', year, month, day, hour , min, sec)
+			}
+		}
+	}		
+	if (!path.exists(dirNameDst)) {
+		fs.mkdir(dirNameDst):tree
+	}
+	pathNameDst = path.join(dirNameDst, fileNameDst)
+	printf('%s -> %s\n', fileName, fileNameDst)
+	stream.copy(buff, pathNameDst)
+}
