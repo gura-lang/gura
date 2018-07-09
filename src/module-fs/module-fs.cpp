@@ -698,7 +698,7 @@ Object *Stream_File::DoGetStatObj(Signal &sig)
 #if defined(GURA_ON_MSWIN)
 Directory_FileSys::Directory_FileSys(Directory *pParent, const char *name,
 										Type type, OAL::FileStat *pFileStat) :
-	Directory(pParent, name, type, OAL::FileSeparator),
+	Directory(pParent, name, type, OAL::FileSeparator, OAL::IgnoreCaseInPathNameFlag),
 	_hFind(INVALID_HANDLE_VALUE), _pFileStat(pFileStat)
 {
 }
@@ -756,7 +756,7 @@ bool Directory_FileSys::IsDir(Signal &sig, const char *pathName)
 
 Directory_FileSys::Directory_FileSys(Directory *pParent, const char *name,
 												Type type, OAL::FileStat *pFileStat) :
-	Directory(pParent, name, type, OAL::FileSeparator),
+	Directory(pParent, name, type, OAL::FileSeparator, OAL::IgnoreCaseInPathNameFlag),
 	_pDir(nullptr), _pFileStat(pFileStat)
 {
 }

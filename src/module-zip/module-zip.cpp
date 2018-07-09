@@ -1056,7 +1056,7 @@ Directory *Record_ZIP::DoGenerateDirectory(Directory *pParent, Directory::Type t
 //-----------------------------------------------------------------------------
 Directory_ZIP::Directory_ZIP(Directory *pParent, const char *name, Type type,
 						DirBuilder::Structure *pStructure, Record_ZIP *pRecord) :
-	Directory(pParent, name, type, OAL::FileSeparator),
+	Directory(pParent, name, type, OAL::FileSeparator, OAL::IgnoreCaseInPathNameFlag),
 	_pStructure(pStructure), _pRecord(pRecord)
 {
 }

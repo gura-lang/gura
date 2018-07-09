@@ -81,16 +81,18 @@ protected:
 	String _name;
 	Type _type;
 	char _chSeparator;
+	bool _ignoreCaseFlag;
 public:
 	Gura_DeclareReferenceAccessor(Directory);
 protected:
 	virtual ~Directory();
 public:
-	Directory(Directory *pParent, const char *name, Type type, char chSeparator);
+	Directory(Directory *pParent, const char *name, Type type, char chSeparator, bool ignoreCaseFlag);
 	Directory(const Directory &directory);
 	inline const char *GetName() const { return _name.c_str(); }
 	inline Directory *GetParent() const { return _pParent.get(); }
 	inline char GetSeparator() const { return _chSeparator; }
+	inline bool DoesIgnoreCase() const { return _ignoreCaseFlag; }
 	inline bool IsBoundaryContainer() const {
 		return _type == TYPE_BoundaryContainer;
 	}

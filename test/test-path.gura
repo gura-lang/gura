@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
-testcase {
+testcase('path.regulate') {
 	patterns = @{
 		''
 		'a'
@@ -43,7 +43,8 @@ testcase {
 	}
 	printf('"%-*s" -> "%s"\n', patterns:*len().max(), patterns, path.regulate(patterns):uri)
 }
-testcase {
+
+testcase('path.splitext/basename/split/dirname/filename/bottom/cutbottom') {
 	patterns = [
 		''
 		'hoge/boke'
@@ -72,4 +73,16 @@ testcase {
 	printf('path.bottom(\'%s\') .. %s\n', patternsEx, path.bottom(patternsEx))
 	printf('path.cutbottom(\'%s\') .. %s\n', patterns, path.cutbottom(patterns))
 	printf('path.cutbottom(\'%s\') .. %s\n', patternsEx, path.cutbottom(patternsEx))
+}
+
+testcase('path.match') {
+	tester(`path.match('a*', 'abcdefg'))
+	tester(`path.match('a*efg', 'abcdefg'))
+	tester(`path.match('a*ef', 'abcdefg'))
+	tester(`path.match('a?cdefg', 'abcdefg'))
+	tester(`path.match('a????fg', 'abcdefg'))
+	tester(`path.match('a????f?', 'abcdefg'))
+	tester(`path.match('a???f?', 'abcdefg'))
+	tester(`path.match('A*', 'abcdefg'):case)
+	tester(`path.match('A*', 'abcdefg'):icase)
 }

@@ -77,7 +77,7 @@ Gura_ImplementFunction(cutbottom)
 	return Value(top);
 }
 
-// path.dir(directory?:directory, pattern*:string):map:flat:[stat,file,dir] {block?}
+// path.dir(directory?:directory, pattern*:string):map:flat:[stat,file,dir,case,icase] {block?}
 Gura_DeclareFunction(dir)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
@@ -87,10 +87,16 @@ Gura_DeclareFunction(dir)
 	DeclareAttr(Gura_Symbol(stat));
 	DeclareAttr(Gura_Symbol(file));
 	DeclareAttr(Gura_Symbol(dir));
+	DeclareAttr(Gura_Symbol(case_));
+	DeclareAttr(Gura_Symbol(icase));
 	AddHelp(
 		Gura_Symbol(en), 
 		"Creates an iterator that lists item names in the specified directory.\n"
 		"If pathname is omitted, the current directory shall be listed.\n"
+		"\n"
+		"Though the default sensitiveness of character cases during pattern matching depends on the target directory,\n"
+		"it can be changed by attributes `:case` for case-sensitive and `:icase` for case-insensitive.\n"
+		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
 }
 
@@ -98,7 +104,6 @@ Gura_ImplementFunction(dir)
 {
 	bool addSepFlag = true;
 	bool statFlag = arg.IsSet(Gura_Symbol(stat));
-	bool ignoreCaseFlag = OAL::IgnoreCaseInPathNameFlag;
 	bool fileFlag = arg.IsSet(Gura_Symbol(file)) || !arg.IsSet(Gura_Symbol(dir));
 	bool dirFlag = arg.IsSet(Gura_Symbol(dir)) || !arg.IsSet(Gura_Symbol(file));
 	int depthMax = 0;
@@ -111,6 +116,9 @@ Gura_ImplementFunction(dir)
 		pDirectory.reset(Directory::Open(env, "", PathMgr::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Nil;
 	}
+	bool ignoreCaseFlag = pDirectory->DoesIgnoreCase();
+	if (arg.IsSet(Gura_Symbol(case_))) ignoreCaseFlag = false;
+	if (arg.IsSet(Gura_Symbol(icase))) ignoreCaseFlag = true;
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag,
 					pDirectory.release(), depthMax, patterns);
@@ -186,7 +194,7 @@ Gura_ImplementFunction(filename)
 	return Value(fileName);
 }
 
-// path.glob(pattern:string):map:flat:[stat,file,dir] {block?}
+// path.glob(pattern:string):map:flat:[stat,file,dir,case,icase] {block?}
 Gura_DeclareFunction(glob)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
@@ -195,10 +203,16 @@ Gura_DeclareFunction(glob)
 	DeclareAttr(Gura_Symbol(stat));
 	DeclareAttr(Gura_Symbol(file));
 	DeclareAttr(Gura_Symbol(dir));
+	DeclareAttr(Gura_Symbol(case_));
+	DeclareAttr(Gura_Symbol(icase));
 	AddHelp(
 		Gura_Symbol(en), 
 		"Creates an iterator for item names that match with a pattern supporting\n"
 		"UNIX shell-style wild cards. In default, case of characters is distinguished.\n"
+		"\n"
+		"Though the default sensitiveness of character cases during pattern matching depends on the current platform,\n"
+		"it can be changed by attributes `:case` for case-sensitive and `:icase` for case-insensitive.\n"
+		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
 }
 
@@ -209,6 +223,8 @@ Gura_ImplementFunction(glob)
 	bool ignoreCaseFlag = OAL::IgnoreCaseInPathNameFlag;
 	bool fileFlag = arg.IsSet(Gura_Symbol(file)) || !arg.IsSet(Gura_Symbol(dir));
 	bool dirFlag = arg.IsSet(Gura_Symbol(dir)) || !arg.IsSet(Gura_Symbol(file));
+	if (arg.IsSet(Gura_Symbol(case_))) ignoreCaseFlag = false;
+	if (arg.IsSet(Gura_Symbol(icase))) ignoreCaseFlag = true;
 	AutoPtr<Directory::Iterator_Glob> pIterator(new Directory::Iterator_Glob(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag));
 	if (!pIterator->Init(env, arg.GetString(0))) {
@@ -239,16 +255,20 @@ Gura_ImplementFunction(join)
 	return Value(str);
 }
 
-// path.match(pattern:string, name:string):map
+// path.match(pattern:string, name:string):map:[case,icase]
 Gura_DeclareFunction(match)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_string);
 	DeclareArg(env, "name", VTYPE_string);
+	DeclareAttr(Gura_Symbol(case_));
+	DeclareAttr(Gura_Symbol(icase));
 	AddHelp(
 		Gura_Symbol(en), 
-		"Returns true if a name matches with a pattern that supports UNIX\n"
-		"shell-style wild cards. In default, case of characters is distinguished.");
+		"Returns true if a name matches with a pattern that supports UNIX shell-style wild cards.\n"
+		"\n"
+		"Though the default sensitiveness of character cases depends on the current platform,\n"
+		"it can be changed by attributes `:case` for case-sensitive and `:icase` for case-insensitive.\n");
 }
 
 Gura_ImplementFunction(match)
@@ -256,6 +276,8 @@ Gura_ImplementFunction(match)
 	const char *pattern = arg.GetString(0);
 	const char *name = arg.GetString(1);
 	bool ignoreCaseFlag = OAL::IgnoreCaseInPathNameFlag;
+	if (arg.IsSet(Gura_Symbol(case_))) ignoreCaseFlag = false;
+	if (arg.IsSet(Gura_Symbol(icase))) ignoreCaseFlag = true;
 	return Value(PathMgr::DoesMatchName(pattern, name, ignoreCaseFlag));
 }
 
@@ -349,7 +371,7 @@ Gura_ImplementFunction(stat)
 	return Value(pObj.release());
 }
 
-// path.walk(directory?:directory, maxdepth?:number, pattern*:string):map:flat:[stat,file,dir] {block?}
+// path.walk(directory?:directory, maxdepth?:number, pattern*:string):map:flat:[stat,file,dir,case,icase] {block?}
 Gura_DeclareFunction(walk)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
@@ -360,10 +382,16 @@ Gura_DeclareFunction(walk)
 	DeclareAttr(Gura_Symbol(stat));
 	DeclareAttr(Gura_Symbol(file));
 	DeclareAttr(Gura_Symbol(dir));
+	DeclareAttr(Gura_Symbol(case_));
+	DeclareAttr(Gura_Symbol(icase));
 	AddHelp(
 		Gura_Symbol(en), 
-		"Creates an iterator that recursively lists item names under the specified\n"
-		"directory. If pathname is omitted, search starts at the current directory\n"
+		"Creates an iterator that recursively lists item names under the specified directory.\n"
+		"If `directory` is omitted, search starts at the current directory.\n"
+		"\n"
+		"Though the default sensitiveness of character cases during pattern matching depends on the target directory,\n"
+		"it can be changed by attributes `:case` for case-sensitive and `:icase` for case-insensitive.\n"
+		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
 }
 
@@ -371,7 +399,6 @@ Gura_ImplementFunction(walk)
 {
 	bool addSepFlag = true;
 	bool statFlag = arg.IsSet(Gura_Symbol(stat));
-	bool ignoreCaseFlag = OAL::IgnoreCaseInPathNameFlag;
 	bool fileFlag = arg.IsSet(Gura_Symbol(file)) || !arg.IsSet(Gura_Symbol(dir));
 	bool dirFlag = arg.IsSet(Gura_Symbol(dir)) || !arg.IsSet(Gura_Symbol(file));
 	int depthMax = arg.Is_number(1)? arg.GetInt(1) : -1;
@@ -384,6 +411,9 @@ Gura_ImplementFunction(walk)
 		pDirectory.reset(Directory::Open(env, "", PathMgr::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Nil;
 	}
+	bool ignoreCaseFlag = pDirectory->DoesIgnoreCase();
+	if (arg.IsSet(Gura_Symbol(case_))) ignoreCaseFlag = false;
+	if (arg.IsSet(Gura_Symbol(icase))) ignoreCaseFlag = true;
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag,
 					pDirectory.release(), depthMax, patterns);

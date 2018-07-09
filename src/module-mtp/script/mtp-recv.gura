@@ -18,10 +18,14 @@ if (argv.len() < 1) {
 }
 devices = mtp.detect_devices()
 if (devices.len() == 0) {
-	sys.stderr.println('no device detected')
+	sys.stderr.println('no devices detected')
 	sys.exit(1)
 }
 device = devices[0]
+if (device.storages.len() == 0) {
+	sys.stderr.println('no storages publicized')
+	sys.exit(1)
+}
 storage = device.storages[0]
 try {
 	[dirName, fileName] = path.split(argv[0])

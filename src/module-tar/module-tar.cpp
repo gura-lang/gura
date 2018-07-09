@@ -835,7 +835,7 @@ Object *Stream_Entry::DoGetStatObj(Signal &sig)
 //-----------------------------------------------------------------------------
 Directory_TAR::Directory_TAR(Directory *pParent, const char *name, Type type,
 		DirBuilder::Structure *pStructure, Record_TAR *pRecord) :
-	Directory(pParent, name, type, OAL::FileSeparator),
+	Directory(pParent, name, type, OAL::FileSeparator, OAL::IgnoreCaseInPathNameFlag),
 	_pStructure(pStructure), _pRecord(pRecord)
 {
 }

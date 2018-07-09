@@ -7,13 +7,17 @@ if (sys.argv.len() < 2) {
 }
 devices = mtp.detect_devices()
 if (devices.len() == 0) {
-	sys.stderr.println('no device detected')
+	sys.stderr.println('no devices detected')
 	sys.exit(1)
 }
+device = devices[0]
+if (device.storages.len() == 0) {
+	sys.stderr.println('no storages publicized')
+	sys.exit(1)
+}
+storage = device.storages[0]
 pathNameDst = sys.argv[1]
 pathNameSrc = sys.argv[2]
-device = devices[0]
-storage = device.storages[0]
 storage.sendfile(pathNameDst, pathNameSrc) {|sent, total|
 	sys.stderr.printf('%d/%d\r', sent, total)
 }

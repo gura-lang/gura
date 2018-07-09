@@ -285,6 +285,7 @@ public:
 	Gura_DeclareSymbol(C);
 	Gura_DeclareSymbol(car);
 	Gura_DeclareSymbol(carray);
+	Gura_DeclareSymbol(case_);
 	Gura_DeclareSymbol(cast);
 	Gura_DeclareSymbol(catch_);
 	Gura_DeclareSymbol(cdr);

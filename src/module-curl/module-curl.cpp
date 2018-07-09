@@ -750,7 +750,7 @@ Gura_ModuleTerminate()
 // Directory_cURL implementation
 //-----------------------------------------------------------------------------
 Directory_cURL::Directory_cURL(Directory *pParent, const char *name, Type type, Fileinfo *pFileinfo) :
-	Directory(pParent, name, type, '/'), _pFileinfo(pFileinfo)
+	Directory(pParent, name, type, '/', false), _pFileinfo(pFileinfo)
 {
 }
 

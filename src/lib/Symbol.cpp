@@ -486,6 +486,7 @@ void SymbolPool::_Bootup()
 	Gura_RealizeSymbol(car);
 	Gura_RealizeSymbol(carray);
 	Gura_RealizeSymbol(cast);
+	Gura_RealizeSymbolAlias(case_,			"case");
 	Gura_RealizeSymbolAlias(catch_,			"catch");
 	Gura_RealizeSymbol(cdr);
 	Gura_RealizeSymbol(center);

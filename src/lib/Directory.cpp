@@ -8,8 +8,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Directory
 //-----------------------------------------------------------------------------
-Directory::Directory(Directory *pParent, const char *name, Type type, char chSeparator) :
-	_cntRef(1), _pParent(pParent), _name(name), _type(type), _chSeparator(chSeparator)
+Directory::Directory(Directory *pParent, const char *name, Type type, char chSeparator, bool ignoreCaseFlag) :
+	_cntRef(1), _pParent(pParent), _name(name), _type(type), _chSeparator(chSeparator), _ignoreCaseFlag(ignoreCaseFlag)
 {
 }
 

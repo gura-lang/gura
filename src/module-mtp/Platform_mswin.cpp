@@ -537,7 +537,7 @@ String Stat::MakePathName() const
 //-----------------------------------------------------------------------------
 Directory_MTP::Directory_MTP(Directory *pParent, const char *name, Type type,
 						Device *pDevice, LPCWSTR objectID, Stat *pStat) :
-	Directory(pParent, name, type, OAL::FileSeparatorUnix),
+	Directory(pParent, name, type, OAL::FileSeparatorUnix, false),
 	_pDevice(pDevice), _objectID(objectID), _pStat(pStat)
 {
 	_browse.nObjectIDs = 0;

@@ -2844,7 +2844,7 @@ Gura_ImplementFunction(client)
 // Directory_Http implementation
 //-----------------------------------------------------------------------------
 Directory_Http::Directory_Http(Directory *pParent, const char *name, Type type) :
-	Directory(pParent, name, type, '/')
+	Directory(pParent, name, type, '/', false)
 {
 }
 

@@ -388,7 +388,7 @@ String Stat::MakePathName() const
 //-----------------------------------------------------------------------------
 Directory_MTP::Directory_MTP(Directory *pParent, const char *name, Type type,
 							 Device *pDevice, uint32_t storageId, uint32_t itemId, Stat *pStat) :
-	Directory(pParent, name, type, OAL::FileSeparatorUnix),
+	Directory(pParent, name, type, OAL::FileSeparatorUnix, false),
 	_pDevice(pDevice), _storageId(storageId), _itemId(itemId), _pStat(pStat)
 {
 	_browsePack.mtpfileHead = nullptr;
