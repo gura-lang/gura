@@ -20,14 +20,14 @@ PathNameGenerator = class {
 				mtime.year, mtime.month, mtime.day, mtime.hour, mtime.min, mtime.sec
 			]
 		}
-		dirName = path.join(dirNameBase, applyFormat(this.dirNameFormat, year, month, day,
+		dirName = path.join(dirNameBase, this.applyFormat(this.dirNameFormat, year, month, day,
 													 hour, min, sec, dirNameBase))
-		fileName = applyFormat(this.fileNameFormat, year, month, day, hour, min, sec, dirName)
-		if (!extName.isempty()) { fileName = fileName + '.' + extName }
+		fileName = this.applyFormat(this.fileNameFormat, year, month, day, hour, min, sec, dirName, extName)
 		[dirName, fileName]
 	}
 	applyFormat(nameFormat:string, year:number, month:number, day:number,
-				hour:number, min:number, sec:number, dirName:string) = {
+				hour:number, min:number, sec:number, dirName?:string, extName:string => ''):static = {
+		if (!extName.isempty()) { extName = '.' + extName }
 		str_YYYY = format('%04d', year)
 		str_YY = format('%02d', year)
 		str_MM = format('%02d', month)
@@ -38,17 +38,29 @@ PathNameGenerator = class {
 		str = nameFormat.replace('[YYYY]', str_YYYY).replace('[YY]', str_YY). \
 			replace('[MM]', str_MM).replace('[DD]', str_DD). \
 			replace('[hh]', str_hh).replace('[mm]', str_mm).replace('[ss]', str_ss)
-		!str.find('[AA]') && return(str)
-		uniqFieldValues.each {|uniqFieldValue|
-			strUniq = str.replace('[AA]', uniqFieldValue)
-			pathName = path.join(dirName, strUniq)
-			!path.exists(pathName) && break
+		if (dirName) {
+			uniqFieldValues.each {|uniqFieldValue|
+				strUniq = str.replace('[AA]', uniqFieldValue) + extName
+				pathName = path.join(dirName, strUniq)
+				!path.exists(pathName) && break
+			}
+		} else {
+			strUniq = str.replace('[AA]', 'AA') + extName
 		}
 		strUniq
 	}
 }
 
-pathNameGenerator = PathNameGenerator('[YYYY]/[YYYY][MM][DD] xxxx', '[YYYY]_[MM][DD]_[hh][mm][ss][AA]')
+/*
+year = 2018, month = 6, day = 14, hour = 12, min = 34, sec = 56
+println(PathNameGenerator.applyFormat(path.join('[YYYY]', '[YYYY][MM][DD] xxxx'),
+									  year, month, day, hour, min, sec))
+println(PathNameGenerator.applyFormat('[YYYY]_[MM][DD]_[hh][mm][ss][AA]',
+									  year, month, day, hour, min, sec, nil, 'jpg'))
+sys.exit()
+*/
+
+pathNameGenerator = PathNameGenerator(path.join('[YYYY]', '[YYYY][MM][DD] xxxx'), '[YYYY]_[MM][DD]_[hh][mm][ss][AA]')
 
 devices = mtp.detect_devices()
 if (devices.len() == 0) {
