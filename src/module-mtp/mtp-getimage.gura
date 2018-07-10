@@ -2,36 +2,72 @@
 import(mtp)
 import(jpeg)
 
+PathNameGenerator = class {
+	charsAtoZ = [chr(ord('A') .. ord('Z'))]
+	uniqFieldValues = cross (ch1 in charsAtoZ, ch2 in charsAtoZ):iter { ch1 + ch2 }
+	__init__(dirNameFormat:string, fileNameFormat:string) = {
+		this.dirNameFormat = dirNameFormat
+		this.fileNameFormat = fileNameFormat
+	}
+	generate(src:stream, fileNameOrg:string, mtime:datetime, dirNameBase:string) = {
+		exif = jpeg.exif(src)
+		if (exif && (m = exif.ifd0.DateTime.value.match(
+				r'(\d{4}):(\d{2}):(\d{2})\s+(\d{2}):(\d{2}):(\d{2})'))) {
+			[year, month, day, hour, min, sec] = int(m[1..6])
+		} else {
+			[year, month, day, hour, min, sec] = [
+				mtime.year, mtime.month, mtime.day, mtime.hour, mtime.min, mtime.sec
+			]
+		}
+		dirName = path.join(dirNameBase, applyFormat(this.dirNameFormat, year, month, day,
+													 hour, min, sec, dirNameBase))
+		fileName = applyFormat(this.fileNameFormat, year, month, day, hour, min, sec, dirName)
+		[dirName, fileName]
+	}
+	applyFormat(nameFormat:string, year:number, month:number, day:number,
+				hour:number, min:number, sec:number, dirName:string) = {
+		str_YYYY = format('%04d', year)
+		str_YY = format('%02d', year)
+		str_MM = format('%02d', month)
+		str_DD = format('%02d', day)
+		str_hh = format('%02d', hour)
+		str_mm = format('%02d', min)
+		str_ss = format('%02d', sec)
+		str = nameFormat.replace('[YYYY]', str_YYYY).replace('[YY]', str_YY). \
+			replace('[MM]', str_MM).replace('[DD]', str_DD). \
+			replace('[hh]', str_hh).replace('[mm]', str_mm).replace('[ss]', str_ss)
+		!str.find('[AA]') && return(str)
+		uniqFieldValues.each {|uniqFieldValue|
+			strUniq = str.replace('[AA]', uniqFieldValue)
+			pathName = path.join(dirName, strUniq)
+			!path.exists(pathName) && break
+		}
+		strUniq
+	}
+}
+
+pathNameGenerator = PathNameGenerator('[YYYY]/[YYYY][MM][DD] xxxx', '[YYYY]_[MM][DD]_[hh][mm][ss][AA]')
+
 devices = mtp.detect_devices()
 if (devices.len() == 0) {
-	sys.stderr.println('no devices detected')
+	sys.stderr.println('No devices detected')
 	sys.exit(1)
 }
 device = devices[0]
 if (device.storages.len() == 0) {
-	sys.stderr.println('no storages publicized')
+	sys.stderr.printf('The device [%s] doesn\'t publicize any storages.\n', device.friendlyname)
 	sys.exit(1)
 }
 storage = device.storages[0]
-path.walk(storage.opendir('/DCIM'), nil, '*.jpg', '*.jpeg'):file:icase {|pathName|
+path.walk(storage.opendir('/DCIM'), nil, '*.jpg', '*.jpeg'):file:stat:icase {|stat|
 	buff = binary()
-	fileName = path.filename(pathName)
-	storage.recvfile(pathName, buff) {|sent, total|
-		sys.stderr.printf('%s %d/%d\r', fileName, sent, total)
+	fileNameOrg = path.filename(stat.pathname)
+	storage.recvfile(stat.pathname, buff) {|sent, total|
+		//sys.stderr.printf('%s %d/%d\r', fileName, sent, total)
 	}
-	jpeg.exif(buff) {|exif|
-		if (exif) {
-			exif.ifd0.DateTime.value.match(r'(\d{4}):(\d{2}):(\d{2})\s+(\d{2}):(\d{2}):(\d{2})') {|m|
-				[year, month, day, hour, min, sec] = int(m[1..6])
-				dirNameDst = format('%04d/%04d%02d%02d xxxx', year, year, month, day)
-				fileNameDst = format('%04d_%02d%02d_%02d%02d%02dAA.jpg', year, month, day, hour , min, sec)
-			}
-		}
-	}		
-	if (!path.exists(dirNameDst)) {
-		fs.mkdir(dirNameDst):tree
-	}
-	pathNameDst = path.join(dirNameDst, fileNameDst)
-	printf('%s -> %s\n', fileName, fileNameDst)
-	stream.copy(buff, pathNameDst)
+	[dirName, fileName] = pathNameGenerator.generate(buff, fileNameOrg, stat.mtime, '.')
+	!path.exists(dirName) && fs.mkdir(dirName):tree
+	pathName = path.join(dirName, fileName)
+	printf('%s -> %s\n', fileNameOrg, fileName)
+	stream.copy(buff, pathName)
 }
