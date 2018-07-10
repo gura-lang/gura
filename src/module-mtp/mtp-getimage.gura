@@ -10,6 +10,7 @@ PathNameGenerator = class {
 		this.fileNameFormat = fileNameFormat
 	}
 	generate(src:stream, fileNameOrg:string, mtime:datetime, dirNameBase:string) = {
+		extName = path.extname(fileNameOrg)
 		exif = jpeg.exif(src)
 		if (exif && (m = exif.ifd0.DateTime.value.match(
 				r'(\d{4}):(\d{2}):(\d{2})\s+(\d{2}):(\d{2}):(\d{2})'))) {
@@ -22,6 +23,7 @@ PathNameGenerator = class {
 		dirName = path.join(dirNameBase, applyFormat(this.dirNameFormat, year, month, day,
 													 hour, min, sec, dirNameBase))
 		fileName = applyFormat(this.fileNameFormat, year, month, day, hour, min, sec, dirName)
+		if (!extName.isempty()) { fileName = fileName + '.' + extName }
 		[dirName, fileName]
 	}
 	applyFormat(nameFormat:string, year:number, month:number, day:number,
