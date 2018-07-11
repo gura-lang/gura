@@ -1131,7 +1131,7 @@ str.mid(1, 4) .. ‚¢‚¤‚¦‚¨
 str.mid(1, 10) .. ‚¢‚¤‚¦‚¨
 str.mid(pos => 1, len => 2) .. ‚¢‚¤
 str.mid(len => 2, pos => 1) .. ‚¢‚¤
-str.mid(len => 2) .. ‚ ‚¢
+str.mid(0, len => 2) .. ‚ ‚¢
 str.mid(0) .. ‚ ‚¢‚¤‚¦‚¨
 str.mid(1) .. ‚¢‚¤‚¦‚¨
 str.mid(3) .. ‚¦‚¨
@@ -1258,9 +1258,9 @@ str.left(nil) .. hello world
 str.left(5) .. hello
 str.right(nil) .. hello world
 str.right(5) .. world
-str.mid(nil, nil) .. hello world
+str.mid(0, nil) .. hello world
 str.mid(2, nil) .. llo world
-str.mid(nil, 5) .. hello
+str.mid(0, 5) .. hello
 str.mid(2, 3) .. llo
 str.replace('ll', 'LL') .. heLLo world
 str.replace('o', '[O]') .. hell[O] w[O]rld

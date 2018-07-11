@@ -560,18 +560,18 @@ Gura_ImplementMethod(string, lower)
 	return Value(Lower(arg.GetValueThis().GetString()));
 }
 
-// string#mid(pos:number => 0, len?:number):map {block?}
+// string#mid(pos:number, len?:number):map {block?}
 Gura_DeclareMethod(string, mid)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
+	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), 
 		"Extracts the specified length of string from the position `pos` and returns the result.\n"
 		"\n"
-		"If an argument `len` is omitted, it returns a string from `pos` to the end.\n"
+		"If the argument `len` is omitted, it returns a string from `pos` to the end.\n"
 		"The number of an argument `pos` starts from zero.\n"
 		"\n"
 		"Below are examples:\n"

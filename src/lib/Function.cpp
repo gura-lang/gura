@@ -128,7 +128,7 @@ bool Function::CustomDeclare(Environment &env,
 			return false;
 		}
 		if (pDecl->IsMandatory() && pDecl->GetExprDefault() == nullptr &&
-				!_pDeclOwner->empty() && _pDeclOwner->back()->IsOptional()) {
+				!_pDeclOwner->empty() && _pDeclOwner->back()->IsBlankAcceptable()) {
 			sig.SetError(ERR_TypeError,
 				"mandatory parameters cannot follow after a parameter with variable length");
 			return false;
@@ -215,8 +215,8 @@ Declaration *Function::DeclareArg(
 	Declaration *pDecl =
 		new Declaration(pSymbol, valType, occurPattern, flags, nListElems, pExprDefault);
 	GURA_ASSUME(env, !_pDeclOwner->IsVariableLength());
-	GURA_ASSUME(env, !(!(pDecl->IsOptional() || occurPattern == OCCUR_ZeroOrMore) &&
-				!_pDeclOwner->empty() && _pDeclOwner->back()->IsOptional()));
+	GURA_ASSUME(env, !(!(pDecl->IsBlankAcceptable() || occurPattern == OCCUR_ZeroOrMore) &&
+				!_pDeclOwner->empty() && _pDeclOwner->back()->IsBlankAcceptable()));
 	_pDeclOwner->push_back(pDecl);
 	return pDecl;
 }

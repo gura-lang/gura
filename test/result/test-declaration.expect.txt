@@ -1086,7 +1086,7 @@ string
   string#len()
   string#lower()
   string#match(pattern:re.pattern, pos:number => 0, endpos?:number):map {block?}
-  string#mid(pos:number => 0, len?:number):map {block?}
+  string#mid(pos:number, len?:number):map {block?}
   string.print(stream?:stream:w):void
   string.println(stream?:stream:w):void
   string#reader() {block?}

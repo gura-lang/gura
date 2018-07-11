@@ -1,4 +1,4 @@
-======== #1 ========
+======== #1 path.regulate ========
 
 "                             " -> ""
 "a                            " -> "a"
@@ -38,7 +38,7 @@
 "///dir1/dir2///dir3//dir4/   " -> "///dir1/dir2/dir3/dir4/"
 "dir1/dir2/../dir3/../dir4/../" -> "dir1/"
 
-======== #2 ========
+======== #2 path.splitext/basename/split/dirname/filename/bottom/cutbottom ========
 
 path.splitext('') .. [ + ]
 path.splitext('hoge/boke') .. [hoge/boke + ]
@@ -166,3 +166,15 @@ path.cutbottom('/hoge/boke.txt') .. /hoge/
 path.cutbottom('/hoge/aaaa/bbbb/ccc/boke.txt') .. /hoge/aaaa/bbbb/ccc/
 path.cutbottom('/hoge/aaaa/bbbb/ccc.tt/boke.txt') .. /hoge/aaaa/bbbb/ccc.tt/
 path.cutbottom('/hoge/aaaa/bbbb/ccc/.boke') .. /hoge/aaaa/bbbb/ccc/
+
+======== #3 path.match ========
+
+path.match('a*', 'abcdefg') .. true
+path.match('a*efg', 'abcdefg') .. true
+path.match('a*ef', 'abcdefg') .. false
+path.match('a?cdefg', 'abcdefg') .. true
+path.match('a????fg', 'abcdefg') .. true
+path.match('a????f?', 'abcdefg') .. true
+path.match('a???f?', 'abcdefg') .. false
+path.match('A*', 'abcdefg'):case .. false
+path.match('A*', 'abcdefg'):icase .. true

@@ -140,11 +140,11 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 				return false;
 			}
 			if (!pObjList->ValidateAndCast(env, this, true)) return false;
-		} else if (value.IsValid() || !IsOptional()) {
+		} else if (value.IsValid() || IsMandatory()) {
 			SetError_ArgumentMustBeList(env, value);
 			return false;
 		}
-	} else if (((IsOptional() || GetFlag(FLAG_Nil)) && value.IsInvalid()) ||
+	} else if (((!IsMandatory() || GetFlag(FLAG_Nil)) && value.IsInvalid()) ||
 												GetValueType() == VTYPE_quote) {
 		// nothing to do
 	} else if (GetValueType() == VTYPE_any || value.IsInstanceOf(GetValueType())) {

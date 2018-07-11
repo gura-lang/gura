@@ -58,7 +58,7 @@ public:
 	inline bool IsMandatory() const {
 		return _occurPattern == OCCUR_Once || _occurPattern == OCCUR_OnceOrMore;
 	}
-	inline bool IsOptional() const {
+	inline bool IsBlankAcceptable() const {
 		return _occurPattern == OCCUR_ZeroOrOnce || !_pExprDefault.IsNull();
 	}
 	inline bool IsVariableLength() const {
