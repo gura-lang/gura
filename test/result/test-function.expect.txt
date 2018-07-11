@@ -362,3 +362,9 @@ f() .. ValueError: function f must have :closure attribute to return a function 
 
 f(1, 2, 3, d => 3) .. ArgumentError: unhandled argument key exists: d
 f(1, 2, 3, d => 3, e => 2, f => 3) .. ArgumentError: unhandled argument key exists: d, e, f
+
+======== #52 gives nil to an argument with a default value ========
+
+f(100) .. 100
+f() .. 3
+f(nil) .. TypeError: variable 'a' cannot take nil value in 'a:number => 3'

@@ -522,3 +522,9 @@ testcase('unknown argument keys') {
 	tester(`f(1, 2, 3, d => 3))
 	tester(`f(1, 2, 3, d => 3, e => 2, f => 3))
 }
+testcase('gives nil to an argument with a default value') {
+	f(a:number => 3) = {a}
+	tester(`f(100))
+	tester(`f())
+	tester(`f(nil))
+}
