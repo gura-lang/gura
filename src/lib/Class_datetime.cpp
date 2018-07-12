@@ -354,7 +354,7 @@ Gura_DeclareProperty_R(datetime, unixtime)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"Unixtime."
+		"Unixtime, a time in second since January 1st of 1970."
 		);
 }
 

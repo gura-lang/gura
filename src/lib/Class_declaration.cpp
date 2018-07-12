@@ -34,8 +34,7 @@ Gura_DeclareProperty_R(declaration, symbol)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"A `symbol` instance that represents the declaration's name.");
 }
 
 Gura_ImplementPropertyGetter(declaration, symbol)
@@ -50,8 +49,7 @@ Gura_DeclareProperty_R(declaration, name)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"A `string` instance that represents the declaration's name.");
 }
 
 Gura_ImplementPropertyGetter(declaration, name)
@@ -63,11 +61,11 @@ Gura_ImplementPropertyGetter(declaration, name)
 // declaration#default
 Gura_DeclarePropertyAlias_R(declaration, default_, "default")
 {
-	SetPropAttr(VTYPE_number);
+	SetPropAttr(VTYPE_number, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"An `expr` instance that represents a default value in the declaration if exists.\n"
+		"This is `nil` when no default value is specified.\n");
 }
 
 Gura_ImplementPropertyGetter(declaration, default_)

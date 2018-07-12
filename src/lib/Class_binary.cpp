@@ -247,8 +247,8 @@ Gura_DeclareProperty_R(binary, p)
 	SetPropAttr(VTYPE_pointer);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Returns a `pointer` instance that accesses the binary.\n"
+		"This result is equivalent to that of calling the method `binary#pointer()`");
 }
 
 Gura_ImplementPropertyGetter(binary, p)
@@ -264,7 +264,7 @@ Gura_DeclareProperty_R(binary, size)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Returns the binary size in bytes."
 		);
 }
 
@@ -280,7 +280,7 @@ Gura_DeclareProperty_R(binary, writable)
 	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Indicates if the content of the binary object is writable."
 		);
 }
 

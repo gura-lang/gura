@@ -27,16 +27,8 @@ Below is an example to use `argument` class:
 
 An `argument` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+${markdown.makedoc@property(`en, argument)}
 
-<tr><td><code>function</code></td><td><code>function</code></td><td>R</td>
-<td>The <code>function</code> instance that has created the argument.</td></tr>
-
-<tr><td><code>values</code></td><td><code>list</code></td><td>R</td>
-<td>A list of argument values.</td></tr>
-
-</table>
 
 ### Method
 
@@ -169,20 +161,8 @@ For example, the code below creates a `binary` instance that contains a sequence
 
 A `binary` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+${markdown.makedoc@property(`en, binary)}
 
-<tr><td><code>p</code></td><td><code>pointer</code></td><td>R</td>
-<td>Returns a <code>pointer</code> instance that accesses the binary.
-This result is equivalent to that of calling the method <code>binary#pointer()</code></td>.</tr>
-
-<tr><td><code>size</code></td><td><code>number</code></td><td>R</td>
-<td>Returns the binary size in bytes.</td></tr>
-
-<tr><td><code>writable</code></td><td><code>boolean</code></td><td>R</td>
-<td>Indicates if the content of the binary object is writable.</td></tr>
-
-</table>
 
 ### Constructor
 
@@ -482,47 +462,8 @@ put its date and time values forward and backward.
 
 A `datetime` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+${markdown.makedoc@property(`en, datetime)}
 
-<tr><td><code>year</code></td><td><code>number</code></td><td>R/W</td>
-<td>Chritian year.</td></tr>
-
-<tr><td><code>month</code></td><td><code>number</code></td><td>R/W</td>
-<td>Month starting from 1. Numbers from 1 to 12 correspond to January to December.</td></tr>
-
-<tr><td><code>day</code></td><td><code>number</code></td><td>R/W</td>
-<td>Day in a month starting from 1. </td></tr>
-
-<tr><td><code>hour</code></td><td><code>number</code></td><td>R/W</td>
-<td>Hour in a day between 0 and 23.</td></tr>
-
-<tr><td><code>min</code></td><td><code>number</code></td><td>R/W</td>
-<td>Minute in an hour between 0 and 59.</td></tr>
-
-<tr><td><code>sec</code></td><td><code>number</code></td><td>R/W</td>
-<td>Second in a minute between 0 and 59.</td></tr>
-
-<tr><td><code>usec</code></td><td><code>number</code></td><td>R/W</td>
-<td>Millisecond in a second between 0 and 999.</td></tr>
-
-<tr><td><code>wday</code></td><td><code>number</code></td><td>R</td>
-<td>Week number starting from 0. Number from 0 to 6 corresponds to Sunday to Saturday.</td></tr>
-
-<tr><td><code>week</code></td><td><code>number</code></td><td>R</td>
-<td>
-Week symbol that takes one of the followings:
-<code>`sunday</code>, <code>`monday</code>, <code>`tuesday</code>, <code>`wednesday</code>,
-<code>`thursday</code>, <code>`friday</code>, <code>`saturday</code>
-</td></tr>
-
-<tr><td><code>yday</code></td><td><code>number</code></td><td>R</td>
-<td>Day in a year starting from 1.</td></tr>
-
-<tr><td><code>unixtime</code></td><td><code>number</code></td><td>R</td>
-<td>Seconds passed from 00:00:00 on January 1st in 1970 in UTC.</td></tr>
-
-</table>
 
 ### Constructor
 
@@ -566,19 +507,8 @@ Below is an example to print argument names declared in a function.
 
 A `declaration` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+${markdown.makedoc@property(`en, declaration)}
 
-<tr><td><code>symbol</code></td><td><code>symbol</code></td><td>R</td>
-<td>The name of the declaration in symbol.</td></tr>
-
-<tr><td><code>name</code></td><td><code>string</code></td><td>R</td>
-<td>The name of the declaration in string.</td></tr>
-
-<tr><td><code>default</code></td><td><code>expr</code></td><td>R</td>
-<td>The expression that provides a default value.</td></tr>
-
-</table>
 
 ### Method
 

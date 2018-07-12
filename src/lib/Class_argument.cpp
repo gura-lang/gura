@@ -36,7 +36,7 @@ Gura_DeclareProperty_R(argument, function)
 	SetPropAttr(VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"The `function` instance that has created the argument."
 		);
 }
 
@@ -52,7 +52,7 @@ Gura_DeclareProperty_R(argument, values)
 	SetPropAttr(VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"A list of argument values."
 		);
 }
 
