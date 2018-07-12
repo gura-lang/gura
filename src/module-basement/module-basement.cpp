@@ -2193,12 +2193,7 @@ Gura_DeclareFunctionAlias(rands_at_normal, "rands@normal")
 		"In default, the created iterator infinitely generates random numbers.\n"
 		"The argument `num` specifies how many elements should be generated.\n"
 		"\n"
-		GURA_HELPTEXT_ITERATOR_en()
-		"\n"
-		"Below is an example to create a create that generates random numbers:\n"
-		"\n"
-		"    x = randns(100)\n"
-		"    // x is an infinite iterator to generates random numbers between 0 and 99\n");
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementFunction(rands_at_normal)
