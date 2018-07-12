@@ -110,7 +110,7 @@ Gura_DeclareProperty_R(labelset, nlabels)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Number of labels in the database."
 		);
 }
 

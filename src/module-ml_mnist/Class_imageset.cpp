@@ -110,7 +110,7 @@ Gura_DeclareProperty_R(imageset, nimages)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Number of labels in the database."
 		);
 }
 
@@ -126,7 +126,7 @@ Gura_DeclareProperty_R(imageset, nrows)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Row size of each image."
 		);
 }
 
@@ -142,7 +142,7 @@ Gura_DeclareProperty_R(imageset, ncols)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Column size of each image."
 		);
 }
 

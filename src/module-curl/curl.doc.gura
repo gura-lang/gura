@@ -20,7 +20,6 @@ curl.easy_init
 ${markdown.makedoc@function(`en
 curl.easy_handle.escape
 curl.easy_handle.getinfo
-curl.easy_handle.perform
 curl.easy_handle.recv
 curl.easy_handle.reset
 curl.easy_handle.send

@@ -5,7 +5,7 @@ import(arrayt)
 
 db = ml.mnist.database('../../sample/resource/mnist')
 
-testcase('properties in ImageSet and LabelSet') {
+testcase('properties in imageset and labelset') {
 	printf('Test .. nimages:%d, nrows:%d, ncols:%d, nlabels:%d\n',
 		   db.test.imageset.nimages, db.test.imageset.nrows, db.test.imageset.ncols,
 		   db.test.labelset.nlabels)

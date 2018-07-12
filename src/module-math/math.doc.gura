@@ -39,8 +39,8 @@ math.log
 math.log10
 math.norm
 math.optimize
-math.ramp
 math.real
+math.relu
 math.sin
 math.sinh
 math.sqrt

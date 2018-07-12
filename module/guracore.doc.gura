@@ -83,7 +83,7 @@ So, you have to import `arrayt` module before using the `array` class in your pr
 
 ### Property
 
-A `array` instance has the following properties:
+An `array` instance has the following properties:
 
 ${markdown.makedoc@property(`en, array)}
 
