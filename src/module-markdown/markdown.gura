@@ -961,11 +961,10 @@ makedoc@property(lang:symbol, obj) = {
 		} else {
 			''
 		}
-		//doc = Renderer@html().Render(markdown.document(pd.gethelp(lang).doc.reader()))
 		doc = pd.gethelp(lang).doc
 		str += eR'''
 		<tr><td><code>${pd.name}</code></td><td><code>${pd.type}</code></td><td>${accessMode}</td>
-		<td>${doc}</td></tr>
+		<@td>${doc}</@td></tr>
 		'''
 	}
 	str += R'''

@@ -18,6 +18,13 @@ and then render its HTML text into a file.
 - `markdown.gurd` .. a binary module file that provides parser procedures.
 - `markdown.gura` .. a script module file that renders parsed result in desired formats.
 
+
+## Notes
+
+- While Markdown format is disabled within tags,
+  a text embraced by tags with a name begining with '@' can accept Markdown in it.
+
+
 ## Operator
 
 `markdown.document << function`
