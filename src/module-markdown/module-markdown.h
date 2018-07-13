@@ -81,12 +81,13 @@ private:
 	Align _align;						// valid when type is Tag
 	int _indentLevel;
 	int _indentLevelItemBody;			// valid when type is ListItem
+	bool _markdownAcceptableFlag;
 public:
 	Gura_DeclareReferenceAccessor(Item);
 public:
-	Item(Type type, int indentLevel = 0, int indentLevelItemBody = 0);
-	Item(Type type, ItemOwner *pItemOwner, int indentLevel = 0, int indentLevelItemBody = 0);
-	Item(Type type, const String &text, int indentLevel = 0, int indentLevelItemBody = 0);
+	Item(Type type);
+	Item(Type type, ItemOwner *pItemOwner);
+	Item(Type type, const String &text);
 private:
 	inline ~Item() {}
 public:
@@ -138,8 +139,12 @@ public:
 	inline void SetIndentLevelItemBody(int indentLevelItemBody) {
 		_indentLevelItemBody = indentLevelItemBody;
 	}
+	inline void SetMarkdownAcceptableFlag(bool markdownAcceptableFlag) {
+		_markdownAcceptableFlag = markdownAcceptableFlag;
+	}
 	inline int GetIndentLevel() const { return _indentLevel; }
 	inline int GetIndentLevelItemBody() const { return _indentLevelItemBody; }
+	inline bool GetMarkdownAcceptableFlag() const { return _markdownAcceptableFlag; }
 	const char *GetTypeName() const;
 	void Print(Signal &sig, Stream &stream, int indentLevel) const;
 };
@@ -377,7 +382,7 @@ private:
 	void EndDecoration();
 	void CancelDecoration(const char *textAhead);
 	void ReplaceDecoration(Item::Type type, const char *textAhead);
-	void BeginTag(const char *tagName, const char *attrs, bool closedFlag);
+	void BeginTag(const char *tagName, const char *attrs, bool closedFlag, bool markdownAcceptableFlag);
 	bool EndTag(const char *tagName);
 	int GetIndentLevel() const;
 	int GetIndentLevelForCodeBlock() const;
@@ -386,7 +391,8 @@ private:
 	static bool IsAtxHeader2(const char *text);
 	static bool IsHorzRule(const char *text);
 	static bool IsLink(const char *text);
-	static bool IsBeginTag(const char *text, String &tagName, String &attrs, bool &closedFlag);
+	static bool IsBeginTag(const char *text, String &tagName,
+						   String &attrs, bool &closedFlag, bool &markdownAcceptableFlag);
 	static bool IsEndTag(const char *text, String &tagName);
 	inline bool IsWordChar(char ch) {
 		return (GetCType(ch) &

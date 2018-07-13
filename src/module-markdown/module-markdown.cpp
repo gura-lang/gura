@@ -8,21 +8,21 @@ Gura_BeginModuleBody(markdown)
 //-----------------------------------------------------------------------------
 // Item
 //-----------------------------------------------------------------------------
-Item::Item(Type type, int indentLevel, int indentLevelItemBody) :
-	_cntRef(1), _type(type),
-	_indentLevel(indentLevel), _indentLevelItemBody(indentLevelItemBody), _align(ALIGN_None)
+Item::Item(Type type) :
+	_cntRef(1), _type(type), _align(ALIGN_None),
+	_indentLevel(0), _indentLevelItemBody(0), _markdownAcceptableFlag(true)
 {
 }
 
-Item::Item(Type type, ItemOwner *pItemOwner, int indentLevel, int indentLevelItemBody) :
-	_cntRef(1), _type(type), _pItemOwner(pItemOwner),
-	_indentLevel(indentLevel), _indentLevelItemBody(indentLevelItemBody), _align(ALIGN_None)
+Item::Item(Type type, ItemOwner *pItemOwner) :
+	_cntRef(1), _type(type), _pItemOwner(pItemOwner), _align(ALIGN_None),
+	_indentLevel(0), _indentLevelItemBody(0), _markdownAcceptableFlag(true)
 {
 }
 
-Item::Item(Type type, const String &text, int indentLevel, int indentLevelItemBody) :
-	_cntRef(1), _type(type), _pText(new String(text)),
-	_indentLevel(indentLevel), _indentLevelItemBody(indentLevelItemBody), _align(ALIGN_None)
+Item::Item(Type type, const String &text) :
+	_cntRef(1), _type(type), _pText(new String(text)), _align(ALIGN_None),
+	_indentLevel(0), _indentLevelItemBody(0), _markdownAcceptableFlag(true)
 {
 }
 
@@ -1645,6 +1645,7 @@ bool Document::ParseChar(Signal &sig, char ch)
 		if (ch == '>') {
 			String tagName, attrs;
 			bool closedFlag = false;
+			bool markdownAcceptableFlag = false;
 			if (IsLink(_field.c_str())) {
 				FlushText(Item::TYPE_Text, false, false);
 				Item *pItemLink = new Item(Item::TYPE_Link, new ItemOwner());
@@ -1654,8 +1655,8 @@ bool Document::ParseChar(Signal &sig, char ch)
 					Item *pItem = new Item(Item::TYPE_Text, _field);
 					pItemLink->GetItemOwner()->push_back(pItem);
 				} while (0);
-			} else if (IsBeginTag(_field.c_str(), tagName, attrs, closedFlag)) {
-				BeginTag(tagName.c_str(), attrs.c_str(), closedFlag);
+			} else if (IsBeginTag(_field.c_str(), tagName, attrs, closedFlag, markdownAcceptableFlag)) {
+				BeginTag(tagName.c_str(), attrs.c_str(), closedFlag, markdownAcceptableFlag);
 			} else if (IsEndTag(_field.c_str(), tagName)) {
 				if (!EndTag(tagName.c_str())) {
 					sig.SetError(ERR_FormatError, "unbalanced tags at line %d", _iLine + 1);
@@ -2290,7 +2291,8 @@ void Document::BeginCodeBlock(const char *textInit)
 	if (textInit != nullptr) _text += textInit;
 	do {
 		Item *pItemParent = _itemStack.back();
-		Item *pItem = new Item(Item::TYPE_CodeBlock, new ItemOwner(), _indentLevel);
+		Item *pItem = new Item(Item::TYPE_CodeBlock, new ItemOwner());
+		pItem->SetIndentLevel(_indentLevel);
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_itemStack.push_back(pItem);
 	} while (0);
@@ -2306,7 +2308,8 @@ void Document::BeginFencedCodeBlock()
 	FlushItem(Item::TYPE_Paragraph, false, false);
 	do {
 		Item *pItemParent = _itemStack.back();
-		Item *pItem = new Item(Item::TYPE_CodeBlock, new ItemOwner(), _indentLevel);
+		Item *pItem = new Item(Item::TYPE_CodeBlock, new ItemOwner());
+		pItem->SetIndentLevel(_indentLevel);
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_itemStack.push_back(pItem);
 	} while (0);
@@ -2339,19 +2342,23 @@ void Document::BeginListItem(Item::Type type)
 	}
 	if (pItemParent->IsRoot() || pItemParent->IsBlockQuote() ||
 							pItemParent->GetIndentLevel() < _indentLevel) {
-		Item *pItem = new Item(type, new ItemOwner(), _indentLevel);
+		Item *pItem = new Item(type, new ItemOwner());
+		pItem->SetIndentLevel(_indentLevel);
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_itemStack.push_back(pItem);
 	} else if (pItemParent->GetType() != type) {
 		_itemStack.pop_back();
 		Item *pItemParent = _itemStack.back();
-		Item *pItem = new Item(type, new ItemOwner(), _indentLevel);
+		Item *pItem = new Item(type, new ItemOwner());
+		pItem->SetIndentLevel(_indentLevel);
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_itemStack.push_back(pItem);
 	}
 	do {
 		Item *pItemParent = _itemStack.back();
-		Item *pItem = new Item(Item::TYPE_ListItem, new ItemOwner(), _indentLevel, _iCol);
+		Item *pItem = new Item(Item::TYPE_ListItem, new ItemOwner());
+		pItem->SetIndentLevel(_indentLevel);
+		pItem->SetIndentLevelItemBody(_iCol);
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_itemStack.push_back(pItem);
 	} while (0);
@@ -2406,10 +2413,12 @@ void Document::ReplaceDecoration(Item::Type type, const char *textAhead)
 	pItemToReplace->SetType(type);
 }
 
-void Document::BeginTag(const char *tagName, const char *attrs, bool closedFlag)
+// Marks the beginning of HTML tag.
+void Document::BeginTag(const char *tagName, const char *attrs, bool closedFlag, bool markdownAcceptableFlag)
 {
 	FlushText(Item::TYPE_Text, false, false);
 	Item *pItem = new Item(Item::TYPE_Tag);
+	pItem->SetMarkdownAcceptableFlag(markdownAcceptableFlag);
 	pItem->SetText(tagName);
 	if (attrs[0] != '\0') pItem->SetAttrs(attrs);
 	_pItemOwner->push_back(pItem);
@@ -2422,6 +2431,7 @@ void Document::BeginTag(const char *tagName, const char *attrs, bool closedFlag)
 	}
 }
 
+// Marks the ending of HTML tag.
 bool Document::EndTag(const char *tagName)
 {
 	if (!IsWithinTag() || ::strcmp(_itemStackTag.back()->GetText(), tagName) != 0) {
@@ -2567,8 +2577,8 @@ bool Document::IsLink(const char *text)
 	return true;
 }
 
-bool Document::IsBeginTag(const char *text,
-						String &tagName, String &attrs, bool &closedFlag)
+bool Document::IsBeginTag(const char *text, String &tagName,
+						  String &attrs, bool &closedFlag, bool &markdownAcceptableFlag)
 {
 	enum Stat {
 		STAT_Begin,
@@ -2580,12 +2590,17 @@ bool Document::IsBeginTag(const char *text,
 	tagName.clear();
 	attrs.clear();
 	closedFlag = false;
+	markdownAcceptableFlag = false;
 	for (const char *p = text; ; p++) {
 		char ch = *p;
 		switch (stat) {
 		case STAT_Begin: {
 			if (IsAlpha(ch)) {
 				tagName += ch;
+				stat = STAT_TagName;
+			} else if (ch == '@') {
+				// A special form of tag <@tag> within which MarkDown format is acceptable.
+				markdownAcceptableFlag = true;
 				stat = STAT_TagName;
 			} else {
 				return false;
@@ -2660,7 +2675,6 @@ bool Document::IsEndTag(const char *text, String &tagName)
 		switch (stat) {
 		case STAT_Begin: {
 			if (ch == '/') {
-				//tagName += ch;
 				stat = STAT_TagNameFirst;
 			} else {
 				return false;
@@ -2670,6 +2684,9 @@ bool Document::IsEndTag(const char *text, String &tagName)
 		case STAT_TagNameFirst: {
 			if (IsAlpha(ch)) {
 				tagName += ch;
+				stat = STAT_TagName;
+			} else if (ch == '@') {
+				// A special form of tag: </@tag>.
 				stat = STAT_TagName;
 			} else {
 				return false;
