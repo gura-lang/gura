@@ -161,12 +161,10 @@ Gura_DeclareProperty_R(image, format)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		"<p>Takes one of the following symbols indicating what elements are stored in the memory:</p>\n"
-		"<ul>\n"
-		"<li><code>`rgb</code> .. red, green and blue</li>\n"
-		"<li><code>`rgba</code> .. red, green, blue and alpha</li>\n"
-		"</ul>"
-		);
+		"Takes one of the following symbols indicating what elements are stored in the memory:\n"
+		"\n"
+		"- `` `rgb`` .. red, green and blue\n"
+		"- `` `rgba`` .. red, green, blue and alpha\n");
 }
 
 Gura_ImplementPropertyGetter(image, format)
@@ -181,8 +179,7 @@ Gura_DeclareProperty_R(image, height)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"Image height."
-		);
+		"Image height.");
 }
 
 Gura_ImplementPropertyGetter(image, height)
@@ -197,9 +194,8 @@ Gura_DeclareProperty_RW(image, palette)
 	SetPropAttr(VTYPE_palette, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
-		"A <code>palette</code> instance associated with this image.\n"
-		"If there's no palette associated, this property returns <code>nil</code>."
-		);
+		"A `palette` instance associated with this image.\n"
+		"If there's no palette associated, this property returns `nil`.");
 }
 
 Gura_ImplementPropertyGetter(image, palette)
@@ -227,8 +223,7 @@ Gura_DeclareProperty_R(image, width)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"Image width."
-		);
+		"Image width.");
 }
 
 Gura_ImplementPropertyGetter(image, width)

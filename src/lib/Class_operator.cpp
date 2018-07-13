@@ -109,8 +109,7 @@ Gura_DeclareProperty_R(operator_, symbol)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"A `symbol` instance that represents the operator's type.");
 }
 
 Gura_ImplementPropertyGetter(operator_, symbol)

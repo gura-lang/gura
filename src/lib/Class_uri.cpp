@@ -64,8 +64,7 @@ Gura_DeclareProperty_RW(uri, scheme)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Scheme part in the URI.");
 }
 
 Gura_ImplementPropertyGetter(uri, scheme)
@@ -87,8 +86,7 @@ Gura_DeclareProperty_RW(uri, user)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"User part in the URI.");
 }
 
 Gura_ImplementPropertyGetter(uri, user)
@@ -110,8 +108,7 @@ Gura_DeclareProperty_RW(uri, password)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Password part in the URI.");
 }
 
 Gura_ImplementPropertyGetter(uri, password)
@@ -133,8 +130,7 @@ Gura_DeclareProperty_RW(uri, host)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Host part in the URI.");
 }
 
 Gura_ImplementPropertyGetter(uri, host)
@@ -156,8 +152,7 @@ Gura_DeclareProperty_RW(uri, port)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Port part in the URI.");
 }
 
 Gura_ImplementPropertyGetter(uri, port)
@@ -179,8 +174,7 @@ Gura_DeclareProperty_RW(uri, urlpath)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"URL path part in the URI, which contains the path, query and fragment part.");
 }
 
 Gura_ImplementPropertyGetter(uri, urlpath)
@@ -202,8 +196,7 @@ Gura_DeclareProperty_RW(uri, misc)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Misc part in the URI.");
 }
 
 Gura_ImplementPropertyGetter(uri, misc)

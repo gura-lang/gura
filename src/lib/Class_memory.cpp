@@ -145,8 +145,8 @@ Gura_DeclareProperty_R(memory, p)
 	SetPropAttr(VTYPE_pointer);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Returns a <code>pointer</code> instance that accesses the memory.\n"
+		"This result is equivalent to that of calling the method `memory#pointer()`.");
 }
 
 Gura_ImplementPropertyGetter(memory, p)
@@ -162,8 +162,7 @@ Gura_DeclareProperty_R(memory, size)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Returns the memory size in bytes.");
 }
 
 Gura_ImplementPropertyGetter(memory, size)

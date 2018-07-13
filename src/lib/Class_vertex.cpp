@@ -67,8 +67,7 @@ Gura_DeclareProperty_RW(vertex, x)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"A value of X.");
 }
 
 Gura_ImplementPropertyGetter(vertex, x)
@@ -90,8 +89,7 @@ Gura_DeclareProperty_RW(vertex, y)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"A value of Y.");
 }
 
 Gura_ImplementPropertyGetter(vertex, y)
@@ -113,8 +111,7 @@ Gura_DeclareProperty_RW(vertex, z)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"A value of Z.");
 }
 
 Gura_ImplementPropertyGetter(vertex, z)

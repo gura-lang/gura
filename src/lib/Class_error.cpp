@@ -38,8 +38,7 @@ Gura_DeclareProperty_R(error, source)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"The name of the file that causes this error.");
 }
 
 Gura_ImplementPropertyGetter(error, source)
@@ -56,8 +55,7 @@ Gura_DeclareProperty_R(error, lineno)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"The number of line where the expression that causes this error starts.");
 }
 
 Gura_ImplementPropertyGetter(error, lineno)
@@ -72,8 +70,7 @@ Gura_DeclareProperty_R(error, linenobtm)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"The number of line where the expression that causes this error ends.");
 }
 
 Gura_ImplementPropertyGetter(error, linenobtm)
@@ -88,8 +85,7 @@ Gura_DeclareProperty_R(error, postext)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"A text that consists of a source name and a line number.");
 }
 
 Gura_ImplementPropertyGetter(error, postext)
@@ -104,8 +100,7 @@ Gura_DeclareProperty_R(error, text)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"An error message. If an attribute `:lineno` is specified, it would contain a line number.");
 }
 
 Gura_ImplementPropertyGetter(error, text)
@@ -121,8 +116,7 @@ Gura_DeclareProperty_R(error, trace)
 	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"An iterator that generates `expr` instances that indicate stack trace.");
 }
 
 Gura_ImplementPropertyGetter(error, trace)

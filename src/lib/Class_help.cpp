@@ -103,8 +103,7 @@ Gura_DeclareProperty_R(help, title)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"The title of the help.");
 }
 
 Gura_ImplementPropertyGetter(help, title)
@@ -119,8 +118,8 @@ Gura_DeclareProperty_R(help, lang)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"A symbol of the natural language in which the help text is written.\n"
+		"For example, `` `en`` for English and `` `ja`` for Japanese.");
 }
 
 Gura_ImplementPropertyGetter(help, lang)
@@ -135,8 +134,7 @@ Gura_DeclareProperty_R(help, format)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"A name of the syntax format in which the help text is described such as `'markdown'`.");
 }
 
 Gura_ImplementPropertyGetter(help, format)
@@ -151,8 +149,7 @@ Gura_DeclareProperty_R(help, doc)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"The help text.");
 }
 
 Gura_ImplementPropertyGetter(help, doc)

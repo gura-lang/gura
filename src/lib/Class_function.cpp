@@ -198,8 +198,8 @@ Gura_DeclareProperty_R(function, decls)
 	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"An iterator of `declaration` instances that provide information\n"
+		"about argument declaration the function defines.");
 }
 
 Gura_ImplementPropertyGetter(function, decls)
@@ -215,8 +215,7 @@ Gura_DeclareProperty_RW(function, expr)
 	SetPropAttr(VTYPE_expr);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"An expression of the function.");
 }
 
 Gura_ImplementPropertyGetter(function, expr)
@@ -245,8 +244,7 @@ Gura_DeclareProperty_R(function, format)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"A string showing a declared format of the function.");
 }
 
 Gura_ImplementPropertyGetter(function, format)
@@ -261,8 +259,7 @@ Gura_DeclareProperty_R(function, fullname)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"A full name of the function that is prefixed by a name of the module or the class it belongs to.");
 }
 
 Gura_ImplementPropertyGetter(function, fullname)
@@ -277,8 +274,7 @@ Gura_DeclareProperty_RW(function, name)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"A `string` instance that represents the function's name.");
 }
 
 Gura_ImplementPropertyGetter(function, name)
@@ -300,8 +296,7 @@ Gura_DeclareProperty_RW(function, symbol)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"A `symbol` instance that represents the function's name.");
 }
 
 Gura_ImplementPropertyGetter(function, symbol)

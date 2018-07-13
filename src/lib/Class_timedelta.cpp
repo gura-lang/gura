@@ -69,8 +69,7 @@ Gura_DeclareProperty_RW(timedelta, days)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Offset of days.");
 }
 
 Gura_ImplementPropertyGetter(timedelta, days)
@@ -92,8 +91,7 @@ Gura_DeclareProperty_RW(timedelta, secs)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Offset of seconds.");
 }
 
 Gura_ImplementPropertyGetter(timedelta, secs)
@@ -115,8 +113,7 @@ Gura_DeclareProperty_RW(timedelta, usecs)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Offset of micro seconds.");
 }
 
 Gura_ImplementPropertyGetter(timedelta, usecs)

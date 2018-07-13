@@ -150,8 +150,7 @@ Gura_DeclareProperty_R(stream, stat)
 	SetPropAttr(VTYPE_any, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Status of the stream.");
 }
 
 Gura_ImplementPropertyGetter(stream, stat)
@@ -168,8 +167,7 @@ Gura_DeclareProperty_R(stream, name)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Name of the stream.");
 }
 
 Gura_ImplementPropertyGetter(stream, name)
@@ -184,8 +182,7 @@ Gura_DeclareProperty_R(stream, identifier)
 	SetPropAttr(VTYPE_string, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Identifier of the stream.");
 }
 
 Gura_ImplementPropertyGetter(stream, identifier)
@@ -202,8 +199,7 @@ Gura_DeclareProperty_R(stream, readable)
 	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Indicates whether the stream is readable.");
 }
 
 Gura_ImplementPropertyGetter(stream, readable)
@@ -218,8 +214,7 @@ Gura_DeclareProperty_R(stream, writable)
 	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Indicates whether the stream is writable.");
 }
 
 Gura_ImplementPropertyGetter(stream, writable)
@@ -234,8 +229,7 @@ Gura_DeclareProperty_R(stream, codec)
 	SetPropAttr(VTYPE_codec);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"A `codec` instance associated with the stream.");
 }
 
 Gura_ImplementPropertyGetter(stream, codec)

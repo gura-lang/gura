@@ -710,30 +710,7 @@ about an error that has occured in the `try` block.
 
 An `error` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>source</code></td><td><code>string</code></td><td>R</td>
-<td>The name of the file that causes this error.</td></tr>
-
-<tr><td><code>lineno</code></td><td><code>number</code></td><td>R</td>
-<td>The number of line where the expression that causes this error starts.</td></tr>
-
-<tr><td><code>linenobtm</code></td><td><code>number</code></td><td>R</td>
-<td>The number of line where the expression that causes this error ends.</td></tr>
-
-<tr><td><code>postext</code></td><td><code>string</code></td><td>R</td>
-<td>A text that consists of a source name and a line number.</td></tr>
-
-<tr><td><code>text</code></td><td><code>string</code></td><td>R</td>
-<td>An error message.
-If an attribute `:lineno` is specified, it would contain a line number.</td></tr>
-
-<tr><td><code>trace</code></td><td><code>expr[]</code></td><td>R</td>
-<td>Stack trace.</td></tr>
-
-</table>
-
+${markdown.makedoc@property(`en, error)}
 
 
 ## expr Class
@@ -744,79 +721,8 @@ The `expr` class provides inromation about the language\'s syntax expression.
 
 An `expr` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+${markdown.makedoc@property(`en, expr)}
 
-<tr><td><code>attrfront</code></td><td><code>symbol[]</code></td><td>R</td>
-<td>Exists in "identifier" and "caller".</td></tr>
-
-<tr><td><code>attrs</code></td><td><code>symbol[]</code></td><td>R</td>
-<td>Exists in "identifier" and "caller".</td></tr>
-
-<tr><td><code>attrsopt</code></td><td><code>symbol[]</code></td><td>R</td>
-<td>Exists in "identifier" and "caller".</td></tr>
-
-<tr><td><code>block</code></td><td><code>expr</code></td><td>R</td>
-<td>Exists in "caller".</td></tr>
-
-<tr><td><code>blockparam</code></td><td><code>iterator</code></td><td>R</td>
-<td>Exists in "block".</td></tr>
-
-<tr><td><code>body</code></td><td><code>string</code></td><td>R</td>
-<td>Exists in "suffixed".</td></tr>
-
-<tr><td><code>car</code></td><td><code>expr</code></td><td>R</td>
-<td>Exists in "compound".</td></tr>
-
-<tr><td><code>cdr</code></td><td><code>iterator</code></td><td>R</td>
-<td>Exists in "compound".</td></tr>
-
-<tr><td><code>child</code></td><td><code>expr</code></td><td>R</td>
-<td>Exists in "unary".</td></tr>
-
-<tr><td><code>children</code></td><td><code>iterator</code></td><td>R</td>
-<td>Exists in "collector".</td></tr>
-
-<tr><td><code>left</code></td><td><code>expr</code></td><td>R</td>
-<td>Exists in "binary".</td></tr>
-
-<tr><td><code>lineno</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>linenobtm</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>operator</code></td><td><code>operator</code></td><td>R</td>
-<td>Exists in "unaryop", "binaryop" and "assign".</td></tr>
-
-<tr><td><code>postext</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>right</code></td><td><code>expr</code></td><td>R</td>
-<td>Exists in "binary".</td></tr>
-
-<tr><td><code>source</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>suffix</code></td><td><code>symbol</code></td><td>R</td>
-<td>Exists in "suffixed".</td></tr>
-
-<tr><td><code>symbol</code></td><td><code>symbol</code></td><td>R</td>
-<td>Exists in "identifier".</td></tr>
-
-<tr><td><code>trailer</code></td><td><code>expr</code></td><td>R</td>
-<td>Exists in "caller".</td></tr>
-
-<tr><td><code>typename</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>typesym</code></td><td><code>symbol</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>value</code></td><td><code>any</code></td><td>R</td>
-<td>Exists in "value".</td></tr>
-
-</table>
 
 ### Constructor
 
@@ -962,28 +868,8 @@ You can use `&` as an alias of `function()` as shown below:
 
 A `function` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+${markdown.makedoc@property(`en, function)}
 
-<tr><td><code>decls</code></td><td><code>iterator</code></td><td>R</td>
-<td>iterator of <code>declaration</code> instances that provide information about argument declaration the function defines.</td></tr>
-
-<tr><td><code>expr</code></td><td><code>expr</code></td><td>R/W</td>
-<td>an expression of the function.</td></tr>
-
-<tr><td><code>format</code></td><td><code>string</code></td><td>R</td>
-<td>a string showing a declared format of the function.</td></tr>
-
-<tr><td><code>fullname</code></td><td><code>string</code></td><td>R</td>
-<td>a full name of the function that is prefixed by a name of the module or the class it belongs to. </td></tr>
-
-<tr><td><code>name</code></td><td><code>string</code></td><td>R</td>
-<td>a name of the function in <code>string</code>.</td></tr>
-
-<tr><td><code>symbol</code></td><td><code>symbol</code></td><td>R/W</td>
-<td>a name of the function in <code>symbol</code>. </td></tr>
-
-</table>
 
 ### Operator
 
@@ -1023,23 +909,8 @@ by calling `help@function()` or `help@class()` respectively.
 
 A `help` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+${markdown.makedoc@property(`en, help)}
 
-<tr><td><code>title</code></td><td><code>string</code></td><td>R</td>
-<td>The title of the help.</td></tr>
-
-<tr><td><code>format</code></td><td><code>string</code></td><td>R</td>
-<td>A name of the syntax format in which the help text is described such as <code>'markdown'</code>.</td></tr>
-
-<tr><td><code>lang</code></td><td><code>symbol</code></td><td>R</td>
-<td>A symbol of the natural language in which the help text is written.
-For example, <code>`en</code> for English and <code>`ja</code> for Japanese.</td></tr>
-
-<tr><td><code>text</code></td><td><code>string</code></td><td>R</td>
-<td>The help text.</td></tr>
-
-</table>
 
 ### Method
 
@@ -1080,30 +951,8 @@ in a process of reading and writing files.
 
 An `image` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+${markdown.makedoc@property(`en, image)}
 
-<tr><td><code>format</code></td><td><code>symbol</code></td><td>R</td>
-<td>
-<p>Takes one of the following symbols indicating what elements are stored in the memory:</p>
-<ul>
-<li><code>`rgb</code> .. red, green and blue</li>
-<li><code>`rgba</code> .. red, green, blue and alpha</li>
-</ul>
-</td>
-</tr>
-
-<tr><td><code>width</code></td><td><code>number</code></td><td>R</td>
-<td>Image width.</td></tr>
-
-<tr><td><code>height</code></td><td><code>number</code></td><td>R</td>
-<td>Image height.</td></tr>
-
-<tr><td><code>palette</code></td><td><code>palette</code></td><td>R/W</td>
-<td>A <code>palette</code> instance associated with this image.
-If there is no palette associated, this property returns <code>nil</code>.</td></tr>
-
-</table>
 
 ### Constructor
 
@@ -1286,17 +1135,7 @@ An instance of the `memory` class represents a memory that is stored in `array` 
 
 A `memory` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>p</code></td><td><code>pointer</code></td><td>R</td>
-<td>Returns a <code>pointer</code> instance that accesses the memory.
-This result is equivalent to that of calling the method <code>memory#pointer()</code></td>.</tr>
-
-<tr><td><code>size</code></td><td><code>number</code></td><td>R</td>
-<td>Returns the memory size in bytes.</td></tr>
-
-</table>
+${markdown.makedoc@property(`en, memory)}
 
 
 ### Constructor
@@ -1350,13 +1189,7 @@ The `operator` class provides measures to assign operators with a user-defined p
 
 An `operator` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>symbol</code></td><td><code>symbol</code></td><td>R</td>
-<td>Operator symbol.</td></tr>
-
-</table>
+${markdown.makedoc@property(`en, operator)}
 
 
 ### Constructor
@@ -1404,24 +1237,7 @@ The `pointer` class provides measures to read and write content in a `binary` an
 
 A `pointer` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>offset</code></td><td><code>number</code></td><td>R/W</td>
-<td>The current offset.</td></tr>
-
-<tr><td><code>size</code></td><td><code>number</code></td><td>R</td>
-<td>Returns the size of data accessible from the current offset.</td></tr>
-
-<tr><td><code>size@all</code></td><td><code>number</code></td><td>R</td>
-<td>Returns the entire size of the target binary or memory.
-This equals to <code>p.offset + p.size</code> where `p` is a `pointer` instance.</td></tr>
-
-<tr><td><code>target</code></td><td><code>any</code></td><td>R</td>
-<td>An instance that is associated with the pointer.
-Currently, this can be an instance of `binary` or `memory`.</td></tr>
-
-</table>
+${markdown.makedoc@property(`en, pointer)}
 
 
 ### Constructor
@@ -1567,28 +1383,8 @@ Features of `codec` would affect on functions and methods that handle text data 
 
 A `stream` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+${markdown.makedoc@property(`en, stream)}
 
-<tr><td><code>stat</code></td><td><code>object</code></td><td>R</td>
-<td>Status of the stream.</td></tr>
-
-<tr><td><code>name</code></td><td><code>string</code></td><td>R</td>
-<td>Name of the stream.</td></tr>
-
-<tr><td><code>identifier</code></td><td><code>string</code></td><td>R</td>
-<td>Identifier of the stream.</td></tr>
-
-<tr><td><code>readable</code></td><td><code>boolean</code></td><td>R</td>
-<td>Indicates whether the stream is readable.</td></tr>
-
-<tr><td><code>writable</code></td><td><code>boolean</code></td><td>R</td>
-<td>Indicates whether the stream is writable.</td></tr>
-
-<tr><td><code>codec</code></td><td><code>codec</code></td><td>R</td>
-<td>`codec` instance associated with the stream.</td></tr>
-
-</table>
 
 ### Operator
 
@@ -1827,19 +1623,8 @@ of `timedelta` to it.
 
 A `timedelta` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+${markdown.makedoc@property(`en, timedelta)}
 
-<tr><td><code>days</code></td><td><code>number</code></td><td>R/W</td>
-<td>Offset of days.</td></tr>
-
-<tr><td><code>secs</code></td><td><code>number</code></td><td>R/W</td>
-<td>Offset of seconds.</td></tr>
-
-<tr><td><code>usec</code></td><td><code>number</code></td><td>R/W</td>
-<td>Offset of micro seconds.</td></tr>
-
-</table>
 
 ### Constructor
 
@@ -1861,31 +1646,7 @@ A generic URI has the following format:
 
 A `uri` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>scheme</code></td><td><code>string</code></td><td>R/W</td>
-<td>Scheme part in the URI.</td></tr>
-
-<tr><td><code>user</code></td><td><code>string</code></td><td>R/W</td>
-<td>User part in the URI.</td></tr>
-
-<tr><td><code>password</code></td><td><code>string</code></td><td>R/W</td>
-<td>Password part in the URI.</td></tr>
-
-<tr><td><code>host</code></td><td><code>string</code></td><td>R/W</td>
-<td>Host part in the URI.</td></tr>
-
-<tr><td><code>port</code></td><td><code>string</code></td><td>R/W</td>
-<td>Port part in the URI.</td></tr>
-
-<tr><td><code>urlpath</code></td><td><code>string</code></td><td>R/W</td>
-<td>URL path part in the URI, which contains the path, query and fragment part.</td></tr>
-
-<tr><td><code>misc</code></td><td><code>string</code></td><td>R/W</td>
-<td>Misc part in the URI.</td></tr>
-
-</table>
+${markdown.makedoc@property(`en, uri)}
 
 
 ### Constructor
@@ -1923,26 +1684,8 @@ The `vertex` class provides vertex information that consists of x, y, z and w va
 
 An `vertex` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+${markdown.makedoc@property(`en, vertex)}
 
-<tr><td><code>x</code></td><td><code>number</code></td><td>R/W</td>
-<td></td>
-</tr>
-
-<tr><td><code>y</code></td><td><code>number</code></td><td>R/W</td>
-<td></td>
-</tr>
-
-<tr><td><code>z</code></td><td><code>number</code></td><td>R/W</td>
-<td></td>
-</tr>
-
-<tr><td><code>w</code></td><td><code>number</code></td><td>R/W</td>
-<td></td>
-</tr>
-
-</table>
 
 ### Constructor
 

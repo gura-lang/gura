@@ -88,8 +88,7 @@ Gura_DeclareProperty_R(expr, attrfront)
 	SetPropAttr(VTYPE_list);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"identifier\" and \"caller\".");
 }
 
 Gura_ImplementPropertyGetter(expr, attrfront)
@@ -122,8 +121,7 @@ Gura_DeclareProperty_R(expr, attrs)
 	SetPropAttr(VTYPE_list);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"identifier\" and \"caller\".");
 }
 
 Gura_ImplementPropertyGetter(expr, attrs)
@@ -171,8 +169,7 @@ Gura_DeclareProperty_R(expr, attrsopt)
 	SetPropAttr(VTYPE_list);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"identifier\" and \"caller\".");
 }
 
 Gura_ImplementPropertyGetter(expr, attrsopt)
@@ -205,8 +202,7 @@ Gura_DeclareProperty_R(expr, block)
 	SetPropAttr(VTYPE_expr);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"caller\".");
 }
 
 Gura_ImplementPropertyGetter(expr, block)
@@ -228,8 +224,7 @@ Gura_DeclareProperty_R(expr, blockparam)
 	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"block\".");
 }
 
 Gura_ImplementPropertyGetter(expr, blockparam)
@@ -251,8 +246,7 @@ Gura_DeclareProperty_R(expr, body)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"suffixed\".");
 }
 
 Gura_ImplementPropertyGetter(expr, body)
@@ -272,8 +266,7 @@ Gura_DeclareProperty_R(expr, car)
 	SetPropAttr(VTYPE_expr);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"compound\".");
 }
 
 Gura_ImplementPropertyGetter(expr, car)
@@ -293,8 +286,7 @@ Gura_DeclareProperty_R(expr, cdr)
 	SetPropAttr(VTYPE_expr);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"compound\".");
 }
 
 Gura_ImplementPropertyGetter(expr, cdr)
@@ -314,8 +306,7 @@ Gura_DeclareProperty_R(expr, child)
 	SetPropAttr(VTYPE_expr);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"unary\".");
 }
 
 Gura_ImplementPropertyGetter(expr, child)
@@ -335,8 +326,7 @@ Gura_DeclareProperty_R(expr, children)
 	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"collector\".");
 }
 
 Gura_ImplementPropertyGetter(expr, children)
@@ -356,8 +346,7 @@ Gura_DeclareProperty_R(expr, left)
 	SetPropAttr(VTYPE_expr);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"binary\".");
 }
 
 Gura_ImplementPropertyGetter(expr, left)
@@ -412,8 +401,7 @@ Gura_DeclarePropertyAlias_R(expr, operator_, "operator")
 	SetPropAttr(VTYPE_operator);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"unaryop\", \"binaryop\" and \"assign\".");
 }
 
 Gura_ImplementPropertyGetter(expr, operator_)
@@ -459,8 +447,7 @@ Gura_DeclareProperty_R(expr, right)
 	SetPropAttr(VTYPE_expr);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"binary\".");
 }
 
 Gura_ImplementPropertyGetter(expr, right)
@@ -501,8 +488,7 @@ Gura_DeclareProperty_R(expr, suffix)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"suffixed\".");
 }
 
 Gura_ImplementPropertyGetter(expr, suffix)
@@ -522,8 +508,7 @@ Gura_DeclareProperty_R(expr, symbol)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"identifier\".");
 }
 
 Gura_ImplementPropertyGetter(expr, symbol)
@@ -543,8 +528,7 @@ Gura_DeclareProperty_R(expr, trailer)
 	SetPropAttr(VTYPE_expr);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"caller\".");
 }
 
 Gura_ImplementPropertyGetter(expr, trailer)
@@ -598,8 +582,7 @@ Gura_DeclareProperty_R(expr, value)
 	SetPropAttr(VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Exists in \"value\".");
 }
 
 Gura_ImplementPropertyGetter(expr, value)

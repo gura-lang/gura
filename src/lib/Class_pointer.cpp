@@ -60,8 +60,7 @@ Gura_DeclareProperty_RW(pointer, offset)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"The current offset.");
 }
 
 Gura_ImplementPropertyGetter(pointer, offset)
@@ -84,8 +83,7 @@ Gura_DeclareProperty_R(pointer, size)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Returns the size of data accessible from the current offset.");
 }
 
 Gura_ImplementPropertyGetter(pointer, size)
@@ -100,8 +98,8 @@ Gura_DeclarePropertyAlias_R(pointer, size_at_all, "size@all")
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Returns the entire size of the target binary or memory.\n"
+		"This equals to `p.offset + p.size` where `p` is a `pointer` instance.");
 }
 
 Gura_ImplementPropertyGetter(pointer, size_at_all)
@@ -116,8 +114,8 @@ Gura_DeclareProperty_R(pointer, target)
 	SetPropAttr(VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"An instance that is associated with the pointer.\n"
+		"Currently, this can be an instance of `binary` or `memory`.");
 }
 
 Gura_ImplementPropertyGetter(pointer, target)
