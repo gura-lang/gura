@@ -407,6 +407,9 @@ private:
 	inline bool IsTableGuideRow() const { return _iTableRow == 1; }
 	inline bool IsTableTrailingRow() const { return _iTableRow >= 2; }
 	inline bool IsWithinTag() const { return !_itemStackTag.empty(); }
+	inline bool IsMarkdownAcceptable() const {
+		return _itemStackTag.empty() || _itemStackTag.back()->GetMarkdownAcceptableFlag();
+	}
 };
 
 //-----------------------------------------------------------------------------

@@ -2455,3 +2455,33 @@
 <referee url='http://example-sABCDEFs.com' title='title-sABCDEFs' refid='   ABCDEF  '>
 <referee url='http://example.com/' title='Title' refid='id1'>
 <referee url='/url/to/img.jpg' title='Title' refid='id2'>
+======== tag that accepts markdown ========
+<root>
+  <p>
+    <code>'code'
+    <text>' '
+    <em>
+      <text>'emphasized'
+    <text>' '
+    <strong>
+      <text>'strong'
+    <text>' '
+    <tag>'table'
+      <tag>'tr'
+        <tag>'td'
+          <text>'`code` *emphasized* **strong**'
+        <tag>'td'
+      <text>'
+'
+      <tag>'tr'
+        <tag>'td'
+          <code>'code'
+          <text>' '
+          <em>
+            <text>'emphasized'
+          <text>' '
+          <strong>
+            <text>'strong'
+        <tag>'td'
+      <text>'
+'

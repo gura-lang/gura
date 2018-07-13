@@ -2,7 +2,7 @@
 import(helper.test) {*}
 import(markdown)
 
-testcase@markdown(title:string, text:string) = {
+testcase@markdown(title:string, text:string):void = {
 	printf('======== %s ========\n', title)
 	doc = markdown.document()
 	doc << text
@@ -1292,6 +1292,14 @@ Reference-style image:
 [id2]: /url/to/img.jpg "Title"
 ''')
 
+testcase@markdown('tag that accepts markdown', R'''
+`code` *emphasized* **strong**
+<table>
+<tr><td>`code` *emphasized* **strong**</td><td></td></tr>
+<tr><@td>`code` *emphasized* **strong**</@td><td></td></tr>
+</table>
+''')
+				  
 text@todo = R'''
 >     #include <stdio.h>
 >     int main() {

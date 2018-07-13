@@ -442,7 +442,7 @@ bool Document::ParseChar(Signal &sig, char ch)
 		break;
 	}
 	case STAT_LineHead: {
-		if (IsWithinTag()) {
+		if (!IsMarkdownAcceptable()) {
 			// When within a tag, ignore special characters except for '<'.
 			Gura_PushbackEx(ch);
 			_stat = STAT_Text;
@@ -1317,7 +1317,7 @@ bool Document::ParseChar(Signal &sig, char ch)
 				} else {
 					_stat = STAT_LineTop;
 				}
-			} else if (IsWithinTag()) {
+			} else if (!IsMarkdownAcceptable()) {
 				_text += ch;
 			} else {
 				if (EndsWith(_text.c_str(), "  ", false) != nullptr) {
@@ -2093,30 +2093,30 @@ bool Document::ParseChar(Signal &sig, char ch)
 bool Document::CheckSpecialChar(char ch)
 {
 	if (ch == '\\') {
-		if (IsWithinTag()) return false;
+		if (!IsMarkdownAcceptable()) return false;
 		_statStack.Push(_stat);
 		_stat = STAT_Escape;
 		return true;
 	} else if (ch == '`') {
-		if (IsWithinTag()) return false;
+		if (!IsMarkdownAcceptable()) return false;
 		FlushText(Item::TYPE_Text, false, false);
 		_statStack.Push(_stat);
 		_stat = STAT_Backquote;
 		return true;
 	} else if (ch == '*') {
-		if (IsWithinTag()) return false;
+		if (!IsMarkdownAcceptable()) return false;
 		FlushText(Item::TYPE_Text, false, false);
 		_statStack.Push(_stat);
 		_stat = STAT_Asterisk;
 		return true;
 	} else if (ch == '_' && !IsWordChar(_chPrev)) {
-		if (IsWithinTag()) return false;
+		if (!IsMarkdownAcceptable()) return false;
 		FlushText(Item::TYPE_Text, false, false);
 		_statStack.Push(_stat);
 		_stat = STAT_Underscore;
 		return true;
 	} else if (ch == '~') {
-		if (IsWithinTag()) return false;
+		if (!IsMarkdownAcceptable()) return false;
 		FlushText(Item::TYPE_Text, false, false);
 		_statStack.Push(_stat);
 		_stat = STAT_Tilda;
@@ -2136,7 +2136,7 @@ bool Document::CheckSpecialChar(char ch)
 		_stat = STAT_AngleBracketFirst;
 		return true;
 	} else if (ch == '[') {
-		if (IsWithinTag()) return false;
+		if (!IsMarkdownAcceptable()) return false;
 		_pItemLink.reset(new Item(Item::TYPE_Link, new ItemOwner()));
 		_textAhead.clear();
 		_field.clear();
@@ -2145,7 +2145,7 @@ bool Document::CheckSpecialChar(char ch)
 		_stat = STAT_LinkText;
 		return true;
 	} else if (ch == '!') {
-		if (IsWithinTag()) return false;
+		if (!IsMarkdownAcceptable()) return false;
 		_pItemLink.reset(new Item(Item::TYPE_Image));
 		_textAhead.clear();
 		_field.clear();
