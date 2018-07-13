@@ -362,15 +362,15 @@ A#func1()
 ======== #38 __propdecls__ ========
 
 format:symbol:R
-<p>Takes one of the following symbols indicating what elements are stored in the memory:</p>
-<ul>
-<li><code>`rgb</code> .. red, green and blue</li>
-<li><code>`rgba</code> .. red, green, blue and alpha</li>
-</ul>
+Takes one of the following symbols indicating what elements are stored in the memory:
+
+- `` `rgb`` .. red, green and blue
+- `` `rgba`` .. red, green, blue and alpha
+
 height:number:R
 Image height.
 palette:palette:R:W
-A <code>palette</code> instance associated with this image.
-If there's no palette associated, this property returns <code>nil</code>.
+A `palette` instance associated with this image.
+If there's no palette associated, this property returns `nil`.
 width:number:R
 Image width.
