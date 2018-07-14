@@ -327,6 +327,8 @@ private:
 	StatStack _statStack;
 	int _indentLevel;
 	int _indentLevelTableTop;
+	int _headerLevel;
+	int _headerLevelOffset;
 	int _quoteLevel;
 	int _cntEmptyLine;
 	String _text;
@@ -388,6 +390,7 @@ private:
 	int GetIndentLevelForCodeBlock() const;
 	void UpdateIndentLevelItemBody(int indentLevelItemBody);
 	bool IsWithin(Item::Type type) const;
+	static Item::Type HeaderLevelToItemType(int headerLevel);
 	static bool IsAtxHeader2(const char *text);
 	static bool IsHorzRule(const char *text);
 	static bool IsLink(const char *text);

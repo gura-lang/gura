@@ -209,10 +209,11 @@ int ItemStack::CountQuoteLevel() const
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(false),
-		_iTableRow(-1), _iTableCol(0), _stat(STAT_LineTop), _iLine(0), _iCol(0), _chPrev('\0'),
-		_indentLevel(0), _indentLevelTableTop(0), _quoteLevel(0), _cntEmptyLine(0),
-		_pItemOwner(new ItemOwner()), _pItemRefereeOwner(new ItemOwner())
+Document::Document() :
+	_cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(false),
+	_iTableRow(-1), _iTableCol(0), _stat(STAT_LineTop), _iLine(0), _iCol(0), _chPrev('\0'),
+	_indentLevel(0), _indentLevelTableTop(0), _headerLevel(0), _headerLevelOffset(0),
+	_quoteLevel(0), _cntEmptyLine(0), _pItemOwner(new ItemOwner()), _pItemRefereeOwner(new ItemOwner())
 {
 	_statStack.Push(STAT_LineTop);
 	_pItemRoot.reset(new Item(Item::TYPE_Root, new ItemOwner()));
@@ -467,7 +468,7 @@ bool Document::ParseChar(Signal &sig, char ch)
 			_stat = STAT_EqualAtHead;
 		} else if (ch == '#' && _indentLevel <= 0) {
 			FlushItem(Item::TYPE_Paragraph, false, false);
-			_indentLevel = 1;
+			_headerLevel = 1;
 			_stat = STAT_SetextHeaderHead;
 		} else if (ch == '*') {
 			_textAhead.clear();
@@ -697,7 +698,7 @@ bool Document::ParseChar(Signal &sig, char ch)
 	}
 	case STAT_SetextHeaderHead: {
 		if (ch == '#') {
-			_indentLevel++;
+			_headerLevel++;
 		} else if (ch == ' ' || ch == '\t') {
 			_stat = STAT_SetextHeaderPre;
 		} else {
@@ -725,15 +726,8 @@ bool Document::ParseChar(Signal &sig, char ch)
 			_textAhead += ch;
 			_stat = STAT_SetextHeaderPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			Item::Type type =
-				(_indentLevel == 1)? Item::TYPE_Header1 :
-				(_indentLevel == 2)? Item::TYPE_Header2 :
-				(_indentLevel == 3)? Item::TYPE_Header3 :
-				(_indentLevel == 4)? Item::TYPE_Header4 :
-				(_indentLevel == 5)? Item::TYPE_Header5 :
-				(_indentLevel == 6)? Item::TYPE_Header6 :
-				Item::TYPE_Header6;
-			FlushItem(type, false, true);
+			int headerLevel = _headerLevel + _headerLevelOffset;
+			FlushItem(HeaderLevelToItemType(headerLevel), false, true);
 			if (IsEOF(ch)) Gura_PushbackEx(ch);
 			_stat = STAT_LineTop;
 		} else {
@@ -758,7 +752,8 @@ bool Document::ParseChar(Signal &sig, char ch)
 		if (ch == '=') {
 			_textAhead += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushItem(Item::TYPE_Header1, false, false);
+			int headerLevel = 1 + _headerLevelOffset;
+			FlushItem(HeaderLevelToItemType(headerLevel), false, false);
 			if (IsEOF(ch)) Gura_PushbackEx(ch);
 			_stat = STAT_LineTop;
 		} else {
@@ -776,7 +771,8 @@ bool Document::ParseChar(Signal &sig, char ch)
 			Item *pItemParent = _itemStack.back();
 			FlushText(Item::TYPE_Text, false, false);
 			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Header2, _pItemOwner.release());
+				int headerLevel = 2 + _headerLevelOffset;
+				Item *pItem = new Item(HeaderLevelToItemType(headerLevel), _pItemOwner.release());
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_pItemOwner.reset(new ItemOwner());
 			} else if (IsHorzRule(_textAhead.c_str())) {
@@ -1659,7 +1655,21 @@ bool Document::ParseChar(Signal &sig, char ch)
 					pItemLink->GetItemOwner()->push_back(pItem);
 				} while (0);
 			} else if (IsBeginTag(_field.c_str(), tagName, attrs, closedFlag, markdownAcceptableFlag)) {
-				BeginTag(tagName.c_str(), attrs.c_str(), closedFlag, markdownAcceptableFlag);
+				if (tagName == "gura.headerdown") {
+					if (!closedFlag) {
+						sig.SetError(ERR_FormatError, "the tag must be used as a single one.");
+						return false;
+					}
+					_headerLevelOffset++;
+				} else if (tagName == "gura.headerup") {
+					if (!closedFlag) {
+						sig.SetError(ERR_FormatError, "the tag must be used as a single one.");
+						return false;
+					}
+					if (_headerLevelOffset > 0) _headerLevelOffset--;
+				} else {
+					BeginTag(tagName.c_str(), attrs.c_str(), closedFlag, markdownAcceptableFlag);
+				}
 			} else if (IsEndTag(_field.c_str(), tagName)) {
 				if (!EndTag(tagName.c_str())) {
 					sig.SetError(ERR_FormatError, "unbalanced tags at line %d", _iLine + 1);
@@ -2480,6 +2490,18 @@ bool Document::IsWithin(Item::Type type) const
 		if (pItem->GetType() == type) return true;
 	}
 	return false;
+}
+
+Item::Type Document::HeaderLevelToItemType(int headerLevel)
+{
+	return
+		(headerLevel <= 1)? Item::TYPE_Header1 :
+		(headerLevel == 2)? Item::TYPE_Header2 :
+		(headerLevel == 3)? Item::TYPE_Header3 :
+		(headerLevel == 4)? Item::TYPE_Header4 :
+		(headerLevel == 5)? Item::TYPE_Header5 :
+		(headerLevel == 6)? Item::TYPE_Header6 :
+		Item::TYPE_Header6;
 }
 
 bool Document::IsAtxHeader2(const char *text)

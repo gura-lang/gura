@@ -2485,3 +2485,45 @@
         <tag>'td'
       <text>'
 '
+======== gura.headerdown/gura.headerup ========
+<root>
+  <h1>
+    <text>'header1'
+  <h2>
+    <text>'header1 after headerdown'
+  <h1>
+    <text>'header1 after headerdown and headerup'
+  <h3>
+    <text>'header1 after 2 times of headerdown'
+  <h2>
+    <text>'header2'
+  <h3>
+    <text>'header2 after headerdown'
+  <h2>
+    <text>'header2 after headerdown and headerup'
+  <h4>
+    <text>'header2 after 2 times of headerdown'
+  <h3>
+    <text>'header3'
+  <h4>
+    <text>'header3 after headerdown'
+  <h3>
+    <text>'header3 after headerdown and headerup'
+  <h5>
+    <text>'header3 after 2 times of headerdown'
+  <h1>
+    <text>'header1'
+  <h2>
+    <text>'header1 after headerdown'
+  <h1>
+    <text>'header1 after headerdown and headerup'
+  <h3>
+    <text>'header1 after 2 times of headerdown'
+  <h2>
+    <text>'header2'
+  <h3>
+    <text>'header2 after headerdown'
+  <h2>
+    <text>'header2 after headerdown and headerup'
+  <h4>
+    <text>'header2 after 2 times of headerdown'

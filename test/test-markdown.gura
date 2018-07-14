@@ -1300,6 +1300,94 @@ testcase@markdown('tag that accepts markdown', R'''
 </table>
 ''')
 				  
+testcase@markdown('gura.headerdown/gura.headerup', R'''
+# header1
+
+<gura.headerdown />
+# header1 after headerdown
+<gura.headerup />
+
+# header1 after headerdown and headerup
+
+<gura.headerdown />
+<gura.headerdown />
+
+# header1 after 2 times of headerdown
+
+<gura.headerup />
+<gura.headerup />
+
+## header2
+
+<gura.headerdown />
+## header2 after headerdown
+<gura.headerup />
+
+## header2 after headerdown and headerup
+
+<gura.headerdown />
+<gura.headerdown />
+
+## header2 after 2 times of headerdown
+
+<gura.headerup />
+<gura.headerup />
+
+### header3
+
+<gura.headerdown />
+### header3 after headerdown
+<gura.headerup />
+
+### header3 after headerdown and headerup
+
+<gura.headerdown />
+<gura.headerdown />
+
+### header3 after 2 times of headerdown
+
+<gura.headerup />
+<gura.headerup />
+
+header1
+==
+
+<gura.headerdown />
+header1 after headerdown
+==
+<gura.headerup />
+
+header1 after headerdown and headerup
+==
+
+<gura.headerdown />
+<gura.headerdown />
+
+header1 after 2 times of headerdown
+==
+<gura.headerup />
+<gura.headerup />
+
+header2
+--
+
+<gura.headerdown />
+header2 after headerdown
+--
+<gura.headerup />
+
+header2 after headerdown and headerup
+--
+
+<gura.headerdown />
+<gura.headerdown />
+
+header2 after 2 times of headerdown
+--
+<gura.headerup />
+<gura.headerup />
+''')
+
 text@todo = R'''
 >     #include <stdio.h>
 >     int main() {
