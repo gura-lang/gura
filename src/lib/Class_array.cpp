@@ -10,7 +10,96 @@ typedef Value (*EvalIndexGetT)(Environment &env, const ValueList &valListIdx, Ob
 typedef void (*EvalIndexSetT)(Environment &env, const ValueList &valListIdx, const Value &value, Object_array *pObj);
 
 static const char *helpDoc_en = R"**(
+# Overview
 
+An instance of the `array` class stores multiple numeric values in a seamless binary sequence.
+It can directly be passed to functions in C libraries without any modification
+that expect arrays of `char`, `short`, `int`, `float`, `double` and so on.
+
+There are several `array` classes that deal with different element types as shown below:
+
+<table>
+<tr><th>Class Name</th><th>Element Type</th></tr>
+<tr><td><code>array@int8</code></td><td><code>Int8</code></td></tr>
+<tr><td><code>array@uint8</code></td><td><code>Uint8</code></td></tr>
+<tr><td><code>array@int16</code></td><td><code>Int16</code></td></tr>
+<tr><td><code>array@uint16</code></td><td><code>Uint16</code></td></tr>
+<tr><td><code>array@int32</code></td><td><code>Int32</code></td></tr>
+<tr><td><code>array@uint32</code></td><td><code>Uint32</code></td></tr>
+<tr><td><code>array@int64</code></td><td><code>Int64</code></td></tr>
+<tr><td><code>array@uint64</code></td><td><code>Uint64</code></td></tr>
+<tr><td><code>array@half</code></td><td><code>Half</code></td></tr>
+<tr><td><code>array@float</code></td><td><code>Float</code></td></tr>
+<tr><td><code>array@double</code></td><td><code>Double</code></td></tr>
+<tr><td><code>array@complex</code></td><td><code>Complex</code></td></tr>
+</table>
+
+In the specification described here, the class name is is represented as `array@T`
+where `T` means its element type.
+
+Most of methods in `array` class are implemented in `arrayt` module
+while the class itself is provided by the intepreter.
+This is because array features cost much code size
+and it would be preferable to reduce the size of the intepreter body
+by separating the implementation of array methods.
+So, you have to import `arrayt` module before using the `array` class in your program.
+
+
+# Property
+
+An `array` instance has the following properties:
+
+${markdown.makedoc@property(`en, array)}
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+array
+array.identity
+array.interval
+array.ones
+array.rands
+array.rands@normal
+array.range
+array.rotation
+array.rotation@x
+array.rotation@y
+array.rotation@z
+array.scaling
+array.translation
+array.zeros
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+array.argmax
+array.argmin
+array.dot
+array.dump
+array.each
+array.elemcast
+array.fill
+array.flatten
+array.head
+array.invert
+array.iselemsame
+array.issquare
+array.max
+array.mean
+array.min
+array.offset
+array.paste
+array.reshape
+array.roundoff
+array.std
+array.sum
+array.tail
+array.transpose
+array.var
+)}
 )**";
 
 //------------------------------------------------------------------------------

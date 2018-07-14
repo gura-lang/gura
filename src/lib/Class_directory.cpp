@@ -6,6 +6,21 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `directory` class handles information necessary to seek directory structure in a path.
+Its instance usually works with functions in `path` module: `path.dir()` and `path.walk()`.
+
+Though the instance can be created by `directory()` function,
+you don't have to use it in many cases because a casting from `string` to `directory` instance
+works implicitly in a function call.
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+directory
+)}
 )**";
 
 //-----------------------------------------------------------------------------

@@ -6,6 +6,32 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `complex` class provides measures to calculate complex numbers.
+
+You can create a `complex` instance by following ways:
+
+- Calls `complex()` function with a real and imaginary part of numbers. e.g., `complex(2, 3)`
+- Calls `complex.polar()` function with an absolute value and an argument in radius.
+  e.g., `complex.polar(5, math.pi / 6)`
+- Appending `j` suffix after a number literal would create an imaginal part of a complex numbrer.
+  e.g., `2 + 3j`
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+complex
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+complex.polar
+complex.roundoff
+)}
 )**";
 
 //-----------------------------------------------------------------------------

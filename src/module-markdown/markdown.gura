@@ -686,8 +686,13 @@ Renderer@console = class {
 			if (text == 'table') {
 				this.RenderTable(item)
 			} elsif (text == 'gura.funcentry') {
-				println(item.attrs)
-				println('---------------')
+				if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
+					println(m[2])
+					println('-' * m[2].len())
+				} else {
+					println('**** error ****')
+					sys.exit(1)
+				}
 			} else {
 				item.children && this.RenderItem(item.children)
 			}
@@ -978,6 +983,12 @@ makedoc@class(lang:symbol, cls:class) = {
 		help.render(`markdown)
 	}
 }
+
+makedoc@class(lang:symbol, cls:class, headeroff:number) = [
+	format('<gura.headerdown%d />\n', headeroff)
+	help@class(cls, lang).doc
+	format('<gura.headerup%d />\n', headeroff)
+]
 
 makedoc@function(lang:symbol, funcs*:function) = {
 	funcs = funcs.each()

@@ -6,6 +6,109 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `error` class provides measures to access error information.
+
+There is no measures to create an `error` instance.
+They're instantiated and passed to a block of `catch()` function
+when an error occurs within a `try` block in a `try-catch` sequence.
+
+In the following code, `e` is an instance that contains information
+about an error that has occured in the `try` block.
+
+    try {
+        // any jobs
+    } catch {|e:error|
+        // ...
+    }
+
+
+# Predefined Variable
+
+<table>
+<tr><th>Variable</th><th>Explanation</th></tr>
+
+<tr><td><code>error.ArgumentError</code></td>
+<td>Argument error.</td></tr>
+
+<tr><td><code>error.ArithmeticError</code></td>
+<td>Arithmetic error.</td></tr>
+
+<tr><td><code>error.AttributeError</code></td>
+<td>Invalid attribute is specified.</td></tr>
+
+<tr><td><code>error.CodecError</code></td>
+<td>An error that is related to codec process.</td></tr>
+
+<tr><td><code>error.CommandError</code></td>
+<td>An error that could happen in command line.</td></tr>
+
+<tr><td><code>error.DeclarationError</code></td>
+<td>An error in a function\'s declarations.</td></tr>
+
+<tr><td><code>error.FormatError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.IOError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.ImportError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.IndexError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.IteratorError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.KeyError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.MemberAccessError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.MemoryError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.NameError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.NotImplementedError</code></td>
+<td>An error that could occur when a called function has no implemented body but an entry.</td></tr>
+
+<tr><td><code>error.OutOfRange</code></td>
+<td>Index number is out of range.</td></tr>
+
+<tr><td><code>error.ResourceError</code></td>
+<td>Resource error.</td></tr>
+
+<tr><td><code>error.RuntimeError</code></td>
+<td>Runtime error.</td></tr>
+
+<tr><td><code>error.SyntaxError</code></td>
+<td>Syntax error.</td></tr>
+
+<tr><td><code>error.SystemError</code></td>
+<td>System error.</td></tr>
+
+<tr><td><code>error.TypeError</code></td>
+<td>Type error.</td></tr>
+
+<tr><td><code>error.ValueError</code></td>
+<td>Invalid value is specified.</td></tr>
+
+<tr><td><code>error.ZeroDivisionError</code></td>
+<td>Zero-division occured in division or modulo operations.</td></tr>
+
+</table>
+
+
+# Property
+
+An `error` instance has the following properties:
+
+${markdown.makedoc@property(`en, error)}
 )**";
 
 //-----------------------------------------------------------------------------

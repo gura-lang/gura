@@ -17,6 +17,58 @@ Gura_ImplementMethod(expr, is##symbol) { \
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `expr` class provides inromation about the language\'s syntax expression.
+
+
+# Property
+
+An `expr` instance has the following properties:
+
+${markdown.makedoc@property(`en, expr)}
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+expr
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+expr.eval
+expr.parse
+expr.textize
+expr.tofunction
+expr.unquote
+expr.write
+// type chekers - Unary and descendants
+expr.isunary
+expr.isunaryop
+expr.isquote
+// type chekers - Binary and descendants
+expr.isbinary
+expr.isbinaryop
+expr.isassign
+expr.ismember
+// type chekers - Collector and descendants
+expr.iscollector
+expr.isroot
+expr.isblock
+expr.islister
+expr.isiterer
+// type chekers - Compound and descendants
+expr.iscompound
+expr.isindexer
+expr.iscaller
+// type chekers - others
+expr.isvalue
+expr.isidentifier
+expr.issuffixed
+)}
 )**";
 
 //-----------------------------------------------------------------------------

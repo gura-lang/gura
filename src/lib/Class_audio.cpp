@@ -6,6 +6,20 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `audio` class provides measures to work on audio data.
+
+
+# Method
+
+${markdown.makedoc@function(`en
+audio.each
+audio.get
+audio.put
+audio.sinewave
+audio.store
+)}
 )**";
 
 //-----------------------------------------------------------------------------

@@ -6,6 +6,33 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `declaration` class provides information about argument\'s declaration defined in a function.
+You can get an iterator of `declaration` instances with the following measures
+that the `function` class provides:
+
+- A property value: `function#decls`
+- An instance method: `function.getdecls()`
+
+Below is an example to print argument names declared in a function.
+
+    f(a, b, c, d) = {}
+	println(f.decls:*name)
+
+
+# Property
+
+A `declaration` instance has the following properties:
+
+${markdown.makedoc@property(`en, declaration)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+declaration.istype
+)}
 )**";
 
 //-----------------------------------------------------------------------------

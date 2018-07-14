@@ -6,6 +6,29 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `help` class provides measures to access help information
+associated with a `function` instance.
+
+You can get a `help` instance from a `function` instance or a `class`
+by calling `help@function()` or `help@class()` respectively.
+
+
+# Property
+
+A `help` instance has the following properties:
+
+${markdown.makedoc@property(`en, help)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+help.text@iterator
+help.text@block
+help.presenter
+)}
 )**";
 
 //-----------------------------------------------------------------------------

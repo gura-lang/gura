@@ -6,6 +6,73 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `function` class provides measure to inspect information about the instance.
+
+All the functions are instances of `function` class,
+so an implementation of a function means a realization of a `function` instance.
+You can also create the instance using `function()` constructor.
+The following two codes have the same result:
+
+    f(a:number, b:number, c:number) = {
+        (a + b + c) / 3
+    }
+
+    f = function(a:number, b:number, c:number) {
+        (a + b + c) / 3
+    }
+
+Using `function()`, you can use variables prefixed by a dollar character
+so that they are automatically added to the argument list.
+In such a case, the variables are added to the argument list in the same order as
+they appear in the function body.
+The code below creates a function with a declaration `f($a, $b, $c)`.
+
+    f = function {
+        ($a + $b + $c) / 3
+    }
+
+You can use `&` as an alias of `function()` as shown below:
+
+    f = &{
+        ($a + $b + $c) / 3
+    }
+
+
+# Property
+
+A `function` instance has the following properties:
+
+${markdown.makedoc@property(`en, function)}
+
+
+# Operator
+
+You can print a function\'s help from the interactive prompt using the unary operator "`~`".
+Below is an example to print the help of `printf()` function:
+
+    >>> ~printf
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+function
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+function.getdecls
+function.getexpr
+function.getformat
+function.getfullname
+function.getname
+function.getsymbol
+function.mathdiff
+)}
 )**";
 
 //-----------------------------------------------------------------------------

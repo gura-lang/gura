@@ -7,6 +7,43 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `binary` class provides measures to work on binary data
+that is a byte sequence without any format.
+
+You can create a `binary` instance by calling `binary()` function.
+
+You can also create the instance by specifying `b` prefix before a string literal.
+For example, the code below creates a `binary` instance that contains a sequence
+`0x41, 0x42, 0xfe, 0x03, 0x43, 0x44`.
+
+    b'AB\xfe\x03CD'
+
+
+# Property
+
+A `binary` instance has the following properties:
+
+${markdown.makedoc@property(`en, binary)}
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+binary
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+binary.alloc
+binary.dump
+binary.pointer
+binary.reader
+binary.writer
+)}
 )**";
 
 //-----------------------------------------------------------------------------

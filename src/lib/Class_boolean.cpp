@@ -6,6 +6,19 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `boolean` class represents a boolean data type that is used in logical operations
+including NOT, AND, OR and XOR.
+
+The `boolean` type provides two values: `true` and `false`.
+The other types of values can also be calculated in logical operations
+according to the following general rule:
+
+- The `nil` value is evaluated as `false` value.
+- Other values are evaluated as `true`.
+
+Note that the number `0` is treated as `true` in logical operations.
 )**";
 
 //-----------------------------------------------------------------------------

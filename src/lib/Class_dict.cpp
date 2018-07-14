@@ -6,6 +6,68 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `dict` class provides measures to handle dictionary data
+that can seek values by indexing with their associated keys.
+You can specify values of `string`, `number` and `symbol` as a dictionary key.
+
+You can create a `dict` instance by following measures:
+
+- Calls `dict()` constructor.
+- Calls a function named `%` that is an alias of `dict()` constructor.
+
+Below are examples to create a `dict` instance:
+
+    dict {'first' => 1, 'second' => 2, 'third' => 3}
+    dict {{'first', 1}, {'second', 2}, {'third', 3}}
+    dict {'first', 1, 'second', 2, 'third', 3}
+
+    dict(['first' => 1, 'second' => 2, 'third' => 3])
+    dict([['first', 1], ['second', 2], ['third', 3]])
+    dict(['first', 1, 'second', 2, 'third', 3])
+
+    %{'first' => 1, 'second' => 2, 'third' => 3}
+    %{{'first', 1}, {'second', 2}, {'third', 3}}
+    %{'first', 1, 'second', 2, 'third', 3}
+
+You can specify different type of values for keys in the same dictionary.
+In this case, values of different types are just recognized as different values.
+
+
+# Index Access
+
+You can read and write element values in a `dict` with an indexer
+by giving it a key value which type is `string`, `number` or `symbol`.
+Below is an example:
+
+    x = %{'first' => 1, 'second' => 2, 'third' => 3}
+
+    println(x['second']) // prints `2`
+    x['third'] = 33      // replaces `3` with `33`
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+dict
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+dict.append
+dict.clear
+dict.erase
+dict.get
+dict.haskey
+dict.items
+dict.keys
+dict.len
+dict.put
+dict.values
+)}
 )**";
 
 //-----------------------------------------------------------------------------

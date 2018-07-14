@@ -6,6 +6,19 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `environment` class provides measures to operate variables in an environment,
+which is a fundamental mechanism to store variables.
+
+
+# Method
+
+${markdown.makedoc@function(`en
+environment.getprop!
+environment.lookup
+environment.setprop!
+)}
 )**";
 
 //-----------------------------------------------------------------------------

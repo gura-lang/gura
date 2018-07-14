@@ -6,6 +6,79 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `datetime` class provides measures to handle date and time information.
+
+You can create a `datetime` instance by calling following functions:
+
+- `datetime()` .. Creates an intance from specified date and time.
+- `datetime.now()` .. Creates an instance with its date and time fields set as the current one.
+- `datetime.today()` .. Creates an instance with its date field set as the current one.
+  Its time fields, `hour`, `min`, `sec` and `usec`, are set to zero.
+
+You can calculate a `datetime` with a `timedelta` to
+put its date and time values forward and backward.
+
+
+# Predefined Variable
+
+<table>
+<tr><th>Variable</th><th>Type</th><th>Explanation</th></tr>
+
+<tr><td><code>datetime.Sunday</code></td><td><code>number</code></td>
+<td>Assigned with number 0 that represents Sunday.</td></tr>
+
+<tr><td><code>datetime.Monday</code></td><td><code>number</code></td>
+<td>Assigned with number 1 that represents Monday.</td></tr>
+
+<tr><td><code>datetime.Tuesday</code></td><td><code>number</code></td>
+<td>Assigned with number 2 that represents Tuesday.</td></tr>
+
+<tr><td><code>datetime.Wednesday</code></td><td><code>number</code></td>
+<td>Assigned with number 3 that represents Wednesday.</td></tr>
+
+<tr><td><code>datetime.Thursday</code></td><td><code>number</code></td>
+<td>Assigned with number 4 that represents Thursday.</td></tr>
+
+<tr><td><code>datetime.Friday</code></td><td><code>number</code></td>
+<td>Assigned with number 5 that represents Friday.</td></tr>
+
+<tr><td><code>datetime.Saturday</code></td><td><code>number</code></td>
+<td>Assigned with number 6 that represents Saturday.</td></tr>
+
+</table>
+
+
+# Property
+
+A `datetime` instance has the following properties:
+
+${markdown.makedoc@property(`en, datetime)}
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+datetime
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+datetime.clrtzoff
+datetime.format
+datetime.isleap
+datetime.monthdays
+datetime.now
+datetime.parse
+datetime.settzoff
+datetime.time
+datetime.today
+datetime.utc
+datetime.weekday
+)}
 )**";
 
 //-----------------------------------------------------------------------------

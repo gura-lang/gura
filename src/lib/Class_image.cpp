@@ -6,6 +6,75 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `image` class provides following measures to handle graphic image data:
+
+- Reads image data from a file.
+- Writes image data to a file.
+- Apply some modifications on image data including rotation, resize and color conversion.
+
+Acceptable image data formats can be extended by importing modules.
+Below is a table to show image formats and name of modules that handle them.
+The string listed in "imagetype" column shows a name that is used by functions
+`image()`, `image#read()` and `image#write()` to explicitly specify the image data format
+in a process of reading and writing files.
+
+<table>
+<tr><th>Image Format</th><th>Module Name</th><th>imagetype</th></tr>
+<tr><td>BMP</td><td><code>bmp</code></td><td><code>'bmp'</code></td></tr>
+<tr><td>GIF</td><td><code>gif</code></td><td><code>'gif'</code></td></tr>
+<tr><td>JPEG</td><td><code>jpeg</code></td><td><code>'jpeg'</code></td></tr>
+<tr><td>Microsoft Icon</td><td><code>msico</code></td><td><code>'msico'</code></td></tr>
+<tr><td>PNG</td><td><code>png</code></td><td><code>'png'</code></td></tr>
+<tr><td>PPM</td><td><code>ppm</code></td><td><code>'ppm'</code></td></tr>
+<tr><td>TIFF</td><td><code>tiff</code></td><td><code>'tiff'</code></td></tr>
+</table>
+
+
+# Property
+
+An `image` instance has the following properties:
+
+${markdown.makedoc@property(`en, image)}
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+image
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+image.allocbuff
+image.blur
+image.clear
+image.crop
+image.delpalette
+image.extract
+image.fill
+image.fillrect
+image.flip
+image.getpixel
+image.grayscale
+image.mapcolorlevel
+image.paste
+image.putpixel
+image.size
+image.store
+image.read
+image.reducecolor
+image.replacecolor
+image.resize
+image.rotate
+image.scan
+image.setalpha
+image.thumbnail
+image.write
+)}
 )**";
 
 //-----------------------------------------------------------------------------

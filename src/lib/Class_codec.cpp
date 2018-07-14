@@ -6,6 +6,89 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `codec` class has features to decoding/encoding character codes stored in `string` and `binary`.
+Following measures are provided:
+
+- Decode .. Converts specific character codes stored in `binary` into UTF-8 code
+  and generages `string` containing the result.
+  It can also delete a CR code (`0x0d`) before a LF code (`0x0d`) at each end of line
+  so that lines in the result are joined with LF code.
+- Encode .. Converts UTF-8 character codes stored in `string` into specific codes
+  and generates `binary` containing the result.
+  It can also add a CR code (`0x0d`) before a LF code (`0x0a`) at each end of line
+  so that lines in the result are joined with CR-LF sequence.
+
+You can utilize these functions using `codec` class's methods `codec#decode()` and `codec#encode()`
+as well as using `stream` class's method to read/write text by specifying `codec` instance
+when creating its instance.
+
+The actual functions for encoding and decoding are provided by sub modules under `codecs` module.
+Each module provides following codecs:
+
+- `codecs.basic` .. `us-ascii`, `utf-8`, `utf-16`, `utf-16le`, `utf-16be`
+- `codecs.iso8859`.. `iso-8859-1`, `iso-8859-2`, `iso-8859-3`, `iso-8859-4`, `iso-8859-5`,
+  `iso-8859-6`, `iso-8859-7`, `iso-8859-8`, `iso-8859-9`, `iso-8859-10`, `iso-8859-11`,
+  `iso-8859-13`, `iso-8859-14`, `iso-8859-15`, `iso-8859-16
+- `codecs.korean` .. `cp949`, `euc-kr`
+- `codecs.chinese` .. `cp936`, `gb2312`, `gbk`, `cp950`, `big5`
+- `codecs.japanese` .. `euc-jp`, `cp932`, `shift_jis`, `ms_kanji`, `jis`, `iso-2022-jp`
+
+Importing other codec modules would expand available codecs.
+You can call `codecs.dir()` to get a list of codec names currently available.
+
+
+# Predefined Variable
+
+<table>
+<tr><th>Variable</th><th>Type</th><th>Explanation</th></tr>
+
+<tr><td><code>codec.bom@utf8</code></td><td><code>binary</code></td>
+<td>BOM for UTF-8: <code>b'\xef\xbb\xbf'</code></td></tr>
+
+<tr><td><code>codec.bom@utf16le</code></td><td><code>binary</code></td>
+<td>BOM for UTF-16 little endian: <code>b'\xff\xfe'</code></td></tr>
+
+<tr><td><code>codec.bom@utf16be</code></td><td><code>binary</code></td>
+<td>BOM for UTF-16 big endian: <code>b'\xfe\xff'</code></td></tr>
+
+<tr><td><code>codec.bom@utf32le</code></td><td><code>binary</code></td>
+<td>BOM for UTF-32 little endian: <code>b'\xff\xfe\x00\x00'</code></td></tr>
+
+<tr><td><code>codec.bom@utf32be</code></td><td><code>binary</code></td>
+<td>BOM for UTF-32 big endian: <code>b'\x00\x00\xfe\xff'</code></td></tr>
+
+</table>
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+codec
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+codec.addcr
+codec.decode
+codec.delcr
+codec.encode
+)}
+
+
+# Cast Operation
+
+A function that expects a `codec` instance in its argument can also take a value of
+`string` that is recognized as a codec name.
+
+With the above casting feature, you can call a function `f(codec:codec)`
+that takes a `codec` instance in its argument as below:
+
+- ``f(codec('utf-16'))`` .. The most explicit way.
+- `f('utf-16')` .. Implicit casting: from `string` to `codec`.
 )**";
 
 //-----------------------------------------------------------------------------

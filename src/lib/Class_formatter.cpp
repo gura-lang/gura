@@ -6,6 +6,69 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `formatter` class provides information about a format specifier.
+
+The function `printf()` has the following declaration:
+
+    printf('name: %s, age: %d\n', name, age)
+
+The first argument is a string containing format specifiers like `%s` and `%d`
+that determine the manner on how the correspoding values `name` and `age` should be formatted.
+In the formatting mechanism, when the specifiers `%s` and `%d` appear,
+it would call methods `name.__format_s__()` and `age.__format_s__()` respectively
+which are format handlers responsible of formatting these values.
+In general, a format handler has a format like `__format_X__(fmt:formatter)`
+where `X` is the symbol of the specifier and `fmt` is a `formatter` instance that carries
+information about the associated specifier such as minimum width and a padding character.
+The handler must return a `string` as its result.
+
+The table below summarizes associations between specifiers
+and the method name of their format handlers:
+
+<table>
+<tr><th>Specifier</th><th>Method Name</th></tr>
+<tr><td><code>%d</code></td><td><code>__format_d__</code></td></tr>
+<tr><td><code>%u</code></td><td><code>__format_u__</code></td></tr>
+<tr><td><code>%b</code></td><td><code>__format_b__</code></td></tr>
+<tr><td><code>%o</code></td><td><code>__format_o__</code></td></tr>
+<tr><td><code>%x</code></td><td><code>__format_x__</code></td></tr>
+<tr><td><code>%e</code></td><td><code>__format_e__</code></td></tr>
+<tr><td><code>%f</code></td><td><code>__format_f__</code></td></tr>
+<tr><td><code>%g</code></td><td><code>__format_g__</code></td></tr>
+<tr><td><code>%s</code></td><td><code>__format_s__</code></td></tr>
+<tr><td><code>%c</code></td><td><code>__format_c__</code></td></tr>
+</table>
+
+This feature is supposed to be used when you want your original class\'s instance
+properly formatted in `printf`. Below is an example to implement a format handler
+for the specifier `%d`:
+
+    A = class {
+
+        // any implementations
+
+        __format_d__(fmt:format) = {
+            // returns a string for %d specifier.
+        }
+    }
+
+    a = A()
+    printf('%d', a) // a.__format_d__() is called
+
+
+# Method
+
+${markdown.makedoc@function(`en
+formatter.getminwidth
+formatter.getpadding
+formatter.getplusmode
+formatter.getprecision
+formatter.isleftalign
+formatter.issharp
+formatter.isuppercase
+)}
 )**";
 
 //-----------------------------------------------------------------------------
