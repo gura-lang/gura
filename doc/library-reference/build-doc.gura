@@ -120,7 +120,7 @@ Renderer@html = class(markdown.Renderer@html) {
 			println('rendering ', path.filename(fileName))
 			this.out = open(fileName, 'w')
 			this.out.print(headerForPage)
-		} elsif (item.type == `tag && item.text == 'funcentry') {
+		} elsif (item.type == `tag && item.text == 'gura.funcentry') {
 			if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
 				this.out.printf(R'''
 				<div><strong style="text-decoration:underline">%s</strong></div>
@@ -144,7 +144,7 @@ Renderer@html = class(markdown.Renderer@html) {
 
 Renderer@tex = class(markdown.Renderer@tex) {
 	OnRenderItemPre(item:item) = {
-		if (item.type == `tag && item.text == 'funcentry') {
+		if (item.type == `tag && item.text == 'gura.funcentry') {
 			if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
 				this.out.printf(R'''
 				\vspace{5mm}

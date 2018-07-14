@@ -5,6 +5,9 @@
 
 Gura_BeginModuleBody(markdown)
 
+inline bool IsTagNameFirst(char ch) { return IsAlpha(ch); }
+inline bool IsTagNameFollower(char ch) { return IsAlpha(ch) || IsDigit(ch) || ch == '.'; }
+
 //-----------------------------------------------------------------------------
 // Item
 //-----------------------------------------------------------------------------
@@ -2596,7 +2599,7 @@ bool Document::IsBeginTag(const char *text, String &tagName,
 		char ch = *p;
 		switch (stat) {
 		case STAT_Begin: {
-			if (IsAlpha(ch)) {
+			if (IsTagNameFirst(ch)) {
 				tagName += ch;
 				stat = STAT_TagName;
 			} else if (ch == '@') {
@@ -2609,7 +2612,7 @@ bool Document::IsBeginTag(const char *text, String &tagName,
 			break;
 		}
 		case STAT_AfterSpecialChar: {
-			if (IsAlpha(ch)) {
+			if (IsTagNameFirst(ch)) {
 				tagName += ch;
 				stat = STAT_TagName;
 			} else {
@@ -2618,7 +2621,7 @@ bool Document::IsBeginTag(const char *text, String &tagName,
 			break;
 		}
 		case STAT_TagName: {
-			if (IsAlpha(ch) || IsDigit(ch)) {
+			if (IsTagNameFollower(ch)) {
 				tagName += ch;
 			} else if (ch == '/') {
 				stat = STAT_Slash;
@@ -2693,7 +2696,7 @@ bool Document::IsEndTag(const char *text, String &tagName)
 			break;
 		}
 		case STAT_TagNameFirst: {
-			if (IsAlpha(ch)) {
+			if (IsTagNameFirst(ch)) {
 				tagName += ch;
 				stat = STAT_TagName;
 			} else if (ch == '@') {
@@ -2705,7 +2708,7 @@ bool Document::IsEndTag(const char *text, String &tagName)
 			break;
 		}
 		case STAT_AfterSpecialChar: {
-			if (IsAlpha(ch)) {
+			if (IsTagNameFirst(ch)) {
 				tagName += ch;
 				stat = STAT_TagName;
 			} else {
@@ -2714,7 +2717,7 @@ bool Document::IsEndTag(const char *text, String &tagName)
 			break;
 		}
 		case STAT_TagName: {
-			if (IsAlpha(ch) || IsDigit(ch)) {
+			if (IsTagNameFollower(ch)) {
 				tagName += ch;
 			} else if (ch == '\0') {
 				// nothing to do
