@@ -6,13 +6,16 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
 An instance of the `color` class represents a color data that consists of red, green, blue and alpha elements.
 
 You can create a `color` instance by calling `color()` function.
 
-There are class variables as shown below:
 
 # Predefined Variable
+
+There are predefined class variables as shown below:
 
 <table>
 <tr><th>Variable</th><th>Type</th><th>Explanation</th></tr>

@@ -1655,20 +1655,30 @@ bool Document::ParseChar(Signal &sig, char ch)
 					pItemLink->GetItemOwner()->push_back(pItem);
 				} while (0);
 			} else if (IsBeginTag(_field.c_str(), tagName, attrs, closedFlag, markdownAcceptableFlag)) {
-				if (tagName == "gura.headerdown") {
-					if (!closedFlag) {
-						sig.SetError(ERR_FormatError, "the tag must be used as a single one.");
-						return false;
-					}
-					_headerLevelOffset++;
-				} else if (tagName == "gura.headerup") {
-					if (!closedFlag) {
-						sig.SetError(ERR_FormatError, "the tag must be used as a single one.");
-						return false;
-					}
-					if (_headerLevelOffset > 0) _headerLevelOffset--;
-				} else {
+				const char *p = nullptr;
+				int headerLevelShift = 0;
+				if ((p = StartsWith(tagName.c_str(), "gura.headerdown", 0, true)) != nullptr) {
+					headerLevelShift = +1;
+				} else if ((p = StartsWith(tagName.c_str(), "gura.headerup", 0, true)) != nullptr) {
+					headerLevelShift = -1;
+				}
+				if (p == nullptr) {
 					BeginTag(tagName.c_str(), attrs.c_str(), closedFlag, markdownAcceptableFlag);
+				} else {
+					if (!closedFlag) {
+						sig.SetError(ERR_FormatError, "the tag must be used as a single one.");
+						return false;
+					}
+					if (*p != '\0') {
+						char *pEnd = nullptr;
+						ULong nMultiply = ::strtoul(p, &pEnd, 10);
+						if (*pEnd != '\0' || nMultiply > 5) {
+							sig.SetError(ERR_FormatError, "invalid tag name");
+							return false;
+						}
+						headerLevelShift *= nMultiply;
+					}
+					_headerLevelOffset += headerLevelShift;
 				}
 			} else if (IsEndTag(_field.c_str(), tagName)) {
 				if (!EndTag(tagName.c_str())) {

@@ -1309,13 +1309,11 @@ testcase@markdown('gura.headerdown/gura.headerup', R'''
 
 # header1 after headerdown and headerup
 
-<gura.headerdown />
-<gura.headerdown />
+<gura.headerdown2 />
 
 # header1 after 2 times of headerdown
 
-<gura.headerup />
-<gura.headerup />
+<gura.headerup2 />
 
 ## header2
 
@@ -1325,13 +1323,11 @@ testcase@markdown('gura.headerdown/gura.headerup', R'''
 
 ## header2 after headerdown and headerup
 
-<gura.headerdown />
-<gura.headerdown />
+<gura.headerdown2 />
 
 ## header2 after 2 times of headerdown
 
-<gura.headerup />
-<gura.headerup />
+<gura.headerup2 />
 
 ### header3
 
@@ -1341,13 +1337,11 @@ testcase@markdown('gura.headerdown/gura.headerup', R'''
 
 ### header3 after headerdown and headerup
 
-<gura.headerdown />
-<gura.headerdown />
+<gura.headerdown2 />
 
 ### header3 after 2 times of headerdown
 
-<gura.headerup />
-<gura.headerup />
+<gura.headerup2 />
 
 header1
 ==
@@ -1360,13 +1354,11 @@ header1 after headerdown
 header1 after headerdown and headerup
 ==
 
-<gura.headerdown />
-<gura.headerdown />
+<gura.headerdown2 />
 
 header1 after 2 times of headerdown
 ==
-<gura.headerup />
-<gura.headerup />
+<gura.headerup2 />
 
 header2
 --
@@ -1379,13 +1371,11 @@ header2 after headerdown
 header2 after headerdown and headerup
 --
 
-<gura.headerdown />
-<gura.headerdown />
+<gura.headerdown2 />
 
 header2 after 2 times of headerdown
 --
-<gura.headerup />
-<gura.headerup />
+<gura.headerup2 />
 ''')
 
 text@todo = R'''
