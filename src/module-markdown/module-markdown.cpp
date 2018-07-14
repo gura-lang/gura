@@ -2582,6 +2582,7 @@ bool Document::IsBeginTag(const char *text, String &tagName,
 {
 	enum Stat {
 		STAT_Begin,
+		STAT_AfterSpecialChar,
 		STAT_TagName,
 		STAT_AttrsPre,
 		STAT_Attrs,
@@ -2601,6 +2602,15 @@ bool Document::IsBeginTag(const char *text, String &tagName,
 			} else if (ch == '@') {
 				// A special form of tag <@tag> within which MarkDown format is acceptable.
 				markdownAcceptableFlag = true;
+				stat = STAT_AfterSpecialChar;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case STAT_AfterSpecialChar: {
+			if (IsAlpha(ch)) {
+				tagName += ch;
 				stat = STAT_TagName;
 			} else {
 				return false;
@@ -2667,6 +2677,7 @@ bool Document::IsEndTag(const char *text, String &tagName)
 	enum Stat {
 		STAT_Begin,
 		STAT_TagNameFirst,
+		STAT_AfterSpecialChar,
 		STAT_TagName,
 	} stat = STAT_Begin;
 	tagName.clear();
@@ -2687,6 +2698,15 @@ bool Document::IsEndTag(const char *text, String &tagName)
 				stat = STAT_TagName;
 			} else if (ch == '@') {
 				// A special form of tag: </@tag>.
+				stat = STAT_AfterSpecialChar;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case STAT_AfterSpecialChar: {
+			if (IsAlpha(ch)) {
+				tagName += ch;
 				stat = STAT_TagName;
 			} else {
 				return false;
