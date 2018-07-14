@@ -1128,7 +1128,7 @@ Gura_DeclareFunction(chr)
 
 Gura_ImplementFunction(chr)
 {
-	ULong codeUTF32 = arg.GetULong(0);
+	UInt32 codeUTF32 = arg.GetUInt32(0);
 	String str;
 	AppendUTF32(str, codeUTF32);
 	return Value(str);

@@ -62,17 +62,17 @@ funcTbl = [
 	}
 ]
 
-println('static const UShort __ctypeTbl[] = {')
+println('static const UInt32 __ctypeTbl[] = {')
 for (ch in 0..255) {|i|
-	(i % 8 == 0) && print('\t')
-	bitPat = 0x0000
+	(i % 4 == 0) && print('\t')
+	bitPat = 0x00000000
 	for (func in funcTbl) {|iBit|
 		if (func(ch)) {
 			bitPat |= (1 << iBit)
 		}
 	}
-	printf('0x%04x', bitPat)
-	print(if ((i + 1) % 8 == 0) { ',\n' } else { ', ' })
+	printf('0x%08x', bitPat)
+	print(if ((i + 1) % 4 == 0) { ',\n' } else { ', ' })
 }
 println('};')
 varNames = 'CTYPE_' + re.sub('^Is', '', funcTbl:*name)

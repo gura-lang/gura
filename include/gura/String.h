@@ -63,7 +63,7 @@ GURA_DLLDECLARE String Strip(const char *str,
 GURA_DLLDECLARE String Chop(const char *str, bool eolOnlyFlag);
 GURA_DLLDECLARE size_t Length(const char *str);
 GURA_DLLDECLARE size_t Width(const char *str);
-GURA_DLLDECLARE bool CheckCType(const char *str, UShort type);
+GURA_DLLDECLARE bool CheckCType(const char *str, UInt32 type);
 GURA_DLLDECLARE size_t CalcCharPos(const char *str, size_t idx);
 GURA_DLLDECLARE const char *Forward(const char *str, size_t len, size_t *pLenForward = nullptr);
 GURA_DLLDECLARE String::const_iterator Forward(String::const_iterator str, String::const_iterator strEnd, size_t len, size_t *pLenForward = nullptr);
@@ -79,7 +79,7 @@ GURA_DLLDECLARE String Replaces(const char *str, const ValueList &valList,
 								int nMaxReplace, bool ignoreCaseFlag);
 GURA_DLLDECLARE void SplitPathList(const char *str, StringList &strList);
 
-GURA_DLLDECLARE UShort GetCType(char ch);
+GURA_DLLDECLARE UInt32 GetCType(char ch);
 GURA_DLLDECLARE Number ToNumber(const char *str, bool *pSuccessFlag = nullptr);
 
 inline size_t CalcCharOffset(const char *str, size_t pos) {
