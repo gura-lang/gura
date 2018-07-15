@@ -978,17 +978,11 @@ makedoc@property(lang:symbol, obj) = {
 	'''
 }
 
-makedoc@class(lang:symbol, cls:class) = {
-	if (help = help@class(cls, lang)) {
-		help.render(`markdown)
-	}
-}
-
-makedoc@class(lang:symbol, cls:class, headeroff:number) = [
-	format('<gura.headerdown%d />\n', headeroff)
-	help@class(cls, lang).doc
+makedoc@class(lang:symbol, cls:class, headeroff:number) = {
+	format('<gura.headerdown%d />\n', headeroff) + \
+	help@class(cls, lang).doc + \
 	format('<gura.headerup%d />\n', headeroff)
-]
+}
 
 makedoc@function(lang:symbol, funcs*:function) = {
 	funcs = funcs.each()

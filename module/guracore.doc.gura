@@ -2,187 +2,52 @@
 import(markdown)
 import(arrayt)
 
-text@en = R'''
-# Built-in Class
-
-## argument Class
-
-${markdown.makedoc@class(`en, argument, 2)}
-
-
-## array Class
-
-${markdown.makedoc@class(`en, array, 2)}
-
-
-## audio Class
-
-${markdown.makedoc@class(`en, audio, 2)}
-
-
-## binary Class
-
-${markdown.makedoc@class(`en, binary, 2)}
-
-
-## boolean Class
-
-${markdown.makedoc@class(`en, boolean, 2)}
-
-
-## codec Class
-
-${markdown.makedoc@class(`en, codec, 2)}
-
-
-## color Class
-
-${markdown.makedoc@class(`en, color, 2)}
-
-
-## complex Class
-
-${markdown.makedoc@class(`en, complex, 2)}
-
-
-## datetime Class
-
-${markdown.makedoc@class(`en, datetime, 2)}
-
-
-## declaration Class
-
-${markdown.makedoc@class(`en, declaration, 2)}
-
-
-## dict Class
-
-${markdown.makedoc@class(`en, dict, 2)}
-
-
-## directory Class
-
-${markdown.makedoc@class(`en, directory, 2)}
-
-
-## environment Class
-
-${markdown.makedoc@class(`en, environment, 2)}
-
-
-## error Class
-
-${markdown.makedoc@class(`en, error, 2)}
-
-
-## expr Class
-
-${markdown.makedoc@class(`en, expr, 2)}
-
-
-## formatter Class
-
-${markdown.makedoc@class(`en, formatter, 2)}
-
-
-## function Class
-
-${markdown.makedoc@class(`en, function, 2)}
-
-
-## help Class
-
-${markdown.makedoc@class(`en, help, 2)}
-
-
-## image Class
-
-${markdown.makedoc@class(`en, image, 2)}
-
-
-## iteraot/list Class
-
-${markdown.makedoc@class(`en, iterator, 2)}
-
-
-## memory Class
-
-${markdown.makedoc@class(`en, memory, 2)}
-
-
-## nil Class
-
-${markdown.makedoc@class(`en, classref(`nil), 2)}
-
-
-## number Class
-
-${markdown.makedoc@class(`en, number, 2)}
-
-
-## operator Class
-
-${markdown.makedoc@class(`en, operator, 2)}
-
-
-## palette Class
-
-${markdown.makedoc@class(`en, palette, 2)}
-
-
-## pointer Class
-
-${markdown.makedoc@class(`en, pointer, 2)}
-
-
-## rational Class
-
-${markdown.makedoc@class(`en, rational, 2)}
-
-
-## semaphore Class
-
-${markdown.makedoc@class(`en, semaphore, 2)}
-
-
-## stream Class
-
-${markdown.makedoc@class(`en, stream, 2)}
-
-
-## string Class
-
-${markdown.makedoc@class(`en, string, 2)}
-
-
-## suffixmgr Class
-
-${markdown.makedoc@class(`en, suffixmgr, 2)}
-
-
-## symbol Class
-
-${markdown.makedoc@class(`en, symbol, 2)}
-
-
-## template Class
-
-${markdown.makedoc@class(`en, template, 2)}
-
-
-## timedelta Class
-
-${markdown.makedoc@class(`en, timedelta, 2)}
-
-
-## uri Class
-
-${markdown.makedoc@class(`en, uri, 2)}
-
-
-## vertex Class
-
-${markdown.makedoc@class(`en, vertex, 2)}
-'''.embed()
+Entry = struct(label:string, symbol:symbol)
+
+entries = @(Entry) {
+	{ 'argument',		`argument		}
+	{ 'array',			`array			}
+	{ 'audio',			`audio			}
+	{ 'binary',			`binary			}
+	{ 'boolean',		`boolean		}
+	{ 'codec',			`codec			}
+	{ 'color',			`color			}
+	{ 'complex',		`complex		}
+	{ 'datetime',		`datetime		}
+	{ 'declaration',	`declaration	}
+	{ 'dict',			`dict			}
+	{ 'directory',		`directory		}
+	{ 'environment',	`environment	}
+	{ 'error',			`error			}
+	{ 'expr',			`expr			}
+	{ 'formatter',		`formatter		}
+	{ 'function',		`function		}
+	{ 'help',			`help			}
+	{ 'image',			`image			}
+	{ 'iterator/list',	`iterator		}
+	{ 'memory',			`memory			}
+	{ 'nil',			`nil			}
+	{ 'number',			`number			}
+	{ 'operator',		`operator		}
+	{ 'palette',		`palette		}
+	{ 'pointer',		`pointer		}
+	{ 'rational',		`rational		}
+	{ 'semaphore',		`semaphore		}
+	{ 'stream',			`stream			}
+	{ 'string',			`string			}
+	{ 'suffixmgr',		`suffixmgr		}
+	{ 'symbol',			`symbol			}
+	{ 'template',		`template		}
+	{ 'timedelta',		`timedelta		}
+	{ 'uri',			`uri			}
+	{ 'vertex',			`vertex			}
+}
+
+text@en = '# Built-in Class\n'
+
+entries.each {|entry|
+	text@en += e'\n\n## ${entry.label} Class\n\n'
+	text@en += markdown.makedoc@class(`en, classref(entry.symbol), 2)
+}
 
 markdown.makedoc@module(locals(), %{`en => text@en})

@@ -9,7 +9,7 @@ title = 'Gura Library Reference'
 author = 'Yutaka Saito'
 date = 'June 11th, 2018'
 
-baseNames = [
+moduleNames = [
 	'basement' // this must come at first
 	'guracore' // this must come at second
 	'argopt'
@@ -164,10 +164,10 @@ Renderer@tex = class(markdown.Renderer@tex) {
 makeDocument() = {
 	doc = markdown.document()
 	doc.read('Main.md')
-	baseNames.each {|baseName|
-		println('module: ', baseName)
-		moduleName = baseName + '.doc'
-		import(&moduleName).__doc@markdown__(doc, `en)
+	moduleNames.each {|moduleName|
+		println('module: ', moduleName)
+		moduleDocName = moduleName + '.doc'
+		import(&moduleDocName).__doc@markdown__(doc, `en)
 	}
 	doc
 }
