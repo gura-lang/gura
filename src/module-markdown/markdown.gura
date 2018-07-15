@@ -419,12 +419,14 @@ Renderer@tex = class {
 }
 
 Renderer@rtf = class {
-	__init__(out:stream:w) = {
+	__init__(out:stream:w, captionIndex:boolean) = {
 		this.out = out
+		this.captionIndex = captionIndex
 		this.quoteLevel = 0
 		this.listLevel = 0
 		this.indentPerQuote = 720
 		this.indentPerList = 360
+		this.indices = dim(6) {0}
 	}
 	Render(doc:document):void = {
 		this.RenderItem(doc.root)
@@ -436,26 +438,55 @@ Renderer@rtf = class {
 			this.out.println('}')
 		} elsif (item.type == `h1) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 ')
+			if (this.captionIndex) {
+				this.indices[0] += 1
+				this.indices[1..5] = 0
+				this.out.printf('%d ', this.indices[0])
+			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h2) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 ')
+			if (this.captionIndex) {
+				this.indices[1] += 1
+				this.indices[2..5] = 0
+				this.out.printf('%d.%d ', this.indices[0..1]*)
+			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h3) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 ')
+			if (this.captionIndex) {
+				this.indices[2] += 1
+				this.indices[3..5] = 0
+				this.out.printf('%d.%d.%d ', this.indices[0..2]*)
+			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h4) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs24 ')
+			if (this.captionIndex) {
+				this.indices[3] += 1
+				this.indices[4..5] = 0
+				this.out.printf('%d.%d.%d.%d ', this.indices[0..3]*)
+			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h5) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs20 ')
+			if (this.captionIndex) {
+				this.indices[4] += 1
+				this.indices[5] = 0
+				this.out.printf('%d.%d.%d.%d.%d ', this.indices[0..4]*)
+			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h6) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs16 ')
+			if (this.captionIndex) {
+				this.indices[5] += 1
+				this.out.printf('%d.%d.%d.%d.%d.%d ', this.indices[0..5]*)
+			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `p) {

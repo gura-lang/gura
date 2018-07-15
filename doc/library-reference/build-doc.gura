@@ -3,6 +3,7 @@ import(markdown)
 import(re)
 
 fileNameTeX = 'gura-lib-e.tex'
+fileNameRTF = 'gura-lib-e.rtf'
 dirName@html = 'html'
 
 title = 'Gura Library Reference'
@@ -161,6 +162,9 @@ Renderer@tex = class(markdown.Renderer@tex) {
 	}
 }
 
+Renderer@rtf = class(markdown.Renderer@rtf) {
+}
+
 makeDocument() = {
 	doc = markdown.document()
 	doc.read('Main.md')
@@ -210,6 +214,13 @@ output@html(doc:markdown.document) = {
 	Renderer@html().Render(doc)
 }
 
+output@rtf(doc:markdown.document) = {
+	open(fileNameRTF, 'w') {|out|
+		Renderer@rtf(out, true).Render(doc)
+	}
+	sys.stderr.println(fileNameRTF, ' was created.')
+}
+
 usage() = {
 	sys.stderr.println('usage: gura build-doc [tex|pdf|html]')
 }
@@ -221,6 +232,7 @@ if (sys.argv.len() < 2) {
 		'tex' => output@tex
 		'pdf' => output@pdf
 		'html' => output@html
+		'rtf' => output@rtf
 	}
 	try { funcs = entries[sys.argv[1..]] } catch { usage() }
 	doc = makeDocument()
