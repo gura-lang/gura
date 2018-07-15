@@ -6,6 +6,37 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `vertex` class provides vertex information that consists of x, y, z and w values.
+
+
+# Property
+
+An `vertex` instance has the following properties:
+
+${markdown.makedoc@property(`en, vertex)}
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+vertex
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+vertex.cross
+vertex.dot
+vertex.list
+vertex.normal
+vertex.rotate@x
+vertex.rotate@y
+vertex.rotate@z
+vertex.translate
+)}
 )**";
 
 //-----------------------------------------------------------------------------

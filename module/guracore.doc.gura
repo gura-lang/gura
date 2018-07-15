@@ -100,720 +100,89 @@ ${markdown.makedoc@class(`en, help, 2)}
 ${markdown.makedoc@class(`en, image, 2)}
 
 
-## list/iterator Class
+## iteraot/list Class
 
-The `list` class provides measures to handle a list structure,
-which stores values on memory that can be accessed by indexer.
-
-The `iterator` class provides measures to operate an iterator,
-which iterates values that come from containers and streams.
-
-
-### List-specific Features
-
-#### Creating List
-
-There are several ways to create a list.
-
-    [3, 1, 4, 1, 5, 9]
-    @{3, 1, 4, 1, 5, 9}
-
-
-#### Index Access
-
-You can read and write element values in a list with an indexer
-by giving it an index number starting from zero.
-Below is an example:
-
-    x = [`A, `B, `C, `D, `E, `F]
-
-    println(x[2]) // prints `C
-    x[4] = `e     // replaces `E with `e
-
-
-#### Function to Create list Instance
-
-${markdown.makedoc@function(`en
-list
-xlist
-set
-xset
-)}
-
-
-#### Method Specific to list Class
-
-${markdown.makedoc@function(`en
-list.add
-list.append
-list.clear
-list.combination
-list.erase
-list.first
-list.get
-list.insert
-list.isempty
-list.last
-list.permutation
-list.put
-list.shift
-list.shuffle
-list.zip
-)}
-
-
-### Iterator-specific Features
-
-#### Function to Create iterator Instance
-
-${markdown.makedoc@function(`en
-iterator
-)}
-
-
-#### Method Specific to iterator Class
-
-${markdown.makedoc@function(`en
-iterator.delay
-iterator.finite
-iterator.infinite
-iterator.isinfinite
-iterator.next
-iterator.repeater
-)}
-
-
-### Method Common to Both list and iterator Classes
-
-${markdown.makedoc@function$(`en, 'iterator#', 'iterable#'
-iterator.after
-iterator.align
-iterator.and
-iterator.argmax
-iterator.argmin
-iterator.before
-iterator.contains
-iterator.count
-iterator.cycle
-iterator.each
-iterator.filter
-iterator.find
-iterator.flatten
-iterator.fold
-iterator.format
-iterator.head
-iterator.join
-iterator.joinb
-iterator.len
-iterator.map
-iterator.max
-iterator.mean
-iterator.min
-iterator.nilto
-iterator.offset
-iterator.or
-iterator.pack
-iterator.pingpong
-iterator.print
-iterator.printf
-iterator.println
-iterator.rank
-iterator.reduce
-iterator.replace
-iterator.reverse
-iterator.roundoff
-iterator.runlength
-iterator.since
-iterator.skip
-iterator.skipnil
-iterator.sort
-iterator.std
-iterator.sum
-iterator.tail
-iterator.until
-iterator.var
-iterator.while
-)}
+${markdown.makedoc@class(`en, iterator, 2)}
 
 
 ## memory Class
 
-An instance of the `memory` class represents a memory that is stored in `array` instances.
-
-### Property
-
-A `memory` instance has the following properties:
-
-${markdown.makedoc@property(`en, memory)}
-
-
-### Constructor
-
-${markdown.makedoc@function(`en
-memory
-)}
-
-### Method
-
-${markdown.makedoc@function(`en
-memory.array@int8
-memory.array@uint8
-memory.array@int16
-memory.array@uint16
-memory.array@int32
-memory.array@uint32
-memory.array@int64
-memory.array@uint64
-memory.array@float
-memory.array@double
-memory.dump
-memory.pointer
-)}
+${markdown.makedoc@class(`en, memory, 2)}
 
 
 ## nil Class
 
-The `nil` class is the class of `nil` value that is usually used as an invalid value.
-In a logical operation, the `nil` value is recognized as `false`.
+${markdown.makedoc@class(`en, classref(`nil), 2)}
 
 
 ## number Class
 
-The `number` class is a type of number values.
-A number literal would create a `number` instance.
-
-### Method
-
-${markdown.makedoc@function(`en
-number.roundoff
-)}
+${markdown.makedoc@class(`en, number, 2)}
 
 
 ## operator Class
 
-The `operator` class provides measures to assign operators with a user-defined procedure.
-
-
-### Property
-
-An `operator` instance has the following properties:
-
-${markdown.makedoc@property(`en, operator)}
-
-
-### Constructor
-
-${markdown.makedoc@function(`en
-operator
-)}
-
-
-### Method
-
-${markdown.makedoc@function(`en
-operator.assign
-operator.entries
-)}
+${markdown.makedoc@class(`en, operator, 2)}
 
 
 ## palette Class
 
-The `palette` instance has a set of `color` instance.
-
-
-### Constructor
-
-${markdown.makedoc@function(`en
-palette
-)}
-
-### Method
-
-${markdown.makedoc@function(`en
-palette.each
-palette.nearest
-palette.shrink
-palette.updateby
-)}
+${markdown.makedoc@class(`en, palette, 2)}
 
 
 ## pointer Class
 
-The `pointer` class provides measures to read and write content in a `binary` and `memory` instance.
-
-
-### Property
-
-A `pointer` instance has the following properties:
-
-${markdown.makedoc@property(`en, pointer)}
-
-
-### Constructor
-
-${markdown.makedoc@function(`en
-pointer
-)}
-
-
-### Method
-
-${markdown.makedoc@function(`en
-pointer.copyfrom
-pointer.copyto
-pointer.decode
-pointer.dump
-pointer.encodeuri
-pointer.each@int8
-pointer.each@uint8
-pointer.each@int16
-pointer.each@uint16
-pointer.each@int32
-pointer.each@uint32
-pointer.each@int64
-pointer.each@uint64
-pointer.each@float
-pointer.each@double
-pointer.forward
-pointer.get@int8
-pointer.get@uint8
-pointer.get@int16
-pointer.get@uint16
-pointer.get@int32
-pointer.get@uint32
-pointer.get@int64
-pointer.get@uint64
-pointer.get@float
-pointer.get@double
-pointer.head
-pointer.hex
-pointer.pack
-pointer.put@int8
-pointer.put@uint8
-pointer.put@int16
-pointer.put@uint16
-pointer.put@int32
-pointer.put@uint32
-pointer.put@int64
-pointer.put@uint64
-pointer.put@float
-pointer.put@double
-pointer.reader
-pointer.seek
-pointer.tail
-pointer.unpack
-pointer.unpacks
-pointer.writer
-)}
-
-
-### Cast Operation
-
-A function that expects a `pointer` instance in its argument can also take a value of
-`binary` and `memory`.
-
-With the above casting feature, you can call a function `f(p:pointer)`
-that takes a `pointer` instance in its argument as below:
-
-- `b = b'\x01\x23\x45\x67\x89\xab', f(b)`
-- `m = memory(32), f(m)`
+${markdown.makedoc@class(`en, pointer, 2)}
 
 
 ## rational Class
 
-The `rational` class provides measures to handle rational numbers.
-
-You can create a `rational` instance with following ways:
-
-- Use `rational()` function.
-- Append `r` suffix after a number literal.
-
-Below are examples to realize a common fraction two-thirds:
-
-    rational(2, 3)
-    2r / 3
-    2 / 3r
-
-### Constructor
-
-${markdown.makedoc@function(`en
-rational
-)}
-
-### Method
-
-${markdown.makedoc@function(`en
-rational.reduce
-)}
+${markdown.makedoc@class(`en, rational, 2)}
 
 
 ## semaphore Class
 
-### Constructor
-
-${markdown.makedoc@function(`en
-semaphore
-)}
-
-### Method
-
-${markdown.makedoc@function(`en
-semaphore.release
-semaphore.session
-semaphore.wait
-)}
+${markdown.makedoc@class(`en, semaphore, 2)}
 
 
 ## stream Class
 
-The `stream` class provides methods to read and write data through a stream,
-an abstract structure to handle a byte sequence.
-It also provides information of the stream such as the pathname and the creation date and time.
-
-You can specify a proper `codec` when creating the `stream` instance,
-which is used to decode/encode character codes that appear in the stream.
-Features of `codec` would affect on functions and methods that handle text data like follows:
-
-- Decode
-  - readlines()
-  - stream#readchar()
-  - stream#readline()
-  - stream#readlines()
-  - stream#readtext()
-
-- Encode
-  - operator `<<`
-  - stream#print()
-  - stream#printf()
-  - stream#println()
-
-
-### Property
-
-A `stream` instance has the following properties:
-
-${markdown.makedoc@property(`en, stream)}
-
-
-### Operator
-
-You can use the operator "`<<`" to output a content of a value to a `stream`.
-It comes like "`stream << obj`" where `obj` is converted to a string before output to the stream.
-
-    sys.stdout << 'Hello World.'
-
-Since the operator returns the `stream` instance specified on the left as its result,
-you can chain multiple operations as below:
-
-    sys.stdout << 'First' << 'Second'
-
-
-### Cast Operation
-
-A function that expects a `stream` instance in its argument can also take a value of
-`string` and `binary` as below:
-
-- `string` .. Recognized the `string` as a path name from which `stream` instance is created.
-- `binary` .. Creates a `stream` instance that reads or modifies the content of the specified `binary` data.
-  If the `binary` data is a constant one, which might be created from a binary literal
-  such as `b'\x00\x12\x34\x56'`, the stream is created with read-only attribute.
-
-Using the above casting feature, you can call a function `f(stream:stream)`
-that takes a `stream` instance in its argument as below:
-
-- `f(stream('foo.txt'))` .. The most explicit way.
-- `f('foo.txt')` .. Implicit casting from `string` to `stream`.
-- `f(b'\x00\x12\x34\x56')` .. Implicit casting from `binary` to `stream` that reads the content.
-
-
-### Constructor
-
-${markdown.makedoc@function(`en
-stream
-)}
-
-You can also call `open()` function that is just an alias of `stream()`
-to create a `stream` instance.
-
-### Utility Function
-
-${markdown.makedoc@function(`en
-readlines
-)}
-
-### Method
-
-${markdown.makedoc@function(`en
-stream.addcr
-stream.close
-stream.compare
-stream.copy
-stream.copyfrom
-stream.copyto
-stream.delcr
-stream.deserialize
-stream.flush
-stream.peek
-//stream.prefetch
-stream.print
-stream.printf
-stream.println
-stream.read
-stream.readchar
-stream.readline
-stream.readlines
-stream.readtext
-stream.seek
-stream.serialize
-stream.setcodec
-stream.tell
-stream.write
-)}
+${markdown.makedoc@class(`en, stream, 2)}
 
 
 ## string Class
 
-The `string` class provides measures to operate on strings.
-
-You can create a `string` instance by embracing a sequence of characters
-with a pair of single- or double-quotes.
-
-    'Hello World'
-
-    "Hello World"
-
-If you need to declare a string that contains multiple lines,
-embrace it with a pair of sequences of three single- or double-quotes.
-''' R"""
-
-    '''first line
-    second line
-    third line
-    '''
-""" R'''
-### Suffix Management
-
-When an string literal is suffixed by a character `$`,
-a handler registered by `string.translate()` function that is supposed to translate
-the string into other natural languages would be evaluated.
-
-### Method
-
-${markdown.makedoc@function(`en
-string.align
-string.binary
-string.capitalize
-string.chop
-string.decodeuri
-string.each
-string.eachline
-string.embed
-string.encode
-string.encodeuri
-string.endswith
-string.escapehtml
-string.find
-string.fold
-string.foldw
-string.format
-string.isempty
-string.left
-string.len
-string.lower
-string.mid
-string.print
-string.println
-string.reader
-string.replace
-string.replaces
-string.right
-string.split
-string.startswith
-string.strip
-string.template
-string.tosymbol
-string.translator
-string.unescapehtml
-string.upper
-string.width
-string.zentohan
-)}
+${markdown.makedoc@class(`en, string, 2)}
 
 
 ## suffixmgr Class
 
-The `suffixmgr` class provides measures to access suffix managers
-that are responsible to handle suffix symbols appended to number or string literals.
-
-Below is an example to register a suffix `X` that converts a string into upper case
-after being appended to a string literal:
-
-    suffixmgr(`string).assign(`X) {|body| body.upper()}
-
-You can use that suffix like below:
-
-    'hello world'X
-
-### Constructor
-
-${markdown.makedoc@function(`en
-suffixmgr
-)}
-
-### Method
-
-${markdown.makedoc@function(`en
-suffixmgr.assign
-)}
+${markdown.makedoc@class(`en, suffixmgr, 2)}
 
 
 ## symbol Class
 
-### Method
-
-${markdown.makedoc@function(`en
-symbol.eval
-)}
+${markdown.makedoc@class(`en, symbol, 2)}
 
 
 ## template Class
 
-### Cast Operation
-
-A function that expects a `template` instance in its argument can also take a value of
-`stream` as below:
-
-- `stream` .. Creates a `template` instance by parsing the content of the stream.
-
-As a `stream` is capable of being casted from `string` and `binary`,
-such values can also be passed to the argument that expects `template`.
-
-Using the above casting feature, you can call a function `f(tmpl:template)`
-that takes a `template` instance in its argument as below:
-
-- `f(template(stream('foo.txt')))` .. The most explicit way.
-- `f(stream('foo.txt'))` .. Implicit casting: from `stream` to `template`.
-- `f(template('foo.txt'))` .. Implicit casting: from `string` to `stream`.
-- `f('foo.txt')` .. Implicit casting: from `string` to `stream`, then from `stream` to `template`.
-
-### Constructor
-
-${markdown.makedoc@function(`en
-template
-)}
-
-### Method
-
-${markdown.makedoc@function(`en
-template.parse
-template.read
-template.render
-)}
-
-### Method Called by Template Directive
-
-${markdown.makedoc@function(`en
-template.block
-template.call
-template.define
-template.embed
-template.extends
-template.super
-)}
+${markdown.makedoc@class(`en, template, 2)}
 
 
 ## timedelta Class
 
-The `timedelta` instance provides a time delta information that works with `datetime` instance.
-You can shift time information of `datetime` by applying addition or subtraction
-of `timedelta` to it.
-
-### Property
-
-A `timedelta` instance has the following properties:
-
-${markdown.makedoc@property(`en, timedelta)}
-
-
-### Constructor
-
-${markdown.makedoc@function(`en
-timedelta
-)}
+${markdown.makedoc@class(`en, timedelta, 2)}
 
 
 ## uri Class
 
-The `uri` instance analyzes a URI string and returns each part in it
-such as the scheme and path.
-A generic URI has the following format:
-
-    scheme:[//[user:password@]host:port]][/]path[?query][#fragment]
-
-
-### Property
-
-A `uri` instance has the following properties:
-
-${markdown.makedoc@property(`en, uri)}
-
-
-### Constructor
-
-${markdown.makedoc@function(`en
-uri
-)}
-
-### Method
-
-${markdown.makedoc@function(`en
-uri.getfragment
-uri.getpath
-uri.getquery
-uri.parsequery
-)}
-
-### Cast Operation
-
-A function that expects a `uri` instance in its argument can also take a value of
-`string` that is recognized as a URI string.
-
-With the above casting feature, you can call a function `f(uri:uri)`
-that takes a `uri` instance in its argument as below:
-
-- ``f(uri('http://example.com'))`` .. The most explicit way.
-- `f('http://example.com')` .. Implicit casting: from `string` to `uri`.
+${markdown.makedoc@class(`en, uri, 2)}
 
 
 ## vertex Class
 
-The `vertex` class provides vertex information that consists of x, y, z and w values.
-
-### Property
-
-An `vertex` instance has the following properties:
-
-${markdown.makedoc@property(`en, vertex)}
-
-
-### Constructor
-
-${markdown.makedoc@function(`en
-vertex
-)}
-
-### Method
-
-${markdown.makedoc@function(`en
-vertex.cross
-vertex.dot
-vertex.list
-vertex.normal
-vertex.rotate@x
-vertex.rotate@y
-vertex.rotate@z
-vertex.translate
-)}
+${markdown.makedoc@class(`en, vertex, 2)}
 '''.embed()
 
 markdown.makedoc@module(locals(), %{`en => text@en})

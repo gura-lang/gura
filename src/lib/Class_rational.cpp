@@ -6,6 +6,34 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `rational` class provides measures to handle rational numbers.
+
+You can create a `rational` instance with following ways:
+
+- Use `rational()` function.
+- Append `r` suffix after a number literal.
+
+Below are examples to realize a common fraction two-thirds:
+
+    rational(2, 3)
+    2r / 3
+    2 / 3r
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+rational
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+rational.reduce
+)}
 )**";
 
 //-----------------------------------------------------------------------------

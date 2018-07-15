@@ -6,6 +6,22 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+semaphore
+)}
+
+# Method
+
+${markdown.makedoc@function(`en
+semaphore.release
+semaphore.session
+semaphore.wait
+)}
 )**";
 
 //-----------------------------------------------------------------------------

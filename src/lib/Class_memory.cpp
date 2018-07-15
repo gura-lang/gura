@@ -6,6 +6,41 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+An instance of the `memory` class represents a memory that is stored in `array` instances.
+
+
+# Property
+
+A `memory` instance has the following properties:
+
+${markdown.makedoc@property(`en, memory)}
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+memory
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+memory.array@int8
+memory.array@uint8
+memory.array@int16
+memory.array@uint16
+memory.array@int32
+memory.array@uint32
+memory.array@int64
+memory.array@uint64
+memory.array@float
+memory.array@double
+memory.dump
+memory.pointer
+)}
 )**";
 
 //-----------------------------------------------------------------------------

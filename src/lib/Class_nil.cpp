@@ -6,6 +6,10 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `nil` class is the class of `nil` value that is usually used as an invalid value.
+In a logical operation, the `nil` value is recognized as `false`.
 )**";
 
 //-----------------------------------------------------------------------------

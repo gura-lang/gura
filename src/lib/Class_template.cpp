@@ -6,6 +6,54 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+
+# Cast Operation
+
+A function that expects a `template` instance in its argument can also take a value of
+`stream` as below:
+
+- `stream` .. Creates a `template` instance by parsing the content of the stream.
+
+As a `stream` is capable of being casted from `string` and `binary`,
+such values can also be passed to the argument that expects `template`.
+
+Using the above casting feature, you can call a function `f(tmpl:template)`
+that takes a `template` instance in its argument as below:
+
+- `f(template(stream('foo.txt')))` .. The most explicit way.
+- `f(stream('foo.txt'))` .. Implicit casting: from `stream` to `template`.
+- `f(template('foo.txt'))` .. Implicit casting: from `string` to `stream`.
+- `f('foo.txt')` .. Implicit casting: from `string` to `stream`, then from `stream` to `template`.
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+template
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+template.parse
+template.read
+template.render
+)}
+
+
+# Method Called by Template Directive
+
+${markdown.makedoc@function(`en
+template.block
+template.call
+template.define
+template.embed
+template.extends
+template.super
+)}
 )**";
 
 //-----------------------------------------------------------------------------

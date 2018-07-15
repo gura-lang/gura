@@ -6,6 +6,49 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `uri` instance analyzes a URI string and returns each part in it
+such as the scheme and path.
+A generic URI has the following format:
+
+    scheme:[//[user:password@]host:port]][/]path[?query][#fragment]
+
+
+# Property
+
+A `uri` instance has the following properties:
+
+${markdown.makedoc@property(`en, uri)}
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+uri
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+uri.getfragment
+uri.getpath
+uri.getquery
+uri.parsequery
+)}
+
+
+# Cast Operation
+
+A function that expects a `uri` instance in its argument can also take a value of
+`string` that is recognized as a URI string.
+
+With the above casting feature, you can call a function `f(uri:uri)`
+that takes a `uri` instance in its argument as below:
+
+- ``f(uri('http://example.com'))`` .. The most explicit way.
+- `f('http://example.com')` .. Implicit casting: from `string` to `uri`.
 )**";
 
 //-----------------------------------------------------------------------------

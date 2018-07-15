@@ -6,6 +6,25 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `timedelta` instance provides a time delta information that works with `datetime` instance.
+You can shift time information of `datetime` by applying addition or subtraction
+of `timedelta` to it.
+
+
+# Property
+
+A `timedelta` instance has the following properties:
+
+${markdown.makedoc@property(`en, timedelta)}
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+timedelta
+)}
 )**";
 
 //-----------------------------------------------------------------------------

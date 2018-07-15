@@ -6,6 +6,75 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `string` class provides measures to operate on strings.
+
+You can create a `string` instance by embracing a sequence of characters
+with a pair of single- or double-quotes.
+
+    'Hello World'
+
+    "Hello World"
+
+If you need to declare a string that contains multiple lines,
+embrace it with a pair of sequences of three single- or double-quotes.
+
+    R"""
+    first line
+    second line
+    third line
+    """
+
+
+# Suffix Management
+
+When an string literal is suffixed by a character `$`,
+a handler registered by `string.translate()` function that is supposed to translate
+the string into other natural languages would be evaluated.
+
+
+# Method
+
+${markdown.makedoc@function(`en
+string.align
+string.binary
+string.capitalize
+string.chop
+string.decodeuri
+string.each
+string.eachline
+string.embed
+string.encode
+string.encodeuri
+string.endswith
+string.escapehtml
+string.find
+string.fold
+string.foldw
+string.format
+string.isempty
+string.left
+string.len
+string.lower
+string.mid
+string.print
+string.println
+string.reader
+string.replace
+string.replaces
+string.right
+string.split
+string.startswith
+string.strip
+string.template
+string.tosymbol
+string.translator
+string.unescapehtml
+string.upper
+string.width
+string.zentohan
+)}
 )**";
 
 //-----------------------------------------------------------------------------

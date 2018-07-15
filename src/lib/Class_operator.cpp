@@ -6,6 +6,31 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `operator` class provides measures to assign operators with a user-defined procedure.
+
+
+# Property
+
+An `operator` instance has the following properties:
+
+${markdown.makedoc@property(`en, operator)}
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+operator
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+operator.assign
+operator.entries
+)}
 )**";
 
 //-----------------------------------------------------------------------------

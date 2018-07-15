@@ -6,6 +6,17 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `number` class is a type of number values.
+A number literal would create a `number` instance.
+
+
+# Method
+
+${markdown.makedoc@function(`en
+number.roundoff
+)}
 )**";
 
 //-----------------------------------------------------------------------------

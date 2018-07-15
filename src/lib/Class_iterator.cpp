@@ -6,6 +6,140 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `iterator` class provides measures to operate an iterator,
+which iterates values that come from containers and streams.
+
+The `list` class provides measures to handle a list structure,
+which stores values on memory that can be accessed by indexer.
+
+
+# Iterator-specific Features
+
+## Function to Create iterator Instance
+
+${markdown.makedoc@function(`en
+iterator
+)}
+
+
+## Method Specific to iterator Class
+
+${markdown.makedoc@function(`en
+iterator.delay
+iterator.finite
+iterator.infinite
+iterator.isinfinite
+iterator.next
+iterator.repeater
+)}
+
+
+# List-specific Features
+
+## Creating List
+
+There are several ways to create a list.
+
+    [3, 1, 4, 1, 5, 9]
+    @{3, 1, 4, 1, 5, 9}
+
+
+## Index Access
+
+You can read and write element values in a list with an indexer
+by giving it an index number starting from zero.
+Below is an example:
+
+    x = [`A, `B, `C, `D, `E, `F]
+
+    println(x[2]) // prints `C
+    x[4] = `e     // replaces `E with `e
+
+
+## Function to Create list Instance
+
+${markdown.makedoc@function(`en
+list
+xlist
+set
+xset
+)}
+
+
+## Method Specific to list Class
+
+${markdown.makedoc@function(`en
+list.add
+list.append
+list.clear
+list.combination
+list.erase
+list.first
+list.get
+list.insert
+list.isempty
+list.last
+list.permutation
+list.put
+list.shift
+list.shuffle
+list.zip
+)}
+
+
+# Method Common to Both list and iterator Classes
+
+${markdown.makedoc@function$(`en, 'iterator#', 'iterable#'
+iterator.after
+iterator.align
+iterator.and
+iterator.argmax
+iterator.argmin
+iterator.before
+iterator.contains
+iterator.count
+iterator.cycle
+iterator.each
+iterator.filter
+iterator.find
+iterator.flatten
+iterator.fold
+iterator.format
+iterator.head
+iterator.join
+iterator.joinb
+iterator.len
+iterator.map
+iterator.max
+iterator.mean
+iterator.min
+iterator.nilto
+iterator.offset
+iterator.or
+iterator.pack
+iterator.pingpong
+iterator.print
+iterator.printf
+iterator.println
+iterator.rank
+iterator.reduce
+iterator.replace
+iterator.reverse
+iterator.roundoff
+iterator.runlength
+iterator.since
+iterator.skip
+iterator.skipnil
+iterator.sort
+iterator.std
+iterator.sum
+iterator.tail
+iterator.until
+iterator.var
+iterator.while
+)}
 )**";
 
 //-----------------------------------------------------------------------------

@@ -6,6 +6,26 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `palette` instance has a set of `color` instance.
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+palette
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+palette.each
+palette.nearest
+palette.shrink
+palette.updateby
+)}
 )**";
 
 //-----------------------------------------------------------------------------

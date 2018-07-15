@@ -6,6 +6,14 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+
+# Method
+
+${markdown.makedoc@function(`en
+symbol.eval
+)}
 )**";
 
 //-----------------------------------------------------------------------------

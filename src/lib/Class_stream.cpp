@@ -6,6 +6,113 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `stream` class provides methods to read and write data through a stream,
+an abstract structure to handle a byte sequence.
+It also provides information of the stream such as the pathname and the creation date and time.
+
+You can specify a proper `codec` when creating the `stream` instance,
+which is used to decode/encode character codes that appear in the stream.
+Features of `codec` would affect on functions and methods that handle text data like follows:
+
+- Decode
+  - readlines()
+  - stream#readchar()
+  - stream#readline()
+  - stream#readlines()
+  - stream#readtext()
+
+- Encode
+  - operator `<<`
+  - stream#print()
+  - stream#printf()
+  - stream#println()
+
+
+# Property
+
+A `stream` instance has the following properties:
+
+${markdown.makedoc@property(`en, stream)}
+
+
+# Operator
+
+You can use the operator "`<<`" to output a content of a value to a `stream`.
+It comes like "`stream << obj`" where `obj` is converted to a string before output to the stream.
+
+    sys.stdout << 'Hello World.'
+
+Since the operator returns the `stream` instance specified on the left as its result,
+you can chain multiple operations as below:
+
+    sys.stdout << 'First' << 'Second'
+
+
+# Cast Operation
+
+A function that expects a `stream` instance in its argument can also take a value of
+`string` and `binary` as below:
+
+- `string` .. Recognized the `string` as a path name from which `stream` instance is created.
+- `binary` .. Creates a `stream` instance that reads or modifies the content of the specified `binary` data.
+  If the `binary` data is a constant one, which might be created from a binary literal
+  such as `b'\x00\x12\x34\x56'`, the stream is created with read-only attribute.
+
+Using the above casting feature, you can call a function `f(stream:stream)`
+that takes a `stream` instance in its argument as below:
+
+- `f(stream('foo.txt'))` .. The most explicit way.
+- `f('foo.txt')` .. Implicit casting from `string` to `stream`.
+- `f(b'\x00\x12\x34\x56')` .. Implicit casting from `binary` to `stream` that reads the content.
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+stream
+)}
+
+You can also call `open()` function that is just an alias of `stream()`
+to create a `stream` instance.
+
+
+# Utility Function
+
+${markdown.makedoc@function(`en
+readlines
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+stream.addcr
+stream.close
+stream.compare
+stream.copy
+stream.copyfrom
+stream.copyto
+stream.delcr
+stream.deserialize
+stream.flush
+stream.peek
+//stream.prefetch
+stream.print
+stream.printf
+stream.println
+stream.read
+stream.readchar
+stream.readline
+stream.readlines
+stream.readtext
+stream.seek
+stream.serialize
+stream.setcodec
+stream.tell
+stream.write
+)}
 )**";
 
 //-----------------------------------------------------------------------------

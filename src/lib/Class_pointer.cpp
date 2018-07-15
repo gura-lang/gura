@@ -6,6 +6,86 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `pointer` class provides measures to read and write content in a `binary` and `memory` instance.
+
+
+# Property
+
+A `pointer` instance has the following properties:
+
+${markdown.makedoc@property(`en, pointer)}
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+pointer
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+pointer.copyfrom
+pointer.copyto
+pointer.decode
+pointer.dump
+pointer.encodeuri
+pointer.each@int8
+pointer.each@uint8
+pointer.each@int16
+pointer.each@uint16
+pointer.each@int32
+pointer.each@uint32
+pointer.each@int64
+pointer.each@uint64
+pointer.each@float
+pointer.each@double
+pointer.forward
+pointer.get@int8
+pointer.get@uint8
+pointer.get@int16
+pointer.get@uint16
+pointer.get@int32
+pointer.get@uint32
+pointer.get@int64
+pointer.get@uint64
+pointer.get@float
+pointer.get@double
+pointer.head
+pointer.hex
+pointer.pack
+pointer.put@int8
+pointer.put@uint8
+pointer.put@int16
+pointer.put@uint16
+pointer.put@int32
+pointer.put@uint32
+pointer.put@int64
+pointer.put@uint64
+pointer.put@float
+pointer.put@double
+pointer.reader
+pointer.seek
+pointer.tail
+pointer.unpack
+pointer.unpacks
+pointer.writer
+)}
+
+
+# Cast Operation
+
+A function that expects a `pointer` instance in its argument can also take a value of
+`binary` and `memory`.
+
+With the above casting feature, you can call a function `f(p:pointer)`
+that takes a `pointer` instance in its argument as below:
+
+- `b = b'\x01\x23\x45\x67\x89\xab', f(b)`
+- `m = memory(32), f(m)`
 )**";
 
 //-----------------------------------------------------------------------------

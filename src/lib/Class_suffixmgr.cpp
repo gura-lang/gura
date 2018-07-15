@@ -6,6 +6,33 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `suffixmgr` class provides measures to access suffix managers
+that are responsible to handle suffix symbols appended to number or string literals.
+
+Below is an example to register a suffix `X` that converts a string into upper case
+after being appended to a string literal:
+
+    suffixmgr(`string).assign(`X) {|body| body.upper()}
+
+You can use that suffix like below:
+
+    'hello world'X
+
+
+### Constructor
+
+${markdown.makedoc@function(`en
+suffixmgr
+)}
+
+
+### Method
+
+${markdown.makedoc@function(`en
+suffixmgr.assign
+)}
 )**";
 
 //-----------------------------------------------------------------------------
