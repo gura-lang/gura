@@ -6,6 +6,21 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+gear@conv1d
+)}
+
+
+# Property
+
+A `gear@conv1d` instance has the following properties:
+
+${markdown.makedoc@property(`en, gear@conv1d)}
 )**";
 
 //-----------------------------------------------------------------------------

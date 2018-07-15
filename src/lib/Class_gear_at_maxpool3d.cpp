@@ -6,6 +6,21 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+gear@maxpool3d
+)}
+
+
+# Property
+
+A `gear@maxpool3d` instance has the following properties:
+
+${markdown.makedoc@property(`en, gear@maxpool3d)}
 )**";
 
 //-----------------------------------------------------------------------------
@@ -34,7 +49,7 @@ String Gear_MaxPool3d::ToString() const
 {
 	String str;
 	char buff[80];
-	str += "maxpool2d";
+	str += "maxpool3d";
 	::sprintf(buff, ":size=(%zu,%zu,%zu)", GetSizePlane(), GetSizeRow(), GetSizeCol());
 	str += buff;
 	::sprintf(buff, ":strides=(%zu,%zu,%zu)", GetStridesPlane(), GetStridesRow(), GetStridesCol());

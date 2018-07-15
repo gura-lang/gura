@@ -6,6 +6,21 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+gear@conv2d
+)}
+
+
+# Property
+
+A `gear@conv2d` instance has the following properties:
+
+${markdown.makedoc@property(`en, gear@conv2d)}
 )**";
 
 //-----------------------------------------------------------------------------
@@ -432,7 +447,7 @@ Gura_ImplementPropertyGetter(gear_at_conv2d, channel_pos)
 	return Value(Array::ChannelPosToSymbol(pGear->GetChannelPos()));
 }
 
-// gear@conv1d#filter_num
+// gear@conv2d#filter_num
 Gura_DeclareProperty_R(gear_at_conv2d, filter_num)
 {
 	SetPropAttr(VTYPE_number, FLAG_Nil);
