@@ -25,8 +25,6 @@ Gura_ImplementFunction(decode)
 {
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	AutoPtr<Stream> pStreamSrc(new Stream_Base64Reader(env, arg.GetStream(0).Reference()));
-	//AutoPtr<Stream> pStreamDst(new Stream_Binary(
-	//							   env, Object_binary::Reference(pObjBinary.get()), true));
 	AutoPtr<Stream> pStreamDst(
 		new Pointer::StreamEx(
 			env, new Object_binary::PointerEx(
