@@ -5,14 +5,18 @@ import(freetype)
 text@en = R'''
 # freetype Module
 
+## Overview
+
 The `freetype` module provices measures to access vectorized font data using freetype library.
 To utilize it, import the `freetype` module using `import` function.
+
 
 ## Module Function
 
 ${markdown.makedoc@function(`en
 freetype.sysfontpath
 )}
+
 
 ## freetype.BBox Class
 

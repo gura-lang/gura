@@ -5,6 +5,8 @@ import(tiff)
 text@en = R'''
 # tiff Module
 
+## Overview
+
 The `tiff` module provides measures to read/write image data in TIFF format.
 To utilize it, import the `tiff` module using `import` function.
 

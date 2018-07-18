@@ -1,12 +1,12 @@
 #!/usr/bin/env gura
 import(markdown)
+import(ml.cifar)
 
 text@en = R'''
-# model.obj Module
+# ml.cifar Module
 
 ## Overview
 
-The `model.obj` module provides measures to read/write files in OBJ format for 3D models.
-'''
+'''.embed()
 
 markdown.makedoc@module(locals(), %{`en => text@en})

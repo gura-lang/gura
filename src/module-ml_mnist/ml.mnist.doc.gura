@@ -5,6 +5,8 @@ import(ml.mnist)
 text@en = R'''
 # ml.mnist Module
 
+## Overview
+
 The `ml.mnist` module provides measures to read image database of handwritten digit called MNIST.
 MNIST data files are avaiable in: http://yann.lecun.com/exdb/mnist/.
 

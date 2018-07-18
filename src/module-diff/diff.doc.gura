@@ -5,6 +5,8 @@ import(diff)
 text@en = R'''
 # diff Module
 
+## Overview
+
 The `diff` module provices measures to detect differences between texts.
 To utilize it, import the `diff` module using `import` function.
 
@@ -22,6 +24,8 @@ diff.compose@char
 
 
 ## diff.diff@line Class
+
+### Overview
 
 The `diff.diff@line` instance is created by function `diff.compose()`
 and provides information about differences between two texts by lines.
@@ -56,7 +60,10 @@ diff.diff@line.render
 
 ## diff.hunk@line Class
 
+### Overview
+
 The `diff.hunk@line` instance provides information about a hunk.
+
 
 ### Property
 
@@ -80,6 +87,7 @@ The `diff.hunk@line` instance provides information about a hunk.
 
 </table>
 
+
 ### Method
 
 ${markdown.makedoc@function(`en
@@ -89,7 +97,10 @@ diff.hunk@line.print
 
 ## diff.edit@line Class
 
+### Overview
+
 The `diff.edit@line` provides information about an edit operation.
+
 
 ### Property
 
@@ -122,6 +133,7 @@ The `diff.edit@line` provides information about an edit operation.
 
 </table>
 
+
 ### Method
 
 ${markdown.makedoc@function(`en
@@ -130,6 +142,8 @@ diff.edit@line.print
 
 
 ## diff.diff@char Class
+
+### Overview
 
 The `diff.diff@char` instance is created by function `diff.compose@char()`
 and provides information about differences between two texts by characters.
@@ -160,7 +174,10 @@ that are applied to the "new" string.</td></tr>
 
 ## diff.edit@char Class
 
+### Overview
+
 The `diff.edit@char` provides information about an edit operation.
+
 
 ### Property
 

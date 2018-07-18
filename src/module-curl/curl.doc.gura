@@ -5,8 +5,11 @@ import(curl)
 text@en = R'''
 # curl Module
 
+## Overview
+
 The `curl` module provices measures to access Internet resources using cURL library.
 To utilize it, import the `curl` module using `import` function.
+
 
 ## Module Function
 
@@ -14,6 +17,7 @@ ${markdown.makedoc@function(`en
 curl.version
 curl.easy_init
 )}
+
 
 ## curl.easy\_handle Class
 
@@ -26,6 +30,7 @@ curl.easy_handle.send
 curl.easy_handle.setopt
 curl.easy_handle.unescape
 )}
+
 
 ## Thanks
 

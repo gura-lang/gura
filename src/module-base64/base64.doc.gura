@@ -4,6 +4,8 @@ import(markdown)
 text@en = R'''
 # base64 Module
 
+## Overview
+
 The `base64` module provides measures to decode/encode data formatted in base64 format.
 
 To decode a stream that is formatted in base64, use one of the following functions:

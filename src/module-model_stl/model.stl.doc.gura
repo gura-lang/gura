@@ -5,6 +5,8 @@ import(model.stl)
 text@en = R'''
 # model.stl Module
 
+## Overview
+
 The `model.stl` module provides measures to read/write files in STL format for 3D models.
 
 Below is an example to read a STL file and to print information of faces it contains.

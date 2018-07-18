@@ -5,6 +5,8 @@ import(cairo)
 text@en = R'''
 # cairo Module
 
+## Overview
+
 The `cairo` module provides methods to draw 2-D graphics using Cairo library.
 Official site of Cairo is <http://cairographics.org/>.
 

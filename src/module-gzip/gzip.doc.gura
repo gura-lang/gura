@@ -5,6 +5,8 @@ import(gzip)
 text@en = R'''
 # gzip Module
 
+## Overview
+
 The `gzip` module provides measures to read/write GZIP files.
 To utilize it, import the `gzip` module using `import` function.
 

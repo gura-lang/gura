@@ -5,6 +5,8 @@ import(png)
 text@en = R'''
 # png Module
 
+## Overview
+
 The `png` module provides measures to read/write image data in PNG format.
 To utilize it, import the `png` module using `import` function.
 

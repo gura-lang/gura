@@ -5,6 +5,8 @@ import(gif)
 text@en = R'''
 # gif Module
 
+## Overview
+
 The `gif` module provides measures to read/write image data in GIF format.
 To utilize it, import the `gif` module using `import` function.
 

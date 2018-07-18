@@ -5,11 +5,14 @@ import(gmp)
 text@en = R'''
 # gmp Module
 
+## Overview
+
 The `gmp` module provides measures to calculate numbers with multiple precision
 using GMP library. To utilize it, import the `gmp` module using `import` function.
 
 It expands features of operators like addition and multiplier
 so that they can calculate such numbers.
+
 
 ## Operator
 
@@ -490,6 +493,7 @@ gmp.lcm
 gmp.sqrt
 )}
 
+
 ## gmp.mpf Class
 
 ### Constructor
@@ -504,6 +508,7 @@ gmp.mpf.get_default_prec
 gmp.mpf.set_default_prec
 )}
 
+
 ## gmp.mpq Class
 
 ### Constructor
@@ -516,6 +521,7 @@ gmp.mpq
 ${markdown.makedoc@function(`en
 gmp.mpq.cast@mpf
 )}
+
 
 ## gmp.mpz Class
 
