@@ -1,0 +1,17 @@
+#!/usr/bin/env gura
+//============================================================================
+// Generate document of module
+//============================================================================
+import(argopt)
+
+argopt.Parser {|p|
+	[cfg, argv] = p.parse(sys.argv)
+}
+if (argv.len() < 1) {
+	sys.stderr.println('usage: gendoc-module.gura module-name')
+	sys.exit(1)
+}
+moduleDocName = argv[0] + '.doc'
+doc = markdown.document()
+import(&moduleDocName).__doc@markdown__(doc, `en)
+doc.render@html(sys.stdout)

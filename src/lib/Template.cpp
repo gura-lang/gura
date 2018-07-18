@@ -37,7 +37,6 @@ bool Template::Parse(Environment &env,
 
 bool Template::Render(Environment &env, SimpleStream *pStreamDst)
 {
-	Signal &sig = env.GetSignal();
 	Template *pTemplateTop = nullptr;
 	for (Template *pTemplate = this; pTemplate != nullptr;
 							pTemplate = pTemplate->GetTemplateSuper()) {
@@ -54,7 +53,7 @@ bool Template::Render(Environment &env, SimpleStream *pStreamDst)
 							pTemplate = pTemplate->GetTemplateSuper()) {
 		pTemplate->SetStreamDst(nullptr);
 	}
-	return !sig.IsSignalled();
+	return !env.IsSignalled();
 }
 
 bool Template::Render(Environment &env, String &strDst)
@@ -65,13 +64,12 @@ bool Template::Render(Environment &env, String &strDst)
 
 bool Template::Prepare(Environment &env)
 {
-	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_local));
 	pEnvBlock->AssignValue(Gura_Symbol(this_),
 				Value(new Object_template(env, Reference())), EXTRA_Public);
 	_pValueExMap->clear();
 	_pExprOwnerForInit->Exec(*pEnvBlock);
-	return !sig.IsSignalled();
+	return !env.IsSignalled();
 }
 
 const ValueEx *Template::LookupValue(const Symbol *pSymbol) const
@@ -109,7 +107,6 @@ Template::Parser::Parser(bool autoIndentFlag, bool appendLastEOLFlag) :
 bool Template::Parser::ParseStream(Environment &env,
 								Template *pTemplate, SimpleStream &streamSrc)
 {
-	Signal &sig = env.GetSignal();
 	AutoPtr<StringShared> pSourceName(new StringShared(streamSrc.GetName()));
 	char chMarker = '$';
 	enum {
@@ -137,8 +134,8 @@ bool Template::Parser::ParseStream(Environment &env,
 	Expr_Block *pExprBlockRoot = dynamic_cast<Expr_Block *>(
 									pTemplate->GetFuncForBody()->GetExprBody());
 	for (;;) {
-		int chRaw = streamSrc.GetChar(sig);
-		if (sig.IsSignalled()) return false;
+		int chRaw = streamSrc.GetChar(env);
+		if (env.IsSignalled()) return false;
 		if (chRaw < 0) break;
 		char ch = static_cast<char>(chRaw);
 		Gura_BeginPushbackRegion();
@@ -345,7 +342,7 @@ bool Template::Parser::ParseStream(Environment &env,
 				pSourceName.get(), cntLineTop, cntLine)) return false;
 	}
 	if (!_exprLeaderStack.empty()) {
-		sig.SetError(ERR_SyntaxError, "lacking end statement for block expression");
+		env.SetError(ERR_SyntaxError, "lacking end statement for block expression");
 		return false;
 	}
 	if (!str.empty()) {
@@ -362,7 +359,6 @@ bool Template::Parser::CreateTmplScript(Environment &env,
 			Template *pTemplate, Expr_Block *pExprBlockRoot,
 			StringShared *pSourceName, int cntLineTop, int cntLineBtm)
 {
-	Signal &sig = env.GetSignal();
 	Class *pClass = env.LookupClass(VTYPE_template);
 	Expr *pExprLast = nullptr;
 	AutoPtr<Expr_TmplScript> pExprTmplScript(new Expr_TmplScript(
@@ -373,7 +369,7 @@ bool Template::Parser::CreateTmplScript(Environment &env,
 		strTmplScript++;
 		AutoPtr<ExprOwner> pExprOwnerForInit(new ExprOwner());
 		do {
-			Gura::Parser parser(sig, pSourceName->GetString(), cntLineTop, false);
+			Gura::Parser parser(env, pSourceName->GetString(), cntLineTop, false);
 			// Appends "this.init_" before the script string while parsing
 			// so that it generates an expression "this.init_foo()" from the directive "${=foo()}".
 			if (!parser.ParseString(env, *pExprOwnerForInit, "this.init_", false)) return false;
@@ -381,7 +377,7 @@ bool Template::Parser::CreateTmplScript(Environment &env,
 		} while (0);
 		do {
 			ExprOwner &exprOwner = pExprTmplScript->GetExprOwner();
-			Gura::Parser parser(sig, pSourceName->GetString(), cntLineTop, false);
+			Gura::Parser parser(env, pSourceName->GetString(), cntLineTop, false);
 			// Appends "this." before the script string while parsing
 			// so that it generates an expression "this.foo()" from the directive "${=foo()}".
 			if (!parser.ParseString(env, exprOwner, "this.", false)) return false;
@@ -415,7 +411,7 @@ bool Template::Parser::CreateTmplScript(Environment &env,
 			} else {
 				pCallable = pExprLastCaller->LookupCallable(env);
 			}
-			sig.ClearSignal();
+			env.ClearSignal();
 			if (pCallable != nullptr && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
 				Expr_Block *pExprBlock = new Expr_Block();
 				pExprLastCaller->SetBlock(pExprBlock);
@@ -427,7 +423,7 @@ bool Template::Parser::CreateTmplScript(Environment &env,
 	} else {
 		// Parsing a normal script other than template directive.
 		AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
-		Gura::Parser parser(sig, pSourceName->GetString(), cntLineTop, false);
+		Gura::Parser parser(env, pSourceName->GetString(), cntLineTop, false);
 		if (!parser.ParseString(env, *pExprOwnerPart, strTmplScript, true)) return false;
 		ExprOwner::iterator ppExpr = pExprOwnerPart->begin();
 		//::printf("[%s], [%s], [%s]\n", strIndent, strTmplScript, strPost);
@@ -435,12 +431,12 @@ bool Template::Parser::CreateTmplScript(Environment &env,
 			// check if the first Expr is a trailer
 			Expr *pExpr = *ppExpr;
 			Callable *pCallable = pExpr->LookupCallable(env);
-			sig.ClearSignal();
+			env.ClearSignal();
 			if (pCallable != nullptr && pCallable->IsTrailer()) {
 				pExprTmplScript->SetStringIndent("");
 				if (_exprLeaderStack.empty()) {
-					sig.SetError(ERR_SyntaxError, "unmatching trailer expression");
-					sig.AddExprCause(pExprTmplScript.get());
+					env.SetError(ERR_SyntaxError, "unmatching trailer expression");
+					env.GetSignal().AddExprCause(pExprTmplScript.get());
 					return false;
 				}
 				if (!pCallable->IsEndMarker()) {
@@ -486,7 +482,7 @@ bool Template::Parser::CreateTmplScript(Environment &env,
 			} else {
 				pCallable = pExprLastCaller->LookupCallable(env);
 			}
-			sig.ClearSignal();
+			env.ClearSignal();
 			if (pCallable != nullptr && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
 				Expr_Block *pExprBlock = new Expr_Block();
 				pExprLastCaller->SetBlock(pExprBlock);
@@ -513,8 +509,7 @@ Expr *Expr_TmplString::Clone() const
 
 Value Expr_TmplString::DoExec(Environment &env) const
 {
-	Signal &sig = env.GetSignal();
-	_pTemplate->Print(sig, _str.c_str());
+	_pTemplate->Print(env, _str.c_str());
 	return Value::Nil;
 }
 
@@ -545,37 +540,36 @@ Expr *Expr_TmplScript::Clone() const
 
 Value Expr_TmplScript::DoExec(Environment &env) const
 {
-	Signal &sig = env.GetSignal();
 	if (GetExprOwner().empty()) return Value::Nil;
 	Value value;
 	foreach_const (ExprList, ppExpr, GetExprOwner()) {
 		value = (*ppExpr)->Exec(env, true);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 	}
 	if (value.IsInvalid()) return Value::Nil;
 	String strLast;
 	if (value.Is_string()) {
-		_pTemplate->Print(sig, _strIndent.c_str());
+		_pTemplate->Print(env, _strIndent.c_str());
 		strLast = value.GetStringSTL();
 	} else if (value.Is_list() || value.Is_iterator()) {
-		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
-		if (sig.IsSignalled()) return Value::Nil;
+		AutoPtr<Iterator> pIterator(value.CreateIterator(env));
+		if (env.IsSignalled()) return Value::Nil;
 		bool firstFlag = true;
 		Value valueElem;
 		while (pIterator->Next(env, valueElem)) {
 			if (firstFlag) {
 				firstFlag = false;
-				_pTemplate->Print(sig, _strIndent.c_str());
+				_pTemplate->Print(env, _strIndent.c_str());
 			}
 			foreach_const (String, p, strLast) {
 				char ch = *p;
 				if (ch == '\n') {
-					_pTemplate->PutChar(sig, ch);
+					_pTemplate->PutChar(env, ch);
 					if (_autoIndentFlag && valueElem.IsValid()) {
-						_pTemplate->Print(sig, _strIndent.c_str());
+						_pTemplate->Print(env, _strIndent.c_str());
 					}
 				} else {
-					_pTemplate->PutChar(sig, ch);
+					_pTemplate->PutChar(env, ch);
 				}
 			}
 			if (valueElem.Is_string()) {
@@ -584,40 +578,40 @@ Value Expr_TmplScript::DoExec(Environment &env) const
 				strLast.clear();
 			} else if (valueElem.Is_number()) {
 				strLast = valueElem.ToString();
-				if (sig.IsSignalled()) return Value::Nil;
+				if (env.IsSignalled()) return Value::Nil;
 			} else {
-				sig.SetError(ERR_TypeError,
+				env.SetError(ERR_TypeError,
 							 "an iterable returned by a template script must contain "
 							 "elements of nil, string or number");
-				sig.AddExprCause(this);
+				env.GetSignal().AddExprCause(this);
 				return Value::Nil;
 			}
 		}
 		if (firstFlag) return Value::Nil;
 	} else if (value.Is_number()) {
-		_pTemplate->Print(sig, _strIndent.c_str());
+		_pTemplate->Print(env, _strIndent.c_str());
 		strLast = value.ToString();
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 	} else {
-		sig.SetError(ERR_TypeError,
+		env.SetError(ERR_TypeError,
 			"template script must return nil, string or number");
-		sig.AddExprCause(this);
+		env.GetSignal().AddExprCause(this);
 		return Value::Nil;
 	}
 	foreach_const (String, p, strLast) {
 		char ch = *p;
 		if (ch != '\n') {
-			_pTemplate->PutChar(sig, ch);
+			_pTemplate->PutChar(env, ch);
 		} else if (p + 1 != strLast.end()) {
-			_pTemplate->PutChar(sig, ch);
+			_pTemplate->PutChar(env, ch);
 			if (_autoIndentFlag) {
-				_pTemplate->Print(sig, _strIndent.c_str());
+				_pTemplate->Print(env, _strIndent.c_str());
 			}
 		} else if (_appendLastEOLFlag) {
-			_pTemplate->PutChar(sig, ch);
+			_pTemplate->PutChar(env, ch);
 		}
 	}
-	_pTemplate->Print(sig, _strPost.c_str());
+	_pTemplate->Print(env, _strPost.c_str());
 	return Value::Nil;
 }
 

@@ -398,6 +398,8 @@ public:
 	Stream *GetConsoleDumb();
 	inline bool IsSignalled() const { return GetSignal().IsSignalled(); }
 	inline bool IsNoSignalled() const { return GetSignal().IsNoSignalled(); }
+	inline void ClearSignal() { GetSignal().ClearSignal(); }
+	inline void SetSignal(ULong sigType, const Value &value) { GetSignal().SetSignal(sigType, value); }
 	void SetError(ErrorType errType, const char *format, ...) const;
 	inline void SetErrorV(ErrorType errType,
 						  const char *format, va_list ap, const char *textPre = "") const {

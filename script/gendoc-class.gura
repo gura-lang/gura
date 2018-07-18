@@ -1,0 +1,20 @@
+#!/usr/bin/env gura
+//============================================================================
+// Generate document of class
+//============================================================================
+import(argopt)
+
+argopt.Parser {|p|
+	[cfg, argv] = p.parse(sys.argv)
+}
+if (argv.len() < 1) {
+	sys.stderr.println('usage: gendoc-module.gura class-name')
+	sys.exit(1)
+}
+className = argv[0]
+doc = markdown.document()
+doc << format('# %s class\n', className)
+doc << '<gura.headerdown />\n'
+doc << help@class(classref(className.tosymbol()), `en).doc
+doc << '<gura.headerup />\n'
+doc.render@html(sys.stdout)
