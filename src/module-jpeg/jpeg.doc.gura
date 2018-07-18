@@ -2,6 +2,8 @@
 import(markdown)
 import(jpeg)
 
+//${markdown.makedoc@class(`en, jpeg.exif, 2)}
+
 text@en = R'''
 # jpeg Module
 

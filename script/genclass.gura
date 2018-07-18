@@ -10,6 +10,9 @@ tmpl_fileHdr = R'''
 
 Gura_BeginModuleScope(${moduleName})
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Declaration of Object_${className}
 //-----------------------------------------------------------------------------
@@ -100,6 +103,8 @@ Gura_ImplementUserClass(${className})
 	Gura_AssignMethod(${className}, method1);
 	// Assignment of value
 	Gura_AssignValue(${className}, Value(Reference()));
+	// help document
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 Gura_EndModuleScope(${moduleName})

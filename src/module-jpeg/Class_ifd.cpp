@@ -3,6 +3,24 @@
 
 Gura_BeginModuleScope(jpeg)
 
+static const char *helpDoc_en = R"**(
+# Overview
+
+
+# Property
+
+A `jpeg.ifd` instance has the following properties:
+
+${markdown.makedoc@property(`en, jpeg.ifd)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+jpeg.ifd.each
+)}
+)**";
+
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
@@ -468,6 +486,8 @@ Gura_ImplementUserClass(ifd)
 	Gura_AssignValue(ifd, Value(Reference()));
 	// Assignment of method
 	Gura_AssignMethod(ifd, each);
+	// help document
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 Gura_EndModuleScope(jpeg)

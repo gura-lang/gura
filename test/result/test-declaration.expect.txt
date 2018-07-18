@@ -157,7 +157,7 @@ markdown:module
   markdown.MakeAnchorNameDef(indices[]:number)
   Renderer@console:class = <class:markdown.Renderer@console(colorFlag:boolean => true) {block?}>
   Renderer@html:class = <class:markdown.Renderer@html(out:stream:w, captionIndex:boolean) {block?}>
-  Renderer@rtf:class = <class:markdown.Renderer@rtf(out:stream:w) {block?}>
+  Renderer@rtf:class = <class:markdown.Renderer@rtf(out:stream:w, captionIndex:boolean) {block?}>
   Renderer@tex:class = <class:markdown.Renderer@tex(out:stream:w, title:string, author:string, date:string) {block?}>
   Renderer@toc:class = <class:markdown.Renderer@toc(handler:function) {block?}>
   TableCol:class = <class:markdown.TableCol(text:string, align:symbol) {block?}>
@@ -217,7 +217,7 @@ markdown:module
     conio.waitkey():[raise]
   document:class = <class:markdown.document(stream?:stream:r) {block?}>
   item:class = <class:item>
-  markdown.makedoc@class(lang:symbol, cls:class)
+  markdown.makedoc@class(lang:symbol, cls:class, headeroff:number)
   markdown.makedoc@function(lang:symbol, funcs*:function)
   markdown.makedoc@function$(lang:symbol, match:string, sub:string, funcs*:function)
   markdown.makedoc@module(mod:environment, d:dict)

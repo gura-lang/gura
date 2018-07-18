@@ -1009,7 +1009,9 @@ makedoc@property(lang:symbol, obj) = {
 	'''
 }
 
-makedoc@class(lang:symbol, cls:class, headeroff:number) = {
+makedoc@class(lang:symbol, cls:class, headeroff:number):dynamic_scope = {
+	// The attribute :dynamic_scope is necessary when the help document contains template in it
+	// that is expected to be evaluated with the outer environment.
 	format('<gura.headerdown%d />\n', headeroff) + \
 	help@class(cls, lang).doc + \
 	format('<gura.headerup%d />\n', headeroff)

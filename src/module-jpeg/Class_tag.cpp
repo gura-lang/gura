@@ -4,6 +4,14 @@
 
 Gura_BeginModuleScope(jpeg)
 
+static const char *helpDoc_en = R"**(
+### Property
+
+A `jpeg.tag` instance has the following properties:
+
+${markdown.makedoc@property(`en, jpeg.tag)}
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_tag implementation
 //-----------------------------------------------------------------------------
@@ -49,8 +57,7 @@ Gura_DeclareProperty_R(tag, id)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Tag ID.");
 }
 
 Gura_ImplementPropertyGetter(tag, id)
@@ -65,8 +72,7 @@ Gura_DeclareProperty_R(tag, ifd)
 	SetPropAttr(VTYPE_ifd);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"IFD instance. Valid only for tags `Exif`, `GPSInfo` and `Interoperability`.");
 }
 
 Gura_ImplementPropertyGetter(tag, ifd)
@@ -82,8 +88,7 @@ Gura_DeclareProperty_R(tag, name)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Tag name.");
 }
 
 Gura_ImplementPropertyGetter(tag, name)
@@ -98,8 +103,7 @@ Gura_DeclareProperty_R(tag, symbol)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Tag name as `symbol`.");
 }
 
 Gura_ImplementPropertyGetter(tag, symbol)
@@ -114,8 +118,7 @@ Gura_DeclareProperty_R(tag, type)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Tag type.");
 }
 
 Gura_ImplementPropertyGetter(tag, type)
@@ -130,8 +133,7 @@ Gura_DeclareProperty_R(tag, typename)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Tag type name.");
 }
 
 Gura_ImplementPropertyGetter(tag, typename)
@@ -147,8 +149,8 @@ Gura_DeclareProperty_R(tag, value)
 	SetPropAttr(VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Tag value. When the attribute `:cooked` is specified,\n"
+		"numbers in some tags are translated to human-readable symbols.");
 }
 
 Gura_ImplementPropertyGetter(tag, value)
@@ -177,6 +179,8 @@ Gura_ImplementUserClass(tag)
 	Gura_AssignProperty(tag, value);
 	// Assignment of value
 	Gura_AssignValue(tag, Value(Reference()));
+	// help document
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 //-----------------------------------------------------------------------------

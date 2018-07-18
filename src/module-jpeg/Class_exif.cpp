@@ -6,6 +6,43 @@
 
 Gura_BeginModuleScope(jpeg)
 
+static const char *helpDoc_en = R"**(
+# Overview
+
+The `jpeg.exif` class provides EXIF information in a JPEG stream.
+
+A `jpeg.exif` instance contains `jpeg.ifd` instances as properties
+named `jpeg.exif#ifd0` and `jpeg.exif#ifd1`
+that include a list of `jpeg.tag` instances.
+
+    +-----------+             +----------+        +----------+
+    | jpeg.exif |ifd0, ifd1   | jpeg.ifd |1..     | jpeg.tag |
+    |-----------*-------------+----------*--------+----------|
+    |           |             |          |        |          |
+    +-----------+             +----------+        +----------+
+
+
+# Property
+
+A `jpeg.exif` instance has the following properties:
+
+${markdown.makedoc@property(`en, jpeg.exif)}
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+jpeg.exif
+)}
+
+
+# Method
+
+${markdown.makedoc@function(`en
+jpeg.exif.each
+)}
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_exif implementation
 //-----------------------------------------------------------------------------
@@ -186,8 +223,7 @@ Gura_DeclareProperty_R(exif, endian)
 	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"The endian type: `` `big`` for big-endian and `` `little`` for little-endian.");
 }
 
 Gura_ImplementPropertyGetter(exif, endian)
@@ -202,8 +238,7 @@ Gura_DeclareProperty_R(exif, ifd0)
 	SetPropAttr(VTYPE_ifd, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"IFD0 instance.");
 }
 
 Gura_ImplementPropertyGetter(exif, ifd0)
@@ -220,8 +255,7 @@ Gura_DeclareProperty_R(exif, ifd1)
 	SetPropAttr(VTYPE_ifd, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"IFD1 instance.");
 }
 
 Gura_ImplementPropertyGetter(exif, ifd1)
@@ -238,8 +272,7 @@ Gura_DeclareProperty_R(exif, thumbnail)
 	SetPropAttr(VTYPE_image, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Thumbnail image as `image` value.");
 }
 
 Gura_ImplementPropertyGetter(exif, thumbnail)
@@ -290,8 +323,7 @@ Gura_DeclarePropertyAlias_R(exif, thumbnail_at_jpeg, "thumbnail@jpeg")
 	SetPropAttr(VTYPE_binary, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-		);
+		"Thumbnail image as JPEG binary data.");
 }
 
 Gura_ImplementPropertyGetter(exif, thumbnail_at_jpeg)
@@ -377,6 +409,8 @@ Gura_ImplementUserClass(exif)
 	Gura_AssignFunction(exif);
 	// Assignment of method
 	Gura_AssignMethod(exif, each);
+	// help document
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 Gura_EndModuleScope(jpeg)
