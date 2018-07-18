@@ -2,10 +2,10 @@
 import(markdown)
 import(jpeg)
 
-//${markdown.makedoc@class(`en, jpeg.exif, 2)}
-
 text@en = R'''
 # jpeg Module
+
+## Overview
 
 The `jpeg` module provides measures to read/write image data in JPEG format.
 To utilize it, import the `jpeg` module using `import` function.
@@ -36,116 +36,17 @@ it would write image data in JPEG format.
 
 ## jpeg.exif Class
 
-The `jpeg.exif` class provides EXIF information in a JPEG stream.
-
-A `jpeg.exif` instance contains `jpeg.ifd` instances as properties
-named `jpeg.exif#ifd0` and `jpeg.exif#ifd1`
-that include a list of `jpeg.tag` instances.
-
-    +-----------+             +----------+        +----------+
-    | jpeg.exif |ifd0, ifd1   | jpeg.ifd |1..     | jpeg.tag |
-    |-----------*-------------+----------*--------+----------|
-    |           |             |          |        |          |
-    +-----------+             +----------+        +----------+
-
-
-### Property
-
-A `jpeg.exif` instance has the following properties:
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>endian</code></td><td><code>symbol</code></td><td>R</td>
-<td>The endian type: <code>`big</code> for big-endian and
-<code>`little</code> for little-endian.</td></tr>
-
-<tr><td><code>ifd0</code></td><td><code>jpeg.ifd</code></td><td>R</td>
-<td>IFD0 instance.</td></tr>
-
-<tr><td><code>ifd1</code></td><td><code>jpeg.ifd</code></td><td>R</td>
-<td>IFD1 instance.</td></tr>
-
-<tr><td><code>thumbnail</code></td><td><code>image</code></td><td>R</td>
-<td>Thumbnail image as <code>image</code> value.</td></tr>
-
-<tr><td><code>thumbnail@jpeg</code></td><td><code>binary</code></td><td>R</td>
-<td>Thumbnail image as JPEG binary data.</td></tr>
-
-</table>
-
-
-### Constructor
-
-${markdown.makedoc@function(`en
-jpeg.exif
-)}
-
-### Method
-
-${markdown.makedoc@function(`en
-jpeg.exif.each
-)}
+${markdown.makedoc@class(`en, jpeg.exif, 2)}
 
 
 ## jpeg.ifd Class
 
-### Property
-
-A `jpeg.ifd` instance has the following properties:
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>name</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>symbol</code></td><td><code>symbol</code></td><td>R</td>
-<td></td></tr>
-
-</table>
-
-
-### Method
-
-${markdown.makedoc@function(`en
-jpeg.ifd.each
-)}
+${markdown.makedoc@class(`en, jpeg.ifd, 2)}
 
 
 ## jpeg.tag Class
 
-### Property
-
-A `jpeg.tag` instance has the following properties:
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>id</code></td><td><code>number</code></td><td>R</td>
-<td>Tag ID.</td></tr>
-
-<tr><td><code>name</code></td><td><code>string</code></td><td>R</td>
-<td>Tag name.</td></tr>
-
-<tr><td><code>symbol</code></td><td><code>symbol</code></td><td>R</td>
-<td>Tag name as <code>symbol</code>.</td></tr>
-
-<tr><td><code>type</code></td><td><code>number</code></td><td>R</td>
-<td>Tag type.</td></tr>
-
-<tr><td><code>typename</code></td><td><code>string</code></td><td>R</td>
-<td>Tag type name.</td></tr>
-
-<tr><td><code>value</code></td><td><code>any</code></td><td>R</td>
-<td>Tag value. When the attribute <code>:cooked</code> is specified,
-numbers in some tags are translated to human-readable symbols.</td></tr>
-
-<tr><td><code>ifd</code></td><td><code>jpeg.ifd</code></td><td>R</td>
-<td>IFD instance. Valid only for tags <code>Exif</code>, <code>GPSInfo</code> and
-<code>Interoperability</code>.</td></tr>
-
-</table>
+${markdown.makedoc@class(`en, jpeg.tag, 2)}
 
 
 ## Extension to image Class
