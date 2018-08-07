@@ -13,6 +13,7 @@
 #include <semaphore.h>
 #include <sys/types.h>
 #include <dirent.h>
+#include <utime.h>
 #endif
 
 namespace Gura {
@@ -75,6 +76,7 @@ GURA_DLLDECLARE bool RemoveDir(const char *pathName);
 GURA_DLLDECLARE bool RemoveDirTree(const char *pathName);
 GURA_DLLDECLARE bool ChangeCurDir(const char *pathName);
 GURA_DLLDECLARE String GetCurDir();
+GURA_DLLDECLARE bool ChangeTimeStamp(const DateTime &dateTime, const char *pathName);
 GURA_DLLDECLARE bool ChangeMode(int modeOct, const char *pathName, bool followLinkFlag);
 GURA_DLLDECLARE bool ChangeMode(const char *mode, const char *pathName, bool followLinkFlag);
 GURA_DLLDECLARE void Sleep(Number delay);

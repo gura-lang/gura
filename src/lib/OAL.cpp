@@ -826,6 +826,17 @@ String GetCurDir()
 	return rtn;
 }
 
+bool ChangeTimeStamp(const DateTime &dateTime, const char *pathName)
+{
+	FILETIME ft = dateTime.ToFILETIME(dateTime);
+	HANDLE hFile = ::CreateFile(pathName, GENERIC_WRITE, FILE_SHARE_WRITE,
+								nullptr, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, nullptr);
+	if (hFile == INVALID_HANDLE_VALUE) return false;
+	bool rtn = ::SetFileTime(hFile, &ft, &ft, &ft);
+	::CloseHandle(hFile);
+	return rtn;
+}
+
 bool ChangeMode(int modeOct, const char *pathName, bool followLinkFlag)
 {
 	// followLinkFlag is ignored
@@ -1611,6 +1622,13 @@ String GetCurDir()
 		rtn += FileSeparator;
 	}
 	return rtn;
+}
+
+bool ChangeTimeStamp(const DateTime &dateTime, const char *pathName)
+{
+	struct utimbuf times;
+	times.actime = times.modtime = dateTime.GetUnixTime();
+	return utime(pathName, &times) == 0;
 }
 
 bool ChangeMode(int modeOct, const char *pathName, bool followLinkFlag)
