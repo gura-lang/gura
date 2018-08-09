@@ -941,3 +941,30 @@ testcase('iterable#filter()') {
 	tester(`x.filter(&{$i % 2 == 0}):list)
 	tester(`x.filter(x % 2 == 0):list)
 }
+testcase('list#erase()') {
+	erase_test(n*) = {
+		x = [0..10]
+		x.erase(n*)
+		x
+	}
+	tester(`erase_test())
+	tester(`erase_test(0))
+	tester(`erase_test(1))
+	tester(`erase_test(9))
+	tester(`erase_test(10))
+	tester(`erase_test(11))
+	tester(`erase_test(-1))
+	tester(`erase_test(-2))
+	tester(`erase_test(-3))
+	tester(`erase_test(-10))
+	tester(`erase_test(-11))
+	tester(`erase_test(-12))
+	tester(`erase_test(0, 3, 5, 7))
+	tester(`erase_test(0, 0, 2, 2, 2))
+	x = []
+	try {
+		x.erase(-1)
+	} catch {|e|
+		println(e.text)
+	}
+}

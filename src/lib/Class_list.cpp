@@ -204,16 +204,15 @@ Object_list *Object_list::SortRank(Signal &sig, const Value &valDirective,
 
 bool Object_list::ValueVisitor_Index::Visit(const Value &value)
 {
-	GURA_ASSUME(_env, value.Is_number());
-	Signal &sig = _env.GetSignal();
+	if (!value.Is_number()) return true;
 	int idx = value.GetInt();
 	if (idx < 0) idx += _valList.size();
 	if (std::find(_indexList.begin(), _indexList.end(), idx) != _indexList.end()) {
 		// nothing to do
-	} else if (idx < static_cast<int>(_valList.size())) {
+	} else if (idx >= 0 && idx < static_cast<int>(_valList.size())) {
 		_indexList.push_back(idx);
 	} else {
-		sig.SetError(ERR_IndexError, "index is out of range");
+		_env.SetError(ERR_IndexError, "index is out of range");
 		return false;
 	}
 	return true;
