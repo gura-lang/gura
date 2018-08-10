@@ -115,7 +115,7 @@ Renderer@html = class {
 			this.RenderItem(item.children)
 			this.out.print('</del>')
 		} elsif (item.type == `codeblock) {
-			this.out.print('<pre><code>')
+			this.out.print('<pre class="highlight"><code>')
 			this.RenderItem(item.children)
 			this.out.print('</code></pre>\n')
 		} elsif (item.type == `ol) {
@@ -151,7 +151,7 @@ Renderer@html = class {
 		} elsif (item.type == `comment) {
 			this.out.print(item.text)
 		} elsif (item.type == `code) {
-			this.out.print('<code>')
+			this.out.print('<code class="highlighter-rouge">')
 			this.out.print(item.text.escapehtml())
 			this.out.print('</code>')
 		} elsif (item.type == `entity) {
@@ -171,6 +171,9 @@ Renderer@html = class {
 				inlineFlag = item.text in tagsInline
 				this.out.print('<')
 				this.out.print(item.text)
+				if (item.text == 'table') {
+					this.out.print(' ', 'class="table"')
+				}
 				item.attrs && this.out.print(' ', item.attrs)
 				if (item.children) {
 					this.out.print('>')
