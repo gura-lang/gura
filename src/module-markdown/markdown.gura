@@ -12,6 +12,7 @@ Renderer@html = class {
 	__init__(out:stream:w, captionIndex:boolean) = {
 		this.out = out
 		this.indices = dim(6) {0}
+		this.enableAnchorFlags = dim(6) {true}
 		this.captionIndex = captionIndex
 	}
 	Render(doc:document):void = {
@@ -29,8 +30,9 @@ Renderer@html = class {
 				this.out.printf('<span class="caption-index-1">%d</span>',
 								this.indices[0])
 			}
-			this.out.printf('<a name="%s">', this.MakeAnchorName([this.indices[0]]))
-			this.out.print('</a>')
+			if (this.enableAnchorFlags[0]) {
+				this.out.printf('<a name="%s"></a>', this.MakeAnchorName([this.indices[0]]))
+			}
 			this.RenderItem(item.children)
 			this.out.print('</h1>\n')
 		} elsif (item.type == `h2) {
@@ -41,8 +43,9 @@ Renderer@html = class {
 				this.out.printf('<span class="caption-index-2">%d.%d</span>',
 								this.indices[0..1]*)
 			}
-			this.out.printf('<a name="%s">', this.MakeAnchorName(this.indices[0..1]))
-			this.out.print('</a>')
+			if (this.enableAnchorFlags[1]) {
+				this.out.printf('<a name="%s"></a>', this.MakeAnchorName(this.indices[0..1]))
+			}
 			this.RenderItem(item.children)
 			this.out.print('</h2>\n')
 		} elsif (item.type == `h3) {
@@ -53,8 +56,9 @@ Renderer@html = class {
 				this.out.printf('<span class="caption-index-3">%d.%d.%d</span>',
 								this.indices[0..2]*)
 			}
-			this.out.printf('<a name="%s">', this.MakeAnchorName(this.indices[0..2]))
-			this.out.print('</a>')
+			if (this.enableAnchorFlags[2]) {
+				this.out.printf('<a name="%s"></a>', this.MakeAnchorName(this.indices[0..2]))
+			}
 			this.RenderItem(item.children)
 			this.out.print('</h3>\n')
 		} elsif (item.type == `h4) {
@@ -65,8 +69,9 @@ Renderer@html = class {
 				this.out.printf('<span class="caption-index-4">%d.%d.%d.%d</span>',
 								this.indices[0..3]*)
 			}
-			this.out.printf('<a name="%s">', this.MakeAnchorName(this.indices[0..3]))
-			this.out.print('</a>')
+			if (this.enableAnchorFlags[3]) {
+				this.out.printf('<a name="%s"></a>', this.MakeAnchorName(this.indices[0..3]))
+			}
 			this.RenderItem(item.children)
 			this.out.print('</h4>\n')
 		} elsif (item.type == `h5) {
@@ -77,8 +82,9 @@ Renderer@html = class {
 				this.out.printf('<span class="caption-index-5">%d.%d.%d.%d.%d</span>',
 								this.indices[0..4]*)
 			}
-			this.out.printf('<a name="%s">', this.MakeAnchorName(this.indices[0..4]))
-			this.out.print('</a>')
+			if (this.enableAnchorFlags[4]) {
+				this.out.printf('<a name="%s"></a>', this.MakeAnchorName(this.indices[0..4]))
+			}
 			this.RenderItem(item.children)
 			this.out.print('</h5>\n')
 		} elsif (item.type == `h6) {
@@ -88,8 +94,9 @@ Renderer@html = class {
 				this.out.printf('<span class="caption-index-6">%d.%d.%d.%d.%d.%d</span>',
 								this.indices[0..5]*)
 			}
-			this.out.printf('<a name="%s">', this.MakeAnchorName(this.indices[0..5]))
-			this.out.print('</a>')
+			if (this.enableAnchorFlags[5]) {
+				this.out.printf('<a name="%s"></a>', this.MakeAnchorName(this.indices[0..5]))
+			}
 			this.RenderItem(item.children)
 			this.out.print('</h6>\n')
 		} elsif (item.type == `p) {

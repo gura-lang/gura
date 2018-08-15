@@ -583,22 +583,6 @@ ${markdown.makedoc@function(`en
 )}
 
 
-## Utilities
-
-#### Functions
-
-${markdown.makedoc@function(`en
-)}
-
-
-### cairo.matrix - Generic matrix operations
-
-#### Functions
-
-${markdown.makedoc@function(`en
-)}
-
-
 ## Thanks
 
 This module uses Cairo library which is distributed in the following site:

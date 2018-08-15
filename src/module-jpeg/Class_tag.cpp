@@ -5,7 +5,7 @@
 Gura_BeginModuleScope(jpeg)
 
 static const char *helpDoc_en = R"**(
-### Property
+# Property
 
 A `jpeg.tag` instance has the following properties:
 

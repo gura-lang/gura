@@ -21,14 +21,14 @@ You can use that suffix like below:
     'hello world'X
 
 
-### Constructor
+# Constructor
 
 ${markdown.makedoc@function(`en
 suffixmgr
 )}
 
 
-### Method
+# Method
 
 ${markdown.makedoc@function(`en
 suffixmgr.assign

@@ -1,0 +1,216 @@
+#!/usr/bin/env gura
+import(markdown)
+
+Renderer@jekyll = class(markdown.Renderer@html) {
+	tmpl@headerForPage:public = R'''
+	---
+	layout: document
+	lang: en
+	title: ${title}
+	doctitle: ${title}
+	prevpage: ${prevPage}
+	nextpage: ${nextPage}
+	---
+	{% raw %}
+	'''.template()
+	footerForPage:public = R'''
+	<p />
+
+	{% endraw %}
+	'''
+	__init__(dirNameOut:string, title:string, author:string, date:string, nChapters:number) = {|sys.stdout, true|
+		this.dirNameOut = dirNameOut
+		this.title = title
+		this.author = author
+		this.date = date
+		this.nChapters = nChapters
+		this.out = nil
+		this.enableAnchorFlags[0] = false	// suppress anchor for <h1>
+	}
+	OnRenderItemPre(item:item) = {
+		if (item.type == `h1) {
+			this.out && this.out.print(footerForPage)
+			idxChapter = this.indices[0] + 1
+			fileName = path.join(this.dirNameOut, 'chapter-%02d.md' % (idxChapter))
+			println('rendering ', path.filename(fileName))
+			this.out = open(fileName, 'w')
+			prevPage = nextPage = '""'
+			if (idxChapter > 1) {
+				prevPage = 'chapter-%02d.html' % (idxChapter - 1)
+			}
+			if (idxChapter + 1 <= this.nChapters) {
+				nextPage = 'chapter-%02d.html' % (idxChapter + 1)
+			}
+			title = this.title
+			tmpl@headerForPage.render(this.out)
+		} elsif (item.type == `tag && item.text == 'gura.funcentry') {
+			if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
+				this.out.printf(R'''
+				<div><strong style="text-decoration:underline">%s</strong></div>
+				<div style="margin-bottom:1em"><code>%s</code></div>
+				''', m[1], m[2])
+			} else {
+				println('**** error ****')
+				sys.exit(1)
+			}
+			return(false)
+		}
+		true
+	}
+	OnRenderItemPost(item:item):void = {
+		if (item.type == `root) {
+			this.out && this.out.print(footerForPage)
+			this.out = nil
+		}
+	}
+}
+
+Renderer@tex = class(markdown.Renderer@tex) {
+	OnRenderItemPre(item:item) = {
+		if (item.type == `tag && item.text == 'gura.funcentry') {
+			if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
+				this.out.printf(R'''
+				\vspace{5mm}
+				\vbox{
+				\underline{\tt\small %s}}
+				''', this.EscapeText(m[2].unescapehtml()))
+			} else {
+				println('**** error ****')
+				sys.exit(1)
+			}
+			return(false)
+		}
+		true
+	}
+}
+
+Renderer@rtf = class(markdown.Renderer@rtf) {
+}
+
+NaviItem = struct(level:number, indices[]:number, anchorName:string, text:string, itemList[] => [])
+
+printNaviItems(out:stream:w, itemList[]:NaviItem) = {
+	tmpl@naviItemTop = R'''
+	<span class="list-group-item border-0 py-2 font-weight-bold{% if page.url contains "/${fileNameHTML}" %} active{% endif %}">
+	{% if page.url contains "/${fileNameHTML}" %}
+	<a name="${item.anchorName}"></a><a href="#">${item.indices.head(item.level + 1).join('.')} ${item.text}</a>
+	{% else %}
+	<a href="${fileNameHTML + "#" + item.anchorName}">${item.indices.head(item.level + 1).join('.')} ${item.text}</a>
+	{% endif %}
+	</span>
+	'''T
+	tmpl@naviItem = R'''
+	<span class="list-group-item border-0 py-1{% if page.url contains "/${fileNameHTML}" %} active{% endif %}">
+	<a href="${fileNameHTML + "#" + item.anchorName}">${item.indices.head(item.level + 1).join('.')} ${item.text}</a>
+	</span>
+	'''T
+	tmpl@naviGroupBegin = R'''
+	{% if page.url contains "/${fileNameHTML}" %}
+	<div class="list-group" id="naviitem-${item.anchorName}">
+	'''T
+	tmpl@naviGroupEnd = R'''
+	</div>
+	{% endif %}
+	'''T
+	itemList.each {|item|
+		fileNameHTML = 'chapter-%02d.html' % item.indices[0]
+		if (item.level == 0) {
+			tmpl@naviItemTop.render(out)
+		} else {
+			tmpl@naviItem.render(out)
+		}
+		if (!item.itemList.isempty() && item.level == 0) {
+			tmpl@naviGroupBegin.render(out)
+			printNaviItems(out, item.itemList)
+			tmpl@naviGroupEnd.render(out)
+		}
+	}
+}
+
+output@tex(doc:markdown.document, baseName:string, title:string, author:string, date:string) = {
+	fileNameTeX = baseName + '.tex'
+	open(fileNameTeX, 'w') {|out|
+		Renderer@tex(out, title, author, date).Render(doc)
+	}
+	sys.stderr.println(fileNameTeX, ' was created.')
+}
+
+output@pdf(doc:markdown.document, baseName:string, title:string, author:string, date:string) = {
+	fileNameTeX = baseName + '.tex'
+	fileNameDVI = baseName + '.dvi'
+	output@tex(doc, baseName, title, aurhot, date)
+	repeat (2) { os.exec('platex', fileNameTeX) }
+	os.exec('dvipdfmx', fileNameDVI)
+}
+
+output@jekyllnavi(doc:markdown.document, dirNameOut:string, title:string) = {
+	itemListRoot = []
+	itemStack = []
+	itemList = itemListRoot
+	doc.render@toc {|level:number, indices[]:number, anchorName:string, text:string|
+		//printf('%*s%s\n', level * 2, '', text)
+		item = NaviItem(level, indices.clone(), anchorName, text)
+		if (!itemStack.isempty()) {
+			itemPrev = itemStack[-1]
+			if (level <= itemPrev.level) {
+				repeat (itemPrev.level - level + 1) {
+					try {itemStack.erase(-1) } catch { println('**** error ****') }
+				}
+				itemList = if (itemStack.isempty()) { itemListRoot } else { itemStack[-1].itemList }
+			} else {
+				if (level > itemPrev.level + 1) { println('**** error ****') }
+				itemList = itemPrev.itemList
+			}
+		}
+		itemList.add(item)
+		itemStack.add(item)
+	}
+	fileNameNavi = path.join(dirNameOut, 'navi.html')
+	println('rendering ', path.filename(fileNameNavi))
+	open(fileNameNavi, 'w') {|out|
+		out.println('<div classs="list-group">')
+		printNaviItems(out, itemListRoot)
+		out.println('</div>')
+	}
+}
+
+output@jekyll(doc:markdown.document, dirNameOut:string, title:string, aurhot:string, date:string, nChapters:number) = {
+	println('Output directory: ', dirNameOut)
+	!path.exists(dirNameOut) && fs.mkdir(dirNameOut)
+	output@jekyllnavi(doc, dirNameOut, title)
+	Renderer@jekyll(dirNameOut, title, aurhot, date, nChapters).Render(doc)
+}
+
+output@rtf(doc:markdown.document, baseName:string, title:string, author:string, date:string) = {
+	open(fileNameRTF, 'w') {|out|
+		Renderer@rtf(out, true).Render(doc)
+	}
+	sys.stderr.println(fileNameRTF, ' was created.')
+}
+
+availableCommands:public = ['tex', 'pdf', 'jekyll', 'rtf']
+
+checkArgument() = {
+	if (sys.argv.len() < 2) {
+		sys.stderr.println('usage: gura build-doc.gura [tex|pdf|jekyll]')
+		sys.exit(1)
+	}
+}
+
+output(doc:markdown.document, baseName:string, dirNameOut@jekyll:string,
+	   title:string, author:string, date:string, nChapters:string) = {
+	sys.argv[1..].each {|cmd|
+		if (cmd == 'tex') {
+			output@tex(doc, baseName, title, author, date)
+		} elsif (cmd == 'pdf') {
+			output@pdf(doc, baseName, title, author, date)
+		} elsif (cmd == 'jekyll') {
+			output@jekyll(doc, dirNameOut@jekyll, title, author, date, nChapters)
+		} elsif (cmd == 'rtf') {
+			output@rtf(doc, baseName, title, author, date)
+		} else {
+			sys.stderr.printf('unknown command: %s\n', cmd)
+		}
+	}
+}
+
