@@ -1,14 +1,5 @@
 #!/usr/bin/env gura
-import(markdown)
-import(re)
-
-fileNameTeX = 'gura-lib-e.tex'
-fileNameRTF = 'gura-lib-e.rtf'
-dirName@html = 'html'
-
-title = 'Gura Library Reference'
-author = 'Yutaka Saito'
-date = 'June 11th, 2018'
+import(markdown.reftool)
 
 moduleNames = [
 	'basement' // this must come at first
@@ -83,158 +74,19 @@ moduleNames = [
 	'zip'
 ]
 
-Renderer@html = class(markdown.Renderer@html) {
-	headerForTOC:public = R'''
-	---
-	layout: page
-	lang: en
-	title: ${title}
-	---
+baseName = 'gura-lib-e'
+dirName@html = '..'
+nChapters = moduleNames.len() + 1
+title = 'Gura Library Reference'
+author = 'Yutaka Saito'
+date = 'June 11th, 2018'
 
-	<h1>${title}</h1>
-
-	'''.embed()
-	footerForTOC:public = R'''
-	<p />
-	'''
-	headerForPage:public = R'''
-	---
-	layout: page
-	lang: en
-	title: ${title}
-	---
-
-	{% raw %}
-	'''.embed()
-	footerForPage:public = R'''
-	<p />
-
-	{% endraw %}
-	'''
-	__init__() = {|sys.stdout, true|
-		this.out = nil
-	}
-	OnRenderItemPre(item:item) = {
-		if (item.type == `h1) {
-			this.out && this.out.print(footerForPage)
-			fileName = path.join(dirName@html, 'chapter-%02d.md' % (this.indices[0] + 1))
-			println('rendering ', path.filename(fileName))
-			this.out = open(fileName, 'w')
-			this.out.print(headerForPage)
-		} elsif (item.type == `tag && item.text == 'gura.funcentry') {
-			if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
-				this.out.printf(R'''
-				<div><strong style="text-decoration:underline">%s</strong></div>
-				<div style="margin-bottom:1em"><code>%s</code></div>
-				''', m[1], m[2])
-			} else {
-				println('**** error ****')
-				sys.exit(1)
-			}
-			return(false)
-		}
-		true
-	}
-	OnRenderItemPost(item:item):void = {
-		if (item.type == `root) {
-			this.out && this.out.print(footerForPage)
-			this.out = nil
-		}
-	}
+markdown.reftool.checkArgument()
+doc = markdown.document()
+doc.read('Main.md')
+moduleNames.each {|moduleName|
+	println('module: ', moduleName)
+	moduleDocName = moduleName + '.doc'
+	import(&moduleDocName).__doc@markdown__(doc, `en)
 }
-
-Renderer@tex = class(markdown.Renderer@tex) {
-	OnRenderItemPre(item:item) = {
-		if (item.type == `tag && item.text == 'gura.funcentry') {
-			if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
-				this.out.printf(R'''
-				\vspace{5mm}
-				\vbox{
-				\underline{\tt\small %s}}
-				''', this.EscapeText(m[2].unescapehtml()))
-			} else {
-				println('**** error ****')
-				sys.exit(1)
-			}
-			return(false)
-		}
-		true
-	}
-}
-
-Renderer@rtf = class(markdown.Renderer@rtf) {
-}
-
-makeDocument() = {
-	doc = markdown.document()
-	doc.read('Main.md')
-	moduleNames.each {|moduleName|
-		println('module: ', moduleName)
-		moduleDocName = moduleName + '.doc'
-		import(&moduleDocName).__doc@markdown__(doc, `en)
-	}
-	doc
-}
-
-output@tex(doc:markdown.document) = {
-	open(fileNameTeX, 'w') {|out|
-		Renderer@tex(out, title, author, date).Render(doc)
-	}
-	sys.stderr.println(fileNameTeX, ' was created.')
-}
-
-output@pdf(doc:markdown.document) = {
-	output@tex(doc)
-	repeat (2) { os.exec('platex', fileNameTeX) }
-	os.exec('dvipdfmx', fileNameTeX.replace('.tex', '.dvi'))
-}
-
-output@html(doc:markdown.document) = {
-	println('Output directory: ', dirName@html)
-	!path.exists(dirName@html) && fs.mkdir(dirName@html)
-	fileName = path.join(dirName@html, 'index.md')
-	println('rendering ', path.filename(fileName))
-	open(fileName, 'w') {|out|
-		out.print(Renderer@html.headerForTOC)
-		doc.render@toc {|level:number, indices[]:number, anchorName:string, text:string|
-			if (level == 0) {
-				out.printf(
-						'<div><span class="toc-index-1">%d</span>' \
-						'<a href="chapter-%02d.html#%s">%s</a>\</div>\n',
-						indices[0], indices[0], anchorName, text)
-			} elsif (level == 1 && indices[0] in [4, 5]) {
-				out.printf(
-						'<div><span class="toc-index-2">%d.%d</span>' \
-						'<a href="chapter-%02d.html#%s">%s</a>\</div>\n',
-						indices[0], indices[1], indices[0], anchorName, text)
-			}
-		}
-		out.print(Renderer@html.footerForTOC)
-	}
-	Renderer@html().Render(doc)
-}
-
-output@rtf(doc:markdown.document) = {
-	open(fileNameRTF, 'w') {|out|
-		Renderer@rtf(out, true).Render(doc)
-	}
-	sys.stderr.println(fileNameRTF, ' was created.')
-}
-
-usage() = {
-	sys.stderr.println('usage: gura build-doc [tex|pdf|html]')
-}
-
-if (sys.argv.len() < 2) {
-	usage()
-} else {
-	entries = %{
-		'tex' => output@tex
-		'pdf' => output@pdf
-		'html' => output@html
-		'rtf' => output@rtf
-	}
-	try { funcs = entries[sys.argv[1..]] } catch { usage() }
-	doc = makeDocument()
-	funcs.each {|func| func(doc)}
-}
+markdown.reftool.output(doc, baseName, dirName@html, title, author, date, nChapters)
