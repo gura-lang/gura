@@ -75,7 +75,7 @@ moduleNames = [
 ]
 
 baseName = 'gura-lib-e'
-dirName@html = '..'
+dirName@jekyll = 'jekyll'
 nChapters = moduleNames.len() + 1
 title = 'Gura Library Reference'
 author = 'Yutaka Saito'
@@ -89,4 +89,4 @@ moduleNames.each {|moduleName|
 	moduleDocName = moduleName + '.doc'
 	import(&moduleDocName).__doc@markdown__(doc, `en)
 }
-markdown.reftool.output(doc, baseName, dirName@html, title, author, date, nChapters)
+markdown.reftool.output(doc, baseName, dirName@jekyll, title, author, date, nChapters)

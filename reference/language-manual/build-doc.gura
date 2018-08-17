@@ -24,7 +24,7 @@ fileNamesSrc = [
 	'19-Template-Engine.md'
 ]
 baseName = 'gura-lang-en'
-dirNameOut@jekyll = '..'
+dirNameOut@jekyll = 'jekyll'
 nChapters = fileNamesSrc.len()
 title = 'Gura Language Manual'
 author = 'Yutaka Saito'
