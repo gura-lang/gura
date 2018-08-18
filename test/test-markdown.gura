@@ -2,6 +2,41 @@
 import(helper.test) {*}
 import(markdown)
 
+testcase('markdown.item#countitem()') {
+	doc = markdown.document()
+	doc << R'''
+	Header1
+	==
+	
+	Header1
+	===
+	
+	Header1
+	=======
+	
+	Header2
+	--
+	
+	Header2
+	---
+	
+	Header2
+	-------
+	
+	Build for Windows
+	-----
+	Build for Windows
+	
+	- hoge
+	'''
+	doc.root.print()
+	types = [`h1, `h2, `h3, `p, `text]
+	types.each {|type|
+		printf('%s document#countitem:%d, item#countdescendant:%d\n',
+			   type, doc.countitem(type), doc.root.countdescendant(type))
+	}
+}
+sys.exit()
 testcase@markdown(title:string, text:string):void = {
 	printf('======== %s ========\n', title)
 	doc = markdown.document()

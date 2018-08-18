@@ -11,6 +11,37 @@ inline bool IsTagNameFollower(char ch) { return IsAlpha(ch) || IsDigit(ch) || ch
 //-----------------------------------------------------------------------------
 // Item
 //-----------------------------------------------------------------------------
+const Item::TypeNamePair Item::_typeNamePairs[] = {
+	{ TYPE_None,			"none",			},
+	{ TYPE_Root,			"root",			},	// container
+	{ TYPE_Header1,			"h1",			},	// container
+	{ TYPE_Header2,			"h2",			},	// container
+	{ TYPE_Header3,			"h3",			},	// container
+	{ TYPE_Header4,			"h4",			},	// container
+	{ TYPE_Header5,			"h5",			},	// container
+	{ TYPE_Header6,			"h6",			},	// container
+	{ TYPE_Paragraph,		"p",			},	// container
+	{ TYPE_BlockQuote,		"blockquote",	},	// container
+	{ TYPE_Emphasis,		"em",			},	// container
+	{ TYPE_Strong,			"strong",		},	// container
+	{ TYPE_Strike,			"strike",		},	// container
+	{ TYPE_CodeBlock,		"codeblock",	},	// container
+	{ TYPE_OList,			"ol",			},	// container
+	{ TYPE_UList,			"ul",			},	// container
+	{ TYPE_ListItem,		"li",			},	// container
+	{ TYPE_Line,			"line",			},	// container
+	{ TYPE_Link,			"a",			},	// container
+	{ TYPE_Image,			"img",			},	// text
+	{ TYPE_Text,			"text",			},	// text
+	{ TYPE_Comment,			"comment",		},	// text
+	{ TYPE_Code,			"code",			},	// text
+	{ TYPE_Entity,			"entity",		},	// text
+	{ TYPE_Tag,				"tag",			},	// container and text (attributes)
+	{ TYPE_HorzRule,		"hr",			},	// no-content
+	{ TYPE_LineBreak,		"br",			},	// no-content
+	{ TYPE_Referee,			"referee",		},	// no-content
+};
+
 Item::Item(Type type) :
 	_cntRef(1), _type(type), _align(ALIGN_None),
 	_indentLevel(0), _indentLevelItemBody(0), _markdownAcceptableFlag(true)
@@ -31,40 +62,8 @@ Item::Item(Type type, const String &text) :
 
 const char *Item::GetTypeName() const
 {
-	static const struct {
-		Type type;
-		const char *name;
-	} tbl[] = {
-		{ TYPE_Root,			"root",			},	// container
-		{ TYPE_Header1,			"h1",			},	// container
-		{ TYPE_Header2,			"h2",			},	// container
-		{ TYPE_Header3,			"h3",			},	// container
-		{ TYPE_Header4,			"h4",			},	// container
-		{ TYPE_Header5,			"h5",			},	// container
-		{ TYPE_Header6,			"h6",			},	// container
-		{ TYPE_Paragraph,		"p",			},	// container
-		{ TYPE_BlockQuote,		"blockquote",	},	// container
-		{ TYPE_Emphasis,		"em",			},	// container
-		{ TYPE_Strong,			"strong",		},	// container
-		{ TYPE_Strike,			"strike",		},	// container
-		{ TYPE_CodeBlock,		"codeblock",	},	// container
-		{ TYPE_OList,			"ol",			},	// container
-		{ TYPE_UList,			"ul",			},	// container
-		{ TYPE_ListItem,		"li",			},	// container
-		{ TYPE_Line,			"line",			},	// container
-		{ TYPE_Link,			"a",			},	// container
-		{ TYPE_Image,			"img",			},	// text
-		{ TYPE_Text,			"text",			},	// text
-		{ TYPE_Comment,			"comment",		},	// text
-		{ TYPE_Code,			"code",			},	// text
-		{ TYPE_Entity,			"entity",		},	// text
-		{ TYPE_Tag,				"tag",			},	// container and text (attributes)
-		{ TYPE_HorzRule,		"hr",			},	// no-content
-		{ TYPE_LineBreak,		"br",			},	// no-content
-		{ TYPE_Referee,			"referee",		},	// no-content
-	};
-	for (int i = 0; i < ArraySizeOf(tbl); i++) {
-		if (tbl[i].type == _type) return tbl[i].name;
+	for (int i = 0; i < ArraySizeOf(_typeNamePairs); i++) {
+		if (_typeNamePairs[i].type == _type) return _typeNamePairs[i].name;
 	}
 	return "?";
 }
@@ -107,6 +106,22 @@ void Item::Print(Signal &sig, Stream &stream, int indentLevel) const
 	}
 }
 
+const char *Item::TypeToName(Type type)
+{
+	for (int i = 0; i < ArraySizeOf(_typeNamePairs); i++) {
+		if (_typeNamePairs[i].type == type) return _typeNamePairs[i].name;
+	}
+	return "?";
+}
+
+Item::Type Item::NameToType(const char *name)
+{
+	for (int i = 0; i < ArraySizeOf(_typeNamePairs); i++) {
+		if (::strcmp(_typeNamePairs[i].name, name) == 0) return _typeNamePairs[i].type;
+	}
+	return TYPE_None;
+}
+
 //-----------------------------------------------------------------------------
 // ItemList
 //-----------------------------------------------------------------------------
@@ -123,13 +138,18 @@ Item *ItemList::FindByRefId(const char *refId) const
 	return nullptr;
 }
 
-Item *ItemList::FindByType(Item::Type type) const
+size_t ItemList::CountByType(Item::Type type, bool recursiveFlag) const
 {
+	size_t cnt = 0;
 	foreach_const (ItemList, ppItem, *this) {
 		Item *pItem = *ppItem;
-		if (pItem->GetType() == type) return pItem;
+		if (pItem->GetType() == type) cnt++;
+		if (recursiveFlag) {
+			ItemOwner *pItemOwner = pItem->GetItemOwner();
+			if (pItemOwner != nullptr) cnt += pItemOwner->CountByType(type, recursiveFlag);
+		}
 	}
-	return nullptr;
+	return cnt;
 }
 
 void ItemList::Print(Signal &sig, Stream &stream, int indentLevel) const
@@ -2843,6 +2863,29 @@ Gura_ImplementFunction(document)
 //-----------------------------------------------------------------------------
 // Gura interfaces for markdown.document
 //-----------------------------------------------------------------------------
+// markdown.document#countitem(type:symbol)
+Gura_DeclareMethod(document, countitem)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "type", VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		"Count the number of items of the specified type.");
+}
+
+Gura_ImplementMethod(document, countitem)
+{
+	Document *pDocument = Object_document::GetObjectThis(arg)->GetDocument();
+	const Symbol *pSymbol = arg.GetSymbol(0);
+	Item::Type type = Item::NameToType(pSymbol->GetName());
+	if (type == Item::TYPE_None) {
+		env.SetError(ERR_ValueError, "invalid symbol for item type: `%s", pSymbol->GetName());
+		return Value::Nil;
+	}
+	size_t cnt = pDocument->GetItemRoot()->GetItemOwner()->CountByType(type, true);
+	return Value(cnt);
+}
+
 // markdown.document#parse(str:string):void
 Gura_DeclareMethod(document, parse)
 {
@@ -2885,6 +2928,7 @@ Gura_ImplementMethod(document, read)
 Gura_ImplementUserClass(document)
 {
 	Gura_AssignFunction(document);
+	Gura_AssignMethod(document, countitem);
 	Gura_AssignMethod(document, parse);
 	Gura_AssignMethod(document, read);
 }
@@ -2967,6 +3011,30 @@ String Object_item::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for markdown.item
 //-----------------------------------------------------------------------------
+// markdown.item#countdescendant(type:symbol)
+Gura_DeclareMethod(item, countdescendant)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "type", VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		"Count the number of descendant items of the specified type.");
+}
+
+Gura_ImplementMethod(item, countdescendant)
+{
+	Item *pItem = Object_item::GetObjectThis(arg)->GetItem();
+	const Symbol *pSymbol = arg.GetSymbol(0);
+	Item::Type type = Item::NameToType(pSymbol->GetName());
+	if (type == Item::TYPE_None) {
+		env.SetError(ERR_ValueError, "invalid symbol for item type: `%s", pSymbol->GetName());
+		return Value::Nil;
+	}
+	const ItemOwner *pItemOwner = pItem->GetItemOwner();
+	size_t cnt = (pItemOwner == nullptr)? 0 : pItemOwner->CountByType(type, true);
+	return Value(cnt);
+}
+
 // markdown.item#print(indent?:number):void
 Gura_DeclareMethod(item, print)
 {
@@ -2993,6 +3061,7 @@ Gura_ImplementMethod(item, print)
 Gura_ImplementUserClass(item)
 {
 	Gura_AssignValue(item, Value(Reference()));
+	Gura_AssignMethod(item, countdescendant);
 	Gura_AssignMethod(item, print);
 }
 

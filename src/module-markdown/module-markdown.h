@@ -41,6 +41,7 @@ typedef std::vector<Align> AlignList;
 class Item {
 public:
 	enum Type {
+		TYPE_None,
 		TYPE_Root,			// container, can be a parent
 		TYPE_Header1,		// container
 		TYPE_Header2,		// container
@@ -69,6 +70,12 @@ public:
 		TYPE_LineBreak,		// no-content
 		TYPE_Referee,		// no-content
 	};
+	struct TypeNamePair {
+		Type type;
+		const char *name;
+	};
+private:
+	static const TypeNamePair _typeNamePairs[];
 private:
 	int _cntRef;
 	Type _type;
@@ -147,6 +154,8 @@ public:
 	inline bool GetMarkdownAcceptableFlag() const { return _markdownAcceptableFlag; }
 	const char *GetTypeName() const;
 	void Print(Signal &sig, Stream &stream, int indentLevel) const;
+	static const char *TypeToName(Type type);
+	static Type NameToType(const char *name);
 };
 
 //-----------------------------------------------------------------------------
@@ -155,7 +164,7 @@ public:
 class ItemList : public std::vector<Item *> {
 public:
 	Item *FindByRefId(const char *refId) const;
-	Item *FindByType(Item::Type type) const;
+	size_t CountByType(Item::Type type, bool recursiveFlag) const;
 	void Print(Signal &sig, Stream &stream, int indentLevel) const;
 };
 
