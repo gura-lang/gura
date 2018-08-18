@@ -2527,3 +2527,30 @@
     <text>'header2 after headerdown and headerup'
   <h4>
     <text>'header2 after 2 times of headerdown'
+======== #1 markdown.item#countitem() ========
+
+<root>
+  <h1>
+    <text>'Header1'
+  <h1>
+    <text>'Header1'
+  <h1>
+    <text>'Header1'
+  <h2>
+    <text>'Header2'
+  <h2>
+    <text>'Header2'
+  <h2>
+    <text>'Header2'
+  <h2>
+    <text>'Build for Windows'
+  <p>
+    <text>'Build for Windows'
+  <ul>
+    <li>
+      <text>'hoge'
+h1 document#countitem:3, item#countdescendant:3
+h2 document#countitem:4, item#countdescendant:4
+h3 document#countitem:0, item#countdescendant:0
+p document#countitem:1, item#countdescendant:1
+text document#countitem:9, item#countdescendant:9
