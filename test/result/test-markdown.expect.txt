@@ -2527,7 +2527,7 @@
     <text>'header2 after headerdown and headerup'
   <h4>
     <text>'header2 after 2 times of headerdown'
-======== #1 markdown.item#countitem() ========
+======== #1 markdown.document#countitem() / markdown.item#countdescendant() ========
 
 <root>
   <h1>

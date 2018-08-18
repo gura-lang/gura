@@ -1388,7 +1388,7 @@ text@todo = R'''
 >     }
 '''
 
-testcase('markdown.item#countitem()') {
+testcase('markdown.document#countitem() / markdown.item#countdescendant()') {
 	doc = markdown.document()
 	doc << R'''
 	Header1
