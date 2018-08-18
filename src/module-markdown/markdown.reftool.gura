@@ -8,8 +8,8 @@ import(markdown)
 Renderer@jekyll = class(markdown.Renderer@html) {
 	tmpl@header:public = R'''
 	---
-	layout: reference
-	lang: en
+	layout: ${layout}
+	lang: ${lang}
 	title: ${title}
 	prevpage: ${prevPage}
 	nextpage: ${nextPage}
@@ -19,14 +19,20 @@ Renderer@jekyll = class(markdown.Renderer@html) {
 	tmpl@footer:public = R'''
 	{% endraw %}
 	'''T
-	__init__(dirNameOut:string, title:string, author:string, date:string, nChapters:number) = {|sys.stdout, true|
+	__init__(dirNameOut:string, layout:string, lang:string,
+			 title:string, author:string, date:string) = {|sys.stdout, true|
 		this.dirNameOut = dirNameOut
+		this.layout = layout
+		this.lang = lang
 		this.title = title
 		this.author = author
 		this.date = date
-		this.nChapters = nChapters
 		this.out = nil
 		this.enableAnchorFlags[0] = false	// suppress anchor for <h1>
+	}
+	RenderEx(doc:markdown.document) = {
+		this.nChapters = doc.countitem(`h1)
+		this.Render(doc)
 	}
 	OnRenderItemPre(item:item) = {
 		if (item.type == `h1) {
@@ -42,6 +48,8 @@ Renderer@jekyll = class(markdown.Renderer@html) {
 			if (idxChapter + 1 <= this.nChapters) {
 				nextPage = 'chapter-%02d.html#naviitem-selected' % (idxChapter + 1)
 			}
+			layout = this.layout
+			lang = this.lang
 			title = this.title
 			tmpl@header.render(this.out)
 		} elsif (item.type == `tag && item.text == 'gura.funcentry') {
@@ -139,24 +147,26 @@ output@tex(doc:markdown.document, baseName:string, title:string, author:string, 
 output@pdf(doc:markdown.document, baseName:string, title:string, author:string, date:string) = {
 	fileNameTeX = baseName + '.tex'
 	fileNameDVI = baseName + '.dvi'
-	output@tex(doc, baseName, title, aurhot, date)
+	output@tex(doc, baseName, title, author, date)
 	repeat (2) { os.exec('platex', fileNameTeX) }
 	os.exec('dvipdfmx', fileNameDVI)
 }
 
-output@jekyll(doc:markdown.document, dirNameOut:string, title:string, author:string, date:string, nChapters:number) = {
+output@jekyll(doc:markdown.document, dirNameOut:string, layout:string, lang:string,
+			  title:string, author:string, date:string) = {
 	println('Output directory: ', dirNameOut)
 	!path.exists(dirNameOut) && fs.mkdir(dirNameOut)
-	output@jekyll_index(doc, dirNameOut, title, author, date)
+	output@jekyll_index(doc, dirNameOut, layout, lang, title, author, date)
 	output@jekyll_navi(doc, dirNameOut, title)
-	Renderer@jekyll(dirNameOut, title, author, date, nChapters).Render(doc)
+	Renderer@jekyll(dirNameOut, layout, lang, title, author, date).RenderEx(doc)
 }
 
-output@jekyll_index(doc:markdown.document, dirNameOut:string, title:string, author:string, date:string) = {
+output@jekyll_index(doc:markdown.document, dirNameOut:string, layout:string, lang:string,
+					title:string, author:string, date:string) = {
 	tmpl@content:public = R'''
 	---
-	layout: reference
-	lang: en
+	layout: ${layout}
+	lang: ${lang}
 	title: ${title}
 	---
 	<h1>${title}</h1>
@@ -215,6 +225,35 @@ output@rtf(doc:markdown.document, baseName:string, title:string, author:string, 
 
 availableCommands:public = ['tex', 'pdf', 'jekyll', 'rtf']
 
+Composer = class {
+	__init__(baseName:string, dirNameOut@jekyll:string, layout@jekyll:string,
+			 lang:string, title:string, author:string, date:string) = {
+		this.baseName:public = baseName
+		this.dirNameOut@jekyll:public = dirNameOut@jekyll
+		this.layout@jekyll:public = layout@jekyll
+		this.lang:public = lang
+		this.title:public = title
+		this.author:public = author
+		this.date:public = date
+	}
+	output(doc:markdown.document) = {
+		sys.argv[1..].each {|cmd|
+			if (cmd == 'tex') {
+				output@tex(doc, this.baseName, this.title, this.author, this.date)
+			} elsif (cmd == 'pdf') {
+				output@pdf(doc, this.baseName, this.title, this.author, this.date)
+			} elsif (cmd == 'jekyll') {
+				output@jekyll(doc, this.dirNameOut@jekyll, this.layout@jekyll,
+							  this.lang, this.title, this.author, this.date)
+			} elsif (cmd == 'rtf') {
+				output@rtf(doc, this.baseName, this.title, this.author, this.date)
+			} else {
+				sys.stderr.printf('unknown command: %s\n', cmd)
+			}
+		}
+	}
+}
+
 checkArgument() = {
 	if (sys.argv.len() < 2) {
 		sys.stderr.println('usage: gura build-doc.gura [tex|pdf|jekyll]')
@@ -222,15 +261,15 @@ checkArgument() = {
 	}
 }
 
-output(doc:markdown.document, baseName:string, dirNameOut@jekyll:string,
-	   title:string, author:string, date:string, nChapters:string) = {
+output(doc:markdown.document, baseName:string, dirNameOut@jekyll:string, layout@jekyll:string,
+	   lang:string, title:string, author:string, date:string) = {
 	sys.argv[1..].each {|cmd|
 		if (cmd == 'tex') {
 			output@tex(doc, baseName, title, author, date)
 		} elsif (cmd == 'pdf') {
 			output@pdf(doc, baseName, title, author, date)
 		} elsif (cmd == 'jekyll') {
-			output@jekyll(doc, dirNameOut@jekyll, title, author, date, nChapters)
+			output@jekyll(doc, dirNameOut@jekyll, layout@jekyll, lang, title, author, date)
 		} elsif (cmd == 'rtf') {
 			output@rtf(doc, baseName, title, author, date)
 		} else {
@@ -238,4 +277,3 @@ output(doc:markdown.document, baseName:string, dirNameOut@jekyll:string,
 		}
 	}
 }
-

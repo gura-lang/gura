@@ -74,19 +74,21 @@ moduleNames = [
 	'zip'
 ]
 
-baseName = 'gura-lib-e'
-dirName@jekyll = 'jekyll'
-nChapters = moduleNames.len() + 1
-title = 'Gura Library Reference'
-author = 'Yutaka Saito'
-date = 'June 11th, 2018'
-
+composer@en = markdown.reftool.Composer(
+		baseName			=> 'gura-lib-en',
+		dirNameOut@jekyll	=> 'jekyll',
+		layout@jekyll		=> 'doc-widenavi',
+		lang				=> 'en',
+		title				=> 'Gura Library Reference',
+		author				=> 'ypsitau@gmail.com',
+		date				=> 'August 18th, 2018')
 markdown.reftool.checkArgument()
-doc = markdown.document()
-doc.read('Main.md')
-moduleNames.each {|moduleName|
-	println('module: ', moduleName)
-	moduleDocName = moduleName + '.doc'
-	import(&moduleDocName).__doc@markdown__(doc, `en)
+markdown.document {|doc|
+	doc.read('Main.md')
+	moduleNames.each {|moduleName|
+		moduleDocName = moduleName + '.doc'
+		println('importing: ', moduleDocName)
+		import(&moduleDocName).__doc@markdown__(doc, composer@en.lang)
+	}
+	composer@en.output(doc)
 }
-markdown.reftool.output(doc, baseName, dirName@jekyll, title, author, date, nChapters)

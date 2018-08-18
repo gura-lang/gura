@@ -23,17 +23,19 @@ fileNamesSrc = [
 	'18-Mathematic-Functions.md'
 	'19-Template-Engine.md'
 ]
-baseName = 'gura-lang-en'
-dirNameOut@jekyll = 'jekyll'
-nChapters = fileNamesSrc.len()
-title = 'Gura Language Manual'
-author = 'Yutaka Saito'
-date = 'June 17th, 2017'
-
+composer@en = markdown.reftool.Composer(
+		baseName			=> 'gura-lang-en',
+		dirNameOut@jekyll	=> 'jekyll',
+		layout@jekyll		=> 'doc-widenavi',
+		lang				=> 'en',
+		title				=> 'Gura Language Manual',
+		author				=> 'ypsitau@gmail.com',
+		date				=> 'August 18th, 2018')
 markdown.reftool.checkArgument()
-doc = markdown.document()
-fileNamesSrc.each {|fileNameSrc|
-	println('reading: ', fileNameSrc)
-	doc.read(fileNameSrc)
+markdown.document {|doc|
+	fileNamesSrc.each {|fileNameSrc|
+		println('reading: ', fileNameSrc)
+		doc.read(fileNameSrc)
+	}
+	composer@en.output(doc)
 }
-markdown.reftool.output(doc, baseName, dirNameOut@jekyll, title, author, date, nChapters)
