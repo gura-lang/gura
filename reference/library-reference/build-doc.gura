@@ -1,5 +1,26 @@
 #!/usr/bin/env gura
-import(markdown.reftool)
+import(markdown.docbuild)
+
+composers = [
+	markdown.docbuild.Composer(
+			baseName			=> 'gura-lib-en',
+			dirNameOut@jekyll	=> 'jekyll',
+			layout@jekyll		=> 'doc-widenavi',
+			lang				=> 'en',
+			title				=> 'Gura Library Reference',
+			author				=> 'ypsitau@gmail.com',
+			date				=> 'August 18th, 2018')
+	/*
+	markdown.docbuild.Composer(
+			baseName			=> 'gura-lib-ja',
+			dirNameOut@jekyll	=> 'jekyll',
+			layout@jekyll		=> 'doc-widenavi',
+			lang				=> 'ja',
+			title				=> 'Gura ライブラリリファレンス',
+			author				=> 'ypsitau@gmail.com',
+			date				=> 'August 18th, 2018')
+			*/
+]
 
 moduleNames = [
 	'basement' // this must come at first
@@ -74,21 +95,14 @@ moduleNames = [
 	'zip'
 ]
 
-composer@en = markdown.reftool.Composer(
-		baseName			=> 'gura-lib-en',
-		dirNameOut@jekyll	=> 'jekyll',
-		layout@jekyll		=> 'doc-widenavi',
-		lang				=> 'en',
-		title				=> 'Gura Library Reference',
-		author				=> 'ypsitau@gmail.com',
-		date				=> 'August 18th, 2018')
-markdown.reftool.checkArgument()
-markdown.document {|doc|
-	doc.read('Main.md')
+markdown.docbuild.checkArgument()
+composers.each {|composer|
+	doc = markdown.document()
+	doc.read('main@%s.md' % composer.lang)
 	moduleNames.each {|moduleName|
 		moduleDocName = moduleName + '.doc'
 		println('importing: ', moduleDocName)
-		import(&moduleDocName).__doc@markdown__(doc, composer@en.lang)
+		import(&moduleDocName).__doc@markdown__(doc, composer.lang)
 	}
-	composer@en.output(doc)
+	composer.output(doc)
 }

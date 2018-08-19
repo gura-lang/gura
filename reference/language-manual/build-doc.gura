@@ -1,5 +1,16 @@
 #!/usr/bin/env gura
-import(markdown.reftool)
+import(markdown.docbuild)
+
+composers = [
+	markdown.docbuild.Composer(
+			baseName			=> 'gura-lang-en',
+			dirNameOut@jekyll	=> 'jekyll',
+			layout@jekyll		=> 'doc-widenavi',
+			lang				=> 'en',
+			title				=> 'Gura Language Manual',
+			author				=> 'ypsitau@gmail.com',
+			date				=> 'August 18th, 2018')
+]
 
 fileNamesSrc = [
 	'00-Introduction.md'
@@ -23,19 +34,13 @@ fileNamesSrc = [
 	'18-Mathematic-Functions.md'
 	'19-Template-Engine.md'
 ]
-composer@en = markdown.reftool.Composer(
-		baseName			=> 'gura-lang-en',
-		dirNameOut@jekyll	=> 'jekyll',
-		layout@jekyll		=> 'doc-widenavi',
-		lang				=> 'en',
-		title				=> 'Gura Language Manual',
-		author				=> 'ypsitau@gmail.com',
-		date				=> 'August 18th, 2018')
-markdown.reftool.checkArgument()
-markdown.document {|doc|
+markdown.docbuild.checkArgument()
+composers.each {|composer|
+	doc = markdown.document()
 	fileNamesSrc.each {|fileNameSrc|
-		println('reading: ', fileNameSrc)
-		doc.read(fileNameSrc)
+		pathNameSrc = path.join(composer.lang, fileNameSrc)
+		println('reading: ', pathNameSrc)
+		doc.read(pathNameSrc)
 	}
-	composer@en.output(doc)
+	composer.output(doc)
 }
