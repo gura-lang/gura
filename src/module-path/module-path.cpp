@@ -32,7 +32,13 @@ Gura_DeclareFunction(basename)
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), 
-		"Removes a suffix part of a path name.");
+		"Removes a suffix part of a path name.\n"
+		"This is complementary to `path.extname()`.\n"
+		"\n"
+		"Example:\n"
+		"```\n"
+		"path.basename('/foo/bar/file.txt')  # Returns '/foo/bar/file'\n"
+		"```\n");
 }
 
 Gura_ImplementFunction(basename)
@@ -50,7 +56,14 @@ Gura_DeclareFunction(bottom)
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), 
-		"Returns the last part of a path name.");
+		"Returns the last part of a path name (cf. `path.filename()`)."
+		"This is complementary to `path.cutbottom()`.\n"
+		"\n"
+		"Example:\n"
+		"```\n"
+		"path.bottom('/foo/bar/file.txt')  # Returns 'file.txt'\n"
+		"path.bottom('/foo/bar/dir/')      # Returns 'dir'\n"
+		"```\n");
 }
 
 Gura_ImplementFunction(bottom)
@@ -67,7 +80,14 @@ Gura_DeclareFunction(cutbottom)
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), 
-		"Returns a path name after eliminating its bottom part.");
+		"Returns a path name after eliminating its bottom part (cf. `path.dirname()`)."
+		"This is complementary to `path.bottom()`.\n"
+		"\n"
+		"Example:\n"
+		"```\n"
+		"path.cutbottom('/foo/bar/file.txt')  # Returns '/foo/bar/'\n"
+		"path.cutbottom('/foo/bar/dir/')      # Returns '/foo/bar/'\n"
+		"```\n");
 }
 
 Gura_ImplementFunction(cutbottom)
@@ -132,7 +152,14 @@ Gura_DeclareFunction(dirname)
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), 
-		"Splits a pathname by a directory separator and returns a directory name part.");
+		"Splits a pathname by a directory separator and returns a directory name part (cf. `path.cutbottom()`)."
+		"This is complementary to `path.filename()`.\n"
+		"\n"
+		"Example:\n"
+		"```\n"
+		"path.dirname('/foo/bar/file.txt')  # Returns '/foo/bar/'\n"
+		"path.dirname('/foo/bar/dir/')      # Returns '/foo/bar/dir/'\n"
+		"```\n");
 }
 
 Gura_ImplementFunction(dirname)
@@ -167,7 +194,14 @@ Gura_DeclareFunction(extname)
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), 
-		"Extracts a suffix part of a path name.");
+		"Extracts a suffix part of a path name. It returns an empty string when the given pathname has no suffix.\n"
+		"This is complementary to `path.basename()`.\n"
+		"\n"
+		"Example:\n"
+		"```\n"
+		"path.extname('/foo/bar/file.txt')  # Returns 'txt'\n"
+		"path.extname('/foo/bar/file')      # Returns ''\n"
+		"```\n");
 }
 
 Gura_ImplementFunction(extname)
@@ -184,7 +218,14 @@ Gura_DeclareFunction(filename)
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), 
-		"Splits a pathname by a directory separator and returns a file name part.");
+		"Splits a pathname by a directory separator and returns a file name part (cf. `path.bottom()`).\n"
+		"This is complementary to `path.dirname()`.\n"
+		"\n"
+		"Example:\n"
+		"```\n"
+		"path.filename('/foo/bar/file.txt')  # Returns 'file.txt'\n"
+		"path.filename('/foo/bar/dir/')      # Returns ''\n"
+		"```\n");
 }
 
 Gura_ImplementFunction(filename)
@@ -289,15 +330,14 @@ Gura_DeclareFunction(regulate)
 	DeclareAttr(Gura_Symbol(uri));
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns a regulated path name of the given name.");
+		"Removes redundant relative directories.");
 }
 
 Gura_ImplementFunction(regulate)
 {
 	char chSeparator = arg.IsSet(Gura_Symbol(uri))? '/' : OAL::FileSeparator;
 	bool cutLastSepFlag = false;
-	return Value(OAL::RegulatePathName(chSeparator,
-								arg.GetString(0), cutLastSepFlag));
+	return Value(OAL::RegulatePathName(chSeparator, arg.GetString(0), cutLastSepFlag));
 }
 
 // path.split(pathname:string):map:[bottom]
@@ -310,7 +350,20 @@ Gura_DeclareFunction(split)
 		Gura_Symbol(en), 
 		"Splits a pathname by a directory separator and returns a list containing\n"
 		"a directory name as the first element and a base name as the second one.\n"
-		"This has the same result as calling path.dirname() and path.filename().");
+		"\n"
+		"Calling this function has the same result as calling `path.dirname()` and `path.filename()`.\n"
+		"\n"
+		"Calling this function with `:bottom` attribute has the same result as calling\n"
+		"`path.cutbottom()` and `path.bottom()`.\n"
+		"\n"
+		"Example:\n"
+		"```\n"
+		"path.split('/foo/bar/file.txt')         # Returns ['/foo/bar/', 'file.txt']\n"
+		"path.split('/foo/bar/dir/')             # Returns ['/foo/bar/dir/', '']\n"
+		"\n"
+		"path.split('/foo/bar/file.txt'):bottom  # Returns ['/foo/bar/', 'file.txt']\n"
+		"path.split('/foo/bar/dir/'):bottom      # Returns ['/foo/bar/', 'dir']\n"
+		"```\n");
 }
 
 Gura_ImplementFunction(split)
