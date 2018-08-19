@@ -34,6 +34,8 @@ and then render its HTML text into a file.
 
 ## markdown.document Class
 
+### Overview
+
 The `markdown.document` class provides measures to parse a document written in Markdown format.
 
 You can parse documents written in both string and stream using the following methods:
@@ -74,6 +76,8 @@ markdown.document.render@toc
 )}
 
 ## markdown.item Class
+
+### Overview
 
 The `markdown.item` class provides information about items that composes a Markdown document.
 

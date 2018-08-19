@@ -938,19 +938,41 @@ classref(`document).render@html(
 	easyFormatFlag && out.print(R'''
 	<html>
 	<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+	<!-- Font Awesome CSS -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+	<title></title>
 	</head>
-	<body>
+	<body class="m-5">
 	''')
 	Renderer@html(out, captionIndex).Render(this)
 	easyFormatFlag && out.print(R'''
 	</body>
 	</html>
 	''')
+} %% { `en,
+R'''
+Renders the content of markdown document in HTML format.
+
+The result will be put out to the stream speicified by the argument `out`.
+If the argument is omitted, it will be put out to the standard output.
+
+Specifying `true` to `easyFormatFlag` argument means it will generate an HTML with header tags. The default is `true`.
+
+The argument `captionIndex` indicates whether caption indices are added to headers. The default is `false`.
+'''
 }
 
 classref(`document).render@tex(title:string, author:string, date:string, out?:stream:w) = {
 	out = out || sys.stdout
 	Renderer@tex(out, title, author, date).Render(this)
+} %% { `en,
+R'''
+'''
 }
 
 classref(`document).render@rtf(out?:stream:w) = {
@@ -1039,12 +1061,17 @@ makedoc@function$(lang:symbol, match:string, sub:string, funcs*:function) = {
 			   function.getformat(funcs):*replace(match, sub))
 }
 
+main(mod:environment) = {
+	lang = if (sys.argv.len() < 2) { `en } else { sys.argv[1].tosymbol() }
+	mod.__doc@markdown__(markdown.document(), lang).render@html(sys.stdout, true)
+}
+
 makedoc@module(mod:environment, d:dict) = {
 	mod.__doc@markdown__(doc:markdown.document, lang:symbol) = {
 		doc << d.get(lang, d[d.keys().next()])
 	}
 	if (mod.__name__ == '__main__') {
-		mod.__doc@markdown__(markdown.document(), `en).render@html(sys.stdout)
+		main(mod)
 	}
 } %% {`en, R'''
 Registers a dictionary of document texts written in Markdown format
