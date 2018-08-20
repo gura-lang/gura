@@ -4,7 +4,7 @@ import(markdown.docbuild)
 composers = [
 	markdown.docbuild.Composer(
 			baseName			=> 'gura-lib-en',
-			dirNameOut@jekyll	=> 'jekyll',
+			dirNameOut@jekyll	=> 'jekyll/gura-lib-en',
 			layout@jekyll		=> 'doc-widenavi',
 			lang				=> 'en',
 			title				=> 'Gura Library Reference',
@@ -13,7 +13,7 @@ composers = [
 	/*
 	markdown.docbuild.Composer(
 			baseName			=> 'gura-lib-ja',
-			dirNameOut@jekyll	=> 'jekyll',
+			dirNameOut@jekyll	=> 'jekyll/gura-lib-ja',
 			layout@jekyll		=> 'doc-widenavi',
 			lang				=> 'ja',
 			title				=> 'Gura ライブラリリファレンス',

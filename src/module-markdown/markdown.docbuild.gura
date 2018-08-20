@@ -52,17 +52,6 @@ Renderer@jekyll = class(markdown.Renderer@html) {
 			lang = this.lang
 			title = this.title
 			tmpl@header.render(this.out)
-		} elsif (item.type == `tag && item.text == 'gura.funcentry') {
-			if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
-				this.out.printf(R'''
-				<div><strong style="text-decoration:underline">%s</strong></div>
-				<div style="margin-bottom:1em"><code>%s</code></div>
-				''', m[1], m[2])
-			} else {
-				println('**** error ****')
-				sys.exit(1)
-			}
-			return(false)
 		}
 		true
 	}

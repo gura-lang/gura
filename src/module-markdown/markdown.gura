@@ -167,12 +167,17 @@ Renderer@html = class {
 			if (item.text == 'gura.funcentry') {
 				if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
 					this.out.printf(R'''
-					<div><strong>%s</strong></div>
-					<div><code>%s</code></div><p />
+					<div class="h5">%s</div>
+					<div class="mb-2"><i class="fas fa-caret-right mr-2"></i><code>%s</code></div>
 					''', m[1], m[2])
 				} else {
-					println('**** error ****')
+					println('**** invalid format of gura.funcentry tag ****')
 					sys.exit(1)
+				}
+				if (item.children) {
+					this.out.println('<div class="mt-3 mb-2 ml-4">')
+					this.RenderItem(item.children)
+					this.out.println('</div>')
 				}
 			} else {
 				inlineFlag = item.text in tagsInline
@@ -945,9 +950,13 @@ classref(`document).render@html(
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 	<!-- Font Awesome CSS -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+	<!-- Private Style Sheet -->
+	<link rel="stylesheet" href="http://www.gura-lang.org/assets/gura-template.css">
+	<style type="text/css">
+	</style>
 	<title></title>
 	</head>
-	<body class="m-5">
+	<body class="p-5">
 	''')
 	Renderer@html(out, captionIndex).Render(this)
 	easyFormatFlag && out.print(R'''
