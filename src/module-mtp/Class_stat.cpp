@@ -5,6 +5,16 @@
 
 Gura_BeginModuleScope(mtp)
 
+static const char *helpDoc_en = R"**(
+# Overview
+
+# Property
+
+A `mtp.stat` instance has the following properties:
+
+${markdown.makedoc@property(`en, mtp.stat)}
+)**";
+
 //-----------------------------------------------------------------------------
 // Implementation of Object_stat
 //-----------------------------------------------------------------------------
@@ -138,6 +148,8 @@ Gura_ImplementUserClass(stat)
 	// Assignment of method
 	// Assignment of value
 	Gura_AssignValue(stat, Value(Reference()));
+	// help document
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 Gura_EndModuleScope(mtp)

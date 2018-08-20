@@ -36,17 +36,17 @@ it would write image data in JPEG format.
 
 ## jpeg.exif Class
 
-${markdown.makedoc@class(`en, jpeg.exif, 2)}
+${markdown.makedoc@class(`en, jpeg.exif, headeroff => 2)}
 
 
 ## jpeg.ifd Class
 
-${markdown.makedoc@class(`en, jpeg.ifd, 2)}
+${markdown.makedoc@class(`en, jpeg.ifd, headeroff => 2)}
 
 
 ## jpeg.tag Class
 
-${markdown.makedoc@class(`en, jpeg.tag, 2)}
+${markdown.makedoc@class(`en, jpeg.tag, headeroff => 2)}
 
 
 ## Extension to image Class

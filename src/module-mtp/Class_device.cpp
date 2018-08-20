@@ -5,6 +5,16 @@
 
 Gura_BeginModuleScope(mtp)
 
+static const char *helpDoc_en = R"**(
+# Overview
+
+# Property
+
+An `mtp.device` instance has the following properties:
+
+${markdown.makedoc@property(`en, mtp.device)}
+)**";
+
 //-----------------------------------------------------------------------------
 // Implementation of Object_device
 //-----------------------------------------------------------------------------
@@ -95,6 +105,8 @@ Gura_ImplementUserClass(device)
 	// Assignment of method
 	// Assignment of value
 	Gura_AssignValue(device, Value(Reference()));
+	// help document
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 Gura_EndModuleScope(mtp)

@@ -17,38 +17,15 @@ mtp.detect_devices
 
 ## mtp.device Class
 
-### Property
-
-A `mtp.device` instance has the following properties:
-
-${markdown.makedoc@property(`en, mtp.device)}
+${markdown.makedoc@class(`en, mtp.device, headeroff => 2)}
 
 ## mtp.storage Class
 
-### Property
-
-A `mtp.storage` instance has the following properties:
-
-${markdown.makedoc@property(`en, mtp.storage)}
-
-### Method
-
-${markdown.makedoc@function(`en
-mtp.storage.opendir
-mtp.storage.recvfile
-mtp.storage.remove
-mtp.storage.sendfile
-)}
+${markdown.makedoc@class(`en, mtp.storage, headeroff => 2)}
 
 ## mtp.stat Class
 
-### Property
-
-A `mtp.stat` instance has the following properties:
-
-${markdown.makedoc@property(`en, mtp.stat)}
-
-### Method
+${markdown.makedoc@class(`en, mtp.stat, headeroff => 2)}
 
 ## Thanks
 

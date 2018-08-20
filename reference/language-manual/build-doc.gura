@@ -4,7 +4,7 @@ import(markdown.docbuild)
 composers = [
 	markdown.docbuild.Composer(
 			baseName			=> 'gura-lang-en',
-			dirNameOut@jekyll	=> 'jekyll',
+			dirNameOut@jekyll	=> 'jekyll/gura-lang-en',
 			layout@jekyll		=> 'doc-widenavi',
 			lang				=> 'en',
 			title				=> 'Gura Language Manual',

@@ -5,6 +5,25 @@
 
 Gura_BeginModuleScope(mtp)
 
+static const char *helpDoc_en = R"**(
+# Overview
+
+# Property
+
+An `mtp.storage` instance has the following properties:
+
+${markdown.makedoc@property(`en, mtp.storage)}
+
+# Method
+
+${markdown.makedoc@function(`en
+mtp.storage.opendir
+mtp.storage.recvfile
+mtp.storage.remove
+mtp.storage.sendfile
+)}
+)**";
+
 //-----------------------------------------------------------------------------
 // Implementation of Object_storage
 //-----------------------------------------------------------------------------
@@ -285,6 +304,8 @@ Gura_ImplementUserClass(storage)
 	Gura_AssignMethod(storage, sendfile);
 	// Assignment of value
 	Gura_AssignValue(storage, Value(Reference()));
+	// help document
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en);
 }
 
 Gura_EndModuleScope(mtp)
