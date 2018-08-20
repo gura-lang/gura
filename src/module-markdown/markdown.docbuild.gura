@@ -155,7 +155,7 @@ output@pdf(doc:markdown.document, baseName:string, title:string, author:string, 
 output@jekyll(doc:markdown.document, dirNameOut:string, layout:string, lang:string,
 			  title:string, author:string, date:string) = {
 	println('Output directory: ', dirNameOut)
-	!path.exists(dirNameOut) && fs.mkdir(dirNameOut)
+	!path.exists(dirNameOut) && fs.mkdir(dirNameOut):tree
 	output@jekyll_index(doc, dirNameOut, layout, lang, title, author, date)
 	output@jekyll_navi(doc, dirNameOut, title)
 	Renderer@jekyll(dirNameOut, layout, lang, title, author, date).RenderEx(doc)
