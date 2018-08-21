@@ -60,7 +60,7 @@ text@en = '# Built-in Class\n'
 
 entries.each {|entry|
 	text@en += e'\n\n## ${entry.label} Class\n\n'
-	text@en += markdown.makedoc@class(`en, classref(entry.symbol), 2)
+	text@en += markdown.makedoc@class(`en, classref(entry.symbol), headeroff => 2)
 }
 
 markdown.makedoc@module(locals(), %{`en => text@en})
