@@ -8,6 +8,10 @@ Gura_BeginModuleScope(mtp)
 static const char *helpDoc_en = R"**(
 # Overview
 
+The `mtp.device` class provides information such as device's friendly name and manufacturer name.
+It also provides a list of `mtp.storage` instances through which you can transfer and manipulate files
+on the remote device.
+
 # Property
 
 An `mtp.device` instance has the following properties:

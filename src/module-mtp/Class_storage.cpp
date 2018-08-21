@@ -8,6 +8,10 @@ Gura_BeginModuleScope(mtp)
 static const char *helpDoc_en = R"**(
 # Overview
 
+The class `mtp.storage` provices methods to transfer files from/to a device and
+to list and manipulate files on a device.
+
+
 # Property
 
 An `mtp.storage` instance has the following properties:
