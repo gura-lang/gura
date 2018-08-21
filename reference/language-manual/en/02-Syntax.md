@@ -191,29 +191,79 @@ which eliminates a line feed that appears right after the starting quotation.
 This is parsed as `'ABCD\nEFGH\nIJKL\n'`.
 
 The prefix `R` also removes indentation characters that appear at each line.
+In the following code, alhough the first string is placed at the top of the lines,
+the second placed after two spaces and the third followed after four spaces,
+all of them mean the same string literal.
 
-    if (flag) {
+    R'''
+    ABCD
+    EFGH
+    IJKL
+    '''
+      R'''
+      ABCD
+      EFGH
+      IJKL
+      '''
+        R'''
+        ABCD
+        EFGH
+        IJKL
+        '''
+
+Each line needs to have the same indentation with the line that contains the string opening token `R'''`.
+Any tokens can be described before the opening token.
+
+    print(R'''
+    ABCD
+    EFGH
+    IJKL
+    ''')
+      print(R'''
+      ABCD
+      EFGH
+      IJKL
+      ''')
         print(R'''
         ABCD
         EFGH
         IJKL
         ''')
-    }
 
-Assuming that there are four spaces before the expression `print(R'''`,
-the parser would remove four spaces at top of each line within the multi-lined string.
+
 This feature helps you describe multi-lined strings in indented blocks
 without disarranging the appearance.
 
-A string literal prefixed by `b` would be treated
-as a sequence of binary data instead of character code.
+A string literal prefixed by `b` will create a `binary` instance instead of that of `string`.
+The prefix can be specified in combination with other prefixes such as `R`.
 
-A string literal prefixed by `e` would be treated
-as a string that may contain embedded scripts written in a manner for the template engine.
+    b'AB\x00\x12CD'  # a binary containing (0x41, 0x42, 0x00, 0x12, 0x43, 0x44)
 
-A string literal can also be appended by a suffix symbol
-that has been registered in Suffix Manager.
-There's no built-in suffix for string literals.
+    bR'''
+    AB
+    CD
+    '''  # a binary containing (0x41, 0x42, 0x0a, 0x43, 0x44, 0x0a)
+
+A string literal prefixed by `e` will be treated
+as a string that contains embedded scripts written in a manner for the template engine
+and generates a `string` instance after evaluating the scripts.
+The prefix can be specified in combination with other prefixes such as `R`.
+
+    name = 'Mike'
+    e'Your name is ${name}.'  # a string 'Your name is Mike.'
+
+    names = ['Mike', 'Alice', 'Harry']
+    eR'''
+    ${for (name in names)}
+    - ${name}
+    ${end}
+    '''  # a string '- Mike]\n- Alice]\n- Harry]\n'
+
+A string literal can also be appended by a suffix symbol that has been registered in Suffix Manager.
+So far, the only suffix for sting is `T` that creates a `template` instance
+after parsing the content of the preceding string.
+
+    'Your name is ${name}.'T  # a template instance
 
 
 ### Operator
