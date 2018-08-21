@@ -2,5 +2,5 @@
 dirs="language-manual library-reference"
 for dir in $dirs
 do
-	gura -C $dir -I ../module build-doc.gura pdf html
+	gura -C $dir -I ../module -I ../module/site build-doc.gura jekyll
 done
