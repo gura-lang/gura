@@ -1336,15 +1336,15 @@ bool Document::ParseChar(Signal &sig, char ch)
 				} else {
 					_stat = STAT_LineTop;
 				}
-			} else if (!IsMarkdownAcceptable()) {
-				_text += ch;
-			} else {
+			} else if (IsMarkdownAcceptable()) {
 				if (EndsWith(_text.c_str(), "  ", false) != nullptr) {
 					FlushText(Item::TYPE_Text, false, true);
 					Item *pItem = new Item(Item::TYPE_LineBreak);
 					_pItemOwner->push_back(pItem);
 				}
 				_stat = STAT_LineTop;
+			} else {
+				_text += ch;
 			}
 		} else if (IsEOF(ch)) {
 			Gura_PushbackEx(ch);
