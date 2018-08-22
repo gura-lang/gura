@@ -1,0 +1,13 @@
+#!/usr/bin/env gura
+import(markdown)
+
+str = R'''
+<div>
+Hello
+
+</div>
+'''
+
+doc = markdown.document()
+doc << str
+doc.root.print()
