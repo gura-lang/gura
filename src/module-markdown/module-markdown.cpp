@@ -2459,17 +2459,16 @@ void Document::ReplaceDecoration(Item::Type type, const char *textAhead)
 // Marks the beginning of HTML tag.
 void Document::BeginTag(const char *tagName, const char *attrs, bool closedFlag, bool markdownAcceptableFlag)
 {
-	FlushText(Item::TYPE_Text, false, false);
+	Item *pItemParent = _itemStack.back();
+	FlushElement();
 	Item *pItem = new Item(Item::TYPE_Tag);
 	pItem->SetMarkdownAcceptableFlag(markdownAcceptableFlag);
 	pItem->SetText(tagName);
 	if (attrs[0] != '\0') pItem->SetAttrs(attrs);
-	_pItemOwner->push_back(pItem);
+	pItemParent->GetItemOwner()->push_back(pItem);
 	if (!closedFlag) {
-		ItemOwner *pItemOwner = new ItemOwner();
-		pItem->SetItemOwner(pItemOwner);
-		_itemOwnerStack.Push(_pItemOwner.release());
-		_pItemOwner.reset(pItemOwner->Reference());
+		pItem->SetItemOwner(new ItemOwner());
+		_itemStack.push_back(pItem);
 		_itemStackTag.push_back(pItem);
 	}
 }
@@ -2480,8 +2479,8 @@ bool Document::EndTag(const char *tagName)
 	if (!IsWithinTag() || ::strcmp(_itemStackTag.back()->GetText(), tagName) != 0) {
 		return false;
 	}
-	FlushText(Item::TYPE_Text, false, false);
-	_pItemOwner.reset(_itemOwnerStack.Pop());
+	FlushElement();
+	_itemStack.pop_back();
 	_itemStackTag.pop_back();
 	return true;
 }
