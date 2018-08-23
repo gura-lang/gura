@@ -217,7 +217,8 @@ markdown:module
     conio.waitkey():[raise]
   document:class = <class:markdown.document(stream?:stream:r) {block?}>
   item:class = <class:item>
-  markdown.makedoc@class(lang:symbol, cls:class, headeroff:number)
+  markdown.main(mod:environment)
+  markdown.makedoc@class(lang:symbol, cls:class, headeroff:number):dynamic_scope
   markdown.makedoc@function(lang:symbol, funcs*:function)
   markdown.makedoc@function$(lang:symbol, match:string, sub:string, funcs*:function)
   markdown.makedoc@module(mod:environment, d:dict)
