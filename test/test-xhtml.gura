@@ -2,17 +2,152 @@
 import(helper.test) {*}
 import(xhtml) {xhtml}
 
-e = xhtml {
-	head {
-		
-	}
-	body {
-		'hello world', span {'abcdefg'}
-		table {
-			tr { td {'col-1'}, td {'col-2'}, td {'col-3'} }
+testcase('all elements') {
+	root = xhtml {
+		body {
+			a			{}
+			abbr		{}
+			acronym		{}
+			address		{}
+			applet		{}
+			area		{}
+			b			{}
+			base		{}
+			basefont	{}
+			bdo			{}
+			big			{}
+			blockquote	{}
+			body		{}
+			br			{}
+			button		{}
+			caption		{}
+			center		{}
+			cite		{}
+			code		{}
+			col			{}
+			colgroup	{}
+			dd			{}
+			del			{}
+			dfn			{}
+			dir			{}
+			div			{}
+			dl			{}
+			dt			{}
+			em			{}
+			fieldset	{}
+			font		{}
+			form		{}
+			frame		{}
+			frameset	{}
+			h1			{}
+			h2			{}
+			h3			{}
+			h4			{}
+			h5			{}
+			h6			{}
+			head		{}
+			hr			{}
+			//html		{}
+			iframe		{}
+			img			{}
+			input		{}
+			ins			{}
+			isindex		{}
+			kbd			{}
+			label		{}
+			legend		{}
+			li			{}
+			link		{}
+			map			{}
+			menu		{}
+			meta		{}
+			noframes	{}
+			noscript	{}
+			object		{}
+			ol			{}
+			optgroup	{}
+			option		{}
+			p			{}
+			param		{}
+			pre			{}
+			q			{}
+			s			{}
+			samp		{}
+			script		{}
+			select		{}
+			small		{}
+			span		{}
+			strike		{}
+			strong		{}
+			style		{}
+			sub			{}
+			sup			{}
+			table		{}
+			tbody		{}
+			td			{}
+			textarea	{}
+			tfoot		{}
+			th			{}
+			thead		{}
+			title		{}
+			tr			{}
+			tt			{}
+			u			{}
+			ul			{}
+			var			{}
 		}
 	}
+	root.write(sys.stdout, fancy => true)
 }
-e.write(sys.stdout, fancy => true)
-e.write(sys.stdout, fancy => true, tabs => 1)
-e.write(sys.stdout, fancy => true, tabs => 0)
+
+testcase('table') {
+	root = xhtml {
+		body {
+			table {
+				tr { th {'header-1'}, th {'header-2'}, th {'header-3'} }
+				tr { td {'col-1'}, td {'col-2'}, td {'col-3'} }
+				tr { td {'col-1'}, td {'col-2'}, td {'col-3'} }
+				tr { td {'col-1'}, td {'col-2'}, td {'col-3'} }
+				tr { td {'col-1'}, td {'col-2'}, td {'col-3'} }
+				tr { td {'col-1'}, td {'col-2'}, td {'col-3'} }
+				tr { td {'col-1'}, td {'col-2'}, td {'col-3'} }
+				tr { td {'col-1'}, td {'col-2'}, td {'col-3'} }
+				tr { td {'col-1'}, td {'col-2'}, td {'col-3'} }
+				tr { td {'col-1'}, td {'col-2'}, td {'col-3'} }
+			}
+		}
+	}
+	root.write(sys.stdout, fancy => true)
+}
+
+testcase('attributes') {
+	root = xhtml {
+		body {
+			img(src => 'logo.png', alt => 'Logo')
+		}
+	}
+	root.write(sys.stdout, fancy => true)
+}
+
+testcase('xml.element#write()') {
+	root = xhtml {
+		head {
+			
+		}
+		body {
+			'hello world', span {'abcdefg'}
+			table {
+				tr { td {'col-1'}, td {'col-2'}, td {'col-3'} }
+			}
+		}
+	}
+	println('root.write(sys.stdout)')
+	root.write(sys.stdout)
+	println()
+	println('root.write(sys.stdout, fancy => true)')
+	root.write(sys.stdout, fancy => true)
+	println('root.write(sys.stdout, fancy => true, tabs => 1)')
+	root.write(sys.stdout, fancy => true, tabs => 1)
+	println('root.write(sys.stdout, fancy => true, tabs => 0)')
+	root.write(sys.stdout, fancy => true, tabs => 0)
+}
