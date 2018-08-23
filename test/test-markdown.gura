@@ -1422,3 +1422,21 @@ testcase('markdown.document#countitem() / markdown.item#countdescendant()') {
 			   type, doc.countitem(type), doc.root.countdescendant(type))
 	}
 }
+
+testcase@markdown('markdown in tag', R'''
+<@div>
+<div>
+line1
+</div>
+code `hello`
+
+emphasis *hello*
+
+strong **hello**
+
+line
+</@div>
+
+A <code>B</code> C
+''')
+

@@ -6,22 +6,15 @@ str = R'''
 <div>
 line1
 </div>
-line2
+code `hello`
 
-line3
+emphasis *hello*
 
-line4
+strong **hello**
 
-line5
-
-- item1
-- item2
-- item3
-- item4
+line
 </@div>
-'''
 
-str = R'''
 A <code>B</code> C
 '''
 

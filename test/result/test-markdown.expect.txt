@@ -2532,3 +2532,27 @@ h2 document#countitem:4, item#countdescendant:4
 h3 document#countitem:0, item#countdescendant:0
 p document#countitem:1, item#countdescendant:1
 text document#countitem:9, item#countdescendant:9
+======== markdown in tag ========
+<root>
+  <tag>'div'
+    <tag>'div'
+      <text>'line1
+'
+    <p>
+      <text>'code '
+      <code>'hello'
+    <p>
+      <text>'emphasis '
+      <em>
+        <text>'hello'
+    <p>
+      <text>'strong '
+      <strong>
+        <text>'hello'
+    <p>
+      <text>'line '
+  <p>
+    <text>'A '
+  <tag>'code'
+    <text>'B'
+  <text>' C'
