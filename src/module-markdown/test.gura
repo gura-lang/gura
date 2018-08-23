@@ -3,19 +3,13 @@ import(markdown)
 
 str = R'''
 <@div>
-<div>
-line1
-</div>
-code `hello`
+List in tag.
 
-emphasis *hello*
-
-strong **hello**
-
-line
+- item1
+- item2
+- item3
+- item4
 </@div>
-
-A <code>B</code> C
 '''
 
 

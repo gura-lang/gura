@@ -2429,7 +2429,7 @@ void Document::BeginListItem(Item::Type type)
 			FlushElement();
 		}
 	}
-	if (pItemParent->IsRoot() || pItemParent->IsBlockQuote() ||
+	if (pItemParent->IsRoot() || pItemParent->IsBlockQuote() || pItemParent->IsTag() ||
 							pItemParent->GetIndentLevel() < _indentLevel) {
 		Item *pItem = new Item(type, new ItemOwner());
 		pItem->SetIndentLevel(_indentLevel);
