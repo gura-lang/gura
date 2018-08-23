@@ -8,8 +8,10 @@
 
 Gura_BeginModuleHeader(markdown)
 
-const int WIDTH_Tab = 4;
-const int INDENT_CodeBlock = 4;
+//-----------------------------------------------------------------------------
+// Utilities
+//-----------------------------------------------------------------------------
+bool IsInlineTagName(const char *tagName);
 
 //-----------------------------------------------------------------------------
 // symbols
@@ -105,6 +107,7 @@ public:
 	inline bool Is_list() const { return _type == TYPE_UList || _type == TYPE_OList; }
 	inline bool IsListItem() const { return _type == TYPE_ListItem; }
 	inline bool IsTag() const { return _type == TYPE_Tag; }
+	inline bool IsInlineTag() const { return _type == TYPE_Tag && IsInlineTagName(GetText()); }
 	inline bool IsText() const { return _type == TYPE_Text; }
 	inline bool IsOwner() const { return !_pItemOwner.IsNull(); }
 	inline void SetItemOwner(ItemOwner *pItemOwner) { _pItemOwner.reset(pItemOwner); }
@@ -152,6 +155,7 @@ public:
 	inline int GetIndentLevel() const { return _indentLevel; }
 	inline int GetIndentLevelItemBody() const { return _indentLevelItemBody; }
 	inline bool GetMarkdownAcceptableFlag() const { return _markdownAcceptableFlag; }
+	bool StripText(bool stripLeftFlag, bool stripRightFlag);
 	const char *GetTypeName() const;
 	void Print(Signal &sig, Stream &stream, int indentLevel) const;
 	static const char *TypeToName(Type type);
@@ -183,6 +187,7 @@ private:
 public:
 	void Clear();
 	void Store(const ItemList &itemList);
+	void StripTextAtFront(bool stripLeftFLag, bool stripRightFlag);
 };
 
 //-----------------------------------------------------------------------------

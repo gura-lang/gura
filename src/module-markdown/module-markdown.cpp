@@ -8,6 +8,19 @@ Gura_BeginModuleBody(markdown)
 inline bool IsTagNameFirst(char ch) { return IsAlpha(ch); }
 inline bool IsTagNameFollower(char ch) { return IsAlpha(ch) || IsDigit(ch) || ch == '.'; }
 
+const int WIDTH_Tab = 4;
+const int INDENT_CodeBlock = 4;
+
+StringSet g_inlineTagNames;
+
+//-----------------------------------------------------------------------------
+// Utilities
+//-----------------------------------------------------------------------------
+bool IsInlineTagName(const char *tagName)
+{
+	return tagName != nullptr && g_inlineTagNames.find(tagName) != g_inlineTagNames.end();
+}
+
 //-----------------------------------------------------------------------------
 // Item
 //-----------------------------------------------------------------------------
@@ -58,6 +71,15 @@ Item::Item(Type type, const String &text) :
 	_cntRef(1), _type(type), _pText(new String(text)), _align(ALIGN_None),
 	_indentLevel(0), _indentLevelItemBody(0), _markdownAcceptableFlag(true)
 {
+}
+
+// return true if the stripped result turns out be an empty string.
+bool Item::StripText(bool stripLeftFlag, bool stripRightFlag)
+{
+	const char *text = GetText();
+	if (text == nullptr) return false;
+	SetText(Strip(text, stripLeftFlag, stripRightFlag));
+	return *GetText() == '\0';
 }
 
 const char *Item::GetTypeName() const
@@ -182,6 +204,17 @@ void ItemOwner::Store(const ItemList &itemList)
 	foreach_const (ItemList, ppItem, itemList) {
 		const Item *pItem = *ppItem;
 		push_back(pItem->Reference());
+	}
+}
+
+void ItemOwner::StripTextAtFront(bool stripLeftFlag, bool stripRightFlag)
+{
+	if (!empty()) {
+		Item *pItem = front();
+		if (pItem->IsText() && pItem->StripText(stripLeftFlag, stripRightFlag)) {
+			erase(begin());
+			Item::Delete(pItem);
+		}
 	}
 }
 
@@ -2232,8 +2265,7 @@ void Document::AppendJointSpace()
 
 void Document::FlushText(Item::Type type, bool stripLeftFlag, bool stripRightFlag)
 {
-	String text = Strip(_text.c_str(),
-						stripLeftFlag || _pItemOwner->empty(), stripRightFlag);
+	String text = Strip(_text.c_str(), stripLeftFlag, stripRightFlag);
 	if (text.empty()) {
 		// nothing to do
 	} else if (!_pItemOwner->empty() && _pItemOwner->back()->GetType() == type) {
@@ -2249,13 +2281,16 @@ void Document::FlushItem(Item::Type type, bool stripLeftFlag, bool stripRightFla
 {
 	Item *pItemParent = _itemStack.back();
 	FlushText(Item::TYPE_Text, stripLeftFlag, stripRightFlag);
-	if (!pItemParent->GetItemOwner()->empty() && pItemParent->GetItemOwner()->back()->IsTag()) {
+	if (!pItemParent->GetItemOwner()->empty() && pItemParent->GetItemOwner()->back()->IsInlineTag()) {
 		pItemParent->GetItemOwner()->Store(*_pItemOwner);
 		_pItemOwner.reset(new ItemOwner());
-	} else if (!_pItemOwner->empty()) {
-		Item *pItem = new Item(type, _pItemOwner.release());
-		pItemParent->GetItemOwner()->push_back(pItem);
-		_pItemOwner.reset(new ItemOwner());
+	} else {
+		_pItemOwner->StripTextAtFront(true, false);
+		if (!_pItemOwner->empty()) {
+			Item *pItem = new Item(type, _pItemOwner.release());
+			pItemParent->GetItemOwner()->push_back(pItem);
+			_pItemOwner.reset(new ItemOwner());
+		}
 	}
 }
 
@@ -2264,12 +2299,19 @@ void Document::FlushElement()
 	Item *pItemParent = _itemStack.back();
 	FlushText(Item::TYPE_Text, false, false);
 	if (pItemParent->GetItemOwner()->empty()) {
+		_pItemOwner->StripTextAtFront(true, false);
 		pItemParent->GetItemOwner()->Store(*_pItemOwner);
 		_pItemOwner.reset(new ItemOwner());
-	} else if (!_pItemOwner->empty()) {
-		Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
-		pItemParent->GetItemOwner()->push_back(pItem);
+	} else if (pItemParent->GetItemOwner()->back()->IsInlineTag()) {
+		pItemParent->GetItemOwner()->Store(*_pItemOwner);
 		_pItemOwner.reset(new ItemOwner());
+	} else {
+		_pItemOwner->StripTextAtFront(true, false);
+		if (!_pItemOwner->empty()) {
+			Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
+			pItemParent->GetItemOwner()->push_back(pItem);
+			_pItemOwner.reset(new ItemOwner());
+		}
 	}
 }
 
@@ -2315,6 +2357,7 @@ void Document::FlushTableCol(bool eolFlag)
 	Item *pItemParent = _itemStack.back();
 	FlushText(Item::TYPE_Text, stripLeftFlag, stripRightFlag);
 	if (!eolFlag || !_pItemOwner->empty()) {
+		_pItemOwner->StripTextAtFront(true, false);
 		Item *pItem = new Item(Item::TYPE_Tag, _pItemOwner.release());
 		pItem->SetText(IsTableFirstRow()? "th" : "td");
 		Align align = (_iTableCol < _alignList.size())? _alignList[_iTableCol] : ALIGN_Left;
@@ -3125,6 +3168,44 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	const char *inlineTagNames[] = {
+		"a",
+		"abbr",
+		"acronym",
+		"b",
+		"bdo",
+		"big",
+		"br",
+		"button",
+		"cite",
+		"code",
+		"dfn",
+		"em",
+		"i",
+		"img",
+		"input",
+		"kbd",
+		"label",
+		"map",
+		"object",
+		"q",
+		"samp",
+		"script",
+		"select",
+		"small",
+		"span",
+		"strong",
+		"sub",
+		"sup",
+		"textarea",
+		"time",
+		"tt",
+		"var",
+	};
+	// initialize constant table
+	for (int i = 0; i < ArraySizeOf(inlineTagNames); i++) {
+		g_inlineTagNames.insert(inlineTagNames[i]);
+	}
 	// symbol realization
 	Gura_RealizeUserSymbol(root);
 	Gura_RealizeUserSymbol(refs);
