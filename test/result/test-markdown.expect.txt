@@ -2556,3 +2556,26 @@ text document#countitem:9, item#countdescendant:9
   <tag>'code'
     <text>'B'
   <text>' C'
+  <tag>'div'
+    <p>
+      <text>'List in tag.'
+    <ul>
+      <li>
+        <text>'item1'
+      <li>
+        <text>'item2'
+      <li>
+        <text>'item3'
+      <li>
+        <text>'item4'
+    <ol>
+      <li>
+        <text>'item1'
+      <li>
+        <text>'item2'
+      <li>
+        <text>'item3'
+      <li>
+        <text>'item4'
+    <p>
+      <text>'End '
