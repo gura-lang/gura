@@ -21,6 +21,11 @@ line5
 </@div>
 '''
 
+str = R'''
+A <code>B</code> C
+'''
+
+
 doc = markdown.document()
 doc << str
 doc.root.print()

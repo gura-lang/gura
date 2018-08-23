@@ -2249,7 +2249,10 @@ void Document::FlushItem(Item::Type type, bool stripLeftFlag, bool stripRightFla
 {
 	Item *pItemParent = _itemStack.back();
 	FlushText(Item::TYPE_Text, stripLeftFlag, stripRightFlag);
-	if (!_pItemOwner->empty()) {
+	if (!pItemParent->GetItemOwner()->empty() && pItemParent->GetItemOwner()->back()->IsTag()) {
+		pItemParent->GetItemOwner()->Store(*_pItemOwner);
+		_pItemOwner.reset(new ItemOwner());
+	} else if (!_pItemOwner->empty()) {
 		Item *pItem = new Item(type, _pItemOwner.release());
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_pItemOwner.reset(new ItemOwner());
