@@ -2,39 +2,38 @@
 import(markdown)
 
 str = R'''
-line before - 1
-
-line before - 2
+line-before
 
 <@div>
-- item-1
-- item-2
-- item-3
+code here
+
+    code-line1
+    code-line2
+    code-line3
+
+code end
 </@div>
 
-line after - 1
+line-after
+'''
 
-line after - 2
+str = R'''
+line-before
 
 <@div>
-- item-1
-- item-2
-- item-3
-</@div>
-- item-out-1
-- item-out-2
+# title1
 
-<@div>
-- item-1
-  <span>hoge</span>
-- item-2 <span>
-</span>
-- item-3
+## title1-1
+
+## title1-2
+
+# title2
+
+# title3
+
 </@div>
 
-line after - 3
-
-line after - 4
+line-after
 '''
 
 doc = markdown.document()

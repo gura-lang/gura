@@ -2625,3 +2625,38 @@ text document#countitem:9, item#countdescendant:9
     <text>'line after - 3'
   <p>
     <text>'line after - 4'
+======== markdown in tag (3) ========
+<root>
+  <p>
+    <text>'line-before'
+  <tag>'div'
+    <p>
+      <text>'code here'
+    <codeblock>
+      <line>
+        <text>'code-line1'
+      <line>
+        <text>'code-line2'
+      <line>
+        <text>'code-line3'
+    <p>
+      <text>'code end '
+  <p>
+    <text>'line-after'
+======== markdown in tag (4) ========
+<root>
+  <p>
+    <text>'line-before'
+  <tag>'div'
+    <h1>
+      <text>'title1'
+    <h2>
+      <text>'title1-1'
+    <h2>
+      <text>'title1-2'
+    <h1>
+      <text>'title2'
+    <h1>
+      <text>'title3'
+  <p>
+    <text>'line-after'

@@ -1490,4 +1490,36 @@ line after - 3
 
 line after - 4
 ''')
+testcase@markdown('markdown in tag (3)', R'''
+line-before
 
+<@div>
+code here
+
+    code-line1
+    code-line2
+    code-line3
+
+code end
+</@div>
+
+line-after
+''')
+testcase@markdown('markdown in tag (4)', R'''
+line-before
+
+<@div>
+# title1
+
+## title1-1
+
+## title1-2
+
+# title2
+
+# title3
+
+</@div>
+
+line-after
+''')
