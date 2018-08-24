@@ -2532,7 +2532,7 @@ h2 document#countitem:4, item#countdescendant:4
 h3 document#countitem:0, item#countdescendant:0
 p document#countitem:1, item#countdescendant:1
 text document#countitem:9, item#countdescendant:9
-======== markdown in tag ========
+======== markdown in tag (1) ========
 <root>
   <tag>'div'
     <tag>'div'
@@ -2579,3 +2579,49 @@ text document#countitem:9, item#countdescendant:9
         <text>'item4'
     <p>
       <text>'End '
+======== markdown in tag (2) ========
+<root>
+  <p>
+    <text>'line before - 1'
+  <p>
+    <text>'line before - 2'
+  <tag>'div'
+    <ul>
+      <li>
+        <text>'item-1'
+      <li>
+        <text>'item-2'
+      <li>
+        <text>'item-3 '
+  <p>
+    <text>'line after - 1'
+  <p>
+    <text>'line after - 2'
+  <tag>'div'
+    <ul>
+      <li>
+        <text>'item-1'
+      <li>
+        <text>'item-2'
+      <li>
+        <text>'item-3 '
+  <ul>
+    <li>
+      <text>'item-out-1'
+    <li>
+      <text>'item-out-2'
+  <tag>'div'
+    <ul>
+      <li>
+        <text>'item-1 '
+        <tag>'span'
+          <text>'hoge'
+      <li>
+        <text>'item-2 '
+        <tag>'span'
+      <li>
+        <text>'item-3 '
+  <p>
+    <text>'line after - 3'
+  <p>
+    <text>'line after - 4'

@@ -209,9 +209,8 @@ Gura_DeclareProperty_R(image, format)
 		Gura_Symbol(en),
 		"Takes one of the following symbols indicating what elements are stored in the memory:\n"
 		"\n"
-		"`` `rgb`` .. red, green and blue\n"
-		"\n"
-		"`` `rgba`` .. red, green, blue and alpha\n");
+		"- `` `rgb`` .. red, green and blue\n"
+		"- `` `rgba`` .. red, green, blue and alpha\n");
 }
 
 Gura_ImplementPropertyGetter(image, format)

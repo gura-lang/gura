@@ -122,7 +122,6 @@ void Item::Print(Signal &sig, Stream &stream, int indentLevel) const
 		stream.Print(sig, "'");
 	}
 	stream.Print(sig, "\n");
-	
 	if (!_pItemOwner.IsNull()) {
 		_pItemOwner->Print(sig, stream, indentLevel + 1);
 	}
@@ -2414,6 +2413,7 @@ void Document::BeginListItem(Item::Type type)
 {
 	Item *pItemParent = _itemStack.back();
 	while (_indentLevel < pItemParent->GetIndentLevel()) {
+		if (pItemParent->IsRoot() || pItemParent->IsBlockQuote() || pItemParent->IsTag()) break;
 		if (pItemParent->IsListItem()) {
 			EndListItem();
 		} else {
@@ -2430,7 +2430,7 @@ void Document::BeginListItem(Item::Type type)
 		}
 	}
 	if (pItemParent->IsRoot() || pItemParent->IsBlockQuote() || pItemParent->IsTag() ||
-							pItemParent->GetIndentLevel() < _indentLevel) {
+		pItemParent->GetIndentLevel() < _indentLevel) {
 		Item *pItem = new Item(type, new ItemOwner());
 		pItem->SetIndentLevel(_indentLevel);
 		pItemParent->GetItemOwner()->push_back(pItem);
@@ -2455,8 +2455,11 @@ void Document::BeginListItem(Item::Type type)
 
 void Document::EndListItem()
 {
-	FlushElement();
-	_itemStack.pop_back();
+	if (_itemStack.back()->IsListItem()) {
+		// EndTag() may already have ended the list.
+		FlushElement();
+		_itemStack.pop_back();
+	}
 }
 
 void Document::BeginDecoration(Item::Type type)
@@ -2526,7 +2529,11 @@ bool Document::EndTag(const char *tagName)
 		return false;
 	}
 	FlushElement();
-	_itemStack.pop_back();
+	for (;;) {
+		Item *pItem = _itemStack.back();
+		_itemStack.pop_back();
+		if (pItem->IsTag()) break;
+	}
 	_itemStackTag.pop_back();
 	return true;
 }

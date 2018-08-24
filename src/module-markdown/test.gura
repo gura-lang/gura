@@ -15,6 +15,26 @@ line before - 2
 line after - 1
 
 line after - 2
+
+<@div>
+- item-1
+- item-2
+- item-3
+</@div>
+- item-out-1
+- item-out-2
+
+<@div>
+- item-1
+  <span>hoge</span>
+- item-2 <span>
+</span>
+- item-3
+</@div>
+
+line after - 3
+
+line after - 4
 '''
 
 doc = markdown.document()
