@@ -18,7 +18,9 @@ StringSet g_inlineTagNames;
 //-----------------------------------------------------------------------------
 bool IsInlineTagName(const char *tagName)
 {
-	return tagName != nullptr && g_inlineTagNames.find(tagName) != g_inlineTagNames.end();
+	if (tagName == nullptr) return false;
+	String tagNameLower = Lower(tagName);
+	return g_inlineTagNames.find(tagNameLower) != g_inlineTagNames.end();
 }
 
 //-----------------------------------------------------------------------------
@@ -3166,6 +3168,24 @@ void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 }
 
 //-----------------------------------------------------------------------------
+// Function
+//-----------------------------------------------------------------------------
+// markdown.isinlinetag(tagname:sting)
+Gura_DeclareFunction(isinlinetag)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "tagname", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns `true` if the specified tag is an inlined one.\n");
+}
+
+Gura_ImplementFunction(isinlinetag)
+{
+	return Value(IsInlineTagName(arg.GetString(0)));
+}
+
+//-----------------------------------------------------------------------------
 // Module Entries
 //-----------------------------------------------------------------------------
 Gura_ModuleValidate()
@@ -3231,6 +3251,8 @@ Gura_ModuleEntry()
 	Gura_PrepareUserClass(item);
 	// operator assignment
 	Gura_AssignBinaryOperator(Shl, document, string);
+	// function assignment
+	Gura_AssignFunction(isinlinetag);
 	return true;
 }
 

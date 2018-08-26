@@ -6,9 +6,6 @@ import(markdown):binary:mixin_type {*}
 MakeAnchorNameDef(indices[]:number) = 'anchor-' + format('%d', indices).join('-')
 
 Renderer@html = class {
-	tagsInline = [
-		'a', 'b', 'code', 'em', 'img', 'span', 'strike', 'strong', 'u'
-	]
 	__init__(out:stream:w, captionIndex:boolean) = {
 		this.out = out
 		this.indices = dim(6) {0}
@@ -180,7 +177,7 @@ Renderer@html = class {
 					this.out.println('</div>')
 				}
 			} else {
-				inlineFlag = item.text in tagsInline
+				inlineFlag = isinlinetag(item.text)
 				this.out.print('<')
 				this.out.print(item.text)
 				if (item.text == 'table') {

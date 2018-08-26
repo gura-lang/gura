@@ -1523,3 +1523,76 @@ line-before
 
 line-after
 ''')
+testcase('inline elements') {
+	text = R'''
+	<a>inline</a>
+	<abbr>inline</abbr>
+	<acronym>inline</acronym>
+	<b>inline</b>
+	<bdo>inline</bdo>
+	<big>inline</big>
+	<br>inline</br>
+	<button>inline</button>
+	<cite>inline</cite>
+	<code>inline</code>
+	<dfn>inline</dfn>
+	<em>inline</em>
+	<i>inline</i>
+	<img>inline</img>
+	<input>inline</input>
+	<kbd>inline</kbd>
+	<label>inline</label>
+	<map>inline</map>
+	<object>inline</object>
+	<q>inline</q>
+	<samp>inline</samp>
+	<script>inline</script>
+	<select>inline</select>
+	<small>inline</small>
+	<span>inline</span>
+	<strong>inline</strong>
+	<sub>inline</sub>
+	<sup>inline</sup>
+	<textarea>inline</textarea>
+	<time>inline</time>
+	<tt>inline</tt>
+	<var>inline</var>
+	<address>block</address>
+	<blockquote>block</blockquote>
+	<center>block</center>
+	<dir>block</dir>
+	<div>block</div>
+	<dl>block</dl>
+	<fieldset>block</fieldset>
+	<form>block</form>
+	<h1>block</h1>
+	<h2>block</h2>
+	<h3>block</h3>
+	<h4>block</h4>
+	<h5>block</h5>
+	<h6>block</h6>
+	<hr>block</hr>
+	<isindex>block</isindex>
+	<menu>block</menu>
+	<noframes>block</noframes>
+	<noscript>block</noscript>
+	<ol>block</ol>
+	<p>block</p>
+	<pre>block</pre>
+	<table>block</table>
+	<ul>block</ul>
+	<dd>block</dd>
+	<dt>block</dt>
+	<frameset>block</frameset>
+	<li>block</li>
+	<tbody>block</tbody>
+	<td>block</td>
+	<tfoot>block</tfoot>
+	<th>block</th>
+	<thead>block</thead>
+	<tr>block</tr>
+	'''
+	doc = markdown.document()
+	doc << text
+	doc.render@html(easyFormatFlag => false)
+}
