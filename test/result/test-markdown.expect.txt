@@ -1475,8 +1475,6 @@
     <entity>'amp'
   <tag>'a'
     <entity>'amp'
-    <text>'
-'
 ======== HTML tag ========
 <root>
   <tag>'table'
@@ -2536,8 +2534,7 @@ text document#countitem:9, item#countdescendant:9
 <root>
   <tag>'div'
     <tag>'div'
-      <text>'line1
-'
+      <text>'line1'
     <p>
       <text>'code '
       <code>'hello'
@@ -2550,7 +2547,7 @@ text document#countitem:9, item#countdescendant:9
       <strong>
         <text>'hello'
     <p>
-      <text>'line '
+      <text>'line'
   <p>
     <text>'A '
   <tag>'code'
@@ -2578,7 +2575,7 @@ text document#countitem:9, item#countdescendant:9
       <li>
         <text>'item4'
     <p>
-      <text>'End '
+      <text>'End'
 ======== markdown in tag (2) ========
 <root>
   <p>
@@ -2592,7 +2589,7 @@ text document#countitem:9, item#countdescendant:9
       <li>
         <text>'item-2'
       <li>
-        <text>'item-3 '
+        <text>'item-3'
   <p>
     <text>'line after - 1'
   <p>
@@ -2604,7 +2601,7 @@ text document#countitem:9, item#countdescendant:9
       <li>
         <text>'item-2'
       <li>
-        <text>'item-3 '
+        <text>'item-3'
   <ul>
     <li>
       <text>'item-out-1'
@@ -2620,7 +2617,7 @@ text document#countitem:9, item#countdescendant:9
         <text>'item-2 '
         <tag>'span'
       <li>
-        <text>'item-3 '
+        <text>'item-3'
   <p>
     <text>'line after - 3'
   <p>
@@ -2640,7 +2637,7 @@ text document#countitem:9, item#countdescendant:9
       <line>
         <text>'code-line3'
     <p>
-      <text>'code end '
+      <text>'code end'
   <p>
     <text>'line-after'
 ======== markdown in tag (4) ========
@@ -2742,7 +2739,7 @@ block</tr>
       <li>
         <text>'item-2'
       <li>
-        <text>'item-3 '
+        <text>'item-3'
   <tag>'div'
     <p>
       <text>'text2'
@@ -2752,4 +2749,4 @@ block</tr>
       <li>
         <text>'item-2'
       <li>
-        <text>'item-3 '
+        <text>'item-3'
