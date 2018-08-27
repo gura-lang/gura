@@ -4,23 +4,7 @@ import(markdown)
 str = R'''
 <@div>
 text1
-
-- item-1
-- item-2
-- item-3
 </@div>
-<@div>
-text2
-
-- item-1
-- item-2
-- item-3
-</@div>
-'''
-
-str2 = R'''
-- item-1 <a>tag</a> tail
-- item-2 <a>tag</a> tail
 '''
 
 doc = markdown.document()

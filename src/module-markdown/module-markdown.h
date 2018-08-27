@@ -380,7 +380,7 @@ private:
 	void AppendJointSpace();
 	void FlushText(Item::Type type, bool stripLeftFlag, bool stripRightFlag);
 	void FlushItem(Item::Type type, bool stripLeftFlag, bool stripRightFlag);
-	void FlushElement();
+	void FlushElement(bool stripLeftFlag = false, bool stripRightFlag = false);
 	void BeginTable();
 	void EndTable();
 	void BeginTableRow();

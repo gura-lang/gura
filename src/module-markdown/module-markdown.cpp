@@ -2296,10 +2296,10 @@ void Document::FlushItem(Item::Type type, bool stripLeftFlag, bool stripRightFla
 	}
 }
 
-void Document::FlushElement()
+void Document::FlushElement(bool stripLeftFlag, bool stripRightFlag)
 {
 	Item *pItemParent = _itemStack.back();
-	FlushText(Item::TYPE_Text, false, false);
+	FlushText(Item::TYPE_Text, stripLeftFlag, stripRightFlag);
 	if (pItemParent->GetItemOwner()->empty()) {
 		_pItemOwner->StripTextAtFront(true, false);
 		pItemParent->GetItemOwner()->Store(*_pItemOwner);
@@ -2531,7 +2531,7 @@ bool Document::EndTag(const char *tagName)
 	if (!IsWithinTag() || ::strcmp(_itemStackTag.back()->GetText(), tagName) != 0) {
 		return false;
 	}
-	FlushElement();
+	FlushElement(false, true);
 	bool listItemFoundFlag = false;
 	for (;;) {
 		Item *pItem = _itemStack.back();
