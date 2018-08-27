@@ -487,6 +487,7 @@ void Document::ResolveReference()
 bool Document::ParseChar(Signal &sig, char ch)
 {
 	Gura_BeginPushbackRegionEx(char, 16, ch);
+	//::printf("'%c' %d\n", ch, _stat);
 	switch (_stat) {
 	case STAT_LineTop: {
 		_indentLevel = 0;
@@ -2531,12 +2532,22 @@ bool Document::EndTag(const char *tagName)
 		return false;
 	}
 	FlushElement();
+	bool listItemFoundFlag = false;
 	for (;;) {
 		Item *pItem = _itemStack.back();
 		_itemStack.pop_back();
-		if (pItem->IsTag()) break;
+		if (pItem->IsListItem()) {
+			listItemFoundFlag = true;
+		} else if (pItem->IsTag()) {
+			break;
+		}
 	}
 	_itemStackTag.pop_back();
+	// Modify the stat value in the stack if list item has existed.
+	if (listItemFoundFlag && !_statStack.empty() && _statStack.back() == STAT_ListItem) {
+		_statStack.Pop();
+		_statStack.Push(STAT_Text);
+	}
 	return true;
 }
 

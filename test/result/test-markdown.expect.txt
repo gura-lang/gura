@@ -2731,3 +2731,25 @@ block</th>
 block</thead>
 <tr>
 block</tr>
+======== markdown's list items in tag ========
+<root>
+  <tag>'div'
+    <p>
+      <text>'text1'
+    <ul>
+      <li>
+        <text>'item-1'
+      <li>
+        <text>'item-2'
+      <li>
+        <text>'item-3 '
+  <tag>'div'
+    <p>
+      <text>'text2'
+    <ul>
+      <li>
+        <text>'item-1'
+      <li>
+        <text>'item-2'
+      <li>
+        <text>'item-3 '

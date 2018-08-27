@@ -1596,3 +1596,19 @@ testcase('inline elements') {
 	doc << text
 	doc.render@html(easyFormatFlag => false)
 }
+testcase@markdown('markdown\'s list items in tag', R'''
+<@div>
+text1
+
+- item-1
+- item-2
+- item-3
+</@div>
+<@div>
+text2
+
+- item-1
+- item-2
+- item-3
+</@div>
+''')

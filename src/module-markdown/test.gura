@@ -2,50 +2,25 @@
 import(markdown)
 
 str = R'''
-<table>
-<tr>
-<@td>
+<@div>
 text1
 
 - item-1
 - item-2
 - item-3
-</@td>
-</tr>
-<tr>
-<@td>
+</@div>
+<@div>
 text2
 
 - item-1
 - item-2
 - item-3
-</@td>
-</tr>
-</table>
+</@div>
 '''
 
 str2 = R'''
-<div>
-<div>
-<@div>
-text1
-
-- item-1
-- item-2
-- item-3
-</@div>
-</div>
-
-<div>
-<@div>
-text2
-
-- item-1
-- item-2
-- item-3
-</@div>
-</div>
-</div>
+- item-1 <a>tag</a> tail
+- item-2 <a>tag</a> tail
 '''
 
 doc = markdown.document()
