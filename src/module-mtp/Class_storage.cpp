@@ -52,7 +52,13 @@ Gura_DeclareProperty_R(storage, storage_type)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns one of the symbols: `` `Undefined``, `` `FixedROM``, `` `RemovableROM``, `` `FixedRAM``, `` `RemovableRAM``"
+		"Indicates the type of the storage by following symbols:\n"
+		"\n"
+		"- `` `Undefined``\n"
+		"- `` `FixedROM``\n"
+		"- `` `RemovableROM``\n"
+		"- `` `FixedRAM``\n"
+		"- `` `RemovableRAM``\n"
 		);
 }
 
@@ -68,7 +74,12 @@ Gura_DeclareProperty_R(storage, filesystem_type)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns one of the syhmbols: `` `Undefined``, `` `GenericFlat``, `` `GenericHierarchical``, `` `DCF``"
+		"Indicates the type of the file system by following symbols:\n"
+		"\n"
+		"- `` `Undefined``\n"
+		"- `` `GenericFlat``\n"
+		"- `` `GenericHierarchical``\n"
+		"- `` `DCF``\n"
 		);
 }
 
@@ -84,7 +95,11 @@ Gura_DeclareProperty_R(storage, access_capability)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		"Returns one of the symbols: `` `ReadWrite``, `` `ReadOnly``, `` `ReadOnlyWithObjectDeletion``"
+		"Indicates what access is permitted to the storage by following symbols:\n"
+		"\n"
+		"- `` `ReadWrite`` .. Reading and writing are permitted.\n"
+		"- `` `ReadOnly`` .. Reading only is permitted.\n"
+		"- `` `ReadOnlyWithObjectDeletion`` .. Reading and deleting objects are permitted.\n"
 		);
 }
 
@@ -100,8 +115,7 @@ Gura_DeclareProperty_R(storage, max_capacity)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"Maximum capacity of the storage in bytes."
-		);
+		"Returns the maximum capacity of the storage in bytes.");
 }
 
 Gura_ImplementPropertyGetter(storage, max_capacity)
@@ -116,8 +130,7 @@ Gura_DeclareProperty_R(storage, free_space_in_bytes)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"Free space in the storage in bytes."
-		);
+		"Returns the free space in the storage in bytes.");
 }
 
 Gura_ImplementPropertyGetter(storage, free_space_in_bytes)
@@ -132,8 +145,7 @@ Gura_DeclareProperty_R(storage, free_space_in_objects)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		"Free space in the storage in number of objects."
-		);
+		"Returns the free space in the storage in number of objects.");
 }
 
 Gura_ImplementPropertyGetter(storage, free_space_in_objects)
@@ -148,8 +160,7 @@ Gura_DeclareProperty_R(storage, storage_description)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		"Storage description."
-		);
+		"Returns the storage description.");
 }
 
 Gura_ImplementPropertyGetter(storage, storage_description)
@@ -164,8 +175,7 @@ Gura_DeclareProperty_R(storage, volume_identifier)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		"Volume identifier."
-		);
+		"Returns the volume identifier.");
 }
 
 Gura_ImplementPropertyGetter(storage, volume_identifier)
