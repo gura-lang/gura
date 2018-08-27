@@ -54,11 +54,11 @@ Gura_DeclareProperty_R(storage, storage_type)
 		Gura_Symbol(en),
 		"Indicates the type of the storage by following symbols:\n"
 		"\n"
-		"- `` `Undefined``\n"
-		"- `` `FixedROM``\n"
-		"- `` `RemovableROM``\n"
-		"- `` `FixedRAM``\n"
-		"- `` `RemovableRAM``\n"
+		"- `` `Undefined`` .. Undefined type.\n"
+		"- `` `FixedROM`` .. Non-removable and read-only.\n"
+		"- `` `RemovableROM`` .. Removable and read-only.\n"
+		"- `` `FixedRAM`` .. Non-removable and read/write capable.\n"
+		"- `` `RemovableRAM`` .. Removable and read/write capable.\n"
 		);
 }
 
@@ -76,10 +76,10 @@ Gura_DeclareProperty_R(storage, filesystem_type)
 		Gura_Symbol(en),
 		"Indicates the type of the file system by following symbols:\n"
 		"\n"
-		"- `` `Undefined``\n"
-		"- `` `GenericFlat``\n"
-		"- `` `GenericHierarchical``\n"
-		"- `` `DCF``\n"
+		"- `` `Undefined`` .. \n"
+		"- `` `GenericFlat`` .. \n"
+		"- `` `GenericHierarchical`` .. \n"
+		"- `` `DCF`` .. \n"
 		);
 }
 
@@ -97,9 +97,9 @@ Gura_DeclareProperty_R(storage, access_capability)
 		Gura_Symbol(en),
 		"Indicates what access is permitted to the storage by following symbols:\n"
 		"\n"
-		"- `` `ReadWrite`` .. Reading and writing are permitted.\n"
-		"- `` `ReadOnly`` .. Reading only is permitted.\n"
-		"- `` `ReadOnlyWithObjectDeletion`` .. Reading and deleting objects are permitted.\n"
+		"- `` `ReadWrite`` .. Read/write capable.\n"
+		"- `` `ReadOnly`` .. Read-only.\n"
+		"- `` `ReadOnlyWithObjectDeletion`` .. Read-only but deleting operation is permitted.\n"
 		);
 }
 
@@ -195,7 +195,11 @@ Gura_DeclareMethod(storage, opendir)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Creates a `directory` instance that can be passed to functions that browse directories\n"
+		"such as `path.dir()` and `path.walk()`.\n"
+		"The argument `pathname` specifies the name of a directory on the device.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("directory", "directory"));
 }
 
 Gura_ImplementMethod(storage, opendir)
@@ -235,7 +239,12 @@ Gura_DeclareMethod(storage, recvfile)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Receives the content of a file on the device that is specified by the argument `pathname`\n"
+		"and writes it to `stream`.\n"
+		"If `block` is specified, it would be evaluated during the receiving process with a block parameter\n"
+		"of `|recv:number, total:number|` where `recv` is a number of bytes that has been received\n"
+		"and `total` is that of the total size.\n"
+		"This functions returns the reference of the target.\n");
 }
 
 Gura_ImplementMethod(storage, recvfile)
@@ -259,7 +268,8 @@ Gura_DeclareMethod(storage, remove)
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Removes a file on the device that is specified by the argument `pathname`.\n"
+		"This functions returns the reference of the target.\n");
 }
 
 Gura_ImplementMethod(storage, remove)
@@ -279,7 +289,12 @@ Gura_DeclareMethod(storage, sendfile)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Reads data from `stream` and\n"
+		"sends it to the device as a file that is specified by the argument `pathname`.\n"
+		"If `block` is specified, it would be evaluated during the receiving process with a block parameter\n"
+		"of `|sent:number, total:number|` where `sent` is a number of bytes that has been sent\n"
+		"and `total` is that of the total size.\n"
+		"This functions returns the reference of the target.\n");
 }
 
 Gura_ImplementMethod(storage, sendfile)
@@ -303,7 +318,7 @@ Gura_ImplementUserClass(storage)
 {
 	// Assignment of property
 	Gura_AssignProperty(storage, storage_type);
-	Gura_AssignProperty(storage, filesystem_type);
+	//Gura_AssignProperty(storage, filesystem_type);
 	Gura_AssignProperty(storage, access_capability);
 	Gura_AssignProperty(storage, max_capacity);
 	Gura_AssignProperty(storage, free_space_in_bytes);
