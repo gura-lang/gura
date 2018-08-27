@@ -3,26 +3,52 @@ import(markdown)
 
 str = R'''
 <table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Note</th></tr>
+<tr>
+<@td>
+text1
 
-<tr><td><code>access_capability</code></td><td><code>symbol</code></td><td>R</td>
-<@td>Indicates what access is permitted to the storage by following symbols:
+- item-1
+- item-2
+- item-3
+</@td>
+</tr>
+<tr>
+<@td>
+text2
 
-- `` `ReadWrite`` .. Reading and writing are permitted.
-- `` `ReadOnly`` .. Reading only is permitted.
-- `` `ReadOnlyWithObjectDeletion`` .. Reading and deleting objects are permitted.</@td></tr>
-<tr><td><code>filesystem_type</code></td><td><code>symbol</code></td><td>R</td>
-<@td>Indicates the type of the file system by following symbols:
-
-- `` `Undefined``
-- `` `GenericFlat``
-- `` `GenericHierarchical``
-- `` `DCF``</@td></tr>
-
+- item-1
+- item-2
+- item-3
+</@td>
+</tr>
 </table>
+'''
+
+str2 = R'''
+<div>
+<div>
+<@div>
+text1
+
+- item-1
+- item-2
+- item-3
+</@div>
+</div>
+
+<div>
+<@div>
+text2
+
+- item-1
+- item-2
+- item-3
+</@div>
+</div>
+</div>
 '''
 
 doc = markdown.document()
 doc << str
-//doc.root.print()
-doc.render@html()
+doc.root.print()
+//doc.render@html()
