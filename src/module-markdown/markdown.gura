@@ -163,16 +163,21 @@ Renderer@html = class {
 		} elsif (item.type == `tag) {
 			if (item.text == 'gura.funcentry') {
 				if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
+					/*
 					this.out.printf(R'''
 					<div class="h5">%s</div>
 					<div class="mb-2"><i class="fas fa-caret-right mr-2"></i><code>%s</code></div>
 					''', m[1], m[2])
+					*/
+					this.out.printf(R'''
+					<div class="mb-2"><code>%s</code></div>
+					''', m[2])
 				} else {
 					println('**** invalid format of gura.funcentry tag ****')
 					sys.exit(1)
 				}
 				if (item.children) {
-					this.out.println('<div class="mt-3 mb-2 ml-4">')
+					this.out.println('<div class="mb-2 ml-4">')
 					this.RenderItem(item.children)
 					this.out.println('</div>')
 				}
@@ -736,6 +741,7 @@ Renderer@console = class {
 					println('**** error ****')
 					sys.exit(1)
 				}
+				item.children && this.RenderItem(item.children)
 			} else {
 				item.children && this.RenderItem(item.children)
 			}
@@ -1010,11 +1016,15 @@ help.presenter('markdown') {|help:help|
 }
 
 _funcentry(lang:symbol, func:function, fullname:string, fmt:string):map = {
-	str = format('<gura.funcentry fullname="%s" format="%s" />\n', fullname, fmt.escapehtml())
+	str = format('<@gura.funcentry fullname="%s" format="%s"', fullname, fmt.escapehtml())
 	if (help = help@function(func, lang)) {
+		str += '>\n'
 		str += help.render('markdown')
 		if (!str.endswith('\n')) { str += '\n' }
 		str += '\n'
+		str += '</@gura.funcentry>\n'
+	} else {
+		str += ' />\n'
 	}
 	str
 }

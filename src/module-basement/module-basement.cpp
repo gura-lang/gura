@@ -231,8 +231,6 @@ Gura_DeclareFunctionAlias(for_, "for")
 		"\n"
 		"Example:\n"
 		"\n"
-		"Example:\n"
-		"\n"
 		"    for (ch in ['A', 'B', 'C'], i in 1..4) {\n"
 		"        printf('%s-%d ', ch, i)\n"
 		"    }\n"
