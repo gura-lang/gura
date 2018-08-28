@@ -9,6 +9,27 @@ text@en = R"""
 
 The `mtp` module provides measures to read/write data on a mobile platform like an Android device.
 
+Below is an example that lists up files in the top directory of the device that is detected at first:
+
+```
+import(mtp)
+
+devices = mtp.detect_devices()
+device = devices[0]
+println('Device: ', device.friendlyname)
+storage = device.storages[0]
+path.dir(storage.opendir('/')):stat {|stat|
+    tm = stat.mtime
+    if (stat.isdir) {
+        printf('%04d/%02d/%02d %02d:%02d %12s  %s\n',
+               tm.year, tm.month, tm.day, tm.hour, tm.min, '<dir>', stat.filename)
+    } else {
+        printf('%04d/%02d/%02d %02d:%02d %12d  %s\n',
+               tm.year, tm.month, tm.day, tm.hour, tm.min, stat.size, stat.filename)
+    }
+}
+```
+
 ## Module Function
 
 ${markdown.makedoc@function(`en

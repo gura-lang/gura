@@ -14,11 +14,13 @@ to list and manipulate files on a device.
 
 # Property
 
-An `mtp.storage` instance has the following properties:
+An `mtp.storage` instance has following properties:
 
 ${markdown.makedoc@property(`en, mtp.storage)}
 
 # Method
+
+The `mtp.storage` class has following methods:
 
 ${markdown.makedoc@function(`en
 mtp.storage.opendir

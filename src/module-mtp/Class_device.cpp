@@ -12,6 +12,10 @@ The `mtp.device` class provides information such as device's friendly name and m
 It also provides a list of `mtp.storage` instances through which you can transfer and manipulate files
 on the remote device.
 
+You can call `mtp.detect_devices()` to get a list of `mtp.device` instances that are associated to
+connected devices.
+
+
 # Property
 
 An `mtp.device` instance has the following properties:
