@@ -445,6 +445,7 @@ Renderer@rtf = class {
 	RenderItem(item:item):map:void = {
 		if (item.type == `root) {
 			this.out.println(r'{\rtf')
+			this.out.println(r'{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}')
 			this.RenderItem(item.children)
 			this.out.println('}')
 		} elsif (item.type == `h1) {
@@ -524,7 +525,7 @@ Renderer@rtf = class {
 			this.RenderItem(item.children)
 			this.out.print(r'}')
 		} elsif (item.type == `codeblock) {
-			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \f1 ')
+			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \f1 \fs20 ')
 			item.children.each {|itemChild, i|
 				(i > 0) && this.out.println(r'\line')
 				this.RenderItem(itemChild.children)
@@ -554,7 +555,7 @@ Renderer@rtf = class {
 		} elsif (item.type == `comment) {
 			this.out.print(item.text)
 		} elsif (item.type == `code) {
-			this.out.print(r'{\f1 ')
+			this.out.print(r'{\f1 \fs20 ')
 			this.out.print(this.EscapeText(item.text))
 			this.out.print(r'}')
 		} elsif (item.type == `entity) {
@@ -570,9 +571,10 @@ Renderer@rtf = class {
 					sys.exit(1)
 				}
 				if (item.children) {
-					this.out.println(r'\pard\pardeftab720\li325\fi-18\sa180\partightenfactor0')
+					this.out.printf(r'{\pard \ql \f0 \sa180 \li%d \fi0 ',
+									1 * this.indentPerQuote)
 					this.RenderItem(item.children)
-					this.out.println(r'\pard')
+					this.out.println(r'}')
 				}
 			} else {
 			}
