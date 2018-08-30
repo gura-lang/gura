@@ -42,7 +42,9 @@ Renderer@jekyll = class(markdown.Renderer@html) {
 			println('rendering ', path.filename(fileName))
 			this.out = open(fileName, 'w')
 			prevPage = nextPage = '""'
-			if (idxChapter > 1) {
+			if (idxChapter == 1) {
+				prevPage = 'index.html'
+			} else {
 				prevPage = 'chapter-%02d.html#naviitem-selected' % (idxChapter - 1)
 			}
 			if (idxChapter + 1 <= this.nChapters) {
@@ -157,6 +159,8 @@ output@jekyll_index(doc:markdown.document, dirNameOut:string, layout:string, lan
 	layout: ${layout}
 	lang: ${lang}
 	title: ${title}
+	prevpage: ""
+	nextpage: chapter-01.html#naviitem-selected
 	---
 	<h1>${title}</h1>
 	<div>${author}</div>

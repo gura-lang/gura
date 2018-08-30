@@ -162,16 +162,10 @@ Renderer@html = class {
 			this.out.print('&', item.text.escapehtml(), ';')
 		} elsif (item.type == `tag) {
 			if (item.text == 'gura.funcentry') {
-				if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
-					/*
-					this.out.printf(R'''
-					<div class="h5">%s</div>
-					<div class="mb-2"><i class="fas fa-caret-right mr-2"></i><code>%s</code></div>
-					''', m[1], m[2])
-					*/
+				if (m = item.attrs.match('format="([^\"]+)"')) {
 					this.out.printf(R'''
 					<div class="mb-2"><code>%s</code></div>
-					''', m[2])
+					''', m[1])
 				} else {
 					println('**** invalid format of gura.funcentry tag ****')
 					sys.exit(1)
@@ -566,7 +560,22 @@ Renderer@rtf = class {
 		} elsif (item.type == `entity) {
 			this.out.printf(r'\u%d?', 169)
 		} elsif (item.type == `tag) {
-			
+			if (item.text == 'gura.funcentry') {
+				if (m = item.attrs.match('format="([^\"]+)"')) {
+					this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs20 \f1')
+					this.out.printf(this.EscapeText(m[1].unescapehtml()))
+					this.out.println(r'\par}')
+				} else {
+					println('**** invalid format of gura.funcentry tag ****')
+					sys.exit(1)
+				}
+				if (item.children) {
+					this.out.println(r'\pard\pardeftab720\li325\fi-18\sa180\partightenfactor0')
+					this.RenderItem(item.children)
+					this.out.println(r'\pard')
+				}
+			} else {
+			}
 		} elsif (item.type == `hr) {
 			this.out.println(r'{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}')
 		} elsif (item.type == `br) {
@@ -734,9 +743,9 @@ Renderer@console = class {
 			if (text == 'table') {
 				this.RenderTable(item)
 			} elsif (text == 'gura.funcentry') {
-				if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
-					println(m[2])
-					println('-' * m[2].len())
+				if (m = item.attrs.match('format="([^\"]+)"')) {
+					println(m[1])
+					println('-' * m[1].len())
 				} else {
 					println('**** error ****')
 					sys.exit(1)
@@ -987,9 +996,9 @@ R'''
 '''
 }
 
-classref(`document).render@rtf(out?:stream:w) = {
+classref(`document).render@rtf(out?:stream:w, captionIndex:boolean => false) = {
 	out = out || sys.stdout
-	Renderer@rtf(out).Render(this)
+	Renderer@rtf(out, captionIndex).Render(this)
 }
 
 classref(`document).render@console(colorFlag:boolean => true) = {
@@ -1016,7 +1025,7 @@ help.presenter('markdown') {|help:help|
 }
 
 _funcentry(lang:symbol, func:function, fullname:string, fmt:string):map = {
-	str = format('<@gura.funcentry fullname="%s" format="%s"', fullname, fmt.escapehtml())
+	str = format('<@gura.funcentry format="%s"', fmt.escapehtml())
 	if (help = help@function(func, lang)) {
 		str += '>\n'
 		str += help.render('markdown')
@@ -1078,8 +1087,29 @@ makedoc@function$(lang:symbol, match:string, sub:string, funcs*:function) = {
 }
 
 main(mod:environment) = {
-	lang = if (sys.argv.len() < 2) { `en } else { sys.argv[1].tosymbol() }
-	mod.__doc@markdown__(markdown.document(), lang).render@html(sys.stdout, true)
+	import(argopt)
+	argopt.Parser {|p|
+		p.addParam('lang', 'l', 'the language of the document', 'value', 'en')
+		p.addParam('format', 'f', 'document format: html or rtf', 'value', 'html')
+		try {
+			[cfg, argv] = p.parse(sys.argv)
+		} catch {|e|
+			sys.stderr.println(e.text)
+			sys.exit(1)
+		}
+	}
+	out = if (argv.len() == 0) { sys.stdout } else { open(argv[0], 'w') }
+	lang = cfg['lang'].tosymbol()
+	doc = mod.__doc@markdown__(markdown.document(), lang)
+	fmt = cfg['format']
+	if (fmt == 'html') {
+		doc.render@html(out, true)
+	} elsif (fmt == 'rtf') {
+		doc.render@rtf(out)
+	} else {
+		sys.stderr.println('unknown format: ', fmt)
+	}
+	out = nil // this closes the file handle
 }
 
 makedoc@module(mod:environment, d:dict) = {
