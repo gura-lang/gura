@@ -178,8 +178,9 @@ Gura_DeclareFunction(cross)
 		"Executes the `block` while evaluating all the combinations of results from `expr`\n"
 		"that has format \"`var in iteratable`\".\n"
 		"You can specify one or more such `expr`s as arguments and\n"
-		"they are counted up from the one on the right side.\n"
-		"Iterators and lists are the most popular iteratables, but even any objects that\n"
+		"they are counted up from the one on the right side to the left.\n"
+		"\n"
+		"Iterators and lists are the most typical iteratables, but even any objects that\n"
 		"are cable of generating iterators can be specified as such.\n"
 		"\n"
 		REPEATER_HELP

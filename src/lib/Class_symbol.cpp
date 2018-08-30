@@ -11,8 +11,12 @@ static const char *helpDoc_en = R"**(
 
 # Method
 
+The `symbol` class has following methods:
+
 ${markdown.makedoc@function(`en
 symbol.eval
+symbol.len
+symbol.width
 )}
 )**";
 

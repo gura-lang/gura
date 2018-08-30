@@ -13,12 +13,14 @@ The `pointer` class provides measures to read and write content in a `binary` an
 
 # Property
 
-A `pointer` instance has the following properties:
+A `pointer` instance has following properties:
 
 ${markdown.makedoc@property(`en, pointer)}
 
 
 # Constructor
+
+A `pointer` instance is constructed by the following function:
 
 ${markdown.makedoc@function(`en
 pointer
@@ -26,6 +28,8 @@ pointer
 
 
 # Method
+
+The `pointer` class has following methods:
 
 ${markdown.makedoc@function(`en
 pointer.copyfrom

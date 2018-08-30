@@ -6,6 +6,30 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+# Constructor
+
+An `optimizer` instance is constructed by following functions:
+
+${markdown.makedoc@function(`en
+optimizer@adagrad
+optimizer@adam
+optimizer@gradient_descent
+optimizer@momentum
+optimizer@nesterov
+optimizer@none
+optimizer@rmsprop
+)}
+
+# Method
+
+The `optimizer` class has following methods:
+
+${markdown.makedoc@function(`en
+optimizer.reset
+optimizer.update
+)}
 )**";
 
 //-----------------------------------------------------------------------------

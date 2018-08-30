@@ -30,6 +30,8 @@ suffixmgr
 
 # Method
 
+The `suffixmgr` class has following methods:
+
 ${markdown.makedoc@function(`en
 suffixmgr.assign
 )}

@@ -42,6 +42,7 @@ entries = @(Entry) {
 	{ 'nil',				`nil				}
 	{ 'number',				`number				}
 	{ 'operator',			`operator			}
+	{ 'optimizer',			`optimizer			}
 	{ 'palette',			`palette			}
 	{ 'pointer',			`pointer			}
 	{ 'rational',			`rational			}
