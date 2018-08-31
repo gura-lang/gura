@@ -567,7 +567,7 @@ Renderer@rtf = class {
 		} elsif (item.type == `comment) {
 			this.out.print(item.text)
 		} elsif (item.type == `code) {
-			this.out.print(r'{\f1 \fs20 ')
+			this.out.print(r'{\f1\fs20 ')
 			this.out.print(this.EscapeText(item.text))
 			this.out.print(r'}')
 		} elsif (item.type == `entity) {
@@ -588,7 +588,22 @@ Renderer@rtf = class {
 					this.out.println()
 					this.quoteLevel -= 1
 				}
+			} elsif (item.text == 'table') {
+				this.RenderTable(item)
+			} elsif (item.text == 'code') {
+				this.out.print(r'{\f1\fs20 ')
+				item.children && this.RenderItem(item.children)
+				this.out.print(r'}')
+			} elsif (item.text == 'em') {
+				this.out.print(r'{\i ')
+				item.children && this.RenderItem(item.children)
+				this.out.print(r'}')
+			} elsif (item.text == 'strong') {
+				this.out.print(r'{\b ')
+				item.children && this.RenderItem(item.children)
+				this.out.print(r'}')
 			} else {
+				item.children && this.RenderItem(item.children)
 			}
 		} elsif (item.type == `hr) {
 			this.out.println(r'{\pard\qc\f0\sa180\li0\fi0\emdash\emdash\emdash\emdash\emdash\par}')
@@ -623,6 +638,61 @@ Renderer@rtf = class {
 		}
 		!parRenderFlag && this.out.println(r'\sa180\par}')
 		this.listLevel -= 1
+	}
+	RenderTable(item:item) = {
+		rows = item.children.each():xlist {|item|
+			(item.type != `tag || item.text.lower() != 'tr') && continue
+			headerFlag = false
+			item.children.each():xlist {|item|
+				(item.type != `tag) && continue
+				tagName = item.text.lower()
+				if (tagName == 'th') {
+					headerFlag = true
+				} elsif (tagName == 'td') {
+					// nothing to do
+				} else {
+					continue
+				}
+				item
+			}
+		}
+		alignChars = %{`left => 'L', `right => 'R', `center => 'C'}
+		aligns = rows[0]::align
+		alignSpecifier = [
+			alignChars.get(aligns.head(aligns.len() - 1), 'L')
+			alignChars.get(aligns.last(), 'J')
+		].join('|')
+		this.out.println()
+		rows.each {|cols, iRow|
+			headerFlag = false
+			this.out.print(R'''
+			\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+			\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadl100 \clpadr100 \gaph\cellx2880
+			\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadl100 \clpadr100 \gaph\cellx5760
+			\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadl100 \clpadr100 \gaph\cellx8640
+			''')
+			cols.each {|item, iCol|
+				//(iCol > 0) && this.out.print(' : ')
+				this.out.print(R'''
+				\pard\intbl\itap1\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+				\cf0 ''')
+				if (item.text.lower() == 'th') {
+					this.RenderItem(item)
+					headerFlag = true
+				} else {
+					this.RenderItem(item)
+				}
+				this.out.print(R'''
+				\cell
+				''')
+			}
+			if (headerFlag || iRow == rows.len() - 1) {
+				this.out.println(r'\row')
+			} else {
+				this.out.println(r'\lastrow\row')
+			}
+		}
+		this.out.println()
 	}
 }
 
