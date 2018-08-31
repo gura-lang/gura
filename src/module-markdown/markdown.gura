@@ -533,7 +533,7 @@ Renderer@rtf = class {
 			this.out.print(r'}')
 		} elsif (item.type == `codeblock) {
 			this.out.print(R'''
-			{\pard\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+			{\pard\itap1\trowd \taflags1 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
 			\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt100\clpadb100\clpadl100\clpadr100 \gaph\cellx8640
 			\fi0\fs20
 			''')
