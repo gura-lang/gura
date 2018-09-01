@@ -2,12 +2,34 @@
 import(markdown)
 
 str = R'''
-<@div>
-text1
-</@div>
+<table>
+<tr>
+<td>col-1</td>
+<td>col-2</td>
+<td>col-3</td>
+<td>col-4</td>
+</tr>
+<tr>
+<td>col-1</td>
+<td>col-2</td>
+<td>col-3</td>
+<td>col-4</td>
+</tr>
+<tr>
+<td>col-1</td>
+<td>col-2</td>
+<td>col-3</td>
+<td>col-4</td>
+</tr>
+<tr>
+<td>col-1</td>
+<td>col-2</td>
+<td>col-3</td>
+<td>col-4</td>
+</tr>
+</table>
 '''
 
 doc = markdown.document()
 doc << str
-doc.root.print()
-//doc.render@html()
+doc.render@rtf('t1.rtf')

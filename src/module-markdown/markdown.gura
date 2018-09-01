@@ -576,7 +576,7 @@ Renderer@rtf = class {
 			if (item.text == 'gura.funcentry') {
 				if (m = item.attrs.match('format="([^\"]+)"')) {
 					this.out.print(r'{\pard\ql\f1\sa180\li0\fi0\b\fs20 ')
-					this.out.printf(this.EscapeText(m[1].unescapehtml()))
+					this.out.print(this.EscapeText(m[1].unescapehtml()))
 					this.out.println(r'\par}')
 				} else {
 					println('**** invalid format of gura.funcentry tag ****')
@@ -665,16 +665,18 @@ Renderer@rtf = class {
 		this.out.println()
 		rows.each {|cols, iRow|
 			headerFlag = false
-			this.out.print(R'''
-			\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
-			\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadl100 \clpadr100 \gaph\cellx2880
-			\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadl100 \clpadr100 \gaph\cellx5760
-			\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadl100 \clpadr100 \gaph\cellx8640
-			''')
+			wdCols = dim(cols.len()) {2000}
+			this.out.println(r'\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil')
+			x = 0
+			wdCols.each {|wdCol|
+				this.out.printf(r'\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadl100 \clpadr100 \gaph\cellx%d' '\n', x)
+				//this.out.printf(r'\clvertalc \clshdrawnil \clwWidth%d\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadl100 \clpadr100 \gaph\cellx%d' '\n', wdCol, x)
+				x += wdCol
+			}
 			cols.each {|item, iCol|
-				//(iCol > 0) && this.out.print(' : ')
+				if (iCol > 0) { this.out.println() }
 				this.out.print(R'''
-				\pard\intbl\itap1\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+				\pard\intbl\itap1
 				\cf0 ''')
 				if (item.text.lower() == 'th') {
 					this.RenderItem(item)
@@ -682,14 +684,12 @@ Renderer@rtf = class {
 				} else {
 					this.RenderItem(item)
 				}
-				this.out.print(R'''
-				\cell
-				''')
+				this.out.print(r'\cell')
 			}
-			if (headerFlag || iRow == rows.len() - 1) {
-				this.out.println(r'\row')
+			if (iRow < rows.len() - 1) {
+				this.out.println(r' \row')
 			} else {
-				this.out.println(r'\lastrow\row')
+				this.out.println(r' \lastrow\row')
 			}
 		}
 		this.out.println()

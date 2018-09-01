@@ -210,6 +210,7 @@ output@jekyll_navi(doc:markdown.document, dirNameOut:string, title:string) = {
 }
 
 output@rtf(doc:markdown.document, baseName:string, title:string, author:string, date:string) = {
+	fileNameRTF = baseName + '.rtf'
 	open(fileNameRTF, 'w') {|out|
 		Renderer@rtf(out, true).Render(doc)
 	}
