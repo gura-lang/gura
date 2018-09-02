@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(markdown)
+import(markdown.docbuild)
 
 str = R'''
 <table>
@@ -32,4 +32,5 @@ str = R'''
 
 doc = markdown.document()
 doc << str
-doc.render@rtf('t1.rtf')
+//doc.render@rtf('t1.rtf')
+doc.compose@rtf('t1', 'title', 'author', 'date')

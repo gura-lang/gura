@@ -454,6 +454,7 @@ Renderer@rtf = class {
 	RenderItem(item:item):map:void = {
 		if (item.type == `root) {
 			this.out.print(header)
+			this.RenderCoverPage()
 			this.RenderItem(item.children)
 			this.out.print(footer)
 		} elsif (item.type == `h1) {
@@ -694,6 +695,7 @@ Renderer@rtf = class {
 		}
 		this.out.println()
 	}
+	RenderCoverPage() = {}
 }
 
 Renderer@console = class {

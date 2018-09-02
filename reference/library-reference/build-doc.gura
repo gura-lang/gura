@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
-import(markdown.docbuild)
+import(markdown.composer)
 
 composers = [
-	markdown.docbuild.Composer(
+	markdown.composer.Composer(
 			baseName			=> 'gura-lib-en',
 			dirNameOut@jekyll	=> 'jekyll/gura-lib-en',
 			layout@jekyll		=> 'doc-widenavi',
@@ -11,7 +11,7 @@ composers = [
 			author				=> 'ypsitau@gmail.com',
 			date				=> 'August 18th, 2018')
 	/*
-	markdown.docbuild.Composer(
+	markdown.composer.Composer(
 			baseName			=> 'gura-lib-ja',
 			dirNameOut@jekyll	=> 'jekyll/gura-lib-ja',
 			layout@jekyll		=> 'doc-widenavi',
@@ -95,7 +95,7 @@ moduleNames = [
 	'zip'
 ]
 
-markdown.docbuild.checkArgument()
+markdown.composer.checkArgument()
 composers.each {|composer|
 	doc = markdown.document()
 	doc.read('main@%s.md' % composer.lang)
@@ -104,5 +104,5 @@ composers.each {|composer|
 		println('importing: ', moduleDocName)
 		import(&moduleDocName).__doc@markdown__(doc, composer.lang)
 	}
-	composer.output(doc)
+	composer.compose(doc)
 }

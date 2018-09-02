@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
-import(markdown.docbuild)
+import(markdown.composer)
 
 composers = [
-	markdown.docbuild.Composer(
+	markdown.composer.Composer(
 			baseName			=> 'gura-lang-en',
 			dirNameOut@jekyll	=> 'jekyll/gura-lang-en',
 			layout@jekyll		=> 'doc-widenavi',
@@ -34,7 +34,7 @@ fileNamesSrc = [
 	'18-Mathematic-Functions.md'
 	'19-Template-Engine.md'
 ]
-markdown.docbuild.checkArgument()
+markdown.composer.checkArgument()
 composers.each {|composer|
 	doc = markdown.document()
 	fileNamesSrc.each {|fileNameSrc|
@@ -42,5 +42,5 @@ composers.each {|composer|
 		println('reading: ', pathNameSrc)
 		doc.read(pathNameSrc)
 	}
-	composer.output(doc)
+	composer.compose(doc)
 }
