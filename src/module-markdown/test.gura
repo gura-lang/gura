@@ -1,36 +1,11 @@
 #!/usr/bin/env gura
-import(markdown.docbuild)
+import(markdown.composer)
 
-str = R'''
-<table>
-<tr>
-<td>col-1</td>
-<td>col-2</td>
-<td>col-3</td>
-<td>col-4</td>
-</tr>
-<tr>
-<td>col-1</td>
-<td>col-2</td>
-<td>col-3</td>
-<td>col-4</td>
-</tr>
-<tr>
-<td>col-1</td>
-<td>col-2</td>
-<td>col-3</td>
-<td>col-4</td>
-</tr>
-<tr>
-<td>col-1</td>
-<td>col-2</td>
-<td>col-3</td>
-<td>col-4</td>
-</tr>
-</table>
+src = Re'''
+${markdown.makedoc@function(`en, cond)}
 '''
 
 doc = markdown.document()
-doc << str
-//doc.render@rtf('t1.rtf')
-doc.compose@rtf('t1', 'title', 'author', 'date')
+doc << src
+doc.render@rtf('test.rtf')
+//doc.compose@rtf('test', 'title', 'author', 'date')

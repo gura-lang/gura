@@ -85,14 +85,22 @@ Renderer@tex = class(markdown.Renderer@tex) {
 }
 
 Renderer@rtf = class(markdown.Renderer@rtf) {
-	coverPage = R'''
-	'''
+	tmpl@coverPage = R'''
+	{\pard\ql\f0\sb900\sa360\li0\fi0\fs32 ${title}\par}
+	{\pard\ql\f0\sa180\li0\fi0\fs24 ${author}\par}
+	{\pard\ql\f0\sa900\li0\fi0\fs24 ${date}\par}
+	'''T
 	__init__(out:stream:w, captionIndex:boolean, title:string, author:string, date:string) = {|out, captionIndex|
 		this.title = title
 		this.author = author
 		this.date = date
 	}
-	RenderCoverPage() = {}
+	RenderCoverPage() = {
+		title = this.title
+		author = this.author
+		date = this.date
+		tmpl@coverPage.render(this.out)
+	}
 }
 
 NaviItem = struct(level:number, indices[]:number, anchorName:string, text:string, itemList[] => [])

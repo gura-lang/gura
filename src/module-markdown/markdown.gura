@@ -442,10 +442,10 @@ Renderer@rtf = class {
 	__init__(out:stream:w, captionIndex:boolean) = {
 		this.out = out
 		this.captionIndex = captionIndex
-		this.quoteLevel = 0
+		this.indentLeft = 0
 		this.listLevel = 0
-		this.indentPerQuote = 360
 		this.indentPerList = 360
+		this.indentPerQuote = 360
 		this.indices = dim(6) {0}
 	}
 	Render(doc:document):void = {
@@ -458,7 +458,7 @@ Renderer@rtf = class {
 			this.RenderItem(item.children)
 			this.out.print(footer)
 		} elsif (item.type == `h1) {
-			this.out.print(r'{\pard\ql\f0\sa180\li0\fi0\b\fs36 ')
+			this.out.printf(r'{\pard\ql\f0\sa180\sb360\li%d\fi0\b\fs36 ', this.indentLeft)
 			if (this.captionIndex) {
 				this.indices[0] += 1
 				this.indices[1..5] = 0
@@ -467,7 +467,7 @@ Renderer@rtf = class {
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h2) {
-			this.out.print(r'{\pard\ql\f0\sa180\li0\fi0\b\fs32 ')
+			this.out.printf(r'{\pard\ql\f0\sa180\sb180\li%d\fi0\b\fs32 ', this.indentLeft)
 			if (this.captionIndex) {
 				this.indices[1] += 1
 				this.indices[2..5] = 0
@@ -476,7 +476,7 @@ Renderer@rtf = class {
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h3) {
-			this.out.print(r'{\pard\ql\f0\sa180\li0\fi0\b\fs28 ')
+			this.out.printf(r'{\pard\ql\f0\sa180\li%d\fi0\b\fs28 ', this.indentLeft)
 			if (this.captionIndex) {
 				this.indices[2] += 1
 				this.indices[3..5] = 0
@@ -485,7 +485,7 @@ Renderer@rtf = class {
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h4) {
-			this.out.print(r'{\pard\ql\f0\sa180\li0\fi0\b\fs24 ')
+			this.out.printf(r'{\pard\ql\f0\sa180\li%d\fi0\b\fs24 ', this.indentLeft)
 			if (this.captionIndex) {
 				this.indices[3] += 1
 				this.indices[4..5] = 0
@@ -494,7 +494,7 @@ Renderer@rtf = class {
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h5) {
-			this.out.print(r'{\pard\ql\f0\sa180\li0\fi0\b\fs20 ')
+			this.out.printf(r'{\pard\ql\f0\sa180\li%d\fi0\b\fs20 ', this.indentLeft)
 			if (this.captionIndex) {
 				this.indices[4] += 1
 				this.indices[5] = 0
@@ -503,7 +503,7 @@ Renderer@rtf = class {
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h6) {
-			this.out.print(r'{\pard\ql\f0\sa180\li0\fi0\b\fs20 ')
+			this.out.printf(r'{\pard\ql\f0\sa180\li%d\fi0\b\fs20 ', this.indentLeft)
 			if (this.captionIndex) {
 				this.indices[5] += 1
 				this.out.printf('%d.%d.%d.%d.%d.%d ', this.indices[0..5]*)
@@ -511,16 +511,15 @@ Renderer@rtf = class {
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `p) {
-			this.out.printf(r'{\pard\ql\f0\sa180\li%d\fi0\fs20 ',
-									this.quoteLevel * this.indentPerQuote)
+			this.out.printf(r'{\pard\ql\f0\sa180\li%d\fi0\fs20 ', this.indentLeft)
 			this.RenderItem(item.children)
 			this.out.println()
 			this.out.println(r'\par}')
 		} elsif (item.type == `blockquote) {
-			this.quoteLevel += 1
+			this.indentLeft += this.indentPerQuote
 			this.RenderItem(item.children)
 			this.out.println()
-			this.quoteLevel -= 1
+			this.indentLeft -= this.indentPerQuote
 		} elsif (item.type == `em) {
 			this.out.print(r'{\i ')
 			this.RenderItem(item.children)
@@ -576,7 +575,7 @@ Renderer@rtf = class {
 		} elsif (item.type == `tag) {
 			if (item.text == 'gura.funcentry') {
 				if (m = item.attrs.match('format="([^\"]+)"')) {
-					this.out.print(r'{\pard\ql\f1\sa180\li0\fi0\b\fs20 ')
+					this.out.printf(r'{\pard\ql\f1\sa180\li%d\fi0\b\fs20 ', this.indentLeft)
 					this.out.print(this.EscapeText(m[1].unescapehtml()))
 					this.out.println(r'\par}')
 				} else {
@@ -584,10 +583,10 @@ Renderer@rtf = class {
 					sys.exit(1)
 				}
 				if (item.children) {
-					this.quoteLevel += 1
+					this.indentLeft += this.indentPerQuote
 					this.RenderItem(item.children)
 					this.out.println()
-					this.quoteLevel -= 1
+					this.indentLeft -= this.indentPerQuote
 				}
 			} elsif (item.text == 'table') {
 				this.RenderTable(item)
@@ -607,7 +606,8 @@ Renderer@rtf = class {
 				item.children && this.RenderItem(item.children)
 			}
 		} elsif (item.type == `hr) {
-			this.out.println(r'{\pard\qc\f0\sa180\li0\fi0\emdash\emdash\emdash\emdash\emdash\par}')
+			this.out.printf(r'{\pard\qc\f0\sa180\li%d\fi0\emdash\emdash\emdash\emdash\emdash\par}' '\n',
+							this.indentLeft)
 		} elsif (item.type == `br) {
 			this.out.println(r'\line')
 		}
@@ -622,10 +622,10 @@ Renderer@rtf = class {
 			(i > 0 && !parRenderFlag) && this.out.println(r'\par}')
 			if (item.type == `ul) {
 				this.out.print(r'{\pard\ql\f0\sa0\li%d\fi-360\fs20 \bullet \tx360\tab ' % \
-							[this.indentPerList * this.listLevel + 100])
+							[this.indentLeft + this.indentPerList * this.listLevel + 100])
 			} else { // item.type == `ol
 				this.out.print(r'{\pard\ql\f0\sa0\li%d\fi-360\fs20 %d. \tx360\tab ' % \
-							[this.indentPerList * this.listLevel + 100, i + 1])
+							[this.indentLeft + this.indentPerList * this.listLevel + 100, i + 1])
 			}
 			parRenderFlag = false
 			itemChild.children.each {|itemDescend, i|
@@ -664,6 +664,7 @@ Renderer@rtf = class {
 			alignChars.get(aligns.last(), 'J')
 		].join('|')
 		this.out.println()
+		this.out.printf(r'{\pard\ql\f0\sa180\li%d\fi0\fs20 ', this.indentLeft)
 		rows.each {|cols, iRow|
 			headerFlag = false
 			wdCols = dim(cols.len()) {2000}
@@ -693,7 +694,7 @@ Renderer@rtf = class {
 				this.out.println(r' \lastrow\row')
 			}
 		}
-		this.out.println()
+		this.out.println(r'\par}')
 	}
 	RenderCoverPage() = {}
 }
