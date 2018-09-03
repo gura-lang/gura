@@ -66,22 +66,6 @@ Renderer@jekyll = class(markdown.Renderer@html) {
 }
 
 Renderer@tex = class(markdown.Renderer@tex) {
-	OnRenderItemPre(item:item) = {
-		if (item.type == `tag && item.text == 'gura.funcentry') {
-			if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
-				this.out.printf(R'''
-				\vspace{5mm}
-				\vbox{
-				\underline{\tt\small %s}}
-				''', this.EscapeText(m[2].unescapehtml()))
-			} else {
-				println('**** error ****')
-				sys.exit(1)
-			}
-			return(false)
-		}
-		true
-	}
 }
 
 Renderer@rtf = class(markdown.Renderer@rtf) {
@@ -152,11 +136,8 @@ classref(`markdown.document).compose@tex(baseName:string, title:string, author:s
 }
 
 classref(`markdown.document).compose@pdf(baseName:string, title:string, author:string, date:string) = {
-	fileNameTeX = baseName + '.tex'
-	fileNameDVI = baseName + '.dvi'
 	this.compose@tex(baseName, title, author, date)
-	repeat (2) { os.exec('platex', fileNameTeX) }
-	os.exec('dvipdfmx', fileNameDVI)
+	repeat (2) { os.exec('ptex2pdf', '-l', baseName) }
 }
 
 classref(`markdown.document).compose@jekyll(dirNameOut:string, layout:string, lang:string,

@@ -336,7 +336,23 @@ Renderer@tex = class {
 			//this.out.print(r'\u%d?', 169)
 		} elsif (item.type == `tag) {
 			tagName = item.text.lower()
-			if (tagName == 'table') {
+			if (item.text == 'gura.funcentry') {
+				if (m = item.attrs.match('format="([^\"]+)"')) {
+					this.out.printf(r'{\tt ')
+					this.out.print(this.EscapeText(m[1].unescapehtml()))
+					this.out.println(r'}')
+					this.out.println()
+				} else {
+					println('**** invalid format of gura.funcentry tag ****')
+					sys.exit(1)
+				}
+				if (item.children) {
+					this.out.println(r'{\setlength{\leftskip}{10mm}')
+					this.RenderItem(item.children)
+					this.out.println(r'}')
+					this.out.println()
+				}
+			} elsif (tagName == 'table') {
 				this.RenderTable(item)
 			} elsif (tagName == 'code') {
 				this.out.print(r'{\tt ')
@@ -390,7 +406,6 @@ Renderer@tex = class {
 				item
 			}
 		}
-		//alignChars = %{`left => 'l', `right => 'r', `center => 'c'}
 		alignChars = %{`left => 'L', `right => 'R', `center => 'C'}
 		aligns = rows[0]::align
 		alignSpecifier = [
@@ -400,7 +415,7 @@ Renderer@tex = class {
 		this.out.println()
 		this.out.println(r'\vspace{3mm}')
 		this.out.println(r'\begin{center}')
-		this.out.printf('\\begin{tabulary}{\\textwidth}{|%s|} \\hline\n',
+		this.out.printf(r'\begin{tabulary}{\textwidth}{|%s|} \hline' '\n',
 						alignSpecifier)
 		rows.each {|cols, iRow|
 			headerFlag = false
@@ -1037,8 +1052,7 @@ Renderer@toc = class {
 }
 
 classref(`document).render@html(
-		out?:stream:w, easyFormatFlag:boolean => true, captionIndex:boolean => false) = {
-	out = out || sys.stdout
+		out:stream:w, easyFormatFlag:boolean => true, captionIndex:boolean => false) = {
 	easyFormatFlag && out.print(R'''
 	<html>
 	<head>
@@ -1075,8 +1089,7 @@ The argument `captionIndex` indicates whether caption indices are added to heade
 '''
 }
 
-classref(`document).render@tex(title:string, author:string, date:string, out?:stream:w) = {
-	out = out || sys.stdout
+classref(`document).render@tex(out:stream:w, title:string, author:string, date:string) = {
 	Renderer@tex(out, title, author, date).Render(this)
 } %% { `en,
 R'''
@@ -1191,6 +1204,8 @@ main(mod:environment) = {
 	fmt = cfg['format']
 	if (fmt == 'html') {
 		doc.render@html(out, true)
+	} elsif (fmt == 'tex') {
+		doc.render@tex(out, '', '', '')
 	} elsif (fmt == 'rtf') {
 		doc.render@rtf(out)
 	} else {
