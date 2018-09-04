@@ -80,3 +80,5 @@ libguracore*.dll
 *.aux
 *.dvi
 *.log
+*.out
+*.toc
