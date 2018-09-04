@@ -208,6 +208,37 @@ Renderer@html = class {
 }
 
 Renderer@tex = class {
+	tmpl@header = R'''
+	\documentclass{report}
+	\title{${_this.title}}
+	\author{${_this.author}}
+	\date{${_this.date}}
+	\usepackage{fancyvrb}
+	\usepackage{tabulary}
+	\usepackage[dvipdfmx,setpagesize=false]{hyperref}
+	\usepackage{listings}
+	\lstset{
+	basicstyle=\small\ttfamily,
+	columns=flexible,
+	breaklines=true
+	}
+	\setlength{\textwidth}{145mm}
+	\setlength{\oddsidemargin}{35mm}
+	\addtolength{\oddsidemargin}{-1in}
+	\setlength{\parindent}{0mm}
+	\setlength{\parskip}{2mm}
+	\setlength{\textheight}{244mm}
+	\setlength{\headheight}{0mm}
+	\setlength{\headsep}{25mm}
+	\setlength{\footskip}{15mm}
+	\addtolength{\topmargin}{-1in}
+	\begin{document}
+	\maketitle
+	\tableofcontents
+	'''T
+	tmpl@footer = R'''
+	\end{document}
+	'''T
 	__init__(out:stream:w, title:string, author:string, date:string) = {
 		this.out = out
 		this.title = title
@@ -222,35 +253,9 @@ Renderer@tex = class {
 		!this.OnRenderItemPre(item) && return
 		if (item.type == `root) {
 			_this = this
-			this.out.print(R'''
-			\documentclass{report}
-			\title{${_this.title}}
-			\author{${_this.author}}
-			\date{${_this.date}}
-			\usepackage{fancyvrb}
-			\usepackage{tabulary}
-			\usepackage[dvipdfmx,setpagesize=false]{hyperref}
-
-			\setlength{\textwidth}{145mm}
-			\setlength{\oddsidemargin}{35mm}
-			\addtolength{\oddsidemargin}{-1in}
-			\setlength{\parindent}{0mm}
-			\setlength{\parskip}{2mm}
-
-			\setlength{\textheight}{244mm}
-			\setlength{\headheight}{0mm}
-			\setlength{\headsep}{25mm}
-			\setlength{\footskip}{15mm}
-			\addtolength{\topmargin}{-1in}
-
-			\begin{document}
-			\maketitle
-			\tableofcontents
-			'''.embed())
+			tmpl@header.render(this.out)
 			this.RenderItem(item.children)
-			this.out.print(R'''
-			\end{document}
-			''')
+			tmpl@footer.render(this.out)
 		} elsif (item.type == `h1) {
 			this.out.print(r'\chapter{')
 			this.RenderItem(item.children)
@@ -294,11 +299,12 @@ Renderer@tex = class {
 		} elsif (item.type == `strike) {
 			this.RenderItem(item.children)
 		} elsif (item.type == `codeblock) {
-			this.out.println(r'\begin{Verbatim}[frame=single,framesep=2mm,fontsize=\small]')
+			this.out.println(
+					r'\begin{lstlisting}[frame=single,aboveskip=\bigskipamount,xleftmargin=4pt,xrightmargin=4pt]')
 			this.escapeTextFlag = false
 			this.RenderItem(item.children)
 			this.escapeTextFlag = true
-			this.out.println(r'\end{Verbatim}')
+			this.out.println(r'\end{lstlisting}')
 		} elsif (item.type == `ol) {
 			this.out.println(r'\begin{enumerate}')
 			this.RenderItem(item.children)
@@ -338,16 +344,15 @@ Renderer@tex = class {
 			tagName = item.text.lower()
 			if (item.text == 'gura.funcentry') {
 				if (m = item.attrs.match('format="([^\"]+)"')) {
-					this.out.printf(r'{\tt ')
-					this.out.print(this.EscapeText(m[1].unescapehtml()))
-					this.out.println(r'}')
-					this.out.println()
+					this.out.println(r'\begin{lstlisting}[aboveskip=\bigskipamount,belowskip=0pt]')
+					this.out.println(this.EscapeText(m[1].unescapehtml()))
+					this.out.println(r'\end{lstlisting}')
 				} else {
 					println('**** invalid format of gura.funcentry tag ****')
 					sys.exit(1)
 				}
 				if (item.children) {
-					this.out.println(r'{\setlength{\leftskip}{10mm}')
+					this.out.println(r'{\setlength{\leftskip}{16pt}')
 					this.RenderItem(item.children)
 					this.out.println(r'}')
 					this.out.println()
