@@ -6,6 +6,6 @@ ${markdown.makedoc@function(`en, cond)}
 '''
 
 doc = markdown.document()
-doc << src
+import(guracore.doc).__doc@markdown__(doc, `en)
 doc.render@tex('test.tex', '', '', '')
 //doc.compose@rtf('test', 'title', 'author', 'date')

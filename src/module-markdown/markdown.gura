@@ -223,6 +223,7 @@ Renderer@tex = class {
 	\usepackage{tabulary}
 	\usepackage[dvipdfmx,setpagesize=false]{hyperref}
 	\usepackage{listings}
+	\usepackage{enumitem}
 	\lstset{
 	basicstyle=\small\ttfamily,
 	columns=flexible,
@@ -254,6 +255,9 @@ Renderer@tex = class {
 		this.date = date
 		this.escapeTextFlag = true
 		this.indentLeft = 0
+		this.insideTableFlag = false
+		this.idxItem = 0
+		this.listType = nil
 	}
 	Render(doc:document):void = {
 		this.RenderItem(doc.root)
@@ -316,16 +320,43 @@ Renderer@tex = class {
 			this.escapeTextFlag = true
 			this.out.println(r'\end{lstlisting}')
 		} elsif (item.type == `ol) {
-			this.out.println(r'\begin{enumerate}')
-			this.RenderItem(item.children)
-			this.out.println(r'\end{enumerate}')
+			if (this.insideTableFlag) {
+				this.idxItem = 0
+				this.listType = `ol
+				this.RenderItem(item.children)
+				this.out.println()
+			} else {
+				this.out.println(r'\begin{enumerate}[itemsep=0pt]')
+				this.RenderItem(item.children)
+				this.out.println(r'\end{enumerate}')
+			}
 		} elsif (item.type == `ul) {
-			this.out.println(r'\begin{itemize}')
-			this.RenderItem(item.children)
-			this.out.println(r'\end{itemize}')
+			if (this.insideTableFlag) {
+				this.idxItem = 0
+				this.listType = `ul
+				this.RenderItem(item.children)
+				this.out.println()
+			} else {
+				this.out.println(r'\begin{itemize}[itemsep=0pt]')
+				this.RenderItem(item.children)
+				this.out.println(r'\end{itemize}')
+			}
 		} elsif (item.type == `li) {
-			this.out.print(r'\item ')
-			this.RenderItem(item.children)
+			if (this.insideTableFlag) {
+				(this.idxItem > 0) && this.out.println(r'\newline')
+				this.idxItem += 1
+				if (this.listType == `ol) {
+					this.out.printf(r'%d. ', this.idxItem)
+				} else {
+					this.out.print(r'$\bullet$ ')
+				}
+				this.RenderItem(item.children)
+				this.out.println()
+			} else {
+				this.out.print(r'\item ')
+				this.RenderItem(item.children)
+				this.out.println()
+			}
 		} elsif (item.type == `line) {
 			this.RenderItem(item.children)
 			this.out.println()
@@ -370,7 +401,9 @@ Renderer@tex = class {
 					this.out.println()
 				}
 			} elsif (tagName == 'table') {
+				this.insideTableFlag = true
 				this.RenderTable(item)
+				this.insideTableFlag = false
 			} elsif (tagName == 'code') {
 				this.out.print(r'{\tt ')
 				item.children && this.RenderItem(item.children)
