@@ -430,10 +430,11 @@ Renderer@tex = class {
 			alignChars.get(aligns.last(), 'J')
 		].join('|')
 		this.out.println()
-		this.out.println(r'\vspace{3mm}')
-		this.out.println(r'\begin{center}')
-		this.out.printf(r'\begin{tabulary}{\textwidth}{|%s|} \hline' '\n',
-						alignSpecifier)
+		this.out.printf(R'''
+		\medskip
+		\begin{center}
+		\begin{tabulary}{\textwidth}{|%s|} \hline
+		''', alignSpecifier)
 		rows.each {|cols, iRow|
 			headerFlag = false
 			cols.each {|item, iCol|
@@ -453,9 +454,11 @@ Renderer@tex = class {
 				this.out.println(r' \\')
 			}
 		}
-		this.out.println(r'\end{tabulary}')
-		this.out.println(r'\end{center}')
-		this.out.println(r'\vspace{3mm}')
+		this.out.print(R'''
+		\end{tabulary}
+		\end{center}
+		\medskip
+		''')
 	}
 	OnRenderItemPre(item:item) = true
 	OnRenderItemPost(item:item):void = nil
