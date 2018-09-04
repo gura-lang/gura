@@ -7,5 +7,5 @@ ${markdown.makedoc@function(`en, cond)}
 
 doc = markdown.document()
 doc << src
-doc.render@rtf('test.rtf')
+doc.render@tex('test.tex', '', '', '')
 //doc.compose@rtf('test', 'title', 'author', 'date')

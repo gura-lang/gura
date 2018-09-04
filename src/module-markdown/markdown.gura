@@ -210,9 +210,15 @@ Renderer@html = class {
 Renderer@tex = class {
 	tmpl@header = R'''
 	\documentclass{report}
+	${if (!_this.title.isempty())}
 	\title{${_this.title}}
+	${end}
+	${if (!_this.author.isempty())}
 	\author{${_this.author}}
+	${end}
+	${if (!_this.date.isempty())}
 	\date{${_this.date}}
+	${end}
 	\usepackage{fancyvrb}
 	\usepackage{tabulary}
 	\usepackage[dvipdfmx,setpagesize=false]{hyperref}
@@ -233,8 +239,10 @@ Renderer@tex = class {
 	\setlength{\footskip}{15mm}
 	\addtolength{\topmargin}{-1in}
 	\begin{document}
+	${if (!_this.title.isempty())}
 	\maketitle
 	\tableofcontents
+	${end}
 	'''T
 	tmpl@footer = R'''
 	\end{document}
@@ -245,6 +253,7 @@ Renderer@tex = class {
 		this.author = author
 		this.date = date
 		this.escapeTextFlag = true
+		this.indentLeft = 0
 	}
 	Render(doc:document):void = {
 		this.RenderItem(doc.root)
@@ -299,8 +308,9 @@ Renderer@tex = class {
 		} elsif (item.type == `strike) {
 			this.RenderItem(item.children)
 		} elsif (item.type == `codeblock) {
-			this.out.println(
-					r'\begin{lstlisting}[frame=single,aboveskip=\bigskipamount,xleftmargin=4pt,xrightmargin=4pt]')
+			this.out.printf(
+					r'\begin{lstlisting}[frame=single,aboveskip=\bigskipamount,' \
+					r'xleftmargin=%dpt,xrightmargin=4pt]' '\n', this.indentLeft + 4)
 			this.escapeTextFlag = false
 			this.RenderItem(item.children)
 			this.escapeTextFlag = true
@@ -345,7 +355,7 @@ Renderer@tex = class {
 			if (item.text == 'gura.funcentry') {
 				if (m = item.attrs.match('format="([^\"]+)"')) {
 					this.out.println(r'\begin{lstlisting}[aboveskip=\bigskipamount,belowskip=0pt]')
-					this.out.println(this.EscapeText(m[1].unescapehtml()))
+					this.out.println(m[1].unescapehtml())
 					this.out.println(r'\end{lstlisting}')
 				} else {
 					println('**** invalid format of gura.funcentry tag ****')
@@ -353,7 +363,9 @@ Renderer@tex = class {
 				}
 				if (item.children) {
 					this.out.println(r'{\setlength{\leftskip}{16pt}')
+					this.indentLeft += 16
 					this.RenderItem(item.children)
+					this.indentLeft -= 16
 					this.out.println(r'}')
 					this.out.println()
 				}
