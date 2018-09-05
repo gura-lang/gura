@@ -6,6 +6,26 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+The `propdeclaration` class provides information such as the name and the read/write
+attribute of property that is stored in various objects.
+
+You can get an `iterator` of `propdeclaration` by calling `object#__propdecls__()`.
+
+# Property
+
+A `propdeclaration` instance has the following properties:
+
+${markdown.makedoc@property(`en, propdeclaration)}
+
+# Method
+
+The `propdeclaration` class provides the following methods:
+
+${markdown.makedoc@function(`en
+propdeclaration.gethelp
+)}
 )**";
 
 //-----------------------------------------------------------------------------
@@ -38,7 +58,7 @@ Gura_DeclareProperty_R(propdeclaration, dispname)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Display name. If the property is a list, a pair of square brackets are appended."
 		);
 }
 
@@ -59,7 +79,7 @@ Gura_DeclareProperty_R(propdeclaration, name)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"The property's name."
 		);
 }
 
@@ -76,7 +96,7 @@ Gura_DeclareProperty_R(propdeclaration, readable)
 	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Returns `true` if it is readable, `false` otherwise."
 		);
 }
 
@@ -93,7 +113,7 @@ Gura_DeclareProperty_R(propdeclaration, symbol)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"The property's name as a `symbol` instance."
 		);
 }
 
@@ -110,7 +130,7 @@ Gura_DeclareProperty_R(propdeclaration, type)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"The value type of the property."
 		);
 }
 
@@ -127,7 +147,7 @@ Gura_DeclareProperty_R(propdeclaration, writable)
 	SetPropAttr(VTYPE_boolean);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Returns `true` if it is readable, `false` otherwise."
 		);
 }
 
@@ -141,7 +161,7 @@ Gura_ImplementPropertyGetter(propdeclaration, writable)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// propdeclaration.gethelp(lang?:symbol):map {block?}
+// propdeclaration#gethelp(lang?:symbol):map {block?}
 Gura_DeclareMethod(propdeclaration, gethelp)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -149,8 +169,11 @@ Gura_DeclareMethod(propdeclaration, gethelp)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
-		""
-	);
+		"Get a `help` instance assosicated with the property.\n"
+		"\n"
+		"The argument `lang` specifies the language of the document, such as `en` and `ja`.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("help", "help"));
 }
 
 Gura_ImplementMethod(propdeclaration, gethelp)

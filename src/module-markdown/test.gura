@@ -2,10 +2,13 @@
 import(markdown.composer)
 
 src = Re'''
-${markdown.makedoc@function(`en, cond)}
 '''
 
 doc = markdown.document()
-import(guracore.doc).__doc@markdown__(doc, `en)
-doc.render@tex('test.tex', '', '', '')
+doc << Re'''
+${markdown.makedoc@class(`en, color, 0)}
+'''
+doc.render@html('test.html')
+//import(guracore.doc).__doc@markdown__(doc, `en)
+//doc.render@tex('test.tex', '', '', '')
 //doc.compose@rtf('test', 'title', 'author', 'date')

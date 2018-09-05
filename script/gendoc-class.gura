@@ -8,7 +8,7 @@ argopt.Parser {|p|
 	[cfg, argv] = p.parse(sys.argv)
 }
 if (argv.len() < 1) {
-	sys.stderr.println('usage: gendoc-module.gura class-name')
+	sys.stderr.println('usage: gendoc-class.gura class-name')
 	sys.exit(1)
 }
 className = argv[0]

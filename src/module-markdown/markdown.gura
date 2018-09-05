@@ -175,6 +175,21 @@ Renderer@html = class {
 					this.RenderItem(item.children)
 					this.out.println('</div>')
 				}
+			} elsif (item.text == 'gura.propentry') {
+				fmt = if (m = item.attrs.match('format="([^\"]+)"')) {m[1]} else {''}
+				typeName = if (m = item.attrs.match('type="([^\"]+)"')) {m[1]} else {''}
+				accessMode = if (m = item.attrs.match('access="([^\"]+)"')) {m[1]} else {''}
+				this.out.printf(R'''
+				<div class="mb-2"><code>%s</code> </div>
+				''', fmt)
+				this.out.println('<div class="mb-2 ml-4">')
+				this.out.printf('[<code>%s</code>, <code>%s</code>]', typeName, accessMode)
+				if (item.children) {
+					this.out.print(' ')
+					this.RenderItem(item.children)
+				}
+				this.out.println()
+				this.out.println('</div>')
 			} else {
 				inlineFlag = isinlinetag(item.text)
 				this.out.print('<')
@@ -1177,13 +1192,12 @@ help.presenter('markdown') {|help:help|
 	document(help.doc.reader()).render@console()
 }
 
-_funcentry(lang:symbol, func:function, fullname:string, fmt:string):map = {
+_funcentry(lang:symbol, func:function, fmt:string):map = {
 	str = format('<@gura.funcentry format="%s"', fmt.escapehtml())
 	if (help = help@function(func, lang)) {
 		str += '>\n'
 		str += help.render('markdown')
 		if (!str.endswith('\n')) { str += '\n' }
-		str += '\n'
 		str += '</@gura.funcentry>\n'
 	} else {
 		str += ' />\n'
@@ -1191,32 +1205,32 @@ _funcentry(lang:symbol, func:function, fullname:string, fmt:string):map = {
 	str
 }
 
-makedoc@property(lang:symbol, obj) = {
-	propdecls = obj.__propdecls__():list
-	propdecls.isempty() && return
-	str = '<table>\n'
-	str += '<tr><th>Property</th><th>Type</th><th>R/W</th><th>Note</th></tr>\n'
-	str += '\n'
-	propdecls.each {|pd|
-		accessMode = if (pd.readable && !pd.writable) {
-			'R'
-		} elsif (!pd.readable && pd.writable) {
-			'W'
-		} elsif (pd.readable && pd.writable) {
-			'R/W'
-		} else {
-			''
-		}
-		doc = pd.gethelp(lang).doc
-		str += eR'''
-		<tr><td><code>${pd.name}</code></td><td><code>${pd.type}</code></td><td>${accessMode}</td>
-		<@td>${doc}</@td></tr>
-		'''
+_propentry(lang:symbol, propdecl:propdeclaration, prefix:string):map = {
+	accessMode = if (propdecl.readable && !propdecl.writable) {
+		'R'
+	} elsif (!propdecl.readable && propdecl.writable) {
+		'W'
+	} elsif (propdecl.readable && propdecl.writable) {
+		'R/W'
+	} else {
+		''
 	}
-	str += R'''
+	fmt = prefix + propdecl.name
+	str = format('<@gura.propentry format="%s" type="%s" access="%s"',
+				 fmt.escapehtml(), propdecl.type, accessMode)
+	if (help = propdecl.gethelp(lang)) {
+		str += '>\n'
+		str += help.render('markdown')
+		if (!str.endswith('\n')) { str += '\n' }
+		str += '</@gura.propentry>\n'
+	} else {
+		str += ' />\n'
+	}
+	str
+}
 
-	</table>
-	'''
+makedoc@property(lang:symbol, obj) = {
+	_propentry(lang, obj.__propdecls__(), class.getfullname(obj) + '#')
 }
 
 makedoc@class(lang:symbol, cls:class, headeroff:number):dynamic_scope = {
@@ -1229,14 +1243,12 @@ makedoc@class(lang:symbol, cls:class, headeroff:number):dynamic_scope = {
 
 makedoc@function(lang:symbol, funcs*:function) = {
 	funcs = funcs.each()
-	_funcentry(lang, funcs, function.getfullname(funcs), function.getformat(funcs))
+	_funcentry(lang, funcs, function.getformat(funcs))
 }
 
 makedoc@function$(lang:symbol, match:string, sub:string, funcs*:function) = {
 	funcs = funcs.each()
-	_funcentry(lang, funcs,
-			   function.getfullname(funcs):*replace(match, sub),
-			   function.getformat(funcs):*replace(match, sub))
+	_funcentry(lang, funcs, function.getformat(funcs):*replace(match, sub))
 }
 
 main(mod:environment) = {
