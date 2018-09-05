@@ -45,6 +45,7 @@ entries = @(Entry) {
 	{ 'optimizer',			`optimizer			}
 	{ 'palette',			`palette			}
 	{ 'pointer',			`pointer			}
+	{ 'propdeclaration',	`propdeclaration	}
 	{ 'rational',			`rational			}
 	{ 'semaphore',			`semaphore			}
 	{ 'stream',				`stream				}

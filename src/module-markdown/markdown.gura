@@ -173,6 +173,7 @@ Renderer@html = class {
 				if (item.children) {
 					this.out.println('<div class="mb-2 ml-4">')
 					this.RenderItem(item.children)
+					this.out.println()
 					this.out.println('</div>')
 				}
 			} elsif (item.text == 'gura.propentry') {
@@ -180,16 +181,14 @@ Renderer@html = class {
 				typeName = if (m = item.attrs.match('type="([^\"]+)"')) {m[1]} else {''}
 				accessMode = if (m = item.attrs.match('access="([^\"]+)"')) {m[1]} else {''}
 				this.out.printf(R'''
-				<div class="mb-2"><code>%s</code> </div>
-				''', fmt)
-				this.out.println('<div class="mb-2 ml-4">')
-				this.out.printf('[<code>%s</code>, <code>%s</code>]', typeName, accessMode)
+				<div class="mb-2"><code>%s</code> [<code>%s</code>, <code>%s</code>]</div>
+				''', fmt, typeName, accessMode)
 				if (item.children) {
-					this.out.print(' ')
+					this.out.println('<div class="mb-2 ml-4">')
 					this.RenderItem(item.children)
+					this.out.println()
+					this.out.println('</div>')
 				}
-				this.out.println()
-				this.out.println('</div>')
 			} else {
 				inlineFlag = isinlinetag(item.text)
 				this.out.print('<')
