@@ -102,7 +102,7 @@ composers.each {|composer|
 	moduleNames.each {|moduleName|
 		moduleDocName = moduleName + '.doc'
 		println('importing: ', moduleDocName)
-		import(&moduleDocName).__doc@markdown__(doc, composer.lang)
+		doc << import(&moduleDocName).__doc@markdown__(composer.lang)
 	}
 	composer.compose(doc)
 }

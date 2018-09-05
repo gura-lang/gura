@@ -155,4 +155,4 @@ dirtype
 )}
 '''.embed()
 
-markdown.moduledoc(locals(), %{`en => text@en})
+markdown.document_server(locals(), %{`en => text@en})

@@ -64,4 +64,4 @@ entries.each {|entry|
 	text@en += markdown.makedoc@class(`en, classref(entry.symbol), headeroff => 2)
 }
 
-markdown.moduledoc(locals(), %{`en => text@en})
+markdown.document_server(locals(), %{`en => text@en})

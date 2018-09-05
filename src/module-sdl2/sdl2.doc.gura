@@ -556,4 +556,4 @@ This module uses SDL2 library which is distributed in the following site:
 [http://www.libsdl.org/](http://www.libsdl.org/)
 '''.embed()
 
-markdown.moduledoc(locals(), %{`en => text@en})
+markdown.document_server(locals(), %{`en => text@en})

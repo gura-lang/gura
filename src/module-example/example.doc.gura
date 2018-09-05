@@ -10,4 +10,4 @@ The `example` module is just an example that is supposed to be referenced as a s
 when you want to create a new module.
 '''
 
-markdown.moduledoc(locals(), %{`en => text@en})
+markdown.document_server(locals(), %{`en => text@en})

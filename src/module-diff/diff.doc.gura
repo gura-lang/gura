@@ -209,4 +209,4 @@ This module uses dtl (Diff Template Library) which is distributed in the followi
 [https://code.google.com/p/dtl-cpp/](https://code.google.com/p/dtl-cpp/)
 '''.embed()
 
-markdown.moduledoc(locals(), %{`en => text@en})
+markdown.document_server(locals(), %{`en => text@en})

@@ -1240,9 +1240,9 @@ makedoc@property(lang:symbol, obj) = {
 makedoc@class(lang:symbol, cls:class, headeroff:number):dynamic_scope = {
 	// The attribute :dynamic_scope is necessary when the help document contains template in it
 	// that is expected to be evaluated with the outer environment.
-	format('<gura.headerdown%d />\n', headeroff) + \
-	help@class(cls, lang).doc + \
-	format('<gura.headerup%d />\n', headeroff)
+	str = format('<gura.headerdown%d />\n', headeroff)
+	str += help@class(cls, lang).doc
+	str += format('<gura.headerup%d />\n', headeroff)
 }
 
 makedoc@function(lang:symbol, funcs*:function) = {
@@ -1269,7 +1269,8 @@ main(mod:environment) = {
 	}
 	out = if (argv.len() == 0) { sys.stdout } else { open(argv[0], 'w') }
 	lang = cfg['lang'].tosymbol()
-	doc = mod.__doc@markdown__(markdown.document(), lang)
+	doc = markdown.document()
+	doc << mod.__doc@markdown__(lang)
 	fmt = cfg['format']
 	if (fmt == 'html') {
 		doc.render@html(out, true)
@@ -1284,8 +1285,8 @@ main(mod:environment) = {
 }
 
 moduledoc(mod:environment, d:dict) = {
-	mod.__doc@markdown__(doc:markdown.document, lang:symbol) = {
-		doc << d.get(lang, d[d.keys().next()])
+	mod.__doc@markdown__(lang:symbol) = {
+		d.get(lang, d[d.keys().next()])
 	}
 	if (mod.__name__ == '__main__') {
 		main(mod)

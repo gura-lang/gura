@@ -138,4 +138,4 @@ This module uses freeglut which official site is:
 
 '''.embed()
 
-markdown.moduledoc(locals(), %{`en => text@en})
+markdown.document_server(locals(), %{`en => text@en})

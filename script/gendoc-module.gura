@@ -13,5 +13,5 @@ if (argv.len() < 1) {
 }
 moduleDocName = argv[0] + '.doc'
 doc = markdown.document()
-import(&moduleDocName).__doc@markdown__(doc, `en)
+doc << import(&moduleDocName).__doc@markdown__(`en)
 doc.render@html(sys.stdout)

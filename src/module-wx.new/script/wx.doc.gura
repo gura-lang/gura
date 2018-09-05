@@ -15,4 +15,4 @@ This module uses wxWidgets library which is distributed in the following site:
 [http://www.wxwidgets.org/](http://www.wxwidgets.org/)
 '''
 
-markdown.moduledoc(locals(), %{`en => text@en})
+markdown.document_server(locals(), %{`en => text@en})

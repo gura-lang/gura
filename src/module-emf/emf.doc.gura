@@ -9,4 +9,4 @@ text@en = R'''
 The `emf` module provices measures to read/write EMF (Enhanced Meta File) files.
 '''
 
-markdown.moduledoc(locals(), %{`en => text@en})
+markdown.document_server(locals(), %{`en => text@en})
