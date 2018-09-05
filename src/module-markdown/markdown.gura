@@ -1284,7 +1284,7 @@ main(mod:environment) = {
 	out = nil // this closes the file handle
 }
 
-moduledoc(mod:environment, d:dict) = {
+document_server(mod:environment, d:dict) = {
 	mod.__doc@markdown__(lang:symbol) = {
 		d.get(lang, d[d.keys().next()])
 	}
