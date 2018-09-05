@@ -415,6 +415,8 @@ Renderer@tex = class {
 					this.out.println(r'}')
 					this.out.println()
 				}
+			} elsif (item.text == 'gura.propentry') {
+				
 			} elsif (tagName == 'table') {
 				this.insideTableFlag = true
 				this.RenderTable(item)
@@ -671,6 +673,8 @@ Renderer@rtf = class {
 					this.out.println()
 					this.indentLeft -= this.indentPerQuote
 				}
+			} elsif (item.text == 'gura.propentry') {
+				
 			} elsif (item.text == 'table') {
 				this.RenderTable(item)
 			} elsif (item.text == 'code') {
