@@ -590,4 +590,4 @@ This module uses Cairo library which is distributed in the following site:
 [http://cairographics.org/](http://cairographics.org/)
 '''.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

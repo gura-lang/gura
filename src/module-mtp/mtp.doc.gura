@@ -57,4 +57,4 @@ This module uses libusb and libmtp library which is distributed in the following
 
 """.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

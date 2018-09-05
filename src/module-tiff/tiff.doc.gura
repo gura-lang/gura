@@ -48,4 +48,4 @@ This module uses libtiff which is distributed in the following site:
 [http://www.libtiff.org/](http://www.libtiff.org/)
 '''.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

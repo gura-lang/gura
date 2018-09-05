@@ -190,4 +190,4 @@ This module uses FreeType library which is distributed in the following site:
 [http://www.freetype.org/](http://www.freetype.org/)
 '''.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

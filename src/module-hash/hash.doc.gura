@@ -62,4 +62,4 @@ hash.accumulator.update
 )}
 '''.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

@@ -363,4 +363,4 @@ opengl.glUniformMatrix4x3fv
 )}
 '''.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

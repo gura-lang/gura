@@ -9,4 +9,4 @@ text@en = R'''
 The `model.obj` module provides measures to read/write files in OBJ format for 3D models.
 '''
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

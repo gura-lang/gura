@@ -8,4 +8,4 @@ text@en = R"""
 ## Overview
 """.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

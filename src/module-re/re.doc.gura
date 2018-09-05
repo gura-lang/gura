@@ -240,4 +240,4 @@ This module uses Oniguruma library which is distributed in the following site:
 [http://www.geocities.jp/kosako3/oniguruma/index.html](http://www.geocities.jp/kosako3/oniguruma/index.html)
 '''.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

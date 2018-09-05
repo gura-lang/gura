@@ -99,4 +99,4 @@ A `fs.stat` instance has the following properties:
 
 '''.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

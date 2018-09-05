@@ -59,4 +59,4 @@ This module uses Tcl library which is distributed in the following site:
 [http://www.tcl.tk/](http://www.tcl.tk/)
 '''.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

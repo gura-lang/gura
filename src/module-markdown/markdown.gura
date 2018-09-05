@@ -1234,7 +1234,7 @@ _propentry(lang:symbol, propdecl:propdeclaration, prefix:string):map = {
 }
 
 makedoc@property(lang:symbol, obj) = {
-	_propentry(lang, obj.__propdecls__(), class.getfullname(obj) + '#')
+	_propentry(lang, obj.__propdecls__(), '')
 }
 
 makedoc@class(lang:symbol, cls:class, headeroff:number):dynamic_scope = {
@@ -1283,7 +1283,7 @@ main(mod:environment) = {
 	out = nil // this closes the file handle
 }
 
-makedoc@module(mod:environment, d:dict) = {
+moduledoc(mod:environment, d:dict) = {
 	mod.__doc@markdown__(doc:markdown.document, lang:symbol) = {
 		doc << d.get(lang, d[d.keys().next()])
 	}

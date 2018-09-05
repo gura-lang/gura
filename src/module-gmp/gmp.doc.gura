@@ -550,4 +550,4 @@ This module uses GMP and its forked project MPIR which are distributed in the fo
 
 '''.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

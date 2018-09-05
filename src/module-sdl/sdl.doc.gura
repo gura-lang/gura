@@ -191,4 +191,4 @@ This module uses SDL library which is distributed in the following site:
 [http://www.libsdl.org/](http://www.libsdl.org/)
 '''.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

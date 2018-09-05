@@ -46,4 +46,4 @@ This module uses libbzip2 which is distributed in the following site:
 [http://www.bzip.org/](http://www.bzip.org/)
 '''.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

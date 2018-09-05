@@ -179,4 +179,4 @@ This module uses expat library which is distributed in the following site:
 [http://expat.sourceforge.net/](http://expat.sourceforge.net/)
 '''.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

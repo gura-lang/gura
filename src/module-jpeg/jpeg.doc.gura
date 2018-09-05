@@ -66,4 +66,4 @@ This module uses JPEG library which is distributed in the following site:
 [http://www.ijg.org/](http://www.ijg.org/)
 '''.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})

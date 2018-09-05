@@ -119,4 +119,4 @@ This module uses zlib and bzip2 library which are distributed in the following s
 - [http://www.bzip.org/](http://www.bzip.org/)
 '''.embed()
 
-markdown.makedoc@module(locals(), %{`en => text@en})
+markdown.moduledoc(locals(), %{`en => text@en})
