@@ -73,6 +73,22 @@ Gura_ImplementPropertyGetter(propdeclaration, dispname)
 	return Value(str);
 }
 
+// propdeclaration#fullname
+Gura_DeclareProperty_R(propdeclaration, fullname)
+{
+	SetPropAttr(VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en),
+		"A full name of the property that is prefixed by a name of the class it belongs to.");
+}
+
+Gura_ImplementPropertyGetter(propdeclaration, fullname)
+{
+	const PropDeclaration *pPropDeclaration =
+		Object_propdeclaration::GetObject(valueThis)->GetPropDeclaration();
+	return Value(pPropDeclaration->MakeFullName());
+}
+
 // propdeclaration#name
 Gura_DeclareProperty_R(propdeclaration, name)
 {
@@ -198,6 +214,7 @@ void Class_propdeclaration::DoPrepare(Environment &env)
 {
 	// Assignment of properties
 	Gura_AssignProperty(propdeclaration, dispname);
+	Gura_AssignProperty(propdeclaration, fullname);
 	Gura_AssignProperty(propdeclaration, name);
 	Gura_AssignProperty(propdeclaration, readable);
 	Gura_AssignProperty(propdeclaration, symbol);

@@ -1208,7 +1208,7 @@ _funcentry(lang:symbol, func:function, fmt:string):map = {
 	str
 }
 
-_propentry(lang:symbol, propdecl:propdeclaration, prefix:string):map = {
+_propentry(lang:symbol, propdecl:propdeclaration):map = {
 	accessMode = if (propdecl.readable && !propdecl.writable) {
 		'R'
 	} elsif (!propdecl.readable && propdecl.writable) {
@@ -1218,7 +1218,7 @@ _propentry(lang:symbol, propdecl:propdeclaration, prefix:string):map = {
 	} else {
 		''
 	}
-	fmt = prefix + propdecl.name
+	fmt = propdecl.fullname
 	str = format('<@gura.propentry format="%s" type="%s" access="%s"',
 				 fmt.escapehtml(), propdecl.type, accessMode)
 	if (help = propdecl.gethelp(lang)) {
@@ -1233,7 +1233,7 @@ _propentry(lang:symbol, propdecl:propdeclaration, prefix:string):map = {
 }
 
 makedoc@property(lang:symbol, obj) = {
-	_propentry(lang, obj.__propdecls__(), '')
+	_propentry(lang, obj.__propdecls__())
 }
 
 makedoc@class(lang:symbol, cls:class, headeroff:number):dynamic_scope = {
