@@ -8,8 +8,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // PropDeclaration
 //-----------------------------------------------------------------------------
-PropDeclaration::PropDeclaration(const char *className, const Symbol *pSymbol, ULong flags) :
-	_cntRef(1), _className(className), _pSymbol(pSymbol), _valType(VTYPE_any), _flags(flags),
+PropDeclaration::PropDeclaration(const String &classFullName, const Symbol *pSymbol, ULong flags) :
+	_cntRef(1), _classFullName(classFullName), _pSymbol(pSymbol), _valType(VTYPE_any), _flags(flags),
 	_pHelpProvider(new HelpProvider(this))
 {
 }
@@ -32,7 +32,7 @@ Value PropDeclaration::SetProp(Environment &env, const Value &valueThis, const S
 
 String PropDeclaration::MakeFullName() const
 {
-	String str = GetClassName();
+	String str = GetClassFullName();
 	str += "#";
 	str += GetName();
 	return str;

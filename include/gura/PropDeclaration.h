@@ -9,23 +9,23 @@
 #define Gura_DeclarePropertyAlias_R(className, propName, propNameAlias) \
 class PropDeclaration_##className##__##propName : public PropDeclaration { \
 public: \
-	PropDeclaration_##className##__##propName(const char *className_); \
+	PropDeclaration_##className##__##propName(const String &classFullName); \
 	virtual Value DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const; \
 	virtual Value DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const; \
 }; \
 Value PropDeclaration_##className##__##propName::DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const { return Value::Nil; } \
-PropDeclaration_##className##__##propName::PropDeclaration_##className##__##propName(const char *className_) : \
-						PropDeclaration(className_, Symbol::Add(propNameAlias), FLAG_Read)
+PropDeclaration_##className##__##propName::PropDeclaration_##className##__##propName(const String &classFullName) : \
+						PropDeclaration(classFullName, Symbol::Add(propNameAlias), FLAG_Read)
 
 #define Gura_DeclarePropertyAlias_RW(className, propName, propNameAlias) \
 class PropDeclaration_##className##__##propName : public PropDeclaration { \
 public: \
-	PropDeclaration_##className##__##propName(const char *className_); \
+	PropDeclaration_##className##__##propName(const String &classFullName); \
 	virtual Value DoGetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs) const; \
 	virtual Value DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const; \
 }; \
-PropDeclaration_##className##__##propName::PropDeclaration_##className##__##propName(const char *className_) : \
-						PropDeclaration(className_, Symbol::Add(propNameAlias), FLAG_Read | FLAG_Write)
+PropDeclaration_##className##__##propName::PropDeclaration_##className##__##propName(const String &classFullName) : \
+						PropDeclaration(classFullName, Symbol::Add(propNameAlias), FLAG_Read | FLAG_Write)
 
 #define Gura_DeclareProperty_R(className, propName) \
 Gura_DeclarePropertyAlias_R(className, propName, #propName)
@@ -40,7 +40,7 @@ Value PropDeclaration_##className##__##propName::DoGetProp(Environment &env, con
 Value PropDeclaration_##className##__##propName::DoSetProp(Environment &env, const Value &valueThis, const SymbolSet &attrs, const Value &value) const
 
 #define Gura_AssignProperty(className, propName) \
-AssignPropDeclaration(new PropDeclaration_##className##__##propName(#className))
+AssignPropDeclaration(new PropDeclaration_##className##__##propName(MakeValueTypeName()))
 
 namespace Gura {
 
@@ -50,7 +50,7 @@ namespace Gura {
 class GURA_DLLDECLARE PropDeclaration : public HelpProvider::Holder {
 protected:
 	int _cntRef;
-	String _className;
+	String _classFullName;
 	const Symbol *_pSymbol;
 	ValueType _valType;
 	ULong _flags;
@@ -58,7 +58,7 @@ protected:
 public:
 	Gura_DeclareReferenceAccessor(PropDeclaration);
 public:
-	PropDeclaration(const char *className, const Symbol *pSymbol, ULong flags);
+	PropDeclaration(const String &classFullName, const Symbol *pSymbol, ULong flags);
 protected:
 	virtual ~PropDeclaration();
 public:
@@ -71,7 +71,7 @@ public:
 	inline void SetPropAttr(ValueType valType, ULong flags = FLAG_None) {
 		_valType = valType, _flags |= flags;
 	}
-	inline const char *GetClassName() const { return _className.c_str(); }
+	inline const char *GetClassFullName() const { return _classFullName.c_str(); }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const char *GetName() const { return _pSymbol->GetName(); }
 	inline ValueType GetValueType() const { return _valType; }

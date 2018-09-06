@@ -162,14 +162,8 @@ Renderer@html = class {
 			this.out.print('&', item.text.escapehtml(), ';')
 		} elsif (item.type == `tag) {
 			if (item.text == 'gura.funcentry') {
-				if (m = item.attrs.match('format="([^\"]+)"')) {
-					this.out.printf(R'''
-					<div class="mb-2"><code>%s</code></div>
-					''', m[1])
-				} else {
-					println('**** invalid format of gura.funcentry tag ****')
-					sys.exit(1)
-				}
+				fmt = if (m = item.attrs.match('format="([^\"]+)"')) {m[1]} else {''}
+				this.out.printf('<div class="mb-2"><code>%s</code></div>\n', fmt)
 				if (item.children) {
 					this.out.println('<div class="mb-2 ml-4">')
 					this.RenderItem(item.children)
@@ -180,9 +174,8 @@ Renderer@html = class {
 				fmt = if (m = item.attrs.match('format="([^\"]+)"')) {m[1]} else {''}
 				typeName = if (m = item.attrs.match('type="([^\"]+)"')) {m[1]} else {''}
 				accessMode = if (m = item.attrs.match('access="([^\"]+)"')) {m[1]} else {''}
-				this.out.printf(R'''
-				<div class="mb-2"><code>%s</code> [<code>%s</code>, <code>%s</code>]</div>
-				''', fmt, typeName, accessMode)
+				this.out.printf('<div class="mb-2"><code>%s</code> [<code>%s</code>, <code>%s</code>]</div>\n',
+								fmt, typeName, accessMode)
 				if (item.children) {
 					this.out.println('<div class="mb-2 ml-4">')
 					this.RenderItem(item.children)
@@ -398,14 +391,10 @@ Renderer@tex = class {
 		} elsif (item.type == `tag) {
 			tagName = item.text.lower()
 			if (item.text == 'gura.funcentry') {
-				if (m = item.attrs.match('format="([^\"]+)"')) {
-					this.out.println(r'\begin{lstlisting}[aboveskip=\bigskipamount,belowskip=0pt]')
-					this.out.println(m[1].unescapehtml())
-					this.out.println(r'\end{lstlisting}')
-				} else {
-					println('**** invalid format of gura.funcentry tag ****')
-					sys.exit(1)
-				}
+				fmt = if (m = item.attrs.match(r'format="([^\"]+)"')) {m[1]} else {''}
+				this.out.println(r'\begin{lstlisting}[aboveskip=\bigskipamount,belowskip=0pt]')
+				this.out.println(fmt.unescapehtml())
+				this.out.println(r'\end{lstlisting}')
 				if (item.children) {
 					this.out.println(r'{\setlength{\leftskip}{16pt}')
 					this.indentLeft += 16
@@ -415,7 +404,22 @@ Renderer@tex = class {
 					this.out.println()
 				}
 			} elsif (item.text == 'gura.propentry') {
-				
+				fmt = if (m = item.attrs.match(r'format="([^\"]+)"')) {m[1]} else {''}
+				typeName = if (m = item.attrs.match(r'type="([^\"]+)"')) {m[1]} else {''}
+				accessMode = if (m = item.attrs.match(r'access="([^\"]+)"')) {m[1]} else {''}
+				this.out.println(r'\bigskip')
+				this.out.printf(r'{\tt %s} ({\tt %s}, {\tt %s})' '\n\n',
+								this.EscapeText(fmt.unescapehtml()),
+								this.EscapeText(typeName.unescapehtml()),
+								this.EscapeText(accessMode.unescapehtml()))
+				if (item.children) {
+					this.out.println(r'{\setlength{\leftskip}{16pt}')
+					this.indentLeft += 16
+					this.RenderItem(item.children)
+					this.indentLeft -= 16
+					this.out.println(r'}')
+					this.out.println()
+				}
 			} elsif (tagName == 'table') {
 				this.insideTableFlag = true
 				this.RenderTable(item)
@@ -658,14 +662,10 @@ Renderer@rtf = class {
 			this.out.printf(r'\u%d?', 169)
 		} elsif (item.type == `tag) {
 			if (item.text == 'gura.funcentry') {
-				if (m = item.attrs.match('format="([^\"]+)"')) {
-					this.out.printf(r'{\pard\ql\f1\sa180\li%d\fi0\b\fs20 ', this.indentLeft)
-					this.out.print(this.EscapeText(m[1].unescapehtml()))
-					this.out.println(r'\par}')
-				} else {
-					println('**** invalid format of gura.funcentry tag ****')
-					sys.exit(1)
-				}
+				fmt = if (m = item.attrs.match(r'format="([^\"]+)"')) {m[1]} else {''}
+				this.out.printf(r'{\pard\ql\f1\sa180\li%d\fi0\b\fs20 ', this.indentLeft)
+				this.out.print(this.EscapeText(fmt.unescapehtml()))
+				this.out.println(r'\par}')
 				if (item.children) {
 					this.indentLeft += this.indentPerQuote
 					this.RenderItem(item.children)
@@ -916,13 +916,9 @@ Renderer@console = class {
 			if (text == 'table') {
 				this.RenderTable(item)
 			} elsif (text == 'gura.funcentry') {
-				if (m = item.attrs.match('format="([^\"]+)"')) {
-					println(m[1])
-					println('-' * m[1].len())
-				} else {
-					println('**** error ****')
-					sys.exit(1)
-				}
+				fmt = if (m = item.attrs.match(r'format="([^\"]+)"')) {m[1]} else {''}
+				println(fmt)
+				println('-' * fmt.len())
 				item.children && this.RenderItem(item.children)
 			} else {
 				item.children && this.RenderItem(item.children)

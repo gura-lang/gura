@@ -5,10 +5,12 @@ src = Re'''
 '''
 
 doc = markdown.document()
+/*
 doc << Re'''
 ${markdown.makedoc@class(`en, color, 0)}
 '''
-doc.render@html('test.html')
-//doc << import(guracore.doc).__doc@markdown__(`en)
-//doc.render@tex('test.tex', '', '', '')
+*/
+doc << import(jpeg.doc).__doc@markdown__(`en)
+//doc.render@html('test.html')
+doc.render@tex('test.tex', '', '', '')
 //doc.compose@rtf('test', 'title', 'author', 'date')
