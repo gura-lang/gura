@@ -179,7 +179,7 @@ Renderer@html = class {
 				fmt = if (m = item.attrs.match('format="([^\"]+)"')) {m[1]} else {''}
 				typeName = if (m = item.attrs.match('type="([^\"]+)"')) {m[1]} else {''}
 				accessMode = if (m = item.attrs.match('access="([^\"]+)"')) {m[1]} else {''}
-				this.out.printf('<div class="mb-2"><code>%s</code> [<code>%s</code>, <code>%s</code>]</div>\n',
+				this.out.printf('<div class="mb-2"><code>%s</code> &hellip; <code>%s</code> [%s]</div>\n',
 								fmt, typeName, accessMode)
 				if (item.children) {
 					this.out.println('<div class="mb-2 ml-4">')
@@ -405,7 +405,7 @@ Renderer@tex = class {
 					this.indentLeft += 16
 					this.RenderItem(item.children)
 					this.indentLeft -= 16
-					this.out.println(r'}')
+					this.out.println(r'\par}')
 					this.out.println()
 				}
 			} elsif (item.text == 'gura.propentry') {
@@ -413,7 +413,7 @@ Renderer@tex = class {
 				typeName = if (m = item.attrs.match(r'type="([^\"]+)"')) {m[1]} else {''}
 				accessMode = if (m = item.attrs.match(r'access="([^\"]+)"')) {m[1]} else {''}
 				this.out.println(r'\bigskip')
-				this.out.printf(r'{\tt %s} ({\tt %s}, {\tt %s})' '\n\n',
+				this.out.printf(r'{\small\tt %s} \ldots {\small{\tt %s} [%s]}' '\n\n',
 								this.EscapeText(fmt.unescapehtml()),
 								this.EscapeText(typeName.unescapehtml()),
 								this.EscapeText(accessMode.unescapehtml()))
@@ -422,7 +422,7 @@ Renderer@tex = class {
 					this.indentLeft += 16
 					this.RenderItem(item.children)
 					this.indentLeft -= 16
-					this.out.println(r'}')
+					this.out.println(r'\par}')
 					this.out.println()
 				}
 			} elsif (tagName == 'table') {
@@ -1161,7 +1161,7 @@ The argument `captionIndex` indicates whether caption indices are added to heade
 '''
 }
 
-classref(`document).render@tex(out:stream:w, title:string, author:string, date:string) = {
+classref(`document).render@tex(out:stream:w, title:string => '', author:string => '', date:string => '') = {
 	Renderer@tex(out, title, author, date).Render(this)
 } %% { `en,
 R'''
@@ -1211,11 +1211,11 @@ _funcentry(lang:symbol, func:function, fmt:string):map = {
 
 _propentry(lang:symbol, propdecl:propdeclaration):map = {
 	accessMode = if (propdecl.readable && !propdecl.writable) {
-		'R'
+		'read-only'
 	} elsif (!propdecl.readable && propdecl.writable) {
-		'W'
+		'write-only'
 	} elsif (propdecl.readable && propdecl.writable) {
-		'R/W'
+		'read/write'
 	} else {
 		''
 	}
@@ -1275,7 +1275,7 @@ main(mod:environment) = {
 	if (fmt == 'html') {
 		doc.render@html(out, true)
 	} elsif (fmt == 'tex') {
-		doc.render@tex(out, '', '', '')
+		doc.render@tex(out)
 	} elsif (fmt == 'rtf') {
 		doc.render@rtf(out)
 	} else {
