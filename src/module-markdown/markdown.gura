@@ -1,4 +1,9 @@
 #!/usr/bin/env gura
+//=============================================================================
+// markdown module
+// The markdown module consists of the binary and script part, and this is
+// the script part that mainly provides rendering functions.
+//=============================================================================
 import(conio)
 import(re)
 import(markdown):binary:mixin_type {*}
