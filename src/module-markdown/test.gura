@@ -5,12 +5,9 @@ src = Re'''
 '''
 
 doc = markdown.document()
-/*
-doc << Re'''
-${markdown.makedoc@class(`en, color, 0)}
-'''
-*/
-doc << import(jpeg.doc).__doc@markdown__(`en)
-doc.render@html('test.html')
+//doc << markdown.makedoc@class(`en, color)
+doc << markdown.makedoc@module(`en, 'jpeg')
+doc << markdown.makedoc@module(`en, 'yaml')
+//doc.render@html('test.html')
 //doc.render@tex('test.tex')
 //doc.compose@rtf('test', 'title', 'author', 'date')

@@ -30,20 +30,18 @@ with `hash.accumulator` instances.
 
 ### Property
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<@gura.propentry format="digest" type="binary" access="read-only">
+Returns the hashed result as `binary`.
+</@gura.propentry>
 
-<tr><td><code>digest</code></td><td><code>binary</code></td><td>R</td>
-<td>Returns the hashed result as <code>binary</code>.</td></tr>
+<@gura.propentry format="hexdigest" type="string" access="read-only">
+Returns the hashed result as `string` in hexadecimal format.
+</@gura.propentry>
 
-<tr><td><code>hexdigest</code></td><td><code>string</code></td><td>R</td>
-<td>Returns the hashed result as <code>string</code> in hexadecimal format.</td></tr>
-
-<tr><td><code>number</code></td><td><code>number</code></td><td>R</td>
-<td>Returns the hashed result as <code>number</code>.
-This field is valid only for CRC32 and returns `nil` for other hashes.</td></tr>
-
-</table>
+<@gura.propentry format="number" type="number" access="read-only">
+Returns the hashed result as `number`.
+This field is valid only for CRC32 and returns `nil` for other hashes.
+</@gura.propentry>
 
 
 ### Constructor

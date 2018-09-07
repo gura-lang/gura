@@ -1233,16 +1233,28 @@ _propentry(lang:symbol, propdecl:propdeclaration):map = {
 	str
 }
 
-makedoc@property(lang:symbol, obj) = {
-	_propentry(lang, obj.__propdecls__())
+makedoc@module(lang:symbol, moduleName:string, headeroff?:number) = {
+	moduleName += '.doc'
+	mod = import(&moduleName)
+	if (headeroff) {
+		str = format('<gura.headerdown%d />\n', headeroff)
+		str += mod.__doc@markdown__(lang)
+		str += format('<gura.headerup%d />\n', headeroff)
+	} else {
+		str = mod.__doc@markdown__(lang)
+	}
 }
 
-makedoc@class(lang:symbol, cls:class, headeroff:number):dynamic_scope = {
+makedoc@class(lang:symbol, cls:class, headeroff?:number):dynamic_scope = {
 	// The attribute :dynamic_scope is necessary when the help document contains template in it
 	// that is expected to be evaluated with the outer environment.
-	str = format('<gura.headerdown%d />\n', headeroff)
-	str += help@class(cls, lang).doc
-	str += format('<gura.headerup%d />\n', headeroff)
+	if (headeroff) {
+		str = format('<gura.headerdown%d />\n', headeroff)
+		str += help@class(cls, lang).doc
+		str += format('<gura.headerup%d />\n', headeroff)
+	} else {
+		str = help@class(cls, lang).doc
+	}
 }
 
 makedoc@function(lang:symbol, funcs*:function) = {
@@ -1253,6 +1265,10 @@ makedoc@function(lang:symbol, funcs*:function) = {
 makedoc@function$(lang:symbol, match:string, sub:string, funcs*:function) = {
 	funcs = funcs.each()
 	_funcentry(lang, funcs, function.getformat(funcs):*replace(match, sub))
+}
+
+makedoc@property(lang:symbol, obj) = {
+	_propentry(lang, obj.__propdecls__())
 }
 
 main(mod:environment) = {
