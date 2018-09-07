@@ -1,7 +1,10 @@
 #!/usr/bin/env gura
+//=============================================================================
+// markdown document module
+//=============================================================================
 import(markdown)
 
-text@en = R'''
+text@en = Re'''
 # markdown Module
 
 ## Overview
@@ -48,16 +51,8 @@ and its children that are `markdown.item` instances.
 
 ### Property
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+${markdown.makedoc@property(`en, markdown.document)}
 
-<tr><td><code>refs</code></td><td><code>iterator</code></td><td>R</td>
-<td>An iterator that returns referee items as <code>markdown.item</code>.</td></tr>
-
-<tr><td><code>root</code></td><td><code>markdown.item</code></td><td>R</td>
-<td>The root item of the parsed Markdown document.</td></tr>
-
-</table>
 
 ### Constructor
 
@@ -118,37 +113,14 @@ Below is a table of item type:
 
 ### Property
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+${markdown.makedoc@property(`en, markdown.item)}
 
-<tr><td><code>type</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>text</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>children</code></td><td><code>iterator</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>url</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>title</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>attrs</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>align</code></td><td><code>symbol</code></td><td>R</td>
-<td><code>none</code>, <code>left</code>, <code>center</code>, <code>right</code></td></tr>
-
-</table>
 
 ### Method
 
 ${markdown.makedoc@function(`en
 markdown.item.print
 )}
-'''.embed()
+'''
 
 markdown.document_server(locals(), %{`en => text@en})

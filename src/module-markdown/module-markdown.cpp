@@ -2857,6 +2857,7 @@ Object *Object_document::Clone() const
 	return nullptr;
 }
 
+#if 0
 bool Object_document::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
@@ -2887,6 +2888,7 @@ Value Object_document::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 {
 	return Value::Nil;
 }
+#endif
 
 String Object_document::ToString(bool exprFlag)
 {
@@ -2923,6 +2925,42 @@ Gura_ImplementFunction(document)
 	}
 	AutoPtr<Object_document> pObj(new Object_document(pDocument.release()));
 	return ReturnValue(env, arg, Value(pObj.release()));
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// markdown.document#refs
+Gura_DeclareProperty_R(document, refs)
+{
+	SetPropAttr(VTYPE_iterator);
+	AddHelp(
+		Gura_Symbol(en),
+		"An `iterator` that returns referee items as `markdown.item`.");
+}
+
+Gura_ImplementPropertyGetter(document, refs)
+{
+	Document *pDocument = Object_document::GetObject(valueThis)->GetDocument();
+	const ItemOwner *pItemOwner = pDocument->GetItemRefereeOwner();
+	Iterator *pIterator = new Iterator_item(pItemOwner->Reference());
+	return Value(new Object_iterator(env, pIterator));
+}
+
+// markdown.document#root
+Gura_DeclareProperty_R(document, root)
+{
+	SetPropAttr(VTYPE_item);
+	AddHelp(
+		Gura_Symbol(en),
+		"The root item of the parsed Markdown document.");
+}
+
+Gura_ImplementPropertyGetter(document, root)
+{
+	Document *pDocument = Object_document::GetObject(valueThis)->GetDocument();
+	pDocument->ResolveReference();
+	return Value(new Object_item(pDocument->GetItemRoot()->Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -2992,7 +3030,12 @@ Gura_ImplementMethod(document, read)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(document)
 {
+	// Assignment of property
+	Gura_AssignProperty(document, refs);
+	Gura_AssignProperty(document, root);
+	// Assignment of function
 	Gura_AssignFunction(document);
+	// Assignment of method
 	Gura_AssignMethod(document, countitem);
 	Gura_AssignMethod(document, parse);
 	Gura_AssignMethod(document, read);
@@ -3006,6 +3049,7 @@ Object *Object_item::Clone() const
 	return nullptr;
 }
 
+#if 0
 bool Object_item::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
@@ -3063,6 +3107,7 @@ Value Object_item::DoSetProp(Environment &env, const Symbol *pSymbol, const Valu
 {
 	return Value::Nil;
 }
+#endif
 
 String Object_item::ToString(bool exprFlag)
 {
@@ -3071,6 +3116,129 @@ String Object_item::ToString(bool exprFlag)
 	rtn += _pItem->GetTypeName();
 	rtn += ">";
 	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of properties
+//-----------------------------------------------------------------------------
+// markdown.item#type
+Gura_DeclareProperty_R(item, type)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(item, type)
+{
+	Item *pItem = Object_item::GetObject(valueThis)->GetItem();
+	return Value(Symbol::Add(pItem->GetTypeName()));
+}
+
+// markdown.item#text
+Gura_DeclareProperty_R(item, text)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(item, text)
+{
+	Item *pItem = Object_item::GetObject(valueThis)->GetItem();
+	const char *text = pItem->GetText();
+	if (text == nullptr) return Value::Nil;
+	return Value(text);
+}
+
+// markdown.item#children
+Gura_DeclareProperty_R(item, children)
+{
+	SetPropAttr(VTYPE_iterator);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(item, children)
+{
+	Item *pItem = Object_item::GetObject(valueThis)->GetItem();
+	const ItemOwner *pItemOwner = pItem->GetItemOwner();
+	if (pItemOwner == nullptr) return Value::Nil;
+	Iterator *pIterator = new Iterator_item(pItemOwner->Reference());
+	return Value(new Object_iterator(env, pIterator));
+}
+
+// markdown.item#url
+Gura_DeclareProperty_R(item, url)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(item, url)
+{
+	Item *pItem = Object_item::GetObject(valueThis)->GetItem();
+	const char *url = pItem->GetURL();
+	if (url == nullptr) return Value::Nil;
+	return Value(url);
+}
+
+// markdown.item#title
+Gura_DeclareProperty_R(item, title)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(item, title)
+{
+	Item *pItem = Object_item::GetObject(valueThis)->GetItem();
+	const char *title = pItem->GetTitle();
+	if (title == nullptr) return Value::Nil;
+	return Value(title);
+}
+
+// markdown.item#attrs
+Gura_DeclareProperty_R(item, attrs)
+{
+	SetPropAttr(VTYPE_string, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementPropertyGetter(item, attrs)
+{
+	Item *pItem = Object_item::GetObject(valueThis)->GetItem();
+	const char *rtn = pItem->GetAttrs();
+	if (rtn == nullptr) return Value::Nil;
+	return Value(rtn);
+}
+
+// markdown.item#align
+Gura_DeclareProperty_R(item, align)
+{
+	SetPropAttr(VTYPE_symbol);
+	AddHelp(
+		Gura_Symbol(en),
+		"`` `none``, `` `left``, `` `center``, `` `right``");
+}
+
+Gura_ImplementPropertyGetter(item, align)
+{
+	Item *pItem = Object_item::GetObject(valueThis)->GetItem();
+	Align align = pItem->GetAlign();
+	return Value(
+		(align == ALIGN_Left)? Gura_Symbol(left) :
+		(align == ALIGN_Center)? Gura_Symbol(center) :
+		(align == ALIGN_Right)? Gura_Symbol(right) : Gura_Symbol(none));
 }
 
 //-----------------------------------------------------------------------------
@@ -3125,9 +3293,19 @@ Gura_ImplementMethod(item, print)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(item)
 {
-	Gura_AssignValue(item, Value(Reference()));
+	// Assignment of property
+	Gura_AssignProperty(item, type);
+	Gura_AssignProperty(item, text);
+	Gura_AssignProperty(item, children);
+	Gura_AssignProperty(item, url);
+	Gura_AssignProperty(item, title);
+	Gura_AssignProperty(item, attrs);
+	Gura_AssignProperty(item, align);
+	// Assignment of method
 	Gura_AssignMethod(item, countdescendant);
 	Gura_AssignMethod(item, print);
+	// Assignment of value
+	Gura_AssignValue(item, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
