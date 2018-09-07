@@ -1275,7 +1275,6 @@ main(mod:environment) = {
 	import(argopt)
 	argopt.Parser {|p|
 		p.addParam('lang', 'l', 'the language of the document', 'value', 'en')
-		p.addParam('format', 'f', 'document format: html or rtf', 'value', 'html')
 		try {
 			[cfg, argv] = p.parse(sys.argv)
 		} catch {|e|
@@ -1283,11 +1282,11 @@ main(mod:environment) = {
 			sys.exit(1)
 		}
 	}
-	out = if (argv.len() == 0) { sys.stdout } else { open(argv[0], 'w') }
+	fmt = if (argv.len() == 0) { 'html' } else { argv[0] }
 	lang = cfg['lang'].tosymbol()
+	out = sys.stdout
 	doc = markdown.document()
 	doc << mod.__doc@markdown__(lang)
-	fmt = cfg['format']
 	if (fmt == 'html') {
 		doc.render@html(out, true)
 	} elsif (fmt == 'tex') {
@@ -1297,7 +1296,6 @@ main(mod:environment) = {
 	} else {
 		sys.stderr.println('unknown format: ', fmt)
 	}
-	out = nil // this closes the file handle
 }
 
 document_server(mod:environment, d:dict) = {
