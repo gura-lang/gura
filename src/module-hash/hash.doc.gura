@@ -30,18 +30,7 @@ with `hash.accumulator` instances.
 
 ### Property
 
-<@gura.propentry format="digest" type="binary" access="read-only">
-Returns the hashed result as `binary`.
-</@gura.propentry>
-
-<@gura.propentry format="hexdigest" type="string" access="read-only">
-Returns the hashed result as `string` in hexadecimal format.
-</@gura.propentry>
-
-<@gura.propentry format="number" type="number" access="read-only">
-Returns the hashed result as `number`.
-This field is valid only for CRC32 and returns `nil` for other hashes.
-</@gura.propentry>
+${markdown.makedoc@property(`en, hash.accumulator)}
 
 
 ### Constructor

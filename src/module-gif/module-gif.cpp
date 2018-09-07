@@ -57,6 +57,8 @@ Gura_ImplementUserClass(Header)
 {
 	Gura_AssignProperty(Header, Signature);
 	Gura_AssignProperty(Header, Version);
+	// Assignment of value
+	Gura_AssignValue(Header, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -242,6 +244,8 @@ Gura_ImplementUserClass(LogicalScreenDescriptor)
 	Gura_AssignProperty(LogicalScreenDescriptor, PixelAspectRatio);
 	Gura_AssignProperty(LogicalScreenDescriptor, SizeOfGlobalColorTable);
 	Gura_AssignProperty(LogicalScreenDescriptor, SortFlag);
+	// Assignment of value
+	Gura_AssignValue(LogicalScreenDescriptor, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -282,6 +286,8 @@ Gura_ImplementUserClass(CommentExtension)
 {
 	// Assignment of properties
 	Gura_AssignProperty(CommentExtension, CommentData);
+	// Assignment of value
+	Gura_AssignValue(CommentExtension, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -474,6 +480,8 @@ Gura_ImplementUserClass(PlainTextExtension)
 	Gura_AssignProperty(PlainTextExtension, TextGridLeftPosition);
 	Gura_AssignProperty(PlainTextExtension, TextGridTopPosition);
 	Gura_AssignProperty(PlainTextExtension, TextGridWidth);
+	// Assignment of value
+	Gura_AssignValue(PlainTextExtension, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -551,6 +559,8 @@ Gura_ImplementUserClass(ApplicationExtension)
 	Gura_AssignProperty(ApplicationExtension, ApplicationData);
 	Gura_AssignProperty(ApplicationExtension, ApplicationIdentifier);
 	Gura_AssignProperty(ApplicationExtension, AuthenticationCode);
+	// Assignment of value
+	Gura_AssignValue(ApplicationExtension, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -1695,6 +1705,8 @@ Gura_ImplementUserClass(GraphicControl)
 	Gura_AssignProperty(GraphicControl, TransparentColorFlag);
 	Gura_AssignProperty(GraphicControl, TransparentColorIndex);
 	Gura_AssignProperty(GraphicControl, UserInputFlag);
+	// Assignment of value
+	Gura_AssignValue(GraphicControl, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -1860,6 +1872,8 @@ Gura_ImplementUserClass(ImageDescriptor)
 	Gura_AssignProperty(ImageDescriptor, LocalColorTableFlag);
 	Gura_AssignProperty(ImageDescriptor, SizeOfLocalColorTable);
 	Gura_AssignProperty(ImageDescriptor, SortFlag);
+	// Assignment of value
+	Gura_AssignValue(ImageDescriptor, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -1925,6 +1939,8 @@ Gura_ImplementUserClass(imgprop)
 	// Assignment of properties
 	Gura_AssignProperty(imgprop, GraphicControl);
 	Gura_AssignProperty(imgprop, ImageDescriptor);
+	// Assignment of value
+	Gura_AssignValue(imgprop, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------

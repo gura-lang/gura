@@ -94,29 +94,7 @@ gif.content
 
 A `gif.content` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>images</code></td><td><code>image[]</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>Header</code></td><td><code>gif.Header</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>LogicalScreenDescriptor</code></td><td><code>gif.LogicalScreenDescriptor</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>CommentExtension</code></td><td><code>gif.CommentExtension</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>PlainTextExtension</code></td><td><code>gif.PlainTextExtension</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>ApplicationExtension</code></td><td><code>gif.ApplicationExtension</code></td><td>R</td>
-<td> </td></tr>
-
-</table>
-
+${markdown.makedoc@property(`en, gif.content)}
 
 ### Method
 
@@ -134,16 +112,7 @@ A `gif.Header` instance provides information of Header structure in GIF format.
 
 A `gif.Header` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>Signature</code></td><td><code>binary</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>Version</code></td><td><code>binary</code></td><td>R</td>
-<td> </td></tr>
-
-</table>
+${markdown.makedoc@property(`en, gif.Header)}
 
 
 ## gif.LogicalScreenDescriptor Class
@@ -156,37 +125,7 @@ Logical Screen Descriptor structure in GIF format.
 
 A `gif.LogicalScreenDescriptor` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>LogicalScreenWidth</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>LogicalScreenHeight</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>GlobalColorTableFlag</code></td><td><code>boolean</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>ColorResolution</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>SortFlag</code></td><td><code>boolean</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>SizeOfGlobalColorTable</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>BackgroundColorIndex</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>BackgroundColor</code></td><td><code>color</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>PixelAspectRatio</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-</table>
+${markdown.makedoc@property(`en, gif.LogicalScreenDescriptor)}
 
 
 ## gif.CommentExtension Class
@@ -199,13 +138,8 @@ Comment Extension structure in GIF format.
 
 A `gif.CommentExtension` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+${markdown.makedoc@property(`en, gif.CommentExtension)}
 
-<tr><td><code>CommentData</code></td><td><code>binary</code></td><td>R</td>
-<td> </td></tr>
-
-</table>
 
 ## gif.PlainTextExtension Class
 
@@ -217,37 +151,7 @@ Plain Text Extension structure in GIF format.
 
 A `gif.PlainTextExtension` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>TextGridLeftPosition</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>TextGridTopPosition</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>TextGridWidth</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>TextGridHeight</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>CharacterCellWidth</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>CharacterCellHeight</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>TextForegroundColorIndex</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>TextBackgroundColorIndex</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>PlainTextData</code></td><td><code>binary</code></td><td>R</td>
-<td> </td></tr>
-
-</table>
+${markdown.makedoc@property(`en, gif.PlainTextExtension)}
 
 
 ## gif.ApplicationExtension Class
@@ -260,19 +164,7 @@ Application Extension structure in GIF format.
 
 A `gif.ApplicationExtension` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>ApplicationIdentifier</code></td><td><code>binary</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>AuthenticationCode</code></td><td><code>binary</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>ApplicationData</code></td><td><code>binary</code></td><td>R</td>
-<td> </td></tr>
-
-</table>
+${markdown.makedoc@property(`en, gif.ApplicationExtension)}
 
 
 ## gif.GraphicControl Class
@@ -285,25 +177,7 @@ Graphi Control Extension structure in GIF format.
 
 A `gif.GraphicControl` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>DisposalMethod</code></td><td><code>symbol</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>UserInputFlag</code></td><td><code>boolean</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>TransparentColorFlag</code></td><td><code>boolean</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>DelayTime</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>TransparentColorIndex</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-</table>
+${markdown.makedoc@property(`en, gif.GraphicControl)}
 
 
 ## gif.ImageDescriptor Class
@@ -316,34 +190,7 @@ Image Descriptor structure in GIF format.
 
 A `gif.ImageDescriptor` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>ImageLeftPosition</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>ImageTopPosition</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>ImageWidth</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>ImageHeight</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>LocalColorTableFlag</code></td><td><code>boolean</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>InterlaceFlag</code></td><td><code>boolean</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>SortFlag</code></td><td><code>boolean</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>SizeOfLocalColorTable</code></td><td><code>number</code></td><td>R</td>
-<td> </td></tr>
-
-</table>
+${markdown.makedoc@property(`en, gif.ImageDescriptor)}
 
 
 ## gif.imgprop Class
@@ -371,16 +218,7 @@ Below is a class diagram of `gif.imgprop`:
 
 A `gif.imgprop` instance has the following properties:
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>GraphicControl</code></td><td><code>gif.GraphicControl</code></td><td>R</td>
-<td> </td></tr>
-
-<tr><td><code>ImageDescriptor</code></td><td><code>gif.ImageDescriptor</code></td><td>R</td>
-<td> </td></tr>
-
-</table>
+${markdown.makedoc@property(`en, gif.imgprop)}
 
 
 ## Extension to image Class
@@ -391,15 +229,6 @@ ${markdown.makedoc@function(`en
 image.read@gif
 image.write@gif
 )}
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>gif</code></td><td><code>gif.imgprop</code></td><td>R</td>
-<td> </td></tr>
-
-</table>
-
 '''.embed()
 
 markdown.document_server(locals(), %{`en => text@en})
