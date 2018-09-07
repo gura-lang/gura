@@ -65,9 +65,6 @@ Renderer@jekyll = class(markdown.Renderer@html) {
 	}
 }
 
-Renderer@tex = class(markdown.Renderer@tex) {
-}
-
 Renderer@rtf = class(markdown.Renderer@rtf) {
 	tmpl@coverPage = R'''
 	{\pard\ql\f0\sb900\sa360\li0\fi0\fs32 ${title}\par}
@@ -127,21 +124,25 @@ printNaviItems(out:stream:w, itemList[]:NaviItem) = {
 	}
 }
 
-classref(`markdown.document).compose@tex(baseName:string, title:string, author:string, date:string) = {
-	fileNameTeX = baseName + '.tex'
-	open(fileNameTeX, 'w') {|out|
-		Renderer@tex(out, title, author, date).Render(this)
-	}
-	sys.stderr.println(fileNameTeX, ' was created.')
+classref(`markdown.document).compose@html(baseName:string) = {
+	fileName = baseName + '.html'
+	this.render@html(fileName, true, true)
+	sys.stderr.println(fileName, ' was created.')
 }
 
-classref(`markdown.document).compose@pdf(baseName:string, title:string, author:string, date:string) = {
+classref(`markdown.document).compose@tex(baseName:string, title:string => '', author:string => '', date:string => '') = {
+	fileName = baseName + '.tex'
+	this.render@tex(fileName, title, author, date)
+	sys.stderr.println(fileName, ' was created.')
+}
+
+classref(`markdown.document).compose@pdf(baseName:string, title:string => '', author:string => '', date:string => '') = {
 	this.compose@tex(baseName, title, author, date)
 	repeat (2) { os.exec('ptex2pdf', '-l', baseName) }
 }
 
 classref(`markdown.document).compose@jekyll(dirNameOut:string, layout:string, lang:string,
-			  title:string, author:string, date:string) = {
+			  title:string => '', author:string => '', date:string => '') = {
 	println('Output directory: ', dirNameOut)
 	!path.exists(dirNameOut) && fs.mkdir(dirNameOut):tree
 	this.compose@jekyll_index(dirNameOut, layout, lang, title, author, date)
@@ -206,12 +207,11 @@ classref(`markdown.document).compose@jekyll_navi(dirNameOut:string, title:string
 	}
 }
 
-classref(`markdown.document).compose@rtf(baseName:string, title:string, author:string, date:string) = {
-	fileNameRTF = baseName + '.rtf'
-	open(fileNameRTF, 'w') {|out|
-		Renderer@rtf(out, true, title, author, date).Render(this)
-	}
-	sys.stderr.println(fileNameRTF, ' was created.')
+classref(`markdown.document).compose@rtf(baseName:string, captionIndex:boolean => true,
+										 title:string => '', author:string => '', date:string => '') = {
+	fileName = baseName + '.rtf'
+	Renderer@rtf(fileName, captionIndex, title, author, date).Render(this)
+	sys.stderr.println(fileName, ' was created.')
 }
 
 availableCommands:public = ['tex', 'pdf', 'jekyll', 'rtf']
@@ -237,7 +237,7 @@ Composer = class {
 				doc.compose@jekyll(this.dirNameOut@jekyll, this.layout@jekyll,
 							  this.lang, this.title, this.author, this.date)
 			} elsif (cmd == 'rtf') {
-				doc.compose@rtf(this.baseName, this.title, this.author, this.date)
+				doc.compose@rtf(this.baseName, true, this.title, this.author, this.date)
 			} else {
 				sys.stderr.printf('unknown command: %s\n', cmd)
 			}
