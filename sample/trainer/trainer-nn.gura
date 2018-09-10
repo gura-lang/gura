@@ -24,14 +24,14 @@ scope {
 	nTraining = 100
 	arrImage = db.train.imageset.toarray(`flat)
 	arrLabel = db.train.labelset.toarray()
-	trainer(model, `x) {|tr|
+	trainer(model, optimizer@gradient_descent(0.98), `x) {|tr|
 		repeat (nTraining) {|iRepeat|
 			repeat (1000) {|i|
 				x = arrImage[i].reshape([1, nil])
 				t = arrLabel[i].reshape([1, nil])
 				tr.train(t)
 			}
-			printf('#%d error=%f\n', iRepeat + 1, CalcCrossEntropyError(tr.result, t))
+			printf('#%d error=%f\n', iRepeat + 1, CalcMeanSquaredError(tr.result, t))
 		}
 	}
 }
