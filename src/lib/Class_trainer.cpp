@@ -6,6 +6,33 @@
 namespace Gura {
 
 static const char *helpDoc_en = R"**(
+# Overview
+
+
+# Constructor
+
+${markdown.makedoc@function(`en
+trainer
+)}
+
+
+# Property
+
+A `trainer` instance has following properties:
+
+${markdown.makedoc@property(`en, trainer)}
+
+
+# Method
+
+A `trainer` class provides following methods:
+
+${markdown.makedoc@function(`en
+trainer.eval
+trainer.evalbwd
+trainer.node
+trainer.train
+)}
 )**";
 
 //-----------------------------------------------------------------------------
@@ -85,7 +112,7 @@ Gura_ImplementPropertyGetter(trainer, model)
 // trainer#node@bottom
 Gura_DeclarePropertyAlias_R(trainer, node_at_bottom, "node@bottom")
 {
-	SetPropAttr(VTYPE_expr);
+	SetPropAttr(VTYPE_trainernode);
 	AddHelp(
 		Gura_Symbol(en),
 		"Returns a `trainernode` instance that is placed at bottom.");
