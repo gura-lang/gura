@@ -24,7 +24,8 @@ scope {
 	nTraining = 100
 	arrImage = db.train.imageset.toarray(`flat)
 	arrLabel = db.train.labelset.toarray()
-	trainer(model, optimizer@gradient_descent(0.98), `x) {|tr|
+	opt = optimizer@gradient_descent(0.01)
+	trainer(model, opt, `x) {|tr|
 		repeat (nTraining) {|iRepeat|
 			repeat (1000) {|i|
 				x = arrImage[i].reshape([1, nil])
