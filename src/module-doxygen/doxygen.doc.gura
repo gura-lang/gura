@@ -2,7 +2,7 @@
 import(markdown)
 import(doxygen)
 
-text@en = R'''
+text@en = Re'''
 # doxygen Module
 
 ## Overview
@@ -32,6 +32,8 @@ doxygen.document
 
 ### Method
 
+The `doxygen.document` class provides following methods:
+
 ${markdown.makedoc@function(`en
 doxygen.document.structures
 )}
@@ -41,15 +43,14 @@ doxygen.document.structures
 
 ### Property
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+The `doxygen.structure` instance has following properties:
 
-<tr><td><code>aftermember</code></td><td><code>boolean</code></td><td>R</td>
-<td></td></tr>
+${markdown.makedoc@property(`en, doxygen.structure)}
 
-</table>
 
 ### Method
+
+The `doxygen.structure` class provides following methods:
 
 ${markdown.makedoc@function(`en
 doxygen.structure.elems
@@ -61,6 +62,8 @@ doxygen.structure.substructures
 
 ### Method
 
+The `doxygen.elem` class provides following methods:
+
 ${markdown.makedoc@function(`en
 doxygen.elem.print
 doxygen.elem.render
@@ -71,13 +74,9 @@ doxygen.elem.render
 
 ### Property
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+The `doxygen.configuration` instance has following properties:
 
-<tr><td><code>aliases</code></td><td><code>doxygen.aliases</code></td><td>R</td>
-<td></td></tr>
-
-</table>
+${markdown.makedoc@property(`en, doxygen.configuration)}
 
 
 ### Constructor
@@ -89,6 +88,8 @@ doxygen.configuration
 
 ### Method
 
+The `doxygen.configuration` class provides following methods:
+
 ${markdown.makedoc@function(`en
 doxygen.configuration.get
 doxygen.configuration.print
@@ -97,6 +98,8 @@ doxygen.configuration.print
 ## doxygen.aliases Class
 
 ### Method
+
+The `doxygen.aliases` class provides following methods:
 
 ${markdown.makedoc@function(`en
 doxygen.aliases.print
@@ -110,9 +113,6 @@ doxygen.aliases.print
 ${markdown.makedoc@function(`en
 doxygen.renderer
 )}
-
-
-
-'''.embed()
+'''
 
 markdown.document_server(locals(), %{`en => text@en})

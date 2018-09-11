@@ -2,7 +2,7 @@
 import(markdown)
 import(fftw)
 
-text@en = R'''
+text@en = Re'''
 # fftw Module
 
 ## Overview
@@ -49,6 +49,6 @@ array.dft
 This module uses FFTW library which is distributed in the following site:
 
 [http://www.fftw.org/](http://www.fftw.org/)
-'''.embed()
+'''
 
 markdown.document_server(locals(), %{`en => text@en})

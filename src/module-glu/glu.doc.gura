@@ -2,7 +2,7 @@
 import(markdown)
 import(glu)
 
-text@en = R'''
+text@en = Re'''
 # glu Module
 
 ## Overview
@@ -10,6 +10,8 @@ text@en = R'''
 The `glu` module provides functions of GLU library.
 
 ## Module Function
+
+The `glu` modules provides folloing functions:
 
 ${markdown.makedoc@function(`en
 glu.gluBeginCurve
@@ -68,6 +70,6 @@ glu.gluTessProperty
 glu.gluTessVertex
 glu.gluUnProject
 )}
-'''.embed()
+'''
 
 markdown.document_server(locals(), %{`en => text@en})

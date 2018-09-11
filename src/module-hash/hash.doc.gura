@@ -2,7 +2,7 @@
 import(markdown)
 import(hash)
 
-text@en = R'''
+text@en = Re'''
 # hash Module
 
 ## Overview
@@ -30,6 +30,8 @@ with `hash.accumulator` instances.
 
 ### Property
 
+The `hash.accumulator` instance has following properties:
+
 ${markdown.makedoc@property(`en, hash.accumulator)}
 
 
@@ -47,6 +49,6 @@ ${markdown.makedoc@function(`en
 hash.accumulator.init
 hash.accumulator.update
 )}
-'''.embed()
+'''
 
 markdown.document_server(locals(), %{`en => text@en})

@@ -2,7 +2,7 @@
 import(markdown)
 import(glut)
 
-text@en = R'''
+text@en = Re'''
 # glut Module
 
 ## Overview
@@ -10,6 +10,8 @@ text@en = R'''
 The `glut` module provides functions of GLUT library.
 
 ## Module Function
+
+The `glut`module provides following functions:
 
 ${markdown.makedoc@function(`en
 glut.glutInit
@@ -136,6 +138,6 @@ This module uses freeglut which official site is:
 
 [http://freeglut.sourceforge.net/](http://freeglut.sourceforge.net/)
 
-'''.embed()
+'''
 
 markdown.document_server(locals(), %{`en => text@en})

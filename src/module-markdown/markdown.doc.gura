@@ -51,6 +51,8 @@ and its children that are `markdown.item` instances.
 
 ### Property
 
+The `markdown.document` instance has following properties:
+
 ${markdown.makedoc@property(`en, markdown.document)}
 
 
@@ -61,6 +63,8 @@ markdown.document
 )}
 
 ### Method
+
+The `markdown.document` class provides following methods:
 
 ${markdown.makedoc@function(`en
 markdown.document.parse
@@ -113,10 +117,14 @@ Below is a table of item type:
 
 ### Property
 
+The `markdown.item` instance has following properties:
+
 ${markdown.makedoc@property(`en, markdown.item)}
 
 
 ### Method
+
+The `markdown.item` classs provides following methods;
 
 ${markdown.makedoc@function(`en
 markdown.item.print

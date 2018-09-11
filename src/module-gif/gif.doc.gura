@@ -2,7 +2,7 @@
 import(markdown)
 import(gif)
 
-text@en = R'''
+text@en = Re'''
 # gif Module
 
 ## Overview
@@ -229,6 +229,6 @@ ${markdown.makedoc@function(`en
 image.read@gif
 image.write@gif
 )}
-'''.embed()
+'''
 
 markdown.document_server(locals(), %{`en => text@en})

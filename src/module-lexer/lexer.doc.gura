@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(markdown)
 
-text@en = R'''
+text@en = Re'''
 # lexer Module
 
 ## Overview
@@ -13,6 +13,6 @@ This is a built-in module, so you can use it without being imported.
 
 ${markdown.makedoc@function(`en
 )}
-'''.embed()
+'''
 
 markdown.document_server(locals(), %{`en => text@en})

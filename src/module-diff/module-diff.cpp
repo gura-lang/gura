@@ -645,7 +645,7 @@ Gura_DeclareProperty_R(diff_at_line, distance)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"The distance between the texts. Zero means that they are identical each other."
 		);
 }
 
@@ -661,7 +661,7 @@ Gura_DeclareProperty_R(diff_at_line, edits)
 	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"An iterator that returns `diff.edit@line` instances stored in the result."
 		);
 }
 
@@ -679,7 +679,7 @@ Gura_DeclarePropertyAlias_R(diff_at_line, nlines_at_new, "nlines@new")
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Number of lines in the \"original\" text."
 		);
 }
 
@@ -695,7 +695,7 @@ Gura_DeclarePropertyAlias_R(diff_at_line, nlines_at_org, "nlines@org")
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Number of lines in the \"new\" text."
 		);
 }
 
@@ -861,7 +861,7 @@ Gura_DeclareProperty_R(hunk_at_line, edits)
 	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"An iterator that returns `diff.edit@line` instances stored in the hunk."
 		);
 }
 
@@ -880,7 +880,7 @@ Gura_DeclarePropertyAlias_R(hunk_at_line, lineno_at_new, "lineno@new")
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Top line number of the \"new\" text covered by the hunk."
 		);
 }
 
@@ -896,7 +896,7 @@ Gura_DeclarePropertyAlias_R(hunk_at_line, lineno_at_org, "lineno@org")
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Top line number of the \"original\" text covered by the hunk."
 		);
 }
 
@@ -912,7 +912,7 @@ Gura_DeclarePropertyAlias_R(hunk_at_line, nlines_at_new, "nlines@new")
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Number of lines in the \"new\" text covered by the hunk."
 		);
 }
 
@@ -928,7 +928,7 @@ Gura_DeclarePropertyAlias_R(hunk_at_line, nlines_at_org, "nlines@org")
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Number of lines in the \"original\" text covered by the hunk."
 		);
 }
 
@@ -1033,7 +1033,7 @@ Gura_DeclarePropertyAlias_R(edit_at_line, lineno_at_new, "lineno@new")
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Lop line number of the \"new\" text correspond to the edit."
 		);
 }
 
@@ -1049,7 +1049,7 @@ Gura_DeclarePropertyAlias_R(edit_at_line, lineno_at_org, "lineno@org")
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Line number of the \"original\" text correspond to the edit."
 		);
 }
 
@@ -1097,7 +1097,7 @@ Gura_DeclarePropertyAlias_R(edit_at_line, mark_at_unified, "mark@unified")
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"A mark string that appears on the top of each line in Unified format."
 		);
 }
 
@@ -1113,7 +1113,7 @@ Gura_DeclareProperty_R(edit_at_line, source)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"A source text."
 		);
 }
 
@@ -1129,7 +1129,11 @@ Gura_DeclareProperty_R(edit_at_line, type)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Edit operation:\n"
+		"\n"
+		"- `` `copy`` .. Copy the line.\n"
+		"- `` `add`` .. Add the line.\n"
+		"- `` `delete`` .. Delete the line.\n"
 		);
 }
 
@@ -1151,7 +1155,7 @@ Gura_DeclareProperty_R(edit_at_line, unified)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"A composed string in Unified format."
 		);
 }
 
@@ -1232,7 +1236,7 @@ Gura_DeclareProperty_R(diff_at_char, distance)
 	SetPropAttr(VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"The distance between the texts. Zero means that they are identical each other."
 		);
 }
 
@@ -1248,7 +1252,7 @@ Gura_DeclareProperty_R(diff_at_char, edits)
 	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"An iterator that returns `diff.edit@char` instances stored in the result."
 		);
 }
 
@@ -1266,7 +1270,7 @@ Gura_DeclarePropertyAlias_R(diff_at_char, edits_at_new, "edits@new")
 	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"An iterator that returns `diff.edit@char` instances that are applied to the \"new\" string."
 		);
 }
 
@@ -1284,7 +1288,7 @@ Gura_DeclarePropertyAlias_R(diff_at_char, edits_at_org, "edits@org")
 	SetPropAttr(VTYPE_iterator);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"An iterator that returns `diff.edit@char` instances that are applied to the \"original\" string."
 		);
 }
 
@@ -1374,7 +1378,7 @@ Gura_DeclarePropertyAlias_R(edit_at_char, mark_at_unified, "mark@unified")
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"A mark string that appears on the top of each line in Unified format."
 		);
 }
 
@@ -1390,7 +1394,7 @@ Gura_DeclareProperty_R(edit_at_char, source)
 	SetPropAttr(VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"A source text."
 		);
 }
 
@@ -1406,7 +1410,11 @@ Gura_DeclareProperty_R(edit_at_char, type)
 	SetPropAttr(VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en),
-		""
+		"Edit operation:\n"
+		"\n"
+		"- `` `copy`` .. Copy the line.\n"
+		"- `` `add`` .. Add the line.\n"
+		"- `` `delete`` .. Delete the line.\n"
 		);
 }
 

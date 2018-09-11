@@ -2,7 +2,7 @@
 import(markdown)
 import(gmp)
 
-text@en = R'''
+text@en = Re'''
 # gmp Module
 
 ## Overview
@@ -548,6 +548,6 @@ This module uses GMP and its forked project MPIR which are distributed in the fo
 - [https://gmplib.org](https://gmplib.org)
 - [http://www.mpir.org/](http://www.mpir.org/)
 
-'''.embed()
+'''
 
 markdown.document_server(locals(), %{`en => text@en})

@@ -2,7 +2,7 @@
 import(markdown)
 import(gzip)
 
-text@en = R'''
+text@en = Re'''
 # gzip Module
 
 ## Overview
@@ -42,6 +42,6 @@ stream.writer@gzip
 This module uses zlib which official site is:
 
 [http://zlib.net/](http://zlib.net/)
-'''.embed()
+'''
 
 markdown.document_server(locals(), %{`en => text@en})

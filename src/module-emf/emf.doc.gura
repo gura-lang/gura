@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(markdown)
 
-text@en = R'''
+text@en = Re'''
 # emf Module
 
 ## Overview

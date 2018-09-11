@@ -2,7 +2,7 @@
 import(markdown)
 import(jpeg)
 
-text@en = R'''
+text@en = Re'''
 # jpeg Module
 
 ## Overview
@@ -64,6 +64,6 @@ image.write@jpeg
 This module uses JPEG library which is distributed in the following site:
 
 [http://www.ijg.org/](http://www.ijg.org/)
-'''.embed()
+'''
 
 markdown.document_server(locals(), %{`en => text@en})

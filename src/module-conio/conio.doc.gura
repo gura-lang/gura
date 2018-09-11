@@ -2,7 +2,7 @@
 import(markdown)
 import(conio)
 
-text@en = R'''
+text@en = Re'''
 # conio Module
 
 ## Overview
@@ -44,6 +44,6 @@ conio.setcolor
 conio.moveto
 conio.waitkey
 )}
-'''.embed()
+'''
 
 markdown.document_server(locals(), %{`en => text@en})

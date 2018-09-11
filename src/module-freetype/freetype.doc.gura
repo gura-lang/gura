@@ -2,7 +2,7 @@
 import(markdown)
 import(freetype)
 
-text@en = R'''
+text@en = Re'''
 # freetype Module
 
 ## Overview
@@ -176,7 +176,7 @@ freetype.font.calcbbox
 
 ## Extension to image Class
 
-This module extends the `image` class with methods described here.
+The `freetype` module extends the `image` class with following methods:
 
 ${markdown.makedoc@function(`en
 image.drawtext
@@ -188,6 +188,6 @@ image.drawtext
 This module uses FreeType library which is distributed in the following site:
 
 [http://www.freetype.org/](http://www.freetype.org/)
-'''.embed()
+'''
 
 markdown.document_server(locals(), %{`en => text@en})
