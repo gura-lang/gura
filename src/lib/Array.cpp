@@ -534,7 +534,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 		{
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-		}, {
+		}, { // copy to Boolean
 			nullptr,
 			&CopyElementsTmpl<Boolean, Boolean>,
 			&CopyElementsTmpl<Boolean, Int8>,
@@ -550,7 +550,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			&CopyElementsTmpl<Boolean, Double>,
 			&CopyElementsTmpl<Boolean, Complex>,
 			nullptr,
-		}, {
+		}, { // copy to Int8
 			nullptr,
 			&CopyElementsTmpl<Int8, Boolean>,
 			&CopyElementsTmpl<Int8, Int8>,
@@ -566,7 +566,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			&CopyElementsTmpl<Int8, Double>,
 			nullptr,
 			nullptr,
-		}, {
+		}, { // copy to UInt8
 			nullptr,
 			&CopyElementsTmpl<UInt8, Boolean>,
 			&CopyElementsTmpl<UInt8, Int8>,
@@ -582,7 +582,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			&CopyElementsTmpl<UInt8, Double>,
 			nullptr,
 			nullptr,
-		}, {
+		}, { // copy to Int16
 			nullptr,
 			&CopyElementsTmpl<Int16, Boolean>,
 			&CopyElementsTmpl<Int16, Int8>,
@@ -598,7 +598,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			&CopyElementsTmpl<Int16, Double>,
 			nullptr,
 			nullptr,
-		}, {
+		}, { // copy to UInt16
 			nullptr,
 			&CopyElementsTmpl<UInt16, Boolean>,
 			&CopyElementsTmpl<UInt16, Int8>,
@@ -614,7 +614,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			&CopyElementsTmpl<UInt16, Double>,
 			nullptr,
 			nullptr,
-		}, {
+		}, { // copy to Int32
 			nullptr,
 			&CopyElementsTmpl<Int32, Boolean>,
 			&CopyElementsTmpl<Int32, Int8>,
@@ -630,7 +630,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			&CopyElementsTmpl<Int32, Double>,
 			nullptr,
 			nullptr,
-		}, {
+		}, { // copy to UInt32
 			nullptr,
 			&CopyElementsTmpl<UInt32, Boolean>,
 			&CopyElementsTmpl<UInt32, Int8>,
@@ -646,7 +646,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			&CopyElementsTmpl<UInt32, Double>,
 			nullptr,
 			nullptr,
-		}, {
+		}, { // copy to Int64
 			nullptr,
 			&CopyElementsTmpl<Int64, Boolean>,
 			&CopyElementsTmpl<Int64, Int8>,
@@ -662,7 +662,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			&CopyElementsTmpl<Int64, Double>,
 			nullptr,
 			nullptr,
-		}, {
+		}, { // copy to UInt64
 			nullptr,
 			&CopyElementsTmpl<UInt64, Boolean>,
 			&CopyElementsTmpl<UInt64, Int8>,
@@ -678,7 +678,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			&CopyElementsTmpl<UInt64, Double>,
 			nullptr,
 			nullptr,
-		}, {
+		}, { // copy to Half
 			nullptr,
 			&CopyElementsTmpl<Half,	Boolean>,
 			&CopyElementsTmpl<Half,	Int8>,
@@ -694,7 +694,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			&CopyElementsTmpl<Half, Double>,
 			nullptr,
 			nullptr,
-		}, {
+		}, { // copy to Float
 			nullptr,
 			&CopyElementsTmpl<Float, Boolean>,
 			&CopyElementsTmpl<Float, Int8>,
@@ -710,7 +710,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			&CopyElementsTmpl<Float, Double>,
 			nullptr,
 			nullptr,
-		}, {
+		}, { // copy to Double
 			nullptr,
 			&CopyElementsTmpl<Double, Boolean>,
 			&CopyElementsTmpl<Double, Int8>,
@@ -726,7 +726,7 @@ bool Array::CopyElements(Environment &env, void *pElemRawDst, ElemType elemTypeD
 			&CopyElementsTmpl<Double, Double>,
 			nullptr,
 			nullptr,
-		}, {
+		}, { // copy to Complex
 			nullptr,
 			&CopyElementsTmpl<Complex, Boolean>,
 			&CopyElementsTmpl<Complex, Int8>,

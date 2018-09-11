@@ -474,6 +474,8 @@ public:
 	bool EvalForward(Environment &env);
 	bool EvalBackward(Environment &env, const Array *pArrayCorrect);
 	const Array *GetResult() const;
+	Double CalcMeanSquareError(Signal &sig, const Array *pArrayCorrect) const;
+	Double CalcCrossEntropyError(Signal &sig, const Array *pArrayCorrect, Double epsilon) const;
 	inline NodeBottom *GetNodeBottom() { return _pNodeBottom.get(); }
 	inline const NodeBottom *GetNodeBottom() const { return _pNodeBottom.get(); }
 	inline const NodeOwner &GetNodeOwner() const { return _nodeOwner; }

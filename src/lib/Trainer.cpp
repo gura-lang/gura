@@ -48,6 +48,46 @@ const Array *Trainer::GetResult() const
 	return _pNodeBottom->GetArrayFwd();
 }
 
+template<typename T_ElemDst, typename T_ElemSrc>
+Double CalcMeanSquareErrorTmpl(void *pElemRawDst, const void *pElemRawSrc, size_t nElems)
+{
+	Double rtn = 0;
+	T_ElemDst *pElemDst = reinterpret_cast<T_ElemDst *>(pElemRawDst);
+	const T_ElemSrc *pElemSrc = reinterpret_cast<const T_ElemSrc *>(pElemRawSrc);
+	for (size_t i = 0; i < nElems; i++, pElemDst++, pElemSrc++) {
+		
+	}
+	return rtn;
+}
+
+template<typename T_ElemDst, typename T_ElemSrc>
+Double CalcCrossEntropyErrorTmpl(void *pElemRawDst, const void *pElemRawSrc, size_t nElems)
+{
+	Double rtn = 0;
+	T_ElemDst *pElemDst = reinterpret_cast<T_ElemDst *>(pElemRawDst);
+	const T_ElemSrc *pElemSrc = reinterpret_cast<const T_ElemSrc *>(pElemRawSrc);
+	for (size_t i = 0; i < nElems; i++, pElemDst++, pElemSrc++) {
+		
+	}
+	return rtn;
+}
+
+Double Trainer::CalcMeanSquareError(Signal &sig, const Array *pArrayCorrect) const
+{
+	const Array *pArrayResult = GetResult();
+	if (!Array::CheckSameShape(sig, pArrayResult, pArrayCorrect)) return 0;
+	// not implemented yet
+	return 0;
+}
+
+Double Trainer::CalcCrossEntropyError(Signal &sig, const Array *pArrayCorrect, Double epsilon) const
+{
+	const Array *pArrayResult = GetResult();
+	if (!Array::CheckSameShape(sig, pArrayResult, pArrayCorrect)) return 0;
+	// not implemented yet
+	return 0;
+}
+
 Trainer::Node *Trainer::FindNode(const Symbol *pSymbol) const
 {
 	NodeMap::const_iterator iter = _nodeMap.find(pSymbol);
