@@ -1,0 +1,35 @@
+#!/usr/bin/env gura
+import(markdown)
+import(ceres)
+
+text@en = Re'''
+# bmp Module
+
+## Overview
+
+The `ceres` module ...
+
+## Module Function
+
+The `ceres` module provdes following functions:
+
+${markdown.makedoc@function(`en
+ceres.Solve
+)}
+
+## ceres.CostFunction Class
+
+## ceres.NumericDiffCostFunction class
+
+## ceres.LossFunction
+
+## ceres.Problem
+
+## ceres.Solver_Options
+
+## ceres.Solver_Summary
+
+
+'''
+
+markdown.document_server(locals(), %{`en => text@en})

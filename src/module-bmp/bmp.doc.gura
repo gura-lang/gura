@@ -2,7 +2,7 @@
 import(markdown)
 import(bmp)
 
-text@en = R'''
+text@en = Re'''
 # bmp Module
 
 ## Overview
@@ -18,7 +18,7 @@ Below is an example to read a BMP file:
 
 ## Exntension to Function's Capability
 
-This module extends the capability of function `image()` and instance method `image#write()`
+The `bmp` module extends the capability of function `image()` and instance method `image#write()`
 so that they can read/write BMP files.
 
 When function `image()` is provided with a stream that satisfies the following conditions,
@@ -35,12 +35,12 @@ it would write image data in BMP format.
 
 ## Extension to image Class
 
-This module extends the `image` class with methods described here.
+The `bmp` module extends the `image` class with following methods:
 
 ${markdown.makedoc@function(`en
 image.read@bmp
 image.write@bmp
 )}
-'''.embed()
+'''
 
 markdown.document_server(locals(), %{`en => text@en})

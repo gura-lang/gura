@@ -35,6 +35,8 @@ Below is an example to print a frame around a console:
 
 ## Module Function
 
+The `conio` module provides following functions:
+
 ${markdown.makedoc@function(`en
 conio.clear
 conio.getwinsize

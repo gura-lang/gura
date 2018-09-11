@@ -13,6 +13,8 @@ To utilize it, import the `curl` module using `import` function.
 
 ## Module Function
 
+The `curl` module provides following functions:
+
 ${markdown.makedoc@function(`en
 curl.version
 curl.easy_init
@@ -20,6 +22,10 @@ curl.easy_init
 
 
 ## curl.easy\_handle Class
+
+### Method
+
+The `csv.easy\_handle` class provides following methods:
 
 ${markdown.makedoc@function(`en
 curl.easy_handle.escape

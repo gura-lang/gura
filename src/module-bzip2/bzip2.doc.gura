@@ -23,6 +23,8 @@ Below is an example to read data from a file and write its compressed data to a 
 
 ## Module Function
 
+The `bzip2` module provides following functions:
+
 ${markdown.makedoc@function(`en
 bzip2.reader
 bzip2.writer
@@ -31,7 +33,7 @@ bzip2.writer
 
 ## Extension to stream Class
 
-This module extends the `stream` class with methods described here.
+The `bzip2` module extends the `stream` class with following methods:
 
 ${markdown.makedoc@function(`en
 stream.reader@bzip2
@@ -41,7 +43,7 @@ stream.writer@bzip2
 
 ## Thanks
 
-This module uses libbzip2 which is distributed in the following site:
+The `bzip2` module uses libbzip2 which is distributed in the following site:
 
 [http://www.bzip.org/](http://www.bzip.org/)
 '''.embed()

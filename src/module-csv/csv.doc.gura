@@ -22,6 +22,8 @@ Below is an example to read a CSV file that contains three fields per line:
 
 ## Module Function
 
+The `csv` module provides following functions:
+
 ${markdown.makedoc@function(`en
 csv.parse
 csv.read
@@ -37,6 +39,8 @@ csv.writer
 )}
 
 ### Method
+
+The `csv.writer` class provides following methods:
 
 ${markdown.makedoc@function(`en
 csv.writer.write
