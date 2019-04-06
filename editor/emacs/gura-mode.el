@@ -88,7 +88,7 @@
 		(save-excursion (indent-line-to indent))
 	  (indent-line-to indent))))
 
-(defvar gura-continued-line-offset default-tab-width
+(defvar gura-continued-line-offset tab-width
   "Offset at top of line continued after backslash.")
 
 (defun gura-calculate-indentation ()
@@ -122,7 +122,7 @@
 			(goto-char pos-block-start)
 			(end-of-line)
 			(if (eq (+ pos-block-start 1) (point))
-				(+ (current-indentation) (* 2 default-tab-width)) ;; no elements after parenthesis
+				(+ (current-indentation) (* 2 tab-width)) ;; no elements after parenthesis
 			  (progn
 				(goto-char pos-block-start)
 				(+ (current-column) 1))))))) ;; elements exist at the same line
@@ -164,7 +164,7 @@
 				  	(backward-sexp)
 				  	(when (eq (char-after) ?=)
 				  	  (backward-sexp)))
-				  (+ (current-indentation) default-tab-width indent-offset))))
+				  (+ (current-indentation) tab-width indent-offset))))
 		   indent-offset))))))
 
 (defun gura-insert-close-p (ch)
