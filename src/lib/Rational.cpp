@@ -20,6 +20,9 @@ Rational Rational::Reduce() const
 		numerReduced = -numerReduced;
 		denomReduced = -denomReduced;
 	}
+	if (denomReduced == 0) {
+		numerReduced = 0, denomReduced = 1;
+	}
 	return Rational(numerReduced, denomReduced);
 }
 
